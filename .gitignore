@@ -49,3 +49,5 @@ build/
 /machin131/cs/*/obj
 /machin131/cs/*/bin
 /machin131/cs/restResults
+
+/trunk/public/uploads/tmp/
