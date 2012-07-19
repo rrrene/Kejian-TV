@@ -16,6 +16,9 @@ build/
 *.o
 
 
+/trunk/config/mongoid.yml
+/trunk/config/redis.yml
+/trunk/config/setting.yml
 /trunk/auxiliary/
 /trunk/nohup.out
 /trunk/.bundle
