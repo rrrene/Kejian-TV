@@ -19,7 +19,7 @@ build/
 /trunk/config/mongoid.yml
 /trunk/config/redis.yml
 /trunk/config/setting.yml
-/trunk/auxiliary/
+/trunk/auxiliary/ftp/
 /trunk/nohup.out
 /trunk/.bundle
 /trunk/vendor/bundle/
