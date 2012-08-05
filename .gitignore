@@ -14,6 +14,7 @@ git_sensitive*
 build/
 *.a
 *.o
+*.log
 
 
 /trunk/config/mongoid.yml
@@ -24,8 +25,9 @@ build/
 /trunk/.bundle
 /trunk/vendor/bundle/
 /trunk/log/
-/trunk/log/*.log
-/trunk/tmp
+/trunk/log_staging/
+/trunk/tmp/
+/trunk/tmp_staging/
 /trunk/coverage.data
 /trunk/coverage/
 /trunk/doc/api/
