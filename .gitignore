@@ -1,3 +1,7 @@
+tmp/
+log/
+/uc/data/
+/simple/simple/data/
 _assets/
 quora.out
 
@@ -8,6 +12,7 @@ git_sensitive*
 **.war
 *.rbc
 *.sassc
+*.tar.gz
 .rspec
 .redcar/
 .sass-cache
@@ -49,11 +54,4 @@ build/
 /trunk/specifications
 /trunk/public/assets
 /trunk/public/tmp
-
-/bbs/log
-
-/machin131/cs/*/obj
-/machin131/cs/*/bin
-/machin131/cs/restResults
-
 /trunk/public/uploads/tmp/
