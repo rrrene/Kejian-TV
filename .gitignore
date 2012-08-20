@@ -3,6 +3,8 @@ tmp/
 log/
 /uc/data/
 /simple/simple/data/
+/win/ConvertPowerPoint2PDF/ConvertPowerPoint2PDF/bin/
+/win/ConvertPowerPoint2PDF/ConvertPowerPoint2PDF/obj/
 _assets/
 quora.out
 
