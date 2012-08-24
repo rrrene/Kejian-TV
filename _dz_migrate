@@ -1,0 +1,4 @@
+ALTER TABLE `ucenter`.`uc_members` CHANGE `username` `username` CHAR( 28 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '';
+ALTER TABLE `ucenter`.`uc_members` CHANGE `email` `email` CHAR( 50 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '';
+ALTER TABLE `simple`.`pre_common_member` CHANGE `email` `email` CHAR( 50 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '';
+ALTER TABLE `simple`.`pre_common_member` CHANGE `username` `username` CHAR( 28 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '';
