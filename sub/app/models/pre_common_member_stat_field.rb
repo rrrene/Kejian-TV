@@ -1,0 +1,1 @@
+../../../trunk/app/models/pre_common_member_stat_field.rb

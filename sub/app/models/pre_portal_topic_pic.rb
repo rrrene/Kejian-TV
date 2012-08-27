@@ -1,0 +1,1 @@
+../../../trunk/app/models/pre_portal_topic_pic.rb

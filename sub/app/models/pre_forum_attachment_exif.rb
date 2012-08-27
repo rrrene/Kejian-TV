@@ -1,0 +1,1 @@
+../../../trunk/app/models/pre_forum_attachment_exif.rb

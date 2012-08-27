@@ -1,0 +1,1 @@
+../../../trunk/app/models/pre_common_admincp_perm.rb

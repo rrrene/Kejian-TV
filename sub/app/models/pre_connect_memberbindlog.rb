@@ -1,0 +1,1 @@
+../../../trunk/app/models/pre_connect_memberbindlog.rb

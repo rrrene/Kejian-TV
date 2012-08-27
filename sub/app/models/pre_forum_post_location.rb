@@ -1,0 +1,1 @@
+../../../trunk/app/models/pre_forum_post_location.rb

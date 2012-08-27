@@ -1,0 +1,1 @@
+../../../trunk/app/models/pre_common_member_log.rb
