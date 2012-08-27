@@ -1,5 +1,5 @@
 * {margin:0;padding:0}
-body {font-size: 12px;font-family:Arial;text-align:center;line-height:22px;color: #555;background: #f9f9f9;}
+body {font-size: 12px;font-family:Arial;text-align:center;line-height:22px;color: #555;background: url("<%= asset_path 'loading.gif'%>") repeat scroll 0 0 #f9f9f9;}
 a { color:#013155; text-decoration: none;}
 a:link {color: #013155;text-decoration: none;}
 a:visited {color: #013155;text-decoration: none;}
@@ -21,9 +21,18 @@ span.newstime {float:right;margin-left: 2px;color:#666;}
 
 /*全局大框*/
 #wrap {}
-#wrapper {background: #fff;width: 950px;text-align: left;margin: 5px auto;}
+#wrapper {
+  background: white;
+/*
+  background: rgb(255, 255, 255);
+  background: rgba(255, 255, 255, 0.);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99FFFFFF, endColorstr=#99FFFFFF);  
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99FFFFFF, endColorstr=#99FFFFFF)";
+*/
+  width: 950px;text-align: left;margin: 0 auto;
+}
 #header, #midder, #footer {padding: 0px 15px;}
-#header {margin-bottom: 10px;} /*默认10px 导航下方间隔*/
+#header {margin-bottom: 10px;padding-top:5px;} /*默认10px 导航下方间隔*/
 #midder {}
 #footer {}
 
@@ -208,7 +217,7 @@ span.newstime {float:right;margin-left: 2px;color:#666;}
 #footer { overflow:hidden; margin:0 auto; padding:6px 0; text-align:center; line-height:20px; }
 	.copyright, .copyright a { color:#666;}
 	#footer_top { height:50px; margin-bottom:10px; background:#EEE; }
-		.good_link { float:left; width:500px; overflow:hidden; margin:15px 0 0 10px; color:#369; text-align:left; }
+		.good_link { float:left; width:100%; overflow:hidden; margin:15px 0 0 10px; color:#369; text-align:left; }
 		.good_link a { margin:0 3px; color:#295B72; }
 		.footer_search { float:right; width:340px; padding:13px 0 0 0; }
 		.footer_search .input_tx { padding:3px; }
