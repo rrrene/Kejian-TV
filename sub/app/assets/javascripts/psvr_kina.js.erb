@@ -1,0 +1,27 @@
+window.psvr_kina = {
+    doc: {
+        x: 0,
+        y: 0
+    },
+    fix: function () {
+        if (window.psvr_kina.bg.complete && (jQuery(window).width() != window.psvr_kina.doc.x || jQuery(window).height() != window.psvr_kina.doc.y || window.psvr_kina.fix.src != window.psvr_kina.bg.src)) {
+            var bg = {
+              x: window.psvr_kina.psvr_width,
+              y: window.psvr_kina.psvr_height
+            };
+            window.psvr_kina.doc = {
+                x: jQuery(window).width(),
+                y: jQuery(window).height()
+            };
+            window.psvr_kina.fix.src == window.psvr_kina.bg.src || jQuery.extend(window.psvr_kina.fix, {
+                p: bg.x / bg.y,
+                src: window.psvr_kina.bg.src
+            });
+            var fin = {
+                width: (bg.y = window.psvr_kina.doc.x > (bg.x = Math.round(window.psvr_kina.doc.y * window.psvr_kina.fix.p))) ? window.psvr_kina.doc.x : bg.x,
+                height: bg.y ? Math.round(window.psvr_kina.doc.x / window.psvr_kina.fix.p) : window.psvr_kina.doc.y
+            };
+            jQuery(window.psvr_kina.bg).css(fin);
+        }
+    }
+};
