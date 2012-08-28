@@ -1,0 +1,56 @@
+<div id="midder">
+    <div class="content" style="">
+        <div class="contentbox">
+            <table class="seedtable" border="0" align="center" cellpadding="1" cellspacing="1" bgcolor="#cccccc" width="100%">
+              <tr bgcolor="#f1f1f1">
+                <td height="28" colspan="8" align="left"><h3><%=kaixue_msg%>，这学期首都师范大学共开设了<%=Course.count%>门课</h3></td>
+              </tr>
+              <tr bgcolor="#fafafa" align="center">
+                <td width="5%" align="center">排名</td>
+                <td width="40%" align="left">名字</td>
+                <td width="14%">开课系</td>
+                <td width="16%">任课教师</td>
+                <td width="16%">上课地点</td>
+                <td width="7%">课件量▼</td>
+              </tr><!--seed_today-->
+ 
+
+<!--seed_today-->
+
+ 
+<% @courses.all.each_with_index do |item,index| %>
+  <% teachers = []%>
+  <% addr = []%>
+  <%
+    item.teachings.each do |tch|
+      teachers << tch.teacher 
+      tch.teaching_klasses.each do |kl|
+        addr << "#{kl.geo_location}#{kl.geo_building}#{kl.geo_classroom}"
+      end
+    end
+    addr.uniq!
+  %>
+  <% teachers = item.teachings.collect(&:teacher) %> 
+   <tr bgcolor="#ffffff" align="center">
+     <td><%=index+1%></td>
+      <td align="left">
+        <%=link_to "[#{item.number}] #{item.name}",cpath(item)%> 
+      </td>
+     <td>
+       <%= item.department %>
+      </td>
+      <td>  
+      <%= teachers.join('、') %>
+      </td>
+      <td>  
+      <%=addr.join('、') %>
+      </td>
+      <td><%=link_to item.coursewares_count,cpath(item)%></td> 
+    </tr> 
+<% end %>
+ 
+
+            </table>
+        </div>
+    </div>
+</div>  

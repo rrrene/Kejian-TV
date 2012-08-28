@@ -25,6 +25,7 @@ class ApplicationController < ActionController::Base
     刘春晓老师在等待上课铃响
   }
   before_filter :set_vars
+
   def set_vars
     @seo = Hash.new('')
     agent = request.env['HTTP_USER_AGENT'].downcase

@@ -1,0 +1,1 @@
+../../../../trunk/app/models/ktv/discuz_admin.rb
