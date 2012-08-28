@@ -1,0 +1,1 @@
+../../../../trunk/app/models/ktv/chaoxing.rb

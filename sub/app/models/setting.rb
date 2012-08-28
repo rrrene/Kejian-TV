@@ -1,0 +1,1 @@
+../../../trunk/app/models/setting.rb

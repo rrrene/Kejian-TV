@@ -1,0 +1,1 @@
+../../../trunk/app/models/base_model.rb

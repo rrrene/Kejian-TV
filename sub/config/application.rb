@@ -10,6 +10,19 @@ if defined?(Bundler)
   # Bundler.require(:default, :assets, Rails.env)
 end
 
+
+class RedisSetting < Settingslogic  
+  source File.expand_path('../redis.yml', __FILE__)
+  namespace Rails.env
+  suppress_errors (!Rails.env.development?)
+end
+
+class Setting < Settingslogic
+  source File.expand_path('../setting.yml', __FILE__)
+  namespace Rails.env
+  suppress_errors (!Rails.env.development?)
+end
+
 module Sub
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
@@ -52,7 +65,7 @@ module Sub
     # This will create an empty whitelist of attributes available for mass-assignment for all models
     # in your app. As such, your models will need to explicitly whitelist or blacklist accessible
     # parameters by using an attr_accessible or attr_protected declaration.
-    config.active_record.whitelist_attributes = true
+    config.active_record.whitelist_attributes = false
 
     # Enable the asset pipeline
     config.assets.enabled = true
@@ -61,3 +74,5 @@ module Sub
     config.assets.version = '1.0'
   end
 end
+require "digest"
+require "digest/md5"

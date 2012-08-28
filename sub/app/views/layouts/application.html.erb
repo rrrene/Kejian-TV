@@ -35,13 +35,14 @@
   <div class="menu_out">
       <div class="menu_in" id="navmenu"> 
           <div class="menu" id="navmenu"><ul>
-<li class="first"><a class="now" href="www.ttmeiju.com/"><span>首页</span></a></li>
-           <li><a href="www.ttmeiju.com/weekcalendar.html"><span>周历</span></a></li>
-           <li><a href="www.ttmeiju.com/countdown.html"><span>回归倒计时</span></a></li>
+              <li style="height:37px">&nbsp;</li>
+              <li><a class="<%= '/'==request.path ? 'now' : ''%>" href="/"><span>首页</span></a></li>
+              <li><a class="<%= '/courses'==request.path ? 'now' : ''%>" href="<%=courses_path%>"><span>本学期课程</span></a></li>
+           <li><a href="www.ttmeiju.com/countdown.html"><span>全部老师</span></a></li>
            <li><a href="www.ttmeiju.com/summary.html"><span>美剧排行榜</span></a></li>
            <li><a href="bbs.ttmeiju.com/forum-49-1.html"><span>站长留言</span></a></li>
            <li><a href="bbs.ttmeiju.com" title="论坛" target="_blank"><span>论坛</span></a></li>
-           <li><a href="/about" title="关于我们"><span>关于我们</span></a></li>
+           <li><a href="http://kejian.tv" title="返回主站" target="_blank"><span>返回主站</span></a></li>
 </ul>
           </div>
       </div>
@@ -55,9 +56,9 @@
 <div id="footer">
 <div id="footer_top">
 <p class="good_link">
+<a href="/">首都师范大学课件交流系统</a> | 
 <a href="www.ttmeiju.com/?action-site-type-map">设为首页</a> | 
-<a href="www.ttmeiju.com/?action-site-type-link">加入收藏</a> | 
-<a href="www.ttmeiju.com/index.php">课件交流系统主站</a>
+<a href="www.ttmeiju.com/?action-site-type-link">加入收藏</a>
 <span style="float:right;margin-right:20px"><a href="#">背景图为<%= $cnu_fotos[@bg_index] %>.</a></span>
 </p>
 </div>
