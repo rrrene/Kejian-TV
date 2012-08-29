@@ -2,13 +2,13 @@
     <div class="content" style="">
         <div class="contentbox">
                 <div class="div_1">
-                    <div class="hd"><h3>最热课程榜</h3><span class="moreimg"><a href="www.ttmeiju.com/?action-weekcalendar#z1"><img src="<%= asset_path 'extand_images/more.gif' %>" alt="查看更多"></a></span></div>
+                  <div class="hd"><h3>课程资源榜</h3><span class="moreimg"><a href="<%=courses_path%>"><img src="<%= asset_path 'extand_images/more.gif' %>" alt="查看更多"></a></span></div>
                     <div class="bd">
                         <ul class="meijulist"><!--meiju_new10-->
                         
                             <%@courses.each do |course|%>
                               <%cc=Course.where(fid:course.fid).first%>
-                              <li><span class="newstime"><%=course.threads%>个课件</span><a href="/simple/forum.php?mod=forumdisplay&fid=<%=course.fid%>"><%=course.name%> (<%=cc.department%>)</a></li>
+                              <li><span class="newstime"><%=course.threads%>个课件</span>[<a href="/simple/forum.php?mod=forumdisplay&fid=<%=course.fid%>"><%=cc.department%></a>] <a href="/simple/forum.php?mod=forumdisplay&fid=<%=course.fid%>"><%=cc.name%></a></li>
                             <%end%> 
 
                         </ul>
@@ -37,8 +37,7 @@
               </tr>
               <tr bgcolor="#fafafa" align="center">
                 <td width="5%" align="center">序号</td>
-                <td width="60%" align="left">名字</td>
-                <td width="7%">下载</td>
+                <td width="67%" align="left">名字</td>
                 <td width="9%">大小</td>
                 <td width="5%">格式</td>
                 <td width="6%">上传者</td>
@@ -62,11 +61,6 @@
                  <a href="/simple/forum.php?mod=viewthread&tid=<%=cw.tid%>">
                     <%=cc.name%><%=cw.subject%>
                 </a></td>
-                <td>
-     
-                  <%= link_to image_tag("icon/#{cw.sort}.git"),'#' %>
-     
-                </td>
                 <td><%=number_to_human_size(ins.filesize*1000,:precision=>1) if ins%></td>
                 <td><%=ins.sort.upcase if ins%></td>
                 <td>  
@@ -90,8 +84,7 @@
               </tr>
               <tr bgcolor="#fafafa" align="center">
                 <td width="5%" align="center">序号</td>
-                <td width="60%" align="left">名字</td>
-                <td width="7%">下载</td>
+                <td width="67%" align="left">名字</td>
                 <td width="9%">大小</td>
                 <td width="5%">格式</td>
                 <td width="6%">上传者</td>
@@ -115,11 +108,6 @@
                  <a href="/simple/forum.php?mod=viewthread&tid=<%=cw.tid%>">
                     <%=cc.name%><%=cw.subject%>
                 </a></td>
-                <td>
-     
-     
-     
-                </td>
                 <td><%=number_to_human_size(ins.filesize*1000,:precision=>1) if ins%></td>
                 <td><%=ins.sort.upcase if ins%></td>
                 <td>  
@@ -145,8 +133,7 @@
               </tr>
               <tr bgcolor="#fafafa" align="center">
                 <td width="5%" align="center">序号</td>
-                <td width="60%" align="left">名字</td>
-                <td width="7%">下载</td>
+                <td width="67%" align="left">名字</td>
                 <td width="9%">大小</td>
                 <td width="5%">格式</td>
                 <td width="6%">上传者</td>
@@ -170,11 +157,6 @@
                  <a href="/simple/forum.php?mod=viewthread&tid=<%=cw.tid%>">
                     <%=cc.name%><%=cw.subject%>
                 </a></td>
-                <td>
-     
-     
-     
-                </td>
                 <td><%=number_to_human_size(ins.filesize*1000,:precision=>1) if ins%></td>
                 <td><%=ins.sort.upcase if ins%></td>
                 <td>  

@@ -1,7 +1,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!--[if lt IE 7]> <html class="no-js ie_all ie6" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie_all ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie_all ie8" lang="en"> <![endif]-->
+<!--[if IE 9]>    <html class="no-js ie_all ie9" lang="en"> <![endif]-->
+<!--[if gt IE 9]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>首都师范大学课件交流系统 - <%= @seo[:title] %></title>
 <meta name="keywords" content="<%= @seo[:title] %>" />
 <meta name="description" content="<%= @seo[:title] %> " />
@@ -9,12 +13,28 @@
 <meta name="copyright" content="<%= Time.now.year %> Kejian.TV Ltd." />
 <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
 <meta http-equiv="imagetoolbar" content="no" />
+<!--<link rel="stylesheet" type="text/css" href="/simple/data/cache/style_1_common.css" />
+<link rel="stylesheet" type="text/css" href="/simple/data/cache/style_1_forum_index.css" />-->
+<script src="simple/psvr/modernizr.js" type="text/javascript" type="text/javascript"></script>
 <%= stylesheet_link_tag "application", :media => "all" %>
 <%= csrf_meta_tags %>
 </head>
 
 <body>
-<div class='bgscroll' id="ktv_bg_container">
+
+  <!--背景图片 拉伸效果-->
+  <script language="javascript">
+    if(typeof document.compatMode!='undefined'&&document.compatMode!='BackCompat'){
+        cot_t1_DOCtp="_top:expression(document.documentElement.scrollTop+document.documentElement.clientHeight-this.clientHeight);_left:expression(document.documentElement.scrollLeft + document.documentElement.clientWidth - offsetWidth);}";
+    }else{
+        cot_t1_DOCtp="_top:expression(document.body.scrollTop+document.body.clientHeight-this.clientHeight);_left:expression(document.body.scrollLeft + document.body.clientWidth - offsetWidth);}";
+    }
+    var fdcCSS='.psvr_bgscroll {';
+    var fdcCSS=fdcCSS+cot_t1_DOCtp;
+    document.write('<style type=\"text\/css\">'+fdcCSS+'<\/style>');
+  </script>
+
+<div class='psvr_bgscroll' id="ktv_bg_container">
 </div>
 
 <div id="append_parent"></div>
@@ -26,7 +46,7 @@
 <div id="header">
  <div class="headtop">
       <div class="logo">
-      <center><a href="/"><img src="<%= asset_path 'logo_cnu.png' %>" alt="首都师范大学课件交流系统"></a></center>
+        <a href="/"><img src="<%= asset_path 'logo_cnu.png' %>" alt="首都师范大学课件交流系统"></a>
       </div>
   </div>
 
@@ -41,7 +61,7 @@
            <li><a href="www.ttmeiju.com/countdown.html"><span>全部老师</span></a></li>
            <li><a href="www.ttmeiju.com/summary.html"><span>上传龙虎榜</span></a></li>
            <li><a href="bbs.ttmeiju.com/forum-49-1.html"><span>过科攻略</span></a></li>
-           <li><a href="bbs.ttmeiju.com" title="论坛" target="_blank"><span>论坛</span></a></li>
+           <li><a href="bbs.ttmeiju.com" title="求助" target="_blank"><span>求助</span></a></li>
            <li><a href="http://kejian.tv" title="返回主站" target="_blank"><span>返回主站</span></a></li>
 </ul>
           </div>
@@ -55,10 +75,11 @@
 
 <div id="footer">
 <div id="footer_top">
-<p class="good_link">
+  <p class="good_link">
+  <span style="float:left">
 <a href="/">首都师范大学课件交流系统</a> | 
 <a href="www.ttmeiju.com/?action-site-type-map">设为首页</a> | 
-<a href="www.ttmeiju.com/?action-site-type-link">加入收藏</a>
+<a href="www.ttmeiju.com/?action-site-type-link">加入收藏</a></span>
 <span style="float:right;margin-right:20px"><a href="#">背景图为<%= $cnu_fotos[@bg_index] %>.</a></span>
 </p>
 </div>
@@ -82,7 +103,7 @@
           psvr_height: window.psvr_bgImg.height,
           psvr_width: window.psvr_bgImg.width
       });
-      jQuery(window.psvr_bgImg).addClass('bgimg');
+      jQuery(window.psvr_bgImg).addClass('psvr_bgimg');
       jQuery(window.psvr_bgImg).attr('id','ktv_bg');
       jQuery(window.psvr_bgImg).attr('alt',<%=raw $cnu_fotos[@bg_index].to_json %>);
       jQuery('#ktv_bg_container').prepend(window.psvr_bgImg);
