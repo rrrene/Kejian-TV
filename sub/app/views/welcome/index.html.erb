@@ -31,7 +31,7 @@
                 </div>
         </div>
         <div class="psvr_contentbox">
-            <table class="psvr_seedtable" border="0" align="center" cellpadding="1" cellspacing="1" bgcolor="#cccccc" width="100%">
+            <table class="psvr psvr_seedtable" border="0" align="center" cellpadding="1" cellspacing="1" bgcolor="#cccccc" width="100%">
               <tr bgcolor="#f1f1f1">
                 <td height="28" colspan="8" align="left"><h3 class="psvr" ><%=l Date.today, :format => :long%> 更新</h3></td>
               </tr>
@@ -78,7 +78,7 @@
         </div>
 <% if @coursewares2.present? %>
         <div class="psvr_contentbox">
-            <table class="psvr_seedtable" border="0" align="center" cellpadding="1" cellspacing="1" bgcolor="#cccccc" width="100%">
+            <table class="psvr psvr_seedtable" border="0" align="center" cellpadding="1" cellspacing="1" bgcolor="#cccccc" width="100%">
               <tr bgcolor="#f1f1f1">
                 <td height="28" colspan="8" align="left"><h3 class="psvr" ><%=l Time.at(@coursewares2.first.dateline).to_date, :format => :long%> 更新</h3></td>
               </tr>
@@ -127,7 +127,7 @@
 
 <% if @coursewares3.present? %>
         <div class="psvr_contentbox">
-            <table class="psvr_seedtable" border="0" align="center" cellpadding="1" cellspacing="1" bgcolor="#cccccc" width="100%">
+            <table class="psvr psvr_seedtable" border="0" align="center" cellpadding="1" cellspacing="1" bgcolor="#cccccc" width="100%">
               <tr bgcolor="#f1f1f1">
                 <td height="28" colspan="8" align="left"><h3 class="psvr" ><%=l Time.at(@coursewares3.first.dateline).to_date, :format => :long%> 更新</h3></td>
               </tr>
