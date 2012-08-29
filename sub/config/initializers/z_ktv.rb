@@ -34,15 +34,16 @@ module Discuz
     attr_reader :cookiepre_real
   end
   @cookiepre = '6tce_';
-  @cookiepath = 'cnu.kejian.tv';
-  @cookiedomain = '/';
+  @cookiedomain = 'cnu.kejian.tv';
+  @cookiepath = '/';
   @cookiepre_real = @cookiepre+Digest::MD5.hexdigest(@cookiepath+'|'+@cookiedomain)[0...4]+'_'
 end
 
 
+
 UCenter.define('UC_CLIENT_RELEASE', '20110501')
-UCenter.define('UC_APPID', '2');
-UCenter.define('UC_KEY', '0477gkXtDxSfWaAG2iSjBHrIjSZR4AlTCnkqBfo');
+UCenter.define('UC_APPID', '5');
+UCenter.define('UC_KEY', 'af64HZPlY/1RdaOe4UftTp3XO+kQwB9f5SBojhc=');
 unless Rails.env.development?
   UCenter.define('UC_API', 'http://uc.kejian.tv');
 else

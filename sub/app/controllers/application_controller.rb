@@ -2,8 +2,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter proc{
-    text = cookies.to_a
-    render text:text and return
+    #text = cookies.to_a
+    #render text:text and return
   }
   $cnu_new = Time.new(2012,9,3)
   $cnu_exam = Time.new(2013,1,7)
@@ -40,6 +40,13 @@ class ApplicationController < ActionController::Base
     @bg_index = rand($cnu_fotos.count)
   end
   def xookie
-    Discuz::Utils.get_xookie.call
+    dz_auth = cookies[Discuz.cookiepre_real+'auth']
+    dz_saltkey = cookies[Discuz.cookiepre_real+'saltkey']
+    if current_user.nil? and dz_auth.present?
+      u = User.authenticate_through_dz_auth!(request,dz_auth,dz_saltkey)
+      if u
+        sign_in(u)
+      end
+    end
   end
 end
