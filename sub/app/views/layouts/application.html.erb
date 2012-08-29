@@ -34,30 +34,30 @@
     document.write('<style type=\"text\/css\">'+fdcCSS+'<\/style>');
   </script>
 
-<div class='psvr_bgscroll' id="ktv_bg_container">
+<div class="psvr_bgscroll" id="psvr_ktv_bg_container">
 </div>
 
-<div id="append_parent"></div>
-<div id="ajaxwaitid"></div>
+<div id="psvr_append_parent"></div>
+<div id="psvr_ajaxwaitid"></div>
 
-<div id="wrap">
-<div id="wrapper">
+<div id="psvr_wrap">
+<div id="psvr_wrapper">
 
-<div id="header">
- <div class="headtop">
-      <div class="logo">
+<div id="psvr_header">
+ <div class="psvr_headtop">
+      <div class="psvr_logo">
         <a href="/"><img src="<%= asset_path 'logo_cnu.png' %>" alt="首都师范大学课件交流系统"></a>
       </div>
   </div>
 
 
 
-  <div class="menu_out">
-      <div class="menu_in" id="navmenu"> 
-          <div class="menu" id="navmenu"><ul>
+  <div class="psvr_menu_out">
+      <div class="psvr_menu_in" id="psvr_navmenu"> 
+          <div class="psvr_menu" id="psvr_navmenu"><ul>
               <li style="height:37px">&nbsp;</li>
-              <li><a class="<%= '/'==request.path ? 'now' : ''%>" href="/"><span>首页</span></a></li>
-              <li><a class="<%= '/courses'==request.path ? 'now' : ''%>" href="<%=courses_path%>"><span>本学期课程</span></a></li>
+              <li><a class="<%= '/'==request.path ? 'psvr_now' : ''%>" href="/"><span>首页</span></a></li>
+              <li><a class="<%= '/courses'==request.path ? 'psvr_now' : ''%>" href="<%=courses_path%>"><span>本学期课程</span></a></li>
            <li><a href="www.ttmeiju.com/countdown.html"><span>全部老师</span></a></li>
            <li><a href="www.ttmeiju.com/summary.html"><span>上传龙虎榜</span></a></li>
            <li><a href="bbs.ttmeiju.com/forum-49-1.html"><span>过科攻略</span></a></li>
@@ -73,9 +73,9 @@
 
 <%= yield %>
 
-<div id="footer">
-<div id="footer_top">
-  <p class="good_link">
+<div id="psvr_footer">
+<div id="psvr_footer_top">
+  <p class="psvr_good_link">
   <span style="float:left">
 <a href="/">首都师范大学课件交流系统</a> | 
 <a href="www.ttmeiju.com/?action-site-type-map">设为首页</a> | 
@@ -83,8 +83,8 @@
 <span style="float:right;margin-right:20px"><a href="#">背景图为<%= $cnu_fotos[@bg_index] %>.</a></span>
 </p>
 </div>
-<div class="copyright">
-<p id="copyright">
+<div class="psvr_copyright">
+<p id="psvr_copyright">
 版权所有 <a href="kejian.tv">Kejian.TV</a> &copy; <%= Time.now.year %> 课件交流系统. 课件著作权为原作者所有
         </p>
 <p></p>

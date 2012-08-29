@@ -1,26 +1,26 @@
-<div id="midder">
-    <div class="content" style="">
-        <div class="contentbox">
-                <div class="div_1">
-                  <div class="hd"><h3>课程资源榜</h3><span class="moreimg"><a href="<%=courses_path%>"><img src="<%= asset_path 'extand_images/more.gif' %>" alt="查看更多"></a></span></div>
-                    <div class="bd">
-                        <ul class="meijulist"><!--meiju_new10-->
+<div id="psvr_midder">
+    <div class="psvr_content" style="">
+        <div class="psvr_contentbox">
+                <div class="psvr_div_1">
+                  <div class="psvr_hd"><h3>课程资源榜</h3><span class="psvr_moreimg"><a href="<%=courses_path%>"><img src="<%= asset_path 'extand_images/more.gif' %>" alt="查看更多"></a></span></div>
+                    <div class="psvr_bd">
+                        <ul class="psvr_meijulist"><!--meiju_new10-->
                         
                             <%@courses.each do |course|%>
                               <%cc=Course.where(fid:course.fid).first%>
-                              <li><span class="newstime"><%=course.threads%>个课件</span>[<a href="/simple/forum.php?mod=forumdisplay&fid=<%=course.fid%>"><%=cc.department%></a>] <a href="/simple/forum.php?mod=forumdisplay&fid=<%=course.fid%>"><%=cc.name%></a></li>
+                              <li><span class="psvr_newstime"><%=course.threads%>个课件</span>[<a href="/simple/forum.php?mod=forumdisplay&fid=<%=course.fid%>"><%=cc.department%></a>] <a href="/simple/forum.php?mod=forumdisplay&fid=<%=course.fid%>"><%=cc.name%></a></li>
                             <%end%> 
 
                         </ul>
                     </div>
                 </div>
-                <div class="div_2">
-                    <div class="hd"><h3>课件 TOP-10</h3></div>
-                    <div class="bd">
-                        <ul class="seedlist"><!--seed_top10-->
+                <div class="psvr_div_2">
+                    <div class="psvr_hd"><h3>课件 TOP-10</h3></div>
+                    <div class="psvr_bd">
+                        <ul class="psvr_seedlist"><!--seed_top10-->
 
                         <%@coursewares.each do |cw|%>
-                          <li class="top1"><span class="newstime">点击量:<%=cw.views%></span>
+                          <li class="psvr_top1"><span class="psvr_newstime">点击量:<%=cw.views%></span>
                           <a href="/simple/forum.php?mod=viewthread&tid=<%=cw.tid%>">
                             <%=cw.subject%>
                          </a></li>
@@ -30,8 +30,8 @@
                     </div>
                 </div>
         </div>
-        <div class="contentbox">
-            <table class="seedtable" border="0" align="center" cellpadding="1" cellspacing="1" bgcolor="#cccccc" width="100%">
+        <div class="psvr_contentbox">
+            <table class="psvr_seedtable" border="0" align="center" cellpadding="1" cellspacing="1" bgcolor="#cccccc" width="100%">
               <tr bgcolor="#f1f1f1">
                 <td height="28" colspan="8" align="left"><h3><%=l Date.today, :format => :long%> 更新</h3></td>
               </tr>
@@ -77,8 +77,8 @@
             </table>
         </div>
 <% if @coursewares2.present? %>
-        <div class="contentbox">
-            <table class="seedtable" border="0" align="center" cellpadding="1" cellspacing="1" bgcolor="#cccccc" width="100%">
+        <div class="psvr_contentbox">
+            <table class="psvr_seedtable" border="0" align="center" cellpadding="1" cellspacing="1" bgcolor="#cccccc" width="100%">
               <tr bgcolor="#f1f1f1">
                 <td height="28" colspan="8" align="left"><h3><%=l Time.at(@coursewares2.first.dateline).to_date, :format => :long%> 更新</h3></td>
               </tr>
@@ -126,8 +126,8 @@
 <% end %>
 
 <% if @coursewares3.present? %>
-        <div class="contentbox">
-            <table class="seedtable" border="0" align="center" cellpadding="1" cellspacing="1" bgcolor="#cccccc" width="100%">
+        <div class="psvr_contentbox">
+            <table class="psvr_seedtable" border="0" align="center" cellpadding="1" cellspacing="1" bgcolor="#cccccc" width="100%">
               <tr bgcolor="#f1f1f1">
                 <td height="28" colspan="8" align="left"><h3><%=l Time.at(@coursewares3.first.dateline).to_date, :format => :long%> 更新</h3></td>
               </tr>
