@@ -46,7 +46,7 @@
 <div id="psvr_header">
  <div class="psvr_headtop">
       <div class="psvr_logo">
-        <a href="/"><img src="<%= asset_path 'logo_cnu.png' %>" alt="首都师范大学课件交流系统" id="psvr_logimg"></a>
+        <a href="/" class="psvr"><img class="psvr" src="<%= asset_path 'logo_cnu.png' %>" alt="首都师范大学课件交流系统" id="psvr_logimg"></a>
       </div>
   </div>
 
@@ -54,15 +54,15 @@
 
   <div class="psvr_menu_out">
       <div class="psvr_menu_in" id="psvr_navmenu"> 
-          <div class="psvr_menu" id="psvr_navmenu"><ul>
-              <li style="height:37px">&nbsp;</li>
-              <li><a class="<%= '/'==request.path ? 'psvr_now' : ''%>" href="/"><span>首页</span></a></li>
-              <li><a class="<%= '/courses'==request.path ? 'psvr_now' : ''%>" href="<%=courses_path%>"><span>本学期课程</span></a></li>
-           <li><a href="www.ttmeiju.com/countdown.html"><span>全部老师</span></a></li>
-           <li><a href="www.ttmeiju.com/summary.html"><span>上传龙虎榜</span></a></li>
-           <li><a href="bbs.ttmeiju.com/forum-49-1.html"><span>过科攻略</span></a></li>
-           <li><a href="bbs.ttmeiju.com" title="求助" target="_blank"><span>求助</span></a></li>
-           <li><a href="http://kejian.tv" title="返回主站" target="_blank"><span>返回主站</span></a></li>
+          <div class="psvr_menu" id="psvr_navmenu"><ul class="psvr" >
+              <li class="psvr" style="height:37px">&nbsp;</li>
+              <li class="psvr" ><a class="psvr <%= '/'==request.path ? 'psvr_now' : ''%>" href="/"><span class="psvr" >首页</span></a></li>
+              <li class="psvr" ><a class="psvr <%= '/courses'==request.path ? 'psvr_now' : ''%>" href="<%=courses_path%>"><span class="psvr" >本学期课程</span></a></li>
+           <li class="psvr" ><a class="psvr" href="www.ttmeiju.com/countdown.html"><span class="psvr" >全部老师</span></a></li>
+           <li class="psvr" ><a class="psvr" href="www.ttmeiju.com/summary.html"><span class="psvr" >上传龙虎榜</span></a></li>
+           <li class="psvr" ><a class="psvr" href="bbs.ttmeiju.com/forum-49-1.html"><span class="psvr" >过科攻略</span></a></li>
+           <li class="psvr" ><a class="psvr" href="bbs.ttmeiju.com" title="求助" target="_blank"><span class="psvr" >求助</span></a></li>
+           <li class="psvr" ><a class="psvr" href="http://kejian.tv" title="返回主站" target="_blank"><span class="psvr" >返回主站</span></a></li>
 </ul>
           </div>
       </div>
@@ -75,19 +75,18 @@
 
 <div id="psvr_footer">
 <div id="psvr_footer_top">
-  <p class="psvr_good_link">
-  <span style="float:left">
-<a href="/">首都师范大学课件交流系统</a> | 
-<a href="www.ttmeiju.com/?action-site-type-map">设为首页</a> | 
-<a href="www.ttmeiju.com/?action-site-type-link">加入收藏</a></span>
-<span style="float:right;margin-right:20px"><a href="#">背景图为<%= $cnu_fotos[@bg_index] %>.</a></span>
+  <p class="psvr psvr_good_link">
+  <span class="psvr"  style="float:left">
+<a class="psvr" href="/">首都师范大学课件交流系统</a> | 
+<a class="psvr" href="www.ttmeiju.com/?action-site-type-map">设为首页</a> | 
+<a class="psvr" href="www.ttmeiju.com/?action-site-type-link">加入收藏</a></span>
+<span class="psvr"  style="float:right;margin-right:20px"><a class="psvr" href="#">背景图为<%= $cnu_fotos[@bg_index] %>.</a></span>
 </p>
 </div>
 <div class="psvr_copyright">
-<p id="psvr_copyright">
-版权所有 <a href="kejian.tv">Kejian.TV</a> &copy; <%= Time.now.year %> 课件交流系统. 课件著作权为原作者所有
+<p class="psvr" id="psvr_copyright">
+版权所有 <a class="psvr" href="kejian.tv">Kejian.TV</a> &copy; <%= Time.now.year %> 课件交流系统. 课件著作权为原作者所有
         </p>
-<p></p>
 </div>
 
 </div><!--footer end-->

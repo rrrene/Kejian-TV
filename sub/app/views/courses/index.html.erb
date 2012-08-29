@@ -3,7 +3,7 @@
         <div class="psvr_contentbox">
             <table class="psvr_seedtable" border="0" align="center" cellpadding="1" cellspacing="1" bgcolor="#cccccc" width="100%">
               <tr bgcolor="#f1f1f1">
-                <td height="28" colspan="8" align="left"><h3><%=kaixue_msg%>，这学期首都师范大学共开设了<%=Course.count%>门课</h3></td>
+                <td height="28" colspan="8" align="left"><h3 class="psvr" ><%=kaixue_msg%>，这学期首都师范大学共开设了<%=Course.count%>门课</h3></td>
               </tr>
               <tr bgcolor="#fafafa" align="center">
                 <td width="5%" align="center">排名</td>
@@ -34,7 +34,7 @@
    <tr bgcolor="#ffffff" align="center">
      <td><%=index+1%></td>
       <td align="left">
-        <%=link_to "[#{item.number}] #{item.name}",cpath(item)%> 
+        <%=link_to "[#{item.number}] #{item.name}",cpath(item),class:'psvr'%> 
       </td>
      <td>
        <%= item.department %>
@@ -45,7 +45,7 @@
       <td>  
       <%=addr.join('、') %>
       </td>
-      <td><%=link_to item.coursewares_count,cpath(item)%></td> 
+      <td><%=link_to item.coursewares_count,cpath(item),class:'psvr'%></td> 
     </tr> 
 <% end %>
  
