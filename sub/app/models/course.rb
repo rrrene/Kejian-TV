@@ -21,10 +21,14 @@ class Course
       item.update_attribute(:fid,PreForumForum.find_by_name("[#{item.number}] #{item.name}").fid)
     end
   end
-  def self.shoudongtianjia!(department,number,name)
+  def self.shoudongtianjia!(department,number,name,*teachers)
     item=self.create!(department:department,number:number,name:name)
     f=PreForumForum.insert2(1,"[#{item.number}] #{item.name}",PreForumForum.count+1)
     item.update_attribute(:fid,f.fid)
+    Teaching.shoudongtianjia!(item,*teachers)
+  end
+  def self.import_coursewares_count
+    self.all.each{|cw| cw.update_attribute(:coursewares_count,PreForumThread.where(fid:cw.fid).count);}
   end
 end
 
