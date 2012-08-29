@@ -1,3 +1,1 @@
-class PreCommonTemplateBlock < ActiveRecord::Base
-  self.table_name =  'pre_common_template_block'
-end
+../../../trunk/app/models/pre_common_template_block.rb

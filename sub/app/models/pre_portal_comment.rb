@@ -1,3 +1,1 @@
-class PrePortalComment < ActiveRecord::Base
-  self.table_name =  'pre_portal_comment'
-end
+../../../trunk/app/models/pre_portal_comment.rb

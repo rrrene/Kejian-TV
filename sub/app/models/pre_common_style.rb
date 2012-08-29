@@ -1,3 +1,1 @@
-class PreCommonStyle < ActiveRecord::Base
-  self.table_name =  'pre_common_style'
-end
+../../../trunk/app/models/pre_common_style.rb

@@ -1,3 +1,1 @@
-class PreForumPostTableid < ActiveRecord::Base
-  self.table_name =  'pre_forum_post_tableid'
-end
+../../../trunk/app/models/pre_forum_post_tableid.rb

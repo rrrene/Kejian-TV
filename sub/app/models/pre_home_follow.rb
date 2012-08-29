@@ -1,3 +1,1 @@
-class PreHomeFollow < ActiveRecord::Base
-  self.table_name =  'pre_home_follow'
-end
+../../../trunk/app/models/pre_home_follow.rb

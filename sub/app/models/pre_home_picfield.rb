@@ -1,3 +1,1 @@
-class PreHomePicfield < ActiveRecord::Base
-  self.table_name =  'pre_home_picfield'
-end
+../../../trunk/app/models/pre_home_picfield.rb

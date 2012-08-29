@@ -1,3 +1,1 @@
-class PreCommonMember < ActiveRecord::Base
-  self.table_name =  'pre_common_member'
-end
+../../../trunk/app/models/pre_common_member.rb

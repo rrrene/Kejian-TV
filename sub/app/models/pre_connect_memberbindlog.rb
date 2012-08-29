@@ -1,3 +1,1 @@
-class PreConnectMemberbindlog < ActiveRecord::Base
-  self.table_name =  'pre_connect_memberbindlog'
-end
+../../../trunk/app/models/pre_connect_memberbindlog.rb

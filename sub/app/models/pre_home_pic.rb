@@ -1,3 +1,1 @@
-class PreHomePic < ActiveRecord::Base
-  self.table_name =  'pre_home_pic'
-end
+../../../trunk/app/models/pre_home_pic.rb

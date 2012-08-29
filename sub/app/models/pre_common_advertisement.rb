@@ -1,3 +1,1 @@
-class PreCommonAdvertisement < ActiveRecord::Base
-  self.table_name =  'pre_common_advertisement'
-end
+../../../trunk/app/models/pre_common_advertisement.rb

@@ -1,3 +1,1 @@
-class PreForumStatlog < ActiveRecord::Base
-  self.table_name =  'pre_forum_statlog'
-end
+../../../trunk/app/models/pre_forum_statlog.rb

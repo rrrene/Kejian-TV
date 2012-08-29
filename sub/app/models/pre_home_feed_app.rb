@@ -1,3 +1,1 @@
-class PreHomeFeedApp < ActiveRecord::Base
-  self.table_name =  'pre_home_feed_app'
-end
+../../../trunk/app/models/pre_home_feed_app.rb

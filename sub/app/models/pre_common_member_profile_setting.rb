@@ -1,3 +1,1 @@
-class PreCommonMemberProfileSetting < ActiveRecord::Base
-  self.table_name =  'pre_common_member_profile_setting'
-end
+../../../trunk/app/models/pre_common_member_profile_setting.rb

@@ -1,3 +1,1 @@
-class PreForumDebatepost < ActiveRecord::Base
-  self.table_name =  'pre_forum_debatepost'
-end
+../../../trunk/app/models/pre_forum_debatepost.rb

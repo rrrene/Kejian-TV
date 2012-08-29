@@ -1,3 +1,1 @@
-class PreCommonMyinvite < ActiveRecord::Base
-  self.table_name =  'pre_common_myinvite'
-end
+../../../trunk/app/models/pre_common_myinvite.rb

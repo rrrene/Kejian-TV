@@ -1,3 +1,1 @@
-class PreCommonWordType < ActiveRecord::Base
-  self.table_name =  'pre_common_word_type'
-end
+../../../trunk/app/models/pre_common_word_type.rb

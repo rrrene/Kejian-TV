@@ -1,3 +1,1 @@
-class PreConnectFeedlog < ActiveRecord::Base
-  self.table_name =  'pre_connect_feedlog'
-end
+../../../trunk/app/models/pre_connect_feedlog.rb

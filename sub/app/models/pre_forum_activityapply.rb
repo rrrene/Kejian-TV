@@ -1,3 +1,1 @@
-class PreForumActivityapply < ActiveRecord::Base
-  self.table_name =  'pre_forum_activityapply'
-end
+../../../trunk/app/models/pre_forum_activityapply.rb

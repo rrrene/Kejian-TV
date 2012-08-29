@@ -1,3 +1,1 @@
-class PreForumModwork < ActiveRecord::Base
-  self.table_name =  'pre_forum_modwork'
-end
+../../../trunk/app/models/pre_forum_modwork.rb

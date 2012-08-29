@@ -1,3 +1,1 @@
-class PreForumPollvoter < ActiveRecord::Base
-  self.table_name =  'pre_forum_pollvoter'
-end
+../../../trunk/app/models/pre_forum_pollvoter.rb

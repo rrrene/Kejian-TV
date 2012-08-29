@@ -1,3 +1,1 @@
-class PreForumTypevar < ActiveRecord::Base
-  self.table_name =  'pre_forum_typevar'
-end
+../../../trunk/app/models/pre_forum_typevar.rb

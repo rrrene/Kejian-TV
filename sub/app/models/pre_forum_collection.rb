@@ -1,3 +1,1 @@
-class PreForumCollection < ActiveRecord::Base
-  self.table_name =  'pre_forum_collection'
-end
+../../../trunk/app/models/pre_forum_collection.rb

@@ -1,3 +1,1 @@
-class PreCommonDomain < ActiveRecord::Base
-  self.table_name =  'pre_common_domain'
-end
+../../../trunk/app/models/pre_common_domain.rb

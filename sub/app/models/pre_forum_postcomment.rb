@@ -1,3 +1,1 @@
-class PreForumPostcomment < ActiveRecord::Base
-  self.table_name =  'pre_forum_postcomment'
-end
+../../../trunk/app/models/pre_forum_postcomment.rb

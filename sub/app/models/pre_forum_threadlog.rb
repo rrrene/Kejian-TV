@@ -1,3 +1,1 @@
-class PreForumThreadlog < ActiveRecord::Base
-  self.table_name =  'pre_forum_threadlog'
-end
+../../../trunk/app/models/pre_forum_threadlog.rb

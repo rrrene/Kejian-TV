@@ -1,3 +1,1 @@
-class PreForumThreadModerate < ActiveRecord::Base
-  self.table_name =  'pre_forum_thread_moderate'
-end
+../../../trunk/app/models/pre_forum_thread_moderate.rb

@@ -1,3 +1,1 @@
-class PrePortalCategory < ActiveRecord::Base
-  self.table_name =  'pre_portal_category'
-end
+../../../trunk/app/models/pre_portal_category.rb

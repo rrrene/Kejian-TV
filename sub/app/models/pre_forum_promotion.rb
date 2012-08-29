@@ -1,3 +1,1 @@
-class PreForumPromotion < ActiveRecord::Base
-  self.table_name =  'pre_forum_promotion'
-end
+../../../trunk/app/models/pre_forum_promotion.rb

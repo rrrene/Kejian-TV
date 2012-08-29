@@ -1,3 +1,1 @@
-class PreCommonBlockItemData < ActiveRecord::Base
-  self.table_name =  'pre_common_block_item_data'
-end
+../../../trunk/app/models/pre_common_block_item_data.rb

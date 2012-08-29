@@ -1,3 +1,1 @@
-class PreHomeClick < ActiveRecord::Base
-  self.table_name =  'pre_home_click'
-end
+../../../trunk/app/models/pre_home_click.rb

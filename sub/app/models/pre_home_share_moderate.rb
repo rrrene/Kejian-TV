@@ -1,3 +1,1 @@
-class PreHomeShareModerate < ActiveRecord::Base
-  self.table_name =  'pre_home_share_moderate'
-end
+../../../trunk/app/models/pre_home_share_moderate.rb

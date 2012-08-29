@@ -1,3 +1,1 @@
-class PreSecurityEvilpost < ActiveRecord::Base
-  self.table_name =  'pre_security_evilpost'
-end
+../../../trunk/app/models/pre_security_evilpost.rb

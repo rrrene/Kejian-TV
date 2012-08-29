@@ -1,3 +1,1 @@
-class PreHomeSpecialuser < ActiveRecord::Base
-  self.table_name =  'pre_home_specialuser'
-end
+../../../trunk/app/models/pre_home_specialuser.rb

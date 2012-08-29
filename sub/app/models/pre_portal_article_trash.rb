@@ -1,3 +1,1 @@
-class PrePortalArticleTrash < ActiveRecord::Base
-  self.table_name =  'pre_portal_article_trash'
-end
+../../../trunk/app/models/pre_portal_article_trash.rb

@@ -1,3 +1,1 @@
-class PreCommonSmiley < ActiveRecord::Base
-  self.table_name =  'pre_common_smiley'
-end
+../../../trunk/app/models/pre_common_smiley.rb

@@ -1,3 +1,1 @@
-class PreCommonAdminnote < ActiveRecord::Base
-  self.table_name =  'pre_common_adminnote'
-end
+../../../trunk/app/models/pre_common_adminnote.rb

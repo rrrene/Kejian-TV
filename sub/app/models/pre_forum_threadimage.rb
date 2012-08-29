@@ -1,3 +1,1 @@
-class PreForumThreadimage < ActiveRecord::Base
-  self.table_name =  'pre_forum_threadimage'
-end
+../../../trunk/app/models/pre_forum_threadimage.rb

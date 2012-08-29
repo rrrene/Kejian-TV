@@ -1,3 +1,1 @@
-class PreSecurityFailedlog < ActiveRecord::Base
-  self.table_name =  'pre_security_failedlog'
-end
+../../../trunk/app/models/pre_security_failedlog.rb

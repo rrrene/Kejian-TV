@@ -1,3 +1,1 @@
-class PreCommonUinBlack < ActiveRecord::Base
-  self.table_name =  'pre_common_uin_black'
-end
+../../../trunk/app/models/pre_common_uin_black.rb

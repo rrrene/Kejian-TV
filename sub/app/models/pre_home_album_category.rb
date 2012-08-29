@@ -1,3 +1,1 @@
-class PreHomeAlbumCategory < ActiveRecord::Base
-  self.table_name =  'pre_home_album_category'
-end
+../../../trunk/app/models/pre_home_album_category.rb

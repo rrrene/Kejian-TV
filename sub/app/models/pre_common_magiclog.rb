@@ -1,3 +1,1 @@
-class PreCommonMagiclog < ActiveRecord::Base
-  self.table_name =  'pre_common_magiclog'
-end
+../../../trunk/app/models/pre_common_magiclog.rb

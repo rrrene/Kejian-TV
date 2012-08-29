@@ -1,3 +1,1 @@
-class PrePortalAttachment < ActiveRecord::Base
-  self.table_name =  'pre_portal_attachment'
-end
+../../../trunk/app/models/pre_portal_attachment.rb

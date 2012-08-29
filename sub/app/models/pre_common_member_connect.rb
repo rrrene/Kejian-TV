@@ -1,3 +1,1 @@
-class PreCommonMemberConnect < ActiveRecord::Base
-  self.table_name =  'pre_common_member_connect'
-end
+../../../trunk/app/models/pre_common_member_connect.rb

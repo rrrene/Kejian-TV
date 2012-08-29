@@ -1,3 +1,1 @@
-class PreCommonCache < ActiveRecord::Base
-  self.table_name =  'pre_common_cache'
-end
+../../../trunk/app/models/pre_common_cache.rb

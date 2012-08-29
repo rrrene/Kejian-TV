@@ -1,3 +1,1 @@
-class PreForumReplycredit < ActiveRecord::Base
-  self.table_name =  'pre_forum_replycredit'
-end
+../../../trunk/app/models/pre_forum_replycredit.rb

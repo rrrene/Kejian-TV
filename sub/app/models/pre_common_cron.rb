@@ -1,3 +1,1 @@
-class PreCommonCron < ActiveRecord::Base
-  self.table_name =  'pre_common_cron'
-end
+../../../trunk/app/models/pre_common_cron.rb

@@ -1,3 +1,1 @@
-class PreCommonCreditRuleLog < ActiveRecord::Base
-  self.table_name =  'pre_common_credit_rule_log'
-end
+../../../trunk/app/models/pre_common_credit_rule_log.rb

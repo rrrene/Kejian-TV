@@ -1,3 +1,1 @@
-class PrePortalArticleModerate < ActiveRecord::Base
-  self.table_name =  'pre_portal_article_moderate'
-end
+../../../trunk/app/models/pre_portal_article_moderate.rb

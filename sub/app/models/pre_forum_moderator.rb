@@ -1,3 +1,1 @@
-class PreForumModerator < ActiveRecord::Base
-  self.table_name =  'pre_forum_moderator'
-end
+../../../trunk/app/models/pre_forum_moderator.rb

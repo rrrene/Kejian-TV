@@ -1,3 +1,1 @@
-class PreForumThreadaddviews < ActiveRecord::Base
-  self.table_name =  'pre_forum_threadaddviews'
-end
+../../../trunk/app/models/pre_forum_threadaddviews.rb

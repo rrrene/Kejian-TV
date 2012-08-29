@@ -1,3 +1,1 @@
-class PreForumForumrecommend < ActiveRecord::Base
-  self.table_name =  'pre_forum_forumrecommend'
-end
+../../../trunk/app/models/pre_forum_forumrecommend.rb

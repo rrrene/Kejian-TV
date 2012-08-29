@@ -1,3 +1,1 @@
-class PreForumGroupcreditslog < ActiveRecord::Base
-  self.table_name =  'pre_forum_groupcreditslog'
-end
+../../../trunk/app/models/pre_forum_groupcreditslog.rb

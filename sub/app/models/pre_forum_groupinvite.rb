@@ -1,3 +1,1 @@
-class PreForumGroupinvite < ActiveRecord::Base
-  self.table_name =  'pre_forum_groupinvite'
-end
+../../../trunk/app/models/pre_forum_groupinvite.rb

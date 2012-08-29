@@ -1,3 +1,1 @@
-class PreCommonCard < ActiveRecord::Base
-  self.table_name =  'pre_common_card'
-end
+../../../trunk/app/models/pre_common_card.rb

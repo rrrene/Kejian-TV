@@ -1,3 +1,1 @@
-class PreForumTypeoption < ActiveRecord::Base
-  self.table_name =  'pre_forum_typeoption'
-end
+../../../trunk/app/models/pre_forum_typeoption.rb

@@ -1,3 +1,1 @@
-class PrePortalArticleCount < ActiveRecord::Base
-  self.table_name =  'pre_portal_article_count'
-end
+../../../trunk/app/models/pre_portal_article_count.rb

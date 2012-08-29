@@ -1,3 +1,1 @@
-class PreCommonRegip < ActiveRecord::Base
-  self.table_name =  'pre_common_regip'
-end
+../../../trunk/app/models/pre_common_regip.rb
