@@ -2,8 +2,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter proc{
-    #text = PreForumForum.type1.count
-    #render text:text and return
+    text = cookies.to_a
+    render text:text and return
   }
   $cnu_new = Time.new(2012,9,3)
   $cnu_exam = Time.new(2013,1,7)

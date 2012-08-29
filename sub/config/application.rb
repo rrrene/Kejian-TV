@@ -38,6 +38,7 @@ module Sub
 
     # Activate observers that should always be running.
     # config.active_record.observers = :cacher, :garbage_collector, :forum_observer
+    config.action_mailer.default_url_options = 'cnu.kejian.tv'
     
     config.time_zone = 'Beijing'
 
