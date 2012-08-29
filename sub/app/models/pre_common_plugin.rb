@@ -1,1 +1,3 @@
-../../../trunk/app/models/pre_common_plugin.rb
+class PreCommonPlugin < ActiveRecord::Base
+  self.table_name =  'pre_common_plugin'
+end

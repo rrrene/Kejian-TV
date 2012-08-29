@@ -1,1 +1,3 @@
-../../../trunk/app/models/pre_common_onlinetime.rb
+class PreCommonOnlinetime < ActiveRecord::Base
+  self.table_name =  'pre_common_onlinetime'
+end

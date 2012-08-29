@@ -25,6 +25,7 @@ class ApplicationController < ActionController::Base
     刘春晓老师在等待上课铃响
   }
   before_filter :set_vars
+  before_filter :xookie,:unless=>'devise_controller?'
 
   def set_vars
     @seo = Hash.new('')
@@ -38,5 +39,7 @@ class ApplicationController < ActionController::Base
     @is_ie10 = (agent.index('msie 10')!=nil)
     @bg_index = rand($cnu_fotos.count)
   end
-  
+  def xookie
+    Discuz::Utils.get_xookie.call
+  end
 end

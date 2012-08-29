@@ -1,1 +1,3 @@
-../../../trunk/app/models/pre_portal_category_permission.rb
+class PrePortalCategoryPermission < ActiveRecord::Base
+  self.table_name =  'pre_portal_category_permission'
+end

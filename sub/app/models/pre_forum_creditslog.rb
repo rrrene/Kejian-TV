@@ -1,1 +1,3 @@
-../../../trunk/app/models/pre_forum_creditslog.rb
+class PreForumCreditslog < ActiveRecord::Base
+  self.table_name =  'pre_forum_creditslog'
+end

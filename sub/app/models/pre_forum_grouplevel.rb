@@ -1,1 +1,3 @@
-../../../trunk/app/models/pre_forum_grouplevel.rb
+class PreForumGrouplevel < ActiveRecord::Base
+  self.table_name =  'pre_forum_grouplevel'
+end

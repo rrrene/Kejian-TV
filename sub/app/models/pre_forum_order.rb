@@ -1,1 +1,3 @@
-../../../trunk/app/models/pre_forum_order.rb
+class PreForumOrder < ActiveRecord::Base
+  self.table_name =  'pre_forum_order'
+end

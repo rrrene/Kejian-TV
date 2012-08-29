@@ -1,1 +1,3 @@
-../../../trunk/app/models/pre_common_patch.rb
+class PreCommonPatch < ActiveRecord::Base
+  self.table_name =  'pre_common_patch'
+end

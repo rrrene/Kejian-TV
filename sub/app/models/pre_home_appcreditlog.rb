@@ -1,1 +1,3 @@
-../../../trunk/app/models/pre_home_appcreditlog.rb
+class PreHomeAppcreditlog < ActiveRecord::Base
+  self.table_name =  'pre_home_appcreditlog'
+end

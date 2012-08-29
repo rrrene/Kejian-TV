@@ -1,1 +1,3 @@
-../../../trunk/app/models/pre_common_usergroup.rb
+class PreCommonUsergroup < ActiveRecord::Base
+  self.table_name =  'pre_common_usergroup'
+end

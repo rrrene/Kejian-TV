@@ -1,1 +1,3 @@
-../../../trunk/app/models/pre_forum_forumfield.rb
+class PreForumForumfield < ActiveRecord::Base
+  self.table_name =  'pre_forum_forumfield'
+end

@@ -1,1 +1,3 @@
-../../../trunk/app/models/pre_forum_threadclosed.rb
+class PreForumThreadclosed < ActiveRecord::Base
+  self.table_name =  'pre_forum_threadclosed'
+end

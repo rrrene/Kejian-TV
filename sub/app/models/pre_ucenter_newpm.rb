@@ -1,3 +1,3 @@
 class PreUcenterNewpm < ActiveRecord::Base
-  set_table_name 'pre_ucenter_newpm'
+  self.table_name =  'pre_ucenter_newpm'
 end

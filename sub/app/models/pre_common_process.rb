@@ -1,1 +1,3 @@
-../../../trunk/app/models/pre_common_process.rb
+class PreCommonProcess < ActiveRecord::Base
+  self.table_name =  'pre_common_process'
+end

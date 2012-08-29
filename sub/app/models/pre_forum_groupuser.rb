@@ -1,1 +1,3 @@
-../../../trunk/app/models/pre_forum_groupuser.rb
+class PreForumGroupuser < ActiveRecord::Base
+  self.table_name =  'pre_forum_groupuser'
+end

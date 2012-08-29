@@ -1,1 +1,3 @@
-../../../trunk/app/models/pre_common_block_permission.rb
+class PreCommonBlockPermission < ActiveRecord::Base
+  self.table_name =  'pre_common_block_permission'
+end

@@ -1,1 +1,3 @@
-../../../trunk/app/models/pre_portal_article_related.rb
+class PrePortalArticleRelated < ActiveRecord::Base
+  self.table_name =  'pre_portal_article_related'
+end

@@ -1,1 +1,3 @@
-../../../trunk/app/models/pre_forum_collectionteamworker.rb
+class PreForumCollectionteamworker < ActiveRecord::Base
+  self.table_name =  'pre_forum_collectionteamworker'
+end

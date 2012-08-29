@@ -1,1 +1,3 @@
-../../../trunk/app/models/pre_home_show.rb
+class PreHomeShow < ActiveRecord::Base
+  self.table_name =  'pre_home_show'
+end

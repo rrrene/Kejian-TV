@@ -1,1 +1,3 @@
-../../../trunk/app/models/pre_home_friendlog.rb
+class PreHomeFriendlog < ActiveRecord::Base
+  self.table_name =  'pre_home_friendlog'
+end

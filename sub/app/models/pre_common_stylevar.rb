@@ -1,1 +1,3 @@
-../../../trunk/app/models/pre_common_stylevar.rb
+class PreCommonStylevar < ActiveRecord::Base
+  self.table_name =  'pre_common_stylevar'
+end

@@ -1,1 +1,3 @@
-../../../trunk/app/models/pre_portal_topic.rb
+class PrePortalTopic < ActiveRecord::Base
+  self.table_name =  'pre_portal_topic'
+end

@@ -1,1 +1,3 @@
-../../../trunk/app/models/pre_forum_tradecomment.rb
+class PreForumTradecomment < ActiveRecord::Base
+  self.table_name =  'pre_forum_tradecomment'
+end

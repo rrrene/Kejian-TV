@@ -1,1 +1,3 @@
-../../../trunk/app/models/pre_common_admincp_perm.rb
+class PreCommonAdmincpPerm < ActiveRecord::Base
+  self.table_name =  'pre_common_admincp_perm'
+end

@@ -1,1 +1,3 @@
-../../../trunk/app/models/pre_forum_attachment_unused.rb
+class PreForumAttachmentUnused < ActiveRecord::Base
+  self.table_name =  'pre_forum_attachment_unused'
+end

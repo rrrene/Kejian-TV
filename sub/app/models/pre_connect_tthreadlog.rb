@@ -1,1 +1,3 @@
-../../../trunk/app/models/pre_connect_tthreadlog.rb
+class PreConnectTthreadlog < ActiveRecord::Base
+  self.table_name =  'pre_connect_tthreadlog'
+end

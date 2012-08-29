@@ -1,1 +1,3 @@
-../../../trunk/app/models/pre_forum_collectioncomment.rb
+class PreForumCollectioncomment < ActiveRecord::Base
+  self.table_name =  'pre_forum_collectioncomment'
+end

@@ -1,1 +1,3 @@
-../../../trunk/app/models/pre_common_mailqueue.rb
+class PreCommonMailqueue < ActiveRecord::Base
+  self.table_name =  'pre_common_mailqueue'
+end

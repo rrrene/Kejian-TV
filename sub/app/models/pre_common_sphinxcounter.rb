@@ -1,1 +1,3 @@
-../../../trunk/app/models/pre_common_sphinxcounter.rb
+class PreCommonSphinxcounter < ActiveRecord::Base
+  self.table_name =  'pre_common_sphinxcounter'
+end

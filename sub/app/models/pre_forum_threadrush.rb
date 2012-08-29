@@ -1,1 +1,3 @@
-../../../trunk/app/models/pre_forum_threadrush.rb
+class PreForumThreadrush < ActiveRecord::Base
+  self.table_name =  'pre_forum_threadrush'
+end

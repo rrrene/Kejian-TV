@@ -1,1 +1,3 @@
-../../../trunk/app/models/pre_forum_postcache.rb
+class PreForumPostcache < ActiveRecord::Base
+  self.table_name =  'pre_forum_postcache'
+end

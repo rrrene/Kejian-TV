@@ -1,1 +1,3 @@
-../../../trunk/app/models/pre_forum_thread.rb
+class PreForumThread < ActiveRecord::Base
+  self.table_name =  'pre_forum_thread'
+end

@@ -1,1 +1,3 @@
-../../../trunk/app/models/pre_common_task.rb
+class PreCommonTask < ActiveRecord::Base
+  self.table_name =  'pre_common_task'
+end

@@ -1,1 +1,3 @@
-../../../trunk/app/models/pre_security_eviluser.rb
+class PreSecurityEviluser < ActiveRecord::Base
+  self.table_name =  'pre_security_eviluser'
+end

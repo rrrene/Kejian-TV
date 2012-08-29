@@ -1,1 +1,3 @@
-../../../trunk/app/models/pre_common_session.rb
+class PreCommonSession < ActiveRecord::Base
+  self.table_name =  'pre_common_session'
+end

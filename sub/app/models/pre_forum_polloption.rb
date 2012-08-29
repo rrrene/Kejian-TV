@@ -1,1 +1,3 @@
-../../../trunk/app/models/pre_forum_polloption.rb
+class PreForumPolloption < ActiveRecord::Base
+  self.table_name =  'pre_forum_polloption'
+end

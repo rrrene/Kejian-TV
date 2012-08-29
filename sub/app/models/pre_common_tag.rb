@@ -1,1 +1,3 @@
-../../../trunk/app/models/pre_common_tag.rb
+class PreCommonTag < ActiveRecord::Base
+  self.table_name =  'pre_common_tag'
+end

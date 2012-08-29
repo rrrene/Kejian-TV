@@ -1,1 +1,3 @@
-../../../trunk/app/models/pre_common_admingroup.rb
+class PreCommonAdmingroup < ActiveRecord::Base
+  self.table_name =  'pre_common_admingroup'
+end

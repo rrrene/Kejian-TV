@@ -1,1 +1,3 @@
-../../../trunk/app/models/pre_common_district.rb
+class PreCommonDistrict < ActiveRecord::Base
+  self.table_name =  'pre_common_district'
+end
