@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=960"/>
+    <meta http-equiv="x-dns-prefetch-control" content="off"/>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta property="wb:webmaster" content="8511185f3b58f41f" />
+    <title>首都师范大学课件交流系统 - <%=@seo[:title]%></title>
+    <link rel="shortcut icon" href="/favicon.ico?v=003" /> 
+    <meta charset="UTF-8">
+    <%= csrf_meta_tag %>
+
+    <!--[if lt IE 9 ]>
+    <%= javascript_include_tag "for_help/html5" %>
+    <![endif]-->
+    <%= stylesheet_link_tag "for_help/application" %>
+    <!--[if IE 8 ]>
+      <link href="/css_ie8.css" media="all" rel="stylesheet" type="text/css" />
+    <![endif]-->
+    <!--[if lt IE 8 ]>
+      <link href="/css_ie.css" media="all" rel="stylesheet" type="text/css" />
+    <![endif]-->
+    <%= flash[:extra_ucenter_operations] %>
+  </head>
+
+  <body data-subdomain="<%= request.subdomain %>">
+    <header id="pageHeader">
+      <section class="wrapper">
+        <a class="sitelogo" title="回到首页" href="<%= user_signed_in? ? '/root' : '/'%>"></a>
+        <% @no_sidebar ||= ['devise-sessions_new','registrations_new'].include?("#{params[:controller].parameterize}_#{params[:action].parameterize}") %>
+        <% @no_header ||= ['devise-sessions_new','registrations_new'].include?("#{params[:controller].parameterize}_#{params[:action].parameterize}") %>
+        <% unless @no_header %>
+          <div class="searchbox">
+            <input placeholder="搜索解题、领域疑问" id="searchInput">
+          </div>
+          <%= content_for :butt2 do %>
+            Asks.completeAll($("#searchInput"));
+
+            $(' .pager a.disabled').click(function(){
+            return false;
+            });
+          <% end %>
+
+
+          <button class="btnGoAsk" onclick="return Asks.addAsk()" href="/asks/new"></button>
+          <div class="userHomepage"><a href="/" title="回到首页"><%= current_user ? '首页' : '随便看看' %></a></div>
+
+          <% if !current_user %>
+            <div class="userInfoName">
+              <a href="<%= Setting.zhaopin_login+CGI::escape('http://'+Setting.wendao_domain_name+request.path) %>"  id="login_link">登录</a>&nbsp;&nbsp;
+              <a href="http://my.kejian.tv/loginmgr/regist_serviceitem.asp?f=l&redirect_url=<%= CGI::escape('http://'+Setting.wendao_domain_name+request.path) %>" id="reg_link">注册</a>
+            </div>
+          <% else %>
+            <% if current_user.notifications.nondeleted.unread.count > 0 %>
+              <div class="userNotify englishFont"><%=current_user.notifications.nondeleted.unread.count%></div>
+            <% end %>
+            <div class="userInfoName" style="width:130px;left:824px;"><%=truncate2(current_user.name,:length => 12,:omission=>'…') %><cite class="arrowDown"></cite></div>
+
+            <menu class="userInfoPop hide" id="userInfoPop" >
+              <ul>
+                <li class="username"><%=truncate2(current_user.name,:length => 12,:omission=>'…') %><cite class="arrowDown"></cite></li>
+                <li class="blackline"></li>
+                <li><span class="homepage"></span><a href="/users/<%= (current_user.slug) %>">个人主页</a></li>
+                <li class="blackline"></li>
+                <li><span class="setup"></span><%= link_to('设置', edit_user_registration_path) %></li>
+                <li class="blackline"></li>
+                <li><span class="logout"></span><a href="http://my.kejian.tv/loginmgr/logout.asp?strBkUrl=http://<%= request.host_with_port %>/" id="logout_link">退出</a></li>
+              </ul>
+            </menu>
+          <% end %>
+        <% end %>
+      </section>
+    </header>
+    <div class="clearfix height0"></div>
+    <% if @raw_raw_raw %>
+      <%= yield %>
+    <% else %>
+      <section id="container" class="wrapper clearfix" style="<%='background:white' if @render_no_sidebar %>">
+        <section id="main" style="<%= 'width:100%' if @render_no_sidebar %>">
+          <section id="mainContent" class="<%= 'askPage' if 'asks_show'==pos_signature %>">
+            <% if !@notice.blank? %>
+              <% if cookies[:hide_notice] != @notice.id.to_s %>
+                <div id="sys_notice">
+                  <%= raw @notice.body %>
+                  <div class="info">
+                    <span class="date"><%= l @notice.updated_at.getlocal, :format => :long %></span>
+                    <a href="#" class="gray_button small" onclick="return App.hideNotice('<%= @notice.id %>');">我知道了</a>
+                  </div>
+                </div>
+              <% end %>
+            <% end %>
+            <% if !notice.blank? %>
+              <div class="notice_message"><%= notice %></div>
+              <%= content_for :butt do %>
+                <script type="text/javascript">
+                  $(".notice_message").fadeOut().fadeIn();
+                </script>
+              <% end %>
+            <% end %>
+            <% if !alert.blank? %>
+              <div class="alert_message"><%= alert %></div>
+              <%= content_for :butt do %>
+                <script type="text/javascript">
+                  $(".alert_message").fadeOut().fadeIn();
+                </script>
+              <% end %>
+            <% end %>
+
+
+            <%= yield %>
+          </section>
+        </section>
+        <% unless @render_no_sidebar %>
+          <aside id="sidebar">
+            <%= yield :sidebar %>
+            <div class="clearfix mt20">
+            </div>
+          </aside>
+        <% end %>
+      </section>
+
+    <% end %>
+    <footer id="pagerFooter" class="mt20">
+      <a href="http://special.kejian.tv/sh/2009/aboutus/about.html" target="_blank">课件交流系统介绍</a> |
+      <!--<a href="http://special.kejian.tv/sh/2009/aboutus/join.html" target="_blank">加入课件交流系统</a> |-->
+      <a href="http://special.kejian.tv/sh/2009/aboutus/law.html" target="_blank">法律声明</a> |
+      <a href="http://special.kejian.tv/sh/2009/aboutus/secrecy.html" target="_blank">保密承诺</a> |
+      <!--<a href="http://my.kejian.tv/loginmgr/regist_serviceitem.asp?f=b" target="_blank">个人注册</a> | -->
+      <a href="http://kejian.tv/agreement" target="_blank">Kejian.TV协议</a> |
+      <a href="http://special.kejian.tv/sh/2009/aboutus/contact.html" target="_blank">联系方式</a> |
+      <a href="/bugtrack" target="_blank">意见反馈</a> |
+      <a href="http://kejian.tv/mobile" target="_blank">手机Kejian.TV</a>
+      <!--<a href="http://api.kejian.tv/apidoc" target="_blank">开放API</a>-->
+      <!--<a href="http://article.kejian.tv/pub/ch.jsp?cid=1237" target="_blank">媒体报道</a>-->
+      <div class="copyright">
+        Copyright &copy; kejian.tv All Rights Reserved.
+      </div>
+    </footer>
+    <div class="backToZp">
+      <a href="http://www.kejian.tv/" target="_blank"><img src="<%= asset_path('zhaopin.png') %>" width="38" height="123" /></a>
+    </div>
+
+    <div id="hidden_new_ask" style="display: none;">
+      <form action="/asks" method="post" id="inner_new_ask">
+        <%= auth_token %>
+        <header>
+          创建新题
+          <a class="close"  onclick="$.facebox.close(); return false;"></a>
+        </header>
+        <section>
+          <div class="editorBox mt10 clearfix">
+            <!-- XXX是这个人人名 -->
+            <textarea name="ask[title]" id="new_ask_title_gl" rows="1" class="textarea"></textarea>
+            <div class="bar limitwords"></div>
+            <textarea name="ask[body]" id="new_ask_body_gl" rows="1" class="textarea mt10"></textarea>
+            <div class="bar limitwords"></div>
+          </div>
+          <ul class="topicNav modify clearfix">
+          </ul>
+          <div class="addTopic mt5 clearfix" id="theAddTopic" >
+            <input type="text" name="topic"><div class="btnNormalSilver"><span class="add_topic">添加</span></div>
+          </div>
+        </section>
+        <input type="hidden" name="topics" value="">
+        <footer>
+          <div class="btnNormalGreen bold mt20 submit rightbtn"><span>发布题</span></div>
+        </footer>
+      </form>
+    </div>
+
+    <div style="display: none;" id="loading">
+      <div class="logo"></div>
+      <div class="text">加载中…</div>
+    </div>
+    <div style="overflow:hidden;" class="hide">
+      <%= image_tag("loading.gif") %>
+      <div id="report_page">
+        <header>举报内容 <a class="close" href="javascript:void(0);"></a></header>
+        <section>
+          <form id="report_page_form" action="/report.js" onsubmit="App.loading();" method="post" class="simple_form"> 
+            <%= auth_token %>
+            <input type="hidden" name="url" value="<%= request.path %>" />
+            <p class="fc999">请填写举报原因:</p>
+            <div class="editorBox mt10 clearfix">
+              <textarea name="desc" style="height:80px;"></textarea>
+            </div>
+          </form>
+        </section>
+        <footer>
+          <div class="btnNormalGreen bold mt20 rightbtn" id="report_submit" >
+            <span>提 交</span>
+          </div>
+        </footer>
+      </div>
+    </div>
+
+    <%= yield :bottom %>
+    <%= javascript_include_tag "for_help/application" %>
+    <%= yield :scripts %>
+    <script type="text/javascript" charset="utf-8">
+      jQuery(function(){
+        <%= yield :butt2 %>
+      })
+    </script>
+
+    <script type="text/javascript">
+      <% if current_user %>
+        var logined = true;
+      <% else %>
+        var logined = false;
+      <% end %>
+    </script>
+    <%= yield :butt %>
+  </body>
+</html>
