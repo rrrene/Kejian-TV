@@ -2,8 +2,8 @@
 # Be sure to restart your server when you modify this file.
 
 
-key = (Rails.env.development? ?  "_ktv_sub_local_session" : "_ktv_sub_session")
-domain = (Rails.env.development? ?  ".kejian.lvh.me" : ".kejian.tv")
+key = (Rails.env.development? ?  "_ktv_cnu_local_session" : "_ktv_cnu_session")
+domain = (Rails.env.development? ?  "cnu.kejian.lvh.me" : "cnu.kejian.tv")
 
 Sub::Application.config.session_store :cookie_store, 
                                       :key => key,
