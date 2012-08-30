@@ -49,4 +49,27 @@ class ApplicationController < ActionController::Base
       end
     end
   end
+
+  #==
+  def suggest
+    if current_user and !(current_user.followed_topic_ids.blank? and current_user.following_ids.blank?)
+      elim = current_user.is_expert ? 3 : 2
+      ulim = current_user.is_expert ? 0 : 1
+      tlim = 2
+      e,u,t = UserSuggestItem.find_by_user(current_user)
+      @suggested_experts = e.blank? ? [] :  User.any_in(:_id=>e.random(elim)).not_in(:_id=>current_user.following_ids)
+      @suggested_users = u.blank? ?  [] :  User.any_in(:_id=>u.random(ulim)).not_in(:_id=>current_user.following_ids)
+      @suggested_topics = t.blank? ? [] : Topic.any_in(:name=>t.random(tlim))
+    end
+  end
+  def set_seo_meta(title, options = {})
+    keywords = options[:keywords] || "首都师范大学,CNU,课件,课件交流系统"
+    description = options[:description] || "首都师范大学课件交流系统"
+    if title.length > 0
+      @seo[:title] = "#{title}"
+    end
+    @seo[:keywords] = keywords
+    @seo[:description] = description
+  end
+
 end
