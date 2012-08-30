@@ -1,0 +1,16 @@
+
+<%= render "head", :user => @user %>
+
+
+<section>
+  <%if controller.action_name!="asked"%>
+    <%= render 'subnav2',:user=>@user %>
+  <%end%>
+
+  <% @asks.each do |item| %>
+    <%= render "/asks/ask", :item => item %>
+  <% end %>
+  <%= will_paginate @asks, :renderer=>WendaoLinkRenderer,:inner_window=>2 %>
+</section>
+<%= render "sidebar", :user => @user %>
+

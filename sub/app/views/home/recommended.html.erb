@@ -1,0 +1,18 @@
+<%= render 'asks/base' %>
+
+<section>
+  <h3>或许能解答</h3>
+  <!-- 下面的每个article样式为：话题分类、话题标问题（两类信息） -->
+  <%if @asks.total_entries>0%>
+    <% @asks.each do |item| %>
+      <%= render "asks/recommended_ask", :item => item %>
+    <% end %>
+    <%= will_paginate @asks, :renderer=>WendaoLinkRenderer,:inner_window=>2 %>
+  <%else%>
+    <div class="mt5">
+      请先关注您感兴趣的话题，去<a href="/newbie">风云榜</a>看看吧
+    </div>
+  <%end%>
+</section>
+
+<%= render "asks/sidebar" %>

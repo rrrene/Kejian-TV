@@ -1,0 +1,128 @@
+<!-- psvr_will_protect_ya内容头 -->
+<header class="userHeader mainContentHeader clearfix">
+  <figure class="avatar">
+    <img src="<%=user.avatar.normal.url%>" class="imgHead" width="100" height="100">
+      <% if current_user and current_user.id==user.id %>
+        <div class="edit hide" ><a class="changeUserHead">修改头像</a></div>
+      <% end %>
+    </figure>
+    <div id="edit_topic_cover" class="hide">
+      <header>修改头像 <a class="close" href="javascript:void(0);"></a></header> 
+      <%= simple_form_for(@user,:class => "form", :url => registration_path(@user), :html => { :method => :put, :enctype =>  "multipart/form-data" }) do |f| %>
+        <section class="setupProfile"> 
+          <figure><img src="<%= (user.avatar.normal.url) %>" /></figure> 
+          <div id="file_wrapper">
+            <div id="file_faker">
+              <input id="file_uploader_text" type="text" />
+              <div id="file_btn" class="btnNormalGreen">
+                <span>浏 览</span>
+              </div>
+              <!-- 隐藏真正的上传 -->
+            </div>
+            <input class="file" id="file_uploader" name="user[avatar]" type="file" onchange="checkImg_head($('#facebox #file_uploader'))" />
+          </div>
+          <p class="fc999 hint">支持 jpg, gif, png 格式的图片，不要超过 2MB。建议图片尺寸大于 100×100。</p>
+
+        </section> 
+        <footer> 
+          <div class="btnNormalGreen bold mt20 rightbtn" id="upload_submit" >
+            <span>提 交</span> 
+          </div> 
+        </footer>
+      <% end %>
+    </div>
+    <section>
+      <h5><em id="user_name"><%= (truncate2(user.name,:length=>14)==user.name)? user.name : truncate2(user.name,:length=>12) %><%= v_icon(user) %></em>
+        <!-- to 小潘：本行为默认显示签名，点击后面的A标签后隐藏（添加hide class） -->
+        <div class="details">
+          <span id="user_tagline"><%= ((user.tagline==nil || user.tagline == '')&&(!user.tagline_changed_at)) ? (   (user.is_expert) ? 'Kejian.TV专家' : 'Kejian.TV新人'   ) : (user.tagline) %></span>&nbsp;
+          <% if owner?user %>
+            <img class="modifyLogo" src="/transparent.png"><%= in_place_edit_tag(user,:tagline,:rich => false, :text_id => "user_tagline") %>
+          <% end %>
+        </div>
+      </h5>
+      <div class="clearfix height0"></div>
+
+      <div class="clearfix height0"></div>
+      <div><a href="<%= @user.website %>" target="_blank" class="weak"><%= @user.website %></a></div>
+      <div class="fc999 tfmt"><div id="user_bio">
+          <% if @user.bio.blank? and (not owner?@user) %>
+            <%= @user.name %>还没来得及写他的个人介绍.
+          <% else %>
+            <%= md_body @user.bio,:with_tfmt => false %>
+          <% end %>
+        </div>
+        <% if owner?@user %> <%= in_place_edit_tag(@user,:bio,:type => :textarea, :length=>2000, :text_id => "user_bio", :label => "<img class=\"modifyLogo\" src=\"/transparent.png\">#{@user.bio.blank? ? '添加个人经历' : '修改个人经历'}".html_safe) %> <% end %>
+      </div>
+    </section>
+    <% unless current_user==@user %>
+      <aside>
+        <!-- to 小潘：是否关注判断输出的class > 未被关注时：bBtnFocus；已被关注是：bBtnUnFocus -->
+        <% if current_user and current_user.followed?(@user) %>
+          <a class="bBtn bBtnFocus bBtnUnFocus" onclick="return Users.unfollow(this, '<%= @user.slug %>','');"></a>
+        <% else %>
+          <a class="bBtn bBtnFocus" onclick="return Users.follow(this, '<%= @user.slug %>','');"></a>
+        <% end %>
+      </aside>
+    <% end %>
+    <div class="clearfix"></div>
+    <% if not owner? user %>
+      <div class="askTo editorBox mt10 clearfix">
+        <form action="/asks" method="post" id="tohim">
+          <%= auth_token %>
+          <input type="hidden" name="ask[to_user_id]" value="<%= user.id %>" />
+          <textarea class="textarea" rows="1" style="verflow-x:hidden;" id="new_ask_title_ta" name="ask[title]"></textarea>
+          <div class="bar limitwords"></div>
+          <textarea class="textarea hide" rows="1" style="verflow-x:hidden;" id="new_ask_body_ta" name="ask[body]"></textarea>
+          <div class="bar limitwords"></div>
+          <div class="bar hide">
+            <div class="btnNormalSilver" id="new_ask_submit_ta" onclick="Asks.tohimSubmit()"><span>发布问题</span></div>&nbsp;<label><input name="onlyhim" type="checkbox" class="noBorder">只有TA才能解答</label>
+          </div>
+        </form>
+      </div>
+
+    <% end %>
+
+    <div class="dline mt20"></div>
+  </header>
+
+
+
+  <nav class="tabNav clearfix">
+    <ul>
+      <li<%= ' class=current' if params[:action] == "show" %>><a href="<%= user_path2(user) %>?force=1">主页</a></li>
+      <li<%= ' class=current' if params[:action] == "asked_to" %>><a href="<%= asked_to_user_path(user.slug) %>">问<%= current_user == user ? "我" : (user.girl ? "她" : "他") %>(<%= Ask.normal.asked_to(user.id).count %>)</a></li>
+      <li<%= ' class=current' if params[:action] == "answered" %>><a href="<%= answered_user_path(user.slug) %>">答过(<%= user.answered_ask_ids.count %>)</a></li>
+      <li<%= ' class=current' if params[:action] == "asked" %>><a href="<%= asked_user_path(user.slug) %>">问过(<%= user.asks_count %>)</a></li>
+      <li<%= ' class=current' if params[:action] == "following_topics" or params[:action] == "following" or params[:action] == "followers" %>><a href="<%= following_topics_user_path(user.slug) %>">关注的内容</a></li>
+    </ul>
+  </nav>
+
+  <script type="text/javascript">
+    function checkImg_head(fileObj){
+      var agent=window.navigator.userAgent;
+      var hint = $("#facebox .hint");
+      hint.html("支持 jpg, gif, png 格式的图片，不要超过 2MB。建议图片尺寸大于100 X 100。");
+      $("#facebox #upload_submit span").unbind("click");
+      if (fileObj.val() == ""){
+        return false;
+      } else if(!fileObj.val().match(/.jpeg|.jpg|.gif|.png/i)){
+        hint.html(hint.html().replace("支持 jpg, gif, png 格式的图片","<span style=\"color:red\">支持jpg, gif, png 格式的图片</span>"));
+        $("#facebox #upload_submit span").click(function(){return false;});
+      } else {
+        if(agent.indexOf("Firefox")!=-1){//firefox
+          var imgSize = (fileObj[0].files)?fileObj[0].files.item(0).size:0;
+        }else if(agent.indexOf("MSIE")!=-1){
+          var image = new Image();
+          image.src = fileObj[0].value;
+          var imgSize = image.fileSize;
+        }else{
+          var imgSize = (fileObj[0].files)?fileObj[0].files.item(0).fileSize:0;
+        }
+        if (imgSize > 2048000){
+          hint.html(hint.html().replace("不要超过 2MB","<span style=\"color:red\">不要超过 2MB</span>"));
+          $("#facebox #upload_submit span").click(function(){return false;});
+        }
+      }
+    }
+  </script>

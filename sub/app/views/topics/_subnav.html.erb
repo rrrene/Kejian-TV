@@ -1,0 +1,6 @@
+<nav class="tabNav mt20 clearfix">
+	<ul>
+		<a href="<%=  topic_path(topic.name,filter:'all') %>"><li<%= ' class="current"'.html_safe if params[:filter].blank? or params[:filter] == "all"  %>>全部问题</li></a>
+		<a href="<%=  topic_path(topic.name,filter:'new') %>"><li<%= ' class="current"'.html_safe if params[:filter] == "new"  %>>悬而未决的问题(<%= @topic_unanswered_asks_count %>)</li></a>
+	</ul>
+</nav>

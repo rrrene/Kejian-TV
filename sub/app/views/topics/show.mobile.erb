@@ -1,0 +1,45 @@
+﻿<div data-role="content" class="ui-body-c ui-body">	
+    <div style="min-height:100px;">
+    <%= image_tag(@topic.cover.normal.url,:width=>100,:height=>100,:alt=>@topic.name,:title=>@topic.name,:style=>"margin-right:10px; float:left;") %>
+		<span style="font-size:16px;"><%= @topic.name %></span><br/>
+    <span style="font-size:12px;"><%= raw @topic.summary%></span>
+	</div>
+    <ul data-role="listview" data-inset="true" class="asksList" id="gonna_be_app">
+      <% @asks.each do |item| %>
+        <%= render(file:"asks/_ask.mobile",locals:{item:item}) %>
+      <% end %>
+      <div class="pagination">
+      </div>
+    </ul>
+    
+    <% content_for :butt2 do %>
+      var current_page = 2;
+      var still_going = <%= @asks.length == @per_page ? 'true' : 'false' %>;
+      $(document).ready(function(){
+
+        function loadAsks(){
+          if(window.still_going){
+            still_going = false;
+            $.mobile.showPageLoadingMsg();
+            $.get('/asks?force_mobile=1&force_js=1', { format : "js", page : current_page },function(){
+                $.mobile.hidePageLoadingMsg();
+            });      
+          }
+          return false;
+        }
+        
+        $(document).scroll(function(){
+            var windowHeight = $(window).height();
+            var documentHeight = $(document).height();
+
+            var scrollTop = $(this).scrollTop();
+            if ((scrollTop + windowHeight) >= documentHeight) {
+              loadAsks();
+            }
+        });
+
+      });
+    <% end %>
+
+    
+</div><!-- /content -->

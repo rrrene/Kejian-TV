@@ -6,8 +6,8 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery-ui-1.8.16.custom.min.js
-//= require jquery.timepickr.js
+//= require ./jquery-ui-1.8.16.custom.min.js
+//= require ./jquery.timepickr.js
 function submit_page(){
     if(event.keyCode ==13){
         if($('#render_page_input').val()==''){

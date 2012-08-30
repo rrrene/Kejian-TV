@@ -1,0 +1,7 @@
+<li id="ask_invite_<%= item.id %>">
+	<figure>
+	    <%= user_avatar_tag(item.user,:small,'23') %>
+  </figure>
+	<% if current_user and item.invitor_ids.index(current_user.id) %><a class="close" href=""  onclick="return Asks.cancelInviteToAnswer(this,'<%= item.id %>')"></a><% end %>
+	<em class="count"><%= item.invitor_ids.count %></em>
+</li>

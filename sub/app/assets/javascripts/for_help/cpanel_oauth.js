@@ -4,8 +4,8 @@
 // It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
 // the compiled file.
 //
-//= require cpanel_oauth/jquery
-//= require cpanel_oauth/rails
-//= require cpanel_oauth/application
-//= require cpanel_oauth/jquery.tagsinput
-//= require cpanel_oauth/highcharts
+//= require ./cpanel_oauth/jquery
+//= require ./cpanel_oauth/rails
+//= require ./cpanel_oauth/application
+//= require ./cpanel_oauth/jquery.tagsinput
+//= require ./cpanel_oauth/highcharts

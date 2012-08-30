@@ -1,0 +1,59 @@
+<%= render :partial => 'logs/notifies' %>
+
+<div class="newbie">
+  					
+<section class="hotTopicTable clearfix">
+						<h3>热门话题<a class="nBtn nBtnFocusAll"></a></h3>
+						<ul>
+						  <% wendao_topics=[] %>
+              <%@topics.each do |arr|%>
+              <% topic=arr.name %>
+              <% topic_id=Topic.get_id(topic) %>
+              <% topic_followers_count=arr.followers_count %>
+              <% topic_summary=Topic.get_summary(topic_id) %>
+              <% wendao_topics<<[topic,topic_avatar(topic_id),topic_summary,topic_followers_count] %>
+              <li><span><%=link_to topic,topic_path(topic)%></span></li>
+              <%end%>
+						</ul>
+</section>
+
+<section class="clearfix mt40">
+	  <h3>热门问题</h3>
+  <!-- 下面的每个article样式为：话题分类、话题标问题（两类信息） -->
+  
+  <%@newasks.each do |ask|%>
+    <%@nocon=true%>
+    <% item = ask %>
+    <article class="askInfoMinor">
+      <% unless item.topics.blank? %>
+    	<ul class="topicNav clearfix">
+    	  <% item.topics.each do |topic| %>
+    		<li><span><a title="<%= topic %>" href="/topics/<%= topic %>"><%= topic %></a></span></li>
+    		<% end %>
+    	</ul>
+    	<% end %>
+    	<h6><%= ask_title_tag(item) %><span class="fc999">（<%= item.answers_count %>个答案）</span></h6>
+    </article>
+  <%end%>
+</section>
+
+
+	
+</div>
+
+<script type="text/javascript" charset="utf-8">
+  window.wendao_topics = <%=raw wendao_topics.to_json %>
+</script>
+<!-- 弹出层 话题详细窗口 -->          		
+<div id="popTopic" class="pop hide" >
+	<article>
+		<figure>
+		  <img src="" alt="[0]" title="[0]" width="48" height="48" class="imgHead" />
+		</figure>
+		<header><a href="#" title="[0]" class="bold">[0]</a></header>
+		<div class="details">[2]</div>
+		<footer><span>[3]</span>人关注</footer>
+	</article>
+	<a class="nBtn nBtnFocus"></a>
+</div>
+<%= render "asks/sidebar" %>

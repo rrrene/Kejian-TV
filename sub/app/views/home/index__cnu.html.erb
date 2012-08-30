@@ -1,0 +1,26 @@
+<%= render 'asks/base' %>
+
+<%= render :partial => 'logs/notifies' %>
+
+
+
+<section>
+<h3>  <% if params[:action]=='index' %>
+  问答动态
+  <% else %>
+  我关注的问题
+  <% end %></h3>
+
+<%if @asks and !@asks.empty?%>
+  <!-- 下面的每个article样式为：左侧头像，右侧话题分类、话题标问题话题摘要 -->
+  <% @asks.each do |item| %>
+    <%= render "asks/ask", :item => item, :only_title => true %>
+  <% end %>
+  <%= will_paginate @asks, :renderer=>WendaoLinkRenderer,:inner_window=>2 %>
+<%else %>
+你关注的内容没有新动态，去<%= link_to '风云榜首页','/newbie' %>关注更多内容吧
+<%end%>
+
+</section>
+<%= render "asks/sidebar" %>
+

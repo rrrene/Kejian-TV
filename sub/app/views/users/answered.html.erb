@@ -1,0 +1,12 @@
+<%= render "head", :user => @user %>
+
+
+<section><% unless @asks.blank? %>
+  <% @asks.each do |item| %>
+    <%= render "asks/ask", :item => item, :designated_answer=>item.answers.where(:user_id => @user.id).first %>
+  <% end %>
+<% end %>
+<%= will_paginate @asks, :renderer=>WendaoLinkRenderer,:inner_window=>2 %>
+</section>
+<%= render "sidebar", :user => @user %>
+

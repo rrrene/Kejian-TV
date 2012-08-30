@@ -1,0 +1,5 @@
+<li><a href="/answers/<%= item.id %>">
+  <%= user_avatar_tag(item.user, :small, nil, true) %>
+  <h3><%= item.user.name %><%='，Kejian.TV专家' if item.user.is_expert%></h3>
+  <p><%= truncate(item.body_plain,:length=>100) %></p>
+</a></li>

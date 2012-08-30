@@ -1,0 +1,15 @@
+<div data-role="content" class="ui-body-c ui-body">	
+    <p>热门问题</p>
+    <ul data-role="listview" data-inset="true" class="asksList" id="gonna_be_app">
+      <% @newasks.each do |item| %>
+        <%= render(file:"asks/_ask",locals:{item:item},:formats => [:mobile]) %>
+      <% end %>
+    </ul>
+    <p>热门话题</p>
+    <ul data-role="listview" data-inset="true">
+      <%@topics.each do |arr|%>
+        <% topic=arr.name %>
+        <%= render(file:"topics/_topic",locals:{item:topic},:formats => [:mobile]) %>
+      <% end %>
+    </ul>
+</div><!-- /content -->

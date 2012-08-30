@@ -1,0 +1,60 @@
+<article class="reply clearfix <%= ' spam_answer' if spam_answer?(item) %>" id="answer_<%= item.id %>" data-uc="<%= item.up_votes_count %>" data-dc="<%= item.down_votes_count %>">
+  <a name="<%= item.id %>"></a>
+  <aside>
+    <% if not owner?(item) %>
+      <a rel="tipsyr" title="赞同 (排序将上升)" class="vote <%= 'voteUpe' if voted?(item, :up) %> voteUp" onclick="return Asks.vote('<%= item.id %>',1);" href="#"></a>
+      <a rel="tipsyr" title="反对 (不会显示你的名字)" class="vote <%= 'voteDowne' if voted?(item, :down) %> voteDown" onclick="return Asks.vote('<%= item.id %>',0);" href="#"></a>
+    <% end %>
+    <span class="votes_num" title="赞成票数"><%= item.up_votes_count %></span>
+  </aside>
+  <div class="replys">
+    <div>
+      <header>
+        <%= user_avatar_tag(item.user, :small) %>
+        <a class="bold" title="<%= item.user.name %>" href="/users/<%= item.user.slug %>"><%= item.user.name %><%=v_icon(item.user)%></a><%= user_tagline_tag(item.user,:prefix => ",") %><br>
+        <% if item.up_votes_count != 0 %>
+          <span class="num">投票者：<%= up_voter_links item.up_voters(User) %></span>
+        <% end %>
+      </header>
+
+      <% chomped = md_body(item.chomp_body,:with_tfmt=>false).html_safe %>
+      <% if chomped.length <= 300 or (defined?(bushouqi) and bushouqi) %>
+        <div id="awb_<%= item.ask_id %>_<%= item.id %>" class="tfmt <%= 'spamed' if item.spams_count>=Setting.answer_spam_max %>">
+          <%= chomped %>
+        </div>
+      <% else %>
+        <div class="full-body hide tfmt <%= 'spamed' if item.spams_count>=Setting.answer_spam_max %>"  id="awb_<%= item.ask_id %>_<%= item.id %>">
+          <%= chomped %>
+        </div>
+
+        <div id="aws_<%= item.ask_id %>_<%= item.id %>" class="tfmt <%= 'spamed' if item.spams_count>=Setting.answer_spam_max %>">
+          <%=raw truncate_html(chomped,300,'⋯⋯') %>
+          <a class="smore" href="#" onclick="return show_all_answer_body('<%= item.ask_id %>', '<%= item.id %>')">(更多)</a>
+        </div>
+      <% end %>
+
+      <% if owner?(item) %>
+        <a onclick="return App.inPlaceEdit(this, {'is_mobile_device': false});" id="answer__body__<%=item.id%>" data-url="/update_in_place" data-type="textarea" data-text-id="<%="awb_#{item.ask_id}_#{item.id}"%>" data-rich="true" class="in_place_edit fc999"><img class="modifyLogo" src="/transparent.png">修改</a>
+      <% end %>
+
+      <footer>
+
+
+        <% if item.comments_count == 0 %>
+          <a href="javascript:void(0)" onclick="return Asks.toggleComments('answer','<%= item.id %>');" id="answer_<%= item.id %>_linktrigger">添加评论</a>
+        <% else %> 
+          <a href="javascript:void(0)" onclick="return Asks.toggleComments('answer','<%= item.id %>');" id="answer_<%= item.id %>_linktrigger"><%= item.comments_count %> 条评论</a>
+        <% end %>
+        <em class="fc999">
+          <% if not owner? item %>
+            | <% if thank_answered?(item) %>感谢<% else %><a rel="tipsyr" title="向解答者表示感谢" class="thank<%= ' thanked' if thank_answered?(item) %>" href="#" onclick="return Asks.thankAnswer(this,'<%= item.id %>')">感谢</a><% end %>
+            | <% if spam_answered?(item) %>没有帮助<% else %><a rel="tipsyr" title="认为此解答与问题不相干，或者没有实际作用" class="notusefull<%= ' spamed' if spam_answered?(item) %>" onclick="return Asks.spamAnswer(this,'<%= item.id %>');" href="#">没有帮助</a><% end %>
+          <% end %>
+        </em>
+        <span class="fr"><%= l item.created_at.getlocal, :format => :long %></span>
+      </footer>
+    </div>
+  </div>
+
+
+</article>

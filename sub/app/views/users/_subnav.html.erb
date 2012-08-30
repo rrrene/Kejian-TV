@@ -1,0 +1,7 @@
+<nav class="tabNavSub clearfix">
+	<ul>
+		<a href="<%=  following_topics_user_path(user.slug) %>"><li<%= ' class="current"'.html_safe if params[:action] == "following_topics"  %>><%= (owner? @user)?('我'):('他') %>关注的话题</li></a>
+		<a href="<%=  following_user_path(user.slug) %>"><li<%= ' class="current"'.html_safe if params[:action] == "following"  %>><%= (owner? @user)?('我'):('他') %>关注的人</li></a>
+		<a href="<%=  followers_user_path(user.slug) %>"><li<%= ' class="current"'.html_safe if params[:action] == "followers"  %>>关注<%= (owner? @user)?('我'):('他') %>的人</li></a>
+	</ul>
+</nav>

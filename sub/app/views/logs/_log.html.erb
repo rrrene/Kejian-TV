@@ -1,0 +1,254 @@
+<%
+log.action = "" if log.action.blank?
+action = log.action.gsub("ADDTOPIC", "ADD_TOPIC").gsub("DELTOPIC", "DEL_TOPIC")
+%>
+<% if !log.body.blank? and !(defined?(force_raw) and force_raw) %>
+  <%=raw log.body %>
+<% else %>
+  <% log.id %>
+  <%
+  case log._type
+  when "AskLog"
+    item = log.ask
+    return raw('<br style="display:none">') if item and 1==item.deleted
+    item ||= Ask.new(title: log.title) if  log.title 
+    item ||= Ask.where(_id:log.target_parent_id).first if log.target_parent_id
+    if !item.blank? and item.spams_count < Setting.ask_spam_max
+    %>
+
+      <article class="askInfoAll clearfix" ask-id="<%= log.id %>">
+        <header class="clearfix">
+          <% unless item.topics.blank? %>
+            <ul class="topicNav clearfix">
+              <% item.topics.each do |topic| %>
+                <li><span><a title="<%= topic %>" href="/topics/<%= topic %>"><%= topic %></a></span></li>
+              <% end %>
+            </ul>
+          <% end %>
+          <aside>
+            <%= user_avatar_tag(log.user,:small38,38) %>
+          </aside>	
+
+          <hgroup>
+            <h6><%= ask_title_tag(item) %><span class="fc999"><% unless @log_no_gedaan %>（<%= item.answers_count %>个答案）<% end %></span></h6>
+            <div class="summary">
+
+              <%
+              case action
+              when "NEW"
+              %>
+                <%= user_name_tag(log.user) %><%= v_icon(log.user) %> 添加了该问题
+              <% when "NEW_TO_USER" %>
+                <%= user_name_tag(log.user) %><%= v_icon(log.user) %> 向 <%= user_name_tag(item.to_user) %><%= v_icon(item.to_user) %> 提出了问题
+              <% when "EDIT" %>
+                <%= user_name_tag(log.user) %><%= v_icon(log.user) %> <%= log.target_attr == "TITLE" ? "修改了该问题" : "修改了该问题的补充说明" %>         
+              <% when "ADD_TOPIC" %>
+                <%= user_name_tag(log.user) %><%= v_icon(log.user) %> 给该问题添加了话题
+                <%
+                topics = log.title.split(',')
+                for topic in topics
+                %>
+                  <a href="/topics/<%= topic %>"><%= topic %></a> &nbsp;
+                <% end %>
+              <% when "DEL_TOPIC" %>
+                <%= user_name_tag(log.user) %><%= v_icon(log.user) %> 从该问题删除了话题 
+                <%
+                topics = log.title.split(',')
+                for topic in topics
+                %>
+                  <a href="/topics/<%= topic %>"><%= topic %></a> &nbsp;
+                <% end %>
+              <% when "INVITE_TO_ANSWER" %>
+                <% to_user = User.where(_id:log.target_id).first  %>
+                <%= user_name_tag(log.user) %><%= v_icon(log.user) %>邀请<%= user_name_tag(to_user) if to_user %><%= v_icon(to_user) if to_user %>解答此问题
+              <% end %>
+
+              <% if ["NEW", "EDIT"].include?(log.action) %>
+                • <%= item.answers_count %> 个答案 
+                • <a href="#" onclick="return Asks.simple_follow(this,'<%= item.id %>')">关注</a> 
+              <% end %>
+
+            </div></hgroup>
+        </header>
+        <%= render file:'application/_answer_section', locals:{answer:item.last_answer} %>
+      </article>
+    <%
+    else%>
+      <%= '&nbsp;' %><br>
+    <%	end
+  when "UserLog"
+    answer = item = nil
+    if ["FOLLOW", "UNFOLLOW"].include?(action)
+      item = Ask.first(:conditions => {:id => log.target_id})
+    elsif ["FOLLOW_TOPIC", "UNFOLLOW_TOPIC"].include?(action)
+      item = Topic.first(:conditions => { :id => log.target_id })
+      items=[]
+      items=Topic.all_in(:id=>log.target_ids).to_a if log.target_ids
+    elsif ["FOLLOW_USER", "UNFOLLOW_USER"].include?(action)
+      item = User.first(:conditions => { :id => log.target_id})
+    elsif ["FOLLOW_ASK", "UNFOLLOW_ASK"].include?(action)
+      item = Ask.first(:conditions => { :id => log.target_id})
+    elsif ["AGREE"].include?(action)
+      answer = Answer.first(:conditions => {:id => log.target_id})
+      if !answer.blank?
+        return raw('<br style="display:none">') if 1==answer.deleted
+        item = answer.ask
+      end
+    elsif ["THANK_ANSWER"].include?(action)
+      item = Answer.first(:conditions => {:id => log.target_id})
+    end
+    return raw('<br style="display:none">') if item and 1==item.deleted
+    if !item.nil? or (item.is_a?(Ask) and item.spams_count < Setting.ask_spam_max)
+    %>	
+      <% if ["FOLLOW_TOPIC", "UNFOLLOW_TOPIC"].include?(action) %>
+        <article class="askInfoMinor">
+          <h6><%= user_name_tag(log.user) %><%= v_icon(log.user) %> <%= action == "FOLLOW_TOPIC" ? "关注" : "取消关注" %>了话题 <a href="/topics/<%= item.name %>" style="display:none"><%= item.name %></a><%if log.target_ids%> <%i=0;log.target_ids.reverse.each do |id|;i+=1;it=Topic.where(_id:id).first;next unless it%> <a href="/topics/<%= it.name %>"><%= it.name %></a><%=',' unless i==log.target_ids.length%>  <%end%><%end%></h6>
+        </article>
+      <% elsif ["FOLLOW_USER", "UNFOLLOW_USER"].include?(action) %>
+        <article class="askInfoMinor"><h6><%= user_name_tag(log.user) %><%= v_icon(log.user) %> <%= action == "FOLLOW_USER" ? "关注" : "取消关注" %>了 <%= user_name_tag(item) %><%= v_icon(item) %></h6></article>
+      <% elsif action == "THANK_ANSWER"  %>
+        <article class="askInfoMinor">  <h6>  
+            <%= user_name_tag(log.user) %><%= v_icon(log.user) %> 感谢了 <%= user_name_tag(item.user) %> <%= v_icon(item.user) %>
+            在 <a href="/asks/<%= log.target_parent_id %>?nr=1#answer_<%= log.target_id %>"><%= log.target_parent_title %></a> 中的解答。 </h6></article>
+      <% elsif ["FOLLOW_ASK", "UNFOLLOW_ASK"].include?(action) %>
+        <article class="askInfoAll clearfix" ask-id="<%= log.id %>">
+          <header class="clearfix">
+            <% unless item.topics.blank? %>
+              <ul class="topicNav clearfix">
+                <% item.topics.each do |topic| %>
+                  <li><span><a title="<%= topic %>" href="/topics/<%= topic %>"><%= topic %></a></span></li>
+                <% end %>
+              </ul>
+            <% end %>
+
+            <aside>
+              <%= user_avatar_tag(log.user,:small38,38) %>
+            </aside>
+
+            <hgroup>
+              <h6><%= ask_title_tag(item) %><span class="fc999"><% unless @log_no_gedaan %>（<%= item.answers_count %>个答案）<% end %></span></h6>
+              <div class="summary">
+                <div class="info">
+                  <%= user_name_tag(log.user) %><%= v_icon(log.user) %> <%= action == "FOLLOW_ASK" ? "关注了该问题" : (action == "UNFOLLOW_ASK" ? "取消关注了该问题" : "赞同该解答") %>
+                  • <%= item.answers_count %> 个答案 
+                  • <a href="#" onclick="return Asks.simple_follow(this,'<%= item.id %>')">关注</a> 
+                </div> 
+              </div>
+            </hgroup>
+          </header>
+          <%= render file:'application/_answer_section', locals:{answer:item.last_answer} %>
+        </article>
+      <% end %>
+      <% if ["AGREE"].include?(action) %>
+        <article class="askInfoAll clearfix" ask-id="<%= log.id %>">
+          <header class="clearfix">
+            <% unless item.topics.blank? %>
+              <ul class="topicNav clearfix">
+                <% item.topics.each do |topic| %>
+                  <li><span><a title="<%= topic %>" href="/topics/<%= topic %>"><%= topic %></a></span></li>
+                <% end %>
+              </ul>
+            <% end %>
+
+            <aside>
+              <%= user_avatar_tag(log.user,:small38,38) %>
+            </aside>
+
+            <hgroup>
+              <h6><%= ask_title_tag(item) %><span class="fc999"><% unless @log_no_gedaan %>（<%= item.answers_count %>个答案）<% end %></span></h6>
+              <div class="summary">
+                <div class="info">
+                  <%= user_name_tag(log.user) %><%= v_icon(log.user) %> <%= action == "FOLLOW_ASK" ? "关注了该问题" : (action == "UNFOLLOW_ASK" ? "取消关注了该问题" : "赞同该解答") %>
+                  • <%= item.answers_count %> 个答案 
+                  • <a href="#" onclick="return Asks.simple_follow(this,'<%= item.id %>')">关注</a> 
+                </div> 
+              </div>
+            </hgroup>
+          </header>
+          <%= render file:'application/_answer_section', locals:{answer:answer} %>
+        </article>
+      <% end %>
+    <%
+    end
+  when "AnswerLog"
+    if log.answer
+      item = log.answer.ask
+      return raw('<br style="display:none">') if item and 1==item.deleted
+      if !item.nil? and item.spams_count < Setting.ask_spam_max
+      %>
+
+        <article class="askInfoAll clearfix" ask-id="<%= log.id %>">
+          <header class="clearfix">
+            <% unless item.topics.blank? %>
+              <ul class="topicNav clearfix">
+                <% item.topics.each do |topic| %>
+                  <li><span><a title="<%= topic %>" href="/topics/<%= topic %>"><%= topic %></a></span></li>
+                <% end %>
+              </ul>
+            <% end %>
+
+            <aside>
+              <%= user_avatar_tag(log.user,:small38,38) %>
+            </aside>
+
+            <hgroup>
+              <h6><%= ask_title_tag(item) %><span class="fc999"><% unless @log_no_gedaan %>（<%= item.answers_count %>个答案）<% end %></span></h6>
+              <div class="summary">
+                <div class="info">
+                  <%= user_name_tag(log.user) %><%= v_icon(log.user) %> <%= action == "NEW" ? "解答了该问题" : "修改了自己的解答" %>
+                  • <%= item.answers_count %> 个答案 
+                  • <a href="#" onclick="return Asks.simple_follow(this,'<%= item.id %>')">关注</a> 
+                </div> 
+              </div>
+            </hgroup>
+          </header>
+          <% if action == "NEW" and log.user %>
+            <%= render file:'application/_answer_section',:locals => {:answer => log.answer} %>
+          <% else %>
+            <%= render file:'application/_answer_section', locals:{answer:item.last_answer} %>
+          <% end %>
+
+        </article>
+      <% 
+      end
+    end
+  when "TopicLog"
+    item = log.topic
+    return raw('<br style="display:none">') if item and 1==item.deleted
+    if !item.nil?
+    %>
+      <article class="askInfoMinor">
+        <h6><% if log.action == "EDIT" %>
+            <%= user_name_tag(log.user) %><%= v_icon(log.user) %> 为话题 <a href="/topics/<%= item.name %>">#<%= item.name %></a> 
+            的<%= log.target_attr == "COVER" ?  "上传了封面图片。" : "提交了介绍。" %>
+          <% else %>
+            <%= user_name_tag(log.user) %><%= v_icon(log.user) %> 创建了话题 <a href="/topics/<%= item.name %>">#<%= item.name %></a>
+          <% end %>
+        </h6>
+      </article>
+    <%
+    end
+  when "CommentLog"
+    item = log.comment
+    return raw('<br style="display:none">') if item and 1==item.deleted
+    if !item.nil?
+      case item.commentable_type
+      when "Ask"
+      %>
+        <article class="askInfoMinor">
+          <h6><%= user_name_tag(log.user) %><%= v_icon(log.user) %> 评论了问题 <a href="/asks/<%= log.target_parent_id %>?easc=yes&asid=<%= log.target_parent_id %>#ask_comments"><%= log.title %></a></h6>
+        </article>
+      <%
+      when "Answer"
+      %>
+        <article class="askInfoMinor">
+          <h6><%= user_name_tag(log.user) %><%= v_icon(log.user) %> 评论了问题 <a href="/asks/<%= log.target_parent_id %>?eawc=yes&awid=<%= log.title %>#answer_<%= log.title %>"><%= log.target_parent_title %></a> 中的解答</h6>
+        </article>
+      <%
+      end
+    end
+  end
+%>
+
+
+<% end %>

@@ -1,0 +1,114 @@
+<%= content_for :scripts do %>
+  <%= javascript_include_tag("topics") %>
+  <script type="text/javascript">
+    var current_page = 2;
+    var topic_id = "<%= @topic.id %>";
+    function loadAsks(){
+      App.loading();
+      $.get("<%= topic_path(@topic.name) %>?page="+current_page,function(){
+          App.loading(false);
+      });
+      return false;
+    }
+  </script>
+<% end %>
+<!-- psvr_will_protect_ya内容头 -->
+<header class="userHeader mainContentHeader clearfix">
+	<figure class="cover">
+    <%= image_tag(@topic.cover.normal.url,:width=>100,:height=>100,:alt=>@topic.name,:title=>@topic.name) %>
+    <% if current_user and current_user.admin? %>
+      <div class="edit hide"><a href="javascript:void(0)" class="changeUserHead">修改图片</a></div>
+      <div id="edit_topic_cover" class="setupProfile hide" style="display:none">
+        <h2>修改话题图片</h2>
+        <%= simple_form_for(@topic,:class => "form",:html => { :multipart =>  true, :onsubmit => "App.loading();" }) do |f| %>
+          <div id="file_wrapper">
+              <div id="file_faker">
+                  <input id="file_uploader_text" type="text" />
+                  <div id="file_btn" class="btnNormalGreen">
+                      <span>浏 览</span>
+                  </div>
+                  <!-- 隐藏真正的上传 -->
+              </div>
+              <input class="file" id="file_uploader" name="topic[cover]" type="file" />
+          </div>
+          <div class="actions">
+            <button type="submit">上传图片</button>
+            <a href="#" onclick="$.facebox.close(); return false;">关闭</a>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+	</figure>
+	<section>
+		<h5 class="clearfix"><em><%= @topic.name %></em></h5>
+		<div class="fc999 tfmt">
+      <div id="topic_summary" style="margin-top:8px"><%= md_body @topic.summary  %></div>
+      <% if current_user and current_user.admin? %>
+        <% if @topic.summary.blank? %>
+          <%= in_place_edit_tag @topic, :summary, :type => :textarea, :text_id => "topic_summary",:label => "添加补充资料" %>
+        <% else %>
+          <%= in_place_edit_tag @topic, :summary, :type => :textarea, :text_id => "topic_summary" %>
+        <% end %>
+      <% end %>
+		</div>
+	</section>
+	<aside>
+	  <%= render 'topic__bfollow',topic:@topic %>
+	</aside>
+	<div class="clearfix"></div>
+	<div class="dline mt20"></div>
+</header>
+<% content_for :butt2 do %>
+Topics.editCover($("figure.cover"));
+<% end %>
+
+
+
+<section>
+  <%= render 'subnav',topic:@topic %>
+  <% @asks.each do |item| %>
+    <%= render "topics/ask", :item => item, :simple=>true %>
+  <% end %>
+  <%= will_paginate @asks, :renderer=>WendaoLinkRenderer,:inner_window=>2 %>
+</section>
+</div>
+
+<% content_for :sidebar do %>
+
+<%= render file:'home/refresh_sugg_ex.html' %>
+
+
+<section class="sideBox clearfix">
+<h3>最近关注此话题的人</h3>
+<ul class="headList23">
+	<% for follower in @topic.follower_ids.rlimit(48) %>
+		<li><%= user_avatar_tag2(follower, :small,{:size2 => 23}) %></li>
+	<% end %>
+</ul>
+</section>
+		
+
+<% if false and !@related_topics.blank? %>
+  <section class="sideBox clearfix">
+  					<h3>相关话题</a></h3>
+  					<ul class="topicList">
+          		<% for topic in @related_topics %>
+          		  <% topicname = topic %>
+          		  <% topic = Topic.get_id(topic) %>
+                <% next if topic.blank? %>
+  						<li><em>
+  						  <a href="<%= topic_path(topicname) %>"><%= truncate(topicname,:length=>7,omission:'⋯') %></a>
+  						  </em>
+                <% if current_user and current_user.topic_followed?(topic) %>
+                <a class="nBtn nBtnUnFocus" onclick="return Topics.unfollow(this, '<%= topicname %>','small');"></a>
+                <% else %>
+                <a class="nBtn nBtnFocus" onclick="return Topics.follow(this, '<%= topicname %>','small');"></a>
+                <% end %>
+
+  						  </li>
+						  <% end %>
+  					</ul>
+  				</section>
+<% end %>
+<% end %>
+

@@ -1,0 +1,29 @@
+<article class="askInfoAll clearfix">
+  <header class="clearfix">
+<% simple = false if !defined?(simple) %>
+<% unless simple %>
+  <% unless item.topics.blank? %>
+		<ul class="topicNav clearfix">
+      <% item.topics.each do |topic| %>
+    			<li><span><a title="<%= topic %>" href="/topics/<%= topic %>"><%= topic %></a></span></li>
+      <% end %>
+		</ul>
+	<% end %>
+<% end %>
+
+  	<aside>
+  	  <%= user_avatar_tag(item.user,:small38,38) %>
+  	</aside>
+
+  	<hgroup>
+  		<h6><%= ask_title_tag(item) %><% unless simple %><span class="fc999"></span><% end %></h6>
+			<div class="summary">
+				<a href="/users/<%= item.user.slug %>"><%= item.user.name %></a><%= v_icon(item.user) %> 提出的问题 · <% unless simple %><%= item.answers_count %>个答案 · <%end%><%= render 'ask__simple_follow',ask:item %>
+  	</div></hgroup>
+  </header>
+  <% if defined?(designated_answer) and designated_answer %>
+    <%= render 'answer_section',answer:designated_answer %>
+  <% elsif item.last_answer %>
+    <%= render 'answer_section',answer:item.last_answer %>
+  <% end %>
+</article>

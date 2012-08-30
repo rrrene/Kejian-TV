@@ -1,0 +1,21 @@
+<%
+followername = User.get_name(follower)
+followerslug = User.get_slug(follower)
+followerpath = "/users/#{followerslug}"
+user = User.where(_id:follower).first
+return unless user.present?
+%>
+<article class="borderBottomDot clearfix">
+								<figure>
+								  <a href="<%= followerpath %>" title="<%= followername %>">
+            				<%= user_avatar_tag2(follower, :mid, {name:followername,slug:followerslug,path:followerpath}) %>
+            			</a>
+            		</figure>
+								<h6><a href="<%= followerpath %>"><%= followername %></a></h6>
+								<div><%= user.tagline %><br><span class="fc999"><%= user.followers_count %>人关注·<%= user.asks_count %>个问题</span></div>
+                <% if current_user and current_user.followed?(follower) %>
+                <a class="nBtn nBtnUnFocus" onclick="return Users.unfollow(this, '<%= followerslug %>','small');"></a>
+                <% else %>
+                <a class="nBtn nBtnFocus" onclick="return Users.follow(this, '<%= followerslug %>','small');"></a>
+                <% end %>
+</article>

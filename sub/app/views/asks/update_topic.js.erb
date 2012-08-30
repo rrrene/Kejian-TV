@@ -1,0 +1,6 @@
+<% if @success %>
+  Asks.addTopic("<%= @name %>");
+  $("#searchTopic").val("").focus();
+<% else %>
+<% end %>
+App.loading(false);

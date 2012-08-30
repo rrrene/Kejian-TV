@@ -1,0 +1,393 @@
+<% content_for :body_style do %>background: none repeat scroll 0 0 #F0EEEE<% end %>
+<%= render file:'/application/headers/_zm_header' %>
+
+<div class="tagchannel __zm">
+<div id="wrapper">
+<div id="nav" class="categorybody">
+<div class="navandshadow">
+<div class="categories">
+
+<div class="sortnav-mod sortnav-male cf" id="categories_table">
+
+
+<% content_for :butt2 do %>
+$('#categories_table > div').height($('#categories_table').height());
+<% end %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<% father=Topic.math_and_sciences %>
+<div class="col-coat">
+<h3><a href="<%= topic_path father %>" class="coat"><span ></span>数学与自然科学</a></h3>
+<ul class="navlist" style="margin-left:22px">
+<% father.children_inst.desc('coursewares_count').each do |topic| %>
+<li  ><a class="<%= 'orange' if topic.coursewares_count > 100 %>" href="<%= topic_path(topic) %>"><span><%= topic.name %></span></a></li>
+<% end %>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<% father=Topic.engineering %>
+<div class="col-pants">
+<h3><a href="<%= topic_path father %>" class="pants"><span ></span>工程</a></h3>
+<ul class="navlist">
+  <% father.children_inst.desc('coursewares_count').each do |topic| %>
+  <li  ><a class="<%= 'orange' if topic.coursewares_count > 100 %>" href="<%= topic_path(topic) %>"><span><%= topic.name %></span></a></li>
+  <% end %>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<% father=Topic.humanities %>
+<div class="col-accessories">
+<h3><a href="<%= topic_path father %>" class="accessories"><span ></span>人文、艺术与社会科学</a></h3>
+<ul class="navlist">
+<% father.children_inst.desc('coursewares_count').each do |topic| %>
+<li  ><a class="<%= 'orange' if topic.coursewares_count > 100 %>" href="<%= topic_path(topic) %>"><span><%= topic.name %></span></a></li>
+<% end %>
+</ul>
+</div>
+
+
+
+
+
+
+<div class="col-other">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<% father=Topic.interdisciplinaries %>
+<h3 class="sty"><a href="<%= topic_path father %>">交叉学科</a></h3>
+<ul class="sty-list cf">
+<% father.children_inst.desc('coursewares_count').each do |topic| %>
+<li  ><a class="<%= 'orange' if topic.coursewares_count > 100 %>" href="<%= topic_path(topic) %>"><span><%= topic.name %></span></a></li>
+<% end %>
+</ul>
+
+
+
+
+
+<% father=Topic.others %>
+<h3 class="ele"><a href="<%= topic_path father %>">其他</a></h3>
+<ul class="ele-list cf">
+<% father.children_inst.desc('coursewares_count').each do |topic| %>
+<li  ><a class="<%= 'orange' if topic.coursewares_count > 100 %>" href="<%= topic_path(topic) %>"><span><%= topic.name %></span></a></li>
+<% end %>
+</ul>
+
+
+
+</div>
+</div>
+<input id="removeIds" type="hidden" value="" />
+</div><!--categories ends-->
+<div class="sheetshadow"></div><!--薄片阴影-->
+</div>
+<div class="calloutcontainer"><!--圆形按钮-->
+<div class="callout"><span class="iconbg arrow"></span></div>
+</div>
+</div><!--categorybody end 分类结束-->
+<div class="filterbar" style="margin-top:44px;">
+<input id="queryScope" name="queryScope" type="hidden" value="0" />
+<% params[:isProduct] ||= '0' %>
+<input id="isProduct" type="hidden" value="<%= params[:isProduct] %>" />
+<% params[:queryOrder] ||= '1' %>
+<input id="queryOrder" type="hidden" value="<%= params[:queryOrder] %>" />
+<% params[:priceScope] ||= '0' %>
+<input id="priceScope" type="hidden" value="<%= params[:priceScope] %>" />
+<div class="hotword floatleft cf">
+<h4>只查看：</h4>
+<ul id="ulQueryScope">
+
+<li <%=raw 'class="current"' if '2'==params[:priceScope] %>><a class="queryScopeCss" rel="2"  href="javascript:;" ><span>篇幅长的</span></a></li>
+<li <%=raw 'class="current"' if '0'==params[:priceScope] %>><a class="queryScopeCss" rel="0"  href="javascript:;" ><span>全部</span></a></li>
+</ul>
+</div>
+<div class="hotword floatright cf">
+<span><input id="isProductCheckBox" type="checkbox" <%= 'checked' if '1'==params[:isProduct] %>></span>
+<span class="onlycom"><label for="isProductCheckBox">只看幻灯片</label></span>
+<span class="split">|</span>
+<h4>排序：</h4>
+<ul id="ulQueryOrder">
+<li  class='current'><a class="queryOrderCss" rel="1" href="javascript:;"><span>最新</span></a></li>
+<li ><a class="queryOrderCss" rel="2" href="javascript:;"><span>最热</span></a></li>
+</ul>
+</div>
+</div>
+<div id="content" class="cf" style="box-shadow:none;background:none;overflow:visible !important;">
+
+
+  <div id="leftLabel" class="rightbox" style="visibility:hidden;">
+  <div class="pin labels">
+  <ul class="cf">
+    <% Topic.roots.each do %>
+    
+    <% end %>
+  </ul>
+  </div>
+  </div>
+
+
+
+</div>
+<!--内容容器开始-->
+<div id="imloading" class="imfootloading" style="visibility:hidden;"><div class="loading">正在加载，请稍候......</div></div>
+</div>
+<%content_for :butt do %>
+<script type="text/javascript">
+im(function(){
+
+$('.queryScopeCss').on('click', function () {
+    var queryScope = $(this).attr("rel");
+    $('#queryScope').val(queryScope);
+    $('#ulQueryScope > li').removeClass();
+    $(this).parent().addClass('current');
+    queryExec();
+});
+
+$('#isProductCheckBox').on('click', function () {
+    var selected = $('#isProductCheckBox').attr("checked");
+    if (typeof (selected) == "undefined") {
+        $('#isProduct').val(0);
+    } else if (selected == 'checked') {
+        $('#isProduct').val(1);
+    }
+    queryExec();
+});
+$('#priceContent a').on('click', function () {
+    var price = $(this).text();
+    if (price == '全部') {
+        $('#priceScope').val("");
+    } else if (price == '500以上') {
+        $('#priceScope').val(501);
+    } else {
+        $('#priceScope').val(price);
+    }
+    $('#priceContent').prev('a').html(price + '<em class="iconbg arrow"></em>');
+    $('#priceContent').hide();
+    queryExec();
+});
+$('.queryOrderCss').on('click', function () {
+    var queryOrder = $(this).attr("rel");
+    $('#queryOrder').val(queryOrder);
+    $('#ulQueryOrder > li').removeClass();
+    $(this).parent().addClass('current');
+    queryExec();
+});
+
+$('.allprice').hover(function () {
+    $('#priceContent').show();
+}, function () {
+    $('#priceContent').hide();
+})
+
+function queryExec() {
+    var queryScope = $('#queryScope').val();
+    var priceScope = $('#priceScope').val();
+    var isProduct = $('#isProduct').val();
+    var queryOrder = $('#queryOrder').val();
+    if ($('#js-ad-show8').length == 0) {
+        $("#content").html("");
+    } else {
+        $('#js-ad-show8').nextAll().remove();
+    }
+    var linkUrl = "/coursewares",
+        jsonUrl = "/coursewares_with_page/";
+    autoLayout.pageNums = 0;
+    autoLayout.loading = true;
+    autoLayout.isHasNextPage = true;
+    autoLayout.pageNum = 2;
+
+    autoLayout.init({
+        contentID: "content",
+        rightLoad: true,
+        leftID: [],
+        rightID: ['js-ad-show8'],
+        linkUrl: linkUrl,
+        dataContent: {
+            'removedTagIds': $("#removeIds").val(),
+            'queryScope': queryScope,
+            'priceScope': priceScope,
+            'onlyForCommodity': isProduct,
+            'queryOrder': queryOrder
+        },
+        loadingID: "imloading",
+        callBack: function () {
+            var showContent = "对不起，还没有相关收集";
+            $("#content").prepend('<div style="text-align: center; margin:0 auto; padding-top: 100px; left: 0px; top: 0px;" class="f14" columns="0">' + showContent + '</div>');
+        }
+    });
+    autoLayout.eachAction(jsonUrl);
+}
+
+im(function () {
+    $("#firstload").css({
+        "top": ($(document).height() - $("#content").offset().top) / 2 + $("#content").offset().top
+    }); //定位初次加载提示垂直位置
+    var queryScope = $('#queryScope').val();
+    var priceScope = $('#priceScope').val();
+    var isProduct = $('#isProduct').val();
+    var queryOrder = $('#queryOrder').val();
+
+    $('#div_tags .btn-customlabel').hover(function () {
+        $(this).addClass('btn-customlabel-on');
+    }, function () {
+        $(this).removeClass('btn-customlabel-on');
+    });
+    im.zm.categoryNav({
+        ele: $("#nav"),
+        subEle: $("#nav .navandshadow"),
+        obj: $("#nav .callout"),
+        upClass: "arrowup",
+        downClass: "arrow",
+        top: "49px",
+        left: "-465px",
+        top_up: "-44px"
+    });
+    var delTagIds = 0;
+    var linkUrl = "/coursewares",
+        jsonUrl = "/coursewares_with_page/";
+    autoLayout.init({
+        contentID: "content",
+        rightLoad: true,
+        leftID: [],
+        rightID: ['js-ad-show8'],
+        linkUrl: linkUrl,
+        dataContent: {
+            'removedTagIds': delTagIds,
+            'queryScope': queryScope,
+            'priceScope': priceScope,
+            'onlyForCommodity': isProduct,
+            'queryOrder': queryOrder
+        },
+        loadingID: "imloading",
+        callBack: function () {
+            var showContent = "对不起，还没有相关收集";
+            $("#content").prepend('<div style="text-align: center; margin:0 auto; padding-top: 100px; left: 0px; top: 0px;" class="f14" columns="0">' + showContent + '</div>');
+        }
+    });
+    autoLayout.eachAction(jsonUrl);
+});
+
+var firstLevelCatalogId = 271;
+
+var secondLevelCatalogId = 0;
+
+var thirdLevelCatalogId = 0;
+
+$("#div_tags .close").off().on("click", function () {
+    var tagCount = $("#div_tags .btn-customlabel").size();
+    if (tagCount == 1) {
+        return;
+    }
+    var that = $(this);
+    var tagId = that.attr("rel");
+    var _thisremove = that.parent();
+    var queryScope = $('#queryScope').val();
+    var priceScope = $('#priceScope').val();
+    var isProduct = $('#isProduct').val();
+    var queryOrder = $('#queryOrder').val();
+    oldTagId = $("#removeIds").val();
+    if (oldTagId.length > 0) {
+        $("#removeIds").val(oldTagId + "," + tagId);
+    } else {
+        $("#removeIds").val(tagId);
+    }
+    var queryScope = $('#queryScope').val();
+    var priceScope = $('#priceScope').val();
+    var isProduct = $('#isProduct').val();
+    var queryOrder = $('#queryOrder').val();
+    $.ajax({
+        type: "GET",
+        url: uri("URI_TAG_CHANNEL", firstLevelCatalogId, secondLevelCatalogId, thirdLevelCatalogId),
+        data: {
+            'removedTagIds': $("#removeIds").val()
+        },
+        dataType: "text",
+        success: function (data) {
+            _thisremove.remove();
+            $("#nav .sortnav-mod").show();
+            $('#js-ad-show8').nextAll().remove();
+            var linkUrl = "/tag/271/0/0/1",
+                jsonUrl = "/tag/271/0/0/";
+            autoLayout.init({
+                contentID: "content",
+                rightLoad: true,
+                leftID: [],
+                rightID: ['js-ad-show8'],
+                linkUrl: linkUrl,
+                dataContent: {
+                    'removedTagIds': $("#removeIds").val(),
+                    'queryScope': queryScope,
+                    'priceScope': priceScope,
+                    'onlyForCommodity': isProduct,
+                    'queryOrder': queryOrder
+                },
+                loadingID: "imloading",
+                callBack: function () {
+                    var showContent = "对不起，还没有相关收集";
+                    $("#content").prepend('<div style="text-align: center; margin:0 auto; padding-top: 100px; left: 0px; top: 0px;" class="f14" columns="0">' + showContent + '</div>');
+                }
+            });
+            autoLayout.eachAction(jsonUrl);
+        }
+    });
+});
+});
+
+</script>
+<% end %>
+
+
+</div>
+<%= render file:'/application/footers/_zm_footer' %>

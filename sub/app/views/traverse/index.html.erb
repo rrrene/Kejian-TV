@@ -1,0 +1,77 @@
+
+<h2>搜索结果</h2>
+<div class="dline"></div>
+<div class="clearfix"></div>
+<!-- 这里开始是搜索结果的“所有”分页内容 -->
+<nav class="tabNav mt20 clearfix">
+	<ul>
+		<li class="<%= 'current' unless ['1','2','3'].include? params[:mode] %>"><%= link_to '所有',traverse_path(q:params[:q],mode:'0') %></li>
+		<li class="<%= 'current' if '1'==params[:mode] %>"><%= link_to '话题',traverse_path(q:params[:q],mode:'1') %></li>
+		<li class="<%= 'current' if '2'==params[:mode] %>"><%= link_to '用户',traverse_path(q:params[:q],mode:'2') %></li>
+		<li class="<%= 'current' if '3'==params[:mode] %>"><%= link_to '问题',traverse_path(q:params[:q],mode:'3',sortc:'timewise') %></li>
+	</ul>
+</nav>
+
+<% case params[:mode] %>
+<% when '1' %>
+<section class="cList">
+<% @topics.each do |topic| %>
+  <%= render 'topic',topic:topic %>
+<% end %>
+</section>
+<% when '2' %>
+
+<section class="cList">
+  <% @users.each do |user| %>
+    <%= render 'user',user:user %>
+  <% end %>
+  <%= will_paginate @users, :renderer=>WendaoLinkRenderer,:inner_window=>2 %>
+</section>
+<% when '3' %>
+  <nav class="tabNavSub clearfix">
+    <span class="fr">
+    <%if 'timewise'==params[:sortc]%>按时间<%else%><a href="<%="#{request.path}?mode=#{params[:mode]}&q=#{params[:q]}&sortc=timewise"%>">按时间</a><%end%>
+      | 
+    <% if 'answise'==params[:sortc]%>按解答数<%else%><a href="<%="#{request.path}?mode=#{params[:mode]}&q=#{params[:q]}&sortc=answise"%>">按解答数</a><%end%>
+  </span>
+  </nav>
+<section>
+  <% @asks.each do |ask| %>
+    <%= render 'ask',ask:ask %>
+	<% end %>
+  <%= will_paginate @asks, :renderer=>WendaoLinkRenderer,:inner_window=>2 %>
+</section>
+<% else %>
+
+<div class="searchInputBox mt10 clearfix">
+  <%= form_tag traverse_path,method:'get' do %>
+	<input type="text" name="q" value="<%= params[:q] %>">
+	<button type="submit"></button>
+  <%end %>
+</div>
+  <!-- 话题列表【左右两列样式】 -->
+  <h3 class="mt40">关于“<mark><%=params[:q]%>”</mark>的话题<span class="fc369"><a href="<%= traverse_path(q:params[:q],mode:'1') %>">（话题<%=@topics.size %>个）</a></span><span class="fr fs12"><a href="<%= traverse_path(q:params[:q],mode:'1') %>">更多&gt;&gt;</a></span></h3>
+  <section class="cList twoCols clearfix">
+    <%@topics.limit(6).each do |topic|%>
+      <%= render 'topic0',topic:topic %>
+    <%end%>
+  </section>
+
+  <!-- 用户列表【左右两列样式】 -->
+  <h3 class="mt40">关于“<mark><%=params[:q]%>”</mark>的用户<span class="fc369"><a href="<%= traverse_path(q:params[:q],mode:'2') %>">（用户<%= @users.count %>个）</a></span><span class="fr fs12"><a href="<%= traverse_path(q:params[:q],mode:'2') %>">更多&gt;&gt;</a></span></h3>
+  <section class="cList twoCols clearfix">
+    <% @users.limit(6).each do |user| %>
+      <%= render 'user0',user:user %>
+  	<% end %>
+  </section>
+
+  <!-- 搜索结果的问题列表 -->
+  <h3 class="mt40">关于“<mark><%=params[:q]%>”</mark>的问题<span class="fc369"><a href="<%= traverse_path(q:params[:q],mode:'3') %>">（问题<%= @asks.count %>个）</a></span><span class="fr fs12"><a href="<%= traverse_path(q:params[:q],mode:'3') %>">更多&gt;&gt;</a></span></h3>
+  <section>
+    <% @asks.limit(10).each do |ask| %>
+      <%= render 'ask',ask:ask %>
+  	<% end %>
+  </section>
+<% end %>
+
+<%= render file:"asks/_sidebar" %>

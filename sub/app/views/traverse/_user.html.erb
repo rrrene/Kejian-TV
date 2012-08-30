@@ -1,0 +1,11 @@
+<article class="borderBottomDot">
+	<figure><%= user_avatar_tag(user,:mid) %></figure>
+	<h6><a href="/users/<%= user.slug %>" title="<%= user.name %>"><% title = user.name %>
+  
+  <% @qq.each do |x|
+    title.gsub!(/#{x.force_encoding 'utf-8'}/){|s| "<span style=\"color:#CC0000\">#{s}</span>"}
+  end  unless @qq.blank?%>
+  <%= raw title %></a></h6>
+	<div><%= truncate(user.tagline,:length=>20) %><br><span class="fc999"><%= user.follower_ids.size %>人关注·解答过<%= user.answers_count %>个问题</span></div>
+	<%= render 'user__nfollow',user:user %>
+</article>

@@ -1,0 +1,35 @@
+
+<%= content_for :scripts do %>
+  <script type="text/javascript">
+		function follow(el, id){
+      App.loading();
+			$(el).attr("onclick", "return false;");
+			$.get("/users/"+id+"/follow",{}, function(res){
+        App.loading(false);
+        $(el).replaceWith('<a href="#" style="width:80px;" class="gray_button" onclick="return unfollow(this, \'<%= @user.slug %>\');">取消关注</a>');
+	    });
+      return false;
+    }
+		
+		function unfollow(el, id){
+      App.loading();
+			$(el).attr("onclick", "return false;");
+			$.get("/users/"+id+"/unfollow",{}, function(res){
+        App.loading(false);
+        $(el).replaceWith('<a href="#" style="width:80px;" class="gray_button bBtn bBtnFocus" onclick="return follow(this, \'<%= @user.slug %>\');">关注</a>');
+	    });
+      return false;
+    }
+  </script>
+<% end %>
+<%= render "head", :user => @user %>
+
+<section>
+  <% for log in @logs %>
+  <%= render "logs/log", :log => log %>
+  <% end %>
+<%= will_paginate @logs, :renderer=>WendaoLinkRenderer,:inner_window=>2 %>
+</section>
+
+<%= render "sidebar", :user => @user %>
+
