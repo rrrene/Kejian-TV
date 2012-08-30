@@ -1,1 +1,0 @@
-../../../../trunk/app/models/ktv/helpers.rb

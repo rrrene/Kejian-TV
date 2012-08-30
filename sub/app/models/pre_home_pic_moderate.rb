@@ -1,1 +1,0 @@
-../../../trunk/app/models/pre_home_pic_moderate.rb

@@ -5,7 +5,10 @@ Sub::Application.routes.draw do
   post '/api/uc' => 'ucenter#ktv_uc_client'
   get '/favicon'=>'welcome#favicon'
 
-  devise_for :users
+  devise_for :users do
+    get "/login", :to => "devise/sessions#new",as:'login'
+    get '/logout', :to => "devise/sessions#destroy", as:'logout'
+  end
   resources :courses
   resources :teachers
 end

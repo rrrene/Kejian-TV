@@ -40,12 +40,11 @@
 <%= stylesheet_link_tag "application", :media => "all" %>
 <%= csrf_meta_tags %>
 </head>
-<!--style="position:absolute;top:18px;margin-left:620px">-->
 <body onkeydown="if(event.keyCode==27) return false;">
   <div id="append_parent"></div><div id="ajaxwaitid"></div>
   <div id="hd">
     <div class="wp">
-      <div class="hdc cl" style="position:absolute;top:35px;margin-left:604px">
+      <div class="hdc cl psvr_wtf_<%= user_signed_in? ? 'logout' : 'login' %>div" style="position:absolute;top:35px;margin-left:604px">
 
         <script src="/simple/static/js/logging.js?tFF" type="text/javascript"></script>
         <form method="post" autocomplete="off" id="lsform" action="/simple/member.php?mod=logging&amp;action=login&amp;loginsubmit=yes&amp;infloat=yes&amp;lssubmit=yes" onsubmit="return lsSubmit();">
@@ -183,7 +182,7 @@
               <li class="psvr" style="height:37px">&nbsp;</li>
               <li class="psvr" ><a class="psvr <%= '/'==request.path ? 'psvr_now' : ''%>" href="/"><span class="psvr" >首页</span></a></li>
               <li class="psvr" ><a class="psvr <%= '/courses'==request.path ? 'psvr_now' : ''%>" href="<%=courses_path%>"><span class="psvr" >本学期课程</span></a></li>
-           <li class="psvr" ><a class="psvr" href="www.ttmeiju.com/countdown.html"><span class="psvr" >全部课程</span></a></li>
+           <li class="psvr" ><a class="psvr" href="www.ttmeiju.com/countdown.html"><span class="psvr" >本学期未开</span></a></li>
            <li class="psvr" ><a class="psvr" href="www.ttmeiju.com/summary.html"><span class="psvr" >牛人龙虎榜</span></a></li>
            <li class="psvr" ><a class="psvr" href="bbs.ttmeiju.com/forum-49-1.html"><span class="psvr" >过科攻略</span></a></li>
            <li class="psvr" ><a class="psvr" href="bbs.ttmeiju.com" title="求助" target="_blank"><span class="psvr" >求助</span></a></li>

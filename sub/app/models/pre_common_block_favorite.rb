@@ -1,1 +1,0 @@
-../../../trunk/app/models/pre_common_block_favorite.rb

@@ -1,1 +1,0 @@
-../../../trunk/app/models/pre_forum_attachment_8.rb

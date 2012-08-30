@@ -1,1 +1,0 @@
-../../../../trunk/app/models/ktv/kejian1.rb
