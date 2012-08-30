@@ -11,7 +11,7 @@
 
 
 <% content_for :butt2 do %>
-$('#categories_table > div').height($('#categories_table').height());
+jQuery('#categories_table > div').height(jQuery('#categories_table').height());
 <% end %>
 
 
@@ -187,59 +187,59 @@ $('#categories_table > div').height($('#categories_table').height());
 <script type="text/javascript">
 im(function(){
 
-$('.queryScopeCss').on('click', function () {
-    var queryScope = $(this).attr("rel");
-    $('#queryScope').val(queryScope);
-    $('#ulQueryScope > li').removeClass();
-    $(this).parent().addClass('current');
+jQuery('.queryScopeCss').on('click', function () {
+    var queryScope = jQuery(this).attr("rel");
+    jQuery('#queryScope').val(queryScope);
+    jQuery('#ulQueryScope > li').removeClass();
+    jQuery(this).parent().addClass('current');
     queryExec();
 });
 
-$('#isProductCheckBox').on('click', function () {
-    var selected = $('#isProductCheckBox').attr("checked");
+jQuery('#isProductCheckBox').on('click', function () {
+    var selected = jQuery('#isProductCheckBox').attr("checked");
     if (typeof (selected) == "undefined") {
-        $('#isProduct').val(0);
+        jQuery('#isProduct').val(0);
     } else if (selected == 'checked') {
-        $('#isProduct').val(1);
+        jQuery('#isProduct').val(1);
     }
     queryExec();
 });
-$('#priceContent a').on('click', function () {
-    var price = $(this).text();
+jQuery('#priceContent a').on('click', function () {
+    var price = jQuery(this).text();
     if (price == '全部') {
-        $('#priceScope').val("");
+        jQuery('#priceScope').val("");
     } else if (price == '500以上') {
-        $('#priceScope').val(501);
+        jQuery('#priceScope').val(501);
     } else {
-        $('#priceScope').val(price);
+        jQuery('#priceScope').val(price);
     }
-    $('#priceContent').prev('a').html(price + '<em class="iconbg arrow"></em>');
-    $('#priceContent').hide();
+    jQuery('#priceContent').prev('a').html(price + '<em class="iconbg arrow"></em>');
+    jQuery('#priceContent').hide();
     queryExec();
 });
-$('.queryOrderCss').on('click', function () {
-    var queryOrder = $(this).attr("rel");
-    $('#queryOrder').val(queryOrder);
-    $('#ulQueryOrder > li').removeClass();
-    $(this).parent().addClass('current');
+jQuery('.queryOrderCss').on('click', function () {
+    var queryOrder = jQuery(this).attr("rel");
+    jQuery('#queryOrder').val(queryOrder);
+    jQuery('#ulQueryOrder > li').removeClass();
+    jQuery(this).parent().addClass('current');
     queryExec();
 });
 
-$('.allprice').hover(function () {
-    $('#priceContent').show();
+jQuery('.allprice').hover(function () {
+    jQuery('#priceContent').show();
 }, function () {
-    $('#priceContent').hide();
+    jQuery('#priceContent').hide();
 })
 
 function queryExec() {
-    var queryScope = $('#queryScope').val();
-    var priceScope = $('#priceScope').val();
-    var isProduct = $('#isProduct').val();
-    var queryOrder = $('#queryOrder').val();
-    if ($('#js-ad-show8').length == 0) {
-        $("#content").html("");
+    var queryScope = jQuery('#queryScope').val();
+    var priceScope = jQuery('#priceScope').val();
+    var isProduct = jQuery('#isProduct').val();
+    var queryOrder = jQuery('#queryOrder').val();
+    if (jQuery('#js-ad-show8').length == 0) {
+        jQuery("#content").html("");
     } else {
-        $('#js-ad-show8').nextAll().remove();
+        jQuery('#js-ad-show8').nextAll().remove();
     }
     var linkUrl = "/coursewares",
         jsonUrl = "/coursewares_with_page/";
@@ -255,7 +255,7 @@ function queryExec() {
         rightID: ['js-ad-show8'],
         linkUrl: linkUrl,
         dataContent: {
-            'removedTagIds': $("#removeIds").val(),
+            'removedTagIds': jQuery("#removeIds").val(),
             'queryScope': queryScope,
             'priceScope': priceScope,
             'onlyForCommodity': isProduct,
@@ -264,30 +264,30 @@ function queryExec() {
         loadingID: "imloading",
         callBack: function () {
             var showContent = "对不起，还没有相关收集";
-            $("#content").prepend('<div style="text-align: center; margin:0 auto; padding-top: 100px; left: 0px; top: 0px;" class="f14" columns="0">' + showContent + '</div>');
+            jQuery("#content").prepend('<div style="text-align: center; margin:0 auto; padding-top: 100px; left: 0px; top: 0px;" class="f14" columns="0">' + showContent + '</div>');
         }
     });
     autoLayout.eachAction(jsonUrl);
 }
 
 im(function () {
-    $("#firstload").css({
-        "top": ($(document).height() - $("#content").offset().top) / 2 + $("#content").offset().top
+    jQuery("#firstload").css({
+        "top": (jQuery(document).height() - jQuery("#content").offset().top) / 2 + jQuery("#content").offset().top
     }); //定位初次加载提示垂直位置
-    var queryScope = $('#queryScope').val();
-    var priceScope = $('#priceScope').val();
-    var isProduct = $('#isProduct').val();
-    var queryOrder = $('#queryOrder').val();
+    var queryScope = jQuery('#queryScope').val();
+    var priceScope = jQuery('#priceScope').val();
+    var isProduct = jQuery('#isProduct').val();
+    var queryOrder = jQuery('#queryOrder').val();
 
-    $('#div_tags .btn-customlabel').hover(function () {
-        $(this).addClass('btn-customlabel-on');
+    jQuery('#div_tags .btn-customlabel').hover(function () {
+        jQuery(this).addClass('btn-customlabel-on');
     }, function () {
-        $(this).removeClass('btn-customlabel-on');
+        jQuery(this).removeClass('btn-customlabel-on');
     });
     im.zm.categoryNav({
-        ele: $("#nav"),
-        subEle: $("#nav .navandshadow"),
-        obj: $("#nav .callout"),
+        ele: jQuery("#nav"),
+        subEle: jQuery("#nav .navandshadow"),
+        obj: jQuery("#nav .callout"),
         upClass: "arrowup",
         downClass: "arrow",
         top: "49px",
@@ -313,7 +313,7 @@ im(function () {
         loadingID: "imloading",
         callBack: function () {
             var showContent = "对不起，还没有相关收集";
-            $("#content").prepend('<div style="text-align: center; margin:0 auto; padding-top: 100px; left: 0px; top: 0px;" class="f14" columns="0">' + showContent + '</div>');
+            jQuery("#content").prepend('<div style="text-align: center; margin:0 auto; padding-top: 100px; left: 0px; top: 0px;" class="f14" columns="0">' + showContent + '</div>');
         }
     });
     autoLayout.eachAction(jsonUrl);
@@ -325,39 +325,39 @@ var secondLevelCatalogId = 0;
 
 var thirdLevelCatalogId = 0;
 
-$("#div_tags .close").off().on("click", function () {
-    var tagCount = $("#div_tags .btn-customlabel").size();
+jQuery("#div_tags .close").off().on("click", function () {
+    var tagCount = jQuery("#div_tags .btn-customlabel").size();
     if (tagCount == 1) {
         return;
     }
-    var that = $(this);
+    var that = jQuery(this);
     var tagId = that.attr("rel");
     var _thisremove = that.parent();
-    var queryScope = $('#queryScope').val();
-    var priceScope = $('#priceScope').val();
-    var isProduct = $('#isProduct').val();
-    var queryOrder = $('#queryOrder').val();
-    oldTagId = $("#removeIds").val();
+    var queryScope = jQuery('#queryScope').val();
+    var priceScope = jQuery('#priceScope').val();
+    var isProduct = jQuery('#isProduct').val();
+    var queryOrder = jQuery('#queryOrder').val();
+    oldTagId = jQuery("#removeIds").val();
     if (oldTagId.length > 0) {
-        $("#removeIds").val(oldTagId + "," + tagId);
+        jQuery("#removeIds").val(oldTagId + "," + tagId);
     } else {
-        $("#removeIds").val(tagId);
+        jQuery("#removeIds").val(tagId);
     }
-    var queryScope = $('#queryScope').val();
-    var priceScope = $('#priceScope').val();
-    var isProduct = $('#isProduct').val();
-    var queryOrder = $('#queryOrder').val();
-    $.ajax({
+    var queryScope = jQuery('#queryScope').val();
+    var priceScope = jQuery('#priceScope').val();
+    var isProduct = jQuery('#isProduct').val();
+    var queryOrder = jQuery('#queryOrder').val();
+    jQuery.ajax({
         type: "GET",
         url: uri("URI_TAG_CHANNEL", firstLevelCatalogId, secondLevelCatalogId, thirdLevelCatalogId),
         data: {
-            'removedTagIds': $("#removeIds").val()
+            'removedTagIds': jQuery("#removeIds").val()
         },
         dataType: "text",
         success: function (data) {
             _thisremove.remove();
-            $("#nav .sortnav-mod").show();
-            $('#js-ad-show8').nextAll().remove();
+            jQuery("#nav .sortnav-mod").show();
+            jQuery('#js-ad-show8').nextAll().remove();
             var linkUrl = "/tag/271/0/0/1",
                 jsonUrl = "/tag/271/0/0/";
             autoLayout.init({
@@ -367,7 +367,7 @@ $("#div_tags .close").off().on("click", function () {
                 rightID: ['js-ad-show8'],
                 linkUrl: linkUrl,
                 dataContent: {
-                    'removedTagIds': $("#removeIds").val(),
+                    'removedTagIds': jQuery("#removeIds").val(),
                     'queryScope': queryScope,
                     'priceScope': priceScope,
                     'onlyForCommodity': isProduct,
@@ -376,7 +376,7 @@ $("#div_tags .close").off().on("click", function () {
                 loadingID: "imloading",
                 callBack: function () {
                     var showContent = "对不起，还没有相关收集";
-                    $("#content").prepend('<div style="text-align: center; margin:0 auto; padding-top: 100px; left: 0px; top: 0px;" class="f14" columns="0">' + showContent + '</div>');
+                    jQuery("#content").prepend('<div style="text-align: center; margin:0 auto; padding-top: 100px; left: 0px; top: 0px;" class="f14" columns="0">' + showContent + '</div>');
                 }
             });
             autoLayout.eachAction(jsonUrl);

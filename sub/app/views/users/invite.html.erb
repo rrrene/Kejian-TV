@@ -9,7 +9,7 @@
   </div>
   <div class="field">
     <%= f.label :email,'E-mail' %><div class="field_error" id="regerror_email"><%= resource.errors_for_field(:email) %></div><br class="clear">
-    <%= f.email_field :email,:class => 's462',:tabindex => 2,:autocomplete=>"off",:onkeypress=>"if(event.keyCode==13){$('#submit_btn_form').submit();}" %>
+    <%= f.email_field :email,:class => 's462',:tabindex => 2,:autocomplete=>"off",:onkeypress=>"if(event.keyCode==13){jQuery('#submit_btn_form').submit();}" %>
   </div>
   <div><input type="checkbox" checked="checked" value="1" style="height:19px;margin-left:5px" name="send_immediately" id="send_immediately"> <label for="send_immediately">立即发送邀请邮件</label></div>
 
@@ -71,11 +71,11 @@
 <div style="width:100%;height:50px"></div>
 <% end %>
 <% content_for :butt2 do %>
-$('#user_name').blur(function(){
+jQuery('#user_name').blur(function(){
   App.checkUsername(this);
   return true;
 });
-$('#user_email').blur(function(){
+jQuery('#user_email').blur(function(){
   App.checkEmail(this);
   return true;
 });

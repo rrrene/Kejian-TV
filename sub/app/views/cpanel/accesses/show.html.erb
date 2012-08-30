@@ -23,7 +23,7 @@
 
 
 <script>
-  $(document).ready(function() {
+  jQuery(document).ready(function() {
     createChart(
       <%=raw @access.chart_days %>,
       <%= @access.chart_times.to_json %>,

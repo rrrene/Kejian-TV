@@ -1,7 +1,7 @@
 
 <% if !@asks.blank? %>
   <% @asks.each do |item| %>
-    $(".pagination").before('<%= escape_javascript(render("/asks/ask.mobile",:item => item)) %>');
+    jQuery(".pagination").before('<%= escape_javascript(render("/asks/ask.mobile",:item => item)) %>');
   <% end %>
   current_page = "<%= (params[:page] || "1").to_i + 1 %>";
   <% if @asks.count < @per_page %>
@@ -9,7 +9,7 @@
   <% else %>
   still_going = true;
   <% end %>
-  $('#gonna_be_app').listview('refresh');
+  jQuery('#gonna_be_app').listview('refresh');
 <% else %>
   still_going = false;
 <% end %>

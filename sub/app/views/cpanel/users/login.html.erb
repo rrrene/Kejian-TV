@@ -29,7 +29,7 @@
 </div>
 <script>
   function initValue() {
-    $("#errbkurl").val(location.href+((location.href.indexOf('error=1')>-1)?'':'?error=1'));
+    jQuery("#errbkurl").val(location.href+((location.href.indexOf('error=1')>-1)?'':'?error=1'));
   }
   window.onload = initValue;
 </script>

@@ -31,18 +31,18 @@
     <div style="clear:both;height:10px;"></div>
     <input type="checkbox" id="sup_check" style="width:13px;margin-left:350px;" onclick="checkAvatar()">
     <span>全选</span>
-    <input type="button" value="删除" onclick="$('#avatar_del_form').submit()" style="width:120px;margin-left:50px;cursor:pointer;">
+    <input type="button" value="删除" onclick="jQuery('#avatar_del_form').submit()" style="width:120px;margin-left:50px;cursor:pointer;">
     <div style="clear:both;height:20px;"></div>
   </div>
   <script type="text/javascript">
     function checkAvatar(){
-      if($("#sup_check")[0].checked==true){
-        for(i=0;i<$(".sub_check").length;i++){
-          $(".sub_check")[i].checked=true;
+      if(jQuery("#sup_check")[0].checked==true){
+        for(i=0;i<jQuery(".sub_check").length;i++){
+          jQuery(".sub_check")[i].checked=true;
         }
       }else{
-        for(i=0;i<$(".sub_check").length;i++){
-          $(".sub_check")[i].checked=false;
+        for(i=0;i<jQuery(".sub_check").length;i++){
+          jQuery(".sub_check")[i].checked=false;
         }
       }   
     }

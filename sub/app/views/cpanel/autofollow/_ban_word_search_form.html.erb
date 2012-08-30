@@ -54,12 +54,12 @@
 <script type="text/javascript">
   (function() {
     // getElementById
-    function $id(id) {
+    function jQueryid(id) {
       return document.getElementById(id);
     }
     // output information
     function Output(msg) {
-      var m = $id("drag_messages");
+      var m = jQueryid("drag_messages");
       m.innerHTML = msg;
     }
     // file upload
@@ -115,8 +115,8 @@
     }
     // initialize
     function Init() {
-      var fileselect = $id("fileselect"),
-      filedrag = $id("filedrag");
+      var fileselect = jQueryid("fileselect"),
+      filedrag = jQueryid("filedrag");
       // file select
       fileselect.addEventListener("change", FileSelectHandler, false);
       // is XHR2 available?

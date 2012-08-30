@@ -1094,53 +1094,53 @@ Campus Life S..
 </div>
 <script type="text/javascript">
 followAllFollows = function(){
-if($('#jquery-certufyShop .shopCertify[follow|=false]').size()>0){
-$("#allFollows").text("一键关注全部");
-$("#allFollows").removeClass();
-$("#allFollows").addClass("btn-xlarge-follow");
+if(jQuery('#jquery-certufyShop .shopCertify[follow|=false]').size()>0){
+jQuery("#allFollows").text("一键关注全部");
+jQuery("#allFollows").removeClass();
+jQuery("#allFollows").addClass("btn-xlarge-follow");
 }
 }
 unfollowAllFollows = function(){
-if($('#jquery-certufyShop .shopCertify[follow|=false]').size()==0){
-$("#allFollows").text("已关注");
-$("#allFollows").removeClass();
-$("#allFollows").addClass("btn-xlarge-unfollow");
+if(jQuery('#jquery-certufyShop .shopCertify[follow|=false]').size()==0){
+jQuery("#allFollows").text("已关注");
+jQuery("#allFollows").removeClass();
+jQuery("#allFollows").addClass("btn-xlarge-unfollow");
 }
 }
 followCkeck=function (id,className,type,postUrl){
 if(type == 1){
-im.window.confirm($("#"+id),"确认取消关注吗?",function(){
-$.ajax({
+im.window.confirm(jQuery("#"+id),"确认取消关注吗?",function(){
+jQuery.ajax({
 type : "POST",
 url : postUrl,
 dataType:"json",
 success : function(data) {
-$("#"+id).text("关注");
-$("#"+id).removeClass();
-$("#"+id).addClass(className);
-$("#"+id).attr("follow",false);
-$("#"+id+"_count").text(parseInt($("#"+id+"_count").text())-1);
+jQuery("#"+id).text("关注");
+jQuery("#"+id).removeClass();
+jQuery("#"+id).addClass(className);
+jQuery("#"+id).attr("follow",false);
+jQuery("#"+id+"_count").text(parseInt(jQuery("#"+id+"_count").text())-1);
 followAllFollows();
 }
 });
 });
 }else{
-$.ajax({
+jQuery.ajax({
 type : "POST",
 url : postUrl,
 dataType:"json",
 success : function(data) {
-$("#"+id).text("已关注");
-$("#"+id).removeClass();
-$("#"+id).addClass(className);
-$("#"+id).attr("follow",true);
-$("#"+id+"_count").text(parseInt($("#"+id+"_count").text())+1);
+jQuery("#"+id).text("已关注");
+jQuery("#"+id).removeClass();
+jQuery("#"+id).addClass(className);
+jQuery("#"+id).attr("follow",true);
+jQuery("#"+id+"_count").text(parseInt(jQuery("#"+id+"_count").text())+1);
 unfollowAllFollows();
 }
 });
 }
 }
-$('#jquery-certufyShopCu .hotbutton').live("click",function(){
+jQuery('#jquery-certufyShopCu .hotbutton').live("click",function(){
 var loginUserId = <%=raw current_user ? current_user.id.to_s.to_json : 0 %>;
 if (loginUserId == 0) {
 var _path = window.location.pathname;
@@ -1148,30 +1148,30 @@ var flag = consts("REGIST_TYPE_STATION_GET");
 window.location.href= "/login"+"?flag="+flag+"&p="+_path;
 return;
 }
-var follow = $(this).attr("follow");
-var followed = $(this).attr("followed");
+var follow = jQuery(this).attr("follow");
+var followed = jQuery(this).attr("followed");
 var isMe = true;
 if(isMe){
 return;
 }
 if(eval(follow) == true){
-postUrl = uri("URI_FANS_UNFOLLOW_USER", $(this).attr("followed"));			
+postUrl = uri("URI_FANS_UNFOLLOW_USER", jQuery(this).attr("followed"));			
 }else{
-postUrl = uri("URI_FANS_ADD_FOLLOW_USER", $(this).attr("followed"));
+postUrl = uri("URI_FANS_ADD_FOLLOW_USER", jQuery(this).attr("followed"));
 }
 if(eval(follow) == true){
-followCkeck($(this).attr("id"),"hotbutton follow-btn",1,postUrl);
+followCkeck(jQuery(this).attr("id"),"hotbutton follow-btn",1,postUrl);
 } else {
-followCkeck($(this).attr("id"),"hotbutton unfollow-btn",2,postUrl);
+followCkeck(jQuery(this).attr("id"),"hotbutton unfollow-btn",2,postUrl);
 }
 });
-$("#allFollows").live("click",function(){
-$('#jquery-certufyShop .shopCertify[follow|=false]').click();
-$("#allFollows").text("已关注");
-$("#allFollows").removeClass();
-$("#allFollows").addClass("btn-xlarge-unfollow");
+jQuery("#allFollows").live("click",function(){
+jQuery('#jquery-certufyShop .shopCertify[follow|=false]').click();
+jQuery("#allFollows").text("已关注");
+jQuery("#allFollows").removeClass();
+jQuery("#allFollows").addClass("btn-xlarge-unfollow");
 });
-$('#jquery-certufyShop .shopCertify').live("click",function(){
+jQuery('#jquery-certufyShop .shopCertify').live("click",function(){
 var loginUserId = <%=raw current_user ? current_user.id.to_s.to_json : 0 %>;
 if (loginUserId == 0) {
 var _path = window.location.pathname;
@@ -1179,8 +1179,8 @@ var flag = consts("REGIST_TYPE_STATION_GET");
 window.location.href= "/login"+"?flag="+flag+"&p="+_path;
 return;
 }
-var follow = $(this).attr("follow");
-var followed = $(this).attr("followed");
+var follow = jQuery(this).attr("follow");
+var followed = jQuery(this).attr("followed");
 var isMe = true;
 if(isMe){
 return;

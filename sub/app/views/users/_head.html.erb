@@ -19,7 +19,7 @@
               </div>
               <!-- 隐藏真正的上传 -->
             </div>
-            <input class="file" id="file_uploader" name="user[avatar]" type="file" onchange="checkImg_head($('#facebox #file_uploader'))" />
+            <input class="file" id="file_uploader" name="user[avatar]" type="file" onchange="checkImg_head(jQuery('#facebox #file_uploader'))" />
           </div>
           <p class="fc999 hint">支持 jpg, gif, png 格式的图片，不要超过 2MB。建议图片尺寸大于 100×100。</p>
 
@@ -101,14 +101,14 @@
   <script type="text/javascript">
     function checkImg_head(fileObj){
       var agent=window.navigator.userAgent;
-      var hint = $("#facebox .hint");
+      var hint = jQuery("#facebox .hint");
       hint.html("支持 jpg, gif, png 格式的图片，不要超过 2MB。建议图片尺寸大于100 X 100。");
-      $("#facebox #upload_submit span").unbind("click");
+      jQuery("#facebox #upload_submit span").unbind("click");
       if (fileObj.val() == ""){
         return false;
       } else if(!fileObj.val().match(/.jpeg|.jpg|.gif|.png/i)){
         hint.html(hint.html().replace("支持 jpg, gif, png 格式的图片","<span style=\"color:red\">支持jpg, gif, png 格式的图片</span>"));
-        $("#facebox #upload_submit span").click(function(){return false;});
+        jQuery("#facebox #upload_submit span").click(function(){return false;});
       } else {
         if(agent.indexOf("Firefox")!=-1){//firefox
           var imgSize = (fileObj[0].files)?fileObj[0].files.item(0).size:0;
@@ -121,7 +121,7 @@
         }
         if (imgSize > 2048000){
           hint.html(hint.html().replace("不要超过 2MB","<span style=\"color:red\">不要超过 2MB</span>"));
-          $("#facebox #upload_submit span").click(function(){return false;});
+          jQuery("#facebox #upload_submit span").click(function(){return false;});
         }
       }
     }

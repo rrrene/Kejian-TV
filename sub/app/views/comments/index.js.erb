@@ -31,20 +31,20 @@
 </section>
 
 <script type="text/javascript">
-  $(".comments .cmtpager a").live("click", function() {
+  jQuery(".comments .cmtpager a").live("click", function() {
     App.loading();
-    $.ajax({
+    jQuery.ajax({
       url:this.href,
       dataType:'html',
       success:function(data) {
-        $('#<%= @type %>_<%= @id %>_comments').html(data);
+        jQuery('#<%= @type %>_<%= @id %>_comments').html(data);
         App.loading(0);
       }
     });
     return false;
   });
-  App.inputLimit($('#<%="new_comment_#{@type}_#{@id}"%>'),2000);
-  $('.comments .cmtpager a.disabled').click(function(){
+  App.inputLimit(jQuery('#<%="new_comment_#{@type}_#{@id}"%>'),2000);
+  jQuery('.comments .cmtpager a.disabled').click(function(){
     return false;
   });
 </script>

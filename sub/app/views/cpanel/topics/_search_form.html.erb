@@ -19,15 +19,15 @@
     </div>
   <% end %>
   <% content_for :butt2 do %>
-    $(function() {
-    $("#datepicker_from").datepicker({
+    jQuery(function() {
+    jQuery("#datepicker_from").datepicker({
     dateFormat:'yy-mm-dd'
     });
-    $( "#datepicker_to" ).datepicker({
+    jQuery( "#datepicker_to" ).datepicker({
     dateFormat:'yy-mm-dd'
     });
-    $('#time_from').timePicker();
-    $('#time_to').timePicker();
+    jQuery('#time_from').timePicker();
+    jQuery('#time_to').timePicker();
     });
   <% end %>
 </div>

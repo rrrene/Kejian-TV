@@ -34,26 +34,26 @@
 		</div>
 		<script type="text/javascript">
 		<% content_for :butt2 do %>
-      $(function() {
-      if ($("#fix-string01").length == 1) {
-      $("#fix-string01").text(
-      $.fn.fixStr($("#fix-string01").text(), 12, "..."));
+      jQuery(function() {
+      if (jQuery("#fix-string01").length == 1) {
+      jQuery("#fix-string01").text(
+      jQuery.fn.fixStr(jQuery("#fix-string01").text(), 12, "..."));
       }
-      if ($("#fix-string02").length == 1) {
-      $("#fix-string02").text(
-      $.fn.fixStr($("#fix-string02").text(), 16, "..."));
+      if (jQuery("#fix-string02").length == 1) {
+      jQuery("#fix-string02").text(
+      jQuery.fn.fixStr(jQuery("#fix-string02").text(), 16, "..."));
       }
-      if ($("#fix-string03").length == 1) {
-      $("#fix-string03").text(
-      $.fn.fixStr($("#fix-string03").text(), 12, "..."));
+      if (jQuery("#fix-string03").length == 1) {
+      jQuery("#fix-string03").text(
+      jQuery.fn.fixStr(jQuery("#fix-string03").text(), 12, "..."));
       }
-      if ($("#fix-string04").length == 1) {
-      $("#fix-string04").text(
-      $.fn.fixStr($("#fix-string04").text(), 16, "..."));
+      if (jQuery("#fix-string04").length == 1) {
+      jQuery("#fix-string04").text(
+      jQuery.fn.fixStr(jQuery("#fix-string04").text(), 16, "..."));
       }
-      if ($("#fix-string05").length == 1) {
-      $("#fix-string05").text(
-      $.fn.fixStr($("#fix-string05").text(), 12, "..."));
+      if (jQuery("#fix-string05").length == 1) {
+      jQuery("#fix-string05").text(
+      jQuery.fn.fixStr(jQuery("#fix-string05").text(), 12, "..."));
       }
       })
     <% end %>
@@ -173,17 +173,17 @@
 
 <script type="text/javascript">
 <% content_for :butt2 do %>
-var old_content = $("#contentMain").html();
-$('.queryOrderCss').live('click', function () {
-    var queryOrder = $(this).attr("rel");
-    $('#queryOrder').val(queryOrder);
-    $('#ulQueryOrder > li').removeClass();
-    $(this).parent().addClass('current');
+var old_content = jQuery("#contentMain").html();
+jQuery('.queryOrderCss').live('click', function () {
+    var queryOrder = jQuery(this).attr("rel");
+    jQuery('#queryOrder').val(queryOrder);
+    jQuery('#ulQueryOrder > li').removeClass();
+    jQuery(this).parent().addClass('current');
     queryExec();
 });
 function queryExec(){
-    var queryOrder = $('#queryOrder').val();
-    $("#contentMain").html(old_content);
+    var queryOrder = jQuery('#queryOrder').val();
+    jQuery("#contentMain").html(old_content);
     autoLayout.pageAuto = true;
     autoLayout.pageNums = 0;
     autoLayout.loading = true;
@@ -205,56 +205,56 @@ function queryExec(){
         callBack: function () {
         var showContent = "这个话题下还没有课件，<a href=\"/coursewares/new\">上传一个</a>吧：）";
 
-            $("#contentMain").prepend('<div style="text-align: center; margin-right: 233px; padding-top: 100px; left: 0px; top: 0px;" class="f14" columns="0">' + showContent + '</div>');
+            jQuery("#contentMain").prepend('<div style="text-align: center; margin-right: 233px; padding-top: 100px; left: 0px; top: 0px;" class="f14" columns="0">' + showContent + '</div>');
         }
     });
     autoLayout.eachAction(jsonUrl);
     App.psvr_wendao_init();    
-    $('#__w2_P47vozg_inline_editor_link').click(function() {
-      $(this).hide();
-      $('#the_question_topic_selector').show();
-      return $('.topic_remove').show();
+    jQuery('#__w2_P47vozg_inline_editor_link').click(function() {
+      jQuery(this).hide();
+      jQuery('#the_question_topic_selector').show();
+      return jQuery('.topic_remove').show();
     });
 
-    $('#the_question_topic_selector .submit_button').click(function() {
-      return $.post("/topics/" + KTV.data.topic_id + "/update_fathers", {
+    jQuery('#the_question_topic_selector .submit_button').click(function() {
+      return jQuery.post("/topics/" + KTV.data.topic_id + "/update_fathers", {
         add: 1,
-        name: $('#__w2_M152MfC_input').val()
+        name: jQuery('#__w2_M152MfC_input').val()
       }, function(data) {
-        if ($("#" + data.id + "_already_father").length === 0) {
-          $('#ld_C4qa3A_415667').append("<span id=\"" + data.id + "_already_father\"><div id=\"__w2_Jh9rGl8_topic_list_item\" class=\"topic_list_item\"><span id=\"ld_C4qa3A_415683\"><a href=\"/topics/" + data.id + "\" class=\"topic_name\"><span class=\"name_text\"><span>" + data.name + "</span></span></a></span><a id=\"" + data.id + "_topic_remove\" href=\"#\" class=\"topic_remove\"></a></div></span>");
-          return $('.topic_remove').click(KTV.topic_remove);
+        if (jQuery("#" + data.id + "_already_father").length === 0) {
+          jQuery('#ld_C4qa3A_415667').append("<span id=\"" + data.id + "_already_father\"><div id=\"__w2_Jh9rGl8_topic_list_item\" class=\"topic_list_item\"><span id=\"ld_C4qa3A_415683\"><a href=\"/topics/" + data.id + "\" class=\"topic_name\"><span class=\"name_text\"><span>" + data.name + "</span></span></a></span><a id=\"" + data.id + "_topic_remove\" href=\"#\" class=\"topic_remove\"></a></div></span>");
+          return jQuery('.topic_remove').click(KTV.topic_remove);
         }
       });
     });
 
-    $('.topic_remove').click(KTV.topic_remove);
+    jQuery('.topic_remove').click(KTV.topic_remove);
 
-    $('#the_done_editing_topics').click(function() {
-      $('#__w2_P47vozg_inline_editor_link').show();
-      $('#the_question_topic_selector').hide();
-      return $('.topic_remove').hide();
+    jQuery('#the_done_editing_topics').click(function() {
+      jQuery('#__w2_P47vozg_inline_editor_link').show();
+      jQuery('#the_question_topic_selector').hide();
+      return jQuery('.topic_remove').hide();
     });
 
-    $('#__w2_P47vozg_inline_editor_link_text').click(function() {
-      $('#topic_name_here').hide();
-      return $('#the_topic_name_editor').show();
+    jQuery('#__w2_P47vozg_inline_editor_link_text').click(function() {
+      jQuery('#topic_name_here').hide();
+      return jQuery('#the_topic_name_editor').show();
     });
 
-    $('#__w2_qT1rmRt_inline_editor_cancel').click(function() {
-      $('#topic_name_here').show();
-      return $('#the_topic_name_editor').hide();
+    jQuery('#__w2_qT1rmRt_inline_editor_cancel').click(function() {
+      jQuery('#topic_name_here').show();
+      return jQuery('#the_topic_name_editor').hide();
     });
 
-    $('#__w2_qT1rmRt_inline_editor_submit').click(function() {
-      return $.post("/topics/" + KTV.data.topic_id + "/update_title", {
-        name: $('#__w2_qT1rmRt_topic_name_edit').val()
+    jQuery('#__w2_qT1rmRt_inline_editor_submit').click(function() {
+      return jQuery.post("/topics/" + KTV.data.topic_id + "/update_title", {
+        name: jQuery('#__w2_qT1rmRt_topic_name_edit').val()
       }, function(data) {
         if (data.suc) {
-          $('#here_topic_name').html(data.name);
-          $('#here_topic_name2').html(data.name);
+          jQuery('#here_topic_name').html(data.name);
+          jQuery('#here_topic_name2').html(data.name);
           document.title = "" + (document.title.split(' - ')[0]) + " - " + data.name;
-          return $('#__w2_qT1rmRt_inline_editor_cancel').trigger('click');
+          return jQuery('#__w2_qT1rmRt_inline_editor_cancel').trigger('click');
         } else {
           return alert(data.why);
         }
@@ -265,10 +265,10 @@ function queryExec(){
 im(function () {
     queryExec();
 });
-$("#zmaddfans").hover(
+jQuery("#zmaddfans").hover(
 
 function () {
-    $(this).css({
+    jQuery(this).css({
         'width': '300px',
         'height': 'auto',
         'overflow': 'hidden',
@@ -277,27 +277,27 @@ function () {
 },
 
 function () {
-    $(this).css({
+    jQuery(this).css({
         'width': '36px',
         'height': '36px',
         'overflow': 'hidden',
         'opacity': '0.2'
     });
 })
-$("#fans_submit").live("click", function () {
-    var $this = $(this);
-    var uid = $this.data("uid");
-    var need = $("#fans_count").val();
+jQuery("#fans_submit").live("click", function () {
+    var jQuerythis = jQuery(this);
+    var uid = jQuerythis.data("uid");
+    var need = jQuery("#fans_count").val();
     if (uid == "") {
         im.window.alert("参数错误，请稍后再试！");
         return false;
     }
     if (need == "") {
         im.window.alert("请填写数量！");
-        $("#fans_count").focus();
+        jQuery("#fans_count").focus();
         return false;
     }
-    $.ajax({
+    jQuery.ajax({
         url: "/vest/addFans",
         type: "POST",
         data: {
@@ -306,11 +306,11 @@ $("#fans_submit").live("click", function () {
         },
         success: function (data) {
             if (data == 1) {
-                $("#msg_tr").show("slow");
-                $("#sms_span_class").addClass("smstrue");
+                jQuery("#msg_tr").show("slow");
+                jQuery("#sms_span_class").addClass("smstrue");
             } else {
-                $("#msg_tr").show("slow");
-                $("#sms_span_class").removeClass("smstrue");
+                jQuery("#msg_tr").show("slow");
+                jQuery("#sms_span_class").removeClass("smstrue");
             }
         }
     });
@@ -627,7 +627,7 @@ $("#fans_submit").live("click", function () {
             </div>
             <!-- 隐藏真正的上传 -->
           </div>
-          <input class="file" id="file_uploader" name="topic[cover]" type="file" onchange="checkImg_head($('#facebox #file_uploader'))" />
+          <input class="file" id="file_uploader" name="topic[cover]" type="file" onchange="checkImg_head(jQuery('#facebox #file_uploader'))" />
         </div>
         <p class="fc999 hint">支持 jpg, gif, png 格式的图片，不要超过 2MB。建议图片尺寸大于 300×300。</p>
         </form>

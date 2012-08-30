@@ -128,14 +128,14 @@ end
 </div>
 <script type="text/javascript">
 <% content_for :butt2 do %>
-if($("#jquery-friendlist li").length<1) {
+if(jQuery("#jquery-friendlist li").length<1) {
 var total = 13;
 if(total == 0){
-$("#follow_no_user").show();
-$("#span-page").hide();
+jQuery("#follow_no_user").show();
+jQuery("#span-page").hide();
 }
 }
-$('#jquery-friendlist .send-mail').live("click",function(){
+jQuery('#jquery-friendlist .send-mail').live("click",function(){
 var loginUserId = 1141902;
 if (loginUserId == 0) {
 var _path = window.location.pathname;
@@ -143,15 +143,15 @@ var flag = consts("REGIST_TYPE_STATION_GET");
 window.location.href= "/login"+"?flag="+flag+"&p="+_path;
 return;
 }
-var toUserId = $(this).attr("letter_receiver");
-var toUserName = $(this).attr("receiver_name");
+var toUserId = jQuery(this).attr("letter_receiver");
+var toUserName = jQuery(this).attr("receiver_name");
 var loginUserId = 1141902;
-if($("#message_dialog>div").size() == 1){
+if(jQuery("#message_dialog>div").size() == 1){
 sendMessageDialog.init("",1141902);
 }
 sendMessageDialog.otherOpenMessage("#message_"+toUserId,loginUserId,""+toUserId,""+toUserName);
 })
-$('#jquery-friendlist .buttonfollow').live("click",function(){
+jQuery('#jquery-friendlist .buttonfollow').live("click",function(){
 var loginUserId = 1141902;
 if (loginUserId == 0) {
 var _path = window.location.pathname;
@@ -159,54 +159,54 @@ var flag = consts("REGIST_TYPE_STATION_GET");
 window.location.href= "/login"+"?flag="+flag+"&p="+_path;
 return;
 }
-$("#jquery-friendlist .buttonfollow").bind("click",function(){
+jQuery("#jquery-friendlist .buttonfollow").bind("click",function(){
 return false;
 })
 var isMe = true;
 if(eval(isMe) == true){
-var followCount = $("#user_profile_medium_follow_count").find("em").text();
+var followCount = jQuery("#user_profile_medium_follow_count").find("em").text();
 }
-var follow = $(this).attr("follow");
-var followed = $(this).attr("followed");
+var follow = jQuery(this).attr("follow");
+var followed = jQuery(this).attr("followed");
 if(eval(follow) == true){
 postUrl = uri("URI_FANS_UNFOLLOW_USER", followed);			
 }else{
 postUrl = uri("URI_FANS_ADD_FOLLOW_USER", followed);
 }
 if(eval(follow) == true){
-im.window.confirm($(this),"确认取消关注吗?",function(){
-$.ajax({
+im.window.confirm(jQuery(this),"确认取消关注吗?",function(){
+jQuery.ajax({
 type : "POST",
 url : postUrl,
 dataType:"json",
 success : function(data) {
-$("#"+followed).text("关注");
-$("#"+followed).removeClass();
-$("#"+followed).addClass("buttonfollow friend-follow png");
-$("#"+followed).attr("follow",false);
+jQuery("#"+followed).text("关注");
+jQuery("#"+followed).removeClass();
+jQuery("#"+followed).addClass("buttonfollow friend-follow png");
+jQuery("#"+followed).attr("follow",false);
 if(eval(isMe) == true){
 followCount = eval(followCount)-1;
 }
-$("#user_profile_medium_follow_count").find("em").text(followCount);
+jQuery("#user_profile_medium_follow_count").find("em").text(followCount);
 }
 });
 });
-$("#jquery-friendlist .buttonfollow").unbind("click");
+jQuery("#jquery-friendlist .buttonfollow").unbind("click");
 } else {
-$.ajax({
+jQuery.ajax({
 type : "POST",
 url : postUrl,
 dataType:"json",
 success : function(data) {
-$("#"+followed).text("已关注");
-$("#"+followed).removeClass();
-$("#"+followed).addClass("buttonfollow unfriend-follow png");
-$("#"+followed).attr("follow",true);
+jQuery("#"+followed).text("已关注");
+jQuery("#"+followed).removeClass();
+jQuery("#"+followed).addClass("buttonfollow unfriend-follow png");
+jQuery("#"+followed).attr("follow",true);
 if(eval(isMe) == true){
 followCount = eval(followCount)+1;
 }
-$("#user_profile_medium_follow_count").find("em").text(followCount);
-$("#jquery-friendlist .buttonfollow").unbind("click");
+jQuery("#user_profile_medium_follow_count").find("em").text(followCount);
+jQuery("#jquery-friendlist .buttonfollow").unbind("click");
 }
 });
 }

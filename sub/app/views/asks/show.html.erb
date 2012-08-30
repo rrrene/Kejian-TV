@@ -62,7 +62,7 @@
           <%= auth_token  %>
           <div class="addTopic mt5">
             <input type="text" class="name" id="searchTopic" maxlength="10" style="width:100px;" name="name" value="" placeholder="输入话题标签" >
-            <div class="btnNormalSilver" onclick="$('#update_topics_form').submit()" class="small"><span>添加</span></div>&nbsp;<a href="javascript:void(0)" class="complete_topics">完成</a>
+            <div class="btnNormalSilver" onclick="jQuery('#update_topics_form').submit()" class="small"><span>添加</span></div>&nbsp;<a href="javascript:void(0)" class="complete_topics">完成</a>
           </div>
           <input type="hidden" name="add" value="1" /> 
         </form>
@@ -97,7 +97,7 @@
   </div>
   <div class="summary">
     <%if current_user and (!@ask.to_user_id || @ask.to_user_id==current_user.id) %>
-      <a href="javascript:void(0)" onclick="return $('#new_answer_form .qeditor_preview').trigger('focus');">添加回答</a>      | 
+      <a href="javascript:void(0)" onclick="return jQuery('#new_answer_form .qeditor_preview').trigger('focus');">添加回答</a>      | 
     <%end %>
     <% if @ask.comments_count == 0 %>
       <a href="#" onclick="return Asks.toggleComments('ask','<%= @ask.id %>');" id="ask_<%= @ask.id %>_linktrigger">添加评论</a>
@@ -228,7 +228,7 @@
         <% end %>
       </ul>
       <% if @relation_asks.count > 4 %>
-        <strong><a href="#"  onclick="$(this).parent().parent().find('li').show();$(this).hide();return false;">查看更多相关问题</a></strong>
+        <strong><a href="#"  onclick="jQuery(this).parent().parent().find('li').show();jQuery(this).hide();return false;">查看更多相关问题</a></strong>
       <% end %>
     </section>
 

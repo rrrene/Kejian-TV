@@ -46,23 +46,23 @@
     </div>
   <% end %>
   <% content_for :butt2 do %>
-    $(function() {
-    $("#datepicker_from").datepicker({
+    jQuery(function() {
+    jQuery("#datepicker_from").datepicker({
     dateFormat:'yy-mm-dd'
     });
-    $( "#datepicker_to" ).datepicker({
+    jQuery( "#datepicker_to" ).datepicker({
     dateFormat:'yy-mm-dd'
     });
-    $('#time_from').timePicker();
-    $('#time_to').timePicker();
-    $("#last_datepicker_from").datepicker({
+    jQuery('#time_from').timePicker();
+    jQuery('#time_to').timePicker();
+    jQuery("#last_datepicker_from").datepicker({
     dateFormat:'yy-mm-dd'
     });
-    $( "#last_datepicker_to" ).datepicker({
+    jQuery( "#last_datepicker_to" ).datepicker({
     dateFormat:'yy-mm-dd'
     });
-    $('#last_time_from').timePicker();
-    $('#last_time_to').timePicker();
+    jQuery('#last_time_from').timePicker();
+    jQuery('#last_time_to').timePicker();
     });
   <% end %>
 </div>

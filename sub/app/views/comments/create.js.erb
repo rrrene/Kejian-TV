@@ -1,6 +1,6 @@
-var commentForm = $("#<%= @comment.commentable_type.downcase %>_<%= @comment.commentable_id %>_comments form");
-var linktrigger = $("#<%= @comment.commentable_type.downcase %>_<%= @comment.commentable_id %>_linktrigger");
-var commentText = $("textarea", commentForm);
+var commentForm = jQuery("#<%= @comment.commentable_type.downcase %>_<%= @comment.commentable_id %>_comments form");
+var linktrigger = jQuery("#<%= @comment.commentable_type.downcase %>_<%= @comment.commentable_id %>_linktrigger");
+var commentText = jQuery("textarea", commentForm);
 
 <% if @success %>
 <%

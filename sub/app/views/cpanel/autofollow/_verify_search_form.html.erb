@@ -14,18 +14,18 @@
 </div>
 <script type="text/javascript">
   function init_text(){
-    if($("#content_type").val()=="asks"){
-      $("#title_label").text("问题标题关键词:");
-      $("#verify_header").text("先审后发类问题");
-    }else if($("#content_type").val()=="comments"){
-      $("#title_label").text("评论内容关键词:");
-      $("#verify_header").text("先审后发类评论");
-    }else if($("#content_type").val()=="answers"){
-      $("#title_label").text("回答内容关键词:");
-      $("#verify_header").text("先审后发类回答");
+    if(jQuery("#content_type").val()=="asks"){
+      jQuery("#title_label").text("问题标题关键词:");
+      jQuery("#verify_header").text("先审后发类问题");
+    }else if(jQuery("#content_type").val()=="comments"){
+      jQuery("#title_label").text("评论内容关键词:");
+      jQuery("#verify_header").text("先审后发类评论");
+    }else if(jQuery("#content_type").val()=="answers"){
+      jQuery("#title_label").text("回答内容关键词:");
+      jQuery("#verify_header").text("先审后发类回答");
     }else{
-      $("#title_label").text("提交内容关键词:");
-      $("#verify_header").text("先审后发全部内容");
+      jQuery("#title_label").text("提交内容关键词:");
+      jQuery("#verify_header").text("先审后发全部内容");
     }
   }
   window.onload=init_text;

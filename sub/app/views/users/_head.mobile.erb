@@ -3,7 +3,7 @@
     var current_page = 2;
     function loadAsks(){
       App.loading();
-      $.get("<%= request.path %>.js?page="+current_page,function(){
+      jQuery.get("<%= request.path %>.js?page="+current_page,function(){
           App.loading(false);
       });
       return false;
@@ -53,10 +53,10 @@
     <div class="row">
       <%= auth_token %>
       <input type="hidden" name="ask[to_user_id]" value="<%= user.id %>" />
-      <textarea type="text" class="text" onfocus="$(this).parent().next().show();" name="ask[title]"></textarea>
+      <textarea type="text" class="text" onfocus="jQuery(this).parent().next().show();" name="ask[title]"></textarea>
     </div>
     <div  class="hide">
-      <div><a href="#" onclick="$(this).parent().next().show(); $(this).hide(); return false;">添加问题描述</a></div>
+      <div><a href="#" onclick="jQuery(this).parent().next().show(); jQuery(this).hide(); return false;">添加问题描述</a></div>
       <div class="row hide" >
         <!--<label>问题描述(可选):</label>-->
         <textarea type="text" class="text" name="ask[body]"></textarea>

@@ -26,26 +26,26 @@
 		</div>
 		<script type="text/javascript">
 		<% content_for :butt2 do %>
-      $(function() {
-      if ($("#fix-string01").length == 1) {
-      $("#fix-string01").text(
-      $.fn.fixStr($("#fix-string01").text(), 12, "..."));
+      jQuery(function() {
+      if (jQuery("#fix-string01").length == 1) {
+      jQuery("#fix-string01").text(
+      jQuery.fn.fixStr(jQuery("#fix-string01").text(), 12, "..."));
       }
-      if ($("#fix-string02").length == 1) {
-      $("#fix-string02").text(
-      $.fn.fixStr($("#fix-string02").text(), 16, "..."));
+      if (jQuery("#fix-string02").length == 1) {
+      jQuery("#fix-string02").text(
+      jQuery.fn.fixStr(jQuery("#fix-string02").text(), 16, "..."));
       }
-      if ($("#fix-string03").length == 1) {
-      $("#fix-string03").text(
-      $.fn.fixStr($("#fix-string03").text(), 12, "..."));
+      if (jQuery("#fix-string03").length == 1) {
+      jQuery("#fix-string03").text(
+      jQuery.fn.fixStr(jQuery("#fix-string03").text(), 12, "..."));
       }
-      if ($("#fix-string04").length == 1) {
-      $("#fix-string04").text(
-      $.fn.fixStr($("#fix-string04").text(), 16, "..."));
+      if (jQuery("#fix-string04").length == 1) {
+      jQuery("#fix-string04").text(
+      jQuery.fn.fixStr(jQuery("#fix-string04").text(), 16, "..."));
       }
-      if ($("#fix-string05").length == 1) {
-      $("#fix-string05").text(
-      $.fn.fixStr($("#fix-string05").text(), 12, "..."));
+      if (jQuery("#fix-string05").length == 1) {
+      jQuery("#fix-string05").text(
+      jQuery.fn.fixStr(jQuery("#fix-string05").text(), 12, "..."));
       }
       })
     <% end %>
@@ -165,17 +165,17 @@
 
 <script type="text/javascript">
 <% content_for :butt2 do %>
-var old_content = $("#contentMain").html();
-$('.queryOrderCss').live('click', function () {
-    var queryOrder = $(this).attr("rel");
-    $('#queryOrder').val(queryOrder);
-    $('#ulQueryOrder > li').removeClass();
-    $(this).parent().addClass('current');
+var old_content = jQuery("#contentMain").html();
+jQuery('.queryOrderCss').live('click', function () {
+    var queryOrder = jQuery(this).attr("rel");
+    jQuery('#queryOrder').val(queryOrder);
+    jQuery('#ulQueryOrder > li').removeClass();
+    jQuery(this).parent().addClass('current');
     queryExec();
 });
 function queryExec(){
-    var queryOrder = $('#queryOrder').val();
-    $("#contentMain").html(old_content);
+    var queryOrder = jQuery('#queryOrder').val();
+    jQuery("#contentMain").html(old_content);
     autoLayout.pageAuto = true;
     autoLayout.pageNums = 0;
     autoLayout.loading = true;
@@ -197,7 +197,7 @@ function queryExec(){
         callBack: function () {
         var showContent = "<%=@user.name%>还没有上传课件";
 
-            $("#contentMain").prepend('<div style="text-align: center; margin-right: 233px; padding-top: 100px; left: 0px; top: 0px;" class="f14" columns="0">' + showContent + '</div>');
+            jQuery("#contentMain").prepend('<div style="text-align: center; margin-right: 233px; padding-top: 100px; left: 0px; top: 0px;" class="f14" columns="0">' + showContent + '</div>');
         }
     });
     autoLayout.eachAction(jsonUrl);
@@ -206,54 +206,54 @@ function queryExec(){
 im(function () {
     queryExec();
 });
-$("#followBtn").live("click", function () {
+jQuery("#followBtn").live("click", function () {
     var boardUserId = '<%= @user.slug %>';
     var postUrl = "";
-    var follow = $(this).attr("follow");
+    var follow = jQuery(this).attr("follow");
     if (eval(follow) == true) {
         postUrl = uri("URI_FANS_UNFOLLOW_USER", boardUserId);
     } else {
         postUrl = uri("URI_FANS_ADD_FOLLOW_USER", boardUserId);
     }
-    $("#followBtn").bind("click", function () {
+    jQuery("#followBtn").bind("click", function () {
         return false;
     })
-    var fansCount = $("#user_profile_fans_count").find("em").text();
+    var fansCount = jQuery("#user_profile_fans_count").find("em").text();
     if (eval(follow) == true) {
-        im.window.confirm($("#followBtn"), "确认取消关注吗?", function () {
-            $.ajax({
+        im.window.confirm(jQuery("#followBtn"), "确认取消关注吗?", function () {
+            jQuery.ajax({
                 type: "POST",
                 url: postUrl,
                 dataType: "json",
                 success: function (data) {
-                    $("#followBtn").removeClass().addClass('concern-ico').find("em").text("关注");
+                    jQuery("#followBtn").removeClass().addClass('concern-ico').find("em").text("关注");
                     fansCount = eval(fansCount) - 1;
-                    $("#user_profile_fans_count").find("em").text(fansCount);
-                    $("#followBtn").attr("follow", false);
-                    $("#followBtn").unbind("click");
+                    jQuery("#user_profile_fans_count").find("em").text(fansCount);
+                    jQuery("#followBtn").attr("follow", false);
+                    jQuery("#followBtn").unbind("click");
                 }
             });
         });
-        $("#followBtn").unbind("click");
+        jQuery("#followBtn").unbind("click");
     } else {
-        $.ajax({
+        jQuery.ajax({
             type: "POST",
             url: postUrl,
             dataType: "json",
             success: function (data) {
-                $("#followBtn").removeClass().addClass('d-concerned-ico').find("em").text("已关注");
+                jQuery("#followBtn").removeClass().addClass('d-concerned-ico').find("em").text("已关注");
                 fansCount = eval(fansCount) + 1;
-                $("#user_profile_fans_count").find("em").text(fansCount);
-                $("#followBtn").attr("follow", true);
-                $("#followBtn").unbind("click");
+                jQuery("#user_profile_fans_count").find("em").text(fansCount);
+                jQuery("#followBtn").attr("follow", true);
+                jQuery("#followBtn").unbind("click");
             }
         });
     }
 });
-$("#zmaddfans").hover(
+jQuery("#zmaddfans").hover(
 
 function () {
-    $(this).css({
+    jQuery(this).css({
         'width': '300px',
         'height': 'auto',
         'overflow': 'hidden',
@@ -262,27 +262,27 @@ function () {
 },
 
 function () {
-    $(this).css({
+    jQuery(this).css({
         'width': '36px',
         'height': '36px',
         'overflow': 'hidden',
         'opacity': '0.2'
     });
 })
-$("#fans_submit").live("click", function () {
-    var $this = $(this);
-    var uid = $this.data("uid");
-    var need = $("#fans_count").val();
+jQuery("#fans_submit").live("click", function () {
+    var jQuerythis = jQuery(this);
+    var uid = jQuerythis.data("uid");
+    var need = jQuery("#fans_count").val();
     if (uid == "") {
         im.window.alert("参数错误，请稍后再试！");
         return false;
     }
     if (need == "") {
         im.window.alert("请填写数量！");
-        $("#fans_count").focus();
+        jQuery("#fans_count").focus();
         return false;
     }
-    $.ajax({
+    jQuery.ajax({
         url: "/vest/addFans",
         type: "POST",
         data: {
@@ -291,11 +291,11 @@ $("#fans_submit").live("click", function () {
         },
         success: function (data) {
             if (data == 1) {
-                $("#msg_tr").show("slow");
-                $("#sms_span_class").addClass("smstrue");
+                jQuery("#msg_tr").show("slow");
+                jQuery("#sms_span_class").addClass("smstrue");
             } else {
-                $("#msg_tr").show("slow");
-                $("#sms_span_class").removeClass("smstrue");
+                jQuery("#msg_tr").show("slow");
+                jQuery("#sms_span_class").removeClass("smstrue");
             }
         }
     });
@@ -610,7 +610,7 @@ $("#fans_submit").live("click", function () {
             </div>
             <!-- 隐藏真正的上传 -->
           </div>
-          <input class="file" id="file_uploader" name="user[avatar]" type="file" onchange="checkImg_head($('#facebox #file_uploader'))" />
+          <input class="file" id="file_uploader" name="user[avatar]" type="file" onchange="checkImg_head(jQuery('#facebox #file_uploader'))" />
         </div>
         <p class="fc999 hint">支持 jpg, gif, png 格式的图片，不要超过 2MB。建议图片尺寸大于 300×300。</p>
         </form>

@@ -1,19 +1,19 @@
 <% if @success %>
 html = "<%= escape_javascript(render("answer", :item => @answer)) %>";
 
-$("#answer_body").text("").focus();
+jQuery("#answer_body").text("").focus();
 
-reply = $(".reply");
+reply = jQuery(".reply");
 
 if(reply.length>0){
 
 reply.eq(reply.length-1).after(html);
 
-$("#answer_sum").text("有<%=@answer.ask.answers_count%>个解答");
+jQuery("#answer_sum").text("有<%=@answer.ask.answers_count%>个解答");
 
 }else{
 
-$(".mainContentHeader").append('<div class="dline mt10"></div>')
+jQuery(".mainContentHeader").append('<div class="dline mt10"></div>')
 
   .after(html)
 
@@ -21,9 +21,9 @@ $(".mainContentHeader").append('<div class="dline mt10"></div>')
 
 }
 
-$(".appendAnswer").remove();
+jQuery(".appendAnswer").remove();
 <% else %>
-$('.qeditor_preview')[0].focus()
+jQuery('.qeditor_preview')[0].focus()
 alert('<%=j @answer.errors.full_messages.join(". ")%>')
 <% end %>
 App.loading(false);

@@ -53,11 +53,11 @@
   <%= render 'deal_form' %>
   <script>
     function change_report(target){
-      $("#report_no").text($("#report_no_"+target).text());
-      $("#report_ask").text($("#report_ask_"+target).attr("title"));
-      $("#report_hide_id").attr("value",target);
-      $("#report_hide_title").attr("value",$("#report_ask_"+target).attr("title"));
-      $("#handled_text").focus();
+      jQuery("#report_no").text(jQuery("#report_no_"+target).text());
+      jQuery("#report_ask").text(jQuery("#report_ask_"+target).attr("title"));
+      jQuery("#report_hide_id").attr("value",target);
+      jQuery("#report_hide_title").attr("value",jQuery("#report_ask_"+target).attr("title"));
+      jQuery("#handled_text").focus();
     }
   </script>
 <%else%>

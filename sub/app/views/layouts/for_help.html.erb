@@ -70,19 +70,19 @@
 <% if !notice.blank? %>
   <p class="flash notice"><%=raw notice %></p>
   <%= content_for :butt2 do %>
-      $("#sdk_flashes .notice").fadeOut().fadeIn();
+      jQuery("#sdk_flashes .notice").fadeOut().fadeIn();
   <% end %>
 <% end %>
 <% if !alert.blank? %>
   <p class="flash alert"><%=raw alert %></p>
   <%= content_for :butt2 do %>
-      $("#sdk_flashes .alert").fadeOut('fast').fadeIn('fast').fadeOut('fast').fadeIn('fast');
+      jQuery("#sdk_flashes .alert").fadeOut('fast').fadeIn('fast').fadeOut('fast').fadeIn('fast');
   <% end %>
 <% end %>
 <% if !flash[:insuf_info].blank? %>
   <p class="flash warning"><%=raw flash[:insuf_info] %></p>
   <%= content_for :butt2 do %>
-      $("#sdk_flashes .warning").fadeOut('fast').fadeIn('fast').fadeOut('fast').fadeIn('fast');
+      jQuery("#sdk_flashes .warning").fadeOut('fast').fadeIn('fast').fadeOut('fast').fadeIn('fast');
   <% end %>
 <% end %>
 </div></div></div>
@@ -91,13 +91,13 @@
     <div style="width:936px;<%= @is_ie6 || @is_ie7 ? 'margin-left:0' : '' %>" id="scbar_ppp" class="cl_ppp psvr_wtf_scbar">
       　欢迎来到首都师范大学问答求助区！目前共有<%=link_to Ask.count,'/asks'%>个问题，其中<%=link_to Ask.unanswered.count,'/zero_asks'%>个还悬而未决，欢迎贡献答案或提出问题！
       <%= content_for :butt2 do %>
-        Asks.completeAll($("#searchInput"));
+        Asks.completeAll(jQuery("#searchInput"));
 
-        $(' .pager a.disabled').click(function(){
+        jQuery(' .pager a.disabled').click(function(){
         return false;
         });
 
-        $('.btnGoAsk').click(function(){return Asks.addAsk();});
+        jQuery('.btnGoAsk').click(function(){return Asks.addAsk();});
       <% end %>
       <button class="btnGoAsk" href="/asks/new"></button>
     </div>
@@ -122,7 +122,7 @@
               <div class="notice_message"><%= notice %></div>
               <%= content_for :butt do %>
                 <script type="text/javascript">
-                  $(".notice_message").fadeOut().fadeIn();
+                  jQuery(".notice_message").fadeOut().fadeIn();
                 </script>
               <% end %>
             <% end %>
@@ -130,7 +130,7 @@
               <div class="alert_message"><%= alert %></div>
               <%= content_for :butt do %>
                 <script type="text/javascript">
-                  $(".alert_message").fadeOut().fadeIn();
+                  jQuery(".alert_message").fadeOut().fadeIn();
                 </script>
               <% end %>
             <% end %>
@@ -181,7 +181,7 @@
         <%= auth_token %>
         <header>
           创建新问题
-          <a class="close"  onclick="$.facebox.close(); return false;"></a>
+          <a class="close"  onclick="jQuery.facebox.close(); return false;"></a>
         </header>
         <section>
           <div class="editorBox mt10 clearfix">

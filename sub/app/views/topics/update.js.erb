@@ -1,5 +1,5 @@
 <% if @success == true %>
-  $("#topic .cover img").attr("src",'<%= @topic.cover.normal.url %>');
+  jQuery("#topic .cover img").attr("src",'<%= @topic.cover.normal.url %>');
 <% else %>
   alert("上传失败，格式有问题.");
 <% end %>

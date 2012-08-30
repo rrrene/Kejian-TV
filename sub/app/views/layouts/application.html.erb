@@ -82,7 +82,7 @@
       </div>
       <div class="cl" id="mu"></div>
       <div class="cl psvr_wtf_scbar" id="scbar" style="width:<%= @is_ie6 ? '951' : '936' %>px;<%= @is_ie6 ? 'margin-left:5px' : '' %>">
-        <form target="_blank" action="/simple/search.php?searchsubmit=yes" onsubmit="searchFocus($('scbar_txt'))" autocomplete="off" method="post" id="scbar_form">
+        <form target="_blank" action="/simple/search.php?searchsubmit=yes" onsubmit="searchFocus(jQuery('scbar_txt'))" autocomplete="off" method="post" id="scbar_form">
           <input type="hidden" value="forum" id="scbar_mod" name="mod">
           <input type="hidden" value="8b815768" name="formhash">
           <input type="hidden" value="title" name="srchtype">
@@ -185,19 +185,19 @@
 <% if !notice.blank? %>
   <p class="flash notice"><%=raw notice %></p>
   <%= content_for :butt2 do %>
-      $("#sdk_flashes .notice").fadeOut().fadeIn();
+      jQuery("#sdk_flashes .notice").fadeOut().fadeIn();
   <% end %>
 <% end %>
 <% if !alert.blank? %>
   <p class="flash alert"><%=raw alert %></p>
   <%= content_for :butt2 do %>
-      $("#sdk_flashes .alert").fadeOut('fast').fadeIn('fast').fadeOut('fast').fadeIn('fast');
+      jQuery("#sdk_flashes .alert").fadeOut('fast').fadeIn('fast').fadeOut('fast').fadeIn('fast');
   <% end %>
 <% end %>
 <% if !flash[:insuf_info].blank? %>
   <p class="flash warning"><%=raw flash[:insuf_info] %></p>
   <%= content_for :butt2 do %>
-      $("#sdk_flashes .warning").fadeOut('fast').fadeIn('fast').fadeOut('fast').fadeIn('fast');
+      jQuery("#sdk_flashes .warning").fadeOut('fast').fadeIn('fast').fadeOut('fast').fadeIn('fast');
   <% end %>
 <% end %>
 

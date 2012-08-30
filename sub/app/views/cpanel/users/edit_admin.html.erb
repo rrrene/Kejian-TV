@@ -77,20 +77,20 @@
 </div>
 <script type="text/javascript">
   function checkSub(fid){
-    if($("#"+fid+"_check")[0].checked==true){
-      for(i=0;i<$("#"+fid+" input:checkbox").length;i++){
-        $("#"+fid+" input:checkbox")[i].checked=true;
+    if(jQuery("#"+fid+"_check")[0].checked==true){
+      for(i=0;i<jQuery("#"+fid+" input:checkbox").length;i++){
+        jQuery("#"+fid+" input:checkbox")[i].checked=true;
       }
       if(fid=="user"){
-        $("#"+fid+" input:radio")[0].checked=true;
+        jQuery("#"+fid+" input:radio")[0].checked=true;
       }
     }else{
-      for(i=0;i<$("#"+fid+" input:checkbox").length;i++){
-        $("#"+fid+" input:checkbox")[i].checked=false;
+      for(i=0;i<jQuery("#"+fid+" input:checkbox").length;i++){
+        jQuery("#"+fid+" input:checkbox")[i].checked=false;
       }
       if(fid=="user"){
-        for(i=0;i<$("#"+fid+" input:radio").length;i++){
-          $("#"+fid+" input:radio")[i].checked=false;
+        for(i=0;i<jQuery("#"+fid+" input:radio").length;i++){
+          jQuery("#"+fid+" input:radio")[i].checked=false;
         }
       }
     }   

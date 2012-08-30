@@ -50,16 +50,16 @@
   </div>
   <script type="text/javascript">
     function checkAll(){
-      if($("#check_btn").val()=="全选"){
-        for(i=0;i<$("input:checkbox").length;i++){
-          $("input:checkbox")[i].checked=true;
+      if(jQuery("#check_btn").val()=="全选"){
+        for(i=0;i<jQuery("input:checkbox").length;i++){
+          jQuery("input:checkbox")[i].checked=true;
         }
-        $("#check_btn").val("全不选");
+        jQuery("#check_btn").val("全不选");
       }else{
-        for(i=0;i<$("input:checkbox").length;i++){
-          $("input:checkbox")[i].checked=false;
+        for(i=0;i<jQuery("input:checkbox").length;i++){
+          jQuery("input:checkbox")[i].checked=false;
         }
-        $("#check_btn").val("全选");
+        jQuery("#check_btn").val("全选");
       }
     
     }

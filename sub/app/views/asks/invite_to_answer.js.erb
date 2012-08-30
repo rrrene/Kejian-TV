@@ -1,15 +1,15 @@
 <% if @success and @invite.class!=Fixnum %>
-i = $("#ask_invite_<%= @invite.id %>");
+i = jQuery("#ask_invite_<%= @invite.id %>");
 <%count=@invite.ask.ask_invites.count%>
 if(i.length == 0){
-  $("#ask_invited_users").append('<%= escape_javascript(render("invited_user", :item => @invite)) %>');
-	$('#shared_span_count').html(' <%=(count>0)?"(#{count})":""%>' );
+  jQuery("#ask_invited_users").append('<%= escape_javascript(render("invited_user", :item => @invite)) %>');
+	jQuery('#shared_span_count').html(' <%=(count>0)?"(#{count})":""%>' );
 }
 else{
-  $(".count",i).text('<%= @invite.count %>');
+  jQuery(".count",i).text('<%= @invite.count %>');
   <%item=@invite%>
-  if($('#ask_invite_<%= item.id %> .close').length==0){
-    $('#ask_invite_<%= item.id %> .count').before('<a class="close" href=""  onclick="return Asks.cancelInviteToAnswer(this,\'<%= item.id %>\')"></a>')
+  if(jQuery('#ask_invite_<%= item.id %> .close').length==0){
+    jQuery('#ask_invite_<%= item.id %> .count').before('<a class="close" href=""  onclick="return Asks.cancelInviteToAnswer(this,\'<%= item.id %>\')"></a>')
   }
 }
 <% end %>

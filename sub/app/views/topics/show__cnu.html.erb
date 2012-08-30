@@ -5,7 +5,7 @@
     var topic_id = "<%= @topic.id %>";
     function loadAsks(){
       App.loading();
-      $.get("<%= topic_path(@topic.name) %>?page="+current_page,function(){
+      jQuery.get("<%= topic_path(@topic.name) %>?page="+current_page,function(){
           App.loading(false);
       });
       return false;
@@ -33,7 +33,7 @@
           </div>
           <div class="actions">
             <button type="submit">上传图片</button>
-            <a href="#" onclick="$.facebox.close(); return false;">关闭</a>
+            <a href="#" onclick="jQuery.facebox.close(); return false;">关闭</a>
           </div>
         <% end %>
       </div>
@@ -59,7 +59,7 @@
 	<div class="dline mt20"></div>
 </header>
 <% content_for :butt2 do %>
-Topics.editCover($("figure.cover"));
+Topics.editCover(jQuery("figure.cover"));
 <% end %>
 
 

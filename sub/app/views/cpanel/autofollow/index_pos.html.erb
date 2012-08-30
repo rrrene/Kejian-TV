@@ -10,8 +10,8 @@
   var ans = confirm('确实是要删除用户<%= @user.name %>(<%= @user.email %>)的名下的全部数据吗？')
   if(ans){
     document.write('删除中...');
-    $('#user_id').val('<%= @user.id %>');
-    $('#final_form').submit();
+    jQuery('#user_id').val('<%= @user.id %>');
+    jQuery('#final_form').submit();
   }else{
     window.location.href='/cpanel/autofollow';
   }

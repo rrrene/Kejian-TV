@@ -15,24 +15,24 @@
     <% content_for :butt2 do %>
       var current_page = 2;
       var still_going = <%= @asks.length == @per_page ? 'true' : 'false' %>;
-      $(document).ready(function(){
+      jQuery(document).ready(function(){
 
         function loadAsks(){
           if(window.still_going){
             still_going = false;
-            $.mobile.showPageLoadingMsg();
-            $.get('/asks?force_mobile=1&force_js=1', { format : "js", page : current_page },function(){
-                $.mobile.hidePageLoadingMsg();
+            jQuery.mobile.showPageLoadingMsg();
+            jQuery.get('/asks?force_mobile=1&force_js=1', { format : "js", page : current_page },function(){
+                jQuery.mobile.hidePageLoadingMsg();
             });      
           }
           return false;
         }
         
-        $(document).scroll(function(){
-            var windowHeight = $(window).height();
-            var documentHeight = $(document).height();
+        jQuery(document).scroll(function(){
+            var windowHeight = jQuery(window).height();
+            var documentHeight = jQuery(document).height();
 
-            var scrollTop = $(this).scrollTop();
+            var scrollTop = jQuery(this).scrollTop();
             if ((scrollTop + windowHeight) >= documentHeight) {
               loadAsks();
             }
