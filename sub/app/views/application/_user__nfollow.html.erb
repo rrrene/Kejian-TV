@@ -1,0 +1,7 @@
+<% unless current_user and current_user.id==user.id %>
+  <% if current_user and current_user.followed?(user) %>
+  <a class="nBtn nBtnUnFocus" onclick="return Users.unfollow(this, '<%= user.slug %>','small');"></a>
+  <% else %>
+  <a class="nBtn nBtnFocus" onclick="return Users.follow(this, '<%= user.slug %>','small');"></a>
+  <% end %>
+<% end %>
