@@ -67,24 +67,6 @@
 
 <!--header end-->
 
-<% if !notice.blank? %>
-  <p class="flash notice"><%=raw notice %></p>
-  <%= content_for :butt2 do %>
-      jQuery("#sdk_flashes .notice").fadeOut().fadeIn();
-  <% end %>
-<% end %>
-<% if !alert.blank? %>
-  <p class="flash alert"><%=raw alert %></p>
-  <%= content_for :butt2 do %>
-      jQuery("#sdk_flashes .alert").fadeOut('fast').fadeIn('fast').fadeOut('fast').fadeIn('fast');
-  <% end %>
-<% end %>
-<% if !flash[:insuf_info].blank? %>
-  <p class="flash warning"><%=raw flash[:insuf_info] %></p>
-  <%= content_for :butt2 do %>
-      jQuery("#sdk_flashes .warning").fadeOut('fast').fadeIn('fast').fadeOut('fast').fadeIn('fast');
-  <% end %>
-<% end %>
 </div></div></div>
 <div class="psvr_wtf_wrap" style="<%= @is_ie8 ? 'margin-top:-20px' : ''%>">
   <div class="psvr_wtf_wrapper" style="<% if @is_ie6 %>width:953px;padding-right:17px;padding-left:18px<% end %>">

@@ -46,8 +46,10 @@ class ApplicationController < ActionController::Base
       u = User.authenticate_through_dz_auth!(request,dz_auth,dz_saltkey)
       if u
         sign_in(u)
+        return true
       end
     end
+    sign_out
   end
 
   #==
@@ -72,4 +74,12 @@ class ApplicationController < ActionController::Base
     @seo[:description] = description
   end
 
+  def sign_out_others
+    cookies.each do |k,v|
+      if k.starts_with?(Discuz.cookiepre)
+        cookies.delete(k, 'domain' => (Discuz.cookiedomain))
+      end
+    end
+  end
 end
+
