@@ -34,22 +34,62 @@
 
 <body data-subdomain="<%= request.subdomain %>">
   <div class="psvrsub">
-  <!--背景图片 拉伸效果-->
-  <script language="javascript">
-    if(typeof document.compatMode!='undefined'&&document.compatMode!='BackCompat'){
-        cot_t1_DOCtp="_top:expression(document.documentElement.scrollTop+document.documentElement.clientHeight-this.clientHeight);_left:expression(document.documentElement.scrollLeft + document.documentElement.clientWidth - offsetWidth);}";
-    }else{
-        cot_t1_DOCtp="_top:expression(document.body.scrollTop+document.body.clientHeight-this.clientHeight);_left:expression(document.body.scrollLeft + document.body.clientWidth - offsetWidth);}";
-    }
-    var fdcCSS='.psvr_bgscroll {';
-    var fdcCSS=fdcCSS+cot_t1_DOCtp;
-    document.write('<style type=\"text\/css\">'+fdcCSS+'<\/style>');
-  </script>
-
   <%= render 'ktv_bg_container' %>
+
+<div class="psvr_wtf_wrap">
+  <div class="psvr_wtf_wrapper" style="<% if @is_ie6 %>width:953px;padding-right:25px;padding-left:10px<% end %>">
+
+<div id="psvr_header" style="padding-bottom:52px;margin-bottom:0">
+ <div class="psvr_headtop">
+      <div class="psvr_logo">
+        <a href="/" class="psvr"><img class="psvr" src="<%= asset_path 'logo_cnu.png' %>" alt="首都师范大学课件交流系统" id="psvr_logimg"></a>
+      </div>
   </div>
 
 
+
+  <div class="psvr_menu_out">
+    <div class="psvr_menu_in" id="psvr_navmenu">
+          <div class="psvr_menu" id="psvr_navmenu"><ul class="psvr" >
+              <li class="psvr" style="height:37px">&nbsp;</li>
+              <li class="psvr" ><a class="psvr " href="/"><span class="psvr" >首页</span></a></li>
+              <li class="psvr" ><a class="psvr " href="/courses"><span class="psvr" >本学期课程</span></a></li>
+           <li class="psvr" ><a class="psvr" href="/un_courses"><span class="psvr" >本学期未开</span></a></li>
+           <li class="psvr" ><a class="psvr" href="/users"><span class="psvr" >牛人龙虎榜</span></a></li>
+           <li class="psvr" ><a class="psvr" href="/articles"><span class="psvr" >过科攻略</span></a></li>
+           <li class="psvr" ><a class="psvr psvr_now" href="/for_help" title="求助"><span class="psvr" >求助</span></a></li>
+           <li class="psvr" ><a class="psvr" href="http://kejian.tv" title="返回主站" target="_blank"><span class="psvr" >返回主站</span></a></li>
+</ul>
+          </div>
+      </div>
+  </div>
+</div>
+
+<!--header end-->
+
+<% if !notice.blank? %>
+  <p class="flash notice"><%=raw notice %></p>
+  <%= content_for :butt2 do %>
+      $("#sdk_flashes .notice").fadeOut().fadeIn();
+  <% end %>
+<% end %>
+<% if !alert.blank? %>
+  <p class="flash alert"><%=raw alert %></p>
+  <%= content_for :butt2 do %>
+      $("#sdk_flashes .alert").fadeOut('fast').fadeIn('fast').fadeOut('fast').fadeIn('fast');
+  <% end %>
+<% end %>
+<% if !flash[:insuf_info].blank? %>
+  <p class="flash warning"><%=raw flash[:insuf_info] %></p>
+  <%= content_for :butt2 do %>
+      $("#sdk_flashes .warning").fadeOut('fast').fadeIn('fast').fadeOut('fast').fadeIn('fast');
+  <% end %>
+<% end %>
+</div></div></div>
+<div class="psvr_wtf_wrap" style="<%= @is_ie8 ? 'margin-top:-20px' : ''%>">
+  <div class="psvr_wtf_wrapper" style="<% if @is_ie6 %>width:953px;padding-right:17px;padding-left:18px<% end %>">
+    <div style="width:936px;<%= @is_ie6 || @is_ie7 ? 'margin-left:0' : '' %>" id="scbar_ppp" class="cl_ppp psvr_wtf_scbar">
+    </div>
     <% if @raw_raw_raw %>
       <%= yield %>
     <% else %>
@@ -98,6 +138,32 @@
       </section>
 
     <% end %>
+  </div>
+</div>
+<div class="psvrsub">
+  <div class="psvr_wtf_wrap">
+    <div class="psvr_wtf_wrapper">
+
+<div id="psvr_footer">
+<div id="psvr_footer_top">
+  <p class="psvr psvr_good_link">
+  <span class="psvr"  style="float:left">
+<a class="psvr" href="/">首都师范大学课件交流系统</a> | 
+<a class="psvr" href="www.ttmeiju.com/?action-site-type-map">设为首页</a> | 
+<a class="psvr" href="www.ttmeiju.com/?action-site-type-link">加入收藏</a></span>
+<span class="psvr"  style="float:right;margin-right:20px"><a class="psvr" href="#">背景图为<%= $cnu_fotos[@bg_index] %>.</a></span>
+</p>
+</div>
+<div class="psvr_copyright">
+<p class="psvr" id="psvr_copyright">
+版权所有 <a class="psvr" href="kejian.tv">Kejian.TV</a> &copy; <%= Time.now.year %> 课件交流系统. 课件著作权为原作者所有
+        </p>
+</div>
+
+</div><!--footer end-->
+</div></div>
+</div>
+
 
     <div id="hidden_new_ask" style="display: none;">
       <form action="/asks" method="post" id="inner_new_ask">

@@ -1,3 +1,14 @@
+  <!--背景图片 拉伸效果-->
+  <script language="javascript">
+    if(typeof document.compatMode!='undefined'&&document.compatMode!='BackCompat'){
+        cot_t1_DOCtp="_top:expression(document.documentElement.scrollTop+document.documentElement.clientHeight-this.clientHeight);_left:expression(document.documentElement.scrollLeft + document.documentElement.clientWidth - offsetWidth);}";
+    }else{
+        cot_t1_DOCtp="_top:expression(document.body.scrollTop+document.body.clientHeight-this.clientHeight);_left:expression(document.body.scrollLeft + document.body.clientWidth - offsetWidth);}";
+    }
+    var fdcCSS='.psvr_bgscroll {';
+    var fdcCSS=fdcCSS+cot_t1_DOCtp;
+    document.write('<style type=\"text\/css\">'+fdcCSS+'<\/style>');
+  </script>
 <div class="psvr_bgscroll" id="ktv_bg_container">
 </div>
 <% content_for :butt2 do %>

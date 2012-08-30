@@ -43,8 +43,8 @@
 <body onkeydown="if(event.keyCode==27) return false;">
   <div id="append_parent"></div><div id="ajaxwaitid"></div>
   <div id="hd">
-    <div class="wp">
-      <div class="hdc cl psvr_wtf_<%= user_signed_in? ? 'logout' : 'login' %>div" style="position:absolute;top:35px;margin-left:604px">
+    <div class="wp" style="padding:0">
+      <div class="hdc cl psvr_wtf_<%= user_signed_in? ? 'logout' : 'login' %>div" style="position:absolute;top:25px;margin-left:604px">
 
         <script src="/simple/static/js/logging.js?tFF" type="text/javascript"></script>
         <form method="post" autocomplete="off" id="lsform" action="/simple/member.php?mod=logging&amp;action=login&amp;loginsubmit=yes&amp;infloat=yes&amp;lssubmit=yes" onsubmit="return lsSubmit();">
@@ -81,7 +81,7 @@
         </form>
       </div>
       <div class="cl" id="mu"></div>
-      <div class="cl psvr_wtf_scbar" id="scbar">
+      <div class="cl psvr_wtf_scbar" id="scbar" style="width:<%= @is_ie6 ? '951' : '936' %>px;<%= @is_ie6 ? 'margin-left:5px' : '' %>">
         <form target="_blank" action="/simple/search.php?searchsubmit=yes" onsubmit="searchFocus($('scbar_txt'))" autocomplete="off" method="post" id="scbar_form">
           <input type="hidden" value="forum" id="scbar_mod" name="mod">
           <input type="hidden" value="8b815768" name="formhash">
@@ -149,21 +149,10 @@
     </div>
   </div>
   <div class="psvrsub">
-  <!--背景图片 拉伸效果-->
-  <script language="javascript">
-    if(typeof document.compatMode!='undefined'&&document.compatMode!='BackCompat'){
-        cot_t1_DOCtp="_top:expression(document.documentElement.scrollTop+document.documentElement.clientHeight-this.clientHeight);_left:expression(document.documentElement.scrollLeft + document.documentElement.clientWidth - offsetWidth);}";
-    }else{
-        cot_t1_DOCtp="_top:expression(document.body.scrollTop+document.body.clientHeight-this.clientHeight);_left:expression(document.body.scrollLeft + document.body.clientWidth - offsetWidth);}";
-    }
-    var fdcCSS='.psvr_bgscroll {';
-    var fdcCSS=fdcCSS+cot_t1_DOCtp;
-    document.write('<style type=\"text\/css\">'+fdcCSS+'<\/style>');
-  </script>
   <%= render 'ktv_bg_container' %>
 
-<div id="psvr_wrap">
-<div id="psvr_wrapper">
+<div class="psvr_wtf_wrap">
+<div class="psvr_wtf_wrapper">
 
 <div id="psvr_header">
  <div class="psvr_headtop">
