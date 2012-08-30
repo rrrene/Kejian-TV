@@ -1,0 +1,15 @@
+<div data-role="content">
+<p>创建新问题</p>
+  <div>
+    <%= form_for(@ask) do |f| %>
+          <div data-role="fieldcontain" class="ui-hide-label">
+              <input type="hidden" name="force_mobile" value="1" />
+              <%= f.text_field :title, :placeholder=>"问题标问题" %>
+              <%= f.text_area :body, :style => "height:100px;", :placeholder=>"问题描述（可选）" %>
+          </div>
+          <div>
+          <button type="submit" data-role="button" data-theme="b">提交问题</button>
+          </div>
+    <% end %>
+  </div>
+</div>

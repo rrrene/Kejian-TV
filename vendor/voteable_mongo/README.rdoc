@@ -1,0 +1,213 @@
+= Voteable Mongo
+
+voteable_mongo allows you to make your Mongoid::Document or MongoMapper::Document objects voteable and tabulate votes count and votes point for you. For instance, in a forum, a user can vote up (or down) on a post or a comment. It's optimized for speed by using only ONE database request per collection to validate, update, and retrieve updated data.
+
+Initial idea based on http://cookbook.mongodb.org/patterns/votes.
+
+Sample app at https://github.com/vinova/simple_qa.
+
+Wonder how fast voteable_mongo is compare to other SQL & MongoDB solutions?
+Visit benchmarks at https://github.com/vinova/voteable_benchmarks
+
+== Why voteable_mongo?
+
+There are various solutions for up / down voting problem (1[https://github.com/medihack/make_voteable], 2[https://github.com/brady8/thumbs_up], 3[https://github.com/icaruswings/mm-voteable], 4[https://github.com/jcoene/mongoid_voteable], ...). Most of them using additional votes table (SQL) or votes collection (MongoDB) to store votes and do data tabulation on that votes table or votes collection.
+
+voteable_mongo is different. It takes advantage of document-oriented database to store all related votes data inside voteable document. That has following benefits:
+
+* Don't have to maintain additional votes table or votes collection.
+
+* When voteable document is loaded, all votes data related to it also be loaded, no more additional database requests to see how many votes this document got, who give up votes who give down vote, total vote points, votes count ...
+
+* When vote up, vote down, revote, unvote, voteable_mongo validates vote data, updates voteable document and retrieves updated data using only ONE database request thanks to atomic findAndModify operation.
+
+* Atomic operations on single document warranty data integrity that makes sure if votes created / changed / deleted their associated counters and points will be updated.
+
+So use voteable_mongo for less maintain cost, data integrity and save database requests for other tasks.
+
+== Sites using voteable_mongo
+* http://www.naiku.net
+* http://www.amorveneris.com
+* http://zheye.org
+
+== Installation
+
+=== Rails 3.x
+
+To install the gem, add this to your Gemfile
+
+  gem 'mongoid'
+  gem 'voteable_mongo'
+
+After that, remember to run "bundle install"
+
+== Usage
+
+=== Make Post and Comment voteable, User become the voter
+
+== Mongoid
+post.rb
+
+    class Post
+      include Mongoid::Document
+      include Mongo::Voteable
+
+      # set points for each vote
+      voteable self, :up => +1, :down => -1
+
+      has_many :comments
+    end
+
+comment.rb
+
+    require 'post'
+
+    class Comment
+      include Mongoid::Document
+      include Mongo::Voteable
+
+      belongs_to :post
+
+      voteable self, :up => +1, :down => -3
+
+      # each vote on a comment can affect votes count and point of the related post as well
+      voteable Post, :up => +2, :down => -1
+    end
+
+user.rb
+
+    class User
+      include Mongoid::Document
+      include Mongo::Voter
+    end
+
+
+== MongoMapper
+post.rb
+
+    class Post
+      include MongoMapper::Document
+      include Mongo::Voteable
+
+      # set points for each vote
+      voteable self, :up => +1, :down => -1
+
+      many :comments
+    end
+
+comment.rb
+
+    require 'post'
+
+    class Comment
+      include MongoMapper::Document
+      include Mongo::Voteable
+
+      belongs_to :post
+
+      voteable self, :up => +1, :down => -3
+      voteable Post, :up => +2, :down => -1
+    end
+
+user.rb
+
+    class User
+      include MongoMapper::Document
+      include Mongo::Voter
+    end
+
+
+=== Make a vote
+
+    @user.vote(@post, :up)
+
+Is equivalent to
+    @user.vote(:votee => @post, :value => :up)
+    @post.vote(:voter => @user, :value => :up)
+
+In case you don't need to init voter and / or votee objects you can
+    @user.vote(:votee_class => Post, :votee_id => post_id, :value => :down)
+    @post.vote(:voter_id => user_id, :value => :up)
+    Post.vote(:voter_id => user_id, :votee_id => post_id, :value => :up)
+
+=== Undo a vote
+
+    @user.unvote(@comment)
+
+=== If have voter_id, votee_id and vote value you don't need to init voter and votee objects (suitable for API calls)
+
+New vote
+    Post.vote(:voter_id => user_id, :votee_id => post_id, :value => :up)
+
+Re-vote
+    Post.vote(:voter_id => user_id, :votee_id => post_id, :value => :up, :revote => true)
+
+Un-vote
+    Post.vote(:voter_id => user_id, :votee_id => post_id, :value => :up, :unvote => true)
+
+Note: vote function always return updated votee object
+
+=== Get vote_value
+    
+    @user.vote_value(@post)
+    @user.vote_value(:votee_class => Post, :votee_id => post_id)
+    @post.vote_value(@user)
+    @post.vote_value(user_id)
+
+=== Check if voted?
+
+    @user.voted?(@post)
+    @user.voted?(:votee_class => Post, :votee_id => post_id)
+    @post.voted_by?(@user)
+    @post.voted_by?(user_id)
+
+=== Get votes counts and points
+
+    puts @post.votes_point
+    puts @post.votes_count
+    puts @post.up_votes_count
+    puts @post.down_votes_count
+
+=== Get voters given voted object and voter class
+
+    @post.up_voters(User)
+    @post.down_voters(User)
+    @post.voters(User)
+    - or -
+    User.up_voted_for(@post)
+    User.down_voted_for(@post)
+    User.voted_for(@post)
+
+=== Get the list of voted objects of a class
+
+    Post.voted_by(@user)
+    Post.up_voted_by(@user)
+    Post.down_voted_by(@user)
+
+== Utilities
+
+=== Set counters and point to 0 for uninitialized voteable objects in order sort and query
+Rails
+    rake mongo:voteable:init_stats
+Ruby
+    Mongo::Voteable::Tasks::init_stats
+
+=== Re-generate counters and vote points in case you change :up / :down vote points
+Rails
+    rake mongo:voteable:remake_stats
+Ruby
+    Mongo::Voteable::Tasks.remake_stats
+
+=== Migrate from voteable_mongoid version < 0.7.0
+Rails
+    rake mongo:voteable:migrate_old_votes
+Ruby
+    Mongo::Voteable::Tasks.migrate_old_votes
+
+== Credits
+* Alex Nguyen - Author
+* Contributors[https://github.com/vinova/voteable_mongo/contributors]
+
+Copyright (c) 2010-2011 Vinova Pte Ltd
+
+Licensed under the MIT license.

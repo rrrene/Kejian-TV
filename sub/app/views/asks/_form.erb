@@ -1,0 +1,13 @@
+<div id="ask">
+<%= simple_form_for(@ask) do |f| %>
+  <div class="inputs">
+    <%= f.input :title, :label => "标问题", :input_html => {:class => "long",:maxlength=>100, :style=>'width:100%'}%>
+  最多100个汉字。
+    <%= f.input :body, :label => "选填：问题补充", :as => :text, :input_html => {:class => "long richeditor",:cols=>'',:rows=>'',:style=>'width:100%'} %>
+  </div>
+  <div class="actions" style="line-height:44px">
+    <div class="btnNormalGreen" style="margin-top:8px;margin-bottom:18px" onclick="document.getElementById('new_ask').submit()"><span>提交问题</span></div>
+    &nbsp;&nbsp; 或者 <%= link_to '返回', asks_path %>
+  </div>
+<% end %>
+</div>

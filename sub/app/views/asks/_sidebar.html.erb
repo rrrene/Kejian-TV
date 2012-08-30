@@ -1,0 +1,55 @@
+<% content_for :sidebar do %>
+
+  <nav id="mainNav">
+    <ul>
+      <li style="cursor:pointer;" class="<%=' current ' if params[:controller]=='home' and ['newbie'].index(params[:action])%>"><span class="homepage"></span><a href="/newbie">风云榜首页</a></li>
+      <% if current_user %>
+        <li style="cursor:pointer;" class="<%= 'current' if params[:controller] == "home" and ["index"].index(params[:action]) %>"><span class="newbie"></span><a href="/root">问答动态直播</a><div class="userNotify englishFont" style="<% if current_user.notifications.nondeleted.unread.count < 1 %>display:none<% end %>"><%=current_user.notifications.nondeleted.unread.count%></div></li>
+        <li style="cursor:pointer;" class="<%= ' current' if params[:controller]== "home" and params[:action] == "followed" %>"><span class="followed"></span><a href="<%= followed_path %>">我关注的问题</a></li>
+        <li style="cursor:pointer;" class="<%= ' current' if params[:controller] == "home" and params[:action] == "recommended" %>"><span class="recommended"></span><a href="<%= recommended_path %>">或许能解答</a></li>
+        <li style="cursor:pointer;" class="<%= ' current' if request.path=='/asks' %>"><span class="asks"></span><a href="<%= asks_path %>">所有问题</a></li>
+      <% else %>
+        <li style="cursor:pointer;" class="<%= ' current' if request.path=='/asks' %>"><span class="asks"></span><a href="<%= asks_path %>">所有问问题</a></li>
+      <% end %>
+      <li style="cursor:pointer;" class="<%=' current ' if request.path=='/zero_asks'%>"><span class="doing"></span><a href="/zero_asks">悬而未决的问题</a></li>
+    </ul>
+    <div class="block40"></div>
+  </nav>
+  <% unless 'home_followed'==pos_signature %>
+    <%= render file:'home/refresh_sugg' %>
+  <% else %>
+    <!-- {followed_topics -->
+    <%# cache :action_suffix => 'followed_topics' do %>
+    <% @followed_topics = current_user.followed_topic_ids %>
+    <% if !@followed_topics.blank? %>
+      <section class="sideBox clearfix">
+        <section class="sideBox clearfix">
+          <h3><a href="<%= following_topics_user_path(current_user.slug) %>">我关注的话题<%= @followed_topics.count %>个</a></h3>
+          <ul class="topicList">
+            <% for topic in @followed_topics %>
+              <% topicname = Topic.get_name(topic) %>
+
+              <li><em>
+                  <a href="/topics/<%= topicname %>"><%= truncate(topicname,:length=>7,omission:'⋯') %></a>
+                </em>
+                <% if current_user and current_user.topic_followed?(topic) %>
+                  <a class="nBtn nBtnUnFocus" onclick="return Topics.unfollow(this, '<%= topicname %>','small');"></a>
+                <% else %>
+                  <a class="nBtn nBtnFocus" onclick="return Topics.follow(this, '<%= topicname %>','small');"></a>
+                <% end %>
+
+              </li>
+            <% end %>
+          </ul>
+        </section>
+      </section>
+    <% end %>
+    <!-- followed_topics} -->
+
+  <% end %>
+
+  <% if current_user %>
+  <% end %>
+
+
+<% end %>

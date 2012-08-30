@@ -1,0 +1,93 @@
+<%= content_for :sitemap do %>
+  <span class="current">列表</span>
+<% end %>
+<%#= render 'base' %>
+<%=render 'search_form'%>
+<%if @answers.total_entries>0%>
+  <div id="cpanel_answers">
+    <%=form_tag("/cpanel/deal_answers") do%>
+      <table class="stat_table" style="table-layout:fixed;">
+        <thead>
+          <tr>
+            <th style="width:50px;">序号</th>
+            <th style="width:180px;">问题标题</th>
+            <th>回答</th>
+            <th style="width:50px;">
+        <div>赞成/</div>
+        <div>反对数</div>
+        </th>
+        <th style="width:50px;">评论数</th>
+        <th style="width:75px;">
+        <div>感谢数/</div>
+        <div>没帮助数</div>
+        </th>
+        <th style="width:100px;">回答人</th>
+        <th style="width:125px;">回答时间</th>
+        <th style="width:50px;">修改</th>
+        <th style="width:60px;text-align:center;"><input id="check_btn" type="button" value="全选" onclick="checkAll()"></th>
+        </tr>
+        </thead>
+        <tbody>
+          <% @answers.each_with_index do |item,i| %>
+            <tr class="<%= i.odd? ? "odd" : "even" %>">
+              <td><%= 20*(params[:page].blank? ? 1:params[:page].to_i)+i-19 %></td>
+              <td class="wordwrap add_padding"><%= link_to item.ask.title,"/asks/#{item.ask_id}",target:'_blank' %> </td>
+              <td class="wordwrap add_padding"><%= link_to raw(truncate2(item.body.gsub(/<.*?>/,''),:length=>500)),"/asks/#{item.ask_id}##{item.id}",:target=>'_blank',:title=>raw(item.body.gsub(/<.*?>/,'')) %></td>
+              <td>
+                <%=item.vote_up_count%>/<%=item.vote_down_count%>
+              </td>
+              <td style="width:50px;"><%= item.comments_count %></td>
+              <td style="width:50px;">
+                <%=item.thanked_count%>/<%= item.spams_count %>
+              </td>
+              <td>
+                <div><%= link_to user_name_tag(item.user, :target=>'target="_blank"') %></div>
+                <%if [User::ELITE_USER,User::EXPERT_USER].include?item.user.user_type%>
+                  <div style="color:<%if item.user.user_type==User::ELITE_USER%>green<%else%>red<%end%>;"><%=User::USER_TYPE[item.user.user_type]%></div>
+                <%end%>
+              </td>
+              <td style="width:100px;"><%=item.created_at.getlocal.strftime("%Y-%m-%d %H:%M")%></td>
+              <td style="width:50px;">
+                <%= link_to '修改', edit_cpanel_answer_path(item.id),:style=>"color:#1f4ca5;",:target=>"_blank" %>
+      <%#= link_to image_tag("wice_grid/delete.png", :style => "margin-bottom:-4px"), cpanel_answer_path(item.id), :method => :delete, :confirm => '确定要删除吗?' %>
+              </td>
+              <td style="text-align:center;">
+                <input name="choose_answers[]" type="checkbox" value="<%=item.id%>" style="width:50px;">
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <div style="text-align:center;margin-top:20px;margin-bottom:10px;">
+        <%= radio_button_tag(:deal_action,1,false,:style=>"width:13px;") %>
+        <%= label_tag(:delete_action, "删除回答") %>
+        <%= radio_button_tag(:deal_action,2,false,:style=>"width:13px;margin-left:30px;") %>
+        <%= label_tag(:destroy_action, "删除回答并屏蔽用户") %>
+      </div>
+      <div style="text-align:center;">
+        <input type="submit" value="提交" style="width:120px;cursor:pointer;" />
+      </div>
+    <%end%>
+
+    <div style="clear:both;height:10px;"></div>
+    <%= will_paginate @answers,:renderer=>WendaoLinkBACKRenderer %>
+  </div>
+  <script type="text/javascript">
+    function checkAll(){
+      if(jQuery("#check_btn").val()=="全选"){
+        for(i=0;i<jQuery("input:checkbox").length;i++){
+          jQuery("input:checkbox")[i].checked=true;
+        }
+        jQuery("#check_btn").val("全不选");
+      }else{
+        for(i=0;i<jQuery("input:checkbox").length;i++){
+          jQuery("input:checkbox")[i].checked=false;
+        }
+        jQuery("#check_btn").val("全选");
+      }
+    
+    }
+  </script>
+<%else%>
+  <div style="font-size:16px;color:red;text-align:center;">搜索结果为空</div>
+<%end%>

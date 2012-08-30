@@ -1,0 +1,35 @@
+<h2>Show Access</h2>
+
+<div class="field_show">
+  <b>客户端ID:</b>
+  <%= @access.client_uri %>
+</div>
+
+<div class="field_show">
+  <b>Today requests:</b>
+  <%= @access.daily_requests.times %>
+</div>
+
+<div id="chart" style="width: 100%; height: 250px"></div>
+
+<div class="footer_buttons"> 
+<%= link_to '返回', cpanel_accesses_path, class: "button icon arrowleft" %>
+<% if @access.blocked? %>
+  <%= link_to '审核', unblock_cpanel_access_path(@access), method: :put, class: "button danger" %>
+<% else %>
+  <%= link_to '改为未审核', block_cpanel_access_path(@access), method: :put, class: "button danger" %>
+<% end %>
+<div>
+
+
+<script>
+  jQuery(document).ready(function() {
+    createChart(
+      <%=raw @access.chart_days %>,
+      <%= @access.chart_times.to_json %>,
+      "<%= @access.client_uri %>"
+    )  
+  });
+</script>
+
+

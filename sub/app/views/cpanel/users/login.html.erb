@@ -1,0 +1,35 @@
+<div id="login_page">
+  <form name="frmLogin" id="frmLogin" method="post" action="http://my.zhaopin.com/loginmgr/loginproc.asp">
+    <div class="login_div">
+      <div class="input_div">管理员账号:</div>
+      <div class="input_div">
+        <input type="text" name="loginname" maxlength="100" placeholder="邮箱/用户名">
+      </div>
+    </div>
+    <div style="clear:both;"></div>
+    <div class="login_div">
+      <div class="input_div">管理员密码:</div>
+      <div class="input_div">
+        <input type="password" name="password" maxlength="25">
+        <input type="hidden" name="Validate" id="Validate" value="campusspecial2011unify">
+        <input type="hidden" name="errbkurl" id="errbkurl">
+        <input type="hidden" name="bkurl" id="bkurl" value="http://<%=Setting.domain%>/cpanel/welcome">
+      </div>
+    </div>
+    <div style="clear:both;"></div>
+    <div style="font-size:13px;color:red;margin-left:210px;height:25px;" id="tip_password">
+      <%if params[:error] and params[:error].to_i==1%>
+        用户名或密码错误
+      <%elsif current_user%>
+        权限不足
+      <%end%>
+    </div>
+    <input type="submit" value="提交" style="width:100px;margin-left:210px;margin-top:5px;cursor:pointer;">
+  </form>
+</div>
+<script>
+  function initValue() {
+    jQuery("#errbkurl").val(location.href+((location.href.indexOf('error=1')>-1)?'':'?error=1'));
+  }
+  window.onload = initValue;
+</script>

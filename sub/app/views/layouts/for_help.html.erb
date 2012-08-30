@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie_all ie6" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie_all ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie_all ie8" lang="en"> <![endif]-->
+<!--[if IE 9]>    <html class="no-js ie_all ie9" lang="en"> <![endif]-->
+<!--[if gt IE 9]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+    <meta http-equiv="imagetoolbar" content="no" />
+    <meta name="viewport" content="width=960"/>
+    <meta http-equiv="x-dns-prefetch-control" content="off"/>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta property="wb:webmaster" content="8511185f3b58f41f" />
+    <title>首都师范大学课件交流系统 - <%=@seo[:title]%></title>
+    <link rel="shortcut icon" href="/favicon.ico?v=003" /> 
+    <meta charset="UTF-8">
+    <%= csrf_meta_tag %>
+
+    <!--[if lt IE 9 ]>
+    <%= javascript_include_tag "for_help/html5" %>
+    <![endif]-->
+    <%= stylesheet_link_tag "for_help/application" %>
+    <%= stylesheet_link_tag "application", :media => "all" %>
+    <!--[if IE 8 ]>
+      <link href="/css_ie8.css" media="all" rel="stylesheet" type="text/css" />
+    <![endif]-->
+    <!--[if lt IE 8 ]>
+      <link href="/css_ie.css" media="all" rel="stylesheet" type="text/css" />
+    <![endif]-->
+    <%= flash[:extra_ucenter_operations] %>
+  </head>
+
+<body data-subdomain="<%= request.subdomain %>">
+  <div class="psvrsub">
+  <%= render 'ktv_bg_container' %>
+
+<div class="psvr_wtf_wrap">
+  <div class="psvr_wtf_wrapper" style="<% if @is_ie6 %>width:953px;padding-right:25px;padding-left:10px<% end %>">
+
+<div id="psvr_header" style="padding-bottom:52px;margin-bottom:0">
+ <div class="psvr_headtop">
+      <div class="psvr_logo">
+        <a href="/" class="psvr"><img class="psvr" src="<%= asset_path 'logo_cnu.png' %>" alt="首都师范大学课件交流系统" id="psvr_logimg"></a>
+      </div>
+  </div>
+
+
+
+  <div class="psvr_menu_out">
+    <%= render 'psvr_navmenu' %>
+  </div>
+</div>
+
+<!--header end-->
+
+</div></div></div>
+<div class="psvr_wtf_wrap" style="<%= @is_ie8 ? 'margin-top:-20px' : ''%>">
+  <div class="psvr_wtf_wrapper" style="<% if @is_ie6 %>width:953px;padding-right:17px;padding-left:18px<% end %>">
+    <div style="width:936px;<%= @is_ie6 || @is_ie7 ? 'margin-left:0' : '' %>" id="scbar_ppp" class="cl_ppp psvr_wtf_scbar">
+      　欢迎来到首都师范大学问答求助区！目前共有<%=link_to Ask.count,'/asks'%>个问题，其中<%=link_to Ask.unanswered.count,'/zero_asks'%>个还悬而未决，欢迎贡献答案或提出问题！
+      <%= content_for :butt2 do %>
+        Asks.completeAll(jQuery("#searchInput"));
+
+        jQuery(' .pager a.disabled').click(function(){
+        return false;
+        });
+
+        jQuery('.btnGoAsk').click(function(){return Asks.addAsk();});
+      <% end %>
+      <button class="btnGoAsk" href="/asks/new"></button>
+    </div>
+    <% if @raw_raw_raw %>
+      <%= yield %>
+    <% else %>
+      <section id="container" class="wrapper clearfix" style="<%='background:white' if @render_no_sidebar %>">
+        <section id="main" style="<%= 'width:100%' if @render_no_sidebar %>">
+          <section id="mainContent" class="<%= 'askPage' if 'asks_show'==pos_signature %>">
+            <% if !@notice.blank? %>
+              <% if cookies[:hide_notice] != @notice.id.to_s %>
+                <div id="sys_notice">
+                  <%= raw @notice.body %>
+                  <div class="info">
+                    <span class="date"><%= l @notice.updated_at.getlocal, :format => :long %></span>
+                    <a href="#" class="gray_button small" onclick="return App.hideNotice('<%= @notice.id %>');">我知道了</a>
+                  </div>
+                </div>
+              <% end %>
+            <% end %>
+            <% if !notice.blank? %>
+              <div class="notice_message"><%= notice %></div>
+              <%= content_for :butt do %>
+                <script type="text/javascript">
+                  jQuery(".notice_message").fadeOut().fadeIn();
+                </script>
+              <% end %>
+            <% end %>
+            <% if !alert.blank? %>
+              <div class="alert_message"><%= alert %></div>
+              <%= content_for :butt do %>
+                <script type="text/javascript">
+                  jQuery(".alert_message").fadeOut().fadeIn();
+                </script>
+              <% end %>
+            <% end %>
+
+
+            <%= yield %>
+          </section>
+        </section>
+        <% unless @render_no_sidebar %>
+          <aside id="sidebar">
+            <%= yield :sidebar %>
+            <div class="clearfix mt20">
+            </div>
+          </aside>
+        <% end %>
+      </section>
+
+    <% end %>
+  </div>
+</div>
+<div class="psvrsub">
+  <div class="psvr_wtf_wrap">
+    <div class="psvr_wtf_wrapper">
+
+<div id="psvr_footer">
+<div id="psvr_footer_top">
+  <p class="psvr psvr_good_link">
+  <span class="psvr"  style="float:left">
+<a class="psvr" href="/">首都师范大学课件交流系统</a> | 
+<a class="psvr" href="www.ttmeiju.com/?action-site-type-map">设为首页</a> | 
+<a class="psvr" href="www.ttmeiju.com/?action-site-type-link">加入收藏</a></span>
+<span class="psvr"  style="float:right;margin-right:20px"><a class="psvr" href="#">背景图为<%= $cnu_fotos[@bg_index] %>.</a></span>
+</p>
+</div>
+<div class="psvr_copyright">
+<p class="psvr" id="psvr_copyright">
+版权所有 <a class="psvr" href="kejian.tv">Kejian.TV</a> &copy; <%= Time.now.year %> 课件交流系统. 课件著作权为原作者所有
+        </p>
+</div>
+
+</div><!--footer end-->
+</div></div>
+</div>
+
+
+    <div id="hidden_new_ask" style="display: none;">
+      <form action="/asks" method="post" id="inner_new_ask">
+        <%= auth_token %>
+        <header>
+          创建新问题
+          <a class="close"  onclick="jQuery.facebox.close(); return false;"></a>
+        </header>
+        <section>
+          <div class="editorBox mt10 clearfix">
+            <!-- XXX是这个人人名 -->
+            <textarea name="ask[title]" id="new_ask_title_gl" rows="1" class="textarea"></textarea>
+            <div class="bar limitwords"></div>
+            <textarea name="ask[body]" id="new_ask_body_gl" rows="1" class="textarea mt10"></textarea>
+            <div class="bar limitwords"></div>
+          </div>
+          <ul class="topicNav modify clearfix">
+          </ul>
+          <div class="addTopic mt5 clearfix" id="theAddTopic" >
+            <input type="text" name="topic"><div class="btnNormalSilver"><span class="add_topic">添加</span></div>
+          </div>
+        </section>
+        <input type="hidden" name="topics" value="">
+        <footer>
+          <div class="btnNormalGreen bold mt20 submit rightbtn"><span>发布问题</span></div>
+        </footer>
+      </form>
+    </div>
+
+    <div style="display: none;" id="loading">
+      <div class="logo"></div>
+      <div class="text">加载中…</div>
+    </div>
+    <div style="overflow:hidden;" class="hide">
+      <%= image_tag("loading.gif") %>
+      <div id="report_page">
+        <header>举报内容 <a class="close" href="javascript:void(0);"></a></header>
+        <section>
+          <form id="report_page_form" action="/report.js" onsubmit="App.loading();" method="post" class="simple_form"> 
+            <%= auth_token %>
+            <input type="hidden" name="url" value="<%= request.path %>" />
+            <p class="fc999">请填写举报原因:</p>
+            <div class="editorBox mt10 clearfix">
+              <textarea name="desc" style="height:80px;"></textarea>
+            </div>
+          </form>
+        </section>
+        <footer>
+          <div class="btnNormalGreen bold mt20 rightbtn" id="report_submit" >
+            <span>提 交</span>
+          </div>
+        </footer>
+      </div>
+    </div>
+
+    <%= yield :bottom %>
+    <%= javascript_include_tag "application" %>
+    <%= javascript_include_tag "for_help/application" %>
+    <%= yield :scripts %>
+    <script type="text/javascript" charset="utf-8">
+      jQuery(function(){
+        <%= yield :butt2 %>
+      })
+    </script>
+
+    <script type="text/javascript">
+      <% if current_user %>
+        var logined = true;
+      <% else %>
+        var logined = false;
+      <% end %>
+    </script>
+    <%= yield :butt %>
+</body>
+</html>

@@ -1,0 +1,10 @@
+      <div class="psvr_menu_in" id="psvr_navmenu"> 
+        <div class="psvr_menu" id="psvr_navmenu">
+          <ul class="psvr" >
+            <li class="psvr" style="height:37px">&nbsp;</li>
+            <li class="psvr" ><a class="psvr <%= '/'==request.path ? 'psvr_now' : ''%>" href="/"><span class="psvr" >首页</span></a></li>
+            <li class="psvr" ><a class="psvr <%= '/courses'==request.path ? 'psvr_now' : ''%>" href="/courses"><span class="psvr" >本学期课程</span></a></li>
+            <li class="psvr" ><a class="psvr <%= '/un_courses'==request.path ? 'psvr_now' : ''%>" href="/un_courses"><span class="psvr" >本学期未开</span></a></li>
+          </ul>
+        </div>
+      </div>

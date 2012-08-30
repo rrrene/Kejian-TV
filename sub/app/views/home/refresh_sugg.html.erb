@@ -1,0 +1,52 @@
+<% if current_user %>
+<% unless @suggested_experts.blank? and @suggested_users.blank? and @suggested_topics.blank? %>
+<section class="sideBox clearfix mt20" id="refresh_sugg">
+	<h3 class="posRela">你可能感兴趣<a title="换一换" class="shuffle" href="javascript:void(0)" onclick="App.refresh_sugg()"></a></h3>
+	<ul class="funcList">
+    <% @suggested_experts.each do |user| %>
+    <li>
+      <%
+       ca={size2:50}
+       expert = user.id
+       ca[:name] ||= user.name
+       ca[:slug] ||= user.slug
+       ca[:path] ||= "/users/#{ca[:slug]}"
+      %>
+			<figure><%= user_avatar_tag2(expert,:mid,ca) %></figure>
+      <a class="nBtn nBtnFocus" onclick="return Users.follow(this, '<%= ca[:slug] %>','small');"></a>
+			<figcaption><a href="/users/<%=ca[:slug]%>"><%=truncate(ca[:name],:length=>7,omission:'⋯')%></a></figcaption>
+			<p><%= User.get_is_expert_why(expert) %></p>
+    </li>
+    <%end %>
+    <% unless  current_user.is_expert %>
+    <% @suggested_users.each do |user| %>
+    <li>
+      <%
+       ca={size2:50}
+       expert = user.id
+       ca[:name] ||= user.name
+       ca[:slug] ||= user.slug
+       ca[:path] ||= "/users/#{ca[:slug]}"
+      %>
+			<figure><%= user_avatar_tag2(expert,:mid,ca) %></figure>
+      <a class="nBtn nBtnFocus" onclick="return Users.follow(this, '<%= ca[:slug] %>','small');"></a>
+			<figcaption><a href="/users/<%=ca[:slug]%>"><%=truncate(ca[:name],:length=>7,omission:'⋯')%></a></figcaption>
+			<p><%= user.tagline %></p>
+    </li>
+    <%end %>
+    <%end %>
+  
+		<% for topic in @suggested_topics %>
+		  <% topicname = topic.name %>
+		<li>
+		  <figure><%= topic_cover_tag(topic,:mid,:size2=>50) %></figure>
+      <a class="nBtn nBtnFocus" onclick="return Topics.follow(this, '<%= topicname %>','small');"></a>
+			<figcaption><a href="<%= topic_path(topicname) %>"><%= truncate(topicname,:length=>7,omission:'⋯') %></a></figcaption>
+			<p><%= truncate(topic.summary_plain,:length=>20,omission:'⋯') %></p>
+		  </li>
+	  <% end %>
+	  
+	</ul>
+</section>
+<% end %>
+<% end %>

@@ -1,0 +1,26 @@
+<div class="green_header">修改评论</div>
+<div id="cpanel_comment" class="search_form">
+  <%= form_for(@comment,:url => (@comment.id.blank? ? cpanel_comments_path : cpanel_comment_path(@comment.id)) ) do |f| %>
+
+    <div class="inputs">
+      <div class="search_form_row">
+        <div style="margin-right:28px;float:left;">评论内容:</div>
+        <%=text_area_tag "comment[body]",@comment.body,:style=>"width:500px;height:120px;",:class=>"validate[required,funcCall[checkSize2000]]"%>
+      </div>
+  <%#= f.input :user_id %>
+  <%#= f.input :commentable_type %>
+  <%#= f.input :commentable_id %>
+    </div>
+    <div class="actions">
+      <button type="submit" style="margin-left:84px;">提交</button>
+    </div>
+  <% end %>
+</div>
+<script type="text/javascript">
+  function checkSize2000(field, rules, i, options){
+    var num=2000;
+    if (real_length2(field.val())>num*2) {
+      return "不能超过"+num+"个汉字";
+    }
+  }
+</script>

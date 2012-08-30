@@ -1,0 +1,78 @@
+<div id="share_ask">
+  <header>分享问题 <a class="close" onclick="jQuery.facebox.close(); return false;"></a></header>
+  <section>
+    <div class="tabNav">
+      <ul>
+        <li style="margin-left:10px;"><a href="javascript:void(0);" show="email" class="shareEmail fc690"><span class="has_icon email">Email</span></a></li>
+        <li><a href="javascript:void(0);" show="url" class="shareFw fc690"><span class="has_icon url">转发地址</span></a></li>
+      </ul>
+    </div>
+    <form action="<%= share_ask_path(@ask.id) %>" class="simple_form" method="post" data-remote="true">
+      <%= auth_token %>
+      <div  class="share_panel hide" id="share_panel_email">
+        <input type="hidden" name="type" value="email" />
+
+        <dl class="shareEmailTab clearfix">
+          <dt><label>收件人：</label></dt>
+          <dd><input type="text" name="to" placeholder="如：user@163.com" required="required" type="email" /></dd>
+          <dt><label>$：</label></dt>
+          <dd><input type="text" style="width:340px;" required="required" name="subject" value="<%= current_user.name %>向你推荐问题" /></dd>
+          <dt><label>正文：</label></dt>
+          <dd style="height:auto"><textarea style="width:324px;height:60px;" required="required" onclick="jQuery(this).height(150);" name="body"><%= current_user.name %>说：向你推荐这个问题《<%=link_to @ask.title,ask_url(@ask.id)%>》访问地址：<a href="<%= ask_url(@ask.id) %>" target="_blank"><%= ask_url(@ask.id) %></a></textarea></dd>
+        </dl>
+      </div>
+    </form>
+    <div  class="share_panel hide" id="share_panel_url">
+      <p class="fc999">推荐文字</p>
+      <div><textarea type="text" style="width:400px;height:50px;"><%= @ask.title %>
+          <%= ask_url(@ask.id) %></textarea></div>
+      <p>你可以复制上面的内容，并把它转发到你的微博或发送给你的QQ好友,他们点击链接就能看到此页面。</p>
+    </div>
+  </section>
+  <footer class="url_footer">
+    <div id="btn_share_email" class="btnNormalGreen bold mt20 btn_share rightbtn"> 
+      <span>分 享</span>
+    </div>
+    <div id="btn_share_url" class="btnNormalGreen bold mt20 btn_share hide rightbtn" >
+      <span>复 制</span>
+    </div>
+  </footer>
+</div>
+<script type="text/javascript" charset="utf-8">
+  jQuery("#share_ask .tabNav a").click(function(){
+    a = jQuery(this);
+    jQuery(".share_panel").hide();
+    jQuery(".btn_share").hide();
+    jQuery("#share_panel_"+a.attr("show")).show().find("input,textarea").first().focus().select();
+    jQuery("#btn_share_"+a.attr("show")).show();
+    jQuery("#share_ask .tabNav li").removeClass("current");
+    jQuery(this).parent().addClass("current");
+    return false;
+  });
+  jQuery("#btn_share_email", jQuery("#facebox")).unbind("click").click(function(){
+    if(jQuery(".shareEmailTab input[name='to']").val()!="" && jQuery(".shareEmailTab input[name='subject']").val()!="" && jQuery(".shareEmailTab textarea[name='body']").val()!=""){
+      if (/^[a-z0-9][_a-z0-9\-]*([\.][_a-z0-9\-]+)*@([a-z0-9\-_]+[\.])+(?:cc|com|edu|gov|int|net|org|biz|info|pro|name|coop|al|dz|af|ar|ae|aw|om|az|eg|et|ie|ee|ad|ao|ai|ag|at|au|mo|bb|pg|bs|pk|py|ps|bh|pa|br|by|bm|bg|mp|bj|be|is|pr|ba|pl|bo|bz|bw|bt|bf|bi|bv|kp|gq|dk|de|tl|tp|tg|dm|do|ru|ec|er|fr|fo|pf|gf|tf|va|ph|fj|fi|cv|fk|gm|cg|cd|co|cr|gg|gd|gl|ge|cu|gp|gu|gy|kz|ht|kr|nl|an|hm|hn|ki|dj|kg|gn|gw|ca|gh|ga|kh|cz|zw|cm|qa|ky|km|ci|kw|cc|hr|ke|ck|lv|ls|la|lb|lt|lr|ly|li|re|lu|rw|ro|mg|im|mv|mt|mw|my|ml|mk|mh|mq|yt|mu|mr|us|um|as|vi|mn|ms|bd|pe|fm|mm|md|ma|mc|mz|mx|nr|np|ni|ne|ng|nu|no|nf|na|za|aq|gs|eu|pw|pn|pt|jp|se|ch|sv|ws|yu|sl|sn|cy|sc|sa|cx|st|sh|kn|lc|sm|pm|vc|lk|sk|si|sj|sz|sd|sr|sb|so|tj|tw|th|tz|to|tc|tt|tn|tv|tr|tm|tk|wf|vu|gt|ve|bn|ug|ua|uy|uz|es|eh|gr|hk|sg|nc|nz|hu|sy|jm|am|ac|ye|iq|ir|il|it|in|id|uk|vg|io|jo|vn|zm|je|td|gi|cl|cf|cn)$/
+      .test(jQuery(".shareEmailTab input[name='to']").val())){
+        jQuery(".simple_form", jQuery("#facebox"))[0].submit();
+      }else{
+        return false;
+      }
+    }else{
+      return false;
+    }
+  });
+  jQuery("#btn_share_url", jQuery("#facebox")).unbind("click").click(function(){
+    var txtObj = jQuery("#share_panel_url textarea", jQuery("#facebox"));
+    if (window.clipboardData){
+      window.clipboardData.setData('text', txtObj.val());
+    } else {
+      alert("该功能只支持IE浏览器\n请选中文本按Ctrl+C再进行复制");
+      txtObj.trigger("focus");
+    }
+  });
+<% if !params[:type].blank? %>
+    jQuery("#share_ask .tabNav a[show*=<%= params[:type] %>]").click();
+<% else %>
+    jQuery("#share_ask .tabNav a").first().click();
+<% end %>
+</script>

@@ -1,0 +1,82 @@
+<%= image_tag 'ie/ktv_invite.png',:class => 'ktvregh2', :alt => '注册新用户' %>
+<% resource = @user;resource_name='user' %>
+<%= form_for(resource, :as => 'user', :url => invite_submit_users_path, :html=>{:class => 'normal',:id=>'submit_btn_form',:autocomplete=>"off"}) do |f| %>
+  <%# devise_error_messages! %>
+  <p>只需填写姓名+邮箱即可立即发送邀请，提交后您可以跟踪邀请进度，看好友用多少时间接受了邀请：）</p>
+  <div class="field">
+    <%= f.label :name,'真实姓名' %><div class="field_error" id="regerror_name"><%= resource.errors_for_field(:name) %></div><br class="clear">
+    <%= f.text_field :name,:class => 's462',:tabindex => 1,:autocomplete=>"off" %>
+  </div>
+  <div class="field">
+    <%= f.label :email,'E-mail' %><div class="field_error" id="regerror_email"><%= resource.errors_for_field(:email) %></div><br class="clear">
+    <%= f.email_field :email,:class => 's462',:tabindex => 2,:autocomplete=>"off",:onkeypress=>"if(event.keyCode==13){jQuery('#submit_btn_form').submit();}" %>
+  </div>
+  <div><input type="checkbox" checked="checked" value="1" style="height:19px;margin-left:5px" name="send_immediately" id="send_immediately"> <label for="send_immediately">立即发送邀请邮件</label></div>
+
+  <div class="clearfix" style="margin-top:20px;padding-bottom:8px">
+    <div class="field fl">
+      <a href="javascript:void(0)" class="btn btn210 submit_btns" id="submit_btn">提交邀请</a>
+    </div>
+    <div class="field fr">
+      <a href="<%= cancel_href %>" class="btn btn210_grey">取消</a>
+    </div>
+  </div>
+<% end %>
+<% if @invited_users.present? %>
+<div class="__qua clearfix">
+  <div class="main_col col w4_5">
+  	<div class="p0_5">
+  		<h1 class="heading">邀请动态追踪</h1>
+  		<div class="contacts_previous_invitations">
+  			<div id="ld_NURTav_14632">
+  				<div id="ld_NURTav_14636" class="pagedlist_item">
+<% @invited_users.each do |item| %>
+  					<div class="col w4_5 item p1 contact_list_item">
+  						<div class="col w0_5">
+  							<a href="<%= user_path(item) %>"><img width="50" height="50" src="<%= avatar_url(item) %>" style="padding:1px;border:1px solid #CCC"></a>
+  						</div>
+  						<div class="col w3000">
+  							<div class="name">
+  								<strong><%= link_to item.name,user_path(item) %></strong>
+  							</div>
+  							<p class="action_bar">
+  								<a id="__w2_ssdDwXE_email" href="#"><%= item.email %></a>
+	<% if item.inviter_invited_at[current_user.id.to_s].present? %>
+	  <% if item.confirmed_at.present? %>
+	  <span class="bullet"> • </span>注册于<%= timeago(item.confirmed_at) %>
+	  <% else %>
+	  <span class="bullet"> • </span>最后邀请于<%= timeago(item.inviter_invited_at[current_user.id.to_s]) %>
+	  <% end %>
+	<% end %>
+  							</p>
+  						</div>
+  						<div class="side_col col w1">
+  							<div id="ld_NURTav_14667">
+              	  <% if item.confirmed_at.present? %>
+                  <% elsif item.inviter_invited_at[current_user.id.to_s].present? %>
+              	  <%= link_to '重新发送', invite_send_user_path(item.slug), :method=>:post, class:"action_button" %>
+                  <% else %>
+              	  <%= link_to '发送邀请', invite_send_user_path(item.slug), :method=>:post, class:"action_button" %>
+              	  <% end %>
+  							</div>
+  						</div>
+  					</div>
+<% end %>
+  				</div>
+  			</div>
+  		</div>
+  	</div>
+  </div>
+</div>
+<div style="width:100%;height:50px"></div>
+<% end %>
+<% content_for :butt2 do %>
+jQuery('#user_name').blur(function(){
+  App.checkUsername(this);
+  return true;
+});
+jQuery('#user_email').blur(function(){
+  App.checkEmail(this);
+  return true;
+});
+<% end %>

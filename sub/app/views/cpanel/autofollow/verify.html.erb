@@ -1,0 +1,111 @@
+<%= content_for :sitemap do %>
+  <span class="current">列表</span>
+<% end %>
+<%#=  render 'base' %>
+<%=  render 'verify_search_form' %>
+<%if @asks.total_entries>0%>
+  <div id="cpanel_asks">
+    <%=form_tag("/cpanel/deal_verify") do%>
+      <table class="stat_table" style="table-layout:fixed;">
+        <thead>
+          <tr>
+            <th style="width:70px;">序号</th>
+            <%if params[:content_type]=="answers"%>
+              <th>回答内容</th>
+            <%elsif params[:content_type]=="comments"%>
+              <th>评论内容</th>
+            <%elsif params[:content_type]=="asks"%>
+              <th>问题标题</th>
+            <%else%>
+              <th>内容</th>
+            <%end%>
+            <th style="width:100px;">内容类型</th>
+            <th style="width:110px;">昵称</th>
+            <th style="width:160px;">发布时间</th>
+            <th style="width:85px;text-align:center;"><input id="check_btn" type="button" value="全选" onclick="checkAll()"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @asks.each_with_index do |item,i| %>
+            <tr class="<%= i.odd? ? "odd" : "even" %>">
+              <td><%= 20*(params[:page].blank? ? 1:params[:page].to_i)+i-19 %></td>
+              <td class="wordwrap"><%= item.content %> </td>
+              <%if item.controller.to_s=="answers" %>
+                <td>回答</td>
+              <%elsif item.controller.to_s=="comments" %>
+                <td>评论</td>
+              <%else%>
+                <td>提问</td>
+              <%end%>
+              <td class="wordwrap"><%= link_to user_name_tag(item.user,:target=>'target="_blank"',:no_truncate=>true) %></td>
+              <td><%= item.created_at.getlocal.strftime("%Y-%m-%d %H:%M") %></td>
+              <td style="text-align:center;">
+                <input name="choose_verifies[]" type="checkbox" value="<%=item.id%>" style="width:50px;">
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <div style="text-align:center;margin-top:20px;margin-bottom:10px;">
+        <%= radio_button_tag(:deal_action,1,false,:style=>"width:13px;") %>
+        <%= label_tag(:delete_action, "删除内容") %>
+        <%= radio_button_tag(:deal_action,2,false,:style=>"width:13px;") %>
+        <%= label_tag(:destroy_action, "删除内容并屏蔽发布用户") %>
+        <%= radio_button_tag(:deal_action,3,false,:style=>"width:13px;") %>
+        <%= label_tag(:spam_action, "审核通过") %>
+      </div>
+      <div style="text-align:center;">
+        <input type="submit" value="提交" style="width:120px;cursor:pointer;" />
+      </div>
+    <%end%>
+
+    <div style="clear:both;height:10px;"></div>
+    <%= will_paginate @asks,:renderer=>WendaoLinkBACKRenderer %>
+  </div>
+<%else%>
+  <div style="font-size:16px;color:red;text-align:center;">搜索结果为空</div>
+<%end%>
+<div style="clear:both;height:10px;"></div>
+
+<div class="green_header">先审后发规则设置</div>
+<div class="search_form">
+  <%=form_tag("/cpanel/autofollow/edit_verify") do%>
+    <div class="search_form_row">
+      <input name="need_verification" type="checkbox" <%if @verify=="1"%>checked="checked"<%end%> value="1" style="width:15px;margin-right:2px;">开启先审后发机制
+    </div>
+    <div class="search_form_row">
+      用户在时间段
+      <%=select_tag :time_start,options_for_select([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23],@verify_start),:style=>"margin-right:2px;" %>
+      时至
+      <%=select_tag :time_end,options_for_select([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23],@verify_end),:style=>"margin-right:2px;" %>
+      时，所有提问进入先审后发类问题区。
+    </div>
+    <div class="search_form_row">
+      这些问题处于未发布状态，无URL地址；这些用户为正常用户，可以继续发布提问。
+    </div>
+    <div class="search_form_row" style="float:left;">
+      <button type="submit">保存</button>
+    </div>
+    <div class="search_form_row" style="float:left;">
+      <div style="color:red;">说明：1、如先审后发规则和广告过滤规则同时有设置，重复时间的提问部分优先先审后发规则生效；</div>
+      <div style="color:red;margin-left:40px;">2、在先审后发机制不能覆盖的提问中，广告过滤规则生效。</div>
+    </div>
+    <div style="clear:both;height:20px;"></div>
+  <% end %>
+</div>
+<script type="text/javascript">
+  function checkAll(){
+    if(jQuery("#check_btn").val()=="全选"){
+      for(i=0;i<jQuery("input:checkbox").length;i++){
+        jQuery("input:checkbox")[i].checked=true;
+      }
+      jQuery("#check_btn").val("全不选");
+    }else{
+      for(i=0;i<jQuery("input:checkbox").length;i++){
+        jQuery("input:checkbox")[i].checked=false;
+      }
+      jQuery("#check_btn").val("全选");
+    }
+  
+  }
+</script>

@@ -1,0 +1,40 @@
+<!-- /content -->
+  
+<div data-role="content">
+
+    <ul data-role="listview" class="asksList" id="gonna_be_app">
+
+      <% @asks.each do |item| %>
+        <%= render "asks/ask", :item => item, :only_title => true %>
+      <% end %>
+    <div class="pagination"></div>
+    </ul>
+
+    <% content_for :butt2 do %>
+      var current_page = 2;
+      var still_going = true;
+      jQuery(document).ready(function(){
+        function loadAsks(){
+          if(window.still_going){
+            still_going = false;
+            jQuery.mobile.showPageLoadingMsg();
+            jQuery.get('/asks?force_mobile=1&force_js=1', { format : "js", page : current_page },function(){
+                jQuery.mobile.hidePageLoadingMsg();
+            });      
+          }
+          return false;
+        }
+        
+        jQuery(document).scroll(function(){
+            var windowHeight = jQuery(window).height();
+            var documentHeight = jQuery(document).height();
+
+            var scrollTop = jQuery(this).scrollTop();
+            if ((scrollTop + windowHeight) >= documentHeight) {
+              loadAsks();
+            }
+        });
+
+      });
+    <% end %>
+</div>

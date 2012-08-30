@@ -1,0 +1,9 @@
+jQuery('#shared_span_count').html('(<%=@ask.to_user_ids.count%>)');
+jQuery('#ask_invite_<%=params[:i_id]%> .close').remove();
+<%
+item=AskInvite.where(:_id=>params[:i_id]).first
+if(item.blank? or item.count==0) %>
+  jQuery('#ask_invite_<%=params[:i_id]%>').remove();
+<% elsif(item) %>
+  jQuery("#ask_invite_<%=params[:i_id]%> .count").text('<%= item.count %>');
+<% end%>

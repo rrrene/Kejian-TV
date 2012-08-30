@@ -1,0 +1,27 @@
+<%= content_for :scripts do %>
+  <script type="text/javascript">
+    var current_page = 2;
+    function loadLogs(){
+      App.loading();
+      jQuery.get("<%= request.path %>.js?page="+current_page,function(){
+        App.loading(false);
+      });
+      return false;
+    }
+  </script>
+<% end %>
+
+<%= render :partial => 'logs/notifies' %>
+<section>
+  <h3><%=title_for_this_page%></h3>
+  <% if @logs.blank? %>
+    你关注的内容没有新动态，去<%= link_to '风云榜首页','/newbie' %>关注更多内容吧
+  <% else %>
+    <% for log in @logs %>
+      <%= render "logs/log", :log => log %>
+    <% end %>
+  <% end %>
+  <%= will_paginate @logs, :renderer=>WendaoLinkRenderer,:inner_window=>2 %>
+
+</section>
+<%= render "asks/sidebar" %>

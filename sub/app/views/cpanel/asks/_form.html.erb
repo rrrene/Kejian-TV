@@ -1,0 +1,77 @@
+<%= javascript_include_tag "keditor/kindeditor" %>
+<script>
+  var editor;
+  KindEditor.ready(function(K) {
+    editor = K.create('textarea[name="content"]', {
+      resizeType : 1,
+      allowPreviewEmoticons : false,
+      allowImageUpload : false,
+      items : [
+        'bold', 'italic', 'underline',
+        'removeformat', 'justifyleft',
+        'insertunorderedlist']
+    });
+  });
+</script>
+<div class="green_header">修改问题</div>
+<div id="cpanel_ask" class="search_form">
+  <%= form_for(@ask,:url => (@ask.id.blank? ? cpanel_asks_path : cpanel_ask_path(@ask.id)) ) do |f| %>
+    <%= render "/shared/error_messages", :target => @ask %>
+
+    <div class="inputs">
+      <div class="search_form_row">
+        <div style="margin-right:14px;float:left;">问题标题:</div>
+        <%=text_area_tag "ask[title]",@ask.title,:style=>"width:495px!important;height:40px!important;",:class=>"validate[required,funcCall[checkSize50]]"%>
+      </div>
+      <div class="search_form_row">
+        <div style="margin-right:14px;float:left;">问题内容:</div>
+        <%=text_area_tag "content",@ask.body,:style=>"width:500px;height:120px;",:class=>"validate[funcCall[checkSize3000]]"%>
+      </div>
+  <%#= f.input :user_id %>
+      <div class="search_form_row">
+        <span style="margin-right:10px;">问题话题:</span>
+        <%=text_field_tag "topics",@ask.topics.join(","),:style=>"width:300px;",:class=>"validate[funcCall[checkTopics]]"%>
+        <span>请以","分隔多个话题</span>
+      </div>
+      <div class="search_form_row">
+        <span style="margin-right:10px;">烂问题数:</span>
+        <%=text_field_tag "ask[spams_count]",@ask.spams_count,:style=>"width:100px;"%>
+      </div>
+      <div class="search_form_row">
+        <span style="margin-right:10px;">被关注数:</span>
+        <%=@ask.followed_count%>
+      </div>
+      <div class="search_form_row">
+        <span style="margin-right:23px;">浏览数:</span>
+        <%=text_field_tag "ask[views_count]",@ask.views_count,:style=>"width:100px;"%>
+      </div>
+  <%#=f.input :will_autofollow,:as=>:boolean,:label=>'将被自动关注'%>
+    </div>
+    <div class="actions">
+      <button type="submit">提交</button>
+    </div>
+  <% end %>
+</div>
+<script type="text/javascript">
+  function checkSize50(field, rules, i, options){
+    var num=50;
+    if (real_length2(field.val())>num*2) {
+      return "不能超过"+num+"个汉字";
+    }
+  }
+  function checkSize3000(field, rules, i, options){
+    var num=3000;
+    if (real_length2(field.val())>num*2) {
+      return "不能超过"+num+"个汉字";
+    }
+  }
+  function checkTopics(field, rules, i, options){
+    var num=10;
+    var arr=field.val().replace(/\，/g,",").split(",");
+    for(x in arr){
+      if (real_length2(arr[x])>num*2) {
+        return "Topic不能超过"+num+"个汉字";
+      }
+    }
+  }
+</script>

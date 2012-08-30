@@ -1,0 +1,11 @@
+<% content_for :body_style do %>background: none repeat scroll 0 0 #F0EEEE<% end %>
+<%= render file:'/application/headers/_zm_header' %>
+
+<div data-role="content" class="ui-body-c ui-body">	
+    <ul data-role="listview" data-inset="true">
+      <%@users.each do |arr|%>
+        <li><%= link_to arr.name,arr %></li>
+      <% end %>
+    <div class="pagination"></div>
+    </ul>
+</div><!-- /content -->

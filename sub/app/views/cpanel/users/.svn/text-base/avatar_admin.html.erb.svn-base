@@ -1,0 +1,52 @@
+<div class="green_header">用户头像管理</div>
+<div class="search_form">
+  <%=form_tag("", :method => "get") do%>
+    <div style="width:420px;height:25px;margin:0px auto;margin-bottom:10px;">
+      <span style="margin-right:30px;">昵称：</span>
+      <%=text_field_tag(:name,nil,:style=>"width:180px;margin-right:20px;",:value=>params[:name])%>
+      <input type="submit" value="搜索" style="width:120px;cursor:pointer;">
+    </div>
+  <%end%>
+</div>
+<div style="margin-bottom:8px;">共有头像图片<%=@users.total_entries%>个。</div>
+<%if @users.total_entries>0%>
+  <div class="search_form" style="padding:0px 30px;width:898px;">
+    <%=form_tag("/cpanel/user/avatar_del",:id=>"avatar_del_form") do%>
+      <%@users.each do |u|%>
+        <div style="float:left;width:100px;height:125px;margin-left:45px;margin-top:10px;">
+          <a href="/users/<%=u.slug%>" target="_blank" style="color:black;" title="<%=u.name%>">    
+            <%= image_tag(u.avatar.normal.url,width:100,height:100) %>
+          </a>
+          <input name="avatars[]" type="checkbox" value="<%=u.id%>" style="width:13px;" class="sub_check">
+          <a href="/users/<%=u.slug%>" target="_blank" style="color:black;" title="<%=u.name%>">
+            <%=truncate2(u.name,:length=>7)%>
+          </a>
+        </div>
+      <%end%>
+      <div style="clear:both;"></div>
+    <%end%>
+    <div style="margin-right:25px;">
+      <%= will_paginate @users,:renderer=>WendaoLinkBACKRenderer %>
+    </div>
+    <div style="clear:both;height:10px;"></div>
+    <input type="checkbox" id="sup_check" style="width:13px;margin-left:350px;" onclick="checkAvatar()">
+    <span>全选</span>
+    <input type="button" value="删除" onclick="$('#avatar_del_form').submit()" style="width:120px;margin-left:50px;cursor:pointer;">
+    <div style="clear:both;height:20px;"></div>
+  </div>
+  <script type="text/javascript">
+    function checkAvatar(){
+      if($("#sup_check")[0].checked==true){
+        for(i=0;i<$(".sub_check").length;i++){
+          $(".sub_check")[i].checked=true;
+        }
+      }else{
+        for(i=0;i<$(".sub_check").length;i++){
+          $(".sub_check")[i].checked=false;
+        }
+      }   
+    }
+  </script>
+<%else%>
+  <div style="font-size:16px;color:red;text-align:center;">搜索结果为空</div>
+<%end%>

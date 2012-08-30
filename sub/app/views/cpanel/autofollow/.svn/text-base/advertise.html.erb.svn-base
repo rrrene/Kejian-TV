@@ -1,0 +1,150 @@
+<%= content_for :sitemap do %>
+  <span class="current">列表</span>
+<% end %>
+<%#=  render 'base' %>
+<%=  render 'advertise_search_form' %>
+<%if @asks.total_entries>0%>
+  <div id="cpanel_asks">
+    <%=form_tag("/cpanel/deal_advertise") do%>
+      <table class="stat_table" style="table-layout:fixed;">
+        <thead>
+          <tr>
+            <th style="width:70px;">序号</th>
+            <th>内容</th>
+            <th style="width:100px;">内容类型</th>
+            <th style="width:100px;">昵称</th>
+            <th style="width:160px;">发布时间</th>
+            <th style="width:85px;text-align:center;"><input id="check_btn" type="button" value="全选" onclick="checkAll()"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @asks.each_with_index do |item,i| %>
+            <tr class="<%= i.odd? ? "odd" : "even" %>">
+              <td><%= 20*(params[:page].blank? ? 1:params[:page].to_i)+i-19 %></td>
+              <%if item.class.name=="Answer"%>
+                <td class="wordwrap"><%= link_to truncate2(item.body,:length=>60),"/asks/#{item.ask_id}##{item.id}",:target=>'_blank',:style=>"color:#1F4CA5;" %></td>
+              <%elsif item.class.name=="Comment"%>
+                <%if item.commentable_type=="Answer"%>
+                  <td class="wordwrap"><%= link_to truncate2(item.body,:length=>60),"/asks/#{item.commentable.ask_id}##{item.commentable.id}",:target=>'_blank',:style=>"color:#1F4CA5;" %></td>
+                <%else%>
+                  <td class="wordwrap"><%= link_to truncate2(item.body,:length=>60),"/asks/#{item.commentable_id}",:target=>'_blank',:style=>"color:#1F4CA5;" %></td>
+                <%end%>
+              <%else%>
+                <td class="wordwrap"><%= link_to truncate2(item.title,:length=>60),"/asks/#{item.id}",:target=>'_blank',:style=>"color:#1F4CA5;" %></td>
+              <%end%>
+              <%if item.class.name=="Answer"%>
+                <td class="wordwrap">回答</td>
+              <%elsif item.class.name=="Comment"%>
+                <td class="wordwrap">评论</td>
+              <%else%>
+                <td class="wordwrap">问题</td>
+              <%end%>
+              <td class="wordwrap"><%= link_to user_name_tag(item.user,:target=>'target="_blank"',:no_truncate=>true) %></td>
+              <td><%= item.created_at.getlocal.strftime("%Y-%m-%d %H:%M") %></td>
+              <td style="text-align:center;">
+                <%if item.class.name=="Answer"%>
+                  <%value="Answer_"+item.id.to_s%>
+                <%elsif item.class.name=="Comment"%>
+                  <%value="Comment_"+item.id.to_s%>
+                <%else%>
+                  <%value="Ask_"+item.id.to_s%>
+                <%end%>
+                <input name="choose_advertise[]" type="checkbox" value="<%=value%>" style="width:50px;">
+
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <div style="text-align:center;margin-top:20px;margin-bottom:10px;">
+        <%= radio_button_tag(:deal_action,1,false,:style=>"width:13px;") %>
+        <%= label_tag(:delete_action, "删除内容") %>
+        <%= radio_button_tag(:deal_action,2,false,:style=>"width:13px;") %>
+        <%= label_tag(:destroy_action, "删除内容并屏蔽发布用户") %>
+        <%= radio_button_tag(:deal_action,3,false,:style=>"width:13px;") %>
+        <%= label_tag(:spam_action, "审核通过,同时解除用户冻结状态") %>
+      </div>
+      <div style="text-align:center;">
+        <input type="hidden" name="content_type" value="<%=params[:content_type]%>" />
+        <input type="submit" value="提交" style="width:120px;cursor:pointer;" />
+      </div>
+    <%end%>
+
+    <div style="clear:both;height:10px;"></div>
+    <%= will_paginate @asks,:renderer=>WendaoLinkBACKRenderer %>
+  </div>
+<%else%>
+  <div style="font-size:16px;color:red;text-align:center;">搜索结果为空</div>
+<%end%>
+<div style="clear:both;height:10px;"></div>
+
+<div class="green_header">提问过滤设置</div>
+<div class="search_form">
+  <%=form_tag("/cpanel/autofollow/edit_ask_advertise") do%>
+    <div class="search_form_row">
+      <input name="ask_advertise_limit_open" type="checkbox" <%if @ask_open=="1"%>checked="checked"<%end%> value="1" style="width:15px;margin-right:2px;">开启所有用户提问频率限制
+    </div>
+    <div class="search_form_row">
+      用户在
+      <%=text_field_tag "ask_advertise_limit_time_range",@ask_time,:style=>"width:60px;margin-right:0px;",:class=>"validate[required,custom[int]]"%>
+      分钟内，发表问题数大于
+      <%=text_field_tag "ask_advertise_limit_count",@ask_count,:style=>"width:60px;margin-right:0px;",:class=>"validate[required,custom[int]]"%>
+      个，该用户前
+      <%=text_field_tag "ask_advertise_limit_deal_range",@ask_deal,:style=>"width:60px;margin-right:0px;",:class=>"validate[required,custom[int]]"%>
+      个小时内的所有问题进入疑似广告类问题。
+    </div>
+    <div class="search_form_row">
+      疑似广告问题处于隐藏状态，同时用户处于冻结状态，无法再进行提问等操作。
+    </div>
+    <div class="search_form_row" style="float:left;">
+      <button type="submit">保存</button>
+    </div>
+    <div class="search_form_row" style="float:left;color:red;line-height:30px;">
+      备注：分钟的设置，原则上设置1-5分钟内，最长不要超过10分钟。
+    </div>
+    <div style="clear:both;height:20px;"></div>
+  <% end %>
+</div>
+<div class="green_header">回答/评论过滤设置</div>
+<div class="search_form">
+  <%=form_tag("/cpanel/autofollow/edit_ac_advertise") do%>
+    <div class="search_form_row">
+      <input name="answer_advertise_limit_open" type="checkbox" <%if @ac_open=="1"%>checked="checked"<%end%> value="1" style="width:15px;margin-right:2px;">开启所有用户回答/评论频率限制
+    </div>
+    <div class="search_form_row">
+      用户在
+      <%=text_field_tag "answer_advertise_limit_time_range",@ac_time,:style=>"width:60px;margin-right:0px;"%>
+      分钟内，回答数或评论数大于
+      <%=text_field_tag "answer_advertise_limit_count",@ac_count,:style=>"width:60px;margin-right:0px;"%>
+      个，该用户前
+      <%=text_field_tag "answer_advertise_limit_deal_range",@ac_deal,:style=>"width:60px;margin-right:0px;"%>
+      个小时内的所有回答或评论进入疑似广告类内容。
+    </div>
+    <div class="search_form_row">
+      这些问题处于未发布状态，无URL地址；这些用户为正常用户，可以继续发布提问。
+    </div>
+    <div class="search_form_row" style="float:left;">
+      <button type="submit">保存</button>
+    </div>
+    <div class="search_form_row" style="float:left;color:red;line-height:30px;">
+      备注：分钟的设置，原则上设置1-5分钟内，最长不要超过10分钟。
+    </div>
+    <div style="clear:both;height:20px;"></div>
+  <% end %>
+</div>
+<script type="text/javascript">
+  function checkAll(){
+    if($("#check_btn").val()=="全选"){
+      for(i=0;i<$("input:checkbox").length;i++){
+        $("input:checkbox")[i].checked=true;
+      }
+      $("#check_btn").val("全不选");
+    }else{
+      for(i=0;i<$("input:checkbox").length;i++){
+        $("input:checkbox")[i].checked=false;
+      }
+      $("#check_btn").val("全选");
+    }
+  
+  }
+</script>

@@ -1,0 +1,73 @@
+<%= javascript_include_tag "keditor/kindeditor" %>
+<script>
+  var editor;
+  KindEditor.ready(function(K) {
+    editor = K.create('textarea[name="body"]', {
+      resizeType:0,
+      allowFileManager : true
+    });
+  });
+</script>
+<div class="green_header">公告设置</div>
+<div id="cpanel_notice" class="form">
+  <%if @action=="edit"%>
+    <%= form_for(@notice,:url =>(cpanel_notice_path(@notice.id))) do %>
+      <div class="kedit_form">
+        <textarea name="body" style="width:740px;height:235px;visibility:hidden;"><%=@notice.body%></textarea>
+        <div class="actions">
+          <%=label_tag(:created_at,"生效时间:")%>
+          <input style="margin-right:0px;width:80px;" class="validate[required,custom[date]]" id="datepicker_from" name="datepicker_from" type="text" value="<%=@notice.start_at.blank? ?Time.now.getlocal.strftime('%Y-%m-%d'):@notice.start_at.strftime('%Y-%m-%d')%>">
+          <input style="margin-right:0px;width:60px;" class="validate[required,custom[time]]" type="text" name="time_from" id="time_from" value="<%=@notice.start_at.blank? ?Time.now.getlocal.strftime('%H:%M'):@notice.start_at.strftime('%H:%M')%>" />
+          ——
+          <input style="margin-right:0px;width:80px;" class="validate[required,custom[date]]" id="datepicker_to" name="datepicker_to" value="<%= @notice.end_at.blank? ? '':@notice.end_at.strftime('%Y-%m-%d') %>" type="text">
+          <input style="margin-right:0px;width:60px;" class="validate[required,custom[time]]" type="text" name="time_to" id="time_to"  value="<%= @notice.end_at.blank? ? '':@notice.end_at.strftime('%H:%M') %>"/>
+
+          <%= radio_button_tag(:open_notice,1,@notice.open,:style=>"width:13px;margin-left:120px;") %>
+          <%= label_tag(:open_notice, "开启公告") %>
+          <%= radio_button_tag(:open_notice,2,!@notice.open,:style=>"width:13px;margin-left:20px;") %>
+          <%= label_tag(:open_notice, "关闭公告") %>
+        </div>
+        <div class="actions">
+          <input type="button" value="预览" style="width:120px;cursor:pointer;margin-left:200px;" onclick="jQuery('#notice_body').html(editor.html())">
+          <input type="submit" value="提交" style="width:120px;cursor:pointer;margin-left:80px;">
+        </div>
+      </div>
+    <% end %>
+  <%else%>
+    <%= form_tag("/cpanel/notices/create") do %>
+      <div class="kedit_form">
+        <textarea name="body" style="width:740px;height:235px;visibility:hidden;"><%=@notice.body%></textarea>
+        <div class="actions">
+          <% t=Time.now.getlocal+1.days %>
+          <%=label_tag(:created_at,"生效时间:")%>
+          <input style="margin-right:0px;width:80px;" class="validate[required,custom[date]]" id="datepicker_from" name="datepicker_from" type="text" value="<%=@notice.start_at.strftime('%Y-%m-%d')%>">
+          <input style="margin-right:0px;width:60px;" class="validate[required,custom[time]]" type="text" name="time_from" id="time_from" value="<%=@notice.start_at.strftime('%H:%M')%>" />
+          ——
+          <input style="margin-right:0px;width:80px;" class="validate[required,custom[date]]" id="datepicker_to" name="datepicker_to" type="text">
+          <input style="margin-right:0px;width:60px;" class="validate[required,custom[time]]" type="text" name="time_to" id="time_to" />
+
+          <%= radio_button_tag(:open_notice,1,@notice.open,:style=>"width:13px;margin-left:100px;") %>
+          <%= label_tag(:open_notice, "开启公告") %>
+          <%= radio_button_tag(:open_notice,2,!@notice.open,:style=>"width:13px;margin-left:30px;") %>
+          <%= label_tag(:open_notice, "关闭公告") %>
+        </div>
+        <div class="actions">
+          <input type="button" value="预览" style="width:120px;cursor:pointer;margin-left:200px;" onclick="jQuery('#notice_body').html(editor.html())">
+          <input type="submit" value="提交" style="width:120px;cursor:pointer;margin-left:80px;">
+        </div>
+      </div>
+    <% end %>
+  <%end%>
+</div>
+<% content_for :butt2 do %>
+  jQuery(function() {
+  jQuery("#datepicker_from").datepicker({
+  dateFormat:'yy-mm-dd'
+  });
+  jQuery( "#datepicker_to" ).datepicker({
+  dateFormat:'yy-mm-dd'
+  });
+  jQuery('#time_from').timePicker();
+  jQuery('#time_to').timePicker();
+  });
+<% end %>

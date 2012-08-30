@@ -1,0 +1,6 @@
+<% if @success %>
+  App.notice('<%= @msg %>');
+  jQuery.facebox.close();
+<% else %>
+  alert('<%= @msg %>');
+<% end %>

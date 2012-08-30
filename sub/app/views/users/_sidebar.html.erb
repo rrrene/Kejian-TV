@@ -1,0 +1,87 @@
+<% content_for :sidebar do %>
+
+<section class="sideBox clearfix mt20">
+  <%if @user.is_expert%>
+	<div class="verifyLogo" title="Kejian.TV认证">Kejian.TV认证</div>
+	<div class="fc999 mt5" title="<%=@user.is_expert_why%>"><%=@user.is_expert_why%></div>
+  <%end%>
+
+	<div class="followInfo clearfix">
+		<div>
+		  <a href="<%= followers_user_path(@user.slug) %>"><em class="englishFont"><%= @user.follower_ids.size %></em></a><br>
+			关注<%= (owner? @user)?('我'):('他') %>的人
+		</div>
+		<div class="borderLeftDot">
+			<a href="<%= following_user_path(@user.slug) %>"><em class="englishFont"><%= @user.following_ids.size %></em></a><br>
+			<%=  (owner? @user)?('我'):('他') %>关注的人
+		</div>
+	</div>
+	<div class="user-regdate">注册于 <%= l user.created_at.to_date, :format => :long %></div>
+</section>
+
+
+<!-- {followed_topics -->
+<%# cache :action_suffix => 'followed_topics' do %>
+<% @followed_topics = @user.followed_topic_ids.rlimit(7) %>
+<% if !@followed_topics.blank? %>
+<section class="sideBox clearfix">
+  <section class="sideBox clearfix">
+  					<h3>关注<a href="<%= following_topics_user_path(@user.slug) %>"><%= @user.followed_topic_ids.size %>个话题</a></h3>
+  					<ul class="topicList">
+          		<% for topic in @followed_topics %>
+          		  <% topicname = Topic.get_name(topic) %>
+                <% next if topicname.blank?%>
+
+  						<li><em>
+  						  <a href="/topics/<%= topicname %>"><%= (truncate2(topicname,:length=>16)==topicname)? topicname : truncate2(topicname,:length=>14) %></a>
+  						  </em>
+                <% if current_user and current_user.topic_followed?(topic) %>
+                <a class="nBtn nBtnUnFocus" onclick="return Topics.unfollow(this, '<%= topicname %>','small');"></a>
+                <% else %>
+                <a class="nBtn nBtnFocus" onclick="return Topics.follow(this, '<%= topicname %>','small');"></a>
+                <% end %>
+
+  						  </li>
+						  <% end %>
+  					</ul>
+  				</section>
+</section>
+<% end %>
+<!-- followed_topics} -->
+
+
+<% @followers = @user.follower_ids.rlimit(50) %>
+<% if !@followers.blank? %>
+<%# cache :action_suffix => 'followed_topics' do %>
+<section class="sideBox clearfix">
+	<h3 class="posRela">最近关注<%= user_sex_title(@user,current_user) %>的人</h3>
+	<!-- {followers -->
+
+  <ul class="headList23">
+		<% for follower in @followers %>
+	    <li><%= user_avatar_tag2(follower,:small,{:size2 => 23}) %></li>
+		<%end%>
+	</ul>
+
+  <!-- followers} -->
+</section>
+<% end %>
+<%# cache :action_suffix => 'followed_topics' do %>
+<% @following = @user.following_ids.rlimit(50) %>
+<% if !@following.blank? %>
+<section class="sideBox clearfix">
+	<h3 class="posRela"><%= user_sex_title(@user,current_user) %>最近关注的人</h3>
+  <!-- {following -->
+
+  <ul class="headList23">
+  	<% for follower in @following %>
+  	  <li><%= user_avatar_tag2(follower,:small,{:size2 => 23}) %></li>
+  	<% end %>
+  </ul>
+
+  <!-- following} -->
+
+</section>
+<% end %>
+  
+<% end %>

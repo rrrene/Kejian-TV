@@ -1,0 +1,31 @@
+<div class="green_header">评论管理</div>
+<div class="search_form">
+  <%=form_tag(cpanel_comments_path, :method => "get") do%>
+    <div class="search_form_row">
+      <%=label_tag(:user_name, "评论人:")%>
+      <%=text_field_tag(:user_name,nil,:style=>"width:60px;",:value=>params[:user_name])%>
+      <%=label_tag(:body,"评论:")%>
+      <%=text_field_tag(:body,nil,:style=>"width:110px;",:value=>params[:body])%>
+            <% t=Time.now.getlocal %>
+      <%=label_tag(:created_at,"评论时间:")%>
+      <input style="margin-right:0px;width:80px;" class="validate[custom[date]]" id="datepicker_from" name="datepicker_from" type="text" value="<%=params[:datepicker_from]%>">
+      <input style="margin-right:0px;width:60px;" class="validate[custom[time]]" type="text" name="time_from" id="time_from" value="<%=params[:time_from]%>" />
+      ——
+      <input placeholder="<%= t.strftime("%Y-%m-%d") %>" style="margin-right:0px;width:80px;" class="validate[custom[date]]" id="datepicker_to" name="datepicker_to" value="<%= params[:datepicker_to] %>" type="text">
+      <input placeholder="<%= t.strftime("%H:%M") %>" style="margin-right:0px;width:60px;" class="validate[custom[time]]" type="text" name="time_to" id="time_to"  value="<%= params[:time_to] %>"/>
+      <button type="submit" style="margin-left:80px;">搜索</button>
+    </div>
+   <% end %>
+  <% content_for :butt2 do %>
+    jQuery(function() {
+    jQuery("#datepicker_from").datepicker({
+    dateFormat:'yy-mm-dd'
+    });
+    jQuery( "#datepicker_to" ).datepicker({
+    dateFormat:'yy-mm-dd'
+    });
+    jQuery('#time_from').timePicker();
+    jQuery('#time_to').timePicker();
+    });
+  <% end %>
+</div>

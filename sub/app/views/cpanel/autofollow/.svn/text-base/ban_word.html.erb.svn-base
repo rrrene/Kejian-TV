@@ -1,0 +1,69 @@
+<%= content_for :sitemap do %>
+  <span class="current">列表</span>
+<% end %>
+<%#= render 'base' %>
+<%= render 'ban_word_search_form' %>
+<%if @words.total_entries>0%>
+  <div id="cpanel_topics">
+    <%=form_tag("/cpanel/deal_word") do%>
+      <table class="stat_table" style="table-layout:fixed;">
+        <thead>
+          <tr>
+            <th style="width:80px;">序号</th>
+            <th>禁止关键词</th>
+            <th style="width:100px;">操作人</th>
+            <th style="width:150px;">禁止级别</th>
+            <th style="width:200px;">禁止时间</th>
+            <th style="width:60px;text-align:center;"><input id="check_btn" type="button" value="全选" onclick="checkAll()"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @words.each_with_index do |item,i| %>
+            <tr class="<%= i.odd? ? "odd" : "even" %>">
+              <td><%= 20*(params[:page].blank? ? 1:params[:page].to_i)+i-19 %></td>
+              <td><%=item.word%></td>
+              <td><%=link_to User.get_name(item.user_id),"/users/#{User.get_slug(item.user_id)}",:target=>"_blank"%></td>
+              <td><%=NaughtyWord::WORD_LEVEL[item.level]%></td>
+              <td><%=item.created_at.strftime("%Y-%m-%d %H:%M")%></td>
+              <td style="text-align:center;">
+                <input name="choose_words[]" type="checkbox" value="<%=item.id%>" style="width:50px;">
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <div style="text-align:center;margin-top:20px;margin-bottom:10px;">
+        <%= radio_button_tag(:deal_action,1,false,:style=>"width:13px;") %>
+        <%= label_tag(:up_action, "提升关键词等级") %>
+        <%= radio_button_tag(:deal_action,2,false,:style=>"width:13px;margin-left:20px;") %>
+        <%= label_tag(:down_action, "降低关键词等级") %>
+        <%= radio_button_tag(:deal_action,3,false,:style=>"width:13px;margin-left:20px;") %>
+        <%= label_tag(:spam_action, "删除关键词") %>
+      </div>
+      <div style="text-align:center;">
+        <input type="hidden" name="content_type" value="<%=params[:content_type]%>" />
+        <input type="submit" value="提交" style="width:120px;cursor:pointer;" />
+      </div>
+    <%end%>
+    <div style="clear:both;height:10px;"></div>
+    <%= will_paginate @words,:renderer=>WendaoLinkBACKRenderer %>
+  </div>
+  <script type="text/javascript">
+    function checkAll(){
+      if($("#check_btn").val()=="全选"){
+        for(i=0;i<$("input:checkbox").length;i++){
+          $("input:checkbox")[i].checked=true;
+        }
+        $("#check_btn").val("全不选");
+      }else{
+        for(i=0;i<$("input:checkbox").length;i++){
+          $("input:checkbox")[i].checked=false;
+        }
+        $("#check_btn").val("全选");
+      }
+    
+    }
+  </script>
+<%else%>
+  <div style="font-size:16px;color:red;text-align:center;">搜索结果为空</div>
+<%end%>

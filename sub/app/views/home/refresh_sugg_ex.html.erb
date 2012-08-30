@@ -1,0 +1,26 @@
+<% unless  @related_expert_ids.empty? %>		
+<section class="sideBox clearfix" id="refresh_sugg_ex">
+					<h3>Kejian.TV推荐</h3>
+					<ul class="funcList">
+            <% @related_expert_ids.each do |expert| %>
+            <li>
+              <%
+               ca={size2:50}
+               ca[:name] ||= User.get_name(expert)
+               ca[:slug] ||= User.get_slug(expert)
+               ca[:path] ||= "/users/#{ca[:slug]}"
+              %>
+              <% next if ca[:name].blank? or ca[:slug].blank? %>
+							<figure><%= user_avatar_tag2(expert,:mid,ca) %></figure>
+							<% if current_user and current_user.following_ids.include?(expert) %>
+              <a class="nBtn nBtnUnFocus" onclick="return Users.unfollow(this, '<%= ca[:slug] %>','small');"></a>
+              <% else %>
+              <a class="nBtn nBtnFocus" onclick="return Users.follow(this, '<%= ca[:slug] %>','small');"></a>
+              <% end %>
+							<figcaption><a href="/users/<%=ca[:slug]%>"><%=truncate(ca[:name],:length=>7,omission:'⋯')%></a></figcaption>
+							<p><%= User.get_is_expert_why(expert) %></p>
+            </li>
+            <%end %>
+					</ul>
+				</section>
+<%end %>

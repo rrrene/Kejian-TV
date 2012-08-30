@@ -1,0 +1,28 @@
+<%= content_for :base_sitemap do %>
+  <a href="<%= cpanel_notices_path %>">cpanel_notices</a> » 
+<% end %>
+<%= content_for :styles do %>
+<% end %>
+<!--
+<%#= spaceless do %>
+<div class="tools">
+  <a href="<%#= cpanel_notices_path %>" class="button small left<%#= ' checked' if params[:action] == "index" %>">查看所有</a>
+<%# if ["edit","update"].index(params[:action]) %>
+  <a href="#" class="button small checked">编辑</a>
+<%# end %>
+  <a href="<%#= new_cpanel_notice_path %>" class="button small right<%#= ' checked' if ["new","create"].index(params[:action]) %>">新建</a>
+</div>
+<%# end %>
+-->
+<div class="green_header">公告预览</div>
+<div class="search_form" id="fore_sys">
+  <div id="fore_sys_notice">
+    <div id="notice_body">
+      <%= raw @notice.body %>
+    </div>
+    <div class="info">
+      <span class="fore_date"><%= l @notice.updated_at.getlocal, :format => :long %></span>
+      <a href="#" class="fore_gray_button">我知道了</a>
+    </div>
+  </div>
+</div>

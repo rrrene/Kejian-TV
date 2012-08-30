@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=960"/>
+    <meta http-equiv="x-dns-prefetch-control" content="off"/>
+    <meta name="keywords" content="职业规划,问答,师生,加薪,Kejian.TV," />
+    <meta name="description" content="Kejian.TV是课件交流系统旗下的师生话题问答交流平台.Kejian.TV助你制定专业的职业规划,提供问答指导,分享师生知识,赢取工作机会.Kejian.TV拥有大批师生专家,行业资深人士,知名企业HR,同行,校友." />
+    <meta property="wb:webmaster" content="8511185f3b58f41f" />
+    <title>Kejian.TV-课件交流系统旗下师生问答交流平台</title>
+    <link rel="shortcut icon" href="/favicon.ico?v=003" /> 
+    <meta charset="UTF-8">
+    <%= csrf_meta_tag %>
+
+    <!--[if lt IE 9 ]>
+    <%= javascript_include_tag "html5" %>
+<![endif]-->
+    <%= stylesheet_link_tag "application" %>
+    <!--[if IE 8 ]>
+      <link href="/css_ie8.css" media="all" rel="stylesheet" type="text/css" />
+    <![endif]-->
+    <!--[if lt IE 8 ]>
+      <link href="/css_ie.css" media="all" rel="stylesheet" type="text/css" />
+    <![endif]-->
+    <style type="text/css">
+      .posRes {
+        position:relative;
+        font-size:12px;
+      }
+      .wendaoweibo,.wendaomobile_btn {
+        position:absolute;
+        top:415px;
+        left:730px;
+      }
+      .wendaoweibo a {
+        color:#000;
+      }
+      .approve_co {
+        background:url(http://img.t.sinajs.cn/t4/appstyle/e/images/common/sprite_ico.png) no-repeat -75px 0;
+        display:inline-block;
+        width:14px;
+        height:12px;
+        background-position:-75px -150px;
+      }
+      .wendaomobile_btn {
+        left:820px;
+        top:410px;
+      }
+    </style>
+  </head>
+
+  <body style="background:none;" data-subdomain="<%= request.subdomain %>" bgcolor="#FFFFFF" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+    <header id="pageHeader">
+      <section class="wrapper">
+        <a class="sitelogo" title="回到首页" href="<%= user_signed_in? ? '/root' : '/'%>"></a>
+        <% @no_sidebar ||= ['devise-sessions_new','registrations_new'].include?("#{params[:controller].parameterize}_#{params[:action].parameterize}") %>
+        <% @no_header ||= ['devise-sessions_new','registrations_new'].include?("#{params[:controller].parameterize}_#{params[:action].parameterize}") %>
+        <% unless @no_header %>
+          <div class="searchbox">
+            <input placeholder="搜索问答、话题疑问" id="searchInput">
+          </div>
+          <%= content_for :butt2 do %>
+            Asks.completeAll(jQuery("#searchInput"));
+
+            jQuery(' .pager a.disabled').click(function(){
+            return false;
+            });
+          <% end %>
+
+
+          <button class="btnGoAsk" onclick="return Asks.addAsk()" href="/asks/new"></button>
+          <div class="userHomepage"><a href="/" title="回到首页"><%= current_user ? '首页' : '随便看看' %></a></div>
+
+          <% if !current_user %>
+            <div class="userInfoName">
+              <a href="<%= Setting.zhaopin_login+CGI::escape('http://'+Setting.wendao_domain_name+request.path) %>"  id="login_link">登录</a>&nbsp;&nbsp;
+              <a href="http://my.kejian.tv/loginmgr/regist_serviceitem.asp?f=l&redirect_url=<%= CGI::escape('http://'+Setting.wendao_domain_name+request.path) %>" id="reg_link">注册</a>
+            </div>
+          <% else %>
+            <% if current_user.notifications.nondeleted.unread.count > 0 %>
+              <div class="userNotify englishFont"><%=current_user.notifications.nondeleted.unread.count%></div>
+            <% end %>
+            <div class="userInfoName" style="width:130px;left:824px;"><%=truncate2(current_user.name,:length => 12,:omission=>'…') %><cite class="arrowDown"></cite></div>
+
+            <menu class="userInfoPop hide" id="userInfoPop" >
+              <ul>
+                <li class="username"><%=truncate2(current_user.name,:length => 12,:omission=>'…') %><cite class="arrowDown"></cite></li>
+                <li class="blackline"></li>
+                <li><span class="homepage"></span><a href="/users/<%= (current_user.slug) %>">个人主页</a></li>
+                <li class="blackline"></li>
+                <li><span class="setup"></span><%= link_to('设置', edit_user_registration_path) %></li>
+                <li class="blackline"></li>
+                <li><span class="logout"></span><a href="http://my.kejian.tv/loginmgr/logout.asp?strBkUrl=http://<%= request.host_with_port %>/" id="logout_link">退出</a></li>
+              </ul>
+            </menu>
+          <% end %>
+        <% end %>
+      </section>
+    </header>
+    <div class="clearfix height0"></div>
+    <section id="container" class="wrapper clearfix" style="background:white;">
+      <table width="950" height="483" border="0" cellpadding="0" cellspacing="0" class="posRes">
+        <tr style="line-height:0px;">
+          <td colspan="3">
+            <img src="mobilepublic/img/wendaomobile_01.jpg" width="950" height="42" alt=""></td>
+        </tr>
+        <tr>
+          <td>
+            <img src="mobilepublic/img/wendaomobile_02.jpg" width="87" height="441" alt=""></td>
+          <td>
+            <img src="mobilepublic/img/wendaomobile_03.jpg" width="299" height="441" alt=""></td>
+          <td>
+            <img src="mobilepublic/img/wendaomobile_04.jpg" width="564" height="441" alt="">
+            <div class="wendaoweibo"><a href="http://e.weibo.com/qiuzhiwendao" target="_blank">@课件交流系统Kejian.TV<i class="approve_co" title="新浪机构认证"></i></a></div>
+            <a href="http://e.weibo.com/qiuzhiwendao" target="_blank"><img src="mobilepublic/img/wendaomobile_btn.png" alt="" class="wendaomobile_btn" alt="访问课件交流系统Kejian.TV微博" /></a>
+          </td>
+        </tr>
+      </table>
+    </section>
+    <footer id="pagerFooter" class="mt20">
+      <a href="http://special.kejian.tv/sh/2009/aboutus/about.html" target="_blank">课件交流系统介绍</a> |
+      <!--<a href="http://special.kejian.tv/sh/2009/aboutus/join.html" target="_blank">加入课件交流系统</a> |-->
+      <a href="http://special.kejian.tv/sh/2009/aboutus/law.html" target="_blank">法律声明</a> |
+      <a href="http://special.kejian.tv/sh/2009/aboutus/secrecy.html" target="_blank">保密承诺</a> |
+      <!--<a href="http://my.kejian.tv/loginmgr/regist_serviceitem.asp?f=b" target="_blank">个人注册</a> | -->
+      <a href="http://kejian.tv/agreement" target="_blank">Kejian.TV协议</a> |
+      <a href="http://special.kejian.tv/sh/2009/aboutus/contact.html" target="_blank">联系方式</a> |
+      <a href="/bugtrack" target="_blank">意见反馈</a> |
+      <a href="http://kejian.tv/mobile" target="_blank">手机Kejian.TV</a>
+      <!--<a href="http://api.kejian.tv/apidoc" target="_blank">开放API</a>-->
+      <!--<a href="http://article.kejian.tv/pub/ch.jsp?cid=1237" target="_blank">媒体报道</a>-->
+      <div class="copyright">
+        Copyright &copy; kejian.tv All Rights Reserved.
+      </div>
+    </footer>
+    <div class="backToZp">
+      <a href="http://www.kejian.tv/" target="_blank"><img src="<%= asset_path('zhaopin.png') %>" width="38" height="123" /></a>
+    </div>
+
+    <div id="hidden_new_ask" style="display: none;">
+      <form action="/asks" method="post" id="inner_new_ask">
+        <%= auth_token %>
+        <header>
+          创建新问题
+          <a class="close"  onclick="jQuery.facebox.close(); return false;"></a>
+        </header>
+        <section>
+          <div class="editorBox mt10 clearfix">
+            <!-- XXX是这个人人名 -->
+            <textarea name="ask[title]" id="new_ask_title_gl" rows="1" class="textarea"></textarea>
+            <div class="bar limitwords"></div>
+            <textarea name="ask[body]" id="new_ask_body_gl" rows="1" class="textarea mt10"></textarea>
+            <div class="bar limitwords"></div>
+          </div>
+          <ul class="topicNav modify clearfix">
+          </ul>
+          <div class="addTopic mt5 clearfix hide" id="theAddTopic" >
+            <input type="text" name="topic"><div class="btnNormalSilver"><span class="add_topic">添加</span></div>
+          </div>
+        </section>
+        <input type="hidden" name="topics" value="">
+        <footer>
+          <div class="btnNormalGreen bold mt20 submit rightbtn"><span>发布问题</span></div>
+        </footer>
+      </form>
+    </div>
+
+
+    <%= yield :bottom %>
+    <%= javascript_include_tag "application" %>
+    <%= yield :scripts %>
+    <script type="text/javascript" charset="utf-8">
+      jQuery(function(){
+<%= yield :butt2 %>
+  })
+    </script>
+
+    <script type="text/javascript">
+<% if current_user %>
+    var logined = true;
+<% else %>
+    var logined = false;
+<% end %>
+
+  (function(){
+    window["ga_JsNewlogin"] = getCookie("JsNewlogin");
+    function getCookie(name){
+      var dc=document.cookie;
+      var prefix=name+"=";
+      var begin=dc.indexOf("; "+prefix);
+      if(begin==-1){
+        begin=dc.indexOf(prefix);
+        if(begin!=0)return null;
+      }
+      else begin+=2;
+      var end=document.cookie.indexOf(";",begin);
+      if(end==-1)end=dc.length;
+      return dc.substring(begin+prefix.length,end).replace(/\+/g,' ');
+    }
+  })();
+
+  var _dyweq = _dyweq || [];
+  _dyweq.push(['_setAccount','log000001']);
+  _dyweq.push(['_setDomainName','.kejian.tv']);
+  _dyweq.push(['_trackPageview']);
+  (function(){
+    var dywe = document.createElement('script'); dywe.type = 'text/javascript'; dywe.async = true;
+    dywe.src = 'http://img01.zhaopin.cn/2012/js/dywe.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(dywe, s);
+  })()
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount','UA-7874902-2']);
+  _gaq.push(['_setDomainName','kejian.tv']);
+  _gaq.push(['_addOrganic','youdao','q']);
+  _gaq.push(['_addOrganic','sogou','query']);
+  _gaq.push(['_addOrganic','soso','w']);
+  if(window["ga_JsNewlogin"]){
+    _gaq.push(['_setCustomVar',1,'Login','Y',2]);
+    _gaq.push(['_setCustomVar',2,'Member',ga_JsNewlogin,1]);
+  }
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })()
+  function recordOutboundLink(link, category, action) {
+    function ed(d,a){
+      var c=encodeURIComponent;
+      return c instanceof Function?(a?encodeURI(d):c(d)):escape(d);
+    }
+    try{
+      _dywet._getTrackerByName()._trackEvent(category, action);
+      try{
+        _gat._getTrackerByName()._trackEvent(category, action);
+      }catch(err){}
+      if(link.target!="_blank") setTimeout('document.location = "' + link.href + '"', 100);
+    }catch(err){
+      var i=new Image(1,1);
+      var e=document.location;
+      i.src="http://l.kejian.tv/track_err.gif?dywee=5("+category+"*"+action+")&dywehn="+ed(e.hostname)+"&dywep="+ed(e.pathname+e.search,true);
+    }
+  }
+    </script>
+    <%= yield :butt %>
+  </body>
+</html>

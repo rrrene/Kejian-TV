@@ -1,0 +1,17 @@
+<div class="green_header" id="verify_header">已删除内容</div>
+<div class="search_form" style="margin-bottom:10px;">
+  <%=form_tag("/cpanel/autofollow/deleted", :method => "get") do%>
+    <div class="search_form_row">
+      <%=label_tag(:user_name, "发布人:")%>
+      <%=text_field_tag(:user_name,nil,:style=>"width:90px;margin-right:20px;",:value=>params[:user_name])%>
+      <%=label_tag(:deletor_name, "删除人:")%>
+      <%=text_field_tag(:deletor_name,nil,:style=>"width:90px;margin-right:20px;",:value=>params[:deletor_name])%>
+      <%=label_tag(:title,"内容关键词:",:id=>"title_label")%>
+      <%=text_field_tag(:title,nil,:style=>"width:180px;margin-right:40px;",:value=>params[:title])%>
+      <%=label_tag(:content_type,"类型:",:style=>"margin-right:10px;")%>
+      <%=select_tag :content_type,options_for_select([["问题","Ask"],["回答","Answer"],["评论","Comment"]],params[:content_type]) %>
+      <button type="submit">搜索</button>
+    </div>
+  <% end %>
+</div>
+<div style="clear:both;"></div>

@@ -1,0 +1,628 @@
+<% content_for :armpit do %>
+  <%= stylesheet_link_tag "ktv/__zm_user.css", :media => "all" %>
+<% end %>
+<% content_for :body_style do %>background: none repeat scroll 0 0 #F0EEEE<% end %>
+
+<div class="__zm">
+<% params[:queryOrder] ||= '1' %>
+<input id="queryOrder" type="hidden" value="<%= params[:queryOrder] %>" />
+<div id="pagewrap">
+	<div id="content" style="box-shadow:none;background:none;overflow:visible !important;margin-top:18px">
+		<div class="sheet cf" id="zhimeisheetbar">
+			<div class="hotword floatright">
+				<span class="split">|</span>
+				<h4>排序:</h4>
+<ul id="ulQueryOrder">
+<li  class='current'><a class="queryOrderCss" rel="1" href="javascript:;"><span>最新</span></a></li>
+<li ><a class="queryOrderCss" rel="2" href="javascript:;"><span>最热</span></a></li>
+</ul>
+			</div>
+			<div class="floatright">
+				<span>
+				<a href="/users/<%= @user.slug %>" class="blue"><%= @user.coursewares_count %>个课件</a>
+				</span>
+			</div>
+			<span class="sheetname marginleft"><%= @user.name %></span>
+		</div>
+		<script type="text/javascript">
+		<% content_for :butt2 do %>
+      jQuery(function() {
+      if (jQuery("#fix-string01").length == 1) {
+      jQuery("#fix-string01").text(
+      jQuery.fn.fixStr(jQuery("#fix-string01").text(), 12, "..."));
+      }
+      if (jQuery("#fix-string02").length == 1) {
+      jQuery("#fix-string02").text(
+      jQuery.fn.fixStr(jQuery("#fix-string02").text(), 16, "..."));
+      }
+      if (jQuery("#fix-string03").length == 1) {
+      jQuery("#fix-string03").text(
+      jQuery.fn.fixStr(jQuery("#fix-string03").text(), 12, "..."));
+      }
+      if (jQuery("#fix-string04").length == 1) {
+      jQuery("#fix-string04").text(
+      jQuery.fn.fixStr(jQuery("#fix-string04").text(), 16, "..."));
+      }
+      if (jQuery("#fix-string05").length == 1) {
+      jQuery("#fix-string05").text(
+      jQuery.fn.fixStr(jQuery("#fix-string05").text(), 12, "..."));
+      }
+      })
+    <% end %>
+		</script>
+		<!--内容容器开始-->
+		<div style="clear: both;">
+		</div>
+		<div id="contentMain" class="content" style="position: relative;">
+			<div id="rightLabel1" class="rightbox" style="display:none;right:350px; margin-top: -60px">
+				<div class="userbox topline">
+					<div class="userinfo">
+						<div class="uheadbig">
+						  <figure class="avatar">
+							<img style="height:180px !important;width:180px !important;" src="<%= avatar_url(@user,:normal180) %>" title="<%= @user.name %>" alt="<%= @user.name %>"/>
+							<% if owner? @user %>
+							  <div class="__qa clearfix"><div class="edit hide" ><a class="changeUserHead">修改头像</a></div></div>
+							<% end %>
+							</figure>
+						</div>
+            <div class="uname alignleft cf"><span class="ctf-username floatleft"><%=@user.name%></span></div>
+            <% if @user.is_expert %>
+						<div class="uname alignleft cf">
+							<span class="ctf-username floatleft"><%= @user.name %></span><span class="ctf-icon long-ctf-star floatleft"></span>
+						</div>
+						<% end %>
+
+            <div class="fc999 tfmt __qa clearfix">
+  						<div class="ctf-profile" id="user_bio">
+  						  <% if @user.bio.blank? and (not owner?@user) %>
+                  <%= @user.name %>还没来得及写他的个人介绍.
+                <% else %>
+                  <div class="clearfix" style="margin:12px 0"><%= md_body @user.bio,:with_tfmt => false %></div>
+                <% end %>
+  						</div>						  
+	            <% if owner?@user %><div class="__qa clearfix"><%= in_place_edit_tag(@user,:bio,:type => :textarea, :length=>2000, :text_id => "user_bio", :label => "<img class=\"modifyLogo\" src=\"/transparent.png\">#{@user.bio.blank? ? '添加个人经历' : '修改个人经历'}".html_safe) %></div><% end %>
+						</div>
+						<ul class="useratten ctf-bg cf">
+							<li>
+							<a href="/users/<%= @user.slug %>/following" class="gray block usernumber"><%= @user.following_count %><br/>
+							<span>关注</span></a>
+							</li>
+							<li>
+							<a id="user_profile_fans_count" href="/users/<%= @user.slug %>/followers" class="block gray usernumber">
+							<em><%= @user.follower_ids.size %></em><br/>
+							<span>粉丝</span>
+							</a>
+							</li>
+							<!-- <li><span>9</span> <span>积分</span></li> -->
+							<li>
+							<a href="/users/<%= @user.slug %>" class="gray block usernumber"><%= @user.coursewares_count %><br/>
+							<span>课件</span></a></li>
+						</ul>
+            <% unless current_user and @user.id==current_user.id%>
+						<div class="concernbox cf">
+						  <% followed = (current_user and current_user.followed?(@user)) %>
+							<a href="javascript:;" class="<%= followed ? 'concerned-ico' : 'concern-ico' %>" id="followBtn" follow="<%= followed ? 'true' : 'false' %>">
+							  <em><%= followed ? '已关注' : '关注' %></em></a>
+							<a class="d-letter" style="display:none" href="javascript:void(0)"></a>
+						</div>
+          <% end %>
+					</div>
+					<p class="charm">
+						<span class="colonleft"></span>
+						<span id="user_tagline">
+						<% if @user.tagline.present? %>
+						  <%= @user.tagline %>
+						<% else %>
+						  <%= @user.name %>暂无一句话介绍
+						<% end %>
+						</span>
+						<span class="colonright"></span>
+						<% if owner?@user %>
+              <img class="modifyLogo" src="/transparent.png">
+              <div class="__qa clearfix">
+              <%= in_place_edit_tag(@user,:tagline,:rich => false, :text_id => "user_tagline", :label => "<img class=\"modifyLogo\" src=\"/transparent.png\">#{@user.tagline.blank? ? '添加一句话介绍' : '修改一句话介绍'}".html_safe) %>
+              </div>
+            <% end %>
+					</p>
+				  <% @followers = @user.following_ids.rlimit(12) %>
+				  <% if !@followers.blank? %>
+					<div class="labelbox">
+						<h3 class="title">
+						<span class="label"><a href="/users/<%= @user.slug %>/following"><%= user_sex_title(@user,current_user) %>关注的人</a></span><span class="number">(<em class="blue"><a href="/users/<%= @user.slug %>/following"><%= @user.following_ids.size %></a></em>) </span>
+						</h3>
+						<ul class="bp cf">
+
+              <% for follower in @followers.reverse %>
+							<li><%= user_avatar_tag2(follower,:small30,{:size2 => 30}) %></li>
+							<% end %>
+						</ul>
+					</div>
+					<% end %>
+
+				  <% @followers = @user.follower_ids.rlimit(12) %>
+				  <% if !@followers.blank? %>
+					<div class="labelbox">
+						<h3 class="title">
+						<span class="label"><a href="/users/<%= @user.slug %>/followers">关注<%= user_sex_title(@user,current_user)%>的人</a></span><span class="number">(<em class="blue"><a href="/users/<%= @user.slug %>/followers"><%= @user.follower_ids.size %></a></em>) </span>
+						</h3>
+						<ul class="bp cf">
+              <% for follower in @followers.reverse %>
+							<li><%= user_avatar_tag2(follower,:small30,{:size2 => 30}) %></li>
+							<% end %>
+						</ul>
+					</div>
+					<% end %>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="imloading" class="imfootloading" style="visibility:hidden;">
+		<div class="loading">
+			正在加载，请稍候...
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+<% content_for :butt2 do %>
+var old_content = jQuery("#contentMain").html();
+jQuery('.queryOrderCss').live('click', function () {
+    var queryOrder = jQuery(this).attr("rel");
+    jQuery('#queryOrder').val(queryOrder);
+    jQuery('#ulQueryOrder > li').removeClass();
+    jQuery(this).parent().addClass('current');
+    queryExec();
+});
+function queryExec(){
+    var queryOrder = jQuery('#queryOrder').val();
+    jQuery("#contentMain").html(old_content);
+    autoLayout.pageAuto = true;
+    autoLayout.pageNums = 0;
+    autoLayout.loading = true;
+    autoLayout.isHasNextPage = true;
+    autoLayout.pageNum = 2;
+    var linkUrl = "/coursewares?user_id=<%=@user.id%>",
+        jsonUrl = "/coursewares_with_page?user_id=<%=@user.id%>";
+    autoLayout.init({
+        contentID: "contentMain",
+        rightLoad: true,
+        leftID: "",
+        dataContent: {
+            'queryOrder': queryOrder
+        },
+        rightID: ["rightLabel1"],
+        linkUrl: linkUrl,
+        loadingID: "imloading",
+
+        callBack: function () {
+        var showContent = "<%=@user.name%>还没有上传课件";
+
+            jQuery("#contentMain").prepend('<div style="text-align: center; margin-right: 233px; padding-top: 100px; left: 0px; top: 0px;" class="f14" columns="0">' + showContent + '</div>');
+        }
+    });
+    autoLayout.eachAction(jsonUrl);
+    App.psvr_wendao_init();
+}
+im(function () {
+    queryExec();
+});
+jQuery("#followBtn").live("click", function () {
+    var boardUserId = '<%= @user.slug %>';
+    var postUrl = "";
+    var follow = jQuery(this).attr("follow");
+    if (eval(follow) == true) {
+        postUrl = uri("URI_FANS_UNFOLLOW_USER", boardUserId);
+    } else {
+        postUrl = uri("URI_FANS_ADD_FOLLOW_USER", boardUserId);
+    }
+    jQuery("#followBtn").bind("click", function () {
+        return false;
+    })
+    var fansCount = jQuery("#user_profile_fans_count").find("em").text();
+    if (eval(follow) == true) {
+        im.window.confirm(jQuery("#followBtn"), "确认取消关注吗?", function () {
+            jQuery.ajax({
+                type: "POST",
+                url: postUrl,
+                dataType: "json",
+                success: function (data) {
+                    jQuery("#followBtn").removeClass().addClass('concern-ico').find("em").text("关注");
+                    fansCount = eval(fansCount) - 1;
+                    jQuery("#user_profile_fans_count").find("em").text(fansCount);
+                    jQuery("#followBtn").attr("follow", false);
+                    jQuery("#followBtn").unbind("click");
+                }
+            });
+        });
+        jQuery("#followBtn").unbind("click");
+    } else {
+        jQuery.ajax({
+            type: "POST",
+            url: postUrl,
+            dataType: "json",
+            success: function (data) {
+                jQuery("#followBtn").removeClass().addClass('d-concerned-ico').find("em").text("已关注");
+                fansCount = eval(fansCount) + 1;
+                jQuery("#user_profile_fans_count").find("em").text(fansCount);
+                jQuery("#followBtn").attr("follow", true);
+                jQuery("#followBtn").unbind("click");
+            }
+        });
+    }
+});
+jQuery("#zmaddfans").hover(
+
+function () {
+    jQuery(this).css({
+        'width': '300px',
+        'height': 'auto',
+        'overflow': 'hidden',
+        'opacity': '1'
+    });
+},
+
+function () {
+    jQuery(this).css({
+        'width': '36px',
+        'height': '36px',
+        'overflow': 'hidden',
+        'opacity': '0.2'
+    });
+})
+jQuery("#fans_submit").live("click", function () {
+    var jQuerythis = jQuery(this);
+    var uid = jQuerythis.data("uid");
+    var need = jQuery("#fans_count").val();
+    if (uid == "") {
+        im.window.alert("参数错误，请稍后再试！");
+        return false;
+    }
+    if (need == "") {
+        im.window.alert("请填写数量！");
+        jQuery("#fans_count").focus();
+        return false;
+    }
+    jQuery.ajax({
+        url: "/vest/addFans",
+        type: "POST",
+        data: {
+            uid: uid,
+            need: need
+        },
+        success: function (data) {
+            if (data == 1) {
+                jQuery("#msg_tr").show("slow");
+                jQuery("#sms_span_class").addClass("smstrue");
+            } else {
+                jQuery("#msg_tr").show("slow");
+                jQuery("#sms_span_class").removeClass("smstrue");
+            }
+        }
+    });
+});
+<% end %>
+</script>
+
+
+<!-- add board dialog start -->
+<div id="addBoard" style="display:none;">
+	<div style="height: 400px;overflow: hidden;position:relative;">
+		<div id="newpocket">
+			<div class="addtext">
+				<span class="innerborder"><input id="newBoardName" tabindex="1" type="text" class="deftest gray" maxlength="20" value="请输入图格名称，在20个汉字之内"/></span>
+			</div>
+			<div class="category">
+				<h2 class="f14 b">图格的分类？</h2>
+				<div class="list">
+					<ul class="cf" id="boardcategories">
+					</ul>
+				</div>
+			</div>
+			<div class="category selectuser">
+				<h2 class="f14 b">谁能在图格里添加收集？</h2>
+				<p>
+					<input id="mePerson" type="radio" checked id="radio-12" name="newBoardManageType" value="1" tabindex="3"/><label class="radio omlymy f14" for="mePerson">只是我</label>
+				</p>
+				<p>
+					<input id="otherPerson" type="radio" name="newBoardManageType" value="2"/><label class="radio addothre f14" for="otherPerson">我和其他用户</label>
+					<span class='reSelect' style="display:none">已选择<em></em>位好友 <a href='javascript:;' class='blue'>重新选择</a></span>
+				</p>
+			</div>
+		</div>
+		<div id="selectfriend-1" class="selectfriend">
+			<div class="gotop">
+				<a id="backPerson" href="javascript:void(0)">确认返回</a>
+			</div>
+			<div id="add_friend_lists" class="friendlist" style="display:''">
+				<h3>
+				<span class="f14">我的好友</span><span class="gray" id="friendListSize">(<em>0</em>)</span>
+				</h3>
+				<div class="list">
+					<ul id="friendList" class="cf">
+					</ul>
+				</div>
+			</div>
+			<div id="add_board_nocontent" class="nocontent" style="display:none">
+				<span class="yahe">抱歉，您现在还没有好友</span><br/>
+				<a href="/invite" class="f14 blue">马上去寻找好友&gt;&gt;</a>
+			</div>
+		</div>
+	</div>
+	<div id="addBoard-tips" style="display:none">
+	</div>
+	<div id="createBoardBtnDiv" class="dialogsubmit">
+		<a id="createBoardBtn" class="bigbutton calloff bigbuttongray" href="javascript:void(0);" tabindex="4">确认创建</a><a class="confirmback" href="javascript:;" id="jqruey-goback" style="display:none">确认返回</a>
+	</div>
+</div>
+<!-- add board dialog end -->
+<!-- edit board dialog start -->
+<div id="editBoard" style="display:none;">
+	<div style="height: 400px;overflow: hidden;position:relative;">
+		<div id="editpocket" style="display: block;">
+			<div class="addtext">
+				<span class="innerborder"><input id="editBoardName" class="deftest" type="text" maxlength="20" tabindex="1"/></span>
+			</div>
+			<div class="category">
+				<h2 class="f14 b">图格的分类</h2>
+				<div class="list">
+					<ul class="cf" id="editBoardcategories">
+					</ul>
+				</div>
+			</div>
+			<div class="category">
+				<h2 class="f14 b">谁能在图格里添加收集？</h2>
+				<p>
+					<input id="editMePerson" type="radio" id="radio-12" name="editBoardManageType" value="1" tabindex="3"/><label class="radio omlymy f14" for="editMePerson">只是我</label>
+				</p>
+				<p>
+					<input id="editOtherPerson" type="radio" name="editBoardManageType" value="2"/><label class="radio f14 addothre" for="editOtherPerson">我和其他用户</label>
+					<span id="editSelectedUser" style="display:none;" class="gray">已选择 <em></em>位好友 &nbsp;&nbsp;<a id="editReSelect" href="javascript:;" class="blue">重新选择</a></span>
+				</p>
+			</div>
+		</div>
+		<div id="selectfriend-2" class="selectfriend">
+			<div class="gotop">
+				<a id="editBackPerson" href="javascript:void(0)">确认返回</a>
+			</div>
+			<div class="friendlist">
+				<h3>
+				<span class="f14">我的好友</span><span class="gray" id="editFriendListSize">(<em>0</em>)</span>
+				<!--  <span class="selecterror">您必须选择至少一位好友</span>-->
+				</h3>
+				<div class="list">
+					<ul id="editFriendList" class="cf">
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="optionshare">
+		<div class="modifyborder" id="jquery-option">
+			<span><a href="javascript:;" class="alldel-btn delete dialogdel">删除图格</a></span>
+			<span style="display:none">确认删除图格吗？<a id="delete" href="###" class="enter submitbtn confirm-btn">确认</a><a id="cancel" href="javascript:void(0);" class="reset submitbtn cancel-btn">取消</a></span>
+		</div>
+	</div>
+	<div id="editBoard-tips" style="display:none">
+	</div>
+	<div id="saveBoardBtn" class="dialogsubmit" style="border:none; padding-top:4px">
+		<a class="bigbutton calloff bigbuttongray" href="javascript:void(0);" tabindex="4">保存</a>
+		<a class="confirmback" href="javascript:void(0);" id="jqruey-goback-1" style="display:none">确认返回</a>
+	</div>
+</div>
+<!-- edit board dialog end -->
+<!-- Dialog Start -->
+<div id="reshareDialog" style="display:none;" class="body">
+	<div id="loadings" class="client cf">
+		<div class="block">
+			<div id="reshareDialogBoardPicImage" class="indeximg">
+			</div>
+			<div class="saybox">
+				<div class="selectbox gray" style="margin-bottom: 12px; font-size: 14px">
+					收集到
+				</div>
+				<div class="selectbox margin">
+					<select id="reshareDialogBoardList" name="boardId">
+						<!-- id="assembly1" -->
+					</select>
+				</div>
+				<div class="note cf">
+					<span class="count gray floatright numsText">还可以输入 <em class="shoujiNum">0</em> 字</span><span class="gray">添加描述(可选)</span>
+				</div>
+				<div class="textareabox margin">
+					<span class="innerborder">
+					<textarea name="title" id="reshare-ta"></textarea>
+					</span>
+				</div>
+				<div class="integralbox margin">
+					<input name="isComment" type="checkbox" id="checkbox-1"/>
+					<label id="reshareDialogCommentTo" for="checkbox-1" class="checkbox gray"></label><br>
+					<input name="isComment2" type="checkbox" id="checkbox-2"/>
+					<label id="reshareDialogCommentTo2" for="checkbox-2" class="checkbox gray">同时评论给原收集者</label>
+				</div>
+				<div style="display:none;overflow:hidden;">
+					<span class="smstips smserror"><em class="smstips" id="reshareDialogMessage"></em></span>
+				</div>
+				<div id="reshareCommitButtonDiv" class="submit">
+					<!-- dialogsubmit -->
+					<div class="right">
+						<span class="floatright share">
+						<span class="size" id="reshareCommitButtonDiv-1" style="display: none;">同步到:</span><span id="reshare_sync_sina-1" style="display: none;"><input id="reshare_sync_sina" type="checkbox" value="2"><label for="reshare_sync_sina" class="sina">新浪</label></span><span id="reshare_sync_tencent_weibo-1" style="display: none;"><input id="reshare_sync_tencent_weibo" type="checkbox" value="4"><label for="reshare_sync_tencent_weibo" class="qq">腾讯微博</label></span><span id="reshare_sync_renren-1" style="display: none;"><input id="reshare_sync_renren" type="checkbox" value="1"><label for="reshare_sync_renren" class="renren">人人</label></span><span id="reshare_sync_qzone-1" style="display: none;"><input id="reshare_sync_qzone" type="checkbox" value="8"><label for="reshare_sync_qzone" class="qzone">QQ</label></span>
+						</span>
+					</div>
+					<a id="reshareCommitButton" class="bigbutton big-btn bigbuttongray" href="javascript:void(0);">收集</a>
+				</div>
+			</div>
+			<!-- <div class="submit cf"></div> -->
+		</div>
+	</div>
+</div>
+<!-- Dialog End -->
+<div id="editShareDialog" style="width: 640px; margin-top: 30px; margin-left: 30px; display:none;" class="dialog">
+	<div class="client cf" id="loadings">
+		<div class="block">
+			<div class="indeximg" id="editBoardPicThumb">
+			</div>
+			<div class="saybox">
+				<div class="selectbox margin">
+					<select id="editBoardList">
+					</select>
+				</div>
+				<div class="textareabox margin">
+					<textarea id="editTitle"></textarea>
+					<div class="saynumber">
+						<a class="insertprice pos-left" id="insertprice3"><em>&yen;</em>插入价格</a>
+						<span class="floatright"><em id="sharenumid">1</em>/140</span>
+					</div>
+				</div>
+				<div class="integralbox margin" style="display:none;">
+					<input type="checkbox" id="editIntegral" checked="checked"><label class="checkbox" for="editIntegral">积分悬赏</label><span id="integral"></span> (悬赏后，分享将以 <span class="q"></span> 提问形式发出)
+				</div>
+				<div id="delBoardPic" class="optionshare" style="margin:0;">
+					<div class="modifyborder">
+						<span><a class="alldel-btn delete dialogdel" href="javascript:void(0);" id="delBtn">删除收集</a></span>
+					</div>
+				</div>
+				<div id="delBoardPicConfirm" class="optionshare" style="margin:0;display:none;">
+					<div class="modifyborder">
+						 确认删除此收集吗？<a id="btnDelBoardPicOK" class="enter submitbtn confirm-btn" href="javascript:void(0);">确认</a><a id="btnDelBoardPicCancel" class="reset submitbtn cancel-btn" href="javascript:void(0);">取消</a>
+					</div>
+				</div>
+				<div id="submitDiv" class="submit" style="padding-top:18px;">
+					<input id="editBoardPicId" type="hidden" value=""/>
+					<span id="eidtMsgTip" class="smstips smserror"><em class="smstips"></em></span>
+					<a id="btnSaveBoardPic" class="bigbutton big-btn bigbuttongray" href="javascript:void(0);">完成</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--发私信-->
+<div id="message_dialog" style="display:none;">
+	<div class="client sendmail">
+		<span class="countdown"><em id="jquery-sendmail" class="blue">0</em>/300</span>
+		<div class="sendline cf">
+			<label class="username">收件人：</label>
+			<span class="intext relative">
+			<span class="innerborder">
+			<input type="text" autocomplete="off" id="user_id" to_user_id="0" maxlength="10" class="deftest w200" name="truename">
+			</span>
+			</span>
+		</div>
+		<div class="sendline cf" style="padding-bottom: 12px; _padding-bottom:16px">
+			<label class="usercontent">内&nbsp;容：</label>
+			<span class="intext">
+			<span class="innerborder">
+			<textarea id="message_content"></textarea>
+			</span>
+			</span>
+		</div>
+		<div id="jqeury-smsinfo" style="padding-left:55px; margin-bottom:8px; display:none">
+		</div>
+		<div id="send_div" class="sendsubmit" style="_padding-left:57px">
+			<a id="button_send" class="bigbutton calloff bigbuttongray" href="javascript:void(0);">发送</a>
+		</div>
+	</div>
+</div>
+<!--址址登记-->
+<div id="address_dialog" style="display:none;">
+	<h3 class="yahei f18 aligncenter pad-t16" style="display:none"><span id="address_ok_ico" class="success-ico"></span><span id="address-js-msg-span"></span></h3>
+	<div class="desc aligncenter gray" style="display:none" id="address-js-desc-div">
+	</div>
+	<table class="address" id="address_div">
+	<tbody>
+	<tr id="tr_address_qq" style="display:none">
+		<td class="tdleft">
+			QQ：
+		</td>
+		<td>
+			<span class="innerborder"><input id="address_qq" type="text" class="deftest"/></span>
+			&nbsp;&nbsp;<span class="orange f12" id="js-error-qq"></span>
+		</td>
+	</tr>
+	<tr id="tr_address_mobile" style="display:none">
+		<td class="tdleft">
+			手机：
+		</td>
+		<td>
+			<span class="innerborder"><input id="address_mobile" type="text" maxlength="11" class="deftest"/></span><span id="mobile_alert" style="display:none;font-size:12px;padding-left:6px;" class='highlight'></sapn>
+		</td>
+	</tr>
+	<tr class="address_coin">
+		<td class="tdleft">
+			姓 名：
+		</td>
+		<input type="hidden" id="dialog_address_id" value=""/>
+		<td>
+			<span class="innerborder"><input id="real_name" type="text" class="deftest"/></span>
+		</td>
+	</tr>
+	<tr class="address_coin">
+		<td class="tdleft">
+			联系电话：
+		</td>
+		<td>
+			<span class="innerborder"><input id="telephone" type="text" class="deftest"></span>
+			&nbsp;&nbsp;<span class="orange f12" id="js-error-mobile"></span>
+		</td>
+	</tr>
+	<tr class="address_coin" styl>
+		<td class="tdleft">
+			收货地址：
+		</td>
+		<td>
+			<span class="taouter"><textarea id="address"></textarea></span><br/>
+			<span id="js-error-address" class="orange f12"></span>
+			<div class="historyAdress" style="display:none">
+				<h4 id="address_h4" style="display:none">常用地址</h4>
+				<ul style="display:none" id="address_history">
+				</ul>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<td class="tdleft">
+		</td>
+		<td>
+			<a id="save_address" href="###" class="bigbutton calloff bigbuttongray">提交</a>
+			<a class="bigbutton neednot-btn bigbuttongray" href="javascript:void(0)">取消</a>
+		</td>
+	</tr>
+	</tbody>
+	</table>
+</div>
+
+
+
+</div>
+
+
+<div class="__qa">
+  <div id="edit_topic_cover" class="hide">
+    <header>修改头像 <a class="close" href="javascript:void(0);"></a></header> 
+    <%= simple_form_for(@user,:class => "form", :url => user_path(@user), :html => { :method => :put, :enctype =>  "multipart/form-data" }) do |f| %>
+      <section class="setupProfile"> 
+        <figure><%= image_tag(@user.avatar.normal.url) %></figure> 
+        <div id="file_wrapper">
+          <div id="file_faker">
+            <input id="file_uploader_text" type="text" />
+            <div id="file_btn" class="btnNormalGreen">
+              <span>浏 览</span>
+            </div>
+            <!-- 隐藏真正的上传 -->
+          </div>
+          <input class="file" id="file_uploader" name="user[avatar]" type="file" onchange="checkImg_head(jQuery('#facebox #file_uploader'))" />
+        </div>
+        <p class="fc999 hint">支持 jpg, gif, png 格式的图片，不要超过 2MB。建议图片尺寸大于 300×300。</p>
+        </form>
+      </section>
+      <footer>
+        <div class="btnNormalGreen bold mt20 rightbtn" id="upload_submit" >
+          <span>提 交</span>
+        </div> 
+      </footer>
+    <% end %>
+  </div>						  
+</div>
+
+
+<%= render file:'/application/footers/_zm_footer' %>

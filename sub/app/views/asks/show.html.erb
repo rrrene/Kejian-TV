@@ -1,0 +1,289 @@
+<% content_for :scripts do %>
+  <script type="text/javascript">
+    var ask_id = '<%= @ask.id %>';
+    var ask_redirected = false;
+  </script>
+<% end %>
+
+<%= render 'base' %>
+
+<% if not @rf_ask.blank? %>
+  <% content_for :butt2 do %>
+    Asks.redirected_tip('<%= @rf_ask.title %>', '<%= @rf_ask.id %>','rf');
+  <% end %>
+<% end %>
+<% if not @r_ask.blank? %>
+  <% content_for :butt2 do %>
+    ask_redirected = true;
+    Asks.redirected_tip('<%= @r_ask.title %>', '<%= @r_ask.id %>','nr', '<%= @ask.id %>');
+  <% end %>
+<% end %>
+<% if can_edit?(@ask) %>
+  <% if !@suggest_topics.blank?%>
+    <div id="suggestTopics" class="hide" ><%=raw @suggest_topics.to_json %></div>
+    <% if @ask.topics.count==0  %>
+      <% content_for :butt2 do %>
+        Asks.showSuggestTopics(<%=raw @suggest_topics.to_json %>);
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<header class="mainContentHeader" id="ask_<%= @ask.id %>">
+
+  <div class="topics">
+    <!-- to 宪科：这里是话题列表，默认显示【IF二选一】 -->
+    <ul class="topicNav clearfix">    
+      <% unless @ask.topics.blank? %>
+
+        <% @ask.topics.each do |topic| %>
+          <li><a title="<%= topic %>" href="<%= topic_path(topic) %>"><%= topic %></a></li>
+        <% end %>
+        <% if can_edit?(@ask) %>
+          <li class="modify"><a href="#" onclick="return Asks.toggleEditTopics(true);" class="in_place_edit" style="_float:left;"><img src="/transparent.png" class="modifyLogo">修改</a></li>
+        <% end %>
+
+      <% else %>
+
+        <% if current_user and can_edit?(@ask) %>
+          <li class="modify"><span class="no_result fc999">添加话题标签，能让更多人看到你的问题。<a href="#" onclick="return Asks.toggleEditTopics(true);" class="in_place_edit" style="_float:left;"><img src="/transparent.png" class="modifyLogo">添加标签</a></span>
+          <% end %>
+
+        <% end %>
+    </ul>
+    <% if can_edit?(@ask) %>
+      <ul class="topicNav modify clearfix hide">
+        <% @ask.topics.each do |topic| %>
+          <li><%= topic %><a title="删除本话题标签" href="javascript:void(0)" class="close"></a></li>
+        <% end %>
+      </ul>
+      <div class="addTopic mt5 hide">
+        <form data-remote="true" action="<%= ask_path(@ask.id) %>/update_topic" onsubmit="return Asks.beforeAddTopic(this);" method="post" id="update_topics_form">
+          <%= auth_token  %>
+          <div class="addTopic mt5">
+            <input type="text" class="name" id="searchTopic" maxlength="10" style="width:100px;" name="name" value="" placeholder="输入话题标签" >
+            <div class="btnNormalSilver" onclick="jQuery('#update_topics_form').submit()" class="small"><span>添加</span></div>&nbsp;<a href="javascript:void(0)" class="complete_topics">完成</a>
+          </div>
+          <input type="hidden" name="add" value="1" /> 
+        </form>
+      </div>
+    <% end %>
+  </div>
+
+  <% if current_user and current_user.ask_followed?(@ask) %>
+    <a class="bBtn bBtnUnFocus" onclick="return Asks.unfollow(this);"></a>
+  <% else %>
+    <a class="bBtn bBtnFocus" onclick="return Asks.follow(this);"></a>
+  <% end %>
+
+
+  <div class="clearfix height0"></div>
+  <!-- to 宪科：默认显示下面的H6，问题标问题【IF二选一】 -->
+
+  <div>	<h6><span id="ask_title"><%= @ask.title %></span><% if can_edit?(@ask) %>
+        <a onclick="return App.inPlaceEdit(this, {'is_mobile_device': false});" id="ask__title__<%= @ask.id %>" data-width="598" data-url="/update_in_place" data-type="textarea" data-text-id="ask_title" data-rich="false" data-height="40" class="in_place_edit fc999"><img class="modifyLogo" src="/transparent.png">修改</a>
+      <% end %></h6>
+  </div>
+  <!-- to 宪科：点击修改问题标问题后，隐藏上面的H6，出现下面的DIV（编辑器）【IF二选一】 -->
+  <div>
+    <div class="mt10 tfmt" id="ask_body"><%= md_body(@ask.chomp_body,:with_tfmt => false) %></div>
+    <% if can_edit?(@ask) %>
+      <% if @ask.chomp_body.blank? %>
+        <a onclick="return App.inPlaceEdit(this, {'is_mobile_device': false});" id="ask__body__<%= @ask.id %>" data-url="/update_in_place" data-type="textarea" data-text-id="ask_body" data-rich="true" class="in_place_edit fc999"><img class="modifyLogo" src="/transparent.png">添加补充说明</a>
+      <% else %>
+        <a onclick="return App.inPlaceEdit(this, {'is_mobile_device': false});" id="ask__body__<%= @ask.id %>" data-url="/update_in_place" data-type="textarea" data-text-id="ask_body" data-rich="true" class="in_place_edit fc999"><img class="modifyLogo" src="/transparent.png">修改</a>
+      <% end %>	   
+    <% end %> 
+  </div>
+  <div class="summary">
+    <%if current_user and (!@ask.to_user_id || @ask.to_user_id==current_user.id) %>
+      <a href="javascript:void(0)" onclick="return jQuery('#new_answer_form .qeditor_preview').trigger('focus');">添加回答</a>      | 
+    <%end %>
+    <% if @ask.comments_count == 0 %>
+      <a href="#" onclick="return Asks.toggleComments('ask','<%= @ask.id %>');" id="ask_<%= @ask.id %>_linktrigger">添加评论</a>
+    <% else %>
+      <a href="#" onclick="return Asks.toggleComments('ask','<%= @ask.id %>');" id="ask_<%= @ask.id %>_linktrigger"><%= @ask.comments_count %> 条评论</a>
+    <% end %>
+
+    <%unless current_user and current_user.already_jubao( request.path) %>      | <a href="#" onclick="return Asks.report(this);">举报</a>  <% else %>| 已举报<% end %>
+    <% if current_user and @ask.spam_voter_ids.include?(current_user.id) %>
+      | 烂问题
+    <% else %>
+      | <a rel="tipsyr" title="你认为这个不算是一个问题,或者答案可以很容易在Google,Baidu上面找到" class="spam<%= ' spamed' if spamed?(@ask) %>" onclick="return Asks.spamAsk(this,'<%= @ask.id %>');" title="问题被<%= Setting.ask_spam_max %>个网友认为是烂问题以后,问题将会隐藏。" href="#">烂问题</a>
+    <% end %>
+    <% if !@ask.spams_count.blank? %>(<span id="spams_count"><%= @ask.spams_count %></span>人认为)<% end %>
+
+    <% content_for :butt2 do %>
+      (function(){
+      var _w = 72 , _h = 16;
+      var param = {
+      url:location.href,
+      type:'3',
+      count:'1', /**是否显示分享数，1显示(可选)*/
+      appkey:'', /**您申请的应用appkey,显示分享来源(可选)*/
+      title:'', /**分享的文字内容(可选，默认为所在页面的title)*/
+      pic:'', /**分享图片的路径(可选)*/
+      ralateUid:'', /**关联用户的UID，分享微博会@该用户(可选)*/
+      rnd:new Date().valueOf()
+      }
+      var temp = [];
+      for( var p in param ){
+      temp.push(p + '=' + encodeURIComponent( param[p] || '' ) )
+      }
+
+      // document.write('<iframe allowTransparency="true" frameborder="0" scrolling="no" src="http://hits.sinajs.cn/A1/weiboshare.html?' + temp.join('&') + '" width="'+ _w+'" height="'+_h+'"></iframe>')
+
+      })()
+    <% end %>
+
+    <% if @ask.user %>
+      | 由<span class="author"><%= user_name_tag(@ask.user) %>创建</span>
+    <% end %>
+    | <span class="date"><%= l @ask.created_at.getlocal, :format => :long %></span>
+
+  </div>
+
+
+
+  <% if !@answers.blank? %>
+    <div class="dline mt10"></div>
+  <% end %>
+</header>
+
+<% if @ask.answers_count > 0 %>
+  <div class="replyTop"><strong id="answer_sum">有<%= @ask.answers_count %>个解答</strong><span>
+      <% if 'new'==params[:filter] %>
+        按时间
+      <% else %>
+        <%= link_to '按时间',ask_path(@ask,:filter=>'new') %>
+      <% end %>
+      | 
+      <% if 'new'==params[:filter] %>
+        <%= link_to '按投票',ask_path(@ask,:filter=>'') %>
+      <% else %>
+        按投票
+      <% end %>
+    </span></div>
+<% end %>
+
+
+<% user_answered = false %>
+<% if !@answers.blank? %>
+  <% @answers.each do |item| %>
+    <% user_answered = true if owner?(item) %>
+    <%= render("answer", :item => item,:bushouqi => true) %>
+  <% end %>
+<% end %>
+
+<div class="dline mt10"></div>
+
+<% if current_user %>
+  <% if user_answered %>
+    <div class="disabled_answer">一个问题你只能解答一次，但你可以对现有的解答进行修改。</div>
+  <% elsif !@ask.to_user.blank? and current_user.id != @ask.to_user_id %>
+    <div class="disabled_answer">这个问题是对 <%= user_name_tag(@ask.to_user) %> 提问的，只有<%= user_sex_title(@ask.to_user) %>才能解答。</div>
+  <% else %>
+    <section class="appendAnswer clearfix">
+      <h6 class="mt10">添加回答</h6>
+      <%= form_for(@answer, :remote => true, :html => { :onsubmit => "return Asks.beforeAnswer(this);",:id=>'new_answer_form' },
+        :url => answer_ask_path(@ask.id)) do |f| %>
+
+        <div class="editorBox mt10">
+          <!-- to 宪科：这里放上编辑器代码 -->
+          <%= f.text_area :body, :style => "height:100px;", :class => "text long textarea richeditor" %>
+          <!-- 提交按钮 -->
+          <div class="bar mt10" onclick="Asks.answerSubmit()"><div class="btnNormalGreen"><span>提交解答</span></div></div>
+        </div>
+      <% end %>
+    </section>
+
+  <% end %>
+<% else %>
+  <section class="appendAnswer clearfix">
+    <h6 class="mt10">添加回答</h6>
+    <%= form_for(@answer, :remote => true, :html => { :onsubmit => "return Asks.beforeAnswer(this);",:id=>'new_answer_form' },
+      :url => answer_ask_path(@ask.id)) do |f| %>
+
+      <div class="editorBox mt10">
+        <!-- to 宪科：这里放上编辑器代码 -->
+        <%= f.text_area :body, :style => "height:100px;", :class => "text long textarea richeditor" %>
+        <!-- 提交按钮 -->
+        <div class="bar mt10" onclick="Asks.answerSubmit()"><div class="btnNormalGreen"><span>提交解答</span></div></div>
+      </div>
+    <% end %>
+  </section>
+<% end %>
+
+
+<% content_for :sidebar do %>
+  <!-- {relation_asks -->
+  <% if !@relation_asks.blank? %>
+    <section class="sideBox clearfix">
+      <h3>相关问题</h3>
+      <ul class="linkList">
+        <% @relation_asks.each_with_index do |ask,i| %>
+          <% asktitle = Ask.get_title(ask) %>
+          <% next if asktitle.blank? %>
+          <li <%= "style='display:none;'" if i > 4 %>><a href="/asks/<%= ask %>"><%= truncate2(asktitle,:length=>60) %></a></li>
+        <% end %>
+      </ul>
+      <% if @relation_asks.count > 4 %>
+        <strong><a href="#"  onclick="jQuery(this).parent().parent().find('li').show();jQuery(this).hide();return false;">查看更多相关问题</a></strong>
+      <% end %>
+    </section>
+
+  <% end %>
+
+  <% if user_signed_in? %>
+    <section class="sideBox clearfix">
+      <h3>分享问题</h3>
+      <div class="mt5">
+        <a rel="nofollow" class="shareEmail" href="<%= share_ask_path(@ask.id) %>?type=email"><span class="has_icon email">Email</span></a>
+        <a rel="nofollow" class="shareFw" href="<%= share_ask_path(@ask.id) %>?type=url"><span class="has_icon url">转发地址</span></a>
+      </div>
+      <%= render 'jiathis' %>
+    </section>
+
+    <%if @ask.to_user_id.blank?%>
+      <section class="sideBox clearfix">
+        <h3>邀请他人解答此问题<span id="shared_span_count"><% if @invites.count > 0 %> (<%= @invites.count %>)<% end %></span></h3>
+        <div class="peopleSearchBar mt10">
+          <input type="text" placeholder="可通过人名、话题、职务等搜索" class="ac_input" autocomplete="off" id="ask_to_answer" onchange="checklen(this,20)" maxlength="20">
+          <span id="ask_to_answer_tno" style="display:none;"></span>
+          <button></button>
+        </div>
+        <% if 0==@invites.count %>
+          <dl class="mt10">
+            <dt class="fc999 hide" >已邀请：</dt>
+            <dd>
+              <ul class="inviteList" id="ask_invited_users"></ul>
+            </dd>
+          </dl>
+        <% else %>
+          <dl class="mt10"><!-- to 小潘： 如果邀请人为0，这个DL不显示 -->
+            <dt class="fc999">已邀请：</dt>
+            <dd>
+              <ul class="inviteList"  id="ask_invited_users">
+                <% for item in @invites %>
+                  <%= render("invited_user", :item => item) %>
+                <% end %>
+              </ul>
+            </dd>
+          </dl>
+        <% end %>
+      </section>
+    <%end%>
+  <% end %>
+  <section class="sideBox clearfix">
+    <h3>问题状态</h3>
+    <div class="mt5">最近活动：<%= l @ask.last_updated_at ? @ask.last_updated_at.getlocal : (@ask.answered_at ? @ask.answered_at.getlocal : @ask.updated_at.getlocal), :format => :min %><br>被浏览<%= @ask.views_count %>次，<%= @ask.follower_ids.count %>人关注该问题</div>
+    <% @followers = @ask.follower_ids %>
+    <% if !@followers.blank? %>
+      <ul class="headList23">
+        <% for item in @followers %>
+          <li><%= user_avatar_tag2(item,:small,:size2=>23) %></li>
+        <% end %>
+      </ul>
+    <% end %>
+  </section>
+<% end %>

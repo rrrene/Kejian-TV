@@ -1,0 +1,65 @@
+<%= content_for :sitemap do %>
+  <span class="current">列表</span>
+<% end %>
+<%#= render 'base' %>
+<%= render 'search_form' %>
+<%if @report_spams.total_entries>0%>
+  <table class="stat_table" style="table-layout:fixed;">
+    <thead>
+      <tr>
+        <th style="width:35px;">序号</th>
+        <th style="width:215px;">问题标题</th>
+        <th>举报理由/处理说明</th>
+        <th style="width:100px;">举报人</th>
+        <th style="width:125px;">举报时间</th>
+        <th style="width:100px;">处理人</th>
+        <th style="width:125px;">处理时间</th>
+        <th style="width:60px;">处理状态</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @report_spams.each_with_index do |c,i| %>
+        <tr class="<%= i.odd? ? "odd" : "even" %>">
+          <td id="report_no_<%=c.id%>"><%= 20*(params[:page].blank? ? 1:params[:page].to_i)+i-19 %></td>
+          <%ask=Ask.where(:_id=>c.url.split("/").last).first%>
+          <td class="wordwrap add_padding" style="line-height:1.5em;" id="report_ask_<%=c.id%>" title="<%=ask.blank? ? "":ask.title%>"><%= link_to ask.blank? ? "":truncate2(ask.title,:length=>50), c.url,target:'_blank' %></td>
+          <td class="wordwrap add_padding">
+            <div style="margin:3px 0px;"><%=c.descriptions.first.split(":",2)[1]%></div>
+            <div style="margin:3px 0px;color:green;"><%= c.handled_text %></div>
+          </td>
+          <td>
+            <a href="/users/<%=User.get_slug(c.reportor_id)%>" target="_blank"><%=User.get_name(c.reportor_id)%></a>
+          </td>
+          <td><%= c.created_at.getlocal.strftime("%Y-%m-%d %H:%M") %></td>
+          <td>
+            <a href="/users/<%=User.get_slug(c.handler_id)%>" target="_blank"><%=User.get_name(c.handler_id)%></a>
+    <%#= raw "#{link_to '详细', cpanel_report_spam_path(c.id)}
+    #{link_to image_tag("wice_grid/delete.png", :style => "margin-bottom:-4px"), cpanel_report_spam_path(c.id), :method => :delete, :confirm => '确定要删除吗?'}" %>
+          </td>
+          <td><%= c.handled_at.blank? ? "":c.handled_at.getlocal.strftime("%Y-%m-%d %H:%M") %></td>
+          <%if c.handled_text.blank? %>
+            <td>
+              <a href="javascript:void(0);" onclick="change_report('<%=c.id%>')" style="color:red;">未处理</a>
+            <%else%>
+            <td>已处理</td>
+          <%end%>
+        </tr>
+      <%  end %>
+    </tbody>
+  </table>
+  <div style="clear:both;height:10px;"></div>
+  <%= will_paginate @report_spams,:renderer=>WendaoLinkBACKRenderer %>
+  <div style="clear:both;height:10px;"></div>
+  <%= render 'deal_form' %>
+  <script>
+    function change_report(target){
+      jQuery("#report_no").text(jQuery("#report_no_"+target).text());
+      jQuery("#report_ask").text(jQuery("#report_ask_"+target).attr("title"));
+      jQuery("#report_hide_id").attr("value",target);
+      jQuery("#report_hide_title").attr("value",jQuery("#report_ask_"+target).attr("title"));
+      jQuery("#handled_text").focus();
+    }
+  </script>
+<%else%>
+  <div style="font-size:16px;color:red;text-align:center;">搜索结果为空</div>
+<%end%>

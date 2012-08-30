@@ -1,0 +1,82 @@
+<%= content_for :sitemap do %>
+  <span class="current">列表</span>
+<% end %>
+<%#=  render 'base' %>
+<%=  render 'search_form' %>
+<%if @asks.total_entries>0%>
+  <div id="cpanel_asks">
+    <%=form_tag("/cpanel/deal_asks") do%>
+      <table class="stat_table" style="table-layout:fixed;">
+        <thead>
+          <tr>
+            <th style="width:50px;">序号</th>
+            <th>问题标题</th>
+            <th style="width:50px;">回答数</th>
+            <th style="width:50px;">评论数</th>
+            <th style="width:100px;">被关注/浏览数</th>
+            <th style="width:100px;">提问人</th>
+            <th style="width:125px;">提问时间</th>
+            <th style="width:80px;">问题类型</th>
+            <th style="width:50px;">修改</th>
+            <th style="width:60px;text-align:center;"><input id="check_btn" type="button" value="全选" onclick="checkAll()"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @asks.each_with_index do |item,i| %>
+            <tr class="<%= i.odd? ? "odd" : "even" %>">
+              <td><%= 20*(params[:page].blank? ? 1:params[:page].to_i)+i-19 %></td>
+              <td class="wordwrap add_padding" style="line-height:1.5em;" title="<%=item.title%>"><%= link_to truncate2(item.title,:length=>60),"/asks/#{item.id}",target:'_blank' %> </td>
+              <td><%= item.answers_count %></td>
+              <td><%= item.comments_count %></td>
+              <td><%= item.followed_count %>/<%= item.views_count %></td>
+              <td class="wordwrap"><%= link_to user_name_tag(item.user,:target=>'target="_blank"',:no_truncate=>true) %></td>
+              <td><%= item.created_at.getlocal.strftime("%Y-%m-%d %H:%M") %></td>
+              <%if item.is_normal?%>
+                <td>普通问题</td>
+              <%else%>
+                <td style="color:red;">烂问题</td>
+              <%end%>
+              <td style="width:50px;">
+                <%= link_to '修改', edit_cpanel_ask_path(item.id),:style=>"color:#1f4ca5;",:target=>"_blank" %>
+              </td>
+              <td style="text-align:center;">
+                <input name="choose_asks[]" type="checkbox" value="<%=item.id%>" style="width:50px;">
+      <%#= link_to image_tag("wice_grid/delete.png", :style => "margin-bottom:-4px"), cpanel_ask_path(item.id), :method => :delete, :confirm => '确定要删除吗?' %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <div style="text-align:center;margin-top:20px;margin-bottom:10px;">
+        <%= radio_button_tag(:deal_action,1,false,:style=>"width:13px;") %>
+        <%= label_tag(:delete_action, "删除问题") %>
+        <%= radio_button_tag(:deal_action,2,false,:style=>"width:13px;margin-left:20px;") %>
+        <%= label_tag(:destroy_action, "删除问题并屏蔽用户") %>
+      </div>
+      <div style="text-align:center;">
+        <input type="submit" value="提交" style="width:120px;cursor:pointer;" />
+      </div>
+    <%end%>
+
+    <div style="clear:both;height:10px;"></div>
+    <%= will_paginate @asks,:renderer=>WendaoLinkBACKRenderer %>
+  </div>
+  <script type="text/javascript">
+    function checkAll(){
+      if($("#check_btn").val()=="全选"){
+        for(i=0;i<$("input:checkbox").length;i++){
+          $("input:checkbox")[i].checked=true;
+        }
+        $("#check_btn").val("全不选");
+      }else{
+        for(i=0;i<$("input:checkbox").length;i++){
+          $("input:checkbox")[i].checked=false;
+        }
+        $("#check_btn").val("全选");
+      }
+    
+    }
+  </script>
+<%else%>
+  <div style="font-size:16px;color:red;text-align:center;">搜索结果为空</div>
+<%end%>

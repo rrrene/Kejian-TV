@@ -1,0 +1,6 @@
+<nav class="tabNavSub clearfix">
+	<ul>
+		<a href="<%=  asked_to_user_path(user.slug,filter:'all') %>"><li<%= ' class="current"'.html_safe if params[:filter].blank? or params[:filter] == "all"  %>>全部问题</li></a>
+		<a href="<%=  asked_to_user_path(user.slug,filter:'new') %>"><li<%= ' class="current"'.html_safe if params[:filter] == "new"  %>>悬而未决的问题</li></a>
+	</ul>
+</nav>

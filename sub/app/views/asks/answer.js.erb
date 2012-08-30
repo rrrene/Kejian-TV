@@ -1,0 +1,31 @@
+<% if @success %>
+html = "<%= escape_javascript(render("answer", :item => @answer)) %>";
+
+jQuery("#answer_body").text("").focus();
+
+reply = jQuery(".reply");
+
+if(reply.length>0){
+
+reply.eq(reply.length-1).after(html);
+
+jQuery("#answer_sum").text("有<%=@answer.ask.answers_count%>个解答");
+
+}else{
+
+jQuery(".mainContentHeader").append('<div class="dline mt10"></div>')
+
+  .after(html)
+
+  .after('<div class="replyTop"><strong id="answer_sum">有1个解答</strong><span>按时间 | <a href="">按投票</a></span></div>');
+
+}
+
+jQuery(".appendAnswer").remove();
+<% else %>
+jQuery('.qeditor_preview')[0].focus()
+alert('<%=j @answer.errors.full_messages.join(". ")%>')
+<% end %>
+App.loading(false);
+
+

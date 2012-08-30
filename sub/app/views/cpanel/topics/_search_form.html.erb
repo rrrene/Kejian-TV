@@ -1,0 +1,33 @@
+<div class="green_header">话题管理</div>
+<div class="search_form">
+  <%=form_tag(cpanel_topics_path, :method => "get") do%>
+    <div class="search_form_row">
+      <%=label_tag(:name, "话题名:")%>
+      <%=text_field_tag(:name,nil,:style=>"width:60px;",:value=>params[:name])%>
+      <%=label_tag(:tag,"分类:")%>
+      <%=select_tag :tag,options_for_select([["全部",""],["行业","行业"],["公司","公司"],["职业","职业"],["求职","求职"],["职场","职场"]],params[:tag]),:style=>"margin-right:20px;" %>
+      <% t=Time.now.getlocal %>
+      <%=label_tag(:created_at,"时间:")%>
+      <input style="margin-right:0px;width:80px;" class="validate[custom[date]]" id="datepicker_from" name="datepicker_from" type="text" value="<%=params[:datepicker_from]%>">
+      <input style="margin-right:0px;width:60px;" class="validate[custom[time]]" type="text" name="time_from" id="time_from" value="<%=params[:time_from]%>" />
+      ——
+      <input placeholder="<%= t.strftime("%Y-%m-%d") %>" style="margin-right:0px;width:80px;" class="validate[custom[date]]" id="datepicker_to" name="datepicker_to" value="<%= params[:datepicker_to] %>" type="text">
+      <input placeholder="<%= t.strftime("%H:%M") %>" style="margin-right:0px;width:60px;" class="validate[custom[time]]" type="text" name="time_to" id="time_to"  value="<%= params[:time_to] %>"/>
+      <%=label_tag(:sort_by,"排序:",:style=>"margin-left:10px;")%>
+      <%=select_tag :sort,options_for_select([["按创建时间","created_at"],["按问题数","asks_count"],["按关注人数","followed_count"]],params[:sort]),:style=>"margin-right:20px;" %>
+      <button type="submit">搜索</button>
+    </div>
+  <% end %>
+  <% content_for :butt2 do %>
+    jQuery(function() {
+    jQuery("#datepicker_from").datepicker({
+    dateFormat:'yy-mm-dd'
+    });
+    jQuery( "#datepicker_to" ).datepicker({
+    dateFormat:'yy-mm-dd'
+    });
+    jQuery('#time_from').timePicker();
+    jQuery('#time_to').timePicker();
+    });
+  <% end %>
+</div>

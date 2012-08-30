@@ -1,0 +1,50 @@
+
+<section class="comment" id="<%= @type %>_<%= @id %>_comments">
+<%unless 'ask'==params[:type]%>
+  <img class="arrUp" src="<%= asset_path('transparent.png')%>">
+<%end%>
+  <div class="comments">
+    <ul>
+
+      <li class="current">
+        <div class="editorBox clearfix">				
+          <%= form_for(@comment, :remote => true, :html => { :onsubmit => "return Asks.beforeSubmitComment(this);", :id => "new_comment_#{@type}_#{@id}_form"}) do |f| %>
+            <%= f.hidden_field :commentable_type %>
+            <%= f.hidden_field :commentable_id %>
+            <%= f.text_area :body, :class => "body",:style => '', :id => "new_comment_#{@type}_#{@id}",:size => '40x2' %>
+            <div class="bar mt5" onclick="Asks.commentSubmit('new_comment_<%= @type %>_<%= @id %>_form')"><div class="btnNormalSilver"><span>评论</span></div></div>
+          <% end %>
+        </div>
+      </li>
+      <% if !@comments.blank? %>
+        <% @comments.each do |item| %>
+          <li>
+            <%= item.body %><br>
+            <div class="summary"><%= user_name_tag(item.user) %><%= v_icon(item.user) %> • <%= l item.created_at.getlocal, :format => :long %></div>
+          </li>
+        <% end %>
+      <% end %>
+      <%= will_paginate @asks, :renderer=>WendaoLinkCMTRenderer,:inner_window=>2 %>
+
+    </ul>
+  </div>
+</section>
+
+<script type="text/javascript">
+  jQuery(".comments .cmtpager a").live("click", function() {
+    App.loading();
+    jQuery.ajax({
+      url:this.href,
+      dataType:'html',
+      success:function(data) {
+        jQuery('#<%= @type %>_<%= @id %>_comments').html(data);
+        App.loading(0);
+      }
+    });
+    return false;
+  });
+  App.inputLimit(jQuery('#<%="new_comment_#{@type}_#{@id}"%>'),2000);
+  jQuery('.comments .cmtpager a.disabled').click(function(){
+    return false;
+  });
+</script>

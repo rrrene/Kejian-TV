@@ -1,0 +1,78 @@
+<div id="widebartop">
+  <div class="navigation">您现在的位置:<a href="/">首页</a>→<a href="<%= user_path(@user) %>"><%= @user.name %></a></div>
+   <p class="alllist"><a href="<%= coursewares_path %>">查看所有课件列表</a></p>
+</div>
+
+
+  <h1>用户信息</h1>
+      <div class="tip">点击“编辑”更改用户密码、Email</div>
+   <table style="border:1px #e8e8e8 solid;width:100%;padding:5px;">
+      <tbody><tr><td colspan="3">
+<img alt="Userpic" src="<%= avatar_url(current_user,:normal) %>" height="100" width="100"></td><td>
+      
+      
+      <%= form_for(@user, :as => 'user', :url => user_registration_path, :html => { :method => :put, :class => 'normal',:id=>'submit_btn_form',:enctype =>  "multipart/form-data",:autocomplete=>"off" }) do |f| %>   
+      <div style="margin:0;padding:0"><input name="_method" value="put" type="hidden"><input name="authenticity_token" value="ce7482a60801ebd82f7891eef071fdd61268b7a6" type="hidden"></div>	      <table class="table2" id="table_logo" style="width:300px;float:right;display:none;padding-left:15px;border-left: 1px solid #999;">
+	      <tbody><tr><td>选择头像：</td></tr>
+	      <tr><td><input id="filename" name="user[avatar]" type="file"/></td>
+	      <td><input class="submit" name="commit" value="提交" type="submit"></td></tr>
+	      </tbody></table>
+      <% end %>
+      
+      <br style="clear:both">    
+      </td>
+      </tr><tr><td>
+	    <a href="#" style="cursor:pointer" onclick="Effect.toggle('table_logo','appear')">更改头像</a></td>
+      
+      
+	<td><a href="/users/87628/edit">编辑信息</a> </td>
+	
+
+      </tr>
+      <tr><td width="60">用户帐号：</td><td width="80">pmq20</td><td width="60">E-mail：</td><td>pmq2001@gmail.com</td>
+      </tr>
+      <tr>
+      <td>用户等级：</td><td></td>
+      <td>用户组：</td><td>用户组</td>
+      </tr>
+      <tr>
+	<td>共享个数：</td><td>0</td><td>金&nbsp;&nbsp;&nbsp;&nbsp;钱：</td><td>11</td>
+      </tr>
+      <tr>
+    <td>经验值</td><td colspan="3">
+    
+	    
+    
+	    
+    
+	    
+    
+	    
+    
+	    
+    
+	    
+    
+	    
+    
+	    
+    
+
+	</td>
+	</tr>
+      <tr>
+	<td colspan="3">
+	  <a href="/users/87628?only=true">查看此人共享课件</a>
+	</td>
+      </tr>
+      
+      
+</tbody></table>
+
+
+<br>
+<br>
+
+
+
+

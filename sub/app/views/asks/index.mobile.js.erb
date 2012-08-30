@@ -1,0 +1,16 @@
+
+<% if !@asks.blank? %>
+  <% @asks.each do |item| %>
+    jQuery(".pagination").before('<%= escape_javascript(render("/asks/ask.mobile",:item => item)) %>');
+  <% end %>
+  current_page = "<%= (params[:page] || "1").to_i + 1 %>";
+  <% if @asks.count < @per_page %>
+  still_going = false;
+  <% else %>
+  still_going = true;
+  <% end %>
+  jQuery('#gonna_be_app').listview('refresh');
+<% else %>
+  still_going = false;
+<% end %>
+

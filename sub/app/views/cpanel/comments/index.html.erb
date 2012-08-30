@@ -1,0 +1,82 @@
+<%= content_for :sitemap do %>
+  <span class="current">列表</span>
+<% end %>
+<%#= render 'base' %>
+<%= render 'search_form' %>
+<%if @comments.total_entries>0%>
+  <div id="cpanel_comments">
+    <%=form_tag("/cpanel/deal_comments") do%>
+      <table class="stat_table" style="table-layout:fixed;">
+        <thead>
+          <tr>
+            <th style="width:45px;">序号</th>
+            <th>评论</th>
+            <th style="width:200px;">回答</th>
+            <th style="width:200px;">问题标题</th>
+            <th style="width:100px;">评论人</th>
+            <th style="width:125px;">评论时间</th>
+            <th style="width:50px;">修改</th>
+            <th style="width:60px;text-align:center;"><input id="check_btn" type="button" value="全选" onclick="checkAll()"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @comments.each_with_index do |item,i| %>
+            <tr class="<%= i.odd? ? "odd" : "even" %>">
+              <td><%= 20*(params[:page].blank? ? 1:params[:page].to_i)+i-19 %></td>
+              <td class="wordwrap add_padding" title="<%=item.body%>"><%= truncate2(item.body,:length=>300) %></td>
+              <%if item.commentable_type=="Answer"%>
+              <td class="wordwrap add_padding"><%= link_to raw(truncate2(item.commentable.body,:length=>500)),"/asks/#{item.commentable.ask_id}##{item.commentable_id}",:target=>'_blank',:title=>raw(item.commentable.body) %></td>
+              <%else%>
+                <td></td>
+              <%end%>
+              <%if item.commentable_type=="Answer"%>
+                <td class="wordwrap add_padding"><%= link_to item.commentable.ask.blank? ? "":item.commentable.ask.title,"/asks/#{item.commentable.ask_id}",target:'_blank' %></td>
+              <%else%>
+                <td class="wordwrap add_padding"><%= link_to item.commentable.blank? ? "":item.commentable.title,"/asks/#{item.commentable_id}",target:'_blank' %></td>
+              <%end%>
+              <td><%= link_to user_name_tag(item.user, :target=>'_blank') %></td>
+              <td><%= item.created_at.getlocal.strftime("%Y-%m-%d %H:%M") %></td>
+              <td style="width:50px;">
+                <%= link_to '修改', edit_cpanel_comment_path(item.id),:style=>"color:#1f4ca5;",:target=>"_blank" %>
+      <%#= link_to image_tag("wice_grid/delete.png", :style => "margin-bottom:-4px"), cpanel_comment_path(item.id), :method => :delete, :confirm => '确定要删除吗?' %>
+              </td>
+              <td style="text-align:center;">
+                <input name="choose_comments[]" type="checkbox" value="<%=item.id%>" style="width:50px;">
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <div style="text-align:center;margin-top:20px;margin-bottom:10px;">
+        <%= radio_button_tag(:deal_action,1,false,:style=>"width:13px;") %>
+        <%= label_tag(:delete_action, "删除评论") %>
+        <%= radio_button_tag(:deal_action,2,false,:style=>"margin-left:30px;width:13px;") %>
+        <%= label_tag(:destroy_action, "删除评论并屏蔽用户") %>
+      </div>
+      <div style="text-align:center;">
+        <input type="submit" value="提交" style="width:120px;cursor:pointer;" />
+      </div>
+    <%end%>
+
+    <div style="clear:both;height:10px;"></div>
+    <%= will_paginate @comments,:renderer=>WendaoLinkBACKRenderer %>
+  </div>
+  <script type="text/javascript">
+    function checkAll(){
+      if(jQuery("#check_btn").val()=="全选"){
+        for(i=0;i<jQuery("input:checkbox").length;i++){
+          jQuery("input:checkbox")[i].checked=true;
+        }
+        jQuery("#check_btn").val("全不选");
+      }else{
+        for(i=0;i<jQuery("input:checkbox").length;i++){
+          jQuery("input:checkbox")[i].checked=false;
+        }
+        jQuery("#check_btn").val("全选");
+      }
+    
+    }
+  </script>
+<%else%>
+  <div style="font-size:16px;color:red;text-align:center;">搜索结果为空</div>
+<%end%>

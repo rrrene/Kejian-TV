@@ -1,0 +1,16 @@
+<div data-role="content">
+    <h4><%= @answer.user.name %>的解答 · <span class="voteNo"><%= @answer.up_votes_count %></span>个赞成</h4>
+    <p><%= @answer.body_plain %></p>
+    <% item = @answer %>
+		<% if not owner?(item) %>
+        <a id="voteBtnA" data-icon="check" data-inline="true" data-role="button" data-theme="b" title="赞同 (排序将上升)" class="vote<%= 'd' if voted?(item, :up) %>_up" onclick="replyVote('<%= item.id %>',1);" href="#">赞 成</a>
+        <a id="voteBtnB" data-icon="delete" data-inline="true" data-role="button" title="反对 (不会显示你的名字)" class="vote<%= 'd' if voted?(item, :down) %>_down" onclick="replyVote('<%= item.id %>',0);" href="#">反 对</a>
+		<!--
+		  <a id="voteBtnA" data-icon="check" data-inline="true" data-role="button" data-theme="b" title="赞同 (排序将上升)" class="vote<%= 'd' if voted?(item, :up) %>_up" onclick="replyVote('<%= item.id %>',1);" href="#">赞 成(<em><%=item.up_votes_count%></em>)</a>
+		  <a id="voteBtnB" data-icon="delete" data-inline="true" data-role="button" title="反对 (不会显示你的名字)" class="vote<%= 'd' if voted?(item, :down) %>_down" onclick="replyVote('<%= item.id %>',0);" href="#">反 对(<em><%=item.down_votes_count%></em>)</a>
+		  <a rel="tipsyr" title="赞同 (排序将上升)" class="vote_up<%= ' voted' if voted?(item, :up) %>" onclick="return Asks.vote('<%= item.id %>',1);" href="#"><span></span>赞 成(<%=item.up_votes_count%>)</a>
+		  <a rel="tipsyr" title="反对 (不会显示你的名字)" class="vote_down<%= ' voted' if voted?(item, :down) %>" onclick="return Asks.vote('<%= item.id %>',0);" href="#"><span></span>反 对(<%=item.down_votes_count%>)</a>
+		-->
+		<% end %>
+        
+</div>

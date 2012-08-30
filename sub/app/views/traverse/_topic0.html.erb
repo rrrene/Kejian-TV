@@ -1,0 +1,14 @@
+<article class="borderBottomDot">
+	<figure><img class="imgHead" title="<%= topic.name %>" alt="<%= topic.name %>" src="<%= topic_avatar(topic.id) %>" height="50" width="50"></figure>
+	<h6><a title="<%= topic.name %>" href="/topics/<%= topic.name %>">
+	
+  	<% title=topic.name %>
+    
+    <% @qq.each do |x|
+      title.gsub!(/#{x.force_encoding 'utf-8'}/){|s| "<span style=\"color:#CC0000\">#{s}</span>"}
+    end  unless @qq.blank?%>
+    <%= raw title %></a></h6>
+	<div>
+	<%=truncate(topic.summary_plain,:length=>20) %>
+  <br><span class="fc999"><%= topic.followers_count %>人关注·<%= topic.asks_count %>个问题·<%= render 'topic__simple_follow',topic:topic %></span></div>
+</article>

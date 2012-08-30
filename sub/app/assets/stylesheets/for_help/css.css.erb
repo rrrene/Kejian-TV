@@ -1,0 +1,710 @@
+/* 通用定义部分 */
+body {
+    font:normal 14px/22px "Hiragino Sans GB",simsun;
+    background: url("<%=asset_path 'for_help/container_bg.png' %>") repeat-x #f4fafd;
+    color:#555;
+	word-wrap:break-word; 
+	word-break:break-all;
+}
+a, .details .summary a {
+    color:#369;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+	cursor:pointer;
+}
+/* 弱连接颜色 */
+a.weak {
+	color:#7c987e;
+}
+button {
+	background-color:transparent;
+}
+h2,h3 {
+	color:#555;
+	font-weight:bold;
+	border-bottom:1px solid #cfcfcf;
+	height:30px; line-height:30px;
+	font-size:14px;
+}
+h2 {
+	border:none;
+}
+/* 字号14，宽字体 */
+h6 {
+	font-weight:bold;
+}
+/* 强调文本 用于总结性普通文本，比如问题状态中存在 */
+em {
+	color:#5b5b5b;
+}
+mark {
+	background:transparent;
+	color:#900;
+}
+input,textarea {
+	font-size:12px;
+	color:#999;
+	border:1px solid #ccc;
+	padding:2px;
+}
+input:focus,textarea:focus {
+	border-color:#84bd2f;
+}
+input.error {
+	border-color:red;
+	background-color:#ffe5e5;
+}
+/* 套label的input向下移动2个像素，与文本对齐 */
+label input {
+	vertical-align:-2px;
+	margin-right:5px;
+}
+.summary,.details {
+	color:#999;
+	font-size:12px;
+	font-weight:400;
+}
+.summary a {
+	color:#7c98c3;
+}
+.fr {
+	float:right;
+}
+.errorPage {
+	margin:90px auto;
+	width:600px;
+	height:252px;
+	position: relative;
+}
+/*.errorPage aside {
+	float:right;
+	line-height:50px;
+}*/
+.err404 {
+    background: url("<%=asset_path 'for_help/err404.png' %>") no-repeat;
+}
+.err500 {
+    background: url("<%=asset_path 'for_help/err500.png' %>") no-repeat;
+}
+.arrowDown {
+    background: url("<%=asset_path 'for_help/top.png' %>") -129px -64px;
+    width:7px;height:4px;
+	display:inline-block;
+	margin-left:10px;
+}
+.englishFont {
+    font:normal 12px/1em "arial";
+}
+.noBorder {
+	border:none;
+}
+.wrapper {
+    width:936px;
+    margin:0 auto;
+}
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear:both;
+    visibility: hidden;
+}
+.fs12 {
+    font-size:12px;
+}
+.fs14 {
+	font-size:14px;
+}
+.fc999,.fc369 {
+	color:#999;
+	font-size:12px;
+	font-weight:400;
+}
+.bold {
+	font-weight:bold;
+}
+.fc369 {
+	color:#369;
+}
+.fcRed {
+	color:red;
+}
+.mt5 {
+	margin-top:5px;
+}
+.mt10 {
+	margin-top:10px;
+}
+.mt20 {
+	margin-top:20px !important;
+}
+.mt30 {
+	margin-top:30px;
+}
+.mt40 {
+	margin-top:40px;
+}
+.hide {
+	display:none;
+}
+.posRela {
+	position:relative;
+}
+/* 分割线，上灰色2px下灰色1px */
+.dline {
+	height:1px;
+	font-size:0;
+	border:1px solid #cfcfcf;
+	border-width:2px 0 1px 0;
+	line-height:0;
+}
+.borderLeftDot {
+	border-left:1px dotted #cfcfcf;
+}
+.borderBottomDot {
+	border-bottom:1px dotted #cfcfcf;
+}
+
+/* 行内小图标通用属性 */
+.verifyLogoS, .modifyLogo, .questionLogo {
+	background:url("<%=asset_path 'for_help/btn.png' %>") no-repeat;
+	display:inline-block;
+	vertical-align:-2px;
+}
+/* 行内 名字后面绿色V认证图标（小） */
+.verifyLogoS {
+	width:12px;
+	height:12px;
+	background-position:0 -50px;
+}
+/* 行内 修改灰色图标 */
+.modifyLogo {
+	width:10px;
+	height:10px;
+	background-position:-140px -52px;
+	margin-right:5px;
+}
+/* 行内 绿色问号图标 */
+.questionLogo {
+	width:14px;
+	height:14px;
+	background-position:-432px 0;
+	margin-left:5px;
+}
+
+.arrUp, .close,  .close_topic, .shuffle, .icoCorrect, .icoInCorrect{
+	background:url("<%=asset_path 'for_help/btn.png' %>") no-repeat;
+	position:absolute;
+	display:block;
+}
+/* 问题页，评论框体，左上位置向上箭头 */
+.arrUp {
+	width:11px;
+	height:6px;
+	background-position:-432px -19px;
+}
+/* 叉子图标 */
+.close,.close_topic {
+	background-position:-210px -50px;
+	width:11px;
+	height:11px;
+	position:absolute;
+}
+.close:hover {
+	background-position:-244px -50px;
+}
+/* 换一换图标 */
+.shuffle {
+	background-position:-433px -29px;
+	width:14px;
+	height:14px;
+	top:9px;
+	right:0;
+}
+/* input框右侧出现的验证正确与否图标 */
+.icoCorrect,.icoInCorrect {
+	background-position:-405px -46px;
+	width:14px;height:14px;
+}
+.icoInCorrect {
+	background-position:-405px -61px;
+}
+
+/* hover后不显示底线链接的样式 */
+#userInfoPop a, #mainNav a, .topicNav a:hover, .pager a, .hotTopicTable a {
+	text-decoration:none;
+}
+/* 普通绿色、银色按钮 */
+.btnNormalGreen, .btnNormalSilver {
+	border:1px solid #8ac431 !important;
+	float:left !important;
+	cursor:pointer !important;
+}
+.btnNormalGreen span, .btnNormalSilver span {
+	padding:3px 10px !important;
+	border:1px solid #c6ef7d !important;
+	background:url("<%=asset_path 'for_help/btn_bg.png' %>") repeat-x !important;
+	line-height:1em !important;
+	float:left !important;
+	color:#447208 !important;
+}
+.btnNormalSilver {
+	border-color:#e5e5e5 !important;
+	font-size:12px !important;
+}
+.btnNormalSilver span {
+	border-color:#fff !important;
+	background-position:left bottom !important;
+	color:#690 !important;
+}
+/* 所有头像图片包灰边 */
+.imgHead {
+	border:1px solid #ddd;
+}
+
+/* 翻页 */
+.pager, .comments .pager {
+	margin:10px 0;
+	float:right;
+}
+.pager a, .comments .pager a {
+	color:#690;
+	font-family:arial,simsun;
+}
+.pager li, .hotTopicTable li, .comments .pager li {
+	border:1px solid #e5e5e5;
+	float:left;
+	cursor:pointer;
+	font-size:12px;
+	margin-right:5px;
+}
+.pager li span, .hotTopicTable li span, .comments .pager li span {
+	padding:4px 10px 2px;
+	border:1px solid #fff;
+	background:url("<%=asset_path 'for_help/btn_bg.png' %>") repeat-x 0 -30px;
+	line-height:1em;
+	float:left;
+}
+.pager li.more, .comments .pager li.more {
+	border:none;
+	cursor:auto;
+}
+.pager li.current, .pager li:hover, .hotTopicTable li:hover, .pager li .current, .comments .pager li .current {
+	border-color:#8ac431;
+}
+.pager li.current span, .pager li .current, .hotTopicTable li:hover span, .comments .pager li.current span  {
+	background-position:0 0;
+	border:1px solid #c6ef7d;
+}
+.pager li.current a, .pager li .current a, .hotTopicTable li:hover a, .comments .pager li.current a {
+	color:#447208;
+}
+
+/* 弹出层基础样式 */
+.pop {
+	position:absolute;
+	font-size:12px;
+}
+/* 弹出层 - 话题详细弹出层 */
+#popTopic {
+	width:231px;
+	height:126px;
+	background:url("<%=asset_path 'for_help/pop_topic_bg.png' %>") no-repeat;
+}
+#popTopic article {
+	margin:13px;
+	height:50px;
+	overflow:hidden;
+	line-height:1.5em;
+}
+#popTopic figure {
+	width:60px;
+	float:left;
+}
+#popTopic .details {
+	height:1.4em;
+	overflow:hidden;
+	display:block;
+}
+#popTopic footer {
+	overflow:hidden;
+	display:block;
+}
+#popTopic .nBtn {
+	margin:20px 0 0 13px;
+}
+#popTopic span {
+	color:#6c94bc;
+}
+
+/* 弹出层 - 搜索提示框 */
+#popSearchTip {
+	width:510px;
+	background-color:#fafafa;
+	border:1px solid #d1d1d1;
+	top:45px;
+	left:190px;
+	box-shadow:0 2px 2px #999;
+	z-index:999;
+}
+#pageHeader #popSearchTip a {
+	color:#369;
+}
+#popSearchTip li {
+	padding:5px 10px;
+	border:1px solid #fff;
+	border-bottom-color:#eee;
+	clear:both;
+    line-height:24px;
+}
+#popSearchTip li:hover {
+	background:url("<%=asset_path 'for_help/pop_searchresult_bg.png' %>") no-repeat #fff;
+	border-left-width:0;
+}
+
+#popSearchTip li.bottom {
+	background:url("<%=asset_path 'for_help/pop_searchresult_bg.png' %>") left bottom repeat-x;
+	min-height:0;
+}
+#popSearchTip .imgHead {
+	float:left;
+	margin:4px 8px 4px 0;
+}
+#popSearchTip .mark {
+	background: transparent;
+	color: #900;
+        font-weight:bold;
+}
+
+/* 通用定义部分 End */
+
+/* 正常按钮（23px） */
+.nBtn,.bBtn {
+	display:block;
+	background:url("<%=asset_path 'for_help/btn.png' %>") no-repeat;
+	width:60px;
+	height:23px;
+}
+.bBtn {
+	width:70px;
+	height:27px;
+}
+.nBtnFocus {
+	background-position:0 0;
+}
+.nBtnFocus:hover {
+	background-position:-70px 0;
+}
+.nBtnUnFocus {
+	background-position:-140px 0;
+}
+.nBtnUnFocus:hover {
+	background-position:-210px 0;
+}
+/* 关注全部 */
+.nBtnFocusAll {
+	float:right;
+	width:84px;
+	margin-top:2px;
+	background-position:-140px -67px;
+}
+.nBtnFocusAll:hover {
+	background-position:-232px -67px;
+}
+.bBtnFocus {
+	background-position:0 -23px;
+}
+.bBtnFocus:hover {
+	background-position:-70px -23px;
+}
+.bBtnUnFocus {
+	background-position:-140px -23px;
+}
+.bBtnUnFocus:hover {
+	background-position:-210px -23px;
+}
+/* layout部分 */
+#pageHeader {
+    height:50px;
+    background: url("<%=asset_path 'for_help/top.png' %>") 0 -74px;
+	font-size:12px;
+    position: fixed;
+    top: 0;
+    left:0;
+    width: 100%;
+    opacity: 0.9;
+    z-index:11111;
+}
+#pageHeader a {
+    color:#d9d9d9;
+}
+#pageHeader .wrapper {
+    height: 50px;
+    position: relative;
+}
+#pageHeader .wrapper div {
+    position:absolute;
+}
+/* 站点LOGO */
+.sitelogo {
+    background: url("<%=asset_path 'for_help/top.png' %>") 0 -33px;
+    display:block;
+    width:127px; height:39px;
+    position:absolute;
+    top:7px; left:30px;
+}
+/* 搜索框 */
+.searchbox {
+    background: url("<%=asset_path 'for_help/top.png' %>") no-repeat;
+    width:309px;height:31px;
+    top:9px; left:187px;
+}
+#searchInput {
+    color:#999;
+    font-size:14px;
+    margin:5px 0 0 10px;
+    width:290px;
+	border:0;
+}
+/* 提问按钮 */
+.btnGoAsk {
+    background: url("<%=asset_path 'for_help/top.png' %>") -129px -33px no-repeat;
+    width:95px; height:29px;
+    position:absolute;
+    top:10px; left:686px;
+}
+/* 首页 */
+.userHomepage {
+    left:740px; top:15px;
+}
+/* 通知 */
+.userNotify {
+    background-color:#ff0445;
+    color:#fff;
+    left:770px; top:19px;
+    padding:1px 3px;
+}
+/* 用户名 */
+.userInfoName {
+    width:90px;
+    color:#d9d9d9;
+	top:15px;
+	left:844px;
+}
+#header .arrowDown {
+	display:inline-block;
+	margin:0 0 3px 5px;
+}
+/* 用户信息框弹层 */
+.userInfoPop {
+    left:813px;top:9px;
+    width:136px;
+    border:1px solid #000;
+    background-color: #2f2f2f;
+    position: absolute;
+	z-index:500;
+}
+.userInfoPop li {
+    border:1px solid #464646;
+    height:41px;line-height: 41px;
+    color:#d9d9d9;
+	cursor:pointer;
+}
+.userInfoPop li.blackline {
+    border:none;
+    height:1px;
+}
+.userInfoPop li.username {
+    padding-left:9px;
+    position:relative;
+    height:30px; line-height: 30px;
+}
+.userInfoPop li.username:hover {
+    background-color: #2f2f2f;
+}
+#pageHeader .userInfoPop a {
+	font-weight:bold;
+	font-size:14px;
+	color:#95D633;
+}
+.userInfoPop span {
+    float:left;
+    width:17px;
+    height:17px;
+    background:url("<%=asset_path 'for_help/iconset.png' %>") no-repeat;
+    margin:13px 8px 0;
+}
+.userInfoPop span.homepage {
+    background-position: 0 -272px;
+}
+.userInfoPop span.setup {
+    background-position: 0 -317px;
+}
+.userInfoPop span.logout {
+    background-position: 0 -361px;
+}
+
+.userInfoPop li:hover {
+    background-color: #464647;
+}
+
+header .userInfoPop a {
+    color:#9c3;
+}
+
+#container {
+  border: 1px solid #bed0db;
+	background:url("<%=asset_path 'for_help/sidebar_bg.png' %>") repeat-y 686px 0 #FFF;
+}
+/* 不要边栏背景时的class */
+#container.noSidebar {
+	background:none #fff;
+}
+#main {
+  float:left;
+  width:686px;
+	overflow:hidden;
+}
+
+/* Footer */
+#pagerFooter {
+    color:#7396b9;
+    margin: 0 auto;
+    width:950px;
+    text-align: center;
+    line-height: 2em;
+	font-size:12px;
+}
+#pagerFooter a {
+    color:#7396b9;
+}
+/* Footer End */
+/* layout部分 End */
+
+
+
+/* 其他 */
+/* 模拟的input file上传 */
+#file_wrapper {
+    position: relative;
+    width:240px;
+    height:28px;
+    display:inline-block;
+	overflow:hidden;
+}
+#file_faker {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 1;
+    width:240px;
+}
+#file_btn {
+    position:absolute;
+    top:3px;
+	left:175px;
+    z-index: 2;
+}
+#file_uploader {
+    position: relative;
+    text-align: right;
+    -moz-opacity:0 ;
+    opacity: 0;
+    z-index: 3;
+	width:230px;
+	height:28px;
+	cursor:pointer;
+}
+
+/* 编辑器通用样式 */
+.textarea {
+	width:100%;
+	padding:5px 0;
+}
+.editorBox {
+	font-size:12px;
+	line-height:1em;
+}
+.editorBox label {
+	margin-top:2px;
+	display:inline-block;
+}
+.editorBox .bar {
+	float:right;
+	margin:5px 0;
+	clear:both;
+}
+/* textarea左下角的动态提示 */
+.editorTip {
+	float:left;
+	color:#999;
+}
+/* 提示还可以输出XXX字标红，使用mark标签 */
+.editorTip mark {
+	background-color:transparent;
+	color:red;
+}
+
+/* 左侧漂浮广告 */
+.floatad {
+	top: 266px;
+	position: fixed;
+	left: 50%;
+	margin-left: -540px;
+}
+
+/* 返回智联 */
+.backToZp {
+	top:266px;
+	position:fixed;
+	left:0;
+}
+
+/* 富文本编辑器样式回归 */
+div.qeditor_preview ul, div.tfmt ul {
+	margin-left:0px; padding-left:40px; list-style-position: outside;
+	list-style:disc;
+}
+div.qeditor_preview ol, div.tfmt ol {
+	margin-left:0px; padding-left:40px; list-style-position: outside;
+	list-style:decimal;
+}
+div.qeditor_preview b, div.tfmt b, div.qeditor_preview strong, div.tfmt strong {
+	font-weight:bold;
+}
+div.qeditor_preview u, div.tfmt u {
+    text-decoration: underline;
+}
+div.qeditor_preview strike, div.tfmt strike {
+    text-decoration: line-through;
+}
+div.qeditor_preview em, div.qeditor_preview i, div.tfmt em, div.tfmt i {
+	font-style:italic;
+	display:inline;
+	font-size:12px;
+	float:none;
+}
+
+/* 文本默认设置 */
+/* 提问弹窗，问题标题 */
+#new_ask_title_gl {
+	height:32px
+}
+/* 提问弹窗，问题描述 */
+#new_ask_body_gl {
+	height:96px
+}
+
+/* 该问题是对XXX提出的 */
+.disabled_answer {
+	line-height:2em;
+	text-align:center;
+	font-size:12px;
+	background-color:#efefef;
+}
+
+.ac_input:focus {
+  outline:none;
+}

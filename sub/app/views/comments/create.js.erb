@@ -1,0 +1,22 @@
+var commentForm = jQuery("#<%= @comment.commentable_type.downcase %>_<%= @comment.commentable_id %>_comments form");
+var linktrigger = jQuery("#<%= @comment.commentable_type.downcase %>_<%= @comment.commentable_id %>_linktrigger");
+var commentText = jQuery("textarea", commentForm);
+
+<% if @success %>
+<%
+item = @comment
+html = <<-HTML
+<li>
+	#{item.body}<br>
+	<div class="summary">#{user_name_tag(item.user)}#{v_icon(item.user)} • #{l item.created_at.getlocal, :format => :short}</div>
+</li>
+HTML
+%>
+  commentForm.parent().parent().after("<%= escape_javascript(raw(html)) %>");
+	oldcontent = linktrigger.text();
+	linktrigger.text(<%= @comment.commentable.comments_count %>+' 条评论');
+<% else %>
+alert('<%=j @comment.errors.full_messages.join(". ")%>')
+<% end %>
+commentText.val("").focus();
+App.loading(false);

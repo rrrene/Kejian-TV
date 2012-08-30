@@ -1,0 +1,18 @@
+<div data-role="content">
+<%=  %>
+<% if @asks.blank? %>
+	<div style="text-align:center;line-height:2em;">
+  没有相关内容<br>
+  请尝试其他的关键词
+  </div>
+<% else %>
+<ul data-role="listview" class="asksList">
+  <% @asks.each do |item| %>
+    <%= render(file:"asks/_ask.mobile",locals:{item:item}) %>
+  <% end %>
+</ul>
+
+<% end %>
+<!--
+-->
+</div>

@@ -1,0 +1,75 @@
+<div class="green_header">数据统计情况</div>
+<div id="stats_index">
+  <table class="stat_table stat_table2" style="width:620px;margin:20px 0px 30px 30px;">
+    <thead>
+      <tr>
+        <th style="width:50%;">统计项</th>
+        <th>数值</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>用户总数</td>
+        <td><%= User.count %> (<%= User.where(:is_expert=>true).count %>专家)</td>
+      </tr>
+      <tr>
+        <td>问题总数</td>
+        <td><%= Ask.count %></td>
+      </tr>
+      <tr>
+        <td>回答总数</td>
+        <td><%= Answer.count %></td>
+      </tr>
+      <tr>
+        <td>话题总数</td>
+        <td><%= Topic.count %></td>
+      </tr>
+      <tr>
+        <td>评论总数</td>
+        <td><%= Comment.count %></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<%= form_tag '/cpanel/stats/uv' do %>
+  <div style="font-size:13px;margin-left:30px;">
+    <h2 style="margin-bottom:20px;font-size:13px;">
+      UV查询
+    </h2>
+    <p style="margin-bottom:10px;">
+      <span style="margin-right:44px;">访问类型:</span>
+      <%= radio_button_tag("stat_type","all",true,:style=>"width:13px;") %>
+      <%= label_tag(:stat_type,"全部") %>
+      <%#= radio_button_tag("handled_result","web",false,:style=>"width:13px;margin-left:10px;") %>
+      <%#= label_tag(:user_type,"浏览器") %>
+      <%= radio_button_tag("stat_type","devise",false,:style=>"width:13px;margin-left:10px;") %>
+      <%= label_tag(:stat_type,"移动终端") %>
+    </p>
+    <p style="margin-bottom:10px;">
+      <span style="margin-right:15px;">起始日期/时间:</span>
+      <input style="margin-right:20px;width:120px;" placeholder="输入日期..." class="validate[custom[date]]" id="datepicker_from" name="datepicker_from" type="text">
+      <input style="width:120px;" placeholder="输入时间..." class="validate[custom[time]]" type="text" name="time_from" id="time_from" />
+    </p>
+    <% t=Time.now.getlocal %>
+    <p style="margin-bottom:20px;">
+      <span style="margin-right:15px;">截止日期/时间:</span>
+      <input style="margin-right:20px;width:120px;" class="validate[custom[date]]" id="datepicker_to" name="datepicker_to" value="<%= t.strftime("%Y-%m-%d") %>" type="text">
+      <input style="width:120px;" class="validate[custom[time]]" type="text" name="time_to" id="time_to"  value="<%= t.strftime("%H:%M") %>"/>
+    </p>
+    <!--<p>用户Email限制(为空则不限制): <input id="datepicker_to" name="user" value="" type="text"></p>-->
+    <p><%= submit_tag 'UV查询',:style=>"width:90px;" %></p>
+  </div>
+<%end %>
+
+<% content_for :butt2 do %>
+  $(function() {
+  $("#datepicker_from").datepicker({
+  dateFormat:'yy-mm-dd'
+  });
+  $( "#datepicker_to" ).datepicker({
+  dateFormat:'yy-mm-dd'
+  });
+  $('#time_from').timePicker();
+  $('#time_to').timePicker();
+  });
+<% end %>

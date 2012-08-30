@@ -1,0 +1,58 @@
+<h2>客户端详情</h2>
+
+<div class="field_show">
+  <b>客户端ID:</b>
+  <%= @client.uri %>
+</div>
+
+
+<div class="field_show">
+  <b>客户端密钥:</b>
+  <%= @client.secret %>
+</div>
+
+<div class="field_show">
+　<br>　
+</div>
+
+
+
+
+<div class="field_show">
+  <b>名称:</b>
+  <%= @client.name %>
+</div>
+
+<div class="field_show">
+  <b>客户端 URI:</b>
+  <%= @client.site_uri %>
+</div>
+
+<div class="field_show">
+  <b>客户端回调 URI:</b>
+  <%= @client.redirect_uri %>
+</div>
+
+<div class="field_show" style="display:none">
+  <b>访问范畴:</b>
+  <%= @client.scope_pretty %> 
+  <span class="details">(包含 <%= @client.scope_values_pretty %>)</span>
+</div>
+
+<div class="field_show">
+  <b>描述:</b>
+  <%= @client.info %>
+</div>
+
+
+<div class="actions button-container footer_buttons">
+  <div class="button-group">
+    <%= link_to '返回', cpanel_clients_path, class: "button icon arrowleft" %>
+    <%= link_to '编辑', edit_cpanel_client_path(@client), class: "button" %>
+    <%= link_to '删除', cpanel_client_path(@client), :confirm => 'Are you sure?', :method => :delete, class: "button danger" %>
+  </div>
+
+  <div class="button-group">
+    <%= link_to '模拟认证', authorization_uri(@client, "all"), class: "button icon search", onclick:( @client.blocked? ? 'alert("您的应用还没通过审核呢！");return false;' : '' ) %>
+  </div>
+</div>
