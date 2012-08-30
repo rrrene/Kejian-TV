@@ -9,6 +9,7 @@ Sub::Application.routes.draw do
     get "/login", :to => "devise/sessions#new",as:'login'
     get '/logout', :to => "devise/sessions#destroy", as:'logout'
   end
+  get '/un_courses'=>'courses#index'
   resources :courses
   resources :teachers
 

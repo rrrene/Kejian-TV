@@ -41,7 +41,8 @@ table.psvr{
 #psvr_footer {}
 
 /*头部、LOGO和导航*/
-.psvr_headtop {margin-bottom: 11px;color:#888;height: 60px; margin-bottom:15px;}
+.psvr_headtop {
+  margin-bottom: 11px;color:#888;height: 60px; margin-bottom:15px;}
 .psvr_headtop .psvr_links {text-align: right;padding-top: 9px;}
 /*.psvr_headtop .psvr_logo {float: left;width: 430px;}*/
 .psvr_headtop .psvr_logo { float:left;width: 100%;}
@@ -318,7 +319,12 @@ input.psvr_bt {width: 56px;height: 23px;background:url(<%=asset_path('extand_ima
 	#psvr_login .psvr_box_r li a { color:#2C629E; }
 	.psvr_box_l { float:left; }
 .psvr_box_r { float:right; }
-#psvr_logimg{padding-top:3px}
+#psvr_logimg_a{
+  position:relative;
+  z-index:888;
+}
+#psvr_logimg{
+  #padding-top:3px}
 .psvr_wtf_scbar{
   width:937px;
   margin-left:15px;
@@ -326,12 +332,12 @@ input.psvr_bt {width: 56px;height: 23px;background:url(<%=asset_path('extand_ima
   _position:absolute;
   top:137px;
 }
+.psvr_wtf_logoutdiv, .psvr_wtf_logindiv{width:953px}
 
 .ie7{
   .psvr_menu_in{margin-top:27px;}
 }
 .ie6{
-  .psvr_wtf_logindiv{width:350px}
   #psvr_wrapper {
     width:958px;
   }

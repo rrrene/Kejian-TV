@@ -42,7 +42,7 @@ class ApplicationController < ActionController::Base
   def xookie
     dz_auth = cookies[Discuz.cookiepre_real+'auth']
     dz_saltkey = cookies[Discuz.cookiepre_real+'saltkey']
-    if current_user.nil? and dz_auth.present?
+    if dz_auth.present?
       u = User.authenticate_through_dz_auth!(request,dz_auth,dz_saltkey)
       if u
         sign_in(u)

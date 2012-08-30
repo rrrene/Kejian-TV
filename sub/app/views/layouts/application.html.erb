@@ -44,12 +44,12 @@
   <div id="append_parent"></div><div id="ajaxwaitid"></div>
   <div id="hd">
     <div class="wp" style="padding:0">
-      <div class="hdc cl psvr_wtf_<%= user_signed_in? ? 'logout' : 'login' %>div" style="position:absolute;top:25px;margin-left:<%= user_signed_in? ? 579 : 604%>px">
+      <div class="hdc cl psvr_wtf_<%= user_signed_in? ? 'logout' : 'login' %>div" style="position:absolute;top:25px">
 
         <% if !user_signed_in? %>
         <script src="/simple/static/js/logging.js?tFF" type="text/javascript"></script>
-        <form method="post" autocomplete="off" id="lsform" action="/simple/member.php?mod=logging&amp;action=login&amp;loginsubmit=yes&amp;infloat=yes&amp;lssubmit=yes" onsubmit="return lsSubmit();">
-          <div class="fastlg cl">
+        <form method="post" autocomplete="off" id="lsform" action="/simple/member.php?mod=logging&amp;action=login&amp;loginsubmit=yes&amp;infloat=yes&amp;lssubmit=yes" onsubmit="return lsSubmit(null,'/simple/');">
+          <div class="fastlg cl y">
             <span id="return_ls" style="display:none"></span>
             <div class="pns">
               <table cellspacing="0" cellpadding="0">
@@ -82,22 +82,22 @@
         </form>
       <%else%>
         <div id="um">
-          <div class="avt y"><a href="/simple/home.php?mod=space&amp;uid=1"><img src="<%=UCenter.getdef('UC_API')%>/avatar.php?uid=1&size=small" /></a></div>
+          <div class="avt y"><a href="/simple/home.php?mod=spacecp&ac=avatar"><img src="<%=UCenter.getdef('UC_API')%>/avatar.php?uid=<%=current_user.uid%>&size=small" /></a></div>
           <p>
-          <strong class="vwmy"><a href="/simple/home.php?mod=space&amp;uid=1" target="_blank" title="访问我的空间">psvr</a></strong>
+          <strong class="vwmy"><a href="/simple/home.php?mod=space&uid=<%=current_user.uid%>" target="_blank" title="访问我的空间"><%=current_user.slug%></a></strong>
           <span id="loginstatus">
             <a id="loginstatusid" href="/simple/member.php?mod=switchstatus" title="切换在线状态" onclick="ajaxget(this.href, 'loginstatus');return false;" class="xi2"></a>
           </span>
           <span class="pipe">|</span><a href="/simple/home.php?mod=spacecp">设置</a>
-          <span class="pipe">|</span><a href="/simple/home.php?mod=space&amp;do=pm" id="pm_ntc">消息</a>
-          <span class="pipe">|</span><a href="/simple/home.php?mod=space&amp;do=notice" id="myprompt">提醒</a><span id="myprompt_check"></span>
+          <span class="pipe">|</span><a href="/simple/home.php?mod=space&do=pm" id="pm_ntc">消息</a>
+          <span class="pipe">|</span><a href="/simple/home.php?mod=space&do=notice" id="myprompt">提醒</a><span id="myprompt_check"></span>
           <span class="pipe">|</span><a href="/simple/portal.php?mod=portalcp">模块管理</a>
           <span class="pipe">|</span><a href="/simple/admin.php" target="_blank">管理中心</a>
-          <span class="pipe">|</span><a href="/simple/member.php?mod=logging&amp;action=logout&amp;formhash=712fc880">退出</a>
+          <span class="pipe">|</span><a href="/simple/member.php?mod=logging&action=logout&formhash=712fc880">退出</a>
           </p>
           <p>
-          <a href="/simple/home.php?mod=spacecp&amp;ac=credit&amp;showcredit=1" id="extcreditmenu" onmouseover="delayShow(this, showCreditmenu);" class="showmenu">积分: 326</a>
-          <span class="pipe">|</span>用户组: <a href="/simple/home.php?mod=spacecp&amp;ac=usergroup" id="g_upmine" class="xi2" onmouseover="delayShow(this, showUpgradeinfo)">管理员</a>
+          <a href="/simple/home.php?mod=spacecp&ac=credit&showcredit=1" id="extcreditmenu" onmouseover="delayShow(this, showCreditmenu);" class="showmenu">积分: 326</a>
+          <span class="pipe">|</span>用户组: <a href="/simple/home.php?mod=spacecp&ac=usergroup" id="g_upmine" class="xi2" onmouseover="delayShow(this, showUpgradeinfo)">管理员</a>
           </p>
         </div>
       <%end%>
@@ -179,25 +179,14 @@
 <div id="psvr_header">
  <div class="psvr_headtop">
       <div class="psvr_logo">
-        <a href="/" class="psvr"><img class="psvr" src="<%= asset_path 'logo_cnu.png' %>" alt="首都师范大学课件交流系统" id="psvr_logimg"></a>
+        <a href="/" class="psvr" id="psvr_logimg_a"><img class="psvr" src="<%= asset_path 'logo_cnu.png' %>" alt="首都师范大学课件交流系统" id="psvr_logimg"></a>
       </div>
   </div>
 
 
 
   <div class="psvr_menu_out">
-      <div class="psvr_menu_in" id="psvr_navmenu"> 
-          <div class="psvr_menu" id="psvr_navmenu"><ul class="psvr" >
-              <li class="psvr" style="height:37px">&nbsp;</li>
-              <li class="psvr" ><a class="psvr <%= '/'==request.path ? 'psvr_now' : ''%>" href="/"><span class="psvr" >首页</span></a></li>
-              <li class="psvr" ><a class="psvr <%= '/courses'==request.path ? 'psvr_now' : ''%>" href="/courses"><span class="psvr" >本学期课程</span></a></li>
-           <li class="psvr" ><a class="psvr" href="/un_courses"><span class="psvr" >本学期未开</span></a></li>
-           <li class="psvr" ><a class="psvr" href="/users"><span class="psvr" >牛人龙虎榜</span></a></li>
-           <li class="psvr" ><a class="psvr" href="/articles"><span class="psvr" >过科攻略</span></a></li>
-           <li class="psvr" ><a class="psvr" href="http://kejian.tv" title="返回主站" target="_blank"><span class="psvr" >返回主站</span></a></li>
-</ul>
-          </div>
-      </div>
+    <%= render 'psvr_navmenu' %>
   </div>
 </div>
 
