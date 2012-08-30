@@ -1,9 +1,7 @@
 # coding: utf-8
 class LogsController < ApplicationController
-  before_filter :we_are_inside_qa
-  def we_are_inside_qa
-    @we_are_inside_qa = true
-  end
+    layout 'for_help'
+
   def all
     @we_are_inside_qa = false
   end

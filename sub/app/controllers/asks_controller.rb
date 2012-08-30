@@ -3,10 +3,8 @@ class AsksController < ApplicationController
   before_filter :authenticate_user!, :only => [:answer,:create]
   before_filter :require_user_js, :only => [:answer,:invite_to_answer]
   before_filter :require_user_text, :only => [:update_topic,:redirect,:spam, :mute, :unmute, :follow, :unfollow]
-  before_filter :we_are_inside_qa
-  def we_are_inside_qa
-    @we_are_inside_qa = true
-  end  
+    layout 'for_help'
+
   def index
     suggest
     @per_page = 20
