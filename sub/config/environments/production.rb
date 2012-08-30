@@ -48,6 +48,7 @@ Sub::Application.configure do
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   # config.assets.precompile += %w( search.js )
+  config.assets.precompile += ['for_help/application.js','for_help/application.css','for_help/cpanel.js','for_help/cpanel.css','for_help/topics.js','for_help/html5.js','for_help/cpanel_oauth.css','for_help/cpanel_oauth.js','for_help/validationEngine.js','for_help/keditor/kindeditor.js']
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
