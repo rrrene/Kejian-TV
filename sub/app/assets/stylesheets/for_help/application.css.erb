@@ -1,0 +1,98 @@
+/*
+ * This is a manifest file that'll automatically include all the stylesheets available in this directory
+ * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
+ * the top of the compiled file, but it's generally better to create a new file per style scope.
+ *= require reset
+ *= require css
+ *= require main
+ *= require sidebar
+ *= require user
+ *= require facebox
+ *= require jquery.zlzp.editor
+ *= require jquery.zlzp.popupdiv.css
+ *= require_self
+ */
+
+
+.force-hide{
+  display:none !important;
+}
+.force-show {
+  display:block !important;
+}
+
+.notification-items{
+  display:none;
+}
+.in_place_editing{
+  display:inline;
+}
+.fs12{
+  font-size:12px;
+}
+.fc690{
+  color:#690;
+}
+.fl{
+  float:left;
+}
+#facebox .validImg{
+  width:18px;
+  height:18px;
+  background-repeat:no-repeat;
+  
+}
+#facebox .input-x-validate-error .validImg{
+  background: url(<%=asset_path 'for_help/zlzp/error.jpg'%>);
+}
+#facebox .input-x-validate-valid .validImg{
+  background: url(<%=asset_path 'for_help/zlzp/ok.jpg'%>);
+}
+#facebox .input-x-validate-error .input-x-validate{
+  background:#ffe5e5;
+  border-color:#ff0000;
+}
+#loading {
+    background: none repeat scroll 0 0 #999999;
+    border-radius:5px;
+    color: #FFFFFF;
+    font-size: 90%;
+    font-weight: bold;
+    height: 30px;
+    left: 50%;
+	margin-left:-50px;
+    margin: 0;
+    opacity: 0.8;
+    position: fixed;
+    text-shadow: 0 1px #333333;
+    top: 130px;
+    width: 105px;
+    z-index: 101;
+	
+}
+#loading .logo {
+    background: url("/assets/for_help/loading.gif?1316155160") no-repeat scroll center center transparent;
+    float: left;
+    height: 30px;
+    margin: 0 5px 0 10px;
+    width: 30px;
+}
+#loading .text {
+    float: left;
+    margin: 9px 0 0;
+}
+#facebox_overlay {
+    background-color: #000000;
+    z-index: 800;
+}
+#facebox {
+    z-index: 900;
+}
+.spamed{
+  text-decoration: line-through;
+  font-size:small;
+  color:#AAA;
+}
+.hidden{
+  display:none;
+}

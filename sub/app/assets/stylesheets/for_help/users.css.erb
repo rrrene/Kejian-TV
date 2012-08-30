@@ -1,0 +1,108 @@
+.user_profile {}
+.user_profile .tabs { margin-top:20px; margin-bottom:10px; height:20px; border-bottom:3px #2AA51D solid;}
+.user_profile .tabs a { display: inline-block; font-weight: bold; padding: 3px 15px 1px; *padding: 3px 15px 0px; color: #2AA51D; float:left; border-top:1px #DDD solid; border-left:1px #DDD solid; border-right:1px #DDD solid; margin-right:5px;}
+.user_profile .tabs a.actived { color:#333; border:1px #2AA51D solid; border-bottom:3px #FFF solid; *border-bottom:5px #FFF solid; }
+.user_profile .tabs a.actived:hover { text-decoration:none; color:#333}
+.user_profile h1 { padding:0;margin:0;}
+.user_profile h1 span {font-size: 12px; font-weight:normal;}
+.user_profile .avatar { width: 110px; float:left; }
+.user_profile .bio { margin-top:10px; line-height: 21px; }
+.user_profile .detail {
+	margin-left: 120px;
+	font-size: 1.2em;
+}
+
+.user_profile .detail p {
+	margin: 10px 0;
+}
+
+.follow-stats a {
+	display: block;
+}
+
+.follow-stats a:link {
+	color: gray;
+}
+
+.follow-stats li {
+	list-style: none;
+	font-size: 1.2em;
+	border-right: 1px solid #E9E9E9;
+	float: left;
+	margin: 10px 15px 0 0;
+	padding: 0 15px 0 0;
+	*margin: 10px 18px 0 0;
+}
+
+.follow-stats li.last {
+	border: none;
+	margin: 10px 0 0 0;
+}
+
+.follow-stats li strong {
+	color: black;
+	display: block;
+	font-size: 16px;
+	color:#279f1a
+}
+
+.user-regdate {
+	margin: 10px 0 10px 30px;
+	width:210px;
+}
+
+/* 向用户推荐感兴趣的内容 */
+.followed-item { padding: 0; margin: 0; font-size: 1.1em; }
+.followed-item li { list-style: none; height:55px; overflow:hidden;  margin-left:-28px; padding-left:28px; position:relative; } 
+.followed-item li .info { border-top:1px solid #eee; padding-top:10px; }
+.followed-item li .mute { padding-top:14px; float:left; position:relative; margin-left: -28px; padding-right:5px; padding-left:6px;
+  width:17px; height:45px; display:none; }
+.followed-item li .mute a { background:#DFEAF4 url(<%= asset_path 'for_help/x.gif' %>) -2px -1px no-repeat; display:block;
+  height: 15px; width: 15px;margin-bottom:1px;
+  -moz-border-radius: 3px; -webkit-border-radius: 3px; }
+.followed-item li .mute a:hover { background-color:#369; background-position:-2px -18px; }
+
+.topic-listing li, .followers-listing li {
+	border-top: none;
+  padding:10px 0;
+  margin-left:0;
+  padding-left:0;
+  border-top:1px solid #eee;
+  height:auto;
+}
+
+
+.topic-listing li.last, .followers-listing li.last, .followed-item li.first {
+	border: none;
+}
+
+.followed-item li .item {
+	float: left;
+}
+
+.followed-item li .action {
+	float: right;
+	font-size: 12px;
+}
+
+.followed-item li .item .left {
+	float: left;
+	margin-top: 2px;
+}
+
+.followed-item li .item .right {
+	margin-left: 42px;
+}
+
+.followed-item li .item .tagline {
+	color: gray;
+	font-size: 12px;
+}
+
+#ask_to_user { margin-bottom:10px; }
+#ask_to_user  a{ line-height:30px;}
+#ask_to_user h3 {  font-size:13px; color:#333; margin-bottom:5px;  }
+#ask_to_user form {  background:#EBFBDB; padding:5px 5px; border:1px #C1E1A1 solid}
+#ask_to_user form textarea { width:630px; }
+#ask_to_user.simple_form .actions { margin-bottom:40px; }
+#ask_to_user.simple_form .row { margin:0px; }

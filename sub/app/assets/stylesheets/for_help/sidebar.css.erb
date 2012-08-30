@@ -1,0 +1,278 @@
+﻿/* 侧边栏 */
+#sidebar {
+    float:right;
+    width:250px;
+    height:100%;
+}
+#sidebar:first-child {
+	margin-top:10px;
+}
+/* 右侧边栏 主导航 */
+#mainNav {
+	margin-top:20px;
+}
+#mainNav .block40 {
+	height:40px;
+}
+#mainNav li {
+    height:33px; line-height: 33px;
+    padding-left:20px;
+	margin-bottom:12px;
+}
+#mainNav li.current {
+    background:url("<%=asset_path 'for_help/sidebar_bg.png' %>") -250px 0;
+    color:#95d633;
+}
+#mainNav li.current:hover {
+    background-position:-250px 0;
+}
+#mainNav li.current a {
+	font-weight:bold;
+}
+#mainNav li:hover {
+    background:url("<%=asset_path 'for_help/sidebar_bg.png' %>") -500px 0;    
+    cursor:pointer;
+}
+#mainNav span {
+    background:url("<%=asset_path 'for_help/iconset.png' %>") no-repeat;
+    width:16px;
+    height:18px;
+    float:left;
+    margin:7px 7px 0 0;
+}
+#mainNav span.homepage {
+    background-position: -20px 0;
+}
+#mainNav span.followed {
+    background-position: -20px -46px;
+}
+#mainNav span.recommended {
+    background-position: -20px -90px;
+}
+#mainNav span.asks {
+    background-position: -20px -136px;
+}
+#mainNav span.doing {
+    background-position: -20px -180px;
+}
+#mainNav span.newbie {
+    background-position: -20px -226px;
+}
+#mainNav .current span.homepage {
+    background-position: 0 0;
+}
+#mainNav .current span.followed {
+    background-position: 0 -46px;
+}
+#mainNav .current span.recommended {
+    background-position: 0 -90px;
+}
+#mainNav .current span.asks {
+    background-position: 0 -136px;
+}
+#mainNav .current span.doing {
+    background-position: 0 -180px;
+}
+#mainNav .current span.newbie {
+    background-position: 0 -226px;
+}
+#mainNav .current a {
+    color:#9c3;
+}
+#mainNav .userNotify {
+	display:inline;
+	margin-left:5px;
+}
+/* 右侧边栏 主导航 End */
+
+
+/* 右侧容器 */
+.sideBox {
+	margin:60px auto 0;
+	width:210px;
+	clear:both;
+	font-size:12px;
+}
+
+/* 右侧边栏 关注按钮组 */
+.sideBox .nBtn {
+	float:right;
+}
+
+/*
+.sideBox h3 {
+	color:#555;
+	font-weight:bold;
+	border-bottom:1px solid #cfcfcf;
+	height:30px; line-height:30px;
+	font-size:14px;
+}
+*/
+
+/* 强调文本 用于总结性普通文本，比如问题状态中存在 */
+/* 换一换
+.sideBox .changeList {
+	float:right;
+	font-size:12px;
+	font-weight:normal;
+} */
+.sideBox p {
+	font-size:12px;
+}
+.sideBox h3 {
+	height:32px;
+	line-height:32px;
+}
+
+
+/* 23x23头像列表UL定义 */
+.headList23 li {
+	float:left;
+	width:25px;
+	height:25px;
+	margin:10px 10px 0 0;
+}
+
+
+/* 相关专家、相关话题类型，带图片，带关注按钮，带链接，带说名字 */
+.funcList li {
+	height:50px;
+	margin:20px 0;
+	clear:both;
+}
+.funcList li:first-child {
+	margin-top:10px;
+}
+.funcList figcaption {
+	height:21px;
+	overflow:hidden;
+}
+.funcList figure {
+	float:left;
+	margin-right:8px;
+}
+.funcList p {
+	color:#777;
+	height:25px;
+	line-height:13px;
+	margin-top:2px;
+	padding-top:1px;
+	overflow:hidden;
+	width:150px;
+	float:right;
+}
+
+
+/* 话题列表 */
+.topicList li {
+	height:43px;
+	line-height:43px;
+	border-bottom:1px dotted #cfcfcf;
+}
+.topicList em {
+	float:left;
+	width:140px;
+	height:43px;
+	overflow:hidden;
+}
+.topicList a {
+	font-size:14px;
+}
+.topicList .nBtn {
+	margin-top:10px;
+}
+
+/* 相关问题、纯文本链接列表样式 */
+.linkList li {
+	margin:5px 0 10px;
+}
+.linkList a {
+	font-size:12px;
+}
+
+
+/* 分享问题 Email、转发地址 */
+.shareEmail, .shareFw {
+	background:url("<%=asset_path 'for_help/btn.png' %>") no-repeat -432px -45px;
+	padding:0 20px;
+}
+.shareFw {
+	background-position:-432px -69px;
+}
+
+
+/* 邀请他人回答问题 */
+.peopleSearchBar {
+	background-color:#fff;
+	height:21px;
+	border:1px solid #ccc;
+}
+.peopleSearchBar input {
+	float:left;
+	height:21px;
+	line-height:21px;
+	color:#999;
+	margin-left:5px;
+	width:170px;
+	border:none;
+	padding:0;
+}
+.peopleSearchBar button {
+	width:25px;
+	height:21px;
+	float:right;
+	background:url("<%=asset_path 'for_help/btn.png' %>") no-repeat -290px -46px;
+}
+.inviteList li {
+	width:48px;
+	height:31px;
+	overflow:hidden;
+	background-color:#fff;
+	border:1px solid #e0e0e0;
+	float:left;
+	margin:5px 2px 0 0;
+	position:relative;
+}
+.inviteList figure {
+	margin:3px;
+	float:left;
+}
+.inviteList .close {
+	top:3px;
+	right:3px;
+}
+.inviteList em {
+	float:right;
+	width:16px;
+	text-align:center;
+	line-height:1em;
+	margin-top:17px;
+}
+
+
+/* 问道认证栏 */
+.verifyLogo {
+	text-indent:-9999px;
+	background:url("<%=asset_path 'for_help/btn.png' %>") no-repeat -29px -52px;
+	width:109px;
+	height:33px;
+}
+.followInfo {
+	border-bottom:1px solid #cfcfcf;
+	padding:10px 0 5px;
+}
+.followInfo div {
+	float:left;
+	width:104px;
+}
+.followInfo em {
+	font:bold 16px/1em "arial";
+	color:#690;
+}
+.followInfo .borderLeftDot {
+	padding-left:20px;
+	width:84px;
+}
+.user-regdate {
+	margin-top:5px;
+}

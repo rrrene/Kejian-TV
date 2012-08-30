@@ -1,0 +1,31 @@
+.qeditor_border { background: #ffffff; border:1px solid #d4d4d4; padding:0; margin-bottom:8px;	}
+.qeditor_toolbar {  height:26px; border-bottom:1px solid #d4d4d4;}
+.qeditor_toolbar * {	vertical-align: middle; }
+.qeditor_toolbar img { border:0; }
+.qeditor_toolbar a {
+  border-right: 1px solid #c3c3c3;
+  background:#f3f3f3;
+  cursor: pointer;
+  font-family: Georgia,default;
+  font-size: 11px;
+  font-weight: bold;
+  height: 26px;
+  line-height: 26px;
+  padding: 0;
+  text-align: center;
+  text-shadow: 0 1px white;
+  float:left;
+  display:block;
+  color:#000;
+  font-weight:bold;
+  width: 26px;
+  text-decoration: none;
+}
+.qeditor_toolbar a img {margin:5px;}
+.qeditor_toolbar a:hover {background:#fdfdfd;}
+.qeditor_toolbar a:active { background:#DDD; }
+.qeditor_toolbar a.qeditor_glast { width:5px;background:#ffffff;}
+.qeditor_preview { padding: 7px; background:#FFF;
+  outline: none;_height:50px;min-height:50px;
+  -webkit-user-modify: read-write; word-wrap: break-word; -webkit-nbsp-mode: space; -webkit-line-break: after-white-space;
+  line-height:1.8em;}

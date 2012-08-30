@@ -1,0 +1,403 @@
+﻿#mainContent {
+	margin:20px 30px;
+}
+
+/* 主题内容头 */
+.mainContentHeader {
+	margin-bottom:40px;
+}
+
+.mainContentHeader em {
+	font:400 20px/20px simhei;
+}
+/* 通知框 */
+#notifyBox, #sys_notice, .notice_message {
+	border:2px solid #cdd8e8;
+	padding:5px 15px;
+	font-size:12px;
+	color:#999;
+	position:relative;
+	margin-bottom:40px;
+}
+#sys_notice, .notice_message {
+	background-color:#fffbc3;
+	border-color:#ffc30b;
+	padding:15px;
+}
+#notifyBox .close {
+	background:url("<%=asset_path 'for_help/btn.png' %>") no-repeat -210px -50px;
+	width:11px;
+	height:11px;
+	position:absolute;
+	top:15px;
+	right:15px;
+}
+#notifyBox .close:hover {
+	background-position:-244px -50px;
+}
+#notifyBox li {
+	line-height:21px;
+	margin-top:10px;
+	border-bottom:1px dotted #cfcfcf;
+	padding-bottom:10px;
+}
+#notifyBox .btnNormalGreen {
+	float:right !important;
+	margin:10px 0 5px;
+}
+#sys_notice {
+	position:static;
+}
+/* 话题横列样式 */
+.topicNav li {
+	border:1px solid #ccd8e8;
+	float:left;
+	margin-right:5px;
+	padding:2px 4px;
+	font-size:12px;
+	line-height:1em;
+}
+.topicNav li:hover {
+	background-color:#ccd8e8;
+}
+.topicNav li:hover a {
+	color:#369;
+}
+.topicNav li.modify {
+	border-color:#fff;
+}
+.topicNav li.modify:hover {
+	background-color:transparent;
+	cursor:pointer;
+}
+.topicNav a {
+	color:#7c9cc3;
+}
+/* 话题横列样式【话题页修改】 */
+.topicNav.modify li {
+	border-color:#dfe8f3;
+	background-color:#dfe8f3;
+	color:#369;
+}
+/* 话题横列每项右侧叉子图标 */
+.topicNav .close,.topicNav .close_topic {
+	float:right;
+	position:static;
+	margin-left:3px;
+}
+/* 添加话题box */
+.topicNav .addTopic {
+	font-size:12px;
+}
+
+/* 话题样式，上下结果，下方左侧带有头像 */
+.askInfoAll, .askInfoMinor, .reply {
+	margin-top:25px;
+	padding-bottom:25px;
+	border-bottom:1px dotted #cfcfcf;
+}
+.askInfoAll:last-of-type, .askInfoMinor:last-of-type, .reply:last-of-type {
+	border-bottom:none;
+}
+.askInfoMinor {
+	margin-top:21px;
+	padding-bottom:21px;
+}
+.askInfoAll aside, .reply aside {
+	float:left;
+	width:40px;
+	height:47px;
+	margin-right:10px;
+	overflow:hidden;
+	text-align:center;
+}
+.reply aside {
+	height:auto;
+	color:#690;
+	font:normal 12px/1em "arial";
+}
+.askInfoAll aside img {
+	margin-top:7px;
+}
+.askInfoAll hgroup, .askInfoAll .details {
+	float:right;
+	width:590px;
+}
+.askInfoAll aside span {
+	border:1px solid #ddd;
+	display:block;
+	width:38px;
+	margin-top:8px;
+}
+.askInfoAll aside em {
+	display:block;
+	width:36px;
+	height:15px;
+	line-height:17px;
+	border:1px solid #fff;
+	background:url("<%=asset_path 'for_help/btn_bg.png' %>") repeat-x 0 -30px;
+	color:#555;
+	font-weight:bold;
+}
+.askInfoAll .details {
+	display:block;
+	margin-top:8px;
+	width:562px;
+	border:1px solid #ddeaf9;
+	background-color:#f7fafe;
+	padding:7px 13px;
+}
+.askInfoAll p {
+	font-size:14px;
+	color:#444;
+}
+.askInfoAll .topicNav {
+    height:18px;
+    margin-left:50px;
+    overflow:hidden;
+}
+article h6 {
+	margin-top:5px;
+	margin-bottom:2px;
+}
+
+
+/* 话题平铺显示 */
+.hotTopicTable li {
+	font-size:14px;
+	margin:14px 14px 0 0;
+}
+.hotTopicTable li.selected span {
+	background:url("") #f4f4f4;
+}
+.hotTopicTable li span {
+	background-position:0 -27px;
+	padding:4px 11px;
+	height:15px;
+}
+
+
+/* 话题页样式 */
+.askPage .bBtn {
+	float:right;
+	margin-bottom:10px;
+}
+.askPage .mainContentHeader {
+	margin-bottom:0;
+}
+.askPage .topics {
+	float:left;
+	width:570px;
+}
+/* 问题页，顶部话题列表，添加话题框体 */
+.addTopic {
+	font-size:12px;
+}
+.addTopic input {
+	float:left;
+	margin-right:5px;
+}
+.askPage .topicNav li {
+	margin-top:5px;
+}
+/* 开始输出回答最上面的总结 */
+.replyTop {
+	border-bottom:1px solid #ccc;
+	height:33px;
+	line-height:33px;
+}
+.replyTop span {
+	float:right;
+	font-size:12px;
+}
+
+/* 顶踩按钮 */
+.vote {
+	display:block;
+	width:40px;
+	height:19px;
+	background:url("<%=asset_path 'for_help/btn.png' %>") no-repeat;
+	margin-bottom:5px;
+}
+.voteUp {
+	background-position:-288px 0;
+}
+.voteUp:hover {
+	background-position:-336px 0;
+}
+.voteUpe {
+	background-position:-384px 0;
+}
+.voteDown {
+	background-position:-288px -24px;
+}
+.voteDown:hover {
+	background-position:-336px -24px;
+}
+.voteDowne {
+	background-position:-384px -24px;
+}
+/* 回复的内容（不包括顶踩按钮） */
+
+.reply {
+	padding-bottom:20px;
+}
+.reply .comments,.reply .replys {
+	float:right;
+	width:590px;
+}
+.reply header, .reply footer {
+	font-size:12px;
+	line-height:27px;
+	color:#999;
+}
+.reply footer a {
+	color:#89a4ce;
+}
+.reply footer a {
+	color:#89a4ce;
+}
+.reply footer em {
+	visibility:hidden;
+}
+.reply .replys:hover em {
+	visibility:visible;
+}
+.reply .imgHead {
+	float:left;
+	margin-right:5px;
+}
+.comment {
+	position:relative;
+	font-size:12px;
+}
+.comment .arrUp {
+	left:20px;
+	top:1px;
+}
+.comment .close {
+	right:10px;
+	top:14px;
+}
+.comments li {
+	width:530px;
+	margin:5px auto;
+	padding:5px 15px;
+	border-bottom:1px dotted #CCC;
+	background:url("<%=asset_path 'for_help/commenticon.png' %>") no-repeat 0 8px;
+}
+.comments li.current {
+	background-position:0 -1681px;
+	padding-right:0;
+	width:545px;
+}
+.comments textarea {
+	width:543px;
+	height:40px;
+	padding:6px 0;
+	overflow:hidden;
+}
+.comments {
+	border:1px solid #e9e9e9;
+	background-color:#fbfbfb;
+	margin-top:5px;
+}
+
+/* 搜索结果页样式 */
+.searchInputBox input {
+	float:left;
+	box-shadow: 2px 2px 2px rgba(50,50,50,0.1) inset;
+	border-right:0;
+	width:300px;
+	height:23px;
+	margin-left:10px;
+	font-size:14px;
+}
+.searchInputBox button {
+	float:left;
+	background:url("<%=asset_path 'for_help/btn.png' %>") no-repeat -320px -46px;
+	width:78px;
+	height:29px;
+}
+
+
+
+/* 列表 */
+.cList article {
+	font-size:12px;
+	line-height:1.5em;
+	height:52px;
+	margin-top:15px;
+	padding-bottom:15px;
+	overflow:hidden;
+	position:relative;
+}
+/* 列表【左右两列】 */
+.cList.twoCols article {
+	float:left;
+	width:320px;
+	border:0;
+}
+.cList h6 {
+	margin:0;
+}
+.cList figure {
+	float:left;
+	width:65px;
+}
+.cList .nBtn {
+	right:0;
+	top:17px;
+	position:absolute;
+}
+
+article.reply:last-child {
+	border-color:red !important;
+}
+
+
+.voters a {
+	color:#999;
+}
+
+/* 评论内翻页 */
+.cmtpager {
+	margin:10px 0;
+	float:right;
+}
+.cmtpager a {
+	color:#690;
+	font-family:arial,simsun;
+}
+.cmtpager li {
+	border:1px solid #e5e5e5;
+	float:left;
+	cursor:pointer;
+	font-size:12px;
+	width:auto;
+	margin:0 5px 0 0;
+	padding:0;
+	background:none;
+}
+.cmtpager li span {
+	padding:2px 5px;
+	border:1px solid #fff;
+	background:url("<%=asset_path 'for_help/btn_bg.png' %>") repeat-x 0 -30px;
+	line-height:1em;
+	float:left;
+}
+.cmtpager li.more {
+	border:none;
+	cursor:auto;
+}
+.cmtpager li.current {
+	border-color:#8ac431;
+	width:auto;
+}
+.cmtpager li.current span  {
+	background-position:0 0;
+	border:1px solid #c6ef7d;
+}
+.cmtpager li.current a {
+	color:#447208;
+}
