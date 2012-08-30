@@ -40,7 +40,7 @@ function WiceGridProcessor(name, base_request_for_filter, base_link_for_show_all
   this.save_query = function(query_name, base_path_to_query_controller, grid_state, input_ids){
     if (input_ids instanceof Array) {
       input_ids.each(function(dom_id){
-        grid_state.push(['extra[' + dom_id + ']', $('#'+ dom_id)[0].value])
+        grid_state.push(['extra[' + dom_id + ']', jQuery('#'+ dom_id)[0].value])
       });
     }
 
@@ -115,7 +115,7 @@ function WiceGridProcessor(name, base_request_for_filter, base_link_for_show_all
   this.read_values_and_form_query_string = function(filter_name, detached, templates, ids){
     var res = new Array();
     for(i = 0; i < templates.length; i++){
-      if($(ids[i]) == null){
+      if(jQuery(ids[i]) == null){
         if (this.environment == "development"){
           message = 'WiceGrid: Error reading state of filter "' + filter_name + '". No DOM element with id "' + ids[i] + '" found.'
           if (detached){
@@ -126,7 +126,7 @@ function WiceGridProcessor(name, base_request_for_filter, base_link_for_show_all
         }
         return '';
       }
-      var el = $('#' + ids[i]);
+      var el = jQuery('#' + ids[i]);
       var val;
       if (el[0] && el[0].type == 'checkbox'){
         if (el[0].checked) val = 1;
@@ -148,7 +148,7 @@ function WiceGridProcessor(name, base_request_for_filter, base_link_for_show_all
 };
 
 function toggle_multi_select(select_id, link_obj, expand_label, collapse_label) {
-  var select = $('#' + select_id)[0];
+  var select = jQuery('#' + select_id)[0];
   if (select.multiple == true) {
     select.multiple = false;
     link_obj.title = expand_label;

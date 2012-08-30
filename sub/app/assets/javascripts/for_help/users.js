@@ -5,8 +5,8 @@ var Users = {
       return false;
     }
     App.loading();
-    $.get("/users/"+id+"/follow",{}, function(res){
-        $(el).replaceWith('<a onclick="return Users.unfollow(this, \''+ id +'\',\''+small+'\');" class="'+(small == 'small'?'nBtn nBtnUnFocus':'bBtn bBtnUnFocus')+'"></a>');
+    jQuery.get("/users/"+id+"/follow",{}, function(res){
+        jQuery(el).replaceWith('<a onclick="return Users.unfollow(this, \''+ id +'\',\''+small+'\');" class="'+(small == 'small'?'nBtn nBtnUnFocus':'bBtn bBtnUnFocus')+'"></a>');
         App.loading(false);
     });
     return false;
@@ -17,8 +17,8 @@ var Users = {
       return false;
     }
     App.loading();
-    $.get("/users/"+id+"/unfollow",{}, function(res){
-        $(el).replaceWith('<a onclick="return Users.follow(this, \''+ id +'\',\''+small+'\');" class="'+(small == 'small'?'nBtn nBtnFocus':'bBtn bBtnFocus')+'"></a>');
+    jQuery.get("/users/"+id+"/unfollow",{}, function(res){
+        jQuery(el).replaceWith('<a onclick="return Users.follow(this, \''+ id +'\',\''+small+'\');" class="'+(small == 'small'?'nBtn nBtnFocus':'bBtn bBtnFocus')+'"></a>');
         App.loading(false);
     });
     return false;
@@ -26,32 +26,32 @@ var Users = {
 
   simple_follow : function(el,id){
     App.loading();
-    $.get("/users/"+id+"/follow",{}, function(res){
+    jQuery.get("/users/"+id+"/follow",{}, function(res){
         App.loading(false);
         if(!App.requireUser(res,"text")){
           return false;
         }
-        $(el).replaceWith('<a onclick="return Users.simple_unfollow(this,\''+id+'\')" href="#">取消关注</a>'); 
+        jQuery(el).replaceWith('<a onclick="return Users.simple_unfollow(this,\''+id+'\')" href="#">取消关注</a>'); 
     });
     return false;
   },
 
 	simple_unfollow : function(el,id){
     App.loading();
-    $.get("/users/"+id+"/unfollow",{}, function(res){
+    jQuery.get("/users/"+id+"/unfollow",{}, function(res){
         App.loading(false);
         if(!App.requireUser(res,"text")){
           return false;
         }
-		 $(el).replaceWith('<a onclick="return Users.simple_follow(this,\'' + id + '\')" href="#">关注</a>'); 
+		 jQuery(el).replaceWith('<a onclick="return Users.simple_follow(this,\'' + id + '\')" href="#">关注</a>'); 
     });
     return false;
   },
 
   /* 不感兴趣推荐的用户或话题 */
   mute_suggest_item : function(el, type, id){
-    $(el).parent().parent().fadeOut("fast");
-    $.get("/mute_suggest_item", { type : type, id : id },function(res){
+    jQuery(el).parent().parent().fadeOut("fast");
+    jQuery.get("/mute_suggest_item", { type : type, id : id },function(res){
         App.requireUser(res);
     });
     return false;
@@ -61,21 +61,21 @@ var Users = {
   
   // 隐藏或展开个人经历 add 2011-9-23 by lesanc.li
   toggleBio : function(){
-	var bio = $('.user_profile .detail .bio');
+	var bio = jQuery('.user_profile .detail .bio');
 	if (bio.height() > 120){
 		bio.find('#user_bio').css({'height':'100px', 'width':'500px', 'display':'block', 'overflow':'hidden', 'word-break':'break-all'});
 		bio.find('#user_bio').after('<div><a href="#" id="bioMore">展开</a></div>');
-		$('#bioMore').css({'text-decoration':'underline', 'font-size':'12px', 'color':'#999999'});
+		jQuery('#bioMore').css({'text-decoration':'underline', 'font-size':'12px', 'color':'#999999'});
 	}
   },
   
   bioToggleMore : function(el){
-	$(el).toggle(function(){
-	  $('.user_profile .detail .bio #user_bio').css({'height':''});
-	  $('#bioMore').html('收起');
+	jQuery(el).toggle(function(){
+	  jQuery('.user_profile .detail .bio #user_bio').css({'height':''});
+	  jQuery('#bioMore').html('收起');
 	}, function(){
-	  $('.user_profile .detail .bio #user_bio').css({'height':'100px'});
-	  $('#bioMore').html('展开');
+	  jQuery('.user_profile .detail .bio #user_bio').css({'height':'100px'});
+	  jQuery('#bioMore').html('展开');
     });
   },
 
@@ -103,11 +103,11 @@ var Users = {
     lhtml.push('<div class="btnNormalGreen bold mt20 login"><span>&nbsp;登 录&nbsp;</span></div>');
     lhtml.push('<div class="goLog mt20">没有智联招聘账号？<a href="#" onclick="Users.userReg()">立即注册</a></div>');
     lhtml.push('</footer>');
-    $.facebox({ html : lhtml.join(""), overlay : false });
+    jQuery.facebox({ html : lhtml.join(""), overlay : false });
     var form = document.forms["frmLogin"];
-    var loginname = $("#facebox input[name='loginname']");
-    var password = $("#facebox input[name='password']");
-    var login = $("#facebox .login");
+    var loginname = jQuery("#facebox input[name='loginname']");
+    var password = jQuery("#facebox input[name='password']");
+    var login = jQuery("#facebox .login");
     App.placeHolder(loginname, "邮箱/用户名");
     //App.placeHolder(password, "密码", false);
     // submit
@@ -116,7 +116,7 @@ var Users = {
 //        text: '请输入有效的E-mail地址',
 //        rule: "email"
 //      }],
-//      tipTag: $("#tip_loginname")
+//      tipTag: jQuery("#tip_loginname")
 //    });
 //    password.validate({
 //      rules : [{
@@ -125,7 +125,7 @@ var Users = {
 //            return /^[a-zA-Z0-9_]{6,25}$/.test(b);
 //          }
 //        }],
-//      tipTag : $("#tip_password")
+//      tipTag : jQuery("#tip_password")
 //    });
     login.unbind("click").click(function(){
       checkLogin();
@@ -183,19 +183,19 @@ var Users = {
     lhtml.push('<div class="btnNormalGreen bold mt20 reg"><span>&nbsp;注 册&nbsp;</span></div>');
     lhtml.push('<div class="goLog mt20">已有智联招聘账号？<a href="#" onclick="Users.userLogin()">直接登录</a></div>');
     lhtml.push('</footer>');
-    $.facebox({ html : lhtml.join(""), overlay : false });
+    jQuery.facebox({ html : lhtml.join(""), overlay : false });
     var form = document.forms["regform"];
-    var email = $("#facebox input[name='email']");
-    var password1 = $("#facebox input[name='password1']");
-    var password2 = $("#facebox input[name='password2']");
-    var accept = $("#facebox input[name='accept']");
-    var reg = $("#facebox .reg");
-    var form = $("#facebox form");
-    var email = $("#facebox input[name='email']");
-    var password1 = $("#facebox input[name='password1']");
-    var password2 = $("#facebox input[name='password2']");
-    var accept = $("#facebox input[name='accept']");
-    var reg = $("#facebox .reg");
+    var email = jQuery("#facebox input[name='email']");
+    var password1 = jQuery("#facebox input[name='password1']");
+    var password2 = jQuery("#facebox input[name='password2']");
+    var accept = jQuery("#facebox input[name='accept']");
+    var reg = jQuery("#facebox .reg");
+    var form = jQuery("#facebox form");
+    var email = jQuery("#facebox input[name='email']");
+    var password1 = jQuery("#facebox input[name='password1']");
+    var password2 = jQuery("#facebox input[name='password2']");
+    var accept = jQuery("#facebox input[name='accept']");
+    var reg = jQuery("#facebox .reg");
     // email validate
     email.validate({
       rules: [{
@@ -204,11 +204,11 @@ var Users = {
       },{
         type: "ajax",
         rule: function(){
-          $.getScript("http://my.zhaopin.com/myzhaopin/CEF_markhome.asp?opt=1&email=" + email.val(), function(){
+          jQuery.getScript("http://my.zhaopin.com/myzhaopin/CEF_markhome.asp?opt=1&email=" + email.val(), function(){
             if (typeof cefmarkhome != 'undefined'){
               if (cefmarkhome == 1){
                 email.parent().attr("class", "input-x-validate-error");
-                $("#tip_email").html('该邮箱已注册智联账号，可<a onclick="Users.userLogin()" href="#">直接登录</a>');
+                jQuery("#tip_email").html('该邮箱已注册智联账号，可<a onclick="Users.userLogin()" href="#">直接登录</a>');
                 formFlag["email"] = false;
               } else if (cefmarkhome == 0){
                 email.parent().attr("class","input-x-validate-valid");
@@ -224,7 +224,7 @@ var Users = {
           });
         }
       }],
-      tipTag: $("#tip_email")
+      tipTag: jQuery("#tip_email")
     });
     password1.validate({
       rules : [{
@@ -234,7 +234,7 @@ var Users = {
           }
         }],
       defaultText : "密码是6-25位的字母数字和下划线", 
-      tipTag : $("#tip_password1")
+      tipTag : jQuery("#tip_password1")
     });
     password2.validate({
       rules : [{
@@ -249,7 +249,7 @@ var Users = {
           }
         }],
       defaultText : "密码是6-25位的字母数字和下划线", 
-      tipTag : $("#tip_password2")
+      tipTag : jQuery("#tip_password2")
     });
     reg.unbind("click").click(function(){
       checkregform();
@@ -282,7 +282,7 @@ var Users = {
   }
 }
 
-$(document).ready(function(){
+jQuery(document).ready(function(){
   Users.toggleBio();
-	Users.bioToggleMore($('#bioMore'));
+	Users.bioToggleMore(jQuery('#bioMore'));
 });

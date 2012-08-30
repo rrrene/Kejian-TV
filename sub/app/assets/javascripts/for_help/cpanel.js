@@ -10,11 +10,11 @@
 //= require ./jquery.timepickr.js
 function submit_page(){
     if(event.keyCode ==13){
-        if($('#render_page_input').val()==''){
+        if(jQuery('#render_page_input').val()==''){
             alert('请输入需要跳转的页码!');
         }else{
-            var bl=!isNaN(Number($('#render_page_input').val())) && ($('#render_page_input').val() > 0);
-            var p=bl ? Number($('#render_page_input').val()) : 1;
+            var bl=!isNaN(Number(jQuery('#render_page_input').val())) && (jQuery('#render_page_input').val() > 0);
+            var p=bl ? Number(jQuery('#render_page_input').val()) : 1;
             var h=document.location.href;
             var url =h.indexOf('?')>0 ? (h.indexOf('page=')>0? h.replace(/page=.*&|page=.*/,'page='+p+'&') :h+'&page='+p ) : (h+'?&page='+p);
             window.location.href=url;

@@ -5,52 +5,52 @@
 
 
 // 触发mobileinit事件
-$(document).bind("mobileinit", function(){
+jQuery(document).bind("mobileinit", function(){
     //alert('mobileinit');
     
     
 });
-$(document).ready(function(){
+jQuery(document).ready(function(){
     
     
     // 点击“我要回答”按钮，定位到屏幕最底，同时输入框获得焦点。
-    $('#btnGoToAnswer').click(function(){
-        $.mobile.silentScroll($(document).height());
-        $('#inputAnswerTextarea').focus();
+    jQuery('#btnGoToAnswer').click(function(){
+        jQuery.mobile.silentScroll(jQuery(document).height());
+        jQuery('#inputAnswerTextarea').focus();
     });
     // 点击textarea，清空里面的placeholder文本
-    $('#inputAnswerTextarea').focus(function(){
-        $(this).html('');
+    jQuery('#inputAnswerTextarea').focus(function(){
+        jQuery(this).html('');
     })
     // 点击提交按钮提交本页第一个表单（单页也总会只有一个表单）
-    $('#btnSubmitForm').click(function(){
-        $('form').submit();
+    jQuery('#btnSubmitForm').click(function(){
+        jQuery('form').submit();
     })
     // 搜索页面，搜索按钮动作
-    $('#btnGoToSearch').click(function(){
-        $('form').submit();
+    jQuery('#btnGoToSearch').click(function(){
+        jQuery('form').submit();
     })
 });
 
     /*
-$('#acura').click(function(){
+jQuery('#acura').click(function(){
     // 页面跳转方法
-    $.mobile.changePage("test.html", "slideup");
+    jQuery.mobile.changePage("test.html", "slideup");
 
     // 向result.php页面提交ID为Search的表单post数据，直接本页跳转
-    $.mobile.changePage( "searchresults.php", {
+    jQuery.mobile.changePage( "searchresults.php", {
             type: "post", 
-            data: $("form#search").serialize()
+            data: jQuery("form#search").serialize()
     });
 
     // AJAXload页面内容插到当前页PAGE中
-    $.mobile.loadPage( "test.html" );	
+    jQuery.mobile.loadPage( "test.html" );	
 
     // 显示LOADING框		
-    $.mobile.showPageLoadingMsg('asdfasdf');
+    jQuery.mobile.showPageLoadingMsg('asdfasdf');
 
     // 显示header和footer浮动容器
-    $.mobile.fixedToolbars.show();
+    jQuery.mobile.fixedToolbars.show();
 });
      */
     

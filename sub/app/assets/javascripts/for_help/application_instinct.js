@@ -30,7 +30,7 @@ var App = {
   
     // 显示进度条
     loading : function(show){
-        var loadingPanel = $("#loading");
+        var loadingPanel = jQuery("#loading");
         if(show == false){
             loadingPanel.hide();
         }
@@ -43,9 +43,9 @@ var App = {
         html = '<div class="alert_message">';
         html += msg;
         html += '</div>';
-        $(".notice_message").remove();
-        $(".alert_message").remove();
-        $("#main .left_wrapper").prepend(html);
+        jQuery(".notice_message").remove();
+        jQuery(".alert_message").remove();
+        jQuery("#main .left_wrapper").prepend(html);
         return true;
     },
 
@@ -53,9 +53,9 @@ var App = {
         html = '<div class="notice_message">';
         html += msg;
         html += '</div>';
-        $(".notice_message").remove();
-        $(".alert_message").remove();
-        $("#main .left_wrapper").prepend(html);
+        jQuery(".notice_message").remove();
+        jQuery(".alert_message").remove();
+        jQuery("#main .left_wrapper").prepend(html);
         return true;
     },
 
@@ -94,7 +94,7 @@ var App = {
     },
 
     inPlaceEdit : function(el, editor_options, n){   //modify 2012-1-11 by lesanc n: number of words 
-        var link = $(el);
+        var link = jQuery(el);
         var linkId = link.attr("id");
         var textId = link.attr("data-text-id");
         var remote_url = link.attr("data-url");
@@ -104,7 +104,7 @@ var App = {
         var editHeight = link.attr("data-height");
         var editPanel = null;
 
-        textPanel = $("#"+textId);
+        textPanel = jQuery("#"+textId);
         link.parent().hide();
 
         sizeStyle = ""
@@ -132,10 +132,10 @@ var App = {
             }
         }
     
-        var csrf_token = $('meta[name=csrf-token]').attr('content'),
-        csrf_param = $('meta[name=csrf-param]').attr('content');
+        var csrf_token = jQuery('meta[name=csrf-token]').attr('content'),
+        csrf_param = jQuery('meta[name=csrf-param]').attr('content');
 
-        editPanel = $('<form action="'+remote_url+'" method="post" id="ipe_'+linkId+'" \
+        editPanel = jQuery('<form action="'+remote_url+'" method="post" id="ipe_'+linkId+'" \
         data-text-id="'+textId+'" data-id="'+linkId+'" class="in_place_editing">\
                   <input type="hidden" name="id" value="'+linkId+'" /> \
                   <input type="hidden" name="'+csrf_param+'" value="'+csrf_token+'" /> \
@@ -152,41 +152,41 @@ var App = {
             if (editor_options["is_mobile_device"]) {
                 _html = _html.replace(/<br>/ig, "\n").replace(/<\/p>/ig, "\n").replace(/<div>/ig, "\n").replace(/<[^>]+>/ig, "");
             }
-            $("textarea",editPanel).val(_html);
+            jQuery("textarea",editPanel).val(_html);
         } else {
-            $("input.main_edit",editPanel).val(textPanel.text());
+            jQuery("input.main_edit",editPanel).val(textPanel.text());
         }
     
         if(editRich == "true"){
-            $("textarea",editPanel).qeditor(editor_options);
+            jQuery("textarea",editPanel).qeditor(editor_options);
         } 
     
         // add 2012-1-11 by lesanc.li
         if (n && editType == "textarea"){
             if(editRich == "true"){
-                App.inputLimit($(".qeditor_preview", editPanel), n, "text");
+                App.inputLimit(jQuery(".qeditor_preview", editPanel), n, "text");
             } else {
-                App.inputLimit($("textarea", editPanel), n);
+                App.inputLimit(jQuery("textarea", editPanel), n);
             }
         }
 
-        $("a.cancel",editPanel).click(function(){
-            linkId = $(this).parent().attr("data-id");
-            editPanel = $("#ipe_"+linkId);
+        jQuery("a.cancel",editPanel).click(function(){
+            linkId = jQuery(this).parent().attr("data-id");
+            editPanel = jQuery("#ipe_"+linkId);
             editPanel.prev().show();
             editPanel.remove();
             return false;
         });
 
-        $("div.submit",editPanel).click(function(e){
+        jQuery("div.submit",editPanel).click(function(e){
             var elLen = 0, val = editPanel[0]["value"].value;
             if (editType == "textarea"){
                 if(editRich == "true"){
-                   var qeditor = $(".qeditor_preview", editPanel);
+                   var qeditor = jQuery(".qeditor_preview", editPanel);
                    val = qeditor.html();
-                   elLen = real_length($.trim(qeditor.text()));
+                   elLen = real_length(jQuery.trim(qeditor.text()));
                 } else {
-                   elLen = real_length($.trim(val));
+                   elLen = real_length(jQuery.trim(val));
                 }
                 if (n && elLen > n){
                     e.preventDefault();
@@ -198,9 +198,9 @@ var App = {
                 }
             }
             App.loading();
-            $.ajax({
+            jQuery.ajax({
                 url : remote_url,
-                data : {id:editPanel[0]["id"].value, authenticity_token:editPanel[0]["authenticity_token"].value, value:$.trim(val)}, //editPanel.serialize(),
+                data : {id:editPanel[0]["id"].value, authenticity_token:editPanel[0]["authenticity_token"].value, value:jQuery.trim(val)}, //editPanel.serialize(),
                 dataType : "text",
                 type : "post",
                 success : function(res){
@@ -208,8 +208,8 @@ var App = {
                         App.requireUser(res,"text");
                         return;
                     }
-                    $("#"+editPanel.attr("data-text-id")).html(res);
-                    $("a.cancel",editPanel).click();
+                    jQuery("#"+editPanel.attr("data-text-id")).html(res);
+                    jQuery("a.cancel",editPanel).click();
                     App.loading(false);
                 }
             });
@@ -218,8 +218,8 @@ var App = {
     },
 
     hideNotice : function(id){
-        $("#sys_notice").fadeOut('fast');
-    $.cookie("hide_notice",id, { expires : 300 });
+        jQuery("#sys_notice").fadeOut('fast');
+    jQuery.cookie("hide_notice",id, { expires : 300 });
         return false;
     },
 
@@ -229,8 +229,8 @@ var App = {
      * { key : "", value : "" }
      */
     getCSRF : function(){
-        key = $("meta[name=csrf-param]").attr("content");
-        value = $("meta[name=csrf-token]").attr("content");
+        key = jQuery("meta[name=csrf-param]").attr("content");
+        value = jQuery("meta[name=csrf-token]").attr("content");
     return { key : key, value : value };
     },
 
@@ -260,33 +260,33 @@ var App = {
 
     //add 2011-11-8 by lesanc.li
     inputLimit: function(el, n, vtype, ttype){
-        var editPanel = $(el).parents("form");
+        var editPanel = jQuery(el).parents("form");
         vtype = vtype || "val";
         ttype = ttype || "yes";
         var elLen = 0;
         var timeId = null;
         if(ttype=="yes"){
-            var limitwords = $(el).next('.limitwords');
+            var limitwords = jQuery(el).next('.limitwords');
             if(!limitwords.length) {
-                limitwords = $('<div class="limitwords"></div>');
+                limitwords = jQuery('<div class="limitwords"></div>');
                 if (vtype==="text"){
-                    $(el).parents(".qeditor_border").after(limitwords);
+                    jQuery(el).parents(".qeditor_border").after(limitwords);
                 } else {
-                    $(el).after(limitwords);
+                    jQuery(el).after(limitwords);
                 }
             }
             limitwords.hide();
             updateText();
         }
-        $(el).bind("blur", function(){clearInterval(timeId);
+        jQuery(el).bind("blur", function(){clearInterval(timeId);
             // Added by P.S.V.R
             // 2011.2.14
-            if('new_ask_title_gl'==$(el).attr('id') && $(el).val() && $(el).val() != "问题标题"){
-                $.ajax({
+            if('new_ask_title_gl'==jQuery(el).attr('id') && jQuery(el).val() && jQuery(el).val() != "问题标题"){
+                jQuery.ajax({
                     type: 'POST',
                     url: '/ajax/seg',
                     dataType: 'json',
-                    data: 'q='+$(el).val(),
+                    data: 'q='+jQuery(el).val(),
                     success: function(data) {
                         if (data){
                             for(var i=0;i<data.length;i++){
@@ -297,7 +297,7 @@ var App = {
                 });
             }
         });
-        $(el).bind("focus", function(){
+        jQuery(el).bind("focus", function(){
             if(ttype=="yes"){
                 setTimeout(function(){limitwords.show();}, 0);
                 timeId = setInterval(function(){    
@@ -305,39 +305,39 @@ var App = {
                 }, 500);
             }
         });
-        var _rh = $(el).height();
-        $(el).bind("keypress", function(event){
+        var _rh = jQuery(el).height();
+        jQuery(el).bind("keypress", function(event){
             event = event || window.event;
-            elLen = (vtype == "val")?real_length2($(el).val()):real_length2($(el).text());
-            //elLen = (vtype == "val")?$(el).val().length:$(el).text().length;
+            elLen = (vtype == "val")?real_length2(jQuery(el).val()):real_length2(jQuery(el).text());
+            //elLen = (vtype == "val")?jQuery(el).val().length:jQuery(el).text().length;
             if (elLen >= 2*n && event.keyCode != 8){
                 return false;
             } 
         });
         // add by lesanc.li 2012-3-28
-        if (vtype === "val" && $(el)[0].tagName.toLowerCase() === "textarea"){          
-          $(el).css({"overflow":"hidden"});
-          $(el).bind("keyup", function(event){
+        if (vtype === "val" && jQuery(el)[0].tagName.toLowerCase() === "textarea"){          
+          jQuery(el).css({"overflow":"hidden"});
+          jQuery(el).bind("keyup", function(event){
               event = event || window.event;
               if (event.keyCode === 8 || event.keyCode === 46){
-                $(el).css("height","auto");
+                jQuery(el).css("height","auto");
                 updateHeight(el);
               } else {
                 updateHeight(el);
               }
           });
-          $(el).bind("input", function(){            
+          jQuery(el).bind("input", function(){            
              updateHeight(el);
           });
         }
 
-        $(el).bind("paste", function(e){
+        jQuery(el).bind("paste", function(e){
            updateText();
            /* setTimeout(function(){
                 if (vtype == "val"){
-                    //$(el).val($.trim($(el).val().replace(/\s+/g, " ")));
+                    //jQuery(el).val(jQuery.trim(jQuery(el).val().replace(/\s+/g, " ")));
                 } else {
-                    //$(el).html($.trim($(el).text().replace(/\s+/g, " ")));
+                    //jQuery(el).html(jQuery.trim(jQuery(el).text().replace(/\s+/g, " ")));
                 }
                 setTimeout(function(){
                     updateText();
@@ -346,23 +346,23 @@ var App = {
         });
         
         editPanel[0].onsubmit = preventSubmit;
-        $("input[type='submit'],button[type='submit']", editPanel).click(preventSubmit);
+        jQuery("input[type='submit'],button[type='submit']", editPanel).click(preventSubmit);
 
         function updateHeight(ele, u){
-          var sh = $(ele)[0].scrollHeight + (u || 0);
-          if ($.browser.webkit){
+          var sh = jQuery(ele)[0].scrollHeight + (u || 0);
+          if (jQuery.browser.webkit){
             sh -= 12;
           }
           if (sh > _rh){
-            $(ele).css("height", sh + "px");
+            jQuery(ele).css("height", sh + "px");
           } else {
-			$(ele).css("height", _rh + "px");
+			jQuery(ele).css("height", _rh + "px");
 		  }
         }
 
         function preventSubmit(e){
-            elLen = (vtype == "val")?real_length($(el).val()):real_length($(el).text());
-            //elLen = (vtype == "val")?$(el).val().length:$(el).text().length;
+            elLen = (vtype == "val")?real_length(jQuery(el).val()):real_length(jQuery(el).text());
+            //elLen = (vtype == "val")?jQuery(el).val().length:jQuery(el).text().length;
             if (elLen > n){
                 App.loading(false);
                 e.preventDefault();
@@ -372,8 +372,8 @@ var App = {
         }
 
         function updateText(){
-            elLen = (vtype == "val")?real_length($(el).val()):real_length($(el).text());
-            //elLen = (vtype == "val")?$(el).val().length:$(el).text().length;
+            elLen = (vtype == "val")?real_length(jQuery(el).val()):real_length(jQuery(el).text());
+            //elLen = (vtype == "val")?jQuery(el).val().length:jQuery(el).text().length;
             if (elLen > n){
                 limitwords.html('<span style="color:red">已经超过' + (elLen - n) + '个汉字</span>');
             } else {
@@ -385,15 +385,15 @@ var App = {
     placeHolder : function(el, tips, supportLowBrowser){
     if (supportLowBrowser === undefined){supportLowBrowser = true;}
         if (typeof document.createElement("input").placeholder != "undefined"){
-            $(el).attr("placeholder", tips);
+            jQuery(el).attr("placeholder", tips);
         } else if(supportLowBrowser){
-            $(el).bind("focus", function(){
-                if($(this).val() == tips){
-                    $(this).val("").css("color","#000000");
+            jQuery(el).bind("focus", function(){
+                if(jQuery(this).val() == tips){
+                    jQuery(this).val("").css("color","#000000");
                 }
             }).bind("blur", function(){
-                if($.trim($(this).val()) == "" || $(this).val() == tips){
-                    $(this).val(tips).css("color","#999999");
+                if(jQuery.trim(jQuery(this).val()) == "" || jQuery(this).val() == tips){
+                    jQuery(this).val(tips).css("color","#999999");
                 }
             }).trigger("blur");
         }
@@ -401,10 +401,10 @@ var App = {
     // 刷新感兴趣的内容
     refresh_sugg : function(){
         App.loading();
-        $.get("/refresh_sugg", function(res){
+        jQuery.get("/refresh_sugg", function(res){
             App.loading(false);
             if(res){
-                $("#refresh_sugg").replaceWith(res);
+                jQuery("#refresh_sugg").replaceWith(res);
             }
         });
         return false;
@@ -413,7 +413,7 @@ var App = {
     testLogin : function(){
         if(!logined){
             Users.userLogin();
-            $("input[name='loginname']").trigger("focus");
+            jQuery("input[name='loginname']").trigger("focus");
             return false;
         }
         return true;
@@ -425,35 +425,35 @@ var App = {
 }
 
 function show_all_answer_body(log_id, answer_id) {
-    $('#aws_' + log_id + '_' + answer_id).addClass("force-hide");
-    $('#awb_' + log_id + '_' + answer_id).addClass("force-show");
+    jQuery('#aws_' + log_id + '_' + answer_id).addClass("force-hide");
+    jQuery('#awb_' + log_id + '_' + answer_id).addClass("force-show");
     return false;
 }
 
 function mark_notifies_as_read(el, ids) {
     App.loading();
-    $.get("/mark_notifies_as_read?ids="+ids,function(){
+    jQuery.get("/mark_notifies_as_read?ids="+ids,function(){
         App.loading(false);
-        $(el).find(".close").hide();
-        $(el).parent().fadeOut();
+        jQuery(el).find(".close").hide();
+        jQuery(el).parent().fadeOut();
     });
-    $(".userNotify").addClass("force-hide");
+    jQuery(".userNotify").addClass("force-hide");
     return false;
 }
 
 function mark_all_notifies_as_read(el) {
     App.loading();
-    $.get("/mark_all_notifies_as_read",function(){
+    jQuery.get("/mark_all_notifies_as_read",function(){
         App.loading(false);
-        $(el).find(".close").hide();
-        $(el).parent().fadeOut();
+        jQuery(el).find(".close").hide();
+        jQuery(el).parent().fadeOut();
     });
-    $(".userNotify").addClass("force-hide");
+    jQuery(".userNotify").addClass("force-hide");
     return false;
 }
 
 function expand_notification(el, type, id) {
-    var items = $("#N" + type + "_" + id + "_items");
+    var items = jQuery("#N" + type + "_" + id + "_items");
 	
     if (items.hasClass("force-show")) {
         items.removeClass("force-show");

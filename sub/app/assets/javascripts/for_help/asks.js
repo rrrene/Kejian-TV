@@ -1,26 +1,26 @@
 var Asks = {
     mute : function(el,id){
         App.loading();
-        $.get("/asks/"+id+"/mute",{}, function(res){
+        jQuery.get("/asks/"+id+"/mute",{}, function(res){
             App.loading(false);
             if(!App.requireUser(res,"text")){
                 return false;
             }
-            // $(el).replaceWith('<span class="muted">不再显示</span>');
-            $(el).parent().parent().fadeOut("fast");
+            // jQuery(el).replaceWith('<span class="muted">不再显示</span>');
+            jQuery(el).parent().parent().fadeOut("fast");
         });
         return false;
     },
 
     unmute : function(el,id){
         App.loading();
-        $.get("/asks/"+id+"/unmute",{}, function(res){
+        jQuery.get("/asks/"+id+"/unmute",{}, function(res){
             App.loading(false);
             if(!App.requireUser(res,"text")){
                 return false;
             }
-            // $(el).replaceWith('<span class="muted">不再显示</span>');
-            $(el).parent().parent().fadeOut("fast");
+            // jQuery(el).replaceWith('<span class="muted">不再显示</span>');
+            jQuery(el).parent().parent().fadeOut("fast");
         });
         return false;
     },
@@ -31,26 +31,26 @@ var Asks = {
           return false;
         }
         App.loading();
-        $.get("/asks/"+id+"/follow",{}, function(res){
+        jQuery.get("/asks/"+id+"/follow",{}, function(res){
             App.loading(false);
             if(!App.requireUser(res,"text")){
                 return false;
             }
-            $(el).replaceWith('<a onclick="return Asks.simple_unfollow(this,\''+id+'\')" href="#">取消关注</a>'); //20111121 by lesanc.li
-        // $(el).parent().parent().fadeOut("slow");
+            jQuery(el).replaceWith('<a onclick="return Asks.simple_unfollow(this,\''+id+'\')" href="#">取消关注</a>'); //20111121 by lesanc.li
+        // jQuery(el).parent().parent().fadeOut("slow");
         });
         return false;
     },
 
     simple_unfollow : function(el,id){
         App.loading();
-        $.get("/asks/"+id+"/unfollow",{}, function(res){
+        jQuery.get("/asks/"+id+"/unfollow",{}, function(res){
             App.loading(false);
             if(!App.requireUser(res,"text")){
                 return false;
             }
-            $(el).replaceWith('<a onclick="return Asks.simple_follow(this,\'' + id + '\')" href="#">关注</a>'); //modify 2011-9-29 by lesanc.li
-        //		$(el).parent().parent().fadeOut("fast");
+            jQuery(el).replaceWith('<a onclick="return Asks.simple_follow(this,\'' + id + '\')" href="#">关注</a>'); //modify 2011-9-29 by lesanc.li
+        //		jQuery(el).parent().parent().fadeOut("fast");
         });
         return false;
     },
@@ -64,14 +64,14 @@ var Asks = {
             html += '<li><a onclick="return Asks.redirect_ask(this);" href="#">问题重定向</a></li>';
         }
         html += '<li><a onclick="return Asks.report(this);" href="#">举报</a></li>';
-        $(el).jDialog({
+        jQuery(el).jDialog({
             title_visiable : false,
             width : 160,
             class_name : "dropdown_menu",
             top_offset : -2,
             content : html
         });
-        $(el).attr("droped",1);
+        jQuery(el).attr("droped",1);
         return false;
     },
 
@@ -81,35 +81,35 @@ var Asks = {
             return false;
         }
         jDialog.close();
-    $.facebox({ div : "#redirect_ask", overlay : false });
-        $(".facebox_window.simple_form input.search").autocomplete("/search/asks",{
+    jQuery.facebox({ div : "#redirect_ask", overlay : false });
+        jQuery(".facebox_window.simple_form input.search").autocomplete("/search/asks",{
             minChars: 1,
             delay: 50,
             width: 456,
             scroll : false,
             addSearch: false
         });
-        $(".facebox_window.simple_form input.search").result(function(e,data,formatted){
+        jQuery(".facebox_window.simple_form input.search").result(function(e,data,formatted){
             if(data){
-                $(".facebox_window.simple_form .r_id").val(data[1]);
-                $(".facebox_window.simple_form .r_title").val(data[0]);
+                jQuery(".facebox_window.simple_form .r_id").val(data[1]);
+                jQuery(".facebox_window.simple_form .r_title").val(data[0]);
             }
         });
     },
 
     redirect_ask_save : function(el){
         App.loading();
-        r_id = $(".facebox_window.simple_form .r_id").val();
-        r_title = $(".facebox_window.simple_form input.r_title").val();
+        r_id = jQuery(".facebox_window.simple_form .r_id").val();
+        r_title = jQuery(".facebox_window.simple_form input.r_title").val();
         if(r_id.length == ""){
-            $(".facebox_window.simple_form input.search").focus();
+            jQuery(".facebox_window.simple_form input.search").focus();
         }
-    $.get("/asks/"+ask_id+"/redirect",{ new_id : r_id }, function(res){
+    jQuery.get("/asks/"+ask_id+"/redirect",{ new_id : r_id }, function(res){
             App.loading(false);
             if(res == "1"){
                 ask_redirected = true;
                 Asks.redirected_tip(r_title,r_id, 'nr', ask_id );
-                $.facebox.close();
+                jQuery.facebox.close();
             }
             else{
                 alert("循环重定向，不允许这么关联。");
@@ -120,7 +120,7 @@ var Asks = {
     },
 
     redirect_ask_cancel : function(el){
-    $.get("/asks/"+ask_id+"/redirect",{ cancel : 1 });
+    jQuery.get("/asks/"+ask_id+"/redirect",{ cancel : 1 });
         Asks.redirected_tip();
         ask_redirected = false;
         jDialog.close();
@@ -128,7 +128,7 @@ var Asks = {
 
     redirected_tip : function(title, id, type, rf_id){
         if(title == undefined){
-            $("#redirected_tip").remove();
+            jQuery("#redirected_tip").remove();
         }
         else{
             label_text = "问题已重定向到: "
@@ -140,13 +140,13 @@ var Asks = {
             html = '<div id="redirected_tip"><div class="container notice_message">';
             html += '<label>'+label_text+'</label><a href="'+ask_link+'">'+title+'</a>';
             html += '</div></div>';
-            $("#main").before(html);
+            jQuery("#main").before(html);
         }
     },
 
     /* 问题，话题，人搜索自动完成 */
     completeAll : function(el){
-        input = $(el);
+        input = jQuery(el);
         input.autocomplete("/search/all",{
             mincChars: 1,
             delay: 50,
@@ -201,7 +201,7 @@ var Asks = {
     },
 
     completeTopic : function(el){
-        $(el).autocomplete("/search/topics",{
+        jQuery(el).autocomplete("/search/topics",{
             minChars: 1,
             delay: 50,
             width: 200,
@@ -215,7 +215,7 @@ var Asks = {
     },
 
     completeTopicForAsk : function(el){
-        $(el).autocomplete("/search/topics",{
+        jQuery(el).autocomplete("/search/topics",{
             minChars: 1,
             delay: 50,
             width: 200,
@@ -233,13 +233,13 @@ var Asks = {
     },
 
     toggleShareAsk : function(el,type){ //modify 2011-11-8 by lesanc.li
-        $(el).parents("#share_ask_box").find(".inner .invite").show();
+        jQuery(el).parents("#share_ask_box").find(".inner .invite").show();
         return false;
     },
 
     /* 邀请人回答问题 */
     completeInviteToAnswer : function(){
-        input = $("#ask_to_answer");
+        input = jQuery("#ask_to_answer");
         App.placeHolder(input, "可通过人名、话题、职务等搜索");
         input.autocomplete("/search/users", {
             mincChars: 1,
@@ -266,27 +266,27 @@ var Asks = {
 
     /* 取消邀请 */
     cancelInviteToAnswer : function(el, id){
-        /*var countp = $(el).parent().find(".count");
+        /*var countp = jQuery(el).parent().find(".count");
     var count = parseInt(countp.text());
     if(count > 1){
       count -= 1
       countp.text(count);
     }
     else{
-      $(el).parent().fadeOut().remove();
+      jQuery(el).parent().fadeOut().remove();
     }*/
-    $.get("/asks/"+ask_id+"/invite_to_answer",{ i_id : id, drop : 1 });
+    jQuery.get("/asks/"+ask_id+"/invite_to_answer",{ i_id : id, drop : 1 });
         return false;
     },
   
     inviteToAnswer : function(user_id, is_drop){
         App.loading();
-    $.get("/asks/"+ask_id+"/invite_to_answer.js",{ user_id : user_id, drop : is_drop }, function(data){
+    jQuery.get("/asks/"+ask_id+"/invite_to_answer.js",{ user_id : user_id, drop : is_drop }, function(data){
             /\(\'#shared_span_count\'\).html\(\' \((\d+)\)\' \)/.exec(data);    //add 2011-11-4 by lesanc.li
             if (RegExp["$1"] > 0){
-                $("#ask_invited_users").parent().prev("dt").show();
+                jQuery("#ask_invited_users").parent().prev("dt").show();
             } else {
-                $("#ask_invited_users").parent().prev("dt").hide();
+                jQuery("#ask_invited_users").parent().prev("dt").hide();
             }
         });
     },
@@ -370,7 +370,7 @@ var Asks = {
     keydownToSearch : function(e){
         var a;
         if (e.keyCode === 13){
-            a = $(".ac_results a[href^='/traverse/index']");
+            a = jQuery(".ac_results a[href^='/traverse/index']");
             if (a.length){
                 window.location = a[0].href;
                 return false;
@@ -387,14 +387,14 @@ var Asks = {
             Users.userLogin();
             return false;
         }
-        klasses = $(el).attr("class");
+        klasses = jQuery(el).attr("class");
         if(klasses.indexOf("thanked") > 0){
             return false;
         }
-        $(el).addClass("thanked");
-        $(el).text("已感谢");
-    $(el).click(function(){ return false });
-        $.get("/answers/"+id+"/thank");
+        jQuery(el).addClass("thanked");
+        jQuery(el).text("已感谢");
+    jQuery(el).click(function(){ return false });
+        jQuery.get("/answers/"+id+"/thank");
         return false;
     },
 
@@ -408,19 +408,19 @@ var Asks = {
         }
 
         App.loading();
-        $(el).replaceWith("烂问题");
-        $.get("/asks/"+id+"/spam",function(count){
+        jQuery(el).replaceWith("烂问题");
+        jQuery.get("/asks/"+id+"/spam",function(count){
             if(!App.requireUser(count,"text")){
                 return false;
             }
-            $("#spams_count").text(count);
+            jQuery("#spams_count").text(count);
             App.loading(false);
         });
         return false;
     },
 
     beforeAnswer : function(el){
-        $("button.submit",el).attr("disabled","disabled");
+        jQuery("button.submit",el).attr("disabled","disabled");
         App.loading();
     },
 
@@ -430,8 +430,8 @@ var Asks = {
             return false;
         }
         App.loading();
-        $(el).replaceWith("已提交");
-        $.get("/answers/"+id+"/spam",function(count){
+        jQuery(el).replaceWith("已提交");
+        jQuery.get("/answers/"+id+"/spam",function(count){
             if(!App.requireUser(count,"text")){
                 return false;
             }
@@ -441,7 +441,7 @@ var Asks = {
     },
 
     toggleEditTopics : function(isShow){
-        var topics = $("div.topics");
+        var topics = jQuery("div.topics");
         var t1 = topics.find(".topicNav").eq(0);
         var t2 = topics.find(".topicNav.modify");
         var a = topics.find(".addTopic");
@@ -467,18 +467,18 @@ var Asks = {
         if((name.trim && name.trim() == "") || typeof name == "undefined" || name == ""){
             return false;
         }
-        var m = $(".topics .topicNav li.modify:last");
+        var m = jQuery(".topics .topicNav li.modify:last");
         m.prev("li.modify").remove();
         m.before("<li><a href='/topics/"+name+"' title='"+name+"'>"+name+"</a></li>");
-        $(".topics .topicNav.modify").append("<li>"+name+"<a class=\"close\" href='javascript:void(0);' title='"+name+"'></a></li>");
+        jQuery(".topics .topicNav.modify").append("<li>"+name+"<a class=\"close\" href='javascript:void(0);' title='"+name+"'></a></li>");
     },
     // modify 2012-2-6 by lesanc.li
     removeTopic : function(el, name){
         App.loading();
-    $.get("/asks/"+ask_id+"/update_topic", { name : name }, function(res){
-            $(el).parent().remove();
-            $(".topics .topicNav li").each(function(){
-	      if($(this).text() == name){$(this).remove();} 
+    jQuery.get("/asks/"+ask_id+"/update_topic", { name : name }, function(res){
+            jQuery(el).parent().remove();
+            jQuery(".topics .topicNav li").each(function(){
+	      if(jQuery(this).text() == name){jQuery(this).remove();} 
             });
             App.loading(false);
         });
@@ -491,10 +491,10 @@ var Asks = {
             return false;
         }
         App.loading();
-        $(el).attr("onclick", "return false;");
-        $.get("/asks/"+ask_id+"/follow",{}, function(res){
+        jQuery(el).attr("onclick", "return false;");
+        jQuery.get("/asks/"+ask_id+"/follow",{}, function(res){
             App.loading(false);
-            $(el).replaceWith('<a class="bBtn bBtnUnFocus" onclick="return Asks.unfollow(this);"></a>');
+            jQuery(el).replaceWith('<a class="bBtn bBtnUnFocus" onclick="return Asks.unfollow(this);"></a>');
         });
         return false;
     },
@@ -505,10 +505,10 @@ var Asks = {
             return false;
         }
         App.loading();
-        $(el).attr("onclick", "return false;");
-        $.get("/asks/"+ask_id+"/unfollow",{}, function(res){
+        jQuery(el).attr("onclick", "return false;");
+        jQuery.get("/asks/"+ask_id+"/unfollow",{}, function(res){
             App.loading(false);
-            $(el).replaceWith('<a class="bBtn bBtnFocus" onclick="return Asks.follow(this);"></a>');
+            jQuery(el).replaceWith('<a class="bBtn bBtnFocus" onclick="return Asks.follow(this);"></a>');
         });
         return false;
     },
@@ -519,16 +519,16 @@ var Asks = {
             return false;
         }
         if (type === "ask"){
-          var el = $("#"+type+"_"+id);
+          var el = jQuery("#"+type+"_"+id);
         } else {
-          var el = $("#"+type+"_"+id+" .replys");
+          var el = jQuery("#"+type+"_"+id+" .replys");
         }
-        var comments = $(".comments",el);
+        var comments = jQuery(".comments",el);
         if (comments.length > 0){
             comments.toggle();
         } else {
             App.loading();
-            $.ajax({url:"/comments",data:{ type : type, id : id }, success:function(html){
+            jQuery.ajax({url:"/comments",data:{ type : type, id : id }, success:function(html){
                     el.append(html);
                     App.loading(false);
             }, dataType:"text"});
@@ -541,9 +541,9 @@ var Asks = {
             Users.userLogin();
             return false;
         }   
-        if ($("textarea", $("#"+el)).val()){
+        if (jQuery("textarea", jQuery("#"+el)).val()){
             App.loading();
-            $("#"+el).trigger("submit");
+            jQuery("#"+el).trigger("submit");
         }
         return false;
     },
@@ -552,10 +552,10 @@ var Asks = {
         if(!App.testLogin()){
             return false;
         }
-        var el = $("#new_answer_form");
-        if ($("textarea", $(el)).val()){
+        var el = jQuery("#new_answer_form");
+        if (jQuery("textarea", jQuery(el)).val()){
             App.loading();
-            $(el).trigger("submit");
+            jQuery(el).trigger("submit");
         }
         return false;
     },
@@ -564,13 +564,13 @@ var Asks = {
         if(!App.testLogin()){
             return false;
         }
-        if(real_length($("#new_ask_title_ta").val())>50){
+        if(real_length(jQuery("#new_ask_title_ta").val())>50){
             return false;
         }
-        var el = $("#tohim");
-        if ($("textarea", $(el)).val()){
+        var el = jQuery("#tohim");
+        if (jQuery("textarea", jQuery(el)).val()){
             App.loading();
-            $(el).trigger("submit");
+            jQuery(el).trigger("submit");
         }
         return false;
     },
@@ -579,18 +579,18 @@ var Asks = {
         if(!App.testLogin()){
             return false;
         }
-        var answer = $("#answer_"+id);
+        var answer = jQuery("#answer_"+id);
         var vtype = "down";
         if(type == 1) {
             vtype = "up";
-            $(".vote.voteUp",answer).addClass("voteUpe").css("background-position", "-384px 0");
-            $(".vote.voteDown",answer).removeClass("voteDowne").css("background-position", "-288px -24px;");
+            jQuery(".vote.voteUp",answer).addClass("voteUpe").css("background-position", "-384px 0");
+            jQuery(".vote.voteDown",answer).removeClass("voteDowne").css("background-position", "-288px -24px;");
         } else {
-            $(".vote.voteUp",answer).removeClass("voteUpe").css("background-position", "-288px 0");
-            $(".vote.voteDown",answer).addClass("voteDowne").css("background-position", "-384px -24px;");
+            jQuery(".vote.voteUp",answer).removeClass("voteUpe").css("background-position", "-288px 0");
+            jQuery(".vote.voteDown",answer).addClass("voteDowne").css("background-position", "-384px -24px;");
         }
         App.loading();
-        $.get("/answers/"+id+"/vote",{ inc : type, t : +new Date() },function(res){
+        jQuery.get("/answers/"+id+"/vote",{ inc : type, t : +new Date() },function(res){
             if(!App.requireUser(res,"text")){
                 return false;
             }
@@ -602,10 +602,10 @@ var Asks = {
     },
 
     vote_callback : function(id, vtype, new_up_count, new_down_count,new_who){
-        var answer = $("#answer_"+id);
-        var answer_header = $(".replys header",answer);
-        var num = $(".votes_num",answer);
-        var votes = $(".voters",answer_header);
+        var answer = jQuery("#answer_"+id);
+        var answer_header = jQuery(".replys header",answer);
+        var num = jQuery(".votes_num",answer);
+        var votes = jQuery(".voters",answer_header);
         answer.attr("data-uc", new_up_count);
         answer.attr("data-dc", new_down_count);
 
@@ -613,7 +613,7 @@ var Asks = {
         if(votes.length > 0){
             if(new_up_count <= 0){
                 // remove up vote count label if up_votes_count is zero
-                $(".num",answer_header).remove();
+                jQuery(".num",answer_header).remove();
             }else{
                 votes.replaceWith(new_who);
             }
@@ -624,23 +624,23 @@ var Asks = {
         }
         num.text(new_up_count);
 
-        var answers = $(".reply");
+        var answers = jQuery(".reply");
         var position_changed = false;
 
         for(var i =0;i<answers.length;i++){
             a = answers[i];
             // Skip current voted Answer self
-            if($(a).attr("id") == answer.attr("id")){
+            if(jQuery(a).attr("id") == answer.attr("id")){
                 continue;
             }
             // Get next Answer uc and dc
-            u_count = parseInt($(a).attr("data-uc"));
-            d_count = parseInt($(a).attr("data-dc"));
+            u_count = parseInt(jQuery(a).attr("data-uc"));
+            d_count = parseInt(jQuery(a).attr("data-dc"));
 
             // Change the Ask position
             if(vtype == "up"){
                 if(new_up_count > u_count){
-                    //$(a).before(answer);
+                    //jQuery(a).before(answer);
                     position_changed = true;
                     break;
                 }
@@ -648,7 +648,7 @@ var Asks = {
             else{
                 // down vote
                 if(new_up_count <= u_count && new_down_count < d_count){
-                    //$(a).after(answer);
+                    //jQuery(a).after(answer);
                     position_changed = true;
                     break;
                 }
@@ -662,9 +662,9 @@ var Asks = {
             Users.userLogin();
             return false;
         }
-    $.facebox({ div : "#report_page", overlay : false });
-        $("#report_submit", $("#facebox")).click(function(){
-            $("#report_page_form", $("#facebox")).submit();
+    jQuery.facebox({ div : "#report_page", overlay : false });
+        jQuery("#report_submit", jQuery("#facebox")).click(function(){
+            jQuery("#report_page_form", jQuery("#facebox")).submit();
         });
         jDialog.close();
         return false;
@@ -678,12 +678,12 @@ var Asks = {
         html += '<a class="silver_button silver_button_small" href="#" onclick="return Asks.closeSuggestTopics();">完成</a>'; //modify 2011-9-29 by lesanc.li
         html += "</div></div>";
         html='';// ticket 509
-        $("#main").before(html);
+        jQuery("#main").before(html);
     },
 
     addSuggestTopic : function(el,name){
         App.loading();
-        $.ajax({
+        jQuery.ajax({
             //url : "/asks/"+ask_id+"/update_topic.js?"+ csrf.key + "=" + csrf.value,
             url : "/asks/"+ask_id+"/update_topic.js",  //add 2011-9-26 by lesanc.li
             data : {
@@ -695,9 +695,9 @@ var Asks = {
             success : function(res){
                 App.loading(false);
                 Asks.addTopic(name); 
-                $(el).remove();
-                if($("#ask_suggest_topics a.topic").length == 0){
-                    $("#ask_suggest_topics").remove();
+                jQuery(el).remove();
+                if(jQuery("#ask_suggest_topics a.topic").length == 0){
+                    jQuery("#ask_suggest_topics").remove();
                 }
             }
         });
@@ -705,19 +705,19 @@ var Asks = {
     },
   
     closeSuggestTopics : function(){
-    $("#ask_suggest_topics").fadeOut("fast",function(){ $(this).remove(); });
+    jQuery("#ask_suggest_topics").fadeOut("fast",function(){ jQuery(this).remove(); });
         return false;
     },
 
     shortDetail : function(){
-        $(".ask[class='ask']>.md_body").each(function(){
-            var mdHtml = $(this).html();
-            var mdText = $.trim($(this).text());
+        jQuery(".ask[class='ask']>.md_body").each(function(){
+            var mdHtml = jQuery(this).html();
+            var mdText = jQuery.trim(jQuery(this).text());
             if(mdText.length > 270){
-                var mdSpan = $(document.createElement("span"));
-                $(this).html(mdSpan.html(mdText.substring(0,270)+"。。。 "));
-                var mdLink = $(document.createElement("a"));
-        mdLink.text("展开").attr("href","#").css({"background":"","padding":"0"}).appendTo($(this));
+                var mdSpan = jQuery(document.createElement("span"));
+                jQuery(this).html(mdSpan.html(mdText.substring(0,270)+"。。。 "));
+                var mdLink = jQuery(document.createElement("a"));
+        mdLink.text("展开").attr("href","#").css({"background":"","padding":"0"}).appendTo(jQuery(this));
                 mdLink.toggle(function(){
                     mdSpan.html(mdHtml);
                     mdLink.text("收起");
@@ -731,11 +731,11 @@ var Asks = {
     // Modified by P.S.V.R
     // 2011.2.14
     add_topic_to_new_ask_dialog: function(topic){
-        var topics = $("#inner_new_ask input[name=\"topics\"]", $("#facebox"));
+        var topics = jQuery("#inner_new_ask input[name=\"topics\"]", jQuery("#facebox"));
         var exist = false;
-        var topicList = $("#facebox .topicNav.modify");
-        $("li", topicList).each(function(){
-            if ($.trim($(this).text()) == topic){
+        var topicList = jQuery("#facebox .topicNav.modify");
+        jQuery("li", topicList).each(function(){
+            if (jQuery.trim(jQuery(this).text()) == topic){
                 exist = true;
                 return false;
             }
@@ -754,17 +754,17 @@ var Asks = {
             Users.userLogin();
             return false;
         }
-        //var txtTitle = $("#hidden_new_ask textarea:nth-of-type(1)");
-        var txtTitle = $("#hidden_new_ask textarea").eq(0);
-        ask_search_text = $("#searchInput").val() != "搜索求职、职场疑问" ? $("#searchInput").val() : "";
+        //var txtTitle = jQuery("#hidden_new_ask textarea:nth-of-type(1)");
+        var txtTitle = jQuery("#hidden_new_ask textarea").eq(0);
+        ask_search_text = jQuery("#searchInput").val() != "搜索求职、职场疑问" ? jQuery("#searchInput").val() : "";
         txtTitle.text(ask_search_text);
         txtTitle.focus();
-    $.facebox({ div : "#hidden_new_ask", overlay : false });  
-        var facebox = $("#facebox");
-        var title = $("#inner_new_ask textarea[name=\"ask\[title\]\"]", facebox);
-        var body = $("#inner_new_ask textarea[name=\"ask\[body\]\"]", facebox);
-        var topic = $("#inner_new_ask input[name=\"topic\"]", facebox);
-        var topics = $("#inner_new_ask input[name=\"topics\"]", facebox);
+    jQuery.facebox({ div : "#hidden_new_ask", overlay : false });  
+        var facebox = jQuery("#facebox");
+        var title = jQuery("#inner_new_ask textarea[name=\"ask\[title\]\"]", facebox);
+        var body = jQuery("#inner_new_ask textarea[name=\"ask\[body\]\"]", facebox);
+        var topic = jQuery("#inner_new_ask input[name=\"topic\"]", facebox);
+        var topics = jQuery("#inner_new_ask input[name=\"topics\"]", facebox);
         App.placeHolder(title, "问题标题");
         App.placeHolder(body, "问题描述（可选）");
         App.placeHolder(topic, "输入话题");
@@ -774,28 +774,28 @@ var Asks = {
         topic.attr("maxlength","20");
         Asks.completeTopicForAsk(topic);
         title.blur(function(){
-            if ($.trim($(this).val()) !== "" && $.trim($(this).val()) !== "问题标题"){
-                $("#theAddTopic", facebox).show();
+            if (jQuery.trim(jQuery(this).val()) !== "" && jQuery.trim(jQuery(this).val()) !== "问题标题"){
+                jQuery("#theAddTopic", facebox).show();
             }
         });
 
         //add topic
         // Modified by P.S.V.R
         // 2011.2.14
-        var modify_btn = $("a.edit_topic", facebox);
-        $(".add_topic", facebox).unbind("click").click(function(){
-            if (!$.trim(topic.val()) || real_length(topic.val())>10){
+        var modify_btn = jQuery("a.edit_topic", facebox);
+        jQuery(".add_topic", facebox).unbind("click").click(function(){
+            if (!jQuery.trim(topic.val()) || real_length(topic.val())>10){
                 return false;
             }
-            var t = $.trim(topic.val());
+            var t = jQuery.trim(topic.val());
             if(t && t!=="输入话题" && Asks.add_topic_to_new_ask_dialog(t)){
                 topic.val('');
             }
             return false;
         });
         //remove topic
-        $(".topicNav.modify li a.close_topic", facebox).live("click", function(){
-            var topicv = $.trim($(this).parent().text());
+        jQuery(".topicNav.modify li a.close_topic", facebox).live("click", function(){
+            var topicv = jQuery.trim(jQuery(this).parent().text());
             if(topics.val().indexOf(topicv+',') == 0){
                 topics.val(topics.val().replace(topicv+',', ''));
             } else if(topics.val().indexOf(','+topicv)>-1){
@@ -803,10 +803,10 @@ var Asks = {
             } else if(topics.val() == topicv){
                 topics.val('');
             }
-            $(this).parent().remove();
+            jQuery(this).parent().remove();
         });
         // submit
-        $(".submit", facebox).unbind("click").click(function(){
+        jQuery(".submit", facebox).unbind("click").click(function(){
             if(title.val() === "" || title.val() === "问题标题"){
 				setTimeout(function(){title.css({"border-color":"#f8d97c","background":"#ffffe1"});}, 0);
 				setTimeout(function(){title.css({"border-color":"#d9edce","background":"#ffffff"});}, 200);
@@ -823,7 +823,7 @@ var Asks = {
                 // if (title.val().length>100 || body.val().length>6000){
                 return false;
             }
-            $("form", facebox)[0].submit();
+            jQuery("form", facebox)[0].submit();
         });
         return false;
     },
@@ -882,7 +882,7 @@ function checkEmail(strEmail) {
     CallbackPosition(query, url)
 }
 function writeFileErrMsg(strMessage){
-    $("#facebox .user_email_err").html(" "+strMessage).css("color", "red");
+    jQuery("#facebox .user_email_err").html(" "+strMessage).css("color", "red");
 }
 
 function isemail_b(s) {
@@ -911,8 +911,8 @@ function trim(str) {
 // 搜索页 更多显示 add 2011-10-17 by lesanc.li
 function loadResults(el, q, curpage){
     App.loading();
-    $.get("/traverse/asks_from?q="+((encodeURIComponent)?encodeURIComponent(q):q)+"&current_key="+curpage,function(data){
-        $(el).parent().before(data).remove();
+    jQuery.get("/traverse/asks_from?q="+((encodeURIComponent)?encodeURIComponent(q):q)+"&current_key="+curpage,function(data){
+        jQuery(el).parent().before(data).remove();
         App.loading(false);
     });
     return false;
@@ -923,32 +923,32 @@ function checkUploadImg(fileObj){
     var hint = fileObj.next("p.hint");
     if (!hint.length) hint = fileObj.parent().next("p.hint");
     hint.html("支持jpg, gif, png 格式的图片，不要超过2MB。建议图片尺寸大于100 X 100。");
-    $("button[type='submit']").unbind("click");
+    jQuery("button[type='submit']").unbind("click");
     if (fileObj.val() == ""){
         return false;
     } else if(!(/(?:.jpeg|.png|.gif|.jpg)$/.test(fileObj.val()))){
         hint.html(hint.html().replace("支持jpg, gif, png 格式的图片","<span style=\"color:red\">支持jpg, gif, png 格式的图片</span>"));
-    $("button[type='submit']").click(function(){return false;});
+    jQuery("button[type='submit']").click(function(){return false;});
     } else if(fileObj.val().indexOf(":")>-1){
-        var uploadImg = $("#uploadImg");
+        var uploadImg = jQuery("#uploadImg");
         if(!uploadImg.attr("src")){
             uploadImg = document.createElement("img");
-            uploadImg = $(uploadImg);
+            uploadImg = jQuery(uploadImg);
       uploadImg.css({"position":"absolute", "visibility":"hidden"}).bind("readystatechange", function(){
                 if(uploadImg[0].readyState!= "complete") return false;
                 imgSize = uploadImg[0].fileSize;
                 if (imgSize > 2048000){
                     hint.html(hint.html().replace("不要超过2MB","<span style=\"color:red\">不要超过2MB</span>"));
-          $("button[type='submit']").click(function(){return false;});
+          jQuery("button[type='submit']").click(function(){return false;});
                 }
-            }).appendTo($("body"));
+            }).appendTo(jQuery("body"));
         }
         uploadImg.attr("src", fileObj.val());
     } else {
         var imgSize = (fileObj[0].files)?fileObj[0].files.item(0).fileSize:0;
         if (imgSize > 2048000){
             hint.html(hint.html().replace("不要超过2MB","<span style=\"color:red\">不要超过2MB</span>"));
-      $("button[type='submit']").click(function(){return false;});
+      jQuery("button[type='submit']").click(function(){return false;});
         }
     }
 }
