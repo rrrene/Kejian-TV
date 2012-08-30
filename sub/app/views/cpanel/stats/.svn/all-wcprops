@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/wendao_wendaosvn/!svn/ver/1854/trunk/quora/app/views/cpanel/stats
+END
+index.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/wendao_wendaosvn/!svn/ver/1809/trunk/quora/app/views/cpanel/stats/index.html.erb
+END
+uv.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/wendao_wendaosvn/!svn/ver/1810/trunk/quora/app/views/cpanel/stats/uv.html.erb
+END
+hot_asks.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/wendao_wendaosvn/!svn/ver/1729/trunk/quora/app/views/cpanel/stats/hot_asks.html.erb
+END
+hot_topics.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/wendao_wendaosvn/!svn/ver/1729/trunk/quora/app/views/cpanel/stats/hot_topics.html.erb
+END
+kpi.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/wendao_wendaosvn/!svn/ver/1854/trunk/quora/app/views/cpanel/stats/kpi.html.erb
+END

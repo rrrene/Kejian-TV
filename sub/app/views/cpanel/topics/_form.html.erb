@@ -1,0 +1,143 @@
+<div class="green_header">修改话题</div>
+<div id="cpanel_topic" class="search_form">
+  <%= simple_form_for(@topic,:url => (@topic.id.blank? ? cpanel_topics_path : cpanel_topic_path(@topic.id)), :html => { :enctype =>  "multipart/form-data" } ) do |f| %>
+
+    <div class="inputs">
+      <div class="search_form_row">
+        <span style="margin-right:10px;">话&nbsp;&nbsp;题:</span>
+        <%=text_field_tag "topic[name]",@topic.name,:style=>"width:300px;",:class=>"validate[required,funcCall[checkSize10]]"%>
+      </div>
+      <div class="search_form_row">
+        <div style="margin-right:14px;float:left;">描&nbsp;&nbsp;述:</div>
+        <%=text_area_tag "topic[summary]",@topic.summary,:style=>"width:500px;height:120px;",:class=>"validate[funcCall[checkSize2000]]"%>
+      </div>
+  <%#= f.input :cover %>
+      <div class="search_form_row" style="float:left;">
+        <span style="margin-right:10px;">配&nbsp;&nbsp;图:</span>
+        <input class="file optional" id="topic_cover" name="topic[cover]" type="file" style="width:150px;" onchange="previewImage(this)">
+      </div>
+      <div class="search_form_row" style="float:left;margin-left:80px;border:1px solid #ccc;">
+        <div style="margin-right:10px;float:left;line-height:30px;">当前配图:</div>
+        <div class="row" id="preview" style="float:left;margin: 10px 20px;">
+          <%= image_tag(@topic.cover.normal.url,:id=>"imghead") %>
+        </div>
+      </div>
+      <div style="clear:both;"></div>
+      <!-- 
+       <div class="search_form_row">
+         <span style="margin-right:10px;">提问数:</span>
+  <%#=text_field_tag "topic[asks_count]",@topic.asks_count,:style=>"width:100px;"%>
+       </div>
+      -->
+      <div class="search_form_row" style="margin-bottom:20px;">
+        <span style="margin-right:10px;">分&nbsp;&nbsp;&nbsp;类:</span>
+        <%=select_tag "topic[tags_array]",options_for_select([["",""],["行业","行业"],["公司","公司"],["职业","职业"],["求职","求职"],["职场","职场"]],@topic.tags_array) %>
+      </div>
+      <div class="search_form_row">
+        <%= f.input :will_autofollow,:as=>:boolean,:label=>'设为自动关注' %>
+      </div>
+    </div>
+    <div class="actions">
+      <button type="submit">提交</button>
+    </div>
+  <% end %>
+</div>
+<script type="text/javascript">
+  function previewImage(file)
+  {
+    if(!checkImg_back(file)){
+      file.value="";
+      return false;
+    }
+    var MAXWIDTH  = 100;
+    var MAXHEIGHT = 75;
+    var div = document.getElementById('preview');
+    if (file.files && file.files[0])
+    {
+      div.innerHTML = '<img id=imghead>';
+      var img = document.getElementById('imghead');
+      img.onload = function(){
+        var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+        img.width = rect.width;
+        img.height = rect.height;
+        img.style.marginLeft = rect.left+'px';
+        img.style.marginTop = rect.top+'px';
+      }
+      var reader = new FileReader();
+      reader.onload = function(evt){img.src = evt.target.result;}
+      reader.readAsDataURL(file.files[0]);
+    }
+    else
+    {
+      var sFilter='filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="';
+      file.select();
+      var src = document.selection.createRange().text;
+      div.innerHTML = '<img id=imghead>';
+      var img = document.getElementById('imghead');
+      img.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = src;
+      var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+      status =('rect:'+rect.top+','+rect.left+','+rect.width+','+rect.height);
+      div.innerHTML = "<div id=divhead style='width:"+rect.width+"px;height:"+rect.height+"px;margin-top:"+rect.top+"px;margin-left:"+rect.left+"px;"+sFilter+src+"\"'></div>";
+    }
+  }
+  function clacImgZoomParam( maxWidth, maxHeight, width, height ){
+    var param = {top:0, left:0, width:width, height:height};
+    if( width>maxWidth || height>maxHeight )
+    {
+      rateWidth = width / maxWidth;
+      rateHeight = height / maxHeight;
+		
+      if( rateWidth > rateHeight )
+      {
+        param.width =  maxWidth;
+        param.height = Math.round(height / rateWidth);
+      }else
+      {
+        param.width = Math.round(width / rateHeight);
+        param.height = maxHeight;
+      }
+    }
+	
+    param.left = Math.round((maxWidth - param.width) / 2);
+    param.top = Math.round((maxHeight - param.height) / 2);
+    return param;
+  }
+  function checkImg_back(file){
+    var agent=window.navigator.userAgent;
+    if(file.value == ""){
+      return false;
+    }else if(!file.value.match(/.jpeg|.jpg|.gif|.png/i)){
+      alert("只支持jpg, gif, png 格式的图片");
+      return false;
+    }else{
+      if(agent.indexOf("Firefox")!=-1){//firefox
+        var imgSize = (file.files)?file.files.item(0).size:0;
+      }else if(agent.indexOf("MSIE")!=-1){
+        var image = new Image();
+        image.src = file.value;
+        var imgSize = image.fileSize;
+      }else{
+        var imgSize = (file.files)?file.files.item(0).fileSize:0;
+      }
+      if (imgSize > 2048000){
+        alert("不要上传超过2MB的图片");
+        return false;
+      }
+    }
+    return true;
+  }
+</script>
+<script type="text/javascript">
+  function checkSize10(field, rules, i, options){
+    var num=10;
+    if (real_length2(field.val())>num*2) {
+      return "不能超过"+num+"个汉字";
+    }
+  }
+  function checkSize2000(field, rules, i, options){
+    var num=2000;
+    if (real_length2(field.val())>num*2) {
+      return "不能超过"+num+"个汉字";
+    }
+  }
+</script>

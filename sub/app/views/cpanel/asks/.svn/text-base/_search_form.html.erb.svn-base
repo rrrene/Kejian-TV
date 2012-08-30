@@ -1,0 +1,53 @@
+<div class="green_header">问题管理</div>
+<div class="search_form">
+  <%=form_tag(cpanel_asks_path, :method => "get") do%>
+    <div class="search_form_row">
+      <%=label_tag(:user_name, "提问人:")%>
+      <%=text_field_tag(:user_name,nil,:style=>"width:90px;",:value=>params[:user_name])%>
+      <%=label_tag(:title,"标题:")%>
+      <%=text_field_tag(:title,nil,:style=>"width:180px;",:value=>params[:title])%>
+      <% t=Time.now.getlocal %>
+      <%=label_tag(:created_at,"提问时间:")%>
+      <input style="margin-right:0px;width:100px;" class="validate[custom[date]]" id="datepicker_from" name="datepicker_from" type="text" value="<%=params[:datepicker_from]%>">
+      <input style="margin-right:0px;width:60px;" class="validate[custom[time]]" type="text" name="time_from" id="time_from" value="<%=params[:time_from]%>" />
+      ——
+      <input placeholder="<%= t.strftime("%Y-%m-%d") %>" style="margin-right:0px;width:100px;" class="validate[custom[date]]" id="datepicker_to" name="datepicker_to" value="<%= params[:datepicker_to] %>" type="text">
+      <input placeholder="<%= t.strftime("%H:%M") %>" style="margin-right:0px;width:60px;" class="validate[custom[time]]" type="text" name="time_to" id="time_to"  value="<%= params[:time_to] %>"/>
+    </div>
+    <div class="search_form_row">
+      <%=label_tag(:answers_count,"回答数:")%>
+      <%=text_field_tag(:answers_count_left,nil,:class=>"validate[custom[integer],numRange[grp1]] left_count",:value=>params[:answers_count_left])%>——<%=text_field_tag(:answers_count_right,nil,:class=>"validate[custom[integer],numRange[grp1]] right_count",:value=>params[:answers_count_right])%>
+      <%=label_tag(:comments_count,"评论数:")%>
+      <%=text_field_tag(:comments_count_left,nil,:class=>"validate[custom[integer],numRange[grp2]] left_count",:value=>params[:comments_count_left])%>——<%=text_field_tag(:comments_count_right,nil,:class=>"validate[custom[integer],numRange[grp2]] right_count",:value=>params[:comments_count_right])%>
+      <%=label_tag(:followed_count,"被关注数:")%>
+      <%=text_field_tag(:followed_count_left,nil,:class=>"validate[custom[integer],numRange[grp3]] left_count",:value=>params[:followed_count_left])%>——<%=text_field_tag(:followed_count_right,nil,:class=>"validate[custom[integer],numRange[grp3]] right_count",:value=>params[:followed_count_right])%>
+    </div>
+    <div class="search_form_row">
+      <%=label_tag(:views_count,"浏览数:")%>
+      <%=text_field_tag(:views_count_left,nil,:class=>"validate[custom[integer],numRange[grp4]] left_count",:value=>params[:views_count_left])%>——<%=text_field_tag(:views_count_right,nil,:class=>"validate[custom[integer],numRange[grp4]] right_count",:value=>params[:views_count_right])%>
+      <%=label_tag(:spams_count,"问题类型:")%>
+      <%if current_user.admin_type==User::SUP_ADMIN or (current_user.admin_area.include?("normal_ask") and current_user.admin_area.include?("spam_ask"))%>    
+        <%=select_tag :spams_count,options_for_select([["所有问题",0],["普通问题",1],["烂问题",2]],params[:spams_count]) %>
+      <%elsif current_user.admin_area.include?("normal_ask")%>
+        <span style="margin-right:80px;">普通问题</span>
+      <%elsif current_user.admin_area.include?("spam_ask")%>
+        <span style="margin-right:80px;">烂问题</span>
+      <%end%>
+      <%=label_tag(:sort_by,"结果排序:")%>
+      <%=select_tag :sort_by,options_for_select([["按提问时间",""],["按回答数","answers_count"],["按评论数","comments_count"],["按关注数","followed_count"],["按浏览数","views_count"]],params[:sort_by]) %>
+      <button type="submit">搜索</button>
+    </div>
+  <% end %>
+  <% content_for :butt2 do %>
+    $(function() {
+    $("#datepicker_from").datepicker({
+    dateFormat:'yy-mm-dd'
+    });
+    $( "#datepicker_to" ).datepicker({
+    dateFormat:'yy-mm-dd'
+    });
+    $('#time_from').timePicker();
+    $('#time_to').timePicker();
+    });
+  <% end %>
+</div>

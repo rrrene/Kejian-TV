@@ -1,0 +1,26 @@
+<style type="text/css" media="screen">
+  body{
+    background-color:#EEEEEE
+  }
+</style>
+<iframe frameborder="0" border="0" src="<%= cpanel_accesses_path %>" style="width:100%;height:500px;" id="oauth_iframe">
+</iframe>
+<% content_for :sitemap do%>
+  &lt; API
+<%end %>
+<% content_for :butt2 do %>
+
+  function pageY(elem) {
+      return elem.offsetParent ? (elem.offsetTop + pageY(elem.offsetParent)) : elem.offsetTop;
+  }
+  var buffer = 10; //scroll bar buffer
+  function resizeIframe() {
+      var height = window.innerHeight || document.body.clientHeight || document.documentElement.clientHeight;
+      height -= pageY(document.getElementById('oauth_iframe'))+ buffer ;
+      height = (height < 0) ? 0 : height;
+      document.getElementById('oauth_iframe').style.height = height + 'px';
+  }
+  window.onresize = resizeIframe;
+  window.onload = resizeIframe;
+
+<% end %>

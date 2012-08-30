@@ -1,0 +1,68 @@
+<div class="green_header">用户查询</div>
+<div class="search_form">
+  <%=form_tag(cpanel_users_path, :method => "get") do%>
+    <div class="search_form_row">
+      <%=label_tag(:name, "昵称:")%>
+      <%=text_field_tag(:name,nil,:style=>"width:100px;",:value=>params[:name])%>
+      <%=label_tag(:email,"注册邮箱:",:style=>"margin-left:3px;")%>
+      <%=text_field_tag(:email,nil,:style=>"width:180px;",:value=>params[:email])%>
+      <%=label_tag(:user_type,"用户组:",:style=>"margin-left:10px;")%>
+      <%=select_tag :user_type,options_for_select([["全部用户",0],["普通用户",User::NORMAL_USER],["问道专家",User::EXPERT_USER],["问道精英",User::ELITE_USER],["冻结用户",User::FROZEN_USER],["屏蔽用户",User::BAN_USER]],params[:user_type]) %>
+      <%=label_tag(:admin_type,"管理组:",:style=>"margin-left:10px;")%>
+      <%=select_tag :admin_type,options_for_select([["全部用户",0],["无权限",User::NO_ADMIN],["管理员",User::SUP_ADMIN],["副管理员",User::SUB_ADMIN]],params[:admin_type]) %>
+    </div>
+    <div class="search_form_row">
+      <%=label_tag(:asks_count,"提问数:")%>
+      <%=text_field_tag(:asks_count_left,nil,:class=>"validate[custom[integer],numRange[grp1]] left_count",:value=>params[:asks_count_left])%>——<%=text_field_tag(:asks_count_right,nil,:class=>"validate[custom[integer],numRange[grp1]] right_count",:value=>params[:asks_count_right])%>
+      <%=label_tag(:answers_count,"回答数:")%>
+      <%=text_field_tag(:answers_count_left,nil,:class=>"validate[custom[integer],numRange[grp2]] left_count",:value=>params[:answers_count_left])%>——<%=text_field_tag(:answers_count_right,nil,:class=>"validate[custom[integer],numRange[grp2]] right_count",:value=>params[:answers_count_right],:style=>"margin-right:25px;")%>
+      <%=label_tag(:comments_count,"评论数:")%>
+      <%=text_field_tag(:comments_count_left,nil,:class=>"validate[custom[integer],numRange[grp3]] left_count",:value=>params[:comments_count_left])%>——<%=text_field_tag(:comments_count_right,nil,:class=>"validate[custom[integer],numRange[grp3]] right_count",:value=>params[:comments_count_right],:style=>"margin-right:15px;")%>
+      <%=label_tag(:followers_count,"被关注数:")%>
+      <%=text_field_tag(:followers_count_left,nil,:class=>"validate[custom[integer],numRange[grp4]] left_count",:value=>params[:followers_count_left])%>——<%=text_field_tag(:followers_count_right,nil,:class=>"validate[custom[integer],numRange[grp4]] right_count",:value=>params[:followers_count_right])%>
+    </div>
+    <div class="search_form_row">
+      <% t=Time.now.getlocal %>
+      <%=label_tag(:created_at,"最后登录:")%>
+      <input placeholder="2012-05-15" style="margin-right:0px;width:80px;" class="validate[custom[date]]" id="last_datepicker_from" name="last_datepicker_from" type="text" value="<%=params[:last_datepicker_from]%>">
+      <input placeholder="00:00" style="margin-right:0px;width:60px;" class="validate[custom[time]]" type="text" name="last_time_from" id="last_time_from" value="<%=params[:last_time_from]%>" />
+      ——
+      <input placeholder="<%= t.strftime("%Y-%m-%d") %>" style="margin-right:0px;width:83px;" class="validate[custom[date]]" id="last_datepicker_to" name="last_datepicker_to" value="<%= params[:last_datepicker_to] %>" type="text">
+      <input placeholder="<%= t.strftime("%H:%M") %>" style="margin-right:0px;width:60px;" class="validate[custom[time]]" type="text" name="last_time_to" id="last_time_to"  value="<%= params[:last_time_to] %>"/>
+
+      <%=label_tag(:created_at,"注册时间:",:style=>"margin-left:10px;")%>
+      <input style="margin-right:0px;width:80px;" class="validate[custom[date]]" id="datepicker_from" name="datepicker_from" type="text" value="<%=params[:datepicker_from]%>">
+      <input style="margin-right:0px;width:60px;" class="validate[custom[time]]" type="text" name="time_from" id="time_from" value="<%=params[:time_from]%>" />
+      ——
+      <input placeholder="<%= t.strftime("%Y-%m-%d") %>" style="margin-right:0px;width:80px;" class="validate[custom[date]]" id="datepicker_to" name="datepicker_to" value="<%= params[:datepicker_to] %>" type="text">
+      <input placeholder="<%= t.strftime("%H:%M") %>" style="margin-right:0px;width:60px;" class="validate[custom[time]]" type="text" name="time_to" id="time_to"  value="<%= params[:time_to] %>"/>
+    </div>
+    <div class="search_form_row">
+      <%=label_tag(:login_times,"登录次数:")%>
+      <%=text_field_tag(:login_times_left,nil,:class=>"validate[custom[integer],numRange[grp5]] left_count",:value=>params[:login_times_left])%>——<%=text_field_tag(:login_times_right,nil,:class=>"validate[custom[integer],numRange[grp5]] right_count",:value=>params[:login_times_right])%>
+      <%=label_tag(:sort,"排序:",:style=>"margin-left:233px;")%>
+      <%=select_tag :sort,options_for_select([["按注册时间",""],["按提问数","asks_count"],["按回答数","answers_count"],["按评论数","comments_count"],["按被关注数","followers_count"],["按登录次数","login_times"],["按最后登录时间","last_login_at"]],params[:sort]) %>
+      <button type="submit">搜索</button>
+    </div>
+  <% end %>
+  <% content_for :butt2 do %>
+    $(function() {
+    $("#datepicker_from").datepicker({
+    dateFormat:'yy-mm-dd'
+    });
+    $( "#datepicker_to" ).datepicker({
+    dateFormat:'yy-mm-dd'
+    });
+    $('#time_from').timePicker();
+    $('#time_to').timePicker();
+    $("#last_datepicker_from").datepicker({
+    dateFormat:'yy-mm-dd'
+    });
+    $( "#last_datepicker_to" ).datepicker({
+    dateFormat:'yy-mm-dd'
+    });
+    $('#last_time_from').timePicker();
+    $('#last_time_to').timePicker();
+    });
+  <% end %>
+</div>

@@ -1,0 +1,305 @@
+<div class="green_header">数据统计情况-uv查询结果</div>
+<div style="margin:10px 0px;">
+  <span style="margin-right:5px;">查询区间:</span>
+  自<%= @from_time.strftime "%m/%d/%Y %H:%M" %>至<%= @to_time.strftime "%m/%d/%Y %H:%M" %>
+</div>
+<div id="stats_index">
+  <table class="wice_grid">
+    <thead>
+      <tr class="wice_grid_title_row">
+        <th style="text-align:center;">UV / PV统计项 (问道专家)</th>
+        <th style="text-align:center;">数值</th>
+      </tr>
+    </thead>
+    <%if @mobile_stat%>
+      <tbody>
+        <tr>
+          <td>新增用户数量</td>
+          <% users = (!@user.blank?) ? @users : @users.any_in(_id:@expert_ids) %>
+          <% users3 = (!@user.blank?) ? @users : @users.any_in(_id:@elite_ids) %>
+          <% users2 = (!@user.blank?) ? @users : @users.not_in(_id:@elite_ids+@expert_ids) %>
+          <td><%= users.count %></td>
+        </tr>
+        <tr>
+          <td>新增问题数量 UV / PV</td>
+          <% asks = (!@user.blank?) ? @asks : @asks.any_in(user_id:@expert_ids) %>
+          <% asks3 = (!@user.blank?) ? @asks : @asks.any_in(user_id:@elite_ids) %>
+          <% asks2 = (!@user.blank?) ? @asks : @asks.not_in(user_id:@elite_ids+@expert_ids) %>
+          <td><%= asks.collect(&:user_id).uniq.count %> / <%= asks.count %></td>
+        </tr>
+        <tr>
+          <td>回答新增数量 UV / PV</td>
+          <% answers = (!@user.blank?) ? @answers : @answers.any_in(user_id:@expert_ids) %>
+          <% answers3 = (!@user.blank?) ? @answers : @answers.any_in(user_id:@elite_ids) %>
+          <% answers2 = (!@user.blank?) ? @answers : @answers.not_in(user_id:@elite_ids+@expert_ids) %>
+          <td><%= answers.collect(&:user_id).uniq.count %> / <%= answers.count %></td>
+        </tr>
+      </tbody>
+    <%else%>
+      <tbody>
+        <tr>
+          <td>问题邀请行为 UV / PV</td>
+          <% asklogs = (!@user.blank?) ? @asklogs : @asklogs.any_in(user_id:@expert_ids) %>
+          <% asklogs3 = (!@user.blank?) ? @asklogs : @asklogs.any_in(user_id:@elite_ids) %>
+          <% asklogs2 = (!@user.blank?) ? @asklogs : @asklogs.not_in(user_id:@elite_ids+@expert_ids) %>
+          <td><%= asklogs.collect(&:user_id).uniq.count %> / <%= asklogs.count %></td>
+        </tr>
+        <tr>
+          <td>新增问题数量 UV / PV</td>
+          <% asks = (!@user.blank?) ? @asks : @asks.any_in(user_id:@expert_ids) %>
+          <% asks3 = (!@user.blank?) ? @asks : @asks.any_in(user_id:@elite_ids) %>
+          <% asks2 = (!@user.blank?) ? @asks : @asks.not_in(user_id:@elite_ids+@expert_ids) %>
+          <td><%= asks.collect(&:user_id).uniq.count %> / <%= asks.count %></td>
+        </tr>
+        <tr>
+          <td>用户关注行为 UV / PV</td>
+          <% userlogs = (!@user.blank?) ? @userlogs : @userlogs.any_in(user_id:@expert_ids) %>
+          <% userlogs3 = (!@user.blank?) ? @userlogs : @userlogs.any_in(user_id:@elite_ids) %>
+          <% userlogs2 = (!@user.blank?) ? @userlogs : @userlogs.not_in(user_id:@elite_ids+@expert_ids) %>
+          <td><%= userlogs.collect(&:user_id).uniq.count %> / <%= userlogs.count %></td>
+        </tr>
+        <tr>
+          <td>新增用户数量 UV / PV</td>
+          <% users = (!@user.blank?) ? @users : @users.any_in(_id:@expert_ids) %>
+          <% users3 = (!@user.blank?) ? @users : @users.any_in(_id:@elite_ids) %>
+          <% users2 = (!@user.blank?) ? @users : @users.not_in(_id:@elite_ids+@expert_ids) %>
+          <td><%= users.collect(&:id).uniq.count %> / <%= users.count %></td>
+        </tr>
+        <tr>
+          <td>回答新增数量 UV / PV</td>
+          <% answers = (!@user.blank?) ? @answers : @answers.any_in(user_id:@expert_ids) %>
+          <% answers3 = (!@user.blank?) ? @answers : @answers.any_in(user_id:@elite_ids) %>
+          <% answers2 = (!@user.blank?) ? @answers : @answers.not_in(user_id:@elite_ids+@expert_ids) %>
+          <td><%= answers.collect(&:user_id).uniq.count %> / <%= answers.count %></td>
+        </tr>
+        <tr>
+          <td>评论新增数量 UV / PV</td>
+          <% comments = (!@user.blank?) ? @comments : @comments.any_in(user_id:@expert_ids) %>
+          <% comments3 = (!@user.blank?) ? @comments : @comments.any_in(user_id:@elite_ids) %>
+          <% comments2 = (!@user.blank?) ? @comments : @comments.not_in(user_id:@elite_ids+@expert_ids) %>
+          <td><%= comments.collect(&:user_id).uniq.count %> / <%= comments.count %></td>
+        </tr>
+        <tr>
+          <td>感谢&amp;被感谢 UV / PV</td>
+          <% thanks = (!@user.blank?) ? @thanks : @thanks.any_in(user_id:@expert_ids) %>
+          <% thanks3 = (!@user.blank?) ? @thanks : @thanks.any_in(user_id:@elite_ids) %>
+          <% thanks2 = (!@user.blank?) ? @thanks : @thanks.not_in(user_id:@elite_ids+@expert_ids) %>
+          <td><%= thanks.collect(&:user_id).uniq.count %> / <%= thanks.count %></td>
+        </tr>
+        <tr>
+          <td>赞同&amp;被赞同 UV / PV</td>
+          <% goods = (!@user.blank?) ? @goods : @goods.any_in(user_id:@expert_ids) %>
+          <% goods3 = (!@user.blank?) ? @goods : @goods.any_in(user_id:@elite_ids) %>
+          <% goods2 = (!@user.blank?) ? @goods : @goods.not_in(user_id:@elite_ids+@expert_ids) %>
+          <td><%= goods.collect(&:user_id).uniq.count %> / <%= goods.count %></td>
+        </tr>
+        <tr>
+          <td>邀请&amp;被邀请 UV / PV</td>
+          <% invites = (!@user.blank?) ? @invites : @invites.any_in(user_id:@expert_ids) %>
+          <% invites3 = (!@user.blank?) ? @invites : @invites.any_in(user_id:@elite_ids) %>
+          <% invites2 = (!@user.blank?) ? @invites : @invites.not_in(user_id:@elite_ids+@expert_ids) %>
+          <td><%= invites.collect(&:user_id).uniq.count %> / <%= invites.count %></td>
+        </tr>
+      </tbody>
+    <%end%>
+  </table>
+
+  <table class="wice_grid">
+    <thead>
+      <tr class="wice_grid_title_row">
+        <th style="text-align:center;">UV / PV统计项 (问道精英)</th>
+        <th style="text-align:center;">数值</td>
+      </tr>
+    </thead>
+    <%if @mobile_stat%>
+      <tbody>
+        <tr>
+          <td>新增用户数量</td>
+          <td><%= users3.count %></td>
+        </tr>
+        <tr>
+          <td>新增问题数量 UV / PV</td>
+          <td><%= asks3.collect(&:user_id).uniq.count %> / <%= asks3.count %></td>
+        </tr>
+        <tr>
+          <td>回答新增数量 UV / PV</td>
+          <td><%= answers3.collect(&:user_id).uniq.count %> / <%= answers3.count %></td>
+        </tr>
+      </tbody>
+    <%else%>
+      <tbody>
+        <tr>
+          <td>问题邀请行为 UV / PV</td>
+          <td><%= asklogs3.collect(&:user_id).uniq.count %> / <%= asklogs3.count %></td>
+        </tr>
+        <tr>
+          <td>新增问题数量 UV / PV</td>
+          <td><%= asks3.collect(&:user_id).uniq.count %> / <%= asks3.count %></td>
+        </tr>
+        <tr>
+          <td>用户关注行为 UV / PV</td>
+          <td><%= userlogs3.collect(&:user_id).uniq.count %> / <%= userlogs3.count %></td>
+        </tr>
+        <tr>
+          <td>新增用户数量 UV / PV</td>
+          <td><%= users3.collect(&:id).uniq.count %> / <%= users3.count %></td>
+        </tr>
+        <tr>
+          <td>回答新增数量 UV / PV</td>
+          <td><%= answers3.collect(&:user_id).uniq.count %> / <%= answers3.count %></td>
+        </tr>
+        <tr>
+          <td>评论新增数量 UV / PV</td>
+          <td><%= comments3.collect(&:user_id).uniq.count %> / <%= comments3.count %></td>
+        </tr>
+        <tr>
+          <td>感谢&amp;被感谢 UV / PV</td>
+          <td><%= thanks3.collect(&:user_id).uniq.count %> / <%= thanks3.count %></td>
+        </tr>
+        <tr>
+          <td>赞同&amp;被赞同 UV / PV</td>
+          <td><%= goods3.collect(&:user_id).uniq.count %> / <%= goods3.count %></td>
+        </tr>
+        <tr>
+          <td>邀请&amp;被邀请 UV / PV</td>
+          <td><%= invites3.collect(&:user_id).uniq.count %> / <%= invites3.count %></td>
+        </tr>
+      </tbody>
+    <%end%>
+  </table>
+
+  <table class="wice_grid">
+    <thead>
+      <tr class="wice_grid_title_row">
+        <th style="text-align:center;">UV / PV统计项 (普通用户)</th>
+        <th style="text-align:center;">数值</td>
+      </tr>
+    </thead>
+    <%if @mobile_stat%>
+      <tbody>
+        <tr>
+          <td>新增用户数量</td>
+          <td><%= users2.count %></td>
+        </tr>
+        <tr>
+          <td>新增问题数量 UV / PV</td>
+          <td><%= asks2.collect(&:user_id).uniq.count %> / <%= asks2.count %></td>
+        </tr>
+        <tr>
+          <td>回答新增数量 UV / PV</td>
+          <td><%= answers2.collect(&:user_id).uniq.count %> / <%= answers2.count %></td>
+        </tr>
+      </tbody>
+    <%else%>
+      <tbody>
+        <tr>
+          <td>问题邀请行为 UV / PV</td>
+          <td><%= asklogs2.collect(&:user_id).uniq.count %> / <%= asklogs2.count %></td>
+        </tr>
+        <tr>
+          <td>新增问题数量 UV / PV</td>
+          <td><%= asks2.collect(&:user_id).uniq.count %> / <%= asks2.count %></td>
+        </tr>
+        <tr>
+          <td>用户关注行为 UV / PV</td>
+          <td><%= userlogs2.collect(&:user_id).uniq.count %> / <%= userlogs2.count %></td>
+        </tr>
+        <tr>
+          <td>新增用户数量 UV / PV</td>
+          <td><%= users2.collect(&:id).uniq.count %> / <%= users2.count %></td>
+        </tr>
+        <tr>
+          <td>回答新增数量 UV / PV</td>
+          <td><%= answers2.collect(&:user_id).uniq.count %> / <%= answers2.count %></td>
+        </tr>
+        <tr>
+          <td>评论新增数量 UV / PV</td>
+          <td><%= comments2.collect(&:user_id).uniq.count %> / <%= comments2.count %></td>
+        </tr>
+        <tr>
+          <td>感谢&amp;被感谢 UV / PV</td>
+          <td><%= thanks2.collect(&:user_id).uniq.count %> / <%= thanks2.count %></td>
+        </tr>
+        <tr>
+          <td>赞同&amp;被赞同 UV / PV</td>
+          <td><%= goods2.collect(&:user_id).uniq.count %> / <%= goods2.count %></td>
+        </tr>
+        <tr>
+          <td>邀请&amp;被邀请 UV / PV</td>
+          <td><%= invites2.collect(&:user_id).uniq.count %> / <%= invites2.count %></td>
+        </tr>
+      </tbody>
+    <%end%>
+  </table>
+
+
+
+  <table class="wice_grid">
+    <thead>
+      <tr class="wice_grid_title_row">
+        <th style="text-align:center;">UV / PV统计项 (总)</th>
+        <th style="text-align:center;">数值</td>
+      </tr>
+    </thead>
+    <%if @mobile_stat%>
+      <tbody>
+        <tr>
+          <td>新增用户数量</td>
+          <td><%= @users.count %></td>
+        </tr>
+        <tr>
+          <td>新增问题数量 UV / PV</td>
+          <td><%= @asks.collect(&:user_id).uniq.count %> / <%= @asks.count %></td>
+        </tr>
+        <tr>
+          <td>回答新增数量 UV / PV</td>
+          <td><%= @answers.collect(&:user_id).uniq.count %> / <%= @answers.count %></td>
+        </tr>
+      </tbody>
+    <%else%>
+      <tbody>
+        <tr>
+          <td>问题邀请行为 UV / PV</td>
+          <td><%= @asklogs.collect(&:user_id).uniq.count %> / <%= @asklogs.count %></td>
+        </tr>
+        <tr>
+          <td>新增问题数量 UV / PV</td>
+          <td><%= @asks.collect(&:user_id).uniq.count %> / <%= @asks.count %></td>
+        </tr>
+        <tr>
+          <td>新增话题数量</td>
+          <td><%= @topics.count %></td>
+        </tr>
+        <tr>
+          <td>用户关注行为 UV / PV</td>
+          <td><%= @userlogs.collect(&:user_id).uniq.count %> / <%= @userlogs.count %></td>
+        </tr>
+        <tr>
+          <td>新增用户数量 UV / PV</td>
+          <td><%= @users.collect(&:id).uniq.count %> / <%= @users.count %></td>
+        </tr>
+        <tr>
+          <td>回答新增数量 UV / PV</td>
+          <td><%= @answers.collect(&:user_id).uniq.count %> / <%= @answers.count %></td>
+        </tr>
+        <tr>
+          <td>评论新增数量 UV / PV</td>
+          <td><%= @comments.collect(&:user_id).uniq.count %> / <%= @comments.count %></td>
+        </tr>
+        <tr>
+          <td>感谢&amp;被感谢 UV / PV</td>
+          <td><%= @thanks.collect(&:user_id).uniq.count %> / <%= @thanks.count %></td>
+        </tr>
+        <tr>
+          <td>赞同&amp;被赞同 UV / PV</td>
+          <td><%= @goods.collect(&:user_id).uniq.count %> / <%= @goods.count %></td>
+        </tr>
+        <tr>
+          <td>邀请&amp;被邀请 UV / PV</td>
+          <td><%= @invites.collect(&:user_id).uniq.count %> / <%= @invites.count %></td>
+        </tr>
+      </tbody>
+    <%end%>
+  </table>
+
+</div>

@@ -1,0 +1,19 @@
+<h2>范畴详情</h2>
+
+<div class="field_show">
+  <b>范畴名称:</b>
+  <%= @scope.name %>
+</div>
+
+<div class="field_show">
+  <b>授权内容:</b>
+  <%= @scope.values_pretty %>
+  <span class="details">(includes <%= Oauth.normalize_scope(@scope.values_pretty).join(" ") %></span>
+</div>
+
+
+<div class="button-group footer_buttons">
+<%= link_to '返回', cpanel_scopes_path, class: "button icon arrowleft" %> 
+<%= link_to '编辑', edit_cpanel_scope_path(@scope), class: "button" %>
+<%= link_to '删除', cpanel_scope_path(@scope), :confirm => 'Are you sure?', :method => :delete, class: "button danger" %>
+</div>

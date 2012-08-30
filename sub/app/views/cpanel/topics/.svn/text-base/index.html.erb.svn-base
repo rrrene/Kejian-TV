@@ -1,0 +1,71 @@
+<%= content_for :sitemap do %>
+  <span class="current">列表</span>
+<% end %>
+<%#= render 'base' %>
+<%= render 'search_form' %>
+<%if @topics.total_entries>0%>
+  <div id="cpanel_topics">
+    <%=form_tag("/cpanel/deal_topics") do%>
+      <table class="stat_table" style="table-layout:fixed;">
+        <thead>
+          <tr>
+            <th style="width:35px;">序号</th>
+            <th>话题名</th>
+            <th style="width:50px;">问题数</th>
+            <th style="width:70px;">关注人数</th>
+            <th style="width:100px;">话题分类</th>
+            <th style="width:125px;">创建时间</th>
+            <th style="width:50px;">修改</th>
+            <th style="width:60px;text-align:center;"><input id="check_btn" type="button" value="全选" onclick="checkAll()"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @topics.each_with_index do |item,i| %>
+            <tr class="<%= i.odd? ? "odd" : "even" %>">
+              <td><%= 20*(params[:page].blank? ? 1:params[:page].to_i)+i-19 %></td>
+              <%if !item.name.index(".")%>
+                <td><%= link_to item.name,"/topics/#{CGI::escape(item.name).gsub('+','%20')}",target:'_blank' %></td>
+              <%else%>
+                <td><%= link_to item.name,"/topics/#{item.id}?force_id=1",target:'_blank' %></td>
+              <%end%>
+              <td><%= item.asks_count %></td>
+              <td><%= item.followed_count %></td>
+              <td><%= item.tags.blank? ? "":item.tags.first %></td>
+              <td><%= item.created_at.getlocal.strftime("%Y-%m-%d %H:%M") %></td>
+              <td>
+                <%= link_to '修改', edit_cpanel_topic_path(item.id),:style=>"color:#1f4ca5;",:target=>"_blank" %>
+      <%#= link_to image_tag("wice_grid/delete.png", :style => "margin-bottom:-4px"), cpanel_topic_path(item.id), :method => :delete, :confirm => '确定要删除吗?' %>
+              </td>
+              <td style="text-align:center;">
+                <input name="choose_topics[]" type="checkbox" value="<%=item.id%>" style="width:50px;">
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <div style="text-align:center;margin-top:20px;">
+        <input type="submit" value="删除" style="width:120px;cursor:pointer;" />
+      </div>
+    <%end%>
+    <div style="clear:both;height:10px;"></div>
+    <%= will_paginate @topics,:renderer=>WendaoLinkBACKRenderer %>
+  </div>
+  <script type="text/javascript">
+    function checkAll(){
+      if($("#check_btn").val()=="全选"){
+        for(i=0;i<$("input:checkbox").length;i++){
+          $("input:checkbox")[i].checked=true;
+        }
+        $("#check_btn").val("全不选");
+      }else{
+        for(i=0;i<$("input:checkbox").length;i++){
+          $("input:checkbox")[i].checked=false;
+        }
+        $("#check_btn").val("全选");
+      }
+    
+    }
+  </script>
+<%else%>
+  <div style="font-size:16px;color:red;text-align:center;">搜索结果为空</div>
+<%end%>

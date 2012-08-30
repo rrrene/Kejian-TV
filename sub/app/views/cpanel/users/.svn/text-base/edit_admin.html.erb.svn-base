@@ -1,0 +1,98 @@
+<div class="green_header">副管理员权限设置</div>
+<div id="edit_admin_form">
+  <h3>设置对象</h3>
+  <div id="admin_name"><%=@user.name%></div>
+  <h3>设置项目<span>（勾选后，相应操作项显示在他的管理后台中）</span></h3>
+  <%=form_tag("/cpanel/users/#{@user.id}/update_admin") do%>
+    <div style="margin-top:12px;">
+      <input type="checkbox" class="sup_check" id="content_check" onclick="checkSub('content')">
+      <span style="font-weight:bold;">内容管理</span>
+    </div>
+    <div style="margin-top:8px;" id="content">
+      <input name="admins[]" type="checkbox" <%if @user.admin_area.include?("normal_ask")%>checked="checked"<%end%> value="normal_ask" class="sub_check" style="margin-left:40px;">
+      <span>普通问题管理</span>
+      <input name="admins[]" type="checkbox" <%if @user.admin_area.include?("spam_ask")%>checked="checked"<%end%> value="spam_ask" class="sub_check">
+      <span>烂问题管理</span>
+      <input name="admins[]" type="checkbox" <%if @user.admin_area.include?("answer")%>checked="checked"<%end%> value="answer" class="sub_check">
+      <span>回答管理</span>
+      <input name="admins[]" type="checkbox" <%if @user.admin_area.include?("comment")%>checked="checked"<%end%> value="comment" class="sub_check">
+      <span>评论管理</span>
+      <input name="admins[]" type="checkbox" <%if @user.admin_area.include?("topic")%>checked="checked"<%end%> value="topic" class="sub_check">
+      <span>话题管理</span>
+    </div>
+
+    <div style="margin-top:20px;">
+      <input type="checkbox" class="sup_check" id="safety_check" onclick="checkSub('safety')">
+      <span style="font-weight:bold;">安全管理</span>
+    </div>
+    <div style="margin-top:8px;" id="safety">
+      <input name="admins[]" type="checkbox" <%if @user.admin_area.include?("advertise")%>checked="checked"<%end%> value="advertise" class="sub_check" style="margin-left:40px;">
+      <span>广告过滤规则</span>
+      <input name="admins[]" type="checkbox" <%if @user.admin_area.include?("verify")%>checked="checked"<%end%> value="verify" class="sub_check">
+      <span>先审后发规则</span>
+      <input name="admins[]" type="checkbox" <%if @user.admin_area.include?("ban_word")%>checked="checked"<%end%> value="ban_word" class="sub_check">
+      <span>禁止关键词</span>
+      <input name="admins[]" type="checkbox" <%if @user.admin_area.include?("deleted")%>checked="checked"<%end%> value="deleted" class="sub_check">
+      <span>已删除内容</span>
+    </div>
+
+    <div style="margin-top:20px;">
+      <input type="checkbox" class="sup_check" id="user_check" onclick="checkSub('user')">
+      <span style="font-weight:bold;">用户管理</span>
+    </div>
+    <div style="margin-top:8px;" id="user">
+      <input name="admins2[]" class="sub_check" style="margin-left:40px;" type="radio" <%if @user.admin_area.include?("user_normal")%>checked="checked"<%end%> value="user_normal">
+      <span>用户管理（普通）</span>
+      <input name="admins2[]" class="sub_check" style="margin-left:40px;" type="radio" <%if @user.admin_area.include?("user_xml")%>checked="checked"<%end%> value="user_xml">      
+      <span style="color:red;">用户管理（可导出用户）</span>
+      <input name="admins[]" type="checkbox" <%if @user.admin_area.include?("user_avatar")%>checked="checked"<%end%> value="user_avatar" class="sub_check">
+      <span>用户头像管理</span>
+    </div>
+
+    <div style="margin-top:20px;">
+      <input type="checkbox" class="sup_check" id="other_check" onclick="checkSub('other')">
+      <span style="font-weight:bold;">其他管理</span>
+    </div>
+    <div style="margin-top:8px;" id="other">
+      <input name="admins[]" type="checkbox" <%if @user.admin_area.include?("notice")%>checked="checked"<%end%> value="notice" class="sub_check" style="margin-left:40px;">
+      <span>公告管理</span>
+      <input name="admins[]" type="checkbox" <%if @user.admin_area.include?("report")%>checked="checked"<%end%> value="report" class="sub_check">
+      <span>举报管理</span>
+      <input name="admins[]" type="checkbox" <%if @user.admin_area.include?("stat")%>checked="checked"<%end%> value="stat" class="sub_check">
+      <span>数据统计概况</span>
+      <input name="admins[]" type="checkbox" <%if @user.admin_area.include?("hot_ask")%>checked="checked"<%end%> value="hot_ask" class="sub_check">
+      <span>广场热门问题</span>
+      <input name="admins[]" type="checkbox" <%if @user.admin_area.include?("hot_topic")%>checked="checked"<%end%> value="hot_topic" class="sub_check">
+      <span>广场热门话题</span>
+      <input name="admins[]" type="checkbox" style="margin-left:40px;margin-top:10px;" <%if @user.admin_area.include?("api")%>checked="checked"<%end%> value="api" class="sub_check">
+      <span>问道开放API</span>
+      <input name="admins[]" type="checkbox" style="margin-left:50px;" <%if @user.admin_area.include?("kpi")%>checked="checked"<%end%> value="kpi" class="sub_check">
+      <span>KPI统计</span>
+    </div>
+
+    <div style="margin-top:40px;">
+      <input type="submit" value="提交" style="width:120px;cursor:pointer;" />
+    </div>
+  <%end%>
+</div>
+<script type="text/javascript">
+  function checkSub(fid){
+    if($("#"+fid+"_check")[0].checked==true){
+      for(i=0;i<$("#"+fid+" input:checkbox").length;i++){
+        $("#"+fid+" input:checkbox")[i].checked=true;
+      }
+      if(fid=="user"){
+        $("#"+fid+" input:radio")[0].checked=true;
+      }
+    }else{
+      for(i=0;i<$("#"+fid+" input:checkbox").length;i++){
+        $("#"+fid+" input:checkbox")[i].checked=false;
+      }
+      if(fid=="user"){
+        for(i=0;i<$("#"+fid+" input:radio").length;i++){
+          $("#"+fid+" input:radio")[i].checked=false;
+        }
+      }
+    }   
+  }
+</script>

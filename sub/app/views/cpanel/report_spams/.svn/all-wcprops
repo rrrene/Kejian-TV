@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/wendao_wendaosvn/!svn/ver/1776/trunk/quora/app/views/cpanel/report_spams
+END
+edit.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/wendao_wendaosvn/!svn/ver/104/trunk/quora/app/views/cpanel/report_spams/edit.html.erb
+END
+_deal_form.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/wendao_wendaosvn/!svn/ver/1599/trunk/quora/app/views/cpanel/report_spams/_deal_form.html.erb
+END
+_search_form.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/wendao_wendaosvn/!svn/ver/1697/trunk/quora/app/views/cpanel/report_spams/_search_form.html.erb
+END
+index.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/wendao_wendaosvn/!svn/ver/1776/trunk/quora/app/views/cpanel/report_spams/index.html.erb
+END
+_base.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/wendao_wendaosvn/!svn/ver/104/trunk/quora/app/views/cpanel/report_spams/_base.html.erb
+END
+new.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/wendao_wendaosvn/!svn/ver/104/trunk/quora/app/views/cpanel/report_spams/new.html.erb
+END
+show.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/wendao_wendaosvn/!svn/ver/104/trunk/quora/app/views/cpanel/report_spams/show.html.erb
+END
+_form.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/wendao_wendaosvn/!svn/ver/104/trunk/quora/app/views/cpanel/report_spams/_form.html.erb
+END

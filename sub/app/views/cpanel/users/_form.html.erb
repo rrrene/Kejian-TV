@@ -1,0 +1,254 @@
+<div class="green_header">用户信息详情</div>
+<div id="cpanel_edit_user" class="search_form">
+  <%= form_for(@user,:url => (@user.id.blank? ? cpanel_users_path : cpanel_user_path(@user.id)) , :html => { :enctype =>  "multipart/form-data" }) do |f| %>
+
+    <div class="inputs">
+      <div class="search_form_row">
+        <span style="margin-right:10px;">昵&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称:</span>
+        <%=text_field_tag "name",@user.name,:style=>"width:310px;",:class=>"validate[required,funcCall[checkSize6],funcCall[checkSize_2]]"%>
+      </div>
+      <div class="search_form_row">
+        <span style="margin-right:10px;">个&nbsp;性&nbsp;域&nbsp;名:</span>
+        <span>http://wendao.zhaopin.com/</span>
+        <%=text_field_tag "user[slug]",@user.slug,:style=>"width:124px;",:class=>"validate[required,funcCall[check_chinese_char],funcCall[checkSize_e_10],funcCall[checkSize_e_2]]"%>
+      </div>
+      <div class="search_form_row">
+        <span style="margin-right:8px;">博&nbsp;客/微&nbsp;博:</span>
+        <%=text_field_tag "user[website]",@user.website,:style=>"width:310px;"%>
+      </div>
+      <div class="search_form_row">
+        <span style="margin-right:7px;">一句话描述:</span>
+        <%=text_field_tag "user[tagline]",@user.tagline,:style=>"width:310px;",:class=>"validate[funcCall[checkSize20],funcCall[checkSize_2]]"%>
+      </div>
+      <div class="search_form_row">
+        <span style="margin-right:8px;">认&nbsp;证&nbsp;说&nbsp;明:</span>
+        <%=text_field_tag "user[is_expert_why]",@user.is_expert_why,:style=>"width:310px;",:class=>"validate[funcCall[checkSize20],funcCall[checkSize_2]]"%>
+      </div>
+      <%if current_user.admin_type==User::SUP_ADMIN%>
+        <div class="search_form_row">
+          <span style="margin-right:33px;">管理组:</span>
+          <%= radio_button_tag("user[admin_type]",User::NO_ADMIN,@user.admin_type==User::NO_ADMIN) %>
+          <%= label_tag(:admin_type, "非管理员") %>
+          <%= radio_button_tag("user[admin_type]",User::SUP_ADMIN,@user.admin_type==User::SUP_ADMIN,:style=>"margin-left:30px;") %>
+          <%= label_tag(:admin_type, "管理员") %>
+          <%= radio_button_tag("user[admin_type]",User::SUB_ADMIN,@user.admin_type==User::SUB_ADMIN,:style=>"margin-left:30px;",:onclick=>"jsclicka()") %>
+          <%= label_tag(:admin_type, "副管理员") %>
+          <a href="/cpanel/users/<%=@user.id%>/edit_admin" style="margin-left:5px;color:red;" target="_blank" id="set_admin_link">设置副管理员权限</a>
+        </div>
+      <%end%>
+      <div class="search_form_row">
+        <span style="margin-right:33px;">用户组:</span>
+        <%= radio_button_tag("user[user_type]",User::NORMAL_USER,@user.user_type==User::NORMAL_USER) %>
+        <%= label_tag(:user_type, "普通用户") %>
+        <%= radio_button_tag("user[user_type]",User::ELITE_USER,@user.user_type==User::ELITE_USER,:style=>"margin-left:29px;") %>
+        <%= label_tag(:user_type, "问道精英") %>
+        <%= radio_button_tag("user[user_type]",User::EXPERT_USER,@user.user_type==User::EXPERT_USER,:style=>"margin-left:18px;") %>
+        <%= label_tag(:user_type, "问道专家") %>
+        <%= radio_button_tag("user[user_type]",User::BAN_USER,@user.user_type==User::BAN_USER,:style=>"margin-left:30px;") %>
+        <%= label_tag(:user_type, "屏蔽用户") %>
+        <%= radio_button_tag("user[user_type]",User::FROZEN_USER,@user.user_type==User::FROZEN_USER,:style=>"margin-left:30px;") %>
+        <%= label_tag(:user_type, "冻结用户") %>
+      </div>
+      <div class="search_form_row">
+        <div style="margin-right:12px;float:left;">个&nbsp;人&nbsp;经&nbsp;历:</div>
+        <%=text_area_tag "user[bio]",@user.bio,:style=>"width:500px;height:160px;",:class=>"validate[funcCall[checkSize2000]]"%>
+      </div>
+      <!--
+      <div class="search_form_row">
+  <%#=check_box_tag "user[will_autofollow]",1,@user.will_autofollow,:style=>"width:15px;"%>
+        <span>设为自动被关注</span>
+      </div>
+      -->
+      
+      <div class="search_form_row" style="float:left;">
+        <span style="margin-right:10px;">头&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;像:</span>
+        <input class="file optional" id="topic_cover" name="user[avatar]" type="file" style="width:150px;" onchange="previewImage(this)">
+      </div>
+      <div class="search_form_row" style="float:left;margin-left:80px;border:1px solid #ccc;">
+        <div style="margin-right:10px;float:left;line-height:30px;">当前头像:</div>
+        <div class="row" id="preview" style="float:left;margin: 10px 20px;">
+          <%= image_tag(@user.avatar.normal.url,:id=>"imghead") %>
+        </div>
+      </div>
+      <div style="clear:both;"></div>
+      
+      <div class="search_form_row">
+        <span style="margin-right:10px;">问题数:</span>
+        <span style="margin-right:60px;"><%=@user.asks_count%></span>
+        <span style="margin-right:10px;">回答数:</span>
+        <span style="margin-right:60px;"><%=@user.answers_count%></span>
+        <span style="margin-right:10px;">评论数:</span>
+        <span style="margin-right:60px;"><%=@user.comments_count%></span>
+        <span style="margin-right:10px;">被关注数:</span>
+        <span style="margin-right:60px;"><%=@user.followers_count%></span>
+      </div>
+      <div class="search_form_row">
+        <%=label_tag(:email, "注册邮箱:")%>
+        <span><%= @user.email %></span>
+      </div>
+      <div class="search_form_row">
+        <%=label_tag(:created_at, "注册时间:")%>
+        <span><%= @user.created_at.getlocal.strftime("%Y-%m-%d %H:%M") %></span>
+      </div>
+      <div class="search_form_row">
+        <%=label_tag(:created_at, "最后登录:")%>
+        <span><%= @user.last_login_at.blank? ? @user.created_at.getlocal.strftime("%Y-%m-%d %H:%M"):@user.last_login_at.getlocal.strftime("%Y-%m-%d %H:%M") %></span>
+      </div>
+  <%#= f.input :avatar %>
+  <%# if not @user.avatar.blank? %>
+  <%#*<div class="row">%>
+  <%#*<label>预览</label>%>
+  <%#= image_tag(@user.avatar.normal.url) %>
+  <%#*</div>%>
+  <%# end %>
+
+  <%#= f.input :is_expert,:as=>:boolean %>
+  <%#= f.input :is_expert_why %>
+  <%#=f.input :banished,:as=>:boolean,:label=>'账户已被禁用'%>
+  <%#= f.input :tags_array,:label=>'标签(请以,分隔填写)' %>
+    </div>
+    <div class="actions">
+      <button type="submit">提交</button>
+    </div>
+  <% end %>
+</div>
+<script type="text/javascript">
+  function previewImage(file)
+  {
+    if(!checkImg_back(file)){
+      file.value="";
+      return false;
+    }
+    var MAXWIDTH  = 100;
+    var MAXHEIGHT = 75;
+    var div = document.getElementById('preview');
+    if (file.files && file.files[0])
+    {
+      div.innerHTML = '<img id=imghead>';
+      var img = document.getElementById('imghead');
+      img.onload = function(){
+        var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+        img.width = rect.width;
+        img.height = rect.height;
+        img.style.marginLeft = rect.left+'px';
+        img.style.marginTop = rect.top+'px';
+      }
+      var reader = new FileReader();
+      reader.onload = function(evt){img.src = evt.target.result;}
+      reader.readAsDataURL(file.files[0]);
+    }
+    else
+    {
+      var sFilter='filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="';
+      file.select();
+      var src = document.selection.createRange().text;
+      div.innerHTML = '<img id=imghead>';
+      var img = document.getElementById('imghead');
+      img.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = src;
+      var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+      status =('rect:'+rect.top+','+rect.left+','+rect.width+','+rect.height);
+      div.innerHTML = "<div id=divhead style='width:"+rect.width+"px;height:"+rect.height+"px;margin-top:"+rect.top+"px;margin-left:"+rect.left+"px;"+sFilter+src+"\"'></div>";
+    }
+  }
+  function clacImgZoomParam( maxWidth, maxHeight, width, height ){
+    var param = {top:0, left:0, width:width, height:height};
+    if( width>maxWidth || height>maxHeight )
+    {
+      rateWidth = width / maxWidth;
+      rateHeight = height / maxHeight;
+		
+      if( rateWidth > rateHeight )
+      {
+        param.width =  maxWidth;
+        param.height = Math.round(height / rateWidth);
+      }else
+      {
+        param.width = Math.round(width / rateHeight);
+        param.height = maxHeight;
+      }
+    }
+	
+    param.left = Math.round((maxWidth - param.width) / 2);
+    param.top = Math.round((maxHeight - param.height) / 2);
+    return param;
+  }
+  function checkImg_back(file){
+    var agent=window.navigator.userAgent;
+    if(file.value == ""){
+      return false;
+    }else if(!file.value.match(/.jpeg|.jpg|.gif|.png/i)){
+      alert("只支持jpg, gif, png 格式的图片");
+      return false;
+    }else{
+      if(agent.indexOf("Firefox")!=-1){//firefox
+        var imgSize = (file.files)?file.files.item(0).size:0;
+      }else if(agent.indexOf("MSIE")!=-1){
+        var image = new Image();
+        image.src = file.value;
+        var imgSize = image.fileSize;
+      }else{
+        var imgSize = (file.files)?file.files.item(0).fileSize:0;
+      }
+      if (imgSize > 2048000){
+        alert("不要上传超过2MB的图片");
+        return false;
+      }
+    }
+    return true;
+  }
+</script>
+<script type="text/javascript">
+  function jsclicka(){ 
+    if(document.all)  //this is for ie and firefox
+    {  
+      document.getElementById("set_admin_link").click();  
+    }  
+    else  //this is for chrome
+    {  
+      var event= document.createEvent("MouseEvents");  
+      event.initEvent("click", true, true);  
+      document.getElementById("set_admin_link").dispatchEvent(event);  
+    }
+  }
+  function checkSize_2(field, rules, i, options){
+    var num=2;
+    if (real_length2(field.val())<num*2) {
+      return "不得少于"+num+"个汉字";
+    }
+  }
+  function checkSize6(field, rules, i, options){
+    var num=6;
+    if (real_length2(field.val())>num*2) {
+      return "不能超过"+num+"个汉字";
+    }
+  }
+  function checkSize_e_2(field, rules, i, options){
+    var num=2;
+    if (real_length2(field.val())<num*2) {
+      return "不得少于"+num*2+"个字符";
+    }
+  }
+  function checkSize_e_10(field, rules, i, options){
+    var num=10;
+    if (real_length2(field.val())>num*2) {
+      return "不能超过"+num*2+"个字符";
+    }
+  }
+  function check_chinese_char(field, rules, i, options){
+    if (/[^a-zA-Z0-9-_]+/.test(field.val())){
+      return "不能使用中文";
+    }
+  }
+  function checkSize20(field, rules, i, options){
+    var num=20;
+    if (real_length2(field.val())>num*2) {
+      return "不能超过"+num+"个汉字";
+    }
+  }
+  function checkSize2000(field, rules, i, options){
+    var num=2000;
+    if (real_length2(field.val())>num*2) {
+      return "不能超过"+num+"个汉字";
+    }
+  }
+</script>

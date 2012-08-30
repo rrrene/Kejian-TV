@@ -1,0 +1,24 @@
+<div class="green_header">填写举报处理情况</div>
+<div class="search_form">
+  <%=form_tag("/cpanel/deal_report") do%>
+    <div class="search_form_row" style="color:red;">
+      *您正在处理的是第<span id="report_no"> </span>个举报：<span id="report_ask"></span>
+      <input type="hidden" id="report_hide_id" name="report_id" value="" />
+      <input type="hidden" id="report_hide_title" name="report_ask" value="" />
+    </div>
+    <div class="search_form_row">
+      <%=label_tag(:user_name,"处理结果：",:style=>"margin-right:5px;")%>
+      <%= radio_button_tag("handled_result","属实",true,:style=>"width:13px;margin-right:0px;") %>
+      <%= label_tag(:user_type,"属实") %>
+      <%= radio_button_tag("handled_result","不属实",false,:style=>"width:13px;margin-right:0px;") %>
+      <%= label_tag(:user_type,"不属实") %>
+    </div>
+    <div class="search_form_row">
+      <div style="margin-right:12px;float:left;">处理说明：</div>
+      <%=text_area_tag "handled_text","",:style=>"width:300px;height:80px;",:class=>"validate[required]"%>
+    </div>
+    <div class="search_form_row">
+      <button type="submit" style="margin-left:76px;">提交</button>
+      <span>说明：提交后，系统将向用户发送系统通知，告知处理结果及详情。</span>
+    </div>
+  <% end %>

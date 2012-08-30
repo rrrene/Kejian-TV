@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/wendao_wendaosvn/!svn/ver/1828/trunk/quora/app/views/cpanel/autofollow
+END
+advertise.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/wendao_wendaosvn/!svn/ver/1513/trunk/quora/app/views/cpanel/autofollow/advertise.html.erb
+END
+deleted.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/wendao_wendaosvn/!svn/ver/1750/trunk/quora/app/views/cpanel/autofollow/deleted.html.erb
+END
+index.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/wendao_wendaosvn/!svn/ver/1009/trunk/quora/app/views/cpanel/autofollow/index.html.erb
+END
+index_pos.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/wendao_wendaosvn/!svn/ver/1010/trunk/quora/app/views/cpanel/autofollow/index_pos.html.erb
+END
+_verify_search_form.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/wendao_wendaosvn/!svn/ver/1404/trunk/quora/app/views/cpanel/autofollow/_verify_search_form.html.erb
+END
+ban_word.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/wendao_wendaosvn/!svn/ver/1710/trunk/quora/app/views/cpanel/autofollow/ban_word.html.erb
+END
+_advertise_search_form.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/wendao_wendaosvn/!svn/ver/1357/trunk/quora/app/views/cpanel/autofollow/_advertise_search_form.html.erb
+END
+_deleted_search_form.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/wendao_wendaosvn/!svn/ver/1828/trunk/quora/app/views/cpanel/autofollow/_deleted_search_form.html.erb
+END
+_ban_word_search_form.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/wendao_wendaosvn/!svn/ver/1795/trunk/quora/app/views/cpanel/autofollow/_ban_word_search_form.html.erb
+END
+verify.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/wendao_wendaosvn/!svn/ver/1624/trunk/quora/app/views/cpanel/autofollow/verify.html.erb
+END
