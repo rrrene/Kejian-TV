@@ -33,9 +33,9 @@ module Discuz
     attr_reader :cookiedomain
     attr_reader :cookiepre_real
   end
-  @cookiepre = '6tce_';
-  @cookiedomain = 'cnu.kejian.tv';
-  @cookiepath = '/';
+  @cookiepre = Setting.dz_cookiepre;
+  @cookiedomain = Setting.ktv_subdomain;
+  @cookiepath = Setting.dz_cookiepath;
   @cookiepre_real = @cookiepre+Digest::MD5.hexdigest(@cookiepath+'|'+@cookiedomain)[0...4]+'_'
 end
 
@@ -43,7 +43,7 @@ end
 
 UCenter.define('UC_CLIENT_RELEASE', '20110501')
 UCenter.define('UC_APPID', '5');
-UCenter.define('UC_KEY', 'af64HZPlY/1RdaOe4UftTp3XO+kQwB9f5SBojhc=');
+UCenter.define('UC_KEY', Setting.uc_key);
 unless Rails.env.development?
   UCenter.define('UC_API', 'http://uc.kejian.tv');
 else
@@ -75,6 +75,9 @@ Ktv.configure do |config|
   config.upyun_bucket = "ktv-pic"
   config.upyun_api_host = 'http://v0.api.upyun.com'
   config.upyun_bucket_domain = "http://ktv-pic.b0.upaiyun.com"
+  config.school_new = Time.new(Setting.school_new[0],Setting.school_new[1],Setting.school_new[2])
+  config.school_exam = Time.new(Setting.school_exam[0],Setting.school_exam[1],Setting.school_exam[2])
+  config.school_over = Time.new(Setting.school_over[0],Setting.school_over[1],Setting.school_over[2])
 end
 
 

@@ -13,7 +13,7 @@
     <meta name="keywords" content="" />
     <meta name="description" content="" />
     <meta property="wb:webmaster" content="8511185f3b58f41f" />
-    <title>首都师范大学课件交流系统 - <%=@seo[:title]%></title>
+    <title><%= Setting.ktv_subname %>课件交流系统 - <%=@seo[:title]%></title>
     <link rel="shortcut icon" href="/favicon.ico?v=003" /> 
     <meta charset="UTF-8">
     <%= csrf_meta_tag %>
@@ -42,7 +42,7 @@
 <div id="psvr_header" style="padding-bottom:52px;margin-bottom:0">
  <div class="psvr_headtop">
       <div class="psvr_logo">
-        <a href="/" class="psvr"><img class="psvr" src="<%= asset_path 'logo_cnu.png' %>" alt="首都师范大学课件交流系统" id="psvr_logimg"></a>
+        <a href="/" class="psvr" id="psvr_logimg_a"><img class="psvr" src="<%= asset_path "logo_<%=Setting.ktv_sub%>.png" %>" alt="<%= Setting.ktv_subname %>课件交流系统" id="psvr_logimg"></a>
       </div>
   </div>
 
@@ -59,7 +59,7 @@
 <div class="psvr_wtf_wrap" style="<%= @is_ie8 ? 'margin-top:-20px' : ''%>">
   <div class="psvr_wtf_wrapper" style="<% if @is_ie6 %>width:953px;padding-right:17px;padding-left:18px<% end %>">
     <div style="width:936px;<%= @is_ie6 || @is_ie7 ? 'margin-left:0' : '' %>" id="scbar_ppp" class="cl_ppp psvr_wtf_scbar">
-      　欢迎来到首都师范大学问答求助区！目前共有<%=link_to Ask.count,'/asks'%>个问题，其中<%=link_to Ask.unanswered.count,'/zero_asks'%>个还悬而未决，欢迎贡献答案或提出问题！
+      　欢迎来到<%= Setting.ktv_subname_short %>问答求助区！目前共有<%=link_to Ask.count,'/asks'%>个问题，其中<%=link_to Ask.unanswered.count,'/zero_asks'%>个还悬而未决，欢迎贡献答案或提出问题！
       <%= content_for :butt2 do %>
         Asks.completeAll(jQuery("#searchInput"));
 
@@ -129,10 +129,10 @@
 <div id="psvr_footer_top">
   <p class="psvr psvr_good_link">
   <span class="psvr"  style="float:left">
-<a class="psvr" href="/">首都师范大学课件交流系统</a> | 
+<a class="psvr" href="/"><%= Setting.ktv_subname %>课件交流系统</a> | 
 <a class="psvr" href="www.ttmeiju.com/?action-site-type-map">设为首页</a> | 
 <a class="psvr" href="www.ttmeiju.com/?action-site-type-link">加入收藏</a></span>
-<span class="psvr"  style="float:right;margin-right:20px"><a class="psvr" href="#">背景图为<%= $cnu_fotos[@bg_index] %>.</a></span>
+<span class="psvr"  style="float:right;margin-right:20px"><a class="psvr" href="#">背景图为<%= Setting.fotos[@bg_index] %>.</a></span>
 </p>
 </div>
 <div class="psvr_copyright">

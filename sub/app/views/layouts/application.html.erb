@@ -6,15 +6,15 @@
 <!--[if gt IE 9]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>首都师范大学课件交流系统 - <%= @seo[:title] %></title>
+<title><%= Setting.ktv_subname %>课件交流系统 - <%= @seo[:title] %></title>
 <meta name="keywords" content="<%= @seo[:title] %>" />
 <meta name="description" content="<%= @seo[:title] %> " />
 <meta name="author" content="Kejian.TV" />
 <meta name="copyright" content="<%= Time.now.year %> Kejian.TV Ltd." />
 <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
 <meta http-equiv="imagetoolbar" content="no" />
-<link rel="stylesheet" type="text/css" href="/simple/data/cache/style_1_common.css" />
-<link rel="stylesheet" type="text/css" href="/simple/data/cache/style_1_forum_index.css" />
+<link rel="stylesheet" type="text/css" href="/simple/data_<%=Setting.ktv_sub%>/cache/style_1_common.css" />
+<link rel="stylesheet" type="text/css" href="/simple/data_<%=Setting.ktv_sub%>/cache/style_1_forum_index.css" />
 <script type="text/javascript">
   var STYLEID = '1',
       STATICURL = '/simple/static/',
@@ -23,15 +23,15 @@
       charset = 'utf-8',
       discuz_uid = '<%= user_signed_in? ? current_user.uid : 0 %>',
       cookiepre = '6tce_2132_',
-      cookiedomain = 'cnu.kejian.tv',
+      cookiedomain = '<%= Setting.ktv_subdomain %>',
       cookiepath = '/',
       showusercard = '1',
       attackevasive = '0',
       disallowfloat = 'newthread',
       creditnotice = '1|威望|,2|金钱|,3|贡献|',
       defaultstyle = '',
-      REPORTURL = <%=raw Base64.encode64("http://cnu.kejian.tv#{request.path}").gsub("\n",'').to_json%>,
-      SITEURL = 'http://cnu.kejian.tv/',
+      REPORTURL = <%=raw Base64.encode64(request.url).gsub("\n",'').to_json%>,
+      SITEURL = 'http://<%= Setting.ktv_subdomain %>/',
       JSPATH = '/simple/static/js/';
 </script>
 <script src="/simple/static/js/common.js" type="text/javascript"></script>
@@ -179,7 +179,7 @@
 <div id="psvr_header">
  <div class="psvr_headtop">
       <div class="psvr_logo">
-        <a href="/" class="psvr" id="psvr_logimg_a"><img class="psvr" src="<%= asset_path 'logo_cnu.png' %>" alt="首都师范大学课件交流系统" id="psvr_logimg"></a>
+        <a href="/" class="psvr" id="psvr_logimg_a"><img class="psvr" src="<%= asset_path "logo_#{Setting.ktv_sub}.png" %>" alt="<%= Setting.ktv_subname %>课件交流系统" id="psvr_logimg"></a>
       </div>
   </div>
 
@@ -214,10 +214,10 @@
 <div id="psvr_footer_top">
   <p class="psvr psvr_good_link">
   <span class="psvr"  style="float:left">
-<a class="psvr" href="/">首都师范大学课件交流系统</a> | 
+<a class="psvr" href="/"><%= Setting.ktv_subname %>课件交流系统</a> | 
 <a class="psvr" href="www.ttmeiju.com/?action-site-type-map">设为首页</a> | 
 <a class="psvr" href="www.ttmeiju.com/?action-site-type-link">加入收藏</a></span>
-<span class="psvr"  style="float:right;margin-right:20px"><a class="psvr" href="#">背景图为<%= $cnu_fotos[@bg_index] %>.</a></span>
+<span class="psvr"  style="float:right;margin-right:20px"><a class="psvr" href="#">背景图为<%= Setting.fotos[@bg_index] %>.</a></span>
 </p>
 </div>
 <div class="psvr_copyright">
