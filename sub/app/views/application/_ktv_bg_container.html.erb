@@ -27,6 +27,6 @@
         timer: setInterval(window.psvr_kina.fix, 200)
     });
   };
-  window.psvr_bgImg.src = <%= raw asset_url("/sub/#{Setting.sub}_foto/@bg_index.jpg").to_json %>;
+  window.psvr_bgImg.src = <%= raw asset_url("sub/#{Setting.ktv_sub}_foto/#{@bg_index}.jpg").to_json %>;
   //jQuery('body').css('padding-bottom',jQuery(window).height()/2);
 <% end %>
