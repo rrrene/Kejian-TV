@@ -1,0 +1,252 @@
+﻿#pageHeader {
+    position: static;
+}
+#container {
+    margin-top:20px;
+}
+.clearfix { 
+	clear:both;
+}
+.height0 {
+	height:0;
+	line-height:0;
+	font-size:0;
+}
+h6 {
+	clear:both;
+}
+
+/* 右侧掉下去BUG修正 IE6 */
+#sidebar {
+	_width:249px;
+}
+
+.userInfoPop li.username {
+	_padding-top:8px;
+	overflow:hidden;
+}
+.userInfoName .arrowDown {
+	position:absolute;
+	top:9px;
+}
+
+
+/* 话题nav中的文本靠左fix */
+.topicNav li {
+	padding-left:10px;
+}
+
+/* 问道广场 关注全部按钮位置fix */
+.hotTopicTable .nBtnFocusAll {
+	position:relative;
+	top:-28px;
+}
+
+
+* html>body .clearfix { 
+display: inline-block; 
+width: 100%; 
+clear:both;
+} 
+
+* html .clearfix { 
+height: 1%; 
+} 
+
+*+html .clearfix { 
+min-height: 1% ; 
+} 
+
+
+
+/* 通用HEADER，菜单弹出，黑色分割线 */
+.userInfoPop li.blackline {
+    font-size:0;
+	line-height:0;
+	overflow:hidden;
+	zoom:0.03;
+	margin-top:-2px;
+}
+
+
+#facebox .popup {
+	border:2px solid #ccc;
+}
+
+#facebox .goLog {
+	width:170px;
+}
+#facebox dt {
+	height:60px;
+	clear:left;
+}
+#facebox .validTip {
+	width:100%;
+}
+
+/* 取消鼠标移入回答区出现“感谢”“没有帮助”的效果 */
+.reply footer em {
+	visibility:visible;
+}
+
+/* 问题页，回答下吗的信息功能栏 */
+.replys footer a, .reply footer em {
+	float:left;
+}
+.replys footer .thank, .replys footer .notusefull{
+	float:none;
+}
+
+
+/* 他关注的话题 */
+.cList article {
+	position:relative;
+}
+.cList article h6, .cList article div {
+	position:absolute;
+	left:60px;
+	top:0;
+}
+.cList article div {
+	top:20px;
+}
+.searchInputBox input {
+	padding-top:7px;
+	height:18px;
+}
+
+.userInfoName {
+	_top:19px;
+}
+
+
+.hotTopicTable li span a {
+	word-break:keep-all;
+	word-wrap:normal; 
+}
+
+/* tab页样式IE修正 */
+.tabNav {
+	position:relative;
+	height:27px !important;
+}
+.tabNav ul {
+	position:absolute;
+}
+.tabNav li {
+	padding-left:21px;
+}
+/* 他关注的话题 */
+.cList article {
+	position:relative;
+}
+.cList article h6, .cList article div {
+	position:absolute;
+	left:60px;
+	top:0;
+}
+.cList article div {
+	top:20px;
+}
+.searchInputBox input {
+	padding-top:7px;
+	height:18px;
+}
+
+.userInfoName {
+	_top:15px;
+}
+
+.floatad {
+	_position:absolute;
+}
+
+.topicNav .close, .topicNav .close_topic {
+	display:inline-block;
+	float:none;
+}
+.topicNav span {
+	display:inline-block;
+	line-height:14px;
+	margin-top:2px;
+}
+.topicNav {
+	height:22px;
+}
+
+.hotTopicTable li span a {
+	word-break:keep-all;
+	word-wrap:normal; 
+}
+
+/* 他关注的话题 */
+.cList article {
+	position:relative;
+}
+.cList article h6, .cList article div {
+	position:absolute;
+	left:60px;
+	top:0;
+}
+.cList article div {
+	top:20px;
+}
+.searchInputBox input {
+	padding-top:7px;
+	height:18px;
+}
+
+
+/* 修改话题图片，HOVER灰层 */
+.changeUserHead {
+	background-color:#555;
+}
+
+/* 个人主页，人名H5 */
+.userHeader h5 {
+	overflow:hidden;
+	padding-top:3px;
+}
+.userHeader h5 input {
+	padding-top:3px;
+	overflow:hidden;
+	height:15px;
+}
+
+/* 个人主页，修改图片弹层 */
+.setupProfile {
+	margin:10px;
+	display:inline-block;
+}
+
+/* 个人主页，一句话介绍 */
+.userHeader .details {
+	padding-top:6px !important;
+}
+
+
+/* 通用HEADER，用户名后跟绿色三角 */
+.arrowDown {
+	height:4px;
+	overflow:hidden;
+}
+.userInfoPop .arrowDown {
+	margin-bottom:3px;
+}
+
+.newbie h3 {
+	overflow:hidden;
+}
+
+.sideBox .funcList figcaption {
+	float:left;
+}
+
+/* 返回智联 */
+.backToZp {
+	position:absolute;
+}
+/* 我知道了框体右上角叉子 */
+#notifyBox .close {
+	_right:45px;
+}
