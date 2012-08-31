@@ -43,7 +43,7 @@ end
 
 UCenter.define('UC_CLIENT_RELEASE', '20110501')
 UCenter.define('UC_APPID', '5');
-UCenter.define('UC_KEY', 'af64HZPlY/1RdaOe4UftTp3XO+kQwB9f5SBojhc=');
+UCenter.define('UC_KEY', Setting.uc_key);
 unless Rails.env.development?
   UCenter.define('UC_API', 'http://uc.kejian.tv');
 else
