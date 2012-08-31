@@ -1,7 +1,7 @@
 # coding: utf-8
 module ApplicationHelper
   def kaixue_msg
-    day=(Time.now-$cnu_new)/86400
+    day=(Time.now-Ktv.config.school_new)/86400
     day=day.to_i-1
     if day < 0
       return "今天离开学还有#{-day}天"

@@ -19,6 +19,6 @@ class WelcomeController < ApplicationController
     end
   end
   def favicon
-    send_file "#{Rails.root}/app/assets/images/cnu_foto/favicon.ico",disposition:'inline'
+    send_file "#{Rails.root}/app/assets/images/#{Setting.ktv_sub}/favicon.ico",disposition:'inline'
   end
 end
