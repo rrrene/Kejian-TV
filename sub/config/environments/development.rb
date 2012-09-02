@@ -30,11 +30,13 @@ Sub::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   config.active_record.auto_explain_threshold_in_seconds = 0.5
 
-  # Do not compress assets
+  config.action_mailer.delivery_method = :letter_opener
+  config.mongoid.preload_models = true
+  # assets___________
   config.assets.compress = false
-
-  # Expands the lines which load the assets
   config.assets.debug = true
+  config.assets.prefix = '/assets'
+  # assets-----------
 
-  config.cache_store = :file_store, "#{Rails.root}/tmp_#{Rails.env}/cache/"
+  config.cache_store = :file_store, "#{Rails.root}/tmp/cache/"
 end
