@@ -104,12 +104,19 @@ end
 
 
 
-Rails.logger = Logger.new("#{Rails.root}/log_#{Setting.ktv_sub}/#{Rails.env}.log", File::WRONLY | File::APPEND)
-ActiveSupport::LogSubscriber.logger = Rails.logger
-ActionController::Base.logger = Rails.logger
-ActionMailer::Base.logger = Rails.logger
-ActiveResource::Base.logger = Rails.logger
-Rails.application.assets.logger = Rails.logger
+def log_connect!(index=0)
+  Rails.logger = Logger.new("#{Rails.root}/log_#{Rails.env}/#{Rails.env}.#{worker.nr}.log", File::WRONLY | File::APPEND)
 
-Ktv.config.logger = Logger.new("#{Rails.root}/log_#{Setting.ktv_sub}/#{Rails.env}.ktv.log",File::WRONLY|File::APPEND)
-$debug_logger = Logger.new("#{Rails.root}/log_#{Setting.ktv_sub}/#{Rails.env}.debug.log", File::WRONLY | File::APPEND)
+  ActiveSupport::LogSubscriber.logger = Rails.logger
+  ActionController::Base.logger = Rails.logger
+  ActionMailer::Base.logger = Rails.logger
+  ActiveResource::Base.logger = Rails.logger
+  Rails.application.assets.logger = Rails.logger
+
+  Ktv.config.logger = Logger.new("#{Rails.root}/log_#{Rails.env}/#{Rails.env}.ktv.#{worker.nr}.log",File::WRONLY|File::APPEND)
+  $debug_logger = Logger.new("#{Rails.root}/log_#{Rails.env}/#{Rails.env}.debug.#{worker.nr}.log", File::WRONLY | File::APPEND)
+
+end
+
+log_connect! unless $im_running_under_unicorn
+
