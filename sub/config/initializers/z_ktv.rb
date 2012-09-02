@@ -44,7 +44,7 @@ end
 UCenter.define('UC_CLIENT_RELEASE', '20110501')
 UCenter.define('UC_APPID', '5');
 UCenter.define('UC_KEY', Setting.uc_key);
-unless Rails.env.development?
+unless Rails.env.sub_cnu_dev? or Rails.env.sub_ibeike_dev?
   UCenter.define('UC_API', 'http://uc.kejian.tv');
 else
   UCenter.define('UC_API', 'http://uc.kejian.lvh.me');
@@ -101,3 +101,15 @@ module Sprockets
   end
 end
 
+
+
+
+Rails.logger = Logger.new("#{Rails.root}/log_#{Setting.ktv_sub}/#{Rails.env}.log", File::WRONLY | File::APPEND)
+ActiveSupport::LogSubscriber.logger = Rails.logger
+ActionController::Base.logger = Rails.logger
+ActionMailer::Base.logger = Rails.logger
+ActiveResource::Base.logger = Rails.logger
+Rails.application.assets.logger = Rails.logger
+
+Ktv.config.logger = Logger.new("#{Rails.root}/log_#{Setting.ktv_sub}/#{Rails.env}.ktv.log",File::WRONLY|File::APPEND)
+$debug_logger = Logger.new("#{Rails.root}/log_#{Setting.ktv_sub}/#{Rails.env}.debug.log", File::WRONLY | File::APPEND)

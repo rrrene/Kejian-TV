@@ -1,186 +1,184 @@
 <div id="psvr_midder">
-    <div class="psvr_content" style="">
-        <div class="psvr_contentbox">
-                <div class="psvr_div_1">
-                  <div class="psvr_hd"><h3 class="psvr" >课程资源榜</h3><span class="psvr psvr_moreimg"><a class="psvr" href="<%=courses_path%>"><img class="psvr" src="<%= asset_path 'extand_images/more.gif' %>" alt="查看更多"></a></span></div>
-                    <div class="psvr_bd">
-                        <ul class="psvr psvr_meijulist"><!--meiju_new10-->
-                        
-                            <%@courses.each do |course|%>
-                              <%cc=Course.where(fid:course.fid).first%>
-                              <li class="psvr" ><span class="psvr psvr_newstime"><%=course.threads%>个课件</span>[<a class="psvr" href="/simple/forum.php?mod=forumdisplay&fid=<%=course.fid%>"><%=cc.department%></a>] <a class="psvr" href="/simple/forum.php?mod=forumdisplay&fid=<%=course.fid%>"><%=cc.name%></a></li>
-                            <%end%> 
-
-                        </ul>
-                    </div>
-                </div>
-                <div class="psvr_div_2">
-                    <div class="psvr_hd"><h3 class="psvr" >课件 TOP-10</h3></div>
-                    <div class="psvr_bd">
-                        <ul class="psvr psvr_seedlist"><!--seed_top10-->
-
-                        <%@coursewares.each do |cw|%>
-                          <li class="psvr psvr_top1"><span class="psvr psvr_newstime"><a class="psvr" href="/simple/home.php?mod=space&uid=<%=cw.authorid%>&do=profile"><%=cw.author%></a>上传</span>
-                  
-                          <a class="psvr" href="/simple/forum.php?mod=viewthread&tid=<%=cw.tid%>">
-                            <%=cw.subject%> (<%=cw.views%>点击)
-                         </a></li>
-                       <%end%>
-
-                        </ul>
-                    </div>
-                </div>
-        </div>
-        <div class="psvr_contentbox">
-            <table class="psvr psvr_seedtable" border="0" align="center" cellpadding="1" cellspacing="1" bgcolor="#cccccc" width="100%">
-              <tr bgcolor="#f1f1f1">
-                <td height="28" colspan="6" align="left"><h3 class="psvr" ><%=l Date.today, :format => :long%> 上传</h3></td>
-              </tr>
-<% if @coursewares1.count>0 %>
-              <tr bgcolor="#fafafa" align="center">
-                <td width="5%" align="center">序号</td>
-                <td align="left">名字</td>
-                <td width="9%">大小</td>
-                <td width="5%">格式</td>
-                <td width="8%">上传者</td>
-                <td width="6%">点击量</td>
-              </tr><!--seed_today-->
- 
-
-<!--seed_today-->
-<%@coursewares1.each_with_index do |cw,index|%> 
-    <%ins = Courseware.where(tid:cw.tid).first%>
-    <%cc=Course.where(fid:cw.fid).first%>
-    <%teacher=PreForumThreadclass.where(:typeid=>cw.typeid,:fid=>cw.fid).first%>
-
-   <tr bgcolor="#ffffff" align="center">
+   <div class="psvr_content" style="">
+      <div class="psvr_contentbox">
+         <div class="psvr_div_1">
+            <div class="psvr_hd">
+               <h3 class="psvr">课程资源榜</h3>
+               <span class="psvr psvr_moreimg"><a class="psvr" href="<%=courses_path%>"><img class="psvr" src="<%= asset_path 'extand_images/more.gif' %>" alt="查看更多"></a></span>
+            </div>
+            <div class="psvr_bd">
+               <ul class="psvr psvr_meijulist">
+                  <!--meiju_new10-->
+                  <%@courses.each do |course|%>
+                  <% dd=Course.get_department(course.fid)%>
+                  <% cc=Course.get_name(course.fid)%>
+                  <li class="psvr"><span class="psvr psvr_newstime"><%=course.threads%>个课件</span>[<a class="psvr" href="/simple/forum.php?mod=forumdisplay&amp;fid=<%=course.fid%>"><%=dd%></a>] <a class="psvr" href="/simple/forum.php?mod=forumdisplay&fid=<%=course.fid%>"><%=cc%></a></li>
+                  <%end%> 
+               </ul>
+            </div>
+         </div>
+         <div class="psvr_div_2">
+            <div class="psvr_hd">
+               <h3 class="psvr">课件 TOP-10</h3>
+            </div>
+            <div class="psvr_bd">
+               <ul class="psvr psvr_seedlist">
+                  <!--seed_top10-->
+                  <%@coursewares.each do |cw|%>
+                  <li class="psvr psvr_top1"><span class="psvr psvr_newstime"><a class="psvr" href="/simple/home.php?mod=space&amp;uid=<%=cw.authorid%>&amp;do=profile"><%=cw.author%></a>上传</span>
+                     <a class="psvr" href="/simple/forum.php?mod=viewthread&amp;tid=<%=cw.tid%>">
+                     <%=cw.subject%> (<%=cw.views%>点击)
+                     </a>
+                  </li>
+                  <%end%>
+               </ul>
+            </div>
+         </div>
+      </div>
+      <div class="psvr_contentbox">
+         <table class="psvr psvr_seedtable" border="0" align="center" cellpadding="1" cellspacing="1" bgcolor="#cccccc" width="100%">
+            <tr bgcolor="#f1f1f1">
+               <td height="28" colspan="6" align="left">
+                  <h3 class="psvr"><%=l Date.today, :format => :long%> 上传</h3>
+               </td>
+            </tr>
+            <% if @coursewares1.count>0 %>
+            <tr bgcolor="#fafafa" align="center">
+               <td width="5%" align="center">序号</td>
+               <td align="left">名字</td>
+               <td width="9%">大小</td>
+               <td width="5%">格式</td>
+               <td width="8%">上传者</td>
+               <td width="6%">点击量</td>
+            </tr>
+            <!--seed_today-->
+            <!--seed_today-->
+            <%@coursewares1.each_with_index do |cw,index|%> 
+            <%ins = Courseware.where(tid:cw.tid).first%>
+            <%cc=Course.get_name(cw.fid)%>
+            <%teacher=PreForumThreadclass.where(:typeid=>cw.typeid,:fid=>cw.fid).first%>
+            <tr bgcolor="#ffffff" align="center">
                <td><%=index+1%></td>
                <td align="left">
-                 <%if teacher%>
-                   [<%=link_to teacher.name,"/simple/forum.php?mod=forumdisplay&fid=#{cw.fid}&filter=typeid&typeid=#{cw.typeid}",class:'psvr'%>]
-                 <%end%>
-                 <a class="psvr" href="/simple/forum.php?mod=viewthread&tid=<%=cw.tid%>">
-                    <%=cc.name%><%=cw.subject%>
-                </a></td>
-                <td><%=number_to_human_size(ins.filesize*1000,:precision=>1) if ins%></td>
-                <td><%=ins.sort.upcase if ins%></td>
-                <td>  
-                  <a class="psvr" href="/simple/home.php?mod=space&uid=<%=cw.authorid%>&do=profile">
+                  <%if teacher%>
+                  [<%=link_to teacher.name,"/simple/forum.php?mod=forumdisplay&fid=#{cw.fid}&filter=typeid&typeid=#{cw.typeid}",class:'psvr'%>]
+                  <%end%>
+                  <a class="psvr" href="/simple/forum.php?mod=viewthread&amp;tid=<%=cw.tid%>">
+                  <%=cc%><%=cw.subject%>
+                  </a>
+               </td>
+               <td><%=number_to_human_size(ins.filesize*1000,:precision=>1) if ins%></td>
+               <td><%=ins.sort.upcase if ins%></td>
+               <td>  
+                  <a class="psvr" href="/simple/home.php?mod=space&amp;uid=<%=cw.authorid%>&amp;do=profile">
                   <%=cw.author%> 
                   </a>
-                </td>
-                <td><%=cw.views%></td> 
-           
-              </tr> 
- 
-<% end %>
-<% else %>
-   <tr bgcolor="#ffffff" align="center">
-     <td colspan="6" style="padding:22px 0">
-       今天还没有人上传课件，<a href="#">[点击这里]</a>上传一个吧!
-     </td>
-   </tr>
-<% end %>
-
-            </table>
-        </div>
-<% if @coursewares2.present? %>
-        <div class="psvr_contentbox">
-            <table class="psvr psvr_seedtable" border="0" align="center" cellpadding="1" cellspacing="1" bgcolor="#cccccc" width="100%">
-              <tr bgcolor="#f1f1f1">
-                <td height="28" colspan="6" align="left"><h3 class="psvr" ><%=l Time.at(@coursewares2.first.dateline).to_date, :format => :long%> 上传</h3></td>
-              </tr>
-              <tr bgcolor="#fafafa" align="center">
-                <td width="5%" align="center">序号</td>
-                <td align="left">名字</td>
-                <td width="9%">大小</td>
-                <td width="5%">格式</td>
-                <td width="8%">上传者</td>
-                <td width="6%">点击量</td>
-              </tr><!--seed_today-->
- 
-
-<!--seed_today-->
-
-<%@coursewares2.each_with_index do |cw,index|%> 
-    <%ins = Courseware.where(tid:cw.tid).first%>
-    <%cc=Course.where(fid:cw.fid).first%>
-    <%teacher=PreForumThreadclass.where(:typeid=>cw.typeid,:fid=>cw.fid).first%>
-
-   <tr bgcolor="#ffffff" align="center">
+               </td>
+               <td><%=cw.views%></td>
+            </tr>
+            <% end %>
+            <% else %>
+            <tr bgcolor="#ffffff" align="center">
+               <td colspan="6" style="padding:22px 0">
+                  今天还没有人上传课件，<a href="#">[点击这里]</a>上传一个吧!
+               </td>
+            </tr>
+            <% end %>
+         </table>
+      </div>
+    
+      <% if @coursewares2.present? %>
+      <div class="psvr_contentbox">
+         <table class="psvr psvr_seedtable" border="0" align="center" cellpadding="1" cellspacing="1" bgcolor="#cccccc" width="100%">
+            <tr bgcolor="#f1f1f1">
+               <td height="28" colspan="6" align="left">
+                  <h3 class="psvr"><%=l Time.at(@coursewares2.first.dateline).to_date, :format => :long%> 上传</h3>
+               </td>
+            </tr>
+            <tr bgcolor="#fafafa" align="center">
+               <td width="5%" align="center">序号</td>
+               <td align="left">名字</td>
+               <td width="9%">大小</td>
+               <td width="5%">格式</td>
+               <td width="8%">上传者</td>
+               <td width="6%">点击量</td>
+            </tr>
+            <!--seed_today-->
+            <!--seed_today-->
+            <%@coursewares2.each_with_index do |cw,index|%> 
+     
+            <%ins = Courseware.where(tid:cw.tid).first%>
+            <%cc = Course.get_name(cw.fid)%>
+            <%teacher=PreForumThreadclass.where(:typeid=>cw.typeid,:fid=>cw.fid).first%>
+            <tr bgcolor="#ffffff" align="center">
                <td><%=index+1%></td>
                <td align="left">
-                 <%if teacher%>
-                   [<%=link_to teacher.name,"/simple/forum.php?mod=forumdisplay&fid=#{cw.fid}&filter=typeid&typeid=#{cw.typeid}",class:'psvr'%>]
-                 <%end%>
-                 <a class="psvr" href="/simple/forum.php?mod=viewthread&tid=<%=cw.tid%>">
-                    <%=cc.name%><%=cw.subject%>
-                </a></td>
-                <td><%=number_to_human_size(ins.filesize*1000,:precision=>1) if ins%></td>
-                <td><%=ins.sort.upcase if ins%></td>
-                <td>  
-                  <a class="psvr" href="/simple/home.php?mod=space&uid=<%=cw.authorid%>&do=profile">
+                  <%if teacher%>
+                  [<%=link_to teacher.name,"/simple/forum.php?mod=forumdisplay&fid=#{cw.fid}&filter=typeid&typeid=#{cw.typeid}",class:'psvr'%>]
+                  <%end%>
+                  <a class="psvr" href="/simple/forum.php?mod=viewthread&amp;tid=<%=cw.tid%>">
+                  <%=cc %><%=cw.subject%>
+                  </a>
+               </td>
+               <td><%=number_to_human_size(ins.filesize*1000,:precision=>1) if ins%></td>
+               <td><%=ins.sort.upcase if ins%></td>
+               <td>  
+                  <a class="psvr" href="/simple/home.php?mod=space&amp;uid=<%=cw.authorid%>&amp;do=profile">
                   <%=cw.author%> 
                   </a>
-                </td>
-                <td><%=cw.views%></td> 
-           
-              </tr> 
- 
-<% end %>
-
-            </table>
-        </div>
-<% end %>
-
-<% if @coursewares3.present? %>
-        <div class="psvr_contentbox">
-            <table class="psvr psvr_seedtable" border="0" align="center" cellpadding="1" cellspacing="1" bgcolor="#cccccc" width="100%">
-              <tr bgcolor="#f1f1f1">
-                <td height="28" colspan="6" align="left"><h3 class="psvr" ><%=l Time.at(@coursewares3.first.dateline).to_date, :format => :long%> 上传</h3></td>
-              </tr>
-              <tr bgcolor="#fafafa" align="center">
-                <td width="5%" align="center">序号</td>
-                <td align="left">名字</td>
-                <td width="9%">大小</td>
-                <td width="5%">格式</td>
-                <td width="8%">上传者</td>
-                <td width="6%">点击量</td>
-              </tr><!--seed_today-->
- 
-
-<!--seed_today-->
-
-<%@coursewares3.each_with_index do |cw,index|%> 
-    <%ins = Courseware.where(tid:cw.tid).first%>
-    <%cc=Course.where(fid:cw.fid).first%>
-    <%teacher=PreForumThreadclass.where(:typeid=>cw.typeid,:fid=>cw.fid).first%>
-
-   <tr bgcolor="#ffffff" align="center">
+               </td>
+               <td><%=cw.views%></td>
+            </tr>
+            <% end %>
+         </table>
+      </div>
+      <% end %>
+      
+      
+      <% if @coursewares3.present? %>
+      <div class="psvr_contentbox">
+         <table class="psvr psvr_seedtable" border="0" align="center" cellpadding="1" cellspacing="1" bgcolor="#cccccc" width="100%">
+            <tr bgcolor="#f1f1f1">
+               <td height="28" colspan="6" align="left">
+                  <h3 class="psvr"><%=l Time.at(@coursewares3.first.dateline).to_date, :format => :long%> 上传</h3>
+               </td>
+            </tr>
+            <tr bgcolor="#fafafa" align="center">
+               <td width="5%" align="center">序号</td>
+               <td align="left">名字</td>
+               <td width="9%">大小</td>
+               <td width="5%">格式</td>
+               <td width="8%">上传者</td>
+               <td width="6%">点击量</td>
+            </tr>
+            <!--seed_today-->
+            <!--seed_today-->
+            <%@coursewares3.each_with_index do |cw,index|%> 
+            <%ins = Courseware.where(tid:cw.tid).first%>
+            <%cc=Course.get_name(cw.fid)%>
+            <%teacher=PreForumThreadclass.where(:typeid=>cw.typeid,:fid=>cw.fid).first%>
+            <tr bgcolor="#ffffff" align="center">
                <td><%=index+1%></td>
                <td align="left">
-                 <%if teacher%>
-                   [<%=link_to teacher.name,"/simple/forum.php?mod=forumdisplay&fid=#{cw.fid}&filter=typeid&typeid=#{cw.typeid}",class:'psvr'%>]
-                 <%end%>
-                 <a class="psvr" href="/simple/forum.php?mod=viewthread&tid=<%=cw.tid%>">
-                    <%=cc.name%><%=cw.subject%>
-                </a></td>
-                <td><%=number_to_human_size(ins.filesize*1000,:precision=>1) if ins%></td>
-                <td><%=ins.sort.upcase if ins%></td>
-                <td>  
-                  <a class="psvr" href="/simple/home.php?mod=space&uid=<%=cw.authorid%>&do=profile">
+                  <%if teacher%>
+                  [<%=link_to teacher.name,"/simple/forum.php?mod=forumdisplay&fid=#{cw.fid}&filter=typeid&typeid=#{cw.typeid}",class:'psvr'%>]
+                  <%end%>
+                  <a class="psvr" href="/simple/forum.php?mod=viewthread&amp;tid=<%=cw.tid%>">
+                  <%=cc%><%=cw.subject%>
+                  </a>
+               </td>
+               <td><%=number_to_human_size(ins.filesize*1000,:precision=>1) if ins%></td>
+               <td><%=ins.sort.upcase if ins%></td>
+               <td>  
+                  <a class="psvr" href="/simple/home.php?mod=space&amp;uid=<%=cw.authorid%>&amp;do=profile">
                   <%=cw.author%> 
                   </a>
-                </td>
-                <td><%=cw.views%></td> 
-           
-              </tr> 
- 
-<% end %>
-
-            </table>
-        </div>
-<% end %>
-
-    </div>
-</div>  
+               </td>
+               <td><%=cw.views%></td>
+            </tr>
+            <% end %>
+         </table>
+      </div>
+      <% end %>
+   </div>
+</div>
