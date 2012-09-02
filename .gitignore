@@ -10,7 +10,9 @@ log/
 /win/ConvertWord2PDF/ConvertWord2PDF/obj/
 _assets/
 _assets_old/
+_assets_uploading/
 quora.out
+
 
 git_sensitive*
 **.orig
