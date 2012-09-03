@@ -37,7 +37,7 @@
 </script>
 <script src="/simple/static/js/common.js" type="text/javascript"></script>
 <script src="/simple/static/js/forum.js" type="text/javascript"></script>
-<script src="/simple/psvr/modernizr.js" type="text/javascript" type="text/javascript"></script>
+<%= javascript_include_tag "modernizr.js" %>
 <%= stylesheet_link_tag "application", :media => "all" %>
 <%= csrf_meta_tags %>
 </head>
@@ -45,8 +45,7 @@
   <div id="append_parent"></div><div id="ajaxwaitid"></div>
   <div id="hd">
     <div class="wp" style="padding:0">
-      <div class="hdc cl psvr_wtf_<%= user_signed_in? ? 'logout' : 'login' %>div" style="position:absolute;top:25px">
-
+      <div class="hdc cl psvr_wtf_logdiv">
         <% if !user_signed_in? %>
         <script src="/simple/static/js/logging.js?tFF" type="text/javascript"></script>
         <form method="post" autocomplete="off" id="lsform" action="/simple/member.php?mod=logging&amp;action=login&amp;loginsubmit=yes&amp;infloat=yes&amp;lssubmit=yes" onsubmit="return lsSubmit(null,'/simple/');">
