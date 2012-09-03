@@ -65,15 +65,6 @@ class ApplicationController < ActionController::Base
     sign_out
   end
   
-  before_filter :get_onlinelist
-  def get_onlinelist
-    @session_all = PreCommonSession.all
-    @session_count = @session_all.count
-    @onlinelist =  @session_all.map {|u| if(!u.username.blank?) u.username end}.to_a
-    @onlinelist_count = @onlinelist.count
-    @guest_count = @session_count - @onlinelist_count
-  end
-  
   before_filter :get_extcredits
   def get_extcredits
     if !current_user.nil?
