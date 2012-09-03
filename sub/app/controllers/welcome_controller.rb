@@ -2,7 +2,21 @@
 class WelcomeController < ApplicationController
   def index
     @seo[:title] = '首页'
+
+
     @stat = PreCommonStat.order
+    ###session
+    @session_all = PreCommonSession.all
+    @session_count = @session_all.count
+    @onlinelistx=  @session_all.map {|u| u.username}
+    @onlinetime  =  @session_all.map {|u| u.lastactivity}
+
+    @onlinelist =  @onlinelistx.compact
+    @onlinelist_count = @onlinelist.count
+    @guest_count = @session_count - @onlinelist_count
+    
+    
+    
     @courses = PreForumForum.order('threads desc').limit(10)
     @coursewares = PreForumThread.order('views desc').limit(10)
     @coursewares1 = PreForumThread.where('dateline>=?',Date.today.at_beginning_of_day.to_i).order('views desc')
