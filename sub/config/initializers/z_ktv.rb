@@ -105,7 +105,7 @@ end
 
 
 def log_connect!(index=0)
-  Rails.logger = Logger.new("#{Rails.root}/log_#{Rails.env}/#{Rails.env}.#{worker.nr}.log", File::WRONLY | File::APPEND)
+  Rails.logger = Logger.new("#{Rails.root}/log_#{Rails.env}/#{Rails.env}.#{index}.log", File::WRONLY | File::APPEND)
 
   ActiveSupport::LogSubscriber.logger = Rails.logger
   ActionController::Base.logger = Rails.logger
@@ -113,8 +113,8 @@ def log_connect!(index=0)
   ActiveResource::Base.logger = Rails.logger
   Rails.application.assets.logger = Rails.logger
 
-  Ktv.config.logger = Logger.new("#{Rails.root}/log_#{Rails.env}/#{Rails.env}.ktv.#{worker.nr}.log",File::WRONLY|File::APPEND)
-  $debug_logger = Logger.new("#{Rails.root}/log_#{Rails.env}/#{Rails.env}.debug.#{worker.nr}.log", File::WRONLY | File::APPEND)
+  Ktv.config.logger = Logger.new("#{Rails.root}/log_#{Rails.env}/#{Rails.env}.ktv.#{index}.log",File::WRONLY|File::APPEND)
+  $debug_logger = Logger.new("#{Rails.root}/log_#{Rails.env}/#{Rails.env}.debug.#{index}.log", File::WRONLY | File::APPEND)
 
 end
 

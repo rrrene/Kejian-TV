@@ -1,10 +1,10 @@
 worker_processes 1
 working_directory Dir.pwd
-listen "/web/ktv_#{Rails.env}.sock", :backlog => 64
+listen "/web/ktv_#{ENV['RAILS_ENV']}.sock", :backlog => 64
 timeout 30
-pid "#{Dir.pwd}/tmp/pids/unicorn_#{Rails.env}.pid"
-stderr_path "#{Dir.pwd}/log/unicorn_#{Rails.env}.err.log"
-stdout_path "#{Dir.pwd}/log/unicorn_#{Rails.env}.log"
+pid "#{Dir.pwd}/tmp_#{ENV['RAILS_ENV']}/pids/unicorn_#{ENV['RAILS_ENV']}.pid"
+stderr_path "#{Dir.pwd}/log_#{ENV['RAILS_ENV']}/unicorn_#{ENV['RAILS_ENV']}.err.log"
+stdout_path "#{Dir.pwd}/log_#{ENV['RAILS_ENV']}/unicorn_#{ENV['RAILS_ENV']}.log"
 preload_app true
 GC.respond_to?(:copy_on_write_friendly=) and
   GC.copy_on_write_friendly = true
