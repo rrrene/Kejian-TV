@@ -5,6 +5,38 @@ class ApplicationController < ActionController::Base
     #text = cookies.to_a
     #render text:text and return
   }
+  unless Rails.env.development?
+    rescue_from Exception, with: :render_500
+    rescue_from AbstractController::ActionNotFound, with: :render_404
+    rescue_from ActionController::RoutingError, with: :render_404
+    rescue_from ActionController::UnknownController, with: :render_404
+    rescue_from ActionController::UnknownAction, with: :render_404
+  end
+  def render_401(exception=nil)
+    redirect_to root_path,:alert => '对不起，权限不足！'
+  end
+  def render_404(exception=nil)
+    @not_found_path = exception ? exception.message : ''
+    respond_to do |format|
+      format.html { render file: "#{Rails.root}/simple/404.html", layout: false, status: 404 }
+      format.all { render nothing: true, status: 404 }
+    end
+  end
+  def render_500(exception=nil)
+    @not_found_path = exception ? exception.message : ''
+    if e = exception
+      str = "#{Time.now.getlocal}\n"
+      str += "#{request.request_method} #{request.path} #{request.ip}\n"
+      str += "#{request.user_agent}\n"
+      str += e.message+"\n"+e.backtrace.join("\n")
+      str += "\n---------------------------------------------\n"
+      $debug_logger.fatal(str)
+    end
+    respond_to do |format|
+      format.html { render file: "#{Rails.root}/simple/500.html", layout: false, status: 500 }
+      format.all { render nothing: true, status: 500 }
+    end
+  end
   before_filter :set_vars
   before_filter :xookie,:unless=>'devise_controller?'
   
@@ -32,7 +64,15 @@ class ApplicationController < ActionController::Base
     end
     sign_out
   end
-
+  
+  before_filter :get_onlinelist
+  def get_onlinelist
+    @session_all = PreCommonSession.all
+    @session_count = @session_all.count
+    @onlinelist =  @session_all.map {|u| if(!u.username.blank?) u.username end}.to_a
+    @onlinelist_count = @onlinelist.count
+    @guest_count = @session_count - @onlinelist_count
+  end
   
   before_filter :get_extcredits
   def get_extcredits
