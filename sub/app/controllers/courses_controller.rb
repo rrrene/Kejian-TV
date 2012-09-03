@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class CoursesController < ApplicationController
   def index
     @seo[:title]="本学期课程"

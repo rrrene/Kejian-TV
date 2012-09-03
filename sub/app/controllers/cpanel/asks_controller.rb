@@ -1,4 +1,4 @@
-# coding: UTF-8
+# -*- encoding : utf-8 -*-
 class Cpanel::AsksController < CpanelController
   before_filter :require_ask_admin
   def toggle

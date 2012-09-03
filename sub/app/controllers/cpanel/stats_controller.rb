@@ -1,4 +1,4 @@
-# coding: utf-8
+# -*- encoding : utf-8 -*-
 class Cpanel::StatsController < CpanelController
   before_filter :require_stat_admin,:only=>["index","uv"]
   before_filter :require_hot_ask_admin,:only=>["hot_asks","edit_hot_asks","refresh_asks"]

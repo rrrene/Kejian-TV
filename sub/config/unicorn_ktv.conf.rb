@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 worker_processes 1
 working_directory Dir.pwd
 listen "/web/ktv_#{ENV['RAILS_ENV']}.sock", :backlog => 64

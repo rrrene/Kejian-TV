@@ -1,4 +1,4 @@
-# coding: utf-8
+# -*- encoding : utf-8 -*-
 class AnswersController < ApplicationController
   before_filter :require_user_text,:except=>[:show]
     layout 'for_help'

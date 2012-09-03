@@ -1,4 +1,4 @@
-# coding: utf-8
+# -*- encoding : utf-8 -*-
 class UcenterController < ApplicationController
   skip_before_filter :verify_authenticity_token
   API_RETURN_SUCCEED = '1'

@@ -1,4 +1,4 @@
-# coding: UTF-8
+# -*- encoding : utf-8 -*-
 class Cpanel::NoticesController < CpanelController
   before_filter :require_notice_admin
   def index

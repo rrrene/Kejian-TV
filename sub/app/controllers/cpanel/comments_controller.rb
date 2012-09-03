@@ -1,4 +1,4 @@
-# coding: UTF-8
+# -*- encoding : utf-8 -*-
 class Cpanel::CommentsController < CpanelController
   before_filter :require_comment_admin
   def verify

@@ -1,4 +1,4 @@
-# coding: utf-8
+# -*- encoding : utf-8 -*-
 class HomeController < ApplicationController
   before_filter :require_user_text, :only => [:update_in_place,:mute_suggest_item]
   before_filter :authenticate_user!, :except => [:newbie,:about,:index,:general_show,:agreement,:mobile]

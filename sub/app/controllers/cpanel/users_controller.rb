@@ -1,4 +1,4 @@
-# coding: UTF-8
+# -*- encoding : utf-8 -*-
 class Cpanel::UsersController < CpanelController
   before_filter :require_user_admin,:only=>["index","show","new","create","edit","update","edit_admin","update_admin","destroy"]
   before_filter :require_user_admin_ad,:only=>["edit_admin","update_admin"]

@@ -1,4 +1,4 @@
-# coding: UTF-8
+# -*- encoding : utf-8 -*-
 class Cpanel::AutofollowController < CpanelController
   before_filter :require_clear_admin,:only=>["index","index_pos","index_del"]
   before_filter :require_verify_admin,:only=>["verify","deal_verify","edit_verify"]

@@ -1,4 +1,4 @@
-# coding: UTF-8
+# -*- encoding : utf-8 -*-
 class AsksController < ApplicationController
   before_filter :authenticate_user!, :only => [:answer,:create]
   before_filter :require_user_js, :only => [:answer,:invite_to_answer]

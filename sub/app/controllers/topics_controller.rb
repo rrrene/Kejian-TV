@@ -1,4 +1,4 @@
-# coding: utf-8
+# -*- encoding : utf-8 -*-
 class TopicsController < ApplicationController
   before_filter :we_are_inside_lingyu
   def we_are_inside_lingyu
