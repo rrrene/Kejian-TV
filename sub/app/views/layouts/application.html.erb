@@ -29,7 +29,7 @@
       showusercard = '1',
       attackevasive = '0',
       disallowfloat = 'newthread',
-      creditnotice = '1|威望|,2|金钱|,3|贡献|',
+      creditnotice = '<%=@extcredit_name_list%>',
       defaultstyle = '',
       REPORTURL = <%=raw Base64.encode64(request.url).gsub("\n",'').to_json%>,
       SITEURL = 'http://<%= Setting.ktv_subdomain %>/',
@@ -90,15 +90,33 @@
             <a id="loginstatusid" href="/simple/member.php?mod=switchstatus" title="切换在线状态" onclick="ajaxget(this.href, 'loginstatus');return false;" class="xi2"></a>
           </span>
           <span class="pipe">|</span><a href="/simple/home.php?mod=spacecp">设置</a>
-          <span class="pipe">|</span><a href="/simple/home.php?mod=space&do=pm" id="pm_ntc">消息</a>
-          <span class="pipe">|</span><a href="/simple/home.php?mod=space&do=notice" id="myprompt">提醒</a><span id="myprompt_check"></span>
+          <span class="pipe">|</span>
+          <% if @cur_newpm == 0 %>
+            <a href="/simple/home.php?mod=space&do=pm" id="pm_ntc">消息</a>
+          <% else %>
+            <a href="/simple/home.php?mod=space&amp;do=pm" id="pm_ntc" class="new">消息</a>
+          <% end %>
+          <span class="pipe">|</span>
+          <% if @cur_newprompt == 0 %>
+            <a href="/simple/home.php?mod=space&do=notice" id="myprompt">提醒</a>
+          <% else %>
+            <a href="/simple/home.php?mod=space&amp;do=notice" id="myprompt" class="new">提醒(<%= @cur_newprompt %>)</a>
+          <% end %>
+          <span id="myprompt_check"></span>
+          <% if ((@cur_allowpostarticle.nil? ? false : @cur_allowpostarticle.allowpostarticle) || (@cur_allowmanagearticle.nil? ? false : @cur_allowmanagearticle.allowmanage) || (@cur_allowdiy.nil? ? false : true) || (@cur_allowadmincp)) %>
           <span class="pipe">|</span><a href="/simple/portal.php?mod=portalcp">模块管理</a>
-          <span class="pipe">|</span><a href="/simple/admin.php" target="_blank">管理中心</a>
+          <% end %>
+          <% if @cur_radminid > 1 %>
+            <span class="pipe">|</span><a href="/simple/forum.php?mod=modcp&fid=<%= @fid.nil? ? '&' : @fid.fid%>" target="_blank">版块管理</a>
+          <% end %>
+          <% if @cur_allowadmincp%>
+            <span class="pipe">|</span><a href="/simple/admin.php" target="_blank">管理中心</a>          
+          <% end %>
           <span class="pipe">|</span><a href="/simple/member.php?mod=logging&action=logout&formhash=712fc880">退出</a>
           </p>
           <p>
-          <a href="/simple/home.php?mod=spacecp&ac=credit&showcredit=1" id="extcreditmenu" onmouseover="delayShow(this, showCreditmenu);" class="showmenu">积分: 326</a>
-          <span class="pipe">|</span>用户组: <a href="/simple/home.php?mod=spacecp&ac=usergroup" id="g_upmine" class="xi2" onmouseover="delayShow(this, showUpgradeinfo)">管理员</a>
+          <a href="/simple/home.php?mod=spacecp&ac=credit&showcredit=1" id="extcreditmenu" onmouseover="delayShow(this, showCreditmenu);" class="showmenu">积分: <%= @cur_credits %></a>
+          <span class="pipe">|</span>用户组: <a href="/simple/home.php?mod=spacecp&ac=usergroup" id="g_upmine" class="xi2" onmouseover="delayShow(this, showUpgradeinfo)"><%= @cur_grouptitle %></a>
           </p>
         </div>
       <%end%>
