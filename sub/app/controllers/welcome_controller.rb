@@ -2,9 +2,14 @@
 class WelcomeController < ApplicationController
   def index
     @seo[:title] = '首页'
+    @stat = PreCommonStat.order
     @courses = PreForumForum.nondeleted.order('threads desc').limit(10)
     @coursewares = PreForumThread.nondeleted.order('views desc').limit(10)
     @coursewares1 = PreForumThread.nondeleted.where('dateline>=?',Date.today.at_beginning_of_day.to_i).order('views desc')
+    @cwyesterday = PreForumThread.where('dateline>=? and dateline <?',Date.yesterday.at_beginning_of_day.to_i,Date.today.at_beginning_of_day.to_i).count
+    @cw = PreForumThread.count
+    @users = PreCommonMember.count
+    @newuser =  PreCommonMember.order('regdate').last
     if @coursewares1.count > 0
       @coursewares2 = PreForumThread.nondeleted.where('dateline<?',@coursewares1[-1].dateline).order('dateline desc').first
     else

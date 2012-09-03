@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   }
   before_filter :set_vars
   before_filter :xookie,:unless=>'devise_controller?'
-
+  
   def set_vars
     @seo = Hash.new('')
     agent = request.env['HTTP_USER_AGENT'].downcase
@@ -32,7 +32,68 @@ class ApplicationController < ActionController::Base
     end
     sign_out
   end
-
+  
+  before_filter :get_onlinelist
+  def get_onlinelist
+    @session_all = PreCommonSession.all
+    @session_count = @session_all.count
+    @onlinelist =  @session_all.map {|u| if(!u.username.blank?) u.username end}.to_a
+    @onlinelist_count = @onlinelist.count
+    @guest_count = @session_count - @onlinelist_count
+    
+  end
+  
+  before_filter :get_extcredits
+  def get_extcredits
+    if !current_user.nil?
+      @c_setting  = PreCommonSetting.where(:skey => 'extcredits').first.svalue
+      php = PHP.unserialize(@c_setting)
+      @extcredit_name = []
+      @extcredit_name_list = ''
+      php.values.each do |p|
+        obj = p['title']
+        if !obj.blank?
+          @extcredit_name << obj
+        end
+      end
+      @extcredit_name.each_with_index do |ext,index|#1|威望|,2|金钱|,3|贡献|
+        @extcredit_name_list += (index+1).to_s + '|' + ext + '|,'
+      end
+      @extcredit_name_list = @extcredit_name_list.chop  
+    end
+  end
+   
+  before_filter :check_privilige
+  def check_privilige
+    if !current_user.nil?
+      @cur_user = PreCommonMember.where(:uid => current_user.uid).first
+      @cur_groupid = @cur_user.groupid
+      @cur_adminid = @cur_user.adminid
+      @cur_newprompt = @cur_user.newprompt
+      @cur_allowadmincp = @cur_user.allowadmincp 
+      @cur_credits = @cur_user.credits
+      @cur_newpm = @cur_user.newpm
+      @cur_group = PreCommonUsergroup.where(:groupid => @cur_groupid).first
+      @cur_radminid = @cur_group.radminid
+      @cur_grouptitle = @cur_group.grouptitle
+      
+      if @cur_radminid > 1
+        @fid = PreForumModerator.where(:uid => current_user.uid).first
+      end
+      #@cur_allowmanage need judge nil?
+      @cur_allowmanage = PreCommonBlockPermission.where(:uid => current_user.uid).first 
+      if !@cur_adminid.nil?
+        @cur_admingroup = PreCommonAdmingroup.where(:admingid => @cur_adminid).first
+        if !@cur_admingroup.nil?
+          @cur_allowdiy = @cur_admingroup.allowdiy
+          @cur_allowmanagearticle = @cur_admingroup.allowmanagearticle
+      end
+      end
+      if !@cur_groupid.nil?
+        @cur_allowpostarticle = PreCommonUsergroupField.where(:groupid => @cur_groupid).first
+      end
+    end
+  end
   #==
   def suggest
     if current_user and !(current_user.followed_topic_ids.blank? and current_user.following_ids.blank?)
