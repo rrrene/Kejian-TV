@@ -53,10 +53,12 @@
             </tr>
             <!--seed_today-->
             <!--seed_today-->
+            <%inss = Ktv::Utils.find_in_batch(Courseware,:tid,@coursewares1.collect(&:tid))%>
+            <%teachers = Ktv::Utils.find_in_batch(PreForumThreadclass,:typeid,@coursewares1.collect(&:typeid))%>
             <%@coursewares1.each_with_index do |cw,index|%> 
-            <%ins = Courseware.where(tid:cw.tid).first%>
+            <%ins = inss[cw.tid]%>
             <%cc=Course.get_name(cw.fid)%>
-            <%teacher=PreForumThreadclass.where(:typeid=>cw.typeid,:fid=>cw.fid).first%>
+            <%teacher=teachers[cw.typeid]%>
             <tr bgcolor="#ffffff" align="center">
                <td><%=index+1%></td>
                <td align="left">
@@ -105,11 +107,12 @@
             </tr>
             <!--seed_today-->
             <!--seed_today-->
+            <%inss = Ktv::Utils.find_in_batch(Courseware,:tid,@coursewares2.collect(&:tid))%>
+            <%teachers = Ktv::Utils.find_in_batch(PreForumThreadclass,:typeid,@coursewares2.collect(&:typeid))%>
             <%@coursewares2.each_with_index do |cw,index|%> 
-     
-            <%ins = Courseware.where(tid:cw.tid).first%>
+            <%ins = inss[cw.tid]%>
             <%cc = Course.get_name(cw.fid)%>
-            <%teacher=PreForumThreadclass.where(:typeid=>cw.typeid,:fid=>cw.fid).first%>
+            <%teacher = teachers[cw.typeid]%>
             <tr bgcolor="#ffffff" align="center">
                <td><%=index+1%></td>
                <td align="left">
@@ -153,10 +156,12 @@
             </tr>
             <!--seed_today-->
             <!--seed_today-->
+            <%inss = Ktv::Utils.find_in_batch(Courseware,:tid,@coursewares3.collect(&:tid))%>
+            <%teachers = Ktv::Utils.find_in_batch(PreForumThreadclass,:typeid,@coursewares3.collect(&:typeid))%>
             <%@coursewares3.each_with_index do |cw,index|%> 
-            <%ins = Courseware.where(tid:cw.tid).first%>
+            <%ins = inss[cw.tid]%>
             <%cc=Course.get_name(cw.fid)%>
-            <%teacher=PreForumThreadclass.where(:typeid=>cw.typeid,:fid=>cw.fid).first%>
+            <%teacher=teachers[cw.typeid]%>
             <tr bgcolor="#ffffff" align="center">
                <td><%=index+1%></td>
                <td align="left">
