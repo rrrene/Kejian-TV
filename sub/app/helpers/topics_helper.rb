@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module TopicsHelper
   def cover_url(user,size=:normal)
     s=AvatarUploader::SIZES[size]

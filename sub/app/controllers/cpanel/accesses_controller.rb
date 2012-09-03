@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Cpanel::AccessesController < CpanelController
   layout 'cpanel_oauth'
   before_filter :find_accesses

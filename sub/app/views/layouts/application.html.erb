@@ -37,7 +37,7 @@
 </script>
 <script src="/simple/static/js/common.js" type="text/javascript"></script>
 <script src="/simple/static/js/forum.js" type="text/javascript"></script>
-<script src="/simple/psvr/modernizr.js" type="text/javascript" type="text/javascript"></script>
+<%= javascript_include_tag "modernizr.js" %>
 <%= stylesheet_link_tag "application", :media => "all" %>
 <%= csrf_meta_tags %>
 </head>
@@ -45,8 +45,7 @@
   <div id="append_parent"></div><div id="ajaxwaitid"></div>
   <div id="hd">
     <div class="wp" style="padding:0">
-      <div class="hdc cl psvr_wtf_<%= user_signed_in? ? 'logout' : 'login' %>div" style="position:absolute;top:25px">
-
+      <div class="hdc cl psvr_wtf_logdiv">
         <% if !user_signed_in? %>
         <script src="/simple/static/js/logging.js?tFF" type="text/javascript"></script>
         <form method="post" autocomplete="off" id="lsform" action="/simple/member.php?mod=logging&amp;action=login&amp;loginsubmit=yes&amp;infloat=yes&amp;lssubmit=yes" onsubmit="return lsSubmit(null,'/simple/');">
@@ -122,7 +121,7 @@
       <%end%>
       </div>
       <div class="cl" id="mu"></div>
-      <div class="cl psvr_wtf_scbar" id="scbar" style="width:<%= @is_ie6 ? '951' : '936' %>px;<%= @is_ie6 ? 'margin-left:5px' : '' %>">
+      <div class="cl psvr_wtf_scbar" id="scbar" style="<%= @is_ie6 ? 'margin-left:5px;width:951px' : '' %>">
         <form target="_blank" action="/simple/search.php?searchsubmit=yes" onsubmit="searchFocus(jQuery('scbar_txt'))" autocomplete="off" method="post" id="scbar_form">
           <input type="hidden" value="forum" id="scbar_mod" name="mod">
           <input type="hidden" value="8b815768" name="formhash">
@@ -243,8 +242,12 @@
   <p class="psvr psvr_good_link">
   <span class="psvr"  style="float:left">
 <a class="psvr" href="/"><%= Setting.ktv_subname %>课件交流系统</a> | 
-<a class="psvr" href="www.ttmeiju.com/?action-site-type-map">设为首页</a> | 
-<a class="psvr" href="www.ttmeiju.com/?action-site-type-link">加入收藏</a></span>
+<a onclick="setHomepage('http://<%=Setting.ktv_sub%>.kejian.tv/');" href="javascript:;" class="psvr">设为首页</a> |
+        <a onclick="addFavorite(this.href, '<%= Setting.ktv_subname %>课件交流系统');return false;" href="http://<%=Setting.ktv_sub%>.kejian.tv/" class="psvr">收藏本站</a> |
+        <a href="/simple/misc.php?mod=stat">站点统计</a> |
+        <a onclick="showWindow('miscreport', 'simple/misc.php?mod=report&amp;url='+REPORTURL);return false;" href="javascript:;">举报</a> |
+        <a href="/simple/archiver/">简明版</a>
+    </span>
 <span class="psvr"  style="float:right;margin-right:20px"><a class="psvr" href="#">背景图为<%= Setting.fotos[@bg_index] %>.</a></span>
 </p>
 </div>

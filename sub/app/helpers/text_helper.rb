@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module TextHelper
 
   def truncate_html(text, max_length, ellipsis = "...")

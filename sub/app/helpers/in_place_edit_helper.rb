@@ -1,4 +1,4 @@
-# coding: utf-8
+# -*- encoding : utf-8 -*-
 # Hacking for on_the_spot helper
 module InPlaceEditHelper
   def in_place_edit_tag(object, field, options={})

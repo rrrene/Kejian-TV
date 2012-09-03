@@ -1,4 +1,4 @@
-# coding: utf-8
+# -*- encoding : utf-8 -*-
 class LogsController < ApplicationController
     layout 'for_help'
 

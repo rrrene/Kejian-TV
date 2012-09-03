@@ -1,4 +1,4 @@
-# coding: utf-8
+# -*- encoding : utf-8 -*-
 module AsksHelper
   def topics_name_tag(topics,limit = 20)
     html = []

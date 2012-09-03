@@ -1,4 +1,4 @@
-# coding: utf-8
+# -*- encoding : utf-8 -*-
 module UsersHelper
   def renzheng_teacher(user)
     if user.is_expert

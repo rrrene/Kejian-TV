@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Cpanel::ScopesController < CpanelController
   layout 'cpanel_oauth' 
   before_filter :admin?

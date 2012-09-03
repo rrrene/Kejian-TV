@@ -1,4 +1,4 @@
-# coding: UTF-8
+# -*- encoding : utf-8 -*-
 class CommentsController < ApplicationController
   before_filter :require_user_js, :only => [:create]
 

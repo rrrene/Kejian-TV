@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module CoursewaresHelper
   def thank_courseware_ed?(courseware)
     return false if current_user.blank?

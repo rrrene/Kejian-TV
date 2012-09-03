@@ -1,4 +1,4 @@
-# coding: UTF-8
+# -*- encoding : utf-8 -*-
 class Cpanel::AnswersController < CpanelController
   before_filter :require_answer_admin
   def verify

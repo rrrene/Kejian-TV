@@ -34,7 +34,7 @@ Sub::Application.configure do
   config.mongoid.preload_models = true
   # assets___________
   config.assets.compress = false
-  config.assets.debug = true
+  config.assets.debug = false
   config.assets.prefix = '/assets'
   # assets-----------
 

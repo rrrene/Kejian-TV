@@ -1,4 +1,4 @@
-# coding: UTF-8
+# -*- encoding : utf-8 -*-
 class Cpanel::ReportSpamsController < CpanelController
   before_filter :require_report_admin
   def index
