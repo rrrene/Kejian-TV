@@ -13,7 +13,9 @@
 <meta name="copyright" content="<%= Time.now.year %> Kejian.TV Ltd." />
 <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
 <meta http-equiv="imagetoolbar" content="no" />
+<%= stylesheet_link_tag "pre_application", :media => "all" %>
 <link rel="stylesheet" type="text/css" href="/simple/data_<%=Setting.ktv_sub%>/cache/style_1_common.css" />
+<link rel="stylesheet" type="text/css" href="/simple/data_<%=Setting.ktv_sub%>/cache/style_1_forum_index.css" />
 <script type="text/javascript">
   var STYLEID = '1',
       STATICURL = '/simple/static/',
@@ -207,7 +209,16 @@
   <% end %>
 <% end %>
 
-<%= yield %>
+<div id="wp" class="wp">
+  <div class="bm cl" id="pt">
+    <div class="z">
+      <a title="<%=Setting.ktv_subname%>课件交流系统" class="nvhm" href="./"><%=Setting.ktv_subname%>课件交流系统</a><em>»</em><a href="<%=request.fullpath%>"><%=@seo[:title]%></a></div>
+    <div class="z"></div>
+  </div>
+  <div id="ct" class="wp cl">
+    <%= yield %>
+  </div>
+</div>
 
 <div id="psvr_footer">
 <div id="psvr_footer_top">
