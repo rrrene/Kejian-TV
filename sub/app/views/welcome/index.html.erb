@@ -17,8 +17,9 @@
                   <!--meiju_new10-->
                   <%@courses.each do |course|%>
                   <% dd=Course.get_department(course.fid)%>
+                  <% ddfid=Department.get_fid(dd)%>
                   <% cc=Course.get_name(course.fid)%>
-                  <li class="psvr"><span class="psvr psvr_newstime"><%=course.threads%>个课件</span>[<a class="psvr" href="/simple/forum.php?mod=forumdisplay&amp;fid=<%=course.fid%>"><%=dd%></a>] <a class="psvr" href="/simple/forum.php?mod=forumdisplay&fid=<%=course.fid%>"><%=cc%></a></li>
+                  <li class="psvr"><span class="psvr psvr_newstime"><%=course.threads%>个课件</span>[<a class="psvr" href="/simple/forum.php?mod=forumdisplay&amp;fid=<%=ddfid%>"><%=dd%></a>] <a class="psvr" href="/simple/forum.php?mod=forumdisplay&fid=<%=course.fid%>"><%=cc%></a></li>
                   <%end%> 
                </ul>
             </div>
