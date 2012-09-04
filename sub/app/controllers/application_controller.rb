@@ -184,6 +184,7 @@ class ApplicationController < ActionController::Base
       @cur_newpm = @cur_user.newpm
       @cur_group = PreCommonUsergroup.where(:groupid => @cur_groupid).first
       @cur_radminid = @cur_group.radminid
+     
       @cur_grouptitle = @cur_group.grouptitle
       
       if @cur_radminid > 1
