@@ -71,7 +71,7 @@ class ApplicationController < ActionController::Base
   end
 
   def dz_security
-    @authkey = UCenter::Php.md5(Setting.dz_authkey+cookies[Discuz.cookiepre_real+'saltkey'])
+    @authkey = UCenter::Php.md5("#{Setting.dz_authkey}#{cookies[Discuz.cookiepre_real+'saltkey']}")
     if user_signed_in?
       @formhash = Discuz::Utils.formhash({'username'=>current_user.slug,'uid'=>current_user.uid,'authkey'=>@authkey})
     else
