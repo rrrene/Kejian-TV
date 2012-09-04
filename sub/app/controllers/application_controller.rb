@@ -79,13 +79,13 @@ class ApplicationController < ActionController::Base
   end
   def insert_UserOrGuest
     if cookies[Discuz.cookiepre_real+'lastvisit'].blank? 
-      cookies[Discuz.cookiepre_real+'lastvisit'] = { :value => Time.now.to_i - 3600,:expires =>86400*30}
+      cookies[Discuz.cookiepre_real+'lastvisit'] = { :value => Time.now.to_i - 3600,:expires => Time.now + 86400*30}
     else
-      @lastvisit = cookies[Discuz.cookiepre_real+'lastvisit']
+      @lastvisit = cookies[Discuz.cookiepre_real+'lastvisit']     
     end
     ip = request.ip.split('.')
-    if cookies[Discuz.cookiepre_real+'sid'].blank? 
-      cookies[Discuz.cookiepre_real+'sid'] = {:value  => rand_sid(6),:expire_after => 86400 }
+    if cookies[Discuz.cookiepre_real+'sid'].blank?
+      cookies[Discuz.cookiepre_real+'sid'] = {:value  => rand_sid(6),:expires => Time.now + 86400 }
       @sid = cookies[Discuz.cookiepre_real+'sid']
       lastactivity = Time.now.to_i
       if !current_user.nil?

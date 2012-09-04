@@ -3,7 +3,7 @@
 
 
 key = (Rails.env.development? ?  "_ktv_#{Setting.ktv_sub}_local_session" : "_ktv_#{Setting.ktv_sub}_session")
-domain = (Rails.env.development? ?  "#{Setting.ktv_sub}.kejian.lvh.me" : "#{Setting.ktv_sub}.kejian.tv")
+domain = (Rails.env.development? ?  ".#{Setting.ktv_sub}.kejian.lvh.me" : ".#{Setting.ktv_sub}.kejian.tv")
 
 Sub::Application.config.session_store :cookie_store, 
                                       :key => key,
