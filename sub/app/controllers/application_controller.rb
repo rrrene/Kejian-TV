@@ -39,6 +39,7 @@ class ApplicationController < ActionController::Base
   end
   before_filter :set_vars
   before_filter :xookie,:unless=>'devise_controller?'
+  before_filter :dz_security
   
   def set_vars
     @seo = Hash.new('')
@@ -63,6 +64,18 @@ class ApplicationController < ActionController::Base
       end
     end
     sign_out
+  end
+  def dz_security
+    @authkey = UCenter::Php.md5(Setting.dz_authkey+cookies[Discuz.cookiepre_real+'saltkey'])
+    if user_signed_in?
+      @formhash = Discuz::Utils.formhash({'username'=>current_user.slug,'uid'=>current_user.uid,'authkey'=>@authkey})
+    else
+      @formhash = Discuz::Utils.formhash({'username'=>'','uid'=>0,'authkey'=>@authkey})
+    end
+    puts @formhash
+    puts @formhash
+    puts @formhash
+    puts @formhash
   end
   
   before_filter :get_extcredits

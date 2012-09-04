@@ -111,7 +111,7 @@
           <% if @cur_allowadmincp%>
             <span class="pipe">|</span><a href="/simple/admin.php" target="_blank">管理中心</a>          
           <% end %>
-          <span class="pipe">|</span><a href="/simple/member.php?mod=logging&action=logout&formhash=712fc880">退出</a>
+          <span class="pipe">|</span><a href="/simple/member.php?mod=logging&action=logout">退出</a>
           </p>
           <p>
           <a href="/simple/home.php?mod=spacecp&ac=credit&showcredit=1" id="extcreditmenu" onmouseover="delayShow(this, showCreditmenu);" class="showmenu">积分: <%= @cur_credits %></a>
@@ -124,7 +124,7 @@
       <div class="cl psvr_wtf_scbar" id="scbar" style="<%= @is_ie6 ? 'margin-left:5px;width:951px' : '' %>">
         <form target="_blank" action="/simple/search.php?searchsubmit=yes" onsubmit="searchFocus(jQuery('scbar_txt'))" autocomplete="off" method="post" id="scbar_form">
           <input type="hidden" value="forum" id="scbar_mod" name="mod">
-          <input type="hidden" value="8b815768" name="formhash">
+          <input type="hidden" value="<%=@formhash%>" name="formhash">
           <input type="hidden" value="title" name="srchtype">
           <input type="hidden" value="" name="srhfid">
           <input type="hidden" value="forum::index" name="srhlocality">
@@ -138,7 +138,7 @@
                   <div id="scbar_hot">
                     <strong class="xw1">热搜: </strong>
                     <% @hotkeywords_list.each do |keyword| %>
-                    <a sc="1" class="xi2" target="_blank" href="/simple/search.php?mod=forum&amp;srchtxt=<%= keyword %>&amp;formhash=c6feb795&amp;searchsubmit=true&amp;source=hotsearch"><%= keyword %></a>
+                    <a sc="1" class="xi2" target="_blank" href="/simple/search.php?mod=forum&amp;srchtxt=<%= keyword %>&amp;formhash=<%=@formhash%>&amp;searchsubmit=true&amp;source=hotsearch"><%= keyword %></a>
                     <% end %>
                   </div>
                 </td>
@@ -230,9 +230,12 @@
 </div>
 <%= javascript_include_tag "application" %>
 <script type="text/javascript" charset="utf-8">
-  jQuery(function(){
+(function($){
+  $(function(){
     <%= yield :butt2 %>
+    if(0==discuz_uid){$('.psvr_login_required').attr('onclick','').unbind('click').bind('click',function(){showWindow('login', '/simple/member.php?mod=logging&action=login');return false;});}
   });
+})(jQuery);
 </script>
 <%= yield :butt %>
 </body>
