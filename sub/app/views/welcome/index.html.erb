@@ -218,7 +218,7 @@
             <% if !online[1][1] %>
                <li title="时间:<%= Time.at(online[1][0]).strftime("%R") %>">
                <img src="/simple/static/image/common/<%= online[2][1] %>" alt="icon" />
-               <a href="home.php?mod=space&amp;uid=<%= online[0][1] %>"><%= online[0][0] %></a>
+               <a href="/simple/home.php?mod=space&amp;uid=<%= online[0][1] %>"><%= online[0][0] %></a>
                </li>
             <% end %>
            <% end %>

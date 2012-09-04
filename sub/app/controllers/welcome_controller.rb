@@ -2,7 +2,7 @@
 class WelcomeController < ApplicationController
   def index
     @seo[:title] = '首页'
-@stat = PreCommonStat.order
+    @stat = PreCommonStat.order
     ###session
     @showoldetails = params[:showoldetails]=='no' ? false : true
 
@@ -33,7 +33,7 @@ class WelcomeController < ApplicationController
 
     @online_display.each do |on_keys,on_values|
       if on_values[0][0].blank?
-        @online_display.remove!(on_keys)
+        @online_display.delete(on_keys)
       end
     end
 

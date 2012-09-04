@@ -67,8 +67,68 @@ class ApplicationController < ActionController::Base
   end
 
   before_filter :insert_UserOrGuest
-  def insert_UserOrGuest
+
+  def rand_sid(len)
+    @hash = ''
+    @chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz'
+    @max = @chars.length - 1
+    for i in 0..len
+      @hash += @chars[Random.rand(@max)]
+    end
+    return @hash
   end
+  def insert_UserOrGuest
+    if cookies[Discuz.cookiepre_real+'lastvisit'].blank? 
+      cookies[Discuz.cookiepre_real+'lastvisit'] = { :value => Time.now.to_i - 3600,:expires =>86400*30}
+    else
+      @lastvisit = cookies[Discuz.cookiepre_real+'lastvisit']
+    end
+    ip = request.ip.split('.')
+    if cookies[Discuz.cookiepre_real+'sid'].blank? 
+      cookies[Discuz.cookiepre_real+'sid'] = {:value  => rand_sid(6),:expire_after => 86400 }
+      @sid = cookies[Discuz.cookiepre_real+'sid']
+      lastactivity = Time.now.to_i
+      if !current_user.nil?
+        invisible = PreCommonMemberStatus.where(:uid => current_user.uid).first.invisible==0 ? false : true
+        user_forsession = PreCommonMember.where(:uid => current_user.uid).first
+        username = user_forsession.username
+        groupid = user_forsession.groupid
+        uid = current_user.uid
+        @pcs = PreCommonSession.new
+        @pcs.uid = uid
+        @pcs.sid = @sid
+        @pcs.username = username
+        @pcs.lastactivity = lastactivity
+        @pcs.ip1 = ip[0]
+        @pcs.ip2 = ip[1] 
+        @pcs.ip3 = ip[2]
+        @pcs.ip4 = ip[3]
+        @pcs.action = 2
+        @pcs.groupid = groupid
+        @pcs.save!
+      else
+        uid = 0
+        username = ''
+        @pcs = PreCommonSession.new
+        @pcs.uid = uid
+        @pcs.sid = @sid
+        @pcs.username = username
+        @pcs.lastactivity = lastactivity
+        @pcs.ip1 = ip[0]
+        @pcs.ip2 = ip[1] 
+        @pcs.ip3 = ip[2]
+        @pcs.ip4 = ip[3]
+        @pcs.action = 2
+        @pcs.groupid = 7
+        @pcs.save!
+      end
+    else
+      @sid = cookies[Discuz.cookiepre_real+'sid']
+    end
+
+    
+  end
+  
 
   def dz_security
     @authkey = UCenter::Php.md5(Setting.dz_authkey+cookies[Discuz.cookiepre_real+'saltkey'])
