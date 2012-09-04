@@ -52,7 +52,7 @@ end
 
 
 Ktv.configure do |config|
-  unless Rails.env.development?
+  unless $psvr_really_development
     config.asset_host = 'http://ktv-intrinsic.b0.upaiyun.com'
   else
     config.asset_host = ''

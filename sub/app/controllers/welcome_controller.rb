@@ -27,10 +27,12 @@ class WelcomeController < ApplicationController
 
     @session_count = @session_all.count
     @onlinelist =  @onlinelist_username.compact
-    @onlinelist_count = @onlinelist.count
-    @online_invisible_count = @online_invisible.count
-    @guest_count = @session_count - @onlinelist_count
+    @online_invisible_count = @online_invisible.delete_if {|d| d==false}.count
+    @onlinelist_count =  @onlinelist_username.delete_if {|d| d==''}.count
 
+    @guest_count = @session_count - @onlinelist_count
+    
+    
     @online_display.each do |on_keys,on_values|
       if on_values[0][0].blank?
         @online_display.delete(on_keys)

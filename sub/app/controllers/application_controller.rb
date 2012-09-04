@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
     #text = cookies.to_a
     #render text:text and return
   }
-  unless Rails.env.development?
+  unless $psvr_really_development
     rescue_from Exception, with: :render_500
     rescue_from AbstractController::ActionNotFound, with: :render_404
     rescue_from ActionController::RoutingError, with: :render_404
@@ -72,20 +72,25 @@ class ApplicationController < ActionController::Base
     @hash = ''
     @chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz'
     @max = @chars.length - 1
-    for i in 0..len
+    for i in 0...len
       @hash += @chars[Random.rand(@max)]
     end
     return @hash
   end
+  
   def insert_UserOrGuest
     if cookies[Discuz.cookiepre_real+'lastvisit'].blank? 
-      cookies[Discuz.cookiepre_real+'lastvisit'] = { :value => Time.now.to_i - 3600,:expires => Time.now + 86400*30}
+      cookies[Discuz.cookiepre_real+'lastvisit'] = { :value => Time.now.to_i - 3600,:expires => Time.now + 86400*30,:domain => $psvr_really_development ?  ".#{Setting.ktv_sub}.kejian.lvh.me" : ".#{Setting.ktv_sub}.kejian.tv"}
     else
       @lastvisit = cookies[Discuz.cookiepre_real+'lastvisit']     
     end
+    # binding.pry
+    
     ip = request.ip.split('.')
-    if cookies[Discuz.cookiepre_real+'sid'].blank?
-      cookies[Discuz.cookiepre_real+'sid'] = {:value  => rand_sid(6),:expires => Time.now + 86400 }
+    sid = cookies[Discuz.cookiepre_real+'sid']
+    sid_inst = sid.present? ? PreCommonSession.where(sid:sid).first : nil
+    if sid.blank? or sid_inst.blank?
+      cookies[Discuz.cookiepre_real+'sid'] = {:value  => rand_sid(6),:expires => Time.now + 86400 ,:domain => $psvr_really_development ?  ".#{Setting.ktv_sub}.kejian.lvh.me" : ".#{Setting.ktv_sub}.kejian.tv"}
       @sid = cookies[Discuz.cookiepre_real+'sid']
       lastactivity = Time.now.to_i
       if !current_user.nil?
@@ -93,19 +98,22 @@ class ApplicationController < ActionController::Base
         user_forsession = PreCommonMember.where(:uid => current_user.uid).first
         username = user_forsession.username
         groupid = user_forsession.groupid
-        uid = current_user.uid
-        @pcs = PreCommonSession.new
-        @pcs.uid = uid
-        @pcs.sid = @sid
-        @pcs.username = username
-        @pcs.lastactivity = lastactivity
-        @pcs.ip1 = ip[0]
-        @pcs.ip2 = ip[1] 
-        @pcs.ip3 = ip[2]
-        @pcs.ip4 = ip[3]
-        @pcs.action = 2
-        @pcs.groupid = groupid
-        @pcs.save!
+        non_exist_user = PreCommonSession.where(:username => username).first.nil? ? true : false
+        if non_exist_user
+          uid = current_user.uid
+          @pcs = PreCommonSession.new
+          @pcs.uid = uid
+          @pcs.sid = @sid
+          @pcs.username = username
+          @pcs.lastactivity = lastactivity
+          @pcs.ip1 = ip[0]
+          @pcs.ip2 = ip[1] 
+          @pcs.ip3 = ip[2]
+          @pcs.ip4 = ip[3]
+          @pcs.action = 2
+          @pcs.groupid = groupid
+          @pcs.save!
+        end
       else
         uid = 0
         username = ''

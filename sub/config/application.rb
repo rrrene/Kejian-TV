@@ -14,13 +14,13 @@ end
 class RedisSetting < Settingslogic  
   source File.expand_path('../redis.yml', __FILE__)
   namespace Rails.env
-  suppress_errors (!Rails.env.development?)
+  suppress_errors (!$psvr_really_development)
 end
 
 class Setting < Settingslogic
   source File.expand_path('../setting.yml', __FILE__)
   namespace Rails.env
-  suppress_errors (!Rails.env.development?)
+  suppress_errors (!$psvr_really_development)
 end
 
 module Sub

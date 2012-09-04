@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 Sub::Application.configure do
+  $psvr_really_development = true
   # Settings specified here will take precedence over those in config/application.rb
 
   # In the development environment your application's code is reloaded on
