@@ -64,6 +64,10 @@ class ApplicationController < ActionController::Base
     end
     sign_out
   end
+  before_filter :insert_UserOrGuest
+  def insert_UserOrGuest
+    
+  end
   
   before_filter :get_extcredits
   before_filter :get_srchhotkeywords

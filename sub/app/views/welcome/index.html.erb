@@ -201,19 +201,28 @@
          <h3>
            <strong><a href="home.php?mod=space&amp;do=friend&amp;view=online&amp;type=member">在线会员</a></strong>
            <span class="xs1">- <strong><%= @session_count %></strong> 人在线
-             - <strong><%= @onlinelist_count %></strong> 会员(<strong>0</strong> 隐身),
+             - <strong><%= @onlinelist_count %></strong> 会员(<strong><%= @online_invisible_count %></strong> 隐身),
              <strong><%= @guest_count %></strong> 位游客
-             - 最高记录是 <strong>2</strong> 于 <strong>2012-9-3</strong>.</span>
+             - 最高记录是 <strong><%= @onlinerecord[0] %></strong> 于 <strong><%=Time.at(@onlinerecord[1].to_i).strftime("%F")%></strong>.</span>
          </h3>
        </div>
        <dl id="onlinelist" class="bm_c">
-         <dt class="ptm pbm bbda"><img src="/simple/static/image/common/online_admin.gif" /> 管理员 &nbsp; &nbsp; &nbsp; <img src="/simple/static/image/common/online_supermod.gif" /> 超级版主 &nbsp; &nbsp; &nbsp; <img src="/simple/static/image/common/online_moderator.gif" /> 版主 &nbsp; &nbsp; &nbsp; <img src="/simple/static/image/common/online_member.gif" /> 会员 &nbsp; &nbsp; &nbsp; </dt>
+         <dt class="ptm pbm bbda">
+         <% @pic_sorted.values.each do |pic| %>    
+             <img src="/simple/static/image/common/<%= pic[1][1] %>" /> <%= pic[1][0] %> &nbsp; &nbsp; &nbsp; 
+         <% end %>
+         </dt>
          <dd class="ptm pbm">
          <ul class="cl">
-           <li title="时间: 11:13">
-           <img src="/simple/static/image/common/online_admin.gif" alt="icon" />
-           <a href="home.php?mod=space&amp;uid=1">psvr</a>
-           </li>
+           <% @on_display.values.each do |online| %>
+            <% if !online[1][1] %>
+               <li title="时间:<%= Time.at(online[1][0]).strftime("%R") %>">
+               <img src="/simple/static/image/common/<%= online[2][1] %>" alt="icon" />
+               <a href="home.php?mod=space&amp;uid=<%= online[0][1] %>"><%= online[0][0] %></a>
+               </li>
+            <% end %>
+           <% end %>
+           
          </ul>
          </dd>
        </dl>
