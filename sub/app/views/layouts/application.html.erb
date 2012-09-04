@@ -13,6 +13,7 @@
 <meta name="copyright" content="<%= Time.now.year %> Kejian.TV Ltd." />
 <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
 <meta http-equiv="imagetoolbar" content="no" />
+<%= javascript_include_tag "pre_application" %>
 <%= stylesheet_link_tag "pre_application", :media => "all" %>
 <link rel="stylesheet" type="text/css" href="/simple/data_<%=Setting.ktv_sub%>/cache/style_1_common.css" />
 <link rel="stylesheet" type="text/css" href="/simple/data_<%=Setting.ktv_sub%>/cache/style_1_forum_index.css" />
@@ -37,7 +38,6 @@
 </script>
 <script src="/simple/static/js/common.js" type="text/javascript"></script>
 <script src="/simple/static/js/forum.js" type="text/javascript"></script>
-<%= javascript_include_tag "modernizr.js" %>
 <%= stylesheet_link_tag "application", :media => "all" %>
 <%= csrf_meta_tags %>
 </head>
