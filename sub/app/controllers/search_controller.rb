@@ -89,6 +89,13 @@ end
     render :text => lines.join("\n")
   end
 
+  def courses
+    ret = Redis::Search.query('Course',params[:term],:limit=>10)
+    ret += Redis::Search.complete('Course',params[:term],:limit=>10)
+    ret.inject([]) { |result,h| result << h unless result.include?(h); result }
+    render json:ret
+  end
+
   def topics
     result = Redis::Search.complete("Topic",params[:q],:limit => 10)
     if params[:format] == "json"

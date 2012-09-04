@@ -68,6 +68,7 @@ Sub::Application.routes.draw do
       get "all"
       get "topics"
       get "asks"
+      get 'courses'
       get "users"
     end
   end
