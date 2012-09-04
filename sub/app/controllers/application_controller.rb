@@ -72,10 +72,6 @@ class ApplicationController < ActionController::Base
     else
       @formhash = Discuz::Utils.formhash({'username'=>'','uid'=>0,'authkey'=>@authkey})
     end
-    puts @formhash
-    puts @formhash
-    puts @formhash
-    puts @formhash
   end
   
   before_filter :get_extcredits
