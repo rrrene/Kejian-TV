@@ -1,11 +1,12 @@
 # -*- encoding : utf-8 -*-
 class SearchController < ApplicationController
-
-  def index
-    # @asks = Ask.search_title(params["w"].to_s.strip,:limit => 20)
-    set_seo_meta("关于“#{params[:w]}”的搜索结果")
-    render "/asks/index"
-  end
+  skip_filter :set_vars
+  skip_filter :xookie
+  skip_filter :dz_security
+  skip_filter :insert_UserOrGuest
+  skip_filter :get_extcredits
+  skip_filter :get_srchhotkeywords
+  skip_filter :check_privilige
 
   def all
     # sum = 0
@@ -91,8 +92,9 @@ end
 
   def courses
     ret = Redis::Search.query('Course',params[:term],:limit=>10)
-    ret += Redis::Search.complete('Course',params[:term],:limit=>10)
-    ret.inject([]) { |result,h| result << h unless result.include?(h); result }
+    ret2 = Redis::Search.complete('Course',params[:term],:limit=>10)
+    ret_fids = ret.collect{|x| x['fid']}
+    ret2.each{|y| ret<<y unless ret_fids.include?(y['fid'])}
     render json:ret
   end
 
