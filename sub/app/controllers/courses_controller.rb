@@ -2,7 +2,13 @@
 class CoursesController < ApplicationController
   def index
     @seo[:title]="本学期课程"
-    @courses = Course.where(:years=>20122).desc(:coursewares_count)
+    @per_page = 100
+    @courses = Course
+    if request.path=='/un_courses'
+      @courses = @courses.where(:page.ne=>20122).desc(:coursewares_count)
+    else
+      @courses = @courses.where(:years=>20122).desc(:coursewares_count)
+    end
   end
 
   def show

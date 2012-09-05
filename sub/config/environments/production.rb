@@ -39,7 +39,7 @@ Sub::Application.configure do
   config.assets.compress = true
   config.assets.css_compressor = 'sass-rails'
   config.assets.js_compressor = :uglifier
-  config.assets.precompile += ['orig_ui.js','modernizr.js','pre_application.js','pre_application.css','for_help/application.js','for_help/application.css','for_help/cpanel.js','for_help/cpanel.css','for_help/topics.js','for_help/html5.js','for_help/cpanel_oauth.css','for_help/cpanel_oauth.js','for_help/validationEngine.js','for_help/keditor/kindeditor.js']
+  config.assets.precompile += ['ui_orig.js','modernizr.js','pre_application.js','pre_application.css','for_help/application.js','for_help/application.css','for_help/cpanel.js','for_help/cpanel.css','for_help/topics.js','for_help/html5.js','for_help/cpanel_oauth.css','for_help/cpanel_oauth.js','for_help/validationEngine.js','for_help/keditor/kindeditor.js']
   # 别忘了同时修改:
   # config/initializers/z_ktv.rb
   config.action_controller.asset_host = 'http://ktv-intrinsic-sub.b0.upaiyun.com'

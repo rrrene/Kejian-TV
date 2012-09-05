@@ -59,7 +59,7 @@ Ktv.configure do |config|
   end
   config.redis = Redis::Search.config.redis
   config.consultants = [Ktv::Baidu,Ktv::Google]
-  config.logger = Logger.new("#{Rails.root}/log/#{Rails.env}.ktv.log",File::WRONLY|File::APPEND)
+  config.logger = Logger.new("#{Rails.root}/log_#{Rails.env}/ktv.log",File::WRONLY|File::APPEND)
   config.google_simple_api_key = 'AIzaSyBlxza4_3kcy8jzeAwWZOiIO4qAJl607FY'
   %w{user_agent
      open_timeout
@@ -113,8 +113,8 @@ def log_connect!(index=0)
   ActiveResource::Base.logger = Rails.logger
   Rails.application.assets.logger = Rails.logger
 
-  Ktv.config.logger = Logger.new("#{Rails.root}/log_#{Rails.env}/#{Rails.env}.ktv.#{index}.log",File::WRONLY|File::APPEND)
-  $debug_logger = Logger.new("#{Rails.root}/log_#{Rails.env}/#{Rails.env}.debug.#{index}.log", File::WRONLY | File::APPEND)
+  Ktv.config.logger = Logger.new("#{Rails.root}/log_#{Rails.env}/ktv.#{index}.log",File::WRONLY|File::APPEND)
+  $debug_logger = Logger.new("#{Rails.root}/log_#{Rails.env}/debug.#{index}.log", File::WRONLY | File::APPEND)
 
 end
 

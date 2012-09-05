@@ -39,5 +39,6 @@ Sub::Application.configure do
   config.assets.prefix = '/assets'
   # assets-----------
 
-  config.cache_store = :file_store, "#{Rails.root}/tmp/cache/"
+  config.cache_store = :file_store, "#{Rails.root}/tmp_#{Rails.env}/cache/"
 end
+
