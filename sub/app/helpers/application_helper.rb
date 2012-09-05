@@ -1,5 +1,12 @@
 # -*- encoding : utf-8 -*-
 module ApplicationHelper
+  XINGQIJI = ['一','二','三','四','五','六','日']
+  def jie_time(num)
+    Setting.jie[num-1]
+  end
+  def xingqiji(num)
+    return XINGQIJI[num-1]
+  end
   def kaixue_msg
     day = (Time.now-Ktv.config.school_new)/86400
     day = day.to_i + 1

@@ -1,24 +1,39 @@
 <div id="psvr_midder">
     <div class="psvr_content" style="">
         <div class="psvr_contentbox">
-            <table class="psvr psvr_seedtable" border="0" align="center" cellpadding="1" cellspacing="1" bgcolor="#cccccc" width="100%">
+            <table class="psvr psvr_seedtable psvr_dptable" border="0" align="center" cellpadding="1" cellspacing="1" bgcolor="#cccccc" width="100%">
               <tr bgcolor="#f1f1f1">
-                <td height="28" colspan="8" align="left"><h3 class="psvr" ><%=kaixue_msg%>，这学期<%= Setting.ktv_subname_short %>共开设了<%=Course.count%>门课，以下按课件数排序</h3></td>
+                <td height="28" colspan="5" align="left"><h3 class="psvr" ><%=Setting.ktv_subname%>课程导航</h3></td>
+              </tr>
+              <% 0.upto(@departments.count / 5).each do |now| %>
+              <tr bgcolor="#ffffff" align="center">
+                <% (now*5).upto(now*5+4) do |i|%>
+                <td width="20%">
+                  <%dp = @departments[i]%>
+                  <%=link_to dp.name,"#dp_#{dp.id}" if dp%>
+                </td>
+                <% end %>
+              </tr>
+              <% end %>
+            </table>
+<% @departments.each_with_index do |department| %>
+  <table class="psvr psvr_seedtable psvr_dptable" id="dp_<%=department.id%>" border="0" align="center" cellpadding="1" cellspacing="1" bgcolor="#cccccc" width="100%">
+              <tr bgcolor="#f1f1f1">
+                <td height="28" colspan="8" align="left"><h3 class="psvr" ><%=department.name%></h3></td>
               </tr>
               <tr bgcolor="#fafafa" align="center">
-                <td width="5%" align="center">排名</td>
-                <td width="40%" align="left">名字</td>
-                <td width="14%">开课系</td>
+                <td width="6%" align="center">类型</td>
+                <td width="33%" align="left">名字</td>
                 <td width="16%">任课教师</td>
-                <td width="16%">上课地点</td>
-                <td width="7%">课件数▼</td>
+                <td width="35%">本学期上课地点</td>
+                <td width="8%">课件数</td>
               </tr><!--seed_today-->
  
 
 <!--seed_today-->
 
  
-<% @courses.each_with_index do |item,index| %>
+<% department.courses.where(:is_yjs.ne=>true).each_with_index do |item,index| %>
   <% teachers = []%>
   <% addr = []%>
   <%
@@ -32,25 +47,26 @@
   %>
   <% teachers = item.teachings.collect(&:teacher) %> 
    <tr bgcolor="#ffffff" align="center">
-     <td><%=index+1%></td>
+     <td>本科生</td>
       <td align="left">
         <%=link_to "[#{item.number}] #{item.name}",cpath(item),class:'psvr'%> 
       </td>
-     <td>
-       <%= item.department %>
+      <td>  
+        <%= teachers.join('、') %>
       </td>
       <td>  
-      <%= teachers.join('、') %>
-      </td>
-      <td>  
-      <%=addr.join('、') %>
+        <%=addr.join('、') %>
       </td>
       <td><%=link_to item.coursewares_count,cpath(item),class:'psvr'%></td> 
     </tr> 
 <% end %>
- 
-
+              <tr bgcolor="#ffffff" align="left">
+                <td colspan="5">
+                  <a href="#">^ 返回课程导航</a>
+                </td>
+              </tr>
             </table>
+<% end %>
         </div>
     </div>
 </div>  
