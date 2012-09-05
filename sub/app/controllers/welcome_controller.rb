@@ -55,16 +55,20 @@ class WelcomeController < ApplicationController
     ###onlinerecord max begin
     @onlinerecord = PreCommonSetting. where(:skey => 'onlinerecord').first.svalue.split.compact
     ###onlinerecord max end
+    @coursewares1 = PreForumThread.nondeleted.where('dateline>=?',Date.today.at_beginning_of_day.to_i).order('views desc')
+    @cwyesterday = PreForumThread.nondeleted.where('dateline>=? and dateline <?',Date.yesterday.at_beginning_of_day.to_i,Date.today.at_beginning_of_day.to_i).count
+    @cw = PreForumThread.nondeleted.count
+    @users = PreCommonMember.count
+    @newuser =  PreCommonMember.order('regdate').last
 
+    @departments = Department.asc('created_at')
+    # 
+    # 
     # 
     @courses = PreForumForum.order('threads desc').limit(10)
     @coursewares = PreForumThread.nondeleted.order('views desc').limit(10)
     @coursewares1 = PreForumThread.nondeleted.where('dateline>=?',Date.today.at_beginning_of_day.to_i).order('views desc')
     
-    @cwyesterday = PreForumThread.nondeleted.where('dateline>=? and dateline <?',Date.yesterday.at_beginning_of_day.to_i,Date.today.at_beginning_of_day.to_i).count
-    @cw = PreForumThread.nondeleted.count
-    @users = PreCommonMember.count
-    @newuser =  PreCommonMember.order('regdate').last
     if @coursewares1.count > 0
       @coursewares2 = PreForumThread.nondeleted.where('dateline<?',@coursewares1[-1].dateline).order('dateline desc').first
     else
