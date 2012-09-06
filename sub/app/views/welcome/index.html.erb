@@ -1,9 +1,4 @@
-<div id="chart" class="bm bw0 cl">
-  <p class="chart z">今日: <em><%= @coursewares1.count >0 ? @coursewares1.count : 0 %></em><span class="pipe">|</span>昨日: <em><%= @cwyesterday > 0 ? @cwyesterday : 0 %></em><span class="pipe">|</span>课件: <em><%= @cw > 0 ? @cw : 0 %></em><span class="pipe">|</span>会员: <em><%= @users > 0 ? @users : 0 %> </em><% if !@newuser.nil? %><span class="pipe">|</span><%=kaixue_msg%>, 欢迎新会员: <em><a href="home.php?mod=space&amp;username=<%= @newuser.username %>" target="_blank" class="xi2"><%= @newuser.username  %></a></em><% end %></p>
-  <div class="y">
-    <a href="/simple/forum.php?mod=guide&amp;view=my" title="我的课件" class="xi2">我的课件</a><span class="pipe">|</span><a href="/simple/forum.php?mod=guide&amp;view=new" title="最新课件" class="xi2">查看新课件</a><span class="pipe">|</span><a href="/simple/forum.php?mod=misc&action=nav" class="psvr_login_required xi2" onclick="showWindow('nav', this.href, 'get', 0)">上传课件</a></div>
-</div>
-
+<%= render 'chart' %>
 <div id="psvr_midder">
    <div class="psvr_content" style="">
       <div class="psvr_contentbox">
@@ -42,6 +37,23 @@
                </ul>
             </div>
          </div>
+      </div>
+      <div class="psvr_contentbox">
+        <table class="psvr psvr_seedtable psvr_dptable" border="0" align="center" style="margin-bottom:0" cellpadding="1" cellspacing="1" bgcolor="#cccccc" width="100%">
+          <tr bgcolor="#f1f1f1">
+            <td height="28" colspan="5" align="left"><h3 class="psvr" ><%=Setting.ktv_subname%>课程导航</h3></td>
+          </tr>
+          <% 0.upto(@departments.count / 5).each do |now| %>
+          <tr bgcolor="#ffffff" align="center">
+            <% (now*5).upto(now*5+4) do |i|%>
+            <td width="20%">
+              <%dp = @departments[i]%>
+              <%=link_to dp.name,"/courses#dp_#{dp.id}" if dp%>
+            </td>
+            <% end %>
+          </tr>
+          <% end %>
+        </table>
       </div>
       <div class="psvr_contentbox">
          <table class="psvr psvr_seedtable" border="0" align="center" cellpadding="1" cellspacing="1" bgcolor="#cccccc" width="100%">

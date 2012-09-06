@@ -19,7 +19,7 @@
 <% @departments.each_with_index do |department| %>
   <table class="psvr psvr_seedtable psvr_dptable" id="dp_<%=department.id%>" border="0" align="center" cellpadding="1" cellspacing="1" bgcolor="#cccccc" width="100%">
               <tr bgcolor="#f1f1f1">
-                <td height="28" colspan="8" align="left"><h3 class="psvr" ><%=department.name%></h3></td>
+                <td height="28" colspan="8" align="left"><h3 class="psvr" ><%=link_to department.name,"/simple/forum.php?mod=forumdisplay&fid=#{department.fid}"%></h3></td>
               </tr>
               <tr bgcolor="#fafafa" align="center">
                 <td width="6%" align="center">类型</td>
