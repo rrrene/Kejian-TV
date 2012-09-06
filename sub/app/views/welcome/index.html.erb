@@ -218,11 +218,12 @@
            <% if @on_display.empty? %>
              <li style="width: auto">当前只有游客或隐身会员在线</li>
            <% else %>
-             <% @on_display.values.each do |online| %>
-              <% if !online[1][1] %>
-                 <li title="时间:<%= Time.at(online[1][0]).strftime("%R") %>">
-                 <img src="/simple/static/image/common/<%= online[2][1] %>" alt="icon" />
-                 <a href="/simple/home.php?mod=space&amp;uid=<%= online[0][1] %>"><%= online[0][0] %></a>
+             <% @on_display.each do |uid,online| %>
+<!-- ##@on_display => {35=>[1, ["libo-liu", 1], [1346908864, false], ["管理员", "online_admin.gif"]],, 61=>[3,["llb0536", 4], [1346730774, false], ["版主", "online_moderator.gif"]]} -->
+              <% if !online[2][1] %>
+                 <li title="时间:<%= Time.at(online[2][0]).strftime("%R") %>">
+                 <img src="/simple/static/image/common/<%= online[3][1] %>" alt="icon" />
+                 <a href="/simple/home.php?mod=space&amp;uid=<%= uid %>"><%= online[1][0] %></a>
                  </li>
               <% end %>
              <% end %>

@@ -23,7 +23,9 @@ class WelcomeController < ApplicationController
     @online_lastactivitytime  =  @session_all.map {|u| u.lastactivity}
     @online_invisible  = @session_all.map {|u| u.invisible}
     @online_groupid = @session_all.map {|u| u.groupid}
-    @online_display = Hash[@online_groupid.zip(@onlinelist_username.zip(@onlinelist_uid).zip(@online_lastactivitytime.zip(@online_invisible)))]
+    @online_display = Hash[@onlinelist_uid.zip(@onlinelist_username.zip(@online_groupid).zip(@online_lastactivitytime.zip(@online_invisible)))]
+    ##online_display => {1=>[["libo-liu", 35], [1346906335, false]],10=>[["gslipt", 62], [1346906466, false]]}
+    ##online_display => { uid => [[username,group_id],[lastact,invisible]]}
 
     @session_count = @session_all.count
     @onlinelist =  @onlinelist_username.compact
@@ -31,25 +33,32 @@ class WelcomeController < ApplicationController
     @onlinelist_count =  @onlinelist_username.delete_if {|d| d==''}.count
 
     @guest_count = @session_count - @onlinelist_count
-    
-    
+
     @online_display.each do |on_keys,on_values|
       if on_values[0][0].blank?
         @online_display.delete(on_keys)
       end
     end
-
+    
+    @lastone2display = @pic.values.max[0]
     @on_display = Hash.new
     @pic.each do |keys,values|
       @online_display.each do |on_keys,on_values|
-        if keys == on_keys
-          @on_display[values[0]] = on_values + [values[1]]
+        if @pic.keys.include?(on_values[0][1]) 
+          if on_values[0][1] == keys
+            @on_display[on_keys] = [values[0]] + on_values +[values[1]]
+          end
+        else
+          @on_display[on_keys] = [@lastone2display] + on_values + [values[1]]
         end
       end
     end
-    @on_display = Hash[@on_display.sort_by {|key,value| key}]
+    
+    @on_display = Hash[@on_display.sort_by {|key,value| value[0]}]
     ##@on_display => {1=>[["libo-liu", 35], [1346730846, false], ["管理员", "online_admin.gif"]], 3=>[["llb0536", 61], [1346730774, false], ["版主", "online_moderator.gif"]]}
-    ##@onlinelist => {display_order  => [[username,uid],[time,invisible?],[group_title,group_icon]]}
+    ##@on_display => {35=>[1,["libo-liu", 35], [1346730846, false], ["管理员", "online_admin.gif"]], 61=>[3,["llb0536", 61], [1346730774, false], ["版主", "online_moderator.gif"]]}
+    ##@on_display => {35=>[1, ["libo-liu", 1], [1346908864, false], ["管理员", "online_admin.gif"]],, 61=>[3,["llb0536", 4], [1346730774, false], ["版主", "online_moderator.gif"]]}
+    ##@onlinelist => {uid => [display_order,[username,group_id],[time,invisible?],[group_title,group_icon]]}
     ###onlinelist end
     
     ###onlinerecord max begin

@@ -105,7 +105,7 @@
             <a href="/simple/home.php?mod=space&do=notice" id="myprompt" class="new">提醒(<%= @cur_newprompt %>)</a>
           <% end %>
           <span id="myprompt_check"></span>
-          <% if ((@cur_allowpostarticle.nil? ? false : @cur_allowpostarticle.allowpostarticle) || (@cur_allowmanagearticle.nil? ? false : @cur_allowmanagearticle.allowmanage) || (@cur_allowdiy.nil? ? false : true) || (@cur_allowadmincp)) %>
+          <% if ((@cur_allowpostarticle.nil? ? false : @cur_allowpostarticle.allowpostarticle) || (@cur_allowmanagearticle.nil? ? false : @cur_allowmanagearticle) || (@cur_allowdiy.nil? ? false : true) || (@cur_allowadmincp)) %>
           <span class="pipe">|</span><a href="/simple/portal.php?mod=portalcp">模块管理</a>
           <% end %>
           <% if @cur_radminid > 1 %>
