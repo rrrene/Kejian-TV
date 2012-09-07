@@ -39,21 +39,7 @@
          </div>
       </div>
       <div class="psvr_contentbox">
-        <table class="psvr psvr_seedtable psvr_dptable" border="0" align="center" style="margin-bottom:0" cellpadding="1" cellspacing="1" bgcolor="#cccccc" width="100%">
-          <tr bgcolor="#f1f1f1">
-            <td height="28" colspan="5" align="left"><h3 class="psvr" ><%=Setting.ktv_subname%>课程导航</h3></td>
-          </tr>
-          <% 0.upto(@departments.count / 5).each do |now| %>
-          <tr bgcolor="#ffffff" align="center">
-            <% (now*5).upto(now*5+4) do |i|%>
-            <td width="20%">
-              <%dp = @departments[i]%>
-              <%=link_to dp.name,"/courses#dp_#{dp.id}" if dp%>
-            </td>
-            <% end %>
-          </tr>
-          <% end %>
-        </table>
+        <%= render 'dp_table' %>
       </div>
       <div class="psvr_contentbox">
          <table class="psvr psvr_seedtable" border="0" align="center" cellpadding="1" cellspacing="1" bgcolor="#cccccc" width="100%">
