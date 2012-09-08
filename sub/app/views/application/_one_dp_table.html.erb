@@ -1,0 +1,51 @@
+<table class="psvr psvr_seedtable psvr_dptable" id="dp_<%=department.id%>" border="0" align="center" cellpadding="1" cellspacing="1" bgcolor="#cccccc" width="100%">
+  <tr bgcolor="#f1f1f1">
+    <td height="28" colspan="8" align="left"><h3 class="psvr" ><%=link_to department.name,department %></h3></td>
+  </tr>
+  <tr bgcolor="#fafafa" align="center">
+    <td width="6%" align="center">类型</td>
+    <td width="33%" align="left">名字</td>
+    <td width="16%">任课教师</td>
+    <td width="35%">本学期上课地点</td>
+    <td width="8%">课件数</td>
+  </tr><!--seed_today-->
+
+
+  <!--seed_today-->
+
+
+  <% department.courses.where(:is_yjs.ne=>true).each_with_index do |item,index| %>
+    <% teachers = []%>
+    <% addr = []%>
+    <%
+      item.teachings.each do |tch|
+        teachers << tch.teacher 
+        tch.teaching_klasses.each do |kl|
+          addr << "#{kl.geo_location}#{kl.geo_building}#{kl.geo_classroom}"
+        end
+      end
+      addr.uniq!
+    %>
+    <% teachers = item.teachings.collect(&:teacher) %> 
+     <tr bgcolor="#ffffff" align="center">
+       <td>本科生</td>
+        <td align="left">
+          <%=link_to "[#{item.number}] #{item.name}",cpath(item),class:'psvr'%> 
+        </td>
+        <td>  
+          <%= teachers.join('、') %>
+        </td>
+        <td>  
+          <%=addr.join('、') %>
+        </td>
+        <td><%=link_to item.coursewares_count,cpath(item),class:'psvr'%></td> 
+      </tr> 
+  <% end %>
+  <% unless defined?(single_dp) and single_dp %>
+  <tr bgcolor="#ffffff" align="left">
+    <td colspan="5">
+      <a href="#">^ 返回课程导航</a>
+    </td>
+  </tr>
+  <% end %>
+</table>

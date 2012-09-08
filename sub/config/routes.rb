@@ -9,6 +9,7 @@ Sub::Application.routes.draw do
     get '/logout', :to => "devise/sessions#destroy", as:'logout'
   end
   get '/un_courses'=>'courses#index'
+  resources :departments
   resources :courses
   resources :teachers
 

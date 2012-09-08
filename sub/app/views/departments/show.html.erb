@@ -1,10 +1,8 @@
 <div id="psvr_midder">
     <div class="psvr_content" style="">
         <div class="psvr_contentbox">
+          <%= render :partial=>'one_dp_table',:locals=>{department:@department,single_dp:true} %>
           <%= render 'dp_table' %>
-          <% @departments.each_with_index do |department| %>
-            <%= render :partial=>'one_dp_table',:locals=>{department:department} %>
-          <% end %>
         </div>
     </div>
 </div>  
