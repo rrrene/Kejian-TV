@@ -1,20 +1,20 @@
 <table class="psvr psvr_seedtable psvr_dptable" id="dp_<%=department.id%>" border="0" align="center" cellpadding="1" cellspacing="1" bgcolor="#cccccc" width="100%">
   <tr bgcolor="#f1f1f1">
-    <td height="28" colspan="8" align="left"><h3 class="psvr" ><%=link_to department.name,department %></h3></td>
+    <td height="28" colspan="5" align="left"><h3 class="psvr" ><%=link_to department.name,department %></h3></td>
   </tr>
   <tr bgcolor="#fafafa" align="center">
     <td width="6%" align="center">类型</td>
     <td width="33%" align="left">名字</td>
     <td width="16%">任课教师</td>
     <td width="35%">本学期上课地点</td>
-    <td width="8%">课件数</td>
+    <td width="8%">课件数▼</td>
   </tr><!--seed_today-->
 
 
   <!--seed_today-->
 
 
-  <% department.courses.where(:is_yjs.ne=>true).each_with_index do |item,index| %>
+  <% department.courses.desc('coursewares_count').each_with_index do |item,index| %>
     <% teachers = []%>
     <% addr = []%>
     <%
@@ -28,7 +28,7 @@
     %>
     <% teachers = item.teachings.collect(&:teacher) %> 
      <tr bgcolor="#ffffff" align="center">
-       <td>本科生</td>
+       <td><%= item.is_yjs%></td>
         <td align="left">
           <%=link_to "[#{item.number}] #{item.name}",cpath(item),class:'psvr'%> 
         </td>
