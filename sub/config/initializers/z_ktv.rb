@@ -24,6 +24,25 @@ module UCenter
   def self.getdef(k)
     @config[k]
   end
+  def self.in_out(m,a,request,opts={})
+    opts ||= {}
+    agent = request.nil? ? Setting.special_agent : request.env['HTTP_USER_AGENT']
+    return Ktv::JQuery.ajax({
+      :url => "#{UCenter.getdef('UC_API')}/index.php",
+      :type => 'POST',
+      :accept => :xml,
+      'User-Agent' => agent, 
+      :data => {
+        m: m,
+        a: a,
+        inajax: '2',
+        release: UCenter.getdef('UC_CLIENT_RELEASE'),
+        input: UCenter::Php.uc_api_input2(agent,opts),
+        appid: UCenter.getdef('UC_APPID'),
+      },
+      :psvr_response_anyway => true
+    })
+  end
 end
 
 module Discuz
