@@ -84,59 +84,41 @@ class ApplicationController < ActionController::Base
     else
       @lastvisit = cookies[Discuz.cookiepre_real+'lastvisit']     
     end
-    # binding.pry
     
-    ip = request.ip.split('.')
     sid = cookies[Discuz.cookiepre_real+'sid']
     sid_inst = sid.present? ? PreCommonSession.where(sid:sid).first : nil
-    if sid.blank? or sid_inst.blank?
+    # binding.pry
+    if sid.blank? or sid_inst.nil?
       cookies[Discuz.cookiepre_real+'sid'] = {:value  => rand_sid(6),:expires => Time.now + 86400 ,:domain => $psvr_really_development ?  ".#{Setting.ktv_sub}.kejian.lvh.me" : ".#{Setting.ktv_sub}.kejian.tv"}
       @sid = cookies[Discuz.cookiepre_real+'sid']
-      lastactivity = Time.now.to_i
-      if !current_user.nil?
-        invisible = PreCommonMemberStatus.where(:uid => current_user.uid).first.invisible==0 ? false : true
-        user_forsession = PreCommonMember.where(:uid => current_user.uid).first
-        username = user_forsession.username
-        groupid = user_forsession.groupid
-        non_exist_user = PreCommonSession.where(:username => username).first.nil? ? true : false
-        if non_exist_user
-          uid = current_user.uid
-          @pcs = PreCommonSession.new
-          @pcs.uid = uid
-          @pcs.sid = @sid
-          @pcs.username = username
-          @pcs.lastactivity = lastactivity
-          @pcs.ip1 = ip[0]
-          @pcs.ip2 = ip[1] 
-          @pcs.ip3 = ip[2]
-          @pcs.ip4 = ip[3]
-          @pcs.action = 2
-          @pcs.groupid = groupid
-          @pcs.save!
-        end
-      else
-        uid = 0
-        username = ''
-        @pcs = PreCommonSession.new
-        @pcs.uid = uid
-        @pcs.sid = @sid
-        @pcs.username = username
-        @pcs.lastactivity = lastactivity
-        @pcs.ip1 = ip[0]
-        @pcs.ip2 = ip[1] 
-        @pcs.ip3 = ip[2]
-        @pcs.ip4 = ip[3]
-        @pcs.action = 2
-        @pcs.groupid = 7
-        @pcs.save!
-      end
+      create_session_for_dz(@sid)
     else
       @sid = cookies[Discuz.cookiepre_real+'sid']
+      # binding.pry
+      PreCommonSession.delete_all("sid=\'#{@sid}\' OR lastactivity<#{Time.now.to_i} OR (uid=\'0\' AND ip1=\'::1\' AND ip2=\'\' AND ip3=\'\' AND ip4=\'\' AND lastactivity>#{Time.now.to_i+840})")
+      create_session_for_dz(@sid)
     end
-
-    
   end
   
+  def create_session_for_dz(sid)
+    ip = request.ip.split('.')
+    lastactivity = Time.now.to_i
+    if !current_user.nil?
+      invisible = PreCommonMemberStatus.where(:uid => current_user.uid).first.invisible==0 ? false : true
+      user_forsession = PreCommonMember.where(:uid => current_user.uid).first
+      username = user_forsession.username
+      groupid = user_forsession.groupid
+      non_exist_user = PreCommonSession.where(:username => username).first.nil? ? true : false
+      if non_exist_user
+        uid = current_user.uid
+        PreCommonSession.create(uid:uid,sid:sid,username:username,lastactivity:lastactivity,ip1:ip[0],ip2:ip[1],ip3:ip[2],ip4:ip[3],action:2,groupid:groupid)
+      end
+    else
+      uid = 0
+      username = ''
+      PreCommonSession.create(uid:uid,sid:sid,username:username,lastactivity:lastactivity,ip1:ip[0],ip2:ip[1],ip3:ip[2],ip4:ip[3],action:2,groupid:7)
+    end
+  end
 
   def dz_security
     @authkey = UCenter::Php.md5("#{Setting.dz_authkey}#{cookies[Discuz.cookiepre_real+'saltkey']}")

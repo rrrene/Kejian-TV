@@ -7,7 +7,7 @@ class WelcomeController < ApplicationController
     @showoldetails = params[:showoldetails]=='no' ? false : true
 
     ###online list begin
-    @session_all = PreCommonSession.all
+    @session_all = PreCommonSession.all(:limit => 500)
     @online_pic = PreForumOnlinelist.all
 
     @pic_list = @online_pic.map {|p| p.url}
