@@ -28,7 +28,7 @@
                <ul class="psvr psvr_seedlist">
                   <!--seed_top10-->
                   <%@coursewares.each do |cw|%>
-                  <li class="psvr psvr_top1"><span class="psvr psvr_newstime"><a class="psvr" href="/simple/home.php?mod=space&amp;uid=<%=cw.authorid%>&amp;do=profile"><%=cw.author%></a>上传</span>
+                  <li class="psvr psvr_top1"><span class="psvr psvr_newstime"><a class="psvr" href="/simple/?<%=cw.authorid%>"><%=cw.author%></a>上传</span>
                      <a class="psvr" href="/simple/forum.php?mod=viewthread&amp;tid=<%=cw.tid%>">
                      <%=cw.subject%> (<%=cw.views%>点击)
                      </a>
@@ -78,7 +78,7 @@
                <td><%=number_to_human_size(ins.filesize*1000,:precision=>1) if ins%></td>
                <td><%=ins.sort.upcase if ins%></td>
                <td>  
-                  <a class="psvr" href="/simple/home.php?mod=space&amp;uid=<%=cw.authorid%>&amp;do=profile">
+                  <a class="psvr" href="/simple/?<%=cw.authorid%>">
                   <%=cw.author%> 
                   </a>
                </td>
@@ -132,7 +132,7 @@
                <td><%=number_to_human_size(ins.filesize*1000,:precision=>1) if ins%></td>
                <td><%=ins.sort.upcase if ins%></td>
                <td>  
-                  <a class="psvr" href="/simple/home.php?mod=space&amp;uid=<%=cw.authorid%>&amp;do=profile">
+                  <a class="psvr" href="/simple/?<%=cw.authorid%>">
                   <%=cw.author%> 
                   </a>
                </td>
@@ -181,7 +181,7 @@
                <td><%=number_to_human_size(ins.filesize*1000,:precision=>1) if ins%></td>
                <td><%=ins.sort.upcase if ins%></td>
                <td>  
-                  <a class="psvr" href="/simple/home.php?mod=space&amp;uid=<%=cw.authorid%>&amp;do=profile">
+                 <a class="psvr" href="/simple/?<%=cw.authorid%>">
                   <%=cw.author%> 
                   </a>
                </td>
@@ -221,7 +221,7 @@
               <% if !online[2][1] %>
                  <li title="时间:<%= Time.at(online[2][0]).strftime("%R") %>">
                  <img src="/simple/static/image/common/<%= online[3][1] %>" alt="icon" />
-                 <a href="/simple/home.php?mod=space&amp;uid=<%= uid %>"><%= online[1][0] %></a>
+                 <a href="/simple/?<%= uid %>"><%= online[1][0] %></a>
                  </li>
               <% end %>
              <% end %>
