@@ -2,9 +2,39 @@
     <div class="psvr_content" style="">
         <div class="psvr_contentbox">
           <%= render 'dp_table' %>
-          <% @departments.each_with_index do |department| %>
-            <%= render :partial=>'one_dp_table',:locals=>{department:department} %>
-          <% end %>
+<table class="psvr psvr_seedtable psvr_dptable" id="dp_0" border="0" align="center" cellpadding="1" cellspacing="1" bgcolor="#cccccc" width="100%">
+  <tr bgcolor="#f1f1f1">
+    <td height="28" colspan="5" align="left"><h3 class="psvr" ><%= Setting.ktv_subname %>共开设了<%= Course.count%>门课程，以下按课件数排序</h3></td>
+  </tr>
+  <tr bgcolor="#fafafa" align="center">
+    <td width="6%" align="center">类型</td>
+    <td width="33%" align="left">名字</td>
+    <td width="20%">学院</td>
+    <td width="31%">任课教师</td>
+    <td width="8%">课件数</td>
+  </tr><!--seed_today-->
+
+
+  <!--seed_today-->
+
+
+  <% @courses.each_with_index do |item,index| %>
+    <% teachers = item.teachings.collect(&:teacher) %> 
+     <tr bgcolor="#ffffff" align="center">
+       <td><%= item.is_yjs ? '研究生' : '本科生' %></td>
+        <td align="left">
+          <%=link_to "[#{item.number}] #{item.name}",cpath(item),class:'psvr'%> 
+        </td>
+        <td>  
+          <%= link_to item.department,"/departments/#{Department.get_id(item.department)}"%>
+        </td>
+        <td>  
+          <%= teachers.join('、') %>
+        </td>
+        <td><%=link_to item.coursewares_count,cpath(item),class:'psvr'%></td> 
+      </tr> 
+  <% end %>
+</table>
         </div>
     </div>
 </div>  
