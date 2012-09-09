@@ -4,14 +4,14 @@
           <%= render 'dp_table' %>
 <table class="psvr psvr_seedtable psvr_dptable" id="dp_0" border="0" align="center" cellpadding="1" cellspacing="1" bgcolor="#cccccc" width="100%">
   <tr bgcolor="#f1f1f1">
-    <td height="28" colspan="5" align="left"><h3 class="psvr" ><%= Setting.ktv_subname %>共开设了<%= Course.count%>门课程，以下按课件数排序</h3></td>
+    <td height="28" colspan="5" align="left"><h3 class="psvr" ><%= Setting.ktv_subname %>共为学生准备了<%= link_to Course.count,'/courses',style:"color:#{params[:years].present? ? 'black' : 'red'}"%>门课程，本学期开设了其中的<%= link_to @courses_now_count,'/courses?years=20122',style:"color:#{params[:years].present? ? 'red' : 'black'}"%>门</h3></td>
   </tr>
   <tr bgcolor="#fafafa" align="center">
     <td width="6%" align="center">类型</td>
-    <td width="33%" align="left">名字</td>
-    <td width="20%">学院</td>
-    <td width="31%">任课教师</td>
-    <td width="8%">课件数</td>
+    <td width="34%" align="left">名字</td>
+    <td width="16%">学院</td>
+    <td width="30%">任课教师</td>
+    <td width="8%">课件数▼</td>
   </tr><!--seed_today-->
 
 
@@ -21,7 +21,7 @@
   <% @courses.each_with_index do |item,index| %>
     <% teachers = item.teachings.collect(&:teacher) %> 
      <tr bgcolor="#ffffff" align="center">
-       <td><%= item.is_yjs ? '研究生' : '本科生' %></td>
+        <td><%= item.is_yjs %></td>
         <td align="left">
           <%=link_to "[#{item.number}] #{item.name}",cpath(item),class:'psvr'%> 
         </td>
@@ -35,6 +35,7 @@
       </tr> 
   <% end %>
 </table>
+<%= will_paginate @courses, :renderer=> DZLinkRenderer,:inner_window=>4 %>
         </div>
     </div>
 </div>  
