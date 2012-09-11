@@ -12,3 +12,7 @@ if (!(window.console && console.log)) {
         }
     }());
 }
+window.puts = function(something){
+  window.psvr_debug = something;
+  console.log(something);
+}

@@ -14,5 +14,5 @@
 //= require jquery_noconflict
 //= require jquery_ujs
 //= require ./psvr_kina
+//= require ./psvr_dz
 //= require_self
-
