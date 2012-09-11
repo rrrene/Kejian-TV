@@ -1,0 +1,3 @@
+class CoursewaresController < ApplicationController
+
+end

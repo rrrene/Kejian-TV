@@ -43,9 +43,9 @@ build/
 /trunk/.bundle
 /trunk/vendor/bundle/
 /trunk/log/
-/trunk/log_staging/
+/trunk/log_*/
 /trunk/tmp/
-/trunk/tmp_staging/
+/trunk/tmp_*/
 /trunk/coverage.data
 /trunk/coverage/
 /trunk/doc/api/
