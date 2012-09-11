@@ -7,6 +7,7 @@
                <h3 class="psvr">课程资源榜</h3>
                <span class="psvr psvr_moreimg"><a class="psvr" href="<%=courses_path%>"><img class="psvr" src="<%= asset_path 'extand_images/more.gif' %>" alt="查看更多"></a></span>
             </div>
+            <% binding.pry %>
             <div class="psvr_bd">
                <ul class="psvr psvr_meijulist">
                   <!--meiju_new10-->
@@ -14,6 +15,7 @@
                   <% dd=Course.get_department(course.fid)%>
                   <% ddid=Department.get_id(dd)%>
                   <% cc=Course.get_name(course.fid)%>
+                  <% cc=cc.split('] ')[-1] if 'zhongxue'==Setting.ktv_sub%>
                   <li class="psvr"><span class="psvr psvr_newstime"><%=course.threads%>个课件</span>[<a class="psvr" href="/departments/<%=ddid%>"><%=dd%></a>] <a class="psvr" href="/simple/forum.php?mod=forumdisplay&fid=<%=course.fid%>"><%=cc%></a></li>
                   <%end%> 
                </ul>
