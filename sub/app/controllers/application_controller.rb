@@ -66,7 +66,7 @@ class ApplicationController < ActionController::Base
     sign_out
   end
 
-  before_filter :insert_UserOrGuest
+  # before_filter :insert_UserOrGuest
 
   def rand_sid(len)
     @hash = ''

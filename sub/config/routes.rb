@@ -11,6 +11,7 @@ Sub::Application.routes.draw do
   get '/un_courses'=>'courses#index'
   resources :departments
   resources :courses
+  resources :coursewares
   resources :teachers
 
   #==
