@@ -183,7 +183,7 @@ class Redis
       def self._split(text)
         # return chars if disabled rmmseg
         return text.split("") if Search.config.disable_rmmseg
-          
+        return [] if text.nil?  
         algor = RMMSeg::Algorithm.new(text)
         words = []
         loop do

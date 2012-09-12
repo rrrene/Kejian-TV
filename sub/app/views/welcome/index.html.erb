@@ -15,6 +15,7 @@
                   <% ddid=Department.get_id(dd)%>
                   <% cc=Course.get_name(course.fid)%>
                   <% cc=cc.split('] ')[-1] if 'zhongxue'==Setting.ktv_sub%>
+		  
                   <li class="psvr"><span class="psvr psvr_newstime"><%=course.threads%>个课件</span>[<a class="psvr" href="/departments/<%=ddid%>"><%=dd%></a>] <a class="psvr" href="/simple/forum.php?mod=forumdisplay&fid=<%=course.fid%>"><%=cc%></a></li>
                   <%end%> 
                </ul>
