@@ -74,7 +74,7 @@ class WelcomeController < ApplicationController
     # 
     # 
     # 
-    @courses = PreForumForum.order('threads desc').limit(10)
+    @courses = PreForumForum.type2.order('threads desc').limit(10)
     @coursewares = PreForumThread.nondeleted.order('views desc').limit(10)
     @coursewares1 = PreForumThread.nondeleted.where('dateline>=?',Date.today.at_beginning_of_day.to_i).order('views desc')
     
