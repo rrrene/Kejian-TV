@@ -66,7 +66,7 @@ class Cpanel::StatsController < CpanelController
     @sort_by = SettingItem.find_or_create_by(key:'hot_asks_sort_by').value.to_s
   end
   def refresh_asks
-    Resque.enqueue(HookerJob,'Ask',Ask.first.id,:refresh_hot_asks)
+    Sidekiq::Client.enqueue(HookerJob,'Ask',Ask.first.id,:refresh_hot_asks)
     redirect_to "/cpanel/stats/hot_asks",:notice=>"处理成功！"
   end
   def hot_topics
@@ -77,7 +77,7 @@ class Cpanel::StatsController < CpanelController
     @sort_by = SettingItem.find_or_create_by(key:'hot_topics_sort_by').value.to_s
   end
   def refresh_topics
-    Resque.enqueue(HookerJob,'Topic',Topic.first.id,:refresh_hot_topics)
+    Sidekiq::Client.enqueue(HookerJob,'Topic',Topic.first.id,:refresh_hot_topics)
     redirect_to "/cpanel/stats/hot_topics",:notice=>"处理成功！"
   end
   def edit_hot_asks

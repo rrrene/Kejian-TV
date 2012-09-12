@@ -16,7 +16,7 @@ class Cpanel::CommentsController < CpanelController
   
   def index_un2all
     Deferred.comments.all.each do |item|
-      Resque.enqueue(HookerJob,'Deferred',item.id,:verify!)
+      Sidekiq::Client.enqueue(HookerJob,'Deferred',item.id,:verify!)
     end
     redirect_to '/cpanel/comments_un2', notice:'已经在后台开始全部审核，稍后才能看到结果'
   end

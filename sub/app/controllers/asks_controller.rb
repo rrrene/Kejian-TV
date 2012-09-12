@@ -155,7 +155,7 @@ an params example:
 
     @ask,@success,@answer = Answer.real_create(params,current_user)
     if @success and SettingItem.where(:key=>"answer_advertise_limit_open").first.value=="1"
-      Resque.enqueue(HookerJob,"User",@answer.user_id,:answer_advertise,@answer.id)
+      Sidekiq::Client.enqueue(HookerJob,"User",@answer.user_id,:answer_advertise,@answer.id)
     end
     respond_to do |format|
       format.html{
@@ -236,7 +236,7 @@ an params example:
 
     when 2
       if SettingItem.where(:key=>"ask_advertise_limit_open").first.value=="1"
-        Resque.enqueue(HookerJob,"User",@ask.user_id,:ask_advertise,@ask.id)
+        Sidekiq::Client.enqueue(HookerJob,"User",@ask.user_id,:ask_advertise,@ask.id)
       end
       if '1'==params[:force_mobile]
         redirect_to("/mobile/noticepage",:notice => '题创建成功。<a href="/asks/'+@ask.id.to_s+'?force_mobile=1">点击这里</a>跳转到该题。') and return

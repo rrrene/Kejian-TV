@@ -7,12 +7,9 @@ def redis_connect!(index=0)
   redis_config = YAML.load_file("#{Rails.root}/config/redis.yml")[Rails.env]
   $passwd = '87dsFDLKJ7^*$@#_Dn1..d0983DKOI892617jKLKLKDFJ;;dskojifdsouitreo09w'
 
-  $redis_resque = Redis.new(:host => redis_config['resque_host'],:port => redis_config['resque_port'],:thread_safe => true, :password=>$passwd) 
-  $redis_resque.select(redis_config['resque_select'])
-
   select = 0
-  $redis = Redis.new(:host => redis_config['resque_host'],:port => redis_config['resque_port'],:thread_safe => true, :password=> $passwd)
-  $redis.select(redis_config['resque_select'])
+  $redis = Redis.new(:host => redis_config['host'],:port => redis_config['port'],:thread_safe => true, :password=> $passwd)
+  $redis.select(select.to_s)
   select+=1
 
   $redis_search = Redis.new(:host => redis_config['host'],:port => redis_config['port'],:thread_safe => true, :password=> $passwd)
@@ -51,8 +48,13 @@ def redis_connect!(index=0)
     config.disable_rmmseg = false
   end
 
-  # Resque
-  Resque.redis = $redis_resque
+  Sidekiq.configure_client do |config|
+    config.redis =  ConnectionPool.new(:size => 1, :timeout => 3) do
+      redis = Redis.new(:host => redis_config['host_resque'],:port => redis_config['port_resque'],:thread_safe => true, :password=>$passwd) 
+      redis.select(redis_config['select_resque'])
+      Redis::Namespace.new('resque', :redis => redis)
+    end
+  end
   
   
   $snda_service = Sndacs::Service.new(:access_key_id => Setting.snda_id, :secret_access_key => Setting.snda_key)

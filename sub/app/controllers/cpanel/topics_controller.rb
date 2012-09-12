@@ -86,7 +86,7 @@ class Cpanel::TopicsController < CpanelController
     respond_to do |format|
       if @topic.update_attributes(params[:topic])
         if params[:topic][:will_autofollow].to_i!=0 and !@topic.has_autofollow
-          Resque.enqueue(HookerJob,'Topic',@topic.id,:check_autofollow)
+          Sidekiq::Client.enqueue(HookerJob,'Topic',@topic.id,:check_autofollow)
         end
         format.html { redirect_to(cpanel_topics_path, :notice => 'Topic 更新成功。') }
         format.json

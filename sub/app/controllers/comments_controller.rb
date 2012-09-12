@@ -32,7 +32,7 @@ an params example:
 =end
     @success,@comment = Comment.real_create(params,current_user)
     if @success and SettingItem.where(:key=>"answer_advertise_limit_open").first.value=="1"
-      Resque.enqueue(HookerJob,"User",@comment.user_id,:comment_advertise,@comment.id)
+      Sidekiq::Client.enqueue(HookerJob,"User",@comment.user_id,:comment_advertise,@comment.id)
     end
     if 'Courseware'==@comment.commentable_type
       render 'coursewares/_cw_comment',locals:{comment:@comment},layout:false

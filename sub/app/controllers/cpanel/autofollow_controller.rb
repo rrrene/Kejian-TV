@@ -74,7 +74,7 @@ class Cpanel::AutofollowController < CpanelController
         notice="处理成功。"
       elsif params[:deal_action].to_i==3
         asks.each do |a|
-          Resque.enqueue(HookerJob,'Deferred',a.id,:verify!)
+          Sidekiq::Client.enqueue(HookerJob,'Deferred',a.id,:verify!)
         end
         notice="处理成功。"
       end
@@ -138,7 +138,7 @@ class Cpanel::AutofollowController < CpanelController
       uploader = BanWordUploader.new
       uploader.store!(file)
     end
-    Resque.enqueue(HookerJob,'NaughtyWord',NaughtyWord.first.id,:add_words,current_user.id)
+    Sidekiq::Client.enqueue(HookerJob,'NaughtyWord',NaughtyWord.first.id,:add_words,current_user.id)
     txt=File.open(File.join(Rails.root,'public/uploads/words.txt'))
     render :text=>"#{txt.lines.count} words is adding."
   end
