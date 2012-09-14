@@ -1,0 +1,35 @@
+/usr/local/lib/ruby/gems/1.9.1/gems/celluloid-0.12.0/lib/celluloid/tasks/task_fiber.rb:44: [BUG] Segmentation fault
+ruby 1.9.2p290 (2011-07-09 revision 32553) [x86_64-darwin11.0.0]
+
+-- control frame ----------
+c:0012 p:---- s:0040 b:0040 l:000039 d:000039 CFUNC  :resume
+c:0011 p:0018 s:0036 b:0036 l:000035 d:000035 METHOD /usr/local/lib/ruby/gems/1.9.1/gems/celluloid-0.12.0/lib/celluloid/tasks/task_fiber.rb:44
+c:0010 p:0066 s:0032 b:0032 l:000031 d:000031 METHOD /usr/local/lib/ruby/gems/1.9.1/gems/celluloid-0.12.0/lib/celluloid/actor.rb:392
+c:0009 p:0109 s:0026 b:0026 l:0018b0 d:0018b0 METHOD /usr/local/lib/ruby/gems/1.9.1/gems/celluloid-0.12.0/lib/celluloid/actor.rb:320
+c:0008 p:0046 s:0022 b:0022 l:000021 d:000021 METHOD /usr/local/lib/ruby/gems/1.9.1/gems/celluloid-0.12.0/lib/celluloid/actor.rb:195
+c:0007 p:0061 s:0017 b:0017 l:001d28 d:000016 BLOCK  /usr/local/lib/ruby/gems/1.9.1/gems/celluloid-0.12.0/lib/celluloid/actor.rb:184
+c:0006 p:0007 s:0015 b:0015 l:001bd8 d:000014 BLOCK  /usr/local/lib/ruby/gems/1.9.1/gems/celluloid-0.12.0/lib/celluloid/thread_handle.rb:12
+c:0005 p:---- s:0013 b:0013 l:000012 d:000012 FINISH
+c:0004 p:---- s:0011 b:0011 l:000010 d:000010 CFUNC  :call
+c:0003 p:0021 s:0008 b:0008 l:001298 d:000007 BLOCK  /usr/local/lib/ruby/gems/1.9.1/gems/celluloid-0.12.0/lib/celluloid/internal_pool.rb:48
+c:0002 p:---- s:0004 b:0004 l:000003 d:000003 FINISH
+c:0001 p:---- s:0002 b:0002 l:000001 d:000001 TOP   
+---------------------------
+-- Ruby level backtrace information ----------------------------------------
+/usr/local/lib/ruby/gems/1.9.1/gems/celluloid-0.12.0/lib/celluloid/internal_pool.rb:48:in `block in create'
+/usr/local/lib/ruby/gems/1.9.1/gems/celluloid-0.12.0/lib/celluloid/internal_pool.rb:48:in `call'
+/usr/local/lib/ruby/gems/1.9.1/gems/celluloid-0.12.0/lib/celluloid/thread_handle.rb:12:in `block in initialize'
+/usr/local/lib/ruby/gems/1.9.1/gems/celluloid-0.12.0/lib/celluloid/actor.rb:184:in `block in initialize'
+/usr/local/lib/ruby/gems/1.9.1/gems/celluloid-0.12.0/lib/celluloid/actor.rb:195:in `run'
+/usr/local/lib/ruby/gems/1.9.1/gems/celluloid-0.12.0/lib/celluloid/actor.rb:320:in `handle_message'
+/usr/local/lib/ruby/gems/1.9.1/gems/celluloid-0.12.0/lib/celluloid/actor.rb:392:in `task'
+/usr/local/lib/ruby/gems/1.9.1/gems/celluloid-0.12.0/lib/celluloid/tasks/task_fiber.rb:44:in `resume'
+/usr/local/lib/ruby/gems/1.9.1/gems/celluloid-0.12.0/lib/celluloid/tasks/task_fiber.rb:44:in `resume'
+
+-- C level backtrace information -------------------------------------------
+
+[NOTE]
+You may have encountered a bug in the Ruby interpreter or extension libraries.
+Bug reports are welcome.
+For details: http://www.ruby-lang.org/bugreport.html
+
