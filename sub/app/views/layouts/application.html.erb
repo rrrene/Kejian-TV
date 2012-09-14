@@ -231,12 +231,15 @@
 <span id="scrolltop" onclick="window.scrollTo('0','0')">回顶部</span>
 <script type="text/javascript">_attachEvent(window, 'scroll', function(){showTopLink();});</script>
 </div>
-<script type="text/javascript">
-var invisiblestatus = '在线';
-var loginstatusobj = document.getElementById('loginstatusid');
-if(loginstatusobj != undefined && loginstatusobj != null) loginstatusobj.innerHTML = invisiblestatus;
-</script>
+<% if current_user %>
+  <%@invisiblex = PreCommonMemberStatus.where(:uid => current_user.uid).first.invisible == '1' ? true : false %>
 
+  <script type="text/javascript">
+  var invisiblestatus = <% if !@invisiblex %>'隐身'<% else %> '在线'<% end %>;
+  var loginstatusobj = document.getElementById('loginstatusid');
+  if(loginstatusobj != undefined && loginstatusobj != null) loginstatusobj.innerHTML = invisiblestatus;
+  </script>
+<% end %>
 <%= javascript_include_tag "application" %>
 <%= javascript_include_tag "ui_orig" %>
 <script type="text/javascript" charset="utf-8">
