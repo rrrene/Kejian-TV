@@ -5,7 +5,7 @@ require "redis-search"
 def redis_connect!(index=0)
   $debug_logger.fatal("redis_connect! at #{index} (#{index.class})")
   redis_config = YAML.load_file("#{Rails.root}/config/redis.yml")[Rails.env]
-  $passwd = '87dsFDLKJ7^*$@#_Dn1..d0983DKOI892617jKLKLKDFJ;;dskojifdsouitreo09w'
+  $passwd = redis_config['password']
 
   select = 0
   $redis = Redis.new(:host => redis_config['host'],:port => redis_config['port'],:thread_safe => true, :password=> $passwd)
