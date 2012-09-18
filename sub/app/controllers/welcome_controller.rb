@@ -1,12 +1,64 @@
 # -*- encoding : utf-8 -*-
 class WelcomeController < ApplicationController
+  before_filter :require_user,:only => [:index]
   def index
-    if !current_user
-      redirect_to '/welcome/newbie'
-      return
+    will_redirect = (!current_user and params[:psvr_force].blank?)
+    if !will_redirect
+      @coursewares=Courseware.any_of({:user_id.in => current_user.following_ids},
+        {:uploader_id.in => current_user.following_ids})
+      .excludes(:uploader_id => current_user.id).desc('created_at')
+      will_redirect ||= (0==@coursewares.count and params[:psvr_force].blank?)
     end
+    if will_redirect
+      redirect_to '/welcome/featured'
+      return
+    else
+      @seo[:title] = '我关注的资源动态'
+      render
+    end
+  end
+  def featured
+    @seo[:title] = '资源广场'
+    @coursewares=Courseware.desc('downloads_count')
+    render 'index'
+  end
+  def hot
+    @seo[:title] = '最热课件'
+    @coursewares=Courseware.desc('views_count')
+    render 'index'    
+  end
+  def week
+    @seo[:title] = '本周上传的课件'
+    @coursewares=Courseware.where(:created_at.gt=>1.week.ago)
+    render 'index'
+  end
+  def month
+    @seo[:title] = '本月上传的课件'
+    @coursewares=Courseware.where(:created_at.gt=>1.month.ago)
+    render 'index'
+  end
+  
+  def inactive_sign_up
+    render "inactive_sign_up#{@subsite}",layout:'application_for_devise'
+  end
+  def shuffle
+    cw = nil
+    i = 0
+    while !(cw and 0==cw.status and !cw.deleted?)
+      cw = Courseware.skip(rand(Courseware.count)).first
+      i += 1
+      if i>10
+        redirect_to '/'
+        return
+      end
+    end
+    redirect_to cw
+  end
+  def feeds
     
-    @seo[:title] = '首页'
+  end
+private
+  def common
     @stat = PreCommonStat.order
     ###session
     @showoldetails = params[:showoldetails]=='no' ? false : true
@@ -74,15 +126,7 @@ class WelcomeController < ApplicationController
     @cw = PreForumThread.nondeleted.count
     @users = PreCommonMember.count
     @newuser =  PreCommonMember.order('regdate').last
-
-    @departments = Department.asc('created_at')
-
-    @coursewares=Courseware.any_of({:user_id.in => current_user.following_ids},
-      {:uploader_id.in => current_user.following_ids})
-    .excludes(:uploader_id => current_user.id).desc('created_at')
-  end
-  def newbie
-    @coursewares=Courseware.desc('downloads_count')
-    render 'index'
+    
   end
 end
+

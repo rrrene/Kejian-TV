@@ -86,7 +86,11 @@
 <!--
           <li class="raise_ask"><a href="<%= new_ask_path %>" class="lh39 pa0" id="core_addtext_wrap">我要提问</a></li>
 -->
+<%if request.path.starts_with?('/coursewares_')%>
+          <li class="browse"><a href="/" class="lh39 pa0 core_wraps" id="core_all_wrap">返回首页</a></li>
+<% else %>    
           <li class="browse"><a href="/coursewares_by_departments" class="lh39 pa0 core_wraps" id="core_all_wrap">课件瀑布</a></li>
+<% end %>    
           <li class="upload"><a href="<%= new_courseware_path %>" class="lh39 pa0 core_wraps" id="core_addcw_wrap">上传课件</a></li>
         </ul>
         <div id="amazing-shadow"></div>
@@ -286,6 +290,7 @@
       $('#core_addcw_wrap').click(function(){return KTV.addCW()});
       $('#login').click(function(){return KTV.login()});
       $("abbr.timeago").timeago();
+      $("span.relativetime").timeago();
       <% unless current_user %>
         $('.psvr_login_required').attr('onclick','').unbind('click').bind('click',function(){
           return KTV.login();

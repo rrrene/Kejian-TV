@@ -7,7 +7,7 @@
     <div class="navigator yahe cf">
 
       <ul>
-      <li class="<%= 'current' if ['/'].include? request.path %>"><a class="navmark" href="/">返回首页</a>
+
 <!--
 <span class="iconbg arrow"></span>
       <div class="dropdown w200" style="display: none;">
@@ -19,17 +19,18 @@
       <a href="<%= all_logs_path %>">动态</a>
       </div>
 -->
-      </li>
-    <% if current_user %>
+
+      <% if current_user %>
+        <li class="<%= 'current' if mine_coursewares_path==request.path %>"><a href="<%= mine_coursewares_path %>">我关注的</a></li>
+        <li class="dot"></li>
+      <% end %>
+      <li class="<%= 'current' if '/coursewares_by_departments'==request.path %>"><a href="/coursewares_by_departments">按学院分类</a></li>
       <li class="dot"></li>
-      <li class="<%= 'current' if mine_coursewares_path==request.path %>"><a href="<%= mine_coursewares_path %>">我关注的</a></li>
-    <% end %>
+      <li class="<%= 'current' if '/coursewares_by_teachers'==request.path %>"><a href="/coursewares_by_teachers">按老师分类</a></li>
       <li class="dot"></li>
-      <li class="<%= 'current' if '/coursewares_by_departments'==request.path %>"><a href="<%= topics_path %>">按学院分类</a></li>
+      <li class="<%= 'current' if '/coursewares_by_sorts'==request.path %>"><a href="/coursewares_by_sorts">按课程分类</a></li>
       <li class="dot"></li>
-      <li class="<%= 'current' if '/coursewares_by_teachers'==request.path %>"><a href="<%= topics_path %>">按老师分类</a></li>
-      <li class="dot"></li>
-      <li class="<%= 'current' if '/coursewares_by_sorts'==request.path %>"><a href="<%= topics_path %>">按文件分类</a></li>
+
       <!--
       <li class="dot"></li>
       <li class="<%= 'current' if schools_path==request.path %>"><a href="<%= schools_path %>">全部学校/老师</a></li>

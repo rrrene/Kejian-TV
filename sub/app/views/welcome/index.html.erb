@@ -8,14 +8,14 @@
             <div id="hmenus">
                 <div class="nav mainnavs">
                     <ul style="float:left">
-                      <li><a id="nav-questions" href="http://<%= Setting.ktv_subdomain %>"><%= Setting.ktv_subname %>课件交流系统</a></li>
+                      <li><a id="nav-subname" href="http://<%= Setting.ktv_subdomain %>"><%= Setting.ktv_subname %>课件交流系统</a></li>
                     </ul>
                     <ul>
-                        <li class="youarehere"><a id="nav-questions" href="/questions">我的首页</a></li>
-                        <li><a id="nav-users" href="/users">我的同学</a></li>
-                        <li><a id="nav-unanswered" href="/unanswered">全部课程</a></li>
-                        <li><a id="nav-users" href="/users">全部老师</a></li>
-                        <li><a id="nav-tags" href="/tags">课件寻求</a></li>
+                        <li class="<%= 'youarehere' if WelcomeController==controller.class %>"><a id="nav-questions" href="/">我的首页</a></li>
+                        <li class="<%= 'youarehere' if CoursesController==controller.class %>"><a id="nav-unanswered" href="/courses">全部课程</a></li>
+                        <li class="<%= 'youarehere' if TeachersController==controller.class %>"><a id="nav-users" href="/teachers">全部老师</a></li>
+                        <li class="<%= 'youarehere' if UsersController==controller.class %>"><a id="nav-users" href="/users">我的同学</a></li>
+                        <li class="<%= 'youarehere' if @we_are_inside_qa %>"><a id="nav-tags" href="/for_help">求助区</a></li>
                     </ul>
                 </div>
             </div>
@@ -31,22 +31,23 @@
 
 <div class="subheader">
     <h1 id="h-top-questions">
-        最新课件    
+        <%= @seo[:title] %>
     </h1>
     <div id="tabs">
-
-    <a class="youarehere" href="?tab=active" title="questions that have been asked, answered, or updated recently">我关注的</a>
-    <a href="?tab=featured" title="questions with an active bounty"><span class='bounty-indicator-tab'>2</span>优良课件</a>
-    <a href="?tab=hot" title="questions with the most views, answers, and votes over the last few days">最热</a>
-    <a href="?tab=week" title="questions with the most views, answers, and votes this week">本周</a>
-    <a href="?tab=month" title="questions with the most views, answers, and votes this month">本月</a>
-            
+    <a class="<%= 'youarehere' if '/'==request.path %>" href="/?psvr_force=1">我关注的</a>
+    <a class="<%= 'youarehere' if '/welcome/featured'==request.path %>" href="/welcome/featured">资源广场</a>
+    <a class="<%= 'youarehere' if '/welcome/hot'==request.path %>" href="/welcome/hot">最热</a>
+    <a class="<%= 'youarehere' if '/welcome/week'==request.path %>" href="/welcome/week">本周</a>
+    <a class="<%= 'youarehere' if '/welcome/month'==request.path %>" href="/welcome/month">本月</a>
     </div>
 </div>
 <div id="question-mini-list">
+<% if @coursewares.count<1 %>
+  您关注的资源没有新动态，去<%= link_to '资源广场','/welcome/featured' %>关注更多内容吧！
+<% else %>
 <% @coursewares.each do |item|%>
 <div class="question-summary narrow" id="question-summary-10939">
-    <div onclick="window.location.href='/questions/10939/genetically-modified-crops'" class="cp">
+    <div onclick="window.location.href='/coursewares/<%= item.id %>'" class="cp">
         <div class="votes">
             <div class="mini-counts"><%= item.views_count %></div>
             <div>点击</div>
@@ -62,26 +63,26 @@
     </div>
     <div class="summary">
         
-        <h3><a href="<%= coursewares_path item %>" class="question-hyperlink" title="<%= item.desc %>"><%= item.title %></a></h3>
+        <h3><a href="/coursewares/<%= item.id %>" class="question-hyperlink" title="<%= item.desc %>"><%= item.title %></a></h3>
         <div class="tags t-nutrition">
           <% if item.teacher.present? %>
-            <a href="/courses/<%= item.teacher_typeid %>" class="post-tag" title="" rel="tag"><%= item.teacher %></a> 
+            <a href="/teachers/<%= item.teacher_typeid %>" class="post-tag" title="<%= item.teacher %>" rel="tag"><%= item.teacher %></a> 
           <% end %>
           <% if nn=Course.get_name(item.course_fid) %>
-            <a href="/courses/<%= item.course_fid %>" class="post-tag" title="" rel="tag"><%= nn %></a> 
+            <a href="/courses/<%= item.course_fid %>" class="post-tag" title="<%= nn %>" rel="tag"><%= nn %></a> 
             <% if nd=Course.get_department(item.course_fid) and ndid = Department.get_fid(nd) %>
-              <a href="/departments/<%= ndid %>" class="post-tag" title="" rel="tag"><%= nd %></a> 
+              <a href="/departments/<%= ndid %>" class="post-tag" title="<%= nd %>" rel="tag"><%= nd %></a> 
             <% end %>
           <% end %>
         </div>
         <div class="started">
-            <a href="/questions/10939/genetically-modified-crops" class="started-link"><%= timeago(item.created_at,:span=>true) %></a>
-            <a href="/users/<%= User.get_slug item.user_id %>"><%= User.get_name item.user_id %></a> <span class="reputation-score" title="reputation score" dir="ltr"><%= User.get_reputation(item.user_id) %></span>
+            <a href="/coursewares/<%= item.id %>" class="started-link"><%= timeago(item.created_at,:span=>true) %></a>
+            <a href="/users/<%= User.get_slug item.uploader_id %>"><%= User.get_name item.uploader_id %></a> <span class="reputation-score" title="reputation score" dir="ltr"><%= User.get_reputation(item.uploader_id) %></span>
         </div>
     </div>
 </div>
 <% end %>
-
+<% end %>
 </div>
 
 </div>
@@ -98,10 +99,13 @@
         </div>
     </div>
     <div id="questions-count" class="module">
-      <div class="summarycount al"><%= link_to number_with_delimiter(Courseware.count),coursewares_path %></div>
+      <div class="summarycount al"><%= link_to number_with_delimiter(Courseware.count),'/coursewares_by_departments' %></div>
       <p>个课件已上传</p>
-    </div>    
-<div class="module" id="chat-feature">
+    </div>
+<div class="__sdk" style="background:transparent">
+  <a class="button primary" id="cw_newhuge" href="/coursewares/new" style="color:white">上传分享课件</a>
+</div>
+<div class="module" id="chat-feature" style="padding-top:0">
     
 
     
@@ -117,7 +121,7 @@
 </div>
 
 <div id="feed-link">
-    <div id="feed-link-text"><a href="/feeds" title="RSS订阅最新课件"><span class="feed-icon"></span>RSS订阅最新课件</a></div>
+    <div id="feed-link-text"><a href="/welcome/feeds" title="RSS订阅最新课件"><span class="feed-icon"></span>RSS订阅最新课件</a></div>
 </div>
 
         </div>
