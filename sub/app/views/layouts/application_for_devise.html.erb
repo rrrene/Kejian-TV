@@ -1,0 +1,89 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>课件交流系统 - <%= @seo[:title] %><%=yield :title%></title>
+  <meta name="keywords" content="<%= @seo[:keywords] %>" />
+  <meta name="description" content="<%= @seo[:description] %>" />
+  <meta name="description" content="">
+  <script src="/js/plugins.js" type="text/javascript"></script>
+  <script src="/js/libs/modernizr-2.5.3.min.js"></script>
+  <meta name="viewport" content="width=device-width">
+  <%= stylesheet_link_tag    "ktv/ie/application", :media => "all" %>
+  <%= csrf_meta_tags %>
+  <%= render 'common_header' %>
+  <%= yield :armpit %>
+  <%= flash[:extra_ucenter_operations] %>
+</head>
+<body class="application_for_devise" id="<%= pos_signature %>">
+  <header id="header">
+    <div class="w460">
+      <a href="<%= root_path %>" id="logolink">
+        <%= image_tag('logo.png', :alt=>"Kejian.tv") %><%= image_tag "logo_ktv_#{Setting.ktv_sub}.png",:alt => "#{Setting.ktv_subname}课件交流系统",:id=>"logotext"%>
+      </a>  
+    </div>
+  </header>
+  <% if !cookies[:spetial].blank? %>
+    <p class="flash_alert"><%=raw  cookies[:spetial] %> [<a class="close_me" href="#"> 隐藏 </a>]</p>
+    <%= content_for :butt2 do %>
+        $(".flash_alert").fadeOut('fast').fadeIn('fast').fadeOut('fast').fadeIn('fast');
+        $(".flash_alert .close_me").click(function(){
+          $(this).parent().hide();
+        });
+    <% end %>
+    <% cookies[:spetial] = nil %>
+  <% else %>  
+    <% if !notice.blank? %>
+      <p class="flash_notice"><%=raw notice %> [<a class="close_me" href="#"> 隐藏 </a>]</p>
+      <%= content_for :butt2 do %>
+          $(".flash_notice").fadeOut().fadeIn();
+          $(".flash_notice .close_me").click(function(){
+            $(this).parent().hide();
+          });
+      <% end %>
+    <% end %>
+    <% if !alert.blank? %>
+      <p class="flash_alert"><%=raw alert %> [<a class="close_me" href="#"> 隐藏 </a>]</p>
+      <%= content_for :butt2 do %>
+          $(".flash_alert").fadeOut('fast').fadeIn('fast').fadeOut('fast').fadeIn('fast');
+          $(".flash_alert .close_me").click(function(){
+            $(this).parent().hide();
+          });
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <div role="main" id="main">
+    <div class="w460">
+      <%= yield %>
+    </div>
+  </div>
+  <footer>
+    <div class="w460">
+      <p class="title">版权所有 © 2012 <a href="http://<%=Setting.ktv_domain%>">Kejian.TV</a> 课件交流系统.</p>
+    </div>
+  </footer>
+  <%= javascript_include_tag "ktv/ie/application" %>
+  <script type="text/javascript" charset="utf-8">
+(function($){
+  $(document).ready(function(){
+    <%= yield :butt2 %>
+    $("abbr.timeago").timeago();
+    <% unless current_user %>
+      $('.psvr_login_required').attr('onclick','').unbind('click').bind('click',function(){
+        return KTV.login();
+      });
+    <% end %>
+  });
+})(jQuery);
+  </script>
+  <%= render 'analytics' unless Rails.env.development? %>
+</body>
+</html>
+
+

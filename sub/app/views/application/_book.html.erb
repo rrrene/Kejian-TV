@@ -1,0 +1,12 @@
+<li>
+<%info = book.load_book_info%>
+<%authors = info.authors %>
+<a href="#">
+  <%=authors.first%>
+  <%# '('+authors[1..-1].join(', ')+')' if authors.size>1%>
+  《<%=book.title%>》
+</a>
+<% if book.isbn_en_cn.present?%>[ <a href="#">影印版</a> ]<% end %>
+<% if book.isbn_en.present?%>[ <a href="#">原版</a> ]<% end%>
+</li>
+

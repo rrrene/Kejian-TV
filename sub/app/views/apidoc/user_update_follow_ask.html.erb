@@ -1,0 +1,36 @@
+
+<h1 id="section">课件交流系统: Kejian.TV开放应用程序接口 - 关注/取消关注题</h1>
+
+<h2>认证级别</h2>
+<p>访问敏感资源需要Oauth认证，证明您获得了用户的许可，且只能查看、更新用户自己的敏感资源。</p>
+<p>特殊受信应用可以获取、更新任何用户的任何资源。</p>
+
+<h2>输入</h2>
+<p>向<code>/users/:user/follow_ask</code>发送<code>POST</code>请求，内容为{ 'subject' => '要关注ask的id', :ac => 'follow或者unfollow' }。</p>
+<p>例如(ruby)：</p>
+<pre>
+require 'rest_client'
+response = RestClient.post "http://api.kejian.tv/users/ewklqjew/follow_ask?client_id=4f853634c3666e05e1000002", { 'subject' => '4fbc9fd19bd4bf0913000051', 'ac' => 'follow' } 
+</pre>
+
+<h2>输出</h2>
+<p>例如：</p>
+<pre>
+response
+=> "{\"success\":true}"
+</pre>
+
+
+<h2>输入（示例2）</h2>
+<p>例如(ruby)：</p>
+<pre>
+require 'rest_client'
+response = RestClient.post "http://api.kejian.tv/users/ewklqjew/follow_ask?client_id=4f853634c3666e05e1000002", { 'subject' => '4fbc9fd19bd4bf0913000051', 'ac' => 'unfollow' } 
+</pre>
+
+<h2>输出（示例2）</h2>
+<p>例如：</p>
+<pre>
+response
+=> "{\"success\":true}"
+</pre>

@@ -1,0 +1,51 @@
+<h1 id="section">课件交流系统: Kejian.TV开放应用程序接口 - 认证方法一、OAuth</h1>
+
+为了演示客户端的访问使用Kejian.TVAPI的方法，我们编写了一个Ruby客户端库简单包装了各个客户端操作，作为示例。
+
+<h2>安装</h2>
+<p>您可以通过Rubygems方便地安装这个库。</p>
+<pre>$ gem install wendao</pre>
+<p>也可以通过git获取最新的代码库代码。</p>
+<pre>$ git clone git://github.com/pmq20/wendao.git</pre>
+
+<h2>基本使用方法</h2>
+<pre>
+require 'rubygems'
+=> true
+require 'wendao'
+=> true
+
+herder = WendaoHerder.new
+=> #<WendaoHerder:0x7f792d3c4918 ...>
+
+me = herder.user 'jhelwig'
+=> #<WendaoHerder::User:0x7f792d3b6070 ...>
+
+me.html_url
+=> "https://kejian.tv/jhelwig"
+
+me.available_attributes.sort
+=> ["asks","topics",...]
+
+repos = me.asks
+=> [#<WendaoHerder::Ask:0x7f792d364bf8 ...>, #<WendaoHerder::Ask:0x7f792d364bd0 ..>, #<WendaoHerder::Ask:0x7f792d364ba8 ...>, ...]  
+</pre>
+
+
+<h2>如何进行认证？</h2>
+<p>对于那些需要认证的操作，你需要在初始化客户端的时候提供用户名和密码。</p>
+<pre>
+client = Wendao::Client.new(:login => "me", :password => "secret")
+client.follow!("psvr")
+</pre>  
+<p>或者，你可以使用你手中的访问令牌。注意：这个令牌<strong>不是</strong>你在<a href="http://api.kejian.tv/clients">应用程序管理</a>里看到的应用程序ID！而是通过用授权码换取访问令牌得到的那个字符串。</p>
+<pre>
+client = Wendao::Client.new(:login => "me", :oauth_token => "oauth2token")
+client.follow!("psvr")
+</pre>  
+    
+<h2>相关网址</h2>
+
+<p>Github项目页面：<a href="http://rubygems.org/gems/wendao">https://github.com/pmq20/wendao</a></p>
+
+<p>Rubygems页面：<a href="http://rubygems.org/gems/wendao">http://rubygems.org/gems/wendao</a></p>

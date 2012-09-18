@@ -1,0 +1,10 @@
+<div data-slide-count="<%= cw.slides_count %>" data-course-slug="<%=cw.course.slug%>" data-courseware-slug="<%=cw.slug%>" class="presentation">
+  <a href="<%= cw.path %>" class="slide_preview scrub">
+    <img src="<%= asset_url("cw/#{cw.id}/#{cw.revision}thumb_slide_0.png") %>" alt="Thumb_slide_0">
+      <div class="scrubber"><div style="width:0;" class="scrubbed"></div></div>
+  </a>
+  <div class="preview_info">
+    <h3><a href="<%= courseware_path cw %>"><%= cw.title%></a></h3>
+    <p class="date"><%= l cw.created_at.getlocal, :format => :long %>, <a href="<%= user_path(cw.user) %>"><%= cw.user.name %></a></p>
+  </div>
+</div>

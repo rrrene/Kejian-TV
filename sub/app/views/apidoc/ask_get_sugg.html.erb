@@ -1,0 +1,35 @@
+
+<h1 id="section">课件交流系统: Kejian.TV开放应用程序接口 - 获获得某个题的相关题</h1>
+
+<h2>认证级别</h2>
+<p>只需提供client_id</p>
+
+<h2>输入</h2>
+<p>向<code>/asks/:id/sugg</code>发送<code>GET</code>请求，可以携带分页参数，因为结果可能很大。</p>
+<p>例如：</p>
+<pre class="terminal">
+http://api.kejian.tv/asks/4e6fafa261300334f60004d6/sugg?client_id=4f97b5f9d1212f1d7e000002
+</pre>
+
+<h2>输出</h2>
+得到的就是相关题的ID。
+<p>例如：</p>
+<pre class="terminal">
+{ size: 15,
+  result: 
+   [ '4e6fafa261300334f60004d6',
+     '4e6fda1261300334f600057f',
+     '4e6fd9aa61300334ea00055f',
+     '4e6fd89c61300334de00057c',
+     '4e70124761300334ea000653',
+     '4e7010dd61300334de000678',
+     '4e6fdc1361300334de00058d',
+     '4e9339206130030ed1000159',
+     '4e6fdebb61300334ea00057a',
+     '4e6fdf8361300334de0005a5',
+     '4e6fdcf661300334f600058d',
+     '4e6fe17b61300334de0005be',
+     '4e96fbf86130032ce500025e',
+     '4e97318f613003322e00002f',
+     '4e9853cb6130033300000214' ] }
+</pre>

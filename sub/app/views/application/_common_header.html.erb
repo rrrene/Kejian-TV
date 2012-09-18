@@ -1,0 +1,45 @@
+<script type="text/javascript" charset="utf-8">
+  window.psvr_subject = '<%= Setting.ktv_sub %>';  
+  window.psvr_is_ie = <%= @is_ie.to_json %>;
+  window.psvr_ie_readyfix = function(){
+    if(!window.psvr_ie_already_ready){
+      console.log('manual trigger');
+      jQuery.ready();
+    }
+  }
+  window.psvr_ie_already_ready=false;
+<% if user_signed_in? %>
+  window.loginUser = <%=raw Hash[
+      "id"=> "#{current_user.id}",
+      "uid"=> "#{current_user.id}",
+      "nickname"=> "#{current_user.name}",
+      "gender"=> 1,
+      "slug"=>"#{current_user.slug}",
+      "description"=> "#{current_user.bio}",
+      "avatarLargeCut"=> "#{avatar_url(current_user,:normal180)}",
+      "avatarMedium"=> "#{avatar_url(current_user,:mid60)}",
+      "avatarTiny"=> "#{avatar_url(current_user,:small30)}",
+      "avatarSmall47"=> "#{avatar_url(current_user,:small47)}",
+      "avatarLarge"=> "#{avatar_url(current_user,:normal180)}",
+    ].to_json%>;
+<% else %>
+  window.loginUser = "";
+<% end %>
+var STYLEID = '1',
+    STATICURL = '/simple/static/',
+    IMGDIR = '/simple/static/image/common',
+    VERHASH = 'tFF',
+    charset = 'utf-8',
+    discuz_uid = '<%= user_signed_in? ? current_user.uid : 0 %>',
+    cookiepre = '6tce_2132_',
+    cookiedomain = '<%= Setting.ktv_subdomain %>',
+    cookiepath = '/',
+    showusercard = '1',
+    attackevasive = '0',
+    disallowfloat = 'newthread',
+    creditnotice = '<%=@extcredit_name_list%>',
+    defaultstyle = '',
+    REPORTURL = <%=raw Base64.encode64(request.url).gsub("\n",'').to_json%>,
+    SITEURL = 'http://<%= Setting.ktv_subdomain %>/',
+    JSPATH = '/simple/static/js/';
+</script>

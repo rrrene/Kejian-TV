@@ -1,0 +1,22 @@
+<h2>我的访问记录</h2>
+<% if @accesses.empty? %>
+  (空)
+<% else %>
+<table>
+  <tr>
+    <th style="display:none">客户端ID</th>
+    <th>客户端名</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @accesses.each do |access| %>
+  <tr>
+    <td style="display:none"><%= access.client_uri %></td>
+    <td><%= link_to access.client.name,cpanel_client_path(access.client) %></td>
+    <td><%= link_to '流量统计', cpanel_access_path(access), class: "button icon settings" %></td>
+  </tr>
+<% end %>
+</table>
+<% end %>
+<br/>

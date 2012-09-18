@@ -1,0 +1,43 @@
+<div class="__sdk">
+  <div id="content">
+    
+  <%= form_for @courseware,:url => "/presentations", :html => { :method => :post,'data-s3' =>@config.to_json,  :class => 'new_presentation', :id=>'upload_presentation', :autocomplete=>"off" } do |f| %>
+    <input id="presentation_uptime" name="presentation[uptime]" type="hidden" value="<%=@uptime%>" />
+    <section id="presentation" class="supplimental">
+      <div class="wrapper">
+        <div class="primary_info" id="biaozhu_cw" style="">
+          <!-- display:none -->
+          <h1>标注课件信息</h1>
+<p>
+          如果您是课件的原作者，请直接输入课件名作为标题；<br />
+          否则，请选用下述三种标题格式标注原作者：<br />
+          1、[学校名] 作者姓名: 课件名<br />
+          2、@作者姓名: 课件名<br />
+          3、@已注册用户的用户名: 课件名
+
+</p>
+
+  <p><label for="presentation_title">课件标题</label><br />
+     <input class="text" id="presentation_title" name="presentation[title]" size="30" type="text" placeholder="例如：[北京大学]郭懋正:2011阅读与练习第1次"  value="<%= cookies[:presentation_pretitle] %><%= ': ' if cookies[:presentation_pretitle].present? %>"/></p>
+  <p><label for="presentation_topic">领域</label> <input class="text" id="presentation_topic" name="presentation[topic]" size="30" type="text" placeholder="例如：数学分析" value="<%= cookies[:presentation_topic] %>"/></p>
+  <%= render :partial=>'form_extras',:locals=>{:courseware=>@courseware} %>
+
+  <p class="submit">
+      <button class="primary">保存课件信息</button>
+      <span class="button primary cancel">请先完成文件上传</span>
+  </p>
+
+
+        </div>
+        <div class="secondary_info">
+          <%= render 'upload' %>
+        </div>
+      </div>
+    </section>
+  <% end %>
+  
+  
+</div>
+</div>
+
+<%= render file:'/application/footers/_sdk_footer' %>

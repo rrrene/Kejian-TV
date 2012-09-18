@@ -116,7 +116,7 @@ class UsersController < ApplicationController
       render "/logs/index.js"
     end
     
-    render "show#{@subsite}"
+    render "show"
   end
 
   def asked

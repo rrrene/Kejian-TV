@@ -1,0 +1,144 @@
+<%= spaceless do %>
+<!DOCTYPE html> 
+<html> 
+    <head> 
+        <title>Kejian.TV</title> 
+        <meta name="viewport" content="width=device-width, initial-scale=1"> 
+        <meta charset="UTF-8"/>
+        <!--<link rel="stylesheet" href="/mobilepublic/css/jquery.mobile-1.0.css" />-->
+        <link rel="stylesheet" href="/mobilepublic/css/jquery.mobile-1.1.0.min.css" />
+        <link rel="stylesheet" href="/mobilepublic/css/mobile.css" />
+        <script src="/mobilepublic/js/jquery-1.6.4.min.js"></script>
+        <script src="/mobilepublic/js/custom-scripting.js"></script>
+        <script src="/mobilepublic/js/mobile.js"></script>
+        <!--<script src="/mobilepublic/js/jquery.mobile-1.0.min.js"></script>-->
+        <script src="/mobilepublic/js/jquery.mobile-1.1.0.min.js"></script>
+      <script type="text/javascript">
+        <% if current_user %>
+        var logined = true;
+        <% else %>
+        var logined = false;
+        <% end %>
+      </script>
+      <%= flash[:extra_ucenter_operations] %>
+    </head> 
+    <body> 
+      
+        <div data-role="page" data-add-back-btn="true" data-back-btn-text="返回">
+
+            <div data-role="header">
+                <!--<a href="/" data-icon="home" data-iconpos="notext" title="Home"><span class="ui-btn-inner ui-btn-corner-all" aria-hidden="true"><span class="ui-btn-text">首页</span><span class="ui-icon ui-icon-home ui-icon-shadow"></span></span></a>-->
+                <!--<h1>Kejian.TV</h1>-->
+                <h1 style="margin-top:0;"><img src="<%=asset_path 'mobile_logo.png' %>" alt="Kejian.TV" /></h1>
+<!--
+<% if current_user %>
+            <a href="http://my.kejian.tv/loginmgr/logout.asp?strBkUrl=http://<%= request.host_with_port %>/" class="ui-btn-right" data-role="button" data-icon="info">退出(<%= current_user.name %>)</a>
+          <% else %>
+            <a href="/mobile/login" class="ui-btn-right" data-role="button" data-icon="info">登录/注册</a>
+<% end %>
+-->
+<%unless current_user%>
+  <%if request.path!='/mobile/login'%>
+    <a href="/mobile/login" class="ui-btn-right" data-role="button" data-icon="info">登录/注册</a>
+  <%end%>
+<%end%>
+                <!-- /navbar -->
+            </div><!-- /header -->
+            <%= render file:'mobile/_search' unless @no_search_bar%>
+            <script type="text/javascript" charset="utf-8">
+              window.still_going=false
+            </script>
+
+              <%= yield %>
+
+<!--
+            <div data-role="footer"> 
+                <h4>&copy; 课件交流系统Kejian.TV版权所有</h4> 
+            </div> 
+-->
+        <div data-role="footer" data-position="fixed" data-theme="a">
+             <div data-role="navbar" data-iconpos="top" id="siteNavbar">
+                <ul>
+                    <li><a href="/?force_mobile=1" data-icon="wdhome" id="gotohome">首页</a></li>
+                    <li><a href="/newbie?force_mobile=1" data-icon="wdsquare" id="gotosquare">风云榜</a></li>
+                    <li><a href="<%= current_user.blank? ? '/mobile/login' : '/asks/new?force_mobile=1' %>" data-icon="search" id="gotoask">提问</a></li>
+                    <% cnt = current_user.blank? ? 0 : current_user.notifications.unread.count %>
+                    <li><a href="<%= current_user.blank? ? '/mobile/login' : '/mobile/notifications?force_mobile=1' %>" data-icon="back" id="gotonotify">通知</a><%if cnt>0%><span class="notifies"><%=cnt%></span><%end%></li>
+                </ul>
+            </div>
+        </div>
+        </div><!-- /page -->
+	<a id='popup' href="" data-rel="dialog" data-transition="pop" class="hide"></a>
+    </body>
+	
+	<script src="/mobilepublic/js/tools.js"></script>
+
+      <script type="text/javascript">
+        <% if current_user %>
+        var logined = true;
+        <% else %>
+        var logined = false;
+        <% end %>
+
+        (function(){
+                window["ga_JsNewlogin"] = getCookie("JsNewlogin");
+        function getCookie(name){
+                       var dc=document.cookie;
+                       var prefix=name+"=";
+                       var begin=dc.indexOf("; "+prefix);
+                       if(begin==-1){
+                               begin=dc.indexOf(prefix);
+                               if(begin!=0)return null;
+                       }
+                       else begin+=2;
+                       var end=document.cookie.indexOf(";",begin);
+                       if(end==-1)end=dc.length;
+                       return dc.substring(begin+prefix.length,end).replace(/\+/g,' ');
+        }
+        })();
+
+        var _dyweq = _dyweq || [];
+        _dyweq.push(['_setAccount','log000001']);
+        _dyweq.push(['_setDomainName','.kejian.tv']);
+        _dyweq.push(['_trackPageview']);
+        (function(){
+                var dywe = document.createElement('script'); dywe.type = 'text/javascript'; dywe.async = true;
+                dywe.src = 'http://img01.zhaopin.cn/2012/js/dywe.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(dywe, s);
+        })()
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount','UA-7874902-2']);
+        _gaq.push(['_setDomainName','kejian.tv']);
+        _gaq.push(['_addOrganic','youdao','q']);
+        _gaq.push(['_addOrganic','sogou','query']);
+        _gaq.push(['_addOrganic','soso','w']);
+        if(window["ga_JsNewlogin"]){
+                _gaq.push(['_setCustomVar',1,'Login','Y',2]);
+                _gaq.push(['_setCustomVar',2,'Member',ga_JsNewlogin,1]);
+          }
+        _gaq.push(['_trackPageview']);
+        (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })()
+        function recordOutboundLink(link, category, action) {
+          function ed(d,a){
+                var c=encodeURIComponent;
+                return c instanceof Function?(a?encodeURI(d):c(d)):escape(d);
+          }
+          try{
+            _dywet._getTrackerByName()._trackEvent(category, action);
+                try{
+                       _gat._getTrackerByName()._trackEvent(category, action);
+                }catch(err){}
+                if(link.target!="_blank") setTimeout('document.location = "' + link.href + '"', 100);
+          }catch(err){
+                var i=new Image(1,1);
+                var e=document.location;
+            i.src="http://l.kejian.tv/track_err.gif?dywee=5("+category+"*"+action+")&dywehn="+ed(e.hostname)+"&dywep="+ed(e.pathname+e.search,true);
+          }
+        }
+      </script>
+</html>
+<% end %>

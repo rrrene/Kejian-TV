@@ -1,0 +1,753 @@
+<%
+@slides = 0.upto(@courseware.slides_count-1).collect do |i|
+  asset_url_eb("#{@courseware.id}/#{@courseware.revision}slide_#{i}.jpg")
+end
+ %>
+<% content_for :armpit do %>
+<style type="text/css" media="screen">
+  #mycanvas{
+    background:transparent !important;
+    position:absolute;
+    z-index:9999;
+  }
+</style>
+  <%= stylesheet_link_tag "ktv/ppt", :media => "all" %>
+  <%= javascript_include_tag "kinetic-v4.0.0.js" %>
+  <%= javascript_include_tag "ktv/player_ppt" %>
+  <script>
+    var player = new Player();
+    var timeout = null;
+
+    (function($) {
+      $.preLoadImage = function(idx, count) {
+        if (count == undefined) { count = 4/*Slide.urls.length*/ }
+        var idx = idx,
+            url = Slide.urls[idx];
+        if ($('#cache_' + idx).length == 0) {
+          $('#caches').append('<img id="cache_' + idx + '" />');
+          var $cache = $('#cache_' + idx);
+          if (count > 0) {
+            $cache.load(function(){ if(idx + 1 < Slide.urls.length) { $.preLoadImage(idx + 1, count - 1); }; });
+          }
+          $cache.attr('src', url);
+        } else {
+          $.preLoadImage(idx + 1, count - 1);
+        }
+      }
+
+      $.preloadThumbs = function() {
+        $(Slide.thumbs).each(function(i) {
+          $('.previews').prepend('<img id="cache_thumb_' + i + '" data-slide="' + i + '" src="' + this + '" />');
+        });
+      }
+
+      $.fn.disableSelection = function() {
+        return this.each(function() {
+          $(this).attr('unselectable', 'on')
+           .css({
+             '-moz-user-select':'none',
+             '-webkit-user-select':'none',
+             'user-select':'none'
+           })
+           .each(function() {
+             this.onselectstart = function() { return false; };
+           });
+        });
+      }
+
+    // build my array of image urls
+    window.Slide = {
+      presentation_link: '/coursewares/<%=@courseware.id%>',
+      dragging: false,
+      click: 0,
+      previewx: null,
+      previewy: null,
+      urls: [],
+      slides: {
+        preview: <%=raw @slides.to_json%>,
+        original: <%=raw @slides.to_json%>
+      },
+      thumbs: <%=raw 0.upto(@courseware.slides_count-1).collect{|i| asset_url("cw/#{@courseware.id}/#{@courseware.revision}thumb_slide_#{i}.jpg") }.to_json%>,
+      current: 0,
+      next: function() {
+        if (Slide.current == Slide.urls.length - 1) {
+          return false;
+        } else {
+          if ($('.navigation .loading').length == 0) {
+            timeout = setTimeout(function() {$('.navigation .next').addClass('loading');}, 50);
+            Slide.click++;
+            Slide.current++;
+            if (Slide.click == 2) { $.preLoadImage(0) };
+            $('#note_page').val(Slide.current);
+            Slide.show();
+          };
+        };
+      },
+      previous: function() {
+        if (Slide.current == 0) {
+          return false;
+        } else {
+          if ($('.navigation .loading').length == 0) {
+            timeout = setTimeout(function() {$('.navigation .prev').addClass('loading');}, 50);
+            Slide.current--;
+            Slide.show();
+          };
+        };
+      },
+      goToSlide: function(id) {
+        if (id <= 0 || id > this.urls.length) {
+          return false;
+        } else {
+          Slide.current = id - 1;
+          Slide.show();
+        };
+      },
+      show: function() {
+        $('.scrubbed').width(((Slide.current+1) * 100 / Slide.urls.length) + '%');
+        $('#slide_image').attr('src', Slide.urls[Slide.current]);
+        $('.current_slide').text(Slide.current+1);
+        Slide.markFirstOrLast();
+        player.channel.trigger('change', {'number': Slide.current + 1});
+        $.preLoadImage(Slide.current+1,4) 
+        $.preLoadImage(Slide.current-2 >= 0 ? Slide.current-2 : 0,2) 
+      },
+      markFirstOrLast: function() {
+        $('.navigation').removeClass('first').removeClass('last');
+        if (Slide.current == 0) {
+          $('.navigation').addClass('first');
+        } else if (Slide.current == Slide.urls.length - 1) {
+          $('.navigation').addClass('last');
+        };
+      },
+      showPreview: function(s) {
+        if (s >= Slide.urls.length) {
+          s = Slide.urls.length - 1;
+        }
+        $('.previews img').hide();
+        $('.previews [data-slide=' + s + ']').show();
+        $('.previews p').text('第' + (s+1) + '页, 共' + Slide.urls.length + '页');
+      },
+
+      updateShares: function(source) {
+        // triggers every time the user chooses another option
+        // TODO: change the social-sharing addresses
+        var link = Slide.presentation_link,
+            embed = $('#embed_input').val().replace(/data-slide="\d+" /, '');
+
+        if (source == 'slide') {
+          link += '?slide=' + (Slide.current+1);
+          embed = embed.replace(/class="speakerdeck-embed"/, 'class="speakerdeck-embed" data-slide="' + (Slide.current + 1) + '"');
+        }
+      },
+      fix_cw_title: function() {
+        console.log(Slide.psvr_already);
+        if(!Slide.psvr_already)
+          Slide.psvr_already = $('.header h5 a').html();
+        else
+          $('.header h5 a').html(Slide.psvr_already);
+        var did_it = false;
+        while($('.header h5').offset().top!=$('.header p').offset().top){
+          already = $('.header h5 a').html();
+          $('.header h5 a').html(already.substring(0,already.length-2));
+          did_it = true;
+        }
+        if(did_it){
+          already = $('.header h5 a').html();
+          $('.header h5 a').html(already.substring(0,already.length-4)+'...');
+        }
+      },
+      openFullScreen: function() {
+        var elem = document.body;
+        
+        if (elem.requestFullScreen) {
+          elem.requestFullScreen();
+          $('#core_topic_name').attr('target','_blank');
+        } else if (elem.mozRequestFullScreen) {
+          elem.mozRequestFullScreen();
+          $('#core_topic_name').attr('target','_blank');
+        } else if (elem.webkitRequestFullScreen) {
+          elem.webkitRequestFullScreen();
+          $('#core_topic_name').attr('target','_blank');
+        } else {
+          var height = 1022 / 1.3333333333333333 + 65;
+          window.open(window.location.href.split('?')[0]+'?slide='+(Slide.current+1)+'&windowed=true','popup','width=1024,height='+height);
+        }
+        return false;
+      },
+
+      closeFullScreen: function() {
+        if (document.cancelFullScreen) {
+          document.cancelFullScreen();
+          $('#core_topic_name').attr('target','_parent');
+        } else if (document.mozCancelFullScreen) {
+          document.mozCancelFullScreen();
+          $('#core_topic_name').attr('target','_parent');
+        } else if (document.webkitCancelFullScreen) {
+          document.webkitCancelFullScreen();
+          $('#core_topic_name').attr('target','_parent');
+        }
+        return false;
+      },
+
+      toggleFullScreen: function() {
+        if ($('body').hasClass('fullscreen')) {
+          Slide.closeFullScreen();
+        } else {
+          Slide.openFullScreen();
+        }
+
+        return false;
+      },
+
+      toggleFullScreenState: function() {
+        if ($('body').hasClass('fullscreen')) {
+          $('body').removeClass('fullscreen');
+        } else {
+          $('body').addClass('fullscreen');
+        }
+      },
+
+      setSlideSize: function() {
+        var max;
+
+        if ($('body').hasClass('fullscreen') || $(window).width() > 640) {
+          Slide.urls = Slide.slides.original;
+          max = 1024;
+        } else {
+          Slide.urls = Slide.slides.preview;
+          max = 640;
+        }
+        $('#slide_image').attr('src', Slide.urls[Slide.current]);
+
+        var $wrapper = $('#slide'),
+            $img     = $('#slide img'),
+            w        = $wrapper.width(),
+            h        = $wrapper.height(),
+            ratio    = <%= @courseware.wh_ratio %>,
+            left, top, width, height;
+
+        if (w <= max) {
+          width  = w;
+          height = w/ratio;
+          top = 0;
+          left = 0;
+          $img.css({top:0, left:0});
+        } else {
+          width = max;
+          height = max / ratio;
+          left = (w - max) / 2;
+          top = (h - height) / 2;
+        }
+
+        if (height > h + 2) {
+          height = h;
+          width = h * ratio;
+          left = (w - width) / 2;
+          top = 0;
+        }
+<% if params[:preview].blank? and @courseware.thin? %>
+        $img.width(<%= @courseware.real_width %>);
+        $img.height(<%= @courseware.real_height %>);
+<% else %>
+        $img.width(width);
+        $img.height(height);
+<% end %>
+        $img.css({top: top, left: left});
+        Slide.fix_cw_title();
+      }
+    };
+
+    // jquery stuff on load
+    $(function(){
+      Slide.setSlideSize();
+
+      // bind to events for fullscreen
+      $(document).bind("fullscreenchange", Slide.setSlideSize);
+      $(document).bind("fullscreenchange", Slide.toggleFullScreenState);
+      $(document).bind("webkitfullscreenchange", Slide.setSlideSize);
+      $(document).bind("webkitfullscreenchange", Slide.toggleFullScreenState);
+      $(document).bind("mozfullscreenchange", Slide.setSlideSize);
+      $(document).bind("mozfullscreenchange", Slide.toggleFullScreenState);
+
+      $('a#fullscreen,a#share_button').bind('click', Slide.toggleFullScreen);
+
+      $(window).bind('resize', _.throttle(Slide.setSlideSize, 100));
+
+      // start images downloading
+      $.preLoadImage(Slide.current + 1, 4);
+
+      $('ul.choices li').click(function() {
+        $(this).closest('ul').find('li.current').removeClass('current');
+        $(this).closest('div').find('div.panel').hide();
+        $($(this).addClass('current').find('a').attr('href')).show().find('input[type=text]').focus().select();
+        return false;
+      });
+
+      Slide.updateShares('presentation');
+
+      $('[name=link_to]').change(function() {
+        Slide.updateShares($(this).val());
+      });
+
+      $('#slide_image').load(function() {
+        if (timeout != null) {
+          clearTimeout(timeout);
+        }
+        $('.navigation .loading').removeClass('loading');
+      });
+
+      // wire up navigation buttons
+      $('a.prev').click(function(){
+        Slide.previous();
+        return false;
+      });
+      $('a.next').click(function(){
+        Slide.next();
+        return false;
+      });
+      // toolbar tricks
+      $('.overlay, .close').click(function(){
+        $('#presenter').toggleClass('share');
+        if ($('#presenter').hasClass('share')) {
+          $('ul.choices li:first').click();
+          $('#link_to_p').click();
+          $('#share div.panel:visible input[type=text]').focus().select();
+        }
+        return false;
+      });
+
+      function scrubSlide(e) {
+        var $el = $('.scrubber_holder'),
+            w   = $el.width(),
+            x   = e.pageX,
+            d   = x - $el.position().left,
+            s   = Math.floor(Slide.urls.length * (d / w));
+
+        if (s >= Slide.urls.length) {
+          s = Slide.urls.length - 1;
+        }
+
+        return s;
+      }
+
+      $('.previews').css('opacity', 0);
+
+      $('.scrubber_holder').bind('mousemove touchmove', function(e) {
+        if (e.pageX != Slide.previewx) {
+          Slide.previewx = e.pageX;
+          if (Slide.dragging) {
+            Slide.current = scrubSlide(e);
+            Slide.show();
+            return false;
+          } else if (!$('html').hasClass('touch')) {
+            $('.previews').show();
+            $('.previews').css('opacity', 1);
+            Slide.showPreview(scrubSlide(e));
+          }
+        }
+      }).mouseleave(function() {
+        if (!$('html').hasClass('touch')) {
+          $('.previews').css('opacity', 0);
+          Slide.dragging = false;
+          $('.scrubber_holder').removeClass('dragging');
+          Slide.show();
+        }
+      }).bind('mousedown', function(e) {
+        if (!$('html').hasClass('touch')) {
+          $('.previews').css('opacity', 0);
+          Slide.dragging = true;
+          $('.scrubber_holder').addClass('dragging');
+          Slide.current = scrubSlide(e);
+          Slide.show();
+        }
+      }).bind('touchstart', function(e) {
+        $('.previews').css('opacity', 0);
+        Slide.dragging = true;
+        $('.scrubber_holder').addClass('dragging');
+        Slide.current = scrubSlide(e);
+        Slide.show();
+      }).bind('mouseup touchend', function() {
+        $('.scrubber_holder').removeClass('dragging');
+        Slide.dragging = false;
+      });
+
+      Slide.show();
+      $.preloadThumbs();
+      $('.scrubber_holder, .scrubber_holder div, .speakerdeck_toolbar, .navigation').disableSelection();
+
+      document.onkeyup = function(e) {
+        if(document.activeElement.tagName.toLowerCase() !== 'input' && document.activeElement.tagName.toLowerCase() !== 'textarea') {
+          var code = (window.event) ? window.event.keyCode : e.keyCode;
+          switch(code) {
+            case 39:
+              Slide.next();
+              return false;
+              break;
+            case 32:
+              Slide.next();
+              return false;
+              break;
+            case 37:
+              Slide.previous();
+              return false;
+          }
+        }
+      };
+      Slide.fix_cw_title();
+
+
+
+      function biji_update(group, activeAnchor) {
+        var topLeft = group.get(".topLeft")[0];
+        var topRight = group.get(".topRight")[0];
+        var bottomRight = group.get(".bottomRight")[0];
+        var bottomLeft = group.get(".bottomLeft")[0];
+        var image = group.get(".image")[0];
+
+        // update anchor positions
+        switch (activeAnchor.getName()) {
+          case "topLeft":
+            topRight.attrs.y = activeAnchor.attrs.y;
+            bottomLeft.attrs.x = activeAnchor.attrs.x;
+            break;
+          case "topRight":
+            topLeft.attrs.y = activeAnchor.attrs.y;
+            bottomRight.attrs.x = activeAnchor.attrs.x;
+            break;
+          case "bottomRight":
+            bottomLeft.attrs.y = activeAnchor.attrs.y;
+            topRight.attrs.x = activeAnchor.attrs.x;
+            break;
+          case "bottomLeft":
+            bottomRight.attrs.y = activeAnchor.attrs.y;
+            topLeft.attrs.x = activeAnchor.attrs.x;
+            break;
+        }
+
+        image.setPosition(topLeft.attrs.x, topLeft.attrs.y);
+
+        var width = topRight.attrs.x - topLeft.attrs.x;
+        var height = bottomLeft.attrs.y - topLeft.attrs.y;
+        if(width && height) {
+          image.setSize(width, height);
+        }
+        // $('#mycanvas').css('margin-top',group.attrs.x + bottomRight.attrs.x);
+        // $('#mycanvas').css('margin-left',group.attrs.y + bottomRight.attrs.y);
+      }
+      function biji_addAnchor(group, x, y, name) {
+        var stage = group.getStage();
+        var layer = group.getLayer();
+
+        var anchor = new Kinetic.Circle({
+          x: x,
+          y: y,
+          stroke: "#666",
+          fill: "#ddd",
+          strokeWidth: 2,
+          radius: 8,
+          name: name,
+          draggable: true
+        });
+
+        anchor.on("dragmove", function() {
+          biji_update(group, this);
+          layer.draw();
+        });
+        anchor.on("mousedown touchstart", function() {
+          group.setDraggable(false);
+          this.moveToTop();
+        });
+        anchor.on("dragend", function() {
+          group.setDraggable(true);
+          layer.draw();
+        });
+        // add hover styling
+        anchor.on("mouseover", function() {
+          var layer = this.getLayer();
+          document.body.style.cursor = "pointer";
+          this.setStrokeWidth(4);
+          layer.draw();
+        });
+        anchor.on("mouseout", function() {
+          var layer = this.getLayer();
+          document.body.style.cursor = "default";
+          this.setStrokeWidth(2);
+          layer.draw();
+        });
+
+        group.add(anchor);
+      }
+      biji_mycanvas_pos = function(){
+        pos = biji_group.getPosition();
+        hw = biji_rect.attrs;
+        fix = biji_group.get(".topLeft")[0].attrs;
+        $('#mycanvas').css('margin-left',pos.x + hw.width / 2 - 60 + fix.x);
+        $('#mycanvas').css('margin-top',pos.y + hw.height + 8 + fix.y);  
+      }
+      
+      window.biji_already = [];
+      window.biji_addrectangle = function(x,y,width,height,dest,index){
+
+        var darthVaderImg = new Kinetic.Rect({
+          x: x,
+          y: y,
+          width: width,
+          fill: "transparent",
+          stroke: "#999",
+          strokeWidth: 2,
+          height: height,
+          name: "image"
+        });
+        
+        var redLine = new Kinetic.Line({
+          points: [x + width, y + height/2, 800+index*30, y + height/2, 800+index*30, dest, 960, dest],
+          stroke: "#999",
+          strokeWidth: 2,
+          lineJoin: "round",
+         /*
+          * line segments with a length of 33px
+          * with a gap of 10px
+          */
+          dashArray: [33, 10]
+        });
+        window.biji_already.push(darthVaderImg);
+        window.biji_already.push(redLine);
+        window.biji_layer.add(darthVaderImg);
+        window.biji_layer.add(redLine);
+        window.biji_stage.draw();
+      }
+      function biji_initStage() {
+        var stage = new Kinetic.Stage({
+          container: "slide",
+          width: 960,
+          height: 1242
+        });
+        var darthVaderGroup = new Kinetic.Group({
+          x: 270,
+          y: 100,
+          draggable: true
+        });
+        var layer = new Kinetic.Layer();
+
+        /*
+         * go ahead and add the groups
+         * to the layer and the layer to the
+         * stage so that the groups have knowledge
+         * of its layer and stage
+         */
+        layer.add(darthVaderGroup);
+        stage.add(layer);
+
+        // darth vader
+        var darthVaderImg = new Kinetic.Rect({
+          x: 0,
+          y: 0,
+          width: 200,
+          fill: "white",
+          stroke: "black",
+          strokeWidth: 1,
+          height: 138,
+          name: "image"
+        });
+        darthVaderImg.setOpacity(0.6);
+        darthVaderGroup.setOpacity(0);
+        darthVaderGroup.add(darthVaderImg);
+        biji_addAnchor(darthVaderGroup, 0, 0, "topLeft");
+        biji_addAnchor(darthVaderGroup, 200, 0, "topRight");
+        biji_addAnchor(darthVaderGroup, 200, 138, "bottomRight");
+        biji_addAnchor(darthVaderGroup, 0, 138, "bottomLeft");
+        window.biji_rect= darthVaderImg;
+        window.biji_group=darthVaderGroup;
+        window.biji_layer=layer;
+
+        darthVaderGroup.on("dragmove", function(event) {
+          this.moveToTop();
+          $('#mycanvas').show();
+          biji_mycanvas_pos();
+        });
+        stage.draw();
+        window.biji_stage=stage;
+        window.biji_canvas=stage.getDOM().children[0];
+      }
+      biji_initStage();
+      $('#zuobiji_button').click(function(){
+        for(i=0;i<biji_already.length;++i){
+          window.biji_layer.remove(biji_already[i]);
+        }
+        $('#mycanvas').show();
+        window.biji_group.setOpacity(1);
+        window.biji_stage.draw();
+        $(window.biji_canvas).css('background','rgba(0,0,0,0.4)');
+        $(window.biji_canvas).show();
+        $('.overnav').hide();
+      })
+      
+      function makeButton(x, y, w, h, radius)
+      {
+        var canvas = document.getElementById("mycanvas"); 
+        var context = canvas.getContext("2d");
+        // clear background
+        context.beginPath();
+        // context.fillStyle="white";
+        // context.fillRect(0,0, 126, 36);
+        // draw button
+        var r = x + w;
+        var b = y + h;
+        context.moveTo(x+radius, y);
+        context.lineTo(r-radius, y);
+        context.quadraticCurveTo(r, y, r, y+radius);
+        context.lineTo(r, y+h-radius);
+        context.quadraticCurveTo(r, b, r-radius, b);
+        context.lineTo(x+radius, b);
+        context.quadraticCurveTo(x, b, x, b-radius);
+        context.lineTo(x, y+radius);
+        context.quadraticCurveTo(x, y, x+radius, y);
+        // background gradient 
+        var backgrad = context.createLinearGradient(1,1,0,30);
+        backgrad.addColorStop(0, '#3CB579');
+        backgrad.addColorStop(0.5, '#004A4A');
+        context.fillStyle = backgrad;
+        // drop shadow
+        context.shadowBlur = 3;
+        context.shadowOffsetX = 1;
+        context.shadowOffsetY = 1;
+        context.shadowColor = "#000";  
+        context.fill();
+        // the following lines before stroke are required for Chrome
+        context.shadowBlur = 0;  
+        context.shadowOffsetX = 0;
+        context.shadowOffsetY = 0;
+        context.stroke(); 
+         // label with shadowing
+        context.beginPath();
+        context.font = "12pt Calibri,Arial";
+        context.fillStyle = "#FFF";
+        context.shadowBlur = 0;
+        context.shadowOffsetX = -1;
+        context.shadowOffsetY = -1;
+        context.shadowColor = "#000";  
+        context.fillText("为此段记笔记", x+w*0.1, y+h*0.66);
+        biji_mycanvas_pos();
+      }
+      window.biji_canvasUp= function (button)
+      {
+        $(button).css('margin-left',function(index, value){
+          return parseInt(value)-1;
+        });
+        $(button).css('margin-top',function(index, value){
+          return parseInt(value)-1;
+        });
+        $('#mycanvas').hide();
+        var context = biji_canvas.getContext("2d");
+
+        pos = biji_group.getPosition();
+        hw = biji_rect.attrs;
+        fix = biji_group.get(".topLeft")[0].attrs;
+                // set line width for all lines
+                context.lineWidth = 3;
+                // bevel line join (right)
+                context.beginPath();
+                context.moveTo(pos.x + hw.width + fix.x, pos.y + hw.height/2 + fix.y);
+                context.lineTo(888, pos.y + hw.height/2 + fix.y);
+                context.lineTo(888, 88);
+                context.lineTo(960, 88);
+                context.lineJoin = "bevel";
+                context.strokeStyle = 'white';
+                context.stroke();
+        window.parent.eval("jQuery('#note_x').val("+(pos.x + fix.x).toString()+")");
+        window.parent.eval("jQuery('#note_y').val("+(pos.y + fix.y).toString()+")");
+        window.parent.eval("jQuery('#note_width').val("+(hw.width).toString()+")");
+        window.parent.eval("jQuery('#note_height').val("+(hw.height).toString()+")");
+        window.parent.eval("jQuery('#new_note').show()");
+      };
+      window.biji_canvasDown=function (button)
+      {
+        $(button).css('margin-left',function(index, value){
+          return parseInt(value)+1;
+        });
+        $(button).css('margin-top',function(index, value){
+          return parseInt(value)+1;
+        });
+      };
+      window.biji_canvasOver=function ()
+      {
+        document.body.style.cursor = "pointer";
+      };
+      window.biji_canvasOut=function ()
+      {
+        document.body.style.cursor = "default";
+        makeButton(0,0,120,28,8);
+      };
+<% if '1'==params[:force_biji] %>
+      window.biji_canvasOut();
+      window.parent.eval("jQuery('#stickies').css('top',(jQuery('.speakerdeck-iframe').position().top + 28));jQuery('#stickies').show();window.wait_till_frame_ready()");
+<% end %>
+    });
+    })(jQuery);
+  </script>
+
+<% end %>
+
+<div id="presenter">
+  <div class="header">
+    <img alt="Kejian.TV课件交流系统" src="<%=asset_path 'embed_logo.png'%>" />
+    <h5><a href="/coursewares/<%=@courseware.id%>" target="_parent"><%=@courseware.title%></a></h5>
+    <a href="#" id="fullscreen">全屏</a>
+    <p>领域: <a id="core_topic_name" href="/topics/<%=@courseware.topic_id%>" target="_parent"><%=@courseware.topic%></a></p>
+  </div>
+  <div id="slide">
+    <canvas id="mycanvas" style="display:none" width="128" height="36"
+     onmousedown="window.biji_canvasDown(this)"  onmouseup="window.biji_canvasUp(this)"
+     onmouseover="window.biji_canvasOver()" onmouseout="window.biji_canvasOut()">
+    </canvas>
+    <img id="slide_image" src="<%= @slides.first %>" class='visible' />
+  </div>
+  <div class="overnav" id="the_overnav">
+    <a href="#" class="prev">上张幻灯片</a>
+    <a href="#" class="next">下张幻灯片</a>
+  </div>
+  <div class="navigation">
+    <a href="#" class="prev">上张幻灯片</a>
+    <a href="#" class="next">下张幻灯片</a>
+  </div>
+  <div class="speakerdeck_toolbar">
+  </div>
+  <div class="scrubber_holder">
+    <div class="scrubber">
+      <div class="scrubbed" style="width:0;"></div>
+    </div>
+  </div>
+  <div class="previews" style="display:none"><p>第1页, 共6页</p></div>
+  <div class="standard_buttons">
+  <% if '1'==params[:force_biji] %>
+    <a href="#" id="zuobiji_button">记笔记</a>
+<% else %>
+    <a href="#" id="share_button">全屏</a>
+<% end %>
+  </div>
+  <div class="overlay"></div>
+  <div id="share">
+    <a href="#" class="close">关闭</a>
+    <ul class="choices">
+      <li><a href="#link" class="button">链接</a></li>
+      <li><a href="#embed" class="button">外站嵌套</a></li>
+      <li><a href="#social" class="button">社会化媒体</a></li>
+    </ul>
+    <div class="selections">
+      <p><input type="radio" name="link_to" value="presentation" id="link_to_p" checked /> <label for="link_to_p">自幻灯片起始</label></p>
+      <p><input type="radio" name="link_to" value="slide" id="link_to_s" /> <label for="link_to_s">本张幻灯片 (<span class="current_slide">1</span> of <%=@courseware.slides_count%>)</label></p>
+    </div>
+    <div id="link" class="panel">
+      <input type="text" id="shorturl" value="http://<%=Setting.ktv_domain%>/coursewares/<%=@courseware.id%>" />
+    </div>
+    <div id="embed" class="panel">
+      <input type="text" id="embed_input" value='<script async class="speakerdeck-embed" data-course-slug="<%=@courseware.topic_id %>" data-courseware-slug="<%=@courseware.id%>" data-ratio="<%= @courseware.wh_ratio %>" src="<%= asset_path 'ktv/embed.js'%>"></script>' />
+    </div>
+    <div id="social" class="panel">
+      <%# render 'jiathis_mini' %>
+    </div>
+  </div>
+</div>
+<div id="caches">
+</div>
+

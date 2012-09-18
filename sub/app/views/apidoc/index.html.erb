@@ -1,0 +1,292 @@
+
+<h1 id="section">课件交流系统: Kejian.TV开放应用程序接口</h1>
+
+<p>通过调用Kejian.TV开放应用程序接口（以下简称Kejian.TVAPI），
+您的应用程序可以轻松获取最新的师生资讯，
+及顶尖HR专家分享的各类师生题的辛辣点评。
+Kejian.TVAPI同时为课件交流系统站用户提供一个师生题知识库的基础服务。</p>
+
+<p>Kejian.TVAPI及其文档由李云龙、潘旻琦设计编写。</p>
+
+<p>本页为首页，叙述Kejian.TVAPI的数个全局约定。</p>
+
+<ul>
+<li><a href="#section-1">概要</a></li>
+<li><a href="#section-2">对客户端错误的处理</a></li>
+<li><a href="#http">HTTP动词</a></li>
+<li><a href="#section-3">用户认证</a></li>
+<li><a href="#section-4">分页</a></li>
+<li><a href="#section-5">请求频率限制</a></li>
+<li><a href="#section-6">跨来源资源共享 </a></li>
+<li><a href="#json-p">JSON-P回调</a></li>
+</ul><h2 id="section-1">概要</h2>
+
+<p>所有的API数据通信都是在<code>api.kejian.tv</code>域名下完成的。
+所有的发送与接收的数据都以JSON格式包装。
+由于内容可能包含中文，HTTP响应体采用UTF-8编码，这一点也同时反映在HTTP响应的
+<code>Content-Type</code>头信息中。</p>
+
+<p>注意：您必须先在课件交流系统Kejian.TV的<a href="http://api.kejian.tv/cpanel">第三方应用程序管理界面</a>注册您的应用程序，才能开始使用本套API。每个请求需要携带应用程序ID，没有应用程序ID的请求是禁止的。例如：</p>
+
+<pre class="terminal">
+$ curl -i http://api.kejian.tv
+
+HTTP/1.1 401 Unauthorized
+Content-Type: text/html; charset=utf-8
+Cache-Control: no-cache
+X-Request-Id: 689083287c137d0f02f2d989139763e8
+X-Runtime: 0.009410
+X-Rack-Cache: miss
+Content-Length: 20
+Connection: Keep-Alive
+
+Unauthorized access.
+</pre>
+
+<p>只有当带有合法的client_id地访问公共资源，或带有合法的OAuth访问令牌访问私有资源时，才能得到正常的数据响应。例如：</p>
+
+
+<pre class="terminal">
+$ curl -i http://api.kejian.tv?client_id=yourid
+
+HTTP/1.1 401 Unauthorized 
+Content-Type: text/html; charset=utf-8
+Cache-Control: no-cache
+X-Request-Id: 689083287c137d0f02f2d989139763e8
+X-Runtime: 0.009410
+X-Rack-Cache: miss
+Content-Length: 20
+Connection: Keep-Alive
+
+{}
+</pre>
+
+<p>客户端JSON请求中空白的字段不能省略，而应向服务器传送<code>null</code>值。</p>
+
+<p>所有的时间戳遵循ISO 8601格式:</p>
+
+<pre><code>YYYY-MM-DDTHH:MM:SSZ
+</code></pre>
+
+<h2 id="section-2">对客户端错误的处理</h2>
+
+<p>总体看来，客户端与服务器交互的过程中，有以下三类可能的错误。</p>
+
+<ol>
+<li>
+<p>客户端的请求如果是不合法的JSON格式，那么将收到如下的一个<code>400 Bad Request</code>响应.</p>
+
+<pre><code> HTTP/1.1 400 Bad Request
+Content-Length: 35
+
+{"message":"Problems parsing JSON"}
+</code></pre>
+</li>
+<li>
+<p>如果服务器端想要JSON哈希，客户端却传入了一个JSON数组，那么收到如下的一个<code>400 Bad Request</code>响应。
+反之亦然。</p>
+
+<pre><code> HTTP/1.1 400 Bad Request
+Content-Length: 40
+
+{"message":"Body should be a JSON Hash"}
+</code></pre>
+</li>
+<li>
+<p>如果客户发送的资源实例的某个字段的值不符合要求，那么将收到如下的一个<code>422 Unprocessable Entity</code>响应..</p>
+
+<pre><code> HTTP/1.1 422 Unprocessable Entity
+Content-Length: 149
+
+{
+"message": "Validation Failed",
+"errors": [
+{
+ "resource": "Issue",
+ "field": "title",
+ "code": "missing_field"
+}
+]
+}
+</code></pre>
+</li>
+</ol><p>所有此类错误都会告诉客户端到底是哪个字段上出现了题，以便客户端调错。
+而且正如上面的例子里面的<code>errors.code</code>字段，一个错误编码也会发送给客户端，
+方便客户端知道错误的类型。
+可能的错误编码取值如下：</p>
+
+<dl>
+<dt>missing</dt>
+<dd>这意味着请求的资源不存在。</dd>
+<dt>missing_field</dt>
+<dd>这意味一个必须由客户端给出的字段没有给出。</dd>
+<dt>invalid</dt>
+<dd>这意味着客户端给出的一个字段并不合法，请查看文档来获知合法的字段取值是怎样的。</dd>
+<dt>already_exists</dt>
+<dd>这意味着另外一个资源已经占用了这个字段的取值。这种情况发生在某个字段
+（例如用户的slug）要求有一个全局唯一的取值时。</dd>
+</dl><p>如果资源有除此之外其他的错误代码，那么它们将被记录在文档中供您查询。</p>
+
+<h2 id="http">HTTP动词</h2>
+
+<p>Kejian.TVAPI符合RESTful设计规范，使用HTTP动词区分各类动作。</p>
+
+<dl>
+<dt>HEAD</dt>
+<dd>可以请求在任何资源上，得到一份相应头信息，而无实际内容。</dd>
+<dt>GET</dt>
+<dd>用于取出资源的数据。</dd>
+<dt>POST</dt>
+<dd>用于创建资源以及其他特定操作。</dd>
+<dt>PUT</dt>
+<dd>用于完全替代资源的内容。</dd>
+<dt>DELETE</dt>
+<dd>用于删除资源。</dd>
+</dl><h2 id="section-3">用户认证</h2>
+
+<p>请阅读<a href="/apidoc/auth_no">访问无需认证的资源</a>，
+<a href="/apidoc/auth1oauth">认证方法一、OAuth</a>，
+<a href="/apidoc/auth2plain">认证方法二、平凡认证</a>。</p>
+  
+  
+<h2 id="section-4">分页</h2>
+
+<p>客户端的一个请求可能意味着大量数据的返回，在这种情况下，服务器会分页返回这些数据。
+默认的分页粒度是30项/页。您可以通过指定<code>?page</code>参数来读取某页的内容，
+也可以通过<code>?per_page</code>参数来设定分页粒度。</p>
+
+<pre class="terminal">
+$ curl https://api.kejian.tv/asks?page=2&amp;per_page=100
+</pre>
+
+<p>一个请求的分页的信息将被写入HTTP响应的Link头中，
+关于此头的更多文档请阅读<a href="http://www.w3.org/Protocols/9707-link-header.html">the Link header</a> :</p>
+
+<pre><code>Link: &lt;https://api.kejian.tv/asks?page=3&amp;per_page=100&gt;; rel="next",
+&lt;https://api.kejian.tv/asks?page=50&amp;per_page=100&gt;; rel="last"
+</code></pre>
+
+<p><em>上面的例子中的换行是仅为增强可读性，实际并无换行.</em></p>
+
+<p>可能的<code>rel</code>取值如下:</p>
+
+<dl>
+<dt><code>next</code></dt>
+<dd>邻接下一页的URL.</dd>
+<dt><code>last</code></dt>
+<dd>最后一页的URL.</dd>
+<dt><code>first</code></dt>
+<dd>第一页的URL.</dd>
+<dt><code>prev</code></dt>
+<dd>邻接上一页的URL.</dd>
+</dl><h2 id="section-5">请求频率限制</h2>
+
+<p>Kejian.TVAPI对不同的客户端的身份有不同的请求频率限制。您可以通过HTTP请求的X-RateLimit-Limit头和
+X-RateLimit-Remaining来获知此限制。</p>
+
+<pre class="terminal">
+$ curl -i https://api.kejian.tv/users/whatever
+
+HTTP/1.1 200 OK
+Status: 200 OK
+X-RateLimit-Limit: 5000
+X-RateLimit-Remaining: 4966
+</pre>
+
+<h2 id="section-6">跨来源资源共享</h2>
+
+<p>Kejian.TVAPI支持AJAX请求的跨来源资源共享(Cross Origin Resource Sharing)。
+详情请阅读<a href="http://www.w3.org/TR/cors">CORS W3C working draft</a>， 或HTML5安全指南的
+<a href="http://code.google.com/p/html5security/wiki/CrossOriginRequestSecurity">CrossOriginRequestSecurity</a>。</p>
+
+<p>以下是一个来自<code>http://some-site.com</code>发来的请求示例:</p>
+
+<pre><code>$ curl -i https://api.kejian.tv -H "Origin: http://some-site.com"
+HTTP/1.1 302 Found
+</code></pre>
+
+<p>所有经注册的OAuth应用程序都是被允许的。
+以下是一个来自<a href="http://calendaraboutnothing.com/">Calendar About Nothing</a>发来的请求示例:</p>
+
+<pre><code>$ curl -i https://api.kejian.tv -H "Origin: http://calendaraboutnothing.com"
+HTTP/1.1 302 Found
+Access-Control-Allow-Origin: http://calendaraboutnothing.com
+Access-Control-Expose-Headers: Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+Access-Control-Allow-Credentials: true
+</code></pre>
+
+<p>以下是preflight请求示例:</p>
+
+<pre><code>$ curl -i https://api.kejian.tv -H "Origin: http://calendaraboutnothing.com" -X OPTIONS   
+HTTP/1.1 204 No Content
+Access-Control-Allow-Origin: http://calendaraboutnothing.com
+Access-Control-Allow-Headers: Authorization, X-Requested-With
+Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE
+Access-Control-Expose-Headers: Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+Access-Control-Max-Age: 86400
+Access-Control-Allow-Credentials: true
+</code></pre>
+
+<h2 id="json-p">JSON-P回调</h2>
+
+<p>您可以在发送请求的时候，夹带一个<code>?callback</code>参数来让服务器端返回一个被JSON函数包装的结果。
+这种情况往往用在浏览器前台跨域请求Kejian.TVAPI数据的情况。服务器同时还会把HTTP相应头放在响应中。
+示例：</p>
+
+<pre class="terminal">
+$ curl https://api.kejian.tv?callback=foo
+
+foo({
+"meta": {
+"status": 200,
+"X-RateLimit-Limit": "5000",
+"X-RateLimit-Remaining": "4966",
+"Link": [ // pagination headers and other links
+["https://api.kejian.tv?page=2", {"rel": "next"}]
+]
+},
+"data": {
+// the data
+}
+})
+</pre>
+
+<p>您可以如下在页面上编写Javascript处理代码：</p>
+
+<pre class="highlight"><code class="language-javascript"><span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+<span class="kd">var</span> <span class="nx">meta</span> <span class="o">=</span> <span class="nx">response</span><span class="p">.</span><span class="nx">meta</span>
+<span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">response</span><span class="p">.</span><span class="nx">data</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">meta</span><span class="p">)</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>HTTP相应头中的Link部分需要额外注意，正如上面的示例，此部分会被提前打包为JSON数组，
+数组的内容包含很多<code>[url, options]</code>二元组。其他的HTTP响应头则没有这种打包，
+只是简单的一个字符串。</p>
+
+<p>例如，一个如下的Link响应头:</p>
+
+<pre><code>Link: &lt;url1&gt;; rel="next", &lt;url2&gt;; rel="foo"; bar="baz"
+</code></pre>
+
+<p>… 会被打包成这样:</p>
+
+<pre class="highlight"><code class="language-javascript"><span class="p">{</span>
+<span class="s2">"Link"</span><span class="o">:</span> <span class="p">[</span>
+<span class="p">[</span>
+<span class="s2">"url1"</span><span class="p">,</span>
+<span class="p">{</span>
+  <span class="s2">"rel"</span><span class="o">:</span> <span class="s2">"next"</span>
+<span class="p">}</span>
+<span class="p">],</span>
+<span class="p">[</span>
+<span class="s2">"url2"</span><span class="p">,</span>
+<span class="p">{</span>
+  <span class="s2">"rel"</span><span class="o">:</span> <span class="s2">"foo"</span><span class="p">,</span>
+  <span class="s2">"bar"</span><span class="o">:</span> <span class="s2">"baz"</span>
+<span class="p">}</span>
+<span class="p">]</span>
+<span class="p">]</span>
+<span class="p">}</span>
+</code></pre>

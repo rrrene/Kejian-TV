@@ -1,0 +1,923 @@
+<% content_for :armpit do %>
+  <%= stylesheet_link_tag "ktv/__zm_ban.css", :media => "all" %>
+<% end %>
+<% content_for :body_style do %>background: none repeat scroll 0 0 #F0EEEE<% end %>
+<%= render file:'/application/headers/_zm_header' %>
+
+
+
+
+<div class="__zm zmbank zmbank-zhimei">
+
+
+<!--
+电子书导航-zhimei
+-->
+
+
+<div class="zmnav-bank modshadow cf" style="">
+<div class="guide floatright">
+<a href="/saving/about" class="png">新手引导</a>
+</div>
+<div class="navlist">
+<ul>
+<li class="current png"><a href="/saving/zm/index" class="png">电子书首页</a></li>
+<li class="dot"></li>
+<li ><a href="/saving/zm/task">赚取美币</a></li>
+<li class="dot"></li>
+<li ><a href="/saving/zm/goodslist/1">消费美币</a></li>
+<!-- <li class="dot"></li>
+<li><a href="#">品牌中心</a></li> -->
+
+<li class="dot"></li>
+<li ><a href="###" onclick="showLogin('/saving/zm/myCoin/0')">我的电子书</a></li>
+
+
+</ul>
+</div>
+</div>
+
+
+<div class="newguide modshadow cf" style="display:none;" id="user_guide">
+<div class="guideitem">
+<a href="/saving/zm/task">
+<img class="floatleft" src="http://a.imimg.cn/r12496/images/zmbank/zhimei/newguid_01.gif">
+<span class="desc">
+<span class="highlight2 f14 b">完成任务，赚美币</span><br>
+<span class="gray profile">简单快速，完成即可获得美币或品牌币</span>
+</span>
+</a>
+</div>
+<div class="guideitem">
+<a href="/saving/zm/task">
+<img class="floatleft" src="http://a.imimg.cn/r12496/images/zmbank/zhimei/newguid_02.gif">
+<span class="desc">
+<span class="highlight2 f14 b">邀请好友，抢美币</span><br>
+<span class="gray profile">先到先得，邀请好友越多，抢到越多哦</span>
+</span>
+</a>
+</div>
+<div class="guideitem">
+<a href="/saving/zm/goodslist/0">
+<img class="floatleft" src="http://a.imimg.cn/r12496/images/zmbank/zhimei/newguid_03.gif">
+<span class="desc">
+<span class="highlight2 f14 b">消费美币，换礼品</span><br>
+<span class="gray profile">选择心仪精美礼品兑换，Q币、Q钻、充值卡等你拿</span>
+</span>
+</a>
+<a id="zmjsGuideClose" class="bkicon close" href="javascript:void(0);" onclick="javascript:closeGuide();"></a>
+</div>
+</div>
+<script type="text/javascript">
+<% content_for :butt2 do %>
+function closeGuide() {
+$("#user_guide").animate({'height':'+=4'},200).slideUp(300);
+$.cookie('_cqg_guide_' + loginUser.id, 1, { expires: 365});
+}
+if(loginUser != undefined && $.cookie('_cqg_guide_' + loginUser.id) == null){
+$("#user_guide").show();
+}
+<% end %>
+</script>
+ 
+<div id="content" class="cf" style="box-shadow:none;background:none;overflow:visible !important;">
+<div id="maincolumn">
+<!--兑换礼品begins-->
+<div class="exchange-gift modshadow">
+<h2 class="itemtitle"><a class="floatright" href="/saving/zm/goodslist/0">更多精彩兑换<span class="smallgt">&#8250;&#8250;</span></a><span class="greenline yahei">兑换礼品</span></h2>
+<div class="giftlist">
+<ul class="cf" id="imJsExchange">
+
+<li class="hotImg">
+
+<a href="/saving/1/goods/9">
+<p class="showtips">
+10Q币<br />
+市场价：&yen;10 <br />
+兑换价：<span class="highlight b">1000</span>美币
+</p>
+<img src="http://b.imimg.cn/20120523/da9a/af02/67617007428.0.222.222.jpg" width="160">
+</a>
+</li>
+
+<li class="hotImg">
+
+<a href="/saving/1/goods/32">
+<p class="showtips">
+10元手机充值卡<br />
+市场价：&yen;10 <br />
+兑换价：<span class="highlight b">1000</span>美币
+</p>
+<img src="http://b.imimg.cn/20120605/c214/aa02/82126232943.0.222.222.jpg" width="160">
+</a>
+</li>
+
+<li class="hotImg">
+
+<a href="/saving/1/goods/31">
+<p class="showtips">
+30Q币<br />
+市场价：&yen;30 <br />
+兑换价：<span class="highlight b">3000</span>美币
+</p>
+<img src="http://b.imimg.cn/20120605/25c2/e13c/82026736747.0.222.222.jpg" width="160">
+</a>
+</li>
+
+<li class="hotImg">
+
+<a href="/saving/1/goods/12">
+<p class="showtips">
+30元话费充值卡<br />
+市场价：&yen;30 <br />
+兑换价：<span class="highlight b">3000</span>美币
+</p>
+<img src="http://b.imimg.cn/20120523/51d0/5a84/67654394657.0.222.222.jpg" width="160">
+</a>
+</li>
+
+<li class="hotImg">
+
+<a href="/saving/1/goods/30">
+<p class="showtips">
+电影票兑换券<br />
+市场价：&yen;30 <br />
+兑换价：<span class="highlight b">3000</span>美币
+</p>
+<img src="http://b.imimg.cn/20120605/bdc0/eeea/82564159740.0.222.222.jpg" width="160">
+</a>
+</li>
+
+<li class="hotImg">
+
+<a href="/saving/1/goods/40">
+<p class="showtips">
+银泰网60元优惠券<br />
+市场价：&yen;50 <br />
+兑换价：<span class="highlight b">50</span>美币
+</p>
+<img src="http://b.imimg.cn/20120716/34ae/f966/30380459413.0.222.222.jpg" width="160">
+</a>
+</li>
+
+<li class="hotImg">
+
+<a href="/saving/1/goods/39">
+<p class="showtips">
+好乐买10元现金抵用券<br />
+市场价：&yen;10 <br />
+兑换价：<span class="highlight b">50</span>美币
+</p>
+<img src="http://b.imimg.cn/20120709/14b6/bee8/25601263475.0.222.222.jpg" width="160">
+</a>
+</li>
+
+<li class="hotImg">
+
+<a href="/saving/1/goods/25">
+<p class="showtips">
+iphone手机保护壳<br />
+市场价：&yen;99 <br />
+兑换价：<span class="highlight b">9900</span>美币
+</p>
+<img src="http://b.imimg.cn/20120601/9b1a/1e36/24356460574.0.222.222.jpg" width="160">
+</a>
+</li>
+
+</ul>
+</div>
+
+<div class="tasklist2">
+<h3>大家都在兑换…</h3>
+<div class="relative" style="height:60px; width:690px;overflow:hidden;">
+<ul id="js_task2" class="cf" style="position:absolute;width:9999px;left:0;top:0;">
+
+<li class="cf">
+<a class="avatar" href="/profile/1414251" target="_blank"><img src="http://b2.imimg.cn/20120722/3b80/6ccc/32009941193.2.60.60.jpg"   usercard="1414251"  havecard="1"  /></a>
+<div class="desc">
+<p><a href="/profile/1414251" target="_blank" usercard="1414251"  havecard="1">我不知道什都不</a>兑换了</p>
+<p><a href="/saving/1/goods/38" title="悠闲食品专营店10元优惠券" >悠闲食品专营店</a></p>
+<p>35分钟前</p>
+</div>
+</li>
+
+<li class="cf">
+<a class="avatar" href="/profile/1414251" target="_blank"><img src="http://b2.imimg.cn/20120722/3b80/6ccc/32009941193.2.60.60.jpg"   usercard="1414251"  havecard="1"  /></a>
+<div class="desc">
+<p><a href="/profile/1414251" target="_blank" usercard="1414251"  havecard="1">我不知道什都不</a>兑换了</p>
+<p><a href="/saving/1/goods/36" title="帽儿胡同网10元优惠券" >帽儿胡同网10</a></p>
+<p>35分钟前</p>
+</div>
+</li>
+
+<li class="cf">
+<a class="avatar" href="/profile/1445027" target="_blank"><img src="http://b1.imimg.cn/20120723/b962/8c4a/26752004119.2.60.60.jpg"   usercard="1445027"  havecard="1"  /></a>
+<div class="desc">
+<p><a href="/profile/1445027" target="_blank" usercard="1445027"  havecard="1">帮你打119</a>兑换了</p>
+<p><a href="/saving/1/goods/64" title="哇噻网30元优惠券" >哇噻网30元优</a></p>
+<p>53分钟前</p>
+</div>
+</li>
+
+<li class="cf">
+<a class="avatar" href="/profile/1010385" target="_blank"><img src="http://b4.imimg.cn/20120630/dc2e/cea6/14819303438.2.60.60.jpg"   usercard="1010385"  havecard="1"  /></a>
+<div class="desc">
+<p><a href="/profile/1010385" target="_blank" usercard="1010385"  havecard="1">星星网络</a>兑换了</p>
+<p><a href="/saving/1/goods/40" title="银泰网60元优惠券" >银泰网60元优</a></p>
+<p>今天 15:09</p>
+</div>
+</li>
+
+<li class="cf">
+<a class="avatar" href="/profile/1010385" target="_blank"><img src="http://b4.imimg.cn/20120630/dc2e/cea6/14819303438.2.60.60.jpg"   usercard="1010385"  havecard="1"  /></a>
+<div class="desc">
+<p><a href="/profile/1010385" target="_blank" usercard="1010385"  havecard="1">星星网络</a>兑换了</p>
+<p><a href="/saving/1/goods/39" title="好乐买10元现金抵用券" >好乐买10元现</a></p>
+<p>今天 15:09</p>
+</div>
+</li>
+
+<li class="cf">
+<a class="avatar" href="/profile/1238175" target="_blank"><img src="http://b2.imimg.cn/20120714/539e/29a6/53674840579.2.60.60.jpg"   usercard="1238175"  havecard="1"  /></a>
+<div class="desc">
+<p><a href="/profile/1238175" target="_blank" usercard="1238175"  havecard="1">邱成</a>兑换了</p>
+<p><a href="/saving/1/goods/36" title="帽儿胡同网10元优惠券" >帽儿胡同网10</a></p>
+<p>今天 14:43</p>
+</div>
+</li>
+
+<li class="cf">
+<a class="avatar" href="/profile/1366853" target="_blank"><img src="http://b7.imimg.cn/20120720/8724/9b82/62302598509.2.60.60.jpg"   usercard="1366853"  havecard="1"  /></a>
+<div class="desc">
+<p><a href="/profile/1366853" target="_blank" usercard="1366853"  havecard="1">孙孙孙孙</a>兑换了</p>
+<p><a href="/saving/1/goods/61" title="易购-卓美网50元优惠券" >易购-卓美网5</a></p>
+<p>今天 14:28</p>
+</div>
+</li>
+
+<li class="cf">
+<a class="avatar" href="/profile/1356644" target="_blank"><img src="http://b0.imimg.cn/20120720/e29a/bfc4/18429939406.2.60.60.jpg"   usercard="1356644"  havecard="1"  /></a>
+<div class="desc">
+<p><a href="/profile/1356644" target="_blank" usercard="1356644"  havecard="1">1231f</a>兑换了</p>
+<p><a href="/saving/1/goods/41" title="银泰网70元优惠券" >银泰网70元优</a></p>
+<p>今天 14:19</p>
+</div>
+</li>
+
+<li class="cf">
+<a class="avatar" href="/profile/1391794" target="_blank"><img src="http://b7.imimg.cn/20120721/c472/69d6/49651503929.2.60.60.jpg"   usercard="1391794"  havecard="1"  /></a>
+<div class="desc">
+<p><a href="/profile/1391794" target="_blank" usercard="1391794"  havecard="1">       </a>兑换了</p>
+<p><a href="/saving/1/goods/41" title="银泰网70元优惠券" >银泰网70元优</a></p>
+<p>今天 14:18</p>
+</div>
+</li>
+
+<li class="cf">
+<a class="avatar" href="/profile/1214383" target="_blank"><img src="http://b3.imimg.cn/20120713/8828/2794/52323557415.2.60.60.jpg"   usercard="1214383"  havecard="1"  /></a>
+<div class="desc">
+<p><a href="/profile/1214383" target="_blank" usercard="1214383"  havecard="1">张冠桦</a>兑换了</p>
+<p><a href="/saving/1/goods/62" title="可可生活网100元现金抵用券" >可可生活网10</a></p>
+<p>今天 14:17</p>
+</div>
+</li>
+	
+</ul>
+</div>
+</div>
+
+</div>
+<!--兑换礼品ends-->
+<!--赚取财富begins-->
+<div class="zmtask modshadow">
+<h2 class="itemtitle"><a class="floatright" href="/saving/zm/task">更多精彩任务<span class="smallgt">&#8250;&#8250;</span></a><span class="greenline yahei">赚取财富</span></h2>
+<div class="tasklist cf">
+<ul class="cf">
+
+<li class="cf">
+<div class="topside">
+<a class="avatar" href="/saving/adidas/task/44">
+
+<span class="minilogo"><img alt="hp" src="http://a.imimg.cn/r12496/images/zmbank/minilogo/adidas.gif"></span>
+
+<img src="http://b.imimg.cn/20120717/7292/1edc/2660659937.0.60.60.jpg" />
+</a>
+<div class="profile">
+<h4><a href="/saving/adidas/task/44">伦敦盛世，领动巨龙<span class="bkicon hot-ico"></span></a></h4>
+<p>奖励：<span class="highlight">20&nbsp;阿迪币</span></p>
+</div>
+<div class="desc gray">分享adidas领动巨龙活动</div>
+
+<div class="date" endTime="1346342400000" startTime="1343031663377"> </div>
+
+
+<div class="taskbutton cf"><a href="/saving/zm/task/44" class="orangebtn btn-orange36"><span class="orangebtn">做任务</span></a><span class="count">10771人已完成&gt;</span></div>
+</div>
+<div class="bottomside"></div>
+</li>
+
+<li class="cf">
+<div class="topside">
+<a class="avatar" href="/saving/zm/task/8">
+
+<img src="http://b.imimg.cn/20120528/4b3a/37b4/96925142776.0.60.60.jpg" />
+</a>
+<div class="profile">
+<h4><a href="/saving/zm/task/8">使用课件交流系统•收集工具</a></h4>
+<p>奖励：<span class="highlight">20&nbsp;美币</span></p>
+</div>
+<div class="desc gray">安装课件交流系统•收集工具，并成功收集一张图片</div>
+
+<div class="date" endTime="1348934400000" startTime="1343031663377"> </div>
+
+
+<div class="taskbutton cf"><a href="/saving/zm/task/8" class="orangebtn btn-orange36"><span class="orangebtn">做任务</span></a><span class="count">3673人已完成&gt;</span></div>
+</div>
+<div class="bottomside"></div>
+</li>
+
+<li class="cf">
+<div class="topside">
+<a class="avatar" href="/saving/zm/task/35">
+
+<img src="http://b.imimg.cn/20120714/ac54/1c84/11206141507.0.60.60.jpg" />
+</a>
+<div class="profile">
+<h4><a href="/saving/zm/task/35">求合体 得20Q币 赢小米手机</a></h4>
+<p>奖励：<span class="highlight">0&nbsp;美币</span></p>
+</div>
+<div class="desc gray">合成成功1次即得1Q币，还有50部小米手机送！</div>
+
+
+<div class="hsplit"></div>
+
+<div class="taskbutton cf"><a href="/saving/zm/task/35" class="orangebtn btn-orange36"><span class="orangebtn">做任务</span></a><span class="count">0人已完成&gt;</span></div>
+</div>
+<div class="bottomside"></div>
+</li>
+
+<li class="cf">
+<div class="topside">
+<a class="avatar" href="/saving/zm/task/34">
+
+<img src="http://b.imimg.cn/20120705/af9c/f0ea/81955399680.0.60.60.jpg" />
+</a>
+<div class="profile">
+<h4><a href="/saving/zm/task/34">邀请10个好友得10Q币（第二期）</a></h4>
+<p>奖励：<span class="highlight">1000&nbsp;美币</span></p>
+</div>
+<div class="desc gray">10Q币免费送，邀请10位好友来课件交流系统并使用开放平台登录即</div>
+
+<div class="date" endTime="1344960000000" startTime="1343031663377"> </div>
+
+
+<div class="taskbutton cf"><a href="/saving/zm/task/34" class="orangebtn btn-orange36"><span class="orangebtn">做任务</span></a><span class="count">5900人已完成&gt;</span></div>
+</div>
+<div class="bottomside"></div>
+</li>
+
+<li class="cf">
+<div class="topside">
+<a class="avatar" href="/saving/zm/task/30">
+
+<img src="http://b.imimg.cn/20120612/aebe/ca84/69910504715.0.60.60.jpg" />
+</a>
+<div class="profile">
+<h4><a href="/saving/zm/task/30">上传头像</a></h4>
+<p>奖励：<span class="highlight">10&nbsp;美币</span></p>
+</div>
+<div class="desc gray">上传头像到课件交流系统，让更多的人认识你</div>
+
+<div class="date" endTime="1348934400000" startTime="1343031663377"> </div>
+
+
+<div class="taskbutton cf"><a href="/saving/zm/task/30" class="orangebtn btn-orange36"><span class="orangebtn">做任务</span></a><span class="count">14552人已完成&gt;</span></div>
+</div>
+<div class="bottomside"></div>
+</li>
+
+<li class="cf">
+<div class="topside">
+<a class="avatar" href="/saving/adidas/task/38">
+
+<span class="minilogo"><img alt="hp" src="http://a.imimg.cn/r12496/images/zmbank/minilogo/adidas.gif"></span>
+
+<img src="http://b.imimg.cn/20120717/3eac/2c24/96976127405.0.60.60.jpg" />
+</a>
+<div class="profile">
+<h4><a href="/saving/adidas/task/38">关注@阿迪达斯足球</a></h4>
+<p>奖励：<span class="highlight">20&nbsp;阿迪币</span></p>
+</div>
+<div class="desc gray">关注@阿迪达斯足球 为你提供最新最好的阿迪达斯足球信息</div>
+
+<div class="date" endTime="1346342400000" startTime="1343031663377"> </div>
+
+
+<div class="taskbutton cf"><a href="/saving/zm/task/38" class="orangebtn btn-orange36"><span class="orangebtn">做任务</span></a><span class="count">2610人已完成&gt;</span></div>
+</div>
+<div class="bottomside"></div>
+</li>
+
+</ul>
+</div>
+
+<div class="tasklist2">
+<h3>大家都在玩…</h3>
+<div class="relative" style="height:60px; width:690px;overflow:hidden;">
+<ul id="js_task" class="cf" style="position:absolute;width:9999px;left:0;top:0;">
+
+<li class="cf">
+<a class="avatar" href="/profile/1446531"><img havecard="1" usercard="1446531" src="http://b3.imimg.cn/20120723/3f8a/9b52/31168942530.2.60.60.jpg" /></a>
+<div class="desc">
+<p><a href="/profile/1446531" havecard="1" usercard="1446531">- Fore</a>领取任务</p>
+<p><a href="/saving/zm/task/28" title="绑定Qzone账号">绑定Qzone账号</a></p>
+<p>1分钟前</p>
+</div>
+</li>
+
+<li class="cf">
+<a class="avatar" href="/profile/1421295"><img havecard="1" usercard="1421295" src="http://b4.imimg.cn/20120722/d0ca/2382/44558022368.2.60.60.jpg" /></a>
+<div class="desc">
+<p><a href="/profile/1421295" havecard="1" usercard="1421295">Evil_骑</a>领取任务</p>
+<p><a href="/saving/zm/task/21" title="来电子书报道">来电子书报道</a></p>
+<p>2分钟前</p>
+</div>
+</li>
+
+<li class="cf">
+<a class="avatar" href="/profile/1446544"><img havecard="1" usercard="1446544" src="http://b6.imimg.cn/20120723/3a60/c9c2/31234188699.2.60.60.jpg" /></a>
+<div class="desc">
+<p><a href="/profile/1446544" havecard="1" usercard="1446544">钱智成</a>领取任务</p>
+<p><a href="/saving/zm/task/30" title="上传头像">上传头像</a></p>
+<p>2分钟前</p>
+</div>
+</li>
+
+<li class="cf">
+<a class="avatar" href="/profile/1436326"><img havecard="1" usercard="1436326" src="http://b4.imimg.cn/20120723/919c/3a54/86749212713.2.60.60.jpg" /></a>
+<div class="desc">
+<p><a href="/profile/1436326" havecard="1" usercard="1436326">117858</a>领取任务</p>
+<p><a href="/saving/zm/task/21" title="来电子书报道">来电子书报道</a></p>
+<p>3分钟前</p>
+</div>
+</li>
+
+<li class="cf">
+<a class="avatar" href="/profile/1445689"><img havecard="1" usercard="1445689" src="http://b6.imimg.cn/20120723/1272/11ec/28720825863.2.60.60.jpg" /></a>
+<div class="desc">
+<p><a href="/profile/1445689" havecard="1" usercard="1445689">托马斯穆勒</a>领取任务</p>
+<p><a href="/saving/zm/task/21" title="来电子书报道">来电子书报道</a></p>
+<p>4分钟前</p>
+</div>
+</li>
+
+<li class="cf">
+<a class="avatar" href="/profile/1446174"><img havecard="1" usercard="1446174" src="http://b2.imimg.cn/20120723/3992/6d1c/30077816886.2.60.60.jpg" /></a>
+<div class="desc">
+<p><a href="/profile/1446174" havecard="1" usercard="1446174">jiaini</a>领取任务</p>
+<p><a href="/saving/zm/task/21" title="来电子书报道">来电子书报道</a></p>
+<p>4分钟前</p>
+</div>
+</li>
+
+<li class="cf">
+<a class="avatar" href="/profile/1446558"><img havecard="1" usercard="1446558" src="http://b8.imimg.cn/20120723/c3c2/cef6/31295365427.2.60.60.jpg" /></a>
+<div class="desc">
+<p><a href="/profile/1446558" havecard="1" usercard="1446558">过往艹俯首轻</a>领取任务</p>
+<p><a href="/saving/zm/task/21" title="来电子书报道">来电子书报道</a></p>
+<p>4分钟前</p>
+</div>
+</li>
+
+<li class="cf">
+<a class="avatar" href="/profile/1446537"><img havecard="1" usercard="1446537" src="http://b8.imimg.cn/20120723/4308/85ca/31200813474.2.60.60.jpg" /></a>
+<div class="desc">
+<p><a href="/profile/1446537" havecard="1" usercard="1446537">962350</a>领取任务</p>
+<p><a href="/saving/zm/task/12" title="新增关注数10个">新增关注数10个</a></p>
+<p>5分钟前</p>
+</div>
+</li>
+
+<li class="cf">
+<a class="avatar" href="/profile/1446542"><img havecard="1" usercard="1446542" src="http://b4.imimg.cn/20120723/f290/2d78/31227532013.2.60.60.jpg" /></a>
+<div class="desc">
+<p><a href="/profile/1446542" havecard="1" usercard="1446542">「轮回℃无情</a>领取任务</p>
+<p><a href="/saving/zm/task/28" title="绑定Qzone账号">绑定Qzone账号</a></p>
+<p>6分钟前</p>
+</div>
+</li>
+
+<li class="cf">
+<a class="avatar" href="/profile/1418669"><img havecard="1" usercard="1418669" src="http://b6.imimg.cn/20120722/7ea2/f118/40357105774.2.60.60.jpg" /></a>
+<div class="desc">
+<p><a href="/profile/1418669" havecard="1" usercard="1418669">134294</a>领取任务</p>
+<p><a href="/saving/zm/task/21" title="来电子书报道">来电子书报道</a></p>
+<p>6分钟前</p>
+</div>
+</li>
+
+</ul>
+</div>
+</div>
+
+</div>
+<!--赚取财富ends-->
+
+<div class="boardlist modshadow">
+<h2 class="itemtitle"><a class="floatright" href="/bds/11976" target="_blank">更多图格<span class="smallgt">››</span></a><span class="greenline yahei">品牌图格</span></h2>
+<div class="boards cf">
+
+<div class="board-mod">
+<h3><a href="/board/11976/12588" target="_blank">我是本子控</a></h3>
+<div class="list">
+<a href="/board/11976/12588" target="_blank"><img src="http://b7.imimg.cn//20120413/6973/6d70/6567597a/12553190004117161.jpg"></a>
+</div>
+<div class="boardbutton">
+
+<a onclick="followBoard(this, 12588, 11976);" href="###" class="longbutton concern">关注</a>
+
+</div>
+</div>
+
+<div class="board-mod">
+<h3><a href="/board/14938/32648" target="_blank">创意无价</a></h3>
+<div class="list">
+<a href="/board/14938/32648" target="_blank"><img src="http://b5.imimg.cn//20120424/6a73/716d/6869597a/13507551857550896.jpg"></a>
+</div>
+<div class="boardbutton">
+
+<a onclick="followBoard(this, 32648, 14938);" href="###" class="longbutton concern">关注</a>
+
+</div>
+</div>
+
+<div class="board-mod">
+<h3><a href="/board/18980/2288247" target="_blank">夏装</a></h3>
+<div class="list">
+<a href="/board/18980/2288247" target="_blank"><img src="http://b2.imimg.cn//20120612/8d5c/d1be/17726139434321896.jpg"></a>
+</div>
+<div class="boardbutton">
+
+<a onclick="followBoard(this, 2288247, 18980);" href="###" class="longbutton concern">关注</a>
+
+</div>
+</div>
+
+</div>
+</div>
+
+
+<div class="rel-surprise cf">
+<h2 class="modshadow cf"><a class="more" href="/surprise" target="_blank">更多免费惊喜&#8250;&#8250;</a><span class="yahei f18">免费领取惊喜</span></h2>
+
+<div class="surshare-mod ">
+<div class="sharecontainer">
+<div class="sur-img">
+<a href="/board/share/942568/4837855/3965416" class="lk-surimg" target="_blank"><img src="http://b.imimg.cn/index/surprise/3965416.340.340.jpg" /></a>
+</div>
+<div class="shareprofile yahe">
+<a href="/board/share/942568/4837855/3965416" target="_blank">[甜笑小屋]白色短裤</a>
+</div>
+</div>
+<div class="getcontainer">
+<div class="sur-status relative png">
+<span class="sur-free">免费</span><span class="sur-num"><b>1</b>件</span>
+<a class="btn-get png" href="/share/3965416" target="_blank"></a>
+</div>
+<div class="freenum">原价：<del>&yen;49</del><br /><a href="/surprise/queue/3965416/1" target="_blank"><b>123</b>人排队</a></div>
+</div>
+</div>
+
+<div class="surshare-mod lastmod">
+<div class="sharecontainer">
+<div class="sur-img">
+<a href="/board/share/365507/2140737/4134181" class="lk-surimg" target="_blank"><img src="http://b.imimg.cn/index/surprise/4134181.340.340.jpg" /></a>
+</div>
+<div class="shareprofile yahe">
+<a href="/board/share/365507/2140737/4134181" target="_blank">[丽香莉娜]欧美性感网纹袜</a>
+</div>
+</div>
+<div class="getcontainer">
+<div class="sur-status relative png">
+<span class="sur-free">免费</span><span class="sur-num"><b>1</b>件</span>
+<a class="btn-get png" href="/share/4134181" target="_blank"></a>
+</div>
+<div class="freenum">原价：<del>&yen;25.9</del><br /><a href="/surprise/queue/4134181/1" target="_blank"><b>341</b>人排队</a></div>
+</div>
+</div>
+
+</div>
+
+</div>
+<div id="rightcolumn">
+
+
+
+
+
+
+
+<div class="userpanel modshadow">
+<div class="desc cf">
+		<a class="avatar"><img src="http://a.imimg.cn/latest/images/zmbank/zhimei/logo_avater.gif"></a>
+		<div class="profile">
+			<p class="gray">关注课件交流系统微博，随时获取课件交流系统新鲜事</p>
+		</div>
+	</div>
+	<div class="buttonside cf">
+		<iframe class="sina" width="63" height="24" frameborder="0" allowtransparency="true" marginwidth="0" marginheight="0" scrolling="no" border="0" src="http://widget.weibo.com/relationship/followbutton.php?language=zh_cn&width=63&height=24&uid=2443589715&style=1&btn=red&dpc=1"></iframe>
+                <iframe class="tencent" src="http://follow.v.t.qq.com/index.php?c=follow&a=quick&name=zhimeicom&style=5&t=1338861706792&f=0" frameborder="0" scrolling="auto" width="125" height="24" marginwidth="0" marginheight="0" allowtransparency="true"></iframe>
+			</div>
+
+</div>
+
+
+
+
+
+
+
+<!--品牌推广-->
+<div class="modshadow" style="margin-bottom:16px">
+<a href="/saving/adidas" target="_blank"><img src="http://a.imimg.cn/r12496/images/zmbank/adidas/bank_adidas.gif"></a>
+</div>
+
+
+
+
+
+
+
+
+
+<div class="sidelist announcement modshadow cf">
+<h3>
+<a class="more" href="/saving/zm/placard">更多&#8250;&#8250;</a>
+最新公告
+</h3>
+<ul>
+
+<li><a href="/saving/zm/placard/28" target="_blank">兑换商品发放公告：截止至7月20日18:00前兑换Q币和充值卡的朋友，收货啦！</a></li>
+
+<li><a href="/saving/zm/placard/27" target="_blank">“求合体赢小米”活动违规用户名单公示</a></li>
+
+<li><a href="/saving/zm/placard/25" target="_blank">截止至7月16日24:00前兑换商品的各位用户，收货啦！</a></li>
+
+</ul>
+</div>
+
+
+
+
+
+
+
+<!--
+侧边模块-左图加说明文字
+-->
+<div class="sidelist wealthboard modshadow">
+<h3>最佳兑换</h3>
+
+<ul class="cf">
+
+<li class="cf">
+<div class="avatar">
+<span class='fsn '>1</span>
+<a href="/saving/1/goods/6">
+<img src="http://b.imimg.cn/20120523/60b2/e960/67583075625.0.222.222.jpg" width="60"/>
+</a>
+</div>
+<div class="profile">
+<a href="/saving/1/goods/6" target="_blank">50Q币</a><br />
+市场价：<span class="highlight">50</span><br />
+<span class="highlight">5000&nbsp;美币</span>&nbsp;可免费兑换
+</div>
+</li>
+
+<li class="cf">
+<div class="avatar">
+<span class='fsn '>2</span>
+<a href="/saving/1/goods/12">
+<img src="http://b.imimg.cn/20120523/51d0/5a84/67654394657.0.222.222.jpg" width="60"/>
+</a>
+</div>
+<div class="profile">
+<a href="/saving/1/goods/12" target="_blank">30元话费充值卡</a><br />
+市场价：<span class="highlight">30</span><br />
+<span class="highlight">3000&nbsp;美币</span>&nbsp;可免费兑换
+</div>
+</li>
+
+<li class="cf">
+<div class="avatar">
+<span class='fsn '>3</span>
+<a href="/saving/1/goods/8">
+<img src="http://b.imimg.cn/20120523/3ce0/1914/67605195668.0.222.222.jpg" width="60"/>
+</a>
+</div>
+<div class="profile">
+<a href="/saving/1/goods/8" target="_blank">20Q币</a><br />
+市场价：<span class="highlight">20</span><br />
+<span class="highlight">2000&nbsp;美币</span>&nbsp;可免费兑换
+</div>
+</li>
+
+<li class="cf">
+<div class="avatar">
+<span class='fsn sn_gray'>4</span>
+<a href="/saving/1/goods/9">
+<img src="http://b.imimg.cn/20120523/da9a/af02/67617007428.0.222.222.jpg" width="60"/>
+</a>
+</div>
+<div class="profile">
+<a href="/saving/1/goods/9" target="_blank">10Q币</a><br />
+市场价：<span class="highlight">10</span><br />
+<span class="highlight">1000&nbsp;美币</span>&nbsp;可免费兑换
+</div>
+</li>
+
+<li class="cf">
+<div class="avatar">
+<span class='fsn sn_gray'>5</span>
+<a href="/saving/1/goods/32">
+<img src="http://b.imimg.cn/20120605/c214/aa02/82126232943.0.222.222.jpg" width="60"/>
+</a>
+</div>
+<div class="profile">
+<a href="/saving/1/goods/32" target="_blank">10元手机充值卡</a><br />
+市场价：<span class="highlight">10</span><br />
+<span class="highlight">1000&nbsp;美币</span>&nbsp;可免费兑换
+</div>
+</li>
+
+</ul>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="sidelist wealthboard modshadow">
+<h3><a href="/saving/zm/top" class="more">更多&#8250;&#8250;</a>本周财富榜</h3>
+<ul class="cf">
+
+<li class="cf">
+<div class="sn ">1</div>
+<div class="avatar"><a href="/profile/1074994" target="_blank"><img havecard="1" usercard="1074994" src="http://b2.imimg.cn/20120720/95aa/4450/81416334789.3.30.30.jpg"/></a></div>
+<div class="profile">
+<a href="/profile/1074994" havecard="1" usercard="1074994"  target="_blank">我来了啦啦啦</a><br />
+<span class="highlight">6725&nbsp;美币</span><br />
+</div>
+</li>
+
+<li class="cf">
+<div class="sn ">2</div>
+<div class="avatar"><a href="/profile/1367348" target="_blank"><img havecard="1" usercard="1367348" src="http://b1.imimg.cn/20120720/f2fe/78ce/63250147028.3.30.30.jpg"/></a></div>
+<div class="profile">
+<a href="/profile/1367348" havecard="1" usercard="1367348"  target="_blank">自己看</a><br />
+<span class="highlight">5220&nbsp;美币</span><br />
+</div>
+</li>
+
+<li class="cf">
+<div class="sn ">3</div>
+<div class="avatar"><a href="/profile/1370898" target="_blank"><img havecard="1" usercard="1370898" src="http://b6.imimg.cn/20120720/85ca/abfa/71026379170.3.30.30.jpg"/></a></div>
+<div class="profile">
+<a href="/profile/1370898" havecard="1" usercard="1370898"  target="_blank">绿叶伞兰</a><br />
+<span class="highlight">5025&nbsp;美币</span><br />
+</div>
+</li>
+
+<li class="cf">
+<div class="sn sn_gray">4</div>
+<div class="avatar"><a href="/profile/1378591" target="_blank"><img havecard="1" usercard="1378591" src="http://b3.imimg.cn/20120720/c524/dae4/90952512879.3.30.30.jpg"/></a></div>
+<div class="profile">
+<a href="/profile/1378591" havecard="1" usercard="1378591"  target="_blank">何以笙簫默</a><br />
+<span class="highlight">5025&nbsp;美币</span><br />
+</div>
+</li>
+
+<li class="cf">
+<div class="sn sn_gray">5</div>
+<div class="avatar"><a href="/profile/1307977" target="_blank"><img havecard="1" usercard="1307977" src="http://b5.imimg.cn/20120718/875e/f212/14394517860.3.30.30.jpg"/></a></div>
+<div class="profile">
+<a href="/profile/1307977" havecard="1" usercard="1307977"  target="_blank">HAPPYPIG</a><br />
+<span class="highlight">5010&nbsp;美币</span><br />
+</div>
+</li>
+
+</ul>
+</div>
+
+
+
+
+
+
+
+
+<!--
+侧边模块-左图加说明文字
+-->
+<div class="sidelist leaveword modshadow">
+<h3><a class="more" href="/saving/zm/leaveWord/1" target="_blank">全部问题&#8250;&#8250;</a>你问我答</h3>
+
+<ul class="cf">
+
+<li class="cf">
+<div class="avatar">
+<a href="/profile/1020780" target="_blank"><img src="http://b4.imimg.cn/20120630/aff6/413a/28837064997.3.30.30.jpg" usercard="1020780"  havecard="1" /></a>
+</div>
+<div class="profile">
+<a href="/saving/zm/leaveWord/1" target="_blank" title="怎么没人回答？ 我的10QB还没到账啊，6月29号到现在了，QQ1311634093">怎么没人回答？ 我的</a>
+</div>
+</li>
+
+<li class="cf">
+<div class="avatar">
+<a href="/profile/1074177" target="_blank"><img src="http://b7.imimg.cn/20120703/db1c/5aa6/71905097948.3.30.30.jpg" usercard="1074177"  havecard="1" /></a>
+</div>
+<div class="profile">
+<a href="/saving/zm/leaveWord/1" target="_blank" title="我兑换过十QB的  那么我可不可以再兑换十QB的呢？">我兑换过十QB的  </a>
+</div>
+</li>
+
+<li class="cf">
+<div class="avatar">
+<a href="/profile/1001936" target="_blank"><img src="http://b1.imimg.cn/20120629/6e3c/a334/75574078181.3.30.30.jpg" usercard="1001936"  havecard="1" /></a>
+</div>
+<div class="profile">
+<a href="/saving/zm/leaveWord/1" target="_blank" title="adidas 出来后原来的美币还可以兑换物品吗">adidas 出来后</a>
+</div>
+</li>
+
+<li class="cf">
+<div class="avatar">
+<a href="/profile/1263602" target="_blank"><img src="http://b7.imimg.cn/20120716/f0f2/5fa6/3551105248.3.30.30.jpg" usercard="1263602"  havecard="1" /></a>
+</div>
+<div class="profile">
+<a href="/saving/zm/leaveWord/1" target="_blank" title="阿迪币和美币有什么不同？">阿迪币和美币有什么不</a>
+</div>
+</li>
+
+<li class="cf">
+<div class="avatar">
+<a href="/profile/151162" target="_blank"><img src="http://b4.imimg.cn/20120629/a02e/4094/77155179557.3.30.30.jpg" usercard="151162"  havecard="1" /></a>
+</div>
+<div class="profile">
+<a href="/saving/zm/leaveWord/1" target="_blank" title="每样商品只能兑换一次吗？">每样商品只能兑换一次</a>
+</div>
+</li>
+
+</ul>
+
+<div class="btsection"><a class="labelkey" href="/saving/zm/leaveWord/1" target="_blank"><em>去提问</em></a></div>
+</div>
+
+
+
+
+
+
+
+
+<!--常见问题-->
+<div class="sidelist announcement modshadow cf">
+<h3>常见问题</h3>
+<ul>
+
+<li><a href="/saving/zm/question/list" target="_blank">赚美币必杀技</a></li>
+
+<li><a href="/saving/zm/question/list" target="_blank">兑换商品领取流程</a></li>
+
+<li><a href="/saving/zm/question/list" target="_blank">如何赚取美币</a></li>
+
+<li><a href="/saving/zm/question/list" target="_blank">如何消耗美币</a></li>
+
+<li><a href="/saving/zm/question/list" target="_blank">什么是美币</a></li>
+
+</ul>
+</div>
+
+
+
+
+
+
+
+
+<!--常见问题-->
+
+
+</div>
+</div>
+
+
+</div>
+
+
+<%= render file:'/application/footers/_zm_footer' %>

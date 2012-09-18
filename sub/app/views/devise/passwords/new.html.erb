@@ -1,0 +1,23 @@
+<% content_for :title do %>忘记密码<% end %>
+<%= image_tag 'ie/ktv_forget.png',:class => 'ktvregh2', :alt => '忘记密码' %>
+
+<%= form_for(resource, :as => resource_name, :url =>  password_path(resource_name), :html => { :method => :post, :id=>'submit_btn_form',:class=>'normal' }) do |f| %>
+  <%# devise_error_messages! %>
+  <div class="field">
+    <%= f.label :email,'E-mail' %><div class="field_error" id="error_email"><%= resource.errors_for_field(:email) %></div><br class="clear">
+    <%= f.email_field :email,:class => 's462',:tabindex => 1 %>
+  </div>
+
+  <div class="clearfix" style="margin-top:20px;padding-bottom:8px">
+    <div class="field fl">
+      <a href="javascript:void(0)" class="btn btn210 submit_btns" id="submit_btn">发送密码重置邮件</a>
+    </div>
+    <div class="field fr">
+      <a href="<%=cancel_href%>" class="btn btn210_grey">取消</a>
+    </div>
+  </div>
+
+
+
+<% end %>
+

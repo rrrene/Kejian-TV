@@ -1,0 +1,44 @@
+
+<h1 id="section">课件交流系统: Kejian.TV开放应用程序接口 - 获取某用户问过的题列表</h1>
+
+<h2>认证级别</h2>
+<p>只需提供client_id。</p>
+
+<h2>输入</h2>
+<p>向<code>/users/:user/asked</code>发送<code>GET</code>请求，user参数值为用户的slug。</p>
+<p>例如：</p>
+<pre class="terminal">
+http://api.kejian.tv/users/angelacai/asked?client_id=4f97b5f9d1212f1d7e000002
+</pre>
+
+<h2>输出</h2>
+<p>例如：</p>
+<pre class="terminal">
+  { size: 22,
+    result: 
+     [ { id: '4ed33f80062a787287002813', title: 'Kejian.TV以什么方式保护用户著作权？', user: [Object], answers_count: 1 },
+       { id: '4ed33f62062a78726f002863', title: 'Kejian.TV如何对待隐私题？', user: [Object], answers_count: 1 },
+       { id: '4ed33f41062a78726f00285d', title: '如何使用Kejian.TV的搜索功能？', user: [Object], answers_count: 1 },
+       { id: '4ed33f25d1212f2682000075', title: '在Kejian.TV上，如何找到我感兴趣的人，并且关注他们？', user: [Object], answers_count: 1 },
+       { id: '4ed33ed5062a78726f002856', title: 'Kejian.TV上，如何取消我已经关注的领域？', user: [Object], answers_count: 1 },
+       { id: '4ed33ec3d1212f269a00006d', title: '我为什么要关注一个Kejian.TV领域？', user: [Object], answers_count: 1 },
+       { id: '4ed33eac062a78727b0027f7', title: '如何查看我已经关注的Kejian.TV领域？', user: [Object], answers_count: 1 },
+       { id: '4ed33e6c062a78726f00284c', title: '如何给Kejian.TV上的题添加领域？', user: [Object], answers_count: 1 },
+       { id: '4ed33e35062a787287002805', title: '怎样在Kejian.TV上找到我感兴趣的领域？', user: [Object], answers_count: 1 },
+       { id: '4ed33dfed1212f268e00006b', title: 'Kejian.TV上，“赞成、反对、感谢、没有帮助” 功能有什么用？', user: [Object], answers_count: 1 },
+       { id: '4ed33d92062a787287002800', title: '在Kejian.TV，什么是“添加评论”？', user: [Object], answers_count: 1 },
+       { id: '4ed33d6bd1212f2682000062', title: '在Kejian.TV上解答题时，应该注意什么？', user: [Object], answers_count: 1 },
+       { id: '4ed33d53d1212f268200005d', title: '在Kejian.TV，如何向指定专家提问？', user: [Object], answers_count: 1 },
+       { id: '4ed33cf8062a7872870027f6', title: 'Kejian.TV用户，如何修改自己的用户名？', user: [Object], answers_count: 1 },
+       { id: '4ed33ce1d1212f269a00005c', title: 'Kejian.TV用户，如何修改自己的昵称？', user: [Object], answers_count: 1 },
+       { id: '4ed33c8d062a78727b0027e0', title: 'Kejian.TV用户，如何上传和修改个人头像？', user: [Object], answers_count: 1 },
+       { id: '4ed33c63d1212f269a000057', title: 'Kejian.TV用户，注册/登录邮箱可以更改吗？', user: [Object], answers_count: 1 },
+       { id: '4ed33bd8062a78727b0027d8', title: '如何登录Kejian.TV？', user: [Object], answers_count: 1 },
+       { id: '4ed33bb9062a78726f002838', title: '我能够在Kejian.TV做什么？', user: [Object], answers_count: 1 },
+       { id: '4ed33b71062a78726f002832', title: 'Kejian.TV是什么网站？', user: [Object], answers_count: 1 },
+       { id: '4e9d86446130034af90001f3',
+         title: '微博网友题：刚毕业时我遇到这么一家公司，去的时候是试用期，公司说等转正才签劳动合同，所以两个月中一直没有签合同，也没有五险一金，只是每个月两千多的工资。请问，试用期到底用不用签劳动合同呢？？',
+         user: [Object],
+         answers_count: 3 },
+       { id: '4e9d851f6130034aed0001bc', title: '微博网友题：请问无期限合同能签吗？', user: [Object], answers_count: 1 } ] }
+</pre>

@@ -1,0 +1,37 @@
+<div id="chrome_required"><div class="w960">
+<%= image_tag('unsupported_browsers.png',:alt => '请登陆，或获取邀请以继续访问课件交流系统', :class =>"chrome") %><br>
+<div class="intro">
+  <p>　　Kejian.TV 专注于构建内容丰富与质量上乘的在线学习社区。在真实的学术交流氛围中，原创作品将被标记、保护与传递，您可以与课件等相关资源的作者交流，您也可以在任意领域自由开课或出题。</p>
+  <p>　　为保证资源的纯净与真实，我们在一段时间内将采用邀请注册方式。作为受邀者，您可以邀请您的朋友加入社区，同我们一起构建属于我们自己的社区。</p>
+  <p><a href="/login" id="ktv_chromebtn">用户登录入口</a></p>
+  <p class="get-code">
+    登录后您可以访问以下地址继续浏览本页：
+    <input type="text" name="chrome_required_url" value="http://<%=Setting.ktv_domain%><%= request.path %>" id="chrome_required_url_input" style="background:url(/favicon.png) no-repeat scroll 4px center #FFFFFF" readonly onclick="javascript:this.select();">
+    <input type="submit" value="复制" id="submit-button">
+    <% content_for :butt2 do %>
+      <% if @is_ie %>
+        $('#submit-button').click(function(){
+          window.clipboardData.setData("Text", $('#chrome_required_url_input').val());
+        })
+      <% else %>
+        $('#submit-button').zclip({
+          path:'/zero_clipboard.swf',
+          copy:function(){
+            return $('#chrome_required_url_input').val();
+          },
+          beforeCopy:function(){
+            $('#chrome_required_url_input').css('background-color','yellow');
+            $(this).css('color','orange');
+          },
+          afterCopy:function(){
+            $('#chrome_required_url_input').css('background-color','white');
+            $(this).css('color','black');
+            $(this).next('.check').show();
+          }
+        });
+      <% end %>
+    <% end %>
+  </p>
+</div>
+<%= image_tag('laptop.jpg',:class => 'laptop') %>
+</div></div>

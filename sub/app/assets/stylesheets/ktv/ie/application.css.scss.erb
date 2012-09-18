@@ -1,0 +1,96 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require ./style
+ *= require ./main
+ *= require ./ktv
+ *= require ./simple_layout
+ *= require ./application_for_devise
+ *= require ./ie
+ *= require_self
+*/
+
+
+#chrome_required{
+  .chrome{
+    margin-top:10px;
+    margin-bottom:53px;
+    margin-left:28px;
+  }
+  #chrome_required_url_input{
+    height: 26px;width: 288px;
+    line-height: 26px;
+    border:1px solid #999999;
+    color:#000;
+    font-size:13px;
+    font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;
+    padding:0 0 0 24px;
+    border:1px solid #999999;
+    border-radius:0;
+    box-shadow:none;
+    background:url("/favicon.png") no-repeat scroll 4px center white;
+  }
+  #submit-button{
+    margin-left:5px;
+    height:28px;
+    position:absolute;
+  }
+  .intro{
+    color:#333333;
+    position:absolute;
+    top:166px;
+    width:388px;
+    p{
+      font-size: 15px;
+      margin-top: 22px;
+      line-height: 22px;
+    }
+    p.get-code{
+      font-size:13px !important;
+    }
+    #ktv_chromebtn {
+      display:block;
+      text-decoration:none;  
+      font-size:15px;
+      height:48px;
+      line-height:48px;
+      color:white;
+      text-align:center;
+      outline:none;
+      background:url(<%=asset_path 'btns.png'%>);
+      width:203px;
+      &:hover{
+        color:white;
+        background-position:0 -48px;
+      }
+      &:active{
+        background-position:0 -96px;
+      }
+    }
+  }
+  background-color:#FFF;
+}
+footer {
+  color: #747474;
+  font-size: 15px;
+  line-height: 24px;
+  padding: 25px 10px;
+  p{
+    margin:0;
+    padding:0;
+  }
+}
+body{
+  -webkit-font-smoothing: subpixel-antialiased;
+}
+.wrapper{
+  margin: 0 auto;
+  width: 960px;
+}

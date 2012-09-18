@@ -1,0 +1,27 @@
+<div id="upload">
+  <%= yield :upload_armpit%>
+  <h1>请选择源文件 <span style="font-size:14px">(目前支持格式: PDF, Djvu, PPT, PPTX, DOC, DOCX)</span></h1>
+  <div class="steps">
+    <div class="presentation_wrapper">
+      <div class="step">
+        <div id="uploader" data-session-key-name="_secure_speakerd_session" data-session-key="BAh7CEkiD3Nlc3Npb25faWQGOgZFRkkiJTk3MzcxNDdmOGI3ZDI1ZjIyYzAzMDFhMWRkMzI2MmM4BjsAVEkiEF9jc3JmX3Rva2VuBjsARkkiMVRZdFFsdEJzMXBiRkxhUktIbW5lNnNCL0hIendQaGRLSnJIbU8rRTBkU2s9BjsARkkiDHVzZXJfaWQGOwBGSSIdNGYyZmI2NGUwZjZmMjcwMDFmMDEwYTNhBjsARg%3D%3D--77268f8e0eab9ba9e8d742ed1b0d5fe29c81192d">
+          <input id="presentation_pdf" name="presentation[pdf]" type="file" />
+        </div>
+      </div>
+      <h1>发布进度</h1>
+      <div class="step">
+        <div id="upload_progress" class="progress_bar inactive">
+          <div class="progress_title">上传进度</div>
+          <div class="progress_meter"></div>
+        </div>
+      </div>
+      <div class="step">
+        <div id="process_progress" class="progress_bar inactive">
+          <div class="progress_title">转码进度</div>
+          <div class="progress_meter"></div>
+        </div>
+      </div>
+    </div>
+  </div><!-- /steps -->
+  <p id="ok_to_leave" style="display:none">此时您可安全地离开本页面，我们将在后台自动处理您的课件。</p>
+</div>
