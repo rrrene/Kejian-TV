@@ -48,7 +48,11 @@ Sub::Application.routes.draw do
   get '/welcome/menu'
   get '/welcome/xi'
   get '/welcome/main'
-  get '/welcome/newbie'
+  get '/welcome/featured'
+  get '/welcome/hot'
+  get '/welcome/week'
+  get '/welcome/month'
+  get '/welcome/feeds'
   # ________________________________ktv__________________________________________
   resources :departments
   resources :courses
