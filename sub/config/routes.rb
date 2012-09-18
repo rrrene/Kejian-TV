@@ -49,7 +49,6 @@ Sub::Application.routes.draw do
   get '/welcome/xi'
   get '/welcome/main'
   get '/welcome/newbie'
-  get '/welcome/tmp'
   # ________________________________ktv__________________________________________
   resources :departments
   resources :courses
