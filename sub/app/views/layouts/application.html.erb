@@ -73,13 +73,13 @@
 </head>
 
 <body <%if @is_ie8 or @is_ie7 or @is_ie6 %>onload="window.psvr_ie_readyfix()"<%end%> id="psvr_subject_all" style="  background: #fdfdfd url(<%= asset_path 'sstatic/skeptics/img/grid_noise_dark.png' %>) repeat left top;<%= 'background-position: 0 112px;' if @we_are_inside_qa and !@we_are_no_zm_header %><%=yield :body_style%>" data-subdomain="<%= request.subdomain %>" class="<%= @we_are_inside_qa ? 'we_are_inside_qa' : '' %>">
-<div id="append_parent"></div><div id="ajaxwaitid"></div>
+<div id="append_parent" class="__dz"></div><div id="ajaxwaitid"></div>
 <div class="__sdk">
   <header style="background-image:url(<%= asset_path('dark.png') %>)">
     <div class="wrapper">
       <h1><a href="/" id="core_logotext_wrap"><%= image_tag "logo_ktv_#{Setting.ktv_sub}.png",:alt => "#{Setting.ktv_subname}课件交流系统",:id=>'core_logotext' %></a></h1>
-      <form accept-charset="UTF-8" action="/search" id="search_form" method="get" data-width-tobe="730" style="<%= Ktv.config.logo_ktv_width ? "margin-left:#{Ktv.config.logo_ktv_width + 78}px" : '' %>">
-        <input type="text" id="q" name="q" value="" class="placeholded" placeholder="搜索课程、老师或资源..." />
+      <form accept-charset="UTF-8" action="/search" id="search_form" method="get" data-width-tobe="<%= Ktv.config.logo_ktv_width ? "#{Ktv.config.logo_ktv_width + 490}" : '730' %>" style="<%= Ktv.config.logo_ktv_width ? "margin-left:#{Ktv.config.logo_ktv_width + 78}px" : '' %>">
+        <input type="text" id="q" name="q" value="" class="placeholded" placeholder="全站搜索..." />
       </form>
       <div class="navigation">
         <ul>
@@ -91,12 +91,26 @@
 <% else %>    
           <li class="browse"><a href="/coursewares_by_departments" class="lh39 pa0 core_wraps" id="core_all_wrap">课件瀑布</a></li>
 <% end %>    
+
+<%if request.path == '/coursewares/new'%>
+          <li class="upload"><a href="/" class="lh39 pa0 core_wraps">返回首页</a></li>
+<% else %>    
           <li class="upload"><a href="<%= new_courseware_path %>" class="lh39 pa0 core_wraps" id="core_addcw_wrap">上传课件</a></li>
+<% end %>
         </ul>
         <div id="amazing-shadow"></div>
+        <div id="account-notifications">
+          <a href="/simple/home.php?mod=space&do=notice">提醒</a>
+          <div class="count-badge" style="">8</div>
+        </div>
         <% if user_signed_in? %>
           <ul id="account-settings">
-            <li><a class="user" href="<%= user_path(current_user) %>"><%= avatar_tag(current_user,:small47) %><%= current_user.name %></a>
+            <li>
+              <a class="user" href="<%= user_path(current_user) %>"><%= avatar_tag(current_user,:small47) %><%= current_user.name %>
+                <span id="hardest_a_ever"><span dir="ltr" title="your reputation; view reputation changes" class="reputation-score">307</span></span>
+                <span title="1 silver badge" class="hardest_span_ever"><span class="badge2"></span><span class="badgecount">1</span></span>
+                <span title="10 bronze badges" class="hardest_span_ever"><span class="badge3"></span><span class="badgecount">10</span></span>
+                </a>
               <ul>
                 <li><a href="<%= invite_users_path %>">邀请好友注册</a></li>
                 <li><a href="<%= mine_path %>">我的课件</a></li>

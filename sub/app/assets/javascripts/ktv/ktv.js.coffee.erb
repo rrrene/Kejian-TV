@@ -257,7 +257,7 @@
         $('#results_tray_content').fadeOut('fast')  
         $('#results_tray').animate({height:0}, {duration: 200, easing: 'swing', complete: ->
           $('#search_form').animate({
-            width: 200
+            width: 100
           }, 200)
           $('div.navigation').fadeIn('fast')
         })
@@ -280,6 +280,17 @@
       $("#core_addtext").attr "src", KTV.addtext_css_src1
     , ->
       $("#core_addtext").attr "src", KTV.addtext_css_src0
+    )
+    $('.question-summary').hover(->
+      $('.vspiic',this).show()
+    ,->
+      $('.vspiic',this).hide()
+    )
+    $('.vspiic').click(->
+      $('#cw_previwer').show()
+    )
+    $('#cw_newhuge,#core_addcw_wrap').click(->
+      showWindow('nav', '/simple/forum.php?mod=misc&action=nav', 'get', 0)
     )
     core_people_cf_timer = null
     $('#core_people_cf li').click(->

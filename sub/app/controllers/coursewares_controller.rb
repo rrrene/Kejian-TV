@@ -81,6 +81,8 @@ class CoursewaresController < ApplicationController
   end
   def new
     @seo[:title] = '上传课件'
+    @c = Course.where(fid:params[:fid].to_i).first
+    return render_404 unless @c
     @courseware = Courseware.new
     @courseware.version_date[@courseware.version.to_s] = Time.now.strftime("%Y年%m月%d日")
     prepare_s3

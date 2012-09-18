@@ -1,3 +1,4 @@
+
 <div class="home-page __skp">
     <div id="notify-container"></div>
     <div id="overlay-header"></div>
@@ -27,22 +28,32 @@
 
         <div id="content">
             
+            <div class="__dz" id="dz_navi">
+                <div class="bm cl" id="pt">
+                  <div class="z">
+                    <a title="<%=Setting.ktv_subname%>课件交流系统" class="nvhm" href="/"><%=Setting.ktv_subname%>课件交流系统</a>
+                    <em>»</em>
+                    <a href="<%=request.fullpath%>"><%=@seo[:title]%></a>
+                  </div>
+                  <div class="z"></div>
+                </div>
+            </div>
+
+
+
 <div id="mainbar">
 
 <div class="subheader">
-    <h1 id="h-top-questions">
-        <%= @seo[:title] %>
-    </h1>
     <div id="tabs">
     <a class="<%= 'youarehere' if '/'==request.path %>" href="/?psvr_force=1">我关注的</a>
     <a class="<%= 'youarehere' if '/welcome/featured'==request.path %>" href="/welcome/featured">资源广场</a>
-    <a class="<%= 'youarehere' if '/welcome/hot'==request.path %>" href="/welcome/hot">最热</a>
-    <a class="<%= 'youarehere' if '/welcome/week'==request.path %>" href="/welcome/week">本周</a>
-    <a class="<%= 'youarehere' if '/welcome/month'==request.path %>" href="/welcome/month">本月</a>
+    <a class="<%= 'youarehere' if '/welcome/hot'==request.path %>" href="/simple/forum.php?mod=guide&view=my">我的课件</a>
+    <a class="<%= 'youarehere' if '/welcome/week'==request.path %>" href="/simple/forum.php?mod=guide&view=new">未读课件</a>
     </div>
 </div>
+
 <div id="question-mini-list">
-<% if @coursewares.count<1 %>
+<% if @coursewares.count<1 and '/'==request.path%>
   您关注的资源没有新动态，去<%= link_to '资源广场','/welcome/featured' %>关注更多内容吧！
 <% else %>
 <% @coursewares.each do |item|%>
@@ -70,8 +81,8 @@
           <% end %>
           <% if nn=Course.get_name(item.course_fid) %>
             <a href="/courses/<%= item.course_fid %>" class="post-tag" title="<%= nn %>" rel="tag"><%= nn %></a> 
-            <% if nd=Course.get_department(item.course_fid) and ndid = Department.get_fid(nd) %>
-              <a href="/departments/<%= ndid %>" class="post-tag" title="<%= nd %>" rel="tag"><%= nd %></a> 
+            <% if nd=Course.get_department(item.course_fid) %>
+              <a href="/departments/<%= item.course_fid %>" class="post-tag" title="<%= nd %>" rel="tag"><%= nd %></a> 
             <% end %>
           <% end %>
         </div>
@@ -80,8 +91,15 @@
             <a href="/users/<%= User.get_slug item.uploader_id %>"><%= User.get_name item.uploader_id %></a> <span class="reputation-score" title="reputation score" dir="ltr"><%= User.get_reputation(item.uploader_id) %></span>
         </div>
     </div>
+    
+    <div class="vspiic"></div>
 </div>
 <% end %>
+<script type="text/javascript" charset="utf-8">
+  <% content_for :butt2 do %>
+
+  <% end %>
+</script>
 <% end %>
 </div>
 
@@ -118,6 +136,30 @@
     </div>
     <p class="ar"><a href="<%= courses_path %>">全部课程 &raquo;</a></p>
 </div>      
+</div>
+
+           <strong><a href="/simple/home.php?mod=space&amp;do=friend&amp;view=online&amp;type=member"></a></strong>
+<div id="online-users" class="module">
+    <h4 id="h-recent-badges">在线用户: <strong><%= @session_count %></strong> 人在线
+     - <strong><%= @onlinelist_count %></strong> 用户(<strong><%= @online_invisible_count %></strong> 隐身),
+     <strong><%= @guest_count %></strong> 位游客
+     - 最高记录是 <strong><%= @onlinerecord[0] %></strong> 于 <strong><%=Time.at(@onlinerecord[1].to_i).strftime("%F")%></strong></span>
+    </h4>
+    <table>
+    <tbody>
+     <% if @on_display.empty? %>
+      <tr><td>当前只有游客或隐身用户在线</td></tr>
+     <% else %>
+       <% @on_display.each do |uid,online| %>
+        <% if !online[2][1] %>
+           <tr><td><a class="badge" href="/simple/?<%= uid %>"><span class="badge2" style="background-image:url(/simple/static/image/common/<%= online[3][1] %>);background-position:0 0;"></span>&nbsp;<%= online[1][0] %></a>
+             <a href="/simple/?<%= uid %>"><%= timeago(Time.at(online[2][0])) %></a></td></tr>
+        <% end %>
+       <% end %>
+     <% end %>
+
+    </tbody></table>
+    <p class="ar"><a href="/simple/home.php?mod=space&amp;do=friend&amp;view=online&amp;type=member">所有在线用户 »</a></p>
 </div>
 
 <div id="feed-link">

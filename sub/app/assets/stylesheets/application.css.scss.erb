@@ -12,7 +12,7 @@
  *= require jquery.zlzp.popupdiv.css
  *= require qa_overwritting
  *= require ./__sub
- * require ./__dz
+ *= require ./__dz
  *= require ./__skp
  *= require_self
  */
@@ -27,10 +27,6 @@
   top:0;
   right:0;
   clip:rect(0 100% 100% 0);
-}
-#pt,#ct{
-  margin-left:14px;
-  margin-right:14px;
 }
 #chart{
   margin-bottom:8px;
@@ -151,5 +147,14 @@
   #facebox .input-x-validate-error .input-x-validate{
     background:#ffe5e5;
     border-color:#ff0000;
+  }
+}
+
+#dz_navi{
+  background:transparent;
+  position:absolute;
+  margin-top:15px;
+  a{
+    color:#333;
   }
 }

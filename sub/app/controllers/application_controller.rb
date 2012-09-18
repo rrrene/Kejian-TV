@@ -14,6 +14,7 @@ class ApplicationController < ActionController::Base
   end
   def render_401(exception=nil)
     redirect_to root_path,:alert => '对不起，权限不足！'
+    return false
   end
   def render_404(exception=nil)
     @not_found_path = exception ? exception.message : ''
@@ -21,6 +22,7 @@ class ApplicationController < ActionController::Base
       format.html { render file: "#{Rails.root}/simple/404.html", layout: false, status: 404 }
       format.all { render nothing: true, status: 404 }
     end
+    return false
   end
   def render_500(exception=nil)
     @not_found_path = exception ? exception.message : ''
@@ -36,6 +38,7 @@ class ApplicationController < ActionController::Base
       format.html { render file: "#{Rails.root}/simple/500.html", layout: false, status: 500 }
       format.all { render nothing: true, status: 500 }
     end
+    return false
   end
   layout :layout_by_resource
   def layout_by_resource

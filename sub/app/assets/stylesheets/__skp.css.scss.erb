@@ -1981,7 +1981,8 @@
   }
 
   .narrow .summary {
-      width: 550px;
+      width: 512px;
+      padding-right:32px;
   }
 
   .narrow .status {
@@ -5209,7 +5210,7 @@
   }
 
   .narrow .summary {
-      width: 540px;
+      width: 512px;
   }
 
   .summary {
@@ -8516,6 +8517,53 @@
   #nav-subname {
     padding-left:33px;
     background:url("/favicon.ico") no-repeat scroll 12px 11px transparent;
+  }
+  
+  .vspib{
+    -moz-transition:padding-right 0.2s ease 0s;
+    padding-right:0;
+    background: none repeat scroll 0 0 transparent;
+    bottom: 0;
+    cursor: default;
+    height: auto;
+    margin: 0;
+    min-height: 40px;
+    padding-left: 9px;
+    padding-right: 4px;
+    position: absolute;
+    right: -37px;
+    top: -2px;
+    width: 28px;
+    z-index: 3;
+  }
+  .vspii{
+    border-right:medium none;
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    -moz-user-select: none;
+    border-color: transparent -moz-use-text-color transparent transparent;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid none solid solid;
+    border-width: 1px medium 1px 1px;
+    cursor: default;
+    line-height:1.2;
+  }
+  .vspiic{
+    background: url("<%= asset_path 'nav_logo114.png' %>") repeat scroll -3px -260px transparent;
+    height: 13px;
+    margin-left: 700px;
+    margin-top: 20px;
+    opacity: 0.3;
+    position: absolute;
+    width: 15px;
+    z-index:999;
+    display:none;
+    &:hover{
+      opacity:1;
+    }
   }
 }
 

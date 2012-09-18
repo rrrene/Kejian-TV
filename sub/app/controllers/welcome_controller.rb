@@ -4,6 +4,7 @@ class WelcomeController < ApplicationController
   def index
     will_redirect = (!current_user and params[:psvr_force].blank?)
     if !will_redirect
+      common_op!
       @coursewares=Courseware.any_of({:user_id.in => current_user.following_ids},
         {:uploader_id.in => current_user.following_ids})
       .excludes(:uploader_id => current_user.id).desc('created_at')
@@ -19,25 +20,16 @@ class WelcomeController < ApplicationController
   end
   def featured
     @seo[:title] = '资源广场'
+    common_op!
     @coursewares=Courseware.desc('downloads_count')
     render 'index'
   end
   def hot
     @seo[:title] = '最热课件'
+    common_op!
     @coursewares=Courseware.desc('views_count')
     render 'index'    
   end
-  def week
-    @seo[:title] = '本周上传的课件'
-    @coursewares=Courseware.where(:created_at.gt=>1.week.ago)
-    render 'index'
-  end
-  def month
-    @seo[:title] = '本月上传的课件'
-    @coursewares=Courseware.where(:created_at.gt=>1.month.ago)
-    render 'index'
-  end
-  
   def inactive_sign_up
     render "inactive_sign_up#{@subsite}",layout:'application_for_devise'
   end
@@ -58,7 +50,7 @@ class WelcomeController < ApplicationController
     
   end
 private
-  def common
+  def common_op!
     @stat = PreCommonStat.order
     ###session
     @showoldetails = params[:showoldetails]=='no' ? false : true
