@@ -139,14 +139,10 @@ HEREDOC
       cw.created_ats[cw.version.to_s]=cw.created_at
       # --- version ++++++
       # over
-      cw.save!
+      cw.save(:validate=>false)
 
-      case cw.sort.to_sym
-      when :pdf,:djvu
-        Sidekiq::Client.enqueue(TranscoderJob,cw.id)
-      when :ppt,:pptx,:doc,:docx
-        Sidekiq::Client.enqueue(WinTransJob,cw.remote_filepath,cw.sort,cw.id)
-      end
+      cw.enqueue!
+      
       json = {
         category_ids: [ nil ],
         created_at: '2012-07-13T09:53:10-04:00',

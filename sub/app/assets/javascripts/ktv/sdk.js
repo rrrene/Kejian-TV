@@ -4153,7 +4153,7 @@ $(function () {
             return this.form.find('input[name="presentation[id]"]').remove(), a = {
                 authenticity_token: $("meta[name=csrf-token]",'.__sdk').attr("content")
             }, a[this.container.data("session-key-name")] = this.container.data("session-key"), this.uploader = new qq.FileUploader({
-                allowedExtensions: ["pdf",'djvu','ppt','pptx','doc','docx'],
+                allowedExtensions: ["pdf",'djvu','ppt','pptx','doc','docx','zip','rar'],
                 element: this.container.get(0),
                 action: this.form.attr("action") + ".json",
                 requestType: this.form.find("input[name=_method]").val() || "POST",
@@ -4189,7 +4189,7 @@ $(function () {
                     signature: encodeURIComponent(encodeURIComponent(this.config.signature)),
                 },
                 fileDesc: "Presentation",
-                fileExt: "*.pdf; *.djvu; *.ppt; *.pptx; *.doc; *.docx",
+                fileExt: "*.pdf; *.djvu; *.ppt; *.pptx; *.doc; *.docx; *.zip; *.rar",
                 onSelect: function (b, c, d) {
                     $('#presentation_title').val($('#presentation_title').val()+((d.name.lastIndexOf(".") != -1) ? d.name.substring(0, d.name.lastIndexOf(".")) : d.name));
                     $('#biaozhu_cw').show();
