@@ -1,10 +1,26 @@
-<div data-slide-count="<%= cw.slides_count %>" data-course-slug="<%=cw.course.slug%>" data-courseware-slug="<%=cw.slug%>" class="presentation">
-  <a href="<%= cw.path %>" class="slide_preview scrub">
-    <img src="<%= asset_url("cw/#{cw.id}/#{cw.revision}thumb_slide_0.png") %>" alt="Thumb_slide_0">
-      <div class="scrubber"><div style="width:0;" class="scrubbed"></div></div>
-  </a>
-  <div class="preview_info">
-    <h3><a href="<%= courseware_path cw %>"><%= cw.title%></a></h3>
-    <p class="date"><%= l cw.created_at.getlocal, :format => :long %>, <a href="<%= user_path(cw.user) %>"><%= cw.user.name %></a></p>
-  </div>
+<% if(!defined?(courseware_id))
+courseware_id=courseware.id
+end %>
+
+<% slide_count = courseware.slides_counts[version.to_s] || 1 %>
+<% sz = [slide_count-1,50].min %>
+<div data-slide-count="<%= sz %>" data-id="<%= courseware_id %>" class="presentation">
+    <a href="<%= courseware_path courseware %>/revisions/<%= version+1 %>" class="slide_preview scrub setup">
+   <% (sz).downto(1).each do |i| %>
+   <img style="display: none;" data-slide="<%= i %>" class="timeline" alt="第<%= i %>页" src="<%= asset_url("cw/#{courseware_id}/#{courseware.revision(version)}thumb_slide_#{i}.jpg") %>">
+   <% end %>
+   <img src="<%= asset_url("cw/#{courseware_id}/#{courseware.revision(version)}thumb_slide_0.jpg") %>" alt="Thumb_slide_0" width="210" height="158">
+   <div class="scrubber">
+   <div style="width: 100%;" class="scrubbed">
+   </div>
+   </div>
+    </a>
+<% if(defined?(courseware_real_version)) %>
+      <div class="preview_info">
+     <h3><a href="<%= courseware_path courseware %>/revisions/<%= version+1 %>">第<%= version+1 %>版<%= '(最新版)' if version==courseware_real_version %> <%= ": #{courseware.version_date[version.to_s]}" if courseware.version_date[version.to_s] %></a></h3>
+     <p class="date">
+       <%= l(courseware.created_at, :format => :long) %>, <a href="/users/<%= User.get_slug courseware.user_id %>"><%= User.get_name courseware.user_id %></a>
+     </p>
+    </div>
+<% end %>
 </div>

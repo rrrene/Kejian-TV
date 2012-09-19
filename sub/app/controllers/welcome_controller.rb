@@ -5,9 +5,10 @@ class WelcomeController < ApplicationController
     will_redirect = (!current_user and params[:psvr_force].blank?)
     if !will_redirect
       common_op!
-      @coursewares=Courseware.any_of({:user_id.in => current_user.following_ids},
+      @coursewares=Courseware.normal.any_of({:user_id.in => current_user.following_ids},
         {:uploader_id.in => current_user.following_ids})
       .excludes(:uploader_id => current_user.id).desc('created_at')
+      .paginate(:page => params[:page], :per_page => @per_page)
       will_redirect ||= (0==@coursewares.count and params[:psvr_force].blank?)
     end
     if will_redirect
@@ -21,13 +22,13 @@ class WelcomeController < ApplicationController
   def featured
     @seo[:title] = '资源广场'
     common_op!
-    @coursewares=Courseware.desc('downloads_count')
+    @coursewares=Courseware.normal.desc('downloads_count').paginate(:page => params[:page], :per_page => @per_page)
     render 'index'
   end
   def hot
     @seo[:title] = '最热课件'
     common_op!
-    @coursewares=Courseware.desc('views_count')
+    @coursewares=Courseware.normal.desc('views_count').paginate(:page => params[:page], :per_page => @per_page)
     render 'index'    
   end
   def inactive_sign_up
@@ -118,7 +119,7 @@ private
     @cw = PreForumThread.nondeleted.count
     @users = PreCommonMember.count
     @newuser =  PreCommonMember.order('regdate').last
-    
+    @per_page = 10
   end
 end
 

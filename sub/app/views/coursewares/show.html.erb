@@ -310,26 +310,7 @@ courseware_id: '<%=@courseware.id%>'
            <h1>课件修订历史</h1>
            <div class="presentations">
              <% @courseware_real_version.downto(0).each_with_index do |version,index| %>
-             <% slide_count = @courseware.slides_counts[version.to_s] || 1 %>
-             <% sz = [slide_count-1,50].min %>
-             <div data-slide-count="<%= sz %>" data-id="<%= @courseware.id %>" class="presentation" style="<%= 'margin-right:0px' if 2==index % 3 %>">
-                 <a href="<%= courseware_path @courseware %>/revisions/<%= version+1 %>" class="slide_preview scrub setup">
-                <% (sz).downto(1).each do |i| %>
-                <img style="display: none;" data-slide="<%= i %>" class="timeline" alt="第<%= i %>页" src="<%= asset_url("cw/#{@courseware.id}/#{@courseware.revision(version)}thumb_slide_#{i}.jpg") %>">
-                <% end %>
-                <img src="<%= asset_url("cw/#{@courseware.id}/#{@courseware.revision(version)}thumb_slide_0.jpg") %>" alt="Thumb_slide_0" width="210" height="158">
-                <div class="scrubber">
-                <div style="width: 100%;" class="scrubbed">
-                </div>
-                </div>
-                 </a>
-                 <div class="preview_info">
-                <h3><a href="<%= courseware_path @courseware %>/revisions/<%= version+1 %>">第<%= version+1 %>版<%= '(最新版)' if version==@courseware_real_version %> <%= ": #{@courseware.version_date[version.to_s]}" if @courseware.version_date[version.to_s] %></a></h3>
-                <p class="date">
-                  <%= l(@courseware.created_at, :format => :long) %>, <a href="/users/<%= User.get_slug @courseware.user_id %>"><%= User.get_name @courseware.user_id %></a>
-                </p>
-               </div>
-             </div>
+               <%= render :partial => 'cw',:locals=>{courseware:@courseware,version:version,courseware_real_version:@courseware_real_version} do %>
              <% end %>
             </div>
          </div>
