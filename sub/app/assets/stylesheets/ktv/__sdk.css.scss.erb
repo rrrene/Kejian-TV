@@ -3012,9 +3012,6 @@
 input#presentation_teacher{
   cursor: pointer;
   width: 118px;
-  &:hover{
-    background:red;
-  }
 }
 #presentation_teacher_hv{
   width:152px;
@@ -3028,7 +3025,26 @@ input#presentation_teacher{
   &:hover{
     background-position:104px -43px;
   }
+  &.right_on{
+    background-position:104px -43px;
+  }
 }
-
+#presentation_teacher_select{
+  min-width: 127px;
+  position: absolute;
+  margin-top:74px;
+  z-index: 301;
+  background: #efefef;
+  background: #efefef -webkit-gradient(linear,  50% 0%,  50% 100%,  color-stop(0%,  #efefef),  color-stop(100%,  #f4f4f4));
+  background: #efefef -webkit-linear-gradient(#efefef,  #f4f4f4);
+  background: #efefef -moz-linear-gradient(#efefef,  #f4f4f4);
+  background: #efefef -o-linear-gradient(#efefef,  #f4f4f4);
+  background: #efefef -ms-linear-gradient(#efefef,  #f4f4f4);
+  background: #efefef linear-gradient(#efefef, #f4f4f4);
+}
+#presentation_teacher_select_dynamic{
+  max-height: 164px;
+  overflow: auto;
+}
 
 }

@@ -203,4 +203,10 @@ HEREDOC
     @topics_users = User.expert_with_topic(:without => [Setting.zuozheqingqiu_id,params[:except_id]] + (current_user ? [current_user.id] : []))
     render file:'welcome/_star_ul_lis',layout:false
   end
+  def get_teachers
+    @c = Course.where(fid:params[:psvr_f].to_i).first
+    return render_404 unless @c
+    @teachers = @c.teachings.collect(&:teacher).uniq
+    render json:@teachers
+  end
 end

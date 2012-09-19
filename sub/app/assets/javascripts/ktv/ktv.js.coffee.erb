@@ -30,7 +30,32 @@
       window.location.href = $('a',this).attr('href');
       return false;
     );
-  
+  KTV.new_cw_trigger_teachers = ->
+    $('#presentation_teacher_select li').off().on('click',(e)->
+      e.stopPropagation()
+      $('#presentation_teacher_select li').removeClass('current')
+      $(this).addClass('current')
+      $('#presentation_teacher').val($(this).text())
+      $('#presentation_teacher_select').hide()
+      $('#presentation_teacher_hv').removeClass('right_on')
+      if($(this).hasClass('opt_psvr_add_more'))
+        $('#presentation_other_teacher').show()
+      else
+        $('#presentation_other_teacher').hide()
+    )
+
+  KTV.new_cw_load_teachers = ->
+    $('#presentation_teacher').val("请选择老师")
+    $('#presentation_teacher_select li.first-child').addClass('current')
+    $('#presentation_teacher_select_dynamic').html('')
+    $('#presentation_other_teacher').hide()
+    $('#presentation_teacher_select').hide()
+    $('#presentation_teacher_hv').removeClass('right_on')
+    jQuery.getJSON('/ajax/get_teachers.json?psvr_f='+window.psvr_f,(data)->
+      for teacher in data
+        $('#presentation_teacher_select_dynamic').append('<li>' + teacher + '</li>');
+      KTV.new_cw_trigger_teachers()
+    )
 
 
   KTV.Utilities.wrap_with_matches = (str,keyword)->
@@ -291,7 +316,14 @@
     )
     $('#cw_newhuge,#core_addcw_wrap').click(->
       showWindow('nav', '/simple/forum.php?mod=misc&action=nav', 'get', 0)
+      false
     )
+    $('#presentation_teacher_hv').off().on('click',(e)->
+      e.stopPropagation()
+      $('#presentation_teacher_hv').toggleClass('right_on')
+      $('#presentation_teacher_select').toggle()
+    )
+    KTV.new_cw_trigger_teachers()
     core_people_cf_timer = null
     $('#core_people_cf li').click(->
       $('#core_people_cf li').removeClass('on')

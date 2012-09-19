@@ -38,6 +38,7 @@ Sub::Application.routes.draw do
   get '/ajax/xl_req_get_method_vod'
   post '/ajax/logincheck'
   get '/ajax/star_refresh'
+  get '/ajax/get_teachers'
   # ---=small=----
   get 'hack/htc'
   get '/welcome/inactive_sign_up'
