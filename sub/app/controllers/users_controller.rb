@@ -46,7 +46,7 @@ class UsersController < ApplicationController
     redirect_to invite_users_path,:notice => "已向#{user.name}发去邀请，在他/她注册之前，您可以 <a href=\"#{'/users/'+user.slug}\">点击这里</a> 为他/她上传头像与个人简介：）"
   end
   def index
-    @we_are_inside_qa = false
+    @seo[:title] = '我的同学'
     @users = User.all
   end
   def init_user

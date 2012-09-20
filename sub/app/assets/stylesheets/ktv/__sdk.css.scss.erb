@@ -3013,15 +3013,20 @@ input#presentation_teacher{
   cursor: pointer;
   width: 118px;
 }
-#presentation_teacher_hv{
+input#presentation_sort1{
+  cursor: pointer;
+  width: 152px;
+}
+#presentation_sort1_hv,#presentation_teacher_hv{
   width:152px;
   height:50px;
   background: transparent url("/simple/static/image/common/newarow_big2.gif") no-repeat scroll 100% 0;
   position:absolute;
-  width:152px;
   margin-top:24px;
-  background-position:104px 2px;
   cursor:pointer;
+}
+#presentation_teacher_hv{
+  background-position:104px 2px;
   &:hover{
     background-position:104px -43px;
   }
@@ -3029,7 +3034,18 @@ input#presentation_teacher{
     background-position:104px -43px;
   }
 }
-#presentation_teacher_select{
+#presentation_sort1_hv{
+  width:188px;
+  background-position:140px 2px;
+  &:hover{
+    background-position:140px -43px;
+  }
+  &.right_on{
+    background-position:140px -43px;
+  }
+}
+  
+#presentation_sort1_select,#presentation_teacher_select{
   min-width: 127px;
   position: absolute;
   margin-top:74px;
@@ -3041,6 +3057,9 @@ input#presentation_teacher{
   background: #efefef -o-linear-gradient(#efefef,  #f4f4f4);
   background: #efefef -ms-linear-gradient(#efefef,  #f4f4f4);
   background: #efefef linear-gradient(#efefef, #f4f4f4);
+}
+#presentation_sort1_select{
+  min-width: 161px;
 }
 #presentation_teacher_select_dynamic{
   max-height: 164px;

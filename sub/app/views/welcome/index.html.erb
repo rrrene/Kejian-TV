@@ -4,15 +4,15 @@
 
 <div class="subheader">
     <div id="tabs">
-    <a class="<%= 'youarehere' if '/'==request.path %>" href="/?psvr_force=1">我关注的</a>
-    <a class="<%= 'youarehere' if '/welcome/featured'==request.path %>" href="/welcome/featured">资源广场</a>
+    <a class="<%= 'youarehere' if '/'==request.path %>" href="/?psvr_force=1">我的首页</a>
+    <a class="<%= 'youarehere' if '/welcome/latest'==request.path %>" href="/welcome/latest">全站动态</a>
     <a class="<%= 'youarehere' if '/welcome/hot'==request.path %>" href="/simple/forum.php?mod=guide&view=my">我的课件</a>
     <a class="<%= 'youarehere' if '/welcome/week'==request.path %>" href="/simple/forum.php?mod=guide&view=new">未读课件</a>
     </div>
 </div>
 <div id="questions">
 <% if @coursewares.count<1 and '/'==request.path%>
-  您关注的资源没有新动态，去<%= link_to '资源广场','/welcome/featured' %>关注更多内容吧！
+<div style="line-height:88px;height:88px;text-align:center;">  您关注的资源暂无新动态，去关注更多<%= link_to '课程',courses_path %> + <%= link_to '老师',teachers_path %> + <%= link_to '同学', users_path %>吧！</div>
 <% else %>
 <% @coursewares.each do |item|%>
   <div id="question-summary-10960" class="question-summary">
@@ -48,7 +48,7 @@
               <a href="/teachers/<%= item.teacher_typeid %>" class="post-tag" title="<%= item.teacher %>" rel="tag"><%= item.teacher %></a> 
             <% end %>
             <% if nn=Course.get_name(item.course_fid) %>
-              <a href="/courses/<%= item.course_fid %>" class="post-tag" title="<%= nn %>" rel="tag"><%= nn %></a> 
+              <a href="/simple/forum.php?mod=forumdisplay&fid=<%= item.course_fid %>" class="post-tag" title="<%= nn %>" rel="tag"><%= nn %></a> 
               <% if nd=Course.get_department(item.course_fid) %>
                 <a href="/departments/<%= item.course_fid %>" class="post-tag" title="<%= nd %>" rel="tag"><%= nd %></a> 
               <% end %>
@@ -79,6 +79,7 @@
   <% end %>
 <% end %>  
 </div>
+<% if @coursewares.total_pages > 1 %>
 <div class="page-sizer fr">
     <a class="page-numbers<%= ' current' if 9==@per_page %>" title="每页显示9个课件" href="<%= request.path %>?page=1&per_page=9">9</a>
     <a class="page-numbers<%= ' current' if 15==@per_page %>" title="每页显示15个课件" href="<%= request.path %>?page=1&per_page=15">15</a>
@@ -88,20 +89,22 @@
 </div>
 
 <%= will_paginate @coursewares, :renderer=> SKPLinkRenderer,:inner_window=>4 %>
-
+<% end %>
 </div>
 <div id="sidebar">    
-
-
-
-    <div class="module newuser newuser-greeting" id="newuser-box" style="display:none;">
-        <h4>Welcome!</h4>
+<% unless user_signed_in? %>
+    <div class="module newuser newuser-greeting" id="newuser-box">
+        <h4>欢迎来到课件交流系统!</h4>
         <div>
-            <p>This is a collaboratively edited question and answer site for <b>scientific skepticism</b>. It's 100% free, no registration required.</p><p>Got a question about the site itself? <a href="http://meta.skeptics.stackexchange.com">meta</a> is the place to talk about things like what questions are appropriate, what tags we should use, etc.</p>
-            <p class="ar"><a href="/about?mnu=1">about &raquo;</a>&nbsp;&nbsp;&nbsp;<a href="/faq?mnu=1">faq &raquo;</a>
-&nbsp; <a href="http://meta.skeptics.stackexchange.com">meta &raquo;</a>            </p>
+            <p>轻松分享讲义·电子书·复习资料·解题互助·课堂录像.</p>
+            <p>通过课件交流系统，您可以迅速定位最感兴趣的课程，轻松获取大家共同维护的最优质的一份学习资料.</p>
+            <p>然而，课件系统不仅是一个出色的学习资源交流平台，她更是一个开放的在线学习社区。在这里，您可以把遇到的难题发出来，大家共同切磋。在这里，我们共同进步.</p>
+            <p class="ar"><a href="http://kejian.tv/coursewares/500f9970e13823796a000002" target="_blank">介绍 &raquo;</a>&nbsp;
+
+<a class="psvr_login_required" id="login" href="/login">使用人人网账号登录 &raquo;</a>            </p>
         </div>
     </div>
+<% end %>
     <div id="questions-count" class="module">
       <div class="summarycount al"><%= link_to number_with_delimiter(Courseware.count),'/coursewares_by_departments' %></div>
       <p>个课件已上传</p>
@@ -117,7 +120,7 @@
     <h4 id="h-recent-tags">学院 × 课件数</h4>
     <div id="recent-tags-list">
       <% Department.desc('coursewares_count').each do |item| %>
-        <a href="<%= department_path item %>" class="post-tag" title="<%= item.name %>" rel="tag"><%= item.name %></a><span class="item-multiplier"><span class="item-multiplier-x">&times;</span>&nbsp;<span class="item-multiplier-count"><%= item.coursewares_count %></span></span>                <br>
+        <a href="/departments/<%= item.fid %>" class="post-tag" title="<%= item.name %>" rel="tag"><%= item.name %></a><span class="item-multiplier"><span class="item-multiplier-x">&times;</span>&nbsp;<span class="item-multiplier-count"><%= item.coursewares_count %></span></span><br>
       <% end %>
     </div>
     <p class="ar"><a href="<%= courses_path %>">全部课程 &raquo;</a></p>

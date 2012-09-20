@@ -1,9 +1,9 @@
 <div class="__sdk">
   <div id="content">
     <% content_for :butt2 do %>
-      window.psvr_f=<%= params[:psvr_f] %>;
-      window.psvr_g=<%= params[:psvr_g] %>;
-      $('#content').click(function(){$('#presentation_teacher_select').hide();$('#presentation_teacher_hv').removeClass('right_on');});
+      window.psvr_f=<%= @c.fid %>;
+      window.psvr_g=<%= Department.get_fid(@c.department) %>;
+      $('#content').click(function(){$('#presentation_teacher_select').hide();$('#presentation_teacher_hv').removeClass('right_on');$('#presentation_sort1_select').hide();$('#presentation_sort1_hv').removeClass('right_on');});
       $('#presentation_topic').focus(function(e){
         showWindow('nav', '/simple/forum.php?mod=misc&action=nav&already_inside=1&psvr_g='+window.psvr_g+'&psvr_f='+window.psvr_f, 'get', 0);
         return false;
@@ -30,8 +30,22 @@
      <input class="text" id="presentation_teacher" name="presentation[teacher]" size="30" type="text" value="请选择老师"/>
      <input type="text" class="text" id="presentation_other_teacher" name="presentation[other_teacher]" size="30" placeholder="例: 郭懋正" value="" style="width: 273px;display: none">
   </p>
+  <div id="presentation_sort1_hv"></div>
+  <div class="__dz">
+    <div id="presentation_sort1_select" class="sltm" initialized="true" style="display:none">
+      <ul>
+        <li class="first-child current">请选择课件类型</li>
+        <% Courseware::SORT1STR.each do |k,v| %>
+        <li class=""><%= v %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+  <p><label for="presentation_sort1">课件类型</label><br />
+     <input class="text" id="presentation_sort1" name="presentation[sort1]" size="50" type="text" value="请选择课件类型"/>
+  </p>
   <p><label for="presentation_title">课件标题</label><br />
-     <input class="text" id="presentation_title" name="presentation[title]" size="30" type="text" placeholder="例: 2011阅读与练习第1次 - 解析函数的判定"  value="<%= cookies[:presentation_pretitle] %><%= ': ' if cookies[:presentation_pretitle].present? %>"/></p>
+     <input class="text" id="presentation_title" name="presentation[title]" size="30" type="text" placeholder="例: 阅读与练习第1次 - 解析函数的判定"  value="<%= cookies[:presentation_pretitle] %><%= ': ' if cookies[:presentation_pretitle].present? %>"/></p>
   <%= render :partial=>'form_extras',:locals=>{:courseware=>@courseware} %>
 
   <p class="submit">

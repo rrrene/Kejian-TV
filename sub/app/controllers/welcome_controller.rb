@@ -5,19 +5,29 @@ class WelcomeController < ApplicationController
     will_redirect = (!current_user and params[:psvr_force].blank?)
     if !will_redirect
       common_op!
-      @coursewares=Courseware.normal.any_of({:user_id.in => current_user.following_ids},
-        {:uploader_id.in => current_user.following_ids})
+      @coursewares=Courseware.normal.any_of(
+        {:user_id.in => current_user.following_ids},
+        {:uploader_id.in => current_user.following_ids},
+        {:course_fid.in => current_user.followed_course_fids}
+      )
       .excludes(:uploader_id => current_user.id).desc('created_at')
       .paginate(:page => params[:page], :per_page => @per_page)
       will_redirect ||= (0==@coursewares.count and params[:psvr_force].blank?)
     end
     if will_redirect
-      redirect_to '/welcome/featured'
+      redirect_to '/welcome/latest'
       return
     else
-      @seo[:title] = '我关注的资源动态'
+      @dz_navi_extras = []
+      @seo[:title] = '我的首页'
       render
     end
+  end
+  def latest
+    @seo[:title] = '全站动态'
+    common_op!
+    @coursewares=Courseware.normal.desc('created_at').paginate(:page => params[:page], :per_page => @per_page)
+    render 'index'
   end
   def featured
     @seo[:title] = '资源广场'
@@ -52,6 +62,9 @@ class WelcomeController < ApplicationController
   end
 private
   def common_op!
+    @dz_navi_extras = [
+      ['我的首页','/?psvr_force=1']
+    ]
     params[:page] ||= '1'
     params[:per_page] ||= cookies[:welcome_per_page]
     params[:per_page] ||= '15'

@@ -77,7 +77,8 @@ class ApplicationController < ActionController::Base
         return true
       end
     end
-    sign_out
+    # todo
+    # sign_out
   end
 
   # before_filter :insert_UserOrGuest

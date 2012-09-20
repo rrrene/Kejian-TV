@@ -1,11 +1,9 @@
-<% content_for :body_style do %>background: none repeat scroll 0 0 #F0EEEE<% end %>
-<%= render file:'/application/headers/_zm_header' %>
+<%= render :partial => 'content_above', :locals=>{:skp_content_style => "background:url(#{asset_path 'r11839/images/common/bodybg.gif'}) repeat scroll 0 0 transparent"} %>
+<%= render :partial => 'dz_navi',:locals => {margintop:15} %>
 
-<div data-role="content" class="ui-body-c ui-body">	
-    <ul data-role="listview" data-inset="true">
-      <%@users.each do |arr|%>
-        <li><%= link_to arr.name,arr %></li>
-      <% end %>
-    <div class="pagination"></div>
-    </ul>
-</div><!-- /content -->
+<div class="__zm" style="">
+  
+  
+</div>
+
+<%= render 'content_below' %>

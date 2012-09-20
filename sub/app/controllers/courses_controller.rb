@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 class CoursesController < ApplicationController
   def index
-    @seo[:title]='全部课程'
+    @seo[:title]='课程目录'
     @courses = Course
     @courses = @courses.where(:years=>params[:years].to_i) if params[:years].present?
     @courses = @courses.desc('coursewares_count')

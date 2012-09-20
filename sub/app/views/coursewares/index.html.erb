@@ -20,7 +20,7 @@ jQuery('#categories_table > div').height(jQuery('#categories_table').height());
 <h3><a href="#" class="coat"><span ></span>数学与自然科学</a></h3>
 <ul class="navlist" style="margin-left:22px">
 <% Department.where(:sort=>1).desc('coursewares_count').each do |topic| %>
-<li  ><a class="<%= 'orange' if topic.coursewares_count > 100 %>" href="<%= topic_path(topic) %>"><span><%= topic.name %></span></a></li>
+<li  ><a class="<%= 'orange' if topic.coursewares_count > 100 %>" href="/departments/<%= topic.fid %>"><span><%= topic.name %></span></a></li>
 <% end %>
 </ul>
 </div>
@@ -30,7 +30,7 @@ jQuery('#categories_table > div').height(jQuery('#categories_table').height());
 <h3><a href="#" class="pants"><span ></span>工程</a></h3>
 <ul class="navlist">
   <% Department.where(:sort=>2).desc('coursewares_count').each do |topic| %>
-  <li  ><a class="<%= 'orange' if topic.coursewares_count > 100 %>" href="<%= topic_path(topic) %>"><span><%= topic.name %></span></a></li>
+  <li  ><a class="<%= 'orange' if topic.coursewares_count > 100 %>" href="/departments/<%= topic.fid %>"><span><%= topic.name %></span></a></li>
   <% end %>
 </ul>
 </div>
@@ -47,7 +47,7 @@ jQuery('#categories_table > div').height(jQuery('#categories_table').height());
 <h3><a href="#" class="accessories"><span ></span>人文、艺术与社会科学</a></h3>
 <ul class="navlist">
 <% Department.where(:sort=>3).desc('coursewares_count').each do |topic| %>
-<li  ><a class="<%= 'orange' if topic.coursewares_count > 100 %>" href="<%= topic_path(topic) %>"><span><%= topic.name %></span></a></li>
+<li  ><a class="<%= 'orange' if topic.coursewares_count > 100 %>" href="/departments/<%= topic.fid %>"><span><%= topic.name %></span></a></li>
 <% end %>
 </ul>
 </div>
@@ -63,7 +63,7 @@ jQuery('#categories_table > div').height(jQuery('#categories_table').height());
 <h3 class="sty"><a href="#">交叉学科</a></h3>
 <ul class="sty-list cf">
 <% Department.where(:sort=>4).desc('coursewares_count').each do |topic| %>
-<li  ><a class="<%= 'orange' if topic.coursewares_count > 100 %>" href="<%= topic_path(topic) %>"><span><%= topic.name %></span></a></li>
+<li  ><a class="<%= 'orange' if topic.coursewares_count > 100 %>" href="/departments/<%= topic.fid %>"><span><%= topic.name %></span></a></li>
 <% end %>
 </ul>
 
@@ -71,7 +71,7 @@ jQuery('#categories_table > div').height(jQuery('#categories_table').height());
 <h3 class="ele"><a href="#">其他</a></h3>
 <ul class="ele-list cf">
 <% Department.where(:sort=>5).desc('coursewares_count').each do |topic| %>
-<li  ><a class="<%= 'orange' if topic.coursewares_count > 100 %>" href="<%= topic_path(topic) %>"><span><%= topic.name %></span></a></li>
+<li  ><a class="<%= 'orange' if topic.coursewares_count > 100 %>" href="/departments/<%= topic.fid %>"><span><%= topic.name %></span></a></li>
 <% end %>
 </ul>
 </div>
