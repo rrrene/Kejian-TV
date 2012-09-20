@@ -67,7 +67,21 @@
             <a href="/coursewares/<%= item.id %>" class="question-hyperlink" title="<%= item.desc %>"><%= item.title %></a>
           </h3>
           <div class="excerpt">
-              It's probably logical to assume that if a piece of soap has some dirty stains on it, it should affect your skin the same way as any other object with such stains, but then it's soap, it helps clean ...
+            <% 
+            arr=[]
+            arr<<item.filesort_mundane if item.filesort_mundane
+            arr<<"共#{number_with_delimiter item.slides_count}页" if item.slides_count>0
+            arr<<"#{number_with_delimiter item.words_count}字" if item.words_count>0
+            %>
+            <%= arr.blank? ? item.fileinfo : arr.join(', ')+'.' %>
+            <% 
+            arr=[]
+            arr<<"创作人力时间投入: #{item.human_time_human(:very_short => true)}" if item.human_time>0
+            arr<<"最终完稿于: #{item.finished_at.strftime('%Y年%m月%d日 %H:%M:%S')}" if item.finished_at
+            %>
+            <% unless arr.blank? %>
+              <br><%= arr.join(', ')+'.' %>
+            <% end %>
           </div>
 
           <div class="tags t-nutrition">
@@ -106,6 +120,22 @@
   <% end %>
 <% end %>  
 </div>
+<div class="page-sizer fr">
+        <a class="page-numbers current" title="每页显示15个课件" href="/questions?page=1&amp;sort=newest&amp;pagesize=15">15</a>
+        <a class="page-numbers " title="每页显示30个课件" href="/questions?page=1&amp;sort=newest&amp;pagesize=30">30</a>
+        <a class="page-numbers " title="每页显示50个课件" href="/questions?page=1&amp;sort=newest&amp;pagesize=50">50</a>
+    <span class="page-numbers desc">课件/页</span>
+</div>
+<div class="pager fl">
+<span class="page-numbers current">1</span>
+<a title="go to page 2" href="/questions?page=2&amp;sort=newest"><span class="page-numbers">2</span></a>
+<a title="go to page 3" href="/questions?page=3&amp;sort=newest"><span class="page-numbers">3</span></a>
+<a title="go to page 4" href="/questions?page=4&amp;sort=newest"><span class="page-numbers">4</span></a>
+<a title="go to page 5" href="/questions?page=5&amp;sort=newest"><span class="page-numbers">5</span></a>
+<span class="page-numbers dots">…</span>
+<a title="go to page 202" href="/questions?page=202&amp;sort=newest"><span class="page-numbers">202</span></a>
+<a rel="next" title="go to page 2" href="/questions?page=2&amp;sort=newest"><span class="page-numbers next"> next</span></a>
+</div>    
 
 
 </div>
