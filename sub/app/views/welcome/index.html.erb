@@ -35,7 +35,7 @@
             <%= arr.blank? ? item.fileinfo : arr.join(', ')+'.' %>
             <% 
             arr=[]
-            arr<<"作者累计时间投入: #{item.human_time_human(:very_short => true)}" if item.human_time>0
+            arr<<"作者创作时间投入: #{item.human_time_human(:very_short => true)}" if item.human_time>0
             arr<<"最终完稿于: #{item.finished_at.strftime('%Y年%m月%d日 %H:%M:%S')}" if item.finished_at
             %>
             <% unless arr.blank? %>
@@ -158,4 +158,3 @@
         </div>
         
 <%= render 'content_below' %>        
-    </div>
