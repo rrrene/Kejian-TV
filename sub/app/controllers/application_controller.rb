@@ -232,8 +232,8 @@ class ApplicationController < ActionController::Base
   
   
   def pagination_get_ready
-    params[:page] ||= 1
-    params[:per_page] ||= 30
+    params[:page] ||= '1'
+    params[:per_page] ||= '15'
     @page = params[:page].to_i
     @per_page = params[:per_page].to_i
   end

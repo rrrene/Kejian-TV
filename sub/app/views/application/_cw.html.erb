@@ -3,10 +3,10 @@ courseware_id=courseware.id
 end %>
 
 <% slide_count = courseware.slides_counts[version.to_s] || 1 %>
-<% sz = [slide_count-1,50].min %>
+<% sz = [slide_count,50].min %>
 <div data-slide-count="<%= sz %>" data-id="<%= courseware_id %>" class="presentation">
     <a href="<%= courseware_path courseware %>/revisions/<%= version+1 %>" class="slide_preview scrub setup">
-   <% (sz).downto(1).each do |i| %>
+   <% (sz-1).downto(1).each do |i| %>
    <img style="display: none;" data-slide="<%= i %>" class="timeline" alt="第<%= i %>页" src="<%= asset_url("cw/#{courseware_id}/#{courseware.revision(version)}thumb_slide_#{i}.jpg") %>">
    <% end %>
    <img src="<%= asset_url("cw/#{courseware_id}/#{courseware.revision(version)}thumb_slide_0.jpg") %>" alt="Thumb_slide_0" width="210" height="158">

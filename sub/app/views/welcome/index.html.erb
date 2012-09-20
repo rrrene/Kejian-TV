@@ -76,7 +76,7 @@
             <%= arr.blank? ? item.fileinfo : arr.join(', ')+'.' %>
             <% 
             arr=[]
-            arr<<"创作人力时间投入: #{item.human_time_human(:very_short => true)}" if item.human_time>0
+            arr<<"作者累计时间投入: #{item.human_time_human(:very_short => true)}" if item.human_time>0
             arr<<"最终完稿于: #{item.finished_at.strftime('%Y年%m月%d日 %H:%M:%S')}" if item.finished_at
             %>
             <% unless arr.blank? %>
@@ -121,22 +121,14 @@
 <% end %>  
 </div>
 <div class="page-sizer fr">
-        <a class="page-numbers current" title="每页显示15个课件" href="/questions?page=1&amp;sort=newest&amp;pagesize=15">15</a>
-        <a class="page-numbers " title="每页显示30个课件" href="/questions?page=1&amp;sort=newest&amp;pagesize=30">30</a>
-        <a class="page-numbers " title="每页显示50个课件" href="/questions?page=1&amp;sort=newest&amp;pagesize=50">50</a>
+    <a class="page-numbers<%= ' current' if 9==@per_page %>" title="每页显示9个课件" href="<%= request.path %>?page=1&per_page=9">9</a>
+    <a class="page-numbers<%= ' current' if 15==@per_page %>" title="每页显示15个课件" href="<%= request.path %>?page=1&per_page=15">15</a>
+    <a class="page-numbers<%= ' current' if 30==@per_page %>" title="每页显示30个课件" href="<%= request.path %>?page=1&per_page=30">30</a>
+    <a class="page-numbers<%= ' current' if 50==@per_page %>" title="每页显示50个课件" href="<%= request.path %>?page=1&per_page=50">50</a>
     <span class="page-numbers desc">课件/页</span>
 </div>
-<div class="pager fl">
-<span class="page-numbers current">1</span>
-<a title="go to page 2" href="/questions?page=2&amp;sort=newest"><span class="page-numbers">2</span></a>
-<a title="go to page 3" href="/questions?page=3&amp;sort=newest"><span class="page-numbers">3</span></a>
-<a title="go to page 4" href="/questions?page=4&amp;sort=newest"><span class="page-numbers">4</span></a>
-<a title="go to page 5" href="/questions?page=5&amp;sort=newest"><span class="page-numbers">5</span></a>
-<span class="page-numbers dots">…</span>
-<a title="go to page 202" href="/questions?page=202&amp;sort=newest"><span class="page-numbers">202</span></a>
-<a rel="next" title="go to page 2" href="/questions?page=2&amp;sort=newest"><span class="page-numbers next"> next</span></a>
-</div>    
 
+<%= will_paginate @coursewares, :renderer=> SKPLinkRenderer,:inner_window=>4 %>
 
 </div>
 <div id="sidebar">    

@@ -52,6 +52,11 @@ class WelcomeController < ApplicationController
   end
 private
   def common_op!
+    params[:page] ||= '1'
+    params[:per_page] ||= '15'
+    @page = params[:page].to_i
+    @per_page = params[:per_page].to_i
+
     @stat = PreCommonStat.order
     ###session
     @showoldetails = params[:showoldetails]=='no' ? false : true
@@ -119,7 +124,6 @@ private
     @cw = PreForumThread.nondeleted.count
     @users = PreCommonMember.count
     @newuser =  PreCommonMember.order('regdate').last
-    @per_page = 10
   end
 end
 
