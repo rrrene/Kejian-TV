@@ -11,9 +11,9 @@
  *= require jquery.zlzp.editor
  *= require jquery.zlzp.popupdiv.css
  *= require qa_overwritting
- *= require ./__sub
- *= require ./__dz
  *= require ./__skp
+ *= require ./__dz
+ *= require ./__sub
  *= require_self
  */
  
@@ -153,8 +153,11 @@
 #dz_navi{
   background:transparent;
   position:absolute;
-  margin-top:15px;
   a{
     color:#333;
+    &:hover{
+      text-decoration:none;      
+    }
   }
 }
+

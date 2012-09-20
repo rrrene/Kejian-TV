@@ -53,9 +53,11 @@ class WelcomeController < ApplicationController
 private
   def common_op!
     params[:page] ||= '1'
+    params[:per_page] ||= cookies[:welcome_per_page]
     params[:per_page] ||= '15'
     @page = params[:page].to_i
     @per_page = params[:per_page].to_i
+    cookies[:welcome_per_page] = @per_page
 
     @stat = PreCommonStat.order
     ###session

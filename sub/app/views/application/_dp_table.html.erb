@@ -1,16 +1,88 @@
-<table class="psvr psvr_seedtable psvr_dptable" border="0" align="center" cellpadding="1" cellspacing="1" bgcolor="#cccccc" width="100%">
-  <tr bgcolor="#f1f1f1">
+<table class="psvr psvr_seedtable psvr_dptable" border="0" align="center" cellpadding="1" cellspacing="1" bgcolor="#cccccc" width="100%" style="background:#cccccc">
+
+ <tr bgcolor="#f1f1f1">
     <td height="28" colspan="5" align="left"><h3 class="psvr" ><%=Setting.ktv_subname%>课程导航</h3></td>
-  </tr>
-  <% departments=Department.asc('created_at') %>
-  <% 0.upto(departments.count / 5).each do |now| %>
+ </tr>
   <tr bgcolor="#ffffff" align="center">
-    <% (now*5).upto(now*5+4) do |i|%>
-    <td width="20%">
-      <%dp = departments[i]%>
-      <%=link_to dp.name,dp if dp%>
-    </td>
+    <td width="100%" colspan="5">
+
+
+<div class="__zm" style="background:white;">
+  <div id="categories_table" class="sortnav-mod sortnav-male cf">
+
+
+
+    <div class="col-coat">
+    <h3><a href="#" class="coat"><span ></span>数学与自然科学</a></h3>
+    <ul class="navlist" style="margin-left:22px">
+    <% Department.where(:sort=>1).desc('coursewares_count').each do |topic| %>
+    <li  ><a class="<%= 'orange' if topic.coursewares_count > 100 %>" href="<%= topic_path(topic) %>"><span><%= topic.name %></span></a></li>
     <% end %>
+    </ul>
+    </div>
+
+
+    <div class="col-pants">
+    <h3><a href="#" class="pants"><span ></span>工程</a></h3>
+    <ul class="navlist">
+      <% Department.where(:sort=>2).desc('coursewares_count').each do |topic| %>
+      <li  ><a class="<%= 'orange' if topic.coursewares_count > 100 %>" href="<%= topic_path(topic) %>"><span><%= topic.name %></span></a></li>
+      <% end %>
+    </ul>
+    </div>
+
+
+
+
+
+
+
+
+
+    <div class="col-accessories">
+    <h3><a href="#" class="accessories"><span ></span>人文、艺术与社会科学</a></h3>
+    <ul class="navlist">
+    <% Department.where(:sort=>3).desc('coursewares_count').each do |topic| %>
+    <li  ><a class="<%= 'orange' if topic.coursewares_count > 100 %>" href="<%= topic_path(topic) %>"><span><%= topic.name %></span></a></li>
+    <% end %>
+    </ul>
+    </div>
+
+
+
+
+
+
+    <div class="col-other">
+
+
+    <h3 class="sty"><a href="#">交叉学科</a></h3>
+    <ul class="sty-list cf">
+    <% Department.where(:sort=>4).desc('coursewares_count').each do |topic| %>
+    <li  ><a class="<%= 'orange' if topic.coursewares_count > 100 %>" href="<%= topic_path(topic) %>"><span><%= topic.name %></span></a></li>
+    <% end %>
+    </ul>
+
+
+    <h3 class="ele"><a href="#">其他</a></h3>
+    <ul class="ele-list cf">
+    <% Department.where(:sort=>5).desc('coursewares_count').each do |topic| %>
+    <li  ><a class="<%= 'orange' if topic.coursewares_count > 100 %>" href="<%= topic_path(topic) %>"><span><%= topic.name %></span></a></li>
+    <% end %>
+    </ul>
+    </div>
+    
+    
+    
+  </div>
+</div>
+
+    </td>
   </tr>
-  <% end %>
 </table>
+
+
+
+<% content_for :butt2 do %>
+jQuery('#categories_table > div').height(jQuery('#categories_table').height());
+<% end %>

@@ -315,7 +315,11 @@
       $('#cw_previwer').show()
     )
     $('#cw_newhuge,#core_addcw_wrap').click(->
-      showWindow('nav', '/simple/forum.php?mod=misc&action=nav', 'get', 0)
+      hideWindow('nav')
+      url = '/simple/forum.php?mod=misc&action=nav'
+      if document.URL.match(/\/departments\/(\d+)$/)
+        url += '&psvr_g='+RegExp.$1
+      showWindow('nav', url, 'get', 0)
       false
     )
     $('#presentation_teacher_hv').off().on('click',(e)->
