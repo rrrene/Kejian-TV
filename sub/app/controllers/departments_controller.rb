@@ -3,7 +3,7 @@ class DepartmentsController < ApplicationController
   before_filter :dz_navi_extras
   def dz_navi_extras
     @dz_navi_extras = [
-      ['全部课程','/courses']
+      ['课程目录','/courses']
     ]
   end
   def show

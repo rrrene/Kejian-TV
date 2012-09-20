@@ -12,10 +12,10 @@
                     </ul>
                     <ul>
                         <li class="<%= 'youarehere' if WelcomeController==controller.class %>"><a id="nav-questions" href="/">我的首页</a></li>
-                        <li class="<%= 'youarehere' if CoursesController==controller.class || DepartmentsController==controller.class %>"><a id="nav-unanswered" href="/courses">全部课程</a></li>
+                        <li class="<%= 'youarehere' if CoursesController==controller.class || DepartmentsController==controller.class %>"><a id="nav-unanswered" href="/courses">课程目录</a></li>
                         <li class="<%= 'youarehere' if TeachersController==controller.class %>"><a id="nav-users" href="/teachers">全部老师</a></li>
                         <li class="<%= 'youarehere' if UsersController==controller.class %>"><a id="nav-users" href="/users">我的同学</a></li>
-                        <li class="<%= 'youarehere' if @we_are_inside_qa %>"><a id="nav-tags" href="/for_help">求助区</a></li>
+                        <li class="<%= 'youarehere' if @we_are_inside_qa %>"><a id="nav-tags" href="<%= for_help_path %>">问答社区</a></li>
                     </ul>
                 </div>
             </div>
@@ -25,4 +25,4 @@
 
 
 
-        <div id="content">
+        <div id="content" style="<%= defined?(skp_content_style) ? skp_content_style : '' %>">

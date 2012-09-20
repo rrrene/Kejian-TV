@@ -327,7 +327,24 @@
       $('#presentation_teacher_hv').toggleClass('right_on')
       $('#presentation_teacher_select').toggle()
     )
+    $('#presentation_sort1_hv').off().on('click',(e)->
+      e.stopPropagation()
+      $('#presentation_sort1_hv').toggleClass('right_on')
+      $('#presentation_sort1_select').toggle()
+    )
     KTV.new_cw_trigger_teachers()
+    $('#presentation_sort1_select li').off().on('click',(e)->
+      e.stopPropagation()
+      $('#presentation_sort1_select li').removeClass('current')
+      $(this).addClass('current')
+      $('#presentation_sort1').val($(this).text())
+      $('#presentation_sort1_select').hide()
+      $('#presentation_sort1_hv').removeClass('right_on')
+      if($(this).hasClass('opt_psvr_add_more'))
+        $('#presentation_other_sort1').show()
+      else
+        $('#presentation_other_sort1').hide()
+    )
     core_people_cf_timer = null
     $('#core_people_cf li').click(->
       $('#core_people_cf li').removeClass('on')

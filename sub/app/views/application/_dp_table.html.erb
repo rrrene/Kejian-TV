@@ -1,10 +1,10 @@
 <table class="psvr psvr_seedtable psvr_dptable" border="0" align="center" cellpadding="1" cellspacing="1" bgcolor="#cccccc" width="100%" style="background:#cccccc">
 
  <tr bgcolor="#f1f1f1">
-    <td height="28" colspan="5" align="left"><h3 class="psvr" ><%=Setting.ktv_subname%>课程导航</h3></td>
+    <td height="28" colspan="5" align="left"><h3 class="psvr" ><a href="/courses"><%=Setting.ktv_subname%>课程导航</a></h3></td>
  </tr>
   <tr bgcolor="#ffffff" align="center">
-    <td width="100%" colspan="5">
+    <td width="100%" colspan="5" style="padding:0">
 
 
 <div class="__zm" style="background:white;">
@@ -14,9 +14,9 @@
 
     <div class="col-coat">
     <h3><a href="#" class="coat"><span ></span>数学与自然科学</a></h3>
-    <ul class="navlist" style="margin-left:22px">
+    <ul class="navlist" style="margin-left:0">
     <% Department.where(:sort=>1).desc('coursewares_count').each do |topic| %>
-    <li  ><a class="<%= 'orange' if topic.coursewares_count > 100 %>" href="<%= topic_path(topic) %>"><span><%= topic.name %></span></a></li>
+    <li  ><a class="<%= 'orange' if topic.coursewares_count > 100 %>" href="/departments/<%= topic.fid %>"><span><%= topic.name %></span></a></li>
     <% end %>
     </ul>
     </div>
@@ -24,9 +24,9 @@
 
     <div class="col-pants">
     <h3><a href="#" class="pants"><span ></span>工程</a></h3>
-    <ul class="navlist">
+    <ul class="navlist" style="margin-left:0">
       <% Department.where(:sort=>2).desc('coursewares_count').each do |topic| %>
-      <li  ><a class="<%= 'orange' if topic.coursewares_count > 100 %>" href="<%= topic_path(topic) %>"><span><%= topic.name %></span></a></li>
+      <li  ><a class="<%= 'orange' if topic.coursewares_count > 100 %>" href="/departments/<%= topic.fid %>"><span><%= topic.name %></span></a></li>
       <% end %>
     </ul>
     </div>
@@ -41,9 +41,9 @@
 
     <div class="col-accessories">
     <h3><a href="#" class="accessories"><span ></span>人文、艺术与社会科学</a></h3>
-    <ul class="navlist">
+    <ul class="navlist" style="margin-left:0">
     <% Department.where(:sort=>3).desc('coursewares_count').each do |topic| %>
-    <li  ><a class="<%= 'orange' if topic.coursewares_count > 100 %>" href="<%= topic_path(topic) %>"><span><%= topic.name %></span></a></li>
+    <li  ><a class="<%= 'orange' if topic.coursewares_count > 100 %>" href="/departments/<%= topic.fid %>"><span><%= topic.name %></span></a></li>
     <% end %>
     </ul>
     </div>
@@ -57,17 +57,17 @@
 
 
     <h3 class="sty"><a href="#">交叉学科</a></h3>
-    <ul class="sty-list cf">
+    <ul class="sty-list cf" style="margin-left:0">
     <% Department.where(:sort=>4).desc('coursewares_count').each do |topic| %>
-    <li  ><a class="<%= 'orange' if topic.coursewares_count > 100 %>" href="<%= topic_path(topic) %>"><span><%= topic.name %></span></a></li>
+    <li  ><a class="<%= 'orange' if topic.coursewares_count > 100 %>" href="/departments/<%= topic.fid %>"><span><%= topic.name %></span></a></li>
     <% end %>
     </ul>
 
 
     <h3 class="ele"><a href="#">其他</a></h3>
-    <ul class="ele-list cf">
+    <ul class="ele-list cf" style="margin-left:0">
     <% Department.where(:sort=>5).desc('coursewares_count').each do |topic| %>
-    <li  ><a class="<%= 'orange' if topic.coursewares_count > 100 %>" href="<%= topic_path(topic) %>"><span><%= topic.name %></span></a></li>
+    <li  ><a class="<%= 'orange' if topic.coursewares_count > 100 %>" href="/departments/<%= topic.fid %>"><span><%= topic.name %></span></a></li>
     <% end %>
     </ul>
     </div>

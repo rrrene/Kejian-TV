@@ -41,7 +41,7 @@ class AccountSessionsController < Devise::SessionsController
     # We actually need to hardcode this as Rails default responder doesn't
     # support returning empty response on GET request
     respond_to do |format|
-      format.any(*navigational_formats) { redirect_to redirect_path }
+      format.any(*navigational_formats) { redirect_to "/simple/member.php?mod=logging&action=logout&formhash=#{@formhash}" } #redirect_path
       format.all do
         head :no_content
       end

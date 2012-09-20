@@ -99,11 +99,11 @@
 <% end %>
         </ul>
         <div id="amazing-shadow"></div>
+        <% if user_signed_in? %>
         <div id="account-notifications">
           <a href="/simple/home.php?mod=space&do=notice">提醒</a>
           <div class="count-badge" style="">8</div>
         </div>
-        <% if user_signed_in? %>
           <ul id="account-settings">
             <li>
               <a class="user" href="<%= user_path(current_user) %>"><%= avatar_tag(current_user,:small47) %><%= current_user.name %>
@@ -121,7 +121,7 @@
           </ul>
         <%else%>
           <ul id="account-settings" style="min-width:100px">
-            <li class="psvr"><a class="userloginreg" id="login" href="/login">登录 / 注册新用户</a>
+            <li class="psvr"><a class="userloginreg" id="login" href="/login">使用人人网账号登录</a>
             </li>
           </ul>
         <%end%>
@@ -172,9 +172,9 @@
 <% if !@we_are_inside_qa or @raw_raw_raw %>
   <%= yield %>
 <% else %>
-  <% unless @we_are_no_zm_header %>
-  <%= render file:'/application/headers/_zm_header' %>
-  <% end %>
+  <%= render 'content_above' %>
+  <%= render :partial => 'dz_navi',:locals => {margintop:15} %>
+
   <div class="__qa">
     <section id="container" class="wrapper clearfix" style="<%='background:white' if @render_no_sidebar %>">
       <section id="main" style="<%= 'width:100%' if @render_no_sidebar %>">
@@ -219,9 +219,8 @@
         </aside>
       <% end %>
     </section>
-
-    <%= render file:'/application/footers/_qa_footer' %>
   </div>
+  
 <% end %>
 
 <div class="__qa">

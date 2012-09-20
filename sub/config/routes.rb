@@ -49,10 +49,7 @@ Sub::Application.routes.draw do
   get '/welcome/menu'
   get '/welcome/xi'
   get '/welcome/main'
-  get '/welcome/featured'
-  get '/welcome/hot'
-  get '/welcome/week'
-  get '/welcome/month'
+  get '/welcome/latest'
   get '/welcome/feeds'
   # ________________________________ktv__________________________________________
   resources :departments
@@ -63,7 +60,7 @@ Sub::Application.routes.draw do
   get '/un_courses'=>'courses#index'
   get '/coursewares_by_departments' => 'coursewares#index'
   get '/coursewares_by_teachers' => 'coursewares#index'
-  get '/coursewares_by_sorts' => 'coursewares#index'
+  get '/coursewares_by_courses' => 'coursewares#index'
   get '/coursewares_with_page' => 'coursewares#index'
   get '/coursewares_with_page/:page' => 'coursewares#index'
   get '/coursewares_mine' => 'coursewares#mine'
@@ -109,7 +106,7 @@ Sub::Application.routes.draw do
   get 'home/agreement'
   
   get 'nb/*file' =>'application#nb'
-  get "home/index"
+  get "home/index",:as => 'for_help'
   get '/root'=>'home#index'
   match '/topics_follow' => 'topics#fol'
   post '/topics_unfollow'=>'topics#unfol'
