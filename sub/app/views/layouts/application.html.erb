@@ -69,7 +69,7 @@
   <script src="/simple/static/js/common.js" type="text/javascript"></script>
   <script src="/simple/static/js/forum.js" type="text/javascript"></script>
   <%= yield :armpit %>
-  <%= flash[:extra_ucenter_operations] %>
+  <%= raw flash[:extra_ucenter_operations] %>
 </head>
 
 <body <%if @is_ie8 or @is_ie7 or @is_ie6 %>onload="window.psvr_ie_readyfix()"<%end%> id="psvr_subject_all" style="  background: #fdfdfd url(<%= asset_path 'sstatic/skeptics/img/grid_noise_dark.png' %>) repeat left top;<%= 'background-position: 0 112px;' if @we_are_inside_qa and !@we_are_no_zm_header %><%=yield :body_style%>" data-subdomain="<%= request.subdomain %>" class="<%= @we_are_inside_qa ? 'we_are_inside_qa' : '' %>">
@@ -79,7 +79,7 @@
     <div class="wrapper">
       <h1><a href="/" id="core_logotext_wrap"><%= image_tag "logo_ktv_#{Setting.ktv_sub}.png",:alt => "#{Setting.ktv_subname}课件交流系统",:id=>'core_logotext' %></a></h1>
       <form accept-charset="UTF-8" action="/search" id="search_form" method="get" data-width-tobe="<%= Ktv.config.logo_ktv_width ? "#{Ktv.config.logo_ktv_width + 490}" : '730' %>" style="<%= Ktv.config.logo_ktv_width ? "margin-left:#{Ktv.config.logo_ktv_width + 78}px" : '' %>">
-        <input type="text" id="q" name="q" value="" class="placeholded" placeholder="全站搜索..." />
+        <input type="text" id="q" name="q" value="" class="placeholded" placeholder="全站搜索" />
       </form>
       <div class="navigation">
         <ul>
@@ -299,6 +299,7 @@
     (function($){
     jQuery(function(){
       <%= yield :butt2 %>
+      jQuery('#search_form').width(jQuery('#search_form').data('width-orig',558-jQuery('#core_logotext_wrap').width()-jQuery('#account-settings').width()).data('width-orig'));
       $('#core_addtext_wrap').click(function(){return Asks.addAsk()});
       $('#core_addcw_wrap').click(function(){return KTV.addCW()});
       $('#login').click(function(){return KTV.login()});

@@ -71,15 +71,21 @@ class ApplicationController < ActionController::Base
   def xookie
     dz_auth = cookies[Discuz.cookiepre_real+'auth']
     dz_saltkey = cookies[Discuz.cookiepre_real+'saltkey']
-    if dz_auth.present?
-      u = User.authenticate_through_dz_auth!(request,dz_auth,dz_saltkey)
-      if u
+    if !user_signed_in? and dz_auth.present?
+      # me off, dz on
+      if u = User.authenticate_through_dz_auth!(request,dz_auth,dz_saltkey)
         sign_in(u)
         return true
       end
+    elsif user_signed_in? and dz_auth.blank?
+      # me on, dz off
+      flash[:extra_ucenter_operations] = UCenter::User.synlogin(request,{uid:current_user.uid,psvr_uc_simpleappid:Setting.uc_simpleappid})
+    else
+      # me off, dz off
+      # me on, dz on
+      # both nothing to do:)
+      return true
     end
-    # todo
-    # sign_out
   end
 
   # before_filter :insert_UserOrGuest
@@ -172,7 +178,7 @@ class ApplicationController < ActionController::Base
    
   before_filter :check_privilige
   def check_privilige
-    if !current_user.nil? and current_user.uid.present?
+    if false and !current_user.nil? and current_user.uid.present?
       @cur_user = PreCommonMember.where(:uid => current_user.uid).first
       @cur_groupid = @cur_user.groupid
       @cur_adminid = @cur_user.adminid

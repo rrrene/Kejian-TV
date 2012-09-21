@@ -69,7 +69,6 @@ else
   UCenter.define('UC_API', 'http://uc.kejian.lvh.me');
 end
 
-
 Ktv.configure do |config|
   unless $psvr_really_development
     config.asset_host = 'http://ktv-intrinsic.b0.upaiyun.com'

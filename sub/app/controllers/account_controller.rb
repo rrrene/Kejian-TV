@@ -8,7 +8,7 @@ class AccountController < Devise::RegistrationsController
   def after_inactive_sign_up_path_for(resource)
     welcome_inactive_sign_up_path
   end
-  def new    
+  def new
     @seo[:title] = '注册新用户'
     if not Setting.allow_register
       render_404
@@ -34,7 +34,18 @@ class AccountController < Devise::RegistrationsController
     resource.regip = request.ip
     
     if resource.save
-      ret = UCenter::User.register(nil,{username:resource.slug})
+      ret = UCenter::User.register(request,{
+        username:resource.slug,
+        password:params[:user][:password],
+        email:resource.email,
+        regip:request.ip,
+        psvr_force:'1'
+      })
+      if ret.xi.to_i>0
+        resource.update_attribute(:uid,ret.xi.to_i)
+      else
+        raise '注册UC同步注册错误！！！猿快来看一下！'
+      end
       if resource.active_for_authentication?
         set_flash_message :notice, :signed_up if is_navigational_format?
         sign_in(resource_name, resource)

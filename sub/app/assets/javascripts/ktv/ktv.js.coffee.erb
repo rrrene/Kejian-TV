@@ -282,7 +282,7 @@
         $('#results_tray_content').fadeOut('fast')  
         $('#results_tray').animate({height:0}, {duration: 200, easing: 'swing', complete: ->
           $('#search_form').animate({
-            width: 100
+            width: jQuery('#search_form').data('width-orig')
           }, 200)
           $('div.navigation').fadeIn('fast')
         })
