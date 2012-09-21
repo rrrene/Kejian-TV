@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 class WelcomeController < ApplicationController
-  before_filter :require_user,:only => [:index]
   def index
     will_redirect = (!current_user and params[:psvr_force].blank?)
     if !will_redirect

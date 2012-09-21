@@ -1,5 +1,6 @@
 <% content_for :armpit do %>
   <%= stylesheet_link_tag "ktv/__zm_hoth", :media => "all" %>
+  <%= stylesheet_link_tag "ktv/__zm_ban", :media => "all" %>
 <% end %>
 
 <%= render :partial => 'content_above', :locals=>{:skp_content_style => "height:1888px;background:url(#{asset_path 'zm/r11839/images/common/bodybg.gif'}) repeat scroll 0 0 transparent;"} %>
@@ -15,7 +16,44 @@ $('#content').height($('#psvr_zm_target').height()+28);
 
 <div class="wrapper1000">
 <div class="__zm" id="psvr_zm_target" style="padding-bottom:18px;position:absolute;top:138px;margin-left:10px">
+  <div id="zmbanknav" class="zmnav-bank modshadow cf">
+  <div class="guide floatright">
+  <a class="png" href="/saving/about">新手引导</a>
+  </div>
+  <div class="navlist">
+  <ul>
+  <li class="current png"><a class="png" href="/saving/zm/index">存钱罐首页</a></li>
+  <li class="dot"></li>
+  <li><a href="/saving/zm/task">赚取财富</a></li>
+  <li class="dot"></li>
 
+
+  <li class="hasmenu">
+
+  <a href="/saving/zm/goodslist/1">消费财富</a>
+
+  <div class="dropmenu w100" style="display: none;">
+  <span class="iconbg uparrow"></span>
+  <div class="navborder">
+  <a href="/saving/zm/goodslist/1">即时兑换</a>
+  <a href="/saving/zm/goods/queue">排队有奖</a>
+  </div>
+  </div>
+  </li>
+
+
+
+  <li class="dot"></li>
+  <li class="new "><a href="/saving/zm/brand">品牌中心</a></li>
+
+  <li class="dot"></li>
+  <li><a onclick="showLogin('/saving/zm/myCoin/0')" href="###">我的存钱罐</a></li>
+
+
+  </ul>
+  </div>
+  </div>
+  
   <div id="content" style="width:980px">
   <div class="boxnoun cf">
   <div class="foreign-rec">
@@ -202,7 +240,7 @@ $('#content').height($('#psvr_zm_target').height()+28);
   
   
   
-  <div class="bestgoods favorite-mail modshadow">
+  <div class="bestgoods favorite-mail modshadow" style="width:956px">
   <h2 class="itemhead">
   <span class="more"><a href="http://www.zhimei.com/discover/38/0/0">更多››</a></span>
   <span class="greenline size_6"><span class="item-title"><b class="blue">男青年</b>们最喜欢</span></span>
@@ -412,7 +450,7 @@ $('#content').height($('#psvr_zm_target').height()+28);
   
   
   
-  <div class="bestgoods favorite-mail modshadow">
+  <div class="bestgoods favorite-mail modshadow" style="width:956px">
   <h2 class="itemhead">
   <span class="more"><a href="http://www.zhimei.com/discover/31/0/0">更多››</a></span>
   <span class="greenline size_6"><span class="item-title"><b class="blue">女青年</b>们最喜欢</span></span>
@@ -627,7 +665,7 @@ $('#content').height($('#psvr_zm_target').height()+28);
   
   
   
-  <div class="bestgoods favorite-mail modshadow">
+  <div class="bestgoods favorite-mail modshadow" style="width:956px">
   <h2 class="itemhead">
   <span class="more"><a href="http://www.zhimei.com/discover/41/0/0">更多››</a></span>
   <span class="greenline size_6"><span class="item-title"><b class="blue">最受欢迎的</b>生活味</span></span>

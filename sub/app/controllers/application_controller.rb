@@ -2,8 +2,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter proc{
-    #text = cookies.to_a
-    #render text:text and return
+    # text = request.user_agent    
+    # render text:text and return
   }
   unless $psvr_really_development
     rescue_from Exception, with: :render_500
@@ -60,6 +60,7 @@ class ApplicationController < ActionController::Base
     agent = request.env['HTTP_USER_AGENT'].downcase
     @is_bot = (agent.match(/\(.*https?:\/\/.*\)/)!=nil)
     @is_ie = (agent.index('msie')!=nil)
+    @is_WebKit = (agent.index('webkit')!=nil)
     @is_ie6 = (agent.index('msie 6')!=nil)
     @is_ie7 = (agent.index('msie 7')!=nil)
     @is_ie8 = (agent.index('msie 8')!=nil)
@@ -171,7 +172,7 @@ class ApplicationController < ActionController::Base
    
   before_filter :check_privilige
   def check_privilige
-    if !current_user.nil?
+    if !current_user.nil? and current_user.uid.present?
       @cur_user = PreCommonMember.where(:uid => current_user.uid).first
       @cur_groupid = @cur_user.groupid
       @cur_adminid = @cur_user.adminid

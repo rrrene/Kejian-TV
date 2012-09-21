@@ -4336,18 +4336,11 @@ im.zm.login = function () {
     var g, f, c;
     g = [
     	'<div class="dialogbody dia-landing cf">',
-    	'<div class="dia-left" style="height:360px;">',
+    	'<div class="dia-left" style="height:272px;">',
     	'<div class="dia-guid f18 yahei orange">登录/注册新用户</div>',
-    	'<div class="dia-desc">1、如果您已经有以下网站的账号，可直接登录</div>',
-    	'<ul class="dia-login cf" id="js-log">',
-    	'<li><a class="sina" href="#"><em class="png">新浪微博</em></a></li>',
-    	'<li><a class="qzone" href="#"><em class="png">腾讯QQ</em></a></li>',
-    	'<li><a class="renren" href="#"><em class="png">人人网</em></a></li>',
-    	'<li><a class="douban" href="#"><em class="png">豆瓣</em></a></li>',
-    	'<li><a class="google" href="#"><em class="png">Google</em></a></li>',
-    	'<li><a class="github" href="#"><em class="png">Github</em></a></li>',
-    	"</ul>",
-    	'<div class="dia-desc" style="padding:0;margin:10px 0 -5px">2、或者您可以使用您的电子邮箱登录或注册新用户</div>',
+    	'<div class="dia-desc">1、用人人网账户登录，5秒完成</div>',
+    	'<a class="renren" href="/account/auth/renren"><img src="http://cnu.kejian.lvh.me/assets/234_48dark.png" alt="用人人网账号登录" /></a>',
+    	'<div class="dia-desc" style="padding:0;margin:22px 0 -5px">2、或者您可以使用电子邮箱登录或注册新用户</div>',
     	'<div class="dia-zmbottom cf">',
     	'<p class="floatleft f14"><a id="hasZM" href="javascript:void(0);">使用电子邮箱登录</a> / <a href="#" id="register">注册新用户</a></p>',
     	"</div>",
@@ -4401,7 +4394,7 @@ im.zm.login = function () {
     	"</tr>",
     	"</table></form>",
     	'<div class="dia-zmbottom2">',
-    	'<p class="blue"><a href="/register">注册新用户</a><br><a href="/account/password/new">忘记密码？</a><br><a href="/account/confirmation/new">重发激活邮件</a> / <a href="/account/unlock/new">索取解锁邮件</a><br><a href="javascript:void(0)" id="hasMZ">使用合作网站帐号登录</a></p>',
+    	'<p class="blue"><a href="/register">注册新用户</a><br><a href="/account/password/new">忘记密码？</a><br><a href="/account/confirmation/new">重发激活邮件</a> / <a href="/account/unlock/new">索取解锁邮件</a><br><a href="javascript:void(0)" id="hasMZ">使用人人网帐号登录</a></p>',
     	"</div>",
     	"</div>",
     	"</div>"
@@ -4460,11 +4453,6 @@ im.zm.login = function () {
             height: "320px"
         })
     }
-    $("#hasMZ").off().on("click", function () {
-      $('#loginLayout').find(".js-close").trigger("click");
-      im.zm.login();
-      $("#loginLayout").definedDialog("open");
-    });
     $("#hasZM").off().on("click", function () {
         var m, p, n, k, h, o;
         m = $("#js-log .sina").attr("href");
@@ -4497,6 +4485,11 @@ im.zm.login = function () {
         $("#js-log2 .renren").parent().attr("href", k);
         $("#js-log2 .taobao").parent().attr("href", h);
         $("#js-log2 .douban").parent().attr("href", o);
+        $("#hasMZ").off().on("click", function () {
+          $('#loginLayout').find(".js-close").trigger("click");
+          im.zm.login();
+          $("#loginLayout").definedDialog("open");
+        });
         var l = !1;
         $("#changePic").click(function () {
             b()
