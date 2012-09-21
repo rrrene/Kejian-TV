@@ -146,45 +146,39 @@ courseware_id: '<%=@courseware.id%>'
 </div>
 
 
+<% if !@courseware.tree.blank?%>
 
-
- <div id="treeboxbox_tree" style="width:600px; height:240px;margin-right:auto;margin-left:auto;background-color:#f5f5f5;border :1px solid Silver;font-size:30px" setImagePath="<%= asset_path('dhtmlxtree-imgs/csh_dhx_skyblue') %>/">
-
+ <div id="treeboxbox_tree" class="dhxtree_dhx_skyblue" style="width:600px; height:240px;margin-right:auto;margin-left:auto;background-color:#f5f5f5;border :1px solid Silver;font-size:30px;overflow: scroll;line-height: normal;" setImagePath="<%= asset_path('dhtmlxtree-imgs/csh_dhx_skyblue') %>/">
+<div class="tip" style="font-size:12px;color:#000;">双击打开课件</div>  
  </div>
- <ul>
-     <li>Root
-         <ul>
-             <li>Child1
-             <ul>
-                 <li im0="iconSound.gif">Child 1-1</li>
-             </ul>
-             <li im0="iconGraph.gif">Child2</li>
-             <li im0="iconTexts.gif"><b>Bold</b> <i>Italic</i></li>
-         </ul>
-     </li>
- </ul>
-<script>
-function jr() {
-    var st ="{\"id\":0,\"item\":[{\"id\":\"root\",\"text\":\"/Users/Liber/ktv/trunk/tmp/uncompress/Y6tAfN9x\",\"item\":[{\"id\":1,\"text\":\"__MACOSX\",\"item\":[{\"id\":1,\"text\":\"._a.jpeg\"},{\"id\":1,\"text\":\"._logo_ibeike.jpeg\"}]},{\"id\":1,\"text\":\"logo_ibeike.jpeg\"}]}]}";
-    var json_obj =eval("(" + st + ')');
-    tree = new dhtmlXTreeObject("treeboxbox_tree","100%","100%",0);
-    tree.setImagePath("<%=asset_path('dhtmlxtree-imgs/csh_dhx_skyblue')%>/");
-    tree.setIconsPath("<%=asset_path('dhtmlxtree-imgs/csh_dhx_skyblue')%>/");
-    tree.setSkin('dhx_skyblue');
-    tree.enableIEImageFix(true);
-    tree.enableDragAndDrop(false);
-    tree.enableLoadingItem();
-    tree.enableTreeLines(true);
-    // tree.loadXMLString(stringx);
-    tree.loadJSONObject(json_obj);
-    tree.attachEvent("onDblClick", function(id){
-        alert("hello" + id);
-    });
-};
-// jr();
-dhtmlxEvent(window, "load", jr);
-</script>
+    <script>
+    function jr() {
+        var json_obj =<%= raw(@courseware.tree.to_json) %>;
+        tree = new dhtmlXTreeObject("treeboxbox_tree","100%","100%",0);
+        tree.setImagePath("<%=asset_path('dhtmlxtree-imgs/csh_dhx_skyblue')%>/");
+        tree.setIconsPath("<%=asset_path('dhtmlxtree-imgs/csh_dhx_skyblue')%>/");
+        tree.setSkin('dhx_skyblue');
+        tree.enableIEImageFix(true);
+        tree.enableDragAndDrop(false);
+        tree.enableLoadingItem();
+        tree.enableTreeLines(true);
+        <% if false and (@courseware.user_id == current_user.id or current_user.admin_type == 2)  %>
+            var recyc = {"id":"Recycle","text":"回收站","child":"0","im0":"recyc.gif","im1":"recyc.gif","im2":"recyc.gif","dragndrop":"false"};
+            json_obj.item.push(recyc);
+            tree.enableDragAndDrop(true);
+        <% end %>
 
+        tree.loadJSONObject(json_obj);
+
+        tree.attachEvent("onDblClick", function(id){
+            if(tree.hasChildren(id) == 0){
+                alert("hello" + tree.hasChildren(id) +id);           
+            }
+        });
+    };
+    dhtmlxEvent(window, "load", jr);
+    </script>
+<% end %>
 
 
 <div class="__sdk">
