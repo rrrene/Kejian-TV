@@ -145,13 +145,55 @@ courseware_id: '<%=@courseware.id%>'
    </div>
 </div>
 
+
+
+
+ <div id="treeboxbox_tree" style="width:600px; height:240px;margin-right:auto;margin-left:auto;background-color:#f5f5f5;border :1px solid Silver;font-size:30px" setImagePath="<%= asset_path('dhtmlxtree-imgs/csh_dhx_skyblue') %>/">
+
+ </div>
+ <ul>
+     <li>Root
+         <ul>
+             <li>Child1
+             <ul>
+                 <li im0="iconSound.gif">Child 1-1</li>
+             </ul>
+             <li im0="iconGraph.gif">Child2</li>
+             <li im0="iconTexts.gif"><b>Bold</b> <i>Italic</i></li>
+         </ul>
+     </li>
+ </ul>
+<script>
+function jr() {
+    var st ="{\"id\":0,\"item\":[{\"id\":\"root\",\"text\":\"/Users/Liber/ktv/trunk/tmp/uncompress/Y6tAfN9x\",\"item\":[{\"id\":1,\"text\":\"__MACOSX\",\"item\":[{\"id\":1,\"text\":\"._a.jpeg\"},{\"id\":1,\"text\":\"._logo_ibeike.jpeg\"}]},{\"id\":1,\"text\":\"logo_ibeike.jpeg\"}]}]}";
+    var json_obj =eval("(" + st + ')');
+    tree = new dhtmlXTreeObject("treeboxbox_tree","100%","100%",0);
+    tree.setImagePath("<%=asset_path('dhtmlxtree-imgs/csh_dhx_skyblue')%>/");
+    tree.setIconsPath("<%=asset_path('dhtmlxtree-imgs/csh_dhx_skyblue')%>/");
+    tree.setSkin('dhx_skyblue');
+    tree.enableIEImageFix(true);
+    tree.enableDragAndDrop(false);
+    tree.enableLoadingItem();
+    tree.enableTreeLines(true);
+    // tree.loadXMLString(stringx);
+    tree.loadJSONObject(json_obj);
+    tree.attachEvent("onDblClick", function(id){
+        alert("hello" + id);
+    });
+};
+// jr();
+dhtmlxEvent(window, "load", jr);
+</script>
+
+
+
 <div class="__sdk">
    <%# todo: 710px ..ratio %>
    <section id="presentation" class="feature">
       <div class="wrapper">
          <% if @courseware.thin? %>
          <div class="extras" style="float:right;margin-left:12px">
-            <%= render :partial => 'presenter', :locals => {user:@courseware.user} %>
+            <%= render :partial => 'presenter', :locals => {user:@courseware.user} if @courseware.user %>
          </div>
          <% end %>
          <h1>
@@ -245,7 +287,7 @@ courseware_id: '<%=@courseware.id%>'
             </div>
          </div>
          <div class="extras">
-            <%= render :partial => 'presenter', :locals => {user:@courseware.user} %>
+            <%= render :partial => 'presenter', :locals => {user:@courseware.user} if @courseware.user %>
             <ul class="delimited">
                <li class="like">
                   <% unless current_user and @courseware.user_id==current_user.id%>
@@ -310,7 +352,26 @@ courseware_id: '<%=@courseware.id%>'
            <h1>课件修订历史</h1>
            <div class="presentations">
              <% @courseware_real_version.downto(0).each_with_index do |version,index| %>
-               <%= render :partial => 'cw',:locals=>{courseware:@courseware,version:version,courseware_real_version:@courseware_real_version} do %>
+             <% slide_count = @courseware.slides_counts[version.to_s] || 1 %>
+             <% sz = [slide_count-1,50].min %>
+             <div data-slide-count="<%= sz %>" data-id="<%= @courseware.id %>" class="presentation" style="<%= 'margin-right:0px' if 2==index % 3 %>">
+                 <a href="<%= courseware_path @courseware %>/revisions/<%= version+1 %>" class="slide_preview scrub setup">
+                <% (sz).downto(1).each do |i| %>
+                <img style="display: none;" data-slide="<%= i %>" class="timeline" alt="第<%= i %>页" src="<%= asset_url("cw/#{@courseware.id}/#{@courseware.revision(version)}thumb_slide_#{i}.jpg") %>">
+                <% end %>
+                <img src="<%= asset_url("cw/#{@courseware.id}/#{@courseware.revision(version)}thumb_slide_0.jpg") %>" alt="Thumb_slide_0" width="210" height="158">
+                <div class="scrubber">
+                <div style="width: 100%;" class="scrubbed">
+                </div>
+                </div>
+                 </a>
+                 <div class="preview_info">
+                <h3><a href="<%= courseware_path @courseware %>/revisions/<%= version+1 %>">第<%= version+1 %>版<%= '(最新版)' if version==@courseware_real_version %> <%= ": #{@courseware.version_date[version.to_s]}" if @courseware.version_date[version.to_s] %></a></h3>
+                <p class="date">
+                  <%= l(@courseware.created_at, :format => :long) %>, <a href="/users/<%= User.get_slug @courseware.user_id %>"><%= User.get_name @courseware.user_id %></a>
+                </p>
+               </div>
+             </div>
              <% end %>
             </div>
          </div>
