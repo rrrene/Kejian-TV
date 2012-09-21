@@ -14,6 +14,7 @@
  * Date: Wed Mar 21 12:46:34 2012 -0700
  */
 function showProcessProgress(a) {
+  (function($){
     $.ajax({
         url: "/presentations/" + a + "/status",
         dataType: "json",
@@ -31,6 +32,7 @@ function showProcessProgress(a) {
             }, 2e3)
         }
     })
+  })(jQuery)
 }
 
 
