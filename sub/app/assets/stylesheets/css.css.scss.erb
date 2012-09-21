@@ -473,7 +473,10 @@ label input {
     background: url("<%=asset_path 'top.png' %>") -129px -33px no-repeat;
     width:95px; height:29px;
     position:absolute;
-    top:10px; left:500px;
+//    top:10px; left:500px;
+    margin-left:625px;
+    margin-top:13px;
+    z-index:1000
 }
 /* 首页 */
 .userHomepage {
@@ -555,9 +558,11 @@ header .userInfoPop a {
 }
 
 #container {
-    border: 1px solid #bed0db;
-    margin-top:20px;
-	background:url("<%=asset_path 'sidebar_bg.png' %>") repeat-y 700px 0 #FFF;
+//    border: 1px solid #bed0db;
+//    margin-top:20px;
+  //border:none
+	background:url("<%=asset_path 'sidebar_bg.png' %>") repeat-y 750px 0 #FFF;
+	min-height:450px;
 }
 /* 不要边栏背景时的class */
 #container.noSidebar {
@@ -565,7 +570,7 @@ header .userInfoPop a {
 }
 #main {
     float:left;
-    width:700px;
+    width:750px;
 	overflow:hidden;
 }
 

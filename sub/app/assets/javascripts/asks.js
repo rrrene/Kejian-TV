@@ -463,7 +463,7 @@ window.Asks = {
             t2.show();
             a.show();
             t1.hide();
-            App.placeHolder(a.find("input"),"输入领域标签");
+            App.placeHolder(a.find("input"),"输入话题标签");
         }
         else{
             t1.show();
@@ -755,7 +755,7 @@ window.Asks = {
             }
         });
         if (!exist){
-            topicList.append('<li>'+topic+'<a class="close_topic" href="javascript:void(0);" title="删除本领域标签"></a></li>');
+            topicList.append('<li>'+topic+'<a class="close_topic" href="javascript:void(0);" title="删除本话题标签"></a></li>');
             topics.val(topics.val()==""?topic:(topics.val()+","+topic));
             return true;
         }else{
@@ -779,16 +779,16 @@ window.Asks = {
         var body = $("#inner_new_ask textarea[name=\"ask\[body\]\"]", facebox);
         var topic = $("#inner_new_ask input[name=\"topic\"]", facebox);
         var topics = $("#inner_new_ask input[name=\"topics\"]", facebox);
-        App.placeHolder(title, "题标题");
-        App.placeHolder(body, "题描述（可选）");
-        App.placeHolder(topic, "输入领域标签");
+        App.placeHolder(title, "问题标题");
+        App.placeHolder(body, "问题描述（可选）");
+        App.placeHolder(topic, "输入话题标签");
         App.inputLimit(title, 50);
         App.inputLimit(body, 3000);
         App.inputLimit(topic, 10,"val","no");
         topic.attr("maxlength","20");
         Asks.completeTopicForAsk(topic);
         title.blur(function(){
-            if ($.trim($(this).val()) !== "" && $.trim($(this).val()) !== "题标题"){
+            if ($.trim($(this).val()) !== "" && $.trim($(this).val()) !== "问题标题"){
                 $("#theAddTopic", facebox).show();
             }
         });
@@ -802,7 +802,7 @@ window.Asks = {
                 return false;
             }
             var t = $.trim(topic.val());
-            if(t && t!=="输入领域标签" && Asks.add_topic_to_new_ask_dialog(t)){
+            if(t && t!=="输入话题标签" && Asks.add_topic_to_new_ask_dialog(t)){
                 topic.val('');
             }
             return false;
@@ -821,7 +821,7 @@ window.Asks = {
         });
         // submit
         $(".submit", facebox).unbind("click").click(function(){
-            if(title.val() === "" || title.val() === "题标题"){
+            if(title.val() === "" || title.val() === "问题标题"){
 				setTimeout(function(){title.css({"border-color":"#f8d97c","background":"#ffffe1"});}, 0);
 				setTimeout(function(){title.css({"border-color":"#d9edce","background":"#ffffff"});}, 200);
 				setTimeout(function(){title.css({"border-color":"#f8d97c","background":"#ffffe1"});}, 400);
@@ -830,7 +830,7 @@ window.Asks = {
 				setTimeout(function(){title.css({"border-color":"#d9edce","background":"#ffffff"});}, 1000);
                 return false;
             }
-			if (body.val() === "题描述（可选）"){
+			if (body.val() === "问题描述（可选）"){
 				body.val('');
 			}
             if (real_length(title.val())>50 || real_length(body.val())>3000){

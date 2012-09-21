@@ -217,7 +217,7 @@ window.App = {
             });
             return false;
         });
-        App.pin_resize_psvr_handler();
+        // App.pin_resize_psvr_handler();
     },
 
     hideNotice : function(id){
@@ -284,7 +284,7 @@ window.App = {
         $(el).bind("blur", function(){clearInterval(timeId);
             // Added by P.S.V.R
             // 2011.2.14
-            if('new_ask_title_gl'==$(el).attr('id') && $(el).val() && $(el).val() != "题标题"){
+            if('new_ask_title_gl'==$(el).attr('id') && $(el).val() && $(el).val() != "问题标题"){
                 $.ajax({
                     type: 'POST',
                     url: '/ajax/seg',
@@ -384,7 +384,7 @@ window.App = {
             }
         }
         
-        App.pin_resize_psvr_handler();
+        // App.pin_resize_psvr_handler();
     },
     // 输入框默认提示 edit 2012-1-31 by lesanc.li
     placeHolder : function(el, tips, supportLowBrowser){

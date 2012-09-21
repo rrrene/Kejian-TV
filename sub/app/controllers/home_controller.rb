@@ -4,6 +4,9 @@ class HomeController < ApplicationController
   before_filter :authenticate_user!, :except => [:newbie,:about,:index,:general_show,:agreement,:mobile]
   before_filter :we_are_inside_qa
   def we_are_inside_qa
+    @dz_navi_extras = [
+      ['求助区','/home/index']
+    ]
     @we_are_inside_qa = true
   end
   def mobile
@@ -38,6 +41,7 @@ class HomeController < ApplicationController
   
   def index
     suggest
+    set_seo_meta('求助区首页')
     @log_no_gedaan=true
     @per_page = 20
     if '1'==params[:force_mobile]
@@ -154,7 +158,7 @@ class HomeController < ApplicationController
   
   def newbie
     suggest
-    set_seo_meta('问答风云榜')
+    set_seo_meta('风云榜')
     @already=[]
     @already = current_user.followed_topic_ids if user_signed_in?
     #where(:created_at.gt => 30.days.ago.utc)
@@ -181,6 +185,7 @@ class HomeController < ApplicationController
   
   def followed
     suggest
+    set_seo_meta('我关注的问题')
     @per_page = 20
     @asks = current_user ? current_user.followed_asks.normal : Ask.normal
     # @asks = @asks.includes(:user)#,:last_answer,:last_answer_user,:topics

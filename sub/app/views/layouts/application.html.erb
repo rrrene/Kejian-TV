@@ -172,11 +172,11 @@
 <% if !@we_are_inside_qa or @raw_raw_raw %>
   <%= yield %>
 <% else %>
-  <%= render 'content_above' %>
-  <%= render :partial => 'dz_navi',:locals => {margintop:15} %>
-
+  <%= render :partial => 'content_above',:locals => {skp_content_style:'padding:0;width:1000px'} %>
+  <%= render :partial => 'dz_navi',:locals => {margintop:15,marginleft:28} %>
   <div class="__qa">
-    <section id="container" class="wrapper clearfix" style="<%='background:white' if @render_no_sidebar %>">
+    <button href="/asks/new" onclick="return Asks.addAsk()" class="btnGoAsk"></button>
+    <section id="container" class="clearfix" style="width:100%;">
       <section id="main" style="<%= 'width:100%' if @render_no_sidebar %>">
         <section id="mainContent" class="<%= 'askPage' if 'asks_show'==pos_signature %>">
           <% if !@notice.blank? %>
@@ -212,7 +212,7 @@
         </section>
       </section>
       <% unless @render_no_sidebar %>
-        <aside id="sidebar">
+        <aside id="sidebar" style="width:250px;margin:0">
           <%= yield :sidebar %>
           <div class="clearfix mt20">
           </div>
@@ -220,7 +220,7 @@
       <% end %>
     </section>
   </div>
-  
+  <%= render :partial => 'content_below' %>
 <% end %>
 
 <div class="__qa">
@@ -229,7 +229,7 @@
     <form action="/asks" method="post" id="inner_new_ask">
       <%= auth_token %>
       <header>
-        创建新题
+        创建新问题
         <a class="close"  onclick="$.facebox.close(); return false;"></a>
       </header>
       <section>

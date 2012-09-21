@@ -3,7 +3,7 @@ courseware_id=courseware.id
 end %>
 
 <% slide_count = courseware.slides_counts[version.to_s] || 1 %>
-<% sz = [slide_count,50].min %>
+<% sz = [slide_count,20].min %>
 <div data-slide-count="<%= sz %>" data-id="<%= courseware_id %>" class="presentation">
     <a href="<%= courseware_path courseware %>/revisions/<%= version+1 %>" class="slide_preview scrub setup">
    <% (sz-1).downto(1).each do |i| %>

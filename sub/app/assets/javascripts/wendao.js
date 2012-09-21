@@ -54,7 +54,7 @@ App.psvr_wendao_init = function(){
     var txtATU = $("#new_ask_title_ta");
     var txtABT = $("#new_ask_body_ta");
     if (txtATU.length && txtABT.length){
-        var strATU = "对"+$.trim($("#user_name").text())+"提问，请输入题标题：";
+        var strATU = "对"+$.trim($("#user_name").text())+"提问，请输入问题标题：";
         txtATU.focus(function(){
             if(!App.testLogin()){
                 return false;
@@ -75,11 +75,11 @@ App.psvr_wendao_init = function(){
                 }, 0);
             }
         }).blur(function(){
-            if($.trim($(this).val()) == "" || $(this).val() == "题描述（可选）"){
+            if($.trim($(this).val()) == "" || $(this).val() == "问题描述（可选）"){
             }
     });;
         App.placeHolder(txtATU, strATU);
-        App.placeHolder(txtABT, "题描述（可选）");
+        App.placeHolder(txtABT, "问题描述（可选）");
         App.inputLimit(txtATU, 50);
         App.inputLimit(txtABT, 3000);
         $("#new_ask_submit_ta").bind("click", function(){
