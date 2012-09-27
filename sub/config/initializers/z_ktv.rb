@@ -70,11 +70,6 @@ else
 end
 
 Ktv.configure do |config|
-  if $psvr_really_production
-    config.asset_host = 'http://ktv-intrinsic.b0.upaiyun.com'
-  else
-    config.asset_host = '/assets'
-  end
   config.redis = Redis::Search.config.redis
   config.consultants = [Ktv::Baidu,Ktv::Google]
   config.logger = Logger.new("#{Rails.root}/log_#{Rails.env}/ktv.log",File::WRONLY|File::APPEND)

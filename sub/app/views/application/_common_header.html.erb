@@ -1,4 +1,9 @@
 <script type="text/javascript" charset="utf-8">
+<% if $psvr_really_production %>
+  window.psvr_asset_host = 'http://ktv-intrinsic.b0.upaiyun.com';
+<% else %>
+  window.psvr_asset_host = '/assets';
+<% end %>
   window.psvr_subject = '<%= Setting.ktv_sub %>';  
   window.psvr_is_ie = <%= @is_ie.to_json %>;
   window.psvr_ie_readyfix = function(){

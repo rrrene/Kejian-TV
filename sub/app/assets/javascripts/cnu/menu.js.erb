@@ -1,27 +1,27 @@
 function openMenu(thisObj) {
    if (thisObj.name == "upimg") {
       thisObj.name = "downimg";
-      thisObj.src = "<%= Ktv.config.asset_host %><%=asset_path('cnu/leftmenu/down.gif')%>";
+      thisObj.src = window.psvr_asset_host+"<%=asset_path('cnu/leftmenu/down.gif')%>";
       thisObj.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.rows[1].cells[0].children[0].style.display = "none";
    } else {
       thisObj.name = "upimg";
-      thisObj.src = "<%= Ktv.config.asset_host %><%=asset_path('cnu/leftmenu/up.gif')%>";
+      thisObj.src = window.psvr_asset_host+"<%=asset_path('cnu/leftmenu/up.gif')%>";
       thisObj.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.rows[1].cells[0].children[0].style.display = "";
    }
 }
 
 function mouseOverFun(thisObj) {
    if (thisObj.name == "upimg") {
-      thisObj.src = "<%= Ktv.config.asset_host %><%=asset_path('cnu/leftmenu/up-2.gif')%>"
+      thisObj.src = window.psvr_asset_host+"<%=asset_path('cnu/leftmenu/up-2.gif')%>"
    } else {
-      thisObj.src = "<%= Ktv.config.asset_host %><%=asset_path('cnu/leftmenu/down-2.gif')%>"
+      thisObj.src = window.psvr_asset_host+"<%=asset_path('cnu/leftmenu/down-2.gif')%>"
    }
 }
 function mouseOutFun(thisObj) {
    if (thisObj.name == "upimg") {
-      thisObj.src = "<%= Ktv.config.asset_host %><%=asset_path('cnu/leftmenu/up.gif')%>"
+      thisObj.src = window.psvr_asset_host+"<%=asset_path('cnu/leftmenu/up.gif')%>"
    } else {
-      thisObj.src = "<%= Ktv.config.asset_host %><%=asset_path('cnu/leftmenu/down.gif')%>"
+      thisObj.src = window.psvr_asset_host+"<%=asset_path('cnu/leftmenu/down.gif')%>"
    }
 }
 function htmlToPlainStr(htmlStr){
