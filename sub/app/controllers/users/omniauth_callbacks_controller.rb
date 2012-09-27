@@ -1,6 +1,40 @@
 # -*- encoding : utf-8 -*-
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   before_filter :prepare_auth
+  def renren
+    @user.name = @info['name']
+    if @info['urls'].present?
+      @user.renren = @info['urls']['Renren']
+    end
+    @backinfo = {:renren => Hash[
+      "info" => env["omniauth.auth"]['info'],
+      "raw_info" => env["omniauth.auth"]['extra']['raw_info']
+    ]}
+    make_it_done!
+=begin
+http://graph.renren.com/login?redirect_uri=http%3A%2F%2Fgraph.renren.com%2Foauth%2Fauthorize%3Fclient_id%3D7cd5a7b942f04e4086993865532d47e2%26redirect_uri%3Dhttp%253A%252F%252Fkejian.tv%252Faccount%252Fauth%252Frenren%252Fcallback%26response_type%3Dcode%26display%3Dpage%26scope%3Dpublish_feed%26pp%3D1%26origin%3D00000&origin=80000
+ |
+ |
+\ /
+http://kejian.tv/account/auth/renren/callback?code=WfL07b6LEb10in0KeNN4V6uVT5ZBpUzh
+=> {"provider"=>"renren",
+ "uid"=>285692613,
+ "info"=>
+  {"uid"=>285692613,
+   "gender"=>"Male",
+   "image"=>"http://head.xiaonei.com/photos/0/0/men_head.gif",
+   "name"=>"潘旻琦",
+   "urls"=>{"Renren"=>"http://www.renren.com/profile.do?id=285692613"}},
+ "credentials"=>
+  {"token"=>
+    "197144|6.f6853dfee58abe2a38144e49d727844c.2592000.1341115200-285692613",
+   "refresh_token"=>"197144|0.D51X9e60X8m1OqqehZ37by3dETpOV23V.285692613",
+   "expires_at"=>1341115199,
+   "expires"=>true},
+ "extra"=>{}}
+=end
+  end
+  
 # todo: combine user when email clashes
   def weibo
     @user.name = @info['name']
@@ -109,40 +143,6 @@ http://0.0.0.0:3000/account/auth/weibo/callback?oauth_token=6856d78727e5eb5cd28b
           "http://ww3.sinaimg.cn/large/740f1365jw1dtgq69aswij.jpg",
          "geo"=>nil,
          "mid"=>"3451515349633960"}}}}
-=end
-  end
-  
-  def renren
-    @user.name = @info['name']
-    if @info['urls'].present?
-      @user.renren = @info['urls']['Renren']
-    end
-    @backinfo = {:renren => Hash[
-      "info" => env["omniauth.auth"]['info'],
-      "raw_info" => env["omniauth.auth"]['extra']['raw_info']
-    ]}
-    make_it_done!
-=begin
-http://graph.renren.com/login?redirect_uri=http%3A%2F%2Fgraph.renren.com%2Foauth%2Fauthorize%3Fclient_id%3D7cd5a7b942f04e4086993865532d47e2%26redirect_uri%3Dhttp%253A%252F%252Fkejian.tv%252Faccount%252Fauth%252Frenren%252Fcallback%26response_type%3Dcode%26display%3Dpage%26scope%3Dpublish_feed%26pp%3D1%26origin%3D00000&origin=80000
- |
- |
-\ /
-http://kejian.tv/account/auth/renren/callback?code=WfL07b6LEb10in0KeNN4V6uVT5ZBpUzh
-=> {"provider"=>"renren",
- "uid"=>285692613,
- "info"=>
-  {"uid"=>285692613,
-   "gender"=>"Male",
-   "image"=>"http://head.xiaonei.com/photos/0/0/men_head.gif",
-   "name"=>"潘旻琦",
-   "urls"=>{"Renren"=>"http://www.renren.com/profile.do?id=285692613"}},
- "credentials"=>
-  {"token"=>
-    "197144|6.f6853dfee58abe2a38144e49d727844c.2592000.1341115200-285692613",
-   "refresh_token"=>"197144|0.D51X9e60X8m1OqqehZ37by3dETpOV23V.285692613",
-   "expires_at"=>1341115199,
-   "expires"=>true},
- "extra"=>{}}
 =end
   end
   
@@ -379,13 +379,12 @@ private
     return true
   end
   def make_it_done!
-    unless @user.valid?
-      @user.name_unknown = true if @user.errors[:name].present?
-      @user.email_unknown = true if @user.errors[:email].present?
-      raise @user.errors.full_messages.join(',') unless @user.valid?
-    end
+    @user.name_unknown = @user.errors[:name].present?
+    @user.email_unknown = @user.errors[:email].present?
+    @user.email_unknown = true if @user.email.starts_with?('unknown')
     @user.regip = request.ip
-    if @user.save
+    @user.save(:validate=>false)
+    if true
       UserInfo.user_id_find_or_create(@user.id,@backinfo)
       @auth.update_attribute(:user_id, @user.id)
       sign_in(@user)

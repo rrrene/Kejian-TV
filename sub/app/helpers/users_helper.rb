@@ -16,7 +16,7 @@ module UsersHelper
   def avatar_url_quick(user,size=:normal)
     s=AvatarUploader::SIZES[size]
     url = User.get_avatar_filename(user)
-    if url.starts_with?('http://')
+    if url and url.starts_with?('http://')
       d = CGI::escape("http://#{Setting.ktv_subdomain}/defaults/avatar/#{size}.jpg")
       url = "#{url}?r=PG&s=#{s}&d=#{d}"
     else

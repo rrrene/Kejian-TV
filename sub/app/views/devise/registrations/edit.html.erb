@@ -13,6 +13,10 @@ if resource.email_unknown
  resource.email = ''
  placeholder2 = '请补充您的邮箱'
 end
+if resource.unconfirmed_email.present?
+ resource.email = ''
+ placeholder2 = "（等待确认）#{resource.unconfirmed_email}"
+end
 %>
 <% show_pass = (params[:force_password_change].present? || resource.errors_for_field(:password).present? || resource.errors_for_field(:password_confirmation).present?) %>
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :class => 'normal',:id=>'submit_btn_form',:enctype =>  "multipart/form-data",:autocomplete=>"off" }) do |f| %>

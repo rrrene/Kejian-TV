@@ -159,9 +159,9 @@ var getElementsByClassName = function (a, b, c) {
             return e
         }, f.prototype.url = function () {
           if (this.cw_revision) {
-            return "http://kejian.tv/embed/" + this.courseware_slug + "/revisions/" + this.cw_revision + "?force_biji="+this.force_biji+"&" + this.toParam();
+            return "/embed/" + this.courseware_slug + "/revisions/" + this.cw_revision + "?force_biji="+this.force_biji+"&" + this.toParam();
           }else{
-            return "http://kejian.tv/embed/" + this.courseware_slug + "?force_biji="+this.force_biji+'&' + this.toParam();
+            return "/embed/" + this.courseware_slug + "?force_biji="+this.force_biji+'&' + this.toParam();
           }
         }, f.prototype.toParam = function () {
             var a, b;

@@ -1,8 +1,9 @@
 <%
+id=@courseware.ktvid.present? ? @courseware.ktvid : @courseware.id
 @slides = 0.upto(@courseware.slides_count-1).collect do |i|
-  asset_url_eb("#{@courseware.id}/#{@courseware.revision}slide_#{i}.jpg")
+  asset_url_eb("#{id}/#{@courseware.revision}slide_#{i}.jpg")
 end
- %>
+%>
 <% content_for :armpit do %>
 <style type="text/css" media="screen">
   #mycanvas{
@@ -67,7 +68,7 @@ end
         preview: <%=raw @slides.to_json%>,
         original: <%=raw @slides.to_json%>
       },
-      thumbs: <%=raw 0.upto(@courseware.slides_count-1).collect{|i| asset_url("cw/#{@courseware.id}/#{@courseware.revision}thumb_slide_#{i}.jpg") }.to_json%>,
+      thumbs: <%=raw 0.upto(@courseware.slides_count-1).collect{|i| asset_url("cw/#{@courseware.ktvid.present? ? @courseware.ktvid : @courseware.id}/#{@courseware.revision}thumb_slide_#{i}.jpg") }.to_json%>,
       current: 0,
       next: function() {
         if (Slide.current == Slide.urls.length - 1) {
@@ -693,7 +694,11 @@ end
     <img alt="Kejian.TV课件交流系统" src="<%=asset_path 'embed_logo.png'%>" />
     <h5><a href="/coursewares/<%=@courseware.id%>" target="_parent"><%=@courseware.title%></a></h5>
     <a href="#" id="fullscreen">全屏</a>
+    <%if @courseware.course_fid.present? and nn=Course.get_name(@courseware.course_fid) %>
+      <p>课程: <a href="/courses/<%= @courseware.course_fid %>" title="<%= nn %>" target="_parent"><%= nn %></a></p>
+    <%else%>
     <p>领域: <a id="core_topic_name" href="/topics/<%=@courseware.topic_id%>" target="_parent"><%=@courseware.topic%></a></p>
+    <%end%>
   </div>
   <div id="slide">
     <canvas id="mycanvas" style="display:none" width="128" height="36"

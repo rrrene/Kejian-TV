@@ -326,6 +326,7 @@ class ApplicationController < ActionController::Base
     redirect_to(session[:return_to] || default)
     session[:return_to] = nil
   end
+  before_filter :unknown_user_check
   def unknown_user_check
     if current_user
       unknowns = []
