@@ -20,7 +20,7 @@ class AjaxController < ApplicationController
   end
   def logincheck
     params[:userEmail] = params[:userEmail].strip
-    u = User.where(email:params[:userEmail]).first
+    u = User.find_by_email(params[:userEmail])
     if u.nil?
       render text:'此E-mail尚未注册'
     elsif u.access_locked?

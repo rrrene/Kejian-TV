@@ -70,7 +70,7 @@ else
 end
 
 Ktv.configure do |config|
-  unless $psvr_really_development
+  if $psvr_really_production
     config.asset_host = 'http://ktv-intrinsic.b0.upaiyun.com'
   else
     config.asset_host = '/assets'

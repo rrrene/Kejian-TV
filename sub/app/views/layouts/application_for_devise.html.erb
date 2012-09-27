@@ -18,7 +18,7 @@
   <%= csrf_meta_tags %>
   <%= render 'common_header' %>
   <%= yield :armpit %>
-  <%= flash[:extra_ucenter_operations] %>
+  <%= raw flash[:extra_ucenter_operations] %>
 </head>
 <body class="application_for_devise" id="<%= pos_signature %>">
   <header id="header">

@@ -109,14 +109,12 @@ class ApplicationController < ActionController::Base
     
     sid = cookies[Discuz.cookiepre_real+'sid']
     sid_inst = sid.present? ? PreCommonSession.where(sid:sid).first : nil
-    # binding.pry
     if sid.blank? or sid_inst.nil?
       cookies[Discuz.cookiepre_real+'sid'] = {:value  => rand_sid(6),:expires => Time.now + 86400 ,:domain => $psvr_really_development ?  ".#{Setting.ktv_sub}.kejian.lvh.me" : ".#{Setting.ktv_sub}.kejian.tv"}
       @sid = cookies[Discuz.cookiepre_real+'sid']
       create_session_for_dz(@sid)
     else
       @sid = cookies[Discuz.cookiepre_real+'sid']
-      # binding.pry
       PreCommonSession.delete_all("sid=\'#{@sid}\' OR lastactivity<#{Time.now.to_i} OR (uid=\'0\' AND ip1=\'::1\' AND ip2=\'\' AND ip3=\'\' AND ip4=\'\' AND lastactivity>#{Time.now.to_i+840})")
       create_session_for_dz(@sid)
     end

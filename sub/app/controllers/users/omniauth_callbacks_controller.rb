@@ -384,6 +384,29 @@ private
     @user.email_unknown = true if @user.email.starts_with?('unknown')
     @user.regip = request.ip
     @user.save(:validate=>false)
+    if @user.uid.blank?
+      if !@user.email_unknown
+        info0=UCenter::User.get_user(nil,{email:email})
+      else
+        info0='0'
+      end
+      if '0'==info0
+        ret = UCenter::User.register(request,{
+          username:@user.slug,
+          password:'psvr_password_unknown',
+          email:@user.email,
+          regip:request.ip,
+          psvr_force:'1'
+        })
+        if ret.xi.to_i>0
+          @user.update_attribute(:uid,ret.xi.to_i)
+        else
+          raise '注册UC同步注册错误！！！猿快来看一下！'
+        end
+      else
+        User.import_from_dz!(info0)
+      end
+    end
     if true
       UserInfo.user_id_find_or_create(@user.id,@backinfo)
       @auth.update_attribute(:user_id, @user.id)
