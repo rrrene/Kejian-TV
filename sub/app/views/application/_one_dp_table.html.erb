@@ -33,7 +33,9 @@
           <%=link_to "[#{item.number}] #{item.name}",cpath(item),class:'psvr'%> 
         </td>
         <td>  
-          <%= teachers.join('、') %>
+          <% item.teachings.each do |teaching| %>
+            <%= link_to teaching.teacher,"/teachers/#{teaching.typeid}" %>
+          <% end %>
         </td>
         <td>  
           <%=addr.join('、') %>

@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<title>iBeiKe课件共享系统（OCW）</title>
+  <%= stylesheet_link_tag "ibeike", :media => "all" %>	 
+  <%= javascript_include_tag "ibeike" %>  
+  <%= csrf_meta_tag %>
+  <%= flash[:extra_ucenter_operations] %>
+</head>
+
+<body class="__ibk">
+<div id="contents">
+    <!--header begin-->
+    
+<div id=header>
+	<div id="logo">
+		
+			<a href="/"><img alt="Ocw_logo" src="<%=asset_path('ibeike/ocw_logo.jpg')%>" /></a>
+		
+	</div>
+	<div id="adminmenu">
+		<ul id="main">
+			<li class="current_page_item"><a href="http://city.ibeike.com" target="_blank">贝城社区</a></li>
+			<li><a href="<%= user_registration_path %>">注册</a></li>
+		</ul>
+	</div>
+	
+</div>
+<!-- end header -->
+	<div id="maincontents">
+
+		<!-- start content -->
+
+<div id="login">
+
+		<% if !cookies[:spetial].blank? %>
+			<div class="notice" style="margin:8px">
+      <p class="title"><%=raw  cookies[:spetial] %></p>
+      </div>
+      <% cookies[:spetial] = nil %>
+    <% else %>  
+      <% if !notice.blank? %>
+      			<div class="notice" style="margin:8px">
+        <p class="title"><%=raw notice %></p>
+        </div>
+      <% end %>
+      <% if !alert.blank? %>
+      				<div class="error" style="margin:8px">
+        <p class="title"><%=raw alert %></p>
+        </div>
+      <% end %>
+    <% end %>
+    
+    
+    
+		<div class="content">
+<div>
+<%= yield %>
+  
+  </div>
+
+		</div>
+		<!-- end content -->
+</div>
+                
+ 
+</div>
+<!--footer begin-->
+<%= render file:'/application/footers/_footer__ibeike' %>
+<!--footer end-->
+</body>
+
+</html>

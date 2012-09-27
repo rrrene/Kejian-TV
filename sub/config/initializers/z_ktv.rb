@@ -69,12 +69,11 @@ else
   UCenter.define('UC_API', 'http://uc.kejian.lvh.me');
 end
 
-
 Ktv.configure do |config|
   unless $psvr_really_development
     config.asset_host = 'http://ktv-intrinsic.b0.upaiyun.com'
   else
-    config.asset_host = ''
+    config.asset_host = '/assets'
   end
   config.redis = Redis::Search.config.redis
   config.consultants = [Ktv::Baidu,Ktv::Google]
@@ -97,6 +96,16 @@ Ktv.configure do |config|
   config.school_new = Time.new(Setting.school_new[0],Setting.school_new[1],Setting.school_new[2])
   config.school_exam = Time.new(Setting.school_exam[0],Setting.school_exam[1],Setting.school_exam[2])
   config.school_over = Time.new(Setting.school_over[0],Setting.school_over[1],Setting.school_over[2])
+  logo_info = `identify "#{Rails.root}/app/assets/images/logo_ktv_#{Setting.ktv_sub}.png"`
+  if logo_info=~/PNG (\d+)x(\d+)/
+    config.logo_ktv_width = $1.to_i
+    config.logo_ktv_height = $2.to_i
+  end
+  logo_info = `identify "#{Rails.root}/app/assets/images/logo_#{Setting.ktv_sub}.png"`
+  if logo_info=~/PNG (\d+)x(\d+)/
+    config.logo_width = $1.to_i
+    config.logo_height = $2.to_i
+  end
 end
 
 

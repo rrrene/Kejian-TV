@@ -1,4 +1,4 @@
-<% content_for :body_style do %>background: none repeat scroll 0 0 #F0EEEE<% end %>
+<% content_for :body_style do %>background:url(<%=asset_path 'zm/r11839/images/common/bodybg.gif'%>) repeat scroll 0 0 #F0EEEE<% end %>
 <%= render file:'/application/headers/_zm_header' %>
 
 <div class="tagchannel __zm">
@@ -263,7 +263,7 @@ function queryExec() {
         },
         loadingID: "imloading",
         callBack: function () {
-            var showContent = "对不起，还没有相关收集";
+            var showContent = "对不起，还没有相关课件";
             jQuery("#content").prepend('<div style="text-align: center; margin:0 auto; padding-top: 100px; left: 0px; top: 0px;" class="f14" columns="0">' + showContent + '</div>');
         }
     });
@@ -312,7 +312,7 @@ im(function () {
         },
         loadingID: "imloading",
         callBack: function () {
-            var showContent = "对不起，还没有相关收集";
+            var showContent = "对不起，还没有相关课件";
             jQuery("#content").prepend('<div style="text-align: center; margin:0 auto; padding-top: 100px; left: 0px; top: 0px;" class="f14" columns="0">' + showContent + '</div>');
         }
     });
@@ -375,7 +375,7 @@ jQuery("#div_tags .close").off().on("click", function () {
                 },
                 loadingID: "imloading",
                 callBack: function () {
-                    var showContent = "对不起，还没有相关收集";
+                    var showContent = "对不起，还没有相关课件";
                     jQuery("#content").prepend('<div style="text-align: center; margin:0 auto; padding-top: 100px; left: 0px; top: 0px;" class="f14" columns="0">' + showContent + '</div>');
                 }
             });

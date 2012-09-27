@@ -1,0 +1,23 @@
+
+<h1 id="section">课件交流系统: Kejian.TV开放应用程序接口 - 更新问题</h1>
+
+<h2>认证级别</h2>
+<p>访问敏感资源需要Oauth认证，证明您获得了用户的许可，且只能查看、更新用户自己的资源。</p>
+<p>特殊受信应用可以获取、更新任何用户的任何资源。</p>
+
+<h2>输入</h2>
+<p>向<code>/asks/:id</code>发送<code>PUT</code>请求，内容为{'ask'=>{ '字段1' => '内容','字段2' => '内容',... } }。可以修改的字段只有标题(title)和描述(body)。</p>
+<p>例如(ruby)：</p>
+<pre>
+require 'rest_client'
+response = RestClient.put "http://api.kejian.tv/asks/4e9480a661300314720001b3?client_id=4f853634c3666e05e1000002", {'ask'=>{ 'title' => 'changed', 'body' => 'changed_body' }}
+</pre>
+
+<h2>输出</h2>
+<p>返回是否成功</p>
+<p>例如：</p>
+<pre>
+response
+=> "{\"success\":true}"
+</pre>
+

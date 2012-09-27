@@ -1,0 +1,1350 @@
+.__ibk{
+  * {
+    margin:0px;
+  	padding:0px;
+    border:0px;
+  }
+	font-size:12px;
+	font-family: arial, san-serif,宋体;
+	width:100%;
+	background:#fff;
+  h1{
+  	font-size:px;
+  	font-family:宋体;
+  	font-weight:bold;
+  }
+  li{
+  	list-style:none;
+  }
+  .tip{
+  	background:#A6CEE6;
+  	margin:5px 0px;
+  	padding:3px 0px;
+  	text-align:left;
+  }
+  .inputtype{
+      border:#666666 1px solid;
+  }
+  a{
+  	text-decoration:none;
+  }
+  a:link{
+  	border:0px;
+          }
+  #contents{
+  	width:800px;
+  	margin:auto;
+  	padding-left:0px;
+  	}
+  .submit{
+  	 border:1px #FF4800 solid;
+  	 width:50px;
+  	 height:30px;
+  	 background:#FF9900;
+  	 color:#FFFFFF;
+  	 font-weight:bold;
+  }
+  /*header begin*/
+  #header{
+  	width:800px;
+  	height:auto;
+          }
+  #headerright a {
+  	cursor:pointer;
+  	float:right;
+  	margin:20px 25px 0 0;
+  }
+
+
+  #logo{
+  	background: #FFFFFF;
+  	width:241px;
+  	height:81px;
+  	float:left;
+  	}
+
+  .infobar{
+  	float:right;
+  }
+  /*header end*/
+  /*searchbar begin*/
+  #searchbar{
+  	clear:both;
+  	width:800px;
+  	overflow:hidden;
+  	background:#c80000;
+  	}
+  #search{
+  	float:left;
+  	height:30px;
+  	border:0px;
+  	width:402px;
+  	padding-top:5px;
+  	margin-left:60px;}
+  .selectall{
+  	float:right;
+  	height:30px;
+  	width:293px;
+  	border:1px #343434 solid;
+  	margin-left:0px;}
+  .searchselect{
+  	float:left;
+  	width:100px;
+  	height:30px;
+  	line-height:30px;
+          }
+  .searchinput{
+  	float:left;
+  	width:260px;
+  	height:25px;
+  	padding-top: 5px;
+  }
+  .searchbuttom{
+  	float:right;
+  	border-color:#343434;
+  	background:url(<%=asset_path('ibeike/searchbuttom.jpg')%>) left top #343434 no-repeat;
+  	width:31px;
+  	height:30px;
+  	}
+  .searchupload{
+  	float:right;
+  	}
+  .searchupload a{
+  	text-decoration:none;
+  	color:#FFF;
+  	background:#730000;
+  	display:block;
+  	padding:12px 10px 15px 10px;
+  	border-left:2px #000 solid;
+  }
+  /*searchbar end*/
+  #adbar{
+  	border:0px;
+  	margin:10px auto;
+  	width:800px;
+  	height:125px;}
+
+  #maincontents{
+          overflow:hidden;
+  	width:800px;
+  	margin:auto;
+  	}
+  #uploadmaincontents{
+          overflow:hidden;
+  	width:800px;
+  	margin:auto;
+  }
+  /* Wrapper */
+
+  #wrapper {
+  	width: 100%;
+  	margin: 0px;
+  	padding: 0px;
+  	background: #ffffff;
+  }
+
+  #page {
+  	width:80%;
+  	margin: 0px auto;
+  	padding: 0px;
+  	background:#ffffff;
+
+  }
+
+  #page-bg {
+          background:#ffffff;
+  }
+
+  /* Latest Post */
+
+  #latest-post {
+  	padding: 20px;
+  	border: 1px solid #E7E7E7;
+  }
+
+  /* Content */
+
+  #content {
+  	float:right;
+  	width: 550px;
+  }
+
+  .post {
+  	padding-bottom: 15px;
+  	line-height: 200%;
+  }
+
+  .post h1 {
+  	font-weight: normal;
+  }
+
+  .title {
+  	margin: 0;
+  	padding: 10px 0 4px 20px;
+  	font-weight: bold;
+          font-family:Arial,微软雅黑,宋体;
+  }
+
+  .title a {
+  	border-bottom: none;
+  	color: #000000;
+  }
+
+  .title a:hover {
+  	border-bottom: 1px dotted #000000;
+  }
+
+  .byline {
+  	border-bottom: 1px #BBBBBB dashed;
+  	margin: -10px 20px 20px 20px;
+  }
+
+  .tag {
+  	padding: 0 15px;
+  }
+
+  .entry {
+  	padding: 0 20px;
+  }
+
+  .links {
+  	padding: 4px 0px;
+  	text-align: right;
+  	font-weight: bold;
+  }
+
+  .links a {
+  	display: block;
+  	width: 101px;
+  	height: 24px;
+  	padding-left: 10px;
+  	background: url(<%=asset_path('ibeike/img06.jpg')%>) no-repeat left top;
+  	text-align: left;
+  	color: #FFFFFF;
+  }
+
+  .links a:hover {
+  }
+  .publictip{
+       color: #999999;
+  }
+  #account{
+  	margin-top:2px;
+  	overflow:hidden;
+  	padding:2px 2px 2px 20px;
+  	color:#000;
+  	background:#eee;
+  }
+  /* Sidebars begin */
+  #sidebar{
+  	float:left;
+  	width:230px;
+  }
+  #subsidebar{
+  	width:230px;
+  	border:1px #bababa solid;
+  	}
+  .userimg{
+  	float:left;
+  	display:block;
+  	outline:none;
+  	margin:5px;
+
+  }
+  .userinfo{
+  	float:right;
+  }
+  .userinfo ul{
+  	/*margin:5px;*/
+  	/*padding:2px;*/
+  	background:#FFF;
+          list-style:none;
+  	}
+  /*.userinfo li{*/
+  /*        padding:2px;*/
+  /*        }*/
+  .sidebarchoose{
+          background:#c70000;
+          overflow:hidden;
+  	height:30px !important;
+  	padding:0px;
+  }
+  .sidebarchoose img{
+          float:left;
+          display:block;
+          margin:0px 10px;
+  }
+  #backstage{
+          width:100%;
+  	text-align:center;
+  	padding:5px 0px;
+  }
+  #backstage a{
+          color:#c70000;
+  	font-weight:bold;
+  	text-decoration:none;
+  	margin:0px 5px;
+  }
+  .sidebartitle_1{
+  	background:url(<%=asset_path('ibeike/side_userplane.gif')%>) top left no-repeat;
+  	width:230px;
+  	height:31px;
+  	}
+
+  .sidebartitle_2{
+  	background:url(<%=asset_path('ibeike/side_message.gif')%>) top left no-repeat;
+  	width:230px;
+  	height:31px;
+  	margin-top:10px;
+  	}
+  .sidebartitle_3{
+  	background:url(<%=asset_path('ibeike/side_need.gif')%>) top left no-repeat;
+  	width:230px;
+  	height:31px;
+  	margin-top:10px;}
+  .sidebartitle_4{
+  	background:url(<%=asset_path('ibeike/side_top.gif')%>) top left no-repeat;
+  	width:230px;
+  	height:31px;
+  	margin-top:10px;
+  }
+  .sidebartitle_1 p{
+  	padding-top:10px;
+  	padding-left:50px;
+  	color:#FFF;
+  	font-weight:bold;
+  	}
+  .sidebartitle_2 p{
+  	padding-top:10px;
+  	padding-left:50px;
+  	color:#FFF;
+  	font-weight:bold;
+  	}
+  .sidebartitle_3 p{
+  	padding-top:10px;
+  	padding-left:50px;
+  	color:#FFF;
+  	font-weight:bold;
+  	}
+  .sidebartitle_4 p{
+  	padding-top:10px;
+  	padding-left:50px;
+  	color:#FFF;
+  	font-weight:bold;
+  	}
+  .sidebartext{
+  	overflow:hidden; 
+  	margin-bottom:5px;
+  }
+  .sidebartext a{
+  	text-decoration:none;
+  	color:#000;
+  }
+  .sidebartext table{
+  	border:0px;
+  	margin:5px 0px;
+  	width:230px;
+  }
+  .sidebartext td{
+  	padding:5px;
+  }
+  .sidebartext table tr:hover{
+  	background:#e8e8e8;
+  }
+  .pmsidebartext{
+  	overflow:hidden; 
+  	margin-bottom:5px;
+  }
+  .pmsidebartext a{
+  	text-decoration:none;
+  	color:#000;
+  }
+  .pmsidebartext table{
+  	border:0px;
+  	margin:5px 0px;
+  	width:230px;
+  }
+  .pmsidebartext td{
+  	padding:5px;
+  }
+  .pmsidebartext table td:hover{
+  	background:#e8e8e8;
+  }
+  .more a{
+  	float:right;
+  	margin-top:-15px;
+  	margin-right:5px;
+  	text-decoration:none;
+  	color:#fff;
+  }
+
+
+  .sidebarpic img{
+  	display:block;
+  	margin:8px 0px;
+  	background:#FFF;
+  	}
+  .sidebarpic a:link{
+  	display:block;
+  	margin:8px 0px;
+  	background:#FFF;
+  	}
+  /*siderbar end*/
+  #widebar{
+  	float:right;
+  	width:550px;
+  }
+  #widebartop a{
+  	text-decoration:none;
+  }
+  #widebartop{
+          width:100%;
+  	padding:5px 0px;
+          margin:2px 0px 5px 0px;
+  	border-bottom:1px #000 solid;
+  	overflow:hidden;
+  }
+  #uploadwidebar{
+  	width:100%;
+  }
+  .navigation{
+  	float:left;
+  }
+  .alllist{
+  	float:right;
+  }
+
+
+  .coursetable{
+  	border:1px #e8e8e8 solid;
+  	padding:5px;
+  }
+
+
+  /*comments page begin*/
+  #comments{
+  	width:100%;
+  }
+  #comments table{
+
+  	margin:2px;
+  }
+  #comments table tr td{
+  	padding:5px 0px;
+
+  }
+  #commentsfrom{
+  	float:left;
+  }
+  .commentspic{
+  	float:right;
+  }
+
+
+  /*comments page end*/
+
+
+  #courselist{
+  	}
+  .course table{
+  	width:100%;
+  	border:1px #CCC solid;
+  	margin:5px 0px;
+  	}
+  .course table:hover{
+  	background: #EEEEEE;
+  }
+
+
+  /* Footer begin */
+
+  #footer{
+  	margin:20px auto auto auto;
+  	padding:10px;
+  	background:#333;
+          height:100px;
+  	clear:both;
+  	}
+  #footer p{
+  	font-family:Arial, Helvetica, sans-serif,宋体;
+  	color:#FFF;
+  	text-align:center;}
+  #footer a{
+  	color:#FFF;
+  	font-size:12px;
+  	text-decoration:none;
+  }
+  /*footer end*/
+  div.pagination {
+      padding: 3px;
+      margin: 3px;        
+  }
+
+  div.pagination a {
+      padding: 2px 5px 2px 5px;
+      margin: 2px;
+      border: 1px solid #AAAADD;
+
+      text-decoration: none; /* no underline */
+      color: #000099;
+  }
+  div.pagination a:hover, div.pagination a:active {
+      border: 1px solid #000099;
+
+      color: #000;
+  }
+  div.pagination span.current {
+      padding: 2px 5px 2px 5px;
+      margin: 2px;
+          border: 1px solid #000099;
+
+          font-weight: bold;
+          background-color: #000099;
+          color: #FFF;
+      }
+      div.pagination span.disabled {
+          padding: 2px 5px 2px 5px;
+          margin: 2px;
+          border: 1px solid #EEE;
+
+          color: #DDD;
+      }
+
+
+
+  #menu{
+          overflow:hidden;
+  	padding:10px;
+  	color:#000;
+  	background:#eee;
+          height:30px !important;
+  }
+  #menu ul {
+          list-style:none;
+  }
+  #menu ul li{
+  	float:left;
+  	margin:0px 6px;   
+  }
+  #menu a{
+  	display:block;
+  	width:60px;
+  	height:23px;
+  	text-align:center;
+  	padding-top:5px;
+  	color:#000;
+  	text-decoration:none;
+  }
+  #menu a:hover{
+  	background:url(<%=asset_path('ibeike/menutextbg.png')%>) no-repeat;
+  	width:60px;
+  	height:23px;
+  	color:#FFF;
+  	padding-top:5px;
+  	}
+
+  #menu .current{
+  	background:url(<%=asset_path('ibeike/menutextbg.png')%>) no-repeat;
+  	width:60px;
+  	height:23px;
+  	color:#FFF;
+  	padding-top:5px;
+  	}
+
+
+
+  #adminmenu{
+  	clear:both;
+  	overflow:hidden;
+  	padding:10px;
+  	color:#000;
+  	background:#c70000;
+  	height:30px !important;
+  }
+  #main{
+  	list-style:none;	
+  }
+  #adminmenu ul {
+          list-style:none;
+  }
+  #adminmenu ul li{
+  	float:left;
+  	margin:0px 10px;   
+  }
+  #adminmenu a{
+  	display:block;
+  	width:60px;
+  	height:23px;
+  	text-align:center;
+  	padding-top:5px;
+  	color:#fff;
+  	text-decoration:none;
+  	font-weight:bold;
+  	font-size:13px;
+  }
+  #adminmenu ul li:hover{
+  	background:#AAAADD;
+  }
+
+
+
+  /*professional page begin*/
+  .college{
+  	border:1px #999999 solid;
+  	overflow:hidden;
+  }
+  .college dt{
+          padding:10px 15px;
+  	list-style:none;
+  	font-family:Arial, Helvetica, sans-serif,微软雅黑;
+  	font-size:14px;
+  	font-weight:bold;
+
+  }
+  .college dd{
+       float:left;
+  }
+  .college a{
+  	display:block;
+  	width:150px;
+  	height:15px;
+  	text-align:center;
+  	background:#EEEEEE;
+  	border:1px #666666 solid;
+  	color:#000000;
+  	margin:5px 15px;
+  	text-decoration:none;
+  	padding:6px 0px;
+  }
+  .college a:hover{
+  	background:#FF9900;
+  	color:#FFFFFF;
+
+
+  }
+
+  #courselist div{
+       margin:5px 0px;
+  }
+  .type1{
+         border:1px #999999 solid;
+  	overflow:hidden;
+  }
+  .type1 dt{
+          padding:10px 15px;
+  	list-style:none;
+  	font-family:Arial, Helvetica, sans-serif,微软雅黑;
+  	font-size:14px;
+  	font-weight:bold;
+
+  }
+  .type1 dd{
+  	float:left;
+       padding:20px;
+       display:inline;
+  }
+
+
+  .professional p{
+          padding:10px;
+  }
+  .professional{
+         padding:10px;
+         border:1px #CCCCCC solid;
+  }
+  .professional table{
+          margin-top:10px;
+  }
+  .professional tr{
+      height:30px;
+  }
+
+
+
+  /*professional page end*/
+
+  /*upload page begin*/
+  #upload{
+  	margin-right:auto;
+  	margin-left:auto;
+  }
+  #upload .uploadtable{
+      width:80%;
+      margin-right:auto;
+  	margin-left:auto;
+  }
+  #upload .uploadtable .uploadtr td{
+      padding:5px 0px;
+
+  }
+  .fromtip{
+       color: #999999;
+  }
+
+
+  /*need page begin*/
+  #need{
+      width:100%;
+  }
+  #need .needtable{
+   	width:100%;
+  	margin:10px;
+  }
+  #need .needtr td{
+      padding:5px 0px;
+
+  }
+
+
+  /*need page end*/
+
+  .courseshow{
+  	border-top:1px #a5a1a1 solid;
+  	border-left:1px #a5a1a1 solid;
+  	border-right:1px #a5a1a1 solid;
+  	padding:10px;
+
+  }
+
+  .courseshow table{
+
+  }
+  .courseshow tr{
+  	height:20px;
+  }
+  .upinfo{
+  	margin-top:-3px;
+  	padding-left:5px;
+  	padding-top:1px;
+  	height:71px;
+  	background:url(<%=asset_path('ibeike/upinfo2.jpg')%>) no-repeat;
+  }
+  /* ++++++ 评论样式开始 ++++++ */
+
+
+  #commentform #author, #commentform #email, #commentform #url, #commentform textarea {
+          border: 1px solid #808080;
+          padding: .2em;
+          margin-left:10px;
+  }
+
+  #commentform textarea {
+          width:96%;
+  }
+
+  #commentlist {
+          width: 97%;
+          font-size:11px;
+          color:#000;
+          margin:0 0 20px 0;
+          padding: 0 0 0 10px;
+  }
+
+  #commentlist li {
+          border:5px solid #dcdcdc;
+          margin:0 0 20px 0;
+          list-style-type:none;
+          padding:0px;
+          background:#f5f5f5;
+  }
+
+  #commentlist ul {
+  	margin:0;
+  	padding:0;
+  }
+
+  #commentlist li p {font-size:12px;
+          padding:5px 10px 5px 80px;
+          margin:0;
+  }
+
+  #commentlist a {
+          text-decoration:underline;
+          font-weight:bold;
+  }
+
+  #commentlist li div.meta {
+  	padding:0;
+  	margin:0;
+  	text-align:center;
+  }
+
+  #commentlist li .avatar {
+          float:left;
+          padding:0;
+          margin:5px;
+
+  }
+
+  .authorcomm {float:left;
+              margin:0;
+              padding:0;
+              width:70px;
+              text-align:center;
+              line-height:12px;
+              font-size:10px;
+  }
+
+  .authorcomm a {
+  	text-decoration:none;
+  	font-weight:bold;
+  }
+  .a_comment {
+  	border:0 none;
+  	border-collapse:collapse;
+  	font-family:Verdana,"BitStream vera Sans",Helvetica,Sans-serif;
+  	font-size:12px;
+  	margin:0px;
+  	table-layout:fixed;
+  	width:550px;
+  }
+  .a_comment .author {
+  	text-align:center;
+  	width:100px;
+  }
+  .a_comment .author .name {
+  	overflow:hidden;
+  	width:100px;
+  }
+  .a_comment .author .pic {
+  	margin-top:5px;
+  }
+  .a_comment .commentbody {
+  	margin:0;
+  	padding-bottom:5px;
+  }
+  .a_comment .author0 {
+  	background:transparent url(<%=asset_path('ibeike/commentpoint.png')%>) no-repeat scroll 100% 33%;
+  }
+  .a_comment .author0 .name {
+  	padding-left:0;
+  	padding-right:14px;
+  }
+  .a_comment .author0 .pic {
+  	padding-left:0;
+  	padding-right:14px;
+  }
+  .a_comment .author1 {
+  	background:transparent url(<%=asset_path('ibeike/commentpoint.png')%>) no-repeat scroll 0 33%;
+  }
+  .a_comment .author1 .name {
+  	padding-left:14px;
+  	padding-right:0;
+  }
+  .a_comment .author1 .pic {
+  	padding-left:14px;
+  	padding-right:0;
+  }
+  .a_comment .info {
+  	background:#EDEFF0 url(<%=asset_path('ibeike/comment_lt.gif')%>) no-repeat scroll left top;
+  }
+  .a_comment .info2 {
+  	background:transparent url(<%=asset_path('ibeike/comment_rt.gif')%>) no-repeat scroll right top;
+  	padding:10px 15px 0;
+  }
+  .a_comment .info div.maininfo {
+  	background:transparent url(<%=asset_path('ibeike/comment_rb.gif')%>) no-repeat scroll right bottom;
+  	line-height:145%;
+  	margin:0 -15px;
+  	overflow:auto;
+  }
+  .a_comment .info div.maininfo2 {
+  	background:transparent url(<%=asset_path('ibeike/comment_lb.gif')%>) no-repeat scroll left bottom;
+  	padding:15px 15px;
+  }
+  .a_comment div.pager {
+  	margin-top:5px;
+  	text-align:right;
+  }
+  .a_comment div.pager form {
+  	margin:2px;
+  	text-align:right;
+  }
+  img.illustration {
+  	border:1px solid #999999;
+  	padding:1px;
+  }
+
+
+  /*人气样式*/
+  div#digg_bottom div {
+  	background-image:url(<%=asset_path('ibeike/c.gif')%>);
+  	float:right;
+  	position:relative;
+  	font-size:14px;
+  	height:50px;
+  	line-height:25px;
+  	padding-top:9px;
+  	text-align:center;
+  	width:72px;
+  	display:inline;
+  }
+
+
+  /*storytitle*/
+  .storytitle {
+          color:#000;
+          padding-bottom:2px;
+          border-bottom:1px solid #808080;
+          text-align:left;
+  	width:100%;
+  }
+  .storycontent{
+  	margin-top:10px;
+  	margin-bottom:20px;
+  	font-size:15px;
+  	text-align:left;
+  }
+  .storycontent table{
+  	width:100%;
+  }
+  /*搜索结果样式*/
+  .viewTab {
+  	background:#E5E5E5 none repeat scroll 0 0;
+  	height:26px;
+  	margin-bottom:20px;
+  	overflow:hidden;
+  	padding:6px 10px 0;
+  }
+  /*search里面排序方式 和 排序种类的位置*/
+  .sortclass{
+  	display:inline;
+  	position:relative;
+  }
+  /*排序方式 分条 */
+  .viewclass{
+  	display:inline;
+  	position:relative;
+  }
+  .dd1{
+  	display:inline;
+  	position:relative;
+  }
+  /*显示方式 css*/
+  .dd2{
+  	float:right;
+  	display:inline;
+  	position:relative;
+  }
+  /*共几条*/
+  .dd3{float:right;
+  	position:relative;
+  	display:inline;
+
+  }
+  .dd4{
+  	float:right;
+  	position:relative;
+  	display:inline;
+  	position:relative;
+  	padding-right:90px;
+  	padding-left:20px;
+  }
+  /*顶踩样式*/
+
+  div.digg {
+  	padding:0 5px;
+  	text-align:center;
+  	width:52px;
+  }
+  .digg h3, .digg div {
+  	background-image:url(<%=asset_path('ibeike/digg.jpg')%>);
+  	background-repeat:no-repeat;
+  	padding:11px 0;
+  }
+  .digg h3.digged, .digg div.digged {
+  	background-image:url(<%=asset_path('ibeike/digged.jpg')%>);
+  }
+  .digg h3 a, .digg h3 span, .digg div a, .digg div span {
+  	background-position:left center;
+  	background-repeat:no-repeat;
+  	font-size:14px;
+  	font-weight:normal;
+  	padding-left:15px;
+  	text-decoration:none;
+  }
+  div.digg div.digg_admin {
+  	background:transparent none repeat scroll 0 0;
+  	text-align:left;
+  	width:100px;
+  }
+  div.digg div.digg_admin a {
+  	padding-left:2px;
+  }
+  .digg h3 a.digg, .digg h3 span.digg, .digg div a.digg, .digg div span.digg {
+  	background-image:url(<%=asset_path('ibeike/icon_digg.gif')%>);
+  	color:#152F93;
+  }
+  .digg h3 a.bury, .digg h3 span.bury, .digg div a.bury, .digg div span.bury {
+  	background-image:url(<%=asset_path('ibeike/icon_bury.gif')%>);
+  	color:#A03A32;
+  }
+
+
+
+  /*xxx首页 课件信息［如时间评论数］ 显示 样式xxxx*/
+  .blog_info {
+  	background-color:#F2F8EF;
+  	color:gray;
+  	padding:2px;
+  }
+  .blog_info span {
+  	background-repeat:no-repeat;
+  	margin:0 6px;
+  	padding-left:20px;
+  }
+  .blog_info .comment {
+  	background-image:url(<%=asset_path('ibeike/icon_comment.gif')%>);
+  }
+  .blog_info .view {
+  	background-image:url(<%=asset_path('ibeike/icon_arrow.gif')%>);
+  }
+  .blog_info .date {
+  	color:#A12A2A;
+  	padding-left:0;
+  	float:right;
+  }
+
+
+  .digg {
+  	padding-left:32px;
+  	margin-top:5px;
+  }
+  .digg br {
+  	display:none;
+  }
+  .digg span, .blog_info .digg a {
+  	margin:0;
+  	padding:0 15px;
+
+  }
+  .digg .digg {
+  	background:transparent url(<%=asset_path('ibeike/ocw_up.jpg')%>) no-repeat scroll left center;
+  	right:40px;
+  	width:35px;
+  }
+  .digg .bury {
+  	background:transparent url(<%=asset_path('ibeike/ocw_down.jpg')%>) no-repeat scroll left center;
+  	right:-15px;
+  	width:35px;
+  }
+  .digg a.digg {
+  	color:green;
+  }
+  .digg a.bury {
+  	color:red;
+  }
+  .download{
+  	text-align:center;
+  }
+
+  /*错误提示和友情提示*/
+  .notice {
+  	border: solid 1px #99cc99;
+  	background-color: #e2f9e3;
+  	color: #006600;
+  	padding: 5px;
+  	margin-bottom: 5px;
+  	text-align:center;
+  }
+
+    .notice.title{
+    	border-color: #cc0000;
+    	background-color: #eeaaaa;
+    	color: #cc0000;
+  	text-align:left;
+    }
+    /*notice1是评论的提示*/
+  .notice1{
+  	border: solid 1px #99cc99;
+  	background-color: #e2f9e3;
+  	color: #006600;
+  	padding: 1px;
+  	margin-bottom: 5px;
+    }
+    .notice1.title{
+  	border-color: #cc0000;
+    	background-color: #eeaaaa;
+    	color: #cc0000;
+    }
+
+  .error {
+  	border: solid 1px #99cc99;
+  	background-color: #e2f9e3;
+  	color: #006600;
+  	padding: 5px;
+  	margin-bottom: 5px;
+  }
+
+    .error.title {
+    	border-color: #cc0000;
+    	background-color: #eeaaaa;
+    	color: #cc0000;
+    }
+
+
+
+
+  /*"/login"下的登录框、登录按钮*/
+  #login{
+  	border:1px #e8e8e8 solid;
+  	margin:10px 0;
+  	text-align:center;
+  	padding:10px;
+  }
+  #login input{
+  	height:25px;
+  }
+  #login p{
+  	text-align:left;
+  }
+  #login table{
+  	margin-left:200px;
+  }
+
+  /*系统管理“**修改”“取消修改”字体\位置*/
+  .backstagefont{
+  	float:right;
+  	font-size:small;
+  }
+  /*页码显示位置*/
+  .pag{
+  	float:right;
+  	margin-right:40px;
+  }
+  /*各页小标题和三个按钮*/
+  .titlewiththree{
+  	position:relative;
+  	float:left;
+  	margin-left:20px;
+  	font-size:25px;	
+  }
+  .threebutton{
+  	font-size:small;
+  	position:relative;
+  	float:right;
+  }
+  /*按照字母顺序显示的table 和td css、a是各个字母的css   下面的是显示的css*/
+  .wordtable{
+  	font-size:18px;
+  }
+  .wordtd{
+  	width:40px;
+  	height:35px;
+  	background:#c70000;
+  	border:1px #e8e8e8 solid;
+  	text-align:center;
+  }
+  .wordtd a{
+  	color:#fff;
+  	text-decoration:none;
+  }
+  .wordtd:hover{
+  	color:#fff;
+  	background:#ff9600;
+  	border:1px #e8e8e8 solid;
+  	text-decoration:none;
+  }
+  .tableinsortbychar{
+
+  }
+  /*上传课件等等 大的输入框*/
+  .textarea{
+  	height:400px;
+  	width:500px;
+  	border: 0px dashed #999;
+  }
+  .ranktable{
+  	margin-left:100px;
+  	width :300px;
+  	text-align:center;
+  }
+
+
+  /*搜索条 字的颜色*/
+  .searchcolor{
+  	display:inline;
+  	color:red;
+  }
+
+  /*显示描述的框*/
+  .showup{
+  	min-height:100px;
+  	width:520px;
+  	border:1px dashed #999;
+  	overflow:hidden;
+  	line-height:1.5em;
+  }
+  .showinall{
+  	width:270px;
+
+  	overflow:hidden;
+  	line-height:1.5em;
+  }
+  .showinall br{
+  	display:none;	
+  }
+  .showinall tr{
+  	display:nonone;
+  }
+
+
+  /*在show里面科目图片 的位置*/
+  .kemuphoto{
+  	float:left;
+  	margin-left:150px;
+  }
+
+  /*user 的show里的 位置*/
+  .infoinuser{
+  	margin-left:300px;
+  }
+  /*专业课最内部的表格*/
+  .tableinpro{
+  	width:600px;
+  	height:auto;
+  	text-align:center;
+  	font-size:small;
+  }
+
+  /*在搜索的后面，加个我要贡献*/
+  .newinmenu{
+  	float:right;
+  	display:inline;
+  	font-size:24px;
+  }
+  /*那一行提示的字*/
+  .lineinelective{
+
+  	margin-bottom:15px;
+  }
+
+  /*用javascript写的翻页*/
+  .tablepage{
+  	float:right;
+  }
+  .attachment{
+  	margin-left:150px;
+  	color:red;
+  }
+
+
+  /*寻求课件列表样式 begin*/
+  .tableall{
+         text-align:center;
+         background:#9d9d9d;
+  }
+  .tableall a{
+  	text-decoration:none;
+  }
+  .tableall tr{
+  	height:30px;
+  	background:#fff;
+  }
+
+  .tableall th{
+  	background:#cccccc;
+  }
+
+  /*needtable end*/
+
+
+
+
+  /*公告*/
+  .gonggao{
+  	padding-left:120px;
+  	text-align:center;
+  }
+  /*在搜索条后面的 我要贡献*/
+  .uploadonmenu{
+  	text-align:right;
+  	float:right;
+  	font-size:20px;
+  	color:white;
+  }
+  .uploadonmenu a{
+  	font-size:20px;
+  }
+
+
+
+  .tableinsortnew{
+  	border:1px ridge silver;
+  	margin-top:20px;
+  }
+  .tablepefect{
+  	border:1px ridge silver;
+  	width:450px;
+  	margin-top:20px;
+  }
+  .tableinsortcourse{
+  	border:1px ridge silver;
+  	width:480px;
+  	margin-top:20px;
+  }
+  .tableinsortcourse th{
+  	border:1px ridge silver;
+  	text-align:center;
+  	font-weight:normal;
+  	font-size:12px;
+  }
+  .tableinsortcourse td{
+  	border:1px ridge silver;
+  	text-align:center;
+  	font-size:12px;
+  	font-weight:normal;
+  	width:80px;
+  }
+  .tableinsortcourse .r{
+  	border:1px ridge silver;
+  	text-align:left;
+  	font-size:12px;
+  	font-weight:normal;
+  	width:300px;
+  }
+
+  .announce{
+  	border:1px ridge silver;
+  	font-size:12px;
+  	text-align:left;
+  	margin-left:20px;
+  	margin-top:20px;
+  }
+
+
+
+
+
+
+  /*收件箱*/
+  .message{
+  	background:#ecf5fe;
+  	overflow:hidden;
+  }
+  .message ul{
+  	list-style:none;
+  }
+  .message li{
+  	float:left;
+  	padding:5px 5px;
+  	width:90px;
+
+  }
+  .message a{
+  	text-decoration:none;
+  	padding:2px;
+  	color:#000;
+  }
+  .message a:hover{
+  	border-bottom:3px solid #41a2ff;
+  }
+  .message  .current{
+  	border-bottom:3px solid #41a2ff;
+
+  }
+
+
+  
+}
+

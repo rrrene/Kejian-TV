@@ -1,0 +1,42 @@
+<% content_for :body_style do %>background:url(<%=asset_path 'zm/r11839/images/common/bodybg.gif'%>) repeat scroll 0 0 #F0EEEE<% end %>
+<%= render file:'/application/headers/_zm_header' %>
+
+<div class="tagchannel __zm">
+<div id="wrapper">
+<div id="nav" class="categorybody">
+<div class="navandshadow">
+<div class="categories">
+
+<div class="sortnav-mod sortnav-male cf" id="categories_table">
+
+
+<% content_for :butt2 do %>
+$('#categories_table > div').height($('#categories_table').height());
+<% end %>
+
+
+<div class="col-coat" style="width:100%;border:none;background:transparent">
+<ul class="navlist" style="margin-left:22px">
+<% School.desc('coursewares_count').each do |item| %>
+<li  ><a class="<%= 'orange' if item.coursewares_count > 100 %>" href="<%= school_path(item) %>"><span><%= item.name %></span></a></li>
+<% end %>
+</ul>
+</div>
+
+
+
+</div>
+<input id="removeIds" type="hidden" value="" />
+</div><!--categories ends-->
+<div class="sheetshadow"></div><!--薄片阴影-->
+</div>
+<div class="calloutcontainer"><!--圆形按钮-->
+<div class="callout"><span class="iconbg arrow"></span></div>
+</div>
+</div><!--categorybody end 分类结束-->
+
+
+<div style="height:100px;width:100%">
+</div>  
+</div>
+<%= render file:'/application/footers/_zm_footer' %>

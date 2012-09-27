@@ -1,0 +1,381 @@
+(($) ->
+  window.KTV = {}
+  window.KTV.Utilities = {}
+  window.KTV.data = {}
+  KTV.search_cache = {}
+
+  KTV.logo_css_src0 = '<%= Ktv.config.asset_host %>'+'/logo_ktv_'+window.psvr_subject+'.png'
+  KTV.logo_css_src1 = '<%= Ktv.config.asset_host %>'+'/logo_ktv_'+window.psvr_subject+'_hover.png'
+  
+  KTV.browsetext_css_src1 = '<%= Ktv.config.asset_host %>'+'/browsetext_hover.png'
+  KTV.browsetext_css_src0 = '<%= Ktv.config.asset_host %>'+'/browsetext.png'
+  KTV.addtext_css_src1 = '<%= Ktv.config.asset_host %>'+'/ie/addtext_hover.png'
+  KTV.addtext_css_src0 = '<%= Ktv.config.asset_host %>'+'/ie/addtext.png'
+  KTV.sdk_flashes_set = (type,msg)->
+    $('#sdk_flashes').html("<p class=\"flash #{type}\">#{msg}</p>");
+    $("#sdk_flashes .#{type}").fadeOut().fadeIn();
+  KTV.sdk_flashes_clear = ->
+    $('#sdk_flashes').html("");
+  KTV.headnav_css = ->
+    header0 = $('#header0 div div:not(.active)')
+    $('img',header0).fadeTo(0,'0.7')
+    header0.mouseenter(->
+      $('img',this).fadeTo(0,'1')
+      $('a',this).css('color','white');
+    ).mouseleave(->
+      $('img',this).fadeTo(0,'0.7')
+      $('a',this).css('color','#C2C2C2');
+    )
+    $('#slab1,#slab2,#slab3,#slab4').click((e)->
+      window.location.href = $('a',this).attr('href');
+      return false;
+    );
+  KTV.new_cw_trigger_teachers = ->
+    $('#presentation_teacher_select li').off().on('click',(e)->
+      e.stopPropagation()
+      $('#presentation_teacher_select li').removeClass('current')
+      $(this).addClass('current')
+      $('#presentation_teacher').val($(this).text())
+      $('#presentation_teacher_select').hide()
+      $('#presentation_teacher_hv').removeClass('right_on')
+      if($(this).hasClass('opt_psvr_add_more'))
+        $('#presentation_other_teacher').show()
+      else
+        $('#presentation_other_teacher').hide()
+    )
+
+  KTV.new_cw_load_teachers = ->
+    $('#presentation_teacher').val("请选择老师")
+    $('#presentation_teacher_select li.first-child').addClass('current')
+    $('#presentation_teacher_select_dynamic').html('')
+    $('#presentation_other_teacher').hide()
+    $('#presentation_teacher_select').hide()
+    $('#presentation_teacher_hv').removeClass('right_on')
+    jQuery.getJSON('/ajax/get_teachers.json?psvr_f='+window.psvr_f,(data)->
+      for teacher in data
+        $('#presentation_teacher_select_dynamic').append('<li>' + teacher + '</li>');
+      KTV.new_cw_trigger_teachers()
+    )
+
+
+  KTV.Utilities.wrap_with_matches = (str,keyword)->
+    objRegExp = /// (
+      #{keyword}
+    ) ///i
+    return false if null==str.match(objRegExp)
+    return str.replace(objRegExp, "<span class=\"match\">$1</span>")
+
+  KTV.Utilities.slice_with_matches = (str,keyword,length=3)->
+    objRegExp = /// (
+      #{keyword}
+    ) ///i
+    matched = str.match(objRegExp)
+    return false if null==matched
+    matched = matched[0]
+    parts = str.split(matched)
+    joiner = "<span class=\"match\">#{matched}</span>"
+    ret = ''
+    ret += KTV.Utilities.left_trim(parts[0],length)
+    ret += joiner
+    ret += KTV.Utilities.right_trim(parts[1],length)
+    ret
+
+  KTV.Utilities.left_trim = (str,length) ->
+    if str.length > length
+      "...#{str[(str.length-length)..(str.length-1)]}"
+    else
+      str
+  KTV.Utilities.right_trim = (str,length) ->
+    if str.length > length
+      "#{str[0..(length-1)]}..."
+    else
+      str
+
+  KTV.preload = (arrayOfImages) -> 
+    $(arrayOfImages).each(->
+      $('<img/>')[0].src = this
+    )
+
+
+  KTV.search_move = (dir) ->
+    current_which = $("#core_search_ul li.selected").first()
+    next_which = current_which.next('li')
+    prev_which = current_which.prev('li')
+    target = null
+    if current_which.length > 0
+      if dir is 1
+        if next_which.length > 0
+          target = next_which.first()
+        else
+          target = $("#core_search_ul li").first()
+      else if dir is -1
+        if prev_which.length > 0
+          target = prev_which.first()
+        else
+          target = $("#core_search_ul li").last()
+    if target
+      current_which.removeClass('selected')
+      target.addClass('selected')
+
+  KTV.search_li_hover = ->
+    $('#core_search_ul li').hover(->
+      $('#core_search_ul li').removeClass('selected')
+      $(this).css('cursor','pointer')
+      $(this).addClass('selected')
+    ,->
+      $(this).css('cursor','auto');
+      $(this).removeClass('selected')
+    )
+    if $('#core_search_ul li.selected').length is 0
+      $('#core_search_ul li').first().addClass('selected')
+  KTV.search_cater = (data,term) ->
+    $('#core_search_ul').html('')  
+    keyword = term
+    last_one = new_one = ''
+    failed = false
+    if data is null or data.length is 0
+      last_one = "<li class=\"lightlink\">未找到与“#{term}”相关的内容，请尝试其他关键词</li>"
+    else
+      datas = data.split("\n")
+      $.each(datas,(index,itemRaw)->
+        item = itemRaw.split("#!#")
+        if 'Topic' == item[item.length-1]
+          title = KTV.Utilities.wrap_with_matches(item[0],keyword)
+          title = item[0] if false==title
+          # slice1 = KTV.Utilities.slice_with_matches(item['name_en'],keyword,18)
+          # slice2 = KTV.Utilities.slice_with_matches(item['name_pinyin'],keyword,18)
+          # if false==slice1
+          #   if false==slice2
+          #     # do nothing
+          #   else
+          #     title += " <span class=\"en_match\">(#{slice2})</span>"
+          # else
+          #   title += " <span class=\"en_match\">(#{slice1})</span>"
+          $('#core_search_ul').append("<li class=\"user\">\
+            <a href=\"/topics/#{item[1]}\" class=\"result_item\">\
+              <div class=\"text\">\
+                <div class=\"pic\">\
+                  <img width=\"38\" height=\"38\" alt=\"#{item[0]}\" class=\"\" src=\"#{item[item.length-2]}\">\
+                    </div>\
+                   领域: #{title}\
+                     <span class=\"faded\">#{item[2]}个课件</span>\
+                </div>\
+                </a>\
+              </li>" )
+        else if 'User' == item[item.length-1]
+          title = KTV.Utilities.wrap_with_matches(item[0],keyword)
+          title = item[0] if false==title
+          # slice1 = KTV.Utilities.slice_with_matches(item['name_en'],keyword,18)
+          # slice2 = KTV.Utilities.slice_with_matches(item['name_pinyin'],keyword,18)
+          # if false==slice1
+          #   if false==slice2
+          #     # do nothing
+          #   else
+          #     title += " <span class=\"en_match\">(#{slice2})</span>"
+          # else
+          #   title += " <span class=\"en_match\">(#{slice1})</span>"
+          $('#core_search_ul').append("<li class=\"user\">\
+            <a href=\"/users/#{item[item.length-2]}\" class=\"result_item\">\
+              <div class=\"text\">\
+                <div class=\"pic\">\
+                  <img width=\"38\" height=\"38\" alt=\"#{item[0]}\" class=\"\" src=\"#{item[3]}\">\
+                    </div>\
+                     #{title}\
+                     <span class=\"faded\">#{item[2]} #{item[item.length-4]}关注 #{item[item.length-3]}课件</span>\
+                </div>\
+                </a>\
+              </li>" )
+        else if 'Courseware' == item[item.length-1]
+          title = KTV.Utilities.wrap_with_matches(item[0],keyword)
+          title = item[0] if false==title
+          # slice1 = false # KTV.Utilities.slice_with_matches(item['name_en'],keyword,38)
+          # slice2 = false #KTV.Utilities.slice_with_matches(item['name_pinyin'],keyword,6)
+          # if false==slice1
+          #   if false==slice2
+          #     # do nothing
+          #   else
+          #     title += " <span class=\"en_match\">(#{slice2})</span>"
+          # else
+          #   title += " <span class=\"en_match\">(#{slice1})</span>"
+          $('#core_search_ul').append("<li class=\"topic with_img\">\
+            <a class=\"result_item\" href=\"/coursewares/#{item[1]}\">\
+              <div class=\"row main_col\">\
+                <span class=\"col w5 match-info\">\
+                  <div style=\"margin-top: 5px\">\
+                  <div class=\"text\">#{title}</div></div></span>\
+                    <span class=\"col w2_5 faded desc\" style=\"white-space: nowrap; overflow: hidden;\">\
+                      <div class=\"pic\">\
+                        <img src=\"#{item[item.length-2]}\" height=\"23\" width=\"23\">\
+                        </div><div style=\"margin-top: 7px\">#{item[item.length-3]}</div></span></div></a></li>")
+        # else if 'more' == item['type']
+        #   keyword = item['what']
+        #   last_one = "<li class=\"lightlink\"><a href=\"#\" class=\"result_item result_item_more\">全部搜索结果: #{item['what']}</a></li>"
+        #   new_one = "<li class=\"addquestionitem\" style=\"padding-top:10px\"><strong class=\"inline_label col\">#{item['what']}</strong><span class=\"lil_action_button submit_button col\" style=\"font-weight:normal\">开设新领域</span></li>"
+        # else
+        #   failed = true
+        #   keyword = item['what']
+        #   last_one = "<li class=\"lightlink\">未找到与“#{item['what']}”相关的内容，请尝试其他关键词</li>"
+      )
+    $('#core_search_ul').append(last_one)
+    $('#results_tray').height("#{$('#core_search_ul').height()+28}px")
+    $('.results_frame li').removeClass('selected')
+    KTV.search_li_hover()
+  KTV.login = ->
+    im.zm.login();
+    $("#loginLayout").definedDialog("open");
+    return false
+  KTV.addCW = ->
+    # todo
+    return true
+    im.zm.newcw()
+    $("#loginLayout").definedDialog("open")
+    return false
+  KTV.topic_remove = ->
+    $.post("/topics/#{KTV.data.topic_id}/update_fathers",{add:-1,name:$(this).attr('id').split('_')[0]},(data)->
+      $("##{data.id}_already_father").remove()
+    )
+  KTV.preload([
+    KTV.logo_css_src1,
+    KTV.browsetext_css_src1,
+    KTV.browsetext_css_src1,
+    '<%= Ktv.config.asset_host %>/edit_hover.png'
+  ])
+
+
+  jQuery ->
+    if window.psvr_is_ie
+    else
+      $('#q').autocomplete({
+        minLength: 1,
+        source: ( request, response ) ->
+          term = request.term
+          if false and KTV.search_cache[term]
+            console.log 'cache hit'
+            KTV.search_cater( KTV.search_cache[ term ], term )
+          else
+            $('#search_form').addClass("searching")
+            request.q = request.term
+            request.term = null
+            $.get("/search/all", request, ( data, status, xhr ) ->
+              $('#search_form').removeClass("searching")
+              KTV.search_cater( data, term )
+            , 'html')
+      })
+      $('#q').bind( "input.autocomplete", ->
+        $(this).trigger('keydown.autocomplete')
+      )
+      $('#q').focus(->
+        $('div.navigation').fadeOut('fast')
+        $('#search_form').animate({
+          width: $('#search_form').data('width-tobe')
+        }, 200, ->
+          $('#search_form input').addClass('focused')
+          $('#results_tray_content').fadeIn('fast')
+          $('#results_tray_div').css('padding-bottom','2px')
+          $('#results_tray').animate({height: $('#core_search_ul').height()+28}, {duration: 200, easing: 'swing', complete: -> 
+            KTV.search_li_hover()
+          })
+        )
+      ).blur(->
+        $('#search_form input').removeClass('focused')
+        $('#results_tray_div').css('padding-bottom','0')
+        $('#results_tray_content').fadeOut('fast')  
+        $('#results_tray').animate({height:0}, {duration: 200, easing: 'swing', complete: ->
+          $('#search_form').animate({
+            width: jQuery('#search_form').data('width-orig')
+          }, 200)
+          $('div.navigation').fadeIn('fast')
+        })
+      )
+      $('#search_form').submit(->
+        $('#q').blur()
+        false
+      )
+    $("#core_logotext_wrap").hover(->
+      $("#core_logotext").attr "src", KTV.logo_css_src1
+    , ->
+      $("#core_logotext").attr "src", KTV.logo_css_src0
+    )
+    $("#core_browsetext_wrap").hover(->
+      $("#core_browsetext").attr "src", KTV.browsetext_css_src1
+    , ->
+      $("#core_browsetext").attr "src", KTV.browsetext_css_src0
+    )
+    $("#core_addtext_wrap").hover(->
+      $("#core_addtext").attr "src", KTV.addtext_css_src1
+    , ->
+      $("#core_addtext").attr "src", KTV.addtext_css_src0
+    )
+    $('.question-summary').hover(->
+      $('.vspiic',this).show()
+    ,->
+      $('.vspiic',this).hide()
+    )
+    $('.vspiic').click(->
+      $('#cw_previwer').show()
+    )
+    $('#cw_newhuge,#core_addcw_wrap').click(->
+      hideWindow('nav')
+      url = '/simple/forum.php?mod=misc&action=nav'
+      if document.URL.match(/\/departments\/(\d+)$/)
+        url += '&psvr_g='+RegExp.$1
+      showWindow('nav', url, 'get', 0)
+      false
+    )
+    $('#presentation_teacher_hv').off().on('click',(e)->
+      e.stopPropagation()
+      $('#presentation_teacher_hv').toggleClass('right_on')
+      $('#presentation_teacher_select').toggle()
+    )
+    $('#presentation_sort1_hv').off().on('click',(e)->
+      e.stopPropagation()
+      $('#presentation_sort1_hv').toggleClass('right_on')
+      $('#presentation_sort1_select').toggle()
+    )
+    KTV.new_cw_trigger_teachers()
+    $('#presentation_sort1_select li').off().on('click',(e)->
+      e.stopPropagation()
+      $('#presentation_sort1_select li').removeClass('current')
+      $(this).addClass('current')
+      $('#presentation_sort1').val($(this).text())
+      $('#presentation_sort1_select').hide()
+      $('#presentation_sort1_hv').removeClass('right_on')
+      if($(this).hasClass('opt_psvr_add_more'))
+        $('#presentation_other_sort1').show()
+      else
+        $('#presentation_other_sort1').hide()
+    )
+    core_people_cf_timer = null
+    $('#core_people_cf li').click(->
+      $('#core_people_cf li').removeClass('on')
+      $(this).addClass('on')
+      $('#core_people_cf_quotes li').removeClass('on')
+      $($('#core_people_cf_quotes li')[$(this).data('no')]).addClass('on')
+      next_who = ($(this).data('no') + 1) % 4
+      clearTimeout(core_people_cf_timer) if core_people_cf_timer
+      core_people_cf_timer = setTimeout(->
+        $($('#core_people_cf li')[next_who]).trigger('click')
+      , 2000);
+    )
+    KTV.weizuozhefasongganxie_click = ->
+      num = parseInt($('#weizuozhefasongganxie2').html())
+      if $('#weizuozhefasongganxie').is('.like')
+        $.get('/coursewares/'+KTV.data.courseware_id+'/thank')
+        $('#weizuozhefasongganxie').removeClass('grey')
+        $('#weizuozhefasongganxie').addClass('purple')
+        $('#weizuozhefasongganxie').removeClass('like')
+        $('#weizuozhefasongganxie').addClass('unlike')
+        $('#weizuozhefasongganxie').html('已喜欢')
+        $('#weizuozhefasongganxie2').html(num+1)
+        $('#weizuozhefasongganxie5').prepend('<div><a class="" href="/users/'+loginUser.slug+'"><img src="'+loginUser.avatarSmall47+'" alt="'+loginUser.nickname+'"></a></div>');
+        $('#weizuozhefasongganxie6').html(num+1)
+      
+    $('#weizuozhefasongganxie').click( ->
+      KTV.weizuozhefasongganxie_click();
+    )
+    $('#weizuozhefasongganxie3').click( ->
+      KTV.weizuozhefasongganxie_click();
+      $('#weizuozhefasongganxie3').hide();
+      $('#weizuozhefasongganxie4').show();
+    )
+)(jQuery)

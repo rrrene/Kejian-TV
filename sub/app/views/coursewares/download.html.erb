@@ -1,0 +1,18 @@
+<% content_for :title do %>下载课件<% end %>
+<%= image_tag 'ie/ktv_xiazaikejian.png',:class => 'ktvregh2', :alt => '下载课件' %>
+<%= form_tag request.path, :class => 'normal',:id=>'submit_btn_form' do %>
+<div class="field">
+  <label for="pw">下载密码</label><div id="regerror_name" class="field_error"><%= @pw_error %></div><br class="clear">
+  <input type="password" value="" tabindex="1" size="30" placeholder="" name="pw" id="pw" class="s462" autocomplete="off"><br>
+    课件作者设置了必须输入密码才能下载本课件。
+</div>
+
+<div class="clearfix" style="margin-top:20px;padding-bottom:8px">
+  <div class="field fl">
+    <a href="javascript:void(0)" class="btn btn210 submit_btns" id="submit_btn">下载课件</a>
+  </div>
+  <div class="field fr">
+    <a href="<%= cancel_href %>" class="btn btn210_grey">取消</a>
+  </div>
+</div>
+<% end %>

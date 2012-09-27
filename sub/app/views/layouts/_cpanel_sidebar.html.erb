@@ -1,0 +1,117 @@
+<div id="cpanel_sidebar">
+  <%if current_user.admin_type==2 or (current_user.admin_type=3 and (current_user.admin_area&["user_xml","user_normal","user_avatar"]).count>0)%>
+    <div class="side_table">
+      <div class="side_th">用户管理</div>
+      <%if current_user.admin_type==2 or (current_user.admin_type=3 and (current_user.admin_area.include?("user_xml") or current_user.admin_area.include?("user_normal")))%>
+        <div class="side_td">
+          <a href="<%= cpanel_users_path %>">用户管理</a>
+        </div>
+      <%end%>
+      <%if current_user.admin_type==2 or (current_user.admin_type=3 and current_user.admin_area.include?("user_avatar"))%>
+        <div class="side_td">
+          <a href="/cpanel/user/avatar_admin">用户头像管理</a>
+        </div>
+      <%end%>
+    </div>
+  <%end%>
+  <%if current_user.admin_type==2 or (current_user.admin_type=3 and (current_user.admin_area&["normal_ask","spam_ask","answer","comment","topic"]).count>0)%>
+    <div class="side_table">
+      <div class="side_th">内容管理</div>
+      
+      <%if current_user.admin_type==2 or (current_user.admin_type=3 and current_user.admin_area.include?("topic"))%>
+        <div class="side_td">
+          <a href="<%= cpanel_topics_path %>">领域管理</a>
+        </div>
+      <%end%>
+      <%if current_user.admin_type==2 or (current_user.admin_type=3 and current_user.admin_area.include?("comment"))%>
+        <div class="side_td">
+          <a href="<%= cpanel_comments_path %>">评论管理</a>
+        </div>
+      <%end%>
+      <%if current_user.admin_type==2 or (current_user.admin_type=3 and (current_user.admin_area.include?("normal_ask") or current_user.admin_area.include?("spam_ask")))%>
+        <div class="side_td">
+          <a href="<%= cpanel_asks_path %>">题管理</a>
+        </div>
+      <%end%>
+      <%if current_user.admin_type==2 or (current_user.admin_type=3 and current_user.admin_area.include?("answer"))%>
+        <div class="side_td">
+          <a href="<%= cpanel_answers_path %>">解答管理</a>
+        </div>
+      <%end%>
+    </div>
+  <%end%>
+  <%if current_user.admin_type==2 or (current_user.admin_type=3 and (current_user.admin_area&["advertise","verify","ban_word","deleted","clear"]).count>0)%>
+    <div class="side_table">
+      <div class="side_th">安全审核</div>
+      <%if current_user.admin_type==2 or (current_user.admin_type=3 and current_user.admin_area.include?("advertise"))%>
+        <div class="side_td">
+          <a href="/cpanel/autofollow/advertise">广告过滤及规则</a>
+          <%if Comment.where(:deleted=>3).count>0 or Ask.where(:deleted=>3).count>0 or Answer.where(:deleted=>3).count>0 %>
+            <span style="color:red;font-size:13px;">New!</span>
+          <%end%>
+        </div>
+      <%end%>
+      <%if current_user.admin_type==2 or (current_user.admin_type=3 and current_user.admin_area.include?("verify"))%>
+        <div class="side_td">
+          <a href="/cpanel/autofollow/verify">先审后发及规则</a>
+          <%if Deferred.count>0 %>
+            <span style="color:red;font-size:13px;">New!</span>
+          <%end%>
+        </div>
+      <%end%>
+      <%if current_user.admin_type==2 or (current_user.admin_type=3 and current_user.admin_area.include?("ban_word"))%>
+        <div class="side_td">
+          <a href="/cpanel/autofollow/ban_word">禁止关键词</a>
+        </div>
+      <%end%>
+      <%if current_user.admin_type==2 or (current_user.admin_type=3 and current_user.admin_area.include?("deleted"))%>
+        <div class="side_td">
+          <a href="/cpanel/autofollow/deleted">已删除内容</a>
+        </div>
+      <%end%>
+    </div>
+  <%end%>
+  <%if current_user.admin_type==2 or (current_user.admin_type=3 and (current_user.admin_area&["notice","report","stat","hot_topic","hot_ask","api"]).count>0)%>
+    <div class="side_table">
+      <div class="side_th">其他管理</div>
+      <%if current_user.admin_type==2 or (current_user.admin_type=3 and current_user.admin_area.include?("notice"))%>
+        <div class="side_td">
+          <a href="<%= cpanel_notices_path %>">公告管理</a>
+        </div>
+      <%end%>
+      <%if current_user.admin_type==2 or (current_user.admin_type=3 and current_user.admin_area.include?("report"))%>
+        <div class="side_td">
+          <a href="<%= cpanel_report_spams_path %>">举报管理</a>
+          <%if ReportSpam.where(:handled_text=>nil).count>0 %>
+            <span style="color:red;font-size:13px;">New!</span>
+          <%end%>
+        </div>
+      <%end%>
+      <%if current_user.admin_type==2 or (current_user.admin_type=3 and current_user.admin_area.include?("stat"))%>
+        <div class="side_td">
+          <a href="<%= cpanel_stats_path %>">数据统计概况</a>
+        </div>
+      <%end%>
+      <%if current_user.admin_type==2 or (current_user.admin_type=3 and current_user.admin_area.include?("kpi"))%>
+        <div class="side_td">
+          <a href="<%= "/cpanel/kpi" %>">KPI统计</a>
+        </div>
+      <%end%>
+      <%if current_user.admin_type==2 or (current_user.admin_type=3 and current_user.admin_area.include?("hot_ask"))%>
+        <div class="side_td">
+          <a href="/cpanel/stats/hot_asks">风云榜热门题</a>
+        </div>
+      <%end%>
+      <%if current_user.admin_type==2 or (current_user.admin_type=3 and current_user.admin_area.include?("hot_topic"))%>
+        <div class="side_td">
+          <a href="/cpanel/stats/hot_topics">风云榜热门领域</a>
+        </div>
+      <%end%>
+      <%if current_user.admin_type==2 or (current_user.admin_type=3 and current_user.admin_area.include?("api"))%>
+        <div class="side_td">
+          <a href="<%= cpanel_oauth_path %>">Kejian.TV开放API</a>
+        </div>
+      <%end%>
+    </div>
+  <%end%>
+</div>

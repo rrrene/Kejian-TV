@@ -1,0 +1,51 @@
+
+<h1 id="section">课件交流系统: Kejian.TV开放应用程序接口 - 访问无需认证的资源</h1>
+
+<h2>什么是无需认证的资源</h2>
+<p>Kejian.TVAPI提供给客户端的资源有两种，一种是需要进行用户认证的，例如以某用户的身份出题等；另一种是不需要认证的，即当我们在未登录状态下访问Kejian.TV，仍可以访问的那些资源，例如查看近期提出的所有题等。</p>
+
+<h2>如何访问无需认证的资源</h2>
+
+<p>只您只需提供您的客户端ID。这个信息可以通过在URI的最后添加“?client_id=your_id”来实现，也可以添加到HTTP请求体中传送来的查询JSON中，作为`client_id`的键值。例如：</p>
+
+<pre class="terminal">
+$ curl -i http://api.kejian.tv/asks\?client_id\=4f853634c3666e05e1000002\&per_page\=1
+
+HTTP/1.1 200 OK 
+Link: <https://api.kejian.tv/asks?page=2&per_page=1>; rel="next",<https://api.kejian.tv/asks?page=1016&per_page=1>; rel="last",<https://api.kejian.tv/asks?page=1&per_page=1>; rel="first"
+Content-Type: application/json; charset=utf-8
+X-Ua-Compatible: IE=Edge
+Etag: "217090261e7c7e0c3f7eea834178de74"
+Cache-Control: max-age=0, private, must-revalidate
+X-Request-Id: 89c75c88a38ae331dac2167121437173
+X-Runtime: 0.031150
+Date: Wed, 18 Apr 2012 08:35:51 GMT
+X-Rack-Cache: miss
+Content-Length: 741
+Server: WEBrick/1.3.1 (Ruby/1.9.3/2012-02-16)
+Connection: Keep-Alive
+Set-Cookie: _quora_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRkkiJTQxYjM5MTdmODk2OTVjNmIxYjUzM2NhZTg1YWVmMjE5BjsAVA%3D%3D--083e2f3b66cf165c72e427922ab17a6190ae20eb; path=/; expires=Tue, 17-Jul-2012 08:35:51 GMT; HttpOnly
+
+{"size":1,"asks":"[{\"_id\":\"4f87b451c3666e0b67000008\",\"answered_at\":\"2012-04-13T13:06:25+08:00\",\"answers_count\":0,\"body\":\"\",\"body2\":null,\"comments_count\":0,\"created_at\":\"2012-04-13T13:06:25+08:00\",\"deleted\":null,\"followed_count\":0,\"follower_ids\":[\"4f87b44bc3666e0b67000007\"],\"hot_rank\":0,\"last_answer_id\":null,\"last_answer_user_id\":null,\"last_updated_at\":null,\"no_display_at_index\":false,\"redirect_ask_id\":null,\"shared_count\":0,\"spam_voter_ids\":[],\"spams_count\":0,\"title\":\"111111111\",\"to_user_id\":null,\"to_user_ids\":null,\"topic_count\":0,\"topics\":[],\"updated_at\":\"2012-04-13T13:06:25+08:00\",\"user_id\":\"4f87b44bc3666e0b67000007\",\"views_count\":1,\"will_autofollow\":false}]"}</pre>
+
+
+<p>client_id是必需提供的，同样的例子若无此值，则会：</p>
+
+<pre class="terminal">
+$ curl -i http://api.kejian.tv/asks\?per_page\=1
+
+HTTP/1.1 401 Unauthorized 
+Content-Type: text/html; charset=utf-8
+X-Ua-Compatible: IE=Edge
+Cache-Control: no-cache
+X-Request-Id: fbb7edf72ce864ac2349cc0174082ccb
+X-Runtime: 0.024959
+Date: Wed, 18 Apr 2012 08:37:08 GMT
+X-Rack-Cache: miss
+Content-Length: 20
+Server: WEBrick/1.3.1 (Ruby/1.9.3/2012-02-16)
+Connection: Keep-Alive
+Set-Cookie: _quora_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRkkiJTZmMjY5YzAzODA4NmQ3YjM5ODJiZmUxYjY5YTZjMzg0BjsAVA%3D%3D--c03314ab7cb205f81d8c0596ce4359691e5cf02f; path=/; expires=Tue, 17-Jul-2012 08:37:08 GMT; HttpOnly
+
+Unauthorized access
+</pre>

@@ -2,8 +2,13 @@
 class HomeController < ApplicationController
   before_filter :require_user_text, :only => [:update_in_place,:mute_suggest_item]
   before_filter :authenticate_user!, :except => [:newbie,:about,:index,:general_show,:agreement,:mobile]
-  layout 'for_help'
-
+  before_filter :we_are_inside_qa
+  def we_are_inside_qa
+    @dz_navi_extras = [
+      ['求助区','/home/index']
+    ]
+    @we_are_inside_qa = true
+  end
   def mobile
     render :layout=>false
   end
@@ -36,6 +41,7 @@ class HomeController < ApplicationController
   
   def index
     suggest
+    set_seo_meta('求助区首页')
     @log_no_gedaan=true
     @per_page = 20
     if '1'==params[:force_mobile]
@@ -45,13 +51,15 @@ class HomeController < ApplicationController
         redirect_to '/mobile/login' and return
       end
     else
-      redirect_to '/newbie' and return if !user_signed_in?
+      # redirect_to '/newbie' and return if !user_signed_in?
+      redirect_to '/asks' and return if !user_signed_in?
     end
     no_redirect = (request.path=='/root' or !params[:page].blank?)
     if current_user
       @notifies, @notifications = current_user.unread_notifies
       if !no_redirect and current_user.following_ids.size + current_user.followed_ask_ids.size + current_user.followed_topic_ids.size < 10
-        redirect_to newbie_path and return
+        # redirect_to newbie_path and return
+        redirect_to asks_path and return
       else
         # TODO: 这里需要过滤掉烂题
         @logs = []
@@ -177,6 +185,7 @@ class HomeController < ApplicationController
   
   def followed
     suggest
+    set_seo_meta('我关注的问题')
     @per_page = 20
     @asks = current_user ? current_user.followed_asks.normal : Ask.normal
     # @asks = @asks.includes(:user)#,:last_answer,:last_answer_user,:topics

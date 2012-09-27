@@ -1,0 +1,61 @@
+<% content_for :title do %>注册新用户<% end %>
+<%= image_tag 'ie/ktv_reg.png',:class => 'ktvregh2', :alt => '注册新用户' %>
+<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html=>{:class => 'normal',:id=>'submit_btn_form',:autocomplete=>"off"}) do |f| %>
+  <%# devise_error_messages! %>
+  <div class="field">
+    <%= f.label :name,'真实姓名' %><div class="field_error" id="regerror_name"><%= resource.errors_for_field(:name) %></div><br class="clear">
+    <%= f.text_field :name,:class => 's462',:tabindex => 1,:autocomplete=>"off" %>
+  </div>
+  <div class="field">
+    <%= f.label :email,'E-mail' %>(<%= link_to "重发激活邮件", new_user_confirmation_path %>)(<%= link_to "忘记密码", new_password_path(resource_name) %>)<div class="field_error" id="regerror_email"><%= resource.errors_for_field(:email) %></div><br class="clear">
+    <%= f.email_field :email,:class => 's462',:tabindex => 2,:autocomplete=>"off" %>
+  </div>
+  <% if @is_ie6 %>
+        <div class="field"><%= f.label :password,'密码' %><div class="field_error" id="regerror_password"><%=       resource.errors_for_field(:password) %></div><br class="clear">
+              <%= f.password_field :password,:class => 's462',:tabindex => 3,:autocomplete=>"off" %></div>
+
+                <div class="field"><%= f.label :password_confirmation,'确认密码' %><div class="field_error"                 id="regerror_password_confirmation"><%= resource.errors_for_field(:password_confirmation) %></div><br              class="clear">
+                      <%= f.password_field :password_confirmation,:class => 's462',:tabindex => 4,:autocomplete=>"off",:onkeypress=>"if(event.keyCode==13){$(this).parents('form')[0].submit();}" %></div>
+
+  <% else %>
+
+  <div class="clearfix">
+    <div class="field fl"><%= f.label :password,'密码' %><div class="field_error" id="regerror_password"><%= resource.errors_for_field(:password) %></div><br class="clear">
+    <%= f.password_field :password,:class => 's212',:tabindex => 3,:autocomplete=>"off" %></div>
+
+    <div class="field fr"><%= f.label :password_confirmation,'确认密码' %><div class="field_error" id="regerror_password_confirmation"><%= resource.errors_for_field(:password_confirmation) %></div><br class="clear">
+    <%= f.password_field :password_confirmation,:class => 's212',:tabindex => 4,:autocomplete=>"off",:onkeypress=>"if(event.keyCode==13){$(this).parents('form')[0].submit();}" %></div>
+  </div>
+  <% end %>
+  <div class="clearfix" style="margin-top:20px;padding-bottom:8px">
+    <div class="field fl">
+      <a href="javascript:void(0)" class="btn btn210 submit_btns" id="submit_btn">提交注册</a>
+    </div>
+    <div class="field fr">
+      <a href="<%= cancel_href %>" class="btn btn210_grey">取消</a>
+    </div>
+  </div>
+<% end %>
+<% content_for :butt2 do %>
+$('#user_name').blur(function(){
+  App.checkUsername(this);
+  return true;
+});
+$('#user_email').blur(function(){
+  App.checkEmail(this);
+  return true;
+});
+$('#user_password').blur(function(){
+  App.checkPassword(this);
+  return true;
+});
+$('#user_password_confirmation').blur(function(){
+  App.checkPasswordConfirmation();
+  return true;
+});
+$('#user_password_confirmation').keydown(function( e ) {
+  if ( e.keyCode == 13 ) {
+    $('#new_user').submit();
+  }
+});
+<% end %>

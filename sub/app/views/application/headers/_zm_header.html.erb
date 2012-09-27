@@ -1,0 +1,63 @@
+<div class="__zm" style="">
+<div id="header" style="position:static;<%= yield :zm_header_style %>">
+
+    <div class="headerContainer cf" id="zm_header">
+
+
+    <div class="navigator yahe cf">
+
+      <ul>
+
+<!--
+<span class="iconbg arrow"></span>
+      <div class="dropdown w200" style="display: none;">
+      <span class="iconbg uparrow"></span>
+        <a href="<%= hot_users_path %>">达人</a>
+      <a href="<%= hot_coursewares_path %>">热门</a>
+        <a href="<%= hot_topics_path %>">领域</a>
+      <a href="<%= latest_coursewares_path %>">最新</a>
+      <a href="<%= all_logs_path %>">动态</a>
+      </div>
+-->
+
+      <% if current_user %>
+        <li class="<%= 'current' if mine_coursewares_path==request.path %>"><a href="<%= mine_coursewares_path %>">我关注的</a></li>
+        <li class="dot"></li>
+      <% end %>
+      <li class="<%= 'current' if '/coursewares_by_departments'==request.path %>"><a href="/coursewares_by_departments">按学院分类</a></li>
+      <li class="dot"></li>
+      <li class="<%= 'current' if '/coursewares_by_teachers'==request.path %>"><a href="/coursewares_by_teachers">按老师分类</a></li>
+      <li class="dot"></li>
+      <li class="<%= 'current' if '/coursewares_by_courses'==request.path %>"><a href="/coursewares_by_courses">按课程分类</a></li>
+
+      <!--
+      <li class="dot"></li>
+      <li class="<%= 'current' if schools_path==request.path %>"><a href="<%= schools_path %>">全部学校/老师</a></li>
+      <li class="dot"></li>
+      <li class="<%= 'current' if maps_path==request.path %>"><a href="<%= maps_path %>">学习路线图</a></li>
+      <li class="dot"></li>
+      <li class="<%= 'current' if [surprise_path,
+      videos_coursewares_path,
+      books_coursewares_path,
+      ].include? request.path %>"><a class="navmark" href="<%= surprise_path %>">专题<span class="iconbg arrow"></span></a>
+      <div class="dropdown w100" style="display: none;">
+      <span class="iconbg uparrow"></span>
+      <a href="<%= videos_coursewares_path %>">课堂录像</a>
+      <a href="<%= books_coursewares_path %>">电子书</a>
+      </div>
+      </li>
+      <li class="dot"></li>
+      <li class="new<%= ' current ' if @we_are_inside_qa %>"><a href="/home/index">解题风云榜</a><b></b></li>
+      -->
+      </ul>
+    </div>
+    </div>
+    <% content_for :butt2 do %>
+    // 用于添加新资源
+    im("#addBs").die().live("click", function () {
+        openAddDialog(this);
+    });
+    im.zm.fnDropmenu($('#header li'), 'navhover'); //导航菜单实现
+    <% end %>
+</div>
+</div>

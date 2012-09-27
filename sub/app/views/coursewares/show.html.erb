@@ -1,0 +1,377 @@
+<% content_for :armpit do %>
+<%= stylesheet_link_tag 'ktv/__ytb' %>
+<link href="/dhtmlxtree.css" media="screen" rel="stylesheet" type="text/css" />
+<script src="/dhtmlxtree/dhtmlxcommon.js" type="text/javascript"></script>
+<script src="/dhtmlxtree/dhtmlxtree.js" type="text/javascript"></script>
+<script src="/dhtmlxtree/ext/dhtmlxtree_start.js" type="text/javascript"></script>
+<script src="/dhtmlxtree/ext/dhtmlxtree_lf.js" type="text/javascript"></script>
+<script src="/dhtmlxtree/ext/dhtmlxtree_json.js" type="text/javascript"></script>
+<% end %>
+
+
+<% content_for :butt2 do %>
+KTV.data = {
+courseware_id: '<%=@courseware.id%>'
+}
+<% end %>
+<style type="text/css" media="screen">
+   #stickies{
+   position:absolute;
+   width:228px;
+   top:0;
+   margin-left:957px;
+   }
+   .sticky{
+   padding:18px 8px;
+   border-left: 1px solid #BCA902;
+   border-right: 1px solid #BCA902;
+   border-bottom: 1px solid #BCA902;
+   background: #FEF49C url(<%= asset_path 'stickies_top.png' %>) repeat-x;
+   width:226px;
+   max-height:1000px;
+   line-height:20px;
+   -webkit-box-shadow: 0 1px 0px rgba(0, 0, 0, 0), inset 0 0 0 rgba(0, 0, 0, 0.9);
+   -moz-box-shadow: 0 1px 0px rgba(0, 0, 0, 0), inset 0 0 0 rgba(0, 0, 0, 0.9);
+   box-shadow: 0 1px 0px rgba(0, 0, 0, 0), inset 0 0 0 rgba(0, 0, 0, 0.9);
+   border-top:none;
+   }
+   .new_sticky{
+   height:208px;
+   padding-bottom:37px;
+   }
+   .new_sticky_btn{
+   }
+   .n_share {
+   }       
+   #shared_lb {
+   declaration:none;
+   display: block;
+   float: left;
+   margin-left: 5px;
+   margin-right:10px;
+   margin-top:4px;
+   /*      background-image: url(<%= asset_path 'task-x.png' %>); */
+   }
+   #shared_lb.share-private {
+   /*        background-image: url(<%= asset_path 'task-x.png' %>);*/
+   }
+   #shared_lb.share-public{
+   /*        background-image: url(<%= asset_path 'task-apostrophe.png' %>); */
+   }
+   #shared_lb.share-followers {
+   /*        background-image: url(<%= asset_path 'task-dash.png' %>); */
+   }
+</style>
+
+<script type="text/javascript" charset="utf-8">
+   <% content_for :butt2 do %>
+   $("textarea.sticky").autosize('autosizejs',10);
+   $('#new_sticky_cancel').off().on('click',function(){
+     $('#new_note').hide();
+     window.frames[0].eval("window.biji_group.setOpacity(0);");
+     window.frames[0].eval("$(window.biji_canvas).css('background','rgba(0,0,0,0)')");
+     window.frames[0].eval("$('.overnav').show()");
+     window.frames[0].eval("for(i=0;i<biji_already.length;++i){window.biji_layer.add(biji_already[i]);}");
+     window.frames[0].eval("window.biji_stage.draw();");
+     return false;
+   });
+   $('#new_note').bind('ajax:complete',function(jqXHR, textStatus){
+     if(200==textStatus.status){
+       if ('Succeed'==textStatus.responseText) {
+         time_now = (new Date).getTime();
+         KTV.sdk_flashes_clear();
+         $('#new_note').after(
+           $('<textarea></textarea>').
+             attr('readonly','readonly').
+             addClass('sticky').
+             attr('id','note_'+time_now.toString()).
+             val($('#note_body').val())
+         );
+         $('#new_sticky_cancel').trigger('click');
+         real_val = $('#note_'+time_now.toString()).position().top + $('#note_'+time_now.toString()).height() / 2;
+         real_x = $('#note_x').val();
+         real_y = $('#note_y').val();
+         real_width = $('#note_width').val();
+         real_height = $('#note_height').val();
+         window.frames[0].eval("biji_addrectangle("+real_x+","+real_y+","+real_width+","+real_height+","+real_val+",-1);");
+         $('#note_body').val('');
+       }else{
+         KTV.sdk_flashes_set('error',textStatus.responseText);
+       }
+     }else{
+       KTV.sdk_flashes_set('error','网络通信失败');
+     }
+   });
+   $('#shared_lb').live("click", function(e) {
+       $(this).toggleShareMode();
+       return false;
+   }); 
+   
+   <% end %>
+</script>
+<div class="__own">
+   <div class="wrapper">
+      <div id="stickies" style="display:none">
+         <%= form_for [@courseware,@note],:remote => true,:html=>{style:'display:none;width:225px'} do |f| %>
+         <%= f.hidden_field :page %>
+         <%= f.hidden_field :x %>
+         <%= f.hidden_field :y %>
+         <%= f.hidden_field :width %>
+         <%= f.hidden_field :height %>
+         <%= f.hidden_field :courseware_id %>
+         <textarea class="sticky new_sticky" name="note[body]" id="note_body" onkeydown=""></textarea>
+         <div class="wrapper222" style="position:relative;top:-38px">
+            <div class="n_share">
+               <%= f.hidden_field :shared %>
+               <%= f.label :shared,'仅自己可见',:id => 'shared_lb'%>
+            </div>
+            <button id="new_sticky_cancel" class="new_sticky_btn" style="float:right;margin-right:2px"><span class="button primary cancel">取消</span></button>
+            <button id="new_sticky_submit" class="new_sticky_btn" style="float:right;margin-right:5px"><span class="primary">保存笔记</span></button>
+         </div>
+         f
+         <% end %>
+         <% if '1'==params[:force_biji] %>
+         <% @courseware.notes.where(:page => 0).each_with_index do |note,index| %>
+         <!-- 这个查询怎么写？:user_id=>BSON::ObjectId(\"#{current_user.id}\")
+            "page = #{0}AND ((shared = 1) OR (shared = 0 AND user_id = #{current_user.id}) OR (shared = 2 AND (user_id in #{current_user.followers})))" -->
+         <textarea class="sticky" readonly="readonly" id="note_<%= note.id %>"><%= note.body %></textarea>
+         <% content_for :butt3 do %>
+         real_val = $('#note_<%= note.id %>').position().top + $('#note_<%= note.id %>').height() / 2;
+         window.frames[0].eval("biji_addrectangle(<%= note.x %>,<%= note.y %>,<%= note.width %>,<%= note.height %>,"+real_val+",<%=index%>);");
+         <% end %>
+         <% end %>
+         <% end %>
+      </div>
+   </div>
+</div>
+
+
+<% if !@courseware.tree.blank?%>
+
+ <div id="treeboxbox_tree" class="dhxtree_dhx_skyblue" style="width:600px; height:240px;margin-right:auto;margin-left:auto;background-color:#f5f5f5;border :1px solid Silver;font-size:30px;overflow: scroll;line-height: normal;" setImagePath="<%= asset_path('dhtmlxtree-imgs/csh_dhx_skyblue') %>/">
+<div class="tip" style="font-size:12px;color:#000;">双击打开课件</div>  
+ </div>
+    <script>
+    function jr() {
+        var json_obj =<%= raw(@courseware.tree.to_json) %>;
+        tree = new dhtmlXTreeObject("treeboxbox_tree","100%","100%",0);
+        tree.setImagePath("<%=asset_path('dhtmlxtree-imgs/csh_dhx_skyblue')%>/");
+        tree.setIconsPath("<%=asset_path('dhtmlxtree-imgs/csh_dhx_skyblue')%>/");
+        tree.setSkin('dhx_skyblue');
+        tree.enableIEImageFix(true);
+        tree.enableDragAndDrop(false);
+        tree.enableLoadingItem();
+        tree.enableTreeLines(true);
+        <% if false and (@courseware.user_id == current_user.id or current_user.admin_type == 2)  %>
+            var recyc = {"id":"Recycle","text":"回收站","child":"0","im0":"recyc.gif","im1":"recyc.gif","im2":"recyc.gif","dragndrop":"false"};
+            json_obj.item.push(recyc);
+            tree.enableDragAndDrop(true);
+        <% end %>
+
+        tree.loadJSONObject(json_obj);
+
+        tree.attachEvent("onDblClick", function(id){
+            if(tree.hasChildren(id) == 0){
+                alert("hello" + tree.hasChildren(id) +id);           
+            }
+        });
+    };
+    dhtmlxEvent(window, "load", jr);
+    </script>
+<% end %>
+
+
+<div class="__sdk">
+   <%# todo: 710px ..ratio %>
+   <section id="presentation" class="feature">
+      <div class="wrapper">
+         <% if @courseware.thin? %>
+         <div class="extras" style="float:right;margin-left:12px">
+            <%= render :partial => 'presenter', :locals => {user:@courseware.user} if @courseware.user %>
+         </div>
+         <% end %>
+         <h1>
+            <%if @cws%>第<%=@courseware.courseware_series_no%>集. <%end%>
+            <%= @courseware.title %>
+            <%if @cws%>
+            <span style="font-size:16px;text-align:center">
+            (
+            <%= link_to('上一集',@cws.coursewares.where('courseware_series_no = ?', @courseware.courseware_series_no - 1).first.path)+' |' if @courseware.courseware_series_no - 1 > 0 %>
+            <%= link_to('下一集',@cws.coursewares.where('courseware_series_no = ?', @courseware.courseware_series_no + 1).first.path)+' |' if @courseware.courseware_series_no + 1 <= @cws.coursewares_count %>
+            <%=link_to "共#{@cws.coursewares_count}集",'#cws_list'%>
+            )
+            </span>
+            <%end%>
+            <%unless 0==@courseware.status%>
+            <span style="font-size:16px;text-align:center;color:red">
+              (<%= Courseware::STATE_TEXT[Courseware::STATE_SYM[@courseware.status]] %>...)
+            </span>
+            <%end%>
+            <% if owner? @courseware %>
+            <a id="edit_presentation" class="grey" style="display:inline-block;" href="<%= edit_courseware_path(@courseware) %>">编辑课件</a>
+            <% end %>
+         </h1>
+         <% if @courseware.thin? %>
+         <div class="main" style="width:100%;margin-top:12px;">
+            <div class="slide_frame" id="slides_container">
+               <script async="async" class="speakerdeck-embed"<% if @courseware.version!=@courseware_real_version %> data-cw-revision="<%= @courseware.version %>"<% end %> data-course-slug="<%=@courseware.topic_id%>" data-courseware-slug="<%=@courseware.id%>" data-ratio="<%= @courseware.wh_ratio %>" data-force-biji="<%= params[:force_biji] %>" src="<%=asset_path 'ktv/embed.js'%>" type="text/javascript"></script>
+            </div>
+         </div>
+         <div class="extras" style="float:right;margin-right:0px">
+            <ul class="delimited share" style="margin-bottom:0;border-top:none">
+               <li class="download" style="border-top:none">下载<a target="_blank" href="<%= download_courseware_path(@courseware)%>"><%=Courseware::SORTSTR[@courseware.sort]%>(<%=!@courseware.have_pw ? number_to_human_size(@courseware.down_pdf_size*1000,:precision=>1) : '需要密码' %>)</a></li>
+            </ul>
+         </div>
+         <div class="extras" style="float:right;margin-right:40px">
+            <ul class="delimited share" style="margin-bottom:0;border-top:none">
+               <li class="dianjiliang" style="border-top:none">下载量 <a href="#watch-view-count"><%= number_with_delimiter @courseware.downloads_count %> 次</a></li>
+            </ul>
+         </div>
+         <div class="extras" style="float:right;margin-right:18px;margin-right:40px">
+            <ul class="delimited" style="margin-bottom:0;border-top:none">
+               <li class="like" style="border-top:none">
+                  <% unless current_user and @courseware.user_id==current_user.id%>
+                  <% if thank_courseware_ed?(@courseware) %>
+                  <a href="#fans" class="unlike purple" rel="nofollow">已喜欢</a>
+                  <% else %>
+                  <a href="javascript:void(0)" class="like grey psvr_login_required" rel="nofollow" id="weizuozhefasongganxie">我喜欢</a>
+                  <% end %>
+                  <% else %>
+                  <a href="#fans" class="like grey">收到的喜欢</a>
+                  <% end %>
+                  <a href="#fans" class="likes"><span id="weizuozhefasongganxie2"><%= @courseware.thanked_count %></span> 喜欢</a>
+               </li>
+            </ul>
+         </div>
+         <div class="extras" style="float:right;margin-right:18px;margin-right:40px">
+            <ul class="delimited" style="margin-bottom:0;border-top:none">
+               <li class="category" style="border-top:none">领域 <a href="/topics/<%= @courseware.topic_id %>"><%= @courseware.topic %></a></li>
+            </ul>
+         </div>
+         <% if @courseware.version_date[@courseware.version.to_s].present? %>
+           <div class="extras" style="float:right;margin-right:0px">
+              <ul class="delimited share" style="margin-bottom:0;border-top:none">
+                <li class="dianjiliang" style="border-top:none">版本 <a href="#revisions"><%= @courseware.version_date[@courseware.version.to_s] %>版</a></li>
+             </ul>
+          </div>
+         <% end %>
+         <% else %>
+         <div class="main">
+            <div class="slide_frame" id="slides_container">
+               <% case @courseware.sort.to_sym %>
+               <% when :ppt,:pptx,:doc,:docx,:pdf %>
+               <script async="async" class="speakerdeck-embed"<% if @courseware.version!=@courseware_real_version %> data-cw-revision="<%= @courseware.version %>"<% end %> data-course-slug="<%=@courseware.topic_id%>" data-courseware-slug="<%=@courseware.id%>" data-ratio="<%= @courseware.wh_ratio %>" data-force-biji="<%= params[:force_biji] %>" src="<%=asset_path 'ktv/embed.js'%>" type="text/javascript"></script>
+               <% when :webm %>
+               <img src="/tmp1.png" />
+               <img src="/tmp2.png" />
+               <% when :xunlei %>
+               <script type="text/javascript" charset="utf-8">
+                  window.curUzreInfo = <%=raw Ktv::Xunlei.give_me_a_user.to_json %>;
+               </script>
+               <div class="player">
+                  <div id="XL_CLOUD_VOD_PLAYER" from="xlpan_default" style="width:100%;background:#000;height:604px">
+                     <img width="100%" src="http://vod.lixian.xunlei.com/img/player_startup.jpg" />
+                     <a enable_openwindow="false" format="p" start="0" title="" filesize="" url="" cid="" enable_kkva="undefined" enable_setting="undefined" enable_filelist="undefined" enable_caption="undefined" enable_download="undefined" gcid="" share_url="<%= @courseware.path(:url => true) %>" autoplay="true" enable_panel="true" width="100%" href="<%= @courseware.xunlei_url %>">正在载入视频, 请稍等.</a>
+                  </div>
+                  <script type="text/javascript" charset="utf-8" src="<%= asset_path('s.player.js') %>"></script>
+               </div>
+               <% when :youku %>
+               <embed src="http://player.youku.com/player.php/sid/XMTczNDg4NzY0/v.swf" allowFullScreen="true" quality="high" width="480" height="400" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash"></embed>
+               <% end %>
+            </div>
+         </div>
+         <div class="extras">
+            <%= render :partial => 'presenter', :locals => {user:@courseware.user} if @courseware.user %>
+            <ul class="delimited">
+               <li class="like">
+                  <% unless current_user and @courseware.user_id==current_user.id%>
+                  <% if thank_courseware_ed?(@courseware) %>
+                  <a href="#fans" class="unlike purple" rel="nofollow">已喜欢</a>
+                  <% else %>
+                  <a href="javascript:void(0)" class="like grey psvr_login_required" rel="nofollow" id="weizuozhefasongganxie">我喜欢</a>
+                  <% end %>
+                  <% else %>
+                  <a href="#fans" class="like grey">收到的喜欢</a>
+                  <% end %>
+                  <a href="#fans" class="likes"><span id="weizuozhefasongganxie2"><%= @courseware.thanked_count %></span> 喜欢</a>
+               </li>
+               <li class="category">领域 <a href="/topics/<%= @courseware.topic_id %>"><%= @courseware.topic %></a></li>
+               <% if @courseware.version_date[@courseware.version.to_s].present? %>
+                <li class="dianjiliang">版本 <a href="#revisions"><%= @courseware.version_date[@courseware.version.to_s] %>版</a></li>
+               <% end %>
+               <li class="dianjiliang">下载量 <a href="#watch-view-count"><%= number_with_delimiter @courseware.downloads_count %> 次</a></li>
+            </ul>
+            <h1><%=image_tag('share.png',alt:'下载此课件')%></h1>
+            <ul class="delimited share">
+               <li class="download">下载<a target="_blank" href="<%= download_courseware_path(@courseware)%>"><%=Courseware::SORTSTR[@courseware.sort]%>(<%=!@courseware.have_pw ? number_to_human_size(@courseware.down_pdf_size*1000,:precision=>1) : '需要密码' %>)</a></li>
+            </ul>
+         </div>
+      </div>
+      <% end %>
+   </section>
+   <section id="tabs">
+     <div class="wrapper">
+       <div class="main">
+         <ul>
+           <li class="current"><a href="#fans">粉丝</a></li>
+           <li><a class="likes" href="#revisions">修订历史(<%= @courseware_real_version+1 %>)</a></li>
+         </ul>
+       </div>
+     </div>
+   </section>
+   <section class="supplimental">
+     <div class="wrapper">
+       <div class="main" style="">
+         <div class="tab-content" id="fans" style="">
+           <h1>喜欢这个课件的人 (<span id="weizuozhefasongganxie6"><%= @courseware.thanked_count %></span>)
+             <% unless current_user and @courseware.user_id==current_user.id%>
+             <% if thank_courseware_ed?(@courseware) %>
+               <span style="" class="unlike" id="weizuozhefasongganxie4">
+                 <a rel="nofollow" class="unlike button" href="#fans">✓ 我已表示喜欢!</a>
+               </span>
+             <% else %>
+               <span style="" class="like" id="weizuozhefasongganxie3">
+                 <a rel="nofollow" class="like button psvr_login_required" href="javascript:void(0)">喜欢这个课件?</a>
+               </span>
+             <% end %>
+             <% end %>
+           </h1>
+           <div id="weizuozhefasongganxie5">
+             <% @courseware.thanked_user_ids.reverse.each do |user_id| %>
+             <div><a class="" href="/users/<%= User.get_slug(user_id) %>"><img src="<%= avatar_url_quick(user_id,:small47) %>" alt="<%= User.get_name(user_id) %>"></a></div>
+             <% end %>
+           </div>
+         </div>
+         <div class="tab-content" id="revisions" style="">
+           <h1>课件修订历史</h1>
+           <div class="presentations">
+             <% @courseware_real_version.downto(0).each_with_index do |version,index| %>
+             <% slide_count = @courseware.slides_counts[version.to_s] || 1 %>
+             <% sz = [slide_count-1,50].min %>
+             <div data-slide-count="<%= sz %>" data-id="<%= @courseware.id %>" class="presentation" style="<%= 'margin-right:0px' if 2==index % 3 %>">
+                 <a href="<%= courseware_path @courseware %>/revisions/<%= version+1 %>" class="slide_preview scrub setup">
+                <% (sz).downto(1).each do |i| %>
+                <img style="display: none;" data-slide="<%= i %>" class="timeline" alt="第<%= i %>页" src="<%= asset_url("cw/#{@courseware.id}/#{@courseware.revision(version)}thumb_slide_#{i}.jpg") %>">
+                <% end %>
+                <img src="<%= asset_url("cw/#{@courseware.id}/#{@courseware.revision(version)}thumb_slide_0.jpg") %>" alt="Thumb_slide_0" width="210" height="158">
+                <div class="scrubber">
+                <div style="width: 100%;" class="scrubbed">
+                </div>
+                </div>
+                 </a>
+                 <div class="preview_info">
+                <h3><a href="<%= courseware_path @courseware %>/revisions/<%= version+1 %>">第<%= version+1 %>版<%= '(最新版)' if version==@courseware_real_version %> <%= ": #{@courseware.version_date[version.to_s]}" if @courseware.version_date[version.to_s] %></a></h3>
+                <p class="date">
+                  <%= l(@courseware.created_at, :format => :long) %>, <a href="/users/<%= User.get_slug @courseware.user_id %>"><%= User.get_name @courseware.user_id %></a>
+                </p>
+               </div>
+             </div>
+             <% end %>
+            </div>
+         </div>
+       </div>
+     </div>
+   </section>
+</div>
+
+<%= render file:'/application/footers/_sdk_footer' %>

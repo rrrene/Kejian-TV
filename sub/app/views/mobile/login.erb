@@ -1,0 +1,20 @@
+<div data-role="content">
+    <p>请登录</p>
+    <form name="loginform">
+    <input type="hidden" name="bkurl" />
+    <input type="hidden" name="errbkurl" />
+    <input type="hidden" name="validate" value="campusspecial2011unify" />
+    <div data-role="fieldcontain" class="ui-field-contain ui-body ui-br">
+        <label for="loginname" class="ui-input-text">账号</label>
+        <input type="email" name="loginname" id="loginname" placeholder="邮箱/用户名" class="ui-input-text ui-body-c ui-corner-all ui-shadow-inset">
+    </div>
+    <div data-role="fieldcontain" class="ui-field-contain ui-body ui-br">
+        <label for="password" class="ui-input-text">密码</label>
+        <input type="password" name="password" id="password" placeholder="" class="ui-input-text ui-body-c ui-corner-all ui-shadow-inset">
+    </div>
+    <button type="submit" data-theme="a" class="ui-btn-hidden" aria-disabled="false">登录</button><br/>
+    <div class="text-center">没有课件交流系统账号？<a href="javascript:void(0);" onclick="window.location.href='/mobile/register/'">立即注册</a></div>
+    </form>
+</div>
+
+<script type="text/javascript" src="/mobilepublic/js/login.js"></script>

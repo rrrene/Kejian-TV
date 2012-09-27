@@ -1,0 +1,18 @@
+<div class="__dz" id="dz_navi" style="<%= defined?(margintop) ? "margin-top:#{margintop}px;" : '' %><%= defined?(marginleft) ? "margin-left:#{marginleft}px;" : '' %>">
+    <div class="bm cl" id="pt">
+        <div class="z"> <a title="<%=Setting.ktv_subname%>课件交流系统" class="nvhm psvr" href="/"><%=Setting.ktv_subname%>课件交流系统</a>
+        <% @dz_navi_extras.each do |arr| %>
+          <% k=arr[0];v=arr[1] %>
+         <em>»</em>
+         <a href="<%=v%>" class="psvr">
+              <%= k %>
+         </a>
+        <% end if @dz_navi_extras %>
+        <em>»</em>
+        <a href="<%=request.fullpath%>" class="psvr">
+          <%=@seo[:title]%>
+        </a>
+        </div>
+        <div class="z"></div>
+    </div>
+</div>

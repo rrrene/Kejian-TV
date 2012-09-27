@@ -1,0 +1,13 @@
+<% content_for :body_style do %>background: url(<%=asset_path('grey.jpg')%>) repeat scroll 0 0 #333333;<% end %>
+<div class="__sdk">
+  <footer>
+    <div class="wrapper">
+      <p class="title">版权所有 <span class="en">&copy;</span> <%= Time.now.year %> <a href="http://<%=Setting.ktv_subdomain%>"><%= Setting.ktv_sub.upcase %>.Kejian.TV</a>. 课件著作权为原作者所有.</p>
+      <p class="links">
+        <a href="/">返回首页</a>
+        <a href="/welcome/shuffle">手气不错</a>
+        <a href="/simple/admin.php" target="_blank">后台管理</a>
+      </p>
+    </div>
+  </footer>
+</div>

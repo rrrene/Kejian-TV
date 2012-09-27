@@ -1,0 +1,40 @@
+<ul style="font-size:16px">
+  <li><a href="<%= login_path(redirect_to:request.path) %>" id="login">登录</a></li>
+  <li><a href="<%= register_path %>" id="register">注册新用户</a></li>
+</ul>
+
+  
+<%= form_tag new_user_session_path,:id=>'login_form',:style=>'display:none' do %>
+  <p style="margin-top: 8px;">
+          <input type="hidden" name="redirect_to" value="<%= request.path %>"/>
+          <label for="user_email">E-mail</label>
+          <input type="text" value="" id="user_email_log" name="user[email]">
+  </p><p>
+          <label for="user_password">密码</label>
+          <input type="password" value="" id="user_password_log" name="user[password]" onkeypress="if(event.keyCode==13){$('#login_form').submit();}">
+  </p><p>
+  <%= link_to "忘记密码",new_user_password_path %>
+  </p>
+<% end %>
+
+
+<% content_for :butt2 do %>
+  $('#login_form').dialog({
+    autoOpen: false,
+    height: 250,
+    width: <%= @is_ie6 ? '307' : '297' %>,
+    modal: true,
+    resizable: false,
+    title: '登录',
+    buttons: {
+      '提交':function(){
+         $('#login_form').submit();
+         return false;
+      }
+    }
+  });
+  $('#login').click(function(){
+    $('#login_form').dialog('open');
+    return false;
+  });
+<% end %>

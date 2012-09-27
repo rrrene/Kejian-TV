@@ -1,7 +1,76 @@
 # -*- encoding : utf-8 -*-
 class WelcomeController < ApplicationController
   def index
-    @seo[:title] = '首页'
+    will_redirect = (!current_user and params[:psvr_force].blank?)
+    if !will_redirect
+      common_op!
+      @coursewares=Courseware.normal.any_of(
+        {:user_id.in => current_user.following_ids},
+        {:uploader_id.in => current_user.following_ids},
+        {:course_fid.in => current_user.followed_course_fids}
+      )
+      .excludes(:uploader_id => current_user.id).desc('created_at')
+      .paginate(:page => params[:page], :per_page => @per_page)
+      will_redirect ||= (0==@coursewares.count and params[:psvr_force].blank?)
+    end
+    if will_redirect
+      redirect_to '/welcome/latest'
+      return
+    else
+      @dz_navi_extras = []
+      @seo[:title] = '我的首页'
+      render
+    end
+  end
+  def latest
+    @seo[:title] = '全站动态'
+    common_op!
+    @coursewares=Courseware.normal.desc('created_at').paginate(:page => params[:page], :per_page => @per_page)
+    render 'index'
+  end
+  def featured
+    @seo[:title] = '资源广场'
+    common_op!
+    @coursewares=Courseware.normal.desc('downloads_count').paginate(:page => params[:page], :per_page => @per_page)
+    render 'index'
+  end
+  def hot
+    @seo[:title] = '最热课件'
+    common_op!
+    @coursewares=Courseware.normal.desc('views_count').paginate(:page => params[:page], :per_page => @per_page)
+    render 'index'    
+  end
+  def inactive_sign_up
+    render "inactive_sign_up#{@subsite}",layout:'application_for_devise'
+  end
+  def shuffle
+    cw = nil
+    i = 0
+    while !(cw and 0==cw.status and !cw.deleted?)
+      cw = Courseware.skip(rand(Courseware.count)).first
+      i += 1
+      if i>10
+        redirect_to '/'
+        return
+      end
+    end
+    redirect_to cw
+  end
+  def feeds
+    
+  end
+private
+  def common_op!
+    @dz_navi_extras = [
+      ['我的首页','/?psvr_force=1']
+    ]
+    params[:page] ||= '1'
+    params[:per_page] ||= cookies[:welcome_per_page]
+    params[:per_page] ||= '15'
+    @page = params[:page].to_i
+    @per_page = params[:per_page].to_i
+    cookies[:welcome_per_page] = @per_page
+
     @stat = PreCommonStat.order
     ###session
     @showoldetails = params[:showoldetails]=='no' ? false : true
@@ -69,27 +138,6 @@ class WelcomeController < ApplicationController
     @cw = PreForumThread.nondeleted.count
     @users = PreCommonMember.count
     @newuser =  PreCommonMember.order('regdate').last
-
-    @departments = Department.asc('created_at')
-    # 
-    # 
-    # 
-    @courses = PreForumForum.type2.order('threads desc').limit(10)
-    @coursewares = PreForumThread.nondeleted.order('views desc').limit(10)
-    @coursewares1 = PreForumThread.nondeleted.where('dateline>=?',Date.today.at_beginning_of_day.to_i).order('views desc')
-    
-    if @coursewares1.count > 0
-      @coursewares2 = PreForumThread.nondeleted.where('dateline<?',@coursewares1[-1].dateline).order('dateline desc').first
-    else
-      @coursewares2 = PreForumThread.nondeleted.order('dateline desc').first
-    end
-    if @coursewares2
-      @coursewares2 = PreForumThread.nondeleted.where('dateline<=? and dateline>=?',Time.at(@coursewares2.dateline).to_i,Time.at(@coursewares2.dateline).at_beginning_of_day.to_i).order('dateline desc')
-      @coursewares3 = PreForumThread.nondeleted.where('dateline<?',@coursewares2[-1].dateline).order('dateline desc').first
-      if @coursewares3
-        @coursewares3 = PreForumThread.nondeleted.where('dateline<=? and dateline>=?',Time.at(@coursewares3.dateline).to_i,Time.at(@coursewares3.dateline).at_beginning_of_day.to_i).order('dateline desc')
-      end
-    end
   end
-
 end
+

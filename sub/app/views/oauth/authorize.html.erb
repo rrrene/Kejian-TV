@@ -1,0 +1,41 @@
+<section>
+	  <h3>应用程序访问请求</h3>
+    <article ask-id="4f616482c3666e0a4000006b" class="askInfoAll clearfix">
+      <% unless flash.alert %>
+          <div>
+            <b>第三方应用“<span class="green"><%=@client.name%></span>”希望获取访问您的Kejian.TV账户，请问您是否允许此行为？</b>
+            <div class="details" style="display:none">以下资源权限将开放给此应用： <%= params[:scope].join(" ") %></div>
+          </div>
+
+          <div id="grant" class="footer_buttons">
+            <%= form_tag "/oauth/authorization",:id => "ok_form" do %>
+              <input type="text" style="display:none" name="response_type" value="<%=params[:response_type]%>">
+              <input type="text" style="display:none" name="client_id" value="<%=params[:client_id]%>">
+              <input type="text" style="display:none" name="redirect_uri" value="<%=params[:redirect_uri]%>">
+              <input type="text" style="display:none" name="scope" value="<%=params[:scope].join(" ")%>">
+              <% if params[:state] %>
+                <input type="text" style="display:none" name="state" value="<%=params[:state]%>">
+              <% end %>
+              <div onclick="$('#ok_form').submit()" class="bar mt10"><div class="btnNormalGreen" style="margin-left:50px;margin-top:10px"><span>同意访问</span></div></div>
+            <% end %>
+          </div>
+
+          <div id="deny">
+            <%= form_tag "/oauth/authorization",:id => "deny_form" do %>
+              <input type="text" style="display:none" name="_method" value="delete">
+              <input type="text" style="display:none" name="response_type" value="<%=params[:response_type]%>">
+              <input type="text" style="display:none" name="client_id" value="<%=params[:client_id]%>">
+              <input type="text" style="display:none" name="redirect_uri" value="<%=params[:redirect_uri]%>">
+              <input type="text" style="display:none" name="scope" value="<%=params[:scope].join(" ")%>">
+              <% if params[:state] %>
+                <input type="text" style="display:none" name="state" value="<%=params[:state]%>">
+              <% end %>
+              <div onclick="$('#deny_form').submit()" class="bar mt10"><div class="btnNormalSilver" style="margin-left:10px;margin-top:10px"><span>拒绝访问</span></div></div>
+            <% end %>
+          </div>
+
+        <% end %>
+
+  	</article>
+
+</section>

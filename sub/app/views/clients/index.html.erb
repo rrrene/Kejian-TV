@@ -1,0 +1,27 @@
+<h2>我的客户端列表</h2>
+<div class="header_buttons">
+  <%= link_to '注册客户端', new_cpanel_client_path, class: "button icon add" %>
+</div>
+<% unless @clients.empty? %>
+<table>
+  <tr>
+    <th>客户端名</th>
+    <th>状态</th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @clients.each do |client| %>
+  <tr>
+    <td><%= client.name %></td>
+    <td><%= raw client.blocked? ? "<span style=\"color:red\">等待审核</span>" : "<span style=\"color:green\">已通过审核</span>" %></td>
+    <td><%= link_to '详情', client, class: "button" %></td>
+    <td><%= link_to '编辑', edit_cpanel_client_path(client), class: "button" %></td>
+    <td><%= link_to '删除', client, confirm: 'Are you sure?', method: :delete, class: "button danger" %></td>
+  </tr>
+<% end %>
+</table>
+<% end %>
+<br/>

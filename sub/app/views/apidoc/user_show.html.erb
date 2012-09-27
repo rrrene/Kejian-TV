@@ -1,0 +1,60 @@
+
+<h1 id="section">课件交流系统: Kejian.TV开放应用程序接口 - 获取某用户信息</h1>
+
+<h2>认证级别</h2>
+<p>访问非敏感资源只需提供client_id。</p>
+<p>访问敏感资源需要，Oauth认证，证明您获得了用户的许可，且只能查看用户自己的敏感资源。</p>
+<p>特殊受信应用可以得到任何用户的任何资源。</p>
+
+<h2>输入</h2>
+<p>向<code>/users/:user</code>发送<code>GET</code>请求，user参数值可以为用户的slug或者id。</p>
+<p>也可以<code>/users/__by_email?email=:email</code>发送<code>GET</code>请求，email参数值用户的email。</p>
+<p>例如：</p>
+<pre class="terminal">
+  curl -i "http://api.kejian.tv/users/angelacai?client_id=4f853634c3666e05e1000002"
+</pre>
+
+<h2>输出</h2>
+<p>例如：</p>
+<pre class="terminal">
+  HTTP/1.1 200 OK 
+  Link: <https://api.kejian.tv/asks?page=2&per_page=30>; rel="next",<https://api.kejian.tv/asks?page=34&per_page=30>; rel="last",<https://api.kejian.tv/asks?page=1&per_page=30>; rel="first"
+  Content-Type: application/json; charset=utf-8
+  X-Ua-Compatible: IE=Edge
+  Etag: "b05ad227388a38a47739f8120f1ae4fd"
+  Cache-Control: max-age=0, private, must-revalidate
+  X-Request-Id: 376fbf0121c66ab5f13685a6f19fb1dd
+  X-Runtime: 0.068818
+  Date: Mon, 23 Apr 2012 06:14:28 GMT
+  X-Rack-Cache: miss
+  Content-Length: 20496
+  Server: WEBrick/1.3.1 (Ruby/1.9.3/2012-02-16)
+  Connection: Keep-Alive
+  Set-Cookie: _quora_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRkkiJTY4MGMzOWRkYzE1NWRhOTA0ZGU3OTNhMDAzODY4NzFiBjsAVA%3D%3D--a2c4cbacef01e0e89c2432804e4cdef44a896069; path=/; expires=Sun, 22-Jul-2012 06:14:28 GMT; HttpOnly
+
+
+  { avatar: 
+     { url: '/uploads/user/avatar/4e84b6ed61300350a3000009/24.jpg',
+       small: { url: '/uploads/user/avatar/4e84b6ed61300350a3000009/small_24.jpg' },
+       small38: { url: '/uploads/user/avatar/4e84b6ed61300350a3000009/small38_24.jpg' },
+       mid: { url: '/uploads/user/avatar/4e84b6ed61300350a3000009/mid_24.jpg' },
+       normal: { url: '/uploads/user/avatar/4e84b6ed61300350a3000009/normal_24.jpg' } },
+    banished: null,
+    bio: 'can I help you ？亲！',
+    credible: true,
+    email: 'angela.cai@kejian.tv.cn',
+    girl: false,
+    is_expert: '1',
+    is_expert_why: 'Kejian.TV小助手',
+    mail_ask_me: true,
+    mail_be_followed: true,
+    mail_invite_to_ask: true,
+    mail_new_answer: true,
+    name: 'Kejian.TV小助手',
+    slug: 'angelacai',
+    tagline: '',
+    tags: null,
+    website: '',
+    will_autofollow: false }
+         
+</pre>

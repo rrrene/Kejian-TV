@@ -1,0 +1,65 @@
+
+<h1 id="section">课件交流系统: Kejian.TV开放应用程序接口 - 风云榜上的热门题</h1>
+
+<h2>认证级别</h2>
+<p>只需提供client_id</p>
+
+<h2>输入</h2>
+<p>向<code>/asks</code>发送<code>GET</code>请求，且需要提供newbie=1参数。</p>
+<p>可以接受分页参数，详见<%= link_to '全局约定#分页','/apidoc#section-4' %>。</p>
+<p>例如：</p>
+<pre class="terminal">
+curl -i "http://api.kejian.tv/asks?newbie=1&per_page=100&client_id=4f853634c3666e05e1000002"
+</pre>
+
+<h2>输出</h2>
+<%= render 'ask' %>
+<p>例如：</p>
+<pre class="terminal">              
+HTTP/1.1 200 OK 
+Link: <https://api.kejian.tv/asks?page=2&per_page=30>; rel="next",<https://api.kejian.tv/asks?page=2&per_page=30>; rel="last",<https://api.kejian.tv/asks?page=1&per_page=30>; rel="first"
+Content-Type: application/json; charset=utf-8
+X-Ua-Compatible: IE=Edge
+Etag: "ccea793266bad771f568e643f8368652"
+Cache-Control: max-age=0, private, must-revalidate
+X-Request-Id: 18b5c81d77321cf9c01364ede5633bd7
+X-Runtime: 0.294503
+Date: Mon, 23 Apr 2012 06:42:09 GMT
+X-Rack-Cache: miss
+Content-Length: 42570
+Server: WEBrick/1.3.1 (Ruby/1.9.3/2012-02-16)
+Connection: Keep-Alive
+Set-Cookie: _quora_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRkkiJTc1Mjg2OWQxNzZiZjJkOThhYzllZGY1ZDc4NThhZTdlBjsAVA%3D%3D--ff6763ee8f806a00784ff5ac984213dcb1d47658; path=/; expires=Sun, 22-Jul-2012 06:42:09 GMT; HttpOnly
+
+{ size: 20,
+  result: 
+   [ { id: '4edee161d1212f6ba60000b4', title: '我是一名金融专业应届毕业生，该怎样规划我的职业生涯呢？', user: ["SLUG","NAME"], answers_count: 4 },
+     { id: '4e9480a661300314720001b3',
+       title: '我又换了一份工作，但是在面试时候，对方要求填写简历表格，其中有一项为证明人，要写以前公司的上司或者同事联系方式，这样合理吗？为什么非得在简历上写证明人啊？',
+       user: ["SLUG","NAME"],
+       answers_count: 6 },
+     { id: '4e669b316130032144000088', title: '环境工程毕业生的就业方向和现状，工资水平', user: ["SLUG","NAME"], answers_count: 7 },
+     { id: '4e930c5d6130030ed10000e7', title: ' 自考文凭与解题', user: ["SLUG","NAME"], answers_count: 8 },
+     { id: '4e66d0a06130032a2500000a', title: '本科毕业后,在南昌五百一月(不包吃住)要不要去做???', user: ["SLUG","NAME"], answers_count: 7 },
+     { id: '4e6fd89c61300334de00057c', title: '我该辞职吗？\r\n', user: ["SLUG","NAME"], answers_count: 6 },
+     { id: '4e66cf746130032a25000002', title: '数学专业毕业生可否做HR？', user: ["SLUG","NAME"], answers_count: 6 },
+     { id: '4eb25927d1212f2d89000865', title: '如何设置表格里的身份证号不显示成科学计数法？ ', user: ["SLUG","NAME"], answers_count: 4 },
+     { id: '4e67c1536130032a3b0000b2', title: '会计应届生该找什么样的工作？', user: ["SLUG","NAME"], answers_count: 4 },
+     { id: '4e67f66f6130032a3b000149',
+       title: '我是会计应届毕业生，是应该去小公司做出纳，还是去个公司做实习会计？',
+       user: ["SLUG","NAME"],
+       answers_count: 4 },
+     { id: '4e91ddfe613003641b0001ef', title: '怎样在面试中,自我介绍', user: ["SLUG","NAME"], answers_count: 5 },
+     { id: '4e95f0616130032b6b00010a', title: '有没有法律规定员工进入公司多久内必须上福利保险阿？', user: ["SLUG","NAME"], answers_count: 6 },
+     { id: '4ea0de69d1212f2c4d000006',
+       title: '对Kejian.TV有什么建议和意见，请通过解答此题反馈给我们，我们会尽快处理，不胜感激！ ',
+       user: ["SLUG","NAME"],
+       answers_count: 11 },
+     { id: '4e697c9061300334de000225', title: '网编有前途么？整天复制粘贴的那种？', user: ["SLUG","NAME"], answers_count: 6 },
+     { id: '4e91e086613003640f000223', title: '外地来京解题，现居地是填北京好呢还是填老家好哦？', user: ["SLUG","NAME"], answers_count: 13 },
+     { id: '4e9847cb6130033300000194', title: '我是工作2年的小职员，哪个英语培训最适合我', user: ["SLUG","NAME"], answers_count: 6 },
+     { id: '4e9ca31d6130034ae10000c0', title: '面试通用的几个题', user: ["SLUG","NAME"], answers_count: 8 },
+     { id: '4e6fafa261300334f60004d6', title: '辞职，遇到不放人，怎么办？\r\n', user: ["SLUG","NAME"], answers_count: 11 },
+     { id: '4e6fda1261300334f600057f', title: '想辞职又下不了决心，如何是好？\r\n', user: ["SLUG","NAME"], answers_count: 10 },
+     { id: '4e98474f613003330000018d', title: '怎样才能尽快获得晋升？', user: ["SLUG","NAME"], answers_count: 6 } ] }
+</pre>

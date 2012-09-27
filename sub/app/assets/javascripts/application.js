@@ -10,9 +10,22 @@
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
 //
-//= require jquery
-//= require jquery_noconflict
-//= require jquery_ujs
+
+//= require application_instinct
+//= require facebox
+//= require jquery.jdialog
+//= require jquery.qeditor
+//= require jquery.cookie
+//= require jquery.tipsy
+//= require jquery.placeholder
+//= require jcaches
+//= require asks
+//= require topics
+//= require users
+//= require jquery.zlzp.editor
+//= require jquery.zlzp.validate.js
+//= require jquery.zlzp.popupdiv.js
+//= require wendao
 //= require ./psvr_kina
 //= require ./psvr_dz
 //= require_self

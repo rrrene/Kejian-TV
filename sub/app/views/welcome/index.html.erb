@@ -1,238 +1,160 @@
-<%= render 'chart' %>
-<div id="psvr_midder">
-   <div class="psvr_content" style="">
-      <div class="psvr_contentbox">
-         <div class="psvr_div_1">
-            <div class="psvr_hd">
-               <h3 class="psvr">课程资源榜</h3>
-               <span class="psvr psvr_moreimg"><a class="psvr" href="<%=courses_path%>"><img class="psvr" src="<%= asset_path 'extand_images/more.gif' %>" alt="查看更多"></a></span>
-            </div>
-            <div class="psvr_bd">
-               <ul class="psvr psvr_meijulist">
-                  <!--meiju_new10-->
-                  <%@courses.each do |course|%>
-                  <% dd=Course.get_department(course.fid)%>
-                  <% ddid=Department.get_id(dd)%>
-                  <% cc=Course.get_name(course.fid)%>
-                  <% cc=cc.split('] ')[-1] if 'zhongxue'==Setting.ktv_sub%>
-		  
-                  <li class="psvr"><span class="psvr psvr_newstime"><%=course.threads%>个课件</span>[<a class="psvr" href="/departments/<%=ddid%>"><%=dd%></a>] <a class="psvr" href="/simple/forum.php?mod=forumdisplay&fid=<%=course.fid%>"><%=cc%></a></li>
-                  <%end%> 
-               </ul>
-            </div>
-         </div>
-         <div class="psvr_div_2">
-            <div class="psvr_hd">
-               <h3 class="psvr">课件 TOP-10</h3>
-               <span class="psvr psvr_moreimg"><a class="psvr" href="<%=courses_path%>"><img class="psvr" src="<%= asset_path 'extand_images/more.gif' %>" alt="查看更多"></a></span>
-            </div>
-            <div class="psvr_bd">
-               <ul class="psvr psvr_seedlist">
-                  <!--seed_top10-->
-                  <%@coursewares.each do |cw|%>
-                  <li class="psvr psvr_top1"><span class="psvr psvr_newstime"><a class="psvr" href="/simple/?<%=cw.authorid%>"><%=cw.author%></a>上传</span>
-                     <a class="psvr" href="/simple/forum.php?mod=viewthread&amp;tid=<%=cw.tid%>">
-                     <%=cw.subject%> (<%=cw.views%>点击)
-                     </a>
-                  </li>
-                  <%end%>
-               </ul>
-            </div>
-         </div>
-      </div>
-      <div class="psvr_contentbox">
-        <%= render 'dp_table' %>
-      </div>
-      <div class="psvr_contentbox">
-         <table class="psvr psvr_seedtable" border="0" align="center" cellpadding="1" cellspacing="1" bgcolor="#cccccc" width="100%">
-            <tr bgcolor="#f1f1f1">
-               <td height="28" colspan="6" align="left">
-                  <h3 class="psvr"><%=l Date.today, :format => :long%> 上传</h3>
-               </td>
-            </tr>
-            <% if @coursewares1.count>0 %>
-            <tr bgcolor="#fafafa" align="center">
-               <td width="5%" align="center">序号</td>
-               <td align="left">名字</td>
-               <td width="9%">大小</td>
-               <td width="5%">格式</td>
-               <td width="8%">上传者</td>
-               <td width="6%">点击量</td>
-            </tr>
-            <!--seed_today-->
-            <!--seed_today-->
-            <%inss = Ktv::Utils.find_in_batch(Courseware,:tid,@coursewares1.collect(&:tid))%>
-            <%teachers = Ktv::Utils.find_in_batch(PreForumThreadclass,:typeid,@coursewares1.collect(&:typeid))%>
-            <%@coursewares1.each_with_index do |cw,index|%> 
-            <%ins = inss[cw.tid]%>
-            <%cc=Course.get_name(cw.fid)%>
-            <%teacher=teachers[cw.typeid]%>
-            <tr bgcolor="#ffffff" align="center">
-               <td><%=index+1%></td>
-               <td align="left">
-                  <%if teacher%>
-                  [<%=link_to teacher.name,"/simple/forum.php?mod=forumdisplay&fid=#{cw.fid}&filter=typeid&typeid=#{cw.typeid}",class:'psvr'%>]
-                  <%end%>
-                  <a class="psvr" href="/simple/forum.php?mod=viewthread&amp;tid=<%=cw.tid%>">
-                  <%=cc%><%=cw.subject%>
-                  </a>
-               </td>
-               <td><%=number_to_human_size(ins.filesize*1000,:precision=>1) if ins%></td>
-               <td><%=ins.sort.upcase if ins%></td>
-               <td>  
-                  <a class="psvr" href="/simple/?<%=cw.authorid%>">
-                  <%=cw.author%> 
-                  </a>
-               </td>
-               <td><%=cw.views%></td>
-            </tr>
-            <% end %>
-            <% else %>
-            <tr bgcolor="#ffffff" align="center">
-               <td colspan="6" style="padding:22px 0">
-                  今天还没有人上传课件，<a href="/simple/forum.php?mod=misc&action=nav" class="psvr_login_required" onclick="showWindow('nav', this.href, 'get', 0)">[点击这里]</a>上传一个吧!
-               </td>
-            </tr>
-            <% end %>
-         </table>
-      </div>
-    
-      <% if @coursewares2.present? %>
-      <div class="psvr_contentbox">
-         <table class="psvr psvr_seedtable" border="0" align="center" cellpadding="1" cellspacing="1" bgcolor="#cccccc" width="100%">
-            <tr bgcolor="#f1f1f1">
-               <td height="28" colspan="6" align="left">
-                  <h3 class="psvr"><%=l Time.at(@coursewares2.first.dateline).to_date, :format => :long%> 上传</h3>
-               </td>
-            </tr>
-            <tr bgcolor="#fafafa" align="center">
-               <td width="5%" align="center">序号</td>
-               <td align="left">名字</td>
-               <td width="9%">大小</td>
-               <td width="5%">格式</td>
-               <td width="8%">上传者</td>
-               <td width="6%">点击量</td>
-            </tr>
-            <!--seed_today-->
-            <!--seed_today-->
-            <%inss = Ktv::Utils.find_in_batch(Courseware,:tid,@coursewares2.collect(&:tid))%>
-            <%teachers = Ktv::Utils.find_in_batch(PreForumThreadclass,:typeid,@coursewares2.collect(&:typeid))%>
-            <%@coursewares2.each_with_index do |cw,index|%> 
-            <%ins = inss[cw.tid]%>
-            <%cc = Course.get_name(cw.fid)%>
-            <%teacher = teachers[cw.typeid]%>
-            <tr bgcolor="#ffffff" align="center">
-               <td><%=index+1%></td>
-               <td align="left">
-                  <%if teacher%>
-                  [<%=link_to teacher.name,"/simple/forum.php?mod=forumdisplay&fid=#{cw.fid}&filter=typeid&typeid=#{cw.typeid}",class:'psvr'%>]
-                  <%end%>
-                  <a class="psvr" href="/simple/forum.php?mod=viewthread&amp;tid=<%=cw.tid%>">
-                  <%=cc %><%=cw.subject%>
-                  </a>
-               </td>
-               <td><%=number_to_human_size(ins.filesize*1000,:precision=>1) if ins%></td>
-               <td><%=ins.sort.upcase if ins%></td>
-               <td>  
-                  <a class="psvr" href="/simple/?<%=cw.authorid%>">
-                  <%=cw.author%> 
-                  </a>
-               </td>
-               <td><%=cw.views%></td>
-            </tr>
-            <% end %>
-         </table>
-      </div>
-      <% end %>
-      
-      
-      <% if @coursewares3.present? %>
-      <div class="psvr_contentbox">
-         <table class="psvr psvr_seedtable" border="0" align="center" cellpadding="1" cellspacing="1" bgcolor="#cccccc" width="100%">
-            <tr bgcolor="#f1f1f1">
-               <td height="28" colspan="6" align="left">
-                  <h3 class="psvr"><%=l Time.at(@coursewares3.first.dateline).to_date, :format => :long%> 上传</h3>
-               </td>
-            </tr>
-            <tr bgcolor="#fafafa" align="center">
-               <td width="5%" align="center">序号</td>
-               <td align="left">名字</td>
-               <td width="9%">大小</td>
-               <td width="5%">格式</td>
-               <td width="8%">上传者</td>
-               <td width="6%">点击量</td>
-            </tr>
-            <!--seed_today-->
-            <!--seed_today-->
-            <%inss = Ktv::Utils.find_in_batch(Courseware,:tid,@coursewares3.collect(&:tid))%>
-            <%teachers = Ktv::Utils.find_in_batch(PreForumThreadclass,:typeid,@coursewares3.collect(&:typeid))%>
-            <%@coursewares3.each_with_index do |cw,index|%> 
-            <%ins = inss[cw.tid]%>
-            <%cc=Course.get_name(cw.fid)%>
-            <%teacher=teachers[cw.typeid]%>
-            <tr bgcolor="#ffffff" align="center">
-               <td><%=index+1%></td>
-               <td align="left">
-                  <%if teacher%>
-                  [<%=link_to teacher.name,"/simple/forum.php?mod=forumdisplay&fid=#{cw.fid}&filter=typeid&typeid=#{cw.typeid}",class:'psvr'%>]
-                  <%end%>
-                  <a class="psvr" href="/simple/forum.php?mod=viewthread&amp;tid=<%=cw.tid%>">
-                  <%=cc%><%=cw.subject%>
-                  </a>
-               </td>
-               <td><%=number_to_human_size(ins.filesize*1000,:precision=>1) if ins%></td>
-               <td><%=ins.sort.upcase if ins%></td>
-               <td>  
-                 <a class="psvr" href="/simple/?<%=cw.authorid%>">
-                  <%=cw.author%> 
-                  </a>
-               </td>
-               <td><%=cw.views%></td>
-            </tr>
-            <% end %>
-         </table>
-      </div>
-      <% end %>
-   </div>
+<%= render 'content_above' %>
+<%= render :partial => 'dz_navi',:locals => {margintop:15} %>
+<div id="mainbar">
 
-   <div class="mn">
+<div class="subheader">
+    <div id="tabs">
+    <a class="<%= 'youarehere' if '/'==request.path %>" href="/?psvr_force=1">我的首页</a>
+    <a class="<%= 'youarehere' if '/welcome/latest'==request.path %>" href="/welcome/latest">全站动态</a>
+    <a class="<%= 'youarehere' if '/welcome/hot'==request.path %>" href="/simple/forum.php?mod=guide&view=my">我的课件</a>
+    <a class="<%= 'youarehere' if '/welcome/week'==request.path %>" href="/simple/forum.php?mod=guide&view=new">未读课件</a>
+    </div>
+</div>
+<div id="questions">
+<% if @coursewares.count<1 and '/'==request.path%>
+<div style="line-height:88px;height:88px;text-align:center;">  您关注的资源暂无新动态，去关注更多<%= link_to '课程',courses_path %> + <%= link_to '老师',teachers_path %> + <%= link_to '同学', users_path %>吧！</div>
+<% else %>
+<% @coursewares.each do |item|%>
+  <div id="question-summary-10960" class="question-summary">
+      <div class="statscontainer __sdk">
+        <div class="presentations">
+          <%= render :partial => 'cw',:locals=>{courseware:item,version:item.version,courseware_id:item.ktvid} %>
+        </div>
+      </div>
+      <div class="summary">        
+          <h3>
+            <a href="/coursewares/<%= item.id %>" class="question-hyperlink" title="<%= item.desc %>"><%= item.title %></a>
+          </h3>
+          <div class="excerpt">
+            <% 
+            arr=[]
+            arr<<item.filesort_mundane if item.filesort_mundane
+            arr<<"共#{number_with_delimiter item.slides_count}页" if item.slides_count>0
+            arr<<"#{number_with_delimiter item.words_count}字" if item.words_count>0
+            %>
+            <%= arr.blank? ? item.fileinfo : arr.join(', ')+'.' %>
+            <% 
+            arr=[]
+            arr<<"作者创作时间投入: #{item.human_time_human(:very_short => true)}" if item.human_time>0
+            arr<<"最终完稿于: #{item.finished_at.strftime('%Y年%m月%d日 %H:%M:%S')}" if item.finished_at
+            %>
+            <% unless arr.blank? %>
+              <br><%= arr.join(', ')+'.' %>
+            <% end %>
+          </div>
 
-     <div id="online" class="bm oll">
-       <div class="bm_h">
-         <h3>
-           <strong><a href="/simple/home.php?mod=space&amp;do=friend&amp;view=online&amp;type=member">在线会员</a></strong>
-           <span class="xs1">- <strong><%= @session_count %></strong> 人在线
-             - <strong><%= @onlinelist_count %></strong> 会员(<strong><%= @online_invisible_count %></strong> 隐身),
-             <strong><%= @guest_count %></strong> 位游客
-             - 最高记录是 <strong><%= @onlinerecord[0] %></strong> 于 <strong><%=Time.at(@onlinerecord[1].to_i).strftime("%F")%></strong>.</span>
-         </h3>
-       </div>
-       <dl id="onlinelist" class="bm_c">
-         <dt class="ptm pbm bbda">
-         <% @pic_sorted.values.each do |pic| %>    
-             <img src="/simple/static/image/common/<%= pic[1][1] %>" /> <%= pic[1][0] %> &nbsp; &nbsp; &nbsp; 
-         <% end %>
-         </dt>
-         <dd class="ptm pbm">
-         <ul class="cl">
-           <% if @on_display.empty? %>
-             <li style="width: auto">当前只有游客或隐身会员在线</li>
-           <% else %>
-             <% @on_display.each do |uid,online| %>
-<!-- ##@on_display => {35=>[1, ["libo-liu", 1], [1346908864, false], ["管理员", "online_admin.gif"]],, 61=>[3,["llb0536", 4], [1346730774, false], ["版主", "online_moderator.gif"]]} -->
-              <% if !online[2][1] %>
-                 <li title="时间:<%= Time.at(online[2][0]).strftime("%R") %>">
-                 <img src="/simple/static/image/common/<%= online[3][1] %>" alt="icon" />
-                 <a href="/simple/?<%= uid %>"><%= online[1][0] %></a>
-                 </li>
+          <div class="tags t-nutrition">
+            <% if item.teacher.present? %>
+              <a href="/teachers/<%= item.teacher_typeid %>" class="post-tag" title="<%= item.teacher %>" rel="tag"><%= item.teacher %></a> 
+            <% end %>
+            <% if nn=Course.get_name(item.course_fid) %>
+              <a href="/simple/forum.php?mod=forumdisplay&fid=<%= item.course_fid %>" class="post-tag" title="<%= nn %>" rel="tag"><%= nn %></a> 
+              <% if nd=Course.get_department(item.course_fid) %>
+                <a href="/departments/<%= item.course_fid %>" class="post-tag" title="<%= nd %>" rel="tag"><%= nd %></a> 
               <% end %>
-             <% end %>
-           <% end %>
-         </ul>
-         </dd>
-       </dl>
-     </div>
+            <% end %>
+          </div>
+          <div class="started fr">
 
-   </div><!--mn-->
 
-</div><!--midder-->
+      <div class="user-info ">
+          <div class="user-action-time">
+            上传于<%= timeago(item.created_at,:span=>true) %>
+          </div>
+          <div class="user-gravatar32">
+              <a href="/users/454/oliver-c"><div class="">
+                <img width="32" height="32" alt="" src="<%= avatar_url_quick(item.uploader_id,:small30) %>">
+              </div></a>
+          </div>
+          <div class="user-details">
+            <a href="/users/<%= User.get_slug item.uploader_id %>"><%= User.get_name item.uploader_id %></a><br>
+              <span dir="ltr" title="reputation score 26521" class="reputation-score">26.5k</span><span title="2 gold badges"><span class="badge1"></span><span class="badgecount">2</span></span><span title="95 silver badges"><span class="badge2"></span><span class="badgecount">95</span></span><span title="168 bronze badges"><span class="badge3"></span><span class="badgecount">168</span></span>
+          </div>
+      </div>
+
+          </div>  
+      </div>
+  </div>
+  
+  <% end %>
+<% end %>  
+</div>
+<% if @coursewares.total_pages > 1 %>
+<div class="page-sizer fr">
+    <a class="page-numbers<%= ' current' if 9==@per_page %>" title="每页显示9个课件" href="<%= request.path %>?page=1&per_page=9">9</a>
+    <a class="page-numbers<%= ' current' if 15==@per_page %>" title="每页显示15个课件" href="<%= request.path %>?page=1&per_page=15">15</a>
+    <a class="page-numbers<%= ' current' if 30==@per_page %>" title="每页显示30个课件" href="<%= request.path %>?page=1&per_page=30">30</a>
+    <a class="page-numbers<%= ' current' if 50==@per_page %>" title="每页显示50个课件" href="<%= request.path %>?page=1&per_page=50">50</a>
+    <span class="page-numbers desc">课件/页</span>
+</div>
+
+<%= will_paginate @coursewares, :renderer=> SKPLinkRenderer,:inner_window=>4 %>
+<% end %>
+</div>
+<div id="sidebar">    
+<% unless user_signed_in? %>
+    <div class="module newuser newuser-greeting" id="newuser-box">
+        <h4>欢迎来到课件交流系统!</h4>
+        <div>
+            <p>轻松分享讲义·电子书·复习资料·问答互助·课堂录像!</p>
+            <p>通过课件交流系统，您可以迅速定位最感兴趣的课程，轻松获取大家共同维护的最优质的一份学习资料.</p>
+            <p>然而，课件系统不仅是一个出色的学习资源交流平台，她更是一个开放的在线学习社区。在这里，您可以把遇到的难题发出来，大家共同切磋。在这里，我们共同进步.</p>
+            <p class="ar"><a href="http://kejian.tv/coursewares/500f9970e13823796a000002" target="_blank">介绍 &raquo;</a>&nbsp;
+
+<a class="psvr_login_required" id="login" href="/login">登录 / 注册新用户 &raquo;</a>            </p>
+        </div>
+    </div>
+<% end %>
+    <div id="questions-count" class="module">
+      <div class="summarycount al"><%= link_to number_with_delimiter(Courseware.count),'/coursewares_by_departments' %></div>
+      <p>个课件已上传</p>
+    </div>
+<div class="__sdk" style="background:transparent">
+  <a class="button primary psvr_login_required" id="cw_newhuge" href="/coursewares/new" style="color:white">上传分享课件</a>
+</div>
+<div class="module" id="chat-feature" style="padding-top:0">
+    
+
+    
+<div class="module" id="recent-tags">
+    <h4 id="h-recent-tags">学院 × 课件数</h4>
+    <div id="recent-tags-list">
+      <% Department.desc('coursewares_count').each do |item| %>
+        <a href="/departments/<%= item.fid %>" class="post-tag" title="<%= item.name %>" rel="tag"><%= item.name %></a><span class="item-multiplier"><span class="item-multiplier-x">&times;</span>&nbsp;<span class="item-multiplier-count"><%= item.coursewares_count %></span></span><br>
+      <% end %>
+    </div>
+    <p class="ar"><a href="<%= courses_path %>">全部课程 &raquo;</a></p>
+</div>      
+</div>
+
+           <strong><a href="/simple/home.php?mod=space&amp;do=friend&amp;view=online&amp;type=member"></a></strong>
+<div id="online-users" class="module">
+    <h4 id="h-recent-badges">在线用户: <strong><%= @session_count %></strong> 人在线
+     - <strong><%= @onlinelist_count %></strong> 用户(<strong><%= @online_invisible_count %></strong> 隐身),
+     <strong><%= @guest_count %></strong> 位游客
+     - 最高记录是 <strong><%= @onlinerecord[0] %></strong> 于 <strong><%=Time.at(@onlinerecord[1].to_i).strftime("%F")%></strong></span>
+    </h4>
+    <table>
+    <tbody>
+     <% if @on_display.empty? %>
+      <tr><td>当前只有游客或隐身用户在线</td></tr>
+     <% else %>
+       <% @on_display.each do |uid,online| %>
+        <% if !online[2][1] %>
+           <tr><td><a class="badge" href="/simple/?<%= uid %>"><span class="badge2" style="background-image:url(/simple/static/image/common/<%= online[3][1] %>);background-position:0 0;"></span>&nbsp;<%= online[1][0] %></a>
+             <a href="/simple/?<%= uid %>"><%= timeago(Time.at(online[2][0])) %></a></td></tr>
+        <% end %>
+       <% end %>
+     <% end %>
+
+    </tbody></table>
+    <p class="ar"><a href="/simple/home.php?mod=space&amp;do=friend&amp;view=online&amp;type=member">所有在线用户 »</a></p>
+</div>
+
+<div id="feed-link">
+    <div id="feed-link-text"><a href="/welcome/feeds" title="RSS订阅最新课件"><span class="feed-icon"></span>RSS订阅最新课件</a></div>
+</div>
+
+        </div>
+        
+<%= render 'content_below' %>        

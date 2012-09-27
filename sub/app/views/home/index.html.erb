@@ -6,7 +6,7 @@
 
 <section>
 <h3>  <% if params[:action]=='index' %>
-  问答动态
+  求助区首页
   <% else %>
   我关注的问题
   <% end %></h3>
@@ -18,7 +18,7 @@
   <% end %>
   <%= will_paginate @asks, :renderer=>WendaoLinkRenderer,:inner_window=>2 %>
 <%else %>
-你关注的内容没有新动态，去<%= link_to '风云榜首页','/newbie' %>关注更多内容吧
+<div style="line-height:88px;height:88px;text-align:center;">  您关注的内容暂无新动态，去<%= link_to '风云榜','/newbie' %>关注更多内容吧</div>
 <%end%>
 
 </section>

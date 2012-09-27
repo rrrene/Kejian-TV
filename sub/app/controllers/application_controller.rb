@@ -2,8 +2,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter proc{
-    #text = cookies.to_a
-    #render text:text and return
+    # text = request.user_agent    
+    # render text:text and return
   }
   unless $psvr_really_development
     rescue_from Exception, with: :render_500
@@ -14,6 +14,7 @@ class ApplicationController < ActionController::Base
   end
   def render_401(exception=nil)
     redirect_to root_path,:alert => '对不起，权限不足！'
+    return false
   end
   def render_404(exception=nil)
     @not_found_path = exception ? exception.message : ''
@@ -21,6 +22,7 @@ class ApplicationController < ActionController::Base
       format.html { render file: "#{Rails.root}/simple/404.html", layout: false, status: 404 }
       format.all { render nothing: true, status: 404 }
     end
+    return false
   end
   def render_500(exception=nil)
     @not_found_path = exception ? exception.message : ''
@@ -36,7 +38,19 @@ class ApplicationController < ActionController::Base
       format.html { render file: "#{Rails.root}/simple/500.html", layout: false, status: 500 }
       format.all { render nothing: true, status: 500 }
     end
+    return false
   end
+  layout :layout_by_resource
+  def layout_by_resource
+    if devise_controller?
+      "application_for_devise"
+    elsif request.path.starts_with?('/embed/')
+      "embedded"
+    else
+      "application"
+    end
+  end
+  
   before_filter :set_vars
   before_filter :xookie,:unless=>'devise_controller?'
   before_filter :dz_security
@@ -46,6 +60,7 @@ class ApplicationController < ActionController::Base
     agent = request.env['HTTP_USER_AGENT'].downcase
     @is_bot = (agent.match(/\(.*https?:\/\/.*\)/)!=nil)
     @is_ie = (agent.index('msie')!=nil)
+    @is_WebKit = (agent.index('webkit')!=nil)
     @is_ie6 = (agent.index('msie 6')!=nil)
     @is_ie7 = (agent.index('msie 7')!=nil)
     @is_ie8 = (agent.index('msie 8')!=nil)
@@ -56,14 +71,21 @@ class ApplicationController < ActionController::Base
   def xookie
     dz_auth = cookies[Discuz.cookiepre_real+'auth']
     dz_saltkey = cookies[Discuz.cookiepre_real+'saltkey']
-    if dz_auth.present?
-      u = User.authenticate_through_dz_auth!(request,dz_auth,dz_saltkey)
-      if u
+    if !user_signed_in? and dz_auth.present?
+      # me off, dz on
+      if u = User.authenticate_through_dz_auth!(request,dz_auth,dz_saltkey)
         sign_in(u)
         return true
       end
+    elsif user_signed_in? and dz_auth.blank?
+      # me on, dz off
+      flash[:extra_ucenter_operations] = UCenter::User.synlogin(request,{uid:current_user.uid,psvr_uc_simpleappid:Setting.uc_simpleappid})
+    else
+      # me off, dz off
+      # me on, dz on
+      # both nothing to do:)
+      return true
     end
-    sign_out
   end
 
   # before_filter :insert_UserOrGuest
@@ -156,7 +178,7 @@ class ApplicationController < ActionController::Base
    
   before_filter :check_privilige
   def check_privilige
-    if !current_user.nil?
+    if false and !current_user.nil? and current_user.uid.present?
       @cur_user = PreCommonMember.where(:uid => current_user.uid).first
       @cur_groupid = @cur_user.groupid
       @cur_adminid = @cur_user.adminid
@@ -215,5 +237,199 @@ class ApplicationController < ActionController::Base
       end
     end
   end
+  
+  
+  def pagination_get_ready
+    params[:page] ||= '1'
+    params[:per_page] ||= '15'
+    @page = params[:page].to_i
+    @per_page = params[:per_page].to_i
+  end
+  def pagination_over(sumcount)
+    @page_count = (sumcount*1.0 / @per_page).ceil
+  end
+  
+  
+  def user_logged_in_required
+    @seo[:title] = '请获取邀请以注册'
+    @application_ie_user_logged_in_required = true
+    render 'user_logged_in_required',:layout => 'application_ie'
+  end
+  def modern_required
+    @seo[:title] = '请使用更高版本的浏览器'
+    render 'modern_required',:layout => 'application_ie'
+  end
+  def after_sign_in_path_for(resource_or_scope)
+    if params[:redirect_to].blank?
+      super(resource_or_scope)
+    else
+      params[:redirect_to]
+    end
+  end
+  def sign_in_others
+    # todo:
+    #   upon observing this
+    #   the sub-site should login the corresponding user
+  end
+  def sign_out_others
+    # todo:
+    #   upon observing this
+    #   the sub-site should self-destruct its cookies
+  end
+  
+  
+  def suggest
+    if current_user and !(current_user.followed_topic_ids.blank? and current_user.following_ids.blank?)
+      elim = current_user.is_expert ? 3 : 2
+      ulim = current_user.is_expert ? 0 : 1
+      tlim = 2
+      e,u,t = UserSuggestItem.find_by_user(current_user)
+      @suggested_experts = e.blank? ? [] :  User.any_in(:_id=>e.random(elim)).not_in(:_id=>current_user.following_ids)
+      @suggested_users = u.blank? ?  [] :  User.any_in(:_id=>u.random(ulim)).not_in(:_id=>current_user.following_ids)
+      @suggested_topics = t.blank? ? [] : Topic.any_in(:name=>t.random(tlim))
+    end
+  end
+  
+  def bson_invalid_object_id(e)
+    raise 'todo'
+    # redirect_to root_path, alert: "Resource not found."
+  end
+
+  def json_parse_error(e)
+    raise 'todo'
+    # redirect_to root_path, alert: "Json not valid"
+  end
+
+  def mongoid_errors_invalid_type(e)
+    raise 'todo'
+    # redirect_to root_path, alert: "Json values is not an array"
+  end
+
+
+
+  def render_optional_error_file(status_code)
+    @render_no_sidebar = true
+    status = status_code.to_s
+    @raw_raw_raw = true
+    if ["404", "422", "500"].include?(status)
+      render :template => "/errors/#{status}.html.erb", :status => status, :layout => "application"
+    else
+      render :template => "/errors/unknown.html.erb", :status => status, :layout => "application"
+    end
+  end
+  
+  def store_location
+    session[:return_to] = request.request_uri
+  end
+  
+  def redirect_back_or_default(default)
+    redirect_to(session[:return_to] || default)
+    session[:return_to] = nil
+  end
+  def unknown_user_check
+    if current_user
+      unknowns = []
+      unknowns << '真实姓名' if current_user.name_unknown
+      unknowns << '邮箱地址' if current_user.email_unknown
+      #unknowns << '密码' if current_user.encrypted_password.blank?
+      unless unknowns.blank?
+        flash[:insuf_info] = "请<a href=\"#{edit_user_registration_path}\">点击这里</a>补充您的#{unknowns.join '和'}".html_safe 
+      else
+        flash[:insuf_info] = nil
+      end
+    end
+  end
+
+  
+  def require_admin
+    if current_user.blank?
+      #@simple_cpanel_layout=true
+      #render "cpanel/users/login"
+      render file:"#{Rails.root}/public/999.html",layout:false
+      return
+    end
+    if ![User::SUP_ADMIN,User::SUB_ADMIN].include?current_user.admin_type
+      #@simple_cpanel_layout=true
+      #render "cpanel/users/login"
+      render file:"#{Rails.root}/public/999.html",layout:false
+      return
+    end
+  end
+  
+  def require_user(options = {})
+    return true if user_signed_in?
+    format = options[:format] || :html
+    format = format.to_s
+    if params[:redirect_path] and params[:redirect_path]!=''
+      redirect_path = params[:redirect_path]
+    else
+      redirect_path = request.path
+    end
+    login_url = "/login?redirect_to=#{redirect_path}"
+    if format == "html"
+      redirect_to login_url
+      return false
+    elsif format == "json"
+      if current_user.blank?
+        render :json => { :success => false, :msg => "你还没有登录。" }
+        return false
+      end
+    elsif format == "text"
+      # Ajax 调用的时候如果没有登录，那直接返回 nologin，前段自动处理
+      if current_user.blank?
+        render :text => "_nologin_" 
+        return false
+      end
+    elsif format == "js"
+      if current_user.blank?
+        render :js => "window.location.href = '#{login_url}';"
+        return false
+      end
+    end
+    true
+  end
+
+  def require_user_json
+    require_user(:format => :json)
+  end
+
+  def require_user_js
+    require_user(:format => :js)
+  end
+
+  def require_user_text
+    require_user(:format => :text)
+  end
+  
+  def tag_options(options, escape = true)
+    unless options.blank?
+      attrs = []
+      options.each_pair do |key, value|
+        if BOOLEAN_ATTRIBUTES.include?(key)
+          attrs << %(#{key}="#{key}") if value
+        elsif !value.nil?
+          final_value = value.is_a?(Array) ? value.join(" ") : value
+          final_value = html_escape(final_value) if escape
+          attrs << %(#{key}="#{final_value}")
+        end
+      end
+      " #{attrs.sort * ' '}".html_safe unless attrs.empty?
+    end
+  end
+  
+  def tag(name, options = nil, open = false, escape = true)
+    "<#{name}#{tag_options(options, escape) if options}#{open ? ">" : " />"}".html_safe
+  end
+  
+  def simple_format(text, html_options={}, options={})
+    text = ''.html_safe if text.nil?
+    start_tag = tag('p', html_options, true)
+    text.gsub!(/\r\n?/, "\n")                    # \r\n and \r -> \n
+    text.gsub!(/\n\n+/, "</p><br />#{start_tag}")  # 2+ newline  -> paragraph
+    text.gsub!(/([^\n]\n)(?=[^\n])/, '\1<br />') # 1 newline   -> br
+    text.insert 0, start_tag
+    text.html_safe.safe_concat("</p>")
+  end
+
 end
 

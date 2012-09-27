@@ -116,7 +116,7 @@ class TopicsController < ApplicationController
       # if !params[:page].blank?
       #   render "/asks/index.js"
       # else
-      render "show#{@subsite}"
+      render "show"
       # end
     end
     

@@ -1,0 +1,118 @@
+.ui-dialog {
+  padding:8px;
+  -webkit-border-radius:10px;
+  -moz-border-radius:10px;
+  -ms-border-radius:10px;
+  -o-border-radius:10px;
+  border-radius:10px;
+  background: rgba(0, 0, 0, 0.4);
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#66000000, endColorstr=#66000000);
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#66000000, endColorstr=#66000000)";
+}
+.ui-dialog-titlebar{
+  cursor:move;
+  background-color: #3CB579;
+  background-image: url(<%= asset_path "dialog_header.png"%>);
+  background-repeat: repeat-x;
+  -webkit-box-shadow: inset rgba(255, 255, 255, 0.4) 0 1px 0, inset rgba(0, 0, 0, 0.2) 0 -1px 0;
+  -moz-box-shadow: inset rgba(255, 255, 255, 0.4) 0 1px 0, inset rgba(0, 0, 0, 0.2) 0 -1px 0;
+  box-shadow: inset rgba(255, 255, 255, 0.4) 0 1px 0, inset rgba(0, 0, 0, 0.2) 0 -1px 0;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  height: 38px;
+  line-height: 36px;
+  padding: 0 12px;
+  position: relative;
+  text-shadow: rgba(0, 0, 0, 0.6) 0 -1px 0;
+  -webkit-border-radius:4px 4px 0px 0px;
+  -moz-border-radius:4px 4px 0px 0px;
+  -ms-border-radius:4px 4px 0px 0px;
+  -o-border-radius:4px 4px 0px 0px;
+  border-radius:4px 4px 0px 0px;
+  behavior: url(/hack/htc);
+}
+div.ui-dialog-buttonpane {
+    background-color: #020202;
+    background-image: url(<%= asset_path "toolbar.png"%>);
+    background-repeat: repeat-x;
+    border: 1px solid #333;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    height: 36px;
+    line-height: 36px;
+    padding: 1px 5px;
+    position: relative;
+    text-shadow: rgba(0, 0, 0, 0.6) 0 -1px 2px;
+    -webkit-border-radius:0px 0px 4px 4px;
+    -moz-border-radius:0px 0px 4px 4px;
+    -ms-border-radius:0px 0px 4px 4px;
+    -o-border-radius:0px 0px 4px 4px;
+    border-radius:0px 0px 4px 4px;
+    behavior: url(/hack/htc);
+    .ui-button{
+      color:white;
+      font-size:14px;
+      background:url(<%=asset_path "/assets/dialog_button_73.png"%>) no-repeat center center;
+      width:73px;
+      height:34px;
+      line-height:34px;
+      border:none;
+      float:right;
+      margin:1px 3px;
+    }
+}
+a.ui-dialog-titlebar-close{
+    background: url(<%=asset_path "/assets/close_tab.png"%>) no-repeat center center;
+    bottom: 0;
+    overflow: hidden;
+    position: absolute;
+    right: 0;
+    text-indent: -9999px;
+    top: 0;
+    width: 38px;
+}
+.ui-dialog-content{
+   background: none repeat scroll 0 0 #222222;
+   border: 1px solid #000000;
+   padding: 0 10px;
+   p.error {
+    -moz-border-radius: 6px;
+    background: #911;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 12px;
+    margin: 3px 0 10px;
+    padding: 4px 8px;
+    behavior: url(/hack/htc);
+  }
+  label{
+    color: #999999;
+    display: block;
+    font-size: 14px;
+    margin-bottom:2px;
+  }
+  input{
+    font-size: 16px;
+    width: 276px;
+    background:url(<%=asset_path('dialog_inputbg.png')%>) no-repeat;
+    border: none;
+    height:27px;
+    padding-left:9px;
+    
+  }
+  p{
+    margin-bottom:5px;
+    margin-top:12px;
+  }
+}
+
+
+  /* Misc visuals
+  ----------------------------------*/
+
+
+  /* Overlays */
+  .ui-widget-overlay { background: #000/*{bgColorOverlay}*/ /*url(<%=asset_path("ui-bg_flat_0_aaaaaa_40x100.png")%>)*/ /*{bgImgUrlOverlay}*/ 50%/*{bgOverlayXPos}*/ 50%/*{bgOverlayYPos}*/ repeat-x/*{bgOverlayRepeat}*/; opacity: .75;filter:Alpha(Opacity=75)/*{opacityOverlay}*/; }
+  .ui-widget-shadow { margin: -8px/*{offsetTopShadow}*/ 0 0 -8px/*{offsetLeftShadow}*/; padding: 8px/*{thicknessShadow}*/; background: #aaaaaa/*{bgColorShadow}*/ url(<%=asset_path("ui-bg_flat_0_aaaaaa_40x100.png")%>)/*{bgImgUrlShadow}*/ 50%/*{bgShadowXPos}*/ 50%/*{bgShadowYPos}*/ repeat-x/*{bgShadowRepeat}*/; opacity: .3;filter:Alpha(Opacity=30)/*{opacityShadow}*/; -moz-border-radius: 8px/*{cornerRadiusShadow}*/; -khtml-border-radius: 8px/*{cornerRadiusShadow}*/; -webkit-border-radius: 8px/*{cornerRadiusShadow}*/; border-radius: 8px/*{cornerRadiusShadow}*/; }

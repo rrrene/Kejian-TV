@@ -1,0 +1,34 @@
+  <li data-score="0" data-id="G-DCl1ThRwD9VBzrEH3LUHGwyOeD5eBVtRBK-SaoXdM" data-author-id="hpVeN4qaVSh7ou3mgTAgGg" data-author-viewing="False" class="comment yt-tile-default ">
+
+    <div class="comment-body">
+
+
+  <div class="content-container">
+    <div class="content">
+
+        <div dir="ltr" class="comment-text">
+          <p><%= comment.body %></p>
+
+        </div>
+
+        <p class="metadata">
+          <span class="author ">
+                <a dir="ltr" class="yt-uix-sessionlink yt-user-name " href="/users/<%= User.get_slug comment.user_id %>"><%= User.get_name comment.user_id %></a>
+
+          </span>
+          <span class="time">
+            <%= timeago(comment.created_at) %>
+          </span>
+        </p>
+    </div>
+
+
+        <div class="comment-actions">
+<span class="yt-uix-button-group"><button role="button" data-tooltip-show-delay="300" data-action="vote-up" title="Vote Up" onclick=";return false;" class="start comment-action-vote-up comment-action yt-uix-button yt-uix-button-default yt-uix-tooltip yt-uix-button-empty" type="button"><span class="yt-uix-button-icon-wrapper"><img alt="Vote Up" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" class="yt-uix-button-icon yt-uix-button-icon-watch-comment-vote-up"><span class="yt-valign-trick"></span></span></button><button role="button" data-tooltip-show-delay="300" data-action="vote-down" title="Vote Down" onclick=";return false;" class="end comment-action-vote-down comment-action yt-uix-button yt-uix-button-default yt-uix-tooltip yt-uix-button-empty" type="button" data-tooltip-text="Vote Down"><span class="yt-uix-button-icon-wrapper"><img alt="Vote Down" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" class="yt-uix-button-icon yt-uix-button-icon-watch-comment-vote-down"><span class="yt-valign-trick"></span></span></button></span><span class="yt-uix-button-group"><button role="button" data-upsell="comment" data-action="reply" onclick=";return false;" class="start comment-action link-gplus-lightbox yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-content">回复 </span></button><button aria-activedescendant="" aria-haspopup="true" aria-expanded="false" aria-pressed="false" role="button" data-button-has-sibling-menu="true" onclick=";return false;" class="end flip yt-uix-button yt-uix-button-default yt-uix-button-empty" type="button"><img alt="" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" class="yt-uix-button-arrow"><div style="display: none;" class=" yt-uix-button-menu yt-uix-button-menu-default"><ul><li data-action="share" class="comment-action"><span class="yt-uix-button-menu-item">分享</span></li><li data-action="remove" class="comment-action-remove comment-action"><span class="yt-uix-button-menu-item">删除</span></li><li data-action="flag" class="comment-action"><span class="yt-uix-button-menu-item">是垃圾</span></li><li data-action="block" class="comment-action-block comment-action"><span class="yt-uix-button-menu-item">禁用户</span></li><li data-action="unblock" class="comment-action-unblock comment-action"><span class="yt-uix-button-menu-item">解禁</span></li></ul></div></button></span>  </div>
+
+  </div>
+
+
+
+    </div>
+  </li>

@@ -22,7 +22,13 @@ module ApplicationHelper
   def timeago(time, options = {})
     options[:class]
     options[:class] = options[:class].blank? ? "timeago" : [options[:class],"timeago"].join(" ")
-    content_tag(:abbr, l(time, :format => :long), options.merge(:title => time.iso8601)) if time
+    return '' unless time
+    if options.delete :span
+      # <span title="2012-09-17 10:42:09Z" >50m ago</span></a>
+      content_tag(:span, l(time, :format => :long), options.merge(:title => time.iso8601,:class=>"relativetime"))
+    else
+      content_tag(:abbr, l(time, :format => :long), options.merge(:title => time.iso8601))
+    end
   end
   def mk_url(url)
     ret = url.strip

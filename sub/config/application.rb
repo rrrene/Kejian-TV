@@ -38,7 +38,8 @@ module Sub
 
     # Activate observers that should always be running.
     # config.active_record.observers = :cacher, :garbage_collector, :forum_observer
-    config.action_mailer.default_url_options = Setting.ktv_subdomain
+    config.autoload_paths += ["#{config.root}/uploaders", "#{Rails.root}/lib/core_ext"]
+    config.action_mailer.default_url_options = {:host => Setting.ktv_subdomain}
     config.action_controller.default_url_options = {:host => Setting.ktv_subdomain}
 
     
@@ -84,5 +85,9 @@ module Sub
     config.assets.version = '1.0'
   end
 end
+require "string_extensions"
+require "array_extensions"
+require "mmseg"
+require 'will_paginate/array'
 require "digest"
 require "digest/md5"

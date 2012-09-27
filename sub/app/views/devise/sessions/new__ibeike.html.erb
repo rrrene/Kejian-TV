@@ -1,0 +1,42 @@
+<%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html=>{:class => '',:id=>'submit_btn_form'}) do |f| %>
+  <fieldset>
+  <input type="hidden" name="redirect_to" value="<%= request.path %>"/>
+  <table>
+    <tbody><tr><td colspan="2">登录</td>
+      </tr>
+      <tr><td><p>E-mail：</p></td>
+      </tr><tr>
+      <td>
+        <%= f.email_field :email,:class => 'inputtype',:size => 30 %></td><td></td>
+      </tr>
+      <tr>
+        <td><br></td>
+      </tr>
+      <tr>
+            <td><p>密&nbsp;&nbsp;&nbsp;&nbsp;码：</p></td>
+      </tr>
+      <tr>
+        <td>
+          <%= f.password_field :password,:class => 'inputtype',:size => 30,:onkeypress=>"if(event.keyCode==13){$('#submit_btn_form').submit();}" %>
+</td>
+      </tr>
+       <tr><td><br></td></tr>
+          <% if devise_mapping.rememberable? -%>
+      <tr>
+        <td colspan="2"><%= f.check_box :remember_me,:style=>'height:19px;margin-left:5px',:onkeypress=>"if(event.keyCode==13){$('#submit_btn_form').submit();}" %> <%= f.label :remember_me,'记住我的登录状态（两周）' %></td>
+      </tr>
+          <% end -%>
+      <tr><td><br></td></tr>
+      
+      <tr>
+        <td>
+      <input class="submit" name="commit" value="登录" type="submit">
+      </td>
+      </tr>
+      
+  </tbody></table>
+  </fieldset>
+  <% end %>
+  
+
+

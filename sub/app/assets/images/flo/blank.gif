@@ -1,0 +1,12 @@
+
+
+<html>
+<style>
+body{background:#D8DFE6; }
+h1{font-family: 'Lucida Grande', 'Lucida Sans Unicode', Arial, Helvetica, sans-serif;text-shadow: 0px 1px 0px #E9EEF2; color: #909AA5;font-size:18px;font-weight: normal;display:block; background: center top url(images/404.png) no-repeat; padding-top:70px; text-align:center;min-width: 100px;top:50%;left:50%;position:absolute;margin-top: -50px; margin-left: -68px;}
+</style>
+
+<body>
+<h1>Page not found</h1>
+</body>
+</html>

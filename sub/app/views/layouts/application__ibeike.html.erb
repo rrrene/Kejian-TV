@@ -1,0 +1,237 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<title>iBeiKe课件共享系统（OCW） - <%= @seo[:title] %></title>
+  <%= stylesheet_link_tag "ibeike", :media => "all" %>	 
+  <%= javascript_include_tag "ibeike" %>  
+  <%= csrf_meta_tag %>
+  <%= flash[:extra_ucenter_operations] %>
+</head>
+
+<body class="__ibk">
+<div id="contents">
+    <!--header begin-->
+    
+<div id=header>
+	<div id="logo">
+		
+			<a href="/"><img alt="Ocw_logo" src="<%=asset_path('ibeike/ocw_logo.jpg')%>" /></a>
+		
+	</div>
+<div id="headerright">
+	<a href="/feed" title="订阅最新课件"><img alt="Feed" src="<%=asset_path('ibeike/feed.png')%>" /></a>
+</div>
+
+<div id="searchbar">
+	<div id="search">
+			<form action="/coursewares/result" method="get">
+					 <select name="target" id="course_target"  class="searchselect">
+							<option value="all">全部</option>
+							<option value="title">标题</option>
+							<option value="teacher">授课教师</option>
+							<option value="description">描述</option>
+							<option value="user">共享用户</option>
+					</select>
+			<div class="selectall"><input class="searchinput" name="search"/ > <input class="searchbuttom" type="submit" value=" " /></div>
+			</form>
+	</div>
+       <div class="searchupload">
+       <a href="/upload">我要贡献</a>
+       </div>
+</div>
+<div id="adbar">
+	<a href="#"><img alt="Ocw_topbanner" src="<%=asset_path('ibeike/ocw_TopBanner.jpg')%>" /></a>
+            </div>
+</div>
+        
+
+    <!--header end-->
+
+    <!--maincontents begin-->
+
+    <div id="maincontents">
+    	<div id="sidebar">
+    		<div id="subsidebar">
+
+
+
+            <div class="sidebartitle_1">
+                         <p>用户面板</p>
+            </div>
+    	<div class="usersidebartext">
+    	<table cellspacing="0" cellpadding="0" >
+    	<tr>
+    	<td rowspan="7" align="left" valign="top">
+    		<div class="userimg">
+
+    		<a href="<%= user_path(current_user) %>"><img alt="Userpic" height="60" src="<%= avatar_url(current_user,:mid60) %>" width="60" /></a>
+    		</div>
+    	</td>
+    	</tr>
+            <div class="userinfo">
+    		<tr>
+    		<td><%= current_user.name %></td>
+    			<tr>
+                          <td>贡献数：<%= current_user.upload_count %></td>
+    		      </tr>
+    		      <tr>
+    		      <td>金&nbsp;&nbsp;&nbsp;&nbsp;钱：<%= current_user.money %></td>
+    		      </tr>
+    		      <tr>
+                          <td><li>等&nbsp;&nbsp;&nbsp;&nbsp;级：<%= current_user.level_name %>
+
+
+
+
+
+
+
+
+
+
+    			</li>
+    		      </td>
+    		      </tr>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    			</td>
+    		</tr>
+    	</div>
+    	</table>
+    	</div>
+    		<div class="sidebarchoose">
+                             <a href="<%= user_path(current_user) %>"><img alt="Home" src="<%=asset_path('ibeike/home.png')%>" /></a>
+                             <a href="/upload"><img alt="Upload" src="<%=asset_path('ibeike/upload.png')%>" /></a>
+                             <a href="/need"><img alt="Need" src="<%=asset_path('ibeike/need.png')%>" /></a>
+                            <a href="/users/87628"><img alt="Setting" src="<%=asset_path('ibeike/setting.png')%>" /></a>
+                   </div>
+
+    	<div id = "backstage" >
+
+    		<a href="/logout">退出</a>
+    	</div>
+
+
+    	<div class="sidebartitle_2">
+    		<p>短信息</p>
+            </div>
+    	<div class="pmsidebartext">
+    		<table cellspacing=0 cellpadding=0 border=0>
+                            <tr>
+    				<td><a href="/pms"><img alt="Mes_readed" src="<%=asset_path('ibeike/mes_readed.gif')%>" />收件箱</a></td>
+    			<td><a href="/pms?filter=systempm"><img alt="Mes_system" src="<%=asset_path('ibeike/mes_system.gif')%>" />系统消息</a></td></tr>
+
+    		</table>
+    	</div>
+
+
+    	<div class="sidebartitle_3">
+                         <p>课件寻求</p><div class="more"><a href="/inquires">more</a></div>
+                </div>
+                     <div class="sidebartext">
+                     <table cellspacing=0 cellpadding=0 border=0>
+
+                          <tr>
+                          	<td width="150"><a href="/inquires/94">管理学</a></td><td ><a href="/users/136560">huxiaobo</a></td>
+                          </tr>
+
+                          <tr>
+                          	<td width="150"><a href="/inquires/93">概率与统计</a></td><td ><a href="/users/143617">朋克大叔</a></td>
+                          </tr>
+
+                          <tr>
+                          	<td width="150"><a href="/inquires/92">机械原理                        </a></td><td ><a href="/users/99645">L520678@163.com</a></td>
+                          </tr>
+
+                          <tr>
+                          	<td width="150"><a href="/inquires/91">弹性力学及数值模拟</a></td><td ><a href="/users/94979">达达狼</a></td>
+                          </tr>
+
+                          <tr>
+                          	<td width="150"><a href="/inquires/90">高等数学II期末考试试卷</a></td><td ><a href="/users/139516">chenxiaolong</a></td>
+                          </tr>
+
+                     </table>
+    		 </div>
+
+
+    	<div class="sidebartitle_4">
+                         <p>用户排行</p><div class="more"><a href="/coursewares/rank">more</a></div>
+                </div>
+                     <div class="sidebartext">
+    			<table cellspacing=0 cellpadding=0 border=0>
+
+                              <tr><td width="180"><a href="/users/84525">nearnear</a></td>
+    				<td align="right" style="padding-right:15px"><a href="/users/84525?only=true">195</a></td></tr>
+
+                              <tr><td width="180"><a href="/users/84346">smilerze</a></td>
+    				<td align="right" style="padding-right:15px"><a href="/users/84346?only=true">184</a></td></tr>
+
+                              <tr><td width="180"><a href="/users/91059">liuyanting</a></td>
+    				<td align="right" style="padding-right:15px"><a href="/users/91059?only=true">165</a></td></tr>
+
+                              <tr><td width="180"><a href="/users/101962">yangleilei</a></td>
+    				<td align="right" style="padding-right:15px"><a href="/users/101962?only=true">158</a></td></tr>
+
+    			</table>
+    		</div>
+
+    		</div>
+                     <div class="sidebarpic">
+    			<a href="/suggestions/new"><img alt="Ocw_comments" src="<%=asset_path('ibeike/ocw_Comments.jpg')%>" /></a>
+                     </div>
+                        <div class="sidebarpic">
+    			<a href="/faq"><img alt="Ocw_helps" src="<%=asset_path('ibeike/ocw_Helps.jpg')%>" /></a>
+                     </div>
+       </div>
+
+
+    	<div id="widebar">
+    		<% if flash[:notice]%>
+    				<div class="notice" style="margin:8px">
+    					<p class="title"><%= flash[:notice] %></p>
+    				</div>
+    		<% end %>
+    		<% if flash[:error]%>
+    				<div class="error" style="margin:8px">
+    					<p class="title" ><%= flash[:error] %></p>
+    				</div>
+    		<% end %>
+
+<%= yield %>
+
+</div>
+</div>
+
+
+    <!--maincontents end-->
+
+     </div>
+
+   <!--footer begin-->
+    <%= render file:'/application/footers/_footer__ibeike' %>
+  <!--footer end-->
+
+
+</body>
+
+
+</html>

@@ -1,4 +1,5 @@
 //= require ./modernizr.js
+//= require ./es5-shim.js
 //= require_self
 // Avoid `console` errors in browsers that lack a console.
 if (!(window.console && console.log)) {

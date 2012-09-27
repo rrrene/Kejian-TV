@@ -1,0 +1,3330 @@
+.__zm{
+  .ntitle {
+      width: 380px;
+      font-size: 14px;
+      color: #888;
+      padding: 6px 0 6px 10px;
+      border: 1px solid #aaa
+  }
+
+  .dialogsubmit {
+      margin: 0 23px;
+      border-top: 1px solid #d6d6d6;
+      padding: 20px 0 10px 0
+  }
+
+  .dialogsubmit button {
+      border: 0;
+      background: url(<%=asset_path('zm/r11839/images/button/array.png')%>) no-repeat left -124px;
+      height: 40px;
+      line-height: 40px;
+      width: 91px;
+      text-align: center;
+      color: #fff;
+      font-size: 14px
+  }
+
+  .dialog {
+      position: fixed;
+      z-index: 10001;
+      box-shadow: 0 1px 3px rgba(34,25,25,0.4);
+      border: 1px solid #d9d9d9\9;
+      background: #f2f2f2
+  }
+
+  .dialog {
+      position: absolute;
+      left: expression(document.documentElement.scrollLeft+50+"%");
+      top: expression(eval(document.documentElement.scrollTop)+40+"px")
+  }
+
+  .dialog span.success-ico {
+      width: 30px;
+      height: 31px;
+      margin-right: 10px;
+      vertical-align: middle;
+      display: inline-block;
+      background: url(<%=asset_path('zm/r11839/images/array/dialog2.gif')%>) no-repeat -164px -165px
+  }
+
+  .dialog span.confirm-ico {
+      width: 30px;
+      height: 31px;
+      margin-right: 10px;
+      vertical-align: middle;
+      background-position: 0 -779px
+  }
+
+  .dialog .padico {
+      padding-left: 40px
+  }
+
+  .dialog .top {
+      height: 59px
+  }
+
+  .dialog .top .title {
+      font-size: 24px;
+      font-family: "微软雅黑";
+      padding-left: 16px;
+      padding-top: 11px
+  }
+
+  .dialog .top .left {
+      background: url(<%=asset_path('zm/r11839/images/array/defaultdialog.gif')%>) repeat-x left top;
+      height: 48px;
+      overflow: hidden
+  }
+
+  .dialog .top .right {
+      width: 60px;
+      height: 59px;
+      float: right;
+      _margin-left: -3px
+  }
+
+  .dialog a.close {
+      background: url(<%=asset_path('zm/r11839/images/array/defaultdialog.gif')%>) no-repeat left -74px;
+      display: block;
+      width: 60px;
+      height: 59px
+  }
+
+  .dialog a.close:hover {
+      background: url(<%=asset_path('zm/r11839/images/array/defaultdialog.gif')%>) no-repeat left -147px
+  }
+
+  .dialog a.close:active {
+      background: url(<%=asset_path('zm/r11839/images/array/defaultdialog.gif')%>) no-repeat left -225px
+  }
+
+  .dialog .body {
+      background: #f2f2f2
+  }
+
+  .dialog .bottom {
+      height: 14px;
+//      *+margin-top: 10px
+  }
+
+  .dialog .bottom .left {
+      width: 14px;
+      height: 14px;
+      float: left;
+      _margin-right: -3px
+  }
+
+  .dialog .bottom .right {
+      overflow: hidden;
+      height: 14px
+  }
+
+  .dialog .addtool {
+      background: #eff8f6;
+      border-bottom: 1px solid #d7d7d7;
+      padding: 12px 10px 12px 50px
+  }
+
+  .dialog .addtool .plustools {
+      font-family: "宋体";
+      text-align: center
+  }
+
+  .client {
+      padding: 19px 23px 14px 23px;
+      background: #f2f2f2
+  }
+
+  .client .dialog-tag {
+      border-bottom: 1px solid #ccc;
+      height: 32px;
+      position: relative;
+      margin-bottom: 16px
+  }
+
+  .client .dialog-tag li {
+      position: absolute;
+      line-height: 31px;
+      top: 1px;
+      padding: 0 27px;
+      cursor: pointer
+  }
+
+  .client .dialog-tag li.current {
+      border-left: 1px solid #ccc;
+      border-right: 1px solid #ccc;
+      border-top: 1px solid #65c5b3;
+      border-bottom: 1px solid #f2f2f2;
+      background: #f2f2f2;
+      line-height: 30px
+  }
+
+  .client .dialog-tag .local {
+      left: 104px
+  }
+
+  .client .dialog-tag .net {
+      left: 0
+  }
+
+  .client .dialog-tag .say {
+      left: 204px;
+      border: 0;
+      color: #888;
+      cursor: auto
+  }
+
+  .client .indeximg {
+      float: left;
+      position: relative;
+      border: 1px solid #bbb;
+      width: 190px;
+      height: 190px;
+      padding: 5px;
+      background: #fff;
+      box-shadow: 0 0 4px rgba(25,25,25,0.3)
+  }
+
+  .client .indeximg img.shareimg {
+      width: 190px;
+      height: 190px
+  }
+
+  .client .loading,.client .loading2 {
+      display: none;
+      position: absolute;
+      top: 5px;
+      width: 190px;
+      height: 109px;
+      padding-top: 81px;
+      text-align: center
+  }
+
+  .client .loading2 {
+      background-color: #fff;
+      opacity: .8;
+      filter: alpha(opacity=80)
+  }
+
+  .client .indeximg img.loadimg {
+      position: absolute;
+      top: 86px;
+      left: 86px;
+      display: none;
+      width: 29px;
+      height: 30px
+  }
+
+  .client .saybox {
+      float: left;
+      margin-left: 14px;
+      width: 376px
+  }
+
+  .client .saybox .checkbox {
+      font-family: tahoma
+  }
+
+  .client .saybox .note {
+      padding: 0 0 10px
+  }
+
+  .client .saybox .note .count em {
+      color: #3a9
+  }
+
+  .client .saybox .swfbtn,#loadimg .saybox .selectbox,#loadimg .saybox .integralbox {
+      margin-bottom: 10px
+  }
+
+  .saybox .selectbox {
+      margin-bottom: 16px;
+      position: relative;
+      z-index: 2
+  }
+
+  .client .saybox .swfbtn .http {
+      width: 369px;
+      padding: 6px 0 6px 5px;
+      border: 1px solid #aaa;
+      height: 16px
+  }
+
+  .q {
+      background: url(<%=asset_path('zm/r11839/images/array/icons.gif')%>) no-repeat left top;
+      width: 16px;
+      height: 16px;
+      display: inline-block;
+      vertical-align: text-bottom
+  }
+
+  .textareabox textarea {
+      border: 1px solid #aaa;
+      width: 364px;
+      padding: 5px;
+      height: 65px;
+      overflow: hidden;
+      resize: none;
+      background: url(<%=asset_path('zm/r11839/images/chrome/input_bg.gif')%>) repeat-x #fff;
+      display: block
+  }
+
+  .textareabox textarea.bgcolor {
+      background-color: #fec
+  }
+
+  .saynumber {
+      position: relative;
+      background: url(<%=asset_path('zm/r11839/images/dialog/saynumber_bg.gif')%>) repeat-x;
+      line-height: 24px;
+      padding: 0 10px;
+      color: #888;
+      border: 1px solid #aaa;
+      border-bottom: 1px solid #e6e5e5;
+      border-top-color: #ccc;
+      width: 354px;
+      margin-top: -2px;
+      display: block;
+      height: 25px
+  }
+
+  .insertTheme,.insertprice {
+      position: absolute;
+      left: -1px;
+      top: -1px;
+      width: 82px;
+      height: 24px;
+      border-left: 1px solid #aaa;
+      border-bottom: 1px solid #aaa;
+      border-right: 1px solid #c6c6c6;
+      border-top: 1px solid #ccc;
+      display: block;
+      background: url(<%=asset_path('zm/r11839/images/button/insert.gif')%>) repeat-x;
+      text-align: center;
+      color: #333;
+      text-shadow: 1px #fff
+  }
+
+  .insertTheme:hover,.insertprice:hover {
+      border: 1px solid #65c5b3;
+      text-decoration: none
+  }
+
+  .insertprice {
+      position: absolute;
+      left: 81px;
+      top: -1px
+  }
+
+  .pos-left {
+      position: absolute;
+      left: -1px;
+      top: -1px
+  }
+
+  .saynumber .narrow {
+      width: 57px
+  }
+
+  .insertprice em {
+      font-weight: bold;
+      font-family: "Microsoft Yahei","微软雅黑";
+      font-size: 13px;
+      padding-right: 3px
+  }
+
+  .off {
+      color: #888;
+      text-shadow: 1px 1px 0 #fff;
+      background: #f6f6f6
+  }
+
+  .off:hover {
+      color: #888;
+      border-left: 1px solid #aaa;
+      border-bottom: 1px solid #aaa;
+      border-right: 1px solid #c6c6c6;
+      border-top: 1px solid #c6c6c6
+  }
+
+  .submit {
+      clear: both;
+      padding-top: 8px
+  }
+
+  .submit .right {
+      float: right;
+      _width: 240px
+  }
+
+  .submit label {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      vertical-align: middle;
+      text-indent: -9999px;
+      overflow: hidden;
+      margin-left: 6px;
+      margin-right: 6px
+  }
+
+  .submit .sina {
+      background: url(<%=asset_path('zm/r11839/images/array/icons.gif')%>) no-repeat left -217px
+  }
+
+  .submit .qq {
+      background: url(<%=asset_path('zm/r11839/images/array/icons.gif')%>) no-repeat left -239px
+  }
+
+  .submit .renren {
+      background: url(<%=asset_path('zm/r11839/images/array/icons.gif')%>) no-repeat left -263px
+  }
+
+  .submit .qzone {
+      background: url(<%=asset_path('zm/r11839/images/array/icons.png')%>) no-repeat left -562px
+  }
+
+  .submit .douban {
+      background: url(<%=asset_path('zm/r11839/images/array/platformico.gif')%>) no-repeat -103px 0
+  }
+
+  .submit .taobao {
+      background: url(<%=asset_path('zm/r11839/images/array/platformico.gif')%>) no-repeat -130px 0
+  }
+
+  .submit .submitbtn {
+      background: url(<%=asset_path('zm/r11839/images/array/plus.gif')%>) no-repeat left top;
+      display: block;
+      border: 0;
+      width: 82px;
+      height: 40px;
+      text-align: center;
+      color: #fff;
+      font-size: 14px;
+      cursor: pointer
+  }
+
+  .submit input.submitbtn:hover {
+      background: url(<%=asset_path('zm/r11839/images/array/plus.gif')%>) no-repeat left -41px
+  }
+
+  .submit .size {
+      display: inline-block;
+      line-height: 16px;
+      height: 16px;
+      vertical-align: middle;
+      _vertical-align: bottom;
+      _font-family: "宋体"
+  }
+
+  .submit .share {
+      display: inline-block;
+      margin-top: 8px;
+      color: #888
+  }
+
+  .swfbtn .imgbtn {
+      background: url(<%=asset_path('zm/r11839/images/array/hover_chrome.png')%>) no-repeat left -222px;
+      width: 84px;
+      height: 34px;
+      text-align: center;
+      line-height: 34px;
+      display: inline-block;
+      color: #3a9;
+      resize:none
+  }
+
+  #newpocket,#editpocket {
+      background: #f2f2f2;
+      padding: 24px 23px 10px 23px
+  }
+
+  #newpocket .addtext,#editpocket .addtext {
+      margin-bottom: 18px
+  }
+
+  .addtext .deftest {
+      background-color: #fff;
+      width: 320px
+  }
+
+  #newpocket .marginbottom,#editpocket .marginbottom {
+      margin-bottom: 12px
+  }
+
+  #newpocket .category .list,#editpocket .category .list {
+      height: 206px;
+      overflow-y: auto
+  }
+
+  #newpocket .category h2,#editpocket .category h2 {
+      padding-bottom: 6px
+  }
+
+  #newpocket .category .list ul li,#editpocket .category .list ul li {
+      float: left;
+      width: 157px;
+      margin-bottom: 4px;
+      display: inline
+  }
+
+  .selectfriend {
+      background: url(<%=asset_path('zm/r11839/images/dialog/d_f_bg.gif')%>) repeat-x left 50px #e3e3e3
+  }
+
+  .selectfriend .gotop {
+      height: 50px
+  }
+
+  .selectfriend .gotop a {
+      background-image: url(<%=asset_path('zm/r11839/images/dialog/gotop.gif')%>);
+      background-position: left top;
+      height: 50px;
+      display: block;
+      text-indent: -9999px;
+      overflow: hidden;
+      background-repeat: no-repeat
+  }
+
+  .selectfriend .gotop a:hover {
+      background-position: left bottom
+  }
+
+  .selectfriend .friendlist {
+      padding: 10px 23px 16px 23px;
+      background: url(<%=asset_path('zm/r11839/images/dialog/d_b_bg.gif')%>) repeat-x bottom
+  }
+
+  .selectfriend h3 {
+      padding-bottom: 9px
+  }
+
+  .selectfriend .friendlist .list {
+      height: 274px;
+      overflow-y: auto;
+      background: #fff
+  }
+
+  .selectfriend .friendlist .list ul li {
+      float: left;
+      width: 135px;
+      margin: 8px 0 0 8px;
+      border: 1px solid #fff;
+      padding: 4px 0 4px 4px;
+      height: 30px;
+      overflow: hidden
+  }
+
+  .selectfriend .friendlist .list ul li.hover {
+      background: #f9f9f9
+  }
+
+  .selectfriend .friendlist .list ul p.name {
+      line-height: 14px;
+      padding-bottom: 3px
+  }
+
+  .selectfriend .friendlist .list ul li span {
+      display: none;
+      background: url(<%=asset_path('zm/r11839/images/array/dialog.png')%>) no-repeat right -73px
+  }
+
+  .selectfriend .friendlist .list ul li .uhead {
+      float: left;
+      margin-right: 10px;
+      _margin-rgiht: 7px;
+      width: 30px
+  }
+
+  .selectfriend .friendlist .list ul li .uinfo {
+      overflow: hidden;
+      width: 95px;
+      _float: left
+  }
+
+  .selectfriend .friendlist .list ul li.current {
+      border: 1px solid #3aa28d;
+      background: #eff8f6;
+      position: relative
+  }
+
+  .selectfriend .friendlist .list ul li.current .true {
+      display: block;
+      width: 11px;
+      height: 11px;
+      font-size: 0;
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      background: url(<%=asset_path('zm/r11839/images/array/dialog.png')%>) no-repeat right -73px;
+      display: block
+  }
+
+  .optionshare {
+      border-top: 1px solid #c6c6c6;
+      border-bottom: 1px solid #fff;
+      margin: 0 23px 10px 23px
+  }
+
+  .optionshare .modifyborder {
+      border-top: 1px solid #fff;
+      border-bottom: 1px solid #c6c6c6;
+      padding-top: 8px;
+      height: 44px
+  }
+
+  .overflowhidden {
+      overflow: hidden
+  }
+
+  .uploadfile {
+      width: 360px;
+      _padding-left: 3px;
+      padding: 3px 0 0 3px
+  }
+
+  .uploadfile .cutbody {
+      border: 1px solid #3aa28d;
+      background: #f7f7f7;
+      width: 358px;
+      margin-left: -3px;
+      margin-top: -3px;
+      position: relative
+  }
+
+  .uploadfile .background {
+      background: #d8d6d6;
+      padding-bottom: 3px;
+      padding-right: 3px;
+      position: absolute;
+      z-index: 102
+  }
+
+  .uploadfile .cutbody .optionpic {
+      padding: 10px
+  }
+
+  .uploadfile .cutbody .defaultpic {
+      float: left;
+      margin-right: 1px;
+      position: relative;
+      display: inline;
+      width: 207px
+  }
+
+  .uploadfile .cutbody .saveimg {
+      float: left;
+      width: 124px
+  }
+
+  .uploadfile .cutbody .saveimg p {
+      padding-left: 3px;
+      padding-bottom: 5px
+  }
+
+  .altdiv {
+      position: absolute;
+      z-index: 1002;
+      background: url(<%=asset_path('zm/r11839/images/dialog/altdiv_03.png')%>) no-repeat;
+      width: 240px;
+      height: 104px;
+      padding-top: 27px;
+      text-align: center
+  }
+
+  .altconfirmup {
+      background-image: url(<%=asset_path('zm/r11839/images/dialog/altdiv_04.png')%>)
+  }
+
+  .altdivCenter {
+      position: absolute;
+      z-index: 100002;
+      background: #fff;
+      border-radius: 10px;
+      border: 1px solid #d7d7d7;
+      width: 240px;
+      height: 104px;
+      padding-top: 27px;
+      text-align: center;
+      box-shadow: 0 1px 3px rgba(24,24,34,0.4)
+  }
+
+  .altconfirm,.altsuccess {
+      background: url(<%=asset_path('zm/r11839/images/array/alt_icon_07.png')%>) no-repeat;
+      font-size: 14px
+  }
+
+  .altconfirm {
+      padding-left: 22px;
+      background-position: 0 -34px;
+      line-height: 20px;
+      display: inline-block;
+      margin: auto
+  }
+
+  .altsuccess {
+      margin-top: 17px;
+      _margin-top: 44px;
+      padding-left: 24px;
+      font-size: 18px;
+      font-family: Microsoft Yahei;
+      margin-left: 37px;
+      background-position: 0 7px;
+      background-position: 0 -34px
+  }
+
+  .altdiv .btcontainer,.altdivCenter .btcontainer {
+      padding-top: 20px;
+      text-align: center;
+      word-spacing: 12px
+  }
+
+  .altdiv .btsave,.altdivCenter .btsave {
+      text-align: center;
+      color: #fff
+  }
+
+  .altdiv .btcancel,.altdivCenter .btcancel {
+      text-align: center;
+      color: #3a9
+  }
+
+  .pointetop {
+      background: url(<%=asset_path('zm/r11839/images/array/pintetop.gif')%>) no-repeat;
+      width: 7px;
+      height: 4px;
+      font-size: 0;
+      position: absolute;
+      display: block;
+      top: -4px;
+      left: 28px
+  }
+
+  .alert {
+      background: url(<%=asset_path('zm/r11839/images/dialog/alert.png')%>) no-repeat;
+      width: 240px;
+      height: 74px;
+      text-align: center;
+      padding-top: 48px
+  }
+
+  .alert p.altconfirm {
+      display: inline-block
+  }
+
+  .alert .true,.alert .false,.alert .ask,.alert .warm {
+      display: inline-block;
+      font-size: 16px;
+      font-family: "微软雅黑"
+  }
+
+  .alert .true {
+      background: url(<%=asset_path('zm/r11839/images/array/alt_icon_07.png')%>) no-repeat left 7px;
+      padding-left: 24px
+  }
+
+  .alert .false {
+      background: url(<%=asset_path('zm/r11839/images/array/alt_icon_07.png')%>) no-repeat left -63px;
+      padding-left: 24px
+  }
+
+  .alert .warm {
+      background: url(<%=asset_path('zm/r11839/images/array/alt_icon_07.png')%>) no-repeat left -96px;
+      padding-left: 24px
+  }
+
+  .cl {
+      clear: both
+  }
+
+  .g0 {
+      color: #000
+  }
+
+  .g3 {
+      color: #333
+  }
+
+  .g6 {
+      color: #666
+  }
+
+  .g9 {
+      color: #999
+  }
+
+  .vm {
+      vertical-align: middle
+  }
+
+  .vtb {
+      vertical-align: text-bottom
+  }
+
+  .vt {
+      vertical-align: top
+  }
+
+  .vn {
+      vertical-align: -2px
+  }
+
+  .fix {
+      zoom: 1
+  }
+
+  .fix:after,.fix:before {
+      display: block;
+      content: "clear";
+      height: 0;
+      clear: both;
+      overflow: hidden;
+      visibility: hidden
+  }
+
+  .rel {
+      position: relative
+  }
+
+  .abs {
+      position: absolute
+  }
+
+  .fixed {
+      position: fixed
+  }
+
+  .dn {
+      display: none
+  }
+
+  .db {
+      display: block
+  }
+
+  .dib {
+      display: inline-block
+  }
+
+  .di {
+      display: inline
+  }
+
+  .zxx_out_box {
+      width: 70%;
+      min-width: 700px;
+      border-left: 1px solid white;
+      border-right: 1px solid white;
+      margin: 0 auto
+  }
+
+  .zxx_in_box {
+      min-height: 550px;
+      _height: 550px;
+      border-left: 1px solid #ccc;
+      border-right: 1px solid #ccc;
+      background: white;
+      padding: 1em 2.5em 0
+  }
+
+  .zxx_header {
+      padding: 10px 20px 5px;
+      border-bottom: 1px solid #ccc;
+      overflow: hidden;
+      zoom: 1
+  }
+
+  .zxx_author_time {
+      float: right;
+      margin-top: 34px;
+      color: #787878;
+      font-family: "Courier New",Courier,monospace
+  }
+
+  .zxx_test_list {
+      overflow: hidden;
+      zoom: 1
+  }
+
+  .zxx_code {
+      display: block;
+      padding: 10px;
+      margin: 5px 0;
+      background: #eee;
+      border: 1px dashed #ccc;
+      clear: both;
+      zoom: 1
+  }
+
+  .zxx_code xmp {
+      margin: 0;
+      color: #00F;
+      font-size: 12px;
+      white-space: pre-wrap;
+      word-wrap: break-word
+  }
+
+  .zxx_btn {
+      display: inline-block;
+      background: url(../image/down_btn.png) no-repeat;
+      padding-left: 25px
+  }
+
+  .zxx_btn span,.zxx_btn a {
+      display: inline-block;
+      height: 45px;
+      line-height: 45px;
+      background: url(../image/down_btn.png) no-repeat right top;
+      padding: 0 45px 0 20px;
+      cursor: pointer
+  }
+
+  .zxx_btn:hover {
+      text-decoration: none;
+      color: #34538b
+  }
+
+  .zxx_ad_left {
+      position: absolute;
+      left: 10px;
+      top: 120px;
+      padding: 10px 6px;
+      background: white
+  }
+
+  .zxx_ad_right {
+      position: absolute;
+      right: 10px;
+      top: 120px;
+      padding: 10px 6px;
+      background: white
+  }
+
+  .zxx_ad_left.fixed,.zxx_ad_right.fixed {
+      position: fixed!important;
+      position: absolute
+  }
+
+  .zxx_ad_fixed {
+      top: 5px;
+      position: fixed!important;
+      position: absolute
+  }
+
+  .jcrop-holder {
+      text-align: left
+  }
+
+  .jcrop-vline,.jcrop-hline {
+      font-size: 0;
+      position: absolute
+  }
+
+  .jcrop-vline {
+      height: 100%;
+      width: 1px!important
+  }
+
+  .jcrop-hline {
+      width: 100%;
+      height: 1px!important
+  }
+
+  .jcrop-handle {
+      font-size: 1px;
+      width: 7px!important;
+      height: 7px!important;
+      border: 1px #eee solid;
+      background-color: #333;
+      *width: 9px;
+      *height: 9px
+  }
+
+  .jcrop-tracker {
+      width: 100%;
+      height: 100%
+  }
+
+  .custom .jcrop-vline,.custom .jcrop-hline {
+      background: yellow
+  }
+
+  .custom .jcrop-handle {
+      border-color: black;
+      background-color: #c7bb00;
+      -moz-border-radius: 3px;
+      -webkit-border-radius: 3px
+  }
+
+  .crop_preview {
+      width: 60px;
+      height: 60px;
+      overflow: hidden
+  }
+
+  .sendmail {
+      position: relative
+  }
+
+  .sendmail label {
+      font-size: 14px;
+      word-spacing: 10px;
+      display: inline-block;
+      float: left
+  }
+
+  .sendmail label.username {
+      padding-top: 7px
+  }
+
+  .sendmail .w200 {
+      width: 200px;
+      background: #fff
+  }
+
+  .intext {
+      display: inline-block
+  }
+
+  .sendmail .intext .innerborder {
+      position: static
+  }
+
+  .sendmail .intext .innerborder textarea {
+      border: 1px solid #aaa;
+      overflow: hidden;
+      padding: 6px 0 0 6px;
+      width: 344px;
+      background: url(<%=asset_path('zm/r11839/images/chrome/input_bg.gif')%>)repeat-x top #fff;
+      resize: none;
+      float: left;
+      height: 100px;
+      overflow-y: auto
+  }
+
+  .sendmail .sendline {
+      padding-bottom: 16px
+  }
+
+  .countdown {
+      position: absolute;
+      left: 326px;
+      top: 40px;
+      color: #888;
+      _left: 303px;
+      _top: 44px
+  }
+
+  .countdown {
+      position: absolute;
+      left: 391px;
+      top: 50px;
+      color: #888;
+      _left: 368px;
+      _top: 54px
+  }
+
+  .sendsubmit {
+      padding-left: 54px
+  }
+
+  .sendsubmit button {
+      border: 0;
+      background: url(<%=asset_path('zm/r11839/images/button/array.png')%>) no-repeat left -124px;
+      height: 40px;
+      line-height: 40px;
+      width: 91px;
+      text-align: center;
+      color: #fff;
+      font-size: 14px
+  }
+
+  .selectbox .deftest {
+      width: 230px
+  }
+
+  .selectuser {
+      padding-bottom: 20px
+  }
+
+  .omlymy {
+      background: url(<%=asset_path('zm/r11839/images/dialog/group_1.gif')%>) no-repeat left 4px;
+      padding-left: 31px;
+      margin-left: 8px
+  }
+
+  .addothre {
+      background: url(<%=asset_path('zm/r11839/images/dialog/group_1.gif')%>) no-repeat left -80px;
+      padding-left: 31px;
+      margin-left: 8px
+  }
+
+  .comboxAdd .innerborder {
+      position: static
+  }
+
+  .dialog .nocontent {
+      height: 195px;
+      text-align: center;
+      padding-top: 140px;
+      background: url(<%=asset_path('zm/r11839/images/dialog/d_b_bg.gif')%>) repeat-x bottom;
+      line-height: 1.6
+  }
+
+  .dialog .nocontent span {
+      font-size: 18px
+  }
+
+  .handlist {
+      height: 190px;
+      width: 206px;
+      overflow-y: auto;
+      border: 1px solid #d7d7d7;
+      position: absolute;
+      background: #fff;
+      left: 0;
+      top: 29px
+  }
+
+  .handlist ul li {
+      color: #888;
+      font-size: 14px;
+      padding: 4px 0 4px 8px;
+      cursor: pointer
+  }
+
+  .handlist ul li.hover {
+      background: #eff8f6
+  }
+
+  .unshowcase {
+      background: url(<%=asset_path('zm/r11839/images/button/goback_btn.gif')%>) repeat-x left bottom;
+      padding: 0 18px;
+      display: inline-block;
+      height: 40px;
+      line-height: 38px;
+      text-align: center;
+      color: #999;
+      text-shadow: 0 1px 0 #fff;
+      font-size: 14px
+  }
+
+  .showcase {
+      background: url(<%=asset_path('zm/r11839/images/button/goback_btn.gif')%>) repeat-x left bottom;
+      padding: 0 18px;
+      display: inline-block;
+      height: 40px;
+      line-height: 38px;
+      text-align: center;
+      color: #fff;
+      font-size: 14px
+  }
+
+  .alertTips {
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      z-index: 10000003;
+      margin: -61px 0 0 -120px;
+      text-align: center
+  }
+
+  .alertTips {
+      position: absolute;
+      left: expression(document.documentElement.scrollLeft+50+"%");
+      top: expression(eval(document.documentElement.scrollTop)+250+"px")
+  }
+
+  .postcomment .commentbody .innerborder textarea.bgcolor {
+      background-color: #fec
+  }
+
+  .comboxAdd .innerborder {
+      vertical-align: baseline
+  }
+
+  .comboxAdd .innerborder .deftest {
+      height: 28px;
+      line-height: 28px;
+      background: #fff
+  }
+
+  #friendList {
+      border: 0
+  }
+
+  #friendList .uinfo {
+      padding-left: 0
+  }
+
+  .posTips {
+      position: absolute;
+      z-index: 2
+  }
+
+  .dialog .add-ico {
+      background-position: 0 -278px;
+      width: 18px;
+      height: 18px;
+      margin-right: 6px
+  }
+
+  .dialog .dia-addall .dia-desc {
+      background: #eff8f6;
+      height: 42px;
+      border-bottom: 1px solid #d7d7d7;
+      padding-left: 26px;
+      line-height: 42px
+  }
+
+  .dialog .dia-addall .addcontainer {
+      height: 169px;
+      overflow: hidden
+  }
+
+  .dialog .dia-addall .addcontainer a {
+      display: block;
+      background: #f2f2f2;
+      float: left;
+      height: 134px;
+      border-right: 1px solid #cdcdcd;
+      padding-top: 35px;
+      overflow: hidden;
+      text-align: center;
+      font-size: 18px;
+      color: #333;
+      position: relative
+  }
+
+  .dialog .dia-addall .addcontainer a:hover {
+      text-decoration: none;
+      background: #e6e6e6
+  }
+
+  .dialog .dia-addall .addcontainer a:active {
+      background: #e6e6e6;
+      color: #3a9
+  }
+
+  .dialog .dia-addall .addcontainer a.linkshare {
+      width: 213px
+  }
+
+  .dialog .dia-addall .addcontainer a.uploadshare {
+      width: 211px;
+      border-left: 1px solid #fff
+  }
+
+  .dialog .dia-addall .addcontainer a.addboard {
+      width: 212px;
+      border-left: 1px solid #fff;
+      border-right: 0
+  }
+
+  .dialog .dia-addall .addcontainer span {
+      display: inline-block;
+      background: url(<%=asset_path('zm/r11839/images/array/addall.gif')%>) no-repeat;
+      height: 50px;
+      margin-bottom: 24px
+  }
+
+  .dialog .dia-addall .addcontainer span.largenet-ico {
+      width: 64px;
+      background-position: 0 0
+  }
+
+  .dialog .dia-addall .addcontainer span.largeupload-ico {
+      width: 40px;
+      background-position: 0 -62px
+  }
+
+  .dialog .dia-addall .addcontainer span.largeboard-ico {
+      width: 48px;
+      background-position: 0 -120px
+  }
+
+  .dialog .dia-addall .addcontainer a:active span.largenet-ico {
+      width: 64px;
+      background-position: -76px 0
+  }
+
+  .dialog .dia-addall .addcontainer a:active span.largeupload-ico {
+      width: 40px;
+      background-position: -76px -62px
+  }
+
+  .dialog .dia-addall .addcontainer a:active span.largeboard-ico {
+      width: 48px;
+      background-position: -76px -120px
+  }
+
+  .dialog2 {
+      position: absolute;
+      left: expression(document.documentElement.scrollLeft+50+"%");
+      top: expression(eval(document.documentElement.scrollTop)+130+"px")
+  }
+
+  .dialog2 {
+      position: absolute;
+      box-shadow: 0 1px 3px rgba(34,25,25,0.4);
+      background: #fff url(<%=asset_path('zm/r11839/images/array/dialogtitle.gif')%>) repeat-x;
+      border: 1px solid #d9d9d9\9;
+      color: #333
+  }
+
+  .dialog2 .close {
+      display: block;
+      background: url(<%=asset_path('zm/r11839/images/array/dialog2.gif')%>) no-repeat 0 0;
+      width: 40px;
+      height: 40px;
+      position: absolute;
+      right: 0;
+      top: 0
+  }
+
+  .dialog2 .close:hover {
+      background-position: -86px 0
+  }
+
+  .dialog2 .close:active {
+      background-position: -158px 0
+  }
+
+  .dialog2 h3 {
+      font-family: "Microsoft Yahei","微软雅黑";
+      font-size: 24px
+  }
+
+  .dialog2 .dialogbody {
+      overflow: hidden;
+      zoom: 1
+  }
+
+  .dialog2 .dialog2-btn {
+      display: inline-block;
+      background: url(<%=asset_path('zm/r11839/images/array/dialog2.gif')%>) no-repeat;
+      height: 40px
+  }
+
+  .dialog2 .btn-validatemail {
+      width: 160px;
+      background-position: -1px -232px
+  }
+
+  .dialog2 .btn-getagain {
+      width: 160px;
+      background-position: -1px -301px
+  }
+
+  .dialog2 .btn-xgetagain {
+      width: 200px;
+      background-position: -214px -301px
+  }
+
+  .dialog2 .btn-confirm {
+      width: 140px;
+      background-position: -1px -367px
+  }
+
+  .dialog2 .btn-copy {
+      width: 140px;
+      background-position: -214px -233px
+  }
+
+  .dialog2 .btn-backhome {
+      width: 140px;
+      background-position: -214px -367px
+  }
+
+  .dialog2 .btn-improveinfo {
+      display: inline-block;
+      background: url(<%=asset_path('zm/r11839/images/array/dialog2.gif')%>) no-repeat 0 -478px;
+      width: 160px;
+      height: 42px;
+      margin-right: 8px;
+      vertical-align: middle
+  }
+
+  .dialog2 .btn-cancel {
+      display: inline-block;
+      background: url(<%=asset_path('zm/r11839/images/button/big_btn.gif')%>) no-repeat left bottom;
+      width: 84px;
+      height: 42px;
+      font-size: 18px;
+      line-height: 42px;
+      vertical-align: middle;
+      text-align: center;
+      color: #555
+  }
+
+  .dialog2 .btn-cancel:hover {
+      background-position: -96px bottom;
+      text-decoration: none
+  }
+
+  .dialog2 .btn-upload {
+      width: 160px;
+      background-position: 0 -537px
+  }
+
+  .dialog2 h3 span.success-ico {
+      width: 30px;
+      height: 31px;
+      margin-right: 10px;
+      vertical-align: middle;
+      display: inline-block;
+      background: url(<%=asset_path('zm/r11839/images/array/dialog2.gif')%>) no-repeat -164px -165px
+  }
+
+  .dialog2 span.error-ico {
+      width: 30px;
+      height: 31px;
+      margin-right: 10px;
+      vertical-align: middle;
+      background-position: 0 -737px
+  }
+
+  .dialog2 span.confirm-ico {
+      width: 30px;
+      height: 31px;
+      margin-right: 10px;
+      vertical-align: middle;
+      background-position: 0 -779px
+  }
+
+  .dialog2 .dia-left {
+      width: 87px;
+      float: left;
+      padding: 49px 36px 0 41px
+  }
+
+  .dialog2 .mailicon {
+      display: block;
+      background: url(<%=asset_path('zm/r11839/images/array/dialog2.gif')%>) no-repeat -240px -74px;
+      width: 97px;
+      height: 65px
+  }
+
+  .dialog2 .dia-right {
+      float: left;
+      width: 370px;
+      padding-top: 45px
+  }
+
+  .dialog2 .dia-right h3 {
+      font-size: 18px;
+      color: #c33;
+      padding-bottom: 10px
+  }
+
+  .dialog2 .dia-text {
+      font-size: 14px;
+      line-height: 22px;
+      padding-bottom: 25px
+  }
+
+  .dialog2 .dia-text a {
+      color: #f86;
+      padding: 0 2px
+  }
+
+  .dialog2 .dia-button {
+      padding-bottom: 20px
+  }
+
+  .dialog2 .remind {
+      color: #888;
+      line-height: 20px;
+      padding-bottom: 30px
+  }
+
+  .dialog2 .remind b {
+      font-weight: bold
+  }
+
+  .dialog2 .remind a {
+      padding-left: 4px
+  }
+
+  .dialog2 .dia-getcode {
+      background: url(<%=asset_path('zm/r11839/images/array/dialog2_get.gif')%>) no-repeat;
+      padding-left: 209px;
+      padding-top: 48px
+  }
+
+  .dialog2 .dia-getcode h3 {
+      line-height: 27px;
+      padding-bottom: 22px
+  }
+
+  .dialog2 .dia-getcode h3 span {
+      width: 30px;
+      height: 31px;
+      float: left;
+      margin-right: 10px;
+      display: inline-block;
+      background: url(<%=asset_path('zm/r11839/images/array/dialog2.gif')%>) no-repeat -164px -165px
+  }
+
+  .dialog2 .dia-getcode p {
+      clear: both
+  }
+
+  .dialog2 .dia-getcode .dia-surcode {
+      font-family: "Microsoft Yahei","微软雅黑";
+      font-size: 18px;
+      color: #666;
+      padding: 0 0 8px 40px
+  }
+
+  .dialog2 .dia-getcode .dia-surcode b {
+      font-weight: normal;
+      font-family: arial;
+      color: #f86
+  }
+
+  .dialog2 .dia-getcode .dia-viewcode {
+      padding-left: 40px;
+      height: 62px;
+      color: #666
+  }
+
+  .dialog2 .dia-getcode .dia-invited {
+      width: 245px;
+      height: 44px;
+      padding-left: 7px;
+      background: #f5f5f5;
+      border-radius: 2px;
+      border: 1px solid #e3e3e3
+  }
+
+  .dialog2 .dia-getcode .avatar {
+      float: left;
+      width: 30px;
+      height: 30px;
+      overflow: hidden;
+      margin: 7px 18px 0 0;
+      display: block
+  }
+
+  .dialog2 .dia-getcode p.dia-userinfo {
+      float: left;
+      clear: none;
+      line-height: 18px;
+      padding-top: 5px
+  }
+
+  .dialog2 .dia-getcode .dia-add1 {
+      font-weight: bold;
+      font-size: 14px;
+      padding: 0 0 10px 2px
+  }
+
+  .dialog2 .dia-getcode .dia-add1 b {
+      color: #f86;
+      font-size: 21px;
+      font-weight: normal;
+      padding-left: 2px
+  }
+
+  .dialog2 .dia-confirm .dia-shareicon {
+      position: absolute;
+      left: 0;
+      top: -11px;
+      background: url(<%=asset_path('zm/r11839/images/array/shareicon.png')%>) no-repeat;
+      width: 201px;
+      height: 105px
+  }
+
+  .dialog2 .dia-confirm h3 {
+      padding: 45px 0 25px 212px
+  }
+
+  .dialog2 .dia-confirm h3 span {
+      color: #f86
+  }
+
+  .dialog2 .dia-confirm .dia-content {
+      padding: 0 27px
+  }
+
+  .dialog2 .dia-confirm .innerborder {
+      position: static;
+      display: inline
+  }
+
+  .dialog2 .dia-confirm .innerborder textarea {
+      border: 1px solid #aaa;
+      overflow: hidden;
+      padding: 6px 0 0 6px;
+      width: 540px;
+      height: 60px;
+      background: url(<%=asset_path('zm/r11839/images/chrome/input_bg.gif')%>)repeat-x top #fff;
+      resize: none;
+      overflow-y: auto
+  }
+
+  .dialog2 .dia-confirm .dia-note {
+      padding-bottom: 10px
+  }
+
+  .dialog2 .dia-confirm .dia-sharenote {
+      color: #ccc;
+      line-height: 33px
+  }
+
+  .dialog2 .dia-confirm .dia-button {
+      padding-left: 170px
+  }
+
+  .dialog2 .dia-confirm .dia-share {
+      float: right;
+      padding-top: 14px;
+      display: block;
+      text-align: right
+  }
+
+  .dialog2 .dia-confirm .rr,.dialog2 .dia-confirm .tx,.dialog2 .dia-confirm .qq {
+      display: inline-block;
+      background: url(<%=asset_path('zm/r11839/images/array/dialog2.gif')%>) no-repeat -258px 0;
+      width: 16px;
+      height: 16px;
+      padding: 0 7px
+  }
+
+  .dialog2 .dia-confirm .tx {
+      background-position: -304px 0
+  }
+
+  .dialog2 .dia-confirm .qq {
+      background-position: -353px 0
+  }
+
+  .dialog2 .dia-confirm .dia-frlist {
+      padding: 5px 0
+  }
+
+  .dialog2 .dia-confirm .dia-frlist li {
+      float: left;
+      position: relative;
+      width: 54px
+  }
+
+  .dialog2 .dia-confirm .dia-frlist li img {
+      width: 50px
+  }
+
+  .dialog2 .dia-confirm .dia-frlist li a:hover img {
+      opacity: .8;
+      filter: alpha(opacity=80)
+  }
+
+  .dialog2 .dia-confirm .dia-frlist li span {
+      width: 46px;
+      height: 46px;
+      border: 2px solid #62b70d;
+      display: block;
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 2
+  }
+
+  .dialog2 .dia-confirm .dia-frlist li span em {
+      width: 16px;
+      height: 16px;
+      display: block;
+      background: url(<%=asset_path('zm/r11839/images/array/sur_ui.png')%>) no-repeat -132px -194px;
+      position: absolute;
+      right: 2px;
+      bottom: 2px
+  }
+
+  .dialog2 .dia-confirm .dia-frlist li.nextteam {
+      width: 60px;
+      height: 50px
+  }
+
+  .dialog2 .dia-confirm .dia-frlist li.nextteam a {
+      width: 60px;
+      height: 50px;
+      line-height: 50px;
+      text-align: center;
+      display: inline-block;
+      background: url(<%=asset_path('zm/r11839/images/array/dialog2.gif')%>) no-repeat 0 -78px
+  }
+
+  .dialog2 .dia-confirm .dia-frlist li.nextteam a:hover {
+      background-position: 0 -154px;
+      text-decoration: none
+  }
+
+  .dialog2 .dia-confirm .copyshare {
+      text-align: left;
+      padding: 5px 0 0 0
+  }
+
+  .dialog2 .dia-confirm .copyshare .dia-share {
+      width: 170px
+  }
+
+  .dialog2 .dia-confirm .copyshare .dia-share a {
+      text-align: right;
+      line-height: 13px;
+      display: inline-block;
+      height: 13px
+  }
+
+  .dialog2 .dia-confirm .copyshare .dia-share a em {
+      background: url(<%=asset_path('zm/r11839/images/array/dialog2.gif')%>) no-repeat -167px -95px;
+      display: inline-block;
+      width: 13px;
+      height: 13px;
+      float: right;
+      margin-left: 3px;
+      line-height: 13px;
+      vertical-align: bottom
+  }
+
+  .dialog2 .dia-confirm .copyshare .dia-share a:hover {
+      text-decoration: none
+  }
+
+  .dialog2 .dia-confirm .copyshare .dia-share a:hover em {
+      background-position: -102px -95px;
+      display: inline-block;
+      width: 13px;
+      height: 13px;
+      float: right;
+      margin-left: 3px;
+      line-height: 13px;
+      vertical-align: bottom
+  }
+
+  .dialog2 .dia-blog {
+      text-align: center;
+      width: 330px;
+      margin: 0 auto;
+      *width: 360px
+  }
+
+  .dialog2 .dia-blog form {
+      display: inline
+  }
+
+  .dialog2 .dia-blog a {
+      background: url(<%=asset_path('zm/r11839/images/array/dialog2.gif')%>) no-repeat 0 -426px;
+      display: inline-block;
+      width: 65px;
+      height: 34px;
+      padding-left: 34px;
+      margin: 0 4px;
+      line-height: 34px;
+      color: #888;
+      text-align: left;
+      vertical-align: bottom;
+      position: relative
+  }
+
+  .dialog2 .dia-blog a:hover {
+      background-position: -156px -426px;
+      text-decoration: none
+  }
+
+  .dialog2 .dia-blog a:active {
+      background-position: -299px -426px
+  }
+
+  .dialog2 .dia-blog a em {
+      display: inline-block;
+      background: url(<%=asset_path('zm/r11839/images/array/platformico.gif')%>) no-repeat;
+      width: 16px;
+      height: 16px;
+      position: absolute;
+      left: 14px;
+      top: 9px
+  }
+
+  .dialog2 .dia-blog a:hover em {
+      -moz-transform: rotate(360deg);
+      -webkit-transform: rotate(360deg);
+      -o-transform: rotate(360deg);
+      -moz-transition: -moz-transform .6s ease-in-out .2s;
+      -webkit-transition: -moz-transform .6s ease-in-out .2s;
+      -o-transition: -moz-transform .6s ease-in-out .2s
+  }
+
+  .dialog2 .dia-blog .sina em {
+      background-position: -72px 0;
+      width: 21px;
+      left: 10px
+  }
+
+  .dialog2 .dia-blog .tx em {
+      background-position: -0 0
+  }
+
+  .dialog2 .dia-blog .qq em {
+      background-position: -48px 0
+  }
+
+  .dialog2 .dia-blog .rr em {
+      background-position: -24px 0
+  }
+
+  .dialog2 .dia-blog .douban em {
+      background-position: -103px 0
+  }
+
+  .dialog2 .dia-blog .taobao em {
+      background-position: -130px 0
+  }
+
+  .dialog2 .dia-success {
+      background: url(<%=asset_path('zm/r11839/images/array/success.gif')%>) no-repeat;
+      padding: 48px 0 0 186px
+  }
+
+  .dialog2 .dia-success h3 {
+      line-height: 27px;
+      padding-bottom: 22px
+  }
+
+  .dialog2 .dia-success h3 span {
+      width: 30px;
+      height: 31px;
+      float: left;
+      margin-right: 10px;
+      display: inline-block;
+      background: url(<%=asset_path('zm/r11839/images/array/dialog2.gif')%>) no-repeat -164px -165px
+  }
+
+  .dialog2 .dia-success .dia-text {
+      height: 144px;
+      width: 278px;
+      padding: 0 0 0 40px;
+      color: #666;
+      font-size: 12px
+  }
+
+  .dialog2 .dia-success .dia-text a {
+      color: #3a9
+  }
+
+  .dialog2 .dia-success .dia-button {
+      padding-left: 40px
+  }
+
+  .dialog2 .dia-success .dia-surcode {
+      font-family: "Microsoft Yahei","微软雅黑";
+      font-size: 18px;
+      color: #666;
+      padding-bottom: 8px
+  }
+
+  .dialog2 .dia-success .dia-surcode b {
+      font-weight: normal;
+      font-family: arial;
+      color: #f86
+  }
+
+  .dialog2 .dia-blogsuccess {
+      padding: 44px 0 0 0
+  }
+
+  .dialog2 .dia-blogsuccess .dia-add1 {
+      font-weight: bold;
+      text-align: center;
+      font-size: 14px;
+      padding: 0 0 10px 2px
+  }
+
+  .dialog2 .dia-blogsuccess .dia-add1 b {
+      color: #f86;
+      font-size: 21px;
+      font-weight: normal;
+      padding-left: 2px
+  }
+
+  .dialog2 .dia-mail {
+      background: url(<%=asset_path('zm/r11839/images/array/dialog2_mail.gif')%>) no-repeat 0 80px;
+      padding: 40px 0 0 175px
+  }
+
+  .dialog2 .dia-mail h3 {
+      font-size: 22px;
+      font-family: "Microsoft Yahei","微软雅黑";
+      margin-bottom: 8px
+  }
+
+  .dialog2 .dia-mail .dia-content {
+      width: 392px;
+      height: 82px;
+      font-size: 14px
+  }
+
+  .dialog2 .dia-avatar {
+      background: url(<%=asset_path('zm/r11839/images/array/dialog2_avater.gif')%>) no-repeat 0 51px;
+      padding: 42px 0 0 176px
+  }
+
+  .dialog2 .dia-avatar h3 {
+      padding-bottom: 47px
+  }
+
+  .dialog2 .dia-avatar p {
+      padding-left: 44px
+  }
+
+  .dialog2 .dia-avatar .dia-add1 {
+      font-size: 14px;
+      font-weight: bold;
+      padding-bottom: 10px
+  }
+
+  .dialog2 .dia-avatar .dia-add1 b {
+      font-size: 21px;
+      color: #f86
+  }
+
+  .dialog3 {
+      position: absolute;
+      left: expression(document.documentElement.scrollLeft+50+"%");
+      top: expression(eval(document.documentElement.scrollTop)+130+"px")
+  }
+
+  .dialog3 {
+      position: fixed;
+      z-index: 10001;
+      box-shadow: 0 1px 3px rgba(34,25,25,0.4);
+      background: #fff;
+      border: 1px solid #d9d9d9\9;
+      color: #333
+  }
+
+  .dialog3 .close {
+      display: block;
+      background: url(<%=asset_path('zm/r11839/images/array/dialog2.gif')%>) no-repeat 0 0;
+      width: 40px;
+      height: 40px;
+      position: absolute;
+      right: 0;
+      top: 0
+  }
+
+  .dialog3 .close:hover {
+      background-position: -86px 0
+  }
+
+  .dialog3 .close:active {
+      background-position: -158px 0
+  }
+
+  .dialog3 b {
+      font-weight: normal
+  }
+
+  .dialog3 span.success-ico {
+      width: 30px;
+      height: 31px;
+      margin-right: 10px;
+      vertical-align: middle;
+      display: inline-block;
+      background: url(<%=asset_path('zm/r11839/images/array/dialog2.gif')%>) no-repeat -164px -165px
+  }
+
+  .dialog3 span.error-ico {
+      width: 30px;
+      height: 31px;
+      margin-right: 10px;
+      vertical-align: middle;
+      background-position: 0 -737px
+  }
+
+  .dialog3 span.confirm-ico {
+      width: 30px;
+      height: 31px;
+      margin-right: 10px;
+      vertical-align: middle;
+      background-position: 0 -779px
+  }
+
+  .dialog3 .dia-left {
+      width: 368px;
+      padding: 0 0 0 32px;
+      float: left
+  }
+
+  .dialog3 .dia-left h3 {
+      font-family: "Microsoft Yahei","微软雅黑";
+      font-size: 24px;
+      color: #666;
+      padding: 25px 0 20px
+  }
+
+  .dialog3 .dia-left h3 b {
+      color: #63ccbb
+  }
+
+  .dialog3 .dia-right {
+      float: right;
+      width: 200px;
+      overflow: hidden
+  }
+
+  .dialog3 .btn-improveinfo {
+      display: inline-block;
+      background: url(<%=asset_path('zm/r11839/images/array/dialog2.gif')%>) no-repeat -228px -478px;
+      width: 124px;
+      height: 42px;
+      margin-right: 8px;
+      vertical-align: middle
+  }
+
+  .dialog3 .btn-cancel {
+      display: inline-block;
+      background: url(<%=asset_path('zm/r11839/images/button/big_btn.gif')%>) no-repeat left bottom;
+      width: 84px;
+      height: 42px;
+      font-size: 18px;
+      line-height: 42px;
+      vertical-align: middle;
+      text-align: center;
+      color: #555
+  }
+
+  .dialog3 .btn-cancel:hover {
+      background-position: -96px bottom;
+      text-decoration: none
+  }
+
+  .dialog3 .dia-login li {
+      float: left;
+      margin: 0 4px;
+      width: 160px;
+      height: 50px;
+      _display: inline
+  }
+
+  .dialog3 .dia-login h1 {
+      margin-bottom: 14px;
+      font-size: 18px;
+      color: #333
+  }
+
+  .dialog3 .dia-login a {
+      display: block;
+      width: 135px;
+      padding-left: 25px;
+      height: 38px;
+      line-height: 38px;
+      margin-bottom: 10px;
+      background: url(<%=asset_path('zm/r11839/images/array/connect_bg.gif')%>) no-repeat left top;
+      color: #666;
+      font-size: 16px
+  }
+
+  .dialog3 .dia-login a:hover {
+      background: url(<%=asset_path('zm/r11839/images/array/connect_bg.gif')%>) no-repeat left -39px;
+      text-decoration: none;
+      margin-bottom: 10px
+  }
+
+  .dialog3 .dia-login a em {
+      background-image: url(<%=asset_path('zm/r11839/images/array/connect_icon.png')%>);
+      background-repeat: no-repeat;
+      padding-left: 40px;
+      line-height: 24px;
+      display: inline-block;
+      margin-top: 7px\9;
+      cursor: pointer\9
+  }
+
+  .dialog3 .dia-login a.sina em {
+      background-position: left -136px
+  }
+
+  .dialog3 .dia-login a.qq em {
+      background-position: left top
+  }
+
+  .dialog3 .dia-login a.renren em {
+      background-position: left -34px
+  }
+
+  .dialog3 .dia-login a.qzone em {
+      background-position: left -68px
+  }
+
+  .dialog3 .dia-login a.msn em {
+      background-position: left -102px
+  }
+
+  .dialog3 .dia-login a.douban em {
+      background-position: left -198px
+  }
+
+  .dialog3 .dia-login a.taobao em {
+      background-position: left -234px
+  }
+
+  .dialog3 .dia-note {
+      border-top: 1px dashed #cacaca;
+      width: 328px;
+      margin: 12px 0 0 4px;
+      padding: 16px 0 0;
+      color: #999
+  }
+
+  .dialog3 .dia-note .dia-zmlogin {
+      float: left
+  }
+
+  .dialog3 .dia-note .dia-reg {
+      float: right
+  }
+
+  .dialog3 .dia-label h3 {
+      font-size: 14px;
+      font-weight: bold;
+      line-height: 45px;
+      height: 40px;
+      padding: 0 0 0 18px
+  }
+
+  .dialog3 .dia-label .dia-sort {
+      background: #f6f5f5;
+      padding: 16px 18px;
+      height: 120px
+  }
+
+  .dialog3 .dia-label .dia-text {
+      float: left;
+      font-size: 14px
+  }
+
+  .dialog3 .dia-label .dia-combox {
+      float: left
+  }
+
+  .dialog3 .dia-label .dia-show {
+      clear: both;
+      padding: 16px 0 0
+  }
+
+  .dialog3 .dia-label .dia-selected {
+      clear: both;
+      height: 120px;
+      padding: 16px 0 16px 16px
+  }
+
+  .dialog3 .dia-label .btn-customlabel {
+      margin: 0 4px 4px 0
+  }
+
+  .dialog3 .dia-label .dia-slt-text {
+      padding-bottom: 14px;
+      font-size: 14px
+  }
+
+  .dialog3 .dia-label .dia-button {
+      padding: 0 0 20px 18px
+  }
+
+  .dialog3 .dia-label .dia-button .confirm-btn {
+      margin-right: 6px
+  }
+
+  .dialog3 .dia-label .btn-label {
+      margin: 4px 4px 0 0
+  }
+
+  .dialog3 .dia-modifymail h3 {
+      font-size: 22px;
+      text-align: center;
+      padding-top: 50px
+  }
+
+  .dialog3 .dia-modifymail .dia-content {
+      height: 50px;
+      padding-top: 16px;
+      font-size: 14px;
+      text-align: center
+  }
+
+  .dialog3 .dia-modifymail .dia-button {
+      text-align: center
+  }
+
+  .dialog3 .dia-landing .dia-number {
+      background: url(<%=asset_path('zm/r11839/images/signup/dia_number.png')%>) no-repeat;
+      width: 340px;
+      height: 49px;
+      padding-left: 30px;
+      position: absolute;
+      left: -4px;
+      top: 71px;
+      color: #fff;
+      font-size: 24px;
+      line-height: 45px;
+      text-shadow: 1px 1px 0 #259a85;
+      _background: 0;
+      _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=http://a.imimg.cn/r12710/images/signup/dia_number.png,sizingMethod=scale)
+  }
+
+  .dialog3 .dia-landing .dia-left {
+      height: 478px
+  }
+
+  .dialog3 .dia-landing .dia-left h3 {
+      font-size: 24px;
+      color: #eb643e;
+      height: 106px;
+      padding-top: 18px
+  }
+
+  .dialog3 .dia-landing td .innerborder {
+      position: static
+  }
+
+  .dialog3 .dia-landing td {
+      vertical-align: top
+  }
+
+  .dialog3 .dia-landing td.tdleft {
+      text-align: right;
+      font-size: 14px;
+      vertical-align: top;
+      padding-right: 8px;
+      padding-top: 5px
+  }
+
+  .dialog3 .dia-landing td.tdmail {
+      height: 56px
+  }
+
+  .dialog3 .dia-landing td.tdpassword {
+      height: 50px
+  }
+
+  .dialog3 .dia-landing td.textheight {
+      height: 56px
+  }
+
+  .dialog3 .dia-landing td.sex {
+      padding-top: 4px
+  }
+
+  .dialog3 .dia-landing td .deftest {
+      height: 28px;
+      width: 250px;
+      line-height: 28px
+  }
+
+  .dialog3 .dia-landing td .errortest {
+      border: 2px solid #f86;
+      height: 26px;
+      width: 248px
+  }
+
+  .dialog3 .dia-landing td .errortips {
+      display: block;
+      color: #f86
+  }
+
+  .dialog3 .dia-landing td .iblock {
+      display: block
+  }
+
+  .dialog3 .dia-landing .dia-right {
+      background: #f0f0f0 url(<%=asset_path('zm/r11839/images/signup/land_right.png')%>) no-repeat left bottom;
+      font-size: 18px;
+      text-align: center;
+      width: 200px;
+      height: 418px;
+      padding-top: 60px
+  }
+
+  .dialog3 .dia-landing .f22 {
+      font-size: 22px
+  }
+
+  .dialog3 .big-btn {
+      margin-right: 5px;
+      vertical-align: middle
+  }
+
+  .dialog3 .dia-landing .dia-button {
+      vertical-align: middle;
+      padding-top: 10px
+  }
+
+  .dialog3 .dia-landing .dia-button input {
+      vertical-align: middle
+  }
+
+  .dialog3 .dia-landing .dia-button label {
+      padding-left: 5px;
+      _padding-top: 3px;
+      display: inline-block;
+      vertical-align: middle
+  }
+
+  .dialog3 .dia-landing .dia-button label a {
+      vertical-align: middle
+  }
+
+  .dialog3 .dia-landing .dia-note {
+      font-size: 14px;
+      margin-top: 20px;
+      padding-top: 20px
+  }
+
+  .dialog3 .dia-landing .dia-note a,.dialog3 .dia-landing .dia-note .platform {
+      display: inline-block;
+      height: 16px;
+      vertical-align: middle
+  }
+
+  .dialog3 .dia-landing .dia-note .platform {
+      line-height: 0
+  }
+
+  .dialog3 .dia-landing .dia-note .platform a {
+      display: inline-block;
+      background: url(<%=asset_path('zm/r11839/images/array/platformico.gif')%>) no-repeat;
+      width: 16px;
+      height: 16px;
+      margin-left: 14px
+  }
+
+  .dialog3 .dia-landing .dia-note .platform a:hover {
+      -moz-transform: rotate(360deg);
+      -webkit-transform: rotate(360deg);
+      -o-transform: rotate(360deg);
+      -moz-transition: -moz-transform .6s ease-in-out .2s;
+      -webkit-transition: -moz-transform .6s ease-in-out .2s;
+      -o-transition: -moz-transform .6s ease-in-out .2s
+  }
+
+  .dialog3 .dia-landing .dia-note .platform .sina {
+      width: 21px;
+      background-position: -72px 0
+  }
+
+  .dialog3 .dia-landing .dia-note .platform .tx {
+      background-position: 0 0
+  }
+
+  .dialog3 .dia-landing .dia-note .platform .qq {
+      background-position: -48px 0
+  }
+
+  .dialog3 .dia-landing .dia-note .platform .rr {
+      background-position: -24px 0
+  }
+
+  .dialog3 .dia-landing .dia-note .platform .douban {
+      background-position: -103px 0
+  }
+
+  .dialog3 .dia-landing .dia-note .platform .taobao {
+      background-position: -130px 0
+  }
+
+  .dialog3 .dia-landing .dia-left .dia-guid {
+      height: 45px;
+      padding-top: 24px;
+      margin: 0 32px 16px 0;
+      background: url(<%=asset_path('zm/r11839/images/common/dashed.gif')%>) repeat-x left bottom
+  }
+
+  .dialog3 .dia-landing .dia-left .dia-desc {
+      padding-bottom: 16px;
+      color: #888
+  }
+
+  .dialog3 .dia-landing .dia-zmbottom {
+      margin: 14px 32px 0 4px
+  }
+
+  .dialog3 .dia-landing .dia-zmbottom2 {
+      margin: 24px 0 0 4px
+  }
+
+  .dialog3 .dia-landing .dia-zmbottom2 .platform {
+      padding-top: 8px
+  }
+
+  .dialog3 .dia-landing .dia-zmbottom2 .platform a {
+      margin-right: 3px;
+      color: #333
+  }
+
+  .dialog3 .dia-landing .dia-zmbottom2 .pfbg {
+      margin-right: 4px
+  }
+
+  .dialog3 .dia-landing .dia-autologin {
+      padding: 0 0 6px;
+      font-family: Verdana
+  }
+
+  .dialog3 .dia-landing .dia-autologin label {
+      vertical-align: middle;
+      padding-left: 2px
+  }
+
+  .dialog3 .dia-landing .btn-login {
+      background: url(<%=asset_path('zm/r11839/images/button/signup_btn.gif')%>) no-repeat left top;
+      display: block;
+      width: 123px;
+      height: 40px;
+      overflow: hidden;
+      text-indent: -1000px
+  }
+
+  .dialog3 .dia-landing .btn-getpwd {
+      background: url(<%=asset_path('zm/r11839/images/signup/button.gif')%>) no-repeat left top;
+      display: block;
+      width: 122px;
+      height: 40px;
+      overflow: hidden;
+      text-indent: -1000px
+  }
+
+  .dialog3 .dia-landing .btn-getpwd:hover {
+      background-position: -140px 0
+  }
+
+  .dialog3 .dia-landing .btn-ungetpwd,.dialog3 .dia-landing .btn-ungetpwd:hover {
+      background-position: -420px 0;
+      cursor: default
+  }
+
+  .dialog3 .dia-landing .btn-login:hover {
+      background-position: 0 -40px
+  }
+
+  .dialog3 .dia-landing .sendmail {
+      padding: 26px 0
+  }
+
+  .dialog3 .dia-landing .sendmail .btn-gray36 {
+      margin-right: 20px
+  }
+
+  .dialog3 .dia-landing .sendmail .btn-gray36 em {
+      width: 82px
+  }
+
+  .dialog3 .dia-landing .mailbox {
+      background: #fffcce;
+      padding: 12px 6px;
+      width: 300px;
+      margin: 12px 0;
+      text-align: center;
+      line-height: 22px
+  }
+
+  .dialog .address {
+      width: 550px;
+      margin: 16px auto
+  }
+
+  .dialog .pad-t16 {
+      padding: 16px 0 0
+  }
+
+  .dialog .address span.innerborder {
+      position: static;
+      _display: inline
+  }
+
+  .dialog .address .deftest {
+      background-color: #fff;
+      _height: 33px
+  }
+
+  .dialog .address td {
+      padding: 6px 0;
+      font-size: 14px
+  }
+
+  .dialog .address .tdleft {
+      width: 100px;
+      padding-right: 10px;
+      text-align: right;
+      vertical-align: top
+  }
+
+  .dialog .address .big-btn {
+      margin-right: 6px
+  }
+
+  .dialog .address .taouter {
+      border: 1px solid #e7e7e7
+  }
+
+  .dialog .address .taouter textarea {
+      border: 1px solid #aaa;
+      overflow: hidden;
+      padding: 6px 0 0 6px;
+      width: 320px;
+      height: 60px;
+      background: url(<%=asset_path('zm/r11839/images/chrome/input_bg.gif')%>)repeat-x top #fff;
+      resize: none;
+      overflow-y: auto
+  }
+
+  .dialog .address .historyAdress {
+      padding: 8px 0 0;
+      font-size: 12px
+  }
+
+  .dialog .address .historyAdress h4 {
+      padding-bottom: 4px
+  }
+
+  .dialog .address .historyAdress li {
+      padding-bottom: 4px
+  }
+
+  .dialog .address .historyAdress li input {
+      float: left;
+      margin: 2px 6px 0 0;
+      *margin-top: 0
+  }
+
+  .dialog .address .historyAdress li label {
+      float: left;
+      display: block;
+      width: 416px;
+      cursor: pointer;
+      color: #888
+  }
+
+  .dialog .address .historyAdress li label:hover {
+      color: #333
+  }
+
+  .dialog3 .dia-number {
+      background: url(<%=asset_path('zm/r11839/images/signup/dia_number.png')%>) no-repeat;
+      width: 340px;
+      height: 49px;
+      padding-left: 30px;
+      position: absolute;
+      left: -4px;
+      top: 71px;
+      color: #fff;
+      font-size: 24px;
+      line-height: 45px;
+      text-shadow: 1px 1px 0 #259a85;
+      zoom: 1;
+      _background: 0;
+      _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=http://a.imimg.cn/r12710/images/signup/dia_number.png,sizingMethod=scale)
+  }
+
+  .dialog3 .dia-platform .dia-left h3 {
+      font-size: 24px;
+      color: #eb643e;
+      height: 106px;
+      padding-top: 18px
+  }
+
+  .dialog3 .dia-platform .dia-right {
+      background: #f0f0f0 url(<%=asset_path('zm/r11839/images/signup/land_right.png')%>) no-repeat left bottom;
+      font-size: 18px;
+      text-align: center;
+      width: 200px;
+      height: 300px;
+      padding-top: 60px
+  }
+
+  .dialog3 .dia-platform .f22 {
+      font-size: 22px
+  }
+
+  .dialog3 .dia-platform .qqlogin {
+      height: 122px
+  }
+
+  .dialog3 .dia-platform .btn-xxxlargeqq {
+      display: inline-block;
+      background: url(<%=asset_path('zm/r11839/images/dialog/xxxlargeqq.png')%>) no-repeat 0 0;
+      width: 284px;
+      height: 104px
+  }
+
+  .dialog3 .dia-platform .btn-xxxlargeqq:hover {
+      background-position: 0 -112px;
+      text-decoration: none
+  }
+
+  .tabContent .dialogtips {
+      padding-bottom: 5px;
+      color: #888
+  }
+
+  .tabContent .dis-tipscmt {
+      height: 36px
+  }
+
+  .tabContent .webtips {
+      padding: 0 0 4px;
+      color: #888
+  }
+
+  a.unsure {
+      background: url(<%=asset_path('zm/r11839/images/button/sure_btn.gif')%>) no-repeat left top;
+      height: 35px;
+      display: inline-block;
+      width: 84px;
+      vertical-align: middle;
+      margin-left: 16px;
+      color: #888;
+      text-shadow: 0 1px 0 #fff;
+      text-align: center;
+      line-height: 35px
+  }
+
+  a.sure {
+      background: url(<%=asset_path('zm/r11839/images/button/sure_btn.gif')%>) no-repeat -96px top;
+      height: 35px;
+      display: inline-block;
+      width: 84px;
+      vertical-align: middle;
+      margin-left: 16px;
+      color: #3a9;
+      text-align: center;
+      line-height: 35px
+  }
+
+  a.sure:hover {
+      background: url(<%=asset_path('zm/r11839/images/button/sure_btn.gif')%>) no-repeat right top;
+      color: #3a9;
+      text-decoration: none
+  }
+
+  .imgpage {
+      position: absolute;
+      bottom: -30px;
+      left: 0;
+      word-spacing: 16px;
+      width: 200px;
+      text-align: center
+  }
+
+  .imgpage a {
+      font-size: 14px;
+      color: #959595;
+      border: 1px solid #f2f2f2;
+      width: 64px;
+      height: 22px;
+      line-height: 22px;
+      display: inline-block
+  }
+
+  .imgpage a:hover {
+      border: 1px solid #d7d7d7;
+      text-decoration: none;
+      background: #fff
+  }
+
+  .imgpage a.nonebg:hover {
+      border: 1px solid #f0eeee;
+      text-decoration: none;
+      background: 0
+  }
+
+  .tabContent span.removeabs .deftest {
+      width: 342px
+  }
+
+  .tabContent .shopurl span.removeabs .deftest {
+      width: 342px;
+      padding-left: 26px
+  }
+
+  .tabContent .saybox .textareabox {
+      height: 116px
+  }
+
+  .tabContent .textareabox textarea {
+      height: 74px
+  }
+
+  .weblodding {
+      height: 60px;
+      padding-top: 40px;
+      text-align: center;
+      font-size: 14px
+  }
+
+  .weblodding .loadin {
+      display: inline-block;
+      background: url(<%=asset_path('zm/r11839/images/array/miniloading.gif')%>) no-repeat;
+      padding-left: 26px;
+      line-height: 20px;
+      color: #888;
+      text-shadow: 0 1px 0 #fff
+  }
+
+  .biography {
+      color: #888
+  }
+
+  .shopurl {
+      padding: 10px 0 4px 0;
+      height: 29px;
+      line-height: 29px
+  }
+
+  .tabContent .shopurl {
+      position: relative
+  }
+
+  .tabContent .shopurl label {
+      position: absolute;
+      background: url(<%=asset_path('zm/r11839/images/array/shop.png')%>) no-repeat 0 6px;
+      padding-left: 20px;
+      left: 8px;
+      top: 11px;
+      color: #888;
+      height: 26px
+  }
+
+  .tabContent .showstatus .uploadimg {
+      position: absolute;
+      top: 85px;
+      left: 50px
+  }
+
+  .tabContent span.removeabs .error {
+      border: 2px solid #f86;
+      background: #fec
+  }
+
+  .dialog .dia-pb .template {
+      margin: 0 24px 20px;
+      padding-bottom: 30px;
+      border-bottom: 1px solid #d6d6d6
+  }
+
+  .dialog .dia-pb .taouter {
+      line-height: 0;
+      font-size: 0;
+      border-bottom: 1px solid #e7e7e7
+  }
+
+  .dialog .dia-pb .taouter textarea {
+      background: #fff url(<%=asset_path('zm/r11839/images/chrome/input_bg.gif')%>) repeat-x;
+      border: 1px solid #aaa;
+      width: 470px;
+      line-height: 1.5;
+      font-size: 15px;
+      resize: none
+  }
+
+  .dialog .dia-pb .template-desc {
+      padding-bottom: 20px
+  }
+
+  .dialog .dia-pb .template-style {
+      padding-bottom: 10px
+  }
+
+  .dialog .dia-pb .template-style label {
+      margin-right: 16px;
+      margin-left: 6px
+  }
+
+  .dialog .dia-pb .preview {
+      width: 470px;
+      height: 120px;
+      border: 1px solid #ddd;
+      background: #fff;
+      box-shadow: 0 1px 2px rgba(36,36,36,0.2)
+  }
+
+  .dialog .dia-button {
+      padding: 0 24px 20px
+  }
+
+  .dialog .template-visiblity {
+      padding-bottom: 10px
+  }
+
+  .dialog .template-visiblity label {
+      margin-right: 16px;
+      margin-left: 6px
+  }
+
+  .dialog2 .dia-groupbtn {
+      padding: 60px 20px 30px
+  }
+
+  .dialog2 .dia-groupbtn .pointdown {
+      background: url(<%=asset_path('zm/r11839/images/dialog/downarrow.gif')%>) no-repeat;
+      display: inline-block;
+      width: 20px;
+      height: 15px;
+      margin-left: 24px
+  }
+
+  .dialog2 .dia-groupbtn h3 {
+      text-align: center;
+      padding-bottom: 30px
+  }
+
+  .dialog2 .dia-groupbtn h3.padding0 {
+      padding-bottom: 10px
+  }
+
+  .dialog2 .dia-groupbtn .colfirst {
+      vertical-align: middle;
+      text-align: center
+  }
+
+  .dialog2 .dia-groupbtn .buttonlist {
+      vertical-align: top;
+      padding-bottom: 18px
+  }
+
+  .dialog2 .dia-groupbtn .btn-green42 span {
+      vertical-align: middle;
+      text-align: center;
+      font-size: 18px;
+      text-shadow: 0 1px 0 #3ea691;
+      width: 180px
+  }
+
+  .dialog2 .dia-groupbtn .buttonlist li {
+      clear: both;
+      height: 60px;
+      overflow: hidden
+  }
+
+  .dialog2 .dia-groupbtn .buttonlist li .floatright {
+      font-size: 18px;
+      font-weight: bold;
+      margin-left: 18px;
+      padding-top: 8px;
+      width: 140px
+  }
+
+  .dialog2 .dia-groupbtn .buttonlist li .floatright b {
+      color: #f86;
+      font-weight: bold;
+      padding-left: 8px
+  }
+
+  .dialog2 .dia-groupbtn .dia-friend {
+      text-align: center;
+      font-size: 14px;
+      color: #999;
+      padding-bottom: 24px
+  }
+
+  .dialog2 .dia-groupbtn .dia-friend .avatar {
+      display: inline-block;
+      width: 50px;
+      height: 50px;
+      margin-right: 4px;
+      vertical-align: middle
+  }
+
+  .dialog2 .dia-groupbtn .dia-friend .avatar img {
+      width: 50px;
+      height: 50px
+  }
+
+  .dialog2 .dia-complet {
+      padding: 55px 0 0 36px
+  }
+
+  .dialog2 .dia-complet .colfirst {
+      padding: 0 12px 0 0;
+      vertical-align: top
+  }
+
+  .dialog2 .dia-complet .colright p {
+      font-size: 18px;
+      line-height: 30px;
+      text-align: center
+  }
+
+  .dialog2 .dia-complet .colright .padding-xl {
+      padding-bottom: 20px
+  }
+
+  .dialog2 .dia-complet .colright .padding-xxl {
+      padding-bottom: 50px
+  }
+
+  .dialog2 .dia-complet .colright img {
+      margin: 0 4px
+  }
+
+  .dialog2 .dia-complet .btn-green42 {
+      margin: 0 12px
+  }
+
+  .dialog2 .dia-complet .btn-green42 span {
+      width: 70px
+  }
+
+  .dia-info {
+      padding: 60px 0 10px 100px
+  }
+
+  .dia-info h3 {
+      padding-bottom: 16px
+  }
+
+  .dia-info td {
+      padding-bottom: 24px
+  }
+
+  .dia-info .colfirst {
+      width: 104px;
+      font-size: 14px
+  }
+
+  .dia-info .innerborder {
+      position: static
+  }
+
+  .dia-info .innerborder input {
+      width: 220px;
+      height: 28px;
+      line-height: 28px
+  }
+
+  .dia-info .btn-green42 .yahei {
+      font-size: 18px;
+      text-shadow: 0 1px 0 #3ea691
+  }
+
+  .dialog2 .dia-standard {
+      padding-bottom: 30px
+  }
+
+  .dialog2 .dia-standard .fixedheight1 {
+      height: 120px
+  }
+
+  .dialog2 .dia-standard .dia-picside {
+      float: left;
+      width: 180px;
+      height: 180px;
+      margin: 50px 20px 0 32px;
+      *display: inline
+  }
+
+  .dialog2 .dia-standard .dia-mainside {
+      float: left;
+      width: 360px
+  }
+
+  .dialog2 .dia-standard .dia-main {
+      padding: 60px 30px 10px 0
+  }
+
+  .dialog2 .dia-standard h3 {
+      padding-bottom: 7px
+  }
+
+  .dialog2 .dia-standard .dia-button {
+      padding: 0
+  }
+
+  .dialog2 .dia-standard .dia-button .btn-green42 span,.dialog2 .dia-standard .dia-button .btn-gray42 span {
+      padding: 0 18px 0 10px
+  }
+
+  .dialog2 .alignc,.dialog2 .alignc div,.dialog2 .alignc p,.dialog2 .alignc h3 {
+      text-align: center!important
+  }
+
+  .dialog2 .alignl,.dialog2 .alignl div,.dialog2 .alignl p,.dialog2 .alignl h3 {
+      text-align: left!important
+  }
+
+  .dialog2 .dia-standard .single-prod {
+      margin: 0 auto
+  }
+
+  .dialog2 .dia-standard .single-prod .avatar {
+      text-align: right;
+      padding-right: 14px
+  }
+
+  .dialog2 .dia-standard .single-prod .desc,.dialog2 .dia-standard .single-prod .desc p {
+      text-align: left!important
+  }
+
+  .dialog2 .dia-standard .yellowmod {
+      background: #fffbdb;
+      border: 1px solid #e2e2e2;
+      width: 376px;
+      padding: 8px;
+      margin: 0 auto 16px
+  }
+
+  .dialog2 .productlist {
+      background: #fafafa;
+      padding: 8px 0 30px 24px;
+      border-top: 1px solid #e2e2e2
+  }
+
+  .dialog2 .productlist h4 {
+      padding-bottom: 6px
+  }
+
+  .dialog2 .productlist li {
+      float: left;
+      width: 180px;
+      margin-right: 8px
+  }
+
+  .dialog2 .productlist .avatar {
+      float: left;
+      margin-right: 8px
+  }
+
+  .dialog2 .productlist .avatar {
+      float: left
+  }
+
+  .dialog .dia-bank {
+      padding: 20px
+  }
+
+  .dialog .dia-bank .w5 {
+      width: 80px
+  }
+
+  .dialog .dia-bank .dia-outer {
+      border: 1px solid #d0d0d0;
+      background: #fff
+  }
+
+  .dialog .dia-bank .errorside {
+      padding: 10px 0 0
+  }
+
+  .dialog .dia-bank span.innerborder {
+      position: static;
+      _display: inline;
+      font-size: 0;
+      line-height: 0
+  }
+
+  .dialog .dia-bank .deftest {
+      background-color: #fff;
+      font-size: 14px;
+      line-height: 34px;
+      _height: 33px
+  }
+
+  .dialog .dia-bank .dia-button {
+      padding: 16px 0 0 0
+  }
+
+  .dialog .dia-bank .pubtable {
+      padding: 20px;
+      width: 100%;
+      border: 1px solid #d0d0d0
+  }
+
+  .dialog .dia-bank .pubtable caption {
+      padding-bottom: 8px
+  }
+
+  .dialog .dia-bank .pubnoborder {
+      border: 0
+  }
+
+  .dialog .dia-bank .pubtable td,.dialog .dia-bank .pubnoline td,.dialog .dia-bank .pubnoborder td {
+      padding: 8px 0 8px 16px;
+      border-bottom: 1px solid #d0d0d0;
+      background-color: #fff;
+      vertical-align: middle;
+      word-wrap: normal
+  }
+
+  .dialog .dia-bank .pubtable td.valign-t {
+      vertical-align: top!important
+  }
+
+  .dialog .dia-bank .pubtable td.pad-b {
+      padding-bottom: 0;
+      word-wrap: normal
+  }
+
+  .dialog .dia-bank .pubtable td.pad-t {
+      padding-top: 0
+  }
+
+  .dialog .dia-bank .pubnoline td {
+      border: 0
+  }
+
+  .dialog .dia-bank .pubtable td.curmoney {
+      height: 50px;
+      *height: 34px;
+      font-size: 14px
+  }
+
+  .dialog .dia-bank .pubtable td.exchange {
+      background-color: #fffded;
+      height: 77px;
+      *height: 61px;
+      font-size: 14px
+  }
+
+  .dialog .dia-bank .pubtable td.exchange .deftest {
+      width: 124px
+  }
+
+  .dialog .dia-bank .pubtable td.exchange .to-ico {
+      margin: 0 32px
+  }
+
+  .dialog .dia-bank .pubtable th {
+      border-bottom: 1px solid #d0d0d0;
+      padding: 5px 0 5px 16px;
+      font-weight: normal;
+      color: #666;
+      background-image: linear-gradient(#fffeff,#f4f2f2);
+      background-image: -moz-linear-gradient(#fffeff,#f4f2f2);
+      background-image: -webkit-linear-gradient(#fffeff,#f4f2f2);
+      background-image: -o-linear-gradient(#fffeff,#f4f2f2);
+      filter: progid:DXImageTransform.Microsoft.Gradient(startColorStr=#fffeff,endColorStr=#f4f2f2)
+  }
+
+  .dialog .dia-bank .platform-xl {
+      position: relative;
+      height: 58px
+  }
+
+  .dialog .dia-bank .platform-xl ul {
+      position: absolute;
+      bottom: -1px;
+      left: 0
+  }
+
+  .dialog .dia-bank .platform-xl li {
+      float: left;
+      height: 58px;
+      margin-right: 30px
+  }
+
+  .dialog .dia-bank .platform-xl a {
+      display: inline-block;
+      background: url(<%=asset_path('zm/r11839/images/zmbank/common/platform_xl.png')%>) no-repeat;
+      width: 46px;
+      height: 46px
+  }
+
+  .dialog .dia-bank .platform-xl li a.sina {
+      background-position: 0 0
+  }
+
+  .dialog .dia-bank .platform-xl li a.tencent {
+      background-position: 0 -62px
+  }
+
+  .dialog .dia-bank .platform-xl li a.renren {
+      background-position: 0 -124px
+  }
+
+  .dialog .dia-bank .platform-xl li a.qq {
+      background-position: 0 -186px
+  }
+
+  .dialog .dia-bank .platform-xl li.current {
+      background: url(<%=asset_path('zm/r11839/images/zmbank/common/toup2.gif')%>) no-repeat center bottom
+  }
+
+  .dialog .dia-bank .platform-xl li.current a.sina {
+      background-position: -70px 0
+  }
+
+  .dialog .dia-bank .platform-xl li.current a.tencent {
+      background-position: -70px -62px
+  }
+
+  .dialog .dia-bank .platform-xl li.current a.renren {
+      background-position: -70px -124px
+  }
+
+  .dialog .dia-bank .platform-xl li.current a.qq {
+      background-position: -70px -186px
+  }
+
+  .dialog .dia-bank .frcontainer {
+      background: #fff;
+      border: 1px solid #d0d0d0;
+      padding: 16px
+  }
+
+  .dialog .dia-bank .frcontainer .frlist li {
+      float: left;
+      margin-right: 4px;
+      width: 50px;
+      height: 50px;
+      overflow: hidden;
+      position: relative
+  }
+
+  .dialog .dia-bank .frcontainer .frlist li img {
+      width: 50px;
+      height: 50px
+  }
+
+  .dialog .dia-bank .frcontainer .frlist li span {
+      display: none;
+      width: 46px;
+      height: 46px;
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 2;
+      border: 2px solid #62b70d
+  }
+
+  .dialog .dia-bank .frcontainer .frlist li span em {
+      background: url(<%=asset_path('zm/r11839/images/array/sur_ui.png')%>) no-repeat -132px -194px;
+      display: none;
+      width: 16px;
+      height: 16px;
+      position: absolute;
+      left: 0;
+      left: 28px;
+      bottom: 4px;
+      z-index: 3
+  }
+
+  .dialog .dia-bank .frcontainer .frlist li.nofriend {
+      float: none;
+      margin-right: 0;
+      width: auto
+  }
+
+  .dialog .dia-bank .frcontainer .frlist li.checkedit span {
+      display: block
+  }
+
+  .dialog .dia-bank .frcontainer .frlist li.checkedit span em {
+      display: block
+  }
+
+  .dialog .dia-bank .frcontainer .frlist li.replaceit {
+      line-height: 50px;
+      text-align: center
+  }
+
+  .dialog .dia-bank .taouter {
+      border: 1px solid #e7e7e7
+  }
+
+  .dialog .dia-bank .taouter textarea {
+      border: 1px solid #aaa;
+      overflow: hidden;
+      padding: 6px 0 0 6px;
+      background: url(<%=asset_path('zm/r11839/images/chrome/input_bg.gif')%>)repeat-x top #fff;
+      resize: none;
+      overflow-y: auto
+  }
+
+  .dialog .dia-bank .sharetext {
+      margin-top: 10px
+  }
+
+  .dialog .dia-bank .ab1 {
+      width: 514px;
+      height: 60px
+  }
+
+  .dialog3 .dia-bankland .dia-right {
+      background: #f0f0f0 url(<%=asset_path('zm/r11839/images/zmbank/common/login_pic.jpg')%>) no-repeat left bottom;
+      font-size: 18px;
+      text-align: center;
+      width: 200px;
+      height: 248px;
+      padding-top: 60px
+  }
+
+  .dialog3 .dia-defined {
+      padding: 36px 24px 24px
+  }
+
+  .dialog3 .dia-defined h3 {
+      text-align: center;
+      padding-bottom: 30px
+  }
+
+  .dialog3 .dia-defined .count em {
+      color: #3a9
+  }
+
+  .dialog3 .dia-defined .note {
+      padding-bottom: 6px
+  }
+
+  .dialog3 .dia-defined .desc {
+      padding-bottom: 6px
+  }
+
+  .dialog3 .dia-defined .ta_desc {
+      width: 366px;
+      height: 60px
+  }
+
+  .dialog3 .dia-defined .comment_to label {
+      vertical-align: middle;
+      font-family: Tahoma;
+      padding-left: 6px
+  }
+
+  .dialog3 .arr_down {
+      background: url(<%=asset_path('zm/r11839/images/common/dialog3_arr.png')%>) no-repeat 0 0;
+      background: url(<%=asset_path('zm/r11839/images/common/dialog3_arr.gif')%>) no-repeat 0 0 \9;
+      width: 23px;
+      height: 14px;
+      position: absolute;
+      left: 50%;
+      bottom: -14px;
+      *bottom: -15px;
+      margin-left: -11px
+  }
+
+  .dialog3 .arr_up {
+      background: url(<%=asset_path('zm/r11839/images/common/dialog3_arr.png')%>) no-repeat 0 -14px;
+      background: url(<%=asset_path('zm/r11839/images/common/dialog3_arr.gif')%>) no-repeat 0 -14px \9;
+      width: 23px;
+      height: 14px;
+      position: absolute;
+      left: 50%;
+      top: -14px;
+      margin-left: -11px
+  }
+
+  .dialog3 .success-sta {
+      padding: 32px 0 30px
+  }
+
+  .dialog3 .success-sta h3 {
+      padding-bottom: 8px
+  }
+
+  .dialog3 .success-sta .desc {
+      padding-bottom: 16px
+  }
+
+  .dialog3 .success-sta .btncss span {
+      padding: 0 12px
+  }  
+}
