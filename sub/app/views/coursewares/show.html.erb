@@ -1,3 +1,9 @@
+<%
+  if @courseware.course_fid.present?
+    nn=Course.get_name(@courseware.course_fid)
+  end
+%>
+      
 <% content_for :armpit do %>
 <%= stylesheet_link_tag 'ktv/__ytb' %>
 <link href="/dhtmlxtree.css" media="screen" rel="stylesheet" type="text/css" />
@@ -245,7 +251,11 @@ courseware_id: '<%=@courseware.id%>'
          </div>
          <div class="extras" style="float:right;margin-right:18px;margin-right:40px">
             <ul class="delimited" style="margin-bottom:0;border-top:none">
+             <%if nn%>
+               <li class="category" style="border-top:none">课程 <a href="/courses/<%= @courseware.course_fid %>" title="<%= nn %>" target="_parent"><%= nn %></a></li>
+             <%else%>
                <li class="category" style="border-top:none">领域 <a href="/topics/<%= @courseware.topic_id %>"><%= @courseware.topic %></a></li>
+             <%end%>
             </ul>
          </div>
          <% if @courseware.version_date[@courseware.version.to_s].present? %>
@@ -295,7 +305,11 @@ courseware_id: '<%=@courseware.id%>'
                   <% end %>
                   <a href="#fans" class="likes"><span id="weizuozhefasongganxie2"><%= @courseware.thanked_count %></span> 喜欢</a>
                </li>
+             <%if nn%>
+               <li class="category">课程 <a href="/courses/<%= @courseware.course_fid %>" title="<%= nn %>" target="_parent"><%= nn %></a></li>
+             <%else%>
                <li class="category">领域 <a href="/topics/<%= @courseware.topic_id %>"><%= @courseware.topic %></a></li>
+             <%end%>
                <% if @courseware.version_date[@courseware.version.to_s].present? %>
                 <li class="dianjiliang">版本 <a href="#revisions"><%= @courseware.version_date[@courseware.version.to_s] %>版</a></li>
                <% end %>

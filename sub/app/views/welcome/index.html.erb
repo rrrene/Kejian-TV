@@ -23,7 +23,13 @@
       </div>
       <div class="summary">        
           <h3>
-            <a href="/coursewares/<%= item.id %>" class="question-hyperlink" title="<%= item.desc %>"><%= item.title %></a>
+            <% if nn=Course.get_name(item.course_fid) %>
+              <a href="/simple/forum.php?mod=forumdisplay&fid=<%= item.course_fid %>" class="post-tag" title="<%= nn %>" rel="tag"><%= nn %></a> 
+              <% nd=Course.get_department(item.course_fid) %>
+            <% end %>
+            <a href="/coursewares/<%= item.id %>" class="question-hyperlink" title="<%= item.desc %>">
+            <%= item.title %>
+            </a>
           </h3>
           <div class="excerpt">
             <% 
@@ -44,14 +50,13 @@
           </div>
 
           <div class="tags t-nutrition">
-            <% if item.teacher.present? %>
+            <% if false and item.teacher.present? %>
+              <!-- todo -->
               <a href="/teachers/<%= item.teacher_typeid %>" class="post-tag" title="<%= item.teacher %>" rel="tag"><%= item.teacher %></a> 
             <% end %>
-            <% if nn=Course.get_name(item.course_fid) %>
-              <a href="/simple/forum.php?mod=forumdisplay&fid=<%= item.course_fid %>" class="post-tag" title="<%= nn %>" rel="tag"><%= nn %></a> 
-              <% if nd=Course.get_department(item.course_fid) %>
-                <a href="/departments/<%= item.course_fid %>" class="post-tag" title="<%= nd %>" rel="tag"><%= nd %></a> 
-              <% end %>
+            <% if false and nd %>
+              <!-- todo -->
+              <a href="/departments/<%= item.course_fid %>" class="post-tag" title="<%= nd %>" rel="tag"><%= nd %></a> 
             <% end %>
           </div>
           <div class="started fr">
@@ -99,16 +104,15 @@
             <p>轻松分享讲义·电子书·复习资料·问答互助·课堂录像!</p>
             <p>通过课件交流系统，您可以迅速定位最感兴趣的课程，轻松获取大家共同维护的最优质的一份学习资料.</p>
             <p>然而，课件系统不仅是一个出色的学习资源交流平台，她更是一个开放的在线学习社区。在这里，您可以把遇到的难题发出来，大家共同切磋。在这里，我们共同进步.</p>
-            <p class="ar"><a href="http://kejian.tv/coursewares/500f9970e13823796a000002" target="_blank">介绍 &raquo;</a>&nbsp;
-
-<a class="psvr_login_required" id="login" href="/login">登录 / 注册新用户 &raquo;</a>            </p>
+            <p class="ar">
+            <a class="" id="login" href="/account/auth/renren"><img alt="用人人网帐号登录" src="<%=asset_path 'renren.png'%>"></a>            </p>
         </div>
     </div>
 <% end %>
     <div id="questions-count" class="module">
       <div class="summarycount al"><%= link_to number_with_delimiter(Courseware.count),'/coursewares_by_departments' %></div>
       <p>个课件已上传，其中：</p>
-      <p class="cw_normal"><%=Courseware.normal.count%> 已上线</p>
+      <p class="cw_normal" style="margin-top:12px"><%=Courseware.normal.count%> 已上线</p>
       <p class="cw_transcoding"><%=Courseware.transcoding.count%> 转码中</p>
       <p class="cw_abnormal"><%=Courseware.abnormal.count%> 文件有误</p>
     </div>

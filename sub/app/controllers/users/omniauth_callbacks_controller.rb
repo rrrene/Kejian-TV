@@ -368,7 +368,11 @@ http://kejian.tv/account/auth/qq_connect/callback?code=E0D6944EBFE444F7CE00EA8D7
   
 private
   def prepare_auth
-    redirect_to(root_path,:alert => '认证失败') and return if env["omniauth.auth"].blank?
+    binding.pry
+    if env["omniauth.auth"].blank?
+      failure
+      return 
+    end
     provider = env["omniauth.auth"]['provider'].to_s
     uid = env["omniauth.auth"]['uid'].to_s
     @user = User.where("authorizations.provider" => provider , "authorizations.uid" => uid).first
