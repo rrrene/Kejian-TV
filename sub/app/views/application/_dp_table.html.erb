@@ -56,12 +56,26 @@
     <div class="col-other">
 
 
-    <h3 class="sty"><a href="#">交叉学科</a></h3>
+    <% xxx=Department.where(:sort=>6).desc('coursewares_count') %>
+    <% if xxx.count>0 %>
+    <h3 class="sty"><a href="#">公共课</a></h3>
     <ul class="sty-list cf" style="margin-left:0">
-    <% Department.where(:sort=>4).desc('coursewares_count').each do |topic| %>
+    <% Department.where(:sort=>6).desc('coursewares_count').each do |topic| %>
     <li  ><a class="<%= 'orange' if topic.coursewares_count > 100 %>" href="/departments/<%= topic.fid %>"><span><%= topic.name %></span></a></li>
     <% end %>
     </ul>
+    <% end %>
+
+
+    <% xxx=Department.where(:sort=>4).desc('coursewares_count') %>
+    <% if xxx.count>0 %>
+    <h3 class="sty"><a href="#">交叉学科</a></h3>
+    <ul class="sty-list cf" style="margin-left:0">
+    <% xxx.each do |topic| %>
+    <li  ><a class="<%= 'orange' if topic.coursewares_count > 100 %>" href="/departments/<%= topic.fid %>"><span><%= topic.name %></span></a></li>
+    <% end %>
+    </ul>
+    <% end %>
 
 
     <h3 class="ele"><a href="#">其他</a></h3>

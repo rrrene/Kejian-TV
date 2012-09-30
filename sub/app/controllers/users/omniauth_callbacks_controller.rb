@@ -368,7 +368,6 @@ http://kejian.tv/account/auth/qq_connect/callback?code=E0D6944EBFE444F7CE00EA8D7
   
 private
   def prepare_auth
-    binding.pry
     if env["omniauth.auth"].blank?
       failure
       return 
