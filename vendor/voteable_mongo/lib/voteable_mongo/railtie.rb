@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module Rails #:nodoc:
   module VoteableMongo #:nodoc:
     class Railtie < Rails::Railtie #:nodoc:

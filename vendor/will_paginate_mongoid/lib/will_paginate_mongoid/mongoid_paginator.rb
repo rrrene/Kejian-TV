@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module WillPaginateMongoid
   DEFAULT_PER_PAGE = 10
 

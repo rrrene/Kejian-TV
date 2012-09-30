@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'multi_json'
 
 # OkJson won't work because it doesn't serialize symbols

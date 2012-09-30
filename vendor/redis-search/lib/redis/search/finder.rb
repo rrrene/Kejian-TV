@@ -1,4 +1,4 @@
-# coding: utf-8
+# -*- encoding : utf-8 -*-
 require 'chinese_pinyin'
 class Redis
   module Search

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module Resque
   module Failure
     # All Failure classes are expected to subclass Base.

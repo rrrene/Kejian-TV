@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # DelayedJob wants you to create instances. No problem.
 
 class Archive < Struct.new(:repo_id, :branch)

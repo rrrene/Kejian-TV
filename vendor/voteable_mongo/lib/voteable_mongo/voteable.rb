@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'voteable_mongo/voting'
 require 'voteable_mongo/integrations/mongoid'
 require 'voteable_mongo/integrations/mongo_mapper'

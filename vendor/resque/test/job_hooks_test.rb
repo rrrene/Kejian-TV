@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'test_helper'
 
 context "Resque::Job before_perform" do

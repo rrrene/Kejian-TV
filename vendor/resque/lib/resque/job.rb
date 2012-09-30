@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module Resque
   # A Resque::Job represents a unit of work. Each job lives on a
   # single queue and has an associated payload object. The payload

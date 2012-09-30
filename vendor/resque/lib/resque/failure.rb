@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module Resque
   # The Failure module provides an interface for working with different
   # failure backends.

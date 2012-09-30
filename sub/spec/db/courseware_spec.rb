@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require File.expand_path("../_init.rb",__FILE__)
 describe Courseware do
   it "should enqueue to transcode when user has finished uploading a PDF" do

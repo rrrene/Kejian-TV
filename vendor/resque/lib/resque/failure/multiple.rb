@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module Resque
   module Failure
     # A Failure backend that uses multiple backends

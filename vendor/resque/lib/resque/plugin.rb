@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module Resque
   module Plugin
     extend self

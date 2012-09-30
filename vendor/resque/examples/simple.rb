@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # This is a simple Resque job.
 class Archive
   @queue = :file_serve

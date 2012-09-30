@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module Resque
   # The stat subsystem. Used to keep track of integer counts.
   #

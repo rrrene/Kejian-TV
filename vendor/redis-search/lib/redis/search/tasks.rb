@@ -1,4 +1,4 @@
-# coding: utf-8
+# -*- encoding : utf-8 -*-
 require "redis-search"
 namespace :redis_search do
   desc "Redis-Search index data to Redis"

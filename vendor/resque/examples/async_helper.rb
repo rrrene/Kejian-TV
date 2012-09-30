@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # If you want to just call a method on an object in the background,
 # we can easily add that functionality to Resque.
 #

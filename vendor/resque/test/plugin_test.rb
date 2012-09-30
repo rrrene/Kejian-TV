@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'test_helper'
 
 context "Resque::Plugin finding hooks" do

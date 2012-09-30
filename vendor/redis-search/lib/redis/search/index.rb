@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Redis
   module Search
     class Index
