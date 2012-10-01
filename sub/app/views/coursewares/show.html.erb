@@ -154,7 +154,7 @@ courseware_id: '<%=@courseware.id%>'
 
 <% if !@courseware.tree.blank?%>
 
- <div id="treeboxbox_tree" class="dhxtree_dhx_skyblue" style="width:600px; height:240px;margin-right:auto;margin-left:auto;background-color:#f5f5f5;border :1px solid Silver;font-size:30px;overflow: scroll;line-height: normal;" setImagePath="<%= asset_path('dhtmlxtree-imgs/csh_dhx_skyblue') %>/">
+ <div id="treeboxbox_tree" class="dhxtree_dhx_skyblue" style="width:600px; height:240px;margin-right:auto;margin-left:auto;background-color:#f5f5f5;overflow:hidden;line-height:normal;" setImagePath="<%= asset_path('dhtmlxtree-imgs/csh_dhx_skyblue') %>/">
 <div class="tip" style="font-size:12px;color:#000;">双击打开课件</div>  
  </div>
     <script>
@@ -181,8 +181,16 @@ courseware_id: '<%=@courseware.id%>'
                 alert("hello" + tree.hasChildren(id) +id);           
             }
         });
+        
+        var element = document.createElement('div');
+        element.style.marginTop = '30px';
+        element.className = 'tree_tmp';
+        document.getElementsByClassName('containerTableStyle')[0].appendChild(element);
     };
     dhtmlxEvent(window, "load", jr);
+
+
+
     </script>
 <% end %>
 
