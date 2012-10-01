@@ -206,6 +206,14 @@
         }
         return false;
       },
+      gotoSingle: function(){
+        $('#single_button').css('opacity','1');
+        $('#double_button').css('opacity','0.5');
+      },
+      gotoDouble: function(){
+        $('#double_button').css('opacity','1');
+        $('#single_button').css('opacity','0.5');
+      },
 
       toggleFullScreen: function() {
         if ($('body').hasClass('fullscreen')) {
@@ -287,7 +295,9 @@
       $(document).bind("mozfullscreenchange", Slide.setSlideSize);
       $(document).bind("mozfullscreenchange", Slide.toggleFullScreenState);
 
-      $('a#fullscreen,a#share_button').bind('click', Slide.toggleFullScreen);
+      $('a#fullscreen').bind('click', Slide.toggleFullScreen);
+      $('a#double_button').bind('click', Slide.gotoDouble);
+      $('a#single_button').bind('click', Slide.gotoSingle);
 
       $(window).bind('resize', _.throttle(Slide.setSlideSize, 100));
 
@@ -733,7 +743,7 @@
 
       tree.attachEvent("onDblClick", function(id){
           if(tree.hasChildren(id) == 0){
-            window.parent.eval("parent_cmd('"+id+"')");
+            window.parent.eval("parent_cmd('"+id+"','"+tree.getItemText(id)+"')");
           }
       });
       
@@ -791,11 +801,9 @@
 <% end %>
   <div class="previews" style="display:none"><p>第1页, 共6页</p></div>
   <div class="standard_buttons">
-  <% if '1'==params[:force_biji] %>
-    <a href="#" id="zuobiji_button">记笔记</a>
-<% else %>
-    <a href="#" id="share_button">全屏</a>
-<% end %>
+
+    <a href="javascript:void(0)" style="<%= 'opacity:1' unless @courseware.thin? %>" id="single_button"></a>
+    <a href="javascript:void(0)" style="<%= 'opacity:1' if @courseware.thin? %>" id="double_button"></a>
   </div>
   <div class="overlay"></div>
   <div id="share">
@@ -822,4 +830,3 @@
 </div>
 <div id="caches">
 </div>
-

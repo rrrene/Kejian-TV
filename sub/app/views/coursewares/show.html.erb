@@ -167,7 +167,7 @@ courseware_id: '<%=@courseware.id%>'
             <%= render :partial => 'presenter', :locals => {user:@courseware.user} if @courseware.user %>
          </div>
          <% end %>
-         <h1>
+         <h1 style="<%='margin-bottom:12px' if @courseware.yasuobao?%>">
             <%if @cws%>第<%=@courseware.courseware_series_no%>集. <%end%>
             <%= @courseware.title %>
             <%if @cws%>
@@ -187,20 +187,26 @@ courseware_id: '<%=@courseware.id%>'
             <% if owner? @courseware %>
             <a id="edit_presentation" class="grey" style="display:inline-block;" href="<%= edit_courseware_path(@courseware) %>">编辑课件</a>
             <% end %>
+            <% if @courseware.yasuobao? %>
             <br>
             <span style="font-size:16px;text-align:center">
               <span id="yasuobao_root">(压缩包)</span> <span class="yasuobao">/</span> <span id="yasuobao_content"></span>
               <script>
-                window.parent_cmd = function(id){
+                window.parent_cmd = function(id,text){
+                  if(window.psvr_altid){
+                    jQuery('#cwiframe_'+window.psvr_altid).remove();
+                    script = document.createElement( 'script' );
+                    script.type = 'text/javascript';
+                    script.id = 'alt_embed';
+                    jQuery('#slides_container')[0].appendChild(script);
+                  }
                   window.psvr_altid=id;
-                  es_js = "\u003Cscript type=\"text/javascript\" id=\"alt_embed\"\u003E\u003C/script\u003E";
                   jQuery('#cwiframe_<%=@courseware.id%>').animate({'margin-left': -708}, 222, function(){
                     jQuery(this).hide();
-                    jQuery('#yasuobao_content').html('机械原理');
+                    jQuery('#yasuobao_content').html(text);
                     jQuery('#yasuobao_root').html('<a href="#" id="yasuobao_root_a">(压缩包)</a>');
                     jQuery('#yasuobao_root_a').bind('click',window.yasuobao_root);
                     jQuery('#slides_container').addClass('busy');
-                    jQuery('#slides_container').append(es_js);
                     jQuery('#alt_embed').attr('class',"speakerdeck-embed");
                     jQuery('#alt_embed').attr('data-course-slug','');
                     jQuery('#alt_embed').attr('data-courseware-slug',id);
@@ -223,6 +229,7 @@ courseware_id: '<%=@courseware.id%>'
                 }
               </script>
             </span>
+            <% end %>
          </h1>
          <% if @courseware.thin? %>
          <div class="main" style="width:100%;margin-top:12px;">
