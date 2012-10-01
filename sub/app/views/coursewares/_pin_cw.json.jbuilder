@@ -7,6 +7,7 @@ json.shareTitle "#{courseware.title}#{'2'==params['queryOrder'] ? ' ('+coursewar
 json.commentCount 0
 json.reshareCount 0
 json.id courseware.id
+json.ktvid courseware.ktvid
 json.path courseware_path(courseware)
 json.title courseware.title
 json.boardPicId 825398
