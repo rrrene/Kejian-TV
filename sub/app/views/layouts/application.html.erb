@@ -102,7 +102,10 @@
         <% if user_signed_in? %>
         <div id="account-notifications">
           <a href="/simple/home.php?mod=space&do=notice">提醒</a>
-          <div class="count-badge" style="">8</div>
+          <% total_prompt =  @cur_newprompt_llb + @cur_newpm_llb %>
+          <% if total_prompt >0 %>
+          <div class="count-badge" style=""><%= total_prompt %></div>
+          <% end %>
         </div>
           <ul id="account-settings">
             <li>

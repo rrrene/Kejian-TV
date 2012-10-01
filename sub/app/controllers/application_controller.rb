@@ -153,12 +153,15 @@ class ApplicationController < ActionController::Base
   before_filter :get_extcredits
   before_filter :get_srchhotkeywords
   def get_srchhotkeywords
-    @s_keyword  = PreCommonSetting. where(:skey => 'srchhotkeywords').first.svalue
+    @s_keyword  = PreCommonSetting.where(:skey => 'srchhotkeywords').first.svalue
     @hotkeywords_list = @s_keyword.split.compact
   end
   def get_extcredits
     if !current_user.nil?
-      @c_setting  = PreCommonSetting. where(:skey => 'extcredits').first.svalue
+      @cur_newprompt_llb = PreCommonMember.where(:uid => current_user.uid).first.newprompt
+      @cur_newpm_llb = UcNewpm.where(:uid => current_user.uid).count
+      
+      @c_setting  = PreCommonSetting.where(:skey => 'extcredits').first.svalue
       php = PHP.unserialize(@c_setting)
       @extcredit_name = []
       @extcredit_name_list = ''

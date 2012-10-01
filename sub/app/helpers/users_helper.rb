@@ -26,14 +26,16 @@ module UsersHelper
   end
   def avatar_url(user,size=:normal)
     s=AvatarUploader::SIZES[size]
-    url = eval("user.avatar.#{size}.url")
-    if user.avatar.blank? or url.blank?
-      gravatar_id = Digest::MD5.hexdigest(user.email.downcase)
-      d = CGI::escape("http://#{Setting.ktv_subdomain}/defaults/avatar/#{size}.jpg")
-      url = "http://gravatar.com/avatar/#{gravatar_id}.png?r=PG&s=#{s}&d=#{d}"
-    end
+    url = "http://uc.kejian.lvh.me/avatar.php?uid=#{user.uid}&amp;size=small"  # eval("user.avatar.#{size}.url")
+    
+    # if user.avatar.blank? or url.blank?
+    #   gravatar_id = Digest::MD5.hexdigest(user.email.downcase)
+    #   d = CGI::escape("http://#{Setting.ktv_subdomain}/defaults/avatar/#{size}.jpg")
+    #   url = "http://gravatar.com/avatar/#{gravatar_id}.png?r=PG&s=#{s}&d=#{d}"
+    # end
     return url
   end
+
   def avatar_tag(user,size=:normal,style='')
     s=AvatarUploader::SIZES[size]
     url = avatar_url(user,size)

@@ -68,7 +68,7 @@ Sub::Application.routes.draw do
   get '/coursewares_mine/:page' => 'coursewares#mine'
   get '/coursewares/:id/revisions/:revision_id' => 'coursewares#show'
   get '/embed/:id/revisions/:revision_id' => 'coursewares#embed'  
-  
+  get '/users/test' => 'users#test'
   # resources :notes, :path_prefix => "/coursewares/:id/",
   resources :coursewares do
     resources :notes

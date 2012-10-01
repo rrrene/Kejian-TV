@@ -45,22 +45,24 @@ end
     <div class="field fr"><%= f.label :password_confirmation,'确认密码' %><div class="field_error" id="regerror_password_confirmation"><%= resource.errors_for_field(:password_confirmation) %></div><br class="clear">
     <%= f.password_field :password_confirmation,:class => 's212',:tabindex => 4,:autocomplete=>"off",:value=>'' %></div>
   </div>
+  <!--  -->
 
 <% content_for :butt2 do %>
 $('#change_password_link').click(function(){
   $(this).hide();
   $('#change_password').show();
-})
+});
 <% end %>
 
   <div class="__sdk">
 
-    
+
     <div class="form_sections" style="margin-bottom:18px">
       <p>
         <label for="user_email">头像</label><div class="field_error" id="regerror_name">
-        <%= resource.errors_for_field(:avatar) %></div><br class="clear">
-        <%= avatar_tag(resource,:normal,'padding:1px;border:1px solid #999999') %>
+            
+            <%= resource.errors_for_field(:avatar) %></div><br class="clear">
+            <%= avatar_tag(resource,:normal,'padding:1px;border:1px solid #999999') %>
         <div class="upload">
             上 传
                <input  id="file_uploader" class="file_uploader" name="user[avatar]" type="file">

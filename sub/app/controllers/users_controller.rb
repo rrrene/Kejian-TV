@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 class UsersController < ApplicationController
   skip_before_filter :verify_authenticity_token, :only => [:auth_callback]
-  before_filter :init_user, :except => [:auth_callback,:index,:hot,:invite,:invite_submit]
+  before_filter :init_user, :except => [:auth_callback,:index,:hot,:invite,:invite_submit,:test]
   before_filter :require_user,:only=>[:invite,:invite_send]
   def update
     unless view_context.owner?(@user)
@@ -256,5 +256,8 @@ class UsersController < ApplicationController
       end
 		end
   end
-
+  def test
+    
+    # todo
+  end
 end
