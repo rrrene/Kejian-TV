@@ -81,7 +81,11 @@
         preview: <%=raw @slides.to_json%>,
         original: <%=raw @slides.to_json%>
       },
+    <%if @courseware.yasuobao?%>
+      thumbs: [],
+    <%else%>
       thumbs: <%=raw 0.upto(@courseware.slides_count-1).collect{|i| asset_url("cw/#{@courseware.ktvid.present? ? @courseware.ktvid : @courseware.id}/#{@courseware.revision}thumb_slide_#{i}.jpg") }.to_json%>,
+    <%end%>
       current: 0,
       next: function() {
         if (Slide.current == Slide.urls.length - 1) {
@@ -697,6 +701,10 @@
       window.parent.eval("jQuery('#stickies').css('top',(jQuery('.speakerdeck-iframe').position().top + 28));jQuery('#stickies').show();window.wait_till_frame_ready()");
 <% end %>
     });
+       window.parent.eval("jQuery('#slides_container').removeClass('busy')");
+<% if '1'==params[:force_alt] %>
+       window.parent.eval("jQuery('#cwiframe_<%@courseware.id%>').show();jQuery('#cwiframe_<%@courseware.id%>').animate({'margin-left':0},222)");
+<% end %>
     })(jQuery);
   </script>
 
@@ -725,7 +733,7 @@
 
       tree.attachEvent("onDblClick", function(id){
           if(tree.hasChildren(id) == 0){
-              alert("hello" + tree.hasChildren(id) +id);           
+            window.parent.eval("parent_cmd('"+id+"')");
           }
       });
       

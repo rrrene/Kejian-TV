@@ -149,7 +149,7 @@ var getElementsByClassName = function (a, b, c) {
     a = function () {
         function f(a, b) {
             var c;
-            this.element = a, this.params = b, this.keyup = d(this.keyup, this), this.resize = d(this.resize, this), this.container = this.element.parentNode, this.force_biji = this.element.getAttribute("data-force-biji"),this.course_slug = this.element.getAttribute("data-course-slug"), this.courseware_slug = this.element.getAttribute("data-courseware-slug"),this.cw_revision = this.element.getAttribute("data-cw-revision"), this.ratio = this.element.getAttribute("data-ratio") || 4 / 3, (c = this.params) == null && (this.params = {}), this.params.slide = this.element.getAttribute("data-slide")
+            this.element = a, this.params = b, this.keyup = d(this.keyup, this), this.resize = d(this.resize, this), this.container = this.element.parentNode, this.force_alt = this.element.getAttribute("data-force-alt"), this.force_biji = this.element.getAttribute("data-force-biji"),this.course_slug = this.element.getAttribute("data-course-slug"), this.psvr_display=this.element.getAttribute("data-psvr-display"), this.courseware_slug = this.element.getAttribute("data-courseware-slug"),this.cw_revision = this.element.getAttribute("data-cw-revision"), this.ratio = this.element.getAttribute("data-ratio") || 4 / 3, (c = this.params) == null && (this.params = {}), this.params.slide = this.element.getAttribute("data-slide")
         }
         var a = this;
         return f.init = function () {
@@ -159,9 +159,9 @@ var getElementsByClassName = function (a, b, c) {
             return e
         }, f.prototype.url = function () {
           if (this.cw_revision) {
-            return "/embed/" + this.courseware_slug + "/revisions/" + this.cw_revision + "?force_biji="+this.force_biji+"&" + this.toParam();
+            return "/embed/" + this.courseware_slug + "/revisions/" + this.cw_revision + "?force_biji="+this.force_biji+ "&force_alt="+this.force_alt+"&" + this.toParam();
           }else{
-            return "/embed/" + this.courseware_slug + "?force_biji="+this.force_biji+'&' + this.toParam();
+            return "/embed/" + this.courseware_slug + "?force_biji="+this.force_biji+ "&force_alt="+this.force_alt+'&' + this.toParam();
           }
         }, f.prototype.toParam = function () {
             var a, b;
@@ -174,7 +174,7 @@ var getElementsByClassName = function (a, b, c) {
         }, f.prototype.setup = function () {
             return this.createFrame(), this.api = new SpeakerDeck.API(this.iframe), this.resize(), this.bindEvents(), this.insert()
         }, f.prototype.createFrame = function () {
-            return this.iframe = document.createElement("iframe"), this.iframe.className = "speakerdeck-iframe", this.iframe.style["-webkit-border-radius"] = "5px", this.iframe.style["-moz-border-radius"] = "5px", this.iframe.style["border-radius"] = "5px", this.iframe.style.border = "0", this.iframe.style.background = "transparent", this.iframe.style.margin = "0", this.iframe.style.padding = "0", this.iframe.border = 0, this.iframe.frameBorder = 0, this.iframe.allowTransparency = !0, this.iframe.src = this.url(), this.iframe.setAttribute("allowfullscreen", !0), this.iframe.setAttribute("mozallowfullscreen", !0), this.iframe.setAttribute("webkitallowfullscreen", !0)
+            return this.iframe = document.createElement("iframe"), this.iframe.className = "speakerdeck-iframe", this.iframe.id='cwiframe_'+this.courseware_slug, this.iframe.style["-webkit-border-radius"] = "5px", this.iframe.style["-moz-border-radius"] = "5px", this.iframe.style["border-radius"] = "5px", this.iframe.style.display = (this.psvr_display ? this.psvr_display : 'block'), this.iframe.style.border = "0", this.iframe.style.background = "transparent", this.iframe.style.margin = "0", this.iframe.style.padding = "0", this.iframe.border = 0, this.iframe.frameBorder = 0, this.iframe.allowTransparency = !0, this.iframe.src = this.url(), this.iframe.setAttribute("allowfullscreen", !0), this.iframe.setAttribute("mozallowfullscreen", !0), this.iframe.setAttribute("webkitallowfullscreen", !0)
         }, f.prototype.insert = function () {
             return this.container.replaceChild(this.iframe, this.element), document.dispatchEvent(new CustomEvent("speakerdeck:player:ready", {
                 detail: this.api
