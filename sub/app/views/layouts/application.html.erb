@@ -73,12 +73,12 @@
 </head>
 
 <body <%if @is_ie8 or @is_ie7 or @is_ie6 %>onload="window.psvr_ie_readyfix()"<%end%> id="psvr_subject_all" style="  background: #fdfdfd url(<%= asset_path 'sstatic/skeptics/img/grid_noise_dark.png' %>) repeat left top;<%= 'background-position: 0 112px;' if @we_are_inside_qa and !@we_are_no_zm_header %><%=yield :body_style%>" data-subdomain="<%= request.subdomain %>" class="<%= @we_are_inside_qa ? 'we_are_inside_qa' : '' %>">
-<div id="append_parent" class="__dz"></div><div id="ajaxwaitid"></div>
+<div id="append_parent" class="__dz"></div><div id="ajaxwaitid" class="__dz"></div>
 <div class="__sdk">
   <header style="background-image:url(<%= asset_path('dark.png') %>)">
     <div class="wrapper">
       <h1><a href="/" id="core_logotext_wrap"><%= image_tag "logo_ktv_#{Setting.ktv_sub}.png",:alt => "#{Setting.ktv_subname}课件交流系统",:id=>'core_logotext' %></a></h1>
-      <form accept-charset="UTF-8" action="/search" id="search_form" method="get" data-width-tobe="<%= Ktv.config.logo_ktv_width ? "#{Ktv.config.logo_ktv_width + 490}" : '730' %>" style="<%= Ktv.config.logo_ktv_width ? "margin-left:#{Ktv.config.logo_ktv_width + 78}px" : '' %>">
+      <form accept-charset="UTF-8" action="/search" id="search_form" method="get" data-width-tobe="<%= Setting.logo_ktv_width + 490 %>" style="<%= "margin-left:#{Setting.logo_ktv_width + 78}px" %>">
         <input type="text" id="q" name="q" value="" class="placeholded" placeholder="全站搜索" />
       </form>
       <div class="navigation">
@@ -258,30 +258,6 @@
     <div class="text">加载中…</div>
   </div>
   
-  
-  
-  <div style="overflow:hidden;" class="hide">
-    <%= image_tag("loading.gif") %>
-    <div id="report_page">
-      <header>举报内容 <a class="close" href="javascript:void(0);"></a></header>
-      <section>
-        <form id="report_page_form" action="/report.js" onsubmit="App.loading();" method="post" class="simple_form"> 
-          <%= auth_token %>
-          <input type="hidden" name="url" value="<%= request.path %>" />
-          <p class="fc999">请填写举报原因:</p>
-          <div class="editorBox mt10 clearfix">
-            <textarea name="desc" style="height:80px;"></textarea>
-          </div>
-        </form>
-      </section>
-      <footer>
-        <div class="btnNormalGreen bold mt20 rightbtn" id="report_submit" >
-          <span>提 交</span>
-        </div>
-      </footer>
-    </div>
-  </div>
-  
 </div>
 
 
@@ -311,36 +287,36 @@
         });
       <% end %>
     });
-    jQuery.fn.extend({
-        shareModes:['share-public', 'share-followers','share-private'],
-        shareMod:['分享该笔记','只好友可见','仅自己可见'],
-        shareModeNum:['1','2','0'],
-        resetShareModeClassNames:function() {
-          var elements = this;
-          elements.removeClass();
-          return this;
-        },
-        resetShareMode:function() {
-          this.resetShareModeClassNames();
-          return this.each(function() {
-            $('#note_shared').attr('value','0');
-            jQuery(this).data('shareModeIndex', 0)
-              .addClass(jQuery.fn.shareModes[2]).html(jQuery.fn.shareMod[2]);
-          });
-        },
-        toggleShareMode:function() {
-          // this.resetShareModeClassNames();
-          return this.each(function() {
-            var element = jQuery(this);
-            var shareModeIndex = element.data('shareModeIndex') || 0;
-            shareModeIndex = (shareModeIndex + 1) % jQuery.fn.shareModes.length;
-            element.data('shareModeIndex', shareModeIndex)
-              .addClass(jQuery.fn.shareModes[shareModeIndex]).html(jQuery.fn.shareMod[shareModeIndex]);
-            $('#note_shared').attr('value',jQuery.fn.shareModeNum[shareModeIndex]);  
-          });
-        }
-      });
-      })(jQuery);
+    // jQuery.fn.extend({
+    //     shareModes:['share-public', 'share-followers','share-private'],
+    //     shareMod:['分享该笔记','只好友可见','仅自己可见'],
+    //     shareModeNum:['1','2','0'],
+    //     resetShareModeClassNames:function() {
+    //       var elements = this;
+    //       elements.removeClass();
+    //       return this;
+    //     },
+    //     resetShareMode:function() {
+    //       this.resetShareModeClassNames();
+    //       return this.each(function() {
+    //         $('#note_shared').attr('value','0');
+    //         jQuery(this).data('shareModeIndex', 0)
+    //           .addClass(jQuery.fn.shareModes[2]).html(jQuery.fn.shareMod[2]);
+    //       });
+    //     },
+    //     toggleShareMode:function() {
+    //       // this.resetShareModeClassNames();
+    //       return this.each(function() {
+    //         var element = jQuery(this);
+    //         var shareModeIndex = element.data('shareModeIndex') || 0;
+    //         shareModeIndex = (shareModeIndex + 1) % jQuery.fn.shareModes.length;
+    //         element.data('shareModeIndex', shareModeIndex)
+    //           .addClass(jQuery.fn.shareModes[shareModeIndex]).html(jQuery.fn.shareMod[shareModeIndex]);
+    //         $('#note_shared').attr('value',jQuery.fn.shareModeNum[shareModeIndex]);  
+    //       });
+    //     }
+    //   });
+    //   })(jQuery);
   </script>
   <script type="text/javascript" charset="utf-8">
      window.wait_till_frame_ready = function(){

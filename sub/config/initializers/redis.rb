@@ -19,6 +19,9 @@ def redis_connect!(index=0)
   Sidekiq.configure_server do |config|
     config.redis =  ConnectionPool.new(:size => 5, :timeout => 3) do
       redis = Redis.new(:host => redis_config['host'],:port => redis_config['port'],:thread_safe => true, :password=>$passwd) 
+      if '2'!=select.to_s
+        raise 'consider class_core.php'
+      end
       redis.select(select.to_s)
       Redis::Namespace.new('resque', :redis => redis)
     end
