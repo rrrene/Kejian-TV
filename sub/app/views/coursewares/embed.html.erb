@@ -1,8 +1,12 @@
 <%
-id=@courseware.ktvid.present? ? @courseware.ktvid : @courseware.id
-@slides = 0.upto(@courseware.slides_count-1).collect do |i|
-  asset_url_eb("#{id}/#{@courseware.revision}slide_#{i}.jpg")
-end
+  if @courseware.yasuobao?
+    @slides = ["http://#{Setting.ktv_subdomain}/ww.png"]
+  else
+    id=@courseware.ktvid.present? ? @courseware.ktvid : @courseware.id
+    @slides = 0.upto(@courseware.slides_count-1).collect do |i|
+      asset_url_eb("#{id}/#{@courseware.revision}slide_#{i}.jpg")
+    end
+  end
 %>
 <% content_for :armpit do %>
 <style type="text/css" media="screen">
@@ -15,6 +19,15 @@ end
   <%= stylesheet_link_tag "ktv/ppt", :media => "all" %>
   <%= javascript_include_tag "kinetic-v4.0.0.js" %>
   <%= javascript_include_tag "ktv/player_ppt" %>
+  <% if @courseware.yasuobao? %>
+    <link href="/dhtmlxtree.css" media="screen" rel="stylesheet" type="text/css" />
+    <script src="/dhtmlxtree/dhtmlxcommon.js" type="text/javascript"></script>
+    <script src="/dhtmlxtree/dhtmlxtree.js" type="text/javascript"></script>
+    <script src="/dhtmlxtree/ext/dhtmlxtree_start.js" type="text/javascript"></script>
+    <script src="/dhtmlxtree/ext/dhtmlxtree_lf.js" type="text/javascript"></script>
+    <script src="/dhtmlxtree/ext/dhtmlxtree_json.js" type="text/javascript"></script>
+  <% end %>
+
   <script>
     var player = new Player();
     var timeout = null;
@@ -688,6 +701,42 @@ end
   </script>
 
 <% end %>
+<% if @courseware.yasuobao? %>
+  <div id="treeboxbox_tree" class="dhxtree_dhx_skyblue" style="" setImagePath="<%= asset_path('dhtmlxtree-imgs/csh_dhx_skyblue') %>/">
+  </div>
+  <script>
+  function jr() {
+      var json_obj =<%= raw(@courseware.tree.to_json) %>;
+      tree = new dhtmlXTreeObject("treeboxbox_tree","100%","100%",0);
+      tree.setImagePath("<%=asset_path('dhtmlxtree-imgs/csh_dhx_skyblue')%>/");
+      tree.setIconsPath("<%=asset_path('dhtmlxtree-imgs/csh_dhx_skyblue')%>/");
+      tree.setSkin('dhx_skyblue');
+      tree.enableIEImageFix(true);
+      tree.enableDragAndDrop(false);
+      tree.enableLoadingItem();
+      tree.enableTreeLines(true);
+      <% if false and (@courseware.user_id == current_user.id or current_user.admin_type == 2)  %>
+          var recyc = {"id":"Recycle","text":"回收站","child":"0","im0":"recyc.gif","im1":"recyc.gif","im2":"recyc.gif","dragndrop":"false"};
+          json_obj.item.push(recyc);
+          tree.enableDragAndDrop(true);
+      <% end %>
+
+      tree.loadJSONObject(json_obj);
+
+      tree.attachEvent("onDblClick", function(id){
+          if(tree.hasChildren(id) == 0){
+              alert("hello" + tree.hasChildren(id) +id);           
+          }
+      });
+      
+      var element = document.createElement('div');
+      element.style.marginTop = '30px';
+      element.className = 'tree_tmp';
+      document.getElementsByClassName('containerTableStyle')[0].appendChild(element);
+  };
+  dhtmlxEvent(window, "load", jr);
+  </script>
+<% end %>
 
 <div id="presenter">
   <div class="header">
@@ -701,12 +750,23 @@ end
     <%end%>
   </div>
   <div id="slide">
-    <canvas id="mycanvas" style="display:none" width="128" height="36"
-     onmousedown="window.biji_canvasDown(this)"  onmouseup="window.biji_canvasUp(this)"
-     onmouseover="window.biji_canvasOver()" onmouseout="window.biji_canvasOut()">
-    </canvas>
+    <% if '1'==params[:force_biji] %>
+      <canvas id="mycanvas" style="display:none" width="128" height="36"
+       onmousedown="window.biji_canvasDown(this)"  onmouseup="window.biji_canvasUp(this)"
+       onmouseover="window.biji_canvasOver()" onmouseout="window.biji_canvasOut()">
+      </canvas>
+    <% end %>
     <img id="slide_image" src="<%= @slides.first %>" class='visible' />
   </div>
+  <div class="speakerdeck_toolbar">
+  </div>
+<% if @courseware.yasuobao? %>
+  <div class="scrubber_holder" style="padding:0 0 21px;left:8px">
+    <div class="scrubber" style="height:22px;padding-left:8px;line-height:20px">
+      提示:&nbsp;此课件为<%=@courseware.sort%><%=Courseware::SORTSTR[@courseware.sort]%>，请双击打开其中包含的文件...
+    </div>
+  </div>
+<% else %>
   <div class="overnav" id="the_overnav">
     <a href="#" class="prev">上张幻灯片</a>
     <a href="#" class="next">下张幻灯片</a>
@@ -715,13 +775,12 @@ end
     <a href="#" class="prev">上张幻灯片</a>
     <a href="#" class="next">下张幻灯片</a>
   </div>
-  <div class="speakerdeck_toolbar">
-  </div>
   <div class="scrubber_holder">
     <div class="scrubber">
       <div class="scrubbed" style="width:0;"></div>
     </div>
   </div>
+<% end %>
   <div class="previews" style="display:none"><p>第1页, 共6页</p></div>
   <div class="standard_buttons">
   <% if '1'==params[:force_biji] %>
@@ -743,7 +802,7 @@ end
       <p><input type="radio" name="link_to" value="slide" id="link_to_s" /> <label for="link_to_s">本张幻灯片 (<span class="current_slide">1</span> of <%=@courseware.slides_count%>)</label></p>
     </div>
     <div id="link" class="panel">
-      <input type="text" id="shorturl" value="http://<%=Setting.ktv_domain%>/coursewares/<%=@courseware.id%>" />
+      <input type="text" id="shorturl" value="http://<%=Setting.ktv_subdomain%>/coursewares/<%=@courseware.id%>" />
     </div>
     <div id="embed" class="panel">
       <input type="text" id="embed_input" value='<script async class="speakerdeck-embed" data-course-slug="<%=@courseware.topic_id %>" data-courseware-slug="<%=@courseware.id%>" data-ratio="<%= @courseware.wh_ratio %>" src="<%= asset_path 'ktv/embed.js'%>"></script>' />

@@ -55,7 +55,7 @@
 }
 .standartTreeImage {
     width: 18px;
-    height: 18px;
+    height: 21px;
     overflow: hidden;
     border: 0;
     padding: 0;
@@ -149,7 +149,7 @@
     border-right: 1px solid transparent;
     border-left: 1px solid transparent;
     font-family: Tahoma;
-    font-size: 11px!important;
+    font-size: 12px!important;
     overflow: hidden;
     padding: 0px 0px 0px 0px;
 }
@@ -161,7 +161,7 @@
     border: 1px solid #FFB951;
     color: black;
     line-height: 17px;
-    font-size: 11px!important;
+    font-size: 12px!important;
     font-family: Tahoma;
     overflow: hidden;
 }
@@ -177,12 +177,12 @@ body:nth-of-type(1) .dhxtree_dhx_skyblue span.selectedTreeRow_lor {
     padding: 1px 0px 1px 0px;
     display: inline-block;
     padding-top: 0px;
-    height: 13px;
+    height: 15px;
 }
 body:nth-of-type(1) .dhxtree_dhx_skyblue span.standartTreeRow,
 body:nth-of-type(1) .dhxtree_dhx_skyblue span.standartTreeRow_lor {
     display: inline-block;
-    height: 14px;
+    height: 15px;
 }
 .dhxtree_dhx_web .selectedTreeRow_lor,
 .dhxtree_dhx_web .selectedTreeRow { background-color: transparent }
