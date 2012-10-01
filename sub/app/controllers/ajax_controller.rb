@@ -209,4 +209,9 @@ HEREDOC
     @teachers = @c.teachings.collect(&:teacher).uniq
     render json:@teachers
   end
+  def get_forum
+    @forum = PreForumForum.find(:all,:conditions=>{:fup=>params[:fup].to_i,:type=>'forum'},:select=>"fid,name")
+    render json:@forum
+    # json:@forum
+  end
 end

@@ -39,6 +39,7 @@ Sub::Application.routes.draw do
   post '/ajax/logincheck'
   get '/ajax/star_refresh'
   get '/ajax/get_teachers'
+  post '/ajax/get_forum' => 'ajax#get_forum'
   # ---=small=----
   get 'hack/htc'
   get '/welcome/inactive_sign_up'
