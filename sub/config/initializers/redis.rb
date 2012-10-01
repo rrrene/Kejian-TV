@@ -15,6 +15,14 @@ def redis_connect!(index=0)
   $redis_search = Redis.new(:host => redis_config['host'],:port => redis_config['port'],:thread_safe => true, :password=> $passwd)
   $redis_search.select(select.to_s)
   select+=1
+
+  Sidekiq.configure_client do |config|
+    config.redis =  ConnectionPool.new(:size => 1, :timeout => 3) do
+      redis = Redis.new(:host => redis_config['host'],:port => redis_config['port'],:thread_safe => true, :password=>$passwd) 
+      redis.select(select.to_s)
+      Redis::Namespace.new('resque', :redis => redis)
+    end
+  end
   select+=1
 
 
@@ -48,14 +56,6 @@ def redis_connect!(index=0)
     config.disable_rmmseg = false
   end
 
-  Sidekiq.configure_client do |config|
-    config.redis =  ConnectionPool.new(:size => 1, :timeout => 3) do
-      redis = Redis.new(:host => redis_config['host_resque'],:port => redis_config['port_resque'],:thread_safe => true, :password=>$passwd) 
-      redis.select(redis_config['select_resque'])
-      Redis::Namespace.new('resque', :redis => redis)
-    end
-  end
-  
   
   $snda_service = Sndacs::Service.new(:access_key_id => Setting.snda_id, :secret_access_key => Setting.snda_key)
   $snda_buckets = $snda_service.buckets

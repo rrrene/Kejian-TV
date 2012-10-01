@@ -106,7 +106,7 @@
         </div>
           <ul id="account-settings">
             <li>
-              <a class="user" href="<%= user_path(current_user) %>"><%= avatar_tag(current_user,:small47) %><%= current_user.name %>
+              <a class="user" href="<%= user_path(current_user) %>"><%= avatar_tag(current_user,:small47) %><%= current_user.name.present? ? current_user.name : '姓名未知' %>
                 <span id="hardest_a_ever"><span dir="ltr" title="your reputation; view reputation changes" class="reputation-score">307</span></span>
                 <span title="1 silver badge" class="hardest_span_ever"><span class="badge2"></span><span class="badgecount">1</span></span>
                 <span title="10 bronze badges" class="hardest_span_ever"><span class="badge3"></span><span class="badgecount">10</span></span>
@@ -299,7 +299,7 @@
     (function($){
     jQuery(function(){
       <%= yield :butt2 %>
-      jQuery('#search_form').width(jQuery('#search_form').data('width-orig',558-jQuery('#core_logotext_wrap').width()-jQuery('#account-settings').width()).data('width-orig'));
+      jQuery('#search_form').width(jQuery('#search_form').data('width-orig',<%=@is_WebKit ? 500 : 558 %>-jQuery('#core_logotext_wrap').width()-jQuery('#account-settings').width()).data('width-orig'));
       $('#core_addtext_wrap').click(function(){return Asks.addAsk()});
       $('#core_addcw_wrap').click(function(){return KTV.addCW()});
       $('#login').click(function(){return KTV.login()});

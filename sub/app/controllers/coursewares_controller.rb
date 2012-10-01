@@ -127,6 +127,9 @@ class CoursewaresController < ApplicationController
     redirect_to '/',:notice=>'已成功删除'
   end
   def download
+    # 由于积分和防批量下载的功能没弄好，先别开放下载
+    render text:'开发中，sorry'
+    return
     downurl = ''
     if @courseware.have_pw and params[:pw].blank?
       render 'download',:layout => 'application_for_devise'
