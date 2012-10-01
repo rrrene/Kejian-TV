@@ -24,7 +24,7 @@ class TranscoderJob
     puts "hey,yo!bitch transcoder"
     @courseware = Courseware.find(id)
     begin
-      working_dir = "/media/hd2/auxiliary_#{Ktv.sub}/ftp/cw/#{@courseware.id}"
+      working_dir = "/media/hd2/auxiliary_#{Setting.ktv_sub}/ftp/cw/#{@courseware.id}"
       pdf_path = "#{working_dir}/#{@courseware.pdf_filename}"
       `mkdir -p "#{working_dir}"`
       if @courseware.remote_filepath

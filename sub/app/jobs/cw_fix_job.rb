@@ -13,7 +13,7 @@ class CwFixJob
   def perform(id)
     @courseware = Courseware.find(id)
     return false unless 0==@courseware.status
-    working_dir = "/media/hd2/auxiliary_#{Ktv.sub}/ftp/cw_fix/#{@courseware.id}"
+    working_dir = "/media/hd2/auxiliary_#{Setting.ktv_sub}/ftp/cw_fix/#{@courseware.id}"
     `mkdir -p "#{working_dir}"`
     0.upto(@courseware.slides_count-1) do |i|
 

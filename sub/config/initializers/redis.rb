@@ -16,6 +16,14 @@ def redis_connect!(index=0)
   $redis_search.select(select.to_s)
   select+=1
 
+  Sidekiq.configure_server do |config|
+    config.redis =  ConnectionPool.new(:size => 5, :timeout => 3) do
+      redis = Redis.new(:host => redis_config['host'],:port => redis_config['port'],:thread_safe => true, :password=>$passwd) 
+      redis.select(select.to_s)
+      Redis::Namespace.new('resque', :redis => redis)
+    end
+  end
+
   Sidekiq.configure_client do |config|
     config.redis =  ConnectionPool.new(:size => 1, :timeout => 3) do
       redis = Redis.new(:host => redis_config['host'],:port => redis_config['port'],:thread_safe => true, :password=>$passwd) 
