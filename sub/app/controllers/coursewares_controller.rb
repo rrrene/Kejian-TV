@@ -100,19 +100,26 @@ class CoursewaresController < ApplicationController
     end
   end
   def show
-    @seo[:title] = @courseware.title
-    @comment = @courseware.comments.build
-    @note = Note.new
-    @note.courseware_id = @courseware.id
-    @note.page = 0
-    version_issues_deal!
-    render "show"
+    respond_to do |format|
+      format.html{
+        @seo[:title] = @courseware.title
+        @comment = @courseware.comments.build
+        @note = Note.new
+        @note.courseware_id = @courseware.id
+        @note.page = 0
+        version_issues_deal!
+        render "show"
+      }
+      format.json{
+        render json:@courseware
+      }
+    end
   end
   def version_issues_deal!
     @courseware_real_version = @courseware.version
     if params[:revision_id].present?
       converted_revision_id = params[:revision_id].to_i - 1
-      if converted_revision_id >= 0 and converted_revision_id <= @courseware_real_version
+      if converted_revision_id >= 0 and converted_revision_id < @courseware_real_version
         @courseware.version = converted_revision_id
         @courseware.title += " (第#{converted_revision_id + 1}版)"
       end
@@ -155,6 +162,9 @@ class CoursewaresController < ApplicationController
 protected
   def find_item
     @courseware = Courseware.where(:_id => params[:id]).first
+    if -2==@courseware.status && @courseware.redirect_to_id.present?
+      @courseware = Courseware.where(:_id => @courseware.redirect_to_id.to_s).first
+    end
     unless @courseware.present?
       render_404
       return false

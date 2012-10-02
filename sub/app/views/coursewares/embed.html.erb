@@ -2,7 +2,7 @@
   if @courseware.yasuobao?
     @slides = ["http://#{Setting.ktv_subdomain}/ww.png"]
   else
-    id=@courseware.ktvid.present? ? @courseware.ktvid : @courseware.id
+    id=@courseware.ktvid.present? ? @courseware.ktvid : (@courseware.redirect_to_id.present? ? @courseware.redirect_to_id : @courseware.id)
     @slides = 0.upto(@courseware.slides_count-1).collect do |i|
       asset_url_eb("#{id}/#{@courseware.revision}slide_#{i}.jpg")
     end
@@ -206,13 +206,21 @@
         }
         return false;
       },
-      gotoSingle: function(){
+      gotoSingle: function(noparent){
         $('#single_button').css('opacity','1');
         $('#double_button').css('opacity','0.5');
+        $('#treeboxbox_tree').css({width:692,height:525})
+        if(!noparent){
+          window.parent.eval("window.parent_gotoSingle()");
+        }
       },
-      gotoDouble: function(){
+      gotoDouble: function(noparent){
         $('#double_button').css('opacity','1');
         $('#single_button').css('opacity','0.5');
+        $('#treeboxbox_tree').css({width:944,height:713})
+        if(!noparent){
+          window.parent.eval("window.parent_gotoDouble()");
+        }
       },
 
       toggleFullScreen: function() {
@@ -294,11 +302,19 @@
       $(document).bind("webkitfullscreenchange", Slide.toggleFullScreenState);
       $(document).bind("mozfullscreenchange", Slide.setSlideSize);
       $(document).bind("mozfullscreenchange", Slide.toggleFullScreenState);
-
-      $('a#fullscreen').bind('click', Slide.toggleFullScreen);
-      $('a#double_button').bind('click', Slide.gotoDouble);
-      $('a#single_button').bind('click', Slide.gotoSingle);
-
+      <% if @courseware.yasuobao? %>
+        $('a#fullscreen').hide();
+      <% else %>
+        $('a#fullscreen').bind('click', Slide.toggleFullScreen);
+      <% end %>
+      $('a#double_button').bind('click', function(){
+        Slide.gotoDouble(false)
+        return false;
+      });
+      $('a#single_button').bind('click', function(){
+        Slide.gotoSingle(false);
+        return false;
+      });
       $(window).bind('resize', _.throttle(Slide.setSlideSize, 100));
 
       // start images downloading
@@ -714,6 +730,9 @@
        window.parent.eval("jQuery('#slides_container').removeClass('busy')");
 <% if '1'==params[:force_alt] %>
        window.parent.eval("jQuery('#cwiframe_<%@courseware.id%>').show();jQuery('#cwiframe_<%@courseware.id%>').animate({'margin-left':0},222)");
+       <%if @courseware.thin?%>
+         Slide.gotoDouble();
+       <% end %>
 <% end %>
     })(jQuery);
   </script>
@@ -742,9 +761,14 @@
       tree.loadJSONObject(json_obj);
 
       tree.attachEvent("onDblClick", function(id){
-          if(tree.hasChildren(id) == 0){
+        if(tree.hasChildren(id) == 0){
+          if(id.length>20){
             window.parent.eval("parent_cmd('"+id+"','"+tree.getItemText(id)+"')");
+          }else{
+            alert('对不起，这个文件不支持在线阅读');
+            return false;
           }
+        }
       });
       
       var element = document.createElement('div');

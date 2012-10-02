@@ -12,7 +12,7 @@
 
 
 
-    <div class="col-coat">
+    <div class="col-coat" style="padding-bottom:18px">
     <h3><a href="#" class="coat"><span ></span>数学与自然科学</a></h3>
     <ul class="navlist" style="margin-left:0">
     <% Department.where(:sort=>1).desc('coursewares_count').each do |topic| %>
@@ -22,7 +22,7 @@
     </div>
 
 
-    <div class="col-pants">
+    <div class="col-pants" style="padding-bottom:18px">
     <h3><a href="#" class="pants"><span ></span>工程</a></h3>
     <ul class="navlist" style="margin-left:0">
       <% Department.where(:sort=>2).desc('coursewares_count').each do |topic| %>
@@ -39,7 +39,7 @@
 
 
 
-    <div class="col-accessories">
+    <div class="col-accessories" style="padding-bottom:18px">
     <h3><a href="#" class="accessories"><span ></span>人文、艺术与社会科学</a></h3>
     <ul class="navlist" style="margin-left:0">
     <% Department.where(:sort=>3).desc('coursewares_count').each do |topic| %>
@@ -53,7 +53,7 @@
 
 
 
-    <div class="col-other">
+    <div class="col-other" style="padding-bottom:18px">
 
 
     <% xxx=Department.where(:sort=>6).desc('coursewares_count') %>

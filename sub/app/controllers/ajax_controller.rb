@@ -82,12 +82,17 @@ class AjaxController < ApplicationController
     elsif cw.slides_count > 0
       complete = cw.pdf_slide_processed
       total = cw.slides_count+1
-      more = "第#{complete}页, 共#{cw.slides_count}页"
+      if cw.tree.present?
+        more = "正在处理第#{cw.slides_count}个子文件"
+      else
+        more = "第#{:complete}页, 共#{cw.slides_count}页"
+      end
     else
       complete = 0
       total = 10
       more = ''
     end
+    binding.pry
     percent = complete*1.0 / total * 100
     html = <<HEREDOC
 <div id="process_progress" class="progress_bar active">

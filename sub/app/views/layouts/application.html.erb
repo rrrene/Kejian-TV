@@ -278,7 +278,7 @@
     (function($){
     jQuery(function(){
       <%= yield :butt2 %>
-      jQuery('#search_form').width(jQuery('#search_form').data('width-orig',<%=@is_WebKit ? 500 : 558 %>-jQuery('#core_logotext_wrap').width()-jQuery('#account-settings').width()).data('width-orig'));
+      jQuery('#search_form').width(jQuery('#search_form').data('width-orig',<%=@is_WebKit ? 504 : 558 %>-jQuery('#core_logotext_wrap').width()-jQuery('#account-settings').width()).data('width-orig'));
       $('#core_addtext_wrap').click(function(){return Asks.addAsk()});
       $('#core_addcw_wrap').click(function(){return KTV.addCW()});
       $('#login').click(function(){return KTV.login()});
@@ -319,7 +319,7 @@
     //       });
     //     }
     //   });
-    //   })(jQuery);
+    })(jQuery);
   </script>
   <script type="text/javascript" charset="utf-8">
      window.wait_till_frame_ready = function(){

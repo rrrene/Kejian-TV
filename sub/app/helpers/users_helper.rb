@@ -26,7 +26,7 @@ module UsersHelper
   end
   def avatar_url(user,size=:normal)
     s=AvatarUploader::SIZES[size]
-    url = "http://uc.kejian.lvh.me/avatar.php?uid=#{user.uid}&amp;size=small"  # eval("user.avatar.#{size}.url")
+    url = "http://uc.kejian.lvh.me/simple/avatar.php?uid=#{user.uid}&amp;size=small"  # eval("user.avatar.#{size}.url")
     
     # if user.avatar.blank? or url.blank?
     #   gravatar_id = Digest::MD5.hexdigest(user.email.downcase)

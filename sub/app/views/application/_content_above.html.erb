@@ -11,7 +11,7 @@
                       <li><a id="nav-subname" href="http://<%= Setting.ktv_subdomain %>"><%= Setting.ktv_subname %>课件交流系统</a></li>
                     </ul>
                     <ul>
-                        <li class="<%= 'youarehere' if WelcomeController==controller.class %>"><a id="nav-questions" href="/">我的首页</a></li>
+                        <li class="<%= 'youarehere' if WelcomeController==controller.class %>"><a id="nav-questions" href="/">全部课件</a></li>
                         <li class="<%= 'youarehere' if CoursesController==controller.class || DepartmentsController==controller.class %>"><a id="nav-unanswered" href="/courses">课程目录</a></li>
                         <li class="<%= 'youarehere' if TeachersController==controller.class %>" style="display:none"><a id="nav-users" href="/teachers">全部老师</a></li>
                         <li class="<%= 'youarehere' if UsersController==controller.class %>" style="display:none"><a id="nav-users" href="/users">我的同学</a></li>
