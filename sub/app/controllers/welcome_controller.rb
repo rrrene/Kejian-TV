@@ -25,7 +25,7 @@ class WelcomeController < ApplicationController
   def latest
     @seo[:title] = '全部课件'
     common_op!
-    @coursewares=Courseware.normal.desc('created_at').paginate(:page => params[:page], :per_page => @per_page)
+    @coursewares=Courseware.normal_father.desc('created_at').paginate(:page => params[:page], :per_page => @per_page)
     render 'index'
   end
   def featured

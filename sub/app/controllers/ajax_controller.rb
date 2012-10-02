@@ -81,14 +81,14 @@ class AjaxController < ApplicationController
       more = ''
     elsif cw.slides_count > 0
       if cw.tree.present?
-        complete = cw.pdf_slide_processed
-        total = cw.slides_count + 1
-        more = "第#{complete}个子文件,共#{cw.slides_count}个子文件"
-      else
-        complete = cw.pdf_slide_processed
-        total = cw.slides_count+1
-        more = "第#{:complete}页, 共#{cw.slides_count}页"
-      end
+         complete = cw.slides_count - cw.transcoding_count
+         total = cw.slides_count 
+         more = "  第#{complete}个,共#{cw.slides_count}个"
+       else
+         complete = cw.pdf_slide_processed
+         total = cw.slides_count + 1
+         more = "第#{:complete}页, 共#{cw.slides_count}页"
+       end
     else
       complete = 0
       total = 10
