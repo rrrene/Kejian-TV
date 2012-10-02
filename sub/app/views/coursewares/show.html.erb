@@ -161,6 +161,7 @@ courseware_id: '<%=@courseware.id%>'
     jQuery('#presentation .main').css({width:708});
     jQuery('#presentation iframe').each(function(index){
       jQuery(this).animate({width:window[this.id].width(),height:window[this.id].height()},222);
+      this.contentWindow.Slide.gotoSingle(true);
       this.contentWindow.Slide.setSlideSize();
     });
     jQuery('#presentation .extras').show();
@@ -171,6 +172,7 @@ courseware_id: '<%=@courseware.id%>'
     jQuery('#presentation .main').css({width:960});
     jQuery('#presentation iframe').each(function(index){
       jQuery(this).animate({width:window[this.id].width(),height:window[this.id].height()},222);
+      this.contentWindow.Slide.gotoDouble(true);
       this.contentWindow.Slide.setSlideSize();
     });
   }
