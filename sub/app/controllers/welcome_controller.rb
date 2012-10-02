@@ -23,9 +23,11 @@ class WelcomeController < ApplicationController
     end
   end
   def latest
-    @seo[:title] = '全部课件'
+    @seo[:title] = '最新上传'
     common_op!
     @coursewares=Courseware.normal_father.desc('created_at').paginate(:page => params[:page], :per_page => @per_page)
+    @coursewares = @coursewares.where(:sort1=>params[:sort1]) if params[:sort1].present? and params[:sort1]!='all'
+    @coursewares = @coursewares.paginate(:page => params[:page], :per_page => @per_page)
     render 'index'
   end
   def featured
@@ -62,7 +64,7 @@ class WelcomeController < ApplicationController
 private
   def common_op!
     @dz_navi_extras = [
-      #['我的首页','/?psvr_force=1']
+      ['我的首页','/?psvr_force=1']
     ]
     params[:page] ||= '1'
     params[:per_page] ||= cookies[:welcome_per_page]

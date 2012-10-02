@@ -5,25 +5,45 @@
 <div class="subheader">
     <div id="tabs">
     <a class="<%= 'youarehere' if '/'==request.path %>" href="/?psvr_force=1">我的首页</a>
-    <a class="<%= 'youarehere' if '/welcome/latest'==request.path %>" href="/welcome/latest">全部课件</a>
+    <a class="<%= 'youarehere' if '/welcome/latest'==request.path %>" href="/welcome/latest">最新上传</a>
     <a class="<%= 'youarehere' if '/welcome/hot'==request.path %>" href="/simple/forum.php?mod=guide&view=my">我的课件</a>
     <a class="<%= 'youarehere' if '/welcome/week'==request.path %>" href="/simple/forum.php?mod=guide&view=new">未读课件</a>
     </div>
 
 </div>
+<% content_for :butt2 do %>
+  jQuery('#supernav li').click(function(){
+    window.location.href = jQuery('a',this).attr('href');
+  });
+<% end %>
 <div id="questions">
-  <div id="supernav">
-    <ul>
-      <li class="sigezi<%='_right_on' if params[:sort1].blank? or params[:sort1]=='all'%>"><a href="<%=alter_request_path request.fullpath,:sort1=>'all'%>">全部课件</a></li>
-      <li class="lianggezi<%='_right_on' if params[:sort1]=='lecture_notes'%>"><a href="<%=alter_request_path request.fullpath,:sort1=>'lecture_notes'%>">讲义</a></li>
-      <li class="lianggezi<%='_right_on' if params[:sort1]=='assignments'%>"><a href="<%=alter_request_path request.fullpath,:sort1=>'assignments'%>">作业</a></li>
-      <li class="lianggezi<%='_right_on' if params[:sort1]=='exams'%>"><a href="<%=alter_request_path request.fullpath,:sort1=>'exams'%>">试卷</a></li>
-      <li class="sigezi<%='_right_on' if params[:sort1]=='videos'%>"><a href="<%=alter_request_path request.fullpath,:sort1=>'videos'%>">课堂录像</a></li>
-      <li class="wugezi<%='_right_on' if params[:sort1]=='materials'%>"><a href="<%=alter_request_path request.fullpath,:sort1=>'materials'%>">资料/读物</a></li>
-    </ul>
-  </div>
-<% if @coursewares.count<1 and '/'==request.path%>
+<% if '/'==request.path%>
 <div style="line-height:88px;height:88px;text-align:center;">  您关注的资源暂无新动态，去关注更多<%= link_to '课程',courses_path %> + <%= link_to '老师',teachers_path %> + <%= link_to '同学', users_path %>吧！</div>
+<% else %>
+  <div id="supernav" style="margin-top:-10px">
+    <div class="switch">高级</div>
+    <ul>
+      <li class="sigezi<%='_right_on jihuo' if params[:sort1].blank? or params[:sort1]=='all'%>"><a href="<%=alter_request_path request.fullpath,:sort1=>'all'%>">全部类型</a></li>
+      <li class="lianggezi<%='_right_on jihuo' if params[:sort1]=='lecture_notes'%>"><a href="<%=alter_request_path request.fullpath,:sort1=>'lecture_notes'%>">讲义</a></li>
+      <li class="lianggezi<%='_right_on jihuo' if params[:sort1]=='assignments'%>"><a href="<%=alter_request_path request.fullpath,:sort1=>'assignments'%>">作业</a></li>
+      <li class="lianggezi<%='_right_on jihuo' if params[:sort1]=='exams'%>"><a href="<%=alter_request_path request.fullpath,:sort1=>'exams'%>">试卷</a></li>
+      <li class="sigezi<%='_right_on jihuo' if params[:sort1]=='videos'%>"><a href="<%=alter_request_path request.fullpath,:sort1=>'videos'%>">课堂录像</a></li>
+      <li class="wugezi<%='_right_on jihuo' if params[:sort1]=='materials'%>"><a href="<%=alter_request_path request.fullpath,:sort1=>'materials'%>">资料/读物</a></li>
+    </ul>
+    <br style="clear:both">
+    <div class="p">
+      <a class="pubu tb" href="/coursewares_by_departments">观赏课件瀑布</a>
+      <div class="paixu">排序</div>
+      <div class="paixu2 tb">默认排序</div>
+    </div>
+    <div class="sort_panel">
+      <div><a href="<%=alter_request_path request.fullpath,:order=>'exams'%>">页数从少到多</a></div>
+      <div><a href="<%=alter_request_path request.fullpath,:order=>'exams'%>">页数从多到少</a></div>
+    </div>
+  </div>
+
+<% if @coursewares.count<1 %>
+<div style="line-height:88px;height:88px;text-align:center;">  还没有此类课件，<a class="psvr_login_required gonna_new_courseware" href="/coursewares/new">上传一个</a>吧：）</div>
 <% else %>
 <% @coursewares.each do |item|%>
   <div id="question-summary-10960" class="question-summary">
@@ -94,6 +114,8 @@
   
   <% end %>
 <% end %>  
+
+<% end %>
 </div>
 <% if @coursewares.total_pages > 1 %>
 <div class="page-sizer fr">
@@ -106,6 +128,7 @@
 
 <%= will_paginate @coursewares, :renderer=> SKPLinkRenderer,:inner_window=>4 %>
 <% end %>
+
 </div>
 <div id="sidebar">    
 <% unless user_signed_in? %>
