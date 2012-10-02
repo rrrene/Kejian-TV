@@ -37,8 +37,11 @@
       <div class="paixu2 tb">默认排序</div>
     </div>
     <div class="sort_panel">
-      <div><a href="<%=alter_request_path request.fullpath,:order=>'exams'%>">页数从少到多</a></div>
-      <div><a href="<%=alter_request_path request.fullpath,:order=>'exams'%>">页数从多到少</a></div>
+      <div class="tb slides_count0"><a href="<%=alter_request_path request.fullpath,:order=>'slides_count0'%>">页数从少到多</a></div>
+      <div class="tb slides_count1"><a href="<%=alter_request_path request.fullpath,:order=>'slides_count1'%>">页数从多到少</a></div>
+      <div class="tb thanked_count1"><a href="<%=alter_request_path request.fullpath,:order=>'thanked_count1'%>">粉丝从多到少</a></div>
+      <div class="tb human_time1"><a href="<%=alter_request_path request.fullpath,:order=>'human_time1'%>">创作时间从多到少</a></div>
+      <div><a href="<%=alter_request_path request.fullpath,:order=>'all'%>">恢复默认排序</a></div>
     </div>
   </div>
 
