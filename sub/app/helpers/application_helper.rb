@@ -1,6 +1,23 @@
 # -*- encoding : utf-8 -*-
 module ApplicationHelper
   XINGQIJI = ['一','二','三','四','五','六','日']
+  def alter_request_path(path,hash={})
+    res = path.split('?')
+    h = {}.with_indifferent_access
+    if res.length>1
+      res0=res[0]
+      res[1].split('&').each do |x|
+        arr=x.split('=')
+        h[arr[0]]=arr[1]
+      end
+    else
+      res0=path
+    end
+    h.merge!(hash)
+    return res0 + '?' + h.collect{|k,v|
+      "#{k}=#{v}"
+    }.join('&')
+  end
   def jie_time(num)
     Setting.jie[num-1]
   end

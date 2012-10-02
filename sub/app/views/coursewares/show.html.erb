@@ -309,7 +309,7 @@ courseware_id: '<%=@courseware.id%>'
                <% case @courseware.sort.to_sym %>
                <% when :ppt,:pptx,:doc,:docx,:pdf %>
                <script async="async" class="speakerdeck-embed"<% if @courseware.version!=@courseware_real_version %> data-cw-revision="<%= @courseware.version %>"<% end %> data-course-slug="<%=@courseware.topic_id%>" data-courseware-slug="<%=@courseware.id%>" data-ratio="<%= @courseware.wh_ratio %>" data-force-biji="<%= params[:force_biji] %>" src="<%=asset_path 'ktv/embed.js'%>" type="text/javascript"></script>
-               <% when :zip,:rar %>
+               <% when :zip,:rar,:'7z' %>
                <script async="async" class="speakerdeck-embed"<% if @courseware.version!=@courseware_real_version %> data-cw-revision="<%= @courseware.version %>"<% end %> data-course-slug="<%=@courseware.topic_id%>" data-courseware-slug="<%=@courseware.id%>" data-ratio="<%= @courseware.wh_ratio %>" data-force-biji="<%= params[:force_biji] %>" src="<%=asset_path 'ktv/embed.js'%>" type="text/javascript"></script>
                <script type="text/javascript" id="alt_embed"></script>
 

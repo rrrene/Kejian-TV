@@ -2,7 +2,7 @@
   if @courseware.yasuobao?
     @slides = ["http://#{Setting.ktv_subdomain}/ww.png"]
   else
-    id=@courseware.ktvid.present? ? @courseware.ktvid : @courseware.id
+    id=@courseware.ktvid.present? ? @courseware.ktvid : (@courseware.redirect_to_id.present? ? @courseware.redirect_to_id : @courseware.id)
     @slides = 0.upto(@courseware.slides_count-1).collect do |i|
       asset_url_eb("#{id}/#{@courseware.revision}slide_#{i}.jpg")
     end
@@ -761,9 +761,14 @@
       tree.loadJSONObject(json_obj);
 
       tree.attachEvent("onDblClick", function(id){
-          if(tree.hasChildren(id) == 0){
+        if(tree.hasChildren(id) == 0){
+          if(id.length>20){
             window.parent.eval("parent_cmd('"+id+"','"+tree.getItemText(id)+"')");
+          }else{
+            alert('对不起，这个文件不支持在线阅读');
+            return false;
           }
+        }
       });
       
       var element = document.createElement('div');
