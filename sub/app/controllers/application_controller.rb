@@ -227,7 +227,7 @@ class ApplicationController < ActionController::Base
   def set_seo_meta(title, options = {})
     keywords = options[:keywords] || "#{Setting.ktv_subname},#{Setting.ktv_sub},课件,讲义,作业,习题解答,往年试卷,课堂录像,复习资料,课件交流系统"
     description = options[:description] || "#{Setting.ktv_subname}课件交流系统"
-    if title.length > 0
+    if !title.nil? && title.length > 0
       @seo[:title] = "#{title}"
     end
     @seo[:keywords] = keywords
