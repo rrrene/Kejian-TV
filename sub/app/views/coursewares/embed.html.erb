@@ -721,6 +721,9 @@
        window.parent.eval("jQuery('#slides_container').removeClass('busy')");
 <% if '1'==params[:force_alt] %>
        window.parent.eval("jQuery('#cwiframe_<%@courseware.id%>').show();jQuery('#cwiframe_<%@courseware.id%>').animate({'margin-left':0},222)");
+       <%if @courseware.thin?%>
+         Slide.gotoDouble();
+       <% end %>
 <% end %>
     })(jQuery);
   </script>

@@ -100,13 +100,20 @@ class CoursewaresController < ApplicationController
     end
   end
   def show
-    @seo[:title] = @courseware.title
-    @comment = @courseware.comments.build
-    @note = Note.new
-    @note.courseware_id = @courseware.id
-    @note.page = 0
-    version_issues_deal!
-    render "show"
+    respond_to do |format|
+      format.html{
+        @seo[:title] = @courseware.title
+        @comment = @courseware.comments.build
+        @note = Note.new
+        @note.courseware_id = @courseware.id
+        @note.page = 0
+        version_issues_deal!
+        render "show"
+      }
+      format.json{
+        render json:@courseware
+      }
+    end
   end
   def version_issues_deal!
     @courseware_real_version = @courseware.version
