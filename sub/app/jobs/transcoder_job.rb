@@ -23,6 +23,7 @@ class TranscoderJob
   def perform(id)
     puts "hey,yo!bitch transcoder"
     @courseware = Courseware.find(id)
+    @courseware.make_sure_globalktvid!
     begin
       working_dir = "/media/hd2/auxiliary_#{Setting.ktv_sub}/ftp/cw/#{@courseware.id}"
       pdf_path = "#{working_dir}/#{@courseware.pdf_filename}"
