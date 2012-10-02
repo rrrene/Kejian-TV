@@ -75,7 +75,7 @@ class TranscoderJob
                 break if tried_times > 10
                 puts pic = "#{working_dir}/#{@courseware.revision}slide_#{i}.jpg"
                 page.save(pic,:width=>@courseware.slide_width)        
-                new_object = $snda_ktv_eb.objects.build("#{@courseware.id}/#{@courseware.revision}slide_#{i}.jpg")
+                new_object = $snda_ktv_eb.objects.build("#{@courseware.ktvid}/#{@courseware.revision}slide_#{i}.jpg")
                 new_object.content = open(pic)
                 new_object.save
                 if 0==i
@@ -131,7 +131,7 @@ class TranscoderJob
                 puts `pnmtojpeg "#{working_dir}"/#{i}.pnm -quality=90 > "#{pic}"`
                 
                ### page.save(pic,:width=>@courseware.slide_width)        
-                new_object = $snda_ktv_eb.objects.build("#{@courseware.id}/#{@courseware.revision}slide_#{i}.jpg")
+                new_object = $snda_ktv_eb.objects.build("#{@courseware.ktvid}/#{@courseware.revision}slide_#{i}.jpg")
                 new_object.content = open(pic)
                 new_object.save
                 if 0==i
@@ -172,7 +172,7 @@ class TranscoderJob
         while !done and psvr_count<10
           psvr_count+=1
           begin
-            new_object = $snda_ktv_down.objects.build("#{@courseware.id}#{@courseware.revision}.zip")
+            new_object = $snda_ktv_down.objects.build("#{@courseware.ktvid}#{@courseware.revision}.zip")
             new_object.content = open(zipfile)
             new_object.save
             done = true
@@ -186,7 +186,7 @@ class TranscoderJob
         really_broken = 0
         while true
           really_broken += 1
-          puts `#{Rails.root}/bin/ftpupyun_pic "#{working_dir}" "/cw/#{@courseware.id}/" "#{@courseware.revision}"`
+          puts `#{Rails.root}/bin/ftpupyun_pic "#{working_dir}" "/cw/#{@courseware.ktvid}/" "#{@courseware.revision}"`
           @courseware.check_upyun
           break if @courseware.check_upyun_result
           if really_broken > 10
