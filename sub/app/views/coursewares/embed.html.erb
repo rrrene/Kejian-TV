@@ -209,10 +209,14 @@
       gotoSingle: function(){
         $('#single_button').css('opacity','1');
         $('#double_button').css('opacity','0.5');
+        $('#treeboxbox_tree').css({width:694,height:525})
+        window.parent.eval("window.parent_gotoSingle()");
       },
       gotoDouble: function(){
         $('#double_button').css('opacity','1');
         $('#single_button').css('opacity','0.5');
+        $('#treeboxbox_tree').css({width:944,height:713})
+        window.parent.eval("window.parent_gotoDouble()");
       },
 
       toggleFullScreen: function() {
@@ -294,8 +298,11 @@
       $(document).bind("webkitfullscreenchange", Slide.toggleFullScreenState);
       $(document).bind("mozfullscreenchange", Slide.setSlideSize);
       $(document).bind("mozfullscreenchange", Slide.toggleFullScreenState);
-
-      $('a#fullscreen').bind('click', Slide.toggleFullScreen);
+      <% if @courseware.yasuobao? %>
+        $('a#fullscreen').hide();
+      <% else %>
+        $('a#fullscreen').bind('click', Slide.toggleFullScreen);
+      <% end %>
       $('a#double_button').bind('click', Slide.gotoDouble);
       $('a#single_button').bind('click', Slide.gotoSingle);
 

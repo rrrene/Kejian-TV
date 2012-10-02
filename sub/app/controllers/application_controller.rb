@@ -2,6 +2,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter proc{
+    puts request.env['HTTP_USER_AGENT']+request.ip
     puts request.path
     # text = request.user_agent    
     # render text:text and return

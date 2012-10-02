@@ -192,6 +192,24 @@ courseware_id: '<%=@courseware.id%>'
             <span style="font-size:16px;text-align:center">
               <span id="yasuobao_root">(压缩包)</span> <span class="yasuobao">/</span> <span id="yasuobao_content"></span>
               <script>
+                window.parent_gotoSingle = function(){
+                  if(jQuery('#presentation .main').width()==708){return}
+                  jQuery('#presentation .main').css({width:708});
+                  jQuery('#presentation iframe').each(function(index){
+                    jQuery(this).animate({width:window[this.id].width(),height:window[this.id].height()},222);
+                    this.contentWindow.Slide.setSlideSize();
+                  });
+                  jQuery('#presentation .extras').show();
+                }
+                window.parent_gotoDouble = function(){
+                  if(jQuery('#presentation .main').width()==960){return}
+                  jQuery('#presentation .extras').hide();
+                  jQuery('#presentation .main').css({width:960});
+                  jQuery('#presentation iframe').each(function(index){
+                    jQuery(this).animate({width:window[this.id].width(),height:window[this.id].height()},222);
+                    this.contentWindow.Slide.setSlideSize();
+                  });
+                }
                 window.parent_cmd = function(id,text){
                   if(window.psvr_altid){
                     jQuery('#cwiframe_'+window.psvr_altid).remove();
