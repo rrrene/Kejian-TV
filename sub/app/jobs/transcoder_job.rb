@@ -21,7 +21,6 @@ class TranscoderJob
   end
   
   def perform(id)
-    puts "hey,yo!bitch transcoder"
     @courseware = Courseware.find(id)
     begin
       working_dir = "/media/hd2/auxiliary_#{Setting.ktv_sub}/ftp/cw/#{@courseware.id}"
@@ -187,6 +186,9 @@ class TranscoderJob
         while true
           really_broken += 1
           puts `#{Rails.root}/bin/ftpupyun_pic "#{working_dir}" "/cw/#{@courseware.id}/" "#{@courseware.revision}"`
+          if @courseware.is_children
+            puts `#{Rails.root}/bin/ftpupyun_pic "#{working_dir}" "/cw/#{@courseware.father_id}/" "#{Coursware.find(@courseware.father_id).revision}"`
+          end
           @courseware.check_upyun
           break if @courseware.check_upyun_result
           if really_broken > 10
