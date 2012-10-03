@@ -234,15 +234,6 @@ class ApplicationController < ActionController::Base
     @seo[:description] = description
   end
 
-  def sign_out_others
-    cookies.each do |k,v|
-      if k.starts_with?(Discuz.cookiepre)
-        cookies.delete(k, 'domain' => (Discuz.cookiedomain))
-      end
-    end
-  end
-  
-  
   def pagination_get_ready
     params[:page] ||= '1'
     params[:per_page] ||= '15'
@@ -279,6 +270,11 @@ class ApplicationController < ActionController::Base
     # todo:
     #   upon observing this
     #   the sub-site should self-destruct its cookies
+    #cookies.each do |k,v|
+    #  if k.starts_with?(Discuz.cookiepre)
+    #    cookies.delete(k, 'domain' => (Discuz.cookiedomain))
+    #  end
+    #end
   end
   
   

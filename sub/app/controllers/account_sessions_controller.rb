@@ -20,22 +20,23 @@ class AccountSessionsController < Devise::SessionsController
         suc_flag = true
       end
     elsif -1 == status
-      flash[:notice]='无此用户'
+      flash[:alert]='无此用户.'
     elsif -2 == status
-      flash[:notice]='密码错误'
+      flash[:alert]='密码错误.'
     elsif -3 == status
-      flash[:notice]='安全提问错误'
+      flash[:alert]='安全提问的回答错误.'
       #todo
     end
-    unless true==suc_flag
-      resource = warden.authenticate!(auth_options)
+    if suc_flag
+      sign_in_others
+      sign_in(resource_name, resource)
+      set_flash_message(:notice, :signed_in) if is_navigational_format?
+      #synlogin = UCenter::User.synlogin(request,{uid:resource.uid})
+      #flash[:extra_ucenter_operations] = synlogin.html_safe if synlogin.present?
+      respond_with resource, :location => after_sign_in_path_for(resource)
+    else
+      redirect_to '/login'
     end
-    sign_in_others
-    sign_in(resource_name, resource)
-    set_flash_message(:notice, :signed_in) if is_navigational_format?
-    #synlogin = UCenter::User.synlogin(request,{uid:resource.uid})
-    #flash[:extra_ucenter_operations] = synlogin.html_safe if synlogin.present?
-    respond_with resource, :location => after_sign_in_path_for(resource)
   end
   def destroy
     sign_out_others
