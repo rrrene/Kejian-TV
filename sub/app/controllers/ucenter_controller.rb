@@ -45,37 +45,26 @@ class UcenterController < ApplicationController
     render text:API_RETURN_SUCCEED
   end
   def deleteuser
-    binding.pry
   end
   def renameuser
-    binding.pry
   end
   def deletefriend
-    binding.pry
   end
   def gettag
-    binding.pry
   end
   def getcreditsettings
-    binding.pry
   end
   def getcredit
-    binding.pry
   end
   def updatecreditsettings
-    binding.pry
   end
   def updateclient
-    binding.pry
   end
   def updatepw
-    binding.pry
   end
   def updatebadwords
-    binding.pry
   end
   def updatehosts
-    binding.pry
   end
   def updateapps
     @post['root']['item'].each do |app|
@@ -85,7 +74,6 @@ class UcenterController < ApplicationController
     render text:API_RETURN_SUCCEED
   end
   def updatecredit
-    binding.pry
   end
   def synlogin
     # the job is done by xookie

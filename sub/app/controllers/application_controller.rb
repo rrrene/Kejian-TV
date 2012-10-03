@@ -104,7 +104,14 @@ class ApplicationController < ActionController::Base
   end
   
   def insert_UserOrGuest
-    Discuz::Request.touch
+    res = Discuz::Request.touch(request)
+    res.cookies.each do |key,value|
+      if(key.ends_with?('_lastact'))
+        cookies[key]="#{value.split('%09')[0]}%09#{CGI::escape(request.path)}%09"
+      else
+        cookies[key]=value
+      end
+    end
   end
   
   def create_session_for_dz(sid)
