@@ -91,7 +91,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # before_filter :insert_UserOrGuest
+  before_filter :insert_UserOrGuest
 
   def rand_sid(len)
     @hash = ''
@@ -104,23 +104,7 @@ class ApplicationController < ActionController::Base
   end
   
   def insert_UserOrGuest
-    if cookies[Discuz.cookiepre_real+'lastvisit'].blank? 
-      cookies[Discuz.cookiepre_real+'lastvisit'] = { :value => Time.now.to_i - 3600,:expires => Time.now + 86400*30,:domain => '.'+Setting.ktv_subdomain}
-    else
-      @lastvisit = cookies[Discuz.cookiepre_real+'lastvisit']     
-    end
-    
-    sid = cookies[Discuz.cookiepre_real+'sid']
-    sid_inst = sid.present? ? PreCommonSession.where(sid:sid).first : nil
-    if sid.blank? or sid_inst.nil?
-      cookies[Discuz.cookiepre_real+'sid'] = {:value  => rand_sid(6),:expires => Time.now + 86400 ,:domain => '.'+Setting.ktv_subdomain}
-      @sid = cookies[Discuz.cookiepre_real+'sid']
-      create_session_for_dz(@sid)
-    else
-      @sid = cookies[Discuz.cookiepre_real+'sid']
-      PreCommonSession.delete_all("sid=\'#{@sid}\' OR lastactivity<#{Time.now.to_i} OR (uid=\'0\' AND ip1=\'::1\' AND ip2=\'\' AND ip3=\'\' AND ip4=\'\' AND lastactivity>#{Time.now.to_i+840})")
-      create_session_for_dz(@sid)
-    end
+    Discuz::Request.touch
   end
   
   def create_session_for_dz(sid)

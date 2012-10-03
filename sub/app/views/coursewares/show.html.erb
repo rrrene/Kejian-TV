@@ -408,9 +408,9 @@ courseware_id: '<%=@courseware.id%>'
              <div data-slide-count="<%= sz %>" data-id="<%= @courseware.id %>" class="presentation" style="<%= 'margin-right:0px' if 2==index % 3 %>">
                  <a href="<%= courseware_path @courseware %>/revisions/<%= version+1 %>" class="slide_preview scrub setup">
                 <% (sz).downto(1).each do |i| %>
-                <img style="display: none;" data-slide="<%= i %>" class="timeline" alt="第<%= i %>页" src="<%= asset_url("cw/#{@courseware.id}/#{@courseware.revision(version)}thumb_slide_#{i}.jpg") %>">
+                <img style="display: none;" data-slide="<%= i %>" class="timeline" alt="第<%= i %>页" src="<%= asset_url("cw/#{@courseware.ktvid}/#{@courseware.revision(version)}thumb_slide_#{i}.jpg") %>">
                 <% end %>
-                <img src="<%= asset_url("cw/#{@courseware.id}/#{@courseware.revision(version)}thumb_slide_0.jpg") %>" alt="Thumb_slide_0" width="210" height="158">
+                <img src="<%= asset_url("cw/#{@courseware.ktvid}/#{@courseware.revision(version)}thumb_slide_0.jpg") %>" alt="Thumb_slide_0" width="210" height="158">
                 <div class="scrubber">
                 <div style="width: 100%;" class="scrubbed">
                 </div>

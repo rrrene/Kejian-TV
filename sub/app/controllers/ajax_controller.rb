@@ -83,7 +83,7 @@ class AjaxController < ApplicationController
       if cw.tree.present?
         complete = (cw.slides_count - cw.transcoding_count)
         total = cw.slides_count
-        more = "  第#{complete}个子文件,共#{cw.slides_count}个子文件"
+        more = "  第#{complete+1}个子文件,共#{cw.slides_count}个子文件"
       else
         complete = cw.pdf_slide_processed
         total = cw.slides_count + 1
