@@ -34,15 +34,63 @@
     <div class="p">
       <a class="pubu tb" href="/coursewares_by_departments">观赏课件瀑布</a>
       <div class="paixu">排序</div>
-      <div class="paixu2 tb">默认排序</div>
+      <div class="paixu2 tb">
+        <%=
+          case params[:order]
+          when 'slides_count1'
+            jiangxu_active=1
+            '页数从多到少'
+          when 'slides_count0'
+            jiangxu_active=0
+            '页数从少到多'
+          when 'price1'
+            jiangxu_active=1
+            '价格从高到低'
+          when 'price0'
+            jiangxu_active=0
+            '价格从低到高'
+          when 'thanked_count1'
+            jiangxu_active=1
+            '粉丝数从高到低'
+          when 'thanked_count0'
+            jiangxu_active=0
+            '粉丝数从低到高'
+          when 'human_time1'
+            jiangxu_active=1
+            '创作时间从多到少'
+          when 'human_time0'
+            jiangxu_active=0
+            '创作时间从少到多'
+          else
+            no_shengxu_jiangxu=true
+            '默认排序'
+          end
+        %>
+      </div>
     </div>
-    <div class="sort_panel">
-      <div class="tb slides_count0"><a href="<%=alter_request_path request.fullpath,:order=>'slides_count0'%>">页数从少到多</a></div>
+    <% content_for :butt2 do %>
+      $('#supernav .paixu2').hover(function(){
+        $('#supernav .sort_panel').show();
+      },function(){
+        $('#supernav .sort_panel').hide();
+      });
+      $('#supernav .sort_panel').hover(function(){
+        $(this).show();
+      },function(){
+        $(this).hide();
+      });
+    <% end %>
+    <div class="sort_panel" style="display:none">
       <div class="tb slides_count1"><a href="<%=alter_request_path request.fullpath,:order=>'slides_count1'%>">页数从多到少</a></div>
-      <div class="tb thanked_count1"><a href="<%=alter_request_path request.fullpath,:order=>'thanked_count1'%>">粉丝从多到少</a></div>
+      <div class="tb price1"><a href="<%=alter_request_path request.fullpath,:order=>'price1'%>">价格从高到低</a></div>
+      <div class="tb thanked_count1"><a href="<%=alter_request_path request.fullpath,:order=>'thanked_count1'%>">粉丝数从高到低</a></div>
       <div class="tb human_time1"><a href="<%=alter_request_path request.fullpath,:order=>'human_time1'%>">创作时间从多到少</a></div>
       <div><a href="<%=alter_request_path request.fullpath,:order=>'all'%>">恢复默认排序</a></div>
     </div>
+    <% unless no_shengxu_jiangxu %>
+      <a class="shengxu <%='shengxu_active' if 0==jiangxu_active%> tb" href="<%=alter_request_path request.fullpath,:order=>params[:order][0..-2]+'0'%>">升序</a>
+      <a class="jiangxu <%='jiangxu_active' if 1==jiangxu_active%> tb" href="<%=alter_request_path request.fullpath,:order=>params[:order][0..-2]+'1'%>">降序</a>
+    <% end %>
   </div>
 
 <% if @coursewares.count<1 %>

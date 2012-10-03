@@ -25,8 +25,20 @@ class WelcomeController < ApplicationController
   def latest
     @seo[:title] = '最新上传'
     common_op!
-    @coursewares=Courseware.normal_father.desc('created_at').paginate(:page => params[:page], :per_page => @per_page)
+    @coursewares=Courseware.normal_father
     @coursewares = @coursewares.where(:sort1=>params[:sort1]) if params[:sort1].present? and params[:sort1]!='all'
+    if 'all'==params[:order] or params[:order].blank?
+      @coursewares = @coursewares.desc('created_at')
+    else
+      @coursewares = @coursewares.desc('slides_count') if 'slides_count1'==params[:order]
+      @coursewares = @coursewares.asc('slides_count') if 'slides_count0'==params[:order]
+      @coursewares = @coursewares.desc('price') if 'price1'==params[:order]
+      @coursewares = @coursewares.asc('price') if 'price0'==params[:order]
+      @coursewares = @coursewares.desc('thanked_count') if 'thanked_count1'==params[:order]
+      @coursewares = @coursewares.asc('thanked_count') if 'thanked_count0'==params[:order]
+      @coursewares = @coursewares.where(:human_time.gt=>0).desc('human_time') if 'human_time1'==params[:order]
+      @coursewares = @coursewares.where(:human_time.gt=>0).asc('human_time') if 'human_time0'==params[:order]
+    end
     @coursewares = @coursewares.paginate(:page => params[:page], :per_page => @per_page)
     render 'index'
   end
