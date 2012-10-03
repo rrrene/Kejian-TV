@@ -197,7 +197,7 @@ class TranscoderJob
           puts `#{Rails.root}/bin/ftpupyun_pic "#{working_dir}" "/cw/#{@courseware.ktvid}/" "#{@courseware.revision}"`
           if @courseware.is_children
             tmp_papa = Courseware.find(@courseware.father_id)
-            puts `#{Rails.root}/bin/ftpupyun_single_pic "#{working_dir}" "/cw/#{tmp_papa.ktvid}/" "#{tmp_papa.revision} #{@courseware.child_rank}"`
+            puts `#{Rails.root}/bin/ftpupyun_single_pic "#{working_dir}" "/cw/#{tmp_papa.ktvid}/" "#{tmp_papa.revision}" "#{@courseware.child_rank}"`
           end
           @courseware.check_upyun
           break if @courseware.check_upyun_result

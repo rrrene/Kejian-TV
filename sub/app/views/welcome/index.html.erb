@@ -125,13 +125,13 @@
       <div><a href="<%=alter_request_path request.fullpath,:order=>'all'%>">恢复默认排序</a></div>
     </div>
     <div class="wenjian_panel" style="display:none">
-      <div class="tb slides_count1"><a href="<%=alter_request_path request.fullpath,:sort=>'ppt|pptx'%>">PowerPoint幻灯片</a></div>
-      <div class="tb price1"><a href="<%=alter_request_path request.fullpath,:sort=>'doc|docx'%>">Word文档</a></div>
-      <div class="tb thanked_count1"><a href="<%=alter_request_path request.fullpath,:sort=>'pdf'%>">PDF文档</a></div>
-      <div class="tb human_time1"><a href="<%=alter_request_path request.fullpath,:sort=>'djvu'%>">DJVU电子书</a></div>
-      <div class="tb human_time1"><a href="<%=alter_request_path request.fullpath,:sort=>'xunlei|webm|youku|tudou|youtube'%>">在线视频</a></div>
-      <div class="tb human_time1"><a href="<%=alter_request_path request.fullpath,:sort=>'png|jpg|jpeg'%>">图片集</a></div>
-      <div class="tb human_time1"><a href="<%=alter_request_path request.fullpath,:sort=>'zip|rar|7z'%>">压缩包</a></div>
+      <div class="tb ppt"><a href="<%=alter_request_path request.fullpath,:sort=>'ppt|pptx'%>">PowerPoint幻灯片</a></div>
+      <div class="tb doc"><a href="<%=alter_request_path request.fullpath,:sort=>'doc|docx'%>">Word文档</a></div>
+      <div class="tb pdf"><a href="<%=alter_request_path request.fullpath,:sort=>'pdf'%>">PDF文档</a></div>
+      <div class="tb djvu"><a href="<%=alter_request_path request.fullpath,:sort=>'djvu'%>">DJVU电子书</a></div>
+      <div class="tb flv"><a href="<%=alter_request_path request.fullpath,:sort=>'xunlei|webm|youku|tudou|youtube'%>">在线视频</a></div>
+      <div class="tb jpg"><a href="<%=alter_request_path request.fullpath,:sort=>'png|jpg|jpeg'%>">图片集</a></div>
+      <div class="tb zip"><a href="<%=alter_request_path request.fullpath,:sort=>'zip|rar|7z'%>">压缩包</a></div>
       <div><a href="<%=alter_request_path request.fullpath,:sort=>'all'%>">恢复全部类型</a></div>
     </div>
   </div>
@@ -248,7 +248,7 @@
 <% end %>
     <div id="questions-count" class="module">
       <div class="summarycount al"><%= link_to number_with_delimiter(Courseware.count),'/coursewares_by_departments' %></div>
-      <p>个课件已上传，其中：</p>
+      <p style="margin-top:6px">个课件已上传，其中：</p>
       <p class="cw_normal" style="margin-top:12px"><%=number_with_delimiter Courseware.normal.count%> 已上线</p>
       <p class="cw_transcoding"><%=number_with_delimiter Courseware.transcoding.count%> 转码中</p>
       <p class="cw_abnormal"><%=number_with_delimiter Courseware.abnormal.count%> 文件有误</p>
