@@ -380,6 +380,7 @@ courseware_id: '<%=@courseware.id%>'
      <div class="wrapper">
        <div class="main" style="">
          <div class="tab-content" id="fans" style="">
+             
            <h1>喜欢这个课件的人 (<span id="weizuozhefasongganxie6"><%= @courseware.thanked_count %></span>)
              <% unless current_user and @courseware.user_id==current_user.id%>
              <% if thank_courseware_ed?(@courseware) %>
@@ -398,6 +399,7 @@ courseware_id: '<%=@courseware.id%>'
              <div><a class="" href="/users/<%= User.get_slug(user_id) %>"><img src="<%= avatar_url_quick(user_id,:small47) %>" alt="<%= User.get_name(user_id) %>"></a></div>
              <% end %>
            </div>
+           
          </div>
          <div class="tab-content" id="revisions" style="">
            <h1>课件修订历史</h1>
@@ -430,5 +432,379 @@ courseware_id: '<%=@courseware.id%>'
      </div>
    </section>
 </div>
+
+
+<div class="__ytb">
+   <div id="watch-main-container" style="padding-top:20px">
+      <div id="watch-main">
+         <div id="watch-panel">
+            <div id="flash10-promo-div" class="yt-alert yt-alert-default yt-alert-warn hid ">
+               <div class="yt-alert-icon">
+                  <img alt="Alert icon" class="icon master-sprite" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" />
+               </div>
+               <div class="yt-alert-buttons">  <button role="button" data-close-parent-class="yt-alert" onclick=";return false;" class="close yt-uix-close yt-uix-button yt-uix-button-close" type="button"><span class="yt-uix-button-content">Close </span></button>
+               </div>
+               <div role="alert" class="yt-alert-content">
+                  <span class="yt-alert-vertical-trick"></span>
+                  <div class="yt-alert-message">
+                     Upgrade to the latest Flash Player for improved playback performance. <a onmousedown="urchinTracker('/Events/VideoWatch/GetFlashUpgrade');" href="http://www.adobe.com/go/getflashplayer/">Upgrade now</a> or <a href="//support.google.com/youtube/bin/answer.py?answer=95402">more info</a>.
+                  </div>
+               </div>
+            </div>
+            
+            <div id="watch-actions">
+               <div id="watch-actions-right">
+                  <span class="watch-view-count">
+                  <strong><%= number_with_delimiter @courseware.views_count %></strong>
+                  点击
+                  </span>
+                  <button onclick=";return false;" title="&#27983;&#35272;&#37327;" type="button" id="watch-insight-button" class="yt-uix-tooltip yt-uix-tooltip-reverse yt-uix-button yt-uix-button-default yt-uix-tooltip yt-uix-button-empty" data-button-action="yt.www.watch.actions.stats" role="button"><span class="yt-uix-button-icon-wrapper"><img class="yt-uix-button-icon yt-uix-button-icon-watch-insight" src="<%= asset_path 'yt/wfw.gif' %>" alt="Show video statistics" /></span></button>
+               </div>
+               <span id="watch-like-unlike" class="yt-uix-button-group " data-button-toggle-group="optional"><button onclick=";return false;" title="I like this" type="button" class="start yt-uix-tooltip-reverse  yt-uix-button yt-uix-button-default yt-uix-tooltip" id="watch-like" data-button-toggle="true" data-button-action="yt.www.watch.actions.like" role="button"><span class="yt-uix-button-icon-wrapper"><img class="yt-uix-button-icon yt-uix-button-icon-watch-like" src="<%= asset_path 'yt/wfw.gif' %>" alt="I like this" /></span><span class="yt-uix-button-content">Like </span></button><button onclick=";return false;" title="I dislike this" type="button" class="end yt-uix-tooltip-reverse  yt-uix-button yt-uix-button-default yt-uix-tooltip yt-uix-button-empty" id="watch-unlike" data-button-toggle="true" data-button-action="yt.www.watch.actions.unlike" role="button"><span class="yt-uix-button-icon-wrapper"><img class="yt-uix-button-icon yt-uix-button-icon-watch-unlike" src="<%= asset_path 'yt/wfw.gif' %>" alt="I dislike this"></span></button></span>
+               <button role="button" data-button-action="yt.www.watch.actions.addto" title="Add to favorites or playlist" onclick=";return false;" class="yt-uix-tooltip-reverse  yt-uix-button yt-uix-button-default yt-uix-tooltip" type="button" data-tooltip-text="Add to favorites or playlist"><span class="yt-uix-button-content"><span class="addto-label">Add to</span> </span></button>
+                <button onclick=";return false;" title="Share or embed this video" type="button" class="yt-uix-tooltip-reverse yt-uix-button yt-uix-button-default yt-uix-tooltip" id="watch-share" data-button-action="yt.www.watch.actions.share" role="button"><span class="yt-uix-button-content">Share </span></button>
+                  <button onclick=";return false;" title="Flag as inappropriate" type="button" class="yt-uix-tooltip-reverse  yt-uix-button yt-uix-button-default yt-uix-tooltip yt-uix-button-empty" id="watch-flag" data-button-action="yt.www.watch.actions.flag" role="button"><span class="yt-uix-button-icon-wrapper"><img class="yt-uix-button-icon yt-uix-button-icon-watch-flag" src="<%= asset_path 'yt/wfw.gif' %>" alt="Flag as inappropriate" /></span></button>
+            </div>
+            <div class="hid" id="watch-actions-area-container">
+               <div class="yt-rounded" id="watch-actions-area">
+                  <div class="watch-actions-panel hid" id="watch-actions-loading">
+                     Loading...
+                  </div>
+                  <div class="watch-actions-panel hid" id="watch-actions-error">
+                     <div class="yt-alert yt-alert-naked yt-alert-error  ">
+                        <div class="yt-alert-icon">
+                           <img alt="Alert icon" class="icon master-sprite" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" />
+                        </div>
+                        <div id="watch-error-string" role="alert" class="yt-alert-content"></div>
+                     </div>
+                  </div>
+                  <div class="watch-actions-panel hid" id="watch-actions-addto"></div>
+                  <div class="watch-actions-panel hid" id="watch-actions-share">
+                     <div id="watch-actions-share-loading">
+                        Loading...
+                     </div>
+                     <div class="hid" id="watch-actions-share-panel"></div>
+                  </div>
+                  <div class="watch-actions-panel hid" id="watch-actions-ajax"></div>
+                  <div class="close">
+                     <img onclick="yt.www.watch.actions.hide();" class="close-button" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" />
+                  </div>
+               </div>
+            </div>
+            <div id="watch-info">
+               <div data-expander-action="yt.www.watch.watch5.handleToggleDescription" class="yt-uix-expander  yt-uix-expander-collapsed" id="watch-description">
+                  <div id="watch-description-clip">
+                     <p id="watch-uploader-info">
+                        <a dir="ltr" rel="author" class="yt-uix-sessionlink yt-user-name author" href="/users/<%= @courseware.user_id %>"><%= User.get_name @courseware.user_id %></a> 发布于 <span class="watch-video-date" id="eow-date"><%= timeago @courseware.created_at  %></span>
+                     </p>
+                     <div id="watch-description-text">
+                        <p id="eow-description"><%= @courseware.desc %></p>
+                     </div>
+                     <div id="watch-description-extras">
+                        <h4>
+                           领域:
+                        </h4>
+                        <p id="eow-category"><a href="/music"><%= link_to "/topics/#{Topic.get_name @courseware.topic_id}", @courseware.topic %></a></p>
+                        <h4>License:</h4>
+                        <p id="eow-reuse">
+                           Standard YouTube License
+                        </p>
+                     </div>
+                  </div>
+                  <ul id="watch-description-extra-info">
+                     <li>
+                        <div class="video-extras-sparkbars">
+                           <div style="width: 98.0%" class="video-extras-sparkbar-likes"></div>
+                           <div style="width: 2.0%" class="video-extras-sparkbar-dislikes"></div>
+                        </div>
+                        <span class="video-extras-likes-dislikes">
+                        <span class="likes">98</span> likes, <span class="dislikes">2</span> dislikes
+                        </span>
+                     </li>
+                  </ul>
+                  <div class="yt-horizontal-rule "><span class="first"></span><span class="second"></span><span class="third"></span></div>
+                  <div class="yt-uix-expander-head" id="watch-description-toggle">
+                     <div class="expand" id="watch-description-expand">
+                        <button role="button" onclick=";return false;" class="metadata-inline yt-uix-button yt-uix-button-text" type="button"><span class="yt-uix-button-content">Show more <img alt="Show more" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" />
+                        </span></button>
+                     </div>
+                     <div class="collapse" id="watch-description-collapse">
+                        <button role="button" onclick=";return false;" class="metadata-inline yt-uix-button yt-uix-button-text" type="button"><span class="yt-uix-button-content">Show less <img alt="Show less" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" />
+                        </span></button>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div id="watch-discussion">
+               <div class="" data-type="highlights" id="comments-view">
+                  <div class="comment-share-area yt-rounded hid" id="comment-share-area">
+                     <div class="comment-share-content">
+                        <h4>Link to this comment:</h4>
+                        <div>
+                           <input type="text" class="comment-share-url yt-uix-form-input-text" />
+                        </div>
+                        <div>
+                           <span>Share to:</span>
+                           <img action="yt.window.popup('http:\/\/www.facebook.com\/sharer.php?u=http%3A%2F%2Fwww.youtube.com%2Fcomment%3Flc%3D_COMMENT_ID_&amp;t=_COMMENT_TEXT_', {height:440, width:620, scrollbars:true});" class="icon-comment-share icon-comment-share-facebook" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" title="Facebook" alt="" />
+                           <img action="yt.window.popup('http:\/\/twitter.com\/share?url=http%3A%2F%2Fwww.youtube.com%2Fcomment%3Flc%3D_COMMENT_ID_&amp;text=_COMMENT_TEXT_%3A&amp;via=youtube', {height:650, width:1024, scrollbars:true});" class="icon-comment-share icon-comment-share-twitter" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" title="Twitter" alt="" />
+                           <img action="yt.window.popup('https:\/\/plus.google.com\/share?url=http%3A%2F%2Fwww.youtube.com%2Fcomment%3Flc%3D_COMMENT_ID_&amp;authuser=0&amp;source=yt', {height:620, width:620, scrollbars:true});" class="icon-comment-share icon-comment-share-googleplus" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" title="Google+" alt="" />
+                        </div>
+                     </div>
+                     <div data-action="close-share" class="close comment-action">
+                        <img class="close-button" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" />
+                     </div>
+                  </div>
+                  <div class="comments-section">
+                     <h4>热门评论</h4>
+                     <ul class="comment-list">
+                        <li data-score="3" data-id="G-DCl1ThRwAITNaeGThpv220N_3QrxKPFQG6HCknGsA" data-author-id="lUyJVrZyZs0A0e2jJhrh5Q" data-author-viewing="False" data-tag="top" class="comment yt-tile-default ">
+                           <div class="comment-body">
+                              <div class="content-container">
+                                 <div class="content">
+                                    <div dir="ltr" class="comment-text">
+                                       <p>god&#65279; i've missed these! more please :D :D :D </p>
+                                    </div>
+                                    <p class="metadata">
+                                       <span class="author ">
+                                       <a dir="ltr" data-sessionlink="ei=CODC8-HI9bECFYEzpAod5GP2xw%3D%3D" class="yt-uix-sessionlink yt-user-name " href="/user/sinhaxx">sinhaxx</a>
+                                       </span>
+                                       <span class="time">
+                                       6 hours ago
+                                       </span>
+                                       <span title="3 up, 0 down" class="comments-rating-positive">
+                                       3
+                                       <img src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" class="comments-rating-thumbs-up" />
+                                       </span>
+                                    </p>
+                                 </div>
+                                 <div class="comment-actions">
+                                    <span class="yt-uix-button-group"><button role="button" data-tooltip-show-delay="300" data-action="vote-up" title="Vote Up" onclick=";return false;" class="start comment-action-vote-up comment-action yt-uix-button yt-uix-button-default yt-uix-tooltip yt-uix-button-empty" type="button"><span class="yt-uix-button-icon-wrapper"><img alt="Vote Up" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" class="yt-uix-button-icon yt-uix-button-icon-watch-comment-vote-up" /><span class="yt-valign-trick"></span></span></button><button role="button" data-tooltip-show-delay="300" data-action="vote-down" title="Vote Down" onclick=";return false;" class="end comment-action-vote-down comment-action yt-uix-button yt-uix-button-default yt-uix-tooltip yt-uix-button-empty" type="button"><span class="yt-uix-button-icon-wrapper"><img alt="Vote Down" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" class="yt-uix-button-icon yt-uix-button-icon-watch-comment-vote-down" /><span class="yt-valign-trick"></span></span></button></span>
+                                    <span class="yt-uix-button-group">
+                                       <button role="button" data-upsell="comment" data-action="reply" onclick=";return false;" class="start comment-action link-gplus-lightbox yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-content">Reply </span></button>
+                                       <button aria-activedescendant="" aria-haspopup="true" aria-expanded="false" aria-pressed="false" role="button" data-button-has-sibling-menu="true" onclick=";return false;" class="end flip yt-uix-button yt-uix-button-default yt-uix-button-empty" type="button">
+                                          <img alt="" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" class="yt-uix-button-arrow" />
+                                          <div style="display: none;" class=" yt-uix-button-menu yt-uix-button-menu-default">
+                                             <ul>
+                                                <li data-action="share" class="comment-action"><span class="yt-uix-button-menu-item">Share</span></li>
+                                                <li data-action="remove" class="comment-action-remove comment-action"><span class="yt-uix-button-menu-item">Remove</span></li>
+                                                <li data-action="flag" class="comment-action"><span class="yt-uix-button-menu-item">Flag for spam</span></li>
+                                                <li data-action="block" class="comment-action-block comment-action"><span class="yt-uix-button-menu-item">Block User</span></li>
+                                                <li data-action="unblock" class="comment-action-unblock comment-action"><span class="yt-uix-button-menu-item">Unblock User</span></li>
+                                             </ul>
+                                          </div>
+                                       </button>
+                                    </span>
+                                 </div>
+                              </div>
+                           </div>
+                        </li>
+                        <li data-score="3" data-id="G-DCl1ThRwCYybigW1O2z8fNBRizcTO8M5PGGb8UumQ" data-author-id="4xsFbOJ2qhaJuGoaVCM7nw" data-author-viewing="False" data-tag="top" class="comment yt-tile-default  last">
+                           <div class="comment-body">
+                              <div class="content-container">
+                                 <div class="content">
+                                    <div dir="ltr" class="comment-text">
+                                       <p>dammit I&#65279; love alice</p>
+                                    </div>
+                                    <p class="metadata">
+                                       <span class="author ">
+                                       <a dir="ltr" data-sessionlink="ei=CODC8-HI9bECFYEzpAod5GP2xw%3D%3D" class="yt-uix-sessionlink yt-user-name " href="/user/markitox91">markitox91</a>
+                                       </span>
+                                       <span class="time">
+                                       8 hours ago
+                                       </span>
+                                       <span title="3 up, 0 down" class="comments-rating-positive">
+                                       3
+                                       <img src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" class="comments-rating-thumbs-up" />
+                                       </span>
+                                    </p>
+                                 </div>
+                                 <div class="comment-actions">
+                                    <span class="yt-uix-button-group"><button role="button" data-tooltip-show-delay="300" data-action="vote-up" title="Vote Up" onclick=";return false;" class="start comment-action-vote-up comment-action yt-uix-button yt-uix-button-default yt-uix-tooltip yt-uix-button-empty" type="button"><span class="yt-uix-button-icon-wrapper"><img alt="Vote Up" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" class="yt-uix-button-icon yt-uix-button-icon-watch-comment-vote-up" /><span class="yt-valign-trick"></span></span></button><button role="button" data-tooltip-show-delay="300" data-action="vote-down" title="Vote Down" onclick=";return false;" class="end comment-action-vote-down comment-action yt-uix-button yt-uix-button-default yt-uix-tooltip yt-uix-button-empty" type="button"><span class="yt-uix-button-icon-wrapper"><img alt="Vote Down" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" class="yt-uix-button-icon yt-uix-button-icon-watch-comment-vote-down" /><span class="yt-valign-trick"></span></span></button></span>
+                                    <span class="yt-uix-button-group">
+                                       <button role="button" data-upsell="comment" data-action="reply" onclick=";return false;" class="start comment-action link-gplus-lightbox yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-content">Reply </span></button>
+                                       <button aria-activedescendant="" aria-haspopup="true" aria-expanded="false" aria-pressed="false" role="button" data-button-has-sibling-menu="true" onclick=";return false;" class="end flip yt-uix-button yt-uix-button-default yt-uix-button-empty" type="button">
+                                          <img alt="" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" class="yt-uix-button-arrow" />
+                                          <div style="display: none;" class=" yt-uix-button-menu yt-uix-button-menu-default">
+                                             <ul>
+                                                <li data-action="share" class="comment-action"><span class="yt-uix-button-menu-item">Share</span></li>
+                                                <li data-action="remove" class="comment-action-remove comment-action"><span class="yt-uix-button-menu-item">Remove</span></li>
+                                                <li data-action="flag" class="comment-action"><span class="yt-uix-button-menu-item">Flag for spam</span></li>
+                                                <li data-action="block" class="comment-action-block comment-action"><span class="yt-uix-button-menu-item">Block User</span></li>
+                                                <li data-action="unblock" class="comment-action-unblock comment-action"><span class="yt-uix-button-menu-item">Unblock User</span></li>
+                                             </ul>
+                                          </div>
+                                       </button>
+                                    </span>
+                                 </div>
+                              </div>
+                           </div>
+                        </li>
+                     </ul>
+                  </div>
+                  <div class="comments-section ">
+                     <div id="comments-header-container">
+                        <div id="comments-header">
+                           <a href="/all_comments?v=j6AwkGZYbds" class="comments-section-see-all">
+                           see all
+                           </a>
+                           <h4>
+                              所有评论
+                              <span class="comments-section-stat">(<%= @courseware.comments_count %>)</span>
+                           </h4>
+                        </div>
+                     </div>
+                     <div class="comments-post-container clearfix">
+                        <% if current_user %>
+                        <%= form_for @comment,:remote => true do |f| %>
+                        <%= f.hidden_field :commentable_type %>
+                        <%= f.hidden_field :commentable_id %>
+                        <div class="yt-alert yt-alert-default yt-alert-error hid comments-post-message">
+                           <div class="yt-alert-icon">
+                              <img alt="Alert icon" class="icon master-sprite" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" />
+                           </div>
+                           <div class="yt-alert-buttons"></div>
+                           <div role="alert" class="yt-alert-content"></div>
+                        </div>
+                        <a class="yt-user-photo comments-post-profile" href="/user/pmq20">
+                        <span class="video-thumb ux-thumb yt-thumb-square-46 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img width="46" alt="pmq20" src="<%= avatar_url current_user %>" /><span class="vertical-align"></span></span></span></span>
+                        </a>
+                        <div class="comments-textarea-container"><img class="comments-textarea-tip" alt="" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" /><label data-upsell="comment" onclick="yt.www.comments.initForm(this, true, false, false);" class="comments-textarea-label link-gplus-lightbox" id="comment_placeholder">评论一下这个课件吧...</label>
+                           <%= f.text_area :body,id:"comment_placeholder_now",class:"yt-uix-form-textarea comments-textarea link-gplus-lightbox" %>
+                        </div>
+                        <p class="comments-remaining">
+                           还可以输入<span data-max-count="500" class="comments-remaining-count"></span>字
+                        </p>
+                        <p class="comments-post-buttons">
+                           <button role="button" class="comments-post yt-uix-button yt-uix-button-default" type="submit"><span class="yt-uix-button-content">发表评论 </span></button>
+                        </p>
+                        <% end %>
+                        <% end %>
+                     </div>
+                     <script type="text/javascript" charset="utf-8">
+                        <% content_for :butt2 do %>
+                          $('#comment_placeholder_now').focus(function(){
+                            $('#comment_placeholder').html('');
+                            $('.comments-textarea-container img').css('z-index','2');
+                            $('.comments-textarea-container textarea').height('78');
+                            $('.comments-post-buttons').show();
+                          });
+                          $('#new_comment').bind('ajax:success',function(event, responseText, ajaxOptions){
+                            $('#the_comment-list').prepend(responseText);
+                          })
+                        <% end %>
+                        
+                     </script>
+                     <ul class="comment-list" id="the_comment-list">
+                        <% @courseware.comments.each do |comment| %>
+                        <%= render :partial=>'cw_comment',:locals=>{comment:comment} %>
+                        <% end %>
+                     </ul>
+                  </div>
+                  <div class="comments-section">
+                     <div data-ajax-enabled="true" class="comments-pagination">
+                        <div role="navigation" class="yt-uix-pager">
+                           <a data-sessionlink="ei=CODC8-HI9bECFYEzpAod5GP2xw%3D%3D" aria-label="Go to page 1" data-page="1" class="yt-uix-button yt-uix-sessionlink yt-uix-pager-page-num yt-uix-pager-button yt-uix-button-toggled yt-uix-button-default" href="/all_comments?v=j6AwkGZYbds&amp;page=1"><span class="yt-uix-button-content">1</span></a>&nbsp;
+                           <a data-sessionlink="ei=CODC8-HI9bECFYEzpAod5GP2xw%3D%3D" aria-label="Go to page 2" data-page="2" class="yt-uix-button yt-uix-sessionlink yt-uix-pager-page-num yt-uix-pager-button yt-uix-button-default" href="/all_comments?v=j6AwkGZYbds&amp;page=2"><span class="yt-uix-button-content">2</span></a>&nbsp;
+                           <a data-sessionlink="ei=CODC8-HI9bECFYEzpAod5GP2xw%3D%3D" aria-label="Go to page 3" data-page="3" class="yt-uix-button yt-uix-sessionlink yt-uix-pager-page-num yt-uix-pager-button yt-uix-button-default" href="/all_comments?v=j6AwkGZYbds&amp;page=3"><span class="yt-uix-button-content">3</span></a>&nbsp;
+                           <a data-sessionlink="ei=CODC8-HI9bECFYEzpAod5GP2xw%3D%3D" aria-label="Go to page 4" data-page="4" class="yt-uix-button yt-uix-sessionlink yt-uix-pager-page-num yt-uix-pager-button yt-uix-button-default" href="/all_comments?v=j6AwkGZYbds&amp;page=4"><span class="yt-uix-button-content">4</span></a>&nbsp;
+                           <a data-sessionlink="ei=CODC8-HI9bECFYEzpAod5GP2xw%3D%3D" data-page="2" class="yt-uix-button yt-uix-sessionlink yt-uix-pager-next yt-uix-pager-button yt-uix-button-default" href="/all_comments?v=j6AwkGZYbds&amp;page=2"><span class="yt-uix-button-content">Next »</span></a>&nbsp;
+                        </div>
+                     </div>
+                  </div>
+                  <ul>
+                     <li id="parent-comment-loading" class="hid"> Loading comment...</li>
+                  </ul>
+                  <div class="hid" id="comments-loading">Loading...</div>
+               </div>
+            </div>
+         </div>
+                      <div id="watch-sidebar">
+                         <div id="watch-context-container" class="watch-sidebar-section">
+                            <div class="watch-sidebar-body">
+                               <div id="watch-context">
+                                  <h4 class="context-head">
+                                     <a class="context-link" href="/recommended?feature=context-vrec">
+                                     <img class="context-icon context-icon-guide-default" src="<%= asset_path 'yt/wfw.gif' %>" alt="" />
+                                     <strong class="context-title" dir="ltr">More recommended videos</strong>
+                                     </a>
+                                     <img src="<%= asset_path 'yt/wfw.gif' %>" class="context-seeall-icon" alt="" />
+                                  </h4>
+                                  <div class="yt-horizontal-rule "><span class="first"></span><span class="second"></span><span class="third"></span></div>
+                                  <div id="watch-context-body" class="context-body">
+                                     <ul id="watch-context-item-list" class="video-list">
+                                        <li class="video-list-item">
+                                           <a href="/watch?v=vN2vxYnAZf0&amp;feature=context-vrec" class="related-video  yt-uix-sessionlink" data-sessionlink="ei=CLLr09jvi7ECFY6lpAodDg3eaQ%3D%3D&amp;feature=context-vrec&amp;context=G2ffce6fRVAAAAAAAABw"><span class="ux-thumb-wrap contains-addto "><span class="video-thumb ux-thumb yt-thumb-default-120 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img data-group-key="thumb-group-0" src="//i3.ytimg.com/vi/vN2vxYnAZf0/default.jpg" alt="Steve Jobs MacWorld - 1999.mov" data-thumb="//i3.ytimg.com/vi/vN2vxYnAZf0/default.jpg" width="120" /><span class="vertical-align"></span></span></span></span><span class="video-time">1:39:48</span>
+                                           <button data-tooltip-text="Watch Later" onclick=";return false;" title="Watch Later" type="button" class="addto-button video-actions addto-watch-later-button yt-uix-button yt-uix-button-default yt-uix-button-short yt-uix-tooltip" data-video-ids="vN2vxYnAZf0" role="button"><span class="yt-uix-button-content">  <span class="addto-label">
+                                           Watch Later
+                                           </span>
+                                           <span class="addto-label-error">
+                                           Error
+                                           </span>
+                                           <img src="<%= asset_path 'yt/wfw.gif' %>" />
+                                           </span></button>
+                                           </span><span dir="ltr" class="title" title="Steve Jobs MacWorld - 1999.mov">Steve Jobs MacWorld - 1999.mov</span><span class="stat attribution">by <span class="yt-user-name " dir="ltr">dogtownmac</span></span><span class="stat view-count">7,679 views</span></a>
+                                        </li>
+                                     </ul>
+                                  </div>
+                               </div>
+                            </div>
+                         </div>
+                         <div class="watch-sidebar-section">
+                            <h4 class="watch-sidebar-head">Suggestions</h4>
+                            <div class="yt-horizontal-rule "><span class="first"></span><span class="second"></span><span class="third"></span></div>
+                            <div id="watch-related-container" class="watch-sidebar-body">
+                               <ul id="watch-related" class="video-list">
+                                  <li class="video-list-item watch-pyv-vid">
+                                     <a class="video-list-item-link" href="http://googleads.g.doubleclick.net/aclk?sa=l&amp;ai=BDldRn236T5y_ForZkQX3hbXbDK_PtJgCv9LPnEfHyoSmBODUAxABGAEg4_uTAzgAUOPNl6H5_____wFgiQOgAa-2xuwDsgEPd3d3LnlvdXR1YmUuY29tyAEB2gEoaHR0cDovL3d3dy55b3V0dWJlLmNvbS92aWRlby91dnN1QVpGZW04OOABA4ACAcACAagDAbADi9yTE-gDA-gD3wXoA5EG9QMAAAADoAYayAbn44r0Rg&amp;num=1&amp;sig=AOD64_2L9KYsElJwEI2Lsi8YVZAI2OSEtg&amp;ctype=21&amp;video_id=WECufItDCec&amp;client=ca-pub-6219811747049371&amp;adurl=http://www.youtube.com/user/sixpackshortcuts%3Fv%3DWECufItDCec">
+                                     <span class="ux-thumb-wrap">
+                                     <span class="video-thumb ux-thumb yt-thumb-default-120 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img src="//i1.ytimg.com/vi/WECufItDCec/2.jpg" alt="Thumbnail" width="120" /><span class="vertical-align"></span></span></span></span>
+                                     <span class="video-time">9:48</span>
+                                     </span>
+                                     <span class="title" title="Insane Home Chest Workout">Insane Home Chest Workout</span>
+                                     <span class="stat">by sixpackshortcuts</span>
+                                     <span class="stat">
+                                     1,071,210 views
+                                     </span>
+                                     <span class="stat alt">Ad</span>
+                                     </a>
+                                  </li>
+                                  <div id="ppv-container" class=""></div>
+                                  <li class="video-list-item">    <a href="/watch?v=uvsuAZFem88&amp;feature=list_other&amp;playnext=1&amp;list=SP17677124127540BC" class="related-playlist  yt-uix-sessionlink" data-sessionlink="ved=CAIQzhooAA%3D%3D&amp;ei=CLLr09jvi7ECFY6lpAodDg3eaQ%3D%3D&amp;feature=list_other"><span class="ux-thumb-wrap"><span class="video-thumb ux-thumb yt-thumb-default-120 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img data-group-key="thumb-group-0" src="//i2.ytimg.com/vi/uvsuAZFem88/default.jpg" alt="Steve Jobs' Best Video Moments on Stage" data-thumb="//i2.ytimg.com/vi/uvsuAZFem88/default.jpg" width="120" /><span class="vertical-align"></span></span></span></span><span class="video-count"><strong>3</strong> videos</span></span><span class="thumb-row"><span class="video-thumb ux-thumb yt-thumb-default-40 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img data-group-key="thumb-group-0" src="//i2.ytimg.com/vi/uvsuAZFem88/default.jpg" alt="Thumbnail" data-thumb="//i2.ytimg.com/vi/uvsuAZFem88/default.jpg" width="40" /><span class="vertical-align"></span></span></span></span><span class="video-thumb ux-thumb yt-thumb-default-40 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img data-group-key="thumb-group-0" src="//i4.ytimg.com/vi/7ABFW6rv15g/default.jpg" alt="Thumbnail" data-thumb="//i4.ytimg.com/vi/7ABFW6rv15g/default.jpg" width="40" /><span class="vertical-align"></span></span></span></span><span class="video-thumb ux-thumb yt-thumb-default-40 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img data-group-key="thumb-group-0" src="//i4.ytimg.com/vi/sfVk2qFlePg/default.jpg" alt="Thumbnail" data-thumb="//i4.ytimg.com/vi/sfVk2qFlePg/default.jpg" width="40" /><span class="vertical-align"></span></span></span></span></span><span dir="ltr" class="title" title="Steve Jobs' Best Video Moments on Stage">Steve Jobs' Best Video Moments on Stage</span></a>
+                                  </li>
+                                  <li class="video-list-item"><a href="/watch?v=lz8aU1EXkBA&amp;feature=related" class="related-video  yt-uix-sessionlink" data-sessionlink="ved=CAMQzRooAQ%3D%3D&amp;ei=CLLr09jvi7ECFY6lpAodDg3eaQ%3D%3D&amp;feature=related"><span class="ux-thumb-wrap contains-addto "><span class="video-thumb ux-thumb yt-thumb-default-120 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img data-group-key="thumb-group-0" src="//i1.ytimg.com/vi/lz8aU1EXkBA/default.jpg" alt="Steve Jobs Full Interview  at 2010 D8 Conference w/ Mossberg" data-thumb="//i1.ytimg.com/vi/lz8aU1EXkBA/default.jpg" width="120" /><span class="vertical-align"></span></span></span></span><span class="video-time">1:35:54</span>
+                                     <button onclick=";return false;" title="Watch Later" type="button" class="addto-button video-actions addto-watch-later-button yt-uix-button yt-uix-button-default yt-uix-button-short yt-uix-tooltip" data-video-ids="lz8aU1EXkBA" role="button"><span class="yt-uix-button-content">  <span class="addto-label">
+                                     Watch Later
+                                     </span>
+                                     <span class="addto-label-error">
+                                     Error
+                                     </span>
+                                     <img src="<%= asset_path 'yt/wfw.gif' %>" />
+                                     </span></button>
+                                     </span><span dir="ltr" class="title" title="Steve Jobs Full Interview  at 2010 D8 Conference w/ Mossberg">Steve Jobs Full Interview  at 2010 D8 Conference w/ Mossberg</span><span class="stat attribution">by <span class="yt-user-name " dir="ltr">Eninety2</span></span><span class="stat view-count">252,843 views</span></a>
+                                  </li>
+                            
+                               </ul>
+                               <ul id="watch-more-related" class="video-list hid">
+                                  <li id="watch-more-related-loading">Loading more suggestions...</li>
+                               </ul>
+                            </div>
+                            <div class="watch-sidebar-foot">
+                               <p class="content"><button type="button" id="watch-more-related-button" onclick=";return false;" class=" yt-uix-button yt-uix-button-default" data-button-action="yt.www.watch.watch5.handleLoadMoreRelated" role="button"><span class="yt-uix-button-content">Load more suggestions </span></button></p>
+                            </div>
+                         </div>
+                         <span class="yt-vertical-rule-main"></span>
+                         <span class="yt-vertical-rule-corner-top"></span>
+                         <span class="yt-vertical-rule-corner-bottom"></span>
+                      </div>
+     
+         <div class="clear"></div>
+      </div>
+      <div style="visibility: hidden; height: 0px; padding: 0px; overflow: hidden;">
+         <div id="baseDiv"></div>
+      </div>
+   </div>
+</div>
+
+
 
 <%= render file:'/application/footers/_sdk_footer' %>
