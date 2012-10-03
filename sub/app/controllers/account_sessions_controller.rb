@@ -19,6 +19,13 @@ class AccountSessionsController < Devise::SessionsController
         resource = u
         suc_flag = true
       end
+    elsif -1 == status
+      flash[:notice]='无此用户'
+    elsif -2 == status
+      flash[:notice]='密码错误'
+    elsif -3 == status
+      flash[:notice]='安全提问错误'
+      #todo
     end
     unless true==suc_flag
       resource = warden.authenticate!(auth_options)

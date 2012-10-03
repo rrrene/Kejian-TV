@@ -1440,7 +1440,7 @@
   }
 
   #content {
-      min-height: 450px;
+      min-height: 45px;
       margin: 0 auto;
       overflow: auto;
       width: 970px;
@@ -8581,6 +8581,8 @@
     background-position:0 -53px;
   }
   #supernav{
+    margin-top:-10px;
+    margin-bottom:4px;
     width:728px;
     height:63px;
     background:url("<%=asset_path 'supernav.png'%>") no-repeat scroll 0 7px transparent;
@@ -8592,6 +8594,7 @@
       float:left;
       color:#404040 !important;
       font-size:12px;
+      width:720px;
     }
     .pubu{
       background-position: -185px -75px;
@@ -8602,7 +8605,7 @@
       display:block;
       width:78px;
       margin-left:8px;
-      line-height:15px;
+      line-height:18px;
       &:hover{
         background-position: -185px -92px;
         text-decoration:none;
@@ -8616,13 +8619,12 @@
       text-indent:5px;
       width:42px;
       border:1px solid #CCC;
-      margin-top:10px;
     }
     .shengxu_active,.jiangxu_active{
       border:1px solid #308ED1;
     }
     .shengxu{
-      margin-left:4px;
+      margin-left:18px;
       background-position:-95px -71px;
     }
     .shengxu_active{
@@ -8633,6 +8635,52 @@
     }
     .jiangxu_active{
       background-position:-96px -124px;
+    }
+    .wenjian_panel{
+      a{line-height:19px;}
+      margin-left:577px;
+      margin-top:29px;
+      background:none repeat scroll 0 0 #FFFFFF;
+      border:1px solid #A6A6A6;
+      position:absolute;
+      width:141px;
+      z-index:999;
+      .slides_count0{
+        background-position:-175px -131px;
+      }
+      .slides_count1{
+        background-position:-175px -169px;
+      }
+      .thanked_count1{
+        background-position:-175px -151px;
+      }
+      .price1{
+        background-position:-175px -111px;
+      }
+      .human_time1{
+        background-position:-175px -189px;
+      }
+      div{
+        display:inline;
+        float:left;
+        border-bottom:1px solid #D9E9FB;
+        height:22px;
+        line-height:22px;
+        overflow:hidden;
+        padding:0;
+        width:100%;
+        a{
+          color:#000000;
+          display:block;
+          margin:1px 0;
+          margin-left:28px;
+          text-decoration:none;
+          width:97px;
+        }
+        &:hover{
+          background-color:#EEE;
+        }
+      }
     }
     .sort_panel{
       a{line-height:19px;}
@@ -8679,6 +8727,24 @@
           background-color:#EEE;
         }
       }
+    }
+    .wenjian{
+      float:right;
+      height:18px;
+      line-height:15px;
+      margin-left:20px;
+      margin-top:2px;
+    }
+    .wenjian2{
+      background-position:right -238px;
+      float:right;
+      width:115px;
+      height:18px;
+      line-height:18px;
+      padding:0 21px 0 5px;
+      border:1px solid #A6A6A6;
+      margin-left:4px;
+      cursor:pointer;
     }
     .paixu{
       float:left;

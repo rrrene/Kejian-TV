@@ -23,10 +23,15 @@ class WelcomeController < ApplicationController
     end
   end
   def latest
-    @seo[:title] = '最新上传'
+    @seo[:title] = '全部课件'
     common_op!
     @coursewares=Courseware.normal_father
     @coursewares = @coursewares.where(:sort1=>params[:sort1]) if params[:sort1].present? and params[:sort1]!='all'
+    if 'all'==params[:sort] or params[:sort].blank?
+      # do nothing
+    else
+      @coursewares = @coursewares.where(:sort.in=>params[:sort].split('|'))
+    end
     if 'all'==params[:order] or params[:order].blank?
       @coursewares = @coursewares.desc('created_at')
     else
@@ -36,8 +41,14 @@ class WelcomeController < ApplicationController
       @coursewares = @coursewares.asc('price') if 'price0'==params[:order]
       @coursewares = @coursewares.desc('thanked_count') if 'thanked_count1'==params[:order]
       @coursewares = @coursewares.asc('thanked_count') if 'thanked_count0'==params[:order]
-      @coursewares = @coursewares.where(:human_time.gt=>0).desc('human_time') if 'human_time1'==params[:order]
-      @coursewares = @coursewares.where(:human_time.gt=>0).asc('human_time') if 'human_time0'==params[:order]
+      if 'human_time1'==params[:order] || 'human_time0'==params[:order]
+        @coursewares2 = @coursewares.where(:human_time.gt=>0)
+        if @coursewares2.count>0
+          @coursewares = @coursewares2 
+        end
+      end
+      @coursewares = @coursewares.desc('human_time') if 'human_time1'==params[:order]
+      @coursewares = @coursewares.asc('human_time') if 'human_time0'==params[:order]
     end
     @coursewares = @coursewares.paginate(:page => params[:page], :per_page => @per_page)
     render 'index'
@@ -76,7 +87,7 @@ class WelcomeController < ApplicationController
 private
   def common_op!
     @dz_navi_extras = [
-      ['我的首页','/?psvr_force=1']
+      ['全站动态','/?psvr_force=1']
     ]
     params[:page] ||= '1'
     params[:per_page] ||= cookies[:welcome_per_page]

@@ -92,6 +92,10 @@ class TranscoderJob
                     pinpic_final = "#{working_dir}/#{@courseware.revision}pin.1.#{$1}.#{$2}.jpg"
                     puts `mv "#{pinpic}" "#{pinpic_final}"`
                     @courseware.update_attribute(:pinpicname,File.basename(pinpic_final))
+                    if @courseware.is_children and @courseware.child_rank == 0
+                        tmp_papa = Courseware.find(@courseware.father_id)
+                        tmp_papa.update_attribute(:pinpicname,File.basename(pinpic_final))
+                     end
                   end
                 end
                 puts pic2 = "#{working_dir}/#{@courseware.revision}thumb_slide_#{i}.jpg"
@@ -148,6 +152,10 @@ class TranscoderJob
                     pinpic_final = "#{working_dir}/#{@courseware.revision}pin.1.#{$1}.#{$2}.jpg"
                     puts `mv "#{pinpic}" "#{pinpic_final}"`
                     @courseware.update_attribute(:pinpicname,File.basename(pinpic_final))
+                    if @courseware.is_children and @courseware.child_rank == 0
+                        tmp_papa = Courseware.find(@courseware.father_id)
+                        tmp_papa.update_attribute(:pinpicname,File.basename(pinpic_final))
+                     end
                   end
                 end
                 puts pic2 = "#{working_dir}/#{@courseware.revision}thumb_slide_#{i}.jpg"
@@ -188,8 +196,8 @@ class TranscoderJob
           really_broken += 1
           puts `#{Rails.root}/bin/ftpupyun_pic "#{working_dir}" "/cw/#{@courseware.ktvid}/" "#{@courseware.revision}"`
           if @courseware.is_children
-            tmp_papa = Coursware.find(@courseware.father_id)
-            puts `#{Rails.root}/bin/ftpupyun_pic "#{working_dir}" "/cw/#{tmp_papa.ktvid}/" "#{tmp_papa.revision}"`
+            tmp_papa = Courseware.find(@courseware.father_id)
+            puts `#{Rails.root}/bin/ftpupyun_single_pic "#{working_dir}" "/cw/#{tmp_papa.ktvid}/" "#{tmp_papa.revision} #{@courseware.child_rank}"`
           end
 
           @courseware.check_upyun

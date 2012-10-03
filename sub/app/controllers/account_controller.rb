@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 class AccountController < Devise::RegistrationsController
   def edit
+    redirect_to "/simple/home.php?mod=spacecp"
+    return false
     @seo[:title] = '账号设置'
     @user = current_user
     render "edit"
