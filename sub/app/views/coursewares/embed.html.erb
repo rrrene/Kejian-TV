@@ -788,7 +788,7 @@
     <%if @courseware.course_fid.present? and nn=Course.get_name(@courseware.course_fid) %>
       <p>课程: <a href="/courses/<%= @courseware.course_fid %>" title="<%= nn %>" target="_parent"><%= nn %></a></p>
     <%else%>
-    <p>领域: <a id="core_topic_name" href="/topics/<%=@courseware.topic_id%>" target="_parent"><%=@courseware.topic%></a></p>
+    <p>课程: <a id="core_topic_name" href="/topics/<%=@courseware.topic_id%>" target="_parent"><%=@courseware.topic%></a></p>
     <%end%>
   </div>
   <div id="slide">

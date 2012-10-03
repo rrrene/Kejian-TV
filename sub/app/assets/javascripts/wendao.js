@@ -49,7 +49,7 @@ App.psvr_wendao_init = function(){
     });
 
     //searchInput输入框提示
-    App.placeHolder($("#searchInput"), "搜索解题、领域疑问");
+    App.placeHolder($("#searchInput"), "搜索解题、课程疑问");
     //个人页 对某人提问相关提示
     var txtATU = $("#new_ask_title_ta");
     var txtABT = $("#new_ask_body_ta");
@@ -128,7 +128,7 @@ App.psvr_wendao_init = function(){
     $("#login_link").click(Users.userLogin);
     $("#reg_link").click(Users.userReg);
     $("#logout_link").click(Users.userLogout);
-    // 风云榜 欢迎页热门领域关注 2012-2-5 by lesanc.li
+    // 风云榜 欢迎页热门课程关注 2012-2-5 by lesanc.li
     var hotTopicTable = $(".newbie .hotTopicTable");
     if (hotTopicTable.length > 0){
         // topics hover event
@@ -228,9 +228,9 @@ App.psvr_wendao_init = function(){
     });
     //个人设置页 个人一句话描述输入框提示 2011-11-2 by lesanc.li
     if ($("#user_editing_tagline").length){
-        App.placeHolder($("#user_editing_tagline"), "如：工作经历、擅长领域");
+        App.placeHolder($("#user_editing_tagline"), "如：工作经历、擅长课程");
         $("#form_1").bind("submit", function(){
-            if($("#user_editing_tagline").val() == "如：工作经历、擅长领域"){
+            if($("#user_editing_tagline").val() == "如：工作经历、擅长课程"){
                 $("#user_editing_tagline").val("");
             }
         });
@@ -297,7 +297,7 @@ App.psvr_wendao_init = function(){
     // 分享 Email和转发地址
     $(".shareEmail").facebox();
     $(".shareFw").facebox();
-    // 题页 题添加领域操作
+    // 题页 题添加课程操作
     $("div.topics li.modify").click(function(){
         Asks.toggleEditTopics(true);
     });

@@ -62,7 +62,7 @@ class TopicsController < ApplicationController
 
 
   def index
-    @seo[:title] = '全部领域'
+    @seo[:title] = '全部课程'
     @per_page = 20
     @topics = Topic.all.paginate(:page => params[:page], :per_page => @per_page)
   end
@@ -157,9 +157,9 @@ class TopicsController < ApplicationController
     end
     @topic.cover = params[:topic][:cover]
     if @topic.save
-      flash[:notice] = "领域封面上传成功。"
+      flash[:notice] = "课程封面上传成功。"
     else
-      flash[:alert] = "领域封面上传失败，请检查你上传的图片适合符合格式要求。"
+      flash[:alert] = "课程封面上传失败，请检查你上传的图片适合符合格式要求。"
     end
     redirect_to topic_path(@topic)
   end

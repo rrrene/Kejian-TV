@@ -20,7 +20,7 @@
       
       <%if current_user.admin_type==2 or (current_user.admin_type=3 and current_user.admin_area.include?("topic"))%>
         <div class="side_td">
-          <a href="<%= cpanel_topics_path %>">领域管理</a>
+          <a href="<%= cpanel_topics_path %>">课程管理</a>
         </div>
       <%end%>
       <%if current_user.admin_type==2 or (current_user.admin_type=3 and current_user.admin_area.include?("comment"))%>
@@ -104,7 +104,7 @@
       <%end%>
       <%if current_user.admin_type==2 or (current_user.admin_type=3 and current_user.admin_area.include?("hot_topic"))%>
         <div class="side_td">
-          <a href="/cpanel/stats/hot_topics">风云榜热门领域</a>
+          <a href="/cpanel/stats/hot_topics">风云榜热门课程</a>
         </div>
       <%end%>
       <%if current_user.admin_type==2 or (current_user.admin_type=3 and current_user.admin_area.include?("api"))%>
