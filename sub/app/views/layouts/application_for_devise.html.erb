@@ -48,7 +48,7 @@
       <% end %>
     <% end %>
     <% if !alert.blank? %>
-      <p class="flash_alert"><%=raw alert %> [<a class="close_me" href="#"> 隐藏 </a>]</p>
+      <p class="flash_alert"><%=raw alert %></p>
       <%= content_for :butt2 do %>
           $(".flash_alert").fadeOut('fast').fadeIn('fast').fadeOut('fast').fadeIn('fast');
           $(".flash_alert .close_me").click(function(){

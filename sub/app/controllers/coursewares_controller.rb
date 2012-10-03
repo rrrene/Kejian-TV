@@ -23,7 +23,7 @@ class CoursewaresController < ApplicationController
     respond_to do |format|
       format.json{
         pagination_get_ready
-        @coursewares = Courseware.nondeleted.normal
+        @coursewares = Courseware.nondeleted.normal_father
         deal_with_params!
         pagination_over(@coursewares.count)
         @coursewares = @coursewares.paginate(:page => @page, :per_page => @per_page)
@@ -162,6 +162,10 @@ class CoursewaresController < ApplicationController
 protected
   def find_item
     @courseware = Courseware.where(:_id => params[:id]).first
+    if @courseware.nil?
+      render_404
+      return false
+    end
     if -2==@courseware.status && @courseware.redirect_to_id.present?
       @courseware = Courseware.where(:_id => @courseware.redirect_to_id.to_s).first
     end

@@ -11,6 +11,8 @@
   KTV.browsetext_css_src0 = window.psvr_asset_host+'/browsetext.png'
   KTV.addtext_css_src1 = window.psvr_asset_host+'/ie/addtext_hover.png'
   KTV.addtext_css_src0 = window.psvr_asset_host+'/ie/addtext.png'
+  KTV.dz_targetize = ->
+    $('#content').height($('#psvr_dz_target').height()+8);
   KTV.sdk_flashes_set = (type,msg)->
     $('#sdk_flashes').html("<p class=\"flash #{type}\">#{msg}</p>");
     $("#sdk_flashes .#{type}").fadeOut().fadeIn();
