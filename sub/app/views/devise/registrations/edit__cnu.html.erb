@@ -66,7 +66,7 @@
         <dt>博客或微博地址：</dt>
         <dd><input type="url" class="long" name="user[website]" value="<%=resource.website%>" placeholder="http://"/></dd>
         <dt>用一句话介绍下自己吧：</dt>
-        <dd><input type="text" maxlength="40" class="long" name="user[tagline]" id="user_editing_tagline" value="<%=resource.tagline%>" onchange="checklen(this,40)" placeholder="如：工作经历、擅长领域" /><span id="user_editing_tagline_tno" style="display:none;"></span></dd>
+        <dd><input type="text" maxlength="40" class="long" name="user[tagline]" id="user_editing_tagline" value="<%=resource.tagline%>" onchange="checklen(this,40)" placeholder="如：工作经历、擅长课程" /><span id="user_editing_tagline_tno" style="display:none;"></span></dd>
         <dt>个人经历：</dt>
         <dd><textarea type="text" id="edit_user_bio" name="user[bio]" value="<%=resource.bio%>" class="richeditor" style="width:435px;height:100px"></textarea></dd>
         <dt><div class="btnNormalGreen" id="submit_form_1_btn" onclick="submit_form_1();"><span>&nbsp;保 存&nbsp;</span></div></dt>

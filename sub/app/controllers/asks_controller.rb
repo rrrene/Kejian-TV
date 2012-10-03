@@ -79,7 +79,7 @@ class AsksController < ApplicationController
       @answers = @answers.order_by(:"votes.up_count".desc,:"votes.down_count".asc,:"created_at".asc) # :spams_count.asc,
     end
     @answer = Answer.new
-    # 推荐领域,如果没有设置领域的话
+    # 推荐课程,如果没有设置课程的话
     @suggest_topics = AskSuggestTopic.find_by_ask(@ask)
     set_seo_meta(@ask.title)
     @invites = @ask.ask_invites

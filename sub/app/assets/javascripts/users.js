@@ -50,7 +50,7 @@ window.Users = {
     return false;
   },
 
-  /* 不感兴趣推荐的用户或领域 */
+  /* 不感兴趣推荐的用户或课程 */
   mute_suggest_item : function(el, type, id){
     $(el).parent().parent().fadeOut("fast");
     $.get("/mute_suggest_item", { type : type, id : id },function(res){

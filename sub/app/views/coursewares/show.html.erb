@@ -291,7 +291,7 @@ courseware_id: '<%=@courseware.id%>'
              <%if nn%>
                <li class="category" style="border-top:none">课程 <a href="/courses/<%= @courseware.course_fid %>" title="<%= nn %>" target="_parent"><%= nn %></a></li>
              <%else%>
-               <li class="category" style="border-top:none">领域 <a href="/topics/<%= @courseware.topic_id %>"><%= @courseware.topic %></a></li>
+               <li class="category" style="border-top:none">课程 <a href="/topics/<%= @courseware.topic_id %>"><%= @courseware.topic %></a></li>
              <%end%>
             </ul>
          </div>
@@ -351,7 +351,7 @@ courseware_id: '<%=@courseware.id%>'
              <%if nn%>
                <li class="category">课程 <a href="/courses/<%= @courseware.course_fid %>" title="<%= nn %>" target="_parent"><%= nn %></a></li>
              <%else%>
-               <li class="category">领域 <a href="/topics/<%= @courseware.topic_id %>"><%= @courseware.topic %></a></li>
+               <li class="category">课程 <a href="/topics/<%= @courseware.topic_id %>"><%= @courseware.topic %></a></li>
              <%end%>
                <% if @courseware.version_date[@courseware.version.to_s].present? %>
                 <li class="dianjiliang">版本 <a href="#revisions"><%= @courseware.version_date[@courseware.version.to_s] %>版</a></li>

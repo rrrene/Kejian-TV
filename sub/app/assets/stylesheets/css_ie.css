@@ -31,7 +31,7 @@ h6 {
 }
 
 
-/* 领域nav中的文本靠左fix */
+/* 课程nav中的文本靠左fix */
 .topicNav li {
 	padding-left:10px;
 }
@@ -98,7 +98,7 @@ min-height: 1% ;
 }
 
 
-/* 他关注的领域 */
+/* 他关注的课程 */
 .cList article {
 	position:relative;
 }
@@ -136,7 +136,7 @@ min-height: 1% ;
 .tabNav li {
 	padding-left:21px;
 }
-/* 他关注的领域 */
+/* 他关注的课程 */
 .cList article {
 	position:relative;
 }
@@ -179,7 +179,7 @@ min-height: 1% ;
 	word-wrap:normal; 
 }
 
-/* 他关注的领域 */
+/* 他关注的课程 */
 .cList article {
 	position:relative;
 }
@@ -197,7 +197,7 @@ min-height: 1% ;
 }
 
 
-/* 修改领域图片，HOVER灰层 */
+/* 修改课程图片，HOVER灰层 */
 .changeUserHead {
 	background-color:#555;
 }

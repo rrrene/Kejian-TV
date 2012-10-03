@@ -135,7 +135,7 @@ class UsersController < ApplicationController
     @topics = @user.followed_topic_ids.reverse
     .paginate(:page => params[:page], :per_page => @per_page)
     
-    set_seo_meta("#{@user.name}关注的领域")
+    set_seo_meta("#{@user.name}关注的课程")
     if params[:format] == "js"
       render "following_topics.js"
     end

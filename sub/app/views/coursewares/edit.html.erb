@@ -7,7 +7,7 @@
 
         <h1>标注课件信息</h1>
         <p><label for="presentation_title">课件标题</label> <input class="text" id="presentation_title" name="presentation[title]" size="30" type="text" placeholder="例如：[北京大学]郭懋正:2011年阅读与练习 - 1" value="<%= @courseware.title %>"/></p>
-        <p><label for="presentation_topic">领域</label> <input class="text" id="presentation_topic" name="presentation[topic]" size="30" type="text" placeholder="例如：数学分析"  value="<%= @courseware.topic %>" /></p>
+        <p><label for="presentation_topic">课程</label> <input class="text" id="presentation_topic" name="presentation[topic]" size="30" type="text" placeholder="例如：数学分析"  value="<%= @courseware.topic %>" /></p>
         <%= render :partial=>'form_extras',:locals=>{:courseware=>@courseware} %>
         <p class="submit">
             <button class="primary" id="submit_btn">保存课件信息</button>

@@ -33,7 +33,7 @@
         <% @no_header ||= ['devise-sessions_new','registrations_new'].include?("#{params[:controller].parameterize}_#{params[:action].parameterize}") %>
         <% unless @no_header %>
           <div class="searchbox">
-            <input placeholder="搜索解题、领域疑问" id="searchInput">
+            <input placeholder="搜索解题、课程疑问" id="searchInput">
           </div>
           <%= content_for :butt2 do %>
             Asks.completeAll($("#searchInput"));

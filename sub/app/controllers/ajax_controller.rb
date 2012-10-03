@@ -46,7 +46,7 @@ class AjaxController < ApplicationController
   def presentations_upload_finished
     presentation = params[:presentation]
     cw = Courseware.presentations_upload_finished(presentation,current_user)
-    unless '领域请求'==cw.topic
+    unless '课程请求'==cw.topic
       cookies[:presentation_topic] = cw.topic
     end
     cookies[:presentation_pretitle] = (cw.title.split(/[:：]/).size>1) ? cw.title.split(/[:：]/)[0] : ''
@@ -123,7 +123,7 @@ HEREDOC
 
       cw.topic = presentation[:topic]
       if cw.topic.blank?
-        cw.topic = '领域请求' 
+        cw.topic = '课程请求' 
       else
         cookies[:presentation_topic] = cw.topic
       end
@@ -176,7 +176,7 @@ HEREDOC
     @courseware.topic = presentation[:topic]
     cw = @courseware
     if cw.topic.blank?
-      cw.topic = '领域请求' 
+      cw.topic = '课程请求' 
     else
       cookies[:presentation_topic] = cw.topic
     end

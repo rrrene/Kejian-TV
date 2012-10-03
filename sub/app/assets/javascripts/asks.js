@@ -145,7 +145,7 @@ window.Asks = {
         }
     },
 
-    /* 题，领域，人搜索自动完成 */
+    /* 题，课程，人搜索自动完成 */
     completeAll : function(el){
         input = $(el);
         input.autocomplete("/search/all",{
@@ -243,7 +243,7 @@ window.Asks = {
     /* 邀请人解答题 */
     completeInviteToAnswer : function(){
         input = $("#ask_to_answer");
-        App.placeHolder(input, "可通过人名、领域、职务等搜索");
+        App.placeHolder(input, "可通过人名、课程、职务等搜索");
         input.autocomplete("/search/users", {
             mincChars: 1,
             x: -5,
@@ -308,7 +308,7 @@ window.Asks = {
         else{
             html += data[0];
         }
-        html += ' <span class="fc999">领域</span>';
+        html += ' <span class="fc999">课程</span>';
         html += '<br>';
         html += count1+'个关注者·'+count2+'个课件';
         return html;
@@ -685,7 +685,7 @@ window.Asks = {
     },
 
     showSuggestTopics : function(topics){
-        html = '<div id="ask_suggest_topics" class="ask"><div class="container"><label>根据您的题，我们推荐这些领域(点击添加):</label>';
+        html = '<div id="ask_suggest_topics" class="ask"><div class="container"><label>根据您的题，我们推荐这些课程(点击添加):</label>';
         for(var i=0;i<topics.length;i++) {
             html += '<a href="#" class="topic nofloat" onclick="return Asks.addSuggestTopic(this,\''+topics[i]+'\');">'+topics[i]+'</a>';
         }
@@ -770,7 +770,7 @@ window.Asks = {
         }
         //var txtTitle = $("#hidden_new_ask textarea:nth-of-type(1)");
         var txtTitle = $("#hidden_new_ask textarea").eq(0);
-        ask_search_text = $("#searchInput").val() != "搜索领域、用户及资源" ? $("#searchInput").val() : "";
+        ask_search_text = $("#searchInput").val() != "搜索课程、用户及资源" ? $("#searchInput").val() : "";
         txtTitle.text(ask_search_text);
         txtTitle.focus();
     $.facebox({ div : "#hidden_new_ask", overlay : false });  

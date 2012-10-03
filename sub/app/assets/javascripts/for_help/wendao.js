@@ -226,9 +226,9 @@ jQuery("#login_link").click(Users.userLogin);
     });
     //个人设置页 个人一句话描述输入框提示 2011-11-2 by lesanc.li
     if (jQuery("#user_editing_tagline").length){
-        App.placeHolder(jQuery("#user_editing_tagline"), "如：工作经历、擅长领域");
+        App.placeHolder(jQuery("#user_editing_tagline"), "如：工作经历、擅长课程");
         jQuery("#form_1").bind("submit", function(){
-            if(jQuery("#user_editing_tagline").val() == "如：工作经历、擅长领域"){
+            if(jQuery("#user_editing_tagline").val() == "如：工作经历、擅长课程"){
                 jQuery("#user_editing_tagline").val("");
             }
         });
