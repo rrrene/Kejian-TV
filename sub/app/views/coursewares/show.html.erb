@@ -440,7 +440,7 @@ courseware_id: '<%=@courseware.id%>'
          <div id="watch-panel">
             <div id="flash10-promo-div" class="yt-alert yt-alert-default yt-alert-warn hid ">
                <div class="yt-alert-icon">
-                  <img alt="Alert icon" class="icon master-sprite" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" />
+                  <img alt="Alert icon" class="icon master-sprite" src="<%= asset_path 'yt/wfw.gif' %>" />
                </div>
                <div class="yt-alert-buttons">  <button role="button" data-close-parent-class="yt-alert" onclick=";return false;" class="close yt-uix-close yt-uix-button yt-uix-button-close" type="button"><span class="yt-uix-button-content">Close </span></button>
                </div>
@@ -460,7 +460,7 @@ courseware_id: '<%=@courseware.id%>'
                   </span>
                   <button onclick=";return false;" title="&#27983;&#35272;&#37327;" type="button" id="watch-insight-button" class="yt-uix-tooltip yt-uix-tooltip-reverse yt-uix-button yt-uix-button-default yt-uix-tooltip yt-uix-button-empty" data-button-action="yt.www.watch.actions.stats" role="button"><span class="yt-uix-button-icon-wrapper"><img class="yt-uix-button-icon yt-uix-button-icon-watch-insight" src="<%= asset_path 'yt/wfw.gif' %>" alt="Show video statistics" /></span></button>
                </div>
-               <span id="watch-like-unlike" class="yt-uix-button-group " data-button-toggle-group="optional"><button onclick=";return false;" title="I like this" type="button" class="start yt-uix-tooltip-reverse  yt-uix-button yt-uix-button-default yt-uix-tooltip" id="watch-like" data-button-toggle="true" data-button-action="yt.www.watch.actions.like" role="button"><span class="yt-uix-button-icon-wrapper"><img class="yt-uix-button-icon yt-uix-button-icon-watch-like" src="<%= asset_path 'yt/wfw.gif' %>" alt="I like this" /></span><span class="yt-uix-button-content">Like </span></button><button onclick=";return false;" title="I dislike this" type="button" class="end yt-uix-tooltip-reverse  yt-uix-button yt-uix-button-default yt-uix-tooltip yt-uix-button-empty" id="watch-unlike" data-button-toggle="true" data-button-action="yt.www.watch.actions.unlike" role="button"><span class="yt-uix-button-icon-wrapper"><img class="yt-uix-button-icon yt-uix-button-icon-watch-unlike" src="<%= asset_path 'yt/wfw.gif' %>" alt="I dislike this"></span></button></span>
+               <span id="watch-like-unlike" class="yt-uix-button-group " data-button-toggle-group="optional"><button onclick=";return false;" title="I like this" type="button" class="start yt-uix-tooltip-reverse  yt-uix-button yt-uix-button-default yt-uix-tooltip" id="watch-like" data-button-toggle="true" data-button-action="yt.www.watch.actions.like" role="button"><span class="yt-uix-button-icon-wrapper"><img class="yt-uix-button-icon yt-uix-button-icon-watch-like" src="<%= asset_path 'yt/wfw.gif' %>" alt="I like this" /></span><span class="yt-uix-button-content">喜欢 </span></button><button onclick=";return false;" title="I dislike this" type="button" class="end yt-uix-tooltip-reverse  yt-uix-button yt-uix-button-default yt-uix-tooltip yt-uix-button-empty" id="watch-unlike" data-button-toggle="true" data-button-action="yt.www.watch.actions.unlike" role="button"><span class="yt-uix-button-icon-wrapper"><img class="yt-uix-button-icon yt-uix-button-icon-watch-unlike" src="<%= asset_path 'yt/wfw.gif' %>" alt="I dislike this"></span></button></span>
                <button role="button" data-button-action="yt.www.watch.actions.addto" title="Add to favorites or playlist" onclick=";return false;" class="yt-uix-tooltip-reverse  yt-uix-button yt-uix-button-default yt-uix-tooltip" type="button" data-tooltip-text="Add to favorites or playlist"><span class="yt-uix-button-content"><span class="addto-label">Add to</span> </span></button>
                 <button onclick=";return false;" title="Share or embed this video" type="button" class="yt-uix-tooltip-reverse yt-uix-button yt-uix-button-default yt-uix-tooltip" id="watch-share" data-button-action="yt.www.watch.actions.share" role="button"><span class="yt-uix-button-content">Share </span></button>
                   <button onclick=";return false;" title="Flag as inappropriate" type="button" class="yt-uix-tooltip-reverse  yt-uix-button yt-uix-button-default yt-uix-tooltip yt-uix-button-empty" id="watch-flag" data-button-action="yt.www.watch.actions.flag" role="button"><span class="yt-uix-button-icon-wrapper"><img class="yt-uix-button-icon yt-uix-button-icon-watch-flag" src="<%= asset_path 'yt/wfw.gif' %>" alt="Flag as inappropriate" /></span></button>
@@ -473,7 +473,7 @@ courseware_id: '<%=@courseware.id%>'
                   <div class="watch-actions-panel hid" id="watch-actions-error">
                      <div class="yt-alert yt-alert-naked yt-alert-error  ">
                         <div class="yt-alert-icon">
-                           <img alt="Alert icon" class="icon master-sprite" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" />
+                           <img alt="Alert icon" class="icon master-sprite" src="<%= asset_path 'yt/wfw.gif' %>" />
                         </div>
                         <div id="watch-error-string" role="alert" class="yt-alert-content"></div>
                      </div>
@@ -487,7 +487,7 @@ courseware_id: '<%=@courseware.id%>'
                   </div>
                   <div class="watch-actions-panel hid" id="watch-actions-ajax"></div>
                   <div class="close">
-                     <img onclick="yt.www.watch.actions.hide();" class="close-button" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" />
+                     <img onclick="yt.www.watch.actions.hide();" class="close-button" src="<%= asset_path 'yt/wfw.gif' %>" />
                   </div>
                </div>
             </div>
@@ -523,16 +523,16 @@ courseware_id: '<%=@courseware.id%>'
                      </li>
                   </ul>
                   <div class="yt-horizontal-rule "><span class="first"></span><span class="second"></span><span class="third"></span></div>
-                  <div class="yt-uix-expander-head" id="watch-description-toggle">
-                     <div class="expand" id="watch-description-expand">
-                        <button role="button" onclick=";return false;" class="metadata-inline yt-uix-button yt-uix-button-text" type="button"><span class="yt-uix-button-content">Show more <img alt="Show more" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" />
-                        </span></button>
+                   <div id="watch-description-toggle" class="yt-uix-expander-head">
+                     <div id="watch-description-expand" class="expand">
+                       <button type="button" class="metadata-inline yt-uix-button yt-uix-button-text" onclick=";return false;"  role="button"><span class="yt-uix-button-content">Show more <img src="<%= asset_path 'yt/wfw.gif' %>" alt="Show more">
+                  </span></button>
                      </div>
-                     <div class="collapse" id="watch-description-collapse">
-                        <button role="button" onclick=";return false;" class="metadata-inline yt-uix-button yt-uix-button-text" type="button"><span class="yt-uix-button-content">Show less <img alt="Show less" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" />
-                        </span></button>
+                     <div id="watch-description-collapse" class="collapse">
+                       <button type="button" class="metadata-inline yt-uix-button yt-uix-button-text" onclick=";return false;"  role="button"><span class="yt-uix-button-content">Show less <img src="<%= asset_path 'yt/wfw.gif' %>" alt="Show less">
+                  </span></button>
                      </div>
-                  </div>
+                   </div>
                </div>
             </div>
             <div id="watch-discussion">
@@ -545,13 +545,13 @@ courseware_id: '<%=@courseware.id%>'
                         </div>
                         <div>
                            <span>Share to:</span>
-                           <img action="yt.window.popup('http:\/\/www.facebook.com\/sharer.php?u=http%3A%2F%2Fwww.youtube.com%2Fcomment%3Flc%3D_COMMENT_ID_&amp;t=_COMMENT_TEXT_', {height:440, width:620, scrollbars:true});" class="icon-comment-share icon-comment-share-facebook" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" title="Facebook" alt="" />
-                           <img action="yt.window.popup('http:\/\/twitter.com\/share?url=http%3A%2F%2Fwww.youtube.com%2Fcomment%3Flc%3D_COMMENT_ID_&amp;text=_COMMENT_TEXT_%3A&amp;via=youtube', {height:650, width:1024, scrollbars:true});" class="icon-comment-share icon-comment-share-twitter" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" title="Twitter" alt="" />
-                           <img action="yt.window.popup('https:\/\/plus.google.com\/share?url=http%3A%2F%2Fwww.youtube.com%2Fcomment%3Flc%3D_COMMENT_ID_&amp;authuser=0&amp;source=yt', {height:620, width:620, scrollbars:true});" class="icon-comment-share icon-comment-share-googleplus" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" title="Google+" alt="" />
+                           <img action="yt.window.popup('http:\/\/www.facebook.com\/sharer.php?u=http%3A%2F%2Fwww.youtube.com%2Fcomment%3Flc%3D_COMMENT_ID_&amp;t=_COMMENT_TEXT_', {height:440, width:620, scrollbars:true});" class="icon-comment-share icon-comment-share-facebook" src="<%= asset_path 'yt/wfw.gif' %>" title="Facebook" alt="" />
+                           <img action="yt.window.popup('http:\/\/twitter.com\/share?url=http%3A%2F%2Fwww.youtube.com%2Fcomment%3Flc%3D_COMMENT_ID_&amp;text=_COMMENT_TEXT_%3A&amp;via=youtube', {height:650, width:1024, scrollbars:true});" class="icon-comment-share icon-comment-share-twitter" src="<%= asset_path 'yt/wfw.gif' %>" title="Twitter" alt="" />
+                           <img action="yt.window.popup('https:\/\/plus.google.com\/share?url=http%3A%2F%2Fwww.youtube.com%2Fcomment%3Flc%3D_COMMENT_ID_&amp;authuser=0&amp;source=yt', {height:620, width:620,<%= asset_path 'yt/wfw.gif' %> scrollbars:true});" class="icon-comment-share icon-comment-share-googleplus" src="<%= asset_path 'yt/wfw.gif' %>" title="Google+" alt="" />
                         </div>
                      </div>
                      <div data-action="close-share" class="close comment-action">
-                        <img class="close-button" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" />
+                        <img class="close-button" src="<%= asset_path 'yt/wfw.gif' %>" />
                      </div>
                   </div>
                   <div class="comments-section">
@@ -573,28 +573,12 @@ courseware_id: '<%=@courseware.id%>'
                                        </span>
                                        <span title="3 up, 0 down" class="comments-rating-positive">
                                        3
-                                       <img src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" class="comments-rating-thumbs-up" />
+                                       <img src="<%= asset_path 'yt/wfw.gif' %>" class="comments-rating-thumbs-up" />
                                        </span>
                                     </p>
                                  </div>
                                  <div class="comment-actions">
-                                    <span class="yt-uix-button-group"><button role="button" data-tooltip-show-delay="300" data-action="vote-up" title="Vote Up" onclick=";return false;" class="start comment-action-vote-up comment-action yt-uix-button yt-uix-button-default yt-uix-tooltip yt-uix-button-empty" type="button"><span class="yt-uix-button-icon-wrapper"><img alt="Vote Up" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" class="yt-uix-button-icon yt-uix-button-icon-watch-comment-vote-up" /><span class="yt-valign-trick"></span></span></button><button role="button" data-tooltip-show-delay="300" data-action="vote-down" title="Vote Down" onclick=";return false;" class="end comment-action-vote-down comment-action yt-uix-button yt-uix-button-default yt-uix-tooltip yt-uix-button-empty" type="button"><span class="yt-uix-button-icon-wrapper"><img alt="Vote Down" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" class="yt-uix-button-icon yt-uix-button-icon-watch-comment-vote-down" /><span class="yt-valign-trick"></span></span></button></span>
-                                    <span class="yt-uix-button-group">
-                                       <button role="button" data-upsell="comment" data-action="reply" onclick=";return false;" class="start comment-action link-gplus-lightbox yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-content">Reply </span></button>
-                                       <button aria-activedescendant="" aria-haspopup="true" aria-expanded="false" aria-pressed="false" role="button" data-button-has-sibling-menu="true" onclick=";return false;" class="end flip yt-uix-button yt-uix-button-default yt-uix-button-empty" type="button">
-                                          <img alt="" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" class="yt-uix-button-arrow" />
-                                          <div style="display: none;" class=" yt-uix-button-menu yt-uix-button-menu-default">
-                                             <ul>
-                                                <li data-action="share" class="comment-action"><span class="yt-uix-button-menu-item">Share</span></li>
-                                                <li data-action="remove" class="comment-action-remove comment-action"><span class="yt-uix-button-menu-item">Remove</span></li>
-                                                <li data-action="flag" class="comment-action"><span class="yt-uix-button-menu-item">Flag for spam</span></li>
-                                                <li data-action="block" class="comment-action-block comment-action"><span class="yt-uix-button-menu-item">Block User</span></li>
-                                                <li data-action="unblock" class="comment-action-unblock comment-action"><span class="yt-uix-button-menu-item">Unblock User</span></li>
-                                             </ul>
-                                          </div>
-                                       </button>
-                                    </span>
-                                 </div>
+                                    <span class="yt-uix-button-group"><button type="button" class="start comment-action-vote-up comment-action yt-uix-button yt-uix-button-default yt-uix-tooltip yt-uix-button-empty" onclick=";return false;" title="Vote Up" data-action="vote-up" data-tooltip-show-delay="300" role="button"><span class="yt-uix-button-icon-wrapper"><img class="yt-uix-button-icon yt-uix-button-icon-watch-comment-vote-up" src="<%= asset_path 'yt/wfw.gif' %>" alt="Vote Up"></span></button><button type="button" class="end comment-action-vote-down comment-action yt-uix-button yt-uix-button-default yt-uix-tooltip yt-uix-button-empty" onclick=";return false;" title="Vote Down" data-action="vote-down" data-tooltip-show-delay="300" role="button"><span class="yt-uix-button-icon-wrapper"><img class="yt-uix-button-icon yt-uix-button-icon-watch-comment-vote-down" src="<%= asset_path 'yt/wfw.gif' %>" alt="Vote Down"></span></button></span><span class="yt-uix-button-group"><button type="button" class="start comment-action yt-uix-button yt-uix-button-default" onclick=";return false;" data-action="reply" role="button"><span class="yt-uix-button-content">回复 </span></button><button type="button" class="end flip yt-uix-button yt-uix-button-default yt-uix-button-empty" onclick=";return false;" data-button-has-sibling-menu="true" role="button" aria-pressed="false" aria-expanded="false" aria-haspopup="true" aria-activedescendant=""><img class="yt-uix-button-arrow" src="<%= asset_path 'yt/wfw.gif' %>" alt=""><div class="yt-uix-button-menu yt-uix-button-menu-default" style="display: none;"><ul><li class="comment-action" data-action="share"><span class="yt-uix-button-menu-item">Share</span></li><li class="comment-action-remove comment-action" data-action="remove"><span class="yt-uix-button-menu-item">Remove</span></li><li class="comment-action" data-action="flag"><span class="yt-uix-button-menu-item">Flag for spam</span></li><li class="comment-action-block comment-action" data-action="block"><span class="yt-uix-button-menu-item">Block User</span></li><li class="comment-action-unblock comment-action" data-action="unblock"><span class="yt-uix-button-menu-item">Unblock User</span></li></ul></div></button></span>  </div>
                               </div>
                            </div>
                         </li>
@@ -614,16 +598,16 @@ courseware_id: '<%=@courseware.id%>'
                                        </span>
                                        <span title="3 up, 0 down" class="comments-rating-positive">
                                        3
-                                       <img src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" class="comments-rating-thumbs-up" />
+                                       <img src="<%= asset_path 'yt/wfw.gif' %>" class="comments-rating-thumbs-up" />
                                        </span>
                                     </p>
                                  </div>
                                  <div class="comment-actions">
-                                    <span class="yt-uix-button-group"><button role="button" data-tooltip-show-delay="300" data-action="vote-up" title="Vote Up" onclick=";return false;" class="start comment-action-vote-up comment-action yt-uix-button yt-uix-button-default yt-uix-tooltip yt-uix-button-empty" type="button"><span class="yt-uix-button-icon-wrapper"><img alt="Vote Up" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" class="yt-uix-button-icon yt-uix-button-icon-watch-comment-vote-up" /><span class="yt-valign-trick"></span></span></button><button role="button" data-tooltip-show-delay="300" data-action="vote-down" title="Vote Down" onclick=";return false;" class="end comment-action-vote-down comment-action yt-uix-button yt-uix-button-default yt-uix-tooltip yt-uix-button-empty" type="button"><span class="yt-uix-button-icon-wrapper"><img alt="Vote Down" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" class="yt-uix-button-icon yt-uix-button-icon-watch-comment-vote-down" /><span class="yt-valign-trick"></span></span></button></span>
+                                    <span class="yt-uix-button-group"><button role="button" data-tooltip-show-delay="300" data-action="vote-up" title="Vote Up" onclick=";return false;" class="start comment-action-vote-up comment-action yt-uix-button yt-uix-button-default yt-uix-tooltip yt-uix-button-empty" type="button"><span class="yt-uix-button-icon-wrapper"><img alt="Vote Up" src="<%= asset_path 'yt/wfw.gif' %>" class="yt-uix-button-icon yt-uix-button-icon-watch-comment-vote-up" /><span class="yt-valign-trick"></span></span></button><button role="button" data-tooltip-show-delay="300" data-action="vote-down" title="Vote Down" onclick=";return false;" class="end comment-action-vote-down comment-action yt-uix-button yt-uix-button-default yt-uix-tooltip yt-uix-button-empty" type="button"><span class="yt-uix-button-icon-wrapper"><img alt="Vote Down" src="<%= asset_path 'yt/wfw.gif' %>" class="yt-uix-button-icon yt-uix-button-icon-watch-comment-vote-down" /><span class="yt-valign-trick"></span></span></button></span>
                                     <span class="yt-uix-button-group">
-                                       <button role="button" data-upsell="comment" data-action="reply" onclick=";return false;" class="start comment-action link-gplus-lightbox yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-content">Reply </span></button>
+                                       <button role="button" data-upsell="comment" data-action="reply" onclick=";return false;" class="start comment-action link-gplus-lightbox yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-content">回复 </span></button>
                                        <button aria-activedescendant="" aria-haspopup="true" aria-expanded="false" aria-pressed="false" role="button" data-button-has-sibling-menu="true" onclick=";return false;" class="end flip yt-uix-button yt-uix-button-default yt-uix-button-empty" type="button">
-                                          <img alt="" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" class="yt-uix-button-arrow" />
+                                          <img alt="" src="<%= asset_path 'yt/wfw.gif' %>" class="yt-uix-button-arrow" />
                                           <div style="display: none;" class=" yt-uix-button-menu yt-uix-button-menu-default">
                                              <ul>
                                                 <li data-action="share" class="comment-action"><span class="yt-uix-button-menu-item">Share</span></li>
@@ -660,7 +644,7 @@ courseware_id: '<%=@courseware.id%>'
                         <%= f.hidden_field :commentable_id %>
                         <div class="yt-alert yt-alert-default yt-alert-error hid comments-post-message">
                            <div class="yt-alert-icon">
-                              <img alt="Alert icon" class="icon master-sprite" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" />
+                              <img alt="Alert icon" class="icon master-sprite" src="<%= asset_path 'yt/wfw.gif' %>" />
                            </div>
                            <div class="yt-alert-buttons"></div>
                            <div role="alert" class="yt-alert-content"></div>
@@ -668,7 +652,7 @@ courseware_id: '<%=@courseware.id%>'
                         <a class="yt-user-photo comments-post-profile" href="/user/pmq20">
                         <span class="video-thumb ux-thumb yt-thumb-square-46 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img width="46" alt="pmq20" src="<%= avatar_url current_user %>" /><span class="vertical-align"></span></span></span></span>
                         </a>
-                        <div class="comments-textarea-container"><img class="comments-textarea-tip" alt="" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" /><label data-upsell="comment" onclick="yt.www.comments.initForm(this, true, false, false);" class="comments-textarea-label link-gplus-lightbox" id="comment_placeholder">评论一下这个课件吧...</label>
+                        <div class="comments-textarea-container"><img class="comments-textarea-tip" alt="" src="<%= asset_path 'yt/wfw.gif' %>" /><label data-upsell="comment" onclick="yt.www.comments.initForm(this, true, false, false);" class="comments-textarea-label link-gplus-lightbox" id="comment_placeholder">评论一下这个课件吧...</label>
                            <%= f.text_area :body,id:"comment_placeholder_now",class:"yt-uix-form-textarea comments-textarea link-gplus-lightbox" %>
                         </div>
                         <p class="comments-remaining">
