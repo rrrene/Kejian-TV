@@ -12,6 +12,7 @@ class AccountSessionsController < Devise::SessionsController
   end
   def create
     if params[:login_ibeike]
+      @login_ibeike = true
       ret = UCenter::IBeike.login('user',request,{isuid:0,username:params[:user][:email],password:params[:user][:password]})
       status = ret['root']['item'][0].to_i
       suc_flag = false
@@ -60,7 +61,7 @@ class AccountSessionsController < Devise::SessionsController
       #flash[:extra_ucenter_operations] = synlogin.html_safe if synlogin.present?
       respond_with resource, :location => after_sign_in_path_for(resource)
     else
-      redirect_to '/login'
+      redirect_to @login_ibeike ? '/login_ibeike' : '/login'
     end
   end
   def destroy
