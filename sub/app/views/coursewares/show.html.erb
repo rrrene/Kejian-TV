@@ -464,10 +464,29 @@ courseware_id: '<%=@courseware.id%>'
                   </button>
                </div>
                <span id="watch-like-unlike" class="yt-uix-button-group " data-button-toggle-group="optional">
-                   <button onclick=";return false;" title="顶一下" type="button" class="start yt-uix-tooltip-reverse  yt-uix-button yt-uix-button-default yt-uix-tooltip" id="watch-like" data-button-toggle="true" data-button-action="yt.www.watch.actions.like" role="button">
-                       <span class="yt-uix-button-icon-wrapper"><img class="yt-uix-button-icon yt-uix-button-icon-watch-like" src="<%= asset_path 'yt/wfw.gif' %>" alt="顶一下" /></span>
-                       <span class="yt-uix-button-content">顶 </span>
-                    </button>
+              
+                    <% if thank_courseware_ed?(@courseware) %>
+                      <span style="" class="unlike" id="weizuozhefasongganxie4">
+                        <a rel="nofollow" class="unlike button" href="#fans">✓ 我已表示喜欢!</a>
+                      </span>
+  <button role="button" data-button-action="yt.www.watch.actions.like" data-button-toggle="true" id="watch-like" class="start yt-uix-tooltip-reverse yt-uix-button yt-uix-button-default yt-uix-tooltip yt-uix-button-toggled" type="button" title="顶一下" onclick=";return false;" data-tooltip-text="顶一下"><span class="yt-uix-button-icon-wrapper"><img alt="顶一下" src="<%= asset_path 'yt/wfw.gif' %>" class="yt-uix-button-icon yt-uix-button-icon-watch-like"><span class="yt-valign-trick"></span></span><span class="yt-uix-button-content">顶 </span></button>
+  
+                    <button onclick=";return false;" title="顶一下" type="button" class="like button psvr_login_required start yt-uix-tooltip-reverse  yt-uix-button yt-uix-button-default yt-uix-tooltip" id="watch-like" data-button-toggle="true" data-button-action="yt.www.watch.actions.like" role="button">
+                        <span class="yt-uix-button-icon-wrapper"><img class="yt-uix-button-icon yt-uix-button-icon-watch-like" src="<%= asset_path 'yt/wfw.gif' %>" alt="顶一下" /></span>
+                        <span class="yt-uix-button-content">顶 </span>
+                     </button>
+                    <% else %>
+                      <span style="" class="like" id="weizuozhefasongganxie3">
+                        <a rel="nofollow" class="like button psvr_login_required" href="javascript:void(0)">喜欢这个课件?</a>
+                      </span>
+                      
+                      <button onclick=";return false;" title="顶一下" type="button" class="like button psvr_login_required start yt-uix-tooltip-reverse  yt-uix-button yt-uix-button-default yt-uix-tooltip" id="watch-like" data-button-toggle="true" data-button-action="yt.www.watch.actions.like" role="button">
+                         <span class="yt-uix-button-icon-wrapper"><img class="yt-uix-button-icon yt-uix-button-icon-watch-like" src="<%= asset_path 'yt/wfw.gif' %>" alt="顶一下" /></span>
+                         <span class="yt-uix-button-content">顶 </span>
+                      </button>
+                    <% end %>
+ 
+             
                     <button onclick=";return false;" title="踩一下" type="button" class="end yt-uix-tooltip-reverse  yt-uix-button yt-uix-button-default yt-uix-tooltip yt-uix-button-empty" id="watch-unlike" data-button-toggle="true" data-button-action="yt.www.watch.actions.unlike" role="button">
                         <span class="yt-uix-button-icon-wrapper"><img class="yt-uix-button-icon yt-uix-button-icon-watch-unlike" src="<%= asset_path 'yt/wfw.gif' %>" alt="踩一下"></span>
                     </button>
@@ -513,7 +532,7 @@ courseware_id: '<%=@courseware.id%>'
              
             
             <div id="watch-info">
-               <div data-expander-action="yt.www.watch.watch5.handleToggleDescription" class="yt-uix-expander  yt-uix-expander-collapsed" id="watch-description">
+               <div class="yt-uix-expander  yt-uix-expander-collapsed" id="watch-description">
                   <div id="watch-description-clip">
                      <p id="watch-uploader-info">
                         <a dir="ltr" rel="author" class="yt-uix-sessionlink yt-user-name author" href="/users/<%= @courseware.user_id %>"><%= User.get_name @courseware.user_id %></a> 发布于 <span class="watch-video-date" id="eow-date"><%= timeago @courseware.created_at  %></span>
@@ -602,6 +621,11 @@ courseware_id: '<%=@courseware.id%>'
                           </div>
                      <div class="comments-post-container clearfix">
                         <% if current_user %>
+                        <% if flash[:notice]%>
+                				<div class="notice" style="margin:8px">
+                					<p class="title"><%= flash[:notice] %></p>
+                				</div>
+                		<% end %>
                         <%= form_for @comment,:remote => true do |f| %>
                         <%= f.hidden_field :commentable_type %>
                         <%= f.hidden_field :commentable_id %>
@@ -623,7 +647,7 @@ courseware_id: '<%=@courseware.id%>'
                         </span>
                         </a>
                         <div class="comments-textarea-container"><img class="comments-textarea-tip" alt="" src="<%= asset_path 'yt/wfw.gif' %>" />
-                            <label class="comments-textarea-label link-gplus-lightbox" id="comment_placeholder">评论一下这个课件吧...</label>
+                        <label class="comments-textarea-label link-gplus-lightbox" id="comment_placeholder">说点什么...</label>
                            <%= f.text_area :body,id:"comment_placeholder_now",class:"yt-uix-form-textarea comments-textarea link-gplus-lightbox" %>
                         </div>
                         <p class="comments-remaining">
@@ -633,29 +657,13 @@ courseware_id: '<%=@courseware.id%>'
                            <button role="button" class="comments-post yt-uix-button yt-uix-button-default" type="submit"><span class="yt-uix-button-content">发表评论 </span></button>
                         </p>
                         <% end %>
+                        
                         <% else %>
                         <div class="comments-post-alert">
                                   现在<a id="comment_login" href="/login">登录</a>或<a href="/register">注册</a><span class="comments-post-form-rollover-text">即可发表评论！</span>
                                 </div>
                         <% end %>
                      </div>
-                     <script type="text/javascript" charset="utf-8">
-                        <% content_for :butt2 do %>
-                          var focus_comment = function(){
-                               $('#comment_placeholder').html('');
-                                $('.comments-textarea-container img').css('z-index','2');
-                                $('.comments-textarea-container textarea').height('78');
-                                $('.comments-post-buttons').show();
-                          };
-                          $('#comment_placeholder_now').focus(focus_comment);
-                          $('#comment_placeholder').live("click",focus_comment);
-                          $('#new_comment').bind('ajax:success',function(event, responseText, ajaxOptions){
-                            $('#the_comment-list').prepend(responseText);
-                          })
-                          $('.yt-uix-tooltip').tipsy({gravity: $.fn.tipsy.autoNS,fade: true,opacity: 0.8});
-                          $('#comment_login').click(function(){return KTV.login()});
-                        <% end %>
-                     </script>
                      <ul class="comment-list" id="the_comment-list">
                         <% if @comments.count > 0%>
                             <% @comments.each do |comment| %>
@@ -747,14 +755,17 @@ courseware_id: '<%=@courseware.id%>'
                                      </span></button>
                                      </span><span dir="ltr" class="title" title="Steve Jobs Full Interview  at 2010 D8 Conference w/ Mossberg">Steve Jobs Full Interview  at 2010 D8 Conference w/ Mossberg</span><span class="stat attribution">by <span class="yt-user-name " dir="ltr">Eninety2</span></span><span class="stat view-count">252,843 views</span></a>
                                   </li>
-                            
                                </ul>
                                <ul id="watch-more-related" class="video-list hid">
-                                  <li id="watch-more-related-loading">Loading more suggestions...</li>
+                                  <li id="watch-more-related-loading">正在载入更多建议...</li>
                                </ul>
                             </div>
                             <div class="watch-sidebar-foot">
-                               <p class="content"><button type="button" id="watch-more-related-button" onclick=";return false;" class=" yt-uix-button yt-uix-button-default" data-button-action="yt.www.watch.watch5.handleLoadMoreRelated" role="button"><span class="yt-uix-button-content">载入更多推荐课件  </span></button></p>
+                               <p class="content">
+                                   <button type="button" id="watch-more-related-button" onclick=";return false;" class=" yt-uix-button yt-uix-button-default" role="button">
+                                       <span class="yt-uix-button-content">载入更多推荐课件  </span>
+                                   </button>
+                                </p>
                             </div>
                          </div>
                          <span class="yt-vertical-rule-main"></span>
@@ -768,6 +779,41 @@ courseware_id: '<%=@courseware.id%>'
          <div id="baseDiv"></div>
       </div>
    </div>
+   
+      <script type="text/javascript" charset="utf-8">
+           <% content_for :butt2 do %>
+             var focus_comment = function(){
+                  $('#comment_placeholder').html('');
+                   $('.comments-textarea-container img').css('z-index','2');
+                   $('.comments-textarea-container textarea').height('78');
+                   $('.comments-post-buttons').show();
+             };
+             $('#comment_placeholder_now').focus(focus_comment);
+             $('#comment_placeholder_now').live("keyup change",function(){
+                var max = parseInt($('.comments-remaining-count').attr('data-max-count'));
+                $('.comments-remaining').show();
+                if($(this).val().length > max){
+                    $(this).val($(this).val().substr(0, max));
+                }
+                $('.comments-remaining-count').html(max-$(this).val().length);
+             });
+             $('#comment_placeholder').live("click",focus_comment);
+             $('#watch-description-toggle').live("click",function(){
+                $('#watch-description').toggleClass('yt-uix-expander-collapsed');
+             });
+             $('#new_comment').bind('ajax:success',function(event, responseText, ajaxOptions){
+               $('#the_comment-list').prepend(responseText);
+             });
+             $('.yt-uix-tooltip').tipsy({gravity: $.fn.tipsy.autoNS,fade: true,opacity: 0.8});
+             $('#comment_login').click(function(){return KTV.login()});
+             $('#watch-more-related-button').live("click",function(){
+                $(this).hide();
+                $('#watch-more-related').show();
+                $('#watch-related').append('<li>for ajax</li>');
+                return false;
+             });
+           <% end %>
+        </script>
 </div>
 
 

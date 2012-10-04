@@ -112,8 +112,10 @@ class CoursewaresController < ApplicationController
         cookies[:welcome_per_page] = @per_page
         
         @comment = @courseware.comments.build
-        @comments  = @courseware.comments.where(:body.ne => nil).paginate(:page => params[:page], :per_page => 1)# @per_page)
-        @hot_comments  = @courseware.comments.where(:body.ne => nil).limit(2)
+        @comments  = @courseware.comments.where(:body.ne => nil).desc('created_at')
+        @hot_comments  = @comments.limit(2)
+        @comments = @comments.paginate(:page => params[:page], :per_page => @per_page)
+
         @note = Note.new
         @note.courseware_id = @courseware.id
         @note.page = 0

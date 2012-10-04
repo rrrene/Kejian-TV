@@ -35,7 +35,7 @@ an params example:
       Sidekiq::Client.enqueue(HookerJob,"User",@comment.user_id,:comment_advertise,@comment.id)
     end
     if 'Courseware'==@comment.commentable_type
-      render 'coursewares/_cw_comment',locals:{comment:@comment},layout:false
+      render 'coursewares/_cw_comment',locals:{comment:@comment,data_score:0},layout:false
     end
   end
 end
