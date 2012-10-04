@@ -16,7 +16,6 @@
 //= require jquery.jdialog
 //= require jquery.qeditor
 //= require jquery.cookie
-//= require jquery.tipsy
 //= require jquery.placeholder
 //= require jcaches
 //= require asks

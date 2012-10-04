@@ -81,7 +81,8 @@ class ApplicationController < ActionController::Base
       end
     end
     @_G = JSON.parse(res.to_s)
-    if !user_signed_in? and @_G['uid']>0
+    @_G['uid'] = @_G['uid'].to_i
+    if !user_signed_in? and @_G['uid'] > 0
       # me off, dz on
       if u = User.authenticate_through_dz_auth!(request,@_G['uid'])
         sign_in(u)

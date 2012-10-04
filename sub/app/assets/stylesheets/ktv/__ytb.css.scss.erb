@@ -1,4 +1,9 @@
 .__ytb{
+  font-family: arial,​sans-serif;
+  span{
+    font-family: arial,​sans-serif;
+    font-weight: normal;
+  }
   .yt-rounded {
   	-moz-border-radius:2px;
   	-webkit-border-radius:2px;
@@ -472,7 +477,7 @@
   	font:12px arial,sans-serif
   }
   .exp-open-sans,.exp-open-sans button,.exp-open-sans input,.exp-open-sans textarea {
-  	font-family:'Open Sans',arial,sans-serif
+      font-family:arial,​sans-serif;
   }
   a {
   	color:#1c62b9;
@@ -551,7 +556,7 @@
   	cursor:pointer
   }
   code {
-  	font-family:courier,monospace;
+    font-family:arial,​sans-serif;
   	font-size:12px
   }
   dt {
@@ -1121,6 +1126,7 @@
   }
   #footer-main .pickers .yt-uix-button {
   	height:25px;
+  	font-size:11px;
   	vertical-align:baseline;
   	-moz-border-radius:3px;
   	-webkit-border-radius:3px;
@@ -1994,7 +2000,7 @@
   }
   .yt-suggest-table,.yt-suggest-table-horizontal {
   	font-size:13px;
-  	font-family:arial,sans-serif;
+    font-family:arial,​sans-serif;
   	cursor:default;
   	line-height:17px;
   	border:1px solid #999;
@@ -5931,7 +5937,10 @@
   	border-radius:3px
   }
   .context-icon,.context-icon-guide-default {
-  	background:no-repeat url(<%=asset_path('yt/imgbin/www-guide-vflNwfX3u.png')%>) 0 -1320px
+  	background: url(<%=asset_path('yt/imgbin/www-guide-vflNwfX3u.png')%>) no-repeat scroll 0 -1699px transparent
+  }
+  .context-icon-guide-feed {
+      background-position: 0 -833px;
   }
   .context-icon-empty,.context-icon-guide-empty {
   	width:0;
@@ -10748,7 +10757,7 @@
   }
   .share-embed-code {
   	display:block;
-  	font-family:monospace;
+    font-family:arial,​sans-serif;
   	width:98%;
   	height:54px
   }
@@ -11715,5 +11724,17 @@
   }
   .ytg-last {
   	margin-right: 0px
+  }
+  .video-extras-sparkbar-dislikes {
+      background: none repeat scroll 0 0 #CC0000;
+      float: right;
+      height: 4px;
+      margin-right: -1px;
+  }
+  .video-extras-sparkbar-likes {
+      background: none repeat scroll 0 0 #006600;
+      border-right: 1px solid #FFFFFF;
+      float: left;
+      height: 4px;
   }
 }

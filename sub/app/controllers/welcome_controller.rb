@@ -4,7 +4,7 @@ class WelcomeController < ApplicationController
     will_redirect = (!current_user and params[:psvr_force].blank?)
     if !will_redirect
       common_op!
-      @coursewares=Courseware.normal.any_of(
+      @coursewares=Courseware.normal_father.any_of(
         {:user_id.in => current_user.following_ids},
         {:uploader_id.in => current_user.following_ids},
         {:course_fid.in => current_user.followed_course_fids}

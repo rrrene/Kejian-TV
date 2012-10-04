@@ -103,7 +103,17 @@ class CoursewaresController < ApplicationController
     respond_to do |format|
       format.html{
         @seo[:title] = @courseware.title
+        
+        params[:page] ||= '1'
+        params[:per_page] ||= cookies[:welcome_per_page]
+        params[:per_page] ||= '15'
+        @page = params[:page].to_i
+        @per_page = params[:per_page].to_i
+        cookies[:welcome_per_page] = @per_page
+        
         @comment = @courseware.comments.build
+        @comments  = @courseware.comments.where(:body.ne => nil).paginate(:page => params[:page], :per_page => 1)# @per_page)
+        @hot_comments  = @courseware.comments.where(:body.ne => nil).limit(2)
         @note = Note.new
         @note.courseware_id = @courseware.id
         @note.page = 0
