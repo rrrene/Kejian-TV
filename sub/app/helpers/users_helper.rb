@@ -24,15 +24,20 @@ module UsersHelper
     end
     return url
   end
+  def name_beautify(name)
+    '_'==name[0] ? name[1..-1] : name
+  end
+  def dz_avatar_url(uid,email,size=:normal)
+    return "http://uc.#{Setting.ktv_domain}/avatar.php?uid=#{uid}&email=#{Digest::MD5.hexdigest(email)}&size=#{size}"
+  end
   def avatar_url(user,size=:normal)
     s=AvatarUploader::SIZES[size]
-    url = "http://uc.kejian#{ $psvr_really_development ? ".lvh.me" : "tv"}/avatar.php?uid=#{user.uid}&amp;size=small"  # eval("user.avatar.#{size}.url")
       
-    # if user.avatar.blank? or url.blank?
-    #   gravatar_id = Digest::MD5.hexdigest(user.email.downcase)
-    #   d = CGI::escape("http://#{Setting.ktv_subdomain}/defaults/avatar/#{size}.jpg")
-    #   url = "http://gravatar.com/avatar/#{gravatar_id}.png?r=PG&s=#{s}&d=#{d}"
-    # end
+    if user.avatar.blank? or url.blank?
+      gravatar_id = Digest::MD5.hexdigest(user.email.downcase)
+      d = CGI::escape("http://#{Setting.ktv_subdomain}/defaults/avatar/#{size}.jpg")
+      url = "http://gravatar.com/avatar/#{gravatar_id}.png?r=PG&s=#{s}&d=#{d}"
+    end
     return url
   end
 

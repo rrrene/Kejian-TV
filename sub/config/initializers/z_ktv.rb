@@ -47,6 +47,7 @@ module UCenter
     opts ||= {}
     agent = request.nil? ? Setting.special_agent : request.env['HTTP_USER_AGENT']
     return Ktv::JQuery.ajax({
+      :ibeike_special_treatment=>true,
       :url => "http://uc.ibeike.com/index.php",
       :type => 'POST',
       :accept => :xml,
