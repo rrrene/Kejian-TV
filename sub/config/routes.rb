@@ -23,6 +23,7 @@ Sub::Application.routes.draw do
     put '/account/confirmation' => 'account_confirmations#show'
     get "/register", :to => "account#new",as:'register'
     get "/login", :to => "account_sessions#new",as:'login'
+    get "/login_ibeike", :to => "account_sessions#new",as:'login_ibeike'
     get '/logout', :to => "account_sessions#destroy", as:'logout'
   end
   match "/account/auth/:provider/unbind", :to => "users#auth_unbind"

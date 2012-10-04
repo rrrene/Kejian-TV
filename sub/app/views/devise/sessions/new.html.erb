@@ -1,11 +1,21 @@
 <% content_for :title do %>登录<% end %>
+<% if @login_ibeike %>
+<%= image_tag 'ie/ktv_login_ibeike.png',:class => 'ktvregh2', :alt => '使用iBeike账号登录' %>
+<% else %>
 <%= image_tag 'ie/ktv_login.png',:class => 'ktvregh2', :alt => '登录' %>
+<% end %>
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html=>{:class => 'normal',:id=>'submit_btn_form'}) do |f| %>
   <input type="hidden" name="redirect_to" value="<%= request.path %>"/>
 
   <div class="field">
+<% if @login_ibeike %>
+    <%= f.label :email,'iBeike用户名' %>(<%= link_to "转到iBeike首页", 'http://www.ibeike.com' %>)(<%= link_to "忘记密码", 'http://city.ibeike.com/logging.php?action=login' %>)<br class="clear">
+    <input type="hidden" name="login_ibeike" value="1" />
+    <%= f.text_field :email,:class => 's462',:tabindex => 2 %>
+<% else %>
     <%= f.label :email,'E-mail' %>(<%= link_to "重发激活邮件", new_user_confirmation_path %>)(<%= link_to "忘记密码", new_password_path(resource_name) %>)<div class="field_error" id="regerror_email"><%= resource.errors_for_field(:email) %></div><br class="clear">
     <%= f.email_field :email,:class => 's462',:tabindex => 2 %>
+<% end %>
   </div>
   <div class="field">
     <%= f.label :password,'密码' %><div class="field_error" id="regerror_email"><%= resource.errors_for_field(:email) %></div><br class="clear">

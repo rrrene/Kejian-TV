@@ -72,15 +72,22 @@ class ApplicationController < ActionController::Base
     @bg_index = rand(Setting.fotos.count)
   end
   def xookie
-    dz_auth = cookies[Discuz.cookiepre_real+'auth']
-    dz_saltkey = cookies[Discuz.cookiepre_real+'saltkey']
-    if !user_signed_in? and dz_auth.present?
+    res = Discuz::Request.touch(request)
+    res.cookies.each do |key,value|
+      if(key.ends_with?('_lastact'))
+        cookies[key]="#{value.split('%09')[0]}%09#{CGI::escape(request.path)}%09"
+      else
+        cookies[key]=value
+      end
+    end
+    @_G = JSON.parse(res.to_s)
+    if !user_signed_in? and @_G['uid']>0
       # me off, dz on
-      if u = User.authenticate_through_dz_auth!(request,dz_auth,dz_saltkey)
+      if u = User.authenticate_through_dz_auth!(request,@_G['uid'])
         sign_in(u)
         return true
       end
-    elsif user_signed_in? and dz_auth.blank?
+    elsif user_signed_in? and @_G['uid']==0
       # me on, dz off
       flash[:extra_ucenter_operations] = UCenter::User.synlogin(request,{uid:current_user.uid,psvr_uc_simpleappid:Setting.uc_simpleappid})
     else
@@ -91,8 +98,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  before_filter :insert_UserOrGuest
-
   def rand_sid(len)
     @hash = ''
     @chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz'
@@ -101,17 +106,6 @@ class ApplicationController < ActionController::Base
       @hash += @chars[Random.rand(@max)]
     end
     return @hash
-  end
-  
-  def insert_UserOrGuest
-    res = Discuz::Request.touch(request)
-    res.cookies.each do |key,value|
-      if(key.ends_with?('_lastact'))
-        cookies[key]="#{value.split('%09')[0]}%09#{CGI::escape(request.path)}%09"
-      else
-        cookies[key]=value
-      end
-    end
   end
   
   def create_session_for_dz(sid)
