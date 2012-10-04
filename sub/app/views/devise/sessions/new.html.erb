@@ -9,7 +9,7 @@
 
   <div class="field">
 <% if @login_ibeike %>
-    <%= f.label :email,'iBeike用户名' %>(<%= link_to "转到iBeike首页", 'http://www.ibeike.com' %>)(<%= link_to "忘记密码", 'http://city.ibeike.com/logging.php?action=login' %>)<br class="clear">
+  <%= f.label :email,'iBeike用户名' %>(<%= link_to "转到iBeike首页", 'http://www.ibeike.com',:target=>'_blank' %>)(<%= link_to "忘记密码", 'http://city.ibeike.com/logging.php?action=login' ,:target=>'_blank' %>)<br class="clear">
     <input type="hidden" name="login_ibeike" value="1" />
     <%= f.text_field :email,:class => 's462',:tabindex => 2 %>
 <% else %>
