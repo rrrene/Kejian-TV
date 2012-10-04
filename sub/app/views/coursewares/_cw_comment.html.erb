@@ -4,7 +4,7 @@
          <div class="content">
             <div dir="ltr" class="comment-text">
 
-               <p><%=Sanitize.clean(comment.body.gsub(/\n/, '<br>'), Sanitize::Config::BASIC) %></p>
+               <p><%=Sanitize.clean(comment.body.gsub(/\n/, '<br />'), Sanitize::Config::BASIC).html_safe %></p>
             </div>
             <p class="metadata">
                <span class="author ">

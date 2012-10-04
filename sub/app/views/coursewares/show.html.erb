@@ -465,17 +465,8 @@ courseware_id: '<%=@courseware.id%>'
                </div>
                <span id="watch-like-unlike" class="yt-uix-button-group " data-button-toggle-group="optional">
               
-                    <% if thank_courseware_ed?(@courseware) %>
-                      <span style="" class="unlike" id="weizuozhefasongganxie4">
-                        <a rel="nofollow" class="unlike button" href="#fans">✓ 我已表示喜欢!</a>
-                      </span>
   <button role="button" data-button-action="yt.www.watch.actions.like" data-button-toggle="true" id="watch-like" class="start yt-uix-tooltip-reverse yt-uix-button yt-uix-button-default yt-uix-tooltip yt-uix-button-toggled" type="button" title="顶一下" onclick=";return false;" data-tooltip-text="顶一下"><span class="yt-uix-button-icon-wrapper"><img alt="顶一下" src="<%= asset_path 'yt/wfw.gif' %>" class="yt-uix-button-icon yt-uix-button-icon-watch-like"><span class="yt-valign-trick"></span></span><span class="yt-uix-button-content">顶 </span></button>
-  
-                    <button onclick=";return false;" title="顶一下" type="button" class="like button psvr_login_required start yt-uix-tooltip-reverse  yt-uix-button yt-uix-button-default yt-uix-tooltip" id="watch-like" data-button-toggle="true" data-button-action="yt.www.watch.actions.like" role="button">
-                        <span class="yt-uix-button-icon-wrapper"><img class="yt-uix-button-icon yt-uix-button-icon-watch-like" src="<%= asset_path 'yt/wfw.gif' %>" alt="顶一下" /></span>
-                        <span class="yt-uix-button-content">顶 </span>
                      </button>
-                    <% else %>
                       <span style="" class="like" id="weizuozhefasongganxie3">
                         <a rel="nofollow" class="like button psvr_login_required" href="javascript:void(0)">喜欢这个课件?</a>
                       </span>
@@ -484,7 +475,7 @@ courseware_id: '<%=@courseware.id%>'
                          <span class="yt-uix-button-icon-wrapper"><img class="yt-uix-button-icon yt-uix-button-icon-watch-like" src="<%= asset_path 'yt/wfw.gif' %>" alt="顶一下" /></span>
                          <span class="yt-uix-button-content">顶 </span>
                       </button>
-                    <% end %>
+
  
              
                     <button onclick=";return false;" title="踩一下" type="button" class="end yt-uix-tooltip-reverse  yt-uix-button yt-uix-button-default yt-uix-tooltip yt-uix-button-empty" id="watch-unlike" data-button-toggle="true" data-button-action="yt.www.watch.actions.unlike" role="button">
@@ -538,27 +529,27 @@ courseware_id: '<%=@courseware.id%>'
                         <a dir="ltr" rel="author" class="yt-uix-sessionlink yt-user-name author" href="/users/<%= @courseware.user_id %>"><%= User.get_name @courseware.user_id %></a> 发布于 <span class="watch-video-date" id="eow-date"><%= timeago @courseware.created_at  %></span>
                      </p>
                      <div id="watch-description-text">
-                        <p id="eow-description"><%= @courseware.desc %></p>
+                        <p id="eow-description">课件描述：<%=Sanitize.clean((@courseware.desc.nil? ? '无' : @courseware.desc).gsub(/\n/, '<br />'), Sanitize::Config::BASIC).html_safe %></p>
                      </div>
                      <div id="watch-description-extras">
                         <h4>
                            领域:
                         </h4>
                         <p id="eow-category"><a href="/music"><%= link_to "/topics/#{Topic.get_name @courseware.topic_id}", @courseware.topic %></a></p>
-                        <h4>License:</h4>
+                        <h4>许可:</h4>
                         <p id="eow-reuse">
-                           Standard YouTube License
+                           标准课件TV许可
                         </p>
                      </div>
                   </div>
                   <ul id="watch-description-extra-info">
                       <li>
                           <div class="video-extras-sparkbars">
-                          <div style="width: 71.9424460432%" class="video-extras-sparkbar-likes"></div>
-                          <div style="width: 28.0575539568%" class="video-extras-sparkbar-dislikes"></div>
+                          <div style="width: <%=@courseware.thanked_count*1.0/((@courseware.disliked_count+@courseware.thanked_count)*1.0)*100%>%" class="video-extras-sparkbar-likes"></div>
+                          <div style="width: <%=@courseware.disliked_count*1.0/((@courseware.disliked_count+@courseware.thanked_count)*1.0)*100%>%" class="video-extras-sparkbar-dislikes"></div>
                         </div>
                         <span class="video-extras-likes-dislikes">
-                          <span class="likes">100</span> 人顶, <span class="dislikes">39</span> 人踩
+                          <span class="likes"><%= @courseware.thanked_count %></span> 人顶, <span class="dislikes"><%= @courseware.disliked_count %></span> 人踩
                         </span>
                     </li>
                   </ul>
