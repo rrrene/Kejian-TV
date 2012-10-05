@@ -58,7 +58,7 @@ class ApplicationController < ActionController::Base
   before_filter :xookie,:unless=>'devise_controller?'
   before_filter :dz_security
   
-  def set_vars
+  def set_vars 
     @seo = Hash.new('')
     agent = request.env['HTTP_USER_AGENT'].downcase
     @is_bot = (agent.match(/\(.*https?:\/\/.*\)/)!=nil)
