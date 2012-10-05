@@ -4,13 +4,17 @@ class WelcomeController < ApplicationController
     will_redirect = (!current_user and params[:psvr_force].blank?)
     if !will_redirect
       common_op!
-      @coursewares=Courseware.normal_father.any_of(
-        {:user_id.in => current_user.following_ids},
-        {:uploader_id.in => current_user.following_ids},
-        {:course_fid.in => current_user.followed_course_fids}
-      )
-      .excludes(:uploader_id => current_user.id).desc('created_at')
-      .paginate(:page => params[:page], :per_page => @per_page)
+      if current_user
+        @coursewares=Courseware.normal_father.any_of(
+          {:user_id.in => current_user.following_ids},
+          {:uploader_id.in => current_user.following_ids},
+          {:course_fid.in => current_user.followed_course_fids}
+        )
+        .excludes(:uploader_id => current_user.id).desc('created_at')
+        .paginate(:page => params[:page], :per_page => @per_page)
+      else 
+        @coursewares = []
+      end
       will_redirect ||= (0==@coursewares.count and params[:psvr_force].blank?)
     end
     if will_redirect

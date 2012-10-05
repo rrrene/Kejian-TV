@@ -1,16 +1,5 @@
 <%= render 'content_above' %>
-<%= render :partial => 'dz_navi',:locals => {margintop:15} %>
 <div id="mainbar">
-
-<div class="subheader">
-    <div id="tabs">
-    <a class="<%= 'youarehere' if '/'==request.path %>" href="/?psvr_force=1">我的首页</a>
-    <a class="<%= 'youarehere' if '/welcome/latest'==request.path %>" href="/welcome/latest">全部课件</a>
-    <a class="" href="/simple/forum.php?mod=guide&view=my">我的课件</a>
-    <a class="" href="/simple/forum.php?mod=guide&view=new">最新课件</a>
-    </div>
-
-</div>
 <% content_for :butt2 do %>
   jQuery('#supernav li').click(function(){
     window.location.href = jQuery('a',this).attr('href');
@@ -214,16 +203,16 @@
 
 <% end %>
 </div>
-<% if @coursewares.total_pages > 1 %>
+<% if @coursewares.respond_to?(:total_pages) && @coursewares.total_pages > 1 %>
 <div class="page-sizer fr">
-    <a class="page-numbers<%= ' current' if 9==@per_page %>" title="每页显示9个课件" href="<%= request.path %>?page=1&per_page=9">9</a>
-    <a class="page-numbers<%= ' current' if 15==@per_page %>" title="每页显示15个课件" href="<%= request.path %>?page=1&per_page=15">15</a>
-    <a class="page-numbers<%= ' current' if 30==@per_page %>" title="每页显示30个课件" href="<%= request.path %>?page=1&per_page=30">30</a>
-    <a class="page-numbers<%= ' current' if 50==@per_page %>" title="每页显示50个课件" href="<%= request.path %>?page=1&per_page=50">50</a>
+  <a class="page-numbers<%= ' current' if 9==@per_page %>" title="每页显示9个课件" href="<%=alter_request_path request.fullpath,:per_page=>'9',:page=>'1'%>">9</a>
+    <a class="page-numbers<%= ' current' if 15==@per_page %>" title="每页显示15个课件" href="<%=alter_request_path request.fullpath,:per_page=>'15',:page=>'1'%>">15</a>
+    <a class="page-numbers<%= ' current' if 30==@per_page %>" title="每页显示30个课件" href="<%=alter_request_path request.fullpath,:per_page=>'30',:page=>'1'%>">30</a>
+    <a class="page-numbers<%= ' current' if 50==@per_page %>" title="每页显示50个课件" href="<%=alter_request_path request.fullpath,:per_page=>'50',:page=>'1'%>">50</a>
     <span class="page-numbers desc">课件/页</span>
 </div>
 
-<%= will_paginate @coursewares, :renderer=> SKPLinkRenderer,:inner_window=>4 %>
+<%= will_paginate @coursewares, :renderer=> SKPLinkRenderer,:inner_window=>1 %>
 <% end %>
 
 </div>
