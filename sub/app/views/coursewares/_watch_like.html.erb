@@ -1,0 +1,35 @@
+<div class="watch-actions-panel" id="watch-actions-ajax" style="">
+   <div id="watch-action-confirmation">
+      <div class="full-width" id="watch-action-response-message">
+         <div id="watch-action-like-plus-one-tooltip">
+            <strong>谢谢</strong>！与您的朋友分享该视频吧！
+         </div>
+         <div id="watch-like-share">
+            <ul id="watch-like-share-services">
+               <li>    </li>
+               <li>
+                  <button class="yt-uix-tooltip share-service-button" title="分享至Facebook" data-service-name="FACEBOOK" onclick="yt.tracking.shareVideo(&quot;FACEBOOK&quot;, &quot;LawWW8fDCrU&quot;,&quot;zh_CN&quot;, &quot;sharepanel&quot;);yt.window.popup(&quot;http:\/\/www.facebook.com\/sharer.php?u=http%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DLawWW8fDCrU%26feature%3Dshare\u0026t=%E5%B0%8F%E4%B9%85%E4%BF%9D2%E6%89%93%E5%B8%AD%E9%80%A3%E7%99%BA%EF%BC%81%E9%B7%B9%E3%83%95%E3%82%A1%E3%83%B3%E3%80%81%E5%8D%9A%E5%A4%9A%E3%81%A3%E5%AD%90%E3%81%B8%E5%A4%A7%E3%81%8D%E3%81%AA%E3%83%97%E3%83%AC%E3%82%BC%E3%83%B3%E3%83%88+2012.09.30+H-F&quot;, {'height': 440,'width': 620,'scrollbars': true});return false;" data-tooltip-text="分享至Facebook">
+                  <img class="share-service-icon share-service-icon-facebook" alt="Facebook" src="<%= asset_path 'yt/wfw.gif' %>">
+                  <span>Facebook</span>
+                  </button>
+               </li>
+               <li>    </li>
+               <li>
+                  <button class="yt-uix-tooltip share-service-button" title="分享至Twitter" data-service-name="TWITTER" onclick="yt.tracking.shareVideo(&quot;TWITTER&quot;, &quot;LawWW8fDCrU&quot;,&quot;zh_CN&quot;, &quot;sharepanel&quot;);yt.window.popup(&quot;http:\/\/twitter.com\/share?url=http%3A%2F%2Fyoutu.be%2FLawWW8fDCrU\u0026text=%E5%B0%8F%E4%B9%85%E4%BF%9D2%E6%89%93%E5%B8%AD%E9%80%A3%E7%99%BA%EF%BC%81%E9%B7%B9%E3%83%95%E3%82%A1%E3%83%B3%E3%80%81%E5%8D%9A%E5%A4%9A%E3%81%A3%E5%AD%90%E3%81%B8%E5%A4%A7%E3%81%8D%E3%81%AA%E3%83%97%E3%83%AC%E3%82%BC%E3%83%B3%E3%83%88+2012.09.30+H-F%3A\u0026via=youtube&quot;, {'height': 650,'width': 1024,'scrollbars': true});return false;" data-tooltip-text="分享至Twitter">
+                  <img class="share-service-icon share-service-icon-twitter" alt="Twitter" src="<%= asset_path 'yt/wfw.gif' %>">
+                  <span>Twitter</span>
+                  </button>
+               </li>
+               <li>    </li>
+               <li>
+                  <button class="yt-uix-tooltip share-service-button" title="分享至Google+" data-service-name="GOOGLEPLUS" onclick="yt.tracking.shareVideo(&quot;GOOGLEPLUS&quot;, &quot;LawWW8fDCrU&quot;,&quot;zh_CN&quot;, &quot;sharepanel&quot;);yt.window.popup(&quot;https:\/\/plus.google.com\/u\/0\/share?url=http%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DLawWW8fDCrU%26feature%3Dshare\u0026source=yt&quot;, {'height': 620,'width': 620,'scrollbars': true});return false;" data-tooltip-text="分享至Google+">
+                  <img class="share-service-icon share-service-icon-googleplus" alt="Google+" src="<%= asset_path 'yt/wfw.gif' %>">
+                  <span>Google+</span>
+                  </button>
+               </li>
+            </ul>
+            <input type="text" onclick="this.select()" value="http://<%= Setting.ktv_sub.nil? ? 'www' : Setting.ktv_sub %>.kejian<%= $psvr_really_development ? '.lvh.me' : '.tv'%>/coursewares/<%= cw_id %>" class="share-panel-url">
+         </div>
+      </div>
+   </div>
+</div>

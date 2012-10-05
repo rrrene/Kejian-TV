@@ -492,34 +492,31 @@ courseware_id: '<%=@courseware.id%>'
             </div>
             
             <div class="hid" id="watch-actions-area-container">
-               <div class="yt-rounded" id="watch-actions-area">
-                  <div class="watch-actions-panel hid" id="watch-actions-loading">
-                     Loading...
-                  </div>
-                  <div class="watch-actions-panel hid" id="watch-actions-error">
-                     <div class="yt-alert yt-alert-naked yt-alert-error  ">
-                        <div class="yt-alert-icon">
-                           <img alt="Alert icon" class="icon master-sprite" src="<%= asset_path 'yt/wfw.gif' %>" />
-                        </div>
-                        <div id="watch-error-string" role="alert" class="yt-alert-content"></div>
-                     </div>
-                  </div>
-                  <div class="watch-actions-panel hid" id="watch-actions-addto"></div>
-                  <div class="watch-actions-panel hid" id="watch-actions-share">
-                     <div id="watch-actions-share-loading">
-                        Loading...
-                     </div>
-                     <div class="hid" id="watch-actions-share-panel"></div>
-                  </div>
-                  <div class="watch-actions-panel hid" id="watch-actions-ajax"></div>
-                  <div class="close">
-                     <img onclick="actions.hide();" class="close-button" src="<%= asset_path 'yt/wfw.gif' %>" />
-                  </div>
-               </div>
+                <div class="yt-rounded" id="watch-actions-area">
+                   <div class="watch-actions-panel hid" id="watch-actions-loading" style="display: none;">
+                      正在加载...
+                   </div>
+                   <div class="watch-actions-panel hid" id="watch-actions-error" style="display: none;">
+                      <div class="yt-alert yt-alert-naked yt-alert-error  ">
+                         <div class="yt-alert-icon">
+                            <img alt="提醒图标" class="icon master-sprite" src="<%= asset_path 'yt/wfw.gif' %>" />
+                         </div>
+                         <div id="watch-error-string" role="alert" class="yt-alert-content"></div>
+                      </div>
+                   </div>
+                   <div class="watch-actions-panel hid" id="watch-actions-addto" style="display: none;"></div>
+                   <div class="watch-actions-panel hid" id="watch-actions-share" style="display: none;">
+                      <div id="watch-actions-share-loading">
+                         正在加载...
+                      </div>
+                      <div class="hid" id="watch-actions-share-panel"></div>
+                   </div>
+                   <div class="watch-actions-panel hid" id="watch-actions-ajax" style="display: none;"></div>
+                   <div id='closehide' class="close">
+                      <img class="close-button" src="<%= asset_path 'yt/wfw.gif' %>" />
+                   </div>
+                </div>
             </div>
-            
-             
-            
             <div id="watch-info">
                <div class="yt-uix-expander  yt-uix-expander-collapsed" id="watch-description">
                   <div id="watch-description-clip">
@@ -544,13 +541,20 @@ courseware_id: '<%=@courseware.id%>'
                   <ul id="watch-description-extra-info">
                       <li>
                           <div class="video-extras-sparkbars">
-                          <div style="width: <%=@courseware.thanked_count*1.0/((@courseware.disliked_count+@courseware.thanked_count)*1.0)*100%>%" class="video-extras-sparkbar-likes"></div>   
-                          <div style="width: <%=@courseware.disliked_count*1.0/((@courseware.disliked_count+@courseware.thanked_count)*1.0)*100%>%" class="video-extras-sparkbar-dislikes"></div>
-                        </div>
+                           <div style="width: <%=@courseware.thanked_count*1.0/((@courseware.disliked_count+@courseware.thanked_count)*1.0)*100%>%" class="video-extras-sparkbar-likes"></div>   
+                           <div style="width: <%=@courseware.disliked_count*1.0/((@courseware.disliked_count+@courseware.thanked_count)*1.0)*100%>%" class="video-extras-sparkbar-dislikes"></div>
+                          </div>
                         <span class="video-extras-likes-dislikes">
                           <span class="likes"><%= @courseware.thanked_count %></span> 人顶, <span class="dislikes"><%= @courseware.disliked_count %></span> 人踩
                         </span>
                     </li>
+                  </ul>
+                 <% else %>
+                  <ul id="watch-description-extra-info">
+                       <li>
+                           <div class="video-extras-sparkbars"></div>
+                         <span class="video-extras-likes-dislikes"></span>
+                     </li>
                   </ul>
                  <% end %>
                   <div class="yt-horizontal-rule "><span class="first"></span><span class="second"></span><span class="third"></span></div>
@@ -568,7 +572,6 @@ courseware_id: '<%=@courseware.id%>'
                    </div>
                </div>
             </div>
-            
             <div id="watch-discussion">
                <div class="" data-type="highlights" id="comments-view">
                   <div class="comment-share-area yt-rounded hid" id="comment-share-area">
@@ -599,7 +602,7 @@ courseware_id: '<%=@courseware.id%>'
                      </ul>
                   </div>
                   <div class="comments-section ">
-                      <div id="comments-header-container">
+                     <div id="comments-header-container">
                             <div id="comments-header">
                                   <a href="/all_comments?v=EDIhtPftU50" class="comments-section-see-all">
                       查看所有评论
@@ -609,7 +612,7 @@ courseware_id: '<%=@courseware.id%>'
                                   <span class="comments-section-stat">(<%= @courseware.comments_count %>)</span>
                                 </h4>
                             </div>
-                          </div>
+                      </div>
                      <div class="comments-post-container clearfix">
                         <% if current_user %>
                         <% if flash[:notice]%>
@@ -652,7 +655,7 @@ courseware_id: '<%=@courseware.id%>'
                         <% else %>
                         <div class="comments-post-alert">
                                   现在<a id="comment_login" href="/login">登录</a>或<a href="/register">注册</a><span class="comments-post-form-rollover-text">即可发表评论！</span>
-                                </div>
+                        </div>
                         <% end %>
                      </div>
                      <ul class="comment-list" id="the_comment-list">
@@ -674,7 +677,7 @@ courseware_id: '<%=@courseware.id%>'
                           </div>
                           <%= will_paginate @comments, :renderer=> YTBLinkRenderer,:inner_window=>4,:previous_label => "« 上一页",:next_label => "下一页 »"%>
                           <% end %>
-                   </div>
+                  </div>
                   <ul>
                      <li id="parent-comment-loading" class="hid"> Loading comment...</li>
                   </ul>
@@ -682,88 +685,87 @@ courseware_id: '<%=@courseware.id%>'
                </div>
             </div>
          </div>
-                      <div id="watch-sidebar">
-                         <div id="watch-context-container" class="watch-sidebar-section">
-                            <div class="watch-sidebar-body">
-                               <div id="watch-context">
-                                  <h4 class="context-head">
-                                     <a class="context-link" href="/recommended?feature=context-vrec">
-                                     <img class="context-icon context-icon-guide-feed" src="<%= asset_path 'yt/wfw.gif' %>" alt="" />
-                                     <strong class="context-title" dir="ltr">来自 课件TV 的课件</strong>
-                                     </a>
-                                     <img src="<%= asset_path 'yt/wfw.gif' %>" class="context-seeall-icon" alt="" />
-                                  </h4>
-                                  <div class="yt-horizontal-rule "><span class="first"></span><span class="second"></span><span class="third"></span></div>
-                                  <div id="watch-context-body" class="context-body">
-                                     <ul id="watch-context-item-list" class="video-list">
-                                        <li class="video-list-item">
-                                           <a href="/watch?v=vN2vxYnAZf0&amp;feature=context-vrec" class="related-video  yt-uix-sessionlink" data-sessionlink="ei=CLLr09jvi7ECFY6lpAodDg3eaQ%3D%3D&amp;feature=context-vrec&amp;context=G2ffce6fRVAAAAAAAABw"><span class="ux-thumb-wrap contains-addto "><span class="video-thumb ux-thumb yt-thumb-default-120 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img data-group-key="thumb-group-0" src="//i3.ytimg.com/vi/vN2vxYnAZf0/default.jpg" alt="Steve Jobs MacWorld - 1999.mov" data-thumb="//i3.ytimg.com/vi/vN2vxYnAZf0/default.jpg" width="120" /><span class="vertical-align"></span></span></span></span><span class="video-time">1:39:48</span>
-                                           <button data-tooltip-text="Watch Later" onclick=";return false;" title="Watch Later" type="button" class="addto-button video-actions addto-watch-later-button yt-uix-button yt-uix-button-default yt-uix-button-short yt-uix-tooltip" data-video-ids="vN2vxYnAZf0" role="button"><span class="yt-uix-button-content">  <span class="addto-label">
-                                           Watch Later
-                                           </span>
-                                           <span class="addto-label-error">
-                                           Error
-                                           </span>
-                                           <img src="<%= asset_path 'yt/wfw.gif' %>" />
-                                           </span></button>
-                                           </span><span dir="ltr" class="title" title="Steve Jobs MacWorld - 1999.mov">Steve Jobs MacWorld - 1999.mov</span><span class="stat attribution">by <span class="yt-user-name " dir="ltr">dogtownmac</span></span><span class="stat view-count">7,679 views</span></a>
-                                        </li>
-                                     </ul>
-                                  </div>
-                               </div>
-                            </div>
-                         </div>
-                         <div class="watch-sidebar-section">
-                            <h4 class="watch-sidebar-head">推荐</h4>
-                            <div class="yt-horizontal-rule "><span class="first"></span><span class="second"></span><span class="third"></span></div>
-                            <div id="watch-related-container" class="watch-sidebar-body">
-                               <ul id="watch-related" class="video-list">
-                                  <li class="video-list-item watch-pyv-vid">
-                                     <a class="video-list-item-link" href="http://googleads.g.doubleclick.net/aclk?sa=l&amp;ai=BDldRn236T5y_ForZkQX3hbXbDK_PtJgCv9LPnEfHyoSmBODUAxABGAEg4_uTAzgAUOPNl6H5_____wFgiQOgAa-2xuwDsgEPd3d3LnlvdXR1YmUuY29tyAEB2gEoaHR0cDovL3d3dy55b3V0dWJlLmNvbS92aWRlby91dnN1QVpGZW04OOABA4ACAcACAagDAbADi9yTE-gDA-gD3wXoA5EG9QMAAAADoAYayAbn44r0Rg&amp;num=1&amp;sig=AOD64_2L9KYsElJwEI2Lsi8YVZAI2OSEtg&amp;ctype=21&amp;video_id=WECufItDCec&amp;client=ca-pub-6219811747049371&amp;adurl=http://www.youtube.com/user/sixpackshortcuts%3Fv%3DWECufItDCec">
-                                     <span class="ux-thumb-wrap">
-                                     <span class="video-thumb ux-thumb yt-thumb-default-120 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img src="//i1.ytimg.com/vi/WECufItDCec/2.jpg" alt="Thumbnail" width="120" /><span class="vertical-align"></span></span></span></span>
-                                     <span class="video-time">9:48</span>
-                                     </span>
-                                     <span class="title" title="Insane Home Chest Workout">Insane Home Chest Workout</span>
-                                     <span class="stat">by sixpackshortcuts</span>
-                                     <span class="stat">
-                                     1,071,210 views
-                                     </span>
-                                     <span class="stat alt">Ad</span>
-                                     </a>
-                                  </li>
-                                  <div id="ppv-container" class=""></div>
-                                  <li class="video-list-item">    <a href="/watch?v=uvsuAZFem88&amp;feature=list_other&amp;playnext=1&amp;list=SP17677124127540BC" class="related-playlist  yt-uix-sessionlink" data-sessionlink="ved=CAIQzhooAA%3D%3D&amp;ei=CLLr09jvi7ECFY6lpAodDg3eaQ%3D%3D&amp;feature=list_other"><span class="ux-thumb-wrap"><span class="video-thumb ux-thumb yt-thumb-default-120 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img data-group-key="thumb-group-0" src="//i2.ytimg.com/vi/uvsuAZFem88/default.jpg" alt="Steve Jobs' Best Video Moments on Stage" data-thumb="//i2.ytimg.com/vi/uvsuAZFem88/default.jpg" width="120" /><span class="vertical-align"></span></span></span></span><span class="video-count"><strong>3</strong> videos</span></span><span class="thumb-row"><span class="video-thumb ux-thumb yt-thumb-default-40 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img data-group-key="thumb-group-0" src="//i2.ytimg.com/vi/uvsuAZFem88/default.jpg" alt="Thumbnail" data-thumb="//i2.ytimg.com/vi/uvsuAZFem88/default.jpg" width="40" /><span class="vertical-align"></span></span></span></span><span class="video-thumb ux-thumb yt-thumb-default-40 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img data-group-key="thumb-group-0" src="//i4.ytimg.com/vi/7ABFW6rv15g/default.jpg" alt="Thumbnail" data-thumb="//i4.ytimg.com/vi/7ABFW6rv15g/default.jpg" width="40" /><span class="vertical-align"></span></span></span></span><span class="video-thumb ux-thumb yt-thumb-default-40 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img data-group-key="thumb-group-0" src="//i4.ytimg.com/vi/sfVk2qFlePg/default.jpg" alt="Thumbnail" data-thumb="//i4.ytimg.com/vi/sfVk2qFlePg/default.jpg" width="40" /><span class="vertical-align"></span></span></span></span></span><span dir="ltr" class="title" title="Steve Jobs' Best Video Moments on Stage">Steve Jobs' Best Video Moments on Stage</span></a>
-                                  </li>
-                                  <li class="video-list-item"><a href="/watch?v=lz8aU1EXkBA&amp;feature=related" class="related-video  yt-uix-sessionlink" data-sessionlink="ved=CAMQzRooAQ%3D%3D&amp;ei=CLLr09jvi7ECFY6lpAodDg3eaQ%3D%3D&amp;feature=related"><span class="ux-thumb-wrap contains-addto "><span class="video-thumb ux-thumb yt-thumb-default-120 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img data-group-key="thumb-group-0" src="//i1.ytimg.com/vi/lz8aU1EXkBA/default.jpg" alt="Steve Jobs Full Interview  at 2010 D8 Conference w/ Mossberg" data-thumb="//i1.ytimg.com/vi/lz8aU1EXkBA/default.jpg" width="120" /><span class="vertical-align"></span></span></span></span><span class="video-time">1:35:54</span>
-                                     <button onclick=";return false;" title="Watch Later" type="button" class="addto-button video-actions addto-watch-later-button yt-uix-button yt-uix-button-default yt-uix-button-short yt-uix-tooltip" data-video-ids="lz8aU1EXkBA" role="button"><span class="yt-uix-button-content">  <span class="addto-label">
-                                     Watch Later
-                                     </span>
-                                     <span class="addto-label-error">
-                                     Error
-                                     </span>
-                                     <img src="<%= asset_path 'yt/wfw.gif' %>" />
-                                     </span></button>
-                                     </span><span dir="ltr" class="title" title="Steve Jobs Full Interview  at 2010 D8 Conference w/ Mossberg">Steve Jobs Full Interview  at 2010 D8 Conference w/ Mossberg</span><span class="stat attribution">by <span class="yt-user-name " dir="ltr">Eninety2</span></span><span class="stat view-count">252,843 views</span></a>
-                                  </li>
-                               </ul>
-                               <ul id="watch-more-related" class="video-list hid">
-                                  <li id="watch-more-related-loading">正在载入更多建议...</li>
-                               </ul>
-                            </div>
-                            <div class="watch-sidebar-foot">
-                               <p class="content">
-                                   <button type="button" id="watch-more-related-button" onclick=";return false;" class=" yt-uix-button yt-uix-button-default" role="button">
-                                       <span class="yt-uix-button-content">载入更多推荐课件  </span>
-                                   </button>
-                                </p>
-                            </div>
-                         </div>
-                         <span class="yt-vertical-rule-main"></span>
-                         <span class="yt-vertical-rule-corner-top"></span>
-                         <span class="yt-vertical-rule-corner-bottom"></span>
+         <div id="watch-sidebar">
+             <div id="watch-context-container" class="watch-sidebar-section">
+                <div class="watch-sidebar-body">
+                   <div id="watch-context">
+                      <h4 class="context-head">
+                         <a class="context-link" href="/recommended?feature=context-vrec">
+                         <img class="context-icon context-icon-guide-feed" src="<%= asset_path 'yt/wfw.gif' %>" alt="" />
+                         <strong class="context-title" dir="ltr">来自 课件TV 的课件</strong>
+                         </a>
+                         <img src="<%= asset_path 'yt/wfw.gif' %>" class="context-seeall-icon" alt="" />
+                      </h4>
+                      <div class="yt-horizontal-rule "><span class="first"></span><span class="second"></span><span class="third"></span></div>
+                      <div id="watch-context-body" class="context-body">
+                         <ul id="watch-context-item-list" class="video-list">
+                            <li class="video-list-item">
+                               <a href="/watch?v=vN2vxYnAZf0&amp;feature=context-vrec" class="related-video  yt-uix-sessionlink" data-sessionlink="ei=CLLr09jvi7ECFY6lpAodDg3eaQ%3D%3D&amp;feature=context-vrec&amp;context=G2ffce6fRVAAAAAAAABw"><span class="ux-thumb-wrap contains-addto "><span class="video-thumb ux-thumb yt-thumb-default-120 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img data-group-key="thumb-group-0" src="//i3.ytimg.com/vi/vN2vxYnAZf0/default.jpg" alt="Steve Jobs MacWorld - 1999.mov" data-thumb="//i3.ytimg.com/vi/vN2vxYnAZf0/default.jpg" width="120" /><span class="vertical-align"></span></span></span></span><span class="video-time">1:39:48</span>
+                               <button data-tooltip-text="Watch Later" onclick=";return false;" title="Watch Later" type="button" class="addto-button video-actions addto-watch-later-button yt-uix-button yt-uix-button-default yt-uix-button-short yt-uix-tooltip" data-video-ids="vN2vxYnAZf0" role="button"><span class="yt-uix-button-content">  <span class="addto-label">
+                               Watch Later
+                               </span>
+                               <span class="addto-label-error">
+                               Error
+                               </span>
+                               <img src="<%= asset_path 'yt/wfw.gif' %>" />
+                               </span></button>
+                               </span><span dir="ltr" class="title" title="Steve Jobs MacWorld - 1999.mov">Steve Jobs MacWorld - 1999.mov</span><span class="stat attribution">by <span class="yt-user-name " dir="ltr">dogtownmac</span></span><span class="stat view-count">7,679 views</span></a>
+                            </li>
+                         </ul>
                       </div>
-     
+                   </div>
+                </div>
+             </div>
+             <div class="watch-sidebar-section">
+                <h4 class="watch-sidebar-head">推荐</h4>
+                <div class="yt-horizontal-rule "><span class="first"></span><span class="second"></span><span class="third"></span></div>
+                <div id="watch-related-container" class="watch-sidebar-body">
+                   <ul id="watch-related" class="video-list">
+                      <li class="video-list-item watch-pyv-vid">
+                         <a class="video-list-item-link" href="http://googleads.g.doubleclick.net/aclk?sa=l&amp;ai=BDldRn236T5y_ForZkQX3hbXbDK_PtJgCv9LPnEfHyoSmBODUAxABGAEg4_uTAzgAUOPNl6H5_____wFgiQOgAa-2xuwDsgEPd3d3LnlvdXR1YmUuY29tyAEB2gEoaHR0cDovL3d3dy55b3V0dWJlLmNvbS92aWRlby91dnN1QVpGZW04OOABA4ACAcACAagDAbADi9yTE-gDA-gD3wXoA5EG9QMAAAADoAYayAbn44r0Rg&amp;num=1&amp;sig=AOD64_2L9KYsElJwEI2Lsi8YVZAI2OSEtg&amp;ctype=21&amp;video_id=WECufItDCec&amp;client=ca-pub-6219811747049371&amp;adurl=http://www.youtube.com/user/sixpackshortcuts%3Fv%3DWECufItDCec">
+                         <span class="ux-thumb-wrap">
+                         <span class="video-thumb ux-thumb yt-thumb-default-120 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img src="//i1.ytimg.com/vi/WECufItDCec/2.jpg" alt="Thumbnail" width="120" /><span class="vertical-align"></span></span></span></span>
+                         <span class="video-time">9:48</span>
+                         </span>
+                         <span class="title" title="Insane Home Chest Workout">Insane Home Chest Workout</span>
+                         <span class="stat">by sixpackshortcuts</span>
+                         <span class="stat">
+                         1,071,210 views
+                         </span>
+                         <span class="stat alt">Ad</span>
+                         </a>
+                      </li>
+                      <div id="ppv-container" class=""></div>
+                      <li class="video-list-item">    <a href="/watch?v=uvsuAZFem88&amp;feature=list_other&amp;playnext=1&amp;list=SP17677124127540BC" class="related-playlist  yt-uix-sessionlink" data-sessionlink="ved=CAIQzhooAA%3D%3D&amp;ei=CLLr09jvi7ECFY6lpAodDg3eaQ%3D%3D&amp;feature=list_other"><span class="ux-thumb-wrap"><span class="video-thumb ux-thumb yt-thumb-default-120 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img data-group-key="thumb-group-0" src="//i2.ytimg.com/vi/uvsuAZFem88/default.jpg" alt="Steve Jobs' Best Video Moments on Stage" data-thumb="//i2.ytimg.com/vi/uvsuAZFem88/default.jpg" width="120" /><span class="vertical-align"></span></span></span></span><span class="video-count"><strong>3</strong> videos</span></span><span class="thumb-row"><span class="video-thumb ux-thumb yt-thumb-default-40 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img data-group-key="thumb-group-0" src="//i2.ytimg.com/vi/uvsuAZFem88/default.jpg" alt="Thumbnail" data-thumb="//i2.ytimg.com/vi/uvsuAZFem88/default.jpg" width="40" /><span class="vertical-align"></span></span></span></span><span class="video-thumb ux-thumb yt-thumb-default-40 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img data-group-key="thumb-group-0" src="//i4.ytimg.com/vi/7ABFW6rv15g/default.jpg" alt="Thumbnail" data-thumb="//i4.ytimg.com/vi/7ABFW6rv15g/default.jpg" width="40" /><span class="vertical-align"></span></span></span></span><span class="video-thumb ux-thumb yt-thumb-default-40 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img data-group-key="thumb-group-0" src="//i4.ytimg.com/vi/sfVk2qFlePg/default.jpg" alt="Thumbnail" data-thumb="//i4.ytimg.com/vi/sfVk2qFlePg/default.jpg" width="40" /><span class="vertical-align"></span></span></span></span></span><span dir="ltr" class="title" title="Steve Jobs' Best Video Moments on Stage">Steve Jobs' Best Video Moments on Stage</span></a>
+                      </li>
+                      <li class="video-list-item"><a href="/watch?v=lz8aU1EXkBA&amp;feature=related" class="related-video  yt-uix-sessionlink" data-sessionlink="ved=CAMQzRooAQ%3D%3D&amp;ei=CLLr09jvi7ECFY6lpAodDg3eaQ%3D%3D&amp;feature=related"><span class="ux-thumb-wrap contains-addto "><span class="video-thumb ux-thumb yt-thumb-default-120 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img data-group-key="thumb-group-0" src="//i1.ytimg.com/vi/lz8aU1EXkBA/default.jpg" alt="Steve Jobs Full Interview  at 2010 D8 Conference w/ Mossberg" data-thumb="//i1.ytimg.com/vi/lz8aU1EXkBA/default.jpg" width="120" /><span class="vertical-align"></span></span></span></span><span class="video-time">1:35:54</span>
+                         <button onclick=";return false;" title="Watch Later" type="button" class="addto-button video-actions addto-watch-later-button yt-uix-button yt-uix-button-default yt-uix-button-short yt-uix-tooltip" data-video-ids="lz8aU1EXkBA" role="button"><span class="yt-uix-button-content">  <span class="addto-label">
+                         Watch Later
+                         </span>
+                         <span class="addto-label-error">
+                         Error
+                         </span>
+                         <img src="<%= asset_path 'yt/wfw.gif' %>" />
+                         </span></button>
+                         </span><span dir="ltr" class="title" title="Steve Jobs Full Interview  at 2010 D8 Conference w/ Mossberg">Steve Jobs Full Interview  at 2010 D8 Conference w/ Mossberg</span><span class="stat attribution">by <span class="yt-user-name " dir="ltr">Eninety2</span></span><span class="stat view-count">252,843 views</span></a>
+                      </li>
+                   </ul>
+                   <ul id="watch-more-related" class="video-list hid">
+                      <li id="watch-more-related-loading">正在载入更多建议...</li>
+                   </ul>
+                </div>
+                <div class="watch-sidebar-foot">
+                   <p class="content">
+                       <button type="button" id="watch-more-related-button" onclick=";return false;" class=" yt-uix-button yt-uix-button-default" role="button">
+                           <span class="yt-uix-button-content">载入更多推荐课件  </span>
+                       </button>
+                    </p>
+                </div>
+             </div>
+             <span class="yt-vertical-rule-main"></span>
+             <span class="yt-vertical-rule-corner-top"></span>
+             <span class="yt-vertical-rule-corner-bottom"></span>
+         </div>
          <div class="clear"></div>
       </div>
       <div style="visibility: hidden; height: 0px; padding: 0px; overflow: hidden;">
@@ -773,12 +775,21 @@ courseware_id: '<%=@courseware.id%>'
    
       <script type="text/javascript" charset="utf-8">
            <% content_for :butt2 do %>
+              var closeHide = function(){
+               somethingHide('#watch-actions-area-container');
+               somethingHide('#watch-actions-loading');
+               somethingHide('#watch-actions-ajax');
+               $('#watch-actions-ajax').html('');
+               removeToggled('');
+             };
+             $('#closehide').live('click',closeHide);
              var focus_comment = function(){
                   $('#comment_placeholder').html('');
                    $('.comments-textarea-container img').css('z-index','2');
                    $('.comments-textarea-container textarea').height('78');
                    $('.comments-post-buttons').show();
              };
+             
              $('#comment_placeholder_now').focus(focus_comment);
              $('#comment_placeholder_now').live("keyup change",function(){
                 var max = parseInt($('.comments-remaining-count').attr('data-max-count'));
@@ -811,7 +822,35 @@ courseware_id: '<%=@courseware.id%>'
              $('#watch-like').live("click",function(){
                 removeToggled(this.id);
                 $(this).toggleClass('yt-uix-button-toggled');
+                if($(this).hasClass('yt-uix-button-toggled')){
+                    somethingShow('#watch-actions-area-container');
+                    somethingShow('#watch-actions-loading');
+                    $.ajax({
+                       type:"POST",
+                       url:'/ajax/get_operation',
+                       data:{'type':'watch-like','cw_id':"<%= @courseware.id %>"},
+                       dataType: "html",
+                       cookie:true
+                    }).done(function(html){
+                          $('#watch-actions-ajax').html(html);
+                          somethingShow('#watch-actions-ajax');
+                          somethingHide('#watch-actions-loading');
+                    });            
+                }else{
+                    somethingHide('#watch-actions-area-container');
+                    somethingHide('#watch-actions-ajax');
+                    $('#watch-actions-ajax').html('');
+                }
              });
+             function somethingHide(id){
+                 $(id).hide();
+                 $(id).addClass('hid');
+             }
+             function somethingShow(id){
+                 $(id).removeClass('hid');
+                 $(id).slideDown('middle');
+             }
+
              $('#watch-unlike').live("click",function(){
                  removeToggled(this.id);
                  $(this).toggleClass('yt-uix-button-toggled');

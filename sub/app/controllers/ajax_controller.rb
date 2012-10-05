@@ -220,4 +220,18 @@ HEREDOC
     render json:@forum
     # json:@forum
   end
+  def get_cw_operation
+    if params[:type] == 'watch-like'
+      if current_user.nil?
+        render :text => "<div><a href='javascript:void(0)' class='like grey psvr_login_required'>登录</a>之后就可以顶了。</div>"
+      else
+        render file:'coursewares/_watch_like',locals:{cw_id:params[:cw_id]},layout:false  
+        cw = Courseware.find(params[:cw_id])
+        if !cw.thanked_user_ids.include?(current_user.id)
+          cw.update_attribute(:thanked_count,cw.thanked_count+1)
+          cw.update_attribute(:thanked_user_ids,cw.thanked_user_ids << current_user.id)
+        end
+      end
+    end
+  end
 end
