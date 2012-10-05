@@ -2862,15 +2862,29 @@
   .post-tag:after {
       content: " ]";
   }
-
-  .post-tag:visited {
-      color: black!important;
-  }
-
   a.post-tag:hover {
       text-decoration: none;
       color: #FFF!important;
       background-color: #3AB278;
+  }
+  .tag-post {
+      font-size: 12px;
+      font-weight: normal;
+      display: inline-block;
+      background-color: none;
+      text-decoration: none;
+      white-space: nowrap;
+      overflow: visible;
+      margin: 2px 3px 6px 0;
+      padding: 0.1em 4px;
+      line-height: 1.4;
+      color: #FFF;
+      background: #31A170;
+  }
+  a.tag-post:hover {
+      text-decoration: none;
+      color: #FFF!important;
+      background: #3AB278!important;
   }
 
   #h-ignored-tags,#h-recent-tags,#h-recent-badges {
@@ -8612,6 +8626,13 @@
         border-color:#308ED1;
       }
     }
+    .pubu_red{
+      width:102px;
+      &:hover{
+        background-position:5px -320px;
+        border-color:#BC2727;
+      }
+    }
     .shengxu,.jiangxu{
       float:left;
       height:18px;
@@ -8779,6 +8800,9 @@
       margin-top:10px;
       background:url("<%=asset_path "supernav3.png"%>") no-repeat scroll 29px -21px transparent;
     }
+    .switch_red{
+      background-image:url("<%=asset_path "supernav_red3.png"%>");
+    }
     a{
       font-family:tahoma,arial,宋体;
       font-size:12px;
@@ -8800,6 +8824,9 @@
         background:url("<%=asset_path 'supernav2.png'%>") no-repeat scroll 0 0 transparent;
         margin-right:3px;
         text-align:center;
+      }
+      li.red{
+        background-image:url("<%=asset_path 'supernav_red2.png'%>");
       }
       li:hover a{
         text-decoration:underline;
@@ -8843,6 +8870,9 @@
         background-position:-97px -73px;
       }
     }
+  }
+  .supernav_red{
+    background-image:url("<%=asset_path 'supernav_red.png'%>") !important;
   }
 }
 

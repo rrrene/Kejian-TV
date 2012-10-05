@@ -10,8 +10,7 @@
       <% if Setting.ktv_sub == 'zhongxue' %>
         <%= Setting.ktv_subname %>课件交流系统目前共收录了<%= link_to Course.count,'/courses',style:'color:red',class:'psvr' %>门课程
       <% else %>
-        <%= Setting.ktv_subname %>共为学生准备了<%= link_to Course.count,'/courses',class:'psvr',style:"color:#{params[:years].present? ? 'black' : 'red'}"%>门课程<% if @courses_now_count.present? and @courses_now_count!=Course.count%>，本学期开设了其中的<%= link_to @courses_now_count,'/courses?years=20122',class:'psvr',style:"color:#{params[:years].present? ? 'red' : 'black'}"%>门
-      <% end %>
+        <%= Setting.ktv_subname %>共为学生准备了<%= link_to Course.count,'/courses',class:'psvr',style:"color:#{params[:years].present? ? 'black' : 'red'}"%>门课程
       <% end %>
     </h3></td>
   </tr>

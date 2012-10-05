@@ -1,2 +1,0 @@
-class PlayListController < ApplicationController
-end

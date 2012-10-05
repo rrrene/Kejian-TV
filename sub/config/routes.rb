@@ -55,6 +55,7 @@ Sub::Application.routes.draw do
   get '/welcome/latest'
   get '/welcome/feeds'
   # ________________________________ktv__________________________________________
+  resources :play_lists
   resources :departments
   resources :courses
   resources :teachers
