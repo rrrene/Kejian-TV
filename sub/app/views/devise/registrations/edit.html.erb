@@ -1,137 +1,43 @@
+
 <% content_for :armpit do %>
-  <%= stylesheet_link_tag "ktv/__sdk", :media => "all" %>
-<% end %>
-<% content_for :title do %>账户设置<% end %>
-<%= image_tag 'ktv_reg_edit.png',:class => 'ktvregh2', :alt => '账户设置' %>
-<%
-placeholder1 = placeholder2 = ''
-if resource.name_unknown
-  resource.name = ''
-  placeholder1 = '请补充您的真实姓名'
-end
-if resource.email_unknown
- resource.email = ''
- placeholder2 = '请补充您的邮箱'
-end
-if resource.unconfirmed_email.present?
- resource.email = ''
- placeholder2 = "（等待确认）#{resource.unconfirmed_email}"
-end
-%>
-<% show_pass = (params[:force_password_change].present? || resource.errors_for_field(:password).present? || resource.errors_for_field(:password_confirmation).present?) %>
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :class => 'normal',:id=>'submit_btn_form',:enctype =>  "multipart/form-data",:autocomplete=>"off" }) do |f| %>
-  <%# devise_error_messages! %>
-  <div class="field">
-    <%= f.label :name,'真实姓名' %><div class="field_error" id="regerror_name"><%= resource.errors_for_field(:name) %></div><br class="clear">
-    <%= f.text_field :name,:class => 's462',:tabindex => 1,:placeholder => placeholder1,:autocomplete=>"off" %><br>
-    <% if resource.name_last_changed_at %>
-      <%= "一月只可以修改一次。#{'(下次可修改日期：'+(resource.name_last_changed_at+1.months).getlocal.strftime("%Y年%m月%d日")+')'}" %>
-    <% else %>
-      <%= "一月只可以修改一次。" %>
-    <% end %>
-  </div>
-  <div class="field">
-    <%= f.label :email,'E-mail' %><div class="field_error" id="regerror_email"><%= resource.errors_for_field(:email) %></div><br class="clear">
-    <%= f.email_field :email,:class => 's462',:tabindex => 2,:placeholder => placeholder2,:autocomplete=>"off" %><br>
-  </div>
-  <div class="field">
-    <a id="change_password_link" href="javascript:void(0)" style="<%= 'display:none' if show_pass %>">修改密码</a>
-  </div>
-  <div class="clearfix" style="<%= 'display:none' unless show_pass %>" id="change_password">
-    <div class="field fl"><%= f.label :password,'密码' %><div class="field_error" id="regerror_password"><%= resource.errors_for_field(:password) %></div><br class="clear">
-    <% resource.password = resource.password_confirmation = '' %>
-    <%= f.password_field :password,:class => 's212',:tabindex => 3,:autocomplete=>"off",:value=>'' %></div>
-
-    <div class="field fr"><%= f.label :password_confirmation,'确认密码' %><div class="field_error" id="regerror_password_confirmation"><%= resource.errors_for_field(:password_confirmation) %></div><br class="clear">
-    <%= f.password_field :password_confirmation,:class => 's212',:tabindex => 4,:autocomplete=>"off",:value=>'' %></div>
-  </div>
-  <!--  -->
-
-<% content_for :butt2 do %>
-$('#change_password_link').click(function(){
-  $(this).hide();
-  $('#change_password').show();
-});
+  <%= stylesheet_link_tag "ktv/__zm_hoth", :media => "all" %>
+  <%= stylesheet_link_tag "ktv/__zm_ban", :media => "all" %>
 <% end %>
 
-  <div class="__sdk">
+
+<%= render :partial => 'content_above', :locals=>{:skp_content_style => "height:1888px;background:url(#{asset_path 'zm/r11839/images/common/bodybg.gif'}) repeat scroll 0 0 transparent;"} %>
+
+<%= render 'content_below' %>
 
 
-    <div class="form_sections" style="margin-bottom:18px">
-      <p>
-        <label for="user_email">头像</label><div class="field_error" id="regerror_name">
-            
-            <%= resource.errors_for_field(:avatar) %></div><br class="clear">
-            <%= avatar_tag(resource,:normal,'padding:1px;border:1px solid #999999') %>
-        <div class="upload">
-            上 传
-               <input  id="file_uploader" class="file_uploader" name="user[avatar]" type="file">
+<div class="wrapper" style="width:1000px">
+    <div class="__dz" style="position:absolute;top:130px;background:white" id="psvr_dz_target"><div id="pt" class="bm cl" style="display:none">
+        <div class="z">
+          <a href="./" class="nvhm" title="首页">Discuz! Board</a> <em>›</em>
+          <a href="home.php?mod=spacecp">账号设置</a> <em>›</em>个人资料
         </div>
-      </p>
-        <div class="tip">支持 jpg, gif, png 格式的图片，不要超过 2MB。建议图片尺寸为大于等于 300×300 的正方形。</div>
-    </div>  
-   
-    <div class="form_sections" style="margin-bottom:18px">
-      <p><label for="user_slug">用户名</label><div class="field_error" id="regerror_name">
-      <%= resource.errors_for_field(:slug) %></div><br class="clear">
-    http://kejian.tv/users/<input class="text" name="user[slug]" id="user_slug" type="text" style="height:33px;padding-left:0;width:<%= (@is_ie6 or @is_ie7 or @is_ie8) ? 246 : 268%>px" size="10" value="<%= resource.slug %>"/></p>
+      </div>
+      <div id="ct" class="ct2_a wp cl">
+        <div class="mn">
+          <div class="bm bw0">
+            <h1 class="mt">我的账号</h1>
+          </div>
+        </div>
+        <div class="appl"><div class="tbn">
+            <h2 class="mt bbda">账号设置</h2>
+            <ul>
+              <li class="a"><a href="/account/edit">我的账号</a></li>
+              <li><a href="/simple/home.php?mod=spacecp&ac=avatar">修改头像</a></li>
+              <li><a href="/simple/home.php?mod=spacecp&ac=profile">个人资料</a></li>
+              <li><a href="/simple/home.php?mod=spacecp&ac=credit">积分</a></li>
+              <li><a href="/simple/home.php?mod=spacecp&ac=usergroup">用户组</a></li>
+              <li><a href="/simple/home.php?mod=spacecp&ac=privacy">隐私筛选</a></li>
+              <li><a href="/simple/home.php?mod=spacecp&ac=profile&op=password">密码安全</a></li>
+              <li><a href="/simple/home.php?mod=spacecp&ac=promotion">访问推广</a></li>
+            </ul>
+          </div>
+        </div>        </div>
+        </div>
+        <!-- 脚丫 -->
+      </div><!-- psvr_dz_target over! -->
     </div>
-
-      <div class="form_sections" style="margin-bottom:18px">
-        <p><label for="user_Bio">地理位置</label><div class="field_error" id="regerror_name"><%= resource.errors_for_field(:location) %></div><br class="clear"><input class="text" name="user[location]" type="text" style="height:33px;padding-left:0" size="30" value="<%= resource.location %>"/></p>
-        </p>
-      </div>
-      <div class="form_sections" style="margin-bottom:18px">
-        <p><label for="user_Bio">个人网站地址（如博客或微博）</label><div class="field_error" id="regerror_name"><%= resource.errors_for_field(:website) %></div><br class="clear">
-          <input class="text" name="user[website]" type="text" style="height:33px;padding-left:0" size="30" value="<%= resource.website %>"/></p>
-      </div>
-      <div class="form_sections" style="margin-bottom:18px">
-        <p><label for="user_tagline">用一句话介绍下自己吧:</label><div class="field_error" id="regerror_name"><%= resource.errors_for_field(:tagline) %></div><br class="clear">
-          <input class="text" id="user_tagline" name="user[tagline]" type="text" style="height:33px;padding-left:0" size="30" value="<%= resource.tagline %>"/><br>
-一句话介绍将显示在您的姓名下方。
-          </p>
-      </div>
-      <div class="form_sections">
-        <p><label for="user_Bio">个人经历:</label><div class="field_error" id="regerror_name"><%= resource.errors_for_field(:bio) %></div><br class="clear"> <textarea rows="30" name="user[bio]" style="height:110px;width:419px;padding-left:10px" id="user_bio" cols="40"><%= resource.bio %></textarea></p>
-      </div>
-      <div class="form_sections" style="margin-top:18px" id="mail_settings">
-        <p><label>邮件提醒设置:</label><br class="clear">
-          <label><input class="noBorder" type="checkbox" style="height:16px;margin-right:4px;" name='user[mail_be_followed]' <%= 'checked="checked"' if resource.mail_be_followed %>/>被人关注</label><br class="clear">
-          <label><input class="noBorder" type="checkbox" style="height:16px;margin-right:4px;" name='user[mail_new_answer]' <%= 'checked="checked"' if resource.mail_new_answer %>/>关注的题有新解答</label><br class="clear">
-          <label><input class="noBorder" type="checkbox" style="height:16px;margin-right:4px;" name='user[mail_invite_to_ask]' <%= 'checked="checked"' if resource.mail_invite_to_ask %>/>有人邀请我解答题</label><br class="clear">
-          <label><input class="noBorder" type="checkbox" style="height:16px;margin-right:4px;" name='user[mail_ask_me]' <%= 'checked="checked"' if resource.mail_ask_me %>/>有人向我提问</label>
-          <div class="clearfix"></div>
-        </p>
-      </div>
-      
-      
-  </div>
-
-
-  <div class="clearfix" style="padding-bottom:8px;padding-top:20px">
-    <div class="field fl" style="margin-top:20px;">
-      <a href="javascript:void(0)" class="btn btn210 submit_btns" id="submit_btn">提交设置</a>
-    </div>
-    <div class="field fr" style="margin-top:20px;">
-      <a href="<%= cancel_href %>" class="btn btn210_grey">取消</a>
-    </div>
-  </div>
-<% end %>
-<% content_for :butt2 do %>
-$('#user_name').blur(function(){
-  App.checkUsername(this);
-  return true;
-});
-$('#submit_btn').unbind('click').click(function(event){
-  if($('#change_password').is(':hidden')){
-    $('#user_password').val('');
-    $('#user_password_confirmation').val('');
-  }
-  $('#'+this.id+'_form').submit();
-  $(this).addClass('btn_going_in')
-  $(this).text('提交中，请稍候')
-  $(this).unbind('click')
-  return false;
-})
-
-<% end %>

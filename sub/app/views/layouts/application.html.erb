@@ -116,9 +116,9 @@
                 <span title="10 bronze badges" class="hardest_span_ever"><span class="badge3"></span><span class="badgecount">10</span></span>
                 </a>
               <ul>
-                <li><a href="/users/invite">邀请好友注册</a></li>
-                <li><a href="/mine">我的课件</a></li>
-                <li><a href="/account/edit">账号设置</a></li>
+                <li><a href="/mine">我的课件管理中心</a></li>
+                <li><a href="/account/edit">我的账号设置</a></li>
+                <li><a href="#">意见反馈</a></li>
                 <li><a href="/logout">退出</a></li>
               </ul>
             </li>
@@ -279,7 +279,9 @@
     (function($){
     jQuery(function(){
       <%= yield :butt2 %>
-      jQuery('#search_form').width(jQuery('#search_form').data('width-orig',<%=@is_WebKit ? 504 : 558 %>-jQuery('#core_logotext_wrap').width()-jQuery('#account-settings').width()).data('width-orig'));
+      KTV.dz_targetize();
+      $('#psvr_dz_target').resize(KTV.dz_targetize);
+      jQuery('#search_form').width(jQuery('#search_form').data('width-orig',<%=@is_WebKit ? 494 : 558 %>-jQuery('#core_logotext_wrap').width()-jQuery('#account-settings').width()).data('width-orig'));
       $('#core_addtext_wrap').click(function(){return Asks.addAsk()});
       $('#core_addcw_wrap').click(function(){return KTV.addCW()});
       $('#login').click(function(){return KTV.login()});
