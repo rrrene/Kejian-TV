@@ -1,5 +1,5 @@
 <div class="presenter" style="<%= defined?(style) ? style : '' %>">
-  <a href="<%=user_path(user)%>"><%= avatar_tag(user,:small47) %></a>
+  <a href="<%=user_path(user)%>"><img src="<%=  dz_avatar_url(user.uid,user.email,:small) %>" class="imgHead" width="48" height="48"></a>
   <h2><a href="<%=user_path(user)%>"><%=user.name%></a></h2>
   <p><%=user.tagline.present? ? user.tagline : "#{user.coursewares_count} 个课件" %></p>
 </div>

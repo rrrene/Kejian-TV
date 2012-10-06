@@ -396,7 +396,7 @@ courseware_id: '<%=@courseware.id%>'
            </h1>
            <div id="weizuozhefasongganxie5">
              <% @courseware.thanked_user_ids.reverse.each do |user_id| %>
-             <div><a class="" href="/users/<%= User.get_slug(user_id) %>"><img src="<%= avatar_url_quick(user_id,:small47) %>" alt="<%= User.get_name(user_id) %>"></a></div>
+             <div><a class="" href="/users/<%= User.get_slug(user_id) %>"><img src="<%= dz_avatar_url(User.get_uid(user_id),User.get_email(user_id),:small) %>" alt="<%= User.get_name(user_id) %>"></a></div>
              <% end %>
            </div>
            
