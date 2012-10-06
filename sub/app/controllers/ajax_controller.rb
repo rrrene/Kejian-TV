@@ -227,11 +227,51 @@ HEREDOC
       else
         render file:'coursewares/_watch_like',locals:{cw_id:params[:cw_id]},layout:false  
         cw = Courseware.find(params[:cw_id])
-        if !cw.thanked_user_ids.include?(current_user.id)
+        if !cw.thanked_user_ids.include?(current_user.id) and !cw.disliked_user_ids.include?(current_user.id)
           cw.update_attribute(:thanked_count,cw.thanked_count+1)
           cw.update_attribute(:thanked_user_ids,cw.thanked_user_ids << current_user.id)
         end
       end
+    elsif params[:type] == 'watch-unlike'
+      if current_user.nil?
+        render :text => "<div><a href='javascript:void(0)' class='like grey psvr_login_required'>登录</a>之后就可以踩了。</div>"
+      else
+        render file:'coursewares/_watch_unlike',locals:{cw_id:params[:cw_id]},layout:false  
+        cw = Courseware.find(params[:cw_id])
+        if !cw.disliked_user_ids.include?(current_user.id) and !cw.thanked_user_ids.include?(current_user.id)
+          cw.update_attribute(:disliked_count,cw.disliked_count+1)
+          cw.update_attribute(:disliked_user_ids,cw.disliked_user_ids << current_user.id)
+        end
+      end
+    elsif params[:type] == 'addto'
+      if current_user.nil?
+        render :text => "<div><a href='javascript:void(0)' class='like grey psvr_login_required'>登录</a>之后就可以踩了。</div>"
+      else
+        render file:'coursewares/_add_to',locals:{cw_id:params[:cw_id]},layout:false  
+      end
+    else
+      #todo
     end
+  end
+  def add_to_playlist
+    #TODO params[:sort] 
+    # params[:on_top] true false
+    json = {status:'suc',title:params[:list_title],comment:'beizhu',time:'123',cw_id:params[:cw_id]}
+    render json:json
+  end
+  def add_comment_to_playlist
+    json = {status:'suc',title:params[:list_title],comment:params[:comment],time:'123',cw_id:params[:cw_id]}
+    render json:json
+  end
+  def playlist_sort
+    if current_user.nil?
+      render :text => "<div><a href='javascript:void(0)' class='like grey psvr_login_required'>登录</a>之后就可以踩了。</div>"
+    else
+      render file:'coursewares/_sorted_playlist',locals:{sort:params[:sort]},layout:false  
+    end
+  end
+  def create_new_playlist
+    json = {status:'suc',list_title:params[:list_title],is_private:params[:is_private]}
+    render json:json
   end
 end

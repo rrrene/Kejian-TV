@@ -42,6 +42,10 @@ Sub::Application.routes.draw do
   get '/ajax/get_teachers'
   post '/ajax/get_forum' => 'ajax#get_forum'
   post '/ajax/get_operation' => 'ajax#get_cw_operation'
+  post '/ajax/add_to_playlist' => 'ajax#add_to_playlist'
+  post '/ajax/playlist_sort' => 'ajax#playlist_sort'
+  post '/ajax/create_new_playlist' => 'ajax#create_new_playlist'
+  post '/ajax/add_comment_to_playlist' =>'ajax#add_comment_to_playlist'
   # ---=small=----
   get 'hack/htc'
   get '/welcome/inactive_sign_up'

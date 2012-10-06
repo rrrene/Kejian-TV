@@ -3328,7 +3328,7 @@
   button.yt-uix-button-promotional,button.yt-uix-button-promotional-lite {
   	padding:0 30px
   }
-  .yt-uix-button-primary,.yt-uix-button-primary[disabled] {
+  .yt-uix-button-primary, body .yt-uix-button-primary[disabled] {
   	background-color:#6891e7;
   	border-color:#0053a6 #0053a6 #000;
   	text-shadow:0 -1px 0 rgba(0,0,0,.5);
@@ -7481,7 +7481,7 @@
   .yt-uix-form-input-select-element {
   	position:relative;
   	height:30px;
-  	padding:0 1.65em;
+  	padding:0 1.65em 0 1.65em;
   	z-index:2;
   	-webkit-appearance:none;
   	-moz-appearance:none;
@@ -11221,6 +11221,9 @@
   .watch-playlists-drawer .playlist-addto-title-options label {
   	margin:0 20px 0 2px
   }
+  menu, ol, ul {
+      list-style: none outside none;
+  }
   #watch-actions-area .watch-playlists-drawer .yt-alert .close {
   	position:static
   }
@@ -11228,17 +11231,16 @@
   	display:none
   }
   .watch-playlists-drawer ul {
-  	max-height:195px;
-  	overflow-y:auto;
-  	overflow-x:hidden;
-  	border:1px solid #ccc;
-  	padding:10px;
-  	margin-bottom:10px;
-  	background:#efefef;
-  	-moz-box-shadow:0 1px 0 #fff,inset 0 1px 1px rgba(0,0,0,0.2);
-  	-ms-box-shadow:0 1px 0 #fff,inset 0 1px 1px rgba(0,0,0,0.2);
-  	-webkit-box-shadow:0 1px 0 #fff,inset 0 1px 1px rgba(0,0,0,0.2);
-  	box-shadow:0 1px 0 #fff,inset 0 1px 1px rgba(0,0,0,0.2)
+    clear:both;
+    background: none repeat scroll 0 0 #EFEFEF;
+    border: 1px solid #CCCCCC;
+    box-shadow: 0 1px 0 #FFFFFF, 0 1px 1px rgba(0, 0, 0, 0.2) inset;
+    margin-bottom: 10px;
+    max-height: 195px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 10px;
+  
   }
   .watch-playlists-drawer ul::-webkit-scrollbar {
   	width:8px
@@ -11265,11 +11267,12 @@
   	color:#000
   }
   .watch-playlists-drawer .selected {
-  	background:#fff;
-  	padding:10px;
-  	font-weight:bold;
-  	margin-bottom:5px
+    background: none repeat scroll 0 0 #FFFFFF;
+    font-weight: bold;
+    margin-bottom: 5px;
+    padding: 10px;
   }
+  
   .watch-playlists-drawer .selected:hover {
   	color:#000;
   	background:#fff
@@ -11320,17 +11323,16 @@
   	*zoom:1
   }
   .watch-playlists-drawer .new-playlist-title {
-  	vertical-align:top;
-  	height:32px;
-  	width:100%;
-  	*height:auto;
+    height: 32px;
+    vertical-align: top;
+    width: 100%;
   	-moz-box-sizing:border-box;
   	-ms-box-sizing:border-box;
   	-webkit-box-sizing:border-box;
   	box-sizing:border-box
   }
   .watch-playlists-drawer .new-playlist-privacy {
-  	margin-right:8px
+  	margin-right:8px;
   }
   .watch-stats-insight-link {
   	float:right;
@@ -11740,5 +11742,31 @@
       border-right: 1px solid #FFFFFF;
       float: left;
       height: 4px;
+  }
+  .yt-uix-form-input-text, .yt-uix-form-textarea {
+      -moz-border-bottom-colors: none;
+      -moz-border-left-colors: none;
+      -moz-border-right-colors: none;
+      -moz-border-top-colors: none;
+      background: none repeat scroll 0 0 #F6F6F6;
+      border-color: #A4A4A4 #B9B9B9 #B9B9B9;
+      border-image: none;
+      border-radius: 3px 3px 3px 3px;
+      border-right: 1px solid #B9B9B9;
+      border-style: solid;
+      border-width: 1px;
+      box-shadow: 0 1px 0 #FFFFFF, 0 1px 1px rgba(0, 0, 0, 0.17) inset;
+      color: #666666;
+      font-size: 13px;
+      margin-bottom: 0;
+      margin-top: 0;
+      padding: 7px 10px;
+      width: 250px;
+  }
+  .yt-uix-form-input-text:focus, .yt-uix-form-textarea:focus {
+      background: none repeat scroll 0 0 #FFFFFF;
+      border-color: #4496E7;
+      color: #444444;
+      outline: 0 none;
   }
 }
