@@ -723,6 +723,36 @@
       color: #444;
       font-size: 40px;
       font-weight: normal;
+      a:hover{
+        text-decoration:none;
+      }
+  }
+  .tiny-video-icon {
+  	height:8px;
+  	width:10px;
+  	background:#dfdfdf;
+  	border:1px solid #d7d7d7;
+  	border-top:0;
+  	border-bottom-color:#c6c6c6;
+  	margin-right:5px;
+  	-moz-box-shadow:inset 0 -1px 1px #c7c7c7;
+  	-ms-box-shadow:inset 0 -1px 1px #c7c7c7;
+  	-webkit-box-shadow:inset 0 -1px 1px #c7c7c7;
+  	box-shadow:inset 0 -1px 1px #c7c7c7
+  }
+  a:hover .tiny-video-icon {
+  	border-color:#707070;
+  	-moz-box-shadow:inset 0 0 1px #bfbfbf;
+  	-ms-box-shadow:inset 0 0 1px #bfbfbf;
+  	-webkit-box-shadow:inset 0 0 1px #bfbfbf;
+  	box-shadow:inset 0 0 1px #bfbfbf;
+  	filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0,StartColorStr=#a1a1a1,EndColorStr=#707070);
+  	background-image:-moz-linear-gradient(top,#a1a1a1 0,#707070 100%);
+  	background-image:-ms-linear-gradient(top,#a1a1a1 0,#707070 100%);
+  	background-image:-o-linear-gradient(top,#a1a1a1 0,#707070 100%);
+  	background-image:-webkit-gradient(linear,left top,left bottom,color-stop(0,#a1a1a1),color-stop(100%,#707070));
+  	background-image:-webkit-linear-gradient(top,#a1a1a1 0,#707070 100%);
+  	background-image:linear-gradient(to bottom,#a1a1a1 0,#707070 100%)
   }
 
   .lsep {
@@ -2142,6 +2172,11 @@
       line-height: 1.3em;
       color: #555;
   }
+  .excerpt_red {
+    line-height:22px;
+    height: 22px;
+    overflow:hidden;
+  }
 
   .excerpt .started {
       float: right;
@@ -2885,7 +2920,7 @@
       background: #DDD;
   }
   a.tag-post:hover {
-      text-decoration: none;
+      text-decoration: none!important;
       color: #FFF!important;
       background: #3AB278!important;
   }
@@ -5235,6 +5270,7 @@
 
   .summary {
       width: 486px;
+      min-height:173px;
   }
  
   .user-show-new .user-header .user-header-left {

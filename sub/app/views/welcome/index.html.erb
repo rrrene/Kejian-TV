@@ -138,7 +138,7 @@
       <div class="summary">
           <h3>
             <% if nn=Course.get_name(item.course_fid) %>
-              <a href="/simple/forum.php?mod=forumdisplay&fid=<%= item.course_fid %>" class="tag-post"><%= nn %></a><br>
+              <a href="/courses/<%= item.course_fid %>" class="tag-post"><%= nn %></a><br>
               <% nd=Course.get_department(item.course_fid) %>
             <% end %>
             <a href="/coursewares/<%= item.id %>" class="question-hyperlink">

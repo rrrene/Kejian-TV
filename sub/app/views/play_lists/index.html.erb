@@ -142,7 +142,7 @@ $('.presentation').hover(function(){
           <h3>
             <% item.course_fids.each do |course_fid| %>
               <% if nn=Course.get_name(course_fid) %>
-                <a href="/simple/forum.php?mod=forumdisplay&fid=<%= course_fid %>" class="tag-post"><%= nn %></a><br>
+                <a href="/courses/<%= course_fid %>" class="tag-post"><%= nn %></a><br>
                 <% nd=Course.get_department(course_fid) %>
               <% end %>
             <% end %>
@@ -150,10 +150,10 @@ $('.presentation').hover(function(){
             <%= item.title %>
             </a>
           </h3>
-          <div class="excerpt">
-          </div>
-
-          <div class="tags t-nutrition">
+          <div class="excerpt excerpt_red">
+            <% item.content.limit(3).each do |cwid| %>
+              <a href="/coursewares/<%=cwid%>" class="playlist-detail-title yt-uix-sessionlink"><img class="tiny-video-icon" src="<%=asset_path 'yt/img/pixel-vfl3z5WfW.gif'%>" alt=""><span dir="ltr"><%=Courseware.get_title cwid%></span></a>
+            <% end %>
           </div>
 
           <div class="started fr">
@@ -172,6 +172,11 @@ $('.presentation').hover(function(){
                 </div>
             </div>
           </div>  
+
+          <div class="tags t-nutrition">
+            共<%=link_to item.coursewares_count,"/play_lists/#{item.id}"%>个课件.
+          </div>
+
 
       </div>
   </div>

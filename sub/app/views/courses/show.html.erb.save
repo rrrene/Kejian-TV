@@ -1,0 +1,1020 @@
+<body class="firefox windows">
+      <div class="production" id="std-ui-wrap">
+    <div id="app-root-view" class="">
+      <div class="app-north">
+  <div class="app-north-inner">
+    <div class="header-flow">
+      <div class="flow-topbar left">
+        <ul class="align-left"><li class="action li-settings" style="display: block;"><a class="settings" title="Preferences"><span class="icon">Preferences</span><span class="photo" 
+style="background-image: url(&quot;https://flowapp.s3.amazonaws.com/accounts/144330/d6a46b0bdc64cd097ab68aa32e7a3d9e_tiny.png&quot;);"></span><span class="left"></span><span 
+class="right"></span></a><div class="count-badge"></div></li><li class="action li-notifications" style="display: block;"><a class="notifications" title="Notifications"><span 
+class="icon">Notifications</span><span class="left"></span><span class="right"></span></a><div class="count-badge" style="display: none;">0</div></li></ul>
+        <ul class="align-right"><li class="action li-new_task" style="display: block;"><a class="new_task" title="Create a New Task (Enter/Return)"><span class="icon">New 
+Task</span><span class="left"></span><span class="right"></span></a><div class="count-badge"></div></li></ul>
+      </div>
+      
+      <div class="flow-topbar center">
+        <ul class="align-left"><li class="action li-back" style="display: none;"><a class="back" title="Go Back"><span class="text">Back</span><span class="left"></span><span 
+class="right"></span></a><div class="count-badge"></div></li></ul>
+        <ul class="align-right"><li class="action li-sorters" style="display: block;"><a class="sorters" title="Organize Tasks"><span class="icon">Organize</span><span 
+class="left"></span><span class="right"></span></a><div class="count-badge"></div></li><li class="action li-actions" style="display: block;"><a class="actions" title="Task List 
+Actions"><span class="icon">Actions</span><span class="left"></span><span class="right"></span></a><div class="count-badge"></div></li><li class="action li-toggle_navbar disabled" 
+style="display: block;"><a class="toggle_navbar alt" title="Toggle Navbar"><span class="icon">Navbar</span><span class="left"></span><span class="right"></span></a><div 
+class="count-badge"></div></li></ul>
+      </div>
+      
+      <div class="flow-topbar right">
+        <ul class="align-left">
+          <li class="search">
+            <input type="text" placeholder="Search everything..." class="query">
+            <a style="display: none;" title="Clear search query" class="clear-search"><ins></ins></a>
+          </li>
+        </ul>
+        <ul class="align-right"></ul>
+      </div>
+    </div>
+  </div> </div> <!-- Sidebar --> <div class="app-west">
+  <div class="app-west-inner"><div class="sidebar" style="height: 568px;">
+    <div class="sidebar-inner">
+      <div class="primary-boxes-wrap"><div class="sidebar-primary-boxes">
+    <h3>Focus</h3>
+    <ul class="primary-boxes">
+      <!-- li class="box dashboard">
+        <a>
+          <span>Dashboard</span>
+          <b class="dasboard-badge" style="display: none;"></b>
+        </a>
+      </li -->
+      <li class="box inbox droppable ui-droppable active current">
+        <a href="#/inbox">
+          <span>Inbox</span>
+          <b style="" class="badge inbox-badge">17</b>
+        </a>
+      </li>
+      <li class="box upcoming">
+        <a href="#/upcoming">
+          <span>Upcoming</span>
+          <b style="display: none;" class="badge upcoming-badge"></b>
+        </a>
+      </li>
+      <li class="box flagged">
+        <a href="#/flagged">
+          <span>Flagged</span>
+          <b style="display: none;" class="badge flagged-badge"></b>
+        </a>
+      </li>
+      <li class="box delegated">
+        <a href="#/delegated">
+          <span>Delegated</span>
+          <b style="" class="badge delegated-badge">1</b>
+        </a>
+      </li>
+      <li class="box all-tasks">
+        <a href="#/tasks">
+          <span>My Tasks</span>
+          <b style="" class="badge all-tasks-badge">17</b>
+        </a>
+      </li>
+    </ul>
+  </div></div>
+      <div class="panes-wrap"><div class="panes-wrap-inner">
+    <ul class="sidebar-tabs tabs project-tags-collaborators">
+      <li data-pane="projects" class="projects ui-droppable">Lists</li>
+      <li data-pane="collaborators" class="collaborators ui-droppable active">Contacts</li>
+    </ul>
+    <div class="main-sidebar-panes sidebar-panes">
+      <div class="pane projects"><div class="pane-root">
+    <div class="filter projects">
+      <input type="text" placeholder="Search lists…">
+      <a title="clear search" class="clear-search"><ins></ins></a>
+    </div>
+    <div class="pane-inner" style="overflow: hidden; padding: 0px; height: 343px;"><div style="height: 737px;" class="jspContainer ios"><div class="jspPane" style="left: 0px; top: 
+0px; width: 220px;">
+      <ul class="project-list items-list flow-tree ui-sortable"><li class="project list-item sortable shared my-project ui-droppable" data-id="536998" data-cid="c13">
+    <ins></ins>
+    <a class="project-link link">
+      <ins></ins>
+      <span class="view">list1</span>
+    </a>
+    <div class="settings"><ins></ins></div>
+    <div class="fadeout"></div>
+  </li><li class="folder list-item sortable my-folder open" data-id="168361" data-cid="c12">
+    <div class="link-wrap ui-droppable">
+      <ins></ins>
+      <div class="link folder-link">
+        <span class="view">Get To Know Flow</span>
+        <form class="rename">
+          <input type="text" size="10" class="name-field">
+        </form>
+        <div class="settings"><ins></ins></div>
+      </div>
+    </div>
+    <ul class="children" style="display: block;"><li class="project list-item sortable my-project ui-droppable" data-id="536997" data-cid="c15">
+    <ins></ins>
+    <a class="project-link link">
+      <ins></ins>
+      <span class="view">The Basics</span>
+    </a>
+    <div class="settings"><ins></ins></div>
+    <div class="fadeout"></div>
+  </li><li class="project list-item sortable my-project ui-droppable" data-id="536996" data-cid="c16">
+    <ins></ins>
+    <a class="project-link link">
+      <ins></ins>
+      <span class="view">Teamwork</span>
+    </a>
+    <div class="settings"><ins></ins></div>
+    <div class="fadeout"></div>
+  </li><li class="project list-item sortable my-project ui-droppable" data-id="536995" data-cid="c17">
+    <ins></ins>
+    <a class="project-link link">
+      <ins></ins>
+      <span class="view">Pro Tips</span>
+    </a>
+    <div class="settings"><ins></ins></div>
+    <div class="fadeout"></div>
+  </li></ul>
+  </li><li class="folder list-item folder-archived closed empty">
+    <div class="link-wrap ui-droppable">
+      <ins></ins>
+      <div class="link folder-link">
+        <ins></ins>
+        <span>Archived Lists</span>
+      </div>
+    </div>
+    <ul class="children" style="display: none;"></ul>
+  </li></ul><div class="no-results" style="display: none;">No lists found.</div>
+    </div></div></div>
+  </div></div>
+      <div class="pane collaborators active"><div class="pane-root">
+    <div class="filter people">
+      <input type="text" placeholder="Search people…">
+      <a title="clear search" class="clear-search"><ins></ins></a>
+    </div>
+    <div class="pane-inner" style="overflow: hidden; padding: 0px; height: 343px;"><div style="height: 343px;" class="jspContainer ios"><div class="jspPane" style="left: 0px; top: 
+0px; width: 220px;">
+      
+    <ul class="collaborators collaborator-list items-list flow-tree"><li class="person list-item concierge no-summary ui-droppable" data-id="95924" data-cid="c11" 
+id="sidebar-person-95924" data-email="concierge@getflow.com">
+    <ins></ins>
+    <div class="person-link link">
+      <ins><span class="photo"></span></ins>
+      <span class="name">Flow Concierge</span>
+      <ul class="summaries"></ul>
+    </div>
+    <div class="settings"><ins></ins></div>
+    <div class="fadeout"></div>
+  </li><li class="person list-item ui-droppable" data-id="86011" data-cid="c8" id="sidebar-person-86011">
+    <ins></ins>
+    <div class="person-link link">
+      <ins class="pending"><span class="photo"></span></ins>
+      <span class="name">ling li</span>
+      <ul class="summaries"><li class="summary state">Pending</li></ul>
+    </div>
+    <div class="settings"><ins></ins></div>
+    <div class="fadeout"></div>
+  </li><li class="person list-item ui-droppable" data-id="127314" data-cid="c9" id="sidebar-person-127314">
+    <ins></ins>
+    <div class="person-link link">
+      <ins class="pending has-photo"><span class="photo" style="background-image: 
+url(&quot;https://flowapp.s3.amazonaws.com/accounts/127314/78a71cc963c77ccba60ae57f1969f9ce_medium.png&quot;);"></span></ins>
+      <span class="name">minqi pan</span>
+      <ul class="summaries"><li class="summary state">Pending</li></ul>
+    </div>
+    <div class="settings"><ins></ins></div>
+    <div class="fadeout"></div>
+  </li><li class="person list-item ui-droppable" data-id="90562" data-cid="c10" id="sidebar-person-90562">
+    <ins></ins>
+    <div class="person-link link">
+      <ins class="pending has-photo"><span class="photo" style="background-image: 
+url(&quot;https://flowapp.s3.amazonaws.com/accounts/90562/80fe26db82b28bad4b7a9451cbaacadf_medium.jpg&quot;);"></span></ins>
+      <span class="name">minqi pan</span>
+      <ul class="summaries"><li class="summary state">Pending</li></ul>
+    </div>
+    <div class="settings"><ins></ins></div>
+    <div class="fadeout"></div>
+  </li></ul><div class="no-results" style="display: none;">No contacts found.</div></div></div></div>
+  </div></div>
+    </div>
+  </div></div>
+      <div class="secondary-boxes-wrap" style="display: none;"><div class="sidebar-secondary-boxes">
+    <h3>Other Lists</h3>
+    <div class="pane">
+      <ul class="links">
+        <li class="link all-tasks"><a href="#/tasks/all"><ins></ins><span>All Tasks</span></a></li>
+        <li class="link followed-tasks"><a href="#/following"><ins></ins><span>Followed Tasks</span></a></li>
+        <li class="link completed-tasks"><a href="#/complete"><ins></ins><span>Completed Tasks</span></a></li>
+      </ul>
+    </div>
+  </div></div>
+      <div class="action-bar-wrap"><div class="side-action-bar">
+    <div class="actions">
+      <div class="action toggle-lists up"><a><ins class="toggle alt"></ins></a></div>
+      <div class="action new-action"><a><ins class="add"></ins></a></div>
+    </div>
+    <div class="status">1 contact</div>
+  </div></div>
+    </div>
+  </div></div> </div> <!-- Main Content Area --> <div class="app-center">
+  <div class="app-center-inner">
+  <div class="detail-view">
+    <div class="detail-view-inner">
+      <div class="layout-east">
+        <div class="layout-east-inner">
+          <div class="navbar"><div class="section collaborators" style="display: none;">
+    <ul style="display: block;" class="actions-list">
+      <li class="action-item everyone active">
+        <ins></ins>
+        <a title="View everyone's tasks" class="name">All Tasks</a>
+        <div style="" class="count">17</div>
+      </li>
+    </ul>
+    <h3 class="title"><span class="fadeout">Tags</span></h3>
+    <div class="section-content">
+      <ul class="collaborators"></ul>
+      <div class="quick-invite-wrapper"></div>
+    </div>
+  </div></div>
+        </div>
+      </div>
+      <div class="layout-center">
+        <div class="layout-center-inner">
+          <div class="content-views-wrap"><div class="content-view-wrap"><div class="loading-tasks" style="display: none;"><div class="spinner s48 blue"></div><label 
+class="loading-label"></label><label class="loading-sub-label"></label></div></div></div>
+        </div>
+      </div>
+    </div>
+  </div></div> </div>
+    </div>
+    <div style="display: none !important;" id="view-templates">
+      <!-- Sidebar --> <script type="text/html" id="view-template-flow-app-sidebar">
+  &lt;div class="sidebar"&gt;
+    &lt;div class="sidebar-inner"&gt;
+      &lt;div class="primary-boxes-wrap"&gt;&lt;/div&gt;
+      &lt;div class="panes-wrap"&gt;&lt;/div&gt;
+      &lt;div class="secondary-boxes-wrap"&gt;&lt;/div&gt;
+      &lt;div class="action-bar-wrap"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt; </script>
+      <!-- Sidebar - Action Bar --> <script type="text/html" id="view-template-side-action-bar">
+  &lt;div class="side-action-bar"&gt;
+    &lt;div class="actions"&gt;
+      &lt;div class="action toggle-lists"&gt;&lt;a&gt;&lt;ins class="toggle alt"&gt;&lt;/ins&gt;&lt;/a&gt;&lt;/div&gt;
+      &lt;div class="action new-action"&gt;&lt;a&gt;&lt;ins class="add"&gt;&lt;/ins&gt;&lt;/a&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="status"&gt;&lt;/div&gt;
+  &lt;/div&gt; </script>
+      <!-- Sidebar - Folder Row --> <script type="text/html" id="view-template-sidebar-folder-row">
+  &lt;li class="folder list-item"&gt;
+    &lt;div class="link-wrap"&gt;
+      &lt;ins&gt;&lt;/ins&gt;
+      &lt;div class="link folder-link"&gt;
+        &lt;span class="view"&gt;&lt;/span&gt;
+        &lt;form class="rename"&gt;
+          &lt;input class="name-field" type="text" size="10" /&gt;
+        &lt;/form&gt;
+        &lt;div class="settings"&gt;&lt;ins&gt;&lt;/ins&gt;&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;ul class="children"&gt;&lt;/ul&gt;
+  &lt;/li&gt; </script>
+      <script type="text/html" id="view-template-sidebar-archived-projects-folder">
+  &lt;li class="folder list-item folder-archived"&gt;
+    &lt;div class="link-wrap"&gt;
+      &lt;ins&gt;&lt;/ins&gt;
+      &lt;div class="link folder-link"&gt;
+        &lt;ins&gt;&lt;/ins&gt;
+        &lt;span&gt;Archived Lists&lt;/span&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;ul class="children"&gt;&lt;/ul&gt;
+  &lt;/li&gt; </script>
+      <!-- Sidebar - People Pane --> <script type="text/html" id="view-template-flow-app-sidebar-people-pane">
+  &lt;div class="pane-root"&gt;
+    &lt;div class="filter people"&gt;
+      &lt;input type="text" placeholder="Search people…" /&gt;
+      &lt;a class="clear-search" title="clear search"&gt;&lt;ins&gt;&lt;/ins&gt;&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;div class="pane-inner"&gt;
+      &lt;ul class="collaborators collaborator-list items-list flow-tree"&gt;&lt;/ul&gt;
+    &lt;/div&gt;
+  &lt;/div&gt; </script>
+      <!-- Sidebar - Person Row --> <script type="text/html" id="view-template-sidebar-person-row">
+  &lt;li class="person list-item"&gt;
+    &lt;ins&gt;&lt;/ins&gt;
+    &lt;div class="person-link link"&gt;
+      &lt;ins&gt;&lt;/ins&gt;
+      &lt;span class="name"&gt;&lt;/span&gt;
+      &lt;ul class="summaries"&gt;&lt;/ul&gt;
+    &lt;/div&gt;
+    &lt;div class="settings"&gt;&lt;ins&gt;&lt;/ins&gt;&lt;/div&gt;
+    &lt;div class="fadeout"&gt;&lt;/div&gt;
+  &lt;/li&gt; </script>
+      <!-- Sidebar - Project Row --> <script type="text/html" id="view-template-sidebar-project-row">
+  &lt;li class="project list-item"&gt;
+    &lt;ins&gt;&lt;/ins&gt;
+    &lt;a class="project-link link"&gt;
+      &lt;ins&gt;&lt;/ins&gt;
+      &lt;span class="view"&gt;&lt;/span&gt;
+    &lt;/a&gt;
+    &lt;div class="settings"&gt;&lt;ins&gt;&lt;/ins&gt;&lt;/div&gt;
+    &lt;div class="fadeout"&gt;&lt;/div&gt;
+  &lt;/li&gt; </script>
+      <!-- Sidebar - Projects Pane --> <script type="text/html" id="view-template-flow-app-sidebar-projects-pane">
+  &lt;div class="pane-root"&gt;
+    &lt;div class="filter projects"&gt;
+      &lt;input type="text" placeholder="Search lists…" /&gt;
+      &lt;a class="clear-search" title="clear search"&gt;&lt;ins&gt;&lt;/ins&gt;&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;div class="pane-inner"&gt;
+      &lt;ul class="project-list items-list flow-tree"&gt;&lt;/ul&gt;
+    &lt;/div&gt;
+  &lt;/div&gt; </script>
+      <!-- Sidebar - Tags Pane --> <script type="text/html" id="view-template-flow-app-sidebar-tags-pane">
+  &lt;div class="pane-root"&gt;
+    &lt;div class="filter tags"&gt;
+      &lt;input type="text" placeholder="Search tags…" /&gt;
+      &lt;a class="clear-search" title="clear search"&gt;&lt;ins&gt;&lt;/ins&gt;&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;div class="pane-inner"&gt;
+        &lt;ul class="tag-list items-list flow-tree"&gt;&lt;/ul&gt;
+    &lt;/div&gt;
+  &lt;/div&gt; </script>
+      <!-- Sidebar - Panes --> <script type="text/html" id="view-template-flow-app-sidebar-panes">
+  &lt;div class="panes-wrap-inner"&gt;
+    &lt;ul class="sidebar-tabs tabs project-tags-collaborators"&gt;
+      &lt;li class="projects active" data-pane="projects"&gt;Lists&lt;/li&gt;
+      &lt;li class="collaborators" data-pane="collaborators"&gt;Contacts&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;div class="main-sidebar-panes sidebar-panes"&gt;
+      &lt;div class="pane projects active"&gt;&lt;/div&gt;
+      &lt;div class="pane collaborators"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt; </script>
+      <!-- Sidebar - Primary Boxes --> <script type="text/html" id="view-template-flow-app-sidebar-primary-boxes">
+  &lt;div class="sidebar-primary-boxes"&gt;
+    &lt;h3&gt;Focus&lt;/h3&gt;
+    &lt;ul class="primary-boxes"&gt;
+      &lt;!-- li class="box dashboard"&gt;
+        &lt;a&gt;
+          &lt;span&gt;Dashboard&lt;/span&gt;
+          &lt;b class="dasboard-badge" style="display: none;"&gt;&lt;/b&gt;
+        &lt;/a&gt;
+      &lt;/li --&gt;
+      &lt;li class="box inbox droppable"&gt;
+        &lt;a href="#/inbox"&gt;
+          &lt;span&gt;Inbox&lt;/span&gt;
+          &lt;b class="badge inbox-badge" style="display: none;"&gt;&lt;/b&gt;
+        &lt;/a&gt;
+      &lt;/li&gt;
+      &lt;li class="box upcoming"&gt;
+        &lt;a href="#/upcoming"&gt;
+          &lt;span&gt;Upcoming&lt;/span&gt;
+          &lt;b class="badge upcoming-badge" style="display: none;"&gt;&lt;/b&gt;
+        &lt;/a&gt;
+      &lt;/li&gt;
+      &lt;li class="box flagged"&gt;
+        &lt;a href="#/flagged"&gt;
+          &lt;span&gt;Flagged&lt;/span&gt;
+          &lt;b class="badge flagged-badge" style="display: none;"&gt;&lt;/b&gt;
+        &lt;/a&gt;
+      &lt;/li&gt;
+      &lt;li class="box delegated"&gt;
+        &lt;a href="#/delegated"&gt;
+          &lt;span&gt;Delegated&lt;/span&gt;
+          &lt;b class="badge delegated-badge" style="display: none;"&gt;&lt;/b&gt;
+        &lt;/a&gt;
+      &lt;/li&gt;
+      &lt;li class="box all-tasks"&gt;
+        &lt;a href="#/tasks"&gt;
+          &lt;span&gt;My Tasks&lt;/span&gt;
+          &lt;b class="badge all-tasks-badge" style="display: none;"&gt;&lt;/b&gt;
+        &lt;/a&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/div&gt; </script>
+      <!-- Sidebar - Secondary Boxes --> <script type="text/html" id="view-template-sidebar-secondary-boxes">
+  &lt;div class="sidebar-secondary-boxes"&gt;
+    &lt;h3&gt;Other Lists&lt;/h3&gt;
+    &lt;div class="pane"&gt;
+      &lt;ul class="links"&gt;
+        &lt;li class="link all-tasks"&gt;&lt;a href="#/tasks/all"&gt;&lt;ins&gt;&lt;/ins&gt;&lt;span&gt;All Tasks&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+        &lt;li class="link followed-tasks"&gt;&lt;a href="#/following"&gt;&lt;ins&gt;&lt;/ins&gt;&lt;span&gt;Followed Tasks&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+        &lt;li class="link completed-tasks"&gt;&lt;a href="#/complete"&gt;&lt;ins&gt;&lt;/ins&gt;&lt;span&gt;Completed Tasks&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/div&gt;
+  &lt;/div&gt; </script>
+      <!-- Task Detail --> <script type="text/html" id="view-template-task-detail">
+  &lt;div class="task-detail"&gt;
+    &lt;div class="task-detail-inner"&gt;
+      &lt;!-- The "Back" Bar --&gt;
+      &lt;div class="layout-north"&gt;
+        &lt;div class="layout-north-inner"&gt;
+            &lt;!--
+            &lt;ul class="tasknav"&gt;
+              &lt;li class="previous"&gt;&lt;ins&gt;Previous Task&lt;/ins&gt;&lt;/li&gt;
+              &lt;li class="page"&gt;
+                &lt;span class="current"&gt;7&lt;/span&gt;&lt;span class="slash"&gt;/&lt;/span&gt;&lt;span class="total"&gt;10&lt;/span&gt;
+              &lt;/li&gt;
+              &lt;li class="next"&gt;&lt;ins&gt;Next Task&lt;/ins&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+            --&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;!-- Activities and Details --&gt;
+      &lt;div class="layout-center"&gt;
+        &lt;div class="layout-center-inner"&gt;
+          &lt;div class="task-body"&gt;
+            &lt;div class="task-body-inner"&gt;
+              &lt;div class="task-wrap"&gt;
+                &lt;div class="task"&gt;
+                  &lt;h2&gt;
+                    &lt;div class="checker"&gt;
+                      &lt;span&gt;
+                        &lt;input type="checkbox" class="cbk-real task-checkbox" style="opacity: 0" /&gt;
+                      &lt;/span&gt;
+                    &lt;/div&gt;
+                    &lt;span class="task-title"&gt;&lt;/span&gt;
+                  &lt;/h2&gt;
+                  &lt;ul class="badges"&gt;
+                    &lt;li class="flag"&gt;&lt;/li&gt;
+                    &lt;li class="description"&gt;&lt;/li&gt;
+                  &lt;/ul&gt;
+                  &lt;ul class="task-actions"&gt;
+                    &lt;li class="edit first"&gt;&lt;a class="edit" title="Edit"&gt;&lt;ins&gt;&lt;/ins&gt;&lt;/a&gt;&lt;/li&gt;
+                    &lt;li class="delete"&gt;&lt;a class="delete" title="Delete"&gt;&lt;ins&gt;&lt;/ins&gt;&lt;/a&gt;&lt;/li&gt;
+                    &lt;li class="flag"&gt;&lt;a class="flag" title="Flag"&gt;&lt;ins&gt;&lt;/ins&gt;&lt;/a&gt;&lt;/li&gt;
+                    &lt;li class="toggle"&gt;&lt;a class="toggle-description" title="Toggle Description"&gt;&lt;ins&gt;&lt;/ins&gt;&lt;/a&gt;&lt;/li&gt;
+                  &lt;/ul&gt;
+                  
+                  &lt;div class="task-notes-wrap"&gt;
+                    &lt;div class="task-notes-wrap-inner"&gt;
+                      &lt;div class="task-description-wrap"&gt;
+                        &lt;div class="task-notes formatted"&gt;&lt;/div&gt;
+                      &lt;/div&gt;
+                      &lt;ul class="task-tags-list"&gt;&lt;/ul&gt;
+                    &lt;/div&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+              &lt;!-- Details --&gt;
+              &lt;div class="task-detail-infobar infobar"&gt;
+                &lt;div class="task-detail-infobar-inner infobar-inner"&gt;
+                  &lt;div class="section details"&gt;
+                    &lt;div class="section-inner details-inner"&gt;
+                      &lt;h3 class="title"&gt;&lt;span class='fadeout'&gt;Details&lt;/span&gt;&lt;/h3&gt;
+                      &lt;div class="content"&gt;
+                        &lt;ul class="information"&gt;
+                          &lt;li class="project-name"&gt;&lt;ins&gt;&lt;/ins&gt;
+                            In &lt;a class="task-project-name"&gt;[List]&lt;/a&gt;
+                          &lt;/li&gt;
+                          &lt;li class="due-date"&gt;&lt;ins&gt;&lt;/ins&gt;
+                            Due &lt;span class="task-due-date-value"&gt;[Due Date]&lt;/span&gt;
+                          &lt;/li&gt;
+                          &lt;li class="recurrence"&gt;&lt;ins&gt;&lt;/ins&gt;
+                            &lt;span class="task-recurrence-value"&gt;Every 1st year on August the 13th&lt;/span&gt;
+                          &lt;/li&gt;
+                          &lt;li class="creation-date"&gt;&lt;ins&gt;&lt;/ins&gt;
+                            Created &lt;span class="task-creation-date-value"&gt;[Creation Date]&lt;/span&gt;
+                          &lt;/li&gt;
+                        &lt;/ul&gt;
+                      &lt;/div&gt;
+                    &lt;/div&gt;
+                  &lt;/div&gt;
+                  &lt;div class="section-collaborators-wrap"&gt;&lt;/div&gt;
+                  &lt;div class="section controls"&gt;
+                      &lt;a class="collaboration button"&gt;&lt;ins&gt;&lt;/ins&gt;&lt;span&gt;&lt;/span&gt;&lt;/a&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+              &lt;!-- Activities --&gt;
+              &lt;div class="task-updates"&gt;
+                &lt;h3 class="title"&gt;Recent Activity&lt;/h3&gt;
+                &lt;div class="task-updates-inner"&gt;
+                  &lt;div class="concierge-note" style="display: none;"&gt;
+                    &lt;div class="text"&gt;
+                      &lt;h4&gt;Thanks for using Flow Concierge&lt;/h4&gt;
+                      &lt;p&gt;We&amp;rsquo;ve received your task and assigned it to one of our agents. They&amp;rsquo;ll be in touch shortly to help out.&lt;/p&gt;
+                    &lt;/div&gt;
+                  &lt;/div&gt;
+                  &lt;div class="activities-container task-activities-container"&gt;&lt;/div&gt;
+                  &lt;ul class="activities new-comment"&gt;
+                    &lt;div class="new-comment-container"&gt;&lt;/div&gt;
+                  &lt;/ul&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt; </script>
+      <!-- Task Row --> <script type="text/html" id="view-template-task-row">
+  &lt;li class="task content-row"&gt;
+    &lt;div class="content-row-inner"&gt;
+      &lt;ins class="sortable"&gt;&lt;/ins&gt;
+      &lt;div class="checker"&gt;
+        &lt;span&gt;
+          &lt;input type="checkbox" class="task-checkbox" tabindex="-1" style="opacity: 0"/&gt;
+        &lt;/span&gt;
+      &lt;/div&gt;
+      &lt;div class="task-main"&gt;
+        &lt;a class="project-name" tabindex="-1"&gt;&lt;/a&gt;
+        &lt;a class="task-account" tabindex="-1"&gt;&lt;/a&gt;
+        &lt;a class="task-owner" tabindex="-1"&gt;&lt;/a&gt;
+        &lt;a class="task-body" tabindex="-1"&gt;&lt;/a&gt;
+        &lt;span class="task-has_description" tabindex="-1"&gt;&lt;/span&gt;
+        &lt;span class="task-has_attachments" tabindex="-1"&gt;&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;div class="overlay"&gt;
+        &lt;span class="flagged"&gt;&lt;/span&gt;
+        &lt;span class="comments"&gt;&lt;/span&gt;
+        &lt;span class="due_date"&gt;&amp;nbsp;&lt;/span&gt;
+        &lt;ul class="tags"&gt;&lt;/ul&gt;
+        &lt;span class="overflow_mask"&gt;&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;ul class="task-actions"&gt;
+        &lt;li class="edit first"&gt;&lt;a title="Edit"&gt;&lt;ins&gt;&lt;/ins&gt;&lt;/a&gt;&lt;/li&gt;
+        &lt;li class="delete"&gt;&lt;a title="Delete"&gt;&lt;ins&gt;&lt;/ins&gt;&lt;/a&gt;&lt;/li&gt;
+        &lt;li class="comment"&gt;&lt;a title="Comment"&gt;&lt;ins&gt;&lt;/ins&gt;&lt;/a&gt;&lt;/li&gt;
+        &lt;li class="flag last"&gt;&lt;a title="Flag"&gt;&lt;ins&gt;&lt;/ins&gt;&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/div&gt;
+  &lt;/li&gt; </script>
+      <!-- Comment Form --> <script type="text/html" id="view-template-comment-form">
+  &lt;li class="activity comment form"&gt;
+    &lt;!-- Thumbnail --&gt;
+    &lt;a class="thumbnail-author"&gt;
+      &lt;ins&gt;&lt;span class="photo"&gt;&lt;/span&gt;&lt;/ins&gt;
+    &lt;/a&gt;
+    &lt;div class="content"&gt;
+      &lt;form class="comment-form"&gt;
+        &lt;div class="comment-textarea-wrap"&gt;
+          &lt;div class="comment-textarea-div"&gt;
+            &lt;div class="textarea-icons"&gt;
+              &lt;abbr class="icon markdown infotip" title="Simple HTML and Markdown formatting is allowed. Click to view the official Markdown guide."&gt;&lt;a 
+href="http://daringfireball.net/projects/markdown/" target="_blank"&gt;Help&lt;/a&gt;&lt;/abbr&gt;
+              &lt;a class="icon preview" title="Preview content"&gt;Preview&lt;/a&gt;
+            &lt;/div&gt;&lt;!-- .textarea-icons --&gt;
+            &lt;textarea class="body" placeholder="Leave a comment, attach files, or invite people..."&gt;&lt;/textarea&gt;
+          &lt;/div&gt;&lt;!-- .comment-textarea-div --&gt;
+        &lt;/div&gt;
+        &lt;div class="fields-wrap"&gt;&lt;/div&gt;
+        &lt;input type="text" style="border: 0; clip: rect(0 0 0 0); height: 1px; margin: -1px; overflow: hidden; padding: 0; position: absolute; width: 1px;"/&gt;
+        &lt;ul class="footer"&gt;
+          &lt;li class="left leftmost cancel"&gt;
+            &lt;a class="button cancel"&gt;Cancel&lt;/a&gt;
+          &lt;/li&gt;
+          &lt;li class="left leftmost"&gt;
+            &lt;a class="button subscribe invite"&gt;Invite people&lt;/a&gt;
+          &lt;/li&gt;
+          &lt;li class="left"&gt;
+            &lt;a class="button attach"&gt;Attach files&lt;/a&gt;
+          &lt;/li&gt;
+          &lt;li class="left delete"&gt;
+            &lt;a class="button delete red"&gt;Delete&lt;/a&gt;
+          &lt;/li&gt;
+          &lt;li class="right rightmost"&gt;
+            &lt;a class="button default submit "&gt;Post&lt;/a&gt;
+          &lt;/li&gt;
+          &lt;li class="right keyboard"&gt;
+            &lt;span&gt;⌘ ↵&lt;/span&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/form&gt;
+    &lt;/div&gt;
+    &lt;div class="bottom-of-comment-form"&gt;&lt;/div&gt;
+  &lt;/li&gt; </script> <script type="text/html" id="view-template-flow-comment-form">
+  &lt;div&gt;
+    &lt;ul class="comment-form-attachments-field"&gt;&lt;/ul&gt;
+    &lt;ul class="comment-form-invite-field"&gt;&lt;/ul&gt;
+  &lt;/div&gt; </script>
+      <!-- Infobar People List --> <script type="text/html" id="view-template-infobar-people-list">
+  &lt;div class="section collaborators"&gt;
+    &lt;h3 class="title"&gt;&lt;span class='fadeout'&gt;Teammates&lt;/span&gt;&lt;/h3&gt;
+    &lt;div class="section-content"&gt;
+      &lt;ul class="collaborators"&gt;&lt;/ul&gt;
+      &lt;div class="quick-invite-wrapper"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt; </script>
+      <!-- Activities --> <script type="text/html" id="view-template-activities">
+  &lt;div class="activities"&gt;
+    &lt;ul class="activities-list"&gt;
+      &lt;li class="spinner s24"&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;ul class="notifications-list"&gt;&lt;/ul&gt;
+  &lt;/div&gt; </script>
+      <!-- Global Activities --> <script type="text/html" id="view-template-global-activity">
+  &lt;li class="activity"&gt;
+    &lt;a class="thumbnail-author"&gt;
+      &lt;ins&gt;&lt;span class="photo"&gt;&lt;/span&gt;&lt;/ins&gt;
+    &lt;/a&gt;
+    &lt;div class="header"&gt;
+      &lt;span class="author"&gt;&lt;/span&gt;
+      &lt;span class="date"&gt;&lt;/span&gt;
+      &lt;span class="source"&gt;&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class="content"&gt;
+      &lt;span class="type"&gt;&lt;/span&gt;
+      &lt;a class="target"&gt;&lt;/a&gt;
+    &lt;/div&gt;
+  &lt;/li&gt; </script> <!-- Task Detail Activities (old) --> <script type="text/html" id="view-template-task-detail-activity-old">
+  &lt;li class="activity"&gt;
+    &lt;div class="activity-inner"&gt;
+      &lt;div class="icon"&gt;&lt;/div&gt;
+      &lt;div class="summary"&gt;&lt;/div&gt;
+      &lt;div class="content"&gt;&lt;/div&gt;
+      &lt;div class="meta"&gt;
+        &lt;div class="date"&gt;&lt;/div&gt;
+        &lt;div class="source"&gt;&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;ul class="activities"&gt;&lt;/ul&gt;
+  &lt;/li&gt; </script> <!-- Task Detail Activities --> <script type="text/html" id="view-template-task-detail-activity">
+  &lt;li class="activity"&gt;
+    &lt;a class="activity-photo"&gt;
+      &lt;ins&gt;&lt;span class="photo"&gt;&lt;/span&gt;&lt;/ins&gt;
+    &lt;/a&gt;
+    &lt;div class="activity-header"&gt;&lt;/div&gt;
+    &lt;div class="meta"&gt;
+      &lt;div class="date"&gt;&lt;/div&gt;
+      &lt;div class="source"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="activity-actions"&gt;&lt;/div&gt;
+  &lt;/li&gt; </script>
+      <!-- Notification Request --> <script type="text/html" id="view-template-flow-notification-request">
+  &lt;li class="no-highlight"&gt;
+    &lt;a class="thumbnail-author"&gt;
+      &lt;ins&gt;
+        &lt;span class="photo"&gt;&lt;/span&gt;
+      &lt;/ins&gt;
+    &lt;/a&gt;
+    &lt;div class="header"&gt;
+      &lt;span class="author"&gt;
+        &lt;a class="author"&gt;&lt;/a&gt;
+      &lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class="segmented"&gt;
+      &lt;a class='button decline'&gt;
+        &lt;span class='decline'&gt;Decline&lt;/span&gt;
+      &lt;/a&gt;
+      &lt;a class='button accept'&gt;
+        &lt;span class='accept'&gt;Accept&lt;/span&gt;
+      &lt;/a&gt;
+    &lt;/div&gt;
+    &lt;div class="approve"&gt;Has been added to your contacts&lt;/div&gt;
+    &lt;ul class="content"&gt;
+      &lt;li class="read-more"&gt;&lt;a&gt;Show all lists &amp; tasks…&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt; </script>
+      <script type="text/html" id="view-template-project-form">
+  &lt;div class="project-form no-left-column task-form"&gt;
+    &lt;form class="form" autocomplete="off"&gt;
+      &lt;div class="task-meta"&gt;
+        &lt;ul class="task-meta-inner"&gt;&lt;/ul&gt;
+      &lt;/div&gt;
+      &lt;button class="submit" type="submit" style="position: absolute; opacity: 0;" tabindex="-1"&gt;Save&lt;/button&gt;
+    &lt;/form&gt;
+  &lt;/div&gt; </script>
+      <!-- Sidebar --> <script type="text/html" id="view-template-flow-app-settings">
+  &lt;div&gt;
+    &lt;ul class="tab-row"&gt;
+      &lt;li class="tab general default"&gt;&lt;ins&gt;&lt;/ins&gt;General&lt;/li&gt;
+      &lt;li class="tab info "&gt;&lt;ins&gt;&lt;/ins&gt;My Info&lt;/li&gt;
+      &lt;li class="tab notifications"&gt;&lt;ins&gt;&lt;/ins&gt;Notifications&lt;/li&gt;
+      &lt;li class="tab billing"&gt;&lt;ins&gt;&lt;/ins&gt;Account &amp;amp; Billing &lt;/li&gt;
+      &lt;li class="tab password"&gt;&lt;ins&gt;&lt;/ins&gt;Password&lt;/li&gt;
+      &lt;li class="tab networks"&gt;&lt;ins&gt;&lt;/ins&gt;Social Networks&lt;/li&gt;
+      &lt;li class="tab export"&gt;&lt;ins&gt;&lt;/ins&gt;Export Data&lt;/li&gt;
+      &lt;li class="tab concierge last"&gt;&lt;ins&gt;&lt;/ins&gt;Flow Concierge&lt;/li&gt;
+    &lt;/ul&gt;
+    
+    &lt;div class="body"&gt;
+    &lt;div class="tab-panes"&gt;
+      &lt;div class="pane general default"&gt;
+        &lt;div class="pane-inner"&gt;
+          &lt;div class="section"&gt;
+            &lt;label class="section-title"&gt;Start Screen&lt;/label&gt;
+            &lt;fieldset&gt;
+              &lt;select class="startup-state-field"&gt;
+                &lt;option value="last"&gt;Last page&lt;/option&gt;
+                &lt;option value="activity"&gt;Activity&lt;/option&gt;
+                &lt;option value="inbox"&gt;Inbox&lt;/option&gt;
+                &lt;option value="upcoming"&gt;Upcoming&lt;/option&gt;
+                &lt;option value="flagged"&gt;Flagged&lt;/option&gt;
+                &lt;option value="delegated"&gt;Delegated&lt;/option&gt;
+                &lt;option value="all"&gt;My Tasks&lt;/option&gt;
+              &lt;/select&gt;
+            &lt;/fieldset&gt;
+          &lt;/div&gt;
+          &lt;div class="section"&gt;
+            &lt;label class="section-title completed-tasks-label"&gt;Completed Tasks&lt;/label&gt;
+            &lt;fieldset class='checkbox-list'&gt;
+              &lt;label&gt;Clear completed tasks manually&lt;/label&gt;
+              &lt;ul class="notifications"&gt;
+                &lt;li&gt;&lt;input type="checkbox" class="completed-tasks-clear-manually" name="completed-tasks-clear-manually" /&gt;&lt;/li&gt;
+              &lt;/ul&gt;
+            &lt;/fieldset&gt;
+          &lt;/div&gt;
+          
+          &lt;div class="section localization"&gt;
+            &lt;label class="section-title"&gt;Time Zone&lt;/label&gt;
+            &lt;fieldset&gt;
+              &lt;select class="timezone-field"&gt;
+                &lt;option value="International Date Line West"&gt;(GMT-11:00) International Date Line West&lt;/option&gt; &lt;option value="Midway Island"&gt;(GMT-11:00) Midway 
+Island&lt;/option&gt; &lt;option value="Samoa"&gt;(GMT-11:00) Samoa&lt;/option&gt; &lt;option value="Hawaii"&gt;(GMT-10:00) Hawaii&lt;/option&gt; &lt;option 
+value="Alaska"&gt;(GMT-09:00) Alaska&lt;/option&gt; &lt;option value="Pacific Time (US &amp;amp; Canada)"&gt;(GMT-08:00) Pacific Time (US &amp;amp; Canada)&lt;/option&gt; &lt;option 
+value="Tijuana"&gt;(GMT-08:00) Tijuana&lt;/option&gt; &lt;option value="Arizona"&gt;(GMT-07:00) Arizona&lt;/option&gt; &lt;option value="Chihuahua"&gt;(GMT-07:00) 
+Chihuahua&lt;/option&gt; &lt;option value="Mazatlan"&gt;(GMT-07:00) Mazatlan&lt;/option&gt; &lt;option value="Mountain Time (US &amp;amp; Canada)"&gt;(GMT-07:00) Mountain Time (US 
+&amp;amp; Canada)&lt;/option&gt; &lt;option value="Central America"&gt;(GMT-06:00) Central America&lt;/option&gt; &lt;option value="Central Time (US &amp;amp; Canada)"&gt;(GMT-06:00) 
+Central Time (US &amp;amp; Canada)&lt;/option&gt; &lt;option value="Guadalajara"&gt;(GMT-06:00) Guadalajara&lt;/option&gt; &lt;option value="Mexico City"&gt;(GMT-06:00) Mexico 
+City&lt;/option&gt; &lt;option value="Monterrey"&gt;(GMT-06:00) Monterrey&lt;/option&gt; &lt;option value="Saskatchewan"&gt;(GMT-06:00) Saskatchewan&lt;/option&gt; &lt;option 
+value="Bogota"&gt;(GMT-05:00) Bogota&lt;/option&gt; &lt;option value="Eastern Time (US &amp;amp; Canada)"&gt;(GMT-05:00) Eastern Time (US &amp;amp; Canada)&lt;/option&gt; &lt;option 
+value="Indiana (East)"&gt;(GMT-05:00) Indiana (East)&lt;/option&gt; &lt;option value="Lima"&gt;(GMT-05:00) Lima&lt;/option&gt; &lt;option value="Quito"&gt;(GMT-05:00) 
+Quito&lt;/option&gt; &lt;option value="Caracas"&gt;(GMT-04:30) Caracas&lt;/option&gt; &lt;option value="Atlantic Time (Canada)"&gt;(GMT-04:00) Atlantic Time (Canada)&lt;/option&gt; 
+&lt;option value="Georgetown"&gt;(GMT-04:00) Georgetown&lt;/option&gt; &lt;option value="La Paz"&gt;(GMT-04:00) La Paz&lt;/option&gt; &lt;option value="Santiago"&gt;(GMT-04:00) 
+Santiago&lt;/option&gt; &lt;option value="Newfoundland"&gt;(GMT-03:30) Newfoundland&lt;/option&gt; &lt;option value="Brasilia"&gt;(GMT-03:00) Brasilia&lt;/option&gt; &lt;option 
+value="Buenos Aires"&gt;(GMT-03:00) Buenos Aires&lt;/option&gt; &lt;option value="Greenland"&gt;(GMT-03:00) Greenland&lt;/option&gt; &lt;option value="Mid-Atlantic"&gt;(GMT-02:00) 
+Mid-Atlantic&lt;/option&gt; &lt;option value="Azores"&gt;(GMT-01:00) Azores&lt;/option&gt; &lt;option value="Cape Verde Is."&gt;(GMT-01:00) Cape Verde Is.&lt;/option&gt; &lt;option 
+value="Casablanca"&gt;(GMT+00:00) Casablanca&lt;/option&gt; &lt;option value="Dublin"&gt;(GMT+00:00) Dublin&lt;/option&gt; &lt;option value="Edinburgh"&gt;(GMT+00:00) 
+Edinburgh&lt;/option&gt; &lt;option value="Lisbon"&gt;(GMT+00:00) Lisbon&lt;/option&gt; &lt;option value="London"&gt;(GMT+00:00) London&lt;/option&gt; &lt;option 
+value="Monrovia"&gt;(GMT+00:00) Monrovia&lt;/option&gt; &lt;option value="UTC"&gt;(GMT+00:00) UTC&lt;/option&gt; &lt;option value="Amsterdam"&gt;(GMT+01:00) Amsterdam&lt;/option&gt; 
+&lt;option value="Belgrade"&gt;(GMT+01:00) Belgrade&lt;/option&gt; &lt;option value="Berlin"&gt;(GMT+01:00) Berlin&lt;/option&gt; &lt;option value="Bern"&gt;(GMT+01:00) 
+Bern&lt;/option&gt; &lt;option value="Bratislava"&gt;(GMT+01:00) Bratislava&lt;/option&gt; &lt;option value="Brussels"&gt;(GMT+01:00) Brussels&lt;/option&gt; &lt;option 
+value="Budapest"&gt;(GMT+01:00) Budapest&lt;/option&gt; &lt;option value="Copenhagen"&gt;(GMT+01:00) Copenhagen&lt;/option&gt; &lt;option value="Ljubljana"&gt;(GMT+01:00) 
+Ljubljana&lt;/option&gt; &lt;option value="Madrid"&gt;(GMT+01:00) Madrid&lt;/option&gt; &lt;option value="Paris"&gt;(GMT+01:00) Paris&lt;/option&gt; &lt;option 
+value="Prague"&gt;(GMT+01:00) Prague&lt;/option&gt; &lt;option value="Rome"&gt;(GMT+01:00) Rome&lt;/option&gt; &lt;option value="Sarajevo"&gt;(GMT+01:00) Sarajevo&lt;/option&gt; 
+&lt;option value="Skopje"&gt;(GMT+01:00) Skopje&lt;/option&gt; &lt;option value="Stockholm"&gt;(GMT+01:00) Stockholm&lt;/option&gt; &lt;option value="Vienna"&gt;(GMT+01:00) 
+Vienna&lt;/option&gt; &lt;option value="Warsaw"&gt;(GMT+01:00) Warsaw&lt;/option&gt; &lt;option value="West Central Africa"&gt;(GMT+01:00) West Central Africa&lt;/option&gt; 
+&lt;option value="Zagreb"&gt;(GMT+01:00) Zagreb&lt;/option&gt; &lt;option value="Athens"&gt;(GMT+02:00) Athens&lt;/option&gt; &lt;option value="Bucharest"&gt;(GMT+02:00) 
+Bucharest&lt;/option&gt; &lt;option value="Cairo"&gt;(GMT+02:00) Cairo&lt;/option&gt; &lt;option value="Harare"&gt;(GMT+02:00) Harare&lt;/option&gt; &lt;option 
+value="Helsinki"&gt;(GMT+02:00) Helsinki&lt;/option&gt; &lt;option value="Istanbul"&gt;(GMT+02:00) Istanbul&lt;/option&gt; &lt;option value="Jerusalem"&gt;(GMT+02:00) 
+Jerusalem&lt;/option&gt; &lt;option value="Kyiv"&gt;(GMT+02:00) Kyiv&lt;/option&gt; &lt;option value="Pretoria"&gt;(GMT+02:00) Pretoria&lt;/option&gt; &lt;option 
+value="Riga"&gt;(GMT+02:00) Riga&lt;/option&gt; &lt;option value="Sofia"&gt;(GMT+02:00) Sofia&lt;/option&gt; &lt;option value="Tallinn"&gt;(GMT+02:00) Tallinn&lt;/option&gt; 
+&lt;option value="Vilnius"&gt;(GMT+02:00) Vilnius&lt;/option&gt; &lt;option value="Baghdad"&gt;(GMT+03:00) Baghdad&lt;/option&gt; &lt;option value="Kuwait"&gt;(GMT+03:00) 
+Kuwait&lt;/option&gt; &lt;option value="Minsk"&gt;(GMT+03:00) Minsk&lt;/option&gt; &lt;option value="Nairobi"&gt;(GMT+03:00) Nairobi&lt;/option&gt; &lt;option 
+value="Riyadh"&gt;(GMT+03:00) Riyadh&lt;/option&gt; &lt;option value="Tehran"&gt;(GMT+03:30) Tehran&lt;/option&gt; &lt;option value="Abu Dhabi"&gt;(GMT+04:00) Abu 
+Dhabi&lt;/option&gt; &lt;option value="Baku"&gt;(GMT+04:00) Baku&lt;/option&gt; &lt;option value="Moscow"&gt;(GMT+04:00) Moscow&lt;/option&gt; &lt;option 
+value="Muscat"&gt;(GMT+04:00) Muscat&lt;/option&gt; &lt;option value="St. Petersburg"&gt;(GMT+04:00) St. Petersburg&lt;/option&gt; &lt;option value="Tbilisi"&gt;(GMT+04:00) 
+Tbilisi&lt;/option&gt; &lt;option value="Volgograd"&gt;(GMT+04:00) Volgograd&lt;/option&gt; &lt;option value="Yerevan"&gt;(GMT+04:00) Yerevan&lt;/option&gt; &lt;option 
+value="Kabul"&gt;(GMT+04:30) Kabul&lt;/option&gt; &lt;option value="Islamabad"&gt;(GMT+05:00) Islamabad&lt;/option&gt; &lt;option value="Karachi"&gt;(GMT+05:00) 
+Karachi&lt;/option&gt; &lt;option value="Tashkent"&gt;(GMT+05:00) Tashkent&lt;/option&gt; &lt;option value="Chennai"&gt;(GMT+05:30) Chennai&lt;/option&gt; &lt;option 
+value="Kolkata"&gt;(GMT+05:30) Kolkata&lt;/option&gt; &lt;option value="Mumbai"&gt;(GMT+05:30) Mumbai&lt;/option&gt; &lt;option value="New Delhi"&gt;(GMT+05:30) New 
+Delhi&lt;/option&gt; &lt;option value="Sri Jayawardenepura"&gt;(GMT+05:30) Sri Jayawardenepura&lt;/option&gt; &lt;option value="Kathmandu"&gt;(GMT+05:45) Kathmandu&lt;/option&gt; 
+&lt;option value="Almaty"&gt;(GMT+06:00) Almaty&lt;/option&gt; &lt;option value="Astana"&gt;(GMT+06:00) Astana&lt;/option&gt; &lt;option value="Dhaka"&gt;(GMT+06:00) 
+Dhaka&lt;/option&gt; &lt;option value="Ekaterinburg"&gt;(GMT+06:00) Ekaterinburg&lt;/option&gt; &lt;option value="Rangoon"&gt;(GMT+06:30) Rangoon&lt;/option&gt; &lt;option 
+value="Bangkok"&gt;(GMT+07:00) Bangkok&lt;/option&gt; &lt;option value="Hanoi"&gt;(GMT+07:00) Hanoi&lt;/option&gt; &lt;option value="Jakarta"&gt;(GMT+07:00) Jakarta&lt;/option&gt; 
+&lt;option value="Novosibirsk"&gt;(GMT+07:00) Novosibirsk&lt;/option&gt; &lt;option value="Beijing"&gt;(GMT+08:00) Beijing&lt;/option&gt; &lt;option value="Chongqing"&gt;(GMT+08:00) 
+Chongqing&lt;/option&gt; &lt;option value="Hong Kong"&gt;(GMT+08:00) Hong Kong&lt;/option&gt; &lt;option value="Krasnoyarsk"&gt;(GMT+08:00) Krasnoyarsk&lt;/option&gt; &lt;option 
+value="Kuala Lumpur"&gt;(GMT+08:00) Kuala Lumpur&lt;/option&gt; &lt;option value="Perth"&gt;(GMT+08:00) Perth&lt;/option&gt; &lt;option value="Singapore"&gt;(GMT+08:00) 
+Singapore&lt;/option&gt; &lt;option value="Taipei"&gt;(GMT+08:00) Taipei&lt;/option&gt; &lt;option value="Ulaan Bataar"&gt;(GMT+08:00) Ulaan Bataar&lt;/option&gt; &lt;option 
+value="Urumqi"&gt;(GMT+08:00) Urumqi&lt;/option&gt; &lt;option value="Irkutsk"&gt;(GMT+09:00) Irkutsk&lt;/option&gt; &lt;option value="Osaka"&gt;(GMT+09:00) Osaka&lt;/option&gt; 
+&lt;option value="Sapporo"&gt;(GMT+09:00) Sapporo&lt;/option&gt; &lt;option value="Seoul"&gt;(GMT+09:00) Seoul&lt;/option&gt; &lt;option value="Tokyo"&gt;(GMT+09:00) 
+Tokyo&lt;/option&gt; &lt;option value="Adelaide"&gt;(GMT+09:30) Adelaide&lt;/option&gt; &lt;option value="Darwin"&gt;(GMT+09:30) Darwin&lt;/option&gt; &lt;option 
+value="Brisbane"&gt;(GMT+10:00) Brisbane&lt;/option&gt; &lt;option value="Canberra"&gt;(GMT+10:00) Canberra&lt;/option&gt; &lt;option value="Guam"&gt;(GMT+10:00) Guam&lt;/option&gt; 
+&lt;option value="Hobart"&gt;(GMT+10:00) Hobart&lt;/option&gt; &lt;option value="Melbourne"&gt;(GMT+10:00) Melbourne&lt;/option&gt; &lt;option value="Port Moresby"&gt;(GMT+10:00) 
+Port Moresby&lt;/option&gt; &lt;option value="Sydney"&gt;(GMT+10:00) Sydney&lt;/option&gt; &lt;option value="Yakutsk"&gt;(GMT+10:00) Yakutsk&lt;/option&gt; &lt;option value="New 
+Caledonia"&gt;(GMT+11:00) New Caledonia&lt;/option&gt; &lt;option value="Vladivostok"&gt;(GMT+11:00) Vladivostok&lt;/option&gt; &lt;option value="Auckland"&gt;(GMT+12:00) 
+Auckland&lt;/option&gt; &lt;option value="Fiji"&gt;(GMT+12:00) Fiji&lt;/option&gt; &lt;option value="Kamchatka"&gt;(GMT+12:00) Kamchatka&lt;/option&gt; &lt;option 
+value="Magadan"&gt;(GMT+12:00) Magadan&lt;/option&gt; &lt;option value="Marshall Is."&gt;(GMT+12:00) Marshall Is.&lt;/option&gt; &lt;option value="Solomon Is."&gt;(GMT+12:00) Solomon 
+Is.&lt;/option&gt; &lt;option value="Wellington"&gt;(GMT+12:00) Wellington&lt;/option&gt; &lt;option value="Nuku&amp;#x27;alofa"&gt;(GMT+13:00) Nuku&amp;#x27;alofa&lt;/option&gt;
+              &lt;/select&gt;
+            &lt;/fieldset&gt;
+            
+            &lt;label class="section-title"&gt;Locale&lt;/label&gt;
+            &lt;fieldset&gt;
+              &lt;select class="locale-field"&gt;
+                &lt;option value="en-CA"&gt;en-CA&lt;/option&gt;
+                &lt;option value="en-US"&gt;en-US&lt;/option&gt;
+                &lt;option value="en-GB"&gt;en-GB&lt;/option&gt;
+                &lt;option value="fr-FR"&gt;fr-FR&lt;/option&gt;
+                &lt;option value="de-DE"&gt;de-DE&lt;/option&gt;
+                &lt;option value="ja-JP"&gt;ja-JP&lt;/option&gt;
+              &lt;/select&gt;
+            &lt;/fieldset&gt;
+      
+            &lt;label class="section-title"&gt;Start of Week&lt;/label&gt;
+            &lt;fieldset&gt;
+              &lt;select class="start-of-week-field"&gt;
+                &lt;option value="-1"&gt;Locale Default&lt;/option&gt;
+                &lt;option value="0"&gt;Sunday&lt;/option&gt;
+                &lt;option value="1"&gt;Monday&lt;/option&gt;
+                &lt;option value="2"&gt;Tuesday&lt;/option&gt;
+                &lt;option value="3"&gt;Wednesday&lt;/option&gt;
+                &lt;option value="4"&gt;Thursday&lt;/option&gt;
+                &lt;option value="5"&gt;Friday&lt;/option&gt;
+                &lt;option value="6"&gt;Saturday&lt;/option&gt;
+              &lt;/select&gt;
+            &lt;/fieldset&gt;
+          &lt;/div&gt;&lt;!-- .section --&gt;
+          
+          &lt;div class="section fluid-badge-options" style="display:none"&gt;
+            &lt;label class="section-title"&gt;Fluid Badge Count&lt;/label&gt;
+            &lt;fieldset&gt;
+              &lt;ul class="inputs"&gt;
+                &lt;li&gt;
+                  &lt;select class="fluid-badge-count"&gt;
+                    &lt;option value="unread"&gt;Unread Notifications&lt;/option&gt;
+                    &lt;option value="inbox"&gt;Inbox&lt;/option&gt;
+                    &lt;option value="upcoming"&gt;Upcoming&lt;/option&gt;
+                    &lt;option value="flagged"&gt;Flagged&lt;/option&gt;
+                    &lt;option value="none"&gt;No Badge&lt;/option&gt;
+                  &lt;/select&gt;
+                &lt;/li&gt;
+              &lt;/ul&gt;
+            &lt;/fieldset&gt;
+          &lt;/div&gt;&lt;!-- .section --&gt;
+          
+        &lt;/div&gt;
+      &lt;/div&gt;&lt;!-- .pane.general --&gt;
+      
+      &lt;div class="pane info"&gt;&lt;/div&gt;&lt;!-- .pane.info --&gt;
+      
+      &lt;div class="pane notifications"&gt;
+        &lt;div class="pane-inner"&gt;
+          &lt;form class="notification-settings-form"&gt;
+            &lt;div class="section digest"&gt;
+              &lt;label class="section-title"&gt;Daily Digest&lt;/label&gt;
+              &lt;fieldset&gt;
+                &lt;p&gt;See your upcoming tasks and catch up on recent activity right from your email inbox.&lt;/p&gt;
+                &lt;select class="digest-period"&gt;
+                  &lt;option value="never"&gt;Never&lt;/option&gt;
+                  &lt;option value="daily"&gt;Send every day&lt;/option&gt;
+                  &lt;option value="weekdays"&gt;Send every weekday&lt;/option&gt;
+                &lt;/select&gt;
+                
+                &lt;select class="digest-time"&gt;
+                  &lt;option value="5"&gt;at 5:00 AM&lt;/option&gt;
+                  &lt;option value="6"&gt;at 6:00 AM&lt;/option&gt;
+                  &lt;option value="7"&gt;at 7:00 AM&lt;/option&gt;
+                  &lt;option value="8"&gt;at 8:00 AM&lt;/option&gt;
+                  &lt;option value="9"&gt;at 9:00 AM&lt;/option&gt;
+                  &lt;option value="10"&gt;at 10:00 AM&lt;/option&gt;
+                  &lt;option value="11"&gt;at 11:00 AM&lt;/option&gt;
+                  &lt;option value="12"&gt;at 12:00 PM&lt;/option&gt;
+                &lt;/select&gt;
+              &lt;/fieldset&gt;
+            &lt;/div&gt;
+            
+            &lt;div class="section email-notifications"&gt;
+              &lt;label class="section-title"&gt;Email Notifications&lt;/label&gt;
+              &lt;fieldset&gt;
+                &lt;label&gt;Assigns you a task&lt;/label&gt;
+                &lt;ul class="notifications"&gt;
+                  &lt;li&gt;&lt;input type="checkbox" class="email" name="notifications[task_assign_email]" /&gt;&lt;/li&gt;
+                &lt;/ul&gt;
+              &lt;/fieldset&gt;
+              &lt;fieldset&gt;
+                &lt;label&gt;Invites you to a task&lt;/label&gt;
+                &lt;ul class="notifications"&gt;
+                  &lt;li&gt;&lt;input type="checkbox" class="email" name="notifications[task_invite_email]" /&gt;&lt;/li&gt;
+                &lt;/ul&gt;
+              &lt;/fieldset&gt;
+              &lt;fieldset&gt;
+                &lt;label&gt;Comments on or attaches files to a task&lt;/label&gt;
+                &lt;ul class="notifications"&gt;
+                  &lt;li&gt;&lt;input type="checkbox" class="email" name="notifications[task_comment_email]" /&gt;&lt;/li&gt;
+                &lt;/ul&gt;
+              &lt;/fieldset&gt;
+              &lt;fieldset&gt;
+                &lt;label&gt;Completes, reopens, or deletes a task&lt;/label&gt;
+                &lt;ul class="notifications"&gt;
+                  &lt;li&gt;&lt;input type="checkbox" class="email" name="notifications[task_state_email]" /&gt;&lt;/li&gt;
+                &lt;/ul&gt;
+              &lt;/fieldset&gt;
+              &lt;fieldset&gt;
+                &lt;label&gt;Changes a task&amp;rsquo;s details or followers&lt;/label&gt;
+                &lt;ul class="notifications"&gt;
+                  &lt;li&gt;&lt;input type="checkbox" class="email" name="notifications[task_edit_email]" /&gt;&lt;/li&gt;
+                &lt;/ul&gt;
+              &lt;/fieldset&gt;
+              &lt;fieldset&gt;
+                &lt;label&gt;Invites you to a list&lt;/label&gt;
+                &lt;ul class="notifications"&gt;
+                  &lt;li&gt;&lt;input type="checkbox" class="email" name="notifications[list_invite_email]" /&gt;&lt;/li&gt;
+                &lt;/ul&gt;
+              &lt;/fieldset&gt;
+              &lt;fieldset&gt;
+                &lt;label&gt;Changes a list&amp;rsquo;s details or members&lt;/label&gt;
+                &lt;ul class="notifications"&gt;
+                  &lt;li&gt;&lt;input type="checkbox" class="email" name="notifications[list_edit_email]" /&gt;&lt;/li&gt;
+                &lt;/ul&gt;
+              &lt;/fieldset&gt;
+              &lt;fieldset&gt;
+                &lt;label&gt;Archives, reopens, or deletes a list&lt;/label&gt;
+                &lt;ul class="notifications"&gt;
+                  &lt;li&gt;&lt;input type="checkbox" class="email" name="notifications[list_state_email]" /&gt;&lt;/li&gt;
+                &lt;/ul&gt;
+              &lt;/fieldset&gt;
+            &lt;/div&gt;
+            
+            &lt;div class="section app-notifications"&gt;
+              &lt;label class="section-title"&gt;App Notifications&lt;/label&gt;
+              &lt;fieldset&gt;
+                &lt;label&gt;All task and list activity&lt;/label&gt;
+                &lt;ul class="notifications"&gt;
+                  &lt;li&gt;&lt;input class="in-app-notifications" type="checkbox" name="in_app_notifications" /&gt;&lt;/li&gt;
+                &lt;/ul&gt;
+              &lt;/fieldset&gt;
+            &lt;/div&gt;
+          &lt;/form&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;&lt;!-- .pane.notifications --&gt;
+      
+      &lt;div class="pane billing"&gt;&lt;/div&gt;&lt;!-- .pane.billing --&gt;
+      
+      &lt;div class="pane password"&gt;
+        &lt;div class="pane-inner"&gt;
+          &lt;div class="section"&gt;
+            &lt;label class="section-title password-label-old"&gt;Old Password&lt;/label&gt;
+            &lt;fieldset&gt;
+              &lt;input class="password-field-old text" autocomplete="off" type="password" /&gt;
+            &lt;/fieldset&gt;
+            &lt;label class="section-title password-label-new"&gt;New Password&lt;/label&gt;
+            &lt;fieldset&gt;
+              &lt;input class="password-field-new text" autocomplete="off" type="password" /&gt;
+            &lt;/fieldset&gt;
+            &lt;label class="section-title password-label-confirm"&gt;Confirm&lt;/label&gt;
+            &lt;fieldset&gt;
+              &lt;input class="password-field-confirm text" autocomplete="off" type="password" /&gt;
+            &lt;/fieldset&gt;
+            &lt;fieldset&gt;
+              &lt;p&gt;&lt;a class="submit-password-change button"&gt;Change Password&lt;/a&gt;&lt;/p&gt;
+              &lt;p class="message password-change"&gt;&lt;/p&gt;
+            &lt;/fieldset&gt;
+          &lt;/div&gt;&lt;!-- .section --&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;&lt;!-- .pane --&gt;
+      
+      &lt;div class="pane networks"&gt;
+        &lt;div class="pane-inner"&gt;
+          &lt;div class="section"&gt;
+            &lt;p class="intro"&gt;Quickly invite your friends, family, and colleagues to Flow by adding your social networks.&lt;/p&gt;
+          &lt;/div&gt;&lt;!-- .section --&gt;
+          &lt;div class="section network"&gt;
+            &lt;ul class="connect-to-networks"&gt;
+              &lt;li class="facebook"&gt;
+                &lt;span class="logo"&gt;&lt;/span&gt;
+                Connect to Facebook
+                &lt;div class="toggle"&gt;
+                  &lt;input type="checkbox" name="connect-to-network" class="cbk facebook" value="facebook"&gt;
+                &lt;/div&gt;
+              &lt;/li&gt;
+              &lt;li class="google"&gt;
+                &lt;span class="logo"&gt;&lt;/span&gt;
+                Connect to Google
+                &lt;div class="toggle"&gt;
+                  &lt;input type="checkbox" name="connect-to-network" class="cbk google" value="google"&gt;
+                &lt;/div&gt;
+              &lt;/li&gt;
+              &lt;li class="twitter"&gt;
+                &lt;span class="logo"&gt;&lt;/span&gt;
+                Connect to Twitter
+                &lt;div class="toggle"&gt;
+                  &lt;input type="checkbox" name="connect-to-network" class="cbk twitter" value="twitter"&gt;
+                &lt;/div&gt;
+              &lt;/li&gt;
+            &lt;/ul&gt;
+            &lt;div class="spinner s24"&gt;&lt;/div&gt;
+          &lt;/div&gt;&lt;!-- .section --&gt;
+          &lt;div class="section"&gt;
+            &lt;fieldset&gt;
+              &lt;p&gt;&lt;a class="add-contacts-button button"&gt;Add Contacts&lt;/a&gt;&lt;/p&gt;
+            &lt;/fieldset&gt;
+          &lt;/div&gt;&lt;!-- .section --&gt;
+        &lt;/div&gt;&lt;!-- .pane-inner --&gt;
+      &lt;/div&gt;&lt;!-- .pane --&gt;
+      
+      &lt;div class="pane localization"&gt;
+        &lt;div class="pane-inner"&gt;
+          &lt;div class="section localization"&gt;
+            &lt;label class="section-title"&gt;Timezone&lt;/label&gt;
+            &lt;fieldset&gt;
+              &lt;select class="timezone-field"&gt;
+                &lt;option value="International Date Line West"&gt;(GMT-11:00) International Date Line West&lt;/option&gt; &lt;option value="Midway Island"&gt;(GMT-11:00) Midway 
+Island&lt;/option&gt; &lt;option value="Samoa"&gt;(GMT-11:00) Samoa&lt;/option&gt; &lt;option value="Hawaii"&gt;(GMT-10:00) Hawaii&lt;/option&gt; &lt;option 
+value="Alaska"&gt;(GMT-09:00) Alaska&lt;/option&gt; &lt;option value="Pacific Time (US &amp;amp; Canada)"&gt;(GMT-08:00) Pacific Time (US &amp;amp; Canada)&lt;/option&gt; &lt;option 
+value="Tijuana"&gt;(GMT-08:00) Tijuana&lt;/option&gt; &lt;option value="Arizona"&gt;(GMT-07:00) Arizona&lt;/option&gt; &lt;option value="Chihuahua"&gt;(GMT-07:00) 
+Chihuahua&lt;/option&gt; &lt;option value="Mazatlan"&gt;(GMT-07:00) Mazatlan&lt;/option&gt; &lt;option value="Mountain Time (US &amp;amp; Canada)"&gt;(GMT-07:00) Mountain Time (US 
+&amp;amp; Canada)&lt;/option&gt; &lt;option value="Central America"&gt;(GMT-06:00) Central America&lt;/option&gt; &lt;option value="Central Time (US &amp;amp; Canada)"&gt;(GMT-06:00) 
+Central Time (US &amp;amp; Canada)&lt;/option&gt; &lt;option value="Guadalajara"&gt;(GMT-06:00) Guadalajara&lt;/option&gt; &lt;option value="Mexico City"&gt;(GMT-06:00) Mexico 
+City&lt;/option&gt; &lt;option value="Monterrey"&gt;(GMT-06:00) Monterrey&lt;/option&gt; &lt;option value="Saskatchewan"&gt;(GMT-06:00) Saskatchewan&lt;/option&gt; &lt;option 
+value="Bogota"&gt;(GMT-05:00) Bogota&lt;/option&gt; &lt;option value="Eastern Time (US &amp;amp; Canada)"&gt;(GMT-05:00) Eastern Time (US &amp;amp; Canada)&lt;/option&gt; &lt;option 
+value="Indiana (East)"&gt;(GMT-05:00) Indiana (East)&lt;/option&gt; &lt;option value="Lima"&gt;(GMT-05:00) Lima&lt;/option&gt; &lt;option value="Quito"&gt;(GMT-05:00) 
+Quito&lt;/option&gt; &lt;option value="Caracas"&gt;(GMT-04:30) Caracas&lt;/option&gt; &lt;option value="Atlantic Time (Canada)"&gt;(GMT-04:00) Atlantic Time (Canada)&lt;/option&gt; 
+&lt;option value="Georgetown"&gt;(GMT-04:00) Georgetown&lt;/option&gt; &lt;option value="La Paz"&gt;(GMT-04:00) La Paz&lt;/option&gt; &lt;option value="Santiago"&gt;(GMT-04:00) 
+Santiago&lt;/option&gt; &lt;option value="Newfoundland"&gt;(GMT-03:30) Newfoundland&lt;/option&gt; &lt;option value="Brasilia"&gt;(GMT-03:00) Brasilia&lt;/option&gt; &lt;option 
+value="Buenos Aires"&gt;(GMT-03:00) Buenos Aires&lt;/option&gt; &lt;option value="Greenland"&gt;(GMT-03:00) Greenland&lt;/option&gt; &lt;option value="Mid-Atlantic"&gt;(GMT-02:00) 
+Mid-Atlantic&lt;/option&gt; &lt;option value="Azores"&gt;(GMT-01:00) Azores&lt;/option&gt; &lt;option value="Cape Verde Is."&gt;(GMT-01:00) Cape Verde Is.&lt;/option&gt; &lt;option 
+value="Casablanca"&gt;(GMT+00:00) Casablanca&lt;/option&gt; &lt;option value="Dublin"&gt;(GMT+00:00) Dublin&lt;/option&gt; &lt;option value="Edinburgh"&gt;(GMT+00:00) 
+Edinburgh&lt;/option&gt; &lt;option value="Lisbon"&gt;(GMT+00:00) Lisbon&lt;/option&gt; &lt;option value="London"&gt;(GMT+00:00) London&lt;/option&gt; &lt;option 
+value="Monrovia"&gt;(GMT+00:00) Monrovia&lt;/option&gt; &lt;option value="UTC"&gt;(GMT+00:00) UTC&lt;/option&gt; &lt;option value="Amsterdam"&gt;(GMT+01:00) Amsterdam&lt;/option&gt; 
+&lt;option value="Belgrade"&gt;(GMT+01:00) Belgrade&lt;/option&gt; &lt;option value="Berlin"&gt;(GMT+01:00) Berlin&lt;/option&gt; &lt;option value="Bern"&gt;(GMT+01:00) 
+Bern&lt;/option&gt; &lt;option value="Bratislava"&gt;(GMT+01:00) Bratislava&lt;/option&gt; &lt;option value="Brussels"&gt;(GMT+01:00) Brussels&lt;/option&gt; &lt;option 
+value="Budapest"&gt;(GMT+01:00) Budapest&lt;/option&gt; &lt;option value="Copenhagen"&gt;(GMT+01:00) Copenhagen&lt;/option&gt; &lt;option value="Ljubljana"&gt;(GMT+01:00) 
+Ljubljana&lt;/option&gt; &lt;option value="Madrid"&gt;(GMT+01:00) Madrid&lt;/option&gt; &lt;option value="Paris"&gt;(GMT+01:00) Paris&lt;/option&gt; &lt;option 
+value="Prague"&gt;(GMT+01:00) Prague&lt;/option&gt; &lt;option value="Rome"&gt;(GMT+01:00) Rome&lt;/option&gt; &lt;option value="Sarajevo"&gt;(GMT+01:00) Sarajevo&lt;/option&gt; 
+&lt;option value="Skopje"&gt;(GMT+01:00) Skopje&lt;/option&gt; &lt;option value="Stockholm"&gt;(GMT+01:00) Stockholm&lt;/option&gt; &lt;option value="Vienna"&gt;(GMT+01:00) 
+Vienna&lt;/option&gt; &lt;option value="Warsaw"&gt;(GMT+01:00) Warsaw&lt;/option&gt; &lt;option value="West Central Africa"&gt;(GMT+01:00) West Central Africa&lt;/option&gt; 
+&lt;option value="Zagreb"&gt;(GMT+01:00) Zagreb&lt;/option&gt; &lt;option value="Athens"&gt;(GMT+02:00) Athens&lt;/option&gt; &lt;option value="Bucharest"&gt;(GMT+02:00) 
+Bucharest&lt;/option&gt; &lt;option value="Cairo"&gt;(GMT+02:00) Cairo&lt;/option&gt;

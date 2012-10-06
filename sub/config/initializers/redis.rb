@@ -60,6 +60,10 @@ def redis_connect!(index=0)
   $redis_departments = Redis.new(:host => redis_config['host'],:port => redis_config['port'],:thread_safe => true, :password=>$passwd)
   $redis_departments.select(select.to_s)
 
+  $redis_coursewares = Redis.new(:host => redis_config['host'],:port => redis_config['port'],:thread_safe => true, :password=>$passwd)
+  $redis_coursewares.select(select.to_s)
+  select+=1
+
   Redis::Search.configure do |config|
     config.redis = $redis_search
     config.complete_max_length = 100
