@@ -62,6 +62,10 @@ class ApplicationController < ActionController::Base
     @seo = Hash.new('')
     agent = request.env['HTTP_USER_AGENT'].downcase
     @is_bot = (agent.match(/\(.*https?:\/\/.*\)/)!=nil)
+    @is_mac = (agent.index('macintosh')!=nil)
+    @is_windows = (agent.index('windows')!=nil)
+    @is_firefox = (agent.index('firefox')!=nil)
+    @is_chrome = (agent.index('chrome')!=nil)
     @is_ie = (agent.index('msie')!=nil)
     @is_WebKit = (agent.index('webkit')!=nil)
     @is_ie6 = (agent.index('msie 6')!=nil)

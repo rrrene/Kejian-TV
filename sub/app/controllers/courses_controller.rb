@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 class CoursesController < ApplicationController
+  before_filter :find_item,:only => [:show]
   def index
     @seo[:title]='课程目录'
     @courses = Course
@@ -10,5 +11,14 @@ class CoursesController < ApplicationController
   end
 
   def show
+    @seo[:title]=@course.name
+  end
+protected
+  def find_item
+    @course = Course.where(:_id => params[:id]).first
+    if @course.nil?
+      render_404
+      return false
+    end
   end
 end

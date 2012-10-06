@@ -72,7 +72,7 @@
   <%= raw flash[:extra_ucenter_operations] %>
 </head>
 
-<body <%if @is_ie8 or @is_ie7 or @is_ie6 %>onload="window.psvr_ie_readyfix()"<%end%> id="psvr_subject_all" style="  background: #fdfdfd url(<%= asset_path 'sstatic/skeptics/img/grid_noise_dark.png' %>) repeat left top;<%= 'background-position: 0 112px;' if @we_are_inside_qa and !@we_are_no_zm_header %><%=yield :body_style%>" data-subdomain="<%= request.subdomain %>" class="<%= @we_are_inside_qa ? 'we_are_inside_qa' : '' %>">
+<body <%if @is_ie8 or @is_ie7 or @is_ie6 %>onload="window.psvr_ie_readyfix()"<%end%> id="psvr_subject_all" style="  background: #fdfdfd url(<%= asset_path 'sstatic/skeptics/img/grid_noise_dark.png' %>) repeat left top;<%=yield :body_style%>" data-subdomain="<%= request.subdomain %>" class="<%= ' chrome ' if @is_chrome %><%= ' firefox ' if @is_firefox %><%= ' mac ' if @is_mac %><%= ' windows ' if @is_windows %>">
 <div id="append_parent" class="__dz"></div><div id="ajaxwaitid" class="__dz"></div>
 <div class="__sdk">
   <header style="background-image:url(<%= asset_path('dark.png') %>)">

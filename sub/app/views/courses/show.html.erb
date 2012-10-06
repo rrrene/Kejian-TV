@@ -1,0 +1,359 @@
+<% content_for :armpit do %>
+  <%= stylesheet_link_tag "ktv/__flo.css", :media => "all" %>
+<% end %>
+<% content_for :body_style do %>background:white;<%end %>
+
+<div class="__flo">
+	<div class="production" id="std-ui-wrap">
+		<div id="app-root-view">
+			<div class="app-north">
+				<div class="app-north-inner">
+					<div class="header-flow">
+						<div class="flow-topbar left">
+							<ul class="align-left">
+								<li class="action li-settings" style="display: block;"><a class="settings" title="Preferences"><span class="icon">Preferences</span><span class="left"></span><span class="right"></span></a>
+								<div class="count-badge">
+								</div>
+								</li>
+								<li class="action li-notifications" style="display: block;"><a class="notifications" title="Notifications"><span class="icon">Notifications</span><span class="left"></span><span class="right"></span></a>
+								<div class="count-badge" style="display: none;">
+									0
+								</div>
+								</li>
+							</ul>
+							<ul class="align-right">
+								<li class="action li-new_task" style="display: block;"><a class="new_task" title="Create a New Task (Enter/Return)"><span class="icon">New Task</span><span class="left"></span><span class="right"></span></a>
+								<div class="count-badge">
+								</div>
+								</li>
+							</ul>
+						</div>
+						<div class="flow-topbar center">
+							<ul class="align-left">
+								<li class="action li-back" style="display: none;"><a class="back" title="Go Back"><span class="text">Back</span><span class="left"></span><span class="right"></span></a>
+								<div class="count-badge">
+								</div>
+								</li>
+							</ul>
+							<ul class="align-right">
+								<li class="action li-sorters" style="display: block;"><a class="sorters" title="Organize Tasks"><span class="icon">Organize</span><span class="left"></span><span class="right"></span></a>
+								<div class="count-badge">
+								</div>
+								</li>
+								<li class="action li-actions" style="display: block;"><a class="actions" title="Task List Actions"><span class="icon">Actions</span><span class="left"></span><span class="right"></span></a>
+								<div class="count-badge">
+								</div>
+								</li>
+								<li class="action li-toggle_navbar disabled" style="display: block;"><a class="toggle_navbar alt" title="Toggle Navbar"><span class="icon">Navbar</span><span class="left"></span><span class="right"></span></a>
+								<div class="count-badge">
+								</div>
+								</li>
+							</ul>
+						</div>
+						<div class="flow-topbar right">
+							<ul class="align-left">
+								<li class="search">
+								<input type="text" placeholder="Search everything..." class="query">
+								<a style="display: none;" title="Clear search query" class="clear-search"><ins></ins></a>
+								</li>
+							</ul>
+							<ul class="align-right">
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Sidebar -->
+			<div class="app-west">
+				<div class="app-west-inner">
+					<div class="sidebar" style="height: 436px;">
+						<div class="sidebar-inner">
+							<div class="primary-boxes-wrap">
+								<div class="sidebar-primary-boxes">
+									<h3><%= @course.name %></h3>
+									<ul class="primary-boxes">
+										<!-- li class="box dashboard">
+        <a>
+          <span>Dashboard</span>
+          <b class="dasboard-badge" style="display: none;"></b>
+        </a>
+      </li -->
+										<li class="box dashboard droppable ui-droppable active current">
+										<a href="#/inbox">
+										<span>课程主页</span>
+										<b style="display: none;" class="badge inbox-badge"></b>
+										</a>
+										</li>
+										<li class="box delegated">
+										<a href="#/upcoming">
+										<span>讲义</span>
+										<b style="display: none;" class="badge upcoming-badge"></b>
+										</a>
+										</li>
+										<li class="box all-tasks">
+										<a href="#/flagged">
+										<span>作业</span>
+										<b style="display: none;" class="badge flagged-badge"></b>
+										</a>
+										</li>
+										<li class="box flagged">
+										<a href="#/delegated">
+										<span>试卷</span>
+										<b style="display: none;" class="badge delegated-badge"></b>
+										</a>
+										</li>
+										<li class="box inbox">
+										<a href="#/tasks">
+										<span>课堂录像</span>
+										<b style="" class="badge all-tasks-badge">17</b>
+										</a>
+										</li>
+										<li class="box someday">
+										<a href="#/tasks">
+										<span>资料/读物</span>
+										<b style="" class="badge all-tasks-badge">17</b>
+										</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div class="panes-wrap">
+								<div class="panes-wrap-inner">
+									<ul class="sidebar-tabs tabs project-tags-collaborators">
+										<li data-pane="projects" class="projects active ui-droppable">Lists</li>
+										<li data-pane="collaborators" class="collaborators ui-droppable">Contacts</li>
+									</ul>
+									<div class="main-sidebar-panes sidebar-panes">
+										<div class="pane projects active">
+											<div class="pane-root">
+												<div class="filter projects">
+													<input type="text" placeholder="Search lists…">
+													<a title="clear search" class="clear-search"><ins></ins></a>
+												</div>
+												<div class="pane-inner" style="overflow: hidden; padding: 0px; height: 211px;">
+													<div style="height: 211px;" class="jspContainer ios">
+														<div class="jspPane" style="left: 0px; top: 0px; width: 220px;">
+															<ul class="project-list items-list flow-tree ui-sortable">
+																<li class="folder list-item sortable my-folder open" data-id="168368" data-cid="c9">
+																<div class="link-wrap ui-droppable">
+																	<ins></ins>
+																	<div class="link folder-link">
+																		<span class="view">Get To Know Flow</span>
+																		<form class="rename">
+																			<input type="text" size="10" class="name-field">
+																		</form>
+																		<div class="settings">
+																			<ins></ins>
+																		</div>
+																	</div>
+																</div>
+																<ul class="children" style="display: block;">
+																	<li class="project list-item sortable my-project ui-droppable" data-id="537021" data-cid="c10">
+																	<ins></ins>
+																	<a class="project-link link">
+																	<ins></ins>
+																	<span class="view">The Basics</span>
+																	</a>
+																	<div class="settings">
+																		<ins></ins>
+																	</div>
+																	<div class="fadeout">
+																	</div>
+																	</li>
+																	<li class="project list-item sortable my-project ui-droppable" data-id="537020" data-cid="c11">
+																	<ins></ins>
+																	<a class="project-link link">
+																	<ins></ins>
+																	<span class="view">Teamwork</span>
+																	</a>
+																	<div class="settings">
+																		<ins></ins>
+																	</div>
+																	<div class="fadeout">
+																	</div>
+																	</li>
+																	<li class="project list-item sortable my-project ui-droppable" data-id="537019" data-cid="c12">
+																	<ins></ins>
+																	<a class="project-link link">
+																	<ins></ins>
+																	<span class="view">Pro Tips</span>
+																	</a>
+																	<div class="settings">
+																		<ins></ins>
+																	</div>
+																	<div class="fadeout">
+																	</div>
+																	</li>
+																</ul>
+																</li>
+																<li class="folder list-item folder-archived closed empty">
+																<div class="link-wrap ui-droppable">
+																	<ins></ins>
+																	<div class="link folder-link">
+																		<ins></ins>
+																		<span>Archived Lists</span>
+																	</div>
+																</div>
+																<ul class="children" style="display: none;">
+																</ul>
+																</li>
+															</ul>
+															<div class="no-results" style="display: none;">
+																No lists found.
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="pane collaborators">
+											<div class="pane-root">
+												<div class="filter people">
+													<input type="text" placeholder="Search people…">
+													<a title="clear search" class="clear-search"><ins></ins></a>
+												</div>
+												<div class="pane-inner" style="overflow: hidden; padding: 0px; height: 211px;">
+													<div style="height: 0px" class="jspContainer ios">
+														<div class="jspPane" style="left: 0px; top: 0px; width: 0px;">
+															<ul class="collaborators collaborator-list items-list flow-tree">
+																<li class="person list-item concierge no-summary ui-droppable" data-id="95924" data-cid="c8" id="sidebar-person-95924" data-email="concierge@getflow.com">
+																<ins></ins>
+																<div class="person-link link">
+																	<ins><span class="photo"></span></ins>
+																	<span class="name">Flow Concierge</span>
+																	<ul class="summaries">
+																	</ul>
+																</div>
+																<div class="settings">
+																	<ins></ins>
+																</div>
+																<div class="fadeout">
+																</div>
+																</li>
+															</ul>
+															<div class="no-results" style="display: none;">
+																No contacts found.
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="secondary-boxes-wrap" style="display: none;">
+								<div class="sidebar-secondary-boxes">
+									<h3>Other Lists</h3>
+									<div class="pane">
+										<ul class="links">
+											<li class="link all-tasks"><a href="#/tasks/all"><ins></ins><span>All Tasks</span></a></li>
+											<li class="link followed-tasks"><a href="#/following"><ins></ins><span>Followed Tasks</span></a></li>
+											<li class="link completed-tasks"><a href="#/complete"><ins></ins><span>Completed Tasks</span></a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div class="action-bar-wrap">
+								<div class="side-action-bar">
+									<div class="actions">
+										<div class="action toggle-lists up">
+											<a><ins class="toggle alt"></ins></a>
+										</div>
+										<div class="action new-action">
+											<a><ins class="add"></ins></a>
+										</div>
+									</div>
+									<div class="status">
+										3 lists
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Main Content Area -->
+			<div class="app-center">
+				<div class="app-center-inner">
+					<div class="detail-view">
+						<div class="detail-view-inner">
+							<div class="layout-east">
+								<div class="layout-east-inner">
+									<div class="navbar">
+										<div class="section collaborators" style="display: none;">
+											<ul style="display: block;" class="actions-list">
+												<li class="action-item everyone active">
+												<ins></ins>
+												<a title="View everyone's tasks" class="name">All Tasks</a>
+												<div style="" class="count">
+													17
+												</div>
+												</li>
+											</ul>
+											<h3 class="title"><span class="fadeout">Tags</span></h3>
+											<div class="section-content">
+												<ul class="collaborators">
+												</ul>
+												<div class="quick-invite-wrapper">
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="layout-center">
+								<div class="layout-center-inner">
+									<div class="content-views-wrap">
+										<div class="content-view-wrap">
+											<div class="loading-tasks" style="">
+												<div class="spinner s48 blue">
+												</div>
+												<label class="loading-label"></label><label class="loading-sub-label"></label>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="pop-out-wrap quicksearch pop-out-list" style="display: none; position: absolute; top: 50px; left: 1033px;">
+		<div class="pop-out">
+			<div class="pop-out-body">
+				<div class="pop-out-header">
+					<a class="wrapper" style="display: inline;"><button type="button" class="left cancel">Cancel</button>
+					<div class="back_button">
+					</div>
+					</a>
+					<h2 class="title">Quick Search</h2>
+					<button type="button" class="button right" style="display: none;"></button>
+				</div>
+				<div class="pop-out-content">
+					<ul class="fancy-list">
+					</ul>
+					<div class="spinner s16">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="pop-out-tail top" style="display: block; background: url(&quot;/images/nubs/top-black.png&quot;) no-repeat scroll center top transparent; width: 30px; height: 16px; top: -14px; left: 186px;">
+		</div>
+	</div>
+	<!-- Welcome Slides -->
+	<!-- Quicktask FOrm -->
+	<!-- Contact Form -->
+	<div style="display: none !important;" id="pre-loaded-images">
+		<img src="/images/nubs/top.png" style="display: none;"><img src="/images/nubs/top-black.png" style="display: none;"><img src="/images/nubs/right.png" style="display: none;"><img src="/images/nubs/bottom.png" style="display: none;"><img src="/images/nubs/bottom-black.png" style="display: none;"><img src="/images/nubs/bottom-grey.png" style="display: none;"><img src="/images/nubs/bottom-light-blue.png" style="display: none;"><img src="/images/nubs/left.png" style="display: none;"><img src="/images/spinners/spinner-black-16.png" style="display: none;"><img src="/images/spinners/spinner-black-24.png" style="display: none;"><img src="/images/spinners/spinner-black-36.png" style="display: none;"><img src="/images/spinners/spinner-blue-12.png" style="display: none;"><img src="/images/spinners/spinner-blue-48.png" style="display: none;"><img src="/images/spinners/spinner-white-12.png" style="display: none;"><img src="/images/spinners/spinner-blue-12.png" style="display: none;">
+	</div>
+	<div id="flying-task">
+	</div>
+	<!-- Google Code for Flow Trial or Paid Users Remarketing List -->
+	<ul id="flowlr">
+	</ul>
+	<div id="pre-loaded-avatars" style="">
+	</div>
+</div>

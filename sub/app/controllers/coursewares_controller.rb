@@ -100,6 +100,16 @@ class CoursewaresController < ApplicationController
     end
   end
   def show
+    if @courseware.redirect_to_id.present?
+      @courseware = Courseware.where(:_id => @courseware.redirect_to_id.to_s).first
+      if @courseware
+        redirect_to "/coursewares/#{@courseware.id}",notice:"相同的文件已经存在，页面自动跳转."
+        return false
+      else
+        render_404
+        return false
+      end
+    end
     respond_to do |format|
       format.html{
         @seo[:title] = @courseware.title
@@ -175,17 +185,6 @@ protected
   def find_item
     @courseware = Courseware.where(:_id => params[:id]).first
     if @courseware.nil?
-      render_404
-      return false
-    end
-    if @courseware.redirect_to_id.present?
-      @courseware = Courseware.where(:_id => @courseware.redirect_to_id.to_s).first
-      if @courseware
-        redirect_to "/coursewares/#{@courseware.id}",notice:"相同的文件已经存在，页面自动跳转."
-        return false
-      end
-    end
-    unless @courseware.present?
       render_404
       return false
     end
