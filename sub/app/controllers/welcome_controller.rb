@@ -29,7 +29,7 @@ class WelcomeController < ApplicationController
   def latest
     @seo[:title] = '全部课件'
     common_op!
-    @coursewares = Courseware.normal_father
+    @coursewares = Courseware.normal_father.no_privacy
     @coursewares = Courseware.additional_conditions(@coursewares,params)
     @coursewares = @coursewares.paginate(:page => params[:page], :per_page => @per_page)
     render 'index'

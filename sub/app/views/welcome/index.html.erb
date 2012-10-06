@@ -210,7 +210,7 @@
     <a class="page-numbers<%= ' current' if 15==@per_page %>" title="每页显示15个课件" href="<%=alter_request_path request.fullpath,:per_page=>'15',:page=>'1'%>">15</a>
     <a class="page-numbers<%= ' current' if 30==@per_page %>" title="每页显示30个课件" href="<%=alter_request_path request.fullpath,:per_page=>'30',:page=>'1'%>">30</a>
     <a class="page-numbers<%= ' current' if 50==@per_page %>" title="每页显示50个课件" href="<%=alter_request_path request.fullpath,:per_page=>'50',:page=>'1'%>">50</a>
-    <span class="page-numbers desc">课件/页</span>
+    <span class="page-numbers desc">条目/页</span>
 </div>
 
 <% end %>
@@ -219,11 +219,11 @@
 <div id="sidebar">    
 <%= render 'welcome_unlogin_user' unless user_signed_in? %>
     <div id="questions-count" class="module">
-      <div class="summarycount al"><%= link_to number_with_delimiter(Courseware.count),'/coursewares_by_departments' %></div>
+      <div class="summarycount al"><%= link_to number_with_delimiter(Courseware.no_privacy.count),'/coursewares_by_departments' %></div>
       <p style="margin-top:6px">个课件已上传，其中：</p>
-      <p class="cw_normal" style="margin-top:12px"><%=number_with_delimiter Courseware.normal.count%> 已上线</p>
-      <p class="cw_transcoding"><%=number_with_delimiter Courseware.transcoding.count%> 转码中</p>
-      <p class="cw_abnormal"><%=number_with_delimiter Courseware.abnormal.count%> 文件有误</p>
+      <p class="cw_normal" style="margin-top:12px"><%=number_with_delimiter Courseware.no_privacy.normal.count%> 已上线</p>
+      <p class="cw_transcoding"><%=number_with_delimiter Courseware.no_privacy.transcoding.count%> 转码中</p>
+      <p class="cw_abnormal"><%=number_with_delimiter Courseware.no_privacy.abnormal.count%> 文件有误</p>
     </div>
 <div class="__sdk" style="background:transparent">
   <a class="button primary psvr_login_required" id="cw_newhuge" href="/coursewares/new" style="color:white">上传分享课件</a>

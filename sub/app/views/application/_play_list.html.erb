@@ -1,0 +1,18 @@
+<% courseware_id = play_list.content.first %>
+<div class="presentation">
+  <a href="/play_lists/<%=play_list.id%>" class="slide_preview scrub setup">
+    <div class="play_list_o">
+      <span class="play_count"><%=number_with_delimiter play_list.coursewares_count%></span><br>
+      <span style="margin-bottom:0px">个课件</span>
+    </div>
+    <div class="play_list_over">
+      <% play_list.content_ktvids.limit(3).each do |id| %>
+        <img src="<%= asset_url("cw/#{id}/thumb_slide_0.jpg") %>" /><br>
+      <% end %>
+    </div>
+    <div class="play_list_overlay">
+      <%=image_tag 'xiao_play.png' %> 播放全部课件
+    </div>
+    <img src="<%= asset_url("cw/#{play_list.content_ktvids.first}/thumb_slide_0.jpg") %>" alt="Thumb_slide_0" width="210" height="158" />
+  </a>
+</div>

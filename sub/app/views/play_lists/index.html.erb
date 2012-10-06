@@ -121,6 +121,13 @@
       <div><a href="<%=alter_request_path request.fullpath,:sort=>'all'%>">恢复全部类型</a></div>
     </div>
   </div>
+<% content_for :butt2 do %>
+$('.presentation').hover(function(){
+  $('.play_list_overlay',this).show();
+},function(){
+  $('.play_list_overlay',this).hide();
+});
+<% end %>
 <% if @play_lists.count<1 %>
 <div style="line-height:88px;height:88px;text-align:center;">  还没有此类课件播放列表，<a class="psvr_login_required" href="/play_lists/new">创建一个</a>吧：）</div>
 <% else %>
@@ -128,69 +135,38 @@
   <div id="question-summary-10960" class="question-summary">
       <div class="statscontainer __sdk">
         <div class="presentations">
-          <%= render :partial => 'cw',:locals=>{courseware:item,version:item.version,courseware_id:item.ktvid} %>
+          <%= render :partial => 'play_list',:locals=>{play_list:item} %>
         </div>
       </div>
       <div class="summary">
           <h3>
-            <% if nn=Course.get_name(item.course_fid) %>
-              <a href="/simple/forum.php?mod=forumdisplay&fid=<%= item.course_fid %>" class="post-tag" title="<%= nn %>" rel="tag"><%= nn %></a> 
-              <% nd=Course.get_department(item.course_fid) %>
-            <% end %>
-            <a href="/play_lists/<%= item.id %>" class="question-hyperlink" title="<%= item.desc %>">
+            <a href="/play_lists/<%= item.id %>" class="question-hyperlink" title="<%= item.title %>">
             <%= item.title %>
             </a>
           </h3>
           <div class="excerpt">
-            <% 
-            arr=[]
-            arr<<item.filesort_mundane if item.filesort_mundane
-            arr<<"共#{number_with_delimiter item.slides_count}页" if item.slides_count>0 and !item.tree.present?
-            arr<<"共#{number_with_delimiter item.slides_count}个可阅读文档" if item.slides_count>0 and item.tree.present?
-            arr<<"#{number_with_delimiter item.words_count}字" if item.words_count>0
-            arr.reject! {|x| x.blank?}
-            %>
-            <%= arr.blank? ? item.fileinfo : arr.join(', ')+'.' %>
-            <% 
-            arr=[]
-            arr<<"作者创作时间投入: #{item.human_time_human(:very_short => true)}" if item.human_time>0
-            arr<<"最终完稿于: #{item.finished_at.strftime('%Y年%m月%d日 %H:%M:%S')}" if item.finished_at
-            arr.reject! {|x| x.blank?}
-          %>
-            <% unless arr.blank? %>
-              <br><%= arr.join(', ')+'.' %>
-            <% end %>
           </div>
 
           <div class="tags t-nutrition">
-            <% if false and item.teacher.present? %>
-              <!-- todo -->
-              <a href="/teachers/<%= item.teacher_typeid %>" class="post-tag" title="<%= item.teacher %>" rel="tag"><%= item.teacher %></a> 
-            <% end %>
-            <% if false and nd %>
-              <!-- todo -->
-              <a href="/departments/<%= item.course_fid %>" class="post-tag" title="<%= nd %>" rel="tag"><%= nd %></a> 
-            <% end %>
           </div>
+
           <div class="started fr">
-
-
-      <div class="user-info ">
-          <div class="user-action-time">
-            上传于<%= timeago(item.created_at,:span=>true) %>
-          </div>
-          <div class="user-gravatar32">
-              <a href="/users/454/oliver-c"><div class="">
-                <img width="32" height="32" alt="" src="<%=dz_avatar_url(User.get_uid(item.uploader_id),User.get_email(item.uploader_id),:small)%>">
-              </div></a>
-          </div>
-          <div class="user-details">
-            <a href="/users/<%= User.get_slug item.uploader_id %>"><%= name_beautify User.get_name(item.uploader_id)%></a><br>
-              <span dir="ltr" title="reputation score 26521" class="reputation-score">26.5k</span><span title="2 gold badges"><span class="badge1"></span><span class="badgecount">2</span></span><span title="95 silver badges"><span class="badge2"></span><span class="badgecount">95</span></span><span title="168 bronze badges"><span class="badge3"></span><span class="badgecount">168</span></span>
-          </div>
-      </div>
-
+            <div class="user-info ">
+                <div class="user-action-time">
+                  创建于<%= timeago(item.created_at,:span=>true) %>
+                </div>
+                <div class="user-gravatar32">
+                    <a href="/users/454/oliver-c"><div class="">
+                      <img width="32" height="32" alt="" src="<%=dz_avatar_url(User.get_uid(item.user_id),User.get_email(item.user_id),:small)%>">
+                    </div></a>
+                </div>
+                <div class="user-details">
+                  <a href="/users/<%= User.get_slug item.user_id %>"><%= name_beautify User.get_name(item.user_id)%></a><br>
+                    <span dir="ltr" title="reputation score 26521" class="reputation-score">26.5k</span><span title="2 gold badges"><span class="badge1"></span><span class="badgecount">2</span></span><span title="95 silver badges"><span class="badge2"></span><span class="badgecount">95</span></span><span title="168 bronze badges"><span class="badge3"></span><span class="badgecount">168</span></span>
+                </div>
+            </div>
           </div>  
+
       </div>
   </div>
   
@@ -204,7 +180,7 @@
     <a class="page-numbers<%= ' current' if 15==@per_page %>" title="每页显示15个课件" href="<%=alter_request_path request.fullpath,:per_page=>'15',:page=>'1'%>">15</a>
     <a class="page-numbers<%= ' current' if 30==@per_page %>" title="每页显示30个课件" href="<%=alter_request_path request.fullpath,:per_page=>'30',:page=>'1'%>">30</a>
     <a class="page-numbers<%= ' current' if 50==@per_page %>" title="每页显示50个课件" href="<%=alter_request_path request.fullpath,:per_page=>'50',:page=>'1'%>">50</a>
-    <span class="page-numbers desc">课件/页</span>
+    <span class="page-numbers desc">条目/页</span>
 </div>
 
 <%= will_paginate @play_lists, :renderer=> SKPLinkRenderer,:inner_window=>1 %>
@@ -214,7 +190,7 @@
 <div id="sidebar">    
 <%= render 'welcome_unlogin_user' unless user_signed_in? %>
     <div id="questions-count" class="module">
-      <div class="summarycount al"><%= link_to number_with_delimiter(PlayList.count),'/play_lists' %></div>
+      <div class="summarycount al"><%= link_to number_with_delimiter(PlayList.no_privacy.normal.count),'/play_lists' %></div>
       <p style="margin-top:6px">个课件播放列表已创建</p>
     </div>
 <div class="__sdk" style="background:transparent">

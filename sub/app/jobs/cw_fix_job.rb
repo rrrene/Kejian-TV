@@ -24,7 +24,7 @@ class CwFixJob
                 tried_times += 1
                 break if tried_times > 10
                 puts pic = "#{working_dir}/#{@courseware.revision}slide_#{i}.jpg"
-      `curl "http://storage-huabei-1.sdcloud.cn/ktv-eb/#{@courseware.id}/#{@courseware.revision}slide_#{i}.jpg" > "#{pic}"`
+      `curl "http://storage-huabei-1.sdcloud.cn/ktv-eb/#{@courseware.ktvid}/#{@courseware.revision}slide_#{i}.jpg" > "#{pic}"`
                 if 0==i
                   inf = `identify "#{pic}"`
                   if inf=~/JPEG (\d+)x(\d+)/
@@ -50,16 +50,19 @@ class CwFixJob
             end
 
     end
+    if 0==Dir["#{working_dir}/thumb_slide_*"].count
+      @courseware.update_attribute(:really_broken,true)
+    end
     really_broken = 0
-    while true
+    while !@courseware.really_broken
       really_broken += 1
-      puts `#{Rails.root}/bin/ftpupyun_pic "#{working_dir}" "/cw/#{@courseware.id}/" "#{@courseware.revision}"`
+      puts `#{Rails.root}/bin/ftpupyun_pic "#{working_dir}" "/cw/#{@courseware.ktvid}/" "#{@courseware.revision}"`
       @courseware.check_upyun
       break if @courseware.check_upyun_result
       if really_broken > 10
         @courseware.update_attribute(:really_broken,true)
-        break
       end
     end
   end
 end
+
