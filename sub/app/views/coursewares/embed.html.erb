@@ -416,6 +416,9 @@
       });
 
       Slide.show();
+      <% if params[:slide].present? %>
+        Slide.goToSlide(<%=params[:slide].to_i%>);
+      <% end %>
       $.preloadThumbs();
       $('.scrubber_holder, .scrubber_holder div, .speakerdeck_toolbar, .navigation').disableSelection();
 

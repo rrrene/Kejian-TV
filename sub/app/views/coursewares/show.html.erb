@@ -257,7 +257,7 @@ courseware_id: '<%=@courseware.id%>'
          <% if @courseware.thin? %>
          <div class="main" style="width:100%;margin-top:12px;">
             <div class="slide_frame busy" id="slides_container" style="overflow:hidden">
-               <script async="async" class="speakerdeck-embed"<% if @courseware.version!=@courseware_real_version %> data-cw-revision="<%= @courseware.version %>"<% end %> data-course-slug="<%=@courseware.topic_id%>" data-courseware-slug="<%=@courseware.id%>" data-ratio="<%= @courseware.wh_ratio %>" data-force-biji="<%= params[:force_biji] %>" src="<%=asset_path 'ktv/embed.js'%>" type="text/javascript"></script>
+            <script async="async"  <% if params[:slide].present? %> data-slide="<%=params[:slide]%>" <%end %> class="speakerdeck-embed"<% if @courseware.version!=@courseware_real_version %>  data-cw-revision="<%= @courseware.version %>"<% end %> data-course-slug="<%=@courseware.topic_id%>" data-courseware-slug="<%=@courseware.id%>" data-ratio="<%= @courseware.wh_ratio %>" data-force-biji="<%= params[:force_biji] %>" src="<%=asset_path 'ktv/embed.js'%>" type="text/javascript"></script>
             </div>
          </div>
          <div class="extras" style="float:right;margin-right:0px">
@@ -308,9 +308,9 @@ courseware_id: '<%=@courseware.id%>'
 <!--重点！！！！！！！！！-->
                <% case @courseware.sort.to_sym %>
                <% when :ppt,:pptx,:doc,:docx,:pdf %>
-               <script async="async" class="speakerdeck-embed"<% if @courseware.version!=@courseware_real_version %> data-cw-revision="<%= @courseware.version %>"<% end %> data-course-slug="<%=@courseware.topic_id%>" data-courseware-slug="<%=@courseware.id%>" data-ratio="<%= @courseware.wh_ratio %>" data-force-biji="<%= params[:force_biji] %>" src="<%=asset_path 'ktv/embed.js'%>" type="text/javascript"></script>
+               <script async="async" <% if params[:slide].present? %> data-slide="<%=params[:slide]%>" <%end %> class="speakerdeck-embed"<% if @courseware.version!=@courseware_real_version %> data-cw-revision="<%= @courseware.version %>"<% end %> data-course-slug="<%=@courseware.topic_id%>" data-courseware-slug="<%=@courseware.id%>" data-ratio="<%= @courseware.wh_ratio %>" data-force-biji="<%= params[:force_biji] %>" src="<%=asset_path 'ktv/embed.js'%>" type="text/javascript"></script>
                <% when :zip,:rar,:'7z' %>
-               <script async="async" class="speakerdeck-embed"<% if @courseware.version!=@courseware_real_version %> data-cw-revision="<%= @courseware.version %>"<% end %> data-course-slug="<%=@courseware.topic_id%>" data-courseware-slug="<%=@courseware.id%>" data-ratio="<%= @courseware.wh_ratio %>" data-force-biji="<%= params[:force_biji] %>" src="<%=asset_path 'ktv/embed.js'%>" type="text/javascript"></script>
+               <script async="async" <% if params[:slide].present? %> data-slide="<%=params[:slide]%>" <%end %> class="speakerdeck-embed"<% if @courseware.version!=@courseware_real_version %> data-cw-revision="<%= @courseware.version %>"<% end %> data-course-slug="<%=@courseware.topic_id%>" data-courseware-slug="<%=@courseware.id%>" data-ratio="<%= @courseware.wh_ratio %>" data-force-biji="<%= params[:force_biji] %>" src="<%=asset_path 'ktv/embed.js'%>" type="text/javascript"></script>
                <script type="text/javascript" id="alt_embed"></script>
 
                <% when :webm %>

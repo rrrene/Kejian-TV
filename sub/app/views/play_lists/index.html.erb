@@ -140,6 +140,12 @@ $('.presentation').hover(function(){
       </div>
       <div class="summary">
           <h3>
+            <% item.course_fids.each do |course_fid| %>
+              <% if nn=Course.get_name(course_fid) %>
+                <a href="/simple/forum.php?mod=forumdisplay&fid=<%= course_fid %>" class="tag-post"><%= nn %></a><br>
+                <% nd=Course.get_department(course_fid) %>
+              <% end %>
+            <% end %>
             <a href="/play_lists/<%= item.id %>" class="question-hyperlink" title="<%= item.title %>">
             <%= item.title %>
             </a>
