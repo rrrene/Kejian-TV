@@ -178,8 +178,12 @@ protected
       render_404
       return false
     end
-    if -2==@courseware.status && @courseware.redirect_to_id.present?
+    if @courseware.redirect_to_id.present?
       @courseware = Courseware.where(:_id => @courseware.redirect_to_id.to_s).first
+      if @courseware
+        redirect_to "/coursewares/#{@courseware.id}",notice:"相同的文件已经存在，页面自动跳转."
+        return false
+      end
     end
     unless @courseware.present?
       render_404
