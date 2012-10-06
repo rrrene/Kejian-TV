@@ -249,10 +249,22 @@ HEREDOC
       else
         render file:'coursewares/_add_to',locals:{cw_id:params[:cw_id]},layout:false  
       end
-    else
-      #todo
+    elsif params[:type] == 'flag'
+      if current_user.nil?
+        render :text => "<div><a href='javascript:void(0)' class='like grey psvr_login_required'>登录</a>之后就可以踩了。</div>"
+      else
+        render file:'coursewares/_flag_panel',locals:{cw_id:params[:cw_id]},layout:false  
+      end
+    elsif params[:type] == 'stat'
+      if current_user.nil?
+        render :text => "<div><a href='javascript:void(0)' class='like grey psvr_login_required'>登录</a>之后就可以踩了。</div>"
+      else
+        render file:'coursewares/_cw_stat',locals:{cw_id:params[:cw_id]},layout:false  
+      end
     end
+    
   end
+  ### playlist start
   def add_to_playlist
     #TODO params[:sort] 
     # params[:on_top] true false
@@ -273,5 +285,13 @@ HEREDOC
   def create_new_playlist
     json = {status:'suc',list_title:params[:list_title],is_private:params[:is_private]}
     render json:json
+  end
+  ### playlist end
+  def get_share_panel
+    if current_user.nil?
+      render :text => "<div><a href='javascript:void(0)' class='like grey psvr_login_required'>登录</a>之后就可以踩了。</div>"
+    else
+      render file:'coursewares/_share_to',locals:{cw:Courseware.find(params[:cw_id])},layout:false  
+    end
   end
 end
