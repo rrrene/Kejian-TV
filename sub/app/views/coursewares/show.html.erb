@@ -257,7 +257,7 @@ courseware_id: '<%=@courseware.id%>'
          <% if @courseware.thin? %>
          <div class="main" style="width:100%;margin-top:12px;">
             <div class="slide_frame busy" id="slides_container" style="overflow:hidden">
-            <script async="async"  <% if params[:slide].present? %> data-slide="<%=params[:slide]%>" <%end %> class="speakerdeck-embed"<% if @courseware.version!=@courseware_real_version %>  data-cw-revision="<%= @courseware.version %>"<% end %> data-course-slug="<%=@courseware.topic_id%>" data-courseware-slug="<%=@courseware.id%>" data-ratio="<%= @courseware.wh_ratio %>" data-force-biji="<%= params[:force_biji] %>" src="<%=asset_path 'ktv/embed.js'%>" type="text/javascript"></script>
+               <script async="async" class="speakerdeck-embed"<% if @courseware.version!=@courseware_real_version %> data-cw-revision="<%= @courseware.version %>"<% end %> data-course-slug="<%=@courseware.topic_id%>" data-courseware-slug="<%=@courseware.id%>" data-ratio="<%= @courseware.wh_ratio %>" data-force-biji="<%= params[:force_biji] %>" src="<%=asset_path 'ktv/embed.js'%>" type="text/javascript"></script>
             </div>
          </div>
          <div class="extras" style="float:right;margin-right:0px">
@@ -308,9 +308,9 @@ courseware_id: '<%=@courseware.id%>'
 <!--重点！！！！！！！！！-->
                <% case @courseware.sort.to_sym %>
                <% when :ppt,:pptx,:doc,:docx,:pdf %>
-               <script async="async" <% if params[:slide].present? %> data-slide="<%=params[:slide]%>" <%end %> class="speakerdeck-embed"<% if @courseware.version!=@courseware_real_version %> data-cw-revision="<%= @courseware.version %>"<% end %> data-course-slug="<%=@courseware.topic_id%>" data-courseware-slug="<%=@courseware.id%>" data-ratio="<%= @courseware.wh_ratio %>" data-force-biji="<%= params[:force_biji] %>" src="<%=asset_path 'ktv/embed.js'%>" type="text/javascript"></script>
+               <script async="async" class="speakerdeck-embed"<% if @courseware.version!=@courseware_real_version %> data-cw-revision="<%= @courseware.version %>"<% end %> data-course-slug="<%=@courseware.topic_id%>" data-courseware-slug="<%=@courseware.id%>" data-ratio="<%= @courseware.wh_ratio %>" data-force-biji="<%= params[:force_biji] %>" src="<%=asset_path 'ktv/embed.js'%>" type="text/javascript"></script>
                <% when :zip,:rar,:'7z' %>
-               <script async="async" <% if params[:slide].present? %> data-slide="<%=params[:slide]%>" <%end %> class="speakerdeck-embed"<% if @courseware.version!=@courseware_real_version %> data-cw-revision="<%= @courseware.version %>"<% end %> data-course-slug="<%=@courseware.topic_id%>" data-courseware-slug="<%=@courseware.id%>" data-ratio="<%= @courseware.wh_ratio %>" data-force-biji="<%= params[:force_biji] %>" src="<%=asset_path 'ktv/embed.js'%>" type="text/javascript"></script>
+               <script async="async" class="speakerdeck-embed"<% if @courseware.version!=@courseware_real_version %> data-cw-revision="<%= @courseware.version %>"<% end %> data-course-slug="<%=@courseware.topic_id%>" data-courseware-slug="<%=@courseware.id%>" data-ratio="<%= @courseware.wh_ratio %>" data-force-biji="<%= params[:force_biji] %>" src="<%=asset_path 'ktv/embed.js'%>" type="text/javascript"></script>
                <script type="text/javascript" id="alt_embed"></script>
 
                <% when :webm %>
@@ -396,7 +396,7 @@ courseware_id: '<%=@courseware.id%>'
            </h1>
            <div id="weizuozhefasongganxie5">
              <% @courseware.thanked_user_ids.reverse.each do |user_id| %>
-             <div><a class="" href="/users/<%= User.get_slug(user_id) %>"><img src="<%= dz_avatar_url(User.get_uid(user_id),User.get_email(user_id),:small) %>" alt="<%= User.get_name(user_id) %>"></a></div>
+             <div><a class="" href="/users/<%= User.get_slug(user_id) %>"><img src="<%= avatar_url_quick(user_id,:small47) %>" alt="<%= User.get_name(user_id) %>"></a></div>
              <% end %>
            </div>
            
@@ -618,7 +618,7 @@ courseware_id: '<%=@courseware.id%>'
                             </span>
                               <span title="顶了 29 次，踩了 3 次" class="comments-rating-positive" dir="ltr">
                                 26
-                                <img src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" class="comments-rating-thumbs-up">
+                                <img src="<%= asset_path 'yt/wfw.gif' %>" class="comments-rating-thumbs-up">
                               </span>
                           </span></span></p>
 
@@ -626,7 +626,7 @@ courseware_id: '<%=@courseware.id%>'
 
 
                      <div class="comment-actions">
-                              <span class="yt-uix-button-group"><button role="button" data-tooltip-show-delay="300" data-action="vote-up" title="顶" onclick=";return false;" class="start comment-action-vote-up comment-action yt-uix-button yt-uix-button-default yt-uix-tooltip yt-uix-button-empty" type="button"><span class="yt-uix-button-icon-wrapper"><img alt="顶" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" class="yt-uix-button-icon yt-uix-button-icon-watch-comment-vote-up"><span class="yt-valign-trick"></span></span></button><button role="button" data-tooltip-show-delay="300" data-action="vote-down" title="踩" onclick=";return false;" class="end comment-action-vote-down comment-action yt-uix-button yt-uix-button-default yt-uix-tooltip yt-uix-button-empty" type="button"><span class="yt-uix-button-icon-wrapper"><img alt="踩" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" class="yt-uix-button-icon yt-uix-button-icon-watch-comment-vote-down"><span class="yt-valign-trick"></span></span></button></span><span class="yt-uix-button-group"><button role="button" data-action="reply" onclick=";return false;" class="start comment-action yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-content">回复 </span></button><button aria-activedescendant="" aria-haspopup="true" aria-expanded="false" aria-pressed="false" role="button" data-button-has-sibling-menu="true" onclick=";return false;" class="end flip yt-uix-button yt-uix-button-default yt-uix-button-empty" type="button"><img alt="" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" class="yt-uix-button-arrow"><div style="display: none;" class=" yt-uix-button-menu yt-uix-button-menu-default"><ul><li data-action="share" class="comment-action"><span class="yt-uix-button-menu-item">分享</span></li><li data-action="remove" class="comment-action-remove comment-action"><span class="yt-uix-button-menu-item">删除</span></li><li data-action="flag" class="comment-action"><span class="yt-uix-button-menu-item">举报</span></li><li data-action="block" class="comment-action-block comment-action"><span class="yt-uix-button-menu-item">屏蔽该用户</span></li><li data-action="unblock" class="comment-action-unblock comment-action"><span class="yt-uix-button-menu-item">解除对用户的屏蔽</span></li></ul></div></button></span>  </div>
+                              <span class="yt-uix-button-group"><button role="button" data-tooltip-show-delay="300" data-action="vote-up" title="顶" onclick=";return false;" class="start comment-action-vote-up comment-action yt-uix-button yt-uix-button-default yt-uix-tooltip yt-uix-button-empty" type="button"><span class="yt-uix-button-icon-wrapper"><img alt="顶" src="<%= asset_path 'yt/wfw.gif' %>" class="yt-uix-button-icon yt-uix-button-icon-watch-comment-vote-up"><span class="yt-valign-trick"></span></span></button><button role="button" data-tooltip-show-delay="300" data-action="vote-down" title="踩" onclick=";return false;" class="end comment-action-vote-down comment-action yt-uix-button yt-uix-button-default yt-uix-tooltip yt-uix-button-empty" type="button"><span class="yt-uix-button-icon-wrapper"><img alt="踩" src="<%= asset_path 'yt/wfw.gif' %>" class="yt-uix-button-icon yt-uix-button-icon-watch-comment-vote-down"><span class="yt-valign-trick"></span></span></button></span><span class="yt-uix-button-group"><button role="button" data-action="reply" onclick=";return false;" class="start comment-action yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-content">回复 </span></button><button aria-activedescendant="" aria-haspopup="true" aria-expanded="false" aria-pressed="false" role="button" data-button-has-sibling-menu="true" onclick=";return false;" class="end flip yt-uix-button yt-uix-button-default yt-uix-button-empty" type="button"><img alt="" src="<%= asset_path 'yt/wfw.gif' %>" class="yt-uix-button-arrow"><div style="display: none;" class=" yt-uix-button-menu yt-uix-button-menu-default"><ul><li data-action="share" class="comment-action"><span class="yt-uix-button-menu-item">分享</span></li><li data-action="remove" class="comment-action-remove comment-action"><span class="yt-uix-button-menu-item">删除</span></li><li data-action="flag" class="comment-action"><span class="yt-uix-button-menu-item">举报</span></li><li data-action="block" class="comment-action-block comment-action"><span class="yt-uix-button-menu-item">屏蔽该用户</span></li><li data-action="unblock" class="comment-action-unblock comment-action"><span class="yt-uix-button-menu-item">解除对用户的屏蔽</span></li></ul></div></button></span>  </div>
 
                     </div>
 
@@ -659,7 +659,7 @@ courseware_id: '<%=@courseware.id%>'
                             </span>
                               <span title="顶了 5 次，踩了 0 次" class="comments-rating-positive" dir="ltr">
                                 5
-                                <img src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" class="comments-rating-thumbs-up">
+                                <img src="<%= asset_path 'yt/wfw.gif' %>" class="comments-rating-thumbs-up">
                               </span>
                           </span></span></p>
 
@@ -667,7 +667,7 @@ courseware_id: '<%=@courseware.id%>'
 
 
                           <div class="comment-actions">
-                              <span class="yt-uix-button-group"><button role="button" data-tooltip-show-delay="300" data-action="vote-up" title="顶" onclick=";return false;" class="start comment-action-vote-up comment-action yt-uix-button yt-uix-button-default yt-uix-tooltip yt-uix-button-empty" type="button"><span class="yt-uix-button-icon-wrapper"><img alt="顶" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" class="yt-uix-button-icon yt-uix-button-icon-watch-comment-vote-up"><span class="yt-valign-trick"></span></span></button><button role="button" data-tooltip-show-delay="300" data-action="vote-down" title="踩" onclick=";return false;" class="end comment-action-vote-down comment-action yt-uix-button yt-uix-button-default yt-uix-tooltip yt-uix-button-empty" type="button"><span class="yt-uix-button-icon-wrapper"><img alt="踩" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" class="yt-uix-button-icon yt-uix-button-icon-watch-comment-vote-down"><span class="yt-valign-trick"></span></span></button></span><span class="yt-uix-button-group"><button role="button" data-action="reply" onclick=";return false;" class="start comment-action yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-content">回复 </span></button><button aria-activedescendant="" aria-haspopup="true" aria-expanded="false" aria-pressed="false" role="button" data-button-has-sibling-menu="true" onclick=";return false;" class="end flip yt-uix-button yt-uix-button-default yt-uix-button-empty" type="button"><img alt="" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" class="yt-uix-button-arrow"><div style="display: none;" class=" yt-uix-button-menu yt-uix-button-menu-default"><ul><li data-action="share" class="comment-action"><span class="yt-uix-button-menu-item">分享</span></li><li data-action="remove" class="comment-action-remove comment-action"><span class="yt-uix-button-menu-item">删除</span></li><li data-action="flag" class="comment-action"><span class="yt-uix-button-menu-item">举报</span></li><li data-action="block" class="comment-action-block comment-action"><span class="yt-uix-button-menu-item">屏蔽该用户</span></li><li data-action="unblock" class="comment-action-unblock comment-action"><span class="yt-uix-button-menu-item">解除对用户的屏蔽</span></li></ul></div></button></span>  </div>
+                              <span class="yt-uix-button-group"><button role="button" data-tooltip-show-delay="300" data-action="vote-up" title="顶" onclick=";return false;" class="start comment-action-vote-up comment-action yt-uix-button yt-uix-button-default yt-uix-tooltip yt-uix-button-empty" type="button"><span class="yt-uix-button-icon-wrapper"><img alt="顶" src="<%= asset_path 'yt/wfw.gif' %>" class="yt-uix-button-icon yt-uix-button-icon-watch-comment-vote-up"><span class="yt-valign-trick"></span></span></button><button role="button" data-tooltip-show-delay="300" data-action="vote-down" title="踩" onclick=";return false;" class="end comment-action-vote-down comment-action yt-uix-button yt-uix-button-default yt-uix-tooltip yt-uix-button-empty" type="button"><span class="yt-uix-button-icon-wrapper"><img alt="踩" src="<%= asset_path 'yt/wfw.gif' %>" class="yt-uix-button-icon yt-uix-button-icon-watch-comment-vote-down"><span class="yt-valign-trick"></span></span></button></span><span class="yt-uix-button-group"><button role="button" data-action="reply" onclick=";return false;" class="start comment-action yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-content">回复 </span></button><button aria-activedescendant="" aria-haspopup="true" aria-expanded="false" aria-pressed="false" role="button" data-button-has-sibling-menu="true" onclick=";return false;" class="end flip yt-uix-button yt-uix-button-default yt-uix-button-empty" type="button"><img alt="" src="<%= asset_path 'yt/wfw.gif' %>" class="yt-uix-button-arrow"><div style="display: none;" class=" yt-uix-button-menu yt-uix-button-menu-default"><ul><li data-action="share" class="comment-action"><span class="yt-uix-button-menu-item">分享</span></li><li data-action="remove" class="comment-action-remove comment-action"><span class="yt-uix-button-menu-item">删除</span></li><li data-action="flag" class="comment-action"><span class="yt-uix-button-menu-item">举报</span></li><li data-action="block" class="comment-action-block comment-action"><span class="yt-uix-button-menu-item">屏蔽该用户</span></li><li data-action="unblock" class="comment-action-unblock comment-action"><span class="yt-uix-button-menu-item">解除对用户的屏蔽</span></li></ul></div></button></span>  </div>
 
                         </div>
 
@@ -979,8 +979,10 @@ courseware_id: '<%=@courseware.id%>'
                          somethingShow('#watch-actions-share-panel');
                          somethingShow('#watch-actions-share');
                          somethingHide('#watch-actions-loading');
+                         somethingHide('#watch-actions-share-loading');
                    });
                  }else{
+                      somethingHide('#watch-actions-loading');
                       somethingHide('#watch-actions-area-container');
                       somethingHide('#watch-actions-share');
                       $('#watch-actions-share-panel').html('');
@@ -1130,6 +1132,7 @@ courseware_id: '<%=@courseware.id%>'
              function hide_everything(){
                somethingHide('#watch-actions-area-container');
                somethingHide('#watch-actions-loading');
+               somethingHide('#watch-actions-share-loading');
                somethingHide('#watch-actions-error');
                somethingHide('#watch-actions-addto');
                somethingHide('#watch-actions-share');
@@ -1158,8 +1161,77 @@ courseware_id: '<%=@courseware.id%>'
               });
               $('.yt-uix-form-input-text.share-panel-start-at-time').live('focus',function(){
                 $('input.share-panel-start-at').prop('checked',true);
-                if( parseInt($(this).val(),10) )
+                if(!isInt($(this).val())){
+                  $(this).val('');
+                }else{
+                  if(parseInt($(this).val()) > <%= @courseware.slides_count %>){
+                    $(this).val('<%= @courseware.slides_count %>');
+                  }
+                }
+              }).live('blur',function(){
+                if(isInt($(this).val())){
+                  var url= $('.yt-uix-form-input-text.share-panel-url').val();
+                  var arr= parseUri(url);
+                  var former=arr['protocol']+'://' + arr['host'] + arr['path'];
+                  var num=(parseInt($(this).val()) > <%= @courseware.slides_count %>) ? '<%= @courseware.slides_count %>' : $(this).val();
+                  var slidex = '?slide=' + num;
+                  $('.yt-uix-form-input-text.share-panel-url').val(former + slidex);
+                }
               });
+              var share_panel = function(ix,ux,tx){
+                if($(ix).hasClass('hid')){
+                  $.ajax({
+                    type:'POST',
+                    url:'/ajax/get_share_partial',
+                    data:{'type':tx,'cw_id':'<%= @courseware.id %>'},
+                    dataType:'html',
+                    cookie:true,
+                    timeout:3000
+                  }).done(function(html){
+                    if(!$(ux).hasClass('hid')){
+                      somethingHide(ux);
+                    }
+                    $(ix).html(html);
+                    somethingShow(ix);
+                  });  
+                }else{
+                  somethingHide(ix);
+                }
+              };
+              $('.share-panel-embed').live('click',function(){share_panel('.share-panel-embed-container','.share-panel-email-container','embed');});
+              $('.share-panel-email').live('click',function(){share_panel('.share-panel-email-container','.share-panel-embed-container','email')});
+
+              function isInt(n) {
+                 return n % 1 === 0;
+              }
+              function parseUri (str) {
+              	var	o   = parseUri.options,
+              		m   = o.parser[o.strictMode ? "strict" : "loose"].exec(str),
+              		uri = {},
+              		i   = 14;
+
+              	while (i--) uri[o.key[i]] = m[i] || "";
+
+              	uri[o.q.name] = {};
+              	uri[o.key[12]].replace(o.q.parser, function ($0, $1, $2) {
+              		if ($1) uri[o.q.name][$1] = $2;
+              	});
+
+              	return uri;
+              };
+
+              parseUri.options = {
+              	strictMode: false,
+              	key: ["source","protocol","authority","userInfo","user","password","host","port","relative","path","directory","file","query","anchor"],
+              	q:   {
+              		name:   "queryKey",
+              		parser: /(?:^|&)([^&=]*)=?([^&]*)/g
+              	},
+              	parser: {
+              		strict: /^(?:([^:\/?#]+):)?(?:\/\/((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?))?((((?:[^?#\/]*\/)*)([^?#]*))(?:\?([^#]*))?(?:#(.*))?)/,
+              		loose:  /^(?:(?![^:@]+:[^:@\/]*@)([^:\/?#.]+):)?(?:\/\/)?((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?)(((\/(?:[^?#](?![^?#\/]*\.[^?#\/.]+(?:[?#]|$)))*\/?)?([^?#\/]*))(?:\?([^#]*))?(?:#(.*))?)/
+              	}
+              };
            <% end %>
         </script>
 </div>

@@ -500,5 +500,4 @@ function checklen(obj,size){
         obj.value = cut.substring(0, i);
     }
 }
-
 })(jQuery);

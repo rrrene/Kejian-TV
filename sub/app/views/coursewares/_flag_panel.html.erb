@@ -11,14 +11,14 @@
          举报原因：
          </label>
          <span class="flag-inputs">
-         <button role="button" data-button-menu-id="flag-video-menu" class=" yt-uix-button yt-uix-button-default" onclick=";return false;" id="flag-reason-button" type="button"><span class="yt-uix-button-content">选择原因 </span><img alt="" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" class="yt-uix-button-arrow"></button>
+         <button role="button" data-button-menu-id="flag-video-menu" class=" yt-uix-button yt-uix-button-default" onclick=";return false;" id="flag-reason-button" type="button"><span class="yt-uix-button-content">选择原因 </span><img alt="" src="<%= asset_path 'yt/wfw.gif' %>" class="yt-uix-button-arrow"></button>
          </span>
       </p>
-      <div class="hid" id="flag-video-menu">
+      <div class="hid" id="flag-video-menu" style="min-width: 80px;top: 103px;left: 72px;">
          <ul class="flag-menu">
             <li class="yt-uix-button-menu-item" data-reason="P">
                <span class="label">色情内容</span>
-               <img class="flag-menu-arrow" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+               <img class="flag-menu-arrow" src="<%= asset_path 'yt/wfw.gif' %>">
                <ul class="flag-menu submenu yt-uix-button-menu">
                   <li class="yt-uix-button-menu-item" data-include-time="true" data-subreason="1">
                      <span class="label">图解性行为</span>
@@ -36,7 +36,7 @@
             </li>
             <li class="yt-uix-button-menu-item" data-reason="G">
                <span class="label">暴力或令人反感的内容</span>
-               <img class="flag-menu-arrow" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+               <img class="flag-menu-arrow" src="<%= asset_path 'yt/wfw.gif' %>">
                <ul class="flag-menu submenu yt-uix-button-menu">
                   <li class="yt-uix-button-menu-item" data-result-message="maybe-review" data-subreason="5">
                      <span class="label">成人格斗</span>
@@ -57,7 +57,7 @@
             </li>
             <li class="yt-uix-button-menu-item" data-reason="R">
                <span class="label">憎恨或辱骂内容</span>
-               <img class="flag-menu-arrow" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+               <img class="flag-menu-arrow" src="<%= asset_path 'yt/wfw.gif' %>">
                <ul class="flag-menu submenu yt-uix-button-menu">
                   <li class="yt-uix-button-menu-item" data-result-message="hate-speech" data-show-textbox-with-label="请同时提供您认为能帮助我们尽快验证该问题的其他任何信息：" data-show-hate-group="true" data-subreason="10">
                      <span class="label">宣传仇恨或暴力</span>
@@ -72,7 +72,7 @@
             </li>
             <li class="yt-uix-button-menu-item" data-reason="X">
                <span class="label">有害的危险动作</span>
-               <img class="flag-menu-arrow" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+               <img class="flag-menu-arrow" src="<%= asset_path 'yt/wfw.gif' %>">
                <ul class="flag-menu submenu yt-uix-button-menu">
                   <li class="yt-uix-button-menu-item" data-subreason="12">
                      <span class="label">
@@ -95,7 +95,7 @@
             </li>
             <li class="yt-uix-button-menu-item" data-reason="Z">
                <span class="label">垃圾内容</span>
-               <img class="flag-menu-arrow" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+               <img class="flag-menu-arrow" src="<%= asset_path 'yt/wfw.gif' %>">
                <ul class="flag-menu submenu yt-uix-button-menu">
                   <li class="yt-uix-button-menu-item" data-subreason="18">
                      <span class="label">大量广告</span>
@@ -113,7 +113,7 @@
             </li>
             <li class="yt-uix-button-menu-item">
                <span class="label">侵犯了我的权利</span>
-               <img class="flag-menu-arrow" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+               <img class="flag-menu-arrow" src="<%= asset_path 'yt/wfw.gif' %>">
                <ul class="flag-menu submenu yt-uix-button-menu">
                   <li class="yt-uix-button-menu-item" data-result-message="dcma-policy" data-no-post="true">
                      <span class="label">侵犯了我的版权</span>
@@ -175,7 +175,7 @@
          </p>
          <div id="flag-video-error" class="yt-alert yt-alert-naked yt-alert-error hid ">
             <div class="yt-alert-icon">
-               <img alt="提醒图标" class="icon master-sprite" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+               <img alt="提醒图标" class="icon master-sprite" src="<%= asset_path 'yt/wfw.gif' %>">
             </div>
             <div role="alert" class="yt-alert-content">
                <span class="yt-alert-vertical-trick"></span>
@@ -214,3 +214,13 @@
       </p>
    </div>
 </div>
+
+<script type="text/javascript" charset="utf-8">
+   (function($){
+     $('#flag-reason-button').live('click',function(){
+       $(this).addClass('yt-uix-button yt-uix-button-default yt-uix-button-active');
+       $('#flag-video-menu').removeClass('hid');
+       $('#flag-video-menu').addClass('yt-uix-button-menu yt-uix-button-menu-external');
+     });
+     })(jQuery);
+</script>

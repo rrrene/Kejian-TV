@@ -42,19 +42,19 @@
       <div class="share-panel-services yt-uix-expander yt-uix-expander-collapsed">
          <ul class="share-group ytg-box">
             <li>
-               <button class="yt-uix-tooltip share-service-button" title="分享至Facebook" data-service-name="FACEBOOK" onclick="yt.tracking.shareVideo(&quot;FACEBOOK&quot;, &quot;q1sRAXZ-qLM&quot;,&quot;ja_JP&quot;, &quot;sharepanel&quot;);yt.window.popup(&quot;http:\/\/www.facebook.com\/sharer.php?u=http%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3Dq1sRAXZ-qLM%26feature%3Dshare\u0026t=%E6%B0%B8%E9%81%A0%E3%81%AE%E5%98%98%E3%82%92%E3%81%A4%E3%81%84%E3%81%A6%E3%81%8F%E3%82%8C%E3%80%80%EF%BC%88%E9%AB%98%E7%94%BB%E8%B3%AA%EF%BC%89&quot;, {'height': 440,'width': 620,'scrollbars': true});return false;">
+               <button class="yt-uix-tooltip share-service-button" title="分享至Facebook" data-service-name="FACEBOOK" onclick="return false;">
                <img class="share-service-icon share-service-icon-facebook" alt="Facebook" src="<%= asset_path 'yt/wfw.gif' %>">
                <span>Facebook</span>
                </button>
             </li>
             <li>
-               <button class="yt-uix-tooltip share-service-button" title="分享至Twitter" data-service-name="TWITTER" onclick="yt.tracking.shareVideo(&quot;TWITTER&quot;, &quot;q1sRAXZ-qLM&quot;,&quot;ja_JP&quot;, &quot;sharepanel&quot;);yt.window.popup(&quot;http:\/\/twitter.com\/share?url=http%3A%2F%2Fyoutu.be%2Fq1sRAXZ-qLM\u0026text=%E6%B0%B8%E9%81%A0%E3%81%AE%E5%98%98%E3%82%92%E3%81%A4%E3%81%84%E3%81%A6%E3%81%8F%E3%82%8C%E3%80%80%EF%BC%88%E9%AB%98%E7%94%BB%E8%B3%AA%EF%BC%89%3A\u0026via=youtube&quot;, {'height': 650,'width': 1024,'scrollbars': true});return false;">
+               <button class="yt-uix-tooltip share-service-button" title="分享至Twitter" data-service-name="TWITTER" onclick="return false;">
                <img class="share-service-icon share-service-icon-twitter" alt="Twitter" src="<%= asset_path 'yt/wfw.gif' %>">
                <span>Twitter</span>
                </button>
             </li>
             <li>
-               <button class="yt-uix-tooltip share-service-button" title="分享至Google+" data-service-name="GOOGLEPLUS" onclick="yt.tracking.shareVideo(&quot;GOOGLEPLUS&quot;, &quot;q1sRAXZ-qLM&quot;,&quot;ja_JP&quot;, &quot;sharepanel&quot;);yt.window.popup(&quot;https:\/\/plus.google.com\/u\/0\/share?url=http%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3Dq1sRAXZ-qLM%26feature%3Dshare\u0026source=yt&quot;, {'height': 620,'width': 620,'scrollbars': true});return false;">
+               <button class="yt-uix-tooltip share-service-button" title="分享至Google+" data-service-name="GOOGLEPLUS" onclick="return false;">
                <img class="share-service-icon share-service-icon-googleplus" alt="Google+" src="<%= asset_path 'yt/wfw.gif' %>">
                <span>Google+</span>
                </button>
@@ -77,55 +77,18 @@
                <div class="share-groups">
                   <ul>
                      <li>
-                        <button class="share-service-button" data-service-name="AMEBA" onclick="yt.tracking.shareVideo(&quot;AMEBA&quot;, &quot;q1sRAXZ-qLM&quot;,&quot;ja_JP&quot;, &quot;sharepanel&quot;);yt.window.popup(&quot;http:\/\/blog.ameba.jp\/ucs\/entry\/srventryinsertinput.do?entry_text=%3Cobject+width%3D%22480%22+height%3D%22270%22%3E%3Cparam+name%3D%22movie%22+value%3D%22http%3A%2F%2Fwww.youtube.com%2Fv%2Fq1sRAXZ-qLM%3Ffs%3D1%26hl%3Dzh_CN%22%3E%3C%2Fparam%3E%3Cparam+name%3D%22allowFullScreen%22+value%3D%22true%22%3E%3C%2Fparam%3E%3Cparam+name%3D%22allowscriptaccess%22+value%3D%22always%22%3E%3C%2Fparam%3E%3Cembed+src%3D%22http%3A%2F%2Fwww.youtube.com%2Fv%2Fq1sRAXZ-qLM%3Ffs%3D1%26hl%3Dzh_CN%22+type%3D%22application%2Fx-shockwave-flash%22+width%3D%22480%22+height%3D%22270%22+allowscriptaccess%3D%22always%22+allowfullscreen%3D%22true%22%3E%3C%2Fembed%3E%3C%2Fobject%3E\u0026editor_flg=1&quot;, {'height': 650,'width': 1024,'scrollbars': true});return false;">
+                        <button class="share-service-button" data-service-name="AMEBA" onclick="return false;">
                         <img class="share-service-icon share-service-icon-ameba" alt="Ameba" src="<%= asset_path 'yt/wfw.gif' %>">
                         <span>Ameba</span>
                         </button>
                         <span>Ameba</span>
                      </li>
                      <li>
-                        <button class="share-service-button" data-service-name="MIXI" onclick="yt.tracking.shareVideo(&quot;MIXI&quot;, &quot;q1sRAXZ-qLM&quot;,&quot;ja_JP&quot;, &quot;sharepanel&quot;);yt.window.popup(&quot;http:\/\/mixi.jp\/share.pl?u=http%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3Dq1sRAXZ-qLM%26feature%3Dshare\u0026k=0033257f963abb6e88b20b7671fb2fbfa5d31125&quot;, {'height': 650,'width': 1024,'scrollbars': true});return false;">
+                        <button class="share-service-button" data-service-name="MIXI" onclick="return false;">
                         <img class="share-service-icon share-service-icon-mixi" alt="mixi" src="<%= asset_path 'yt/wfw.gif' %>">
                         <span>mixi</span>
                         </button>
                         <span>mixi</span>
-                     </li>
-                     <li>
-                        <button class="share-service-button" data-service-name="YAHOO JAPAN" onclick="yt.tracking.shareVideo(&quot;YAHOO JAPAN&quot;, &quot;q1sRAXZ-qLM&quot;,&quot;ja_JP&quot;, &quot;sharepanel&quot;);yt.window.popup(&quot;http:\/\/blogs.yahoo.co.jp\/FRONT\/blogthis.html?type=youtube\u0026item=http%3A%2F%2Fwww.youtube.com%2Fv%2Fq1sRAXZ-qLM%3Fversion%3D3%26hl%3Dzh_CN\u0026itemwidth=480\u0026itemheight=270\u0026link=http%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3Dq1sRAXZ-qLM%26feature%3Dshare\u0026linktitle=%E6%B0%B8%E9%81%A0%E3%81%AE%E5%98%98%E3%82%92%E3%81%A4%E3%81%84%E3%81%A6%E3%81%8F%E3%82%8C%E3%80%80%EF%BC%88%E9%AB%98%E7%94%BB%E8%B3%AA%EF%BC%89&quot;, {'height': 650,'width': 1024,'scrollbars': true});return false;">
-                        <img class="share-service-icon share-service-icon-yahoo" alt="Yahoo! Japan" src="<%= asset_path 'yt/wfw.gif' %>">
-                        <span>Yahoo! Japan</span>
-                        </button>
-                        <span>Yahoo! Japan</span>
-                     </li>
-                     <li>
-                        <button class="share-service-button" data-service-name="GOO" onclick="yt.tracking.shareVideo(&quot;GOO&quot;, &quot;q1sRAXZ-qLM&quot;,&quot;ja_JP&quot;, &quot;sharepanel&quot;);yt.window.popup(&quot;http:\/\/blog.goo.ne.jp\/portal_login\/blogparts\/?key=q1sRAXZ-qLM\u0026title=%E6%B0%B8%E9%81%A0%E3%81%AE%E5%98%98%E3%82%92%E3%81%A4%E3%81%84%E3%81%A6%E3%81%8F%E3%82%8C%E3%80%80%EF%BC%88%E9%AB%98%E7%94%BB%E8%B3%AA%EF%BC%89\u0026type=youtube&quot;, {'height': 650,'width': 1024,'scrollbars': true});return false;">
-                        <img class="share-service-icon share-service-icon-goo" alt="goo" src="<%= asset_path 'yt/wfw.gif' %>">
-                        <span>goo</span>
-                        </button>
-                        <span>goo</span>
-                     </li>
-                  </ul>
-                  <ul>
-                     <li>
-                        <button class="share-service-button" data-service-name="RAKUTEN" onclick="yt.tracking.shareVideo(&quot;RAKUTEN&quot;, &quot;q1sRAXZ-qLM&quot;,&quot;ja_JP&quot;, &quot;sharepanel&quot;);yt.window.popup(&quot;http:\/\/my.plaza.rakuten.co.jp\/index.phtml?func=diary\u0026act=write\u0026video_type=youtube\u0026video_code=q1sRAXZ-qLM&quot;, {'height': 650,'width': 1024,'scrollbars': true});return false;">
-                        <img class="share-service-icon share-service-icon-rakuten" alt="楽天ブログ" src="<%= asset_path 'yt/wfw.gif' %>">
-                        <span>楽天ブログ</span>
-                        </button>
-                        <span>楽天ブログ</span>
-                     </li>
-                     <li>
-                        <button class="share-service-button" data-service-name="TUMBLR" onclick="yt.tracking.shareVideo(&quot;TUMBLR&quot;, &quot;q1sRAXZ-qLM&quot;,&quot;ja_JP&quot;, &quot;sharepanel&quot;);yt.window.popup(&quot;http:\/\/www.tumblr.com\/share?v=3\u0026u=http%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3Dq1sRAXZ-qLM%26feature%3Dshare&quot;, {'height': 650,'width': 1024,'scrollbars': true});return false;">
-                        <img class="share-service-icon share-service-icon-tumblr" alt="tumblr." src="<%= asset_path 'yt/wfw.gif' %>">
-                        <span>tumblr.</span>
-                        </button>
-                        <span>tumblr.</span>
-                     </li>
-                     <li>
-                        <button class="share-service-button" data-service-name="WEBRYBLOG" onclick="yt.tracking.shareVideo(&quot;WEBRYBLOG&quot;, &quot;q1sRAXZ-qLM&quot;,&quot;ja_JP&quot;, &quot;sharepanel&quot;);yt.window.popup(&quot;https:\/\/bblog.sso.biglobe.ne.jp\/ap\/writearticle22.do?applicationId=youtube%5B1.0%5D\u0026text=%3Cyoutube+id%3D%22q1sRAXZ-qLM%22+%2F%3E\u0026title=%E6%B0%B8%E9%81%A0%E3%81%AE%E5%98%98%E3%82%92%E3%81%A4%E3%81%84%E3%81%A6%E3%81%8F%E3%82%8C%E3%80%80%EF%BC%88%E9%AB%98%E7%94%BB%E8%B3%AA%EF%BC%89&quot;, {'height': 800,'width': 900,'scrollbars': true});return false;">
-                        <img class="share-service-icon share-service-icon-webryblog" alt="ウェブリブログ" src="<%= asset_path 'yt/wfw.gif' %>">
-                        <span>ウェブリブログ</span>
-                        </button>
-                        <span>ウェブリブログ</span>
                      </li>
                   </ul>
                </div>
@@ -143,7 +106,4 @@
          </div>
       </div>
    </div>
-   <span class="share-panel-hangout">
-   <img title="与您的朋友一同观看。" class="share-panel-hangout-button" alt="Google 环聊" src="https://ssl.gstatic.com/s2/oz/images/stars/hangout/1/gplus-hangout-24x100-normal.png">
-   </span>
 </div>

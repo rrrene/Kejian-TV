@@ -47,6 +47,8 @@ Sub::Application.routes.draw do
   post '/ajax/create_new_playlist' => 'ajax#create_new_playlist'
   post '/ajax/add_comment_to_playlist' =>'ajax#add_comment_to_playlist'
   post '/ajax/get_share_panel' => 'ajax#get_share_panel'
+  post '/ajax/get_share_partial' => 'ajax#get_share_partial'
+  post '/ajax/ajax_send_email' =>'ajax#ajax_send_email'
   # ---=small=----
   get 'hack/htc'
   get '/welcome/inactive_sign_up'

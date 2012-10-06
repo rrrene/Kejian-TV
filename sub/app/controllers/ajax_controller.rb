@@ -294,4 +294,15 @@ HEREDOC
       render file:'coursewares/_share_to',locals:{cw:Courseware.find(params[:cw_id])},layout:false  
     end
   end
+  def get_share_partial
+    if params[:type] == 'embed'
+        render file:'coursewares/_share_panel_embed',locals:{cw:Courseware.find(params[:cw_id])},layout:false  
+    elsif params[:type] == 'email'
+        render file:'coursewares/_share_panel_email',locals:{cw:Courseware.find(params[:cw_id])},layout:false  
+    end
+  end
+  def ajax_send_email
+      json = {status:'suc',cw_id:params[:cw_id],to:params[:recipients],msg:params[:message]}
+      render json:json
+  end
 end
