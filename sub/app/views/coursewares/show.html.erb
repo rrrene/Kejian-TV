@@ -755,10 +755,10 @@ courseware_id: '<%=@courseware.id%>'
                   <div class="comments-section">
                          <% if @comments.total_pages > 1 %>
                           <div class="yt-uix-pager" style="float:right">
-                              <a class="yt-uix-button yt-uix-sessionlink yt-uix-pager-page-num yt-uix-pager-button yt-uix-button-default <%= ' yt-uix-button-toggled' if 9==@per_page %>" title="每页显示9个课件" href="<%= request.path %>?page=1&per_page=9">9</a>
-                              <a class="yt-uix-button yt-uix-sessionlink yt-uix-pager-page-num yt-uix-pager-button yt-uix-button-default <%= ' yt-uix-button-toggled' if 15==@per_page %>" title="每页显示15个课件" href="<%= request.path %>?page=1&per_page=15">15</a>
-                              <a class="yt-uix-button yt-uix-sessionlink yt-uix-pager-page-num yt-uix-pager-button yt-uix-button-default<%= ' yt-uix-button-toggled' if 30==@per_page %>" title="每页显示30个课件" href="<%= request.path %>?page=1&per_page=30">30</a>
-                              <a class="yt-uix-button yt-uix-sessionlink yt-uix-pager-page-num yt-uix-pager-button yt-uix-button-default<%= ' yt-uix-button-toggled' if 50==@per_page %>" title="每页显示50个课件" href="<%= request.path %>?page=1&per_page=50">50</a>
+                              <a class="yt-uix-button yt-uix-sessionlink yt-uix-pager-page-num yt-uix-pager-button yt-uix-button-default <%= ' yt-uix-button-toggled' if 9==@per_page %>" title="每页显示9个评论" href="<%= request.path %>?page=1&per_page=9">9</a>
+                              <a class="yt-uix-button yt-uix-sessionlink yt-uix-pager-page-num yt-uix-pager-button yt-uix-button-default <%= ' yt-uix-button-toggled' if 15==@per_page %>" title="每页显示15个评论" href="<%= request.path %>?page=1&per_page=15">15</a>
+                              <a class="yt-uix-button yt-uix-sessionlink yt-uix-pager-page-num yt-uix-pager-button yt-uix-button-default<%= ' yt-uix-button-toggled' if 30==@per_page %>" title="每页显示30个评论" href="<%= request.path %>?page=1&per_page=30">30</a>
+                              <a class="yt-uix-button yt-uix-sessionlink yt-uix-pager-page-num yt-uix-pager-button yt-uix-button-default<%= ' yt-uix-button-toggled' if 50==@per_page %>" title="每页显示50个评论" href="<%= request.path %>?page=1&per_page=50">50</a>
                               <span class="page-numbers desc">评论/页</span>
                           </div>
                           <%= will_paginate @comments, :renderer=> YTBLinkRenderer,:inner_window=>4,:previous_label => "« 上一页",:next_label => "下一页 »"%>
@@ -1232,6 +1232,136 @@ courseware_id: '<%=@courseware.id%>'
               		loose:  /^(?:(?![^:@]+:[^:@\/]*@)([^:\/?#.]+):)?(?:\/\/)?((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?)(((\/(?:[^?#](?![^?#\/]*\.[^?#\/.]+(?:[?#]|$)))*\/?)?([^?#\/]*))(?:\?([^#]*))?(?:#(.*))?)/
               	}
               };
+              
+              
+              
+       
+             $('#flag-reason-button').live('click',function(e){
+               back2normal();
+               if($(this).hasClass('yt-uix-button-active')){
+                 $('#flag-video-menu').addClass('hid').hide();
+                 $(this).removeClass('yt-uix-button-active');
+               }else{
+                 $(this).addClass('yt-uix-button-active');
+                 $('#flag-video-menu').addClass('yt-uix-button-menu yt-uix-button-menu-external');
+                 $('#flag-video-menu').removeClass('hid').show();
+                }
+                e.stopPropagation();
+             });
+             $(document).click(function(e){
+               var target = e.target;
+               if (!$(target).is('#flag-reason-button') && !$(target).parents().is('#flag-reason-button')) {
+                 if($('#flag-reason-button').hasClass('yt-uix-button-active')){
+                    $('#flag-video-menu').addClass('hid');
+                    $('#flag-reason-button').removeClass('yt-uix-button-active');
+                 }
+               }
+             });
+             $('.flag-menu > .yt-uix-button-menu-item').live('click',function(e){
+               $('.yt-uix-button-menu-item').removeClass('selected');
+               $('.yt-uix-button-menu-item').removeClass('child-selected');
+               $(this).addClass('selected');
+               $('#flag-video-menu').addClass('hid');
+               $('#flag-reason-button').removeClass('yt-uix-button-active');
+               $('#flag-reason-button > .yt-uix-button-content').html($('.label',this).html());
+               handleChoose(this);
+               e.stopPropagation();
+             });
+             $('.submenu > .yt-uix-button-menu-item').live('click',function(e){
+               $('.yt-uix-button-menu-item').removeClass('selected');
+               $('.yt-uix-button-menu-item').removeClass('child-selected');
+               $(this).addClass('selected');
+               $(this).parent().parent().addClass('selected');
+               $(this).parent().parent().addClass('child-selected');
+               $('#flag-video-menu').addClass('hid');
+               $('#flag-reason-button').removeClass('yt-uix-button-active');
+               $('#flag-reason-button > .yt-uix-button-content').html($('.label',this).html());
+               handleChoose(this);
+               e.stopPropagation();
+             });
+             
+             var glayer;
+             var greason;
+             var gmsg;
+             $('#flag-video-submit').live('click',function(){
+                  $.ajax({
+                    url:'/ajax/flagcw',
+                    type:'POST',
+                    data:{'cw_id':'<%= @courseware.id %>','user_id':'<%= current_user.id%>','layer':glayer,'reason':greason, 'form':$('#flag-video-form').serializeArray()},
+                    dataType:'json'
+                  }).done(function(json){
+                     if(json['status'] == 'suc'){
+                       $('#flag-video-form-container').hide().addClass('hid');
+                       if(gmsg != undefined){
+                         $('#flag-video-result-'+gmsg).removeClass('hid');
+                       }else{
+                         $('#flag-video-result-default').removeClass('hid');
+                       }
+                     }else{
+                       back2normal();
+                       $('#flag-video-form').removeClass('hid');
+                       $('#flag-video-error').removeClass('hid');
+                     }
+                  });
+             });
+             var handleChoose = function(who){
+               var time = $(who).attr('data-include-time');
+               var message = gmsg = $(who).attr('data-result-message');
+               var textbox  = $(who).attr('data-show-textbox-with-label');
+               var nopost =$(who).attr('data-no-post');
+               var layer = glayer =$(who).attr('data-reason');
+               var reason = ''
+               if(layer != undefined){
+                 layer = 'reason';
+                 reason = greason =$(who).attr('data-reason');
+               }else{
+                 layer = 'subreason';
+                 reason = greason =$(who).attr('data-subreason');
+               }
+               responseType(time,message,textbox,nopost);
+             }
+             var back2normal = function(){
+               $('#flag-video-form').addClass('hid');
+               $('#flag-video-more-info-time').addClass('hid');
+               $('#flag-video-more-info-comment').addClass('hid');
+               $('#flag-video-error').addClass('hid');
+               $('#flag-video-result-default').addClass('hid');
+               $('#flag-video-results-container').hide();
+               $('#flag-video-result-maybe-review').addClass('hid');
+               $('#flag-video-result-hate-speech').addClass('hid');
+               $('#flag-video-result-dcma-policy').addClass('hid');
+               $('#flag-video-result-privacy-center').addClass('hid');
+               $('#flag-video-result-bullying').addClass('hid');
+               $('#flag-video-result-legal-claim').addClass('hid');
+               $('#flag-video-buttons').hide();
+               $('#flag-video-more-info-hate-group').addClass('hid');
+             };
+             
+             var responseType = function(time,message,textbox,nopost){
+               back2normal();
+               $('#flag-video-results-container').removeClass('hid').show();
+               if(time=='true'){
+                 $('#flag-video-form').removeClass('hid');
+                 $('#flag-video-more-info-time').removeClass('hid');
+                 if(nopost != 'true'){
+                   $('#flag-video-buttons').show();
+                 }
+               }
+               if(textbox != undefined){
+                  $('#flag-video-more-info-comment').removeClass('hid');
+                  $('#flag-video-more-info-textarea-label').html(textbox);
+               }
+               if(message == 'hate-speech'){
+                 $('#flag-video-more-info-hate-group').removeClass('hid');
+               }
+               if(nopost =='true' && time!='true'){
+                  $('#flag-video-form-container').hide().addClass('hid');
+                   $('#flag-video-result-'+message).removeClass('hid'); 
+               }else if(nopost !='true' && time!='true'){
+                  $('#flag-video-form').removeClass('hid');
+                  $('#flag-video-buttons').removeClass('hid').show();
+               }
+             };
            <% end %>
         </script>
 </div>

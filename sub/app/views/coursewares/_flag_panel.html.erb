@@ -1,10 +1,10 @@
 <div class="" id="flag-video-panel">
    <div id="flag-video-form-container">
       <h3>
-         举报此视频包含不当内容
+         举报此课件包含不当内容
       </h3>
       <p>
-         请选择最符合您对该视频的意见的类别，以便我们对该视频进行审查并确认它是否违反了我们的<a target="_blank" href="/t/community_guidelines">社区准则</a>或不适合所有观众。滥用此功能也会违反<a target="_blank" href="/t/community_guidelines">社区准则</a>，因此请不要这么做。
+         请选择最符合您对该课件的意见的类别，以便我们对该课件进行审查并确认它是否违反了我们的<a target="_blank" href="/t/community_guidelines">社区准则</a>或不适合所有观众。滥用此功能也会违反<a target="_blank" href="/t/community_guidelines">社区准则</a>，因此请不要这么做。
       </p>
       <p id="flag-video-reason-container">
          <label for="flag-reason-button" class="flag-label">
@@ -128,21 +128,16 @@
             </li>
          </ul>
       </div>
-      <form action="/watch_actions_ajax?action_flag_video=1" class="hid" id="flag-video-form">
-         <input type="hidden" value="Ugr86H_C9GOTCuj1_JjBWNKIssB8MTM0OTYwNDU5MUAxMzQ5NTE4MTkx" name="session_token">
-         <input type="hidden" value="q1sRAXZ-qLM" name="video_id">
-         <input type="hidden" value="" name="reason">
-         <input type="hidden" value="" name="sub_reason">
+      <form action="/ajax/flagcw" class="hid" id="flag-video-form">
          <div class="hid" id="flag-video-more-info-time">
             <p>
-               为了帮助我们尽快验证该问题，请同时告诉我们不当资料在视频中所处的位置。
+               为了帮助我们尽快验证该问题，请同时告诉我们不当资料在课件中所处的位置。
             </p>
             <p>
                <label for="flag-video-minutes">
-               视频中出现不当资料的时间（分和秒）：
+               课件中出现不当资料的页码：
                </label>
-               <input type="text" maxlength="3" size="2" value="0" id="flag-video-minutes" name="flag_t_mins"> :
-               <input type="text" maxlength="2" size="2" value="0" name="flag_t_secs">
+               <input type="text" maxlength="3" size="2" value="0" id="flag-cw-page" name="flag_page">
             </p>
          </div>
          <div class="hid" id="flag-video-more-info-hate-group">
@@ -171,7 +166,7 @@
          </div>
          <p class="hid" id="flag-video-more-info-comment">
             <label for="flag-video-more-info-textarea" id="flag-video-more-info-textarea-label"></label>
-            <textarea rows="2" wrap="soft" onkeyup="goog.i18n.bidi.setDirAttribute(event,this)" name="flag_desc" id="flag-video-more-info-textarea"></textarea>
+            <textarea rows="2" wrap="soft" name="flag_desc" id="flag-video-more-info-textarea"></textarea>
          </p>
          <div id="flag-video-error" class="yt-alert yt-alert-naked yt-alert-error hid ">
             <div class="yt-alert-icon">
@@ -180,12 +175,12 @@
             <div role="alert" class="yt-alert-content">
                <span class="yt-alert-vertical-trick"></span>
                <div class="yt-alert-message">
-                  举报视频时出错。请重试。
+                  举报课件时出错。请重试。
                </div>
             </div>
          </div>
          <p id="flag-video-buttons">
-            <a id="flag-video-cancel">取消</a>或<button role="button" class=" yt-uix-button yt-uix-button-default" onclick=";return true;" id="flag-video-submit" type="submit"><span class="yt-uix-button-content">提交视频以供审核 </span></button>
+            <a id="flag-video-cancel">取消</a>或<button role="button" class=" yt-uix-button yt-uix-button-default" onclick=";return false;" id="flag-video-submit" type="submit"><span class="yt-uix-button-content">提交课件以供审核 </span></button>
          </p>
       </form>
    </div>
@@ -194,7 +189,7 @@
          感谢您的举报。
       </p>
       <p class="flag-video-result hid" id="flag-video-result-maybe-review">
-         感谢您举报该视频。虽然这种性质的内容在 YouTube 上不是绝对禁止的，但我们会审核该视频并采取适当措施。
+         感谢您举报该课件。虽然这种性质的内容在 课件TV 上不是绝对禁止的，但我们会审核该课件并采取适当措施。
       </p>
       <div class="flag-video-result hid" id="flag-video-result-hate-speech">
          <p>谢谢分享您所关注的问题。</p>
@@ -214,13 +209,3 @@
       </p>
    </div>
 </div>
-
-<script type="text/javascript" charset="utf-8">
-   (function($){
-     $('#flag-reason-button').live('click',function(){
-       $(this).addClass('yt-uix-button yt-uix-button-default yt-uix-button-active');
-       $('#flag-video-menu').removeClass('hid');
-       $('#flag-video-menu').addClass('yt-uix-button-menu yt-uix-button-menu-external');
-     });
-     })(jQuery);
-</script>

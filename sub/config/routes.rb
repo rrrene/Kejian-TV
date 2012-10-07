@@ -1,5 +1,7 @@
 # -*- encoding : utf-8 -*-
 Sub::Application.routes.draw do
+
+
   root :to=>'welcome#index'
   get '/api/uc' => 'ucenter#ktv_uc_client'
   post '/api/uc' => 'ucenter#ktv_uc_client'
@@ -49,6 +51,7 @@ Sub::Application.routes.draw do
   post '/ajax/get_share_panel' => 'ajax#get_share_panel'
   post '/ajax/get_share_partial' => 'ajax#get_share_partial'
   post '/ajax/ajax_send_email' =>'ajax#ajax_send_email'
+  post '/ajax/flagcw' => 'ajax#flag_cw'
   # ---=small=----
   get 'hack/htc'
   get '/welcome/inactive_sign_up'
@@ -226,6 +229,7 @@ Sub::Application.routes.draw do
   resources :inbox
   
   namespace :cpanel do
+    get "/flagrecords" => 'flag_record#index'
     post '/toggle' => 'asks#toggle'
     root :to =>  "home#index"
     resources :scopes

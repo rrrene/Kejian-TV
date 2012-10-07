@@ -305,4 +305,30 @@ HEREDOC
       json = {status:'suc',cw_id:params[:cw_id],to:params[:recipients],msg:params[:message]}
       render json:json
   end
+  def flag_cw
+    begin
+        fr = FlagRecord.new
+        fr.cwid = params[:cw_id]
+        fr.user_id = params[:user_id]
+        fr.layer = params[:layer]
+        fr.reason_id = params[:reason]
+
+        params[:form].each do |k,v| 
+            if v['name'] == 'flage_page'
+                fr.flag_page  = v['value'].to_i
+            end
+            if v['name'] == 'flag_protected_group'
+            fr.flag_protected_group = v['value']
+            end
+            if v['name'] == 'flag_desc'
+                fr.flag_desc = v['value']
+            end
+        end
+        fr.save
+        json = {status:'suc'}
+    rescue =>e
+        json = {status:'failed'}
+    end
+    render json:json
+  end
 end

@@ -1,0 +1,90 @@
+<%= content_for :sitemap do %>
+  <span class="current">
+    列表
+  </span>
+<% end %>
+<style type="text/css" media="screen">
+  .whole{
+    margin:auto;
+    padding:auto;
+    text-align:center;
+    color:white;
+    text-decoration:none;
+    margin-top:20px;
+  }
+  .whole a{
+    color:#e8e8e8;
+    text-decoration:none;
+  }
+  .whole table{
+
+    border-color:white;
+    width:890px;
+    overflow:scroll;
+    table-layout: fixed;
+  }
+  .whole table tr td{
+    word-break: break-all;
+    word-wrap:break-word;
+  }
+  .page{
+    float:right;
+    margin:20px;
+    padding-right:40px;
+  }
+  
+</style>
+<h1 class="whole">举报列表</h1>
+<div class='whole page'>
+  <%= will_paginate @frs%>  
+</div>
+<table border="1"  cellspacing="5" cellpadding="5" width="95%"class="whole">
+  <tr>
+    <th>
+      序号
+    </th>
+    <th>
+      课件
+    </th>
+    <th>
+      课件上传者
+    </th>
+    <th>
+      问题页码
+    </th>
+    <th>
+      举报用户
+    </th>
+    <th>
+      举报原因      
+    </th>
+    <th>
+      种族问题？
+    </th>
+    <th>
+      备注
+    </th>
+    <th>
+      举报时间
+    </th>
+  </tr>
+  <% @frs.each_with_index do |fr,index| %>
+  <tr>
+    <td width="4%"><%= index %></td>
+    <% cw = Courseware.find(fr.cwid) %>
+    <td width="26%"><%= link_to cw.title,cw %></td>
+    <td width="8%"><a dir="ltr" rel="author" class="yt-uix-sessionlink yt-user-name author" href="/users/<%= cw.uploader_id %>"><%= User.get_name cw.uploader_id %></a></td>
+    <td width="8%"><%= fr.flag_page.nil? ? 0 : fr.flag_page %></td>
+    <td width="8%"><a dir="ltr" rel="author" class="yt-uix-sessionlink yt-user-name author" href="/users/<%= fr.user_id %>"><%= User.get_name fr.user_id %></a></td>
+    <td width="12%"><%= FlagRecord::FLAG_DETAILS["#{fr.reason_id}"] %></td>
+    <td width="8%"><%= FlagRecord::FLAG_PROTECTED_GROUP["#{fr.flag_protected_group}"] %></td>
+    <td width="20%"><%= Sanitize.clean((fr.flag_desc.nil? ? '无' : fr.flag_desc).gsub(/\n/, '<br />'), Sanitize::Config::BASIC).html_safe %></td>
+    <td width="6%"><%= timeago fr.created_at %></td>
+  </tr>
+
+  <% end %>
+
+</table>
+<div class='whole page'>
+  <%= will_paginate @frs%>  
+</div>
