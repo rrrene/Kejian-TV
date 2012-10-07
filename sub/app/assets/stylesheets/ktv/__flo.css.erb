@@ -669,8 +669,8 @@
 
   @font-face {
     font-family: 'Flaunt Legacy';
-    src: local("☺"), url(../fonts/flaunt-legacy.eot);
-    src: url("../../fonts/flaunt-legacy.eot?#iefix") format("embedded-opentype"), url(../fonts/flaunt-legacy.woff) format("woff"), url(../fonts/flaunt-legacy.ttf) format("truetype"), url("../../fonts/flaunt-legacy.svg#flaunt_legacyregular") format("svg");
+    src: local("☺"), url(<%=asset_path('flo/fonts/flaunt-legacy.eot')%>);
+    src: url(<%=asset_path('flo/fonts/flaunt-legacy.eot')%>?#iefix) format("embedded-opentype"), url(<%=asset_path('flo/fonts/flaunt-legacy.woff')%>) format("woff"), url(<%=asset_path('flo/fonts/flaunt-legacy.ttf')%>) format("truetype"), url(<%=asset_path('flo/fonts/flaunt-legacy.svg')%>#flaunt_legacyregular) format("svg");
     font-weight: normal;
     font-style: normal;
 }
@@ -685,6 +685,9 @@
   font-size: 12px;
   overflow: hidden;
   -webkit-font-smoothing: antialiased;
+}
+.__flo ins{
+  background:transparent;
 }
 .__flo div, .__flo dl, .__flo dt, .__flo dd, .__flo ul, .__flo ol, .__flo li, .__flo h1, .__flo h2, .__flo h3, .__flo h4, .__flo h5, .__flo h6, .__flo pre, .__flo form, .__flo fieldset, .__flo input, .__flo textarea, .__flo p, .__flo blockquote, .__flo th, .__flo td {
   margin: 0;
@@ -1237,7 +1240,7 @@
 .__flo #flying-task {
   width: 36px;
   height: 36px;
-  background: url(../images/icons/checkbox-36.png) no-repeat top left;
+  background: url(<%=asset_path('flo/images/icons/checkbox-36.png')%>) no-repeat top left;
   display: block;
   position: absolute;
   z-index: 999999999;
@@ -1375,7 +1378,7 @@
 .__flo .task-meta .token.uploading > div, .__flo .task-meta .task-attachments .token.pending > div {
   border-color: #a0adba;
   background-color: #ebf5fe;
-  background-image: url(../images/striping-token.png);
+  background-image: url(<%=asset_path('flo/images/striping-token.png')%>);
   background-repeat: repeat-x;
   -webkit-animation-name: token-stripe;
   -webkit-animation-duration: 1s;
@@ -1407,12 +1410,12 @@
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
   border-radius: 2px;
-  background: url(../images/icon-collaborator-16.png) no-repeat left top, -webkit-gradient(linear, left top, left bottom, from(white), to(#e8eff7));
-  background: url(../images/icon-collaborator-16.png) no-repeat left top, -webkit-linear-gradient(top, white, #e8eff7);
-  background: url(../images/icon-collaborator-16.png) no-repeat left top, -moz-linear-gradient(top, white, #e8eff7);
-  background: url(../images/icon-collaborator-16.png) no-repeat left top, -ms-linear-gradient(top, white, #e8eff7);
-  background: url(../images/icon-collaborator-16.png) no-repeat left top, -o-linear-gradient(top, white, #e8eff7);
-  background: url(../images/icon-collaborator-16.png) no-repeat left top, linear-gradient(top, white, #e8eff7);
+  background: url(<%=asset_path('flo/images/icon-collaborator-16.png')%>) no-repeat left top, -webkit-gradient(linear, left top, left bottom, from(white), to(#e8eff7));
+  background: url(<%=asset_path('flo/images/icon-collaborator-16.png')%>) no-repeat left top, -webkit-linear-gradient(top, white, #e8eff7);
+  background: url(<%=asset_path('flo/images/icon-collaborator-16.png')%>) no-repeat left top, -moz-linear-gradient(top, white, #e8eff7);
+  background: url(<%=asset_path('flo/images/icon-collaborator-16.png')%>) no-repeat left top, -ms-linear-gradient(top, white, #e8eff7);
+  background: url(<%=asset_path('flo/images/icon-collaborator-16.png')%>) no-repeat left top, -o-linear-gradient(top, white, #e8eff7);
+  background: url(<%=asset_path('flo/images/icon-collaborator-16.png')%>) no-repeat left top, linear-gradient(top, white, #e8eff7);
 }
 .__flo ins.pending, .__flo .token.pending ins.has-photo {
   opacity: .5;
@@ -1472,7 +1475,7 @@
 }
 .__flo .task-meta .token.concierge div::after {
   content: '';
-  background: url(../images/concierge/concierge-icon-16x16.png);
+  background: url(<%=asset_path('flo/images/concierge/concierge-icon-16x16.png')%>);
   width: 16px;
   height: 16px;
   display: block;
@@ -1552,10 +1555,10 @@
   border: 1px solid #b9c0c6;
 }
 .__flo .fancy-tooltip .tooltip-tail {
-  background: transparent url(../images/nubs/top.png) no-repeat center top;
+  background: transparent url(<%=asset_path('flo/images/nubs/top.png')%>) no-repeat center top;
 }
 .__flo .fancy-tooltip .tooltip-tail.bottom {
-  background: transparent url(../images/nubs/bottom.png) no-repeat center bottom;
+  background: transparent url(<%=asset_path('flo/images/nubs/bottom.png')%>) no-repeat center bottom;
 }
 .__flo .fancy-tooltip.contextmenu .tooltip-body, .__flo .fancy-tooltip.rename .tooltip-body {
   padding: 5px;
@@ -1657,7 +1660,7 @@
   padding-left: 13px;
 }
 .__flo .fancy-list li.active > * {
-  background: url(../images/icon-checkmark-filters.png) no-repeat 0 -3px;
+  background: url(<%=asset_path('flo/images/icon-checkmark-filters.png')%>) no-repeat 0 -3px;
 }
 .__flo .fancy-list li.active.highlighted > * {
   background-position: 0 -23px;
@@ -2081,7 +2084,7 @@
   width: 44px;
   height: 44px;
   margin: 0 0 0 -20px;
-  background: transparent url(../images/task-multidrag.png) no-repeat 0 0;
+  background: transparent url(<%=asset_path('flo/images/task-multidrag.png')%>) no-repeat 0 0;
 }
 .__flo .sortable-helper-icon .count {
   position: absolute;
@@ -2436,7 +2439,7 @@
   -webkit-font-smoothing: antialiased;
 }
 .__flo .msg-bar .help-icon {
-  background: url(../images/icon-info.png) no-repeat center center;
+  background: url(<%=asset_path('flo/images/icon-info.png')%>) no-repeat center center;
   display: inline-block;
   width: 18px;
   height: 14px;
@@ -2702,89 +2705,89 @@
 .__flo .spinner.s12 {
   width: 12px;
   height: 12px;
-  background-image: url(../images/spinners/spinner-black-12.png);
+  background-image: url(<%=asset_path('flo/images/spinners/spinner-black-12.png')%>);
 }
 .__flo .spinner.s12.blue {
-  background-image: url(../images/spinners/spinner-blue-12.png);
+  background-image: url(<%=asset_path('flo/images/spinners/spinner-blue-12.png')%>);
 }
 .__flo .spinner.s12.white {
-  background-image: url(../images/spinners/spinner-white-12.png);
+  background-image: url(<%=asset_path('flo/images/spinners/spinner-white-12.png')%>);
 }
 .__flo .spinner.s14 {
   width: 14px;
   height: 14px;
-  background-image: url(../images/spinners/spinner-black-14.png);
+  background-image: url(<%=asset_path('flo/images/spinners/spinner-black-14.png')%>);
 }
 .__flo .spinner.s14.blue {
-  background-image: url(../images/spinners/spinner-blue-14.png);
+  background-image: url(<%=asset_path('flo/images/spinners/spinner-blue-14.png')%>);
 }
 .__flo .spinner.s14.white {
-  background-image: url(../images/spinners/spinner-white-14.png);
+  background-image: url(<%=asset_path('flo/images/spinners/spinner-white-14.png')%>);
 }
 .__flo .spinner.s16 {
   width: 16px;
   height: 16px;
-  background-image: url(../images/spinners/spinner-black-16.png);
+  background-image: url(<%=asset_path('flo/images/spinners/spinner-black-16.png')%>);
 }
 .__flo .spinner.s16.blue {
-  background-image: url(../images/spinners/spinner-blue-16.png);
+  background-image: url(<%=asset_path('flo/images/spinners/spinner-blue-16.png')%>);
 }
 .__flo .spinner.s16.white {
-  background-image: url(../images/spinners/spinner-white-16.png);
+  background-image: url(<%=asset_path('flo/images/spinners/spinner-white-16.png')%>);
 }
 .__flo .spinner.s24 {
   width: 24px;
   height: 24px;
-  background-image: url(../images/spinners/spinner-black-24.png);
+  background-image: url(<%=asset_path('flo/images/spinners/spinner-black-24.png')%>);
 }
 .__flo .spinner.s24.blue {
-  background-image: url(../images/spinners/spinner-blue-24.png);
+  background-image: url(<%=asset_path('flo/images/spinners/spinner-blue-24.png')%>);
 }
 .__flo .spinner.s24.white {
-  background-image: url(../images/spinners/spinner-white-24.png);
+  background-image: url(<%=asset_path('flo/images/spinners/spinner-white-24.png')%>);
 }
 .__flo .spinner.s36 {
   width: 36px;
   height: 36px;
-  background-image: url(../images/spinners/spinner-black-36.png);
+  background-image: url(<%=asset_path('flo/images/spinners/spinner-black-36.png')%>);
 }
 .__flo .spinner.s36.blue {
-  background-image: url(../images/spinners/spinner-blue-36.png);
+  background-image: url(<%=asset_path('flo/images/spinners/spinner-blue-36.png')%>);
 }
 .__flo .spinner.s36.white {
-  background-image: url(../images/spinners/spinner-white-36.png);
+  background-image: url(<%=asset_path('flo/images/spinners/spinner-white-36.png')%>);
 }
 .__flo .spinner.s48 {
   width: 48px;
   height: 48px;
-  background-image: url(../images/spinners/spinner-black-48.png);
+  background-image: url(<%=asset_path('flo/images/spinners/spinner-black-48.png')%>);
 }
 .__flo .spinner.s48.blue {
-  background-image: url(../images/spinners/spinner-blue-48.png);
+  background-image: url(<%=asset_path('flo/images/spinners/spinner-blue-48.png')%>);
 }
 .__flo .spinner.s48.white {
-  background-image: url(../images/spinners/spinner-white-48.png);
+  background-image: url(<%=asset_path('flo/images/spinners/spinner-white-48.png')%>);
 }
 @media only screen and (-webkit-min-device-pixel-ratio: 2) {
   .__flo .spinner.s12 {
-    background-image: url(../images/embed/spinners/spinner-black-24.png);
+    background-image: url(<%=asset_path('flo/images/embed/spinners/spinner-black-24.png')%>);
     background-size: 12px;
   }
   .__flo .spinner.s12.blue {
-    background-image: url(../images/embed/spinners/spinner-blue-24.png);
+    background-image: url(<%=asset_path('flo/images/embed/spinners/spinner-blue-24.png')%>);
   }
   .__flo .spinner.s12.white {
-    background-image: url(../images/embed/spinners/spinner-white-24.png);
+    background-image: url(<%=asset_path('flo/images/embed/spinners/spinner-white-24.png')%>);
   }
   .__flo .spinner.s24 {
-    background-image: url(../images/embed/spinners/spinner-black-48.png);
+    background-image: url(<%=asset_path('flo/images/embed/spinners/spinner-black-48.png')%>);
     background-size: 24px;
   }
   .__flo .spinner.s24.blue {
-    background-image: url(../images/embed/spinners/spinner-blue-48.png);
+    background-image: url(<%=asset_path('flo/images/embed/spinners/spinner-blue-48.png')%>);
   }
   .__flo .spinner.s24.white {
-    background-image: url(../images/embed/spinners/spinner-white-48.png);
+    background-image: url(<%=asset_path('flo/images/embed/spinners/spinner-white-48.png')%>);
   }
 }
 .__flo .app-north, .__flo .app-north-inner, .__flo .header-flow {
@@ -3040,7 +3043,7 @@
 }
 @media only screen and (-webkit-min-device-pixel-ratio: 2) {
   .__flo .flow-topbar li.action > a.back .left {
-    background-image: url(../images/2x/button-header-toolbar-left-back.png);
+    background-image: url(<%=asset_path('flo/images/2x/button-header-toolbar-left-back.png')%>);
     background-size: 14px;
     background-position: 1px 0;
     background-repeat: no-repeat;
@@ -3064,7 +3067,7 @@
 .__flo .flow-topbar .clear_completed_tasks .icon {
   background-image: url("data:image/png;charset=utf-8;base64,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");
 }
-.__flo .flow-topbar .sorters .icon {
+.__flo .flow-topbar .sorters .icon{
   background-image: url("data:image/png;charset=utf-8;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAABgCAMAAABL/ICqAAAAPFBMVEUAAAApLDD///8pLDAAAAD///8pLDApLDApLDAAAAAAAAApLDAGsu4V//8pLDBIz/91//+N4f/X//////+KDe+UAAAADHRSTlMAAAAQJiYwQI+zv7/WDZgKAAAAuklEQVR42u2TSwrDMAwF7SpRndSOP7n/Xats8sAqhICLS/HA7GbxEMg8LvilwKyrEYGpg303IrgfKC6DMfLGyKaB5i8Dq6iDbbMiUEEpVgQqyNmKQAWK9iNTsiJQQYxWBD1GhmBFoALvrQguN7QPNONxPh6KSiERUBVwziwCrgPnmN3rxNUBMRPx84Tp9siUSARqZIwsgh4jQyARqJHeswgajByf9a1gWQ6BCqbpEKhgng/BGNlhZP/gDTHTK6kzjZQtAAAAAElFTkSuQmCC");
 }
 .__flo .flow-topbar .actions .icon {
@@ -3078,35 +3081,35 @@
 }
 @media only screen and (-webkit-min-device-pixel-ratio: 2) {
   .__flo .flow-topbar .settings .icon {
-    background-image: url(../images/2x/icon-header-preferences.png);
+    background-image: url(<%=asset_path('flo/images/2x/icon-header-preferences.png')%>);
     background-size: 32px;
   }
   .__flo .flow-topbar .notifications .icon {
-    background-image: url(../images/2x/icon-header-notifications.png);
+    background-image: url(<%=asset_path('flo/images/2x/icon-header-notifications.png')%>);
     background-size: 32px;
   }
   .__flo .flow-topbar .new_task .icon {
-    background-image: url(../images/2x/icon-header-new_task.png);
+    background-image: url(<%=asset_path('flo/images/2x/icon-header-new_task.png')%>);
     background-size: 32px;
   }
   .__flo .flow-topbar .clear_completed_tasks .icon {
-    background-image: url(../images/2x/icon-header-clear_completed_tasks.png);
+    background-image: url(<%=asset_path('flo/images/2x/icon-header-clear_completed_tasks.png')%>);
     background-size: 32px;
   }
   .__flo .flow-topbar .sorters .icon {
-    background-image: url(../images/2x/icon-header-sort.png);
+    background-image: url(<%=asset_path('flo/images/2x/icon-header-sort.png')%>);
     background-size: 32px;
   }
   .__flo .flow-topbar .actions .icon {
-    background-image: url(../images/2x/icon-header-actions.png);
+    background-image: url(<%=asset_path('flo/images/2x/icon-header-actions.png')%>);
     background-size: 32px;
   }
   .__flo .flow-topbar .toggle_navbar .icon {
-    background-image: url(../images/2x/icon-header-toggle_navbar.png);
+    background-image: url(<%=asset_path('flo/images/2x/icon-header-toggle_navbar.png')%>);
     background-size: 32px;
   }
   .__flo .flow-topbar .toggle_navbar.alt .icon {
-    background-image: url(../images/2x/icon-header-toggle_navbar-alt.png);
+    background-image: url(<%=asset_path('flo/images/2x/icon-header-toggle_navbar-alt.png')%>);
     background-size: 32px;
   }
 }
@@ -3164,7 +3167,7 @@
   position: absolute;
   width: 24px;
   height: 24px;
-  background: url(../images/icons/icon-clear-14-000.png) no-repeat center center;
+  background: url(<%=asset_path('flo/images/icons/icon-clear-14-000.png')%>) no-repeat center center;
   opacity: .2;
 }
 .__flo .fancy-tooltip.contextmenu.quicksearch {
@@ -3172,7 +3175,7 @@
 }
 @media only screen and (-webkit-min-device-pixel-ratio: 2) {
   .__flo .header-flow .search input {
-    background-image: url(../images/2x/icon-search.png);
+    background-image: url(<%=asset_path('flo/images/2x/icon-search.png')%>);
     background-size: 12px;
   }
 }
@@ -3271,23 +3274,23 @@
 }
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1) {
   .__flo .sidebar .primary-boxes li.inbox a span {
-    background-image: url(../images/icons/2x/sidebar-inbox.png);
+    background-image: url(<%=asset_path('flo/images/icons/2x/sidebar-inbox.png')%>);
     background-size: 17px;
   }
   .__flo .sidebar .primary-boxes li.upcoming a span {
-    background-image: url(../images/icons/2x/sidebar-upcoming.png);
+    background-image: url(<%=asset_path('flo/images/icons/2x/sidebar-upcoming.png')%>);
     background-size: 17px;
   }
   .__flo .sidebar .primary-boxes li.flagged a span {
-    background-image: url(../images/icons/2x/sidebar-flagged.png);
+    background-image: url(<%=asset_path('flo/images/icons/2x/sidebar-flagged.png')%>);
     background-size: 16px;
   }
   .__flo .sidebar .primary-boxes li.delegated a span {
-    background-image: url(../images/icons/2x/sidebar-delegated.png);
+    background-image: url(<%=asset_path('flo/images/icons/2x/sidebar-delegated.png')%>);
     background-size: 16px;
   }
   .__flo .sidebar .primary-boxes li.all-tasks a span {
-    background-image: url(../images/icons/2x/sidebar-my-tasks.png);
+    background-image: url(<%=asset_path('flo/images/icons/2x/sidebar-my-tasks.png')%>);
     background-size: 17px;
   }
 }
@@ -3366,7 +3369,7 @@
 }
 .__flo .sidebar .sidebar-tabs {
   position: relative;
-  height: 22px;
+  height: 24px;
   border-top: 1px solid #b4bbc4;
   color: #333;
   margin: -1px 1px 0 0;
@@ -3375,8 +3378,8 @@
 .__flo .sidebar .sidebar-tabs li {
   float: left;
   width: 109px;
-  height: 20px;
-  line-height: 20px;
+  height: 22px;
+  line-height: 22px;
   background-image: -moz-linear-gradient(top, #edf3fa, #d0d9e4);
   background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #edf3fa), color-stop(1, #d0d9e4));
   filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#edf3fa',EndColorStr='#d0d9e4');
@@ -3387,7 +3390,7 @@
   text-shadow: #fff 0 1px 0;
   text-transform: uppercase;
   text-align: center;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: bold;
 }
 .__flo .sidebar h3 {
@@ -3451,7 +3454,7 @@
   z-index: 1000;
 }
 .__flo .side-action-bar .actions {
-  height: 21px;
+  height: 22px;
   display: block;
   float: left;
 }
@@ -3501,10 +3504,10 @@
 .__flo .side-action-bar .status {
   float: right;
   padding: 0 6px 0 0;
-  line-height: 20px;
+  line-height: 22px;
   color: #747d84;
   text-shadow: 0 1px 0 #fff;
-  font-size: 10px;
+  font-size: 12px;
 }
 .__flo .secondary-boxes-wrap {
   position: absolute;
@@ -3906,22 +3909,22 @@
   margin-top: 6px;
   width: 32px;
   height: 32px;
-  background: url(../images/icon-collaborator-32.png) no-repeat left top;
+  background: url(<%=asset_path('flo/images/icon-collaborator-32.png')%>) no-repeat left top;
   border-radius: 5px;
-  background: url(../images/icon-collaborator-32.png) no-repeat left top, -webkit-gradient(linear, left top, left bottom, from(white), to(#e8eff7));
-  background: url(../images/icon-collaborator-32.png) no-repeat left top, -webkit-linear-gradient(top, white, #e8eff7);
-  background: url(../images/icon-collaborator-32.png) no-repeat left top, -moz-linear-gradient(top, white, #e8eff7);
-  background: url(../images/icon-collaborator-32.png) no-repeat left top, -ms-linear-gradient(top, white, #e8eff7);
-  background: url(../images/icon-collaborator-32.png) no-repeat left top, -o-linear-gradient(top, white, #e8eff7);
-  background: url(../images/icon-collaborator-32.png) no-repeat left top, linear-gradient(top, white, #e8eff7);
+  background: url(<%=asset_path('flo/images/icon-collaborator-32.png')%>) no-repeat left top, -webkit-gradient(linear, left top, left bottom, from(white), to(#e8eff7));
+  background: url(<%=asset_path('flo/images/icon-collaborator-32.png')%>) no-repeat left top, -webkit-linear-gradient(top, white, #e8eff7);
+  background: url(<%=asset_path('flo/images/icon-collaborator-32.png')%>) no-repeat left top, -moz-linear-gradient(top, white, #e8eff7);
+  background: url(<%=asset_path('flo/images/icon-collaborator-32.png')%>) no-repeat left top, -ms-linear-gradient(top, white, #e8eff7);
+  background: url(<%=asset_path('flo/images/icon-collaborator-32.png')%>) no-repeat left top, -o-linear-gradient(top, white, #e8eff7);
+  background: url(<%=asset_path('flo/images/icon-collaborator-32.png')%>) no-repeat left top, linear-gradient(top, white, #e8eff7);
 }
 .__flo .flow-tree li.person.concierge .link ins {
-  background: url(../images/concierge/concierge-icon-25x25.png) no-repeat center center, -webkit-gradient(linear, left top, left bottom, from(#f4fbe8), to(#b6e572));
-  background: url(../images/concierge/concierge-icon-25x25.png) no-repeat center center, -webkit-linear-gradient(top, #f4fbe8, #d8f8aa 50%, #b6e572);
-  background: url(../images/concierge/concierge-icon-25x25.png) no-repeat center center, -moz-linear-gradient(top, #f4fbe8, #d8f8aa 50%, #b6e572);
-  background: url(../images/concierge/concierge-icon-25x25.png) no-repeat center center, -ms-linear-gradient(top, #f4fbe8, #d8f8aa 50%, #b6e572);
-  background: url(../images/concierge/concierge-icon-25x25.png) no-repeat center center, -o-linear-gradient(top, #f4fbe8, #d8f8aa 50%, #b6e572);
-  background: url(../images/concierge/concierge-icon-25x25.png) no-repeat center center, linear-gradient(top, #f4fbe8, #d8f8aa 50%, #b6e572);
+  background: url(<%=asset_path('flo/images/concierge/concierge-icon-25x25.png')%>) no-repeat center center, -webkit-gradient(linear, left top, left bottom, from(#f4fbe8), to(#b6e572));
+  background: url(<%=asset_path('flo/images/concierge/concierge-icon-25x25.png')%>) no-repeat center center, -webkit-linear-gradient(top, #f4fbe8, #d8f8aa 50%, #b6e572);
+  background: url(<%=asset_path('flo/images/concierge/concierge-icon-25x25.png')%>) no-repeat center center, -moz-linear-gradient(top, #f4fbe8, #d8f8aa 50%, #b6e572);
+  background: url(<%=asset_path('flo/images/concierge/concierge-icon-25x25.png')%>) no-repeat center center, -ms-linear-gradient(top, #f4fbe8, #d8f8aa 50%, #b6e572);
+  background: url(<%=asset_path('flo/images/concierge/concierge-icon-25x25.png')%>) no-repeat center center, -o-linear-gradient(top, #f4fbe8, #d8f8aa 50%, #b6e572);
+  background: url(<%=asset_path('flo/images/concierge/concierge-icon-25x25.png')%>) no-repeat center center, linear-gradient(top, #f4fbe8, #d8f8aa 50%, #b6e572);
   -webkit-box-shadow: 0 2px 0 #fff inset;
   height: 32px;
 }
@@ -3937,7 +3940,7 @@
   background: none!important;
 }
 .__flo .flow-tree li.project.loading .link ins {
-  background: url(../images/spinners/spinner-blue-12.png) no-repeat center center;
+  background: url(<%=asset_path('flo/images/spinners/spinner-blue-12.png')%>) no-repeat center center;
   width: 12px;
   height: 12px;
   -webkit-animation: spinner-spin .75s infinite normal linear;
@@ -3947,14 +3950,14 @@
   background-position: center center;
 }
 .__flo .flow-tree li.project.loading.active .link ins {
-  background: url(../images/spinners/spinner-white-12.png) no-repeat center center;
+  background: url(<%=asset_path('flo/images/spinners/spinner-white-12.png')%>) no-repeat center center;
 }
 .__flo .flow-tree .folder li.project.loading .link ins {
   margin-left: 3px;
   margin-right: 8px;
 }
 .__flo .flow-tree li.person.deleted .link ins {
-  background-image: url(../images/icon-collaborator-deleted-32.png);
+  background-image: url(<%=asset_path('flo/images/icon-collaborator-deleted-32.png')%>);
 }
 .__flo .flow-tree li.person.deleted .photo {
   display: none;
@@ -3985,7 +3988,7 @@
   height: 16px;
   margin-top: 2px;
   margin-left: 2px;
-  background: url(../images/spinners/spinner-blue-12.png) no-repeat center center;
+  background: url(<%=asset_path('flo/images/spinners/spinner-blue-12.png')%>) no-repeat center center;
   background-repeat: no-repeat;
   background-position: 50% 50%!important;
   -webkit-animation: spinner-spin .75s infinite normal linear;
@@ -4115,7 +4118,7 @@
   padding-left: 18px;
 }
 .__flo .flow-tree li.folder.drop-hover li.project.active .fadeout {
-  background-image: url(../images/embed/mask-sidebar.png);
+  background-image: url(<%=asset_path('flo/images/embed/mask-sidebar.png')%>);
   right: 2px;
   width: 20px;
 }
@@ -4346,12 +4349,12 @@
   position: relative;
   width: 32px;
   height: 32px;
-  background: url(../images/icon-collaborator-32.png) no-repeat left -31px, -webkit-gradient(linear, left top, left bottom, from(white), to(#f0f0f0));
-  background: url(../images/icon-collaborator-32.png) no-repeat left -31px, -webkit-linear-gradient(top, white, #f0f0f0);
-  background: url(../images/icon-collaborator-32.png) no-repeat left -31px, -moz-linear-gradient(top, white, #f0f0f0);
-  background: url(../images/icon-collaborator-32.png) no-repeat left -31px, -ms-linear-gradient(top, white, #f0f0f0);
-  background: url(../images/icon-collaborator-32.png) no-repeat left -31px, -o-linear-gradient(top, white, #f0f0f0);
-  background: url(../images/icon-collaborator-32.png) no-repeat left -31px, linear-gradient(top, white, #f0f0f0);
+  background: url(<%=asset_path('flo/images/icon-collaborator-32.png')%>) no-repeat left -31px, -webkit-gradient(linear, left top, left bottom, from(white), to(#f0f0f0));
+  background: url(<%=asset_path('flo/images/icon-collaborator-32.png')%>) no-repeat left -31px, -webkit-linear-gradient(top, white, #f0f0f0);
+  background: url(<%=asset_path('flo/images/icon-collaborator-32.png')%>) no-repeat left -31px, -moz-linear-gradient(top, white, #f0f0f0);
+  background: url(<%=asset_path('flo/images/icon-collaborator-32.png')%>) no-repeat left -31px, -ms-linear-gradient(top, white, #f0f0f0);
+  background: url(<%=asset_path('flo/images/icon-collaborator-32.png')%>) no-repeat left -31px, -o-linear-gradient(top, white, #f0f0f0);
+  background: url(<%=asset_path('flo/images/icon-collaborator-32.png')%>) no-repeat left -31px, linear-gradient(top, white, #f0f0f0);
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
   border-radius: 4px;
@@ -4466,23 +4469,23 @@
   width: 32px;
   height: 33px;
   background-color: #f0f0f0;
-  background: url(../images/icon-collaborator-32.png) no-repeat left bottom, -webkit-gradient(linear, left top, left bottom, from(white), to(#f0f0f0));
-  background: url(../images/icon-collaborator-32.png) no-repeat left bottom, -webkit-linear-gradient(top, white, #f0f0f0);
-  background: url(../images/icon-collaborator-32.png) no-repeat left bottom, -moz-linear-gradient(top, white, #f0f0f0);
-  background: url(../images/icon-collaborator-32.png) no-repeat left bottom, -ms-linear-gradient(top, white, #f0f0f0);
-  background: url(../images/icon-collaborator-32.png) no-repeat left bottom, -o-linear-gradient(top, white, #f0f0f0);
-  background: url(../images/icon-collaborator-32.png) no-repeat left bottom, linear-gradient(top, white, #f0f0f0);
+  background: url(<%=asset_path('flo/images/icon-collaborator-32.png')%>) no-repeat left bottom, -webkit-gradient(linear, left top, left bottom, from(white), to(#f0f0f0));
+  background: url(<%=asset_path('flo/images/icon-collaborator-32.png')%>) no-repeat left bottom, -webkit-linear-gradient(top, white, #f0f0f0);
+  background: url(<%=asset_path('flo/images/icon-collaborator-32.png')%>) no-repeat left bottom, -moz-linear-gradient(top, white, #f0f0f0);
+  background: url(<%=asset_path('flo/images/icon-collaborator-32.png')%>) no-repeat left bottom, -ms-linear-gradient(top, white, #f0f0f0);
+  background: url(<%=asset_path('flo/images/icon-collaborator-32.png')%>) no-repeat left bottom, -o-linear-gradient(top, white, #f0f0f0);
+  background: url(<%=asset_path('flo/images/icon-collaborator-32.png')%>) no-repeat left bottom, linear-gradient(top, white, #f0f0f0);
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
   border-radius: 4px;
 }
 .__flo li.activity.concierge .activity-photo ins, .__flo li.activity .activity-photo.concierge ins {
-  background: url(../images/concierge/concierge-icon-25x25.png) no-repeat center center, -webkit-gradient(linear, left top, left bottom, from(#f4fbe8), to(#b6e572));
-  background: url(../images/concierge/concierge-icon-25x25.png) no-repeat center center, -webkit-linear-gradient(top, #f4fbe8 0, #d8f8aa 50%, #b6e572 100%);
-  background: url(../images/concierge/concierge-icon-25x25.png) no-repeat center center, -moz-linear-gradient(top, #f4fbe8 0, #d8f8aa 50%, #b6e572 100%);
-  background: url(../images/concierge/concierge-icon-25x25.png) no-repeat center center, -ms-linear-gradient(top, #f4fbe8 0, #d8f8aa 50%, #b6e572 100%);
-  background: url(../images/concierge/concierge-icon-25x25.png) no-repeat center center, -o-linear-gradient(top, #f4fbe8 0, #d8f8aa 50%, #b6e572 100%);
-  background: url(../images/concierge/concierge-icon-25x25.png) no-repeat center center, linear-gradient(top, #f4fbe8 0, #d8f8aa 50%, #b6e572 100%);
+  background: url(<%=asset_path('flo/images/concierge/concierge-icon-25x25.png')%>) no-repeat center center, -webkit-gradient(linear, left top, left bottom, from(#f4fbe8), to(#b6e572));
+  background: url(<%=asset_path('flo/images/concierge/concierge-icon-25x25.png')%>) no-repeat center center, -webkit-linear-gradient(top, #f4fbe8 0, #d8f8aa 50%, #b6e572 100%);
+  background: url(<%=asset_path('flo/images/concierge/concierge-icon-25x25.png')%>) no-repeat center center, -moz-linear-gradient(top, #f4fbe8 0, #d8f8aa 50%, #b6e572 100%);
+  background: url(<%=asset_path('flo/images/concierge/concierge-icon-25x25.png')%>) no-repeat center center, -ms-linear-gradient(top, #f4fbe8 0, #d8f8aa 50%, #b6e572 100%);
+  background: url(<%=asset_path('flo/images/concierge/concierge-icon-25x25.png')%>) no-repeat center center, -o-linear-gradient(top, #f4fbe8 0, #d8f8aa 50%, #b6e572 100%);
+  background: url(<%=asset_path('flo/images/concierge/concierge-icon-25x25.png')%>) no-repeat center center, linear-gradient(top, #f4fbe8 0, #d8f8aa 50%, #b6e572 100%);
   -webkit-box-shadow: 0 2px 0 #fff inset;
   height: 32px;
 }
@@ -4587,7 +4590,7 @@
   background-image: url("data:image/png;charset=utf-8;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAALCAYAAABLcGxfAAAAeUlEQVQoz2NgQAXqQLwRiP9D8TEgNmbAA5AVw/BSfBpWY9EwH5+GFVg0rMOnYQKpTmID4udIih8yEAFKkTQ04lMICtI6IP6ApAFkWyYQKyIrLEJzhiuSnDeS+BMgTgMJfkbzJEhCCIj5oWxkuT8MaE5ADpmZWMT/AwDeS0DVyDPYCQAAAABJRU5ErkJggg==");
 }
 .__flo .task-updates .activity .icon.attach {
-  background-image: url(../images/icons/embed/activity-action-attach.png);
+  background-image: url(<%=asset_path('flo/images/icons/embed/activity-action-attach.png')%>);
 }
 .__flo .task-updates .activity .icon.tag, .__flo .task-updates .activity .icon.untag {
   background-image: url("data:image/png;charset=utf-8;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAANCAYAAACdKY9CAAAAlUlEQVR42pXQPQqDQBCGYS8REAJWVkJuIHgA7xfIAaxsAzlA2lTCVlZWgVS5wZe3GGXd3aAuPM387TCZpAjvAiW0qeISb8h88MIXUXGNAfJcLXfHqriBgwION0zwJltgk+08QrscKByRI9g7bUJt62dnPKA/HJrlONZVoIMCwzx55p/1hD7YubR81OD/9IRQWTxqOOQHVi7qkcOqrpQAAAAASUVORK5CYII=");
@@ -4597,40 +4600,40 @@
     background-size: 14px;
   }
   .__flo .task-updates .activity .icon.edit, .__flo .task-updates .activity .icon.redescribe {
-    background-image: url(../images/icons/2x/activity-action-edit.png);
+    background-image: url(<%=asset_path('flo/images/icons/2x/activity-action-edit.png')%>);
   }
   .__flo .task-updates .activity .icon.reschedule {
-    background-image: url(../images/icons/2x/activity-action-schedule.png);
+    background-image: url(<%=asset_path('flo/images/icons/2x/activity-action-schedule.png')%>);
   }
   .__flo .task-updates .activity .icon.comment {
-    background-image: url(../images/icons/2x/activity-action-delete.png);
+    background-image: url(<%=asset_path('flo/images/icons/2x/activity-action-delete.png')%>);
   }
   .__flo .task-updates .activity .icon.repeat.initial, .__flo .task-updates .activity .icon.unrepeat {
-    background-image: url(../images/icons/2x/activity-action-recurrence.png);
+    background-image: url(<%=asset_path('flo/images/icons/2x/activity-action-recurrence.png')%>);
   }
   .__flo .task-updates .activity .icon.repeat {
-    background-image: url(../images/icons/2x/activity-action-recurrence.png);
+    background-image: url(<%=asset_path('flo/images/icons/2x/activity-action-recurrence.png')%>);
   }
   .__flo .task-updates .activity .icon.invite, .__flo .task-updates .activity .icon.follow, .__flo .task-updates .activity .icon.remove, .__flo .task-updates .activity .icon.uninvite, .__flo .task-updates .activity .icon.unfollow {
-    background-image: url(../images/icons/2x/activity-action-followers.png);
+    background-image: url(<%=asset_path('flo/images/icons/2x/activity-action-followers.png')%>);
   }
   .__flo .task-updates .activity .icon.file, .__flo .task-updates .activity .icon.unfile, .__flo .task-updates .activity .icon.move {
-    background-image: url(../images/icons/2x/activity-action-file.png);
+    background-image: url(<%=asset_path('flo/images/icons/2x/activity-action-file.png')%>);
   }
   .__flo .task-updates .activity .icon.complete {
-    background-image: url(../images/icons/2x/activity-action-complete.png);
+    background-image: url(<%=asset_path('flo/images/icons/2x/activity-action-complete.png')%>);
   }
   .__flo .task-updates .activity .icon.reopen {
-    background-image: url(../images/icons/2x/activity-action-uncomplete.png);
+    background-image: url(<%=asset_path('flo/images/icons/2x/activity-action-uncomplete.png')%>);
   }
   .__flo .task-updates .activity .icon.assign, .__flo .task-updates .activity .icon.reassign {
-    background-image: url(../images/icons/2x/activity-action-owner.png);
+    background-image: url(<%=asset_path('flo/images/icons/2x/activity-action-owner.png')%>);
   }
   .__flo .task-updates .activity .icon.attach {
-    background-image: url(../images/icons/2x/activity-action-attach.png);
+    background-image: url(<%=asset_path('flo/images/icons/2x/activity-action-attach.png')%>);
   }
   .__flo .task-updates .activity .icon.tag, .__flo .task-updates .activity .icon.untag {
-    background-image: url(../images/icons/2x/activity-action-tag.png);
+    background-image: url(<%=asset_path('flo/images/icons/2x/activity-action-tag.png')%>);
   }
 }
 .__flo .task-updates li.activity li.action {
@@ -5149,7 +5152,7 @@
 }
 @media only screen and (-webkit-min-device-pixel-ratio: 2) {
   .__flo .task-detail .task .checker span {
-    background-image: url(../images/2x/icon-checkmark-complete-large.png);
+    background-image: url(<%=asset_path('flo/images/2x/icon-checkmark-complete-large.png')%>);
     background-size: 23px;
   }
 }
@@ -5465,7 +5468,7 @@
 }
 .__flo .navbar h3 .add ins {
   text-indent: -99999em;
-  background-image: url(../images/icons/plus-grey-10x10.png);
+  background-image: url(<%=asset_path('flo/images/icons/plus-grey-10x10.png')%>);
   background-position: center center;
   background-repeat: no-repeat;
   display: block;
@@ -5602,7 +5605,7 @@
   background: url("data:image/png;charset=utf-8;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAANCAQAAAA3IEfJAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAKdJREFUGFdt0E0KggAQhuG5RBAErlwF3UDwAJ2wK0xaSD8YQYFBBHUAW0m4MYLCKFu0eFvkT2Izu2eGD2ZEytKeUna/YnN4URSPJWOUgi0n/O7uMw7BOx+oPYqKkMlVB16miIhabvKTnreo6cZNVuQfznkhfoOnnGPa8jgGNfZJEiwRoXNf70pekETY+Q0YT2ebZ6chVvULoZXOVii3E6bUC4MN0K3kA6lFvlQ/cz+9AAAAAElFTkSuQmCC") no-repeat 0 1px;
 }
 .__flo .section .owner.concierge ins {
-  background: url(../images/concierge/concierge-icon-16x16.png) no-repeat left center;
+  background: url(<%=asset_path('flo/images/concierge/concierge-icon-16x16.png')%>) no-repeat left center;
 }
 .__flo .section .owner.concierge ins .photo {
   background: none!important;
@@ -5805,23 +5808,23 @@
   width: 48px;
   height: 48px;
   display: block;
-  background: url(../images/icon-collaborator-48.png) no-repeat left top, -webkit-gradient(linear, left top, left bottom, from(white), to(#f0f0f0));
-  background: url(../images/icon-collaborator-48.png) no-repeat left top, -webkit-linear-gradient(top, white, #f0f0f0);
-  background: url(../images/icon-collaborator-48.png) no-repeat left top, -moz-linear-gradient(top, white, #f0f0f0);
-  background: url(../images/icon-collaborator-48.png) no-repeat left top, -ms-linear-gradient(top, white, #f0f0f0);
-  background: url(../images/icon-collaborator-48.png) no-repeat left top, -o-linear-gradient(top, white, #f0f0f0);
-  background: url(../images/icon-collaborator-48.png) no-repeat left top, linear-gradient(top, white, #f0f0f0);
+  background: url(<%=asset_path('flo/images/icon-collaborator-48.png')%>) no-repeat left top, -webkit-gradient(linear, left top, left bottom, from(white), to(#f0f0f0));
+  background: url(<%=asset_path('flo/images/icon-collaborator-48.png')%>) no-repeat left top, -webkit-linear-gradient(top, white, #f0f0f0);
+  background: url(<%=asset_path('flo/images/icon-collaborator-48.png')%>) no-repeat left top, -moz-linear-gradient(top, white, #f0f0f0);
+  background: url(<%=asset_path('flo/images/icon-collaborator-48.png')%>) no-repeat left top, -ms-linear-gradient(top, white, #f0f0f0);
+  background: url(<%=asset_path('flo/images/icon-collaborator-48.png')%>) no-repeat left top, -o-linear-gradient(top, white, #f0f0f0);
+  background: url(<%=asset_path('flo/images/icon-collaborator-48.png')%>) no-repeat left top, linear-gradient(top, white, #f0f0f0);
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
 }
 .__flo .navbar .section.profile.concierge .photo ins {
-  background: url(../images/concierge/concierge-icon-25x25.png) no-repeat center center, -webkit-gradient(linear, left top, left bottom, from(#f4fbe8), to(#b6e572));
-  background: url(../images/concierge/concierge-icon-25x25.png) no-repeat center center, -webkit-linear-gradient(top, #f4fbe8, #d8f8aa 50%, #b6e572);
-  background: url(../images/concierge/concierge-icon-25x25.png) no-repeat center center, -moz-linear-gradient(top, #f4fbe8, #d8f8aa 50%, #b6e572);
-  background: url(../images/concierge/concierge-icon-25x25.png) no-repeat center center, -ms-linear-gradient(top, #f4fbe8, #d8f8aa 50%, #b6e572);
-  background: url(../images/concierge/concierge-icon-25x25.png) no-repeat center center, -o-linear-gradient(top, #f4fbe8, #d8f8aa 50%, #b6e572);
-  background: url(../images/concierge/concierge-icon-25x25.png) no-repeat center center, linear-gradient(top, #f4fbe8, #d8f8aa 50%, #b6e572);
+  background: url(<%=asset_path('flo/images/concierge/concierge-icon-25x25.png')%>) no-repeat center center, -webkit-gradient(linear, left top, left bottom, from(#f4fbe8), to(#b6e572));
+  background: url(<%=asset_path('flo/images/concierge/concierge-icon-25x25.png')%>) no-repeat center center, -webkit-linear-gradient(top, #f4fbe8, #d8f8aa 50%, #b6e572);
+  background: url(<%=asset_path('flo/images/concierge/concierge-icon-25x25.png')%>) no-repeat center center, -moz-linear-gradient(top, #f4fbe8, #d8f8aa 50%, #b6e572);
+  background: url(<%=asset_path('flo/images/concierge/concierge-icon-25x25.png')%>) no-repeat center center, -ms-linear-gradient(top, #f4fbe8, #d8f8aa 50%, #b6e572);
+  background: url(<%=asset_path('flo/images/concierge/concierge-icon-25x25.png')%>) no-repeat center center, -o-linear-gradient(top, #f4fbe8, #d8f8aa 50%, #b6e572);
+  background: url(<%=asset_path('flo/images/concierge/concierge-icon-25x25.png')%>) no-repeat center center, linear-gradient(top, #f4fbe8, #d8f8aa 50%, #b6e572);
   -webkit-box-shadow: 0 2px 0 #fff inset;
 }
 .__flo .navbar .section.profile.concierge .photo {
@@ -5830,7 +5833,7 @@
   box-shadow: inset 0 0 0 1px rgba(55, 139, 0, 0.5), 0px 1px 0 white;
 }
 .__flo .navbar .section.profile .deleted .photo ins {
-  background-image: url(../images/icon-collaborator-deleted-48.png);
+  background-image: url(<%=asset_path('flo/images/icon-collaborator-deleted-48.png')%>);
 }
 .__flo .navbar .section.profile .photo span.photo {
   width: 48px;
@@ -6212,7 +6215,7 @@
 }
 @media only screen and (-webkit-min-device-pixel-ratio: 2) {
   .__flo .ui-sortable .task .sortable {
-    background: url(../images/2x/icon-sortable.png);
+    background: url(<%=asset_path('flo/images/2x/icon-sortable.png')%>);
     background-size: 4px;
   }
 }
@@ -6331,7 +6334,7 @@
 }
 @media only screen and (-webkit-min-device-pixel-ratio: 2) {
   .__flo .task .checker span {
-    background-image: url(../images/2x/icon-checkmark-complete-small.png);
+    background-image: url(<%=asset_path('flo/images/2x/icon-checkmark-complete-small.png')%>);
     background-size: 17px;
   }
 }
@@ -6400,7 +6403,7 @@
 }
 @media only screen and (-webkit-min-device-pixel-ratio: 2) {
   .__flo li.task .task-has_description {
-    background-image: url(../images/2x/icon-description.png);
+    background-image: url(<%=asset_path('flo/images/2x/icon-description.png')%>);
     background-size: 10px;
   }
 }
@@ -6819,36 +6822,36 @@
 .__flo .zero-state .text {
   min-height: 50px;
   padding: 23px 20px 10px 90px;
-  background-image: url(../images/graphics/icon-tasks.png);
+  background-image: url(<%=asset_path('flo/images/graphics/icon-tasks.png')%>);
   background-position: 20px 13px;
   background-repeat: no-repeat;
 }
 .__flo .inbox .zero-state .text {
-  background-image: url(../images/graphics/icon-inbox.png);
+  background-image: url(<%=asset_path('flo/images/graphics/icon-inbox.png')%>);
 }
 .__flo .upcoming .zero-state .text {
-  background-image: url(../images/graphics/icon-upcoming.png);
+  background-image: url(<%=asset_path('flo/images/graphics/icon-upcoming.png')%>);
 }
 .__flo .flagged .zero-state .text {
-  background-image: url(../images/graphics/icon-flagged.png);
+  background-image: url(<%=asset_path('flo/images/graphics/icon-flagged.png')%>);
 }
 .__flo .delegated .zero-state .text {
-  background-image: url(../images/graphics/icon-delegated.png);
+  background-image: url(<%=asset_path('flo/images/graphics/icon-delegated.png')%>);
 }
 .__flo .tag .zero-state .text {
-  background-image: url(../images/graphics/icon-tag.png);
+  background-image: url(<%=asset_path('flo/images/graphics/icon-tag.png')%>);
 }
 .__flo .account .zero-state .text {
-  background-image: url(../images/graphics/icon-user.png);
+  background-image: url(<%=asset_path('flo/images/graphics/icon-user.png')%>);
 }
 .__flo .project .zero-state .text {
-  background-image: url(../images/graphics/icon-project.png);
+  background-image: url(<%=asset_path('flo/images/graphics/icon-project.png')%>);
 }
 .__flo .folder .zero-state .text {
-  background-image: url(../images/graphics/icon-folder.png);
+  background-image: url(<%=asset_path('flo/images/graphics/icon-folder.png')%>);
 }
 .__flo .search .zero-state .text {
-  background-image: url(../images/graphics/icon-search.png);
+  background-image: url(<%=asset_path('flo/images/graphics/icon-search.png')%>);
 }
 .__flo .zero-state .button.complete {
   line-height: 20px;
@@ -6913,7 +6916,7 @@
 }
 @media only screen and (-webkit-min-device-pixel-ratio: 2) {
   .__flo .quick-task ins, .__flo .quick-task ins span {
-    background-image: url(../images/2x/icon-add-quick_task.png);
+    background-image: url(<%=asset_path('flo/images/2x/icon-add-quick_task.png')%>);
     background-size: 11px;
   }
 }
@@ -7148,12 +7151,12 @@
   position: relative;
   width: 32px;
   height: 32px;
-  background: url(../images/icon-collaborator-32.png) no-repeat left bottom, -webkit-gradient(linear, left top, left bottom, from(white), to(#f0f0f0));
-  background: url(../images/icon-collaborator-32.png) no-repeat left bottom, -webkit-linear-gradient(top, white, #f0f0f0);
-  background: url(../images/icon-collaborator-32.png) no-repeat left bottom, -moz-linear-gradient(top, white, #f0f0f0);
-  background: url(../images/icon-collaborator-32.png) no-repeat left bottom, -ms-linear-gradient(top, white, #f0f0f0);
-  background: url(../images/icon-collaborator-32.png) no-repeat left bottom, -o-linear-gradient(top, white, #f0f0f0);
-  background: url(../images/icon-collaborator-32.png) no-repeat left bottom, linear-gradient(top, white, #f0f0f0);
+  background: url(<%=asset_path('flo/images/icon-collaborator-32.png')%>) no-repeat left bottom, -webkit-gradient(linear, left top, left bottom, from(white), to(#f0f0f0));
+  background: url(<%=asset_path('flo/images/icon-collaborator-32.png')%>) no-repeat left bottom, -webkit-linear-gradient(top, white, #f0f0f0);
+  background: url(<%=asset_path('flo/images/icon-collaborator-32.png')%>) no-repeat left bottom, -moz-linear-gradient(top, white, #f0f0f0);
+  background: url(<%=asset_path('flo/images/icon-collaborator-32.png')%>) no-repeat left bottom, -ms-linear-gradient(top, white, #f0f0f0);
+  background: url(<%=asset_path('flo/images/icon-collaborator-32.png')%>) no-repeat left bottom, -o-linear-gradient(top, white, #f0f0f0);
+  background: url(<%=asset_path('flo/images/icon-collaborator-32.png')%>) no-repeat left bottom, linear-gradient(top, white, #f0f0f0);
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
   border-radius: 4px;
@@ -7291,7 +7294,7 @@
   text-indent: -9999px;
 }
 .__flo .task-detail .activities .activity .actions .edit {
-  background: url(../images/icons/action-edit.png) no-repeat 4px 3px;
+  background: url(<%=asset_path('flo/images/icons/action-edit.png')%>) no-repeat 4px 3px;
 }
 .__flo .task-detail .activities .activity .actions .remove a, .__flo .task-detail .activities .activity .actions .delete, .__flo .file-upload li.file .actions a.remove, .__flo .task-detail .activities .activity li.file.error .actions .remove a:hover, .__flo .file-upload li.file .actions a.remove:hover {
   background: url("data:image/png;charset=utf-8;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAALCAQAAADsZ9STAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAIlJREFUCB11wTEKwjAAQNEPFjyBi8FAQBAcRBC8V8/hsboKgthR2wi5QTeHb7Pre/BHx5VAFbnTUe0mXGQCsSm4m6iGRxIXuSmYHB5UhjEnEZNjNhCo2vP6g7j5tGe4HJjFpmAyiU0hugKWPW4d8/MdxWVPdZqOjoPB+Cp7TxOVnTcDM6O9Hb99AYjCR9wF78+FAAAAAElFTkSuQmCC") no-repeat 3px 3px;
@@ -7397,7 +7400,7 @@
   width: 16px;
   height: 16px;
   display: block;
-  background: url(../images/icons/checkmark-green-16.png) no-repeat center center;
+  background: url(<%=asset_path('flo/images/icons/checkmark-green-16.png')%>) no-repeat center center;
   text-indent: -999999em;
   cursor: default;
 }
@@ -7675,7 +7678,7 @@
   display: block;
 }
 .__flo .comment-form .footer li .button.in-progress {
-  background-image: url(../images/button-progress-bar-grey-23.png);
+  background-image: url(<%=asset_path('flo/images/button-progress-bar-grey-23.png')%>);
   background-repeat: repeat-x;
   background-position: top left;
   -webkit-animation-name: pbslide;
@@ -7733,7 +7736,7 @@
 .__flo .comment-form .footer .uploader-wrap {
   width: 98px;
   height: 24px;
-  background: url(../images/swf-button-file.png) no-repeat left top;
+  background: url(<%=asset_path('flo/images/swf-button-file.png')%>) no-repeat left top;
 }
 .__flo .comment-preview .formatted {
   font-size: 12px;
@@ -7756,8 +7759,8 @@
 .__flo .button.loading .button-progress-bar {
   background-repeat: repeat-x;
   background-position: left top;
-  background-image: url(../images/button-progress-bar-stripes-overlay.png), -webkit-gradient(linear, 0% 0, 0% 100%, color-stop(0%, #61aef4), color-stop(100%, #0468c0));
-  background-image: url(../images/button-progress-bar-stripes-overlay.png), -moz-linear-gradient(top, #61aef4 0, #0468c0 100%);
+  background-image: url(<%=asset_path('flo/images/button-progress-bar-stripes-overlay.png')%>), -webkit-gradient(linear, 0% 0, 0% 100%, color-stop(0%, #61aef4), color-stop(100%, #0468c0));
+  background-image: url(<%=asset_path('flo/images/button-progress-bar-stripes-overlay.png')%>), -moz-linear-gradient(top, #61aef4 0, #0468c0 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#61aef4',EndColorStr='#0468c0');
   position: absolute;
   left: -1px;
@@ -8066,7 +8069,7 @@
   -webkit-animation-iteration-count: 1;
 }
 .__flo .task-meta fancy-token-field:not(.people-token-field) .token.pending > div {
-  background-image: url(../images/striping-avatar-20.png);
+  background-image: url(<%=asset_path('flo/images/striping-avatar-20.png')%>);
   background-color: #ebf5fe;
   background-repeat: repeat-x;
   background-position: top left;
@@ -8792,7 +8795,7 @@
 }
 .__flo .task-form .task-meta li.task-assignee .concierge-button::after {
   content: '';
-  background: url(../images/concierge/concierge-icon-16x16.png);
+  background: url(<%=asset_path('flo/images/concierge/concierge-icon-16x16.png')%>);
   width: 16px;
   height: 16px;
   margin-top: 2px;
@@ -8956,7 +8959,7 @@
   text-indent: -999em;
   top: 4px;
   right: 4px;
-  background: url(../images/icons/icon-clear-14-fff.png);
+  background: url(<%=asset_path('flo/images/icons/icon-clear-14-fff.png')%>);
   opacity: 1;
   width: 16px;
   height: 16px;
@@ -9277,25 +9280,25 @@
   width: 32px;
   height: 32px;
   margin: 4px 6px 0 4px;
-  background: url(../images/icon-collaborator-32.png) no-repeat left top;
-  background: url(../images/icon-collaborator-32.png) no-repeat left top, -webkit-gradient(linear, left top, left bottom, from(white), to(#e8eff7));
-  background: url(../images/icon-collaborator-32.png) no-repeat left top, -webkit-linear-gradient(top, white, #e8eff7);
-  background: url(../images/icon-collaborator-32.png) no-repeat left top, -moz-linear-gradient(top, white, #e8eff7);
-  background: url(../images/icon-collaborator-32.png) no-repeat left top, -ms-linear-gradient(top, white, #e8eff7);
-  background: url(../images/icon-collaborator-32.png) no-repeat left top, -o-linear-gradient(top, white, #e8eff7);
-  background: url(../images/icon-collaborator-32.png) no-repeat left top, linear-gradient(top, white, #e8eff7);
+  background: url(<%=asset_path('flo/images/icon-collaborator-32.png')%>) no-repeat left top;
+  background: url(<%=asset_path('flo/images/icon-collaborator-32.png')%>) no-repeat left top, -webkit-gradient(linear, left top, left bottom, from(white), to(#e8eff7));
+  background: url(<%=asset_path('flo/images/icon-collaborator-32.png')%>) no-repeat left top, -webkit-linear-gradient(top, white, #e8eff7);
+  background: url(<%=asset_path('flo/images/icon-collaborator-32.png')%>) no-repeat left top, -moz-linear-gradient(top, white, #e8eff7);
+  background: url(<%=asset_path('flo/images/icon-collaborator-32.png')%>) no-repeat left top, -ms-linear-gradient(top, white, #e8eff7);
+  background: url(<%=asset_path('flo/images/icon-collaborator-32.png')%>) no-repeat left top, -o-linear-gradient(top, white, #e8eff7);
+  background: url(<%=asset_path('flo/images/icon-collaborator-32.png')%>) no-repeat left top, linear-gradient(top, white, #e8eff7);
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
   overflow: hidden;
 }
 .__flo .fancy-tooltip.fancy-completer-tooltip.people-token-field ul .item.concierge ins {
-  background: url(../images/concierge/concierge-icon-25x25.png) no-repeat center center, -webkit-gradient(linear, left top, left bottom, from(#f4fbe8), to(#b6e572));
-  background: url(../images/concierge/concierge-icon-25x25.png) no-repeat center center, -webkit-linear-gradient(top, #f4fbe8, #d8f8aa 50%, #b6e572);
-  background: url(../images/concierge/concierge-icon-25x25.png) no-repeat center center, -moz-linear-gradient(top, #f4fbe8, #d8f8aa 50%, #b6e572);
-  background: url(../images/concierge/concierge-icon-25x25.png) no-repeat center center, -ms-linear-gradient(top, #f4fbe8, #d8f8aa 50%, #b6e572);
-  background: url(../images/concierge/concierge-icon-25x25.png) no-repeat center center, -o-linear-gradient(top, #f4fbe8, #d8f8aa 50%, #b6e572);
-  background: url(../images/concierge/concierge-icon-25x25.png) no-repeat center center, linear-gradient(top, #f4fbe8, #d8f8aa 50%, #b6e572);
+  background: url(<%=asset_path('flo/images/concierge/concierge-icon-25x25.png')%>) no-repeat center center, -webkit-gradient(linear, left top, left bottom, from(#f4fbe8), to(#b6e572));
+  background: url(<%=asset_path('flo/images/concierge/concierge-icon-25x25.png')%>) no-repeat center center, -webkit-linear-gradient(top, #f4fbe8, #d8f8aa 50%, #b6e572);
+  background: url(<%=asset_path('flo/images/concierge/concierge-icon-25x25.png')%>) no-repeat center center, -moz-linear-gradient(top, #f4fbe8, #d8f8aa 50%, #b6e572);
+  background: url(<%=asset_path('flo/images/concierge/concierge-icon-25x25.png')%>) no-repeat center center, -ms-linear-gradient(top, #f4fbe8, #d8f8aa 50%, #b6e572);
+  background: url(<%=asset_path('flo/images/concierge/concierge-icon-25x25.png')%>) no-repeat center center, -o-linear-gradient(top, #f4fbe8, #d8f8aa 50%, #b6e572);
+  background: url(<%=asset_path('flo/images/concierge/concierge-icon-25x25.png')%>) no-repeat center center, linear-gradient(top, #f4fbe8, #d8f8aa 50%, #b6e572);
   -webkit-box-shadow: 0 2px 0 #fff inset;
   height: 32px;
 }
@@ -9311,19 +9314,19 @@
   border-radius: 5px;
 }
 .__flo .fancy-tooltip.fancy-completer-tooltip.people-token-field ul .item.everyone ins {
-  background: url(../images/icon-collaborators-32.png) no-repeat left top;
-  background: url(../images/icon-collaborators-32.png) no-repeat left top, -webkit-gradient(linear, left top, left bottom, from(white), to(#e8eff7));
-  background: url(../images/icon-collaborators-32.png) no-repeat left top, -webkit-linear-gradient(top, white, #e8eff7);
-  background: url(../images/icon-collaborators-32.png) no-repeat left top, -moz-linear-gradient(top, white, #e8eff7);
-  background: url(../images/icon-collaborators-32.png) no-repeat left top, -ms-linear-gradient(top, white, #e8eff7);
-  background: url(../images/icon-collaborators-32.png) no-repeat left top, -o-linear-gradient(top, white, #e8eff7);
-  background: url(../images/icon-collaborators-32.png) no-repeat left top, linear-gradient(top, white, #e8eff7);
+  background: url(<%=asset_path('flo/images/icon-collaborators-32.png')%>) no-repeat left top;
+  background: url(<%=asset_path('flo/images/icon-collaborators-32.png')%>) no-repeat left top, -webkit-gradient(linear, left top, left bottom, from(white), to(#e8eff7));
+  background: url(<%=asset_path('flo/images/icon-collaborators-32.png')%>) no-repeat left top, -webkit-linear-gradient(top, white, #e8eff7);
+  background: url(<%=asset_path('flo/images/icon-collaborators-32.png')%>) no-repeat left top, -moz-linear-gradient(top, white, #e8eff7);
+  background: url(<%=asset_path('flo/images/icon-collaborators-32.png')%>) no-repeat left top, -ms-linear-gradient(top, white, #e8eff7);
+  background: url(<%=asset_path('flo/images/icon-collaborators-32.png')%>) no-repeat left top, -o-linear-gradient(top, white, #e8eff7);
+  background: url(<%=asset_path('flo/images/icon-collaborators-32.png')%>) no-repeat left top, linear-gradient(top, white, #e8eff7);
   -webkit-box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.3);
   box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.3);
 }
 .__flo .fancy-tooltip.fancy-completer-tooltip.people-token-field ul .item.deleted ins {
-  background-image: url(../images/icon-collaborator-deleted-32.png);
+  background-image: url(<%=asset_path('flo/images/icon-collaborator-deleted-32.png')%>);
 }
 .__flo .fancy-tooltip.fancy-completer-tooltip.people-token-field ul .item.deleted .photo {
   display: none;
@@ -9562,7 +9565,7 @@
   display: none;
 }
 .__flo .video-error {
-  background: url(../images/video-errorstate.png) no-repeat center top;
+  background: url(<%=asset_path('flo/images/video-errorstate.png')%>) no-repeat center top;
   padding-top: 100px;
   margin: 20px 0;
   width: 350px;
@@ -9585,7 +9588,7 @@
   -moz-border-radius: 20px;
   -webkit-border-radius: 20px;
   border-radius: 20px;
-  background: url(../images/striping-13.png) repeat-x center center;
+  background: url(<%=asset_path('flo/images/striping-13.png')%>) repeat-x center center;
   background-position: left top;
   -webkit-animation-name: striping;
   -webkit-animation-duration: 1000ms;
@@ -9748,7 +9751,7 @@
   max-height: 100%;
 }
 .__flo #fancybox-loading, .__flo .fancybox-prev span, .__flo .fancybox-next span {
-  background-image: url(../images/fancybox/fancybox_sprite.png);
+  background-image: url(<%=asset_path('flo/images/fancybox/fancybox_sprite.png')%>);
 }
 .__flo #fancybox-loading {
   position: fixed;
@@ -9764,7 +9767,7 @@
 .__flo #fancybox-loading div {
   width: 44px;
   height: 44px;
-  background: url(../images/fancybox/fancybox_loading.gif) center center no-repeat;
+  background: url(<%=asset_path('flo/images/fancybox/fancybox_loading.gif')%>) center center no-repeat;
 }
 .__flo .fancybox-close {
   position: absolute;
@@ -9774,7 +9777,7 @@
   height: 36px;
   cursor: pointer;
   z-index: 1004;
-  background: url(../images/fancybox/fancybox_close.png) center center no-repeat;
+  background: url(<%=asset_path('flo/images/fancybox/fancybox_close.png')%>) center center no-repeat;
 }
 .__flo .fancybox-nav {
   position: absolute;
@@ -9782,7 +9785,7 @@
   width: 40%;
   height: 100%;
   cursor: pointer;
-  background: transparent url(../images/fancybox/blank.gif);
+  background: transparent url(<%=asset_path('flo/images/fancybox/blank.gif')%>);
   z-index: 1003;
 }
 .__flo .fancybox-prev {
@@ -10935,7 +10938,7 @@
   background-image: url("data:image/png;charset=utf-8;base64,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");
 }
 .__flo .modal .body.info.icon-delete .body-inner .icon {
-  background-image: url(../images/embed/icon-modal-delete.png);
+  background-image: url(<%=asset_path('flo/images/embed/icon-modal-delete.png')%>);
 }
 .__flo .modal .body.info .body-inner label.checkbox-wrap {
   cursor: pointer;
@@ -10985,10 +10988,10 @@
   padding-left: 14px;
 }
 .__flo .modal a.toggle-details.open {
-  background: url(../images/icon-toggle-triangle-modal.png) no-repeat left -8px;
+  background: url(<%=asset_path('flo/images/icon-toggle-triangle-modal.png')%>) no-repeat left -8px;
 }
 .__flo .modal a.toggle-details.close {
-  background: url(../images/icon-toggle-triangle-modal.png) no-repeat left 4px;
+  background: url(<%=asset_path('flo/images/icon-toggle-triangle-modal.png')%>) no-repeat left 4px;
 }
 .__flo .modal a.toggle-details.close .open-text {
   display: none;
@@ -11050,7 +11053,7 @@
   width: 16px;
   height: 16px;
   display: block;
-  background: url(../images/icons/checkmark-green-16.png) no-repeat center center;
+  background: url(<%=asset_path('flo/images/icons/checkmark-green-16.png')%>) no-repeat center center;
   text-indent: -999999em;
   cursor: default;
 }
@@ -11202,7 +11205,7 @@
 .__flo .modal form.invite-form .footer .button.loading {
   border-color: #bbb!important;
   border-bottom-color: #aaa!important;
-  background-image: url(../images/striping-28.png) !important;
+  background-image: url(<%=asset_path('flo/images/striping-28.png')%>) !important;
   background-repeat: repeat-x!important;
   background-position: 0 top!important;
   -webkit-animation-name: sending;
@@ -11252,7 +11255,7 @@
   filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#7890bd',EndColorStr='#b6c7e6');
 }
 .__flo .modal .checker span {
-  background: url(../images/icon-checkmark-inner-small.png) no-repeat left top;
+  background: url(<%=asset_path('flo/images/icon-checkmark-inner-small.png')%>) no-repeat left top;
   position: absolute;
   width: 11px;
   height: 10px;
@@ -11276,7 +11279,7 @@
   cursor: pointer;
 }
 .__flo .modal .checker.checked.disabled span {
-  background: url(../images/icon-checkmark-inner-small.png) no-repeat left bottom;
+  background: url(<%=asset_path('flo/images/icon-checkmark-inner-small.png')%>) no-repeat left bottom;
   cursor: default;
 }
 .__flo .modal .checker.checked.disabled span input {
@@ -11394,7 +11397,7 @@
 }
 @media only screen and (-webkit-min-device-pixel-ratio: 2) {
   .__flo .tab-row li ins {
-    background-image: url(../images/icons/2x/settings-tab-icons.png);
+    background-image: url(<%=asset_path('flo/images/icons/2x/settings-tab-icons.png')%>);
     background-size: 181px;
   }
 }
@@ -11627,7 +11630,7 @@
   width: 16px;
   height: 16px;
   display: block;
-  background-image: url(../images/embed/icon-task_form-project.png);
+  background-image: url(<%=asset_path('flo/images/embed/icon-task_form-project.png')%>);
   background-repeat: no-repeat;
   background-position: center center;
   margin-left: 4px;
@@ -11636,19 +11639,19 @@
   margin-right: 4px;
 }
 .__flo .modal.settings ul.default-new-task-fields li.when .icon {
-  background-image: url(../images/embed/icon-task_form-date.png);
+  background-image: url(<%=asset_path('flo/images/embed/icon-task_form-date.png')%>);
 }
 .__flo .modal.settings ul.default-new-task-fields li.to .icon {
-  background-image: url(../images/embed/icon-task_form-user.png);
+  background-image: url(<%=asset_path('flo/images/embed/icon-task_form-user.png')%>);
 }
 .__flo .modal.settings ul.default-new-task-fields li.invite .icon {
-  background-image: url(../images/embed/icon-task_form-user.png);
+  background-image: url(<%=asset_path('flo/images/embed/icon-task_form-user.png')%>);
 }
 .__flo .modal.settings ul.default-new-task-fields li.tag .icon {
-  background-image: url(../images/embed/icon-task_form-tag.png);
+  background-image: url(<%=asset_path('flo/images/embed/icon-task_form-tag.png')%>);
 }
 .__flo .modal.settings ul.default-new-task-fields li.notes .icon {
-  background-image: url(../images/embed/icon-task_form-description.png);
+  background-image: url(<%=asset_path('flo/images/embed/icon-task_form-description.png')%>);
 }
 .__flo .modal .body .uniform-select.button {
   position: relative;
@@ -11764,7 +11767,7 @@
   background: #fff;
 }
 .__flo .modal.settings .button.auto-detect-location.loading ins {
-  background: url(../images/loader-12.gif) no-repeat 1px 1px;
+  background: url(<%=asset_path('flo/images/loader-12.gif')%>) no-repeat 1px 1px;
 }
 .__flo .modal.settings .button.auto-detect-location:hover ins {
   opacity: 1;
@@ -11791,13 +11794,13 @@
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
   border-radius: 4px;
-  background: url(../images/icon-collaborator-48.png) no-repeat center top;
-  background: url(../images/icon-collaborator-48.png) no-repeat center top, -webkit-gradient(linear, left top, left bottom, from(white), to(#f0f0f0));
-  background: url(../images/icon-collaborator-48.png) no-repeat center top, -webkit-linear-gradient(top, white, #f0f0f0);
-  background: url(../images/icon-collaborator-48.png) no-repeat center top, -moz-linear-gradient(top, white, #f0f0f0);
-  background: url(../images/icon-collaborator-48.png) no-repeat center top, -ms-linear-gradient(top, white, #f0f0f0);
-  background: url(../images/icon-collaborator-48.png) no-repeat center top, -o-linear-gradient(top, white, #f0f0f0);
-  background: url(../images/icon-collaborator-48.png) no-repeat center top, linear-gradient(top, white, #f0f0f0);
+  background: url(<%=asset_path('flo/images/icon-collaborator-48.png')%>) no-repeat center top;
+  background: url(<%=asset_path('flo/images/icon-collaborator-48.png')%>) no-repeat center top, -webkit-gradient(linear, left top, left bottom, from(white), to(#f0f0f0));
+  background: url(<%=asset_path('flo/images/icon-collaborator-48.png')%>) no-repeat center top, -webkit-linear-gradient(top, white, #f0f0f0);
+  background: url(<%=asset_path('flo/images/icon-collaborator-48.png')%>) no-repeat center top, -moz-linear-gradient(top, white, #f0f0f0);
+  background: url(<%=asset_path('flo/images/icon-collaborator-48.png')%>) no-repeat center top, -ms-linear-gradient(top, white, #f0f0f0);
+  background: url(<%=asset_path('flo/images/icon-collaborator-48.png')%>) no-repeat center top, -o-linear-gradient(top, white, #f0f0f0);
+  background: url(<%=asset_path('flo/images/icon-collaborator-48.png')%>) no-repeat center top, linear-gradient(top, white, #f0f0f0);
   -moz-background-clip: padding-box;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
@@ -12003,7 +12006,7 @@
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
   border-radius: 4px;
-  background: #f7f7f7 url(../images/icon-user-26.png) no-repeat 50% 50%;
+  background: #f7f7f7 url(<%=asset_path('flo/images/icon-user-26.png')%>) no-repeat 50% 50%;
   -moz-box-shadow: 0 0 1px #c0c0c0 inset;
   -webkit-box-shadow: 0 0 1px #c0c0c0 inset;
   box-shadow: 0 0 1px #c0c0c0 inset;
@@ -12044,7 +12047,7 @@
   width: 610px;
 }
 .__flo .modal.guide.welcome-back {
-  background: url(../images/graphics/cloud-unlock.png) no-repeat 2px 9% white;
+  background: url(<%=asset_path('flo/images/graphics/cloud-unlock.png')%>) no-repeat 2px 9% white;
   -webkit-font-smoothing: antialiased;
 }
 .__flo .modal.guide.welcome-back .sheet:first-child {
@@ -12558,7 +12561,7 @@
   width: 107px;
 }
 .__flo .modal.contact-grid .contact-grid-header.invite .invite-someone-wrap .invite-someone-input input.invitee-name {
-  background: #f9f9f9 url(../images/icons/14-grey-person.png) no-repeat 0 2px;
+  background: #f9f9f9 url(<%=asset_path('flo/images/icons/14-grey-person.png')%>) no-repeat 0 2px;
 }
 .__flo .modal.contact-grid .contact-grid-header .invite-someone-wrap .invite-someone-input {
   background: #f9f9f9;
@@ -12760,12 +12763,12 @@
   background-position: left top;
 }
 .__flo .collaborator-selection-grid ul.collaborator-list li.person .link ins {
-  background: url(../images/icon-collaborator-32.png) no-repeat left top, -webkit-gradient(linear, left top, left bottom, from(white), to(#e8eff7));
-  background: url(../images/icon-collaborator-32.png) no-repeat left top, -webkit-linear-gradient(top, white, #e8eff7);
-  background: url(../images/icon-collaborator-32.png) no-repeat left top, -moz-linear-gradient(top, white, #e8eff7);
-  background: url(../images/icon-collaborator-32.png) no-repeat left top, -ms-linear-gradient(top, white, #e8eff7);
-  background: url(../images/icon-collaborator-32.png) no-repeat left top, -o-linear-gradient(top, white, #e8eff7);
-  background: url(../images/icon-collaborator-32.png) no-repeat left top, linear-gradient(top, white, #e8eff7);
+  background: url(<%=asset_path('flo/images/icon-collaborator-32.png')%>) no-repeat left top, -webkit-gradient(linear, left top, left bottom, from(white), to(#e8eff7));
+  background: url(<%=asset_path('flo/images/icon-collaborator-32.png')%>) no-repeat left top, -webkit-linear-gradient(top, white, #e8eff7);
+  background: url(<%=asset_path('flo/images/icon-collaborator-32.png')%>) no-repeat left top, -moz-linear-gradient(top, white, #e8eff7);
+  background: url(<%=asset_path('flo/images/icon-collaborator-32.png')%>) no-repeat left top, -ms-linear-gradient(top, white, #e8eff7);
+  background: url(<%=asset_path('flo/images/icon-collaborator-32.png')%>) no-repeat left top, -o-linear-gradient(top, white, #e8eff7);
+  background: url(<%=asset_path('flo/images/icon-collaborator-32.png')%>) no-repeat left top, linear-gradient(top, white, #e8eff7);
   height: 32px;
   width: 32px;
   display: block;
@@ -12774,7 +12777,7 @@
   border-radius: 4px 4px 4px 4px;
 }
 .__flo .collaborator-selection-grid ul.collaborator-list li.person.deleted .link ins {
-  background: url(../images/embed/icon-collaborator-deleted-32.png);
+  background: url(<%=asset_path('flo/images/embed/icon-collaborator-deleted-32.png')%>);
 }
 .__flo .collaborator-selection-grid ul.collaborator-list li.person.deleted .photo {
   display: none;
@@ -12988,11 +12991,11 @@
   opacity: .5;
   width: 14px;
   height: 12px;
-  background: url(../images/graphics/icon-notifications-email.png) no-repeat center center;
+  background: url(<%=asset_path('flo/images/graphics/icon-notifications-email.png')%>) no-repeat center center;
   text-indent: -9999px;
 }
 .__flo .modal .body ul.notifications li.web {
-  background-image: url(../images/graphics/icon-notifications-web.png);
+  background-image: url(<%=asset_path('flo/images/graphics/icon-notifications-web.png')%>);
 }
 .__flo div.section.email-notifications fieldset, .__flo div.section.app-notifications fieldset, .__flo div.section fieldset.checkbox-list {
   height: 24px;
@@ -13074,7 +13077,7 @@
   background: url("data:image/png;charset=utf-8;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAALCAQAAADsZ9STAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAIlJREFUCB11wTEKwjAAQNEPFjyBi8FAQBAcRBC8V8/hsboKgthR2wi5QTeHb7Pre/BHx5VAFbnTUe0mXGQCsSm4m6iGRxIXuSmYHB5UhjEnEZNjNhCo2vP6g7j5tGe4HJjFpmAyiU0hugKWPW4d8/MdxWVPdZqOjoPB+Cp7TxOVnTcDM6O9Hb99AYjCR9wF78+FAAAAAElFTkSuQmCC") no-repeat center center;
 }
 .__flo .fancy-text-input-container .meta .action.edit .button ins {
-  background: url(../images/icons/action-edit.png) no-repeat center center;
+  background: url(<%=asset_path('flo/images/icons/action-edit.png')%>) no-repeat center center;
 }
 .__flo .fancy-text-input-container .meta .action.submit .button ins {
   background: url("data:image/png;charset=utf-8;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAALCAQAAADsZ9STAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAIlJREFUCFtjZEAHjQz26EKuDP+N3qMKCXG85vl/8SSKGOdqhv+9P/6rMDDcZ9gCFQtn+G///38+kOX+jeE/QzWQIc32Ga719gGh/4x/Gew5DzL8nwDWCgT/pRd+ZvjP9IPhv9P//zlw4/9Hhfxn+M/z/8oxFFufbtT9v+L7f0UUwf9C/y/9D0HwAT/MN+YVBXwuAAAAAElFTkSuQmCC") no-repeat center center;
@@ -13099,7 +13102,7 @@
   box-shadow: none!important;
 }
 .__flo .fancy-text-input-container .meta .action .button.loading ins {
-  background-image: url(../images/loader-12-e7e7e7.gif) !important;
+  background-image: url(<%=asset_path('flo/images/loader-12-e7e7e7.gif')%>) !important;
   opacity: 1!important;
 }
 .__flo .fancy-text-input-container .meta .badge.state.pending span {
@@ -13213,7 +13216,7 @@
   float: left;
 }
 .__flo .modal form.tasks-list-export-form button.start-export .icon {
-  background: url(../images/icons/button-icon-download.png) no-repeat scroll center center transparent;
+  background: url(<%=asset_path('flo/images/icons/button-icon-download.png')%>) no-repeat scroll center center transparent;
   display: block;
   height: 14px;
   margin-left: -5px;
@@ -13346,7 +13349,7 @@
   position: relative;
 }
 .__flo .modal.guide.welcome .flow_frame > .inner-frame {
-  background: url(../images/profile_image_empty_large.png) no-repeat center 40px, url("data:image/jpeg;charset=utf-8;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMCAgICAgMCAgMFAwMDBQUEAwMEBQYFBQUFBQYIBgcHBwcGCAgJCgoKCQgMDAwMDAwODg4ODhAQEBAQEBAQEBD/2wBDAQMEBAYGBgwICAwSDgwOEhQQEBAQFBEQEBAQEBEREBAQEBAQERAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBD/wAARCADAAMADAREAAhEBAxEB/8QAGQABAQEBAQEAAAAAAAAAAAAAAwIBAAQI/8QAOxAAAgECBQIFAgQEBAYDAAAAAQIRAAMSITFBYSJRBBNCUnEyYiOBwdEUM3KRoaKx4SRDgpLC8VPi8P/EABQBAQAAAAAAAAAAAAAAAAAAAAD/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwD7yVFZpA05/p5oKI6MORMaEk7igJCGwSo0jUUErhxOsCCE9QoKtW1CoSAJKTnwOaDFCBGKtGbDTn5oIQRkXP1Nnh7Ac0GKr4lIecySSv20GXrd3ymwsDiHt4+KCm88284jrAGHLbighnvLaAGGcWnwCdhQHZv3OlmIzwnU/tQU3iSt8qcE4QfrI0YfbQMLhxNERAE4iZ/utBZ8QcspBA0PI+KA1cOLTFDm5IJE7HmgwwLZBWM1Gg3cc0FG2nT0jbPB2DHcmgTAQr65DZPig2zaZreh0YfR9ooI8tyqQGGaEDByKA7tu417EdsJPSf2oLuMwYGDPSDqN6DLzBSAzHIGc27jtQIPNxQB6jPUfap3NBQuXCyrEEqJIYayOaAka6Ut5wAY15+eKDrbXRdcFpEJod5z0oEDMy24M/yzq3YUBM7AEsCc2OpPO9BkkEnMQXkd9O5oKBZd5yzORGYIoOvu2EEQBh5/Y0FQr2roAH1MAYPccUBhARtlmJnseKA7NpVtjJTpB/P+mgVki9ORgaAn3zpFBdx0EwQNJj5ag4lMf1aBRt2HNAS3EAtHGRnOYB1QnvQbcuDCSLh/mLsvvFB1x8l6jkzAggexqDjiazchicuAduaCLFo4HjOMQkyfSOxoKFhgbYwDKDof3oDvpHmN5azCDMf70DkHp6Fg4eP9TQRdRWdpUSA0xmNh3oHW6CxlljH3+1aCkCOUIuJEd53oPPbtwqA3EyI3+aCxZt42YMstHbYg/rQdaCp5alh6NPgdqALjMCER9Sco4FBs3xiJGUvmAdyOKDDbvMCwWOkZlex+KDb1m6QAR6YkKdj/AE0CWreFb6m4cnOoO7fA7UHKiQwxscjkPjmgG2LQsp9R03z+qO9Alw2/OBCuSFI39096CLlw9QFphtMP93agsm8bjkWzqInHGlBJF8fVbwjaC2XRQUTcWyFM5sDMmcyDvQa9y4EBn1d+4NBXnutu51brMkd47UBI46pfOGJ07DsKBTcQMpZjkPbxQD4gr/D3MLT9Ho/3oGY5IoEiRsdvzoMZyb7LhGeI77Ec0HpAzEkyW5Pp+aCEye3r6swMtfmgkBCbYZJMnY9jQai2Ao/DjLMYf2oLU2EZFVAepPT8cUAl7QvKoTIydOwB7UCtfQ23JQ77Rv8AFAI8RZZmUjb49RoNuPY6wZyBjq+eaCbS+HY3gCDLgmW+75oKNpYbpEQR9U7UBpYlABaXLL/MaCr1p1OVmRHbkc0AXzc8u5FqMux9pPegrA0t0bjY+3g0Dsi4vp9P3dvmg1UQqpkjQ+raOaCWKixm5EMBmzc80FNhKP8AiiJWepv3oAZkViRdGh3bt80HpuQGUyTrH1c0Hl8U34LKJglRnI3+aB2tL0gqdTBz7gd6ATbU+ILZiQ253PzxQe5i0hjc/tGkUHnkLBxNqwn/AKhxQarr5qDG2YyGWwPFBtllKLmYKk7aUCSPOTqGo1I4oBcD+IUF1+k7jtQYcIttDDQxB5+KAbDMWABJEZ5nYk5UC438y4MJIz3OmZoOQmW6TmROZ7nmgIvFt2w7b7TPNBtu48AooEt/5Hmgd710KGADEA7A7/NANy9ea3ebyhkpzIHsH3UHLfvdchcoyI+35oFvXbwZRKpPfgcUErcuuij+ISSO8aAcUF3fN8p5vLsQQ2//AGmgVxMnzNSvqJ/8aALvmAwCIw7lu3xQKQMyTuRq1B5rvmFFwwQzCOsjvQei6xxosCZO/wBy0Bo1wXgoUerOT7qBfKs5fToYzjYdhQE6IoIAQnEfUPd8UCwwu2wltYBI1HY0AK3iAq9AEW++n+lA1xrwvKsZTIjj86CLmMXkLQMjnrqpPegm0FPS5BlTI+COaAvD27TBSYgATPzPegVPD2Gd4Cn5jtQatq0rgwsHtAGX580EuttEYBRmFAgcmgm24VUYQNyMPPAoF813tNGGSCfok/V/TQGS7WnU3BJUx0Z6fFBzPeDGbw0UiE+eKDbt18QZrkiCTkRQEl64EGFiYGZgnYfFBtx8QuoQWw8EaTzQOzlkULbzkZZ/vQDdt3DdJa1oSO2oHNAgxFT+Hq3J2PIoBV7mG1IKwc9tifdQe13ctbwzmWjM917UEYLmMkzliiWf3fFBC3lmGc5SNB2X7aDLrKXchicxl0e74oL86z5y6k4sxKjvxQFba2CMKHNRniXQk8UCuSboYIRGWoOp+KBGDm5MHLLb2mgxrdwMCGgBWygd14oPPY81UALAxHYbCgpBcBfOTGWf7UB+ZdDJl3H18Dmgq5iLMuH6QpIDTueaA1Dm1aOGJ5Hcc80HptopWGGcGTA91Bi2VC/IMZUFmxABCTIXOAaCHs3gV6Acs+nn5oAHnBnUW8lUT0Abc0HXHP4pNrENugdqDWuo1mPIIPT6RvFAl3BiZTbGbdPSOwoDtGcfQZBOggaGgm3bBNsZZYdh2PNA90JitsQMi2w45oHtraLvmojgd/mgJfPxNPOpy0X7aCmW7iIyElf9Se1BypcN49Q1Ow7E+2gG3buYgSRoo/zHigtlukkz2/Tig695kXGxCBMZ/bEaUEXvNAEnZh9XK8UEWmcE9IJkRmft7igq1cuy3RJgzqc5HAoJa4+NOnc5wf2oFYkvcGQPwdP7UBjF5NqYBAAJg8ccUG28Zcy2x2fuaDlNw7THYN2+aDLy3Wt2zhiQs5H9aCVW89wRbMASIjvzQRb8PdHiLuJY6V1w7zQXatlcUiSfg7R3oEwHyeqBAUwR+xoFeXDEYT1AnWdBQFZ8/NsQGU6HmgWwt1sILycpIz0nigi4LnQxuHVtF/8AVAgkG40k5AxByy+aDcgCQYIJmQeKCGvOTi6Tp3Gn50EJeuG62Q0mfyPNBmMhUxSTlueeaDCwmQCNpz+096Ci48u4S5nPWe5HegXxLr5WLEMsQ34oJVkR4DAzMDPYqKCrWEjFPGp3I+KAiQpAAOU7x+tBb3HxucLHP3DnmgC54kItuQwz9w7fJoKFyyHglzr6hG570GFbWTBTpqPy5oIaxbfw9kiTko2/Wguz4aJwkjTsO9BqeHb+LZsRJKLkSee1Atq3hA1nL3brQTctdDQJ+nduwPegrA4WF06dz2+aAVW6GIkZADNxlp91BfhTeNwjpiJ+pfdHuoCuLcNiSFJGOeodvk0D4F0YAAkKf+2e1BIuXeo+UhzygLuQO5oKJuFYwqOBAzng0EWWcXCZAAyAz9s0FZEfzCIB25oOZ1BINxtzMHjmgqLeFgHYkjkbse9BfiUX+DP1zLHXme9ATgArLPmWyyO6/tQVaJW0GQNEqNO5XigIG4bx6WMAmT+dAhfxChmCHMwDJ7kd6CbrXPKXFMn51wtzQJjYOwlt9uDzQV5onczGtABb8BYH0mDPzzQIrkM8BZGHv91BOJ/OViVzWM//AHzQYL10QMSA5HjQjvQb5r+5IJAzJ9tB1s3XSQynIEgM2kCgxQ/mri3iep40Hc0FeDB8zEdgcgzH1Dv80ESB4Zh1Z4pMnKZ70C3LhXAB7gYJ7KaADcYrGEmWX0qPUOaDfMUiSYjge480EM9guwBHOnYigS43hQjsXBKpORFBN4KrBkAgA6n44oJDDy3kKZHI1nigu+2NAo0zJzI1/Kg5wBBxsAOxO5FBVkqvhVm4+bJ6jxzQZCC45xNMHX8+aCGuAGC2WZ21xNQVdzt285gtkIPpagZPreQSQP0NBbgAwqyY0kccUHllxbYC0MmORPJ7CgVWu4icC54B9XeeKCEuXjctdBgjUN2Kj20FtebFEOAI0bagNrjhZBaS8fWPZQJaulSwmY2JG0dqDPOYXUwgCTnJGcAUE2L7liemcAJzG8c0HnV3fwRDOAYaetd55oFum4XtjzQRiGWJDsaCmF0MQM4dBuPWO9BSfxglVzBPuPduKCGF78QsTkCQMQ570F35Fu6JIm2cxB2oJutbLEMAcgYInag44cBAQQAPTG4oMKYoGDUdhuTzQObegg65x+R70FBFHhvUQCp+oDT86CLjKBdhcwCJxdpPeg85x43WIIxQcQ7nmgu6uKz1OogkTM7GgRrCFnLXAZBBiDxQTc8N4fFJZY5SexoC/hbGAoGGTE/y4/WgsWhMDCRNvPCdvzoOtWwr2gADAbSdmH3UFXLRDEhBpti45oOCDyrZKGTc7sPRQcr5uWBGRjqbjigx3TzLbGR1T9Z9vIoKsMpJYE5oN+BxQYllD4bAWMGc54I9tBl0oCC2cQdztwtBhcNdcKHyddR93zQKjMHIGISV1JOUE96A/ENdTzBrIOZ/qP3UHX73iBZuEARgOeI+35oJx+IYuWK5KBr9vzQa3nlT9MgL3O45oLS1dN5QXWBlkp5+6gs2ypBGeaiR8jmgOE8jDcnMjvsDzxQcVs4fERbY5dzuKATbsN4i6GtH6XMk9yTuaD0PYtABFUjqOU9/z5oLuImFgRqT6h3HNBl0IFABIgiQG4oJKhkMEjfXiaCLNuQSWK5pGpoOawGwGTIDH6TxxQS3h1FwmSc40PuHFBfkYrYUEiH2WPTHag5LThnwud/Sf2oMuW3BtnGdtvigoY0B6/RkT/SKDVuMtmcpAJ116ZoMZi0zhmFA6juBQabVs3XIJnEDoe/xQdb8OFuucRzwmMBj6D3WgnxFpioMsBMEhZ9Z4oOuo5tOuJ4IjRRtyKDHk+YpVjlHp9vxQd4i2oJyk4RE4RoRwKCrdoYwQAPzB3I2oD8ty6CYBbb5HY8UCCxdKlQCQDl1H2mgPyni+CDnG/HxQY1sDxbEyJUr9SjUHjmgYuFOpH5r3A7UF3nlTJ9Q3Hf4oKuXeiQZznvt/TQcCTiGICBnnB+kfbQRY8yCA4yjfsT9tAV43AM7oyRvVQdhcO3WMmnf3DmgVXzwsZggmPy70EIyMjXOoTP/AO/woO8QxItwz5ERp3FBNxnyzfNMpA7Dmg1sRlVmIORA2QjvQYoRkbEs/SNI0Wg5rZxOcGpzGR0FBrWYuAqIOQ/y8CgK7koLLOZP+bLagVnXy3BTKQMufig1cGG4ShmdMRH+tB3iYxYQpzT/AOQzqaC7YcBCs/nc/cUAsLnm2hOeKfqB/Sgsh1QktHAA9p4oDtriNws8SUP0/I2FB110W9ixajsfb8UCXD1qAZzMzI3+KCi4AIVhmw1J2INAN2+0BQ6jpO52gUDJdAa7N5ZIAAG3TzQZaY+YZuLmf37GgK+CbJIuK0odif1oMct5jDCGznIbYx91A1pJcyoH/RPqjUtQSLQFoZINNVA7nvQIbOPdYy2HFAdxWXCMsxAgLtG0UEEv5iriwncYRphbig22rxcbGcsJHQNlNA73BnkZJMa9vmgx3XzUEHPUYuI3NAF9bLIAREz6wPV80EtZtFGC4dVOdwRr8Ggu3aUYipSSB69P8KDr8hsgua5Qx3mga2wkCNJmKAnf8ezk8FhmIiKBMfQQPMkHbD2+KCbd25CwLmeCZjYntQU7ObsNj21B7R3oL+oZTkd5H60HdUjPKcpLcc0BsrNpEYW79xzQaGcXLmYIkZTx80G2583EPzg/PNBLytvc8T80GHE3icOEgQCTn7hQImIHIagTr3mgm7OEgg/3PYigoPbkjOZ0k7EUGM6B0zAIDbnuOKAvMRvEfzFgNlLHKVbigvGqpcYXB9Kk9Tc9hQCtxTcdQ6wAf+W2pjmgXHN22AwmD/yz+pNBDgYTLgmCf5fIoNQxbuHEpiM8P+xoFQoQOtPTnMbjigO4bZC/iqJAH1nWTQIRaZj1kEK0gN/vQc1qwTbMscLr345oN8q09vFBzInLmgJbFpVSMowxKn9uaCCIuMykbHTbPigpHlCAV+tf8YoFVtJwmfjiglWAiRGTDKNcVBGJQzMxMtHbYHjigwOpugYjsRHKk0HOvmL0Ez1ZkTuaDgn/ABLHEJwqIAHuFAipDAsQQYEle00GOED4JWTGcc0FFVxGCJ+OfmgXAARAAyOmW9AC+ULrBhmTkZ+1jQa3lhDGUqDr80G+fZF5gCJ7f2oJHiFbxCqMJAWRmO8UHXmTCegTprOpHFBAKNjBtATnrrH5UG2rVohT5SwcOeI9poMNlQtuLSwGG52PxQc6RfYfw6kYXgljpFBiOAuPyVEMMszllQKt3GmEoBB3B7jmgpLi27KZgaDIHt80EveQuYOwz/vQbZvdL4W1YZ/kOaDbl5sIi5B+Pjmg21iNtesST2PPNBh2OMTlH+NBmHqBJUxhzniKBAi4ZJWTi35NAf4YvMSVAy+co/ego3LGBDMnp0J7GgO5e8NjMjT1YuRxQdea0wlQJP3bYvig18KsBCgYWJzoAU2/McgiIB1yzU8c0DsUGEgwGUCQe45oNGI3jI00044oOtiXxsdFHb9qB7gQ6gzM6L7v9qCVt2JfpM/A7CgC0LQ6MLdJUSP6aDHQMqBVMBtye4oOKsHZgvpeNaDUZzbPT2Oc95oERmwkka55a60FBl8qGyiNgfTzQee46hcsPYZJtPeglbuACAvUTsnYdqDHvMRawgEzEALspOw4oOtNeFtQ2LUZngHsKCWxMvq1USAew4oKKOqiGbbWdMuOaBbQulYxd4MHv8UGL5xZ+qBsDi4oLQvhUth9JOb80HMTBJw5cvlmOaDb+AASy6j1Pu39VBztaYnrElTmGbTP7qDyA2sx5mIsoMBm2HYtzQekwuEaZD1N2oN8mbsjENN145mg86oVAIDfywZJ4/qoPQS5YYQRl/5H7qDhdfG8zJB78UA2LjNdYk+pYEH20CODAGZhjqG7ig5EbGSQdCB0nvQTbV1SAhExqpO55FBrqyWOq2Mhl0L3P30Eqw8vCVA09AOcf1mg813yikMoMMwJwDWI70CoyKVUCNYy/LvQI7kG2AoPVqZ0Kmg23duBjkBAJyJG3zQWty7sBkwkST2oFe5cgmViAMycoagpTeFqZX6uTkZNAT+aCT0Zhv070Bq90rbEJPTuO/xQFiJxMcPOYA1HFAtxiZhhqI6uzcCg64xF055BT3oDcX1VSHEgQQZPbig9F1pZSzLpAyH7UE+dbZ3GETn2P6UAWRbbwyNmCUC6KDpQNaVC46djmcPumgpVRLhaAMu6jt2oAtlBcdcKjNc8Q7cKaBnFss2axMwH/wDqKDCoYkgnIiYPdhxQCtsThV2BkCZOoJoLu4x4fqubZHq55oOJBbC75RPq55oMt+SwILSMTEH8/mg4Dw2JMiTA0Pz3oGwWy64c4IOo9poIUMGfCNEaOoaj8qCVN1iygaN3X7eKDmY4SCuk6FTo9ArEYMpyK6Bd1PNBLogfrxEkZSF3/Ogy3btjyxrGGNO47UEqLZLAKMie/f8A2oEUrmBG06+48UEXWJuvA9AzzPu+2g65bcqSZmRnA2jutAd/EsQuQAjpHuP20HoCHG8MZIPfsaALfmCyiCTlBzOwFA6W7oIaMo3g/wCpoKKuzkYSJ0yHf5oCFq4Wdl3AMRH70F+TcLOYkxnEjc9hQELd8O4j1Dcj1LxQdZs3S34kEhvdOQmgm75o8PhmOgn+wPNBT4+py+gnKdlJ2oJR/LbqO7T0v37xQar2iB1RAGUH3flQJiXHGPLpMYe4I3oNRlckm56H0AGoHNBSFhcci4YyOh3IoJbAQPxDnM5xEsT+lAd0A4hik9ORb7TzQd4iz+KpBEkHUj9TQZbsuptyF9I05HNBthAXaVU5Z9I9zc0FC3bGKEUZTACjZjQQbaebcLKDIUej7qB2RADhUCGiIXt8UAXAXGg7Z4TuaBVdwxJUScWijYHjigGCFGifV6UGkDtQIQB9V0CD3QZf2oNJsliPNGZHrXeKAyEDscjC+8bTzQXbYBX6BmMupTueaCEmJwrm0z07Ec0D2WGMxAALaaZTzQRcKlSN8DQM6A77J5bDQQwmW3WKDVe2YBOukk0EhreXVAw65nST2oFQ2nXzA0xA32JHag5fJEYZ6kYZE9hQdNsF8pPQIk7n5oIF5SjEAjDJ+rgnvQc1xLjmTABX/Q0Cuy41OM5ZTJ4oNYL0E3Cfp93f44oCTALzksclGYDH30Bm6vmsqvmMORU7q1BhN0tK4TJA0adPmg9WK5DSB9UdtjQGxfyjIM8E96CrTE3LZKbtAkjY896C2xYBKjRyYJP60G33wsuR+rvxQC97CX1yIGR+OKDPMRrjhg2hAyHP20C2Xt3LZJ3jUAer4oDVbeRAByaMxzxQTatiXC4dycxuPig1rb6oq/Q243jiglrV3A8qNGiCp9IoG8q/i0EDKIXigkeGveZhwj6TkAKCPIuhJOWgiO7cCgxvDiLctBIgmG/agzyrS4yz5Suqk6D4oKWz4eGXzACRuo7HvQctixiMupGIZYVHG1B11PD4hBBI3wjjmgy5hlMyQCsjCDuaA0dw92DBNtcyi/fQKR/xDYnQDoIBXhqCibCspZk+o+kcc0FP/D4mGJT1jPp7HmgILbNqBAOLYr2Hc0H/2Q==") -1px -1px, #dfdfdf;
+  background: url(<%=asset_path('flo/images/profile_image_empty_large.png')%>) no-repeat center 40px, url("data:image/jpeg;charset=utf-8;base64,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") -1px -1px, #dfdfdf;
   height: 190px;
   border: 1px solid #999;
   margin: 10px;
@@ -13612,7 +13615,7 @@
 .__flo .modal.guide.welcome .welcome-task-form {
   width: 150px;
   height: 200px;
-  background: url(../images/welcome/welcome-checkmark.png) no-repeat center 15px;
+  background: url(<%=asset_path('flo/images/welcome/welcome-checkmark.png')%>) no-repeat center 15px;
   margin: 0 auto 0 auto;
 }
 .__flo .modal.welcome .form .new_contact_modal .email-field {
@@ -13872,7 +13875,7 @@
   padding-left: 74px;
 }
 .__flo .modal.ical-subscription .body.info .body-inner .icon {
-  background: url(../images/graphics/icon-upcoming.png) no-repeat center center;
+  background: url(<%=asset_path('flo/images/graphics/icon-upcoming.png')%>) no-repeat center center;
   width: 56px;
   height: 56px;
 }
@@ -13888,7 +13891,7 @@
   background: white;
   display: none;
   z-index: 10;
-  background-image: url(../images/spinner-20x20.gif);
+  background-image: url(<%=asset_path('flo/images/spinner-20x20.gif')%>);
   background-position: center center;
   background-repeat: no-repeat;
 }
@@ -14169,7 +14172,7 @@
   position: absolute;
 }
 .__flo .modal.support.delete-account .table-row div.lifesaver {
-  background: url(../images/get-help-lifesaver.png) no-repeat;
+  background: url(<%=asset_path('flo/images/get-help-lifesaver.png')%>) no-repeat;
   width: 73px;
   height: 68px;
   display: block;
@@ -14260,7 +14263,7 @@
 }
 .__flo .modal.accept-request .loading {
   height: 55px;
-  background: url(../images/loader-48.gif) no-repeat center center;
+  background: url(<%=asset_path('flo/images/loader-48.gif')%>) no-repeat center center;
 }
 .__flo .modal.accept-request .already, .__flo .modal.accept-request .error, .__flo .modal.accept-request .pulled {
   min-height: 42px;
@@ -14708,7 +14711,7 @@
   width: 18px;
   height: 18px;
   display: inline-block;
-  background: url(../images/icons/arrow-circle-18-f7f7f7.png) no-repeat right center;
+  background: url(<%=asset_path('flo/images/icons/arrow-circle-18-f7f7f7.png')%>) no-repeat right center;
   vertical-align: top;
   margin-left: 5px;
 }
@@ -14767,7 +14770,7 @@
   background: #f00;
   width: 14px;
   height: 14px;
-  background: url(../images/icon-clear-000.png);
+  background: url(<%=asset_path('flo/images/icon-clear-000.png')%>);
   right: 4px;
   top: 5px;
   opacity: .4;
@@ -15009,7 +15012,7 @@
   letter-spacing: 1.5px;
   min-height: 39px;
   line-height: 26px;
-  background: url(../images/settings-billing-price-divider.png) no-repeat left center;
+  background: url(<%=asset_path('flo/images/settings-billing-price-divider.png')%>) no-repeat left center;
   padding-left: 13px;
   line-height: 27px;
 }
@@ -15061,13 +15064,13 @@
   width: 32px;
   height: 32px;
   margin-right: 8px;
-  background: url(../images/icon-collaborator-32.png) no-repeat left bottom;
-  background: url(../images/icon-collaborator-32.png) no-repeat left -31px, -webkit-gradient(linear, left top, left bottom, from(white), to(#f0f0f0));
-  background: url(../images/icon-collaborator-32.png) no-repeat left -31px, -webkit-linear-gradient(top, white, #f0f0f0);
-  background: url(../images/icon-collaborator-32.png) no-repeat left -31px, -moz-linear-gradient(top, white, #f0f0f0);
-  background: url(../images/icon-collaborator-32.png) no-repeat left -31px, -ms-linear-gradient(top, white, #f0f0f0);
-  background: url(../images/icon-collaborator-32.png) no-repeat left -31px, -o-linear-gradient(top, white, #f0f0f0);
-  background: url(../images/icon-collaborator-32.png) no-repeat left -31px, linear-gradient(top, white, #f0f0f0);
+  background: url(<%=asset_path('flo/images/icon-collaborator-32.png')%>) no-repeat left bottom;
+  background: url(<%=asset_path('flo/images/icon-collaborator-32.png')%>) no-repeat left -31px, -webkit-gradient(linear, left top, left bottom, from(white), to(#f0f0f0));
+  background: url(<%=asset_path('flo/images/icon-collaborator-32.png')%>) no-repeat left -31px, -webkit-linear-gradient(top, white, #f0f0f0);
+  background: url(<%=asset_path('flo/images/icon-collaborator-32.png')%>) no-repeat left -31px, -moz-linear-gradient(top, white, #f0f0f0);
+  background: url(<%=asset_path('flo/images/icon-collaborator-32.png')%>) no-repeat left -31px, -ms-linear-gradient(top, white, #f0f0f0);
+  background: url(<%=asset_path('flo/images/icon-collaborator-32.png')%>) no-repeat left -31px, -o-linear-gradient(top, white, #f0f0f0);
+  background: url(<%=asset_path('flo/images/icon-collaborator-32.png')%>) no-repeat left -31px, linear-gradient(top, white, #f0f0f0);
   -moz-box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.3);
   -webkit-box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.3);
   box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.3);
@@ -15103,7 +15106,7 @@
   display: inline;
 }
 .__flo .billing-section.subscription .header .guarentee-stamp {
-  background: url(../images/graphics/billing-guarantee.png) no-repeat center center;
+  background: url(<%=asset_path('flo/images/graphics/billing-guarantee.png')%>) no-repeat center center;
   display: block;
   text-indent: -9999em;
   width: 78px;
@@ -15115,7 +15118,7 @@
 .__flo .billing-section.subscription.comped .header ins {
   width: 38px;
   height: 38px;
-  background: url(../images/graphics/metalab-38.png) no-repeat left center;
+  background: url(<%=asset_path('flo/images/graphics/metalab-38.png')%>) no-repeat left center;
   border: none;
   box-shadow: none;
   margin-left: -6px;
@@ -15124,7 +15127,7 @@
   display: none;
 }
 .__flo .billing-section.referral-info .avatar {
-  background: url(../images/graphics/referral-billing-avatar.png);
+  background: url(<%=asset_path('flo/images/graphics/referral-billing-avatar.png')%>);
   width: 36px;
   height: 36px;
   border: none;
@@ -15205,7 +15208,7 @@
   display: block;
   width: 24px;
   height: 24px;
-  background: url(../images/icon-clear-000.png) no-repeat center center;
+  background: url(<%=asset_path('flo/images/icon-clear-000.png')%>) no-repeat center center;
   text-indent: -99999em;
   opacity: .25;
 }
@@ -15582,7 +15585,7 @@
   width: 54px;
   height: 54px;
   margin: 0 10px 0 0;
-  background-image: url(../images/icon-collaborator-54.png);
+  background-image: url(<%=asset_path('flo/images/icon-collaborator-54.png')%>);
 }
 .__flo .subscription-form-wrap .banner .account_deletion ins .overlay {
   position: absolute;
@@ -15615,13 +15618,13 @@
   transition: opacity .2s linear;
 }
 .__flo .subscription-form-wrap .card.visa {
-  background-image: url(../images/graphics/credit_card-visa.png);
+  background-image: url(<%=asset_path('flo/images/graphics/credit_card-visa.png')%>);
 }
 .__flo .subscription-form-wrap .card.master {
-  background-image: url(../images/graphics/credit_card-master_card.png);
+  background-image: url(<%=asset_path('flo/images/graphics/credit_card-master_card.png')%>);
 }
 .__flo .subscription-form-wrap .card.american_express {
-  background-image: url(../images/graphics/credit_card-amex.png);
+  background-image: url(<%=asset_path('flo/images/graphics/credit_card-amex.png')%>);
 }
 .__flo .subscription-form-wrap .card.disabled {
   opacity: .25;
@@ -15650,7 +15653,7 @@
   float: left;
   width: 32px;
   height: 26px;
-  background: url(../images/graphics/credit_card-security_code.png) no-repeat 0 0;
+  background: url(<%=asset_path('flo/images/graphics/credit_card-security_code.png')%>) no-repeat 0 0;
 }
 .__flo .subscription-form-wrap .credit_card_month .uniform-select, .__flo .subscription-form-wrap .credit_card_month, .__flo .subscription-form-wrap .credit_card_month select, .__flo .subscription-form-wrap .credit_card_year .uniform-select, .__flo .subscription-form-wrap .credit_card_year, .__flo .subscription-form-wrap .credit_card_year select, .__flo .subscription-form-wrap .billing_info_country .uniform-select, .__flo .subscription-form-wrap .billing_info_country, .__flo .subscription-form-wrap .billing_info_country select, .__flo .subscription-form-wrap .billing_info_state .uniform-select, .__flo .subscription-form-wrap .billing_info_state.select, .__flo .subscription-form-wrap .billing_info_state.select select {
   float: left;
@@ -15778,13 +15781,13 @@
   width: 32px;
   height: 32px;
   margin-right: 8px;
-  background: url(../images/icon-collaborator-32.png) no-repeat left bottom;
-  background: url(../images/icon-collaborator-32.png) no-repeat left -31px, -webkit-gradient(linear, left top, left bottom, from(white), to(#f0f0f0));
-  background: url(../images/icon-collaborator-32.png) no-repeat left -31px, -webkit-linear-gradient(top, white, #f0f0f0);
-  background: url(../images/icon-collaborator-32.png) no-repeat left -31px, -moz-linear-gradient(top, white, #f0f0f0);
-  background: url(../images/icon-collaborator-32.png) no-repeat left -31px, -ms-linear-gradient(top, white, #f0f0f0);
-  background: url(../images/icon-collaborator-32.png) no-repeat left -31px, -o-linear-gradient(top, white, #f0f0f0);
-  background: url(../images/icon-collaborator-32.png) no-repeat left -31px, linear-gradient(top, white, #f0f0f0);
+  background: url(<%=asset_path('flo/images/icon-collaborator-32.png')%>) no-repeat left bottom;
+  background: url(<%=asset_path('flo/images/icon-collaborator-32.png')%>) no-repeat left -31px, -webkit-gradient(linear, left top, left bottom, from(white), to(#f0f0f0));
+  background: url(<%=asset_path('flo/images/icon-collaborator-32.png')%>) no-repeat left -31px, -webkit-linear-gradient(top, white, #f0f0f0);
+  background: url(<%=asset_path('flo/images/icon-collaborator-32.png')%>) no-repeat left -31px, -moz-linear-gradient(top, white, #f0f0f0);
+  background: url(<%=asset_path('flo/images/icon-collaborator-32.png')%>) no-repeat left -31px, -ms-linear-gradient(top, white, #f0f0f0);
+  background: url(<%=asset_path('flo/images/icon-collaborator-32.png')%>) no-repeat left -31px, -o-linear-gradient(top, white, #f0f0f0);
+  background: url(<%=asset_path('flo/images/icon-collaborator-32.png')%>) no-repeat left -31px, linear-gradient(top, white, #f0f0f0);
   -moz-box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.3);
   -webkit-box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.3);
   box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.3);
@@ -15834,7 +15837,7 @@
 .__flo .pricing-info-box .box {
   display: inline-block;
   border: 1px solid #a5c271;
-  background: #abcb72 url(../images/public/price-bg.png) repeat top left;
+  background: #abcb72 url(<%=asset_path('flo/images/public/price-bg.png')%>) repeat top left;
   box-shadow: 0 2px 0 #7c964f;
   border-radius: 4px;
   border-bottom: 2px solid #7c964f;
@@ -15912,7 +15915,7 @@
   min-height: 75px;
   padding-right: 90px;
   margin: 15px 15px;
-  background: url(../images/settings-billing-stamp.png) no-repeat right top;
+  background: url(<%=asset_path('flo/images/settings-billing-stamp.png')%>) no-repeat right top;
   color: #777;
   font-family: Helvetica,Arial,sans-serif;
   font-size: 12px;
@@ -15932,7 +15935,7 @@
   font-size: 12px;
   color: #333;
   padding-left: 15px;
-  background: url(/images/icons/plus-green-9.png) no-repeat left center;
+  background: url(<%=asset_path('flo/images/icons/plus-green-9.png')%>) no-repeat left center;
 }
 .__flo .section.summary.payment-summary {
   position: relative;
@@ -16040,16 +16043,16 @@
   overflow: hidden;
 }
 .__flo .subscription-summary.cc-visa {
-  background-image: url(../images/graphics/credit_card-visa.png);
+  background-image: url(<%=asset_path('flo/images/graphics/credit_card-visa.png')%>);
 }
 .__flo .subscription-summary.cc-master {
-  background-image: url(../images/graphics/credit_card-master_card.png);
+  background-image: url(<%=asset_path('flo/images/graphics/credit_card-master_card.png')%>);
 }
 .__flo .subscription-summary.cc-american_express {
-  background-image: url(../images/graphics/credit_card-amex.png);
+  background-image: url(<%=asset_path('flo/images/graphics/credit_card-amex.png')%>);
 }
 .__flo .subscription-summary.cc-discover {
-  background-image: url(../images/graphics/credit_card-discovery.png);
+  background-image: url(<%=asset_path('flo/images/graphics/credit_card-discovery.png')%>);
 }
 .__flo button.edit-subscription-info {
   margin-right: 6px;
@@ -16084,7 +16087,7 @@
   border: 1px solid #ccc;
   border-bottom: 1px solid #999;
   border-radius: 5px;
-  background: url(../images/metalab-logo-37.png) no-repeat center center;
+  background: url(<%=asset_path('flo/images/metalab-logo-37.png')%>) no-repeat center center;
 }
 .__flo .subscription-form-wrap .edit-billing-info {
   margin-left: 5px;
@@ -16191,7 +16194,7 @@
   -moz-transition: -moz-transform .15s linear;
 }
 .__flo .accounts-list-wrap .accounts-list li button.spinning ins {
-  background: url(../images/loader-14.gif) no-repeat center center;
+  background: url(<%=asset_path('flo/images/loader-14.gif')%>) no-repeat center center;
 }
 .__flo .accounts-list-wrap .accounts-list li button:hover ins {
   opacity: .7;
@@ -16214,7 +16217,7 @@
   border-radius: 0 0 5px 5px;
 }
 .__flo .no-csstransforms .accounts-list-wrap .accounts-list li.remove button ins {
-  background: url(../images/icon-add.png) no-repeat center center;
+  background: url(<%=asset_path('flo/images/icon-add.png')%>) no-repeat center center;
 }
 .__flo .delete-note {
   margin-top: 4px;
@@ -16250,7 +16253,7 @@
 .__flo .subscription-form-wrap .nfp-discount-intro {
   width: 349px;
   height: 59px;
-  background: url(../images/image-edu_discount.png) no-repeat left top;
+  background: url(<%=asset_path('flo/images/image-edu_discount.png')%>) no-repeat left top;
   margin: 14px 0 0 15px;
   text-indent: -99999em;
 }
@@ -16413,12 +16416,12 @@
   left: 10px;
 }
 .__flo .sidebar .zero .zero-msg.project-tab, .__flo .sidebar .zero .zero-msg.tags-tab, .__flo .sidebar .zero .zero-msg.people-tab {
-  background-image: url(../images/welcome/welcome-message-tritab.png);
+  background-image: url(<%=asset_path('flo/images/welcome/welcome-message-tritab.png')%>);
   height: 64px;
   top: 40px;
 }
 .__flo .sidebar .zero .zero-msg.plus-button {
-  background-image: url(../images/welcome/welcome-message-plus-button.png);
+  background-image: url(<%=asset_path('flo/images/welcome/welcome-message-plus-button.png')%>);
   height: 74px;
   bottom: 5px;
 }
@@ -17204,11 +17207,11 @@
 }
 @media only screen and (-webkit-min-device-pixel-ratio: 2) {
   .__flo .flow-topbar .previous .icon {
-    background-image: url(../images/2x/icon-header-previous.png);
+    background-image: url(<%=asset_path('flo/images/2x/icon-header-previous.png')%>);
     background-size: 16px;
   }
   .__flo .flow-topbar .next .icon {
-    background-image: url(../images/2x/icon-header-next.png);
+    background-image: url(<%=asset_path('flo/images/2x/icon-header-next.png')%>);
     background-size: 16px;
   }
 }
@@ -17550,13 +17553,13 @@
   background-image: url("data:image/png;charset=utf-8;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAANCAYAAACZ3F9/AAAAs0lEQVR42p3RQQbDQBjF8W819AAlhB6jdNVtt6GUkm1PUobQS/QApZRuu+0Zug0h21BKmf4XT0LMCH38FiPvhTH2Z1YwhyNqhF48c1zEPB5YIhl9r3GFg7XIJkZbvPHEzJQAJfqDgzotFrDx8IwOhQ0pEfDFBhYbFvjoXGGvQYCHpYa6i8qDF1ykq0N6vIZNDpWdxjckuy1yjFOO3jZXt4/HfeItM3Uq9HE4oUFIaNRxpvwAvGA7LzY/SHMAAAAASUVORK5CYII=");
 }
 .__flo .tasks-overview .tooltip-tail.center, .__flo .taskviewer .tooltip-tail.center {
-  background: url(../images/nubs/left.png) left center;
+  background: url(<%=asset_path('flo/images/nubs/left.png')%>) left center;
 }
 .__flo .tasks-overview .tooltip-tail.left, .__flo .taskviewer .tooltip-tail.left {
-  background: url(../images/nubs/right.png) right center;
+  background: url(<%=asset_path('flo/images/nubs/right.png')%>) right center;
 }
 .__flo .tasks-overview .tooltip-tail.right, .__flo .taskviewer .tooltip-tail.right {
-  background-image: url(../images/right.png) right center;
+  background-image: url(<%=asset_path('flo/images/right.png')%>) right center;
 }
 .__flo .upcoming-zero-state {
   margin-top: -103px;
@@ -17770,127 +17773,127 @@
 }
 .__flo .short-code.orly {
   padding-top: 191px;
-  background-image: url(../images/lol/orly.png);
+  background-image: url(<%=asset_path('flo/images/lol/orly.png')%>);
 }
 .__flo .short-code.troll {
   padding-top: 208px;
-  background-image: url(../images/lol/troll.png);
+  background-image: url(<%=asset_path('flo/images/lol/troll.png')%>);
 }
 .__flo .short-code.sick {
   padding-top: 191px;
-  background-image: url(../images/lol/sick.png);
+  background-image: url(<%=asset_path('flo/images/lol/sick.png')%>);
 }
 .__flo .short-code.makeitso {
   padding-top: 170px;
-  background-image: url(../images/lol/make_it_so.png);
+  background-image: url(<%=asset_path('flo/images/lol/make_it_so.png')%>);
 }
 .__flo .short-code.facepalm {
   padding-top: 165px;
-  background-image: url(../images/lol/face_palm.png);
+  background-image: url(<%=asset_path('flo/images/lol/face_palm.png')%>);
 }
 .__flo .short-code.yablewit {
   padding-top: 191px;
-  background-image: url(../images/lol/ya_blew_it.png);
+  background-image: url(<%=asset_path('flo/images/lol/ya_blew_it.png')%>);
 }
 .__flo .short-code.looksgood {
   padding-top: 170px;
-  background-image: url(../images/lol/looks_good.png);
+  background-image: url(<%=asset_path('flo/images/lol/looks_good.png')%>);
 }
 .__flo .short-code.soundsgood {
   padding-top: 170px;
-  background-image: url(../images/lol/sounds_good.png);
+  background-image: url(<%=asset_path('flo/images/lol/sounds_good.png')%>);
 }
 .__flo .short-code.fox {
   padding-top: 177px;
-  background-image: url(../images/lol/fox.png);
+  background-image: url(<%=asset_path('flo/images/lol/fox.png')%>);
 }
 .__flo .short-code.wut {
   padding-top: 177px;
-  background-image: url(../images/lol/wut.png);
+  background-image: url(<%=asset_path('flo/images/lol/wut.png')%>);
 }
 .__flo .short-code.wut2 {
   padding-top: 255px;
-  background-image: url(../images/lol/wut2.png);
+  background-image: url(<%=asset_path('flo/images/lol/wut2.png')%>);
 }
 .__flo .short-code.cant_do {
   padding-top: 341px;
-  background-image: url(../images/lol/you_cant_do_that.png);
+  background-image: url(<%=asset_path('flo/images/lol/you_cant_do_that.png')%>);
 }
 .__flo .short-code.maybe {
   padding-top: 341px;
-  background-image: url(../images/lol/maybe.png);
+  background-image: url(<%=asset_path('flo/images/lol/maybe.png')%>);
 }
 .__flo .short-code.thanks {
   padding-top: 197px;
-  background-image: url(../images/lol/thanks.png);
+  background-image: url(<%=asset_path('flo/images/lol/thanks.png')%>);
 }
 .__flo .short-code.andthen {
   padding-top: 141px;
-  background-image: url(../images/lol/and_then.png);
+  background-image: url(<%=asset_path('flo/images/lol/and_then.png')%>);
 }
 .__flo .short-code.fired {
   padding-top: 141px;
-  background-image: url(../images/lol/fired.png);
+  background-image: url(<%=asset_path('flo/images/lol/fired.png')%>);
 }
 .__flo .short-code.plz {
   padding-top: 200px;
-  background-image: url(../images/lol/plz.png);
+  background-image: url(<%=asset_path('flo/images/lol/plz.png')%>);
 }
 .__flo .short-code.hot {
   padding-top: 252px;
-  background-image: url(../images/lol/hot.png);
+  background-image: url(<%=asset_path('flo/images/lol/hot.png')%>);
 }
 .__flo .short-code.typo {
   padding-top: 184px;
-  background-image: url(../images/lol/typo.png);
+  background-image: url(<%=asset_path('flo/images/lol/typo.png')%>);
 }
 .__flo .short-code.thants {
   padding-top: 140px;
-  background-image: url(../images/lol/thants.jpg);
+  background-image: url(<%=asset_path('flo/images/lol/thants.jpg')%>);
 }
 .__flo .short-code.bravo {
   padding-top: 191px;
-  background-image: url(../images/lol/bravo.gif);
+  background-image: url(<%=asset_path('flo/images/lol/bravo.gif')%>);
 }
 .__flo .short-code.panda {
   padding-top: 170px;
-  background-image: url(../images/lol/panda.jpg);
+  background-image: url(<%=asset_path('flo/images/lol/panda.jpg')%>);
 }
 .__flo .short-code.cray {
   padding-top: 170px;
-  background-image: url(../images/lol/cray.jpg);
+  background-image: url(<%=asset_path('flo/images/lol/cray.jpg')%>);
 }
 .__flo .short-code.defeated {
   padding-top: 150px;
-  background-image: url(../images/lol/defeated.gif);
+  background-image: url(<%=asset_path('flo/images/lol/defeated.gif')%>);
 }
 .__flo .short-code.mickey {
   padding-top: 255px;
-  background-image: url(../images/lol/mickey.gif);
+  background-image: url(<%=asset_path('flo/images/lol/mickey.gif')%>);
 }
 .__flo .short-code.hell {
   padding-top: 141px;
-  background-image: url(../images/lol/hell.jpeg);
+  background-image: url(<%=asset_path('flo/images/lol/hell.jpeg')%>);
 }
 .__flo .short-code.ok {
   padding-top: 187px;
-  background-image: url(../images/lol/ok.png);
+  background-image: url(<%=asset_path('flo/images/lol/ok.png')%>);
 }
 .__flo .short-code.great {
   padding-top: 191px;
-  background-image: url(../images/lol/great.png);
+  background-image: url(<%=asset_path('flo/images/lol/great.png')%>);
 }
 .__flo .short-code.sowwy {
   padding-top: 242px;
-  background-image: url(../images/lol/sowwy.png);
+  background-image: url(<%=asset_path('flo/images/lol/sowwy.png')%>);
 }
 .__flo .short-code.wat {
   padding-top: 171px;
-  background-image: url(../images/lol/wat.jpg);
+  background-image: url(<%=asset_path('flo/images/lol/wat.jpg')%>);
 }
 .__flo .short-code.homer {
   padding-top: 191px;
-  background-image: url(../images/lol/homer.gif);
+  background-image: url(<%=asset_path('flo/images/lol/homer.gif')%>);
 }
 
 body.firefox.mac .__flo .button.default {
