@@ -1,8 +1,220 @@
 <% content_for :armpit do %>
   <%= stylesheet_link_tag "ktv/__flo.css", :media => "all" %>
 <% end %>
-<% content_for :body_style do %>background:white;<%end %>
+<% content_for :body_klass do %> flo_background <%end %>
 <% content_for :sdk_wrapper_style do %>width:98%;<%end %>
+
+<style>
+/*
+ * CSS Styles that are needed by jScrollPane for it to operate correctly.
+ *
+ * Include this stylesheet in your site or copy and paste the styles below into your stylesheet - jScrollPane
+ * may not operate correctly without them.
+ */
+
+.jspContainer
+{
+	overflow: hidden;
+	position: relative;
+}
+
+.jspPane
+{
+	position: absolute;
+}
+
+.jspVerticalBar
+{
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 16px;
+	height: 100%;
+	background: red;
+}
+
+.jspHorizontalBar
+{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 16px;
+	background: red;
+}
+
+.jspVerticalBar *,
+.jspHorizontalBar *
+{
+	margin: 0;
+	padding: 0;
+}
+
+.jspCap
+{
+	display: none;
+}
+
+.jspHorizontalBar .jspCap
+{
+	float: left;
+}
+
+.jspTrack
+{
+	background: #dde;
+	position: relative;
+}
+
+.jspDrag
+{
+	background: #bbd;
+	position: relative;
+	top: 0;
+	left: 0;
+	cursor: pointer;
+}
+
+.jspHorizontalBar .jspTrack,
+.jspHorizontalBar .jspDrag
+{
+	float: left;
+	height: 100%;
+}
+
+.jspArrow
+{
+	background: #50506d;
+	text-indent: -20000px;
+	display: block;
+	cursor: pointer;
+}
+
+.jspArrow.jspDisabled
+{
+	cursor: default;
+	background: #80808d;
+}
+
+.jspVerticalBar .jspArrow
+{
+	height: 16px;
+}
+
+.jspHorizontalBar .jspArrow
+{
+	width: 16px;
+	float: left;
+	height: 100%;
+}
+
+.jspVerticalBar .jspArrow:focus
+{
+	outline: none;
+}
+
+.jspCorner
+{
+	background: #eeeef4;
+	float: left;
+	height: 100%;
+}
+
+/* Yuk! CSS Hack for IE6 3 pixel bug :( */
+* html .jspCorner
+{
+	margin: 0 -3px 0 0;
+}
+
+
+/* Styles specific to this particular page */
+.scroll-pane
+{
+	width: 100%;
+	height: 200px;
+	overflow: auto;
+}
+.horizontal-only
+{
+	height: auto;
+	max-height: 200px;
+}
+		
+/* Styles specific to this particular page */
+.scroll-pane
+{
+	width: 100%;
+	height: 200px;
+	overflow: auto;
+}
+.horizontal-only
+{
+	height: auto;
+	max-height: 200px;
+}
+		
+</style>
+			<div class="scroll-pane" style="height:200px">
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec in ligula id sem tristique ultrices
+					eget id neque. Duis enim turpis, tempus at accumsan vitae, lobortis id sapien. Pellentesque nec orci
+					mi, in pharetra ligula. Nulla facilisi. Nulla facilisi. Mauris convallis venenatis massa, quis
+					consectetur felis ornare quis. Sed aliquet nunc ac ante molestie ultricies. Nam pulvinar ultricies
+					bibendum. Vivamus diam leo, faucibus et vehicula eu, molestie sit amet dui. Proin nec orci et elit
+					semper ultrices. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus
+					mus. Sed quis urna mi, ac dignissim mauris. Quisque mollis ornare mauris, sed laoreet diam malesuada
+					quis. Proin vel elementum ante. Donec hendrerit arcu ac odio tincidunt posuere. Vestibulum nec risus
+					eu lacus semper viverra.
+				</p>
+				<p>
+					Vestibulum dictum consectetur magna eu egestas. Praesent molestie dapibus erat, sit amet sodales
+					lectus congue ut. Nam adipiscing, tortor ac blandit egestas, lorem ligula posuere ipsum, nec
+					faucibus nisl enim eu purus. Quisque bibendum diam quis nunc eleifend at molestie libero tincidunt.
+					Quisque tincidunt sapien a sapien pellentesque consequat. Mauris adipiscing venenatis augue ut
+					tempor. Donec auctor mattis quam quis aliquam. Nullam ultrices erat in dolor pharetra bibendum.
+					Suspendisse eget odio ut libero imperdiet rhoncus. Curabitur aliquet, ipsum sit amet aliquet varius,
+					est urna ullamcorper magna, sed eleifend libero nunc non erat. Vivamus semper turpis ac turpis
+					volutpat non cursus velit aliquam. Fusce id tortor id sapien porta egestas. Nulla venenatis luctus
+					libero et suscipit. Sed sed purus risus. Donec auctor, leo nec eleifend vehicula, lacus felis
+					sollicitudin est, vitae lacinia lectus urna nec libero. Aliquam pellentesque, arcu condimentum
+					pharetra vestibulum, lectus felis malesuada felis, vel fringilla dolor dui tempus nisi. In hac
+					habitasse platea dictumst. Ut imperdiet mauris vitae eros varius eget accumsan lectus adipiscing.
+				</p>
+				<p>
+					Quisque et massa leo, sit amet adipiscing nisi. Mauris vel condimentum dolor. Duis quis ullamcorper
+					eros. Proin metus dui, facilisis id bibendum sed, aliquet non ipsum. Aenean pulvinar risus eu nisi
+					dictum eleifend. Maecenas mattis dolor eget lectus pretium eget molestie libero auctor. Praesent sit
+					amet tellus sed nibh convallis semper. Curabitur nisl odio, feugiat non dapibus sed, tincidunt ut
+					est. Nullam erat velit, suscipit aliquet commodo sit amet, mollis in mauris. Curabitur pharetra
+					dictum interdum. In posuere pretium ultricies. Curabitur volutpat eros vehicula quam ultrices
+					varius. Proin volutpat enim a massa tempor ornare. Sed ullamcorper fermentum nisl, ac hendrerit sem
+					feugiat ac. Donec porttitor ullamcorper quam. Morbi pretium adipiscing quam, quis bibendum diam
+					congue eget. Sed at lectus at est malesuada iaculis. Sed fermentum quam dui. Donec eget ipsum dolor,
+					id mollis nisi. Donec fermentum vehicula porta.
+				</p>
+				<p>
+					Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+					Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero
+					sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.
+					Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed,
+					commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros
+					ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis.
+					Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna
+					eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis
+					luctus, metus
+				</p>
+				<p>
+					Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+					Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit
+					amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.
+				</p>
+			</div>
+
+
+  <%= javascript_include_tag "ktv/application" %>
+
+<% if false %>
+
 <% content_for :butt2 do %>
 KTV.flo_targetize();
 jQuery(window).bind('resize',KTV.flo_targetize);
@@ -55,7 +267,7 @@ jQuery(window).bind('resize',KTV.flo_targetize);
 			<!-- Sidebar -->
 			<div class="app-west">
 				<div class="app-west-inner">
-					<div class="sidebar" style="height: 436px;">
+					<div class="sidebar" style="height: 2000px;">
 						<div class="sidebar-inner">
 							<div class="primary-boxes-wrap">
 								<div class="sidebar-primary-boxes">
@@ -121,76 +333,67 @@ jQuery(window).bind('resize',KTV.flo_targetize);
 												</div>
 												<div class="pane-inner" style="overflow: hidden; padding: 0px; height: 211px;">
 													<div style="height: 211px;" class="jspContainer ios">
-														<div class="jspPane" style="left: 0px; top: 0px; width: 220px;">
-															<ul class="project-list items-list flow-tree ui-sortable">
-																<li class="folder list-item sortable my-folder open" data-id="168368" data-cid="c9">
-																<div class="link-wrap ui-droppable">
-																	<ins></ins>
-																	<div class="link folder-link">
-																		<span class="view">Get To Know Flow</span>
-																		<form class="rename">
-																			<input type="text" size="10" class="name-field">
-																		</form>
-																		<div class="settings">
-																			<ins></ins>
-																		</div>
-																	</div>
-																</div>
-																<ul class="children" style="display: block;">
-																	<li class="project list-item sortable my-project ui-droppable" data-id="537021" data-cid="c10">
-																	<ins></ins>
-																	<a class="project-link link">
-																	<ins></ins>
-																	<span class="view">The Basics</span>
-																	</a>
-																	<div class="settings">
-																		<ins></ins>
-																	</div>
-																	<div class="fadeout">
-																	</div>
-																	</li>
-																	<li class="project list-item sortable my-project ui-droppable" data-id="537020" data-cid="c11">
-																	<ins></ins>
-																	<a class="project-link link">
-																	<ins></ins>
-																	<span class="view">Teamwork</span>
-																	</a>
-																	<div class="settings">
-																		<ins></ins>
-																	</div>
-																	<div class="fadeout">
-																	</div>
-																	</li>
-																	<li class="project list-item sortable my-project ui-droppable" data-id="537019" data-cid="c12">
-																	<ins></ins>
-																	<a class="project-link link">
-																	<ins></ins>
-																	<span class="view">Pro Tips</span>
-																	</a>
-																	<div class="settings">
-																		<ins></ins>
-																	</div>
-																	<div class="fadeout">
-																	</div>
-																	</li>
-																</ul>
-																</li>
-																<li class="folder list-item folder-archived closed empty">
-																<div class="link-wrap ui-droppable">
-																	<ins></ins>
-																	<div class="link folder-link">
-																		<ins></ins>
-																		<span>Archived Lists</span>
-																	</div>
-																</div>
-																<ul class="children" style="display: none;">
-																</ul>
-																</li>
-															</ul>
-															<div class="no-results" style="display: none;">
-																No lists found.
-															</div>
-														</div>
+
+
+                            <div class="jspPane" style="left: 0px; top: 0px; width: 220px;">
+                              <ul class="collaborators collaborator-list items-list flow-tree">
+                                <li class="person list-item concierge no-summary ui-droppable active" data-id="95924" data-cid="c11" id="sidebar-person-95924" data-email="concierge@getflow.com">
+                                <ins></ins>
+                                <div class="person-link link">
+                                  <ins><span class="photo"></span></ins>
+                                  <span class="name">所有老师</span>
+                                  <ul class="summaries">
+                                  </ul>
+                                </div>
+                                <div class="settings">
+                                  <ins></ins>
+                                </div>
+                                <div class="fadeout">
+                                </div>
+                                </li>
+                              <% @course.teachers.each do |teacher| %>
+                                <li class="person list-item ui-droppable" data-id="127314" data-cid="c9" id="sidebar-person-127314">
+                                <ins></ins>
+                                <div class="person-link link">
+                                  <ins class="has-photo"><span class="photo" style="background-image: url(&quot;https://flowapp.s3.amazonaws.com/accounts/127314/78a71cc963c77ccba60ae57f1969f9ce_medium.png&quot;);"></span></ins>
+                                  <span class="name"><%=teacher%></span>
+                                  <ul class="summaries">
+                                    <li class="summary state">邮箱请求</li>
+                                  </ul>
+                                </div>
+                                <div class="settings">
+                                  <ins></ins>
+                                </div>
+                                <div class="fadeout">
+                                </div>
+                                </li>
+                              <% end %>
+                                <li class="person list-item ui-droppable" data-id="90562" data-cid="c10" id="sidebar-person-90562">
+                                <ins></ins>
+                                <div class="person-link link">
+                                  <ins class="has-photo"><span class="photo" style="background-image: url(&quot;https://flowapp.s3.amazonaws.com/accounts/90562/80fe26db82b28bad4b7a9451cbaacadf_medium.jpg&quot;);"></span></ins>
+                                  <span class="name">minqi pan</span>
+                                  <ul class="summaries">
+                                    <li class="summary state">Pending</li>
+                                  </ul>
+                                </div>
+                                <div class="settings">
+                                  <ins></ins>
+                                </div>
+                                <div class="fadeout">
+                                </div>
+                                </li>
+                              </ul>
+                              <div class="no-results" style="display: none;">
+                                No contacts found.
+                              </div>
+                            </div>
+
+
+
+
+
+
 													</div>
 												</div>
 											</div>
@@ -209,7 +412,7 @@ jQuery(window).bind('resize',KTV.flo_targetize);
 																<ins></ins>
 																<div class="person-link link">
 																	<ins><span class="photo"></span></ins>
-																	<span class="name">Flow Concierge</span>
+																	<span class="name">添加老师...</span>
 																	<ul class="summaries">
 																	</ul>
 																</div>
@@ -292,7 +495,7 @@ jQuery(window).bind('resize',KTV.flo_targetize);
 								<div class="layout-center-inner">
 									<div class="content-views-wrap">
 										<div class="content-view-wrap">
-											<div class="loading-tasks" style="">
+											<div class="loading-tasks" style="display:block">
 												<div class="spinner s48 blue">
 												</div>
 												<label class="loading-label"></label><label class="loading-sub-label"></label>
@@ -340,3 +543,5 @@ jQuery(window).bind('resize',KTV.flo_targetize);
 	<div id="pre-loaded-avatars" style="">
 	</div>
 </div>
+
+<% end %>

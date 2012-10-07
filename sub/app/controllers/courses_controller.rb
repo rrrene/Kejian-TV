@@ -12,10 +12,12 @@ class CoursesController < ApplicationController
 
   def show
     @seo[:title]=@course.name
+    render :layout=>false
   end
 protected
   def find_item
-    @course = Course.where(:_id => params[:id]).first
+    @course = Course.where(:fid => params[:id].to_i).first
+    @course ||= Course.where(:_id => params[:id]).first
     if @course.nil?
       render_404
       return false
