@@ -286,7 +286,7 @@ HEREDOC
     json = {status:'suc',list_title:params[:list_title],is_private:params[:is_private]}
     render json:json
   end
-  ### playlist end
+  ### playlist end 
   def get_share_panel
     if current_user.nil?
       render :text => "<div><a href='javascript:void(0)' class='like grey psvr_login_required'>登录</a>之后就可以踩了。</div>"
