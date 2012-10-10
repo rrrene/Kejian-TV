@@ -3,6 +3,7 @@
   window.KTV.Utilities = {}
   window.KTV.data = {}
   KTV.search_cache = {}
+  KTV.sss_term_cache = {}
 
   KTV.logo_css_src0 = window.psvr_asset_host+'/logo_ktv_'+window.psvr_subject+'.png'
   KTV.logo_css_src1 = window.psvr_asset_host+'/logo_ktv_'+window.psvr_subject+'_hover.png'
@@ -11,6 +12,84 @@
   KTV.browsetext_css_src0 = window.psvr_asset_host+'/browsetext.png'
   KTV.addtext_css_src1 = window.psvr_asset_host+'/ie/addtext_hover.png'
   KTV.addtext_css_src0 = window.psvr_asset_host+'/ie/addtext.png'
+    
+  KTV.sss_op = ->
+    KTV.dz_targetize();
+    $('#psvr_dz_target').resize(KTV.dz_targetize);
+    $('#gbqfqw').click(->
+      $('#gbqfq').focus();
+    );
+    $('#gbqfq').focus(->
+      $('#gbqfqw').addClass('focused');
+    ).blur(->
+      $('#gbqfqw').removeClass('focused');
+    );
+    $('#gbqfq').bind('keydown',->
+      KTV.switch_inside_sss();
+      $(this).unbind('keydown');
+      $('#gbqfq').autocomplete({
+        minLength: 1,
+        source: ( request, response ) ->
+          term = request.term
+          if false and KTV.sss_term_cache[term]
+            KTV.sss_term_cater( KTV.sss_term_cache[ term ], term )
+          else
+            $.get("http://ibeike.kejian.tv/autocomplete/swords", request, ( data, status, xhr ) ->
+              KTV.sss_term_cater( data, term )
+            , 'json')
+      });
+    )
+    KTV.sss_tr_op();
+    
+  KTV.sss_term_cater = (data,term)->
+    if data is null or data.length is 0
+      $('#psvr_gtable').hide()
+    else
+      ret = ''
+      $.each(data,(index,itemRaw)->
+        ret += "<tr class=\"\">\
+          	<td class=\"gssb_a gbqfsf\" dir=\"ltr\" style=\"text-align: left;\">\
+          		<div class=\"gsq_a\">\
+          			<table cellspacing=\"0\" cellpadding=\"0\" style=\"width: 100%;\">\
+          			<tbody>\
+          			<tr>\
+          				<td style=\"width: 100%;\">\
+          					<span>#{itemRaw['t']}</span>\
+          				</td>\
+          			</tr>\
+          			</tbody>\
+          			</table>\
+          		</div>\
+          	</td>\
+          </tr>\
+          "
+      )
+      $('#psvr_gtbody').html(ret)
+      $('#psvr_gtable').show()
+    
+  KTV.switch_inside_sss = ->
+    $('#gbx1').show()
+    $('#gbq2').css('top','20px');
+    $('#gbqfbw').css('display','inline-block');
+    $('.psvr_zhuzhan').hide();
+    $('#gbqfbwa').hide();
+    $('.gbqfh #gbqf').css({
+      'margin': '0 0 0 10px',
+      'width': '848px',
+      'padding': '0'
+    })
+    $('#gbqfq').css({
+      width:'826px'
+    });
+    $('#lga').hide();
+    $('#pocs').show();
+  
+  KTV.sss_tr_op = ->
+    $('#psvr_gtable tr').hover(->
+      $(this).addClass('gssb_i');
+    ,->
+      $(this).removeClass('gssb_i');
+    )
   KTV.dz_targetize = ->
     $('#content').height($('#psvr_dz_target').height());
   KTV.sdk_flashes_set = (type,msg)->
@@ -98,6 +177,12 @@
       $('<img/>')[0].src = this
     )
 
+  KTV.preload([
+    KTV.logo_css_src1,
+    KTV.browsetext_css_src1,
+    KTV.browsetext_css_src1,
+    window.psvr_asset_host+'/edit_hover.png'
+  ])
 
   KTV.search_move = (dir) ->
     current_which = $("#core_search_ul li.selected").first()
@@ -236,13 +321,6 @@
     $.post("/topics/#{KTV.data.topic_id}/update_fathers",{add:-1,name:$(this).attr('id').split('_')[0]},(data)->
       $("##{data.id}_already_father").remove()
     )
-  KTV.preload([
-    KTV.logo_css_src1,
-    KTV.browsetext_css_src1,
-    KTV.browsetext_css_src1,
-    window.psvr_asset_host+'/edit_hover.png'
-  ])
-
 
   jQuery ->
     if window.psvr_is_ie
@@ -258,7 +336,7 @@
             $('#search_form').addClass("searching")
             request.q = request.term
             request.term = null
-            $.get("/search/all", request, ( data, status, xhr ) ->
+            $.get("/autocomplete/all", request, ( data, status, xhr ) ->
               $('#search_form').removeClass("searching")
               KTV.search_cater( data, term )
             , 'html')
@@ -268,21 +346,24 @@
       )
       $('#q').focus(->
         $('div.navigation').fadeOut('fast')
+        $('#psvr_dz_target').data('top-orig',parseInt($('#psvr_dz_target').css('top')))
         $('#search_form').animate({
           width: $('#search_form').data('width-tobe')
         }, 200, ->
           $('#search_form input').addClass('focused')
           $('#results_tray_content').fadeIn('fast')
           $('#results_tray_div').css('padding-bottom','2px')
-          $('#results_tray').animate({height: $('#core_search_ul').height()+28}, {duration: 200, easing: 'swing', complete: -> 
+          $('#results_tray').animate({height: $('#core_search_ul').height()+28}, {duration: 200, queue:false, easing: 'swing', complete: -> 
             KTV.search_li_hover()
           })
+          $('#psvr_dz_target').animate({top: parseInt($('#psvr_dz_target').css('top'))+$('#core_search_ul').height()+28}, {duration: 200, queue:false})
         )
       ).blur(->
         $('#search_form input').removeClass('focused')
         $('#results_tray_div').css('padding-bottom','0')
         $('#results_tray_content').fadeOut('fast')  
-        $('#results_tray').animate({height:0}, {duration: 200, easing: 'swing', complete: ->
+        $('#psvr_dz_target').animate({top: $('#psvr_dz_target').data('top-orig')}, {duration: 200, queue:false})
+        $('#results_tray').animate({height:0}, {duration: 200, queue:false, easing: 'swing', complete: ->
           $('#search_form').animate({
             width: jQuery('#search_form').data('width-orig')
           }, 200)
