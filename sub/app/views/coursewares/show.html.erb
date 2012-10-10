@@ -465,14 +465,14 @@ courseware_id: '<%=@courseware.id%>'
                </div>
                <span id="watch-like-unlike" class="yt-uix-button-group " data-button-toggle-group="optional">
                     
-                      <button onclick=";return false;" title="顶一下" type="button" class="like button psvr_login_required start yt-uix-tooltip-reverse  yt-uix-button yt-uix-button-default yt-uix-tooltip" id="watch-like" data-button-toggle="true" data-button-action="actions.like" role="button">
+                      <button onclick=";return false;" title="顶一下" type="button" class="like button psvr_login_required start yt-uix-tooltip-reverse  yt-uix-button yt-uix-button-default yt-uix-tooltip <% if !current_user.nil? and @courseware.thanked_user_ids.include?(current_user.id) %> yt-uix-button-toggled <% end  %>" id="watch-like" data-button-toggle="true" data-button-action="actions.like" role="button">
                          <span class="yt-uix-button-icon-wrapper"><img class="yt-uix-button-icon yt-uix-button-icon-watch-like" src="<%= asset_path 'yt/wfw.gif' %>" alt="顶一下" /></span>
                          <span class="yt-uix-button-content">顶 </span>
                       </button>
 
  
              
-                    <button onclick=";return false;" title="踩一下" type="button" class="psvr_login_required end yt-uix-tooltip-reverse  yt-uix-button yt-uix-button-default yt-uix-tooltip yt-uix-button-empty" id="watch-unlike" data-button-toggle="true" data-button-action="actions.unlike" role="button">
+                    <button onclick=";return false;" title="踩一下" type="button" class="psvr_login_required end yt-uix-tooltip-reverse  yt-uix-button yt-uix-button-default yt-uix-tooltip yt-uix-button-empty <% if  !current_user.nil? and @courseware.disliked_user_ids.include?(current_user.id) %> yt-uix-button-toggled <% end  %>" id="watch-unlike" data-button-toggle="true" data-button-action="actions.unlike" role="button">
                         <span class="yt-uix-button-icon-wrapper"><img class="yt-uix-button-icon yt-uix-button-icon-watch-unlike" src="<%= asset_path 'yt/wfw.gif' %>" alt="踩一下"></span>
                     </button>
                </span>
@@ -720,7 +720,7 @@ courseware_id: '<%=@courseware.id%>'
                         <span class="video-thumb ux-thumb yt-thumb-square-46 ">
                             <span class="yt-thumb-clip">
                                 <span class="yt-thumb-clip-inner">
-                                    <img width="46" alt="pmq20" src="<%= avatar_url current_user %>" />
+                                    <img width="46" src=<% if !current_user.nil? %>"<%= avatar_url current_user %>"<%else%> <% end %> />
                                     <span class="vertical-align"></span>
                                 </span>
                             </span>
@@ -928,12 +928,24 @@ courseware_id: '<%=@courseware.id%>'
                           $('#watch-actions-ajax').html(html);
                           somethingShow('#watch-actions-ajax');
                           somethingHide('#watch-actions-loading');
+                          ajax_get_dingcai();
                     });            
                 }else{
                     somethingHide('#watch-actions-area-container');
                     somethingHide('#watch-actions-ajax');
                     $('#watch-actions-ajax').html('');
                 }
+             }
+             function ajax_get_dingcai(){
+               $.ajax({
+                 type:"POST",
+                 url:'/ajax/get_dynamic_dingcai',
+                 data:{'cw_id':"<%= @courseware.id %>"},
+                 dataType:'json'
+               }).done(function(data){
+                  $('.video-extras-sparkbars').html('<div style="width:'+ data['dingpercent'] +'%" class="video-extras-sparkbar-likes"></div><div style="width:'+ data['caipercent'] +'%" class="video-extras-sparkbar-dislikes"></div>');
+                  $('.video-extras-likes-dislikes').html('<span class="likes">'+data['d']+'</span> 人顶, <span class="dislikes">'+data['c']+'</span> 人踩');
+               })
              }
              $("button[data-button-action='actions.addto']").live("click",function(){
                  removeToggled('actions.addto');
@@ -1287,7 +1299,7 @@ courseware_id: '<%=@courseware.id%>'
                   $.ajax({
                     url:'/ajax/flagcw',
                     type:'POST',
-                    data:{'cw_id':'<%= @courseware.id %>','user_id':'<%= current_user.id%>','layer':glayer,'reason':greason, 'form':$('#flag-video-form').serializeArray()},
+                    data:{'cw_id':'<%= @courseware.id %>','user_id':'<%= if current_user then current_user.id end%>','layer':glayer,'reason':greason, 'form':$('#flag-video-form').serializeArray()},
                     dataType:'json'
                   }).done(function(json){
                      if(json['status'] == 'suc'){
@@ -1362,6 +1374,18 @@ courseware_id: '<%=@courseware.id%>'
                   $('#flag-video-buttons').removeClass('hid').show();
                }
              };
+             $('li.comment.yt-tile-default').live('click',function(e){
+               console.log(e.target);
+               cid = $(this).attr('data-action');
+             });
+             $('.comment-action').live('click',function(){
+               type = $(this).attr('data-action');
+               console.log(type);
+             });
+             $('.end.flip.yt-uix-button.yt-uix-button-default.yt-uix-button-empty').live('click',function(){
+               $(this).toggleClass('yt-uix-button-active');
+               $('.yt-uix-button-menu.yt-uix-button-menu-default',this).toggle().toggleClass('hid');
+             });
            <% end %>
         </script>
 </div>

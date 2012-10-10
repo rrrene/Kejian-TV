@@ -331,4 +331,13 @@ HEREDOC
     end
     render json:json
   end
+  
+  def get_dynamic_dingcai
+     cw = Courseware.find(params[:cw_id])
+     dp = (cw.thanked_count * 1.0 / ((cw.disliked_count+cw.thanked_count) *1.0 )) * 100
+     cp = (cw.disliked_count*1.0 / ((cw.disliked_count+cw.thanked_count)*1.0))*100
+     
+     json = {dingpercent:dp,caipercent:cp,d:cw.thanked_count,c:cw.disliked_count}
+     render json:json
+  end
 end

@@ -52,6 +52,7 @@ Sub::Application.routes.draw do
   post '/ajax/get_share_partial' => 'ajax#get_share_partial'
   post '/ajax/ajax_send_email' =>'ajax#ajax_send_email'
   post '/ajax/flagcw' => 'ajax#flag_cw'
+  post '/ajax/get_dynamic_dingcai' => 'ajax#get_dynamic_dingcai'
   # ---=small=----
   get 'hack/htc'
   get '/welcome/inactive_sign_up'
