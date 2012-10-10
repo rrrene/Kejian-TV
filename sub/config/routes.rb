@@ -177,15 +177,10 @@ Sub::Application.routes.draw do
       # get "following_asks"
     end
   end
+  get '/autocomplete/all'
+  get '/autocomplete/swords'
+  get '/search' => 'search#index'
   get '/search/:q' => 'search#show'
-  resources :search do
-    collection do
-      get "all"
-      get "topics"
-      get "asks"
-      get "users"
-    end
-  end
   
   resources :asks do
     member do

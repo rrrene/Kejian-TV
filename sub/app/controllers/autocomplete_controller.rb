@@ -1,18 +1,18 @@
 # -*- encoding : utf-8 -*-
-class SearchController < ApplicationController
-  skip_filter :set_vars,:only=>[:all]
-  skip_filter :xookie,:only=>[:all]
-  skip_filter :dz_security,:only=>[:all]
-  skip_filter :insert_UserOrGuest,:only=>[:all]
-  skip_filter :get_extcredits,:only=>[:all]
-  skip_filter :get_srchhotkeywords,:only=>[:all]
-  skip_filter :check_privilige,:only=>[:all]
+class AutocompleteController < ApplicationController
+  skip_filter :set_vars
+  skip_filter :xookie
+  skip_filter :dz_security
+  skip_filter :insert_UserOrGuest
+  skip_filter :get_extcredits
+  skip_filter :get_srchhotkeywords
+  skip_filter :check_privilige
 
-  def index
-    @seo[:title] = '课件搜索'
-  end
-  def show
-    @seo[:title] = params[:q]
+  def swords
+    result = Redis::Search.query("Courseware",params[:term],:limit=>10,:sort_field=>'c')
+    result += Redis::Search.complete("Courseware",params[:term],:limit=>10,:sort_field=>'c') if result.length < 10
+    #todo teacher
+    render json:result
   end
   def all
     # sum = 0
