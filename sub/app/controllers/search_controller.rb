@@ -9,11 +9,10 @@ class SearchController < ApplicationController
   skip_filter :check_privilige,:only=>[:all]
 
   def index
-    redirect_to '/search/大物'
-    return false
+    @seo[:title] = '课件搜索'
   end
   def show
-
+    @seo[:title] = params[:q]
   end
   def all
     # sum = 0
