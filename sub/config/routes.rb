@@ -176,6 +176,7 @@ Sub::Application.routes.draw do
       # get "following_asks"
     end
   end
+  get '/search/:q' => 'search#show'
   resources :search do
     collection do
       get "all"

@@ -315,7 +315,7 @@ jsstatus"=>"0", "karmaratelimit"=>"0", "losslessdel"=>"365", "magicdiscount"=>"8
   end
   
   before_filter :get_extcredits
-  before_filter :get_srchhotkeywords
+  #before_filter :get_srchhotkeywords
   def get_srchhotkeywords
     @s_keyword  = PreCommonSetting.where(:skey => 'srchhotkeywords').first.svalue
     @hotkeywords_list = @s_keyword.split.compact

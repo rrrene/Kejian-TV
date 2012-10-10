@@ -1,13 +1,20 @@
 # -*- encoding : utf-8 -*-
 class SearchController < ApplicationController
-  skip_filter :set_vars
-  skip_filter :xookie
-  skip_filter :dz_security
-  skip_filter :insert_UserOrGuest
-  skip_filter :get_extcredits
-  skip_filter :get_srchhotkeywords
-  skip_filter :check_privilige
+  skip_filter :set_vars,:only=>[:all]
+  skip_filter :xookie,:only=>[:all]
+  skip_filter :dz_security,:only=>[:all]
+  skip_filter :insert_UserOrGuest,:only=>[:all]
+  skip_filter :get_extcredits,:only=>[:all]
+  skip_filter :get_srchhotkeywords,:only=>[:all]
+  skip_filter :check_privilige,:only=>[:all]
 
+  def index
+    redirect_to '/search/大物'
+    return false
+  end
+  def show
+
+  end
   def all
     # sum = 0
     # sum += Redis::Search.query("Topic",params[:q].strip,:limit => 10,:sort_field=>'followers_count', :only_count=>true)
