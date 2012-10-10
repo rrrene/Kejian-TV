@@ -9,6 +9,14 @@
 <% content_for :butt2 do %>
 KTV.dz_targetize();
 $('#psvr_dz_target').resize(KTV.dz_targetize);
+$('#gbqfqw').click(function(){
+  $('#gbqfq').focus();
+});
+$('#gbqfq').focus(function(){
+  $('#gbqfqw').addClass('focused');
+}).blur(function(){
+  $('#gbqfqw').removeClass('focused');
+});
 <% end %>
 
 <div class="wrapper" style="width:1000px">
@@ -50,7 +58,7 @@ $('#psvr_dz_target').resize(KTV.dz_targetize);
 												</td>
 												<td id="gs_tti0" class="gsib_a">
 													<div id="gs_lc0" style="position: relative; ">
-														<input id="gbqfq" class="gbqfif" name="q" type="text" autocomplete="off" value="" style="border-top-style: none; border-right-style: none; border-bottom-style: none; border-left-style: none; border-width: initial; border-color: initial; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; width: 100%; height: 1.25em; margin-top: -0.0625em; background-image: url(data:image/gif;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw%3D%3D); background-attachment: initial; background-origin: initial; background-clip: initial; background-color: transparent; position: absolute; z-index: 6; left: 0px; outline-style: none; outline-width: initial; outline-color: initial; background-position: initial initial; background-repeat: initial initial; " dir="ltr" spellcheck="false">
+														<input id="gbqfq" class="gbqfif" name="q" type="text" autocomplete="off" value="" style="border-top-style: none; border-right-style: none; border-bottom-style: none; border-left-style: none; border-width: initial; border-color: initial; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; margin:0 0 0 -175px; width: 534px; height: 30px; color:#000; line-height:30px; margin-top: -0.0625em; background-image: url(data:image/gif;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw%3D%3D); background-attachment: initial; background-origin: initial; background-clip: initial; background-color: transparent; position: absolute; z-index: 6; left: 0px; outline-style: none; outline-width: initial; outline-color: initial; background-position: initial initial; background-repeat: initial initial; " dir="ltr" spellcheck="false">
 														<div class="gbqfif" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: transparent; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; position: absolute; z-index: 2; white-space: pre; color: transparent; visibility: hidden; background-position: initial initial; background-repeat: initial initial; " id="gs_sc0">
 														</div>
 														<input class="gbqfif" disabled="" style="border-top-style: none; border-right-style: none; border-bottom-style: none; border-left-style: none; border-width: initial; border-color: initial; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; height: auto; width: 100%; position: absolute; z-index: 1; background-color: transparent; -webkit-text-fill-color: silver; color: silver; left: 0px; visibility: hidden; " id="gs_taif0" dir="ltr"><input class="gbqfif" disabled="" style="border-top-style: none; border-right-style: none; border-bottom-style: none; border-left-style: none; border-width: initial; border-color: initial; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; height: auto; width: 100%; position: absolute; z-index: 1; background-color: transparent; -webkit-text-fill-color: silver; color: silver; left: 0px; visibility: hidden; " id="gs_htif0" dir="ltr">
@@ -72,34 +80,6 @@ $('#psvr_dz_target').resize(KTV.dz_targetize);
 							</div>
 							<div id="gbqfbwa" class="jsb">
 								<button id="gbqfba" aria-label="搜索 <%= Setting.ktv_subname_eng %> 课件资源" name="btnK" class="gbqfba"><span id="gbqfsa">搜索 <%= Setting.ktv_subname_eng %> 课件资源</span></button><button id="gbqfbb" aria-label="手气不错" name="btnI" class="gbqfba" ><span id="gbqfsb">手气不错</span></button>
-								<div class="gbqfba gbqfba-hvr" role="button" style="display: none; font-family: Arial, sans-serif; overflow-x: hidden; overflow-y: hidden; text-align: center; z-index: 50; ">
-									<div style="left: 0px; position: absolute; right: 0px; white-space: nowrap; ">
-										<div>
-											<span>I'm Feeling Doodley</span>
-										</div>
-										<div>
-											<span>I'm Feeling Artistic</span>
-										</div>
-										<div>
-											<span>I'm Feeling Hungry</span>
-										</div>
-										<div>
-											<span>I'm Feeling Puzzled</span>
-										</div>
-										<div>
-											<span>I'm Feeling Trendy</span>
-										</div>
-										<div>
-											<span>I'm Feeling Stellar</span>
-										</div>
-										<div>
-											<span>I'm Feeling Playful</span>
-										</div>
-										<div>
-											<span>I'm Feeling Wonderful</span>
-										</div>
-									</div>
-								</div>
 							</div>
 							<input type="hidden" name="oq"><input type="hidden" name="gs_l"><input type="hidden" name="pbx" value="1">
 							
