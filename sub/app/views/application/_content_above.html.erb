@@ -17,7 +17,7 @@ background: #fdfdfd url(<%= asset_path 'sstatic/skeptics/img/grid_noise_dark.png
                         <li class="<%= 'youarehere' if WelcomeController==controller.class %>"><a id="nav-questions" href="/">全部课件</a></li>
                         <li class="<%= 'youarehere' if PlayListsController==controller.class %>"><a id="nav-questions" href="/play_lists">播放列表</a></li>
                         <li class="<%= 'youarehere' if CoursesController==controller.class || DepartmentsController==controller.class %>"><a id="nav-unanswered" href="/courses">课程目录</a></li>
-                        <li class="<%= 'youarehere' if SearchController==controller.class || DepartmentsController==controller.class %>"><a id="nav-unanswered" href="/search">课件搜索</a></li>
+                        <li class="<%= 'youarehere' if SearchController==controller.class%>"><a id="nav-unanswered" href="/search">课件搜索</a></li>
                     </ul>
                 </div>
             </div>

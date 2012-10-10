@@ -181,6 +181,7 @@ Sub::Application.routes.draw do
   get '/autocomplete/swords'
   get '/search' => 'search#index'
   get '/search/:q' => 'search#show'
+  get '/search_lucky/:q' => 'search#show'
   
   resources :asks do
     member do

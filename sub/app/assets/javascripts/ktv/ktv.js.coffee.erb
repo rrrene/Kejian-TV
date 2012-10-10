@@ -24,25 +24,31 @@
     ).blur(->
       $('#gbqfqw').removeClass('focused');
     );
-    $('#gbqfq').bind('keydown',->
+    $('#gbqfq').bind('keydown',(e)->
+      c=String.fromCharCode(e.keyCode);
+      return true unless c.match(/\w/)
       KTV.switch_inside_sss();
       $(this).unbind('keydown');
       $('#gbqfq').autocomplete({
-        minLength: 1,
+        minLength: 0,
         source: ( request, response ) ->
           term = request.term
           if false and KTV.sss_term_cache[term]
             KTV.sss_term_cater( KTV.sss_term_cache[ term ], term )
           else
-            $.get("http://ibeike.kejian.tv/autocomplete/swords", request, ( data, status, xhr ) ->
+            $.get("/autocomplete/swords", request, ( data, status, xhr ) ->
               KTV.sss_term_cater( data, term )
             , 'json')
       });
+      $('#gbqfq').bind( "input.autocomplete", ->
+        $(this).trigger('keydown.autocomplete')
+      )
     )
     KTV.sss_tr_op();
     
   KTV.sss_term_cater = (data,term)->
     if data is null or data.length is 0
+      $('#psvr_gtbody').html('')
       $('#psvr_gtable').hide()
     else
       ret = ''
@@ -54,8 +60,9 @@
           			<tbody>\
           			<tr>\
           				<td style=\"width: 100%;\">\
-          					<span>#{itemRaw['t']}</span>\
+          					<span>#{itemRaw['title']}</span>\
           				</td>\
+                  <td><a href=\"/search_lucky/#{itemRaw['title']}\" class=\"gssb_j\">手气不错 »</a></td>\
           			</tr>\
           			</tbody>\
           			</table>\
@@ -66,6 +73,7 @@
       )
       $('#psvr_gtbody').html(ret)
       $('#psvr_gtable').show()
+    KTV.sss_tr_op();
     
   KTV.switch_inside_sss = ->
     $('#gbx1').show()
@@ -85,11 +93,20 @@
     $('#pocs').show();
   
   KTV.sss_tr_op = ->
-    $('#psvr_gtable tr').hover(->
-      $(this).addClass('gssb_i');
+    $('#psvr_gtbody .gssb_j').hide();
+    $('#psvr_gtbody>tr').hover(->
+      $(this).addClass('gssb_i')
+      $('.gssb_j',this).show()
     ,->
-      $(this).removeClass('gssb_i');
+      $(this).removeClass('gssb_i')
+      $('.gssb_j',this).hide()
     )
+    length=$('#psvr_gtbody>tr').length
+    if 0==length
+      $('#pocs').css('top',48)
+    else
+      $('#pocs').css('top',52+length*22)
+
   KTV.dz_targetize = ->
     $('#content').height($('#psvr_dz_target').height());
   KTV.sdk_flashes_set = (type,msg)->
