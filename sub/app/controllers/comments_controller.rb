@@ -25,7 +25,6 @@ class CommentsController < ApplicationController
       render text:'window.location.href="/under_verification"'
       return
     end
-
 =begin
 an params example:
 {"utf8"=>"✓", "authenticity_token"=>"Vl5Cm0DN8IuKznybqT5DratuEaL9kb0E/1AzgsIBtgs=", "comment"=>{"commentable_type"=>"Ask", "commentable_id"=>"4e66d5046130032a31000032", "body"=>"fddfsfdfsfdssfd"}, "action"=>"create", "controller"=>"comments"}

@@ -312,7 +312,7 @@ HEREDOC
         fr.user_id = params[:user_id]
         fr.layer = params[:layer]
         fr.reason_id = params[:reason]
-
+        fr.atype = 0
         params[:form].each do |k,v| 
             if v['name'] == 'flage_page'
                 fr.flag_page  = v['value'].to_i
@@ -324,7 +324,7 @@ HEREDOC
                 fr.flag_desc = v['value']
             end
         end
-        fr.save
+        fr.save(:validate=>false)
         json = {status:'suc'}
     rescue =>e
         json = {status:'failed'}
@@ -340,4 +340,63 @@ HEREDOC
      json = {dingpercent:dp,caipercent:cp,d:cw.thanked_count,c:cw.disliked_count}
      render json:json
   end
+  def comment_action
+    atype = params[:atype]
+    ct = Comment.find(params[:cid])
+    cw = Courseware.find(ct.commentable_id)
+    us = User.find(ct.user_id)
+    if atype == "vote-up" 
+        if !ct.voteup_user_ids.include?(current_user.id) and !ct.votedown_user_ids.include?(current_user.id) 
+            ct.update_attribute(:voteup,ct.voteup+1)
+            ct.update_attribute(:voteup_user_ids,ct.voteup_user_ids << current_user.id)
+        end
+        json = {status:'suc',up:ct.voteup,down:ct.votedown,cc:ct.voteup-ct.votedown}
+        render json:json
+    elsif atype == "vote-down"
+        if !ct.voteup_user_ids.include?(current_user.id) and !ct.votedown_user_ids.include?(current_user.id) 
+            ct.update_attribute(:votedown,ct.votedown+1)
+            ct.update_attribute(:votedown_user_ids,ct.votedown_user_ids << current_user.id)
+        end
+        json = {status:'suc',up:ct.voteup,down:ct.votedown,cc:ct.voteup-ct.votedown}
+        render json:json
+    elsif atype == 'reply'
+        comment = Comment.new
+        comment.replied_to_comment_id = ct.id
+        render file:'coursewares/_ct2ct_new',locals:{comment:comment,parent:ct.id,cw:cw.id},layout:false
+    elsif atype == 'share'
+        render file:'coursewares/_comment_share',locals:{comment:ct,cw:cw},layout:false
+    elsif atype == 'remove'
+        if ct.user_id ==current_user.id or us.admin_type == User::SUP_ADMIN or us.admin_type == User::SUB_ADMIN
+            ct.deletor_id = current
+            ct.deleted_at = Time.now
+            json = {status:'suc'}
+            render json:json
+            return true
+        end
+        json = {status:'failed'}
+        render json:json
+        return false
+    elsif atype == 'flag'
+        begin
+            if !(ff = FlagRecord.where(cwid:ct.id).first).nil? and ff.atype == 1
+                ff.update_attribute(:times,ff.times+1)
+                json = {status:'suc'}
+                render json:json 
+                return false
+            end 
+            fr = FlagRecord.new
+            fr.cwid = ct.id
+            fr.user_id = params[:user_id]
+            fr.atype = 1
+            fr.save(:validate=>false)
+            json = {status:'suc'}
+        rescue =>e
+            json = {status:'failed'}
+        end
+        render json:json        
+    elsif atype == 'unblock'
+    elsif atype == 'block'        
+    end
+  end
 end
+

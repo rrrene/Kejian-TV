@@ -3541,6 +3541,7 @@
   	white-space:nowrap
   }
   .yt-uix-button-group .yt-uix-button {
+    margin-right: -2px;
   	border-right-style:none;
   	-moz-border-radius:0;
   	-webkit-border-radius:0;
@@ -3802,6 +3803,14 @@
   	padding:0;
   	margin-top:1em
   }
+  .comments-post-containerx {
+  	padding:3px;
+  	margin-left:20px;
+  }
+  .comment .comments-post-containerx {
+  	padding:0;
+  	margin-top:1em;
+  }
   .comments-post-profile {
   	float:left
   }
@@ -3832,7 +3841,41 @@
   	padding:5px;
   	height:34px
   }
+  
+  
+  .comments-textarea-containerx {
+  	position:relative
+  }
+  .comments-approval-hold-warning,.comments-textarea-containerx,.comments-remainingx,.comments-threshold-countdownx {
+  	margin-left:56px
+  }
+  .comments-textarea-containerx .comments-textarea-tip {
+  	position:absolute;
+  	left:-5px;
+  	top:19px;
+  	height:0;
+  	border:5px solid transparent;
+  	border-left-width:0;
+  	border-right-color:#b9b9b9;
+  	z-index:-1
+  }
+  .comments-textarea-containerx label {
+  	position:absolute;
+  	left:10px;
+  	top:10px;
+  	color:#666
+  }
+  .comments-post-alert,.comments-textarea-containerx textarea {
+  	width:97%;
+  	padding:5px;
+  	height:34px
+  }
+  
+  
   .comments-textarea-container textarea {
+  	resize:vertical
+  }
+  .comments-textarea-containerx textarea {
   	resize:vertical
   }
   .comments-post-alert {
@@ -3841,6 +3884,9 @@
   }
   .comments-approval-hold-warning,.comments-remaining,.comments-post-buttons {
   	display:none;
+  	margin-top:.5em
+  }
+  .comments-remainingx{
   	margin-top:.5em
   }
   .comments-threshold-countdown {
@@ -3858,6 +3904,10 @@
   .comments-post-buttons {
   	text-align:right
   }
+  .comments-post-buttonsx {
+    margin-top:-1.5em;
+  	text-align:right
+  }
   .has-focus .comments-textarea-container label {
   	display:none
   }
@@ -3865,6 +3915,9 @@
   	height:4.8em
   }
   .has-focus .comments-approval-hold-warning,.has-focus .comments-remaining,.has-focus .comments-post-buttons {
+  	display:block
+  }
+  .has-focus .comments-remainingx,.has-focus .comments-post-buttonsx {
   	display:block
   }
   .hidden .comment-text {
@@ -3978,34 +4031,30 @@
   .voted-up .yt-uix-button .yt-uix-button-icon-watch-comment-vote-up,.voted-down .yt-uix-button .yt-uix-button-icon-watch-comment-vote-up {
   	cursor:default
   }
-  .comment .yt-uix-button .yt-uix-button-icon-watch-comment-vote-up,.comment .yt-uix-button:hover .yt-uix-button-icon-watch-comment-vote-up {
-  	background:no-repeat url(<%=asset_path('yt/imgbin/www-refresh-vflMLqC23.png')%>) -34px -43px;
-  	width:12px;
-  	height:12px
-  }
-  .exp-watch-actions-refresh .comment .yt-uix-button .yt-uix-button-icon-watch-comment-vote-up,.exp-watch-actions-refresh .comment .yt-uix-button:hover .yt-uix-button-icon-watch-comment-vote-up {
-  	background:no-repeat url(<%=asset_path('yt/imgbin/www-watchrefresh-vflRhmaGr.png')%>) 0 -152px;
-  	width:10px;
-  	height:10px
-  }
   .yt-uix-button-group .yt-uix-button:hover {
       position: relative;
       z-index: 2147483645;
   }
-  .comment .yt-uix-button .yt-uix-button-icon-watch-comment-vote-down,.comment .yt-uix-button:hover .yt-uix-button-icon-watch-comment-vote-down {
-  	background:no-repeat url(<%=asset_path('yt/imgbin/www-refresh-vflMLqC23.png')%>) -58px -77px;
-  	width:12px;
-  	height:12px
+  .yt-uix-button-icon-watch-comment-vote-up {
+      background: url(<%=asset_path('yt/imgbin/www-refresh-vflIJtcPd.png')%>) no-repeat scroll -158px -245px transparent;
+      height: 12px;
+      width: 12px;
   }
-  .exp-watch-actions-refresh .comment .yt-uix-button .yt-uix-button-icon-watch-comment-vote-down,.exp-watch-actions-refresh .comment .yt-uix-button:hover .yt-uix-button-icon-watch-comment-vote-down {
-  	background:no-repeat url(<%=asset_path('yt/imgbin/www-watchrefresh-vflRhmaGr.png')%>) 0 -32px;
-  	width:10px;
-  	height:10px
+  .voted-up .yt-uix-button-icon-watch-comment-vote-up, .yt-uix-button:hover .yt-uix-button-icon-watch-comment-vote-up {
+      background: url(<%=asset_path('yt/imgbin/www-refresh-vflIJtcPd.png')%>) no-repeat scroll -36px -265px transparent;
   }
-  .comment .yt-uix-button .yt-uix-button-icon-watch-comment-reply,.comment .yt-uix-button:hover .yt-uix-button-icon-watch-comment-reply {
-  	background:no-repeat url(<%=asset_path('yt/imgbin/www-refresh-vflMLqC23.png')%>) -271px -50px;
-  	width:12px;
-  	height:12px
+  .yt-uix-button-icon-watch-comment-vote-down {
+      background: url(<%=asset_path('yt/imgbin/www-refresh-vflIJtcPd.png')%>) no-repeat scroll -68px -139px transparent;
+      height: 12px;
+      width: 12px;
+  }
+  .yt-uix-button:hover .yt-uix-button-icon-watch-comment-vote-down {
+      background: url(<%=asset_path('yt/imgbin/www-refresh-vflIJtcPd.png')%>) no-repeat scroll -18px -122px transparent;
+  }
+  .yt-uix-button-icon-watch-comment-reply {
+      background: url(<%=asset_path('yt/imgbin/www-refresh-vflIJtcPd.png')%>) no-repeat scroll 0 -223px transparent;
+      height: 12px;
+      width: 12px;
   }
   .voted-down .yt-uix-button-icon-watch-comment-vote-up,.voted-up .yt-uix-button-icon-watch-comment-vote-down {
   	opacity:.4
@@ -4028,6 +4077,8 @@
   .comment.pending:first-child .comments-action-pending-container {
   	top:6px
   }
+  
+
   .comments-action-pending {
   	display:block;
   	color:#f60;

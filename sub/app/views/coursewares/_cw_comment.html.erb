@@ -1,11 +1,20 @@
 <li data-score="<%= data_score %>" data-id="<%= comment.id %>" data-author-id="<%= comment.user_id %>" data-author-viewing="<% if current_user.id == comment.user_id %>True<% else %>False<% end %>" class="comment yt-tile-default">
+   <a name="<%= comment.id %>"></a>
    <div class="comment-body">
       <div class="content-container">
          <div class="content">
             <div dir="ltr" class="comment-text">
 
-               <p><%=Sanitize.clean(comment.body.gsub(/\n/, '<br />'), Sanitize::Config::BASIC).html_safe %></p>
+               <p>
+               <% if comment.deletor_id.nil? %>
+                 <%=Sanitize.clean(comment.body.gsub(/\n/, '<br />'), Sanitize::Config::BASIC).html_safe %>
+               <% else %>
+                 该评论已经被删除！
+               <% end %>
+               </p>
+                 
             </div>
+            <% if comment.replied_to_comment_id.nil? %>
             <p class="metadata">
                <span class="author ">
                <a dir="ltr" class="yt-uix-sessionlink yt-user-name " href="/users/<%= User.get_slug comment.user_id %>"><%= User.get_name comment.user_id %></a>
@@ -13,9 +22,37 @@
                <span class="time">
                <%= timeago(comment.created_at) %>
                </span>
+               <% if (cc=comment.voteup - comment.votedown) > 0 %>
+               <span title="顶了 <%= comment.voteup %> 次，踩了 <%= comment.votedown %> 次" class="comments-rating-positive" dir="ltr">
+                 <%= cc%>
+                 <img src="<%= asset_path 'yt/wfw.gif' %>" class="comments-rating-thumbs-up">
+               </span>
+               <%  end %>
             </p>
+            <% else %>
+            <% parent = Comment.find(comment.replied_to_comment_id) %>
+            <p class="metadata">
+                <span class="author ">
+                      <a dir="ltr"class="yt-uix-sessionlink yt-user-name " href="/users/<%= User.get_slug comment.user_id %>"><%= User.get_name comment.user_id %></a>
+                </span>
+                <span dir="ltr" class="time">
+      对    <a dir="ltr"  class="yt-uix-sessionlink yt-user-name " href="/user/<%= User.get_name parent.user_id %>"><%= User.get_name parent.user_id %></a>
+      的回复
+      <a data-action="show-parent" onclick="return false;" class="comment-action comment-action-showparent" href="#">(显示评论)</a>
+         <span dir="ltr"><%= timeago(comment.created_at) %><span>
+                </span>
+                 <% if (cc=comment.voteup - comment.votedown) > 0 %>
+                 <span title="顶了 <%= comment.voteup %> 次，踩了 <%= comment.votedown %> 次" class="comments-rating-positive" dir="ltr">
+                   <%= cc%>
+                   <img src="<%= asset_path 'yt/wfw.gif' %>" class="comments-rating-thumbs-up">
+                 </span>
+                 <%  end %>
+              </span>
+              </span>
+            </p>
+            <% end %>
          </div>
-          <div class="comment-actions">
+         <div class="comment-actions">
              <span class="yt-uix-button-group">
                  <button type="button" class="start comment-action-vote-up comment-action yt-uix-button yt-uix-button-default yt-uix-tooltip yt-uix-button-empty" onclick=";return false;" title="顶" data-action="vote-up" role="button">
                      <span class="yt-uix-button-icon-wrapper">
@@ -26,12 +63,12 @@
                  </button>
              </span>
              <span class="yt-uix-button-group">
-                 <button type="button" class="start comment-action yt-uix-button yt-uix-button-default" onclick=";return false;" data-action="reply" role="button">
+                 <button type="button" class="start comment-action yt-uix-tooltip yt-uix-button yt-uix-button-default" onclick=";return false;" title='回复' data-action="reply" role="button">
                      <span class="yt-uix-button-content">回复 </span>
                  </button>
                  <button type="button" class="end flip yt-uix-button yt-uix-button-default yt-uix-button-empty" onclick=";return false;" data-button-has-sibling-menu="true" role="button" aria-pressed="false" aria-expanded="false" >
                      <img class="yt-uix-button-arrow" src="<%= asset_path 'yt/wfw.gif' %>" alt="">
-                     <div class="yt-uix-button-menu yt-uix-button-menu-default hid" style="display: none;">
+                     <div class="yt-uix-button-menu yt-uix-button-menu-default hid" style="display:none;margin-top:5px;margin-left:-50px;">
                          <ul>
                              <li class="comment-action" data-action="share">
                                  <span class="yt-uix-button-menu-item">分享</span>

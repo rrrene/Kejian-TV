@@ -626,7 +626,7 @@ courseware_id: '<%=@courseware.id%>'
 
 
                      <div class="comment-actions">
-                              <span class="yt-uix-button-group"><button role="button" data-tooltip-show-delay="300" data-action="vote-up" title="顶" onclick=";return false;" class="start comment-action-vote-up comment-action yt-uix-button yt-uix-button-default yt-uix-tooltip yt-uix-button-empty" type="button"><span class="yt-uix-button-icon-wrapper"><img alt="顶" src="<%= asset_path 'yt/wfw.gif' %>" class="yt-uix-button-icon yt-uix-button-icon-watch-comment-vote-up"><span class="yt-valign-trick"></span></span></button><button role="button" data-tooltip-show-delay="300" data-action="vote-down" title="踩" onclick=";return false;" class="end comment-action-vote-down comment-action yt-uix-button yt-uix-button-default yt-uix-tooltip yt-uix-button-empty" type="button"><span class="yt-uix-button-icon-wrapper"><img alt="踩" src="<%= asset_path 'yt/wfw.gif' %>" class="yt-uix-button-icon yt-uix-button-icon-watch-comment-vote-down"><span class="yt-valign-trick"></span></span></button></span><span class="yt-uix-button-group"><button role="button" data-action="reply" onclick=";return false;" class="start comment-action yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-content">回复 </span></button><button aria-activedescendant="" aria-haspopup="true" aria-expanded="false" aria-pressed="false" role="button" data-button-has-sibling-menu="true" onclick=";return false;" class="end flip yt-uix-button yt-uix-button-default yt-uix-button-empty" type="button"><img alt="" src="<%= asset_path 'yt/wfw.gif' %>" class="yt-uix-button-arrow"><div style="display: none;" class=" yt-uix-button-menu yt-uix-button-menu-default"><ul><li data-action="share" class="comment-action"><span class="yt-uix-button-menu-item">分享</span></li><li data-action="remove" class="comment-action-remove comment-action"><span class="yt-uix-button-menu-item">删除</span></li><li data-action="flag" class="comment-action"><span class="yt-uix-button-menu-item">举报</span></li><li data-action="block" class="comment-action-block comment-action"><span class="yt-uix-button-menu-item">屏蔽该用户</span></li><li data-action="unblock" class="comment-action-unblock comment-action"><span class="yt-uix-button-menu-item">解除对用户的屏蔽</span></li></ul></div></button></span>  </div>
+                              <span class="yt-uix-button-group"><button role="button" data-tooltip-show-delay="300" data-action="vote-up" title="顶" onclick=";return false;" class="start comment-action-vote-up comment-action yt-uix-button yt-uix-button-default yt-uix-tooltip yt-uix-button-empty" type="button"><span class="yt-uix-button-icon-wrapper"><img alt="顶" src="<%= asset_path 'yt/wfw.gif' %>" class="yt-uix-button-icon yt-uix-button-icon-watch-comment-vote-up"><span class="yt-valign-trick"></span></span></button><button role="button" data-tooltip-show-delay="300" data-action="vote-down" title="踩" onclick=";return false;" class="end comment-action-vote-down comment-action yt-uix-button yt-uix-button-default yt-uix-tooltip yt-uix-button-empty" type="button"><span class="yt-uix-button-icon-wrapper"><img alt="踩" src="<%= asset_path 'yt/wfw.gif' %>" class="yt-uix-button-icon yt-uix-button-icon-watch-comment-vote-down"><span class="yt-valign-trick"></span></span></button></span><span class="yt-uix-button-group"><button role="button" data-action="reply" onclick=";return false;" title='回复' class="start comment-action yt-uix-button yt-uix-tooltip yt-uix-button-default" type="button"><span class="yt-uix-button-content">回复 </span></button><button aria-activedescendant="" aria-haspopup="true" aria-expanded="false" aria-pressed="false" role="button" data-button-has-sibling-menu="true" onclick=";return false;" class="end flip yt-uix-button yt-uix-button-default yt-uix-button-empty" type="button"><img alt="" src="<%= asset_path 'yt/wfw.gif' %>" class="yt-uix-button-arrow"><div style="display: none;" class=" yt-uix-button-menu yt-uix-button-menu-default"><ul><li data-action="share" class="comment-action"><span class="yt-uix-button-menu-item">分享</span></li><li data-action="remove" class="comment-action-remove comment-action"><span class="yt-uix-button-menu-item">删除</span></li><li data-action="flag" class="comment-action"><span class="yt-uix-button-menu-item">举报</span></li><li data-action="block" class="comment-action-block comment-action"><span class="yt-uix-button-menu-item">屏蔽该用户</span></li><li data-action="unblock" class="comment-action-unblock comment-action"><span class="yt-uix-button-menu-item">解除对用户的屏蔽</span></li></ul></div></button></span>  </div>
 
                     </div>
 
@@ -700,49 +700,7 @@ courseware_id: '<%=@courseware.id%>'
                             </div>
                       </div>
                      <div class="comments-post-container clearfix">
-                        <% if current_user %>
-                        <% if flash[:notice]%>
-                				<div class="notice" style="margin:8px">
-                					<p class="title"><%= flash[:notice] %></p>
-                				</div>
-                		<% end %>
-                        <%= form_for @comment,:remote => true do |f| %>
-                        <%= f.hidden_field :commentable_type %>
-                        <%= f.hidden_field :commentable_id %>
-                        <div class="yt-alert yt-alert-default yt-alert-error hid comments-post-message">
-                           <div class="yt-alert-icon">
-                              <img alt="Alert icon" class="icon master-sprite" src="<%= asset_path 'yt/wfw.gif' %>" />
-                           </div>
-                           <div class="yt-alert-buttons"></div>
-                           <div role="alert" class="yt-alert-content"></div>
-                        </div>
-                        <a class="yt-user-photo comments-post-profile" href="/user/pmq20">
-                        <span class="video-thumb ux-thumb yt-thumb-square-46 ">
-                            <span class="yt-thumb-clip">
-                                <span class="yt-thumb-clip-inner">
-                                    <img width="46" src=<% if !current_user.nil? %>"<%= avatar_url current_user %>"<%else%> <% end %> />
-                                    <span class="vertical-align"></span>
-                                </span>
-                            </span>
-                        </span>
-                        </a>
-                        <div class="comments-textarea-container"><img class="comments-textarea-tip" alt="" src="<%= asset_path 'yt/wfw.gif' %>" />
-                        <label class="comments-textarea-label link-gplus-lightbox" id="comment_placeholder">说点什么...</label>
-                           <%= f.text_area :body,id:"comment_placeholder_now",class:"yt-uix-form-textarea comments-textarea link-gplus-lightbox" %>
-                        </div>
-                        <p class="comments-remaining">
-                           还可以输入<span data-max-count="500" class="comments-remaining-count"></span>字
-                        </p>
-                        <p class="comments-post-buttons">
-                           <button role="button" class="comments-post yt-uix-button yt-uix-button-default" type="submit"><span class="yt-uix-button-content">发表评论 </span></button>
-                        </p>
-                        <% end %>
-                        
-                        <% else %>
-                        <div class="comments-post-alert">
-                                  现在<a id="comment_login" href="/login">登录</a>或<a href="/register">注册</a><span class="comments-post-form-rollover-text">即可发表评论！</span>
-                        </div>
-                        <% end %>
+                       <%= render :partial=>'comment_new',:locals=>{comment:@comment} %>
                      </div>
                      <ul class="comment-list" id="the_comment-list">
                         <% if @comments.count > 0%>
@@ -861,6 +819,24 @@ courseware_id: '<%=@courseware.id%>'
    
       <script type="text/javascript" charset="utf-8">
            <% content_for :butt2 do %>
+               var focus_comment = function(){
+                     $('#comment_placeholder').html('');
+                     $('.comments-textarea-container img').css('z-index','2');
+                     $('.comments-textarea-container textarea').height('78');
+                     $('.comments-post-buttons').show();
+               };
+               var give_up_focus = function(){
+                    $('#comment_placeholder').html('说点什么。。。');
+                    $('#comment_placeholder_now').val('');
+                    $('.comments-remaining').hide();
+                    $('.comments-textarea-container img').css('z-index','-1');
+                    $('.comments-textarea-container textarea').height('40');
+                    $('.comments-post-buttons').hide();
+               }
+               $('#new_comment').bind('ajax:success',function(event, responseText, ajaxOptions){
+                 $('#the_comment-list').prepend(responseText);
+                 give_up_focus();
+               });
               var closeHide = function(){
                somethingHide('#watch-actions-area-container');
                somethingHide('#watch-actions-loading');
@@ -869,12 +845,10 @@ courseware_id: '<%=@courseware.id%>'
                removeToggled('');
              };
              $('#closehide').live('click',closeHide);
-             var focus_comment = function(){
-                  $('#comment_placeholder').html('');
-                   $('.comments-textarea-container img').css('z-index','2');
-                   $('.comments-textarea-container textarea').height('78');
-                   $('.comments-post-buttons').show();
-             };
+             $("div[data-action='close-share']").live('click',function(){
+               $(this).parent().parent().remove();
+             });
+
              $('#comment_placeholder_now').focus(focus_comment);
              $('#comment_placeholder_now').live("keyup change",function(){
                 var max = parseInt($('.comments-remaining-count').attr('data-max-count'));
@@ -883,7 +857,15 @@ courseware_id: '<%=@courseware.id%>'
                     $(this).val($(this).val().substr(0, max));
                 }
                 $('.comments-remaining-count').html(max-$(this).val().length);
-             });
+             });  
+             $('#ct2ct_body').live("keyup change",function(){
+                 var max = parseInt($('.comments-remaining-countx').attr('data-max-count'));
+                 $('.comments-remainingx').show();
+                 if($(this).val().length > max){
+                     $(this).val($(this).val().substr(0, max));
+                 }
+                 $('.comments-remaining-countx').html(max-$(this).val().length);
+              });
              $('#comment_placeholder').live("click",focus_comment);
              $('#watch-description-toggle').live("click",function(){
                 $('#watch-description').toggleClass('yt-uix-expander-collapsed');
@@ -1011,9 +993,6 @@ courseware_id: '<%=@courseware.id%>'
                   $(this).toggleClass('yt-uix-button-toggled');
                   ajax_load_board(this,'stat');
               });           
-             $('#new_comment').bind('ajax:success',function(event, responseText, ajaxOptions){
-               $('#the_comment-list').prepend(responseText);
-             });
              $('.yt-uix-tooltip').tipsy({gravity: $.fn.tipsy.autoNS,fade: true,opacity: 0.8});
              $('#comment_login').click(function(){return KTV.login()});
              $('#watch-more-related-button').live("click",function(){
@@ -1244,10 +1223,6 @@ courseware_id: '<%=@courseware.id%>'
               		loose:  /^(?:(?![^:@]+:[^:@\/]*@)([^:\/?#.]+):)?(?:\/\/)?((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?)(((\/(?:[^?#](?![^?#\/]*\.[^?#\/.]+(?:[?#]|$)))*\/?)?([^?#\/]*))(?:\?([^#]*))?(?:#(.*))?)/
               	}
               };
-              
-              
-              
-       
              $('#flag-reason-button').live('click',function(e){
                back2normal();
                if($(this).hasClass('yt-uix-button-active')){
@@ -1374,18 +1349,59 @@ courseware_id: '<%=@courseware.id%>'
                   $('#flag-video-buttons').removeClass('hid').show();
                }
              };
-             $('li.comment.yt-tile-default').live('click',function(e){
-               console.log(e.target);
-               cid = $(this).attr('data-action');
-             });
+             // $('li.comment.yt-tile-default').live('click',function(e){
+             //    console.log(e.target);
+             //    cid = $(this).attr('data-id');
+             //    console.log(cid);
+             //    console.log(e.data)
+             //    console.log(e.currentTarget)
+             //  });
              $('.comment-action').live('click',function(){
                type = $(this).attr('data-action');
-               console.log(type);
+               console.log(type); 
+               if(type == 'close-share')
+                return false;
+               if(type == 'vote-up' || type =='vote-down' || type =='reply'){
+                 cid = $(this).parent().parent().parent().parent().parent().attr('data-id')
+               }else{
+                 cid = $(this).parent().parent().parent().parent().parent().parent().parent().parent().attr('data-id');
+               }
+               if(type == 'share' || type == 'reply'){
+                 datatype = 'html';
+               }else{
+                 datatype = 'json';
+               }
+               tmp = this;
+               $.ajax({
+                 url:'/ajax/comment_action',
+                 type:'POST',
+                 data:{'cid':cid,'atype':type},
+                 dataType:datatype
+               }).done(function(data){
+                 if(type == 'share'){
+                    $('.comments-post-containerx').remove();
+                    $(tmp).parent().parent().parent().parent().parent().parent().parent().parent().append(data);
+                 }else if(type == 'reply'){
+                   $('.comments-post-containerx').remove();
+                   $(tmp).parent().parent().parent().parent().parent().append(data);
+                 }else if(type == 'vote-up' || type =='vote-down'){
+                   if(data['status'] == 'suc'){
+                     if(parseInt(data['cc'])>0){
+                       
+                     }
+                   }
+                 }else if(type == 'flag'){
+                   
+                 }else{
+                   
+                 }
+               })
              });
              $('.end.flip.yt-uix-button.yt-uix-button-default.yt-uix-button-empty').live('click',function(){
                $(this).toggleClass('yt-uix-button-active');
                $('.yt-uix-button-menu.yt-uix-button-menu-default',this).toggle().toggleClass('hid');
              });
+
            <% end %>
         </script>
 </div>
