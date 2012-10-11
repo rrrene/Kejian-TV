@@ -598,7 +598,7 @@ courseware_id: '<%=@courseware.id%>'
                   <div class="comments-section ">
                      <div id="comments-header-container">
                             <div id="comments-header">
-                                  <a href="/all_comments?v=EDIhtPftU50" class="comments-section-see-all">
+                                  <a href="/comments?type=Courseware&id=<%= @courseware.id %>" class="comments-section-see-all">
                       查看所有评论
                                   </a>
                                 <h4>
@@ -724,8 +724,7 @@ courseware_id: '<%=@courseware.id%>'
          <div id="baseDiv"></div>
       </div>
    </div>
-   
-      <script type="text/javascript" charset="utf-8">
+   <script type="text/javascript" charset="utf-8">
            <% content_for :butt2 do %>
            // $.ajaxSetup({
            //                   error: function(jqXHR, exception) {
@@ -1377,7 +1376,13 @@ courseware_id: '<%=@courseware.id%>'
                        return false;
                    });
              });
-             
+             $('.expand.yt-uix-expander-head').live('click',function(){
+                // $('dl.extra-events').slideDown('slow');
+                $('.stats-box.yt-uix-expander').removeClass('yt-uix-expander-collapsed');
+             });
+             $('.collapse.yt-uix-expander-head').live('click',function(){
+                $('.stats-box.yt-uix-expander').addClass('yt-uix-expander-collapsed');
+             });
            <% end %>
         </script>
 </div>

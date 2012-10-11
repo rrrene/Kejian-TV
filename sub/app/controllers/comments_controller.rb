@@ -6,7 +6,7 @@ class CommentsController < ApplicationController
     @type = params[:type]
     @id = params[:id]
     @per_page = 10
-    @comments = Comment.where(:commentable_type => @type.titleize, :commentable_id => BSON::ObjectId(@id)).nondeleted.asc("created_at").to_a
+    @comments = Comment.where(:commentable_type => @type.titleize, :commentable_id => BSON::ObjectId(@id)).nondeleted.desc("created_at").to_a
     @comments = @comments.paginate(:page => params[:page], :per_page => @per_page)
     @comment = Comment.new(:commentable_type => @type.titleize, :commentable_id => @id)
     respond_to do |format|
