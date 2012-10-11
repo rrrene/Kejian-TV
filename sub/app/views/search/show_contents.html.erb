@@ -1,0 +1,59 @@
+<% content_for :armpit do %>
+  <%= stylesheet_link_tag "__g", :media => "all" %>
+<% end %>
+
+
+<%= render :partial => 'content_above', :locals=>{:skp_content_style => "height:433px;"} %>
+<div id="mainbar" style="position:absolute;z-index:333;min-height:444px;margin-top:152px;margin-left:138px;">
+<div id="questions">
+<% @pages.each do |page|%>
+  <div id="question-summary-10960" class="question-summary">
+      <div class="statscontainer __sdk">
+        <div class="presentations">
+          <div data-slide-count="1" data-id="<%=page.courseware_id%>" class="presentation">
+            <a href="/coursewares/<%= page.courseware_id %>?slide=<%=page.page_index%>" class="slide_preview scrub setup">
+              <img src="<%= asset_url("cw/#{page.courseware_ktvid}/thumb_slide_#{page.page_index}.jpg") %>" alt="Thumb_slide_0" width="210" height="158">
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="summary">
+          <h3>
+              <a href="/courses/<%= page.course_fid %>" class="tag-post"><%= page.course_name %></a><br>
+              <a href="/coursewares/<%= page.courseware_id %>?slide=<%=page.page_index%>" class="question-hyperlink">
+            <% if page.highlight %>
+              <%=page_highlight((page.highlight.courseware_title ? page.highlight.courseware_title.join('...') : page.courseware_title),params[:q])%>
+            <% else %>
+              <%= page.courseware_title %>
+            <% end %>
+            (第<%= page.page_index+1 %>页)
+            </a>
+          </h3>
+          <div class="excerpt">
+            <% if page.highlight %>
+              <%=page_highlight((page.highlight.body ? page.highlight.body.join(' ... ') : page.body),params[:q])%>
+            <% else %>
+              <%= page.body %>
+            <% end %>
+          </div>
+      </div>
+  </div>
+  
+  <% end %>
+</div>
+<% if @pages.respond_to?(:total_pages) && @pages.total_pages > 1 %>
+<%= will_paginate @pages, :renderer=> SKPLinkRenderer,:inner_window=>3 %>
+<div class="page-sizer fr">
+  <a class="page-numbers<%= ' current' if '9'==params[:per_page] %>" title="每页显示9个条目" href="<%=alter_request_path request.fullpath,:per_page=>'9',:page=>'1'%>">9</a>
+    <a class="page-numbers<%= ' current' if  '15'==params[:per_page] %>" title="每页显示15个条目" href="<%=alter_request_path request.fullpath,:per_page=>'15',:page=>'1'%>">15</a>
+    <a class="page-numbers<%= ' current' if  '30'==params[:per_page] %>" title="每页显示30个条目" href="<%=alter_request_path request.fullpath,:per_page=>'30',:page=>'1'%>">30</a>
+    <a class="page-numbers<%= ' current' if  '50'==params[:per_page] %>" title="每页显示50个条目" href="<%=alter_request_path request.fullpath,:per_page=>'50',:page=>'1'%>">50</a>
+    <span class="page-numbers desc">条目/页</span>
+</div>
+
+<% end %>
+</div>
+
+<%= render :partial => 'content_below' %>
+<%= render :partial => 'search_show_common',:locals=>{:quan=>'页',:thing=>'课件内容',:mode=>:kejianneirong} %>
+

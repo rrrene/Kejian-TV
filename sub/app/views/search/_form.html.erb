@@ -1,6 +1,22 @@
 <% content_for :butt2 do%>
   $('#gbqf').submit(function(){
-    window.location.href="/search/"+encodeURI($('#gbqfq').val());
+    ret=encodeURI($('#gbqfq').val());
+    ret=ret.split('!').join('%21');
+    ret=ret.split('@').join('%40');
+    ret=ret.split('#').join('%23');
+    ret=ret.split('$').join('%24');
+    ret=ret.split('&').join('%26');
+    ret=ret.split('*').join('%2A');
+    ret=ret.split('(').join('%28');
+    ret=ret.split(')').join('%29');
+    ret=ret.split('=').join('%3D');
+    ret=ret.split(':').join('%3A');
+    ret=ret.split('/').join('%2F');
+    ret=ret.split(';').join('%3B');
+    ret=ret.split('?').join('%3F');
+    ret=ret.split('+').join('%2B');
+    ret=ret.split("\'").join('%27');
+    window.location.href="/<%=request.path.split('/')[1]%>/"+ret;
     return false;
   })
 <% end %>

@@ -6,7 +6,22 @@ module CoursewaresHelper
     return current_user.thanked_courseware_ids.count(courseware.id) > 0
     return
   end
-  def page_highlight(html)
-    return html_escape(html).gsub('__PSVR_begin_RVSP__','<span class="search-highlight">').gsub('__PSVR_end_RVSP__','</span>').html_safe
+  def page_highlight(html,keyword)
+    html=html_escape(html)
+    return html.gsub('__PSVR_begin_RVSP__','<span class="search-highlight">').gsub('__PSVR_end_RVSP__','</span>').html_safe
+=begin
+    chars=keyword.downcase.chars.to_a.uniq
+    arr=html.split('__PSVR_begin_RVSP__')
+    ret=arr[0]
+    arr[1..-1].each do |match__tail|
+      rra = match__tail.split('__PSVR_end_RVSP__')
+      if (rra[0].downcase.chars.to_a-chars).empty?
+        ret += "<span class=\"search-highlight\">#{rra[0]}</span>#{rra[1]}"
+      else
+        ret += "#{rra[0]}#{rra[1]}"
+      end
+    end
+    highlight(ret,keyword.split(/\s/).compact,:highlighter=>'<span class="search-highlight">\1</span>')
+=end
   end
 end

@@ -1,60 +1,3 @@
-<% content_for :armpit do %>
-  <%= stylesheet_link_tag "__g", :media => "all" %>
-<% end %>
-
-
-<%= render :partial => 'content_above', :locals=>{:skp_content_style => "height:433px;"} %>
-<div id="mainbar" style="position:absolute;z-index:333;min-height:444px;margin-top:152px;margin-left:138px;">
-<div id="questions">
-<% @pages.each do |page|%>
-  <div id="question-summary-10960" class="question-summary">
-      <div class="statscontainer __sdk">
-        <div class="presentations">
-          <div data-slide-count="1" data-id="<%=page.courseware_id%>" class="presentation">
-            <a href="/coursewares/<%= page.courseware_id %>?slide=<%=page.page_index%>" class="slide_preview scrub setup">
-              <img src="<%= asset_url("cw/#{page.courseware_ktvid}/thumb_slide_#{page.page_index}.jpg") %>" alt="Thumb_slide_0" width="210" height="158">
-            </a>
-          </div>
-        </div>
-      </div>
-      <div class="summary">
-          <h3>
-              <a href="/courses/<%= page.course_fid %>" class="tag-post"><%= page.course_name %></a><br>
-              <a href="/coursewares/<%= page.courseware_id %>?slide=<%=page.page_index%>" class="question-hyperlink">
-            <% if page.highlight %>
-              <%=page_highlight(page.highlight.courseware_title ? page.highlight.courseware_title.join('...') : page.courseware_title)%>
-            <% else %>
-              <%= page.courseware_title %>
-            <% end %>
-            
-            </a>
-          </h3>
-          <div class="excerpt">
-            <% if page.highlight %>
-              <%=page_highlight(page.highlight.body ? page.highlight.body.join(' ... ') : page.body)%>
-            <% else %>
-              <%= page.body %>
-            <% end %>
-          </div>
-      </div>
-  </div>
-  
-  <% end %>
-</div>
-<% if @pages.respond_to?(:total_pages) && @pages.total_pages > 1 %>
-<%= will_paginate @pages, :renderer=> SKPLinkRenderer,:inner_window=>3 %>
-<div class="page-sizer fr">
-  <a class="page-numbers<%= ' current' if '9'==params[:per_page] %>" title="每页显示9个条目" href="<%=alter_request_path request.fullpath,:per_page=>'9',:page=>'1'%>">9</a>
-    <a class="page-numbers<%= ' current' if  '15'==params[:per_page] %>" title="每页显示15个条目" href="<%=alter_request_path request.fullpath,:per_page=>'15',:page=>'1'%>">15</a>
-    <a class="page-numbers<%= ' current' if  '30'==params[:per_page] %>" title="每页显示30个条目" href="<%=alter_request_path request.fullpath,:per_page=>'30',:page=>'1'%>">30</a>
-    <a class="page-numbers<%= ' current' if  '50'==params[:per_page] %>" title="每页显示50个条目" href="<%=alter_request_path request.fullpath,:per_page=>'50',:page=>'1'%>">50</a>
-    <span class="page-numbers desc">条目/页</span>
-</div>
-
-<% end %>
-</div>
-
-<%= render :partial => 'content_below' %>
 <% content_for :butt2 do %>
 KTV.sss_op();
 jQuery('#main').height(jQuery('#mainbar').height()+88);
@@ -120,7 +63,7 @@ jQuery('#main').height(jQuery('#mainbar').height()+88);
 							</div>
 							<div id="sbfrm_l">
 								<div id="resultStats">
-                  共找到 <%=number_with_delimiter @pages.total_entries%> 个课件<nobr> (用时 <%=0%> 毫秒)&nbsp;</nobr>
+                  共找到 <%=number_with_delimiter @pages.total_entries%> <%=quan%>相关<%=thing%><nobr> (用时 <%=0%> 毫秒)&nbsp;</nobr>
 								</div>
 							</div>
 							<ol id="ab_ctls">
@@ -171,16 +114,60 @@ jQuery('#main').height(jQuery('#mainbar').height()+88);
 						<div id="leftnav" role="navigation" style="position:absolute;top:1px;width:132px">
 							<div id="ms">
 								<ul>
-									<li class="mitem msel">
+                <% if :kejian==mode %>
+                  <li class="mitem msel">
 									<div class="kls">
 										课件
 									</div>
 									</li>
-									<li class="mitem"><a class="kl" href="/search?q=%E5%A4%96%E6%98%9F%E4%BA%BA%E5%AD%A6%E7%89%A9%E7%90%862&amp;hl=en&amp;newwindow=1&amp;biw=1374&amp;bih=655&amp;prmd=imvns&amp;source=lnms&amp;tbm=isch&amp;sa=X&amp;ei=04d1UODSOobpiAeU5oGoDQ&amp;ved=0CAcQ_AUoAQ">课件内容</a></li>
-									<li class="mitem"><a class="kl" href="/search?q=%E5%A4%96%E6%98%9F%E4%BA%BA%E5%AD%A6%E7%89%A9%E7%90%862&amp;hl=en&amp;newwindow=1&amp;biw=1374&amp;bih=655&amp;prmd=imvns&amp;source=lnms&amp;tbm=isch&amp;sa=X&amp;ei=04d1UODSOobpiAeU5oGoDQ&amp;ved=0CAcQ_AUoAQ">播放列表</a></li>
-									<li class="mitem"><a class="kl" href="http://maps.google.com/maps?hl=en&amp;newwindow=1&amp;q=%E5%A4%96%E6%98%9F%E4%BA%BA%E5%AD%A6%E7%89%A9%E7%90%862&amp;bav=on.2,or.r_gc.r_pw.r_qf.&amp;bpcl=35243188&amp;biw=1374&amp;bih=655&amp;um=1&amp;ie=UTF-8&amp;sa=X&amp;ei=04d1UODSOobpiAeU5oGoDQ&amp;ved=0CAgQ_AUoAg">课程</a></li>
-									<li class="mitem"><a class="kl" href="/search?q=%E5%A4%96%E6%98%9F%E4%BA%BA%E5%AD%A6%E7%89%A9%E7%90%862&amp;hl=en&amp;newwindow=1&amp;biw=1374&amp;bih=655&amp;prmd=imvns&amp;source=lnms&amp;tbm=vid&amp;sa=X&amp;ei=04d1UODSOobpiAeU5oGoDQ&amp;ved=0CAkQ_AUoAw">老师</a></li>
-									<li class="mitem"><a class="kl" href="/search?q=%E5%A4%96%E6%98%9F%E4%BA%BA%E5%AD%A6%E7%89%A9%E7%90%862&amp;hl=en&amp;newwindow=1&amp;biw=1374&amp;bih=655&amp;prmd=imvns&amp;source=lnms&amp;tbm=vid&amp;sa=X&amp;ei=04d1UODSOobpiAeU5oGoDQ&amp;ved=0CAkQ_AUoAw">用户</a></li>
+                <% else %>
+                  <li class="mitem"><a class="kl" href="/search/<%=CGI::escape params[:q]%>">课件</a></li>
+                <% end %>
+                <% if :kejianneirong==mode %>
+                  <li class="mitem msel">
+									<div class="kls">
+										课件内容
+									</div>
+									</li>
+                <% else %>
+									<li class="mitem"><a class="kl" href="/search_contents/<%=CGI::escape params[:q]%>">课件内容</a></li>
+                <% end %>
+                <% if :bofangliebiao==mode %>
+                  <li class="mitem msel">
+									<div class="kls">
+										播放列表
+									</div>
+									</li>
+                <% else %>
+									<li class="mitem"><a class="kl" href="/search_playlists/<%=CGI::escape params[:q]%>">播放列表</a></li>
+                <% end %>
+                <% if :kecheng==mode %>
+                  <li class="mitem msel">
+									<div class="kls">
+										课程
+									</div>
+									</li>
+                <% else %>
+									<li class="mitem"><a class="kl" href="/search_courses/<%=CGI::escape params[:q]%>">课程</a></li>
+                <% end %>
+                <% if :laoshi==mode %>
+                  <li class="mitem msel">
+									<div class="kls">
+										老师
+									</div>
+									</li>
+                <% else %>
+									<li class="mitem"><a class="kl" href="/search_teachers/<%=CGI::escape params[:q]%>">老师</a></li>
+                <% end %>
+                <% if :yonghu==mode %>
+                  <li class="mitem msel">
+									<div class="kls">
+										用户
+									</div>
+									</li>
+                <% else %>
+									<li class="mitem"><a class="kl" href="/search_users/<%=CGI::escape params[:q]%>">用户</a></li>
+                <% end %>
 								</ul>
 								<div data-ved="0CAwQ_gU" id="more_link">
 									<ul class="nojsb" id="hidden_modes">
@@ -273,4 +260,3 @@ jQuery('#main').height(jQuery('#mainbar').height()+88);
 
 </div>
 </div>
-
