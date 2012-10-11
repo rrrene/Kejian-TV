@@ -1,0 +1,40 @@
+<% content_for :butt2 do%>
+  $('#gbqf').submit(function(){
+    window.location.href="/search/"+encodeURI($('#gbqfq').val());
+    return false;
+  })
+<% end %>
+						<form id="gbqf" name="gbqf" method="get" action="/search" class="gbes" style="margin:0 0 0 16px;width:851px;padding:0">
+							<fieldset class="gbqff gbes" id="gbqff">
+								<legend class="gbxx"></legend>
+								<div id="gbfwa" class="gbqfwa ">
+									<div id="gbqfqw" class="gbqfqw ">
+										<div id="gbqfqwb" class="gbqfqwc">
+											<table cellspacing="0" cellpadding="0" style="height: 27px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; " id="gs_id0" class="gstl_0 lst-t">
+											<tbody>
+											<tr>
+												<td id="gs_ttc0" style="white-space: nowrap; " dir="ltr">
+												</td>
+												<td id="gs_tti0" class="gsib_a">
+													<div id="gs_lc0" style="position: relative; ">
+                            <input id="gbqfq" class="gbqfif" name="q" type="text" autocomplete="off" value="<%=params[:q]%>" style="border-top-style: none; border-right-style: none; border-bottom-style: none; border-left-style: none; border-width: initial; border-color: initial; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; margin:-6px 0 0 0px; width: 826px; height: 30px; color:#000; line-height:30px; background-image: url(data:image/gif;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw%3D%3D); background-attachment: initial; background-origin: initial; background-clip: initial; background-color: transparent; position: absolute; z-index: 6; left: 0px; outline-style: none; outline-width: initial; outline-color: initial; background-position: initial initial; background-repeat: initial initial; " dir="ltr" spellcheck="false" x-webkit-speech x-webkit-grammar="builtin:search" spellcheck="false">
+														<div class="gbqfif" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: transparent; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; position: absolute; z-index: 2; white-space: pre; color: transparent; visibility: hidden; background-position: initial initial; background-repeat: initial initial; " id="gs_sc0">
+														</div>
+													</div>
+												</td>
+												<td class="gsib_b">
+													<div class="gsst_b" id="gs_st0" style="line-height: 27px; display: none; " dir="ltr">
+													</div>
+												</td>
+											</tr>
+											</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</fieldset>
+							<div id="gbqfbw" style="display:inline-block">
+								<button id="gbqfb" aria-label="搜索 <%= Setting.ktv_subname_eng %> 课件资源" class="gbqfb" name="btnG"><span class="gbqfi"></span></button>
+							</div>
+							
+						</form>

@@ -4,10 +4,51 @@
 
 
 <%= render :partial => 'content_above', :locals=>{:skp_content_style => "height:433px;"} %>
+<div id="mainbar" style="position:absolute;z-index:333;margin-top:166px;margin-left:212px;">
+<div id="questions">
+<% @pages.each do |page|%>
+  <div id="question-summary-10960" class="question-summary">
+      <div class="statscontainer __sdk">
+        <div class="presentations">
+          <div data-slide-count="1" data-id="<%=page.courseware_id%>" class="presentation">
+            <a href="/coursewares/<%= page.courseware_id %>?slide=<%=page.page_index%>" class="slide_preview scrub setup">
+              <img src="<%= asset_url("cw/#{page.courseware_ktvid}/thumb_slide_#{page.page_index}.jpg") %>" alt="Thumb_slide_0" width="210" height="158">
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="summary">
+          <h3>
+              <a href="/courses/<%= page.course_fid %>" class="tag-post"><%= page.course_name %></a><br>
+              <a href="/coursewares/<%= page.courseware_id %>?slide=<%=page.page_index%>" class="question-hyperlink">
+            <%=highlight page.courseware_title,params[:q].split(' '),:highlighter=>'<span class="search-highlight">\1</span>'%>
+            </a>
+          </h3>
+          <div class="excerpt">
+            <%=highlight page.body,params[:q].split(' '),:highlighter=>'<span class="search-highlight">\1</span>'%>
+          </div>
+      </div>
+  </div>
+  
+  <% end %>
+</div>
+<% if @pages.respond_to?(:total_pages) && @pages.total_pages > 1 %>
+<%= will_paginate @pages, :renderer=> SKPLinkRenderer,:inner_window=>3 %>
+<div class="page-sizer fr">
+  <a class="page-numbers<%= ' current' if '9'==params[:per_page] %>" title="每页显示9个条目" href="<%=alter_request_path request.fullpath,:per_page=>'9',:page=>'1'%>">9</a>
+    <a class="page-numbers<%= ' current' if  '15'==params[:per_page] %>" title="每页显示15个条目" href="<%=alter_request_path request.fullpath,:per_page=>'15',:page=>'1'%>">15</a>
+    <a class="page-numbers<%= ' current' if  '30'==params[:per_page] %>" title="每页显示30个条目" href="<%=alter_request_path request.fullpath,:per_page=>'30',:page=>'1'%>">30</a>
+    <a class="page-numbers<%= ' current' if  '50'==params[:per_page] %>" title="每页显示50个条目" href="<%=alter_request_path request.fullpath,:per_page=>'50',:page=>'1'%>">50</a>
+    <span class="page-numbers desc">条目/页</span>
+</div>
+
+<% end %>
+</div>
 
 <%= render :partial => 'content_below' %>
 <% content_for :butt2 do %>
 KTV.sss_op();
+jQuery('#main').height(jQuery('#mainbar').height()+144);
 <% end %>
 
 <div class="wrapper" style="width:1000px">
@@ -24,44 +65,9 @@ KTV.sss_op();
 			<div id="gbq" class="gbes" style="">
         <div class="gbt gbes" id="gbq1">
         </div>
-				<div id="gbq2" class="gbt gbqfh gbes" style="top:20px">
+				<div id="gbq2" class="gbt gbqfh gbes" style="top:22px">
 					<div id="gbqfw">
-						<form id="gbqf" name="gbqf" method="get" action="/search" class="gbes" style="margin:0 0 0 10px;width:848px;padding:0">
-							<fieldset class="gbqff gbes" id="gbqff">
-								<legend class="gbxx"></legend>
-								<div id="gbfwa" class="gbqfwa ">
-									<div id="gbqfqw" class="gbqfqw ">
-										<div id="gbqfqwb" class="gbqfqwc">
-											<table cellspacing="0" cellpadding="0" style="height: 27px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; " id="gs_id0" class="gstl_0 lst-t">
-											<tbody>
-											<tr>
-												<td id="gs_ttc0" style="white-space: nowrap; " dir="ltr">
-												</td>
-												<td id="gs_tti0" class="gsib_a">
-													<div id="gs_lc0" style="position: relative; ">
-                            <input id="gbqfq" class="gbqfif" name="q" type="text" autocomplete="off" value="<%=params[:q]%>" style="border-top-style: none; border-right-style: none; border-bottom-style: none; border-left-style: none; border-width: initial; border-color: initial; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; margin:-6px 0 0 0px; width: 826px; height: 30px; color:#000; line-height:30px; background-image: url(data:image/gif;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw%3D%3D); background-attachment: initial; background-origin: initial; background-clip: initial; background-color: transparent; position: absolute; z-index: 6; left: 0px; outline-style: none; outline-width: initial; outline-color: initial; background-position: initial initial; background-repeat: initial initial; " dir="ltr" spellcheck="false" x-webkit-speech x-webkit-grammar="builtin:search" spellcheck="false">
-														<div class="gbqfif" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: transparent; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; position: absolute; z-index: 2; white-space: pre; color: transparent; visibility: hidden; background-position: initial initial; background-repeat: initial initial; " id="gs_sc0">
-														</div>
-														<input class="gbqfif" disabled="" style="border-top-style: none; border-right-style: none; border-bottom-style: none; border-left-style: none; border-width: initial; border-color: initial; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; height: auto; width: 100%; position: absolute; z-index: 1; background-color: transparent; -webkit-text-fill-color: silver; color: silver; left: 0px; visibility: hidden; " id="gs_taif0" dir="ltr"><input class="gbqfif" disabled="" style="border-top-style: none; border-right-style: none; border-bottom-style: none; border-left-style: none; border-width: initial; border-color: initial; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; height: auto; width: 100%; position: absolute; z-index: 1; background-color: transparent; -webkit-text-fill-color: silver; color: silver; left: 0px; visibility: hidden; " id="gs_htif0" dir="ltr">
-													</div>
-												</td>
-												<td class="gsib_b">
-													<div class="gsst_b" id="gs_st0" style="line-height: 27px; display: none; " dir="ltr">
-													</div>
-												</td>
-											</tr>
-											</tbody>
-											</table>
-										</div>
-									</div>
-								</div>
-							</fieldset>
-							<div id="gbqfbw" style="display:inline-block">
-								<button id="gbqfb" aria-label="搜索 <%= Setting.ktv_subname_eng %> 课件资源" class="gbqfb" name="btnG"><span class="gbqfi"></span></button>
-							</div>
-							<input type="hidden" name="oq"><input type="hidden" name="gs_l"><input type="hidden" name="pbx" value="1">
-							
-						</form>
+            <%= render 'form'%>
 					</div>
 				</div>
 			</div>
@@ -101,11 +107,11 @@ KTV.sss_op();
 					<div id="topabar" style="position:relative">
 						<div class="ab_wrp">
 							<div id="ab_name">
-								<span>搜索</span>
+								<span>搜索课件</span>
 							</div>
 							<div id="sbfrm_l">
 								<div id="resultStats">
-									共找到 8,600,000 条结果<nobr> (用时 0.18 秒)&nbsp;</nobr>
+                  共找到 <%=number_with_delimiter @pages.total_entries%> 条结果<nobr> (用时 <%=sprintf "%.2f",@bm.inspect%> 秒)&nbsp;</nobr>
 								</div>
 							</div>
 							<ol id="ab_ctls">
@@ -161,10 +167,11 @@ KTV.sss_op();
 										课件
 									</div>
 									</li>
+									<li class="mitem"><a class="kl" href="/search?q=%E5%A4%96%E6%98%9F%E4%BA%BA%E5%AD%A6%E7%89%A9%E7%90%862&amp;hl=en&amp;newwindow=1&amp;biw=1374&amp;bih=655&amp;prmd=imvns&amp;source=lnms&amp;tbm=isch&amp;sa=X&amp;ei=04d1UODSOobpiAeU5oGoDQ&amp;ved=0CAcQ_AUoAQ">课件内容</a></li>
 									<li class="mitem"><a class="kl" href="/search?q=%E5%A4%96%E6%98%9F%E4%BA%BA%E5%AD%A6%E7%89%A9%E7%90%862&amp;hl=en&amp;newwindow=1&amp;biw=1374&amp;bih=655&amp;prmd=imvns&amp;source=lnms&amp;tbm=isch&amp;sa=X&amp;ei=04d1UODSOobpiAeU5oGoDQ&amp;ved=0CAcQ_AUoAQ">播放列表</a></li>
 									<li class="mitem"><a class="kl" href="http://maps.google.com/maps?hl=en&amp;newwindow=1&amp;q=%E5%A4%96%E6%98%9F%E4%BA%BA%E5%AD%A6%E7%89%A9%E7%90%862&amp;bav=on.2,or.r_gc.r_pw.r_qf.&amp;bpcl=35243188&amp;biw=1374&amp;bih=655&amp;um=1&amp;ie=UTF-8&amp;sa=X&amp;ei=04d1UODSOobpiAeU5oGoDQ&amp;ved=0CAgQ_AUoAg">课程</a></li>
 									<li class="mitem"><a class="kl" href="/search?q=%E5%A4%96%E6%98%9F%E4%BA%BA%E5%AD%A6%E7%89%A9%E7%90%862&amp;hl=en&amp;newwindow=1&amp;biw=1374&amp;bih=655&amp;prmd=imvns&amp;source=lnms&amp;tbm=vid&amp;sa=X&amp;ei=04d1UODSOobpiAeU5oGoDQ&amp;ved=0CAkQ_AUoAw">老师</a></li>
-									<li class="mitem"><a class="kl" href="/search?q=%E5%A4%96%E6%98%9F%E4%BA%BA%E5%AD%A6%E7%89%A9%E7%90%862&amp;hl=en&amp;newwindow=1&amp;biw=1374&amp;bih=655&amp;prmd=imvns&amp;source=lnms&amp;tbm=nws&amp;sa=X&amp;ei=04d1UODSOobpiAeU5oGoDQ&amp;ved=0CAoQ_AUoBA">用户</a></li>
+									<li class="mitem"><a class="kl" href="/search?q=%E5%A4%96%E6%98%9F%E4%BA%BA%E5%AD%A6%E7%89%A9%E7%90%862&amp;hl=en&amp;newwindow=1&amp;biw=1374&amp;bih=655&amp;prmd=imvns&amp;source=lnms&amp;tbm=vid&amp;sa=X&amp;ei=04d1UODSOobpiAeU5oGoDQ&amp;ved=0CAkQ_AUoAw">用户</a></li>
 								</ul>
 								<div data-ved="0CAwQ_gU" id="more_link">
 									<ul class="nojsb" id="hidden_modes">
@@ -195,7 +202,6 @@ KTV.sss_op();
 										</ul>
 										</li>
 									</ul>
-									<a href="/search?q=%E5%A4%96%E6%98%9F%E4%BA%BA%E5%AD%A6%E7%89%A9%E7%90%862&amp;hl=en&amp;newwindow=1&amp;biw=1374&amp;bih=655&amp;prmd=imvns&amp;tbo=1&amp;oq=%E7%89%A9%E7%90%862" class="nj q pi" id="tbpi" jsaction="tbt.tpt" data-ved="0CBYQwxE" style="clear:both;display:block;"><span class="tbpo">Hide search tools</span><span class="tbpc">Show search tools</span></a>
 								</div>
 							</div>
 						</div>
@@ -239,7 +245,7 @@ KTV.sss_op();
 </div>
 
 
-<table cellspacing="0" cellpadding="0" style="width: 848px; top: 48px; position: absolute; text-align: left; left: 10px;display:none;" class="gstl_0 gssb_c" dir="ltr" id="psvr_gtable">
+<table cellspacing="0" cellpadding="0" style="width: 851px; top: 48px; position: absolute; text-align: left; left: 16px;display:none;" class="gstl_0 gssb_c" dir="ltr" id="psvr_gtable">
 <tbody>
 <tr>
 	<td class="gssb_f">
