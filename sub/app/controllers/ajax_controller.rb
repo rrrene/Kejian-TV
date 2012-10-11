@@ -394,6 +394,9 @@ HEREDOC
             json = {status:'failed'}
         end
         render json:json        
+    elsif atype == 'show-parent'
+        parent = Comment.find(ct.replied_to_comment_id)
+        render file:'/coursewares/_cw_comment',locals:{comment:parent,data_score:0},layout:false
     elsif atype == 'unblock'
     elsif atype == 'block'        
     end

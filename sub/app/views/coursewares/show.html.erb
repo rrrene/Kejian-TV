@@ -1362,11 +1362,14 @@ courseware_id: '<%=@courseware.id%>'
                if(type == 'close-share')
                 return false;
                if(type == 'vote-up' || type =='vote-down' || type =='reply'){
-                 cid = $(this).parent().parent().parent().parent().parent().attr('data-id')
+                 cid = $(this).parent().parent().parent().parent().parent().attr('data-id');
+               }else if(type =='show-parent'){
+                 cid = $(this).parent().parent().parent().parent().parent().parent().attr('data-id');
                }else{
                  cid = $(this).parent().parent().parent().parent().parent().parent().parent().parent().attr('data-id');
                }
-               if(type == 'share' || type == 'reply'){
+               console.log(cid); 
+               if(type == 'share' || type == 'reply' || type == 'show-parent'){
                  datatype = 'html';
                }else{
                  datatype = 'json';
@@ -1388,13 +1391,15 @@ courseware_id: '<%=@courseware.id%>'
                    if(data['status'] == 'suc'){
                      if(parseInt(data['cc'])>0){
                        $('li[data-id='+cid+'] > .comment-body >.content-container >.content > .metadata > .comments-rating-positive').remove();
-                       $('li[data-id='+cid+'] > .comment-body >.content-container >.content > .metadata').append('<span title="顶了 '+data['up']+' 次，踩了 '+ data['down']+' 次" class="comments-rating-positive" dir="ltr"><img src="<%= asset_path "yt/wfw.gif" %>" class="comments-rating-thumbs-up"></span>');
+                       $('li[data-id='+cid+'] > .comment-body >.content-container >.content > .metadata').append('<span title="顶了 '+data['up']+' 次，踩了 '+ data['down']+' 次" class="comments-rating-positive" dir="ltr"><img src="<%= asset_path "yt/wfw.gif" %>" class="comments-rating-thumbs-up">'+data['up'] +'</span>');
                      }
                    }
                  }else if(type == 'flag'){
                    
-                 }else{
-                   
+                 }else if(type == 'show-parent'){
+                   $(tmp).parent().parent().parent().parent().parent().parent().before('<ul class="comment-list">'+data+'</ul>');
+                   $(tmp).parent().parent().parent().parent().parent().parent().addClass('child');
+                   $(tmp).remove();
                  }
                })
              });
