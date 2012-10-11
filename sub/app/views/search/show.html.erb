@@ -4,7 +4,7 @@
 
 
 <%= render :partial => 'content_above', :locals=>{:skp_content_style => "height:433px;"} %>
-<div id="mainbar" style="position:absolute;z-index:333;margin-top:166px;margin-left:212px;">
+<div id="mainbar" style="position:absolute;z-index:333;min-height:444px;margin-top:152px;margin-left:138px;">
 <div id="questions">
 <% @pages.each do |page|%>
   <div id="question-summary-10960" class="question-summary">
@@ -21,11 +21,20 @@
           <h3>
               <a href="/courses/<%= page.course_fid %>" class="tag-post"><%= page.course_name %></a><br>
               <a href="/coursewares/<%= page.courseware_id %>?slide=<%=page.page_index%>" class="question-hyperlink">
-            <%=highlight page.courseware_title,params[:q].split(' '),:highlighter=>'<span class="search-highlight">\1</span>'%>
+            <% if page.highlight %>
+              <%=page_highlight(page.highlight.courseware_title ? page.highlight.courseware_title.join('...') : page.courseware_title)%>
+            <% else %>
+              <%= page.courseware_title %>
+            <% end %>
+            
             </a>
           </h3>
           <div class="excerpt">
-            <%=highlight page.body,params[:q].split(' '),:highlighter=>'<span class="search-highlight">\1</span>'%>
+            <% if page.highlight %>
+              <%=page_highlight(page.highlight.body ? page.highlight.body.join(' ... ') : page.body)%>
+            <% else %>
+              <%= page.body %>
+            <% end %>
           </div>
       </div>
   </div>
@@ -48,7 +57,7 @@
 <%= render :partial => 'content_below' %>
 <% content_for :butt2 do %>
 KTV.sss_op();
-jQuery('#main').height(jQuery('#mainbar').height()+144);
+jQuery('#main').height(jQuery('#mainbar').height()+88);
 <% end %>
 
 <div class="wrapper" style="width:1000px">
@@ -107,11 +116,11 @@ jQuery('#main').height(jQuery('#mainbar').height()+144);
 					<div id="topabar" style="position:relative">
 						<div class="ab_wrp">
 							<div id="ab_name">
-								<span>搜索课件</span>
+								<span>搜索</span>
 							</div>
 							<div id="sbfrm_l">
 								<div id="resultStats">
-                  共找到 <%=number_with_delimiter @pages.total_entries%> 条结果<nobr> (用时 <%=sprintf "%.2f",@bm.inspect%> 秒)&nbsp;</nobr>
+                  共找到 <%=number_with_delimiter @pages.total_entries%> 个课件<nobr> (用时 <%=0%> 毫秒)&nbsp;</nobr>
 								</div>
 							</div>
 							<ol id="ab_ctls">
