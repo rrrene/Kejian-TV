@@ -1387,7 +1387,8 @@ courseware_id: '<%=@courseware.id%>'
                  }else if(type == 'vote-up' || type =='vote-down'){
                    if(data['status'] == 'suc'){
                      if(parseInt(data['cc'])>0){
-                       
+                       $('li[data-id='+cid+'] > .comment-body >.content-container >.content > .metadata > .comments-rating-positive').remove();
+                       $('li[data-id='+cid+'] > .comment-body >.content-container >.content > .metadata').append('<span title="顶了 '+data['up']+' 次，踩了 '+ data['down']+' 次" class="comments-rating-positive" dir="ltr"><img src="<%= asset_path "yt/wfw.gif" %>" class="comments-rating-thumbs-up"></span>');
                      }
                    }
                  }else if(type == 'flag'){
