@@ -346,18 +346,22 @@ HEREDOC
     cw = Courseware.find(ct.commentable_id)
     us = User.find(ct.user_id)
     if atype == "vote-up" 
-        if !ct.voteup_user_ids.include?(current_user.id) and !ct.votedown_user_ids.include?(current_user.id) 
+        if  current_user.id !=ct.user_id and !ct.voteup_user_ids.include?(current_user.id) and !ct.votedown_user_ids.include?(current_user.id) 
             ct.update_attribute(:voteup,ct.voteup+1)
             ct.update_attribute(:voteup_user_ids,ct.voteup_user_ids << current_user.id)
+            json = {status:'suc',up:ct.voteup,down:ct.votedown,cc:ct.voteup-ct.votedown}
+        else
+            json = {status:'failed',reason:'',up:ct.voteup,down:ct.votedown,cc:ct.voteup-ct.votedown}
         end
-        json = {status:'suc',up:ct.voteup,down:ct.votedown,cc:ct.voteup-ct.votedown}
         render json:json
     elsif atype == "vote-down"
-        if !ct.voteup_user_ids.include?(current_user.id) and !ct.votedown_user_ids.include?(current_user.id) 
+        if current_user.id !=ct.user_id and !ct.voteup_user_ids.include?(current_user.id) and !ct.votedown_user_ids.include?(current_user.id) 
             ct.update_attribute(:votedown,ct.votedown+1)
             ct.update_attribute(:votedown_user_ids,ct.votedown_user_ids << current_user.id)
+            json = {status:'suc',up:ct.voteup,down:ct.votedown,cc:ct.voteup-ct.votedown}
+        else
+            json = {status:'failed',reason:'',up:ct.voteup,down:ct.votedown,cc:ct.voteup-ct.votedown}
         end
-        json = {status:'suc',up:ct.voteup,down:ct.votedown,cc:ct.voteup-ct.votedown}
         render json:json
     elsif atype == 'reply'
         comment = Comment.new
@@ -367,8 +371,9 @@ HEREDOC
         render file:'coursewares/_comment_share',locals:{comment:ct,cw:cw},layout:false
     elsif atype == 'remove'
         if ct.user_id ==current_user.id or us.admin_type == User::SUP_ADMIN or us.admin_type == User::SUB_ADMIN
-            ct.deletor_id = current
+            ct.deletor_id = current_user.id
             ct.deleted_at = Time.now
+            ct.save(:validate=>false)
             json = {status:'suc'}
             render json:json
             return true

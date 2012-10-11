@@ -9,14 +9,14 @@
        <input name="comment[commentable_type]" type="hidden" value='Courseware'>
        <input name="comment[commentable_id]" type="hidden" value="<%= cw %>">
        <input type="hidden" name="comment[replied_to_comment_id]" value="<%= parent %>" />
-       <div class="yt-alert yt-alert-default yt-alert-error hid comments-post-message">
+       <div class="yt-alert yt-alert-default yt-alert-error hid comments-post-messagex">
           <div class="yt-alert-icon">
              <img alt="Alert icon" class="icon master-sprite" src="<%= asset_path 'yt/wfw.gif' %>" />
           </div>
           <div class="yt-alert-buttons"></div>
           <div role="alert" class="yt-alert-content"></div>
        </div>
-       <a class="yt-user-photo comments-post-profile" href="/user/<%= current_user.slug %>">
+       <a class="yt-user-photo comments-post-profile" href="/users/<%= current_user.slug %>">
        <span class="video-thumb ux-thumb yt-thumb-square-46 ">
            <span class="yt-thumb-clip">
                <span class="yt-thumb-clip-inner">
@@ -47,6 +47,13 @@
      $('#new_ct2ct').bind('ajax:success',function(event, responseText, ajaxOptions){
          $('#the_comment-list').prepend(responseText);
          $('.comments-post-containerx').remove();
+         $('.comments-post-messagex').addClass('hid');
+         $("abbr.timeago").timeago();
+         $("span.relativetime").timeago();
+     });    
+    $('#new_ct2ct').bind('ajax:error',function(event, request, settings){
+       $('.comments-post-messagex > .yt-alert-content').html(request.responseText);
+       $('.comments-post-messagex').removeClass('hid');
      });
    });
  })(jQuery);

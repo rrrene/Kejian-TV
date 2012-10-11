@@ -25,10 +25,16 @@ class CommentsController < ApplicationController
       render text:'window.location.href="/under_verification"'
       return
     end
+    if !current_user.last_comment_at.nil? and Time.now - current_user.last_comment_at < 10
+        # flash[:notice] = "评论最短间隔为#{10}s"
+        render text:"评论最短间隔为#{10}s"
+        return
+    end
 =begin
 an params example:
 {"utf8"=>"✓", "authenticity_token"=>"Vl5Cm0DN8IuKznybqT5DratuEaL9kb0E/1AzgsIBtgs=", "comment"=>{"commentable_type"=>"Ask", "commentable_id"=>"4e66d5046130032a31000032", "body"=>"fddfsfdfsfdssfd"}, "action"=>"create", "controller"=>"comments"}
 =end
+    User.find(current_user.id).update_attribute(:last_comment_at,Time.now)
     @success,@comment = Comment.real_create(params,current_user)
     if @success and SettingItem.where(:key=>"answer_advertise_limit_open").first.value=="1"
       Sidekiq::Client.enqueue(HookerJob,"User",@comment.user_id,:comment_advertise,@comment.id)

@@ -570,123 +570,31 @@ courseware_id: '<%=@courseware.id%>'
             </div>
             <div id="watch-discussion">
                <div class="" data-type="highlights" id="comments-view">
-                  <div class="comment-share-area yt-rounded hid" id="comment-share-area">
-                     <div class="comment-share-content">
-                        <h4>链接到此评论：</h4>
-                        <div>
-                           <input type="text" class="comment-share-url yt-uix-form-input-text" />
-                        </div>
-                        <div>
-                           <span>分享到：</span>
-                           <img action="yt.window.popup('http:\/\/www.facebook.com\/sharer.php?u=http%3A%2F%2Fwww.youtube.com%2Fcomment%3Flc%3D_COMMENT_ID_&amp;t=_COMMENT_TEXT_', {height:440, width:620, scrollbars:true});" class="icon-comment-share icon-comment-share-facebook" src="<%= asset_path 'yt/wfw.gif' %>" title="Facebook" alt="" />
-                           <img action="yt.window.popup('http:\/\/twitter.com\/share?url=http%3A%2F%2Fwww.youtube.com%2Fcomment%3Flc%3D_COMMENT_ID_&amp;text=_COMMENT_TEXT_%3A&amp;via=youtube', {height:650, width:1024, scrollbars:true});" class="icon-comment-share icon-comment-share-twitter" src="<%= asset_path 'yt/wfw.gif' %>" title="Twitter" alt="" />
-                           <img action="yt.window.popup('https:\/\/plus.google.com\/share?url=http%3A%2F%2Fwww.youtube.com%2Fcomment%3Flc%3D_COMMENT_ID_&amp;authuser=0&amp;source=yt', {height:620, width:620,<%= asset_path 'yt/wfw.gif' %> scrollbars:true});" class="icon-comment-share icon-comment-share-googleplus" src="<%= asset_path 'yt/wfw.gif' %>" title="Google+" alt="" />
-                        </div>
-                     </div>
-                     <div data-action="close-share" class="close comment-action">
-                        <img class="close-button" src="<%= asset_path 'yt/wfw.gif' %>" />
-                     </div>
-                  </div>
                   <!-- 上传者 热门 发表 评论列表  -->
-                  <div class="comments-section">
-                      <h4>上传者评论
-                        (<strong>    <a dir="ltr" data-sessionlink="ei=CN6ej-OY67ICFY9ApAodpT-vgQ%3D%3D" class="yt-uix-sessionlink yt-user-name " href="/user/southwave5963">southwave5963</a>
-                  </strong>)
-                      </h4>
-                        <ul class="comment-list">
-                    <li data-score="26" data-id="DJMUUR7r3Qhk8-mduSIL8bBk6GszBKZhs1f4vzohUTY" data-author-id="-pF3PfnnldcTlTQsGM7jxg" data-tag="upload" class="comment yt-tile-default">
-
-                      <div class="comment-body">
-
-
-                    <div class="content-container">
-                      <div class="content">
-
-                            <div dir="ltr" class="comment-text">
-                              <p>中島みゆきさん!! こんな凛とした女性は滅多にいない!!立ち姿姿勢,糊のきいた白<wbr></wbr>­ｶｯﾀｰｼｬﾂを裾をｼﾞｰﾝｽﾞの中にちゃんと入れただけの超<wbr></wbr>­ｼﾝﾌﾟﾙな服装がこれ程に合う人は皆無だ!!&#65279; ｼｬｲな拓郎に敬愛の優しい眼差し向ける姿に痺れると共に感動で<wbr></wbr>­涙が頬を伝います。飛び入り競演の最高動画です。</p>
-                  <p>upされた御方に最大の敬意を表します。</p>
-
-                            </div>
-
-                          <p class="metadata">
-                            <span class="author ">
-                                  <a dir="ltr" data-sessionlink="ei=CN6ej-OY67ICFY9ApAodpT-vgQ%3D%3D" class="yt-uix-sessionlink yt-user-name " href="/user/kohisiyo">kohisiyo</a>
-
-                            </span>
-                            <span dir="ltr" class="time">
-                              <span dir="ltr">5 个月前<span>
-                            </span>
-                              <span title="顶了 29 次，踩了 3 次" class="comments-rating-positive" dir="ltr">
-                                26
-                                <img src="<%= asset_path 'yt/wfw.gif' %>" class="comments-rating-thumbs-up">
-                              </span>
-                          </span></span></p>
-
-                      </div>
-
-
-                     <div class="comment-actions">
-                              <span class="yt-uix-button-group"><button role="button" data-tooltip-show-delay="300" data-action="vote-up" title="顶" onclick=";return false;" class="start comment-action-vote-up comment-action yt-uix-button yt-uix-button-default yt-uix-tooltip yt-uix-button-empty" type="button"><span class="yt-uix-button-icon-wrapper"><img alt="顶" src="<%= asset_path 'yt/wfw.gif' %>" class="yt-uix-button-icon yt-uix-button-icon-watch-comment-vote-up"><span class="yt-valign-trick"></span></span></button><button role="button" data-tooltip-show-delay="300" data-action="vote-down" title="踩" onclick=";return false;" class="end comment-action-vote-down comment-action yt-uix-button yt-uix-button-default yt-uix-tooltip yt-uix-button-empty" type="button"><span class="yt-uix-button-icon-wrapper"><img alt="踩" src="<%= asset_path 'yt/wfw.gif' %>" class="yt-uix-button-icon yt-uix-button-icon-watch-comment-vote-down"><span class="yt-valign-trick"></span></span></button></span><span class="yt-uix-button-group"><button role="button" data-action="reply" onclick=";return false;" title='回复' class="start comment-action yt-uix-button yt-uix-tooltip yt-uix-button-default" type="button"><span class="yt-uix-button-content">回复 </span></button><button aria-activedescendant="" aria-haspopup="true" aria-expanded="false" aria-pressed="false" role="button" data-button-has-sibling-menu="true" onclick=";return false;" class="end flip yt-uix-button yt-uix-button-default yt-uix-button-empty" type="button"><img alt="" src="<%= asset_path 'yt/wfw.gif' %>" class="yt-uix-button-arrow"><div style="display: none;" class=" yt-uix-button-menu yt-uix-button-menu-default"><ul><li data-action="share" class="comment-action"><span class="yt-uix-button-menu-item">分享</span></li><li data-action="remove" class="comment-action-remove comment-action"><span class="yt-uix-button-menu-item">删除</span></li><li data-action="flag" class="comment-action"><span class="yt-uix-button-menu-item">举报</span></li><li data-action="block" class="comment-action-block comment-action"><span class="yt-uix-button-menu-item">屏蔽该用户</span></li><li data-action="unblock" class="comment-action-unblock comment-action"><span class="yt-uix-button-menu-item">解除对用户的屏蔽</span></li></ul></div></button></span>  </div>
-
+                  <% if @self_comments.count >0%>
+                    <div class="comments-section">
+                        <h4>上传者评论
+                          (<strong>    <a dir="ltr"  class="yt-uix-sessionlink yt-user-name " href="/users/<%= @courseware.author %>"><%= @courseware.author %></a></strong>)
+                        </h4>
+                          <ul class="comment-list">
+                                    <% @self_comments.each do |comment| %>
+                                       <%= render :partial=>'cw_comment',:locals=>{comment:comment,data_score:3} %>
+                                    <% end %>
+                          </ul>
                     </div>
-
-                      </div>
-                    </li>
- 
-                      <li data-score="5" data-id="DJMUUR7r3Qg5i-g4LyuPC57kfHNp-W7w_DFTV-9h3QM" data-author-id="NGp2SFcqitlhne4YT6_mIA" data-tag="upload" class="comment yt-tile-default child">
-
-                      <div class="comment-body">
-
-
-                        <div class="content-container">
-                      <div class="content">
-
-                            <div dir="ltr" class="comment-text">
-                              <p>コメントありがとう&#65279;</p>
-
-                            </div>
-
-                          <p class="metadata">
-                            <span class="author ">
-                                  <a dir="ltr" data-sessionlink="ei=CN6ej-OY67ICFY9ApAodpT-vgQ%3D%3D" class="yt-uix-sessionlink yt-user-name " href="/user/southwave5963">southwave5963</a>
-
-                            </span>
-                            <span dir="ltr" class="time">
-                  对    <a dir="ltr" data-sessionlink="ei=CN6ej-OY67ICFY9ApAodpT-vgQ%3D%3D" class="yt-uix-sessionlink yt-user-name " href="/user/kohisiyo">kohisiyo</a>
-                  的回复
-                                <a data-action="show-parent" onclick="return false;" class="comment-action comment-action-showparent" href="#">(显示评论)</a>
-                              <span dir="ltr">5 个月前<span>
-                            </span>
-                              <span title="顶了 5 次，踩了 0 次" class="comments-rating-positive" dir="ltr">
-                                5
-                                <img src="<%= asset_path 'yt/wfw.gif' %>" class="comments-rating-thumbs-up">
-                              </span>
-                          </span></span></p>
-
-                          </div>
-
-
-                          <div class="comment-actions">
-                              <span class="yt-uix-button-group"><button role="button" data-tooltip-show-delay="300" data-action="vote-up" title="顶" onclick=";return false;" class="start comment-action-vote-up comment-action yt-uix-button yt-uix-button-default yt-uix-tooltip yt-uix-button-empty" type="button"><span class="yt-uix-button-icon-wrapper"><img alt="顶" src="<%= asset_path 'yt/wfw.gif' %>" class="yt-uix-button-icon yt-uix-button-icon-watch-comment-vote-up"><span class="yt-valign-trick"></span></span></button><button role="button" data-tooltip-show-delay="300" data-action="vote-down" title="踩" onclick=";return false;" class="end comment-action-vote-down comment-action yt-uix-button yt-uix-button-default yt-uix-tooltip yt-uix-button-empty" type="button"><span class="yt-uix-button-icon-wrapper"><img alt="踩" src="<%= asset_path 'yt/wfw.gif' %>" class="yt-uix-button-icon yt-uix-button-icon-watch-comment-vote-down"><span class="yt-valign-trick"></span></span></button></span><span class="yt-uix-button-group"><button role="button" data-action="reply" onclick=";return false;" class="start comment-action yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-content">回复 </span></button><button aria-activedescendant="" aria-haspopup="true" aria-expanded="false" aria-pressed="false" role="button" data-button-has-sibling-menu="true" onclick=";return false;" class="end flip yt-uix-button yt-uix-button-default yt-uix-button-empty" type="button"><img alt="" src="<%= asset_path 'yt/wfw.gif' %>" class="yt-uix-button-arrow"><div style="display: none;" class=" yt-uix-button-menu yt-uix-button-menu-default"><ul><li data-action="share" class="comment-action"><span class="yt-uix-button-menu-item">分享</span></li><li data-action="remove" class="comment-action-remove comment-action"><span class="yt-uix-button-menu-item">删除</span></li><li data-action="flag" class="comment-action"><span class="yt-uix-button-menu-item">举报</span></li><li data-action="block" class="comment-action-block comment-action"><span class="yt-uix-button-menu-item">屏蔽该用户</span></li><li data-action="unblock" class="comment-action-unblock comment-action"><span class="yt-uix-button-menu-item">解除对用户的屏蔽</span></li></ul></div></button></span>  </div>
-
-                        </div>
-
-                      </div>
-                    </li>
-
-                    </ul>
-
-                  </div>
-                  <div class="comments-section">
-                     <h4>热门评论</h4>
-                     <ul class="comment-list">
-                            <% if @hot_comments.count >0%>
-                                  <% @hot_comments.each do |comment| %>
-                                     <%= render :partial=>'cw_comment',:locals=>{comment:comment,data_score:3} %>
-                                  <% end %>
-                              <% end %>
-                     </ul>
-                  </div>
+                  <% end %>
+                  <% if !@hot_comments.nil? and @hot_comments.count >0%>
+                    <div class="comments-section">
+                       <h4>热门评论</h4>
+                       <ul class="comment-list">
+                            
+                                    <% @hot_comments.each do |comment| %>
+                                       <%= render :partial=>'cw_comment',:locals=>{comment:comment,data_score:3} %>
+                                    <% end %>
+             
+                       </ul>
+                    </div>
+                  <% end %>
                   <div class="comments-section ">
                      <div id="comments-header-container">
                             <div id="comments-header">
@@ -819,6 +727,25 @@ courseware_id: '<%=@courseware.id%>'
    
       <script type="text/javascript" charset="utf-8">
            <% content_for :butt2 do %>
+           // $.ajaxSetup({
+           //                   error: function(jqXHR, exception) {
+           //                       if (jqXHR.status === 0) {
+           //                           alert('Not connect.\n Verify Network.');
+           //                       } else if (jqXHR.status == 404) {
+           //                           alert('Requested page not found. [404]');
+           //                       } else if (jqXHR.status == 500) {
+           //                           alert('Internal Server Error [500].');
+           //                       } else if (exception === 'parsererror') {
+           //                           alert('Requested JSON parse failed.');
+           //                       } else if (exception === 'timeout') {
+           //                           alert('Time out error.');
+           //                       } else if (exception === 'abort') {
+           //                           alert('Ajax request aborted.');
+           //                       } else {
+           //                           alert('Uncaught Error.\n' + jqXHR.responseText);
+           //                       }
+           //                   }
+           //               });
                var focus_comment = function(){
                      $('#comment_placeholder').html('');
                      $('.comments-textarea-container img').css('z-index','2');
@@ -835,8 +762,15 @@ courseware_id: '<%=@courseware.id%>'
                }
                $('#new_comment').bind('ajax:success',function(event, responseText, ajaxOptions){
                  $('#the_comment-list').prepend(responseText);
+                 $('.comments-post-message').addClass('hid');
                  give_up_focus();
+                 $("abbr.timeago").timeago();
+                 $("span.relativetime").timeago();
                });
+               $('#new_comment').bind('ajax:error',function(event, request, settings){
+                  $('.comments-post-message > .yt-alert-content').html(request.responseText);
+                  $('.comments-post-message').removeClass('hid');
+                });
               var closeHide = function(){
                somethingHide('#watch-actions-area-container');
                somethingHide('#watch-actions-loading');
@@ -1349,18 +1283,12 @@ courseware_id: '<%=@courseware.id%>'
                   $('#flag-video-buttons').removeClass('hid').show();
                }
              };
-             // $('li.comment.yt-tile-default').live('click',function(e){
-             //    console.log(e.target);
-             //    cid = $(this).attr('data-id');
-             //    console.log(cid);
-             //    console.log(e.data)
-             //    console.log(e.currentTarget)
-             //  });
              $('.comment-action').live('click',function(){
                type = $(this).attr('data-action');
-               console.log(type); 
-               if(type == 'close-share')
-                return false;
+               // console.log(type); 
+               if(type == 'close-share'){
+                 return false; 
+               }               
                if(type == 'vote-up' || type =='vote-down' || type =='reply'){
                  cid = $(this).parent().parent().parent().parent().parent().attr('data-id');
                }else if(type =='show-parent'){
@@ -1368,7 +1296,7 @@ courseware_id: '<%=@courseware.id%>'
                }else{
                  cid = $(this).parent().parent().parent().parent().parent().parent().parent().parent().attr('data-id');
                }
-               console.log(cid); 
+               // console.log(cid); 
                if(type == 'share' || type == 'reply' || type == 'show-parent'){
                  datatype = 'html';
                }else{
@@ -1379,8 +1307,10 @@ courseware_id: '<%=@courseware.id%>'
                  url:'/ajax/comment_action',
                  type:'POST',
                  data:{'cid':cid,'atype':type},
-                 dataType:datatype
+                 dataType:datatype,
                }).done(function(data){
+                 $('.end.flip.yt-uix-button.yt-uix-button-default.yt-uix-button-empty').removeClass('yt-uix-button-active');
+                 $('.end.flip.yt-uix-button.yt-uix-button-default.yt-uix-button-empty > .yt-uix-button-menu.yt-uix-button-menu-default').hide().addClass('hid');
                  if(type == 'share'){
                     $('.comments-post-containerx').remove();
                     $(tmp).parent().parent().parent().parent().parent().parent().parent().parent().append(data);
@@ -1393,6 +1323,10 @@ courseware_id: '<%=@courseware.id%>'
                        $('li[data-id='+cid+'] > .comment-body >.content-container >.content > .metadata > .comments-rating-positive').remove();
                        $('li[data-id='+cid+'] > .comment-body >.content-container >.content > .metadata').append('<span title="顶了 '+data['up']+' 次，踩了 '+ data['down']+' 次" class="comments-rating-positive" dir="ltr"><img src="<%= asset_path "yt/wfw.gif" %>" class="comments-rating-thumbs-up">'+data['up'] +'</span>');
                      }
+                   }
+                 }else if(type == 'remove'){
+                   if(data['status'] == 'suc'){
+                     $('li[data-id='+cid+'] > .comment-body >.content-container > .content >.comment-text').html('<p>该评论已经被删除！</p>');
                    }
                  }else if(type == 'flag'){
                    
@@ -1407,7 +1341,43 @@ courseware_id: '<%=@courseware.id%>'
                $(this).toggleClass('yt-uix-button-active');
                $('.yt-uix-button-menu.yt-uix-button-menu-default',this).toggle().toggleClass('hid');
              });
-
+             function getURLParameter(name) {
+                 return decodeURI(
+                     (RegExp(name + '=' + '(.+?)(&|$)').exec(location.search)||[,null])[1]
+                 );
+             }
+             <% if !params[:cid].nil? %>
+                 function sharecid(){
+                   var testcid = getURLParameter('cid');
+                   var pageuri = getURLParameter('page');
+                   if (testcid!=undefined) {
+                     <% aa=Hash.new;@comments_all.each_with_index.map{|k,i| aa[k.id.to_s]=i};%>
+                     <% if !aa[params[:cid]].nil? %>
+                        var where_am_i = <%= aa[params[:cid]]+1 %>;
+                        var per_page = <%= cookies[:welcome_per_page] %>;
+                        page = parseInt(where_am_i/per_page) +1;
+                        if(page>1 && pageuri == 'null'){
+                           var url = location.protocol + '//' +location.hostname + location.pathname + '?cid=' + testcid + '&page=' + page + '&per_page=' + per_page;
+                           window.location.replace(url); 
+                           return;
+                         }
+                       $('html, body').animate({scrollTop: $('li[data-id='+testcid+']').offset().top}, 500,'easeInOutExpo');
+                       $('li[data-id='+testcid+']').css('background-color','rgba(255,255,255,.7)');
+                     <% end %>
+                   }
+                 }
+                sharecid();
+             <% end %>
+             
+             $('input.comment-share-url.yt-uix-form-input-text').live('focus',function(){
+                   var $this = $(this);
+                   $this.select();
+                   $this.mouseup(function() {
+                       $this.unbind("mouseup");
+                       return false;
+                   });
+             });
+             
            <% end %>
         </script>
 </div>

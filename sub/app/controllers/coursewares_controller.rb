@@ -122,8 +122,22 @@ class CoursewaresController < ApplicationController
         cookies[:welcome_per_page] = @per_page
         
         @comment = @courseware.comments.build
-        @comments  = @courseware.comments.where(:body.ne => nil).desc('created_at')
-        @hot_comments  = @comments.limit(2)
+        @comments_all = @comments  = @courseware.comments.where(:body.ne => nil).desc('created_at')
+        deal = Hash.new
+        @comments.map{|x| deal[x.id] = x.voteup - x.votedown}
+        deal = deal.sort_by {|k,v| v}
+        # binding.pry
+        max = deal[-1][1]
+        sec = deal[-2][1]
+        if sec <10 and max>10
+            @hot_comments = [@comments.find(deal[-1][0])]
+        elsif sec > 10
+            @hot_comments = deal[-2..-1].map{|x| @comments.find(x[0])}.reverse
+        else
+            @hot_comments = nil
+        end
+        # binding.pry
+        @self_comments = @comments.where(:user_id => @courseware.uploader_id)
         @comments = @comments.paginate(:page => params[:page], :per_page => @per_page)
 
         @note = Note.new
