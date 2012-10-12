@@ -99,6 +99,7 @@ class CoursewaresController < ApplicationController
       format.js
     end
   end
+
   def show
     if @courseware.redirect_to_id.present?
       @courseware = Courseware.where(:_id => @courseware.redirect_to_id.to_s).first
@@ -113,7 +114,14 @@ class CoursewaresController < ApplicationController
     respond_to do |format|
       format.html{
         @seo[:title] = @courseware.title
-        
+        if  !request.referer.nil? and URI(request.referer).host.include?('kejian')
+            if current_user.nil?
+                cuid = nil
+            else
+                cuid = current_user.id
+            end
+            CwEvent.add_come_event('Courseware',@courseware.id,request.ip,cuid,request.referer)
+        end
         params[:page] ||= '1'
         params[:per_page] ||= cookies[:welcome_per_page]
         params[:per_page] ||= '15'

@@ -40,6 +40,12 @@ an params example:
       Sidekiq::Client.enqueue(HookerJob,"User",@comment.user_id,:comment_advertise,@comment.id)
     end
     if 'Courseware'==@comment.commentable_type
+      if @comment.replied_to_comment_id.nil?
+          CwEvent.add_action('评论课件','Comment',@comment.id,request.ip,current_user.id,true)
+      else
+          CwEvent.add_action('评论评论','Comment',@comment.id,request.ip,current_user.id,true)
+      end
+      @comment.save(:validate=>false)
       render 'coursewares/_cw_comment',locals:{comment:@comment,data_score:0},layout:false
     end
   end

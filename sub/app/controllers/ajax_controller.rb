@@ -220,6 +220,13 @@ HEREDOC
     render json:@forum
     # json:@forum
   end
+  def cw_event_add_action(type,title,id,suc)
+      if current_user.nil?
+          CwEvent.add_action(type,title,id,request.ip,nil,suc)
+      else
+          CwEvent.add_action(type,title,id,request.ip,current_user.id,suc)
+      end
+  end
   def get_cw_operation
     if params[:type] == 'watch-like'
       if current_user.nil?
@@ -230,6 +237,8 @@ HEREDOC
         if !cw.thanked_user_ids.include?(current_user.id) and !cw.disliked_user_ids.include?(current_user.id)
           cw.update_attribute(:thanked_count,cw.thanked_count+1)
           cw.update_attribute(:thanked_user_ids,cw.thanked_user_ids << current_user.id)
+
+          cw_event_add_action("课件顶",'Courseware',cw.id,true)
         end
       end
     elsif params[:type] == 'watch-unlike'
@@ -241,6 +250,7 @@ HEREDOC
         if !cw.disliked_user_ids.include?(current_user.id) and !cw.thanked_user_ids.include?(current_user.id)
           cw.update_attribute(:disliked_count,cw.disliked_count+1)
           cw.update_attribute(:disliked_user_ids,cw.disliked_user_ids << current_user.id)
+          cw_event_add_action("课件踩",'Courseware',cw.id,true)
         end
       end
     elsif params[:type] == 'addto'
@@ -268,7 +278,10 @@ HEREDOC
   def add_to_playlist
     #TODO params[:sort] 
     # params[:on_top] true false
+    
+    ##TODO  list
     json = {status:'suc',title:params[:list_title],comment:'beizhu',time:'123',cw_id:params[:cw_id]}
+    cw_event_add_action("添加收藏",'Courseware',cw.id,true)
     render json:json
   end
   def add_comment_to_playlist
@@ -303,6 +316,9 @@ HEREDOC
   end
   def ajax_send_email
       json = {status:'suc',cw_id:params[:cw_id],to:params[:recipients],msg:params[:message]}
+      
+      ##TODO   send mail to recipient
+      cw_event_add_action("邮件分享",'Courseware',params[:cw_id],true)
       render json:json
   end
   def flag_cw
@@ -324,9 +340,11 @@ HEREDOC
                 fr.flag_desc = v['value']
             end
         end
+        cw_event_add_action("举报课件",'Courseware',params[:cw_id],true)
         fr.save(:validate=>false)
         json = {status:'suc'}
     rescue =>e
+        cw_event_add_action("举报课件",'Courseware',params[:cw_id],false)
         json = {status:'failed'}
     end
     render json:json
@@ -349,8 +367,10 @@ HEREDOC
         if  current_user.id !=ct.user_id and !ct.voteup_user_ids.include?(current_user.id) and !ct.votedown_user_ids.include?(current_user.id) 
             ct.update_attribute(:voteup,ct.voteup+1)
             ct.update_attribute(:voteup_user_ids,ct.voteup_user_ids << current_user.id)
+            cw_event_add_action("评论顶",'Comment',ct.id,true)
             json = {status:'suc',up:ct.voteup,down:ct.votedown,cc:ct.voteup-ct.votedown}
         else
+            cw_event_add_action("评论顶",'Comment',ct.id,false)
             json = {status:'failed',reason:'',up:ct.voteup,down:ct.votedown,cc:ct.voteup-ct.votedown}
         end
         render json:json
@@ -358,8 +378,10 @@ HEREDOC
         if current_user.id !=ct.user_id and !ct.voteup_user_ids.include?(current_user.id) and !ct.votedown_user_ids.include?(current_user.id) 
             ct.update_attribute(:votedown,ct.votedown+1)
             ct.update_attribute(:votedown_user_ids,ct.votedown_user_ids << current_user.id)
+            cw_event_add_action("评论踩",'Comment',ct.id,true)
             json = {status:'suc',up:ct.voteup,down:ct.votedown,cc:ct.voteup-ct.votedown}
         else
+            cw_event_add_action("评论踩",'Comment',ct.id,false)
             json = {status:'failed',reason:'',up:ct.voteup,down:ct.votedown,cc:ct.voteup-ct.votedown}
         end
         render json:json
@@ -374,10 +396,12 @@ HEREDOC
             ct.deletor_id = current_user.id
             ct.deleted_at = Time.now
             ct.save(:validate=>false)
+            cw_event_add_action("评论删除",'Comment',ct.id,true)
             json = {status:'suc'}
             render json:json
             return true
         end
+        cw_event_add_action("评论删除",'Comment',ct.id,false)
         json = {status:'failed'}
         render json:json
         return false
@@ -394,12 +418,15 @@ HEREDOC
             fr.user_id = params[:user_id]
             fr.atype = 1
             fr.save(:validate=>false)
+            cw_event_add_action("评论举报",'Comment',ct.id,true)
             json = {status:'suc'}
         rescue =>e
+            cw_event_add_action("评论举报",'Comment',ct.id,false)
             json = {status:'failed'}
         end
         render json:json        
     elsif atype == 'show-parent'
+         cw_event_add_action("查看父评论",'Comment',ct.id,true)
         parent = Comment.find(ct.replied_to_comment_id)
         render file:'/coursewares/_cw_comment',locals:{comment:parent,data_score:0},layout:false
     elsif atype == 'unblock'

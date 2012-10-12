@@ -56,7 +56,15 @@ class ApplicationController < ActionController::Base
   
   before_filter :request_referer
   def request_referer
-      session[:referrer] = request.env['HTTP_REFERER'] if !session[:referrer]
+      if !request.referer.nil? and !URI(request.referer).host.include?('kejian')
+          if current_user.nil?
+              cuid = nil
+          else
+              cuid = current_user.id
+          end
+          CwEvent.add_come_event('Courseware','',request.ip,cuid,request.referer)
+          session[:referer] = request.referer
+      end
   end
   
   before_filter :set_vars
