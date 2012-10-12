@@ -4863,8 +4863,8 @@
   	z-index:1
   }
   #watch-uploader-info,#watch-description-extra-info li {
-  	color:#666;
-  	font-size:0.9166em
+    color: #666666;
+    font-size: 0.9166em;
   }
   #watch-uploader-info {
   	padding-bottom:5px
@@ -4872,6 +4872,18 @@
   #watch-description-text {
   	font-size:1.09em;
   	line-height:1.4
+  }
+  #watch-description-extra-info .video-extras-sparkbars {
+      border-radius: 3px 3px 3px 3px;
+  }
+  .video-extras-sparkbars {
+      border: 1px solid #CCCCCC;
+      height: 4px;
+      margin: 2px 0;
+      overflow: hidden;
+  }
+  .video-extras-likes-dislikes, .video-extras-likes-dislikes .dislikes {
+      color: #666666;
   }
   .yt-uix-expander-collapsed #watch-description-clip {
   	position:absolute;
@@ -4882,10 +4894,12 @@
   	text-align:center
   }
   #watch-description-extra-info {
-  	margin-left:522px;
-  	width:165px;
-  	padding-bottom:0;
-  	min-height:55px
+    margin-left: 475px;
+    min-height: 55px;
+    padding-bottom: 0;
+    position: relative;
+    width: 165px;
+    z-index: 1;
   }
   #watch-description-extra-info li {
   	margin-bottom:1px;

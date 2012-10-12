@@ -54,6 +54,11 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  before_filter :request_referer
+  def request_referer
+      session[:referrer] = request.env['HTTP_REFERER'] if !session[:referrer]
+  end
+  
   before_filter :set_vars
   before_filter :xookie,:unless=>'devise_controller?'
   before_filter :dz_security

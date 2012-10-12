@@ -3,7 +3,8 @@
     nn=Course.get_name(@courseware.course_fid)
   end
 %>
-      
+
+
 <% content_for :armpit do %>
 <%= stylesheet_link_tag 'ktv/__ytb' %>
 <% end %>
@@ -627,7 +628,7 @@ courseware_id: '<%=@courseware.id%>'
                               <a class="yt-uix-button yt-uix-sessionlink yt-uix-pager-page-num yt-uix-pager-button yt-uix-button-default<%= ' yt-uix-button-toggled' if 50==@per_page %>" title="每页显示50个评论" href="<%= request.path %>?page=1&per_page=50">50</a>
                               <span class="page-numbers desc">评论/页</span>
                           </div>
-                          <%= will_paginate @comments, :renderer=> YTBLinkRenderer,:inner_window=>4,:previous_label => "« 上一页",:next_label => "下一页 »"%>
+                          <%= will_paginate @comments,:renderer=> YTBLinkRenderer,:inner_window=>4,:previous_label => "« 上一页",:next_label => "下一页 »"%>
                           <% end %>
                   </div>
                   <ul>

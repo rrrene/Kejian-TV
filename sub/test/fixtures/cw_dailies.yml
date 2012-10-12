@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  cw_id: 
+  users_id: 
+  comment_count: 
+  addto_count: 
+  ding_count: 
+  cai_count: 
+  search_engine_referrer: 
+  from_recommend: 
+  share_web_site: 
+  from_embeded: 
+
+two:
+  cw_id: 
+  users_id: 
+  comment_count: 
+  addto_count: 
+  ding_count: 
+  cai_count: 
+  search_engine_referrer: 
+  from_recommend: 
+  share_web_site: 
+  from_embeded: 
