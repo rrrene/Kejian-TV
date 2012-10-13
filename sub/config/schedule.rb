@@ -17,7 +17,9 @@
 # end
 
 # Learn more: http://github.com/javan/whenever
-#whenever --clear-crontab
+#sudo whenever --clear-crontab -uroot
+#sudo whenever -uroot --set 'environment=sub_cnu_dev' --write-crontab
+
 
 set :output,  {:error => "#{Whenever.path}/log_#{environment}/cron_error_log.log", :standard => "#{Whenever.path}/log_#{environment}/cron_log.log"}
 
@@ -37,7 +39,7 @@ when 'production'
         command "echo hi"
         #runner ""
     end
-when 'sub_ibeike_staging'
+when 'sub_ibeike_staging','sub_cnu_staging'
     every 1.day,:at=>'3:00 am' do
         command "echo hi"
         # runner ""
@@ -52,8 +54,12 @@ when 'sub_ibeike_staging'
         command "echo hi"
         #runner ""
     end
-when 'sub_cnu_dev'
-    every 5.minutes do
+when 'sub_cnu_dev','sub_ibeike_dev'
+    every 1.hour do
+        command 'echo hi'
+    end
+else
+    every 10.minutes do
         command 'echo hi'
     end
 end

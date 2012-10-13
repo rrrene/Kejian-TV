@@ -371,7 +371,16 @@ HEREDOC
             json = {status:'suc',up:ct.voteup,down:ct.votedown,cc:ct.voteup-ct.votedown}
         else
             cw_event_add_action("评论顶",'Comment',ct.id,false)
-            json = {status:'failed',reason:'',up:ct.voteup,down:ct.votedown,cc:ct.voteup-ct.votedown}
+            if current_user.id == ct.user_id
+                reason = '您顶的您自己！'
+            elsif ct.voteup_user_ids.include?(current_user.id)
+                reason = '您已经顶过了'
+            elsif ct.votedown_user_ids.include?(current_user.id)
+                reason = '您已经踩过了'
+            else
+                reason = 'I don\'t know why'
+            end
+            json = {status:'failed',reason:reason,up:ct.voteup,down:ct.votedown,cc:ct.voteup-ct.votedown}
         end
         render json:json
     elsif atype == "vote-down"
@@ -382,7 +391,16 @@ HEREDOC
             json = {status:'suc',up:ct.voteup,down:ct.votedown,cc:ct.voteup-ct.votedown}
         else
             cw_event_add_action("评论踩",'Comment',ct.id,false)
-            json = {status:'failed',reason:'',up:ct.voteup,down:ct.votedown,cc:ct.voteup-ct.votedown}
+            if current_user.id == ct.user_id
+                reason = '您踩的您自己！'
+            elsif ct.voteup_user_ids.include?(current_user.id)
+                reason = '您已经顶过了'
+            elsif ct.votedown_user_ids.include?(current_user.id)
+                reason = '您已经踩过了'
+            else
+                reason = 'I don\'t know why'
+            end
+            json = {status:'failed',reason:reason,up:ct.voteup,down:ct.votedown,cc:ct.voteup-ct.votedown}
         end
         render json:json
     elsif atype == 'reply'
