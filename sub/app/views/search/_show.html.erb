@@ -1,0 +1,83 @@
+<div id="mainbar" class="wide" style="position:absolute;z-index:333;min-height:444px;margin-top:152px;margin-left:138px;">
+<div id="questions" class="wide">
+<% eager_load = Courseware.eager_load(@coursewares.collect(&:id)) %>
+<% @coursewares.each_with_index do |search_result,index|%>
+  <% item = eager_load[index] %>
+  <div id="question-summary-10960" class="question-summary wide">
+      <div class="statscontainer __sdk">
+        <div class="presentations">
+          <%= render :partial => 'cw',:locals=>{courseware:item,version:item.version,courseware_id:item.ktvid} %>
+        </div>
+      </div>
+      <div class="summary wide">
+          <h3>
+            <% if nn=Course.get_name(item.course_fid) %>
+              <a href="/courses/<%= item.course_fid %>" class="tag-post"><%= nn %></a><br>
+              <% nd=Course.get_department(item.course_fid) %>
+            <% end %>
+            <a href="/coursewares/<%= item.id %>" class="question-hyperlink">
+            <% if search_result.highlight %>
+              <%=page_highlight((search_result.highlight.title ? search_result.highlight.title.join('...') : item.title),params[:q])%>
+            <% else %>
+              <%= item.title %>
+            <% end %>
+            </a>
+          </h3>
+          <div class="excerpt">
+            <% has_body=false %>
+            <% if search_result.highlight %>
+              <% if search_result.highlight.body %>
+                <% has_body=true %>
+                <%=page_highlight(search_result.highlight.body.join(' ... '),params[:q])%>
+              <% end %>
+            <% end %>
+            <% if !has_body %>
+              <% 
+              arr=[]
+              arr<<item.filesort_mundane if item.filesort_mundane
+              arr<<"共#{number_with_delimiter item.slides_count}页" if item.slides_count>0 and !item.tree.present?
+              arr<<"共#{number_with_delimiter item.slides_count}个可阅读文档" if item.slides_count>0 and item.tree.present?
+              arr<<"#{number_with_delimiter item.words_count}字" if item.words_count>0
+              arr.reject! {|x| x.blank?}
+              %>
+              <%= arr.blank? ? item.fileinfo : arr.join(', ')+'.' %>
+              <% 
+              arr=[]
+              arr<<"作者创作时间投入: #{item.human_time_human(:very_short => true)}" if item.human_time>0
+              arr<<"最终完稿于: #{item.finished_at.strftime('%Y年%m月%d日 %H:%M:%S')}" if item.finished_at
+              arr.reject! {|x| x.blank?}
+            %>
+              <% unless arr.blank? %>
+                <br><%= arr.join(', ')+'.' %>
+              <% end %>
+            <% end %>
+          </div>
+
+          <div class="tags t-nutrition">
+            <% if false and item.teacher.present? %>
+              <!-- todo -->
+              <a href="/teachers/<%= item.teacher_typeid %>" class="post-tag" title="<%= item.teacher %>" rel="tag"><%= item.teacher %></a> 
+            <% end %>
+            <% if false and nd %>
+              <!-- todo -->
+              <a href="/departments/<%= item.course_fid %>" class="post-tag" title="<%= nd %>" rel="tag"><%= nd %></a> 
+            <% end %>
+          </div>
+      </div>
+  </div>
+  
+<% end %>  
+</div>
+<% if @coursewares.respond_to?(:total_pages) && @coursewares.total_pages > 1 %>
+<%= will_paginate @coursewares, :renderer=> SKPLinkRenderer,:inner_window=>3 %>
+<div class="page-sizer fr">
+  <a class="page-numbers<%= ' current' if '9'==params[:per_page] %>" title="每页显示9个条目" href="<%=alter_request_path request.fullpath,:per_page=>'9',:page=>'1'%>">9</a>
+    <a class="page-numbers<%= ' current' if  '15'==params[:per_page] %>" title="每页显示15个条目" href="<%=alter_request_path request.fullpath,:per_page=>'15',:page=>'1'%>">15</a>
+    <a class="page-numbers<%= ' current' if  '30'==params[:per_page] %>" title="每页显示30个条目" href="<%=alter_request_path request.fullpath,:per_page=>'30',:page=>'1'%>">30</a>
+    <a class="page-numbers<%= ' current' if  '50'==params[:per_page] %>" title="每页显示50个条目" href="<%=alter_request_path request.fullpath,:per_page=>'50',:page=>'1'%>">50</a>
+    <span class="page-numbers desc">条目/页</span>
+</div>
+
+<% end %>
+</div>
+

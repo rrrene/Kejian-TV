@@ -1755,7 +1755,10 @@
   #mainbar,.mainbar {
       float: left;
       margin: 10px 0 20px 0;
-      width: 828px;
+      width: 728px;
+  }
+  #mainbar.wide,.mainbar.wide {
+    width: 828px;
   }
 
   .summary-table {
@@ -1920,7 +1923,10 @@
       border-bottom: 1px solid #ccc;
       border-top: 1px solid #fff;
       padding: 10px 0 10px 0;
-      width: 804px;
+      width: 720px;
+  }
+  .question-summary.wide {
+    width:804px;
   }
 
   .question-summary:last-child {
@@ -1949,8 +1955,11 @@
   #questions {
       clear: both;
       float: left;
-      width: 810px;
-  }
+      width: 720px;
+}
+#questions.wide{
+  width:810px;
+}
 
   .stats {
       margin: 0 0 0 7px;
@@ -2141,9 +2150,12 @@
   .unanswered {
       color: #222;
   }
-
   .summary {
       float: left;
+      width: 486px;
+      min-height:173px;
+  }
+  .summary.wide {
       width: 568px;
   }
 
@@ -5269,10 +5281,6 @@
 //      padding-right:32px;
   }
 
-  .summary {
-      width: 570px;
-      min-height:173px;
-  }
  
   .user-show-new .user-header .user-header-left {
       float: left;

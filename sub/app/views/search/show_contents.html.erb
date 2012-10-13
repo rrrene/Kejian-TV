@@ -4,10 +4,10 @@
 
 
 <%= render :partial => 'content_above', :locals=>{:skp_content_style => "height:433px;"} %>
-<div id="mainbar" style="position:absolute;z-index:333;min-height:444px;margin-top:152px;margin-left:138px;">
-<div id="questions">
+<div id="mainbar" class="wide" style="position:absolute;z-index:333;min-height:444px;margin-top:152px;margin-left:138px;">
+<div id="questions" class="wide">
 <% @pages.each do |page|%>
-  <div id="question-summary-10960" class="question-summary">
+  <div id="question-summary-10960" class="question-summary wide">
       <div class="statscontainer __sdk">
         <div class="presentations">
           <div data-slide-count="1" data-id="<%=page.courseware_id%>" class="presentation">
@@ -16,8 +16,9 @@
             </a>
           </div>
         </div>
+        <div class="di">第<%=page.page_index+1%>页</div>
       </div>
-      <div class="summary">
+      <div class="summary wide">
           <h3>
               <a href="/courses/<%= page.course_fid %>" class="tag-post"><%= page.course_name %></a><br>
               <a href="/coursewares/<%= page.courseware_id %>?slide=<%=page.page_index%>" class="question-hyperlink">
@@ -55,5 +56,5 @@
 </div>
 
 <%= render :partial => 'content_below' %>
-<%= render :partial => 'search_show_common',:locals=>{:quan=>'页',:thing=>'课件内容',:mode=>:kejianneirong} %>
+<%= render :partial => 'search_show_common',:locals=>{:quans=>@pages,:quan=>'页',:thing=>'课件内容',:mode=>:kejianneirong} %>
 

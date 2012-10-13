@@ -12,6 +12,24 @@
   KTV.browsetext_css_src0 = window.psvr_asset_host+'/browsetext.png'
   KTV.addtext_css_src1 = window.psvr_asset_host+'/ie/addtext_hover.png'
   KTV.addtext_css_src0 = window.psvr_asset_host+'/ie/addtext.png'
+  KTV.sss_escape = (str) ->
+    ret=encodeURI(str);
+    ret=ret.split('!').join('%21');
+    ret=ret.split('@').join('%40');
+    ret=ret.split('#').join('%23');
+    ret=ret.split('$').join('%24');
+    ret=ret.split('&').join('%26');
+    ret=ret.split('*').join('%2A');
+    ret=ret.split('(').join('%28');
+    ret=ret.split(')').join('%29');
+    ret=ret.split('=').join('%3D');
+    ret=ret.split(':').join('%3A');
+    ret=ret.split('/').join('%2F');
+    ret=ret.split(';').join('%3B');
+    ret=ret.split('?').join('%3F');
+    ret=ret.split('+').join('%2B');
+    ret=ret.split("\'").join('%27');
+    ret
     
   KTV.sss_op = ->
     KTV.dz_targetize();
@@ -33,6 +51,13 @@
         minLength: 0,
         source: ( request, response ) ->
           term = request.term
+          if term.length > 0
+            $.get('/search/'+KTV.sss_escape(term),{},( data, status, xhr ) ->
+              $('#pocs').hide()
+              $('#content').html(data['content'])
+              $('#main').html(data['main'])
+              jQuery('#main').height(jQuery('#mainbar').height()+88);
+            , 'json')
           if false and KTV.sss_term_cache[term]
             KTV.sss_term_cater( KTV.sss_term_cache[ term ], term )
           else

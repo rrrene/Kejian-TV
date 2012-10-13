@@ -14,6 +14,16 @@ class SearchController < ApplicationController
   end
   def show
     search_common_op
+    @coursewares = Courseware.psvr_search(@page,@per_page,params)
+    respond_to do |format|
+      format.html
+      format.json{
+        render json:{
+          content:render_to_string(:file=>'search/_show.html.erb',:layout=>nil, :formats=>[:html]),
+          main:render_to_string(:file=>'search/_search_show_common_main.html.erb',:layout=>nil,:locals=>{:quans=>@coursewares,:quan=>'个',:thing=>'课件',:mode=>:kejian}, :formats=>[:html])
+        }
+      }
+    end
   end
   def show_contents
     search_common_op
@@ -33,6 +43,7 @@ class SearchController < ApplicationController
   end
 private
   def search_common_op
+    @using_ajax = request.path.split('/')[1]=='ajax'
     @seo[:title] = params[:q]
     @page = params[:page].to_i
     unless @page > 0

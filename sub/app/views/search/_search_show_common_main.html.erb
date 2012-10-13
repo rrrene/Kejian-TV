@@ -1,0 +1,177 @@
+	<div id="ignore" style="visibility: hidden; ">
+	</div>
+	<div>
+		<div id="cnt" class=" big">
+			<div class="mw">
+				<div id="sfcnt">
+					<div id="sform" style="height:36px">
+					</div>
+				</div>
+				<div id="srchdsc" style="">
+				</div>
+				<div id="sdb" style="">
+				</div>
+				<div id="subform_ctrl" style="visibility: visible; ">
+				</div>
+			</div>
+			<div id="appbar" style="">
+				<div id="extabar">
+					<div id="topabar" style="position:relative">
+						<div class="ab_wrp">
+							<div id="ab_name">
+								<span>搜索</span>
+							</div>
+							<div id="sbfrm_l">
+								<div id="resultStats">
+                  共找到 <%=number_with_delimiter quans.total_entries%> <%=quan%>相关<%=thing%><nobr> (用时 <%=quans.time%> 毫秒)&nbsp;</nobr>
+								</div>
+							</div>
+							<ol id="ab_ctls">
+								<li class="ab_ctl" id="ab_ctl_opt" style="display: inline-block; "><a class="ab_button" href="/preferences?hl=en" id="abar_button_opt" unselectable="on" role="button" aria-expanded="false" aria-haspopup="true" tabindex="0"><span class="ab_icon" title="Options" id="ab_opt_icon" unselectable="on"></span></a>
+								<div class="ab_dropdown" id="ab_options" role="menu" tabindex="-1" style="visibility:hidden">
+									<ul>
+										<li class="ab_dropdownitem" role="menuitem" aria-selected="false"><a class="ab_dropdownlnk" href="/preferences?hl=en" tabindex="-1">
+										<div>
+											Search settings
+										</div>
+										</a></li>
+										<li class="ab_dropdownitem" role="menuitem" aria-selected="false"><a class="ab_dropdownlnk" href="/advanced_search?q=%E5%A4%96%E6%98%9F%E4%BA%BA%E5%AD%A6%E7%89%A9%E7%90%862&amp;hl=en&amp;newwindow=1&amp;biw=1374&amp;bih=655&amp;prmd=imvns" id="ab_as" tabindex="-1">
+										<div>
+											Advanced search
+										</div>
+										</a></li>
+										<li class="ab_dropdownitem" role="menuitem" aria-selected="false"><a class="ab_dropdownlnk" href="/history/optout?hl=en" tabindex="-1">
+										<div>
+											Web History
+										</div>
+										</a></li>
+										<li class="ab_dropdownitem" role="menuitem" aria-selected="false"><a class="ab_dropdownlnk" href="//www.google.com/support/websearch/?source=g&amp;hl=en" tabindex="-1">
+										<div>
+											Search Help
+										</div>
+										</a></li>
+									</ul>
+								</div>
+								</li>
+							</ol>
+						</div>
+					</div>
+					<div id="botabar" style="display:none">
+						<div>
+						</div>
+					</div>
+				</div>
+				<div>
+				</div>
+			</div>
+			<div class="mw" id="ucs" style="">
+			</div>
+			<div class="mw">
+				<div id="arcntc" style="">
+				</div>
+				<div id="rcnt" style="clear:both;position:relative;zoom:1">
+					<div id="leftnavc" style="">
+						<div id="leftnav" role="navigation" style="position:absolute;top:1px;width:132px">
+							<div id="ms">
+								<ul>
+                <% if :kejian==mode %>
+                  <li class="mitem msel">
+									<div class="kls">
+										课件
+									</div>
+									</li>
+                <% else %>
+                  <li class="mitem"><a class="kl" href="/search/<%=CGI::escape params[:q]%>">课件</a></li>
+                <% end %>
+                <% if :kejianneirong==mode %>
+                  <li class="mitem msel">
+									<div class="kls">
+										课件内容
+									</div>
+									</li>
+                <% else %>
+									<li class="mitem"><a class="kl" href="/search_contents/<%=CGI::escape params[:q]%>">课件内容</a></li>
+                <% end %>
+                <% if :bofangliebiao==mode %>
+                  <li class="mitem msel">
+									<div class="kls">
+										播放列表
+									</div>
+									</li>
+                <% else %>
+									<li class="mitem"><a class="kl" href="/search_playlists/<%=CGI::escape params[:q]%>">播放列表</a></li>
+                <% end %>
+                <% if :kecheng==mode %>
+                  <li class="mitem msel">
+									<div class="kls">
+										课程
+									</div>
+									</li>
+                <% else %>
+									<li class="mitem"><a class="kl" href="/search_courses/<%=CGI::escape params[:q]%>">课程</a></li>
+                <% end %>
+                <% if :laoshi==mode %>
+                  <li class="mitem msel">
+									<div class="kls">
+										老师
+									</div>
+									</li>
+                <% else %>
+									<li class="mitem"><a class="kl" href="/search_teachers/<%=CGI::escape params[:q]%>">老师</a></li>
+                <% end %>
+                <% if :yonghu==mode %>
+                  <li class="mitem msel">
+									<div class="kls">
+										用户
+									</div>
+									</li>
+                <% else %>
+									<li class="mitem"><a class="kl" href="/search_users/<%=CGI::escape params[:q]%>">用户</a></li>
+                <% end %>
+								</ul>
+								<div data-ved="0CAwQ_gU" id="more_link">
+									<ul class="nojsb" id="hidden_modes">
+										<li class="mitem"><a class="kl" href="/search?q=%E5%A4%96%E6%98%9F%E4%BA%BA%E5%AD%A6%E7%89%A9%E7%90%862&amp;hl=en&amp;newwindow=1&amp;biw=1374&amp;bih=655&amp;prmd=imvns&amp;source=lnms&amp;tbm=bks&amp;sa=X&amp;ei=04d1UODSOobpiAeU5oGoDQ&amp;ved=0CA0Q_AUoAA">Books</a></li>
+										<li class="mitem"><a class="kl" href="/search?q=%E5%A4%96%E6%98%9F%E4%BA%BA%E5%AD%A6%E7%89%A9%E7%90%862&amp;hl=en&amp;newwindow=1&amp;biw=1374&amp;bih=655&amp;prmd=imvns&amp;source=lnms&amp;tbm=plcs&amp;sa=X&amp;ei=04d1UODSOobpiAeU5oGoDQ&amp;ved=0CA4Q_AUoAQ">Places</a></li>
+										<li class="mitem"><a class="kl" href="/search?q=%E5%A4%96%E6%98%9F%E4%BA%BA%E5%AD%A6%E7%89%A9%E7%90%862&amp;hl=en&amp;newwindow=1&amp;biw=1374&amp;bih=655&amp;prmd=imvns&amp;source=lnms&amp;tbm=blg&amp;sa=X&amp;ei=04d1UODSOobpiAeU5oGoDQ&amp;ved=0CA8Q_AUoAg">Blogs</a></li>
+										<li class="mitem"><a class="kl" href="http://www.google.com/flights/gwsredirect?q=%E5%A4%96%E6%98%9F%E4%BA%BA%E5%AD%A6%E7%89%A9%E7%90%862&amp;hl=en&amp;newwindow=1&amp;biw=1374&amp;bih=655&amp;prmd=imvns&amp;source=lnms&amp;tbm=flm&amp;sa=X&amp;ei=04d1UODSOobpiAeU5oGoDQ&amp;ved=0CBAQ_AUoAw">Flights</a></li>
+										<li class="mitem"><a class="kl" href="/search?q=%E5%A4%96%E6%98%9F%E4%BA%BA%E5%AD%A6%E7%89%A9%E7%90%862&amp;hl=en&amp;newwindow=1&amp;biw=1374&amp;bih=655&amp;prmd=imvns&amp;source=lnms&amp;tbm=dsc&amp;sa=X&amp;ei=04d1UODSOobpiAeU5oGoDQ&amp;ved=0CBEQ_AUoBA">Discussions</a></li>
+										<li class="mitem"><a class="kl" href="/search?q=%E5%A4%96%E6%98%9F%E4%BA%BA%E5%AD%A6%E7%89%A9%E7%90%862&amp;hl=en&amp;newwindow=1&amp;biw=1374&amp;bih=655&amp;prmd=imvns&amp;source=lnms&amp;tbm=rcp&amp;sa=X&amp;ei=04d1UODSOobpiAeU5oGoDQ&amp;ved=0CBIQ_AUoBQ">Recipes</a></li>
+										<li class="mitem"><a class="kl" href="/search?q=%E5%A4%96%E6%98%9F%E4%BA%BA%E5%AD%A6%E7%89%A9%E7%90%862&amp;hl=en&amp;newwindow=1&amp;biw=1374&amp;bih=655&amp;prmd=imvns&amp;source=lnms&amp;tbm=app&amp;sa=X&amp;ei=04d1UODSOobpiAeU5oGoDQ&amp;ved=0CBMQ_AUoBg">Applications</a></li>
+										<li class="mitem"><a class="kl" href="/search?q=%E5%A4%96%E6%98%9F%E4%BA%BA%E5%AD%A6%E7%89%A9%E7%90%862&amp;hl=en&amp;newwindow=1&amp;biw=1374&amp;bih=655&amp;prmd=imvns&amp;source=lnms&amp;tbm=pts&amp;sa=X&amp;ei=04d1UODSOobpiAeU5oGoDQ&amp;ved=0CBQQ_AUoBw">Patents</a></li>
+									</ul>
+									<a href="#" class="jsb nj kl" id="showmodes"><span class="msm">更多</span><span class="msl">更少</span></a>
+								</div>
+							</div>
+							<div id="bms">
+								<div class="lnsep">
+								</div>
+								<div style="clear:both;overflow:hidden">
+									<h2 class="hd">Search Options</h2>
+									<ul id="tbd" class="med">
+										<li class="jsb" style="display:none">
+										<ul class="tbt">
+										</ul>
+										</li>
+										<li class="jsb" style="display:none">
+										<ul class="tbt">
+										</ul>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="xfoot" style="">
+				<div id="xjsd">
+				</div>
+				<div id="xjsi">
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
