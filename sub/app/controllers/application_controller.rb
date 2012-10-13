@@ -74,6 +74,7 @@ class ApplicationController < ActionController::Base
     @is_ie9 = (agent.index('msie 9')!=nil)
     @is_ie10 = (agent.index('msie 10')!=nil)
     @bg_index = rand(Setting.fotos.count)
+    @is_mobile = ActiveRecord::ConnectionAdapters::Column.value_to_boolean(request.user_agent =~ /Mobile|webOS/)
   end
   def xookie
     if !$psvr_really_development
@@ -307,13 +308,13 @@ jsstatus"=>"0", "karmaratelimit"=>"0", "losslessdel"=>"365", "magicdiscount"=>"8
   
   before_filter :request_referer
   def request_referer
-      if !request.referer.nil? and !URI(request.referer).host.include?('kejian') and !@is_bot
+      if false and !request.referer.nil? and !URI(request.url).path.include?('coursewares') and !@is_bot
           if current_user.nil?
               cuid = nil
           else
               cuid = current_user.id
           end
-          CwEvent.add_come_event('Courseware','',request.ip,request.url,cuid,request.referer)
+          CwEvent.add_come_event('Courseware','App',request.ip,request.url,cuid,request.referer,@is_mobile)
           session[:referer] = request.referer
       end
   end

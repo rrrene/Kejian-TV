@@ -41,9 +41,9 @@ an params example:
     end
     if 'Courseware'==@comment.commentable_type
       if @comment.replied_to_comment_id.nil?
-          CwEvent.add_action('评论课件','Comment',@comment.id,request.ip,request.url,current_user.id,true)
+          CwEvent.add_action('评论课件','Comment',@comment.id,request.ip,request.url,current_user.id,true,@is_mobile)
       else
-          CwEvent.add_action('评论评论','Comment',@comment.id,request.ip,request.url,current_user.id,true)
+          CwEvent.add_action('评论评论','Comment',@comment.id,request.ip,request.url,current_user.id,true,@is_mobile)
       end
       @comment.save(:validate=>false)
       render 'coursewares/_cw_comment',locals:{comment:@comment,data_score:0},layout:false

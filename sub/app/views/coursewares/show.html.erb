@@ -415,7 +415,6 @@ courseware_id: '<%=@courseware.id%>'
                          <span class="yt-uix-button-content">顶 </span>
                       </button>
 
- 
              
                     <button onclick=";return false;" title="踩一下" type="button" class="psvr_login_required end yt-uix-tooltip-reverse  yt-uix-button yt-uix-button-default yt-uix-tooltip yt-uix-button-empty <% if  !current_user.nil? and @courseware.disliked_user_ids.include?(current_user.id) %> yt-uix-button-toggled <% end  %>" id="watch-unlike" data-button-toggle="true" data-button-action="actions.unlike" role="button">
                         <span class="yt-uix-button-icon-wrapper"><img class="yt-uix-button-icon yt-uix-button-icon-watch-unlike" src="<%= asset_path 'yt/wfw.gif' %>" alt="踩一下"></span>

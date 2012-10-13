@@ -114,13 +114,13 @@ class CoursewaresController < ApplicationController
     respond_to do |format|
       format.html{
         @seo[:title] = @courseware.title
-        if  !request.referer.nil? and URI(request.referer).host.include?('kejian') and !@is_bot
+        if  !request.referer.nil?  and !@is_bot #and URI(request.referer).host.include?('kejian')
             if current_user.nil?
                 cuid = nil
             else
                 cuid = current_user.id
             end
-            CwEvent.add_come_event('Courseware',@courseware.id,request.ip,request.url,cuid,request.referer)
+            CwEvent.add_come_event('Courseware',@courseware.id,request.ip,request.url,cuid,request.referer,@is_mobile)
         end
         params[:page] ||= '1'
         params[:per_page] ||= cookies[:welcome_per_page]
@@ -197,6 +197,11 @@ class CoursewaresController < ApplicationController
       return
     end
     @courseware.inc(:downloads_count,1)
+    if current_user.nil?
+        CwEvent.add_action('下载','Courseware',@courseware.id,request.ip,request.url,nil,true,@is_mobile)
+    else
+        CwEvent.add_action('下载','Courseware',@courseware.id,request.ip,request.url,current_user.id,true,@is_mobile)
+    end
     if @courseware.xunlei_url.present?
       downurl = @courseware.xunlei_url
     else

@@ -222,9 +222,9 @@ HEREDOC
   end
   def cw_event_add_action(type,title,id,suc)
       if current_user.nil?
-          CwEvent.add_action(type,title,id,request.ip,request.url,nil,suc)
+          CwEvent.add_action(type,title,id,request.ip,request.url,nil,suc,@is_mobile)
       else
-          CwEvent.add_action(type,title,id,request.ip,request.url,current_user.id,suc)
+          CwEvent.add_action(type,title,id,request.ip,request.url,current_user.id,suc,@is_mobile)
       end
   end
   def get_cw_operation
