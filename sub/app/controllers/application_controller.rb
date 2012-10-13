@@ -54,19 +54,6 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  before_filter :request_referer
-  def request_referer
-      if !request.referer.nil? and !URI(request.referer).host.include?('kejian')
-          if current_user.nil?
-              cuid = nil
-          else
-              cuid = current_user.id
-          end
-          CwEvent.add_come_event('Courseware','',request.ip,cuid,request.referer)
-          session[:referer] = request.referer
-      end
-  end
-  
   before_filter :set_vars
   before_filter :xookie,:unless=>'devise_controller?'
   before_filter :dz_security
@@ -317,7 +304,20 @@ jsstatus"=>"0", "karmaratelimit"=>"0", "losslessdel"=>"365", "magicdiscount"=>"8
       PreCommonSession.create(uid:uid,sid:sid,username:username,lastactivity:lastactivity,ip1:ip[0],ip2:ip[1],ip3:ip[2],ip4:ip[3],action:2,groupid:7)
     end
   end
-
+  
+  before_filter :request_referer
+  def request_referer
+      if !request.referer.nil? and !URI(request.referer).host.include?('kejian') and !@is_bot
+          if current_user.nil?
+              cuid = nil
+          else
+              cuid = current_user.id
+          end
+          CwEvent.add_come_event('Courseware','',request.ip,request.url,cuid,request.referer)
+          session[:referer] = request.referer
+      end
+  end
+  
   def dz_security
     @authkey = UCenter::Php.md5("#{Setting.dz_authkey}#{cookies[Discuz.cookiepre_real+'saltkey']}")
     if user_signed_in?
