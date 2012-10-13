@@ -31,6 +31,27 @@
     ret=ret.split("\'").join('%27');
     ret
     
+  KTV.sss = (will_blur)->
+    $('#psvr_gtable').hide()
+    term = $('#gbqfq').val()
+    $('#gbqfq').blur() if will_blur
+    if term!=window.search_current_loaded
+      $('.psvr_search_whitebox').show()
+      url1=window.location.pathname.split('/')[1]
+      url2=KTV.sss_escape(term)
+      url = "/#{url1}/#{url2}"
+      console.log(url);
+      History.pushState({url:url}, "#{document.title.split(' - ')[0]} - #{term}", decodeURI(url)) if ( window.History.enabled )
+      $.get(url,{per_page:10},( data, status, xhr ) ->
+        $('#pocs').hide()
+        window.search_current_loaded = data['term']
+        $('#content').html(data['content'])
+        $('#main').html(data['main'])
+        jQuery('#main').height(jQuery('#mainbar').height()+88);
+        jQuery('.psvr_search_whitebox').height(jQuery('#main').height()-64);
+        $('.psvr_search_whitebox').hide()
+      , 'json')
+    
   KTV.sss_op = ->
     KTV.dz_targetize();
     $('#psvr_dz_target').resize(KTV.dz_targetize);
@@ -42,9 +63,20 @@
     ).blur(->
       $('#gbqfqw').removeClass('focused');
     );
+    $('#gbqf').submit(->
+      KTV.sss(true)
+      false
+    )
+    $('#content').click((e)->
+      $('#psvr_gtable').hide()
+      e.stopPropagation()
+    )
+    $('#main').click((e)->
+      $('#psvr_gtable').hide()
+      e.stopPropagation()
+    )
     $('#gbqfq').bind('keydown',(e)->
-      c=String.fromCharCode(e.keyCode);
-      return true unless c.match(/\w/)
+      return true unless $(this).val().match(/\S/)
       KTV.switch_inside_sss();
       $(this).unbind('keydown');
       $('#gbqfq').autocomplete({
@@ -52,12 +84,7 @@
         source: ( request, response ) ->
           term = request.term
           if term.length > 0
-            $.get('/search/'+KTV.sss_escape(term),{},( data, status, xhr ) ->
-              $('#pocs').hide()
-              $('#content').html(data['content'])
-              $('#main').html(data['main'])
-              jQuery('#main').height(jQuery('#mainbar').height()+88);
-            , 'json')
+            KTV.sss(false)
           if false and KTV.sss_term_cache[term]
             KTV.sss_term_cater( KTV.sss_term_cache[ term ], term )
           else
@@ -85,7 +112,7 @@
           			<tbody>\
           			<tr>\
           				<td style=\"width: 100%;\">\
-          					<span>#{itemRaw['title']}</span>\
+          					<span class=\"psvrtarget\">#{itemRaw['title']}</span>\
           				</td>\
                   <td><a href=\"/search_lucky/#{itemRaw['title']}\" class=\"gssb_j\">手气不错 »</a></td>\
           			</tr>\
@@ -125,6 +152,9 @@
     ,->
       $(this).removeClass('gssb_i')
       $('.gssb_j',this).hide()
+    ).click((e)->
+      $('#gbqfq').val($('.psvrtarget',this).text())
+      KTV.sss(true)
     )
     length=$('#psvr_gtbody>tr').length
     if 0==length

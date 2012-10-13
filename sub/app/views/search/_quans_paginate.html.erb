@@ -1,0 +1,10 @@
+<% if @quans.respond_to?(:total_pages) && @quans.total_pages > 1 %>
+<%= will_paginate @quans, :renderer=> SKPLinkRenderer,:inner_window=>3 %>
+<div class="page-sizer fr">
+    <a class="page-numbers<%= ' current' if  '10'==params[:per_page] %>" title="每页显示10个条目" href="<%=alter_request_path request.fullpath,:per_page=>'10',:page=>'1'%>">10</a>
+    <a class="page-numbers<%= ' current' if  '30'==params[:per_page] %>" title="每页显示30个条目" href="<%=alter_request_path request.fullpath,:per_page=>'30',:page=>'1'%>">30</a>
+    <a class="page-numbers<%= ' current' if  '50'==params[:per_page] %>" title="每页显示50个条目" href="<%=alter_request_path request.fullpath,:per_page=>'50',:page=>'1'%>">50</a>
+    <span class="page-numbers desc">条目/页</span>
+</div>
+
+<% end %>

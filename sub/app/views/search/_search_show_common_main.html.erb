@@ -23,7 +23,7 @@
 							</div>
 							<div id="sbfrm_l">
 								<div id="resultStats">
-                  共找到 <%=number_with_delimiter quans.total_entries%> <%=quan%>相关<%=thing%><nobr> (用时 <%=quans.time%> 毫秒)&nbsp;</nobr>
+                  共找到 <%=number_with_delimiter @quans.total_entries%> <%=@quan%>相关<%=@thing%><nobr> (用时 <%=@quans.time%> 毫秒)&nbsp;</nobr>
 								</div>
 							</div>
 							<ol id="ab_ctls">
@@ -74,7 +74,7 @@
 						<div id="leftnav" role="navigation" style="position:absolute;top:1px;width:132px">
 							<div id="ms">
 								<ul>
-                <% if :kejian==mode %>
+                <% if :kejian==@mode %>
                   <li class="mitem msel">
 									<div class="kls">
 										课件
@@ -83,7 +83,7 @@
                 <% else %>
                   <li class="mitem"><a class="kl" href="/search/<%=CGI::escape params[:q]%>">课件</a></li>
                 <% end %>
-                <% if :kejianneirong==mode %>
+                <% if :kejianneirong==@mode %>
                   <li class="mitem msel">
 									<div class="kls">
 										课件内容
@@ -92,7 +92,7 @@
                 <% else %>
 									<li class="mitem"><a class="kl" href="/search_contents/<%=CGI::escape params[:q]%>">课件内容</a></li>
                 <% end %>
-                <% if :bofangliebiao==mode %>
+                <% if :bofangliebiao==@mode %>
                   <li class="mitem msel">
 									<div class="kls">
 										播放列表
@@ -101,7 +101,7 @@
                 <% else %>
 									<li class="mitem"><a class="kl" href="/search_playlists/<%=CGI::escape params[:q]%>">播放列表</a></li>
                 <% end %>
-                <% if :kecheng==mode %>
+                <% if :kecheng==@mode %>
                   <li class="mitem msel">
 									<div class="kls">
 										课程
@@ -110,7 +110,7 @@
                 <% else %>
 									<li class="mitem"><a class="kl" href="/search_courses/<%=CGI::escape params[:q]%>">课程</a></li>
                 <% end %>
-                <% if :laoshi==mode %>
+                <% if :laoshi==@mode %>
                   <li class="mitem msel">
 									<div class="kls">
 										老师
@@ -119,7 +119,7 @@
                 <% else %>
 									<li class="mitem"><a class="kl" href="/search_teachers/<%=CGI::escape params[:q]%>">老师</a></li>
                 <% end %>
-                <% if :yonghu==mode %>
+                <% if :yonghu==@mode %>
                   <li class="mitem msel">
 									<div class="kls">
 										用户
