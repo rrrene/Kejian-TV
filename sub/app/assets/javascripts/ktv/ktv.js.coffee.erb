@@ -162,6 +162,8 @@
     else
       $('#pocs').css('top',52+length*22)
 
+  KTV.ytb_targetize = ->
+    jQuery('#comments').height(jQuery('#the_ytb').height());
   KTV.dz_targetize = ->
     $('#content').height($('#psvr_dz_target').height());
   KTV.sdk_flashes_set = (type,msg)->
@@ -520,7 +522,7 @@
         $('#weizuozhefasongganxie').addClass('purple')
         $('#weizuozhefasongganxie').removeClass('like')
         $('#weizuozhefasongganxie').addClass('unlike')
-        $('#weizuozhefasongganxie').html('已喜欢')
+        $('#weizuozhefasongganxie').html('已顶')
         $('#weizuozhefasongganxie2').html(num+1)
         $('#weizuozhefasongganxie5').prepend('<div><a class="" href="/users/'+loginUser.slug+'"><img src="'+loginUser.avatarSmall47+'" alt="'+loginUser.nickname+'"></a></div>');
         $('#weizuozhefasongganxie6').html(num+1)

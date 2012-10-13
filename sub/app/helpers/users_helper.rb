@@ -14,15 +14,7 @@ module UsersHelper
     "/users/#{user.slug}"
   end
   def avatar_url_quick(user,size=:normal)
-    s=AvatarUploader::SIZES[size]
-    url = User.get_avatar_filename(user)
-    if url and url.starts_with?('http://')
-      d = CGI::escape("http://#{Setting.ktv_subdomain}/defaults/avatar/#{size}.jpg")
-      url = "#{url}?r=PG&s=#{s}&d=#{d}"
-    else
-      url = "#{Setting.upload_url}/user/avatar/#{user}/#{size}_#{url}"
-    end
-    return url
+    return dz_avatar_url(User.get_uid(user),User.get_email(user),size)
   end
   def name_beautify(name)
     '_'==name[0] ? name[1..-1] : name
@@ -31,14 +23,7 @@ module UsersHelper
     return "http://uc.#{Setting.ktv_domain}/avatar.php?uid=#{uid}&email=#{Digest::MD5.hexdigest(email)}&size=#{size}"
   end
   def avatar_url(user,size=:normal)
-    s=AvatarUploader::SIZES[size]
-      
-    if user.avatar.blank? or url.blank?
-      gravatar_id = Digest::MD5.hexdigest(user.email.downcase)
-      d = CGI::escape("http://#{Setting.ktv_subdomain}/defaults/avatar/#{size}.jpg")
-      url = "http://gravatar.com/avatar/#{gravatar_id}.png?r=PG&s=#{s}&d=#{d}"
-    end
-    return url
+    return dz_avatar_url(user.uid,user.email,size)
   end
 
   def avatar_tag(user,size=:normal,style='')

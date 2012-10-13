@@ -275,14 +275,14 @@ courseware_id: '<%=@courseware.id%>'
                <li class="like" style="border-top:none">
                   <% unless current_user and @courseware.user_id==current_user.id%>
                   <% if thank_courseware_ed?(@courseware) %>
-                  <a href="#fans" class="unlike purple" rel="nofollow">已喜欢</a>
+                  <a href="#fans" class="unlike purple" rel="nofollow">已顶</a>
                   <% else %>
-                  <a href="javascript:void(0)" class="like grey psvr_login_required" rel="nofollow" id="weizuozhefasongganxie">我喜欢</a>
+                  <a href="javascript:void(0)" class="like grey psvr_login_required" rel="nofollow" id="weizuozhefasongganxie">顶一下</a>
                   <% end %>
                   <% else %>
-                  <a href="#fans" class="like grey">收到的喜欢</a>
+                  <a href="#fans" class="like grey">收到的顶</a>
                   <% end %>
-                  <a href="#fans" class="likes"><span id="weizuozhefasongganxie2"><%= @courseware.thanked_count %></span> 喜欢</a>
+                  <a href="#fans" class="likes"><span id="weizuozhefasongganxie2"><%= @courseware.thanked_count %></span> 顶</a>
                </li>
             </ul>
          </div>
@@ -339,14 +339,14 @@ courseware_id: '<%=@courseware.id%>'
                <li class="like">
                   <% unless current_user and @courseware.user_id==current_user.id%>
                   <% if thank_courseware_ed?(@courseware) %>
-                  <a href="#fans" class="unlike purple" rel="nofollow">已喜欢</a>
+                  <a href="#fans" class="unlike purple" rel="nofollow">已顶</a>
                   <% else %>
-                  <a href="javascript:void(0)" class="like grey psvr_login_required" rel="nofollow" id="weizuozhefasongganxie">我喜欢</a>
+                  <a href="javascript:void(0)" class="like grey psvr_login_required" rel="nofollow" id="weizuozhefasongganxie">顶一下</a>
                   <% end %>
                   <% else %>
-                  <a href="#fans" class="like grey">收到的喜欢</a>
+                  <a href="#fans" class="like grey">收到的顶</a>
                   <% end %>
-                  <a href="#fans" class="likes"><span id="weizuozhefasongganxie2"><%= @courseware.thanked_count %></span> 喜欢</a>
+                  <a href="#fans" class="likes"><span id="weizuozhefasongganxie2"><%= @courseware.thanked_count %></span> 顶</a>
                </li>
              <%if nn%>
                <li class="category">课程 <a href="/courses/<%= @courseware.course_fid %>" title="<%= nn %>" target="_parent"><%= nn %></a></li>
@@ -370,71 +370,16 @@ courseware_id: '<%=@courseware.id%>'
      <div class="wrapper">
        <div class="main">
          <ul>
-           <li class="current"><a href="#fans">粉丝</a></li>
+           <li class="current"><a href="#comments">评论</a></li>
+           <li><a href="#fans">粉丝</a></li>
            <li><a class="likes" href="#revisions">修订历史(<%= @courseware_real_version+1 %>)</a></li>
          </ul>
        </div>
      </div>
    </section>
-   <section class="supplimental">
-     <div class="wrapper">
-       <div class="main" style="">
-         <div class="tab-content" id="fans" style="">
-             
-           <h1>喜欢这个课件的人 (<span id="weizuozhefasongganxie6"><%= @courseware.thanked_count %></span>)
-             <% unless current_user and @courseware.user_id==current_user.id%>
-             <% if thank_courseware_ed?(@courseware) %>
-               <span style="" class="unlike" id="weizuozhefasongganxie4">
-                 <a rel="nofollow" class="unlike button" href="#fans">✓ 我已表示喜欢!</a>
-               </span>
-             <% else %>
-               <span style="" class="like" id="weizuozhefasongganxie3">
-                 <a rel="nofollow" class="like button psvr_login_required" href="javascript:void(0)">喜欢这个课件?</a>
-               </span>
-             <% end %>
-             <% end %>
-           </h1>
-           <div id="weizuozhefasongganxie5">
-             <% @courseware.thanked_user_ids.reverse.each do |user_id| %>
-             <div><a class="" href="/users/<%= User.get_slug(user_id) %>"><img src="<%= avatar_url_quick(user_id,:small47) %>" alt="<%= User.get_name(user_id) %>"></a></div>
-             <% end %>
-           </div>
-           
-         </div>
-         <div class="tab-content" id="revisions" style="">
-           <h1>课件修订历史</h1>
-           <div class="presentations">
-             <% @courseware_real_version.downto(0).each_with_index do |version,index| %>
-             <% slide_count = @courseware.slides_counts[version.to_s] || 1 %>
-             <% sz = [slide_count-1,50].min %>
-             <div data-slide-count="<%= sz+1 %>" data-id="<%= @courseware.id %>" class="presentation" style="<%= 'margin-right:0px' if 2==index % 3 %>">
-                 <a href="<%= courseware_path @courseware %>/revisions/<%= version+1 %>" class="slide_preview scrub setup">
-                <% (sz).downto(1).each do |i| %>
-                <img style="display: none;" data-slide="<%= i %>" class="timeline" alt="第<%= i %>页" src="<%= asset_url("cw/#{@courseware.ktvid}/#{@courseware.revision(version)}thumb_slide_#{i}.jpg") %>">
-                <% end %>
-                <img src="<%= asset_url("cw/#{@courseware.ktvid}/#{@courseware.revision(version)}thumb_slide_0.jpg") %>" alt="Thumb_slide_0" width="210" height="158">
-                <div class="scrubber">
-                <div style="width: 100%;" class="scrubbed">
-                </div>
-                </div>
-                 </a>
-                 <div class="preview_info">
-                <h3><a href="<%= courseware_path @courseware %>/revisions/<%= version+1 %>">第<%= version+1 %>版<%= '(最新版)' if version==@courseware_real_version %> <%= ": #{@courseware.version_date[version.to_s]}" if @courseware.version_date[version.to_s] %></a></h3>
-                <p class="date">
-                  <%= l(@courseware.created_at, :format => :long) %>, <a href="/users/<%= User.get_slug @courseware.user_id %>"><%= User.get_name @courseware.user_id %></a>
-                </p>
-               </div>
-             </div>
-             <% end %>
-            </div>
-         </div>
-       </div>
-     </div>
-   </section>
 </div>
-
-
-<div class="__ytb">
+<div class="wrapper">
+<div class="__ytb" id="the_ytb" style="position:absolute;display:none">
    <div id="watch-main-container" style="padding-top:20px">
       <div id="watch-main">
          <div id="watch-panel">
@@ -1386,6 +1331,72 @@ courseware_id: '<%=@courseware.id%>'
            <% end %>
         </script>
 </div>
+</div>
+<div class="__sdk">
+   <section class="supplimental">
+     <div class="wrapper">
+       <div class="main" style="">
+         <div class="tab-content" id="comments" style="">
+           &nbsp;
+         </div>
+         <div class="tab-content" id="fans" style="">
+             
+           <h1>顶过这个课件的人
+             <% unless current_user and @courseware.user_id==current_user.id%>
+             <% if thank_courseware_ed?(@courseware) %>
+               <span style="" class="unlike" id="weizuozhefasongganxie4">
+                 <a rel="nofollow" class="unlike button" href="#fans">✓ 我已顶过!</a>
+               </span>
+             <% else %>
+               <span style="" class="like" id="weizuozhefasongganxie3">
+                 <a rel="nofollow" class="like button psvr_login_required" href="javascript:void(0)">顶一下这个课件</a>
+               </span>
+             <% end %>
+             <% end %>
+           </h1>
+           <div id="weizuozhefasongganxie5">
+             <% @courseware.thanked_user_ids.reverse.each do |user_id| %>
+             <div><a class="" href="/users/<%= User.get_slug(user_id) %>"><img src="<%= avatar_url_quick(user_id,:small) %>" alt="<%= User.get_name(user_id) %>" width="47" height="47"></a></div>
+             <% end %>
+           </div>
+           
+         </div>
+         <div class="tab-content" id="revisions" style="">
+           <h1>课件修订历史</h1>
+           <div class="presentations">
+             <% @courseware_real_version.downto(0).each_with_index do |version,index| %>
+             <% slide_count = @courseware.slides_counts[version.to_s] || 1 %>
+             <% sz = [slide_count-1,50].min %>
+             <div data-slide-count="<%= sz+1 %>" data-id="<%= @courseware.id %>" class="presentation" style="<%= 'margin-right:0px' if 2==index % 3 %>">
+                 <a href="<%= courseware_path @courseware %>/revisions/<%= version+1 %>" class="slide_preview scrub setup">
+                <% (sz).downto(1).each do |i| %>
+                <img style="display: none;" data-slide="<%= i %>" class="timeline" alt="第<%= i %>页" src="<%= asset_url("cw/#{@courseware.ktvid}/#{@courseware.revision(version)}thumb_slide_#{i}.jpg") %>">
+                <% end %>
+                <img src="<%= asset_url("cw/#{@courseware.ktvid}/#{@courseware.revision(version)}thumb_slide_0.jpg") %>" alt="Thumb_slide_0" width="210" height="158">
+                <div class="scrubber">
+                <div style="width: 100%;" class="scrubbed">
+                </div>
+                </div>
+                 </a>
+                 <div class="preview_info">
+                <h3><a href="<%= courseware_path @courseware %>/revisions/<%= version+1 %>">第<%= version+1 %>版<%= '(最新版)' if version==@courseware_real_version %> <%= ": #{@courseware.version_date[version.to_s]}" if @courseware.version_date[version.to_s] %></a></h3>
+                <p class="date">
+                  <%= l(@courseware.created_at, :format => :long) %>, <a href="/users/<%= User.get_slug @courseware.user_id %>"><%= User.get_name @courseware.user_id %></a>
+                </p>
+               </div>
+             </div>
+             <% end %>
+            </div>
+         </div>
+       </div>
+     </div>
+   </section>
+</div>
+<% content_for :butt2 do %>
+  KTV.ytb_targetize()
+  jQuery('#the_ytb').resize(KTV.ytb_targetize)
+  jQuery('#the_ytb').show()
+<% end %>
 
 
 <%= render file:'/application/footers/_sdk_footer' %>

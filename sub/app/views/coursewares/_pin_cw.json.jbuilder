@@ -1,4 +1,4 @@
-json.avatarTiny avatar_url_quick(courseware.uploader_id,:small30)
+json.avatarTiny avatar_url_quick(courseware.uploader_id,:small)
 json.selectedBoardIds []
 json.boardId Topic.get_id(courseware.topic)
 json.isSurprise false

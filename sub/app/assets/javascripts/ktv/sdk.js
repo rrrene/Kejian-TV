@@ -4110,6 +4110,11 @@ $(function () {
     if ($("#tabs",'.__sdk')) {
         var a = $("#tabs",'.__sdk');
         a.find("a").click(function () {
+          if('#comments'==$(this).attr('href')){
+            $('#the_ytb').show();
+          }else{
+            $('#the_ytb').hide();
+          }
             return $(".tab-content",'.__sdk').hide(), $($(this).attr("href")).show(), $(this).closest("ul").find("li.current").removeClass("current"), $(this).closest("li").addClass("current"), !1
         }).first().click()
                 
