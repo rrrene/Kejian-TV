@@ -155,6 +155,13 @@ $('.presentation').hover(function(){
               <a href="/coursewares/<%=cwid%>" class="playlist-detail-title yt-uix-sessionlink"><img class="tiny-video-icon" src="<%=asset_path 'yt/img/pixel-vfl3z5WfW.gif'%>" alt=""><span dir="ltr"><%=Courseware.get_title cwid%></span></a>
             <% end %>
           </div>
+          <div class="tags t-nutrition">
+            <% if item.desc.present? %>
+              <%=item.desc%>
+            <% else%>
+              共<%=link_to item.coursewares_count,"/play_lists/#{item.id}"%>个课件.
+            <% end%>
+          </div>
 
           <div class="started fr">
             <div class="user-info ">
@@ -173,9 +180,6 @@ $('.presentation').hover(function(){
             </div>
           </div>  
 
-          <div class="tags t-nutrition">
-            共<%=link_to item.coursewares_count,"/play_lists/#{item.id}"%>个课件.
-          </div>
 
 
       </div>

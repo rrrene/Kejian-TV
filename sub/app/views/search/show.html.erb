@@ -3,7 +3,7 @@
 <% end %>
 
 <%= render :partial => 'content_above', :locals=>{:skp_content_style => "height:433px;"} %>
-<%= render :partial => 'show' %>
+<%= render :partial => params[:action] %>
 <%= render :partial => 'content_below' %>
 <%= render :partial => 'search_show_common' %>
 

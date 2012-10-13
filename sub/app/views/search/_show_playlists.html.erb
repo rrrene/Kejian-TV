@@ -1,0 +1,69 @@
+<div id="mainbar" class="wide" style="position:absolute;z-index:333;min-height:444px;margin-top:152px;margin-left:138px;">
+<div id="questions">
+<% eager_load = PlayList.eager_load(@play_lists.collect(&:id)) %>
+<% @play_lists.each_with_index do |search_result,index|%>
+  <% item = eager_load[index] %>
+  <div id="question-summary-10960" class="question-summary">
+      <div class="statscontainer __sdk">
+        <div class="presentations">
+          <%= render :partial => 'play_list',:locals=>{play_list:item} %>
+        </div>
+      </div>
+      <div class="summary">
+          <h3>
+            <% item.course_fids.each do |course_fid| %>
+              <% if nn=Course.get_name(course_fid) %>
+                <a href="/courses/<%= course_fid %>" class="tag-post"><%= nn %></a><br>
+                <% nd=Course.get_department(course_fid) %>
+              <% end %>
+            <% end %>
+            <a href="/play_lists/<%= item.id %>" class="question-hyperlink" title="<%= item.title %>">
+            <% if search_result.highlight %>
+              <%=page_highlight((search_result.highlight.title ? search_result.highlight.title.join('...') : item.title),params[:q])%>
+            <% else %>
+              <%= item.title %>
+            <% end %>
+            </a>
+          </h3>
+          <div class="excerpt excerpt_red">
+            <% has_body=false %>
+            <% if search_result.highlight %>
+              <% if search_result.highlight['courseware_titles.title'] %>
+                <% has_body=true %>
+                <% search_result.highlight['courseware_titles.title'].each_with_index do |ttt,index| %>
+                  <% break if index >= 3 %>
+                  <a href="/coursewares/<%=search_result.courseware_titles.detect{|x| ttt.gsub('__PSVR_begin_RVSP__','').gsub('__PSVR_end_RVSP__','')==x.title}.id%>" class="playlist-detail-title yt-uix-sessionlink"><img class="tiny-video-icon" src="<%=asset_path 'yt/img/pixel-vfl3z5WfW.gif'%>" alt=""><span dir="ltr"><%=page_highlight(ttt,params[:q])%></span></a>
+                <% end %>
+              <% end %>
+            <% end %>
+            <% if !has_body %>
+              <% item.content.limit(3).each do |cwid| %>
+                <a href="/coursewares/<%=cwid%>" class="playlist-detail-title yt-uix-sessionlink"><img class="tiny-video-icon" src="<%=asset_path 'yt/img/pixel-vfl3z5WfW.gif'%>" alt=""><span dir="ltr"><%=Courseware.get_title cwid%></span></a>
+              <% end %>
+            <% end %>
+          </div>
+          <div class="tags t-nutrition">
+            <% has_body=false %>
+            <% if search_result.highlight %>
+              <% if search_result.highlight.desc %>
+                <% has_body=true %>
+                <%=page_highlight(search_result.highlight.desc.join(' ... '),params[:q])%>
+              <% end %>
+            <% end %>
+            <% if !has_body %>
+              <% if item.desc.present? %>
+                <%=item.desc%>
+              <% else%>
+                共<%=link_to item.coursewares_count,"/play_lists/#{item.id}"%>个课件.
+              <% end%>
+            <% end %>
+          </div>
+
+      </div>
+  </div>
+  
+<% end %>
+
+</div>
+<%= render 'quans_paginate' %>
+</div>

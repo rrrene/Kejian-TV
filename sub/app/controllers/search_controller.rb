@@ -20,16 +20,7 @@ class SearchController < ApplicationController
     @quan='个'
     @thing='课件'
     @mode=:kejian
-    respond_to do |format|
-      format.html
-      format.json{
-        render json:{
-          term:@user_provided_term,
-          content:render_to_string(:file=>'search/_show.html.erb',:layout=>nil, :formats=>[:html]),
-          main:render_to_string(:file=>'search/_search_show_common_main.html.erb',:layout=>nil, :formats=>[:html])
-        }
-      }
-    end
+    search_common_over
   end
   def show_contents
     search_common_op
@@ -38,19 +29,16 @@ class SearchController < ApplicationController
     @quan='页'
     @thing='课件内容'
     @mode=:kejianneirong
-    respond_to do |format|
-      format.html
-      format.json{
-        render json:{
-          term:@user_provided_term,
-          content:render_to_string(:file=>'search/_show_contents.html.erb',:layout=>nil, :formats=>[:html]),
-          main:render_to_string(:file=>'search/_search_show_common_main.html.erb',:layout=>nil, :formats=>[:html])
-        }
-      }
-    end
+    search_common_over
   end
   def show_playlists
     search_common_op
+    @play_lists = PlayList.psvr_search(@page,@per_page,params)
+    @quans=@play_lists
+    @quan='条'
+    @thing='播放列表'
+    @mode=:bofangliebiao
+    search_common_over
   end
   def show_courses
     search_common_op
@@ -79,6 +67,20 @@ private
     end
     cookies[:search_per_page] = @per_page.to_s
     params[:q]=params[:q].xi
+  end
+  def search_common_over
+    respond_to do |format|
+      format.html{
+        render 'show'
+      }
+      format.json{
+        render json:{
+          term:@user_provided_term,
+          content:render_to_string(:file=>"search/_#{params[:action]}.html.erb",:layout=>nil, :formats=>[:html]),
+          main:render_to_string(:file=>'search/_search_show_common_main.html.erb',:layout=>nil, :formats=>[:html])
+        }
+      }
+    end
   end
 end
 
