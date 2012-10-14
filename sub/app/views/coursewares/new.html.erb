@@ -22,7 +22,7 @@
 
   <p><label for="presentation_topic">学院与课程名</label><br />
      <input class="text" id="presentation_topic" name="presentation[topic]" size="30" type="text" placeholder="" value="<%if @c%><%= @c.department %>: <%= @c.name %> <%end %>" readonly="readonly" /></p>
-  <div id="presentation_teacher_hv" style="<%= @is_WebKit ? 'margin-top:44px' : '' %>"></div>
+  <div id="presentation_teacher_hv" style=""></div>
   <div class="__dz">
     <div id="presentation_teacher_select" class="sltm" initialized="true" style="display:none"><ul><li class="first-child current">请选择老师</li><div id="presentation_teacher_select_dynamic"><% @teachers.each do |teacher| %><li class=""><%= teacher %></li><% end %></div><li class="opt_psvr_add_more">其他</li></ul></div>
   </div>
@@ -30,7 +30,7 @@
      <input class="text" id="presentation_teacher" name="presentation[teacher]" size="30" type="text" value="请选择老师"/>
      <input type="text" class="text" id="presentation_other_teacher" name="presentation[other_teacher]" size="30" placeholder="例: 郭懋正" value="" style="width: 273px;display: none">
   </p>
-  <div id="presentation_sort1_hv" style="<%= @is_WebKit ? 'margin-top:44px' : '' %>"></div>
+  <div id="presentation_sort1_hv" style=""></div>
   <div class="__dz">
     <div id="presentation_sort1_select" class="sltm" initialized="true" style="display:none">
       <ul>

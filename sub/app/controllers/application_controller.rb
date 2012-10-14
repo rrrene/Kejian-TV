@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
     # text = request.user_agent    
     # render text:text and return
   }
-  unless $psvr_really_development
+  if $psvr_really_production
     rescue_from Exception, with: :render_500
     rescue_from AbstractController::ActionNotFound, with: :render_404
     rescue_from ActionController::RoutingError, with: :render_404

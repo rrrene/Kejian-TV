@@ -471,14 +471,14 @@
     $('.vspiic').click(->
       $('#cw_previwer').show()
     )
-    $('#cw_newhuge,#core_addcw_wrap,.gonna_new_courseware').click(->
-      hideWindow('nav')
-      url = '/simple/forum.php?mod=misc&action=nav'
-      if document.URL.match(/\/departments\/(\d+)$/)
-        url += '&psvr_g='+RegExp.$1
-      showWindow('nav', url, 'get', 0)
-      false
-    )
+    # $('#cw_newhuge,#core_addcw_wrap,.gonna_new_courseware').click(->
+    #   hideWindow('nav')
+    #   url = '/simple/forum.php?mod=misc&action=nav'
+    #   if document.URL.match(/\/departments\/(\d+)$/)
+    #     url += '&psvr_g='+RegExp.$1
+    #   showWindow('nav', url, 'get', 0)
+    #   false
+    # )
     $('#presentation_teacher_hv').off().on('click',(e)->
       e.stopPropagation()
       $('#presentation_teacher_hv').toggleClass('right_on')
