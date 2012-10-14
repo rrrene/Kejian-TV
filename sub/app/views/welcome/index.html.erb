@@ -144,18 +144,17 @@
             <a href="/coursewares/<%= item.id %>" class="question-hyperlink">
             <%= item.title %>
             </a>
-            <span style="font-size:12px;font-weight:normal;color:#999">上传于<%= timeago(item.created_at,:span=>true) %></span>
           </h3>
           <div class="excerpt">
             <% 
             arr=[]
             arr<<item.filesort_mundane if item.filesort_mundane
-            arr<<"共#{number_with_delimiter item.slides_count}页" if item.slides_count>0 and !item.tree.present?
+            arr<<"共#{number_with_delimiter item.slides_count}页#{item.words_count>0 ? '('+number_with_delimiter(item.words_count)+'字)' : ''}" if item.slides_count>0 and !item.tree.present?
             arr<<"共#{number_with_delimiter item.slides_count}个可阅读文档" if item.slides_count>0 and item.tree.present?
-            arr<<"#{number_with_delimiter item.words_count}字" if item.words_count>0
+            arr<<"上传于#{timeago(item.created_at)}"
             arr.reject! {|x| x.blank?}
             %>
-            <%= arr.blank? ? item.fileinfo : arr.join(', ')+'.' %>
+            <%=raw arr.blank? ? item.fileinfo : arr.join(', ')+'.' %>
             <% 
             arr=[]
             arr<<"作者创作时间投入: #{item.human_time_human(:very_short => true)}" if item.human_time>0
@@ -173,7 +172,7 @@
               <a href="/departments/<%= item.course_fid %>" class="post-tag" title="<%= nd %>" rel="tag"><%= nd %></a> 
             <% end %>
           </div>
-          <div class="started fr" style="margin-top:30px;margin-right:12px">
+          <div class="started fr" style="margin-top:12px;margin-right:12px">
 
 
       <div class="user-info ">
@@ -188,7 +187,7 @@
           </div>
       </div>
       <% item.teachers.each do |teacher|%>
-      <div class="user-info" style="margin-right:20px">
+      <div class="user-info">
           <div class="user-gravatar32">
               <a href="/teachers/<%= Teacher.get_id teacher %>"><div class="">
                 <img width="32" height="32" alt="" src="<%=teacher_avatar_url_quick(teacher,:small32)%>">
@@ -199,7 +198,7 @@
               <%= teacher%>
             </a><br>
               <% user_id = Teacher.get_user_id teacher%>
-              <span dir="ltr" title="reputation score 26521" class="reputation-score"><% if user_id.present? %> todo <%else%>该作者尚未注册用户<%end%></span>
+              <% if user_id.present? %><span dir="ltr" title="reputation score 26521" class="reputation-score"> todo </span><%else%>该作者尚未注册用户<%end%>
           </div>
       </div>
       <% end %>
