@@ -269,7 +269,7 @@ HEREDOC
       if current_user.nil?
         render :text => "<div><a href='javascript:void(0)' class='like grey psvr_login_required'>登录</a>之后就可以踩了。</div>"
       else
-        render file:'coursewares/_cw_stat',locals:{cw_id:params[:cw_id]},layout:false  
+        render file:'coursewares/_cw_stat',locals:{cw:Courseware.find(params[:cw_id])},layout:false  
       end
     end
     

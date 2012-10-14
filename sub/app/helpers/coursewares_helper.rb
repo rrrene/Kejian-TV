@@ -24,4 +24,11 @@ module CoursewaresHelper
     highlight(ret,keyword.split(/\s/).compact,:highlighter=>'<span class="search-highlight">\1</span>')
 =end
   end
+  def gap_days(last,first)
+    return ((last-first)/3600/24).to_f
+  end
+  def percent_days(milestone,first,all)
+      gap = ((milestone.getlocal.beginning_of_day.to_i-first)/3600/24).to_f
+      return (gap/all*100).to_i
+  end
 end
