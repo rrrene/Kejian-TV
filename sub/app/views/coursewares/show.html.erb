@@ -185,7 +185,7 @@ courseware_id: '<%=@courseware.id%>'
       <div class="wrapper">
          <% if @courseware.thin? %>
          <div class="extras" style="float:right;margin-left:12px">
-            <%= render :partial => 'presenter', :locals => {user:@courseware.user} if @courseware.user %>
+            <%= render :partial => 'presenter', :locals => {user:@courseware.uploader} if @courseware.uploader %>
          </div>
          <% end %>
          <h1 style="<%='margin-bottom:12px' if @courseware.yasuobao?%>">
@@ -334,7 +334,7 @@ courseware_id: '<%=@courseware.id%>'
             </div>
          </div>
          <div class="extras">
-            <%= render :partial => 'presenter', :locals => {user:@courseware.user} if @courseware.user %>
+            <%= render :partial => 'presenter', :locals => {user:@courseware.uploader} if @courseware.uploader %>
             <ul class="delimited">
                <li class="like">
                   <% unless current_user and @courseware.user_id==current_user.id%>
@@ -344,9 +344,9 @@ courseware_id: '<%=@courseware.id%>'
                   <a href="javascript:void(0)" class="like grey psvr_login_required" rel="nofollow" id="weizuozhefasongganxie">顶一下</a>
                   <% end %>
                   <% else %>
-                  <a href="#fans" class="like grey">收到的顶</a>
+                  <a href="#fans" class="like grey">人顶</a>
                   <% end %>
-                  <a href="#fans" class="likes"><span id="weizuozhefasongganxie2"><%= @courseware.thanked_count %></span> 顶</a>
+                  <a href="#fans" class="likes"><span id="weizuozhefasongganxie2"><%= @courseware.thanked_count %></span> 人顶</a>
                </li>
              <%if nn%>
                <li class="category">课程 <a href="/courses/<%= @courseware.course_fid %>" title="<%= nn %>" target="_parent"><%= nn %></a></li>
@@ -412,7 +412,7 @@ courseware_id: '<%=@courseware.id%>'
                     
                       <button onclick=";return false;" title="顶一下" type="button" class="like button psvr_login_required start yt-uix-tooltip-reverse  yt-uix-button yt-uix-button-default yt-uix-tooltip <% if !current_user.nil? and @courseware.thanked_user_ids.include?(current_user.id) %> yt-uix-button-toggled <% end  %>" id="watch-like" data-button-toggle="true" data-button-action="actions.like" role="button">
                          <span class="yt-uix-button-icon-wrapper"><img class="yt-uix-button-icon yt-uix-button-icon-watch-like" src="<%= asset_path 'yt/wfw.gif' %>" alt="顶一下" /></span>
-                         <span class="yt-uix-button-content">顶 </span>
+                         <span class="yt-uix-button-content">人顶 </span>
                       </button>
 
              

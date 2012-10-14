@@ -35,8 +35,8 @@ class SearchController < ApplicationController
     search_common_op
     @play_lists = PlayList.psvr_search(@page,@per_page,params)
     @quans=@play_lists
-    @quan='条'
-    @thing='播放列表'
+    @quan='包'
+    @thing='课件锦囊'
     @mode=:bofangliebiao
     search_common_over
   end

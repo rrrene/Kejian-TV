@@ -9,7 +9,7 @@
   <div id="supernav" class="supernav_red">
     <div class="switch switch_red">高级</div>
     <ul>
-      <li class="red sigezi<%='_right_on jihuo' if params[:sort1].blank? or params[:sort1]=='all'%>"><a href="<%=alter_request_path request.fullpath,:sort1=>'all'%>">全部资源</a></li>
+      <li class="red sigezi<%='_right_on jihuo' if params[:sort1].blank? or params[:sort1]=='all'%>"><a href="<%=alter_request_path request.fullpath,:sort1=>'all'%>">全部锦囊</a></li>
       <li class="red lianggezi<%='_right_on jihuo' if params[:sort1]=='lecture_notes'%>"><a href="<%=alter_request_path request.fullpath,:sort1=>'lecture_notes'%>">讲义</a></li>
       <li class="red lianggezi<%='_right_on jihuo' if params[:sort1]=='assignments'%>"><a href="<%=alter_request_path request.fullpath,:sort1=>'assignments'%>">作业</a></li>
       <li class="red lianggezi<%='_right_on jihuo' if params[:sort1]=='exams'%>"><a href="<%=alter_request_path request.fullpath,:sort1=>'exams'%>">试卷</a></li>
@@ -18,7 +18,7 @@
     </ul>
     <br style="clear:both">
     <div class="p">
-      <a class="pubu pubu_red tb" href="/coursewares_by_departments">观赏播放列表瀑布</a>
+      <a class="pubu pubu_red tb" href="/coursewares_by_departments">观赏课件锦囊瀑布</a>
       <div class="paixu">排序</div>
       <div class="paixu2 tb">
         <%=
@@ -129,7 +129,7 @@ $('.presentation').hover(function(){
 });
 <% end %>
 <% if @play_lists.count<1 %>
-<div style="line-height:88px;height:88px;text-align:center;">  还没有此类课件播放列表，<a class="psvr_login_required" href="/play_lists/new">创建一个</a>吧：）</div>
+<div style="line-height:88px;height:88px;text-align:center;">  还没有此类课件课件锦囊，<a class="psvr_login_required" href="/play_lists/new">创建一个</a>吧：）</div>
 <% else %>
 <% @play_lists.each do |item|%>
   <div id="question-summary-10960" class="question-summary">
@@ -206,17 +206,17 @@ $('.presentation').hover(function(){
 <%= render 'welcome_unlogin_user' unless user_signed_in? %>
     <div id="questions-count" class="module">
       <div class="summarycount al"><%= link_to number_with_delimiter(PlayList.no_privacy.normal.count),'/play_lists' %></div>
-      <p style="margin-top:6px">个课件播放列表已创建</p>
+      <p style="margin-top:6px">个课件锦囊已创建</p>
     </div>
 <div class="__sdk" style="background:transparent">
-  <a class="button_red primary psvr_login_required" href="/play_lists/new" style="color:white">创建课件播放列表</a>
+  <a class="button_red primary psvr_login_required" href="/play_lists/new" style="color:white">创建课件锦囊</a>
 </div>
 <div class="module" id="chat-feature" style="padding-top:0">
     
 
     
 <div class="module" id="recent-tags">
-    <h4 id="h-recent-tags">学院 × 播放列表数</h4>
+    <h4 id="h-recent-tags">学院 × 锦囊数</h4>
     <div id="recent-tags-list">
       <% Department.desc('play_lists_count').each do |item| %>
         <a href="/departments/<%= item.fid %>" class="post-tag" title="<%= item.name %>" rel="tag"><%= item.name %></a><span class="item-multiplier"><span class="item-multiplier-x">&times;</span>&nbsp;<span class="item-multiplier-count"><%= item.play_lists_count %></span></span><br>

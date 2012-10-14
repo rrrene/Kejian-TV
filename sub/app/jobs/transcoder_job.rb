@@ -29,7 +29,7 @@ class TranscoderJob
       `mkdir -p "#{working_dir}"`
       if @courseware.remote_filepath
         if [:ppt,:pptx,:doc,:docx].include? @courseware.sort.to_sym 
-          `cp /media/hd2/win_transcoding/#{@courseware.id}.pdf "#{pdf_path}"`
+          `cp /media/hd2/win_transcoding/#{@courseware.ktvid}.pdf "#{pdf_path}"`
           if(!File.exists?(pdf_path))
             @courseware.update_attribute(:status,-3);return false
           end
@@ -40,7 +40,7 @@ class TranscoderJob
         end
         if(@courseware.md5.blank?)
           md5 = @courseware.md5 = Digest::MD5.hexdigest(File.read(pdf_path))
-          @courseware.fileinfo_raw = Ktv::Utils.safely(''){`file #{pdf_path}`.force_encoding_zhaopin.strip.split(': ')[1..-1].join(': ')}
+          @courseware.fileinfo_raw = Ktv::Utils.safely(''){`file "#{pdf_path}"`.force_encoding_zhaopin.strip.split(': ')[1..-1].join(': ')}
           @courseware.dz_file_manipulate
           @courseware.md5hash[@courseware.version.to_s] = md5
           @courseware.md5s = 0.upto(@courseware.version).collect{|md5_i| @courseware.md5hash[md5_i.to_s]}
@@ -68,6 +68,8 @@ class TranscoderJob
           pinpic_final = ''
           pdf.each_with_index do |page,i|
             next unless i+1 >= @courseware.pdf_slide_processed
+            text = page.text
+            @courseware.construct_pages_one!(text,i) if text.present?
             done = false
             tried_times = 0
             while !done
