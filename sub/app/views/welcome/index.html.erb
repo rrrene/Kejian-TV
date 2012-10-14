@@ -168,10 +168,6 @@
           </div>
 
           <div class="tags t-nutrition">
-            <% if false and item.teacher.present? %>
-              <!-- todo -->
-              <a href="/teachers/<%= item.teacher_typeid %>" class="post-tag" title="<%= item.teacher %>" rel="tag"><%= item.teacher %></a> 
-            <% end %>
             <% if false and nd %>
               <!-- todo -->
               <a href="/departments/<%= item.course_fid %>" class="post-tag" title="<%= nd %>" rel="tag"><%= nd %></a> 
@@ -182,7 +178,7 @@
 
       <div class="user-info ">
           <div class="user-gravatar32">
-              <a href="/users/454/oliver-c"><div class="">
+              <a href="/users/<%= User.get_slug item.uploader_id %>"><div class="">
                 <img width="32" height="32" alt="" src="<%=dz_avatar_url(User.get_uid(item.uploader_id),User.get_email(item.uploader_id),:small)%>">
               </div></a>
           </div>
@@ -192,18 +188,18 @@
           </div>
       </div>
       <% item.teachers.each do |teacher|%>
-      <div class="user-info" style="margin-right:18px">
+      <div class="user-info" style="margin-right:20px">
           <div class="user-gravatar32">
-              <a href="/users/454/oliver-c"><div class="">
-                <img width="32" height="32" alt="" src="<%=dz_avatar_url(User.get_uid(item.uploader_id),User.get_email(item.uploader_id),:small)%>">
+              <a href="/teachers/<%= Teacher.get_id teacher %>"><div class="">
+                <img width="32" height="32" alt="" src="<%=teacher_avatar_url_quick(teacher,:small32)%>">
               </div></a>
           </div>
           <div class="user-details">
-            <a href="/users/<%= User.get_slug item.uploader_id %>">
-              <%=teacher%>
+            <a href="/teachers/<%= Teacher.get_id teacher %>">
+              <%= teacher%>
             </a><br>
-              <span dir="ltr" title="reputation score 26521" class="reputation-score">该作者尚未注册用户</span>
-
+              <% user_id = Teacher.get_user_id teacher%>
+              <span dir="ltr" title="reputation score 26521" class="reputation-score"><% if user_id.present? %> todo <%else%>该作者尚未注册用户<%end%></span>
           </div>
       </div>
       <% end %>
