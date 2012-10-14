@@ -463,7 +463,14 @@ courseware_id: '<%=@courseware.id%>'
                         <a dir="ltr" rel="author" class="yt-uix-sessionlink yt-user-name author" href="/users/<%= @courseware.user_id %>"><%= User.get_name @courseware.user_id %></a> 发布于 <span class="watch-video-date" id="eow-date"><%= timeago @courseware.created_at  %></span>
                      </p>
                      <div id="watch-description-text">
-                        <p id="eow-description">课件描述：<%=Sanitize.clean((@courseware.desc.nil? ? '无' : @courseware.desc).gsub(/\n/, '<br />'), Sanitize::Config::BASIC).html_safe %></p>
+                       <p id="eow-description">
+                       <% if @courseware.desc.present? %>
+                          <%=Sanitize.clean(@courseware.desc.gsub(/\n/, '<br />'), Sanitize::Config::BASIC).html_safe %>
+                       <% end %>
+                       </p>
+                       <p id="eow-fileinfo-description">
+                         <%= @courseware.fileinfo %>
+                       </p>
                      </div>
                      <div id="watch-description-extras">
                         <h4>

@@ -49,8 +49,8 @@ def redis_connect!(index=0)
   $redis_asks.select(select.to_s)
   select+=1
 
-  $redis_experts = Redis.new(:host => redis_config['host'],:port => redis_config['port'],:thread_safe => true, :password=>$passwd)
-  $redis_experts.select(select.to_s)
+  $redis_teachers = Redis.new(:host => redis_config['host'],:port => redis_config['port'],:thread_safe => true, :password=>$passwd)
+  $redis_teachers.select(select.to_s)
   select+=1
 
   $redis_courses = Redis.new(:host => redis_config['host'],:port => redis_config['port'],:thread_safe => true, :password=>$passwd)

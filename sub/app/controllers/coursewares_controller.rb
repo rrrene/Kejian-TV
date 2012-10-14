@@ -55,7 +55,7 @@ class CoursewaresController < ApplicationController
     @coursewares = @coursewares.where(:is_thin=>false) if '1'==params['onlyForCommodity']
     @coursewares = @coursewares.where(:slides_count.gt=>50) if '2'==params['queryScope']
     if '1'==params['queryOrder']
-      @coursewares = @coursewares.desc('created_at')
+      @coursewares = @coursewares.desc('gone_normal_at')
     elsif '2'==params['queryOrder']
       @coursewares = @coursewares.desc('views_count')
     end
