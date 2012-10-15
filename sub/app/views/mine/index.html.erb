@@ -1,11 +1,10 @@
-<% content_for :body_style do %>background:#CCC url(<%=asset_path 'ytb_diaplog.png'%>) repeat-x left top;<% end %>
 <% content_for :armpit do %>
   <%= stylesheet_link_tag 'ktv/__ytb' %>
   <%= stylesheet_link_tag "ktv/__ytb_manager", :media => "all" %>
 <% end %>
 
 
-<div class="__ytb" style="margin-top:13px" dir="ltr">
+<div class="__ytb" style="padding-top:13px" dir="ltr">
 <div class=" playlist branded-page" id="page">
 	<div id="sb-wrapper">
 		<div class="sb-card sb-off" id="sb-container">
@@ -36,25 +35,25 @@
 			</li>
 			<li class="subnav-secondary">
 			<a href="/account?feature=mhsn" class="yt-nav-item">
-			设置 </a>
+			账号设置 </a>
 			</li>
 		</ul>
 		<ul>
-			<li class=" selected">
+			<li class=" psvr-selected">
 			<span class="yt-nav-item">
-			视频管理器 </span>
+			课件管理器 </span>
+			</li>
+			<li>
+			<a href="https://www.youtube.com/analytics?vmv=2&amp;feature=mhsn" class="yt-nav-item">
+			流量统计分析 </a>
 			</li>
 			<li>
 			<a href="/editor?feature=mhsn" class="yt-nav-item">
-			视频编辑器 </a>
+			收入与财务报告 </a>
 			</li>
 			<li>
 			<a href="/my_subscriptions?feature=mhsn" class="yt-nav-item">
 			我的订阅 </a>
-			</li>
-			<li>
-			<a href="https://www.youtube.com/analytics?vmv=2&amp;feature=mhsn" class="yt-nav-item">
-			YouTube Analytics（分析） </a>
 			</li>
 		</ul>
 	</div>

@@ -8,6 +8,7 @@ Sub::Application.routes.draw do
   get '/user_logged_in_required'=>'application#user_logged_in_required'
   get '/modern_required'=>'application#modern_required'
   get '/mine' => 'mine#index'
+
   post '/mine/delete' => 'mine#delete'
   get '/mine/:page' => 'mine#index'
 
