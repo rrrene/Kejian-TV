@@ -443,7 +443,7 @@
       <% end %>
       $.preloadThumbs();
       $('.scrubber_holder, .scrubber_holder div, .speakerdeck_toolbar, .navigation').disableSelection();
-      $('.yt-uix-tooltip').tipsy({gravity: $.fn.tipsy.autoNS,fade: false,opacity: 1});
+      $('.yt-uix-tooltip').tipsy({gravity: $.fn.tipsy.autoNS,fade: <%= @is_WebKit ? 'false' : 'true'%>,opacity: 1});
       
       document.onkeyup = function(e) {
         if(document.activeElement.tagName.toLowerCase() !== 'input' && document.activeElement.tagName.toLowerCase() !== 'textarea') {
