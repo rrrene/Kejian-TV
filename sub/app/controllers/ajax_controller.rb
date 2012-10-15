@@ -2,11 +2,11 @@
 class AjaxController < ApplicationController
   before_filter :authenticate_user!, :except => [:checkUsername,:checkEmailAjax,:xl_req_get_method_vod,:logincheck,:seg,:star_refresh]
   def watch_later
-    play_list = PlayList.locate(user_id:current_user.id,title:'稍后阅读')
+    play_list = PlayList.locate(current_user.id,'稍后阅读')
     if play_list.add_one_thing(params[:courseware_id],true)
-      render json:{okay:true,msg:'已将此课件添加至您的稍后阅读锦囊.'}
+      render json:{okay:true,msg:'已将此课件添加至您的稍后阅读锦囊中.'}
     else
-      render json:{okay:true,msg:'此课件已存在于您的稍后阅读锦囊.'}
+      render json:{okay:true,msg:'此课件已存在于您的稍后阅读锦囊中.'}
     end
   end
   def checkUsername
