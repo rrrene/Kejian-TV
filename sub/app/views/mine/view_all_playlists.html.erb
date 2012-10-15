@@ -185,6 +185,9 @@
   </div>
 <script type="text/javascript" charset="utf-8">
   <% content_for :butt2 do %>
+      $('#vm-dialog-new-playlist').live('click',function(e){
+        e.stopPropagation();
+      });
       $('#vm-playlist-div').live('click',function(){
           $('#vm-new-playlist').toggleClass('yt-uix-button-active');
           div = $('#vm-dialog-new-playlist');
@@ -207,6 +210,26 @@
             div.hide();
             $('#yt-admin-content').append(div);
           }
+      });
+      
+      $('#vm-playlist-sort-btn').live('click',function(){
+        $(this).toggleClass('yt-uix-button-active')
+        if($(this).hasClass('yt-uix-button-active')){
+            var div = $('ul',this);
+            div.remove();
+            var cssObj = {
+              'min-width': '79px',
+              'left': $(this).offset().left.toString() + 'px', 
+              'top': ($(this).offset().top + $(this).height()).toString() + 'px'
+            };
+            div.show().removeClass('hid');
+            $('.__ytb').append(div);
+        }else{
+            var div = $('.__ytb > ul');
+            div.remove();
+            div.hide().addClass('hid');
+            $(this).append(div);
+        }
       });
       $(window).scroll(function(){
         var hidden = '<div style="visibility: hidden; position: static; top: auto; left: auto; display: block; float: none; margin: 0px; width: 766px; height: 54px;"></div>'
@@ -231,14 +254,17 @@
            }
         }
       });
+       
       $(document).click(function(e){
         var target = e.target;
-        if (!$(target).is('#vm-playlist-div') && !$(target).parent().parent().is('#vm-playlist-div') && ) {
+        console.log(e);
+        if ($('#vm-new-playlist').hasClass('yt-uix-button-active') && !$(target).is('#vm-playlist-div') && !$(target).parent().parent().is('#vm-playlist-div') && !$(target).parent().is('#vm-playlist-div')) {
           div = $('#vm-dialog-new-playlist');
           div.remove();
           div.addClass('hid');
           div.hide();
           $('#yt-admin-content').append(div);
+          $('#vm-new-playlist').toggleClass('yt-uix-button-active');
         }
       });
       $('#vm-new-playlist-cancel').live('click',function(){
@@ -251,6 +277,19 @@
          $('#vm-new-playlist-desc-field').val('')
       });
       $('#vm-new-playlist-save').live('click',function(){
+          var loading = '<div class="yt-alert yt-alert-default yt-alert-info">  <div class="yt-alert-icon"><img alt="提醒图标" class="icon master-sprite" src="<%= asset_path "yt/img/pixel-vfl3z5WfW.gif" %>"></div><div class="yt-alert-buttons"><button role="button" data-close-parent-class="yt-alert" onclick=";return false;" class="close yt-uix-close yt-uix-button yt-uix-button-close" type="button"><span class="yt-uix-button-content">关闭 </span></button></div><div role="alert" class="yt-alert-content">正在创建播放列表...</div></div>';
+          $('#vm-new-playlist-notifs').append(loading);
+          $(this).val('');
+          $(this).addArgs('disabled');
+          $.ajax({
+            url:'/ajax/create_new_playlist',
+            type:'POST',
+            data:{'title':'xx','desc':'xx'},
+            dataType:'json'
+          }).done(function(data){
+            window.location.replace('/play_lists/edit?id='+data['id']);
+          });
+          
           
       });
   <% end %>
