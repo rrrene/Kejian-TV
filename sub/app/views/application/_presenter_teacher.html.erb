@@ -1,0 +1,5 @@
+<div class="presenter" style="<%= defined?(style) ? style : '' %>">
+  <a href="/teachers/<%= teacher.id %>"><img src="<%=teacher_avatar_url(teacher,:mid)%>" class="imgHead" width="48" height="48"></a>
+  <h2><a href="/teachers/<%= teacher.id %>"><%=teacher.name%></a></h2>
+  <p><%=teacher.coursewares_count %> 个课件</p>
+</div>

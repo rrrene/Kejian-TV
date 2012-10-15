@@ -207,6 +207,7 @@
         return false;
       },
       gotoSingle: function(noparent){
+        window.gone_single=true;
         $('#single_button').css('opacity','1');
         $('#double_button').css('opacity','0.5');
         $('#treeboxbox_tree').css({width:692,height:525})
@@ -215,6 +216,7 @@
         }
       },
       gotoDouble: function(noparent){
+        window.gone_single=false;
         $('#double_button').css('opacity','1');
         $('#single_button').css('opacity','0.5');
         $('#treeboxbox_tree').css({width:944,height:713})
@@ -280,8 +282,13 @@
           top = 0;
         }
 <% if params[:preview].blank? and @courseware.thin? %>
+      if(!window.gone_single){
         $img.width(<%= @courseware.real_width %>);
         $img.height(<%= @courseware.real_height %>);
+      }else{
+        $img.width(width);
+        $img.height(height);
+      }
 <% else %>
         $img.width(width);
         $img.height(height);

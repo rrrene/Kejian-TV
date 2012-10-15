@@ -21,11 +21,11 @@
       "gender"=> 1,
       "slug"=>"#{current_user.slug}",
       "description"=> "#{current_user.bio}",
-      "avatarLargeCut"=> "#{avatar_url(current_user,:normal180)}",
-      "avatarMedium"=> "#{avatar_url(current_user,:mid60)}",
-      "avatarTiny"=> "#{avatar_url(current_user,:small30)}",
-      "avatarSmall47"=> "#{avatar_url(current_user,:small47)}",
-      "avatarLarge"=> "#{avatar_url(current_user,:normal180)}",
+      "avatarLargeCut"=> "#{avatar_url(current_user,:big)}",
+      "avatarMedium"=> "#{avatar_url(current_user,:middle)}",
+      "avatarTiny"=> "#{avatar_url(current_user,:small)}",
+      "avatarSmall47"=> "#{avatar_url(current_user,:small)}",
+      "avatarLarge"=> "#{avatar_url(current_user,:middle)}",
     ].to_json%>;
 <% else %>
   window.loginUser = "";
