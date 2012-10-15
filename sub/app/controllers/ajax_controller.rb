@@ -232,26 +232,22 @@ HEREDOC
       if current_user.nil?
         render :text => "<div><a href='javascript:void(0)' class='like grey psvr_login_required'>登录</a>之后就可以顶了。</div>"
       else
-        render file:'coursewares/_watch_like',locals:{cw_id:params[:cw_id]},layout:false  
         cw = Courseware.find(params[:cw_id])
-        if !cw.thanked_user_ids.include?(current_user.id) and !cw.disliked_user_ids.include?(current_user.id)
-          cw.update_attribute(:thanked_count,cw.thanked_count+1)
-          cw.update_attribute(:thanked_user_ids,cw.thanked_user_ids << current_user.id)
-
-          cw_event_add_action("课件顶",'Courseware',cw.id,true)
-        end
+        result = current_user.thank_courseware(cw)
+        cw_event_add_action("课件顶",'Courseware',courseware.id,true) if !result
+        render file:'coursewares/_watch_like',locals:{cw_id:params[:cw_id]},layout:false  
       end
     elsif params[:type] == 'watch-unlike'
       if current_user.nil?
         render :text => "<div><a href='javascript:void(0)' class='like grey psvr_login_required'>登录</a>之后就可以踩了。</div>"
       else
-        render file:'coursewares/_watch_unlike',locals:{cw_id:params[:cw_id]},layout:false  
         cw = Courseware.find(params[:cw_id])
         if !cw.disliked_user_ids.include?(current_user.id) and !cw.thanked_user_ids.include?(current_user.id)
           cw.update_attribute(:disliked_count,cw.disliked_count+1)
           cw.update_attribute(:disliked_user_ids,cw.disliked_user_ids << current_user.id)
           cw_event_add_action("课件踩",'Courseware',cw.id,true)
         end
+        render file:'coursewares/_watch_unlike',locals:{cw_id:params[:cw_id]},layout:false  
       end
     elsif params[:type] == 'addto'
       if current_user.nil?
