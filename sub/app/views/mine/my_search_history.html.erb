@@ -1,0 +1,292 @@
+<% content_for :armpit do %>
+  <%= stylesheet_link_tag 'ktv/__ytb' %>
+  <%= stylesheet_link_tag "ktv/__ytb_manager", :media => "all" %>
+<% end %>
+
+
+<%= render 'mine_above' %>
+<div class="ytg-fl vm-has-videolist vm-list-view" id="yt-admin">
+  <%= render 'manager_nav' %>
+	<div class="ytg-fl " id="yt-admin-content">
+		<div class="clearfix" id="vm-page-subheader">
+			<div class="vm-page-subheader-content">
+				<h3>我的搜索记录</h3>
+			</div>
+		</div>
+		<div id="vm-general-notifs">
+		</div>
+		<div id="vm-video-actions-bar" class="goog-scrollfloater">
+			<div class="clearfix" id="vm-video-actions-inner">
+				<span class="yt-uix-form-input-checkbox-container vm-select-all"><input type="checkbox" id="vm-video-select-all" class="yt-uix-form-input-checkbox" name="vm-video-select-all"><span class="yt-uix-form-input-checkbox-element"></span></span>
+				<button role="button" class=" yt-uix-button yt-uix-button-default" onclick=";return false;" id="vm-playlist-remove-videos" type="button" disabled="True"><span class="yt-uix-button-content">删除 </span></button>
+				<span class="hid" id="watch-history-pause-container">
+				<button role="button" class=" yt-uix-button yt-uix-button-default" onclick=";return false;" id="watch-history-pause-button" type="button"><span class="yt-uix-button-content">暂停观看历史记录 </span></button>
+				</span>
+				<span class="hid" id="watch-history-resume-container">
+				<button role="button" class=" yt-uix-button yt-uix-button-default" onclick=";return false;" id="watch-history-resume-button" type="button"><span class="yt-uix-button-content">恢复观看历史记录 </span></button>
+				</span>
+				<span data-overlay-shown="yt.www.videomanager.MySearchHistory.onClearHistoryOverlayShown" class="yt-uix-overlay">
+				<button role="button" onclick=";return false;" class="yt-uix-overlay-target yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-content">清除所有搜索记录 </span></button>
+				<div class="yt-uix-overlay-content">
+					<button class="yt-uix-overlay-close close-small">
+					关闭 </button>
+					<h2>清除所有搜索记录</h2>
+					<p class="vm-search-history-message">
+						 您确定要清除所有搜索记录吗？该操作无法撤消。
+					</p>
+					<p class="vm-search-history-container">
+						<button role="button" onclick=";return false;" class="vm-history-clear yt-uix-overlay-close yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-content">清除所有搜索记录 </span></button>
+						<a class="yt-uix-overlay-close vm-search-history-cancel-button">取消</a>
+					</p>
+				</div>
+				</span>
+				<span id="search-history-pause-container">
+				<button role="button" class=" yt-uix-button yt-uix-button-default" onclick=";return false;" id="search-history-pause-button" type="button"><span class="yt-uix-button-content">暂停搜索记录 </span></button>
+				</span>
+				<span class="hid" id="search-history-resume-container">
+				<button role="button" class=" yt-uix-button yt-uix-button-default" onclick=";return false;" id="search-history-resume-button" type="button"><span class="yt-uix-button-content">恢复搜索记录 </span></button>
+				</span>
+			</div>
+			<span data-overlay-class="vm-video-actions-delete-overlay" class="yt-uix-overlay hid">
+			<span class="yt-uix-overlay-content vm-video-actions-delete-overlay-content">
+			<div class="vm-video-actions-delete-full-area">
+				<div class="vm-video-actions-delete-header">
+					<div class="yt-alert yt-alert-naked yt-alert-error ">
+						<div class="yt-alert-icon">
+							<img alt="提醒图标" class="icon master-sprite" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+						</div>
+						<div role="alert" class="yt-alert-content">
+							<span class="yt-alert-vertical-trick"></span>
+							<div class="yt-alert-message">
+								 确认
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="vm-video-actions-delete-main-area">
+					<span class="vm-video-actions-delete-warning"></span>
+					<div class="vm-video-actions-delete-extra-warning hid">
+					</div>
+					<div class="vm-video-actions-delete-button-area">
+						<button role="button" onclick=";return false;" class="yt-uix-overlay-close vm-video-actions-delete-button-cancel yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-content">取消 </span></button>
+						<button role="button" onclick=";return false;" class="vm-video-actions-delete-button-confirm yt-uix-button yt-uix-button-destructive" type="button"><span class="yt-uix-button-content">删除 </span></button>
+					</div>
+				</div>
+			</div>
+			</span>
+			</span>
+		</div>
+		<ol class="vm-video-list vm-search-history-list" id="vm-playlist-video-list-ol">
+			<li class="vm-video-item" id="vm-video-1350177018152007">
+			<div class="vm-video-item-content">
+				<span class="yt-uix-form-input-checkbox-container vm-video-info"><input type="checkbox" value="1350177018152007" class="yt-uix-form-input-checkbox video-checkbox" name=""><span class="yt-uix-form-input-checkbox-element"></span></span>
+				<div class="vm-search-history-item vm-video-info">
+					<a href="/results?search_query=mit">mit</a>
+					<span class="vm-video-info">1 天前</span>
+				</div>
+			</div>
+			</li>
+			<li class="vm-video-item" id="vm-video-1350176563853533">
+			<div class="vm-video-item-content">
+				<span class="yt-uix-form-input-checkbox-container vm-video-info"><input type="checkbox" value="1350176563853533" class="yt-uix-form-input-checkbox video-checkbox" name=""><span class="yt-uix-form-input-checkbox-element"></span></span>
+				<div class="vm-search-history-item vm-video-info">
+					<a href="/results?search_query=%E9%94%A6%E5%9B%8A">锦囊</a>
+					<span class="vm-video-info">1 天前</span>
+				</div>
+			</div>
+			</li>
+			<li class="vm-video-item" id="vm-video-1349964002043572">
+			<div class="vm-video-item-content">
+				<span class="yt-uix-form-input-checkbox-container vm-video-info"><input type="checkbox" value="1349964002043572" class="yt-uix-form-input-checkbox video-checkbox" name=""><span class="yt-uix-form-input-checkbox-element"></span></span>
+				<div class="vm-search-history-item vm-video-info">
+					<a href="/results?search_query=run+to+lose+weight">run to lose weight</a>
+					<span class="vm-video-info">3 天前</span>
+				</div>
+			</div>
+			</li>
+			<li class="vm-video-item" id="vm-video-1349963996225178">
+			<div class="vm-video-item-content">
+				<span class="yt-uix-form-input-checkbox-container vm-video-info"><input type="checkbox" value="1349963996225178" class="yt-uix-form-input-checkbox video-checkbox" name=""><span class="yt-uix-form-input-checkbox-element"></span></span>
+				<div class="vm-search-history-item vm-video-info">
+					<a href="/results?search_query=lose+weight">lose weight</a>
+					<span class="vm-video-info">3 天前</span>
+				</div>
+			</div>
+			</li>
+			<li class="vm-video-item" id="vm-video-1349877740861131">
+			<div class="vm-video-item-content">
+				<span class="yt-uix-form-input-checkbox-container vm-video-info"><input type="checkbox" value="1349877740861131" class="yt-uix-form-input-checkbox video-checkbox" name=""><span class="yt-uix-form-input-checkbox-element"></span></span>
+				<div class="vm-search-history-item vm-video-info">
+					<a href="/results?search_query=Gangnam">Gangnam</a>
+					<span class="vm-video-info">4 天前</span>
+				</div>
+			</div>
+			</li>
+			<li class="vm-video-item" id="vm-video-1349877316573985">
+			<div class="vm-video-item-content">
+				<span class="yt-uix-form-input-checkbox-container vm-video-info"><input type="checkbox" value="1349877316573985" class="yt-uix-form-input-checkbox video-checkbox" name=""><span class="yt-uix-form-input-checkbox-element"></span></span>
+				<div class="vm-search-history-item vm-video-info">
+					<a href="/results?search_query=parody+gangnam+style">parody gangnam style</a>
+					<span class="vm-video-info">4 天前</span>
+				</div>
+			</div>
+			</li>
+			<li class="vm-video-item" id="vm-video-1349877216405593">
+			<div class="vm-video-item-content">
+				<span class="yt-uix-form-input-checkbox-container vm-video-info"><input type="checkbox" value="1349877216405593" class="yt-uix-form-input-checkbox video-checkbox" name=""><span class="yt-uix-form-input-checkbox-element"></span></span>
+				<div class="vm-search-history-item vm-video-info">
+					<a href="/results?search_query=matrix+gangnam+style">matrix gangnam style</a>
+					<span class="vm-video-info">4 天前</span>
+				</div>
+			</div>
+			</li>
+			<li class="vm-video-item" id="vm-video-1349866497472413">
+			<div class="vm-video-item-content">
+				<span class="yt-uix-form-input-checkbox-container vm-video-info"><input type="checkbox" value="1349866497472413" class="yt-uix-form-input-checkbox video-checkbox" name=""><span class="yt-uix-form-input-checkbox-element"></span></span>
+				<div class="vm-search-history-item vm-video-info">
+					<a href="/results?search_query=god+of+cookery">god of cookery</a>
+					<span class="vm-video-info">4 天前</span>
+				</div>
+			</div>
+			</li>
+			<li class="vm-video-item" id="vm-video-1349866489984265">
+			<div class="vm-video-item-content">
+				<span class="yt-uix-form-input-checkbox-container vm-video-info"><input type="checkbox" value="1349866489984265" class="yt-uix-form-input-checkbox video-checkbox" name=""><span class="yt-uix-form-input-checkbox-element"></span></span>
+				<div class="vm-search-history-item vm-video-info">
+					<a href="/results?search_query=god+of+cook">god of cook</a>
+					<span class="vm-video-info">4 天前</span>
+				</div>
+			</div>
+			</li>
+			<li class="vm-video-item" id="vm-video-1349532007832814">
+			<div class="vm-video-item-content">
+				<span class="yt-uix-form-input-checkbox-container vm-video-info"><input type="checkbox" value="1349532007832814" class="yt-uix-form-input-checkbox video-checkbox" name=""><span class="yt-uix-form-input-checkbox-element"></span></span>
+				<div class="vm-search-history-item vm-video-info">
+					<a href="/results?search_query=morpheus+zion">morpheus zion</a>
+					<span class="vm-video-info">1 周前</span>
+				</div>
+			</div>
+			</li>
+			<li class="vm-video-item" id="vm-video-1349532000214391">
+			<div class="vm-video-item-content">
+				<span class="yt-uix-form-input-checkbox-container vm-video-info"><input type="checkbox" value="1349532000214391" class="yt-uix-form-input-checkbox video-checkbox" name=""><span class="yt-uix-form-input-checkbox-element"></span></span>
+				<div class="vm-search-history-item vm-video-info">
+					<a href="/results?search_query=morpheus+zeon">morpheus zeon</a>
+					<span class="vm-video-info">1 周前</span>
+				</div>
+			</div>
+			</li>
+			<li class="vm-video-item" id="vm-video-1349531736937976">
+			<div class="vm-video-item-content">
+				<span class="yt-uix-form-input-checkbox-container vm-video-info"><input type="checkbox" value="1349531736937976" class="yt-uix-form-input-checkbox video-checkbox" name=""><span class="yt-uix-form-input-checkbox-element"></span></span>
+				<div class="vm-search-history-item vm-video-info">
+					<a href="/results?search_query=morpheus">morpheus</a>
+					<span class="vm-video-info">1 周前</span>
+				</div>
+			</div>
+			</li>
+			<li class="vm-video-item" id="vm-video-1349512245576847">
+			<div class="vm-video-item-content">
+				<span class="yt-uix-form-input-checkbox-container vm-video-info"><input type="checkbox" value="1349512245576847" class="yt-uix-form-input-checkbox video-checkbox" name=""><span class="yt-uix-form-input-checkbox-element"></span></span>
+				<div class="vm-search-history-item vm-video-info">
+					<a href="/results?search_query=you+are+not+alone">you are not alone</a>
+					<span class="vm-video-info">1 周前</span>
+				</div>
+			</div>
+			</li>
+			<li class="vm-video-item" id="vm-video-1349497608133175">
+			<div class="vm-video-item-content">
+				<span class="yt-uix-form-input-checkbox-container vm-video-info"><input type="checkbox" value="1349497608133175" class="yt-uix-form-input-checkbox video-checkbox" name=""><span class="yt-uix-form-input-checkbox-element"></span></span>
+				<div class="vm-search-history-item vm-video-info">
+					<a href="/results?search_query=playlist">playlist</a>
+					<span class="vm-video-info">1 周前</span>
+				</div>
+			</div>
+			</li>
+			<li class="vm-video-item" id="vm-video-1349486099749887">
+			<div class="vm-video-item-content">
+				<span class="yt-uix-form-input-checkbox-container vm-video-info"><input type="checkbox" value="1349486099749887" class="yt-uix-form-input-checkbox video-checkbox" name=""><span class="yt-uix-form-input-checkbox-element"></span></span>
+				<div class="vm-search-history-item vm-video-info">
+					<a href="/results?search_query=forever+young">forever young</a>
+					<span class="vm-video-info">1 周前</span>
+				</div>
+			</div>
+			</li>
+			<li class="vm-video-item" id="vm-video-1349438539751526">
+			<div class="vm-video-item-content">
+				<span class="yt-uix-form-input-checkbox-container vm-video-info"><input type="checkbox" value="1349438539751526" class="yt-uix-form-input-checkbox video-checkbox" name=""><span class="yt-uix-form-input-checkbox-element"></span></span>
+				<div class="vm-search-history-item vm-video-info">
+					<a href="/results?search_query=darwin+and+design">darwin and design</a>
+					<span class="vm-video-info">1 周前</span>
+				</div>
+			</div>
+			</li>
+			<li class="vm-video-item" id="vm-video-1349405070891771">
+			<div class="vm-video-item-content">
+				<span class="yt-uix-form-input-checkbox-container vm-video-info"><input type="checkbox" value="1349405070891771" class="yt-uix-form-input-checkbox video-checkbox" name=""><span class="yt-uix-form-input-checkbox-element"></span></span>
+				<div class="vm-search-history-item vm-video-info">
+					<a href="/results?search_query=snl">snl</a>
+					<span class="vm-video-info">1 周前</span>
+				</div>
+			</div>
+			</li>
+			<li class="vm-video-item" id="vm-video-1349335435306061">
+			<div class="vm-video-item-content">
+				<span class="yt-uix-form-input-checkbox-container vm-video-info"><input type="checkbox" value="1349335435306061" class="yt-uix-form-input-checkbox video-checkbox" name=""><span class="yt-uix-form-input-checkbox-element"></span></span>
+				<div class="vm-search-history-item vm-video-info">
+					<a href="/results?search_query=google+Closure">google Closure</a>
+					<span class="vm-video-info">1 周前</span>
+				</div>
+			</div>
+			</li>
+			<li class="vm-video-item" id="vm-video-1349335344434754">
+			<div class="vm-video-item-content">
+				<span class="yt-uix-form-input-checkbox-container vm-video-info"><input type="checkbox" value="1349335344434754" class="yt-uix-form-input-checkbox video-checkbox" name=""><span class="yt-uix-form-input-checkbox-element"></span></span>
+				<div class="vm-search-history-item vm-video-info">
+					<a href="/results?search_query=google-web-toolkit">google-web-toolkit</a>
+					<span class="vm-video-info">1 周前</span>
+				</div>
+			</div>
+			</li>
+			<li class="vm-video-item" id="vm-video-1349313080040682">
+			<div class="vm-video-item-content">
+				<span class="yt-uix-form-input-checkbox-container vm-video-info"><input type="checkbox" value="1349313080040682" class="yt-uix-form-input-checkbox video-checkbox" name=""><span class="yt-uix-form-input-checkbox-element"></span></span>
+				<div class="vm-search-history-item vm-video-info">
+					<a href="/results?search_query=%E4%BB%8A%E6%97%A5%E3%81%BE%E3%81%A7%E3%81%9D%E3%81%97%E3%81%A6%E6%98%8E%E6%97%A5%E3%81%8B%E3%82%89">今日までそして明日から</a>
+					<span class="vm-video-info">1 周前</span>
+				</div>
+			</div>
+			</li>
+			<li class="vm-video-item" id="vm-video-1349263178231389">
+			<div class="vm-video-item-content">
+				<span class="yt-uix-form-input-checkbox-container vm-video-info"><input type="checkbox" value="1349263178231389" class="yt-uix-form-input-checkbox video-checkbox" name=""><span class="yt-uix-form-input-checkbox-element"></span></span>
+				<div class="vm-search-history-item vm-video-info">
+					<a href="/results?search_query=Ferry+crash">Ferry crash</a>
+					<span class="vm-video-info">1 周前</span>
+				</div>
+			</div>
+			</li>
+			<li class="vm-video-item" id="vm-video-1349262166485501">
+			<div class="vm-video-item-content">
+				<span class="yt-uix-form-input-checkbox-container vm-video-info"><input type="checkbox" value="1349262166485501" class="yt-uix-form-input-checkbox video-checkbox" name=""><span class="yt-uix-form-input-checkbox-element"></span></span>
+				<div class="vm-search-history-item vm-video-info">
+					<a href="/results?search_query=cook+Auburn+University">cook Auburn University</a>
+					<span class="vm-video-info">1 周前</span>
+				</div>
+			</div>
+			</li>
+		</ol>
+		<div id="vm-pagination">
+			<input type="hidden" value="1349262166485500" id="vm-history-max-search-time">
+			<button role="button" class=" yt-uix-button yt-uix-button-default" onclick=";return false;" id="vm-search-history-more" type="button"><span class="yt-uix-button-content">加载更多搜索结果 </span></button>
+		</div>
+	</div>
+</div>
+
+
+<%= render 'mine_below' %>
+
+
+
+
+

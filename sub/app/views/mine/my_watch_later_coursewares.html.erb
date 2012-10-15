@@ -1,0 +1,560 @@
+<% content_for :armpit do %>
+  <%= stylesheet_link_tag 'ktv/__ytb' %>
+  <%= stylesheet_link_tag "ktv/__ytb_manager", :media => "all" %>
+<% end %>
+
+
+<%= render 'mine_above' %>
+
+
+
+
+    <div class="ytg-fl vm-has-videolist vm-list-view" id="yt-admin">
+	    <%= render 'manager_nav' %>
+    	<div class="ytg-fl " id="yt-admin-content">
+    		<div class="clearfix" id="vm-page-subheader">
+    			<div class="vm-page-subheader-content">
+    				<h3>稍后观看</h3>
+    				<span class="yt-badge-vm" id="vm-num-videos-shown">7</span>
+    			</div>
+    		</div>
+    		<div id="vm-video-actions-bar" class="goog-scrollfloater">
+    			<div class="clearfix" id="vm-video-actions-inner">
+    				<span class="yt-uix-form-input-checkbox-container vm-select-all"><input type="checkbox" id="vm-video-select-all" class="yt-uix-form-input-checkbox" name="vm-video-select-all"><span class="yt-uix-form-input-checkbox-element"></span></span>
+    				<button role="button" data-feature="vm" data-video-ids="" data-button-menu-id="shared-addto-menu" data-button-menu-action="yt.www.lists.addto.toggleMenu" onclick=";return false;" class="addto-button default show-label yt-uix-button yt-uix-button-default" type="button" disabled="True"><span class="yt-uix-button-icon-wrapper"><img alt="" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" class="yt-uix-button-icon yt-uix-button-icon-addto"><span class="yt-valign-trick"></span></span><span class="yt-uix-button-content"><span class="addto-label">添加到</span></span><img alt="" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" class="yt-uix-button-arrow"></button>
+    				<button role="button" class=" yt-uix-button yt-uix-button-default" onclick=";window.location.href=this.getAttribute('href');return false;" id="vm-playlist-play-all" type="button" href="/watch?v=Tc_OmWppLBE&amp;feature=my_watch_later_videos&amp;list=WL9F5E19B09C8D397C"><span class="yt-uix-button-content">全部播放 </span></button>
+    				<button role="button" class=" yt-uix-button yt-uix-button-default" onclick=";return false;" id="vm-playlist-remove-videos" type="button" disabled="True"><span class="yt-uix-button-content">删除 </span></button>
+    				<span class="hid" id="watch-history-pause-container">
+    				<button role="button" class=" yt-uix-button yt-uix-button-default" onclick=";return false;" id="watch-history-pause-button" type="button"><span class="yt-uix-button-content">暂停观看历史记录 </span></button>
+    				</span>
+    				<span class="hid" id="watch-history-resume-container">
+    				<button role="button" class=" yt-uix-button yt-uix-button-default" onclick=";return false;" id="watch-history-resume-button" type="button"><span class="yt-uix-button-content">恢复观看历史记录 </span></button>
+    				</span>
+    				<span class="hid" id="search-history-pause-container">
+    				<button role="button" class=" yt-uix-button yt-uix-button-default" onclick=";return false;" id="search-history-pause-button" type="button"><span class="yt-uix-button-content">暂停搜索记录 </span></button>
+    				</span>
+    				<span class="hid" id="search-history-resume-container">
+    				<button role="button" class=" yt-uix-button yt-uix-button-default" onclick=";return false;" id="search-history-resume-button" type="button"><span class="yt-uix-button-content">恢复搜索记录 </span></button>
+    				</span>
+    				<span id="vm-view-filter">
+    				<span id="vm-view-filter-label">观看：</span>
+    				<button aria-activedescendant="" aria-haspopup="true" aria-expanded="false" aria-pressed="false" role="button" class=" yt-uix-button yt-uix-button-text" onclick=";return false;" id="vm-view-btn" type="button" aria-labelledby="vm-view-filter-label"><span class="yt-uix-button-content">最新视频 </span><img alt="" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" class="yt-uix-button-arrow">
+    				<ul style="display: none;" aria-haspopup="true" role="menu" class=" yt-uix-button-menu yt-uix-button-menu-text">
+    					<li id="aria-id-15833117830" role="menuitem"><span class=" yt-uix-button-menu-item" onclick=";window.location.href=this.getAttribute('href');return false;" id="oldest" href="?vmo=oldest&amp;sa=1&amp;sf=added">最早上传</span></li>
+    					<li id="aria-id-23249337134" role="menuitem"><span class=" yt-uix-button-menu-item" onclick=";window.location.href=this.getAttribute('href');return false;" id="viewed" href="?vmo=viewed&amp;sa=0&amp;sf=viewcount">观看最多</span></li>
+    				</ul>
+    				</button>
+    				</span>
+    			</div>
+    			<span data-overlay-class="vm-video-actions-delete-overlay" class="yt-uix-overlay hid">
+    			<span class="yt-uix-overlay-content vm-video-actions-delete-overlay-content">
+    			<div class="vm-video-actions-delete-full-area">
+    				<div class="vm-video-actions-delete-header">
+    					<div class="yt-alert yt-alert-naked yt-alert-error ">
+    						<div class="yt-alert-icon">
+    							<img alt="提醒图标" class="icon master-sprite" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+    						</div>
+    						<div role="alert" class="yt-alert-content">
+    							<span class="yt-alert-vertical-trick"></span>
+    							<div class="yt-alert-message">
+    								 确认
+    							</div>
+    						</div>
+    					</div>
+    				</div>
+    				<div class="vm-video-actions-delete-main-area">
+    					<span class="vm-video-actions-delete-warning"></span>
+    					<div class="vm-video-actions-delete-extra-warning hid">
+    					</div>
+    					<div class="vm-video-actions-delete-button-area">
+    						<button role="button" onclick=";return false;" class="yt-uix-overlay-close vm-video-actions-delete-button-cancel yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-content">取消 </span></button>
+    						<button role="button" onclick=";return false;" class="vm-video-actions-delete-button-confirm yt-uix-button yt-uix-button-destructive" type="button"><span class="yt-uix-button-content">删除 </span></button>
+    					</div>
+    				</div>
+    			</div>
+    			</span>
+    			</span>
+    		</div>
+    		<div id="vm-video-list-container">
+    			<ol class="vm-video-list" id="vm-playlist-video-list-ol">
+    				<li class="vm-video-item" id="vm-video-Tc_OmWppLBE">
+    				<div class="vm-video-item-content">
+    					<span class="yt-uix-form-input-checkbox-container "><input type="checkbox" aria-labelledby="checkbox_Tc_OmWppLBE" value="Tc_OmWppLBE" class="yt-uix-form-input-checkbox video-checkbox" name="video-checkbox"><span class="yt-uix-form-input-checkbox-element"></span></span>
+    					<div class="vm-thumb">
+    						<a data-sessionlink="ei=CPXW9tTQgrMCFeGBIQodIxLFtA%3D%3D&amp;feature=my_watch_later_videos" class="ux-thumb-wrap yt-uix-sessionlink" href="/watch?v=Tc_OmWppLBE&amp;feature=my_watch_later_videos&amp;list=WL9F5E19B09C8D397C">
+    						<span class="video-thumb ux-thumb yt-thumb-default-120 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img width="120" alt="缩略图" src="//i1.ytimg.com/vi/Tc_OmWppLBE/default.jpg"><span class="vertical-align"></span></span></span></span>
+    						<span class="video-time">5:52</span>
+    						</a>
+    					</div>
+    					<div class="vm-video-info-container">
+    						<div class="vm-video-title">
+    							<span id="checkbox_Tc_OmWppLBE" class="vm-video-title-container yt-uix-tooltip" title="Dog rescue: Watson, the three legged dog - Please share and help us find him a home." data-tooltip-text="Dog rescue: Watson, the three legged dog - Please share and help us find him a home.">
+    							<a data-sessionlink="ei=CPXW9tTQgrMCFeGBIQodIxLFtA%3D%3D&amp;feature=my_watch_later_videos" class="vm-video-title-content yt-uix-sessionlink" href="/watch?v=Tc_OmWppLBE&amp;feature=my_watch_later_videos&amp;list=WL9F5E19B09C8D397C" data-original-html="Dog rescue: Watson, the three legged dog - Please share and help us find him a home.">Dog rescue: Watson, the three legged dog…</a>
+    							</span>
+    							<span class="vm-video-title-badges">
+    							<span class="yt-badge-std">HD</span>
+    							</span>
+    						</div>
+    						<span class="vm-video-info">
+    						<span class="vm-video-desc">To make a donation to our cheeseburger fund, and so we can cov...</span>
+    						</span>
+    						<span class="vm-video-info vm-date-info">
+    						<span>1 周前</span>
+    						</span>
+    						<div class="vm-video-info">
+    							<a dir="ltr" data-sessionlink="ei=CPXW9tTQgrMCFeGBIQodIxLFtA%3D%3D" class="yt-uix-sessionlink yt-user-name " href="/user/eldad75">eldad75</a>
+    						</div>
+    					</div>
+    					<div class="vm-video-icons">
+    						<div class="vm-video-metrics">
+    							<span class="vm-video-metric video-view-count">
+    							<span title="观看次数" class="yt-uix-tooltip">
+    							<span class="vm-video-metric-icon">
+    							<img alt="观看次数" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+    							</span>
+    							<span class="vm-video-metric-value">41,247</span>
+    							</span>
+    							</span>
+    							<span class="vm-video-metric video-likes-count">
+    							<span title="顶过的人数" class="yt-uix-tooltip">
+    							<span class="vm-video-metric-icon">
+    							<img alt="顶过的人数" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+    							</span>
+    							<span class="vm-video-metric-value">2,031</span>
+    							</span>
+    							</span>
+    							<span class="vm-video-metric video-dislikes-count">
+    							<span title="踩" class="yt-uix-tooltip">
+    							<span class="vm-video-metric-icon">
+    							<img alt="踩" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+    							</span>
+    							<span class="vm-video-metric-value">3</span>
+    							</span>
+    							</span>
+    							<span class="vm-video-metric video-comments">
+    							<span title="评论数" class="yt-uix-tooltip">
+    							<span class="vm-video-metric-icon">
+    							<img alt="评论数" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+    							</span>
+    							<span class="vm-video-metric-value">437</span>
+    							</span>
+    							</span>
+    						</div>
+    					</div>
+    				</div>
+    				</li>
+    				<li class="vm-video-item" id="vm-video-xEAXuHvzjao">
+    				<div class="vm-video-item-content">
+    					<span class="yt-uix-form-input-checkbox-container "><input type="checkbox" aria-labelledby="checkbox_xEAXuHvzjao" value="xEAXuHvzjao" class="yt-uix-form-input-checkbox video-checkbox" name="video-checkbox"><span class="yt-uix-form-input-checkbox-element"></span></span>
+    					<div class="vm-thumb">
+    						<a data-sessionlink="ei=CPXW9tTQgrMCFeGBIQodIxLFtA%3D%3D&amp;feature=my_watch_later_videos" class="ux-thumb-wrap yt-uix-sessionlink" href="/watch?v=xEAXuHvzjao&amp;feature=my_watch_later_videos&amp;list=WL9F5E19B09C8D397C">
+    						<span class="video-thumb ux-thumb yt-thumb-default-120 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img width="120" alt="缩略图" src="//i1.ytimg.com/vi/xEAXuHvzjao/default.jpg"><span class="vertical-align"></span></span></span></span>
+    						<span class="video-time">18:25</span>
+    						</a>
+    					</div>
+    					<div class="vm-video-info-container">
+    						<div class="vm-video-title">
+    							<span id="checkbox_xEAXuHvzjao" class="vm-video-title-container yt-uix-tooltip">
+    							<a data-sessionlink="ei=CPXW9tTQgrMCFeGBIQodIxLFtA%3D%3D&amp;feature=my_watch_later_videos" class="vm-video-title-content yt-uix-sessionlink" href="/watch?v=xEAXuHvzjao&amp;feature=my_watch_later_videos&amp;list=WL9F5E19B09C8D397C">Auburn University Spring 2010 Commencement Speaker Tim Cook</a>
+    							</span>
+    							<span class="vm-video-title-badges">
+    							</span>
+    						</div>
+    						<span class="vm-video-info">
+    						<span class="vm-video-desc">Auburn alumnus and Apple, Inc. Chief Operating Officer Tim Coo...</span>
+    						</span>
+    						<span class="vm-video-info vm-date-info">
+    						<span>2 年前</span>
+    						</span>
+    						<div class="vm-video-info">
+    							<a dir="ltr" data-sessionlink="ei=CPXW9tTQgrMCFeGBIQodIxLFtA%3D%3D" class="yt-uix-sessionlink yt-user-name " href="/user/AuburnUniversity">AuburnUniversity</a>
+    						</div>
+    					</div>
+    					<div class="vm-video-icons">
+    						<div class="vm-video-metrics">
+    							<span class="vm-video-metric video-view-count">
+    							<span title="观看次数" class="yt-uix-tooltip">
+    							<span class="vm-video-metric-icon">
+    							<img alt="观看次数" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+    							</span>
+    							<span class="vm-video-metric-value">119,512</span>
+    							</span>
+    							</span>
+    							<span class="vm-video-metric video-likes-count">
+    							<span title="顶过的人数" class="yt-uix-tooltip">
+    							<span class="vm-video-metric-icon">
+    							<img alt="顶过的人数" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+    							</span>
+    							<span class="vm-video-metric-value">429</span>
+    							</span>
+    							</span>
+    							<span class="vm-video-metric video-dislikes-count">
+    							<span title="踩" class="yt-uix-tooltip">
+    							<span class="vm-video-metric-icon">
+    							<img alt="踩" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+    							</span>
+    							<span class="vm-video-metric-value">8</span>
+    							</span>
+    							</span>
+    							<span class="vm-video-metric video-comments">
+    							<span title="评论数" class="yt-uix-tooltip">
+    							<span class="vm-video-metric-icon">
+    							<img alt="评论数" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+    							</span>
+    							<span class="vm-video-metric-value">100</span>
+    							</span>
+    							</span>
+    						</div>
+    					</div>
+    				</div>
+    				</li>
+    				<li class="vm-video-item" id="vm-video-x3Z0PM1UNAQ">
+    				<div class="vm-video-item-content">
+    					<span class="yt-uix-form-input-checkbox-container "><input type="checkbox" aria-labelledby="checkbox_x3Z0PM1UNAQ" value="x3Z0PM1UNAQ" class="yt-uix-form-input-checkbox video-checkbox" name="video-checkbox"><span class="yt-uix-form-input-checkbox-element"></span></span>
+    					<div class="vm-thumb">
+    						<a data-sessionlink="ei=CPXW9tTQgrMCFeGBIQodIxLFtA%3D%3D&amp;feature=my_watch_later_videos" class="ux-thumb-wrap yt-uix-sessionlink" href="/watch?v=x3Z0PM1UNAQ&amp;feature=my_watch_later_videos&amp;list=WL9F5E19B09C8D397C">
+    						<span class="video-thumb ux-thumb yt-thumb-default-120 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img width="120" alt="缩略图" src="//i1.ytimg.com/vi/x3Z0PM1UNAQ/default.jpg"><span class="vertical-align"></span></span></span></span>
+    						<span class="video-time">1:06:49</span>
+    						</a>
+    						<div class="vm-thumb-overlay">
+    						</div>
+    					</div>
+    					<div class="vm-video-info-container">
+    						<div class="vm-video-title">
+    							<span id="checkbox_x3Z0PM1UNAQ" class="vm-video-title-container yt-uix-tooltip">
+    							<a data-sessionlink="ei=CPXW9tTQgrMCFeGBIQodIxLFtA%3D%3D&amp;feature=my_watch_later_videos" class="vm-video-title-content yt-uix-sessionlink" href="/watch?v=x3Z0PM1UNAQ&amp;feature=my_watch_later_videos&amp;list=WL9F5E19B09C8D397C">中国科学技术大学数学分析（史济怀） sjh20030901</a>
+    							</span>
+    							<span class="vm-video-title-badges">
+    							<span class="yt-badge-std">HD</span>
+    							</span>
+    						</div>
+    						<span class="vm-video-info vm-date-info">
+    						<span data-format="longdate" data-timestamp="1340582400" class="localized-date">2012年06月25日8:00</span>
+    						</span>
+    						<div class="vm-video-info">
+    							<div class="vm-video-info vm-owner-bar">
+    								<span class="yt-uix-button-group">
+    								<a data-sessionlink="ei=CPXW9tTQgrMCFeGBIQodIxLFtA%3D%3D" class="yt-uix-button yt-uix-sessionlink start vm-playlist-edit-video vm-edit-button-link yt-uix-button-default" href="/my_videos_edit?ns=1&amp;video_id=x3Z0PM1UNAQ"><span class="yt-uix-button-content">修改</span></a><button aria-activedescendant="" aria-haspopup="true" aria-expanded="false" aria-pressed="false" role="button" onclick=";return false;" class="edit-expand-menu-button end yt-uix-button yt-uix-button-default yt-uix-button-short yt-uix-button-empty" type="button"><img alt="" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" class="yt-uix-button-arrow">
+    								<ul style="display: none;" aria-haspopup="true" role="menu" class=" yt-uix-button-menu yt-uix-button-menu-default">
+    									<li id="aria-id-49552044886" role="menuitem"><span onclick=";window.location.href=this.getAttribute('href');return false;" class="vm-video-info-and-settings yt-uix-button-menu-item" href="/my_videos_edit?ns=1&amp;feature=vm&amp;video_id=x3Z0PM1UNAQ">信息和设置</span></li>
+    									<li id="aria-id-28244063663" role="menuitem"><span onclick=";window.location.href=this.getAttribute('href');return false;" class="vm-video-enhancements yt-uix-button-menu-item" href="/enhance?feature=vm&amp;v=x3Z0PM1UNAQ">增强功能</span></li>
+    									<li id="aria-id-98013261162" role="menuitem"><span onclick=";window.location.href=this.getAttribute('href');return false;" class="vm-video-audio yt-uix-button-menu-item" href="/audio?feature=vm&amp;v=x3Z0PM1UNAQ">音频</span></li>
+    									<li id="aria-id-48382611461" role="menuitem"><span onclick=";window.location.href=this.getAttribute('href');return false;" class="vm-video-annotations yt-uix-button-menu-item" href="/my_videos_annotate?feature=vm&amp;v=x3Z0PM1UNAQ">注释功能</span></li>
+    									<li id="aria-id-56752425887" role="menuitem"><span onclick=";window.location.href=this.getAttribute('href');return false;" class="vm-video-captions yt-uix-button-menu-item" href="/my_videos_timedtext?video_id=x3Z0PM1UNAQ&amp;feature=vm">字幕</span></li>
+    								</ul>
+    								</button></span>
+    							</div>
+    						</div>
+    					</div>
+    					<div class="vm-video-icons">
+    						<div class="vm-video-metrics">
+    							<a title="查看统计信息" class="yt-uix-tooltip" href="https://www.youtube.com/analytics?vmv=2#fi=v-x3Z0PM1UNAQ">
+    							<span class="vm-video-metric video-view-count">
+    							<span>
+    							<span class="vm-video-metric-icon">
+    							<img alt="" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+    							</span>
+    							<span class="vm-video-metric-value">6</span>
+    							</span>
+    							</span>
+    							<span class="vm-video-metric video-likes-count">
+    							<span>
+    							<span class="vm-video-metric-icon">
+    							<img alt="" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+    							</span>
+    							<span class="vm-video-metric-value">0</span>
+    							</span>
+    							</span>
+    							<span class="vm-video-metric video-dislikes-count">
+    							<span>
+    							<span class="vm-video-metric-icon">
+    							<img alt="" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+    							</span>
+    							<span class="vm-video-metric-value">0</span>
+    							</span>
+    							</span>
+    							</a>
+    							<a title="所有评论" class="yt-uix-tooltip yt-uix-tooltip-reverse" href="/all_comments?v=x3Z0PM1UNAQ">
+    							<span class="vm-video-metric video-comments">
+    							<span>
+    							<span class="vm-video-metric-icon">
+    							<img alt="" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+    							</span>
+    							<span class="vm-video-metric-value">0</span>
+    							</span>
+    							</span>
+    							</a>
+    						</div>
+    					</div>
+    				</div>
+    				</li>
+    				<li class="vm-video-item" id="vm-video-JvTLcucYYq0">
+    				<div class="vm-video-item-content">
+    					<span class="yt-uix-form-input-checkbox-container "><input type="checkbox" aria-labelledby="checkbox_JvTLcucYYq0" value="JvTLcucYYq0" class="yt-uix-form-input-checkbox video-checkbox" name="video-checkbox"><span class="yt-uix-form-input-checkbox-element"></span></span>
+    					<div class="vm-thumb">
+    						<a data-sessionlink="ei=CPXW9tTQgrMCFeGBIQodIxLFtA%3D%3D&amp;feature=my_watch_later_videos" class="ux-thumb-wrap yt-uix-sessionlink" href="/watch?v=JvTLcucYYq0&amp;feature=my_watch_later_videos&amp;list=WL9F5E19B09C8D397C">
+    						<span class="video-thumb ux-thumb yt-thumb-default-120 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img width="120" alt="缩略图" src="//i3.ytimg.com/vi/JvTLcucYYq0/default.jpg"><span class="vertical-align"></span></span></span></span>
+    						<span class="video-time">4:36</span>
+    						</a>
+    					</div>
+    					<div class="vm-video-info-container">
+    						<div class="vm-video-title">
+    							<span id="checkbox_JvTLcucYYq0" class="vm-video-title-container yt-uix-tooltip">
+    							<a data-sessionlink="ei=CPXW9tTQgrMCFeGBIQodIxLFtA%3D%3D&amp;feature=my_watch_later_videos" class="vm-video-title-content yt-uix-sessionlink" href="/watch?v=JvTLcucYYq0&amp;feature=my_watch_later_videos&amp;list=WL9F5E19B09C8D397C">Command &amp; Conquer Red Alert 2 Behind the Scenes - Udo Kier</a>
+    							</span>
+    							<span class="vm-video-title-badges">
+    							</span>
+    						</div>
+    						<span class="vm-video-info">
+    						<span class="vm-video-desc">In this video you can see how Udo Kier becomes Yuri. It was ta...</span>
+    						</span>
+    						<span class="vm-video-info vm-date-info">
+    						<span>1 年前</span>
+    						</span>
+    						<div class="vm-video-info">
+    							<a dir="ltr" data-sessionlink="ei=CPXW9tTQgrMCFeGBIQodIxLFtA%3D%3D" class="yt-uix-sessionlink yt-user-name " href="/user/teac05">teac05</a>
+    						</div>
+    					</div>
+    					<div class="vm-video-icons">
+    						<div class="vm-video-metrics">
+    							<span class="vm-video-metric video-view-count">
+    							<span title="观看次数" class="yt-uix-tooltip">
+    							<span class="vm-video-metric-icon">
+    							<img alt="观看次数" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+    							</span>
+    							<span class="vm-video-metric-value">78,106</span>
+    							</span>
+    							</span>
+    							<span class="vm-video-metric video-likes-count">
+    							<span title="顶过的人数" class="yt-uix-tooltip">
+    							<span class="vm-video-metric-icon">
+    							<img alt="顶过的人数" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+    							</span>
+    							<span class="vm-video-metric-value">550</span>
+    							</span>
+    							</span>
+    							<span class="vm-video-metric video-dislikes-count">
+    							<span title="踩" class="yt-uix-tooltip">
+    							<span class="vm-video-metric-icon">
+    							<img alt="踩" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+    							</span>
+    							<span class="vm-video-metric-value">47</span>
+    							</span>
+    							</span>
+    							<span class="vm-video-metric video-comments">
+    							<span title="评论数" class="yt-uix-tooltip">
+    							<span class="vm-video-metric-icon">
+    							<img alt="评论数" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+    							</span>
+    							<span class="vm-video-metric-value">238</span>
+    							</span>
+    							</span>
+    						</div>
+    					</div>
+    				</div>
+    				</li>
+    				<li class="vm-video-item" id="vm-video-1uWHMdMC8HQ">
+    				<div class="vm-video-item-content">
+    					<span class="yt-uix-form-input-checkbox-container "><input type="checkbox" aria-labelledby="checkbox_1uWHMdMC8HQ" value="1uWHMdMC8HQ" class="yt-uix-form-input-checkbox video-checkbox" name="video-checkbox"><span class="yt-uix-form-input-checkbox-element"></span></span>
+    					<div class="vm-thumb">
+    						<a data-sessionlink="ei=CPXW9tTQgrMCFeGBIQodIxLFtA%3D%3D&amp;feature=my_watch_later_videos" class="ux-thumb-wrap yt-uix-sessionlink" href="/watch?v=1uWHMdMC8HQ&amp;feature=my_watch_later_videos&amp;list=WL9F5E19B09C8D397C">
+    						<span class="video-thumb ux-thumb yt-thumb-default-120 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img width="120" alt="缩略图" src="//i2.ytimg.com/vi/1uWHMdMC8HQ/default.jpg"><span class="vertical-align"></span></span></span></span>
+    						<span class="video-time">12:59</span>
+    						</a>
+    					</div>
+    					<div class="vm-video-info-container">
+    						<div class="vm-video-title">
+    							<span id="checkbox_1uWHMdMC8HQ" class="vm-video-title-container yt-uix-tooltip">
+    							<a data-sessionlink="ei=CPXW9tTQgrMCFeGBIQodIxLFtA%3D%3D&amp;feature=my_watch_later_videos" class="vm-video-title-content yt-uix-sessionlink" href="/watch?v=1uWHMdMC8HQ&amp;feature=my_watch_later_videos&amp;list=WL9F5E19B09C8D397C">TEDxMedellín - Larry Cooperman: El futuro de la educación virtual</a>
+    							</span>
+    							<span class="vm-video-title-badges">
+    							<span class="yt-badge-std">HD</span>
+    							</span>
+    						</div>
+    						<span class="vm-video-info">
+    						<span class="vm-video-desc">Larry es mentor de la UniversidadP2P (Peer-to-Peer University)...</span>
+    						</span>
+    						<span class="vm-video-info vm-date-info">
+    						<span>1 年前</span>
+    						</span>
+    						<div class="vm-video-info">
+    							<a dir="ltr" data-sessionlink="ei=CPXW9tTQgrMCFeGBIQodIxLFtA%3D%3D" class="yt-uix-sessionlink yt-user-name " href="/user/TEDxTalks">TEDxTalks</a>
+    						</div>
+    					</div>
+    					<div class="vm-video-icons">
+    						<div class="vm-video-metrics">
+    							<span class="vm-video-metric video-view-count">
+    							<span title="观看次数" class="yt-uix-tooltip">
+    							<span class="vm-video-metric-icon">
+    							<img alt="观看次数" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+    							</span>
+    							<span class="vm-video-metric-value">1,078</span>
+    							</span>
+    							</span>
+    							<span class="vm-video-metric video-likes-count">
+    							<span title="顶过的人数" class="yt-uix-tooltip">
+    							<span class="vm-video-metric-icon">
+    							<img alt="顶过的人数" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+    							</span>
+    							<span class="vm-video-metric-value">12</span>
+    							</span>
+    							</span>
+    							<span class="vm-video-metric video-dislikes-count">
+    							<span title="踩" class="yt-uix-tooltip">
+    							<span class="vm-video-metric-icon">
+    							<img alt="踩" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+    							</span>
+    							<span class="vm-video-metric-value">0</span>
+    							</span>
+    							</span>
+    							<span class="vm-video-metric video-comments">
+    							<span title="评论数" class="yt-uix-tooltip">
+    							<span class="vm-video-metric-icon">
+    							<img alt="评论数" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+    							</span>
+    							<span class="vm-video-metric-value">0</span>
+    							</span>
+    							</span>
+    						</div>
+    					</div>
+    				</div>
+    				</li>
+    				<li class="vm-video-item" id="vm-video-J5qCE1Y9O4k">
+    				<div class="vm-video-item-content">
+    					<span class="yt-uix-form-input-checkbox-container "><input type="checkbox" aria-labelledby="checkbox_J5qCE1Y9O4k" value="J5qCE1Y9O4k" class="yt-uix-form-input-checkbox video-checkbox" name="video-checkbox"><span class="yt-uix-form-input-checkbox-element"></span></span>
+    					<div class="vm-thumb">
+    						<a data-sessionlink="ei=CPXW9tTQgrMCFeGBIQodIxLFtA%3D%3D&amp;feature=my_watch_later_videos" class="ux-thumb-wrap yt-uix-sessionlink" href="/watch?v=J5qCE1Y9O4k&amp;feature=my_watch_later_videos&amp;list=WL9F5E19B09C8D397C">
+    						<span class="video-thumb ux-thumb yt-thumb-default-120 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img width="120" alt="缩略图" src="//i3.ytimg.com/vi/J5qCE1Y9O4k/default.jpg"><span class="vertical-align"></span></span></span></span>
+    						<span class="video-time">1:10</span>
+    						</a>
+    					</div>
+    					<div class="vm-video-info-container">
+    						<div class="vm-video-title">
+    							<span id="checkbox_J5qCE1Y9O4k" class="vm-video-title-container yt-uix-tooltip">
+    							<a data-sessionlink="ei=CPXW9tTQgrMCFeGBIQodIxLFtA%3D%3D&amp;feature=my_watch_later_videos" class="vm-video-title-content yt-uix-sessionlink" href="/watch?v=J5qCE1Y9O4k&amp;feature=my_watch_later_videos&amp;list=WL9F5E19B09C8D397C">Unintended Express Lane Northbound on I35 at 75th Street Exit</a>
+    							</span>
+    							<span class="vm-video-title-badges">
+    							<span class="yt-badge-std">HD</span>
+    							</span>
+    						</div>
+    						<span class="vm-video-info">
+    						<span class="vm-video-desc">Unintended Express Lane Northbound on I35 at 75th Street Exit</span>
+    						</span>
+    						<span class="vm-video-info vm-date-info">
+    						<span>4 个月前</span>
+    						</span>
+    						<div class="vm-video-info">
+    							<a dir="ltr" data-sessionlink="ei=CPXW9tTQgrMCFeGBIQodIxLFtA%3D%3D" class="yt-uix-sessionlink yt-user-name " href="/user/obender">obender</a>
+    						</div>
+    					</div>
+    					<div class="vm-video-icons">
+    						<div class="vm-video-metrics">
+    							<span class="vm-video-metric video-view-count">
+    							<span title="观看次数" class="yt-uix-tooltip">
+    							<span class="vm-video-metric-icon">
+    							<img alt="观看次数" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+    							</span>
+    							<span class="vm-video-metric-value">156</span>
+    							</span>
+    							</span>
+    							<span class="vm-video-metric video-likes-count">
+    							<span title="顶过的人数" class="yt-uix-tooltip">
+    							<span class="vm-video-metric-icon">
+    							<img alt="顶过的人数" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+    							</span>
+    							<span class="vm-video-metric-value">0</span>
+    							</span>
+    							</span>
+    							<span class="vm-video-metric video-dislikes-count">
+    							<span title="踩" class="yt-uix-tooltip">
+    							<span class="vm-video-metric-icon">
+    							<img alt="踩" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+    							</span>
+    							<span class="vm-video-metric-value">0</span>
+    							</span>
+    							</span>
+    							<span class="vm-video-metric video-comments">
+    							<span title="评论数" class="yt-uix-tooltip">
+    							<span class="vm-video-metric-icon">
+    							<img alt="评论数" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+    							</span>
+    							<span class="vm-video-metric-value">0</span>
+    							</span>
+    							</span>
+    						</div>
+    					</div>
+    				</div>
+    				</li>
+    				<li class="vm-video-item" id="vm-video-HfRuZhPatC4">
+    				<div class="vm-video-item-content">
+    					<span class="yt-uix-form-input-checkbox-container "><input type="checkbox" aria-labelledby="checkbox_HfRuZhPatC4" value="HfRuZhPatC4" class="yt-uix-form-input-checkbox video-checkbox" name="video-checkbox"><span class="yt-uix-form-input-checkbox-element"></span></span>
+    					<div class="vm-thumb">
+    						<a data-sessionlink="ei=CPXW9tTQgrMCFeGBIQodIxLFtA%3D%3D&amp;feature=my_watch_later_videos" class="ux-thumb-wrap yt-uix-sessionlink" href="/watch?v=HfRuZhPatC4&amp;feature=my_watch_later_videos&amp;list=WL9F5E19B09C8D397C">
+    						<span class="video-thumb ux-thumb yt-thumb-default-120 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img width="120" alt="缩略图" src="//i1.ytimg.com/vi/HfRuZhPatC4/default.jpg"><span class="vertical-align"></span></span></span></span>
+    						<span class="video-time">3:41</span>
+    						</a>
+    					</div>
+    					<div class="vm-video-info-container">
+    						<div class="vm-video-title">
+    							<span id="checkbox_HfRuZhPatC4" class="vm-video-title-container yt-uix-tooltip">
+    							<a data-sessionlink="ei=CPXW9tTQgrMCFeGBIQodIxLFtA%3D%3D&amp;feature=my_watch_later_videos" class="vm-video-title-content yt-uix-sessionlink" href="/watch?v=HfRuZhPatC4&amp;feature=my_watch_later_videos&amp;list=WL9F5E19B09C8D397C">MIT: Where Dreams Come True.mov</a>
+    							</span>
+    							<span class="vm-video-title-badges">
+    							</span>
+    						</div>
+    						<span class="vm-video-info">
+    						<span class="vm-video-desc">MLK Seminar Final Project for IAP 2010</span>
+    						</span>
+    						<span class="vm-video-info vm-date-info">
+    						<span>2 年前</span>
+    						</span>
+    						<div class="vm-video-info">
+    							<a dir="ltr" data-sessionlink="ei=CPXW9tTQgrMCFeGBIQodIxLFtA%3D%3D" class="yt-uix-sessionlink yt-user-name " href="/user/shuugo88">Jonathan Blackwood</a>
+    						</div>
+    					</div>
+    					<div class="vm-video-icons">
+    						<div class="vm-video-metrics">
+    							<span class="vm-video-metric video-view-count">
+    							<span title="观看次数" class="yt-uix-tooltip">
+    							<span class="vm-video-metric-icon">
+    							<img alt="观看次数" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+    							</span>
+    							<span class="vm-video-metric-value">5,100</span>
+    							</span>
+    							</span>
+    							<span class="vm-video-metric video-likes-count">
+    							<span title="顶过的人数" class="yt-uix-tooltip">
+    							<span class="vm-video-metric-icon">
+    							<img alt="顶过的人数" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+    							</span>
+    							<span class="vm-video-metric-value">29</span>
+    							</span>
+    							</span>
+    							<span class="vm-video-metric video-dislikes-count">
+    							<span title="踩" class="yt-uix-tooltip">
+    							<span class="vm-video-metric-icon">
+    							<img alt="踩" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+    							</span>
+    							<span class="vm-video-metric-value">3</span>
+    							</span>
+    							</span>
+    							<span class="vm-video-metric video-comments">
+    							<span title="评论数" class="yt-uix-tooltip">
+    							<span class="vm-video-metric-icon">
+    							<img alt="评论数" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+    							</span>
+    							<span class="vm-video-metric-value">7</span>
+    							</span>
+    							</span>
+    						</div>
+    					</div>
+    				</div>
+    				</li>
+    			</ol>
+    		</div>
+    		<div id="vm-pagination">
+    		</div>
+    	</div>
+    </div>
+<%= render 'mine_below' %>
+
