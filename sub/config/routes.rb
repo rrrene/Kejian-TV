@@ -11,7 +11,7 @@ Sub::Application.routes.draw do
   get '/mine/dashboard'
   get '/mine/my_coursewares'
   get '/mine/view_all_playlists'
-  get '/mine/my_videos_copyright'
+  get '/mine/my_coursewares_copyright'
 	get '/mine/my_history'
 	get '/mine/my_search_history'
   get '/mine/my_watch_later_coursewares'

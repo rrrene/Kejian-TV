@@ -16,7 +16,7 @@ class MineController < ApplicationController
   def view_all_playlists
     @seo[:title] = "课件锦囊"    
   end
-  def my_videos_copyright
+  def my_coursewares_copyright
     @seo[:title] = "版权声明"    
   end
   def my_history

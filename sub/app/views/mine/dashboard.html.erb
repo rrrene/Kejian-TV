@@ -35,10 +35,10 @@
 			</ul>
 			<div id="dashboard-header-user-info">
 				<a class="yt-user-photo " href="/user/pmq20?feature=vmdshb">
-				<span class="video-thumb ux-thumb yt-thumb-square-60 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img width="60" alt="<%= current_user.name %>" src="<%=avatar_url(current_user,:middle)%>"><span class="vertical-align"></span></span></span></span>
+				<span class="video-thumb ux-thumb yt-thumb-square-60 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img width="60" alt="<%= current_user.name_beautified %>" src="<%=avatar_url(current_user,:middle)%>"><span class="vertical-align"></span></span></span></span>
 				</a>
 				<div id="dashboard-header-user-name-and-label">
-					<h1> <%= current_user.name %> </h1>
+					<h1> <%= current_user.name_beautified %> </h1>
 				</div>
 			</div>
 		</div>
@@ -60,7 +60,7 @@
 									<li class="dashboard-widget-item selectable-item video-list-item clearfix">
 									<div class="vm-thumb">
 										<a data-sessionlink="ei=CNPy1OnDgrMCFdePIQodEj_Muw%3D%3D&amp;feature=vmdshb" class="ux-thumb-wrap yt-uix-sessionlink yt-uix-contextlink contains-addto " href="/watch?v=nsrsFkOClVg&amp;feature=vmdshb"><span class="video-thumb ux-thumb yt-thumb-default-64 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img width="64" alt="缩略图" src="//i3.ytimg.com/vi/nsrsFkOClVg/default.jpg"><span class="vertical-align"></span></span></span></span><span class="video-time">0:00</span>
-										<button role="button" data-video-ids="nsrsFkOClVg" class="addto-button video-actions addto-watch-later-button yt-uix-button yt-uix-button-default yt-uix-button-short yt-uix-tooltip" type="button" title="稍后观看" onclick=";return false;"><span class="yt-uix-button-content"><img alt="稍后观看" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+										<button role="button" data-video-ids="nsrsFkOClVg" class="addto-button video-actions addto-watch-later-button yt-uix-button yt-uix-button-default yt-uix-button-short yt-uix-tooltip" type="button" title="稍后观看" onclick=";return false;"><span class="yt-uix-button-content"><img alt="稍后观看" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
 										</span></button>
 										</a>
 									</div>
@@ -87,7 +87,7 @@
 									<li class="dashboard-widget-item selectable-item video-list-item clearfix">
 									<div class="vm-thumb">
 										<a data-sessionlink="ei=CNPy1OnDgrMCFdePIQodEj_Muw%3D%3D&amp;feature=vmdshb" class="ux-thumb-wrap yt-uix-sessionlink yt-uix-contextlink contains-addto " href="/watch?v=eO4V45qp_jU&amp;feature=vmdshb"><span class="video-thumb ux-thumb yt-thumb-default-64 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img width="64" alt="缩略图" src="//i2.ytimg.com/vi/eO4V45qp_jU/default.jpg"><span class="vertical-align"></span></span></span></span><span class="video-time">43:10</span>
-										<button role="button" data-video-ids="eO4V45qp_jU" class="addto-button video-actions addto-watch-later-button yt-uix-button yt-uix-button-default yt-uix-button-short yt-uix-tooltip" type="button" title="稍后观看" onclick=";return false;"><span class="yt-uix-button-content"><img alt="稍后观看" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+										<button role="button" data-video-ids="eO4V45qp_jU" class="addto-button video-actions addto-watch-later-button yt-uix-button yt-uix-button-default yt-uix-button-short yt-uix-tooltip" type="button" title="稍后观看" onclick=";return false;"><span class="yt-uix-button-content"><img alt="稍后观看" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
 										</span></button>
 										</a>
 									</div>
@@ -114,7 +114,7 @@
 									<li class="dashboard-widget-item selectable-item video-list-item clearfix">
 									<div class="vm-thumb">
 										<a data-sessionlink="ei=CNPy1OnDgrMCFdePIQodEj_Muw%3D%3D&amp;feature=vmdshb" class="ux-thumb-wrap yt-uix-sessionlink yt-uix-contextlink contains-addto " href="/watch?v=x3Z0PM1UNAQ&amp;feature=vmdshb"><span class="video-thumb ux-thumb yt-thumb-default-64 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img width="64" alt="缩略图" src="//i1.ytimg.com/vi/x3Z0PM1UNAQ/default.jpg"><span class="vertical-align"></span></span></span></span><span class="video-time">1:06:49</span>
-										<button role="button" data-video-ids="x3Z0PM1UNAQ" class="addto-button video-actions addto-watch-later-button-success yt-uix-button yt-uix-button-default yt-uix-button-short yt-uix-tooltip" type="button" title="稍后观看" onclick=";return false;" data-tooltip-text="稍后观看"><span class="yt-uix-button-content"><img alt="稍后观看" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+										<button role="button" data-video-ids="x3Z0PM1UNAQ" class="addto-button video-actions addto-watch-later-button-success yt-uix-button yt-uix-button-default yt-uix-button-short yt-uix-tooltip" type="button" title="稍后观看" onclick=";return false;" data-tooltip-text="稍后观看"><span class="yt-uix-button-content"><img alt="稍后观看" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
 										</span></button>
 										</a>
 									</div>
@@ -141,7 +141,7 @@
 									<li class="dashboard-widget-item selectable-item video-list-item clearfix">
 									<div class="vm-thumb">
 										<a data-sessionlink="ei=CNPy1OnDgrMCFdePIQodEj_Muw%3D%3D&amp;feature=vmdshb" class="ux-thumb-wrap yt-uix-sessionlink yt-uix-contextlink contains-addto " href="/watch?v=rZmt-axGFBk&amp;feature=vmdshb"><span class="video-thumb ux-thumb yt-thumb-default-64 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img width="64" alt="缩略图" src="//i3.ytimg.com/vi/rZmt-axGFBk/default.jpg"><span class="vertical-align"></span></span></span></span><span class="video-time">0:45</span>
-										<button role="button" data-video-ids="rZmt-axGFBk" class="addto-button video-actions addto-watch-later-button yt-uix-button yt-uix-button-default yt-uix-button-short yt-uix-tooltip" type="button" title="稍后观看" onclick=";return false;"><span class="yt-uix-button-content"><img alt="稍后观看" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+										<button role="button" data-video-ids="rZmt-axGFBk" class="addto-button video-actions addto-watch-later-button yt-uix-button yt-uix-button-default yt-uix-button-short yt-uix-tooltip" type="button" title="稍后观看" onclick=";return false;"><span class="yt-uix-button-content"><img alt="稍后观看" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
 										</span></button>
 										</a>
 									</div>
@@ -196,7 +196,7 @@
 										<span class="comment-heading">
 										<a href="/user/mattlee000?feature=vmdshb">mattlee000</a>评论了中国科学技术大学数学分析（史济怀） sjh20030903 2 </span>
 										<div class="comment-comment">
-											<img alt="" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" class="quotation-mark">
+											<img alt="" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="quotation-mark">
 											<a href="/watch?v=eO4V45qp_jU&amp;feature=vmdshb">
 											科大&#65279; </a>
 										</div>
@@ -219,7 +219,7 @@
 										<span class="comment-heading">
 										<a href="/user/libersnail?feature=vmdshb">Liber Liu</a>评论了Will Power </span>
 										<div class="comment-comment">
-											<img alt="" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" class="quotation-mark">
+											<img alt="" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="quotation-mark">
 											<a href="/watch?v=JZtQ25v7XsQ&amp;feature=vmdshb">
 											......................................无语了&#65279; </a>
 										</div>
@@ -250,7 +250,7 @@
 						<h4 class="notification-title">
 						<div class="yt-alert yt-alert-naked yt-alert-info">
 							<div class="yt-alert-icon">
-								<img alt="提醒图标" class="icon master-sprite" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+								<img alt="提醒图标" class="icon master-sprite" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
 							</div>
 						</div>
 						 加入 YouTube 合作伙伴计划 </h4>
@@ -357,7 +357,7 @@ TrueView 插播广告
     </div>
     <div class="preview-area">
         <div id="preview-overlay" class="ad-format-preview hid">
-      <img src="//s.ytimg.com/yt/img/in-display-overlay-vfllJbecp.png"><br>
+      <img src="<%=asset_path('yt/img/in-display-overlay-vfllJbecp.png')%>"><br>
     <p>视频内重叠式广告是显示在您视频下半部分的透明的重叠式广告。
           <a target="_new" href="//support.google.com/youtube/bin/answer.py?answer=94525&amp;hl=zh-CN">
 了解详情
@@ -365,7 +365,7 @@ TrueView 插播广告
     </p>
   </div>
         <div id="preview-trueview" class="ad-format-preview hid">
-      <img src="//s.ytimg.com/yt/img/in-stream-trueview-vflyOPLHS.png"><br>
+      <img src="<%=asset_path('yt/img/in-stream-trueview-vflyOPLHS.png')%>"><br>
     <p>TrueView 插播广告由一系列格式组成，允许观众选择并控制显示哪些广告客户讯息及其显示的时间。
           <a target="_new" href="//support.google.com/youtube/bin/answer.py?answer=1205675&amp;hl=zh-CN">
 了解详情
@@ -373,7 +373,7 @@ TrueView 插播广告
     </p>
   </div>
         <div id="preview-instream" class="ad-format-preview hid">
-      <img src="//s.ytimg.com/yt/img/in-stream-standard-vflzoarfH.png"><br>
+      <img src="<%=asset_path('yt/img/in-stream-standard-vflzoarfH.png')%>"><br>
     <p>标准插播广告是指在主视频播放前、播放期间或播放后插入的视频广告，观众必须先看完广告才能观看所选的视频。
           <a target="_new" href="//support.google.com/youtube/bin/answer.py?answer=188038&amp;hl=zh-CN">
 了解详情
@@ -388,7 +388,7 @@ TrueView 插播广告
     </p>
   </div>
         <div id="preview-display" class="ad-format-preview hid">
-      <img src="//s.ytimg.com/yt/img/in-display-vflqN9OMb.png"><br>
+      <img src="<%=asset_path('yt/img/in-display-vflqN9OMb.png')%>"><br>
     <p>展示广告（横幅）可以在网站上的所有区域（首页除外）投放。这些广告显示在精选视频右侧和推荐视频列表的上方，大小为 300x250 像素。
           <a target="_new" href="//support.google.com/youtube/bin/answer.py?answer=1205617&amp;hl=zh-CN">
 了解详情
@@ -415,7 +415,7 @@ TrueView 插播广告
       </div>
       <div id="no-adsense-confirmation-alert-container">
         <div class="yt-alert yt-alert-default yt-alert-warn hid " id="no-adsense-alert-template">  <div class="yt-alert-icon">
-    <img src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" class="icon master-sprite" alt="提醒图标">
+    <img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="icon master-sprite" alt="提醒图标">
   </div>
 <div class="yt-alert-buttons"><button type="button" class="close yt-uix-close yt-uix-button yt-uix-button-close" onclick=";return false;" data-close-parent-class="yt-alert" role="button"><span class="yt-uix-button-content">关闭 </span></button></div><div class="yt-alert-content" role="alert"></div></div>
       </div>
@@ -493,10 +493,10 @@ TrueView 插播广告
 								<div data-slider-slides="3" class="yt-uix-slider">
 									<div class="promos-slider-container">
 										<button class="yt-uix-button yt-uix-button-default yt-uix-slider-prev" disabled="disabled">
-										<img alt="上一个通知" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" class="yt-uix-slider-prev-arrow">
+										<img alt="上一个通知" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="yt-uix-slider-prev-arrow">
 										</button>
 										<button class="yt-uix-button yt-uix-button-default yt-uix-slider-next">
-										<img alt="下一个通知" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" class="yt-uix-slider-next-arrow">
+										<img alt="下一个通知" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="yt-uix-slider-next-arrow">
 										</button>
 										<div class="promos-content-container">
 											<div class="yt-uix-slider-body">
@@ -505,7 +505,7 @@ TrueView 插播广告
 														<li class="yt-uix-slider-item">
 														<h3 class="promo-title">新的概览模板</h3>
 														<a href="//support.google.com/youtube/bin/answer.py?answer=2737256&amp;hl=zh-CN">
-														<img alt="使用新的概览模板新建频道架的屏幕截图。" src="//s.ytimg.com/yt/img/videomanager/promo-new-overview-template-vflMfG5IO.png" class="promo-image">
+														<img alt="使用新的概览模板新建频道架的屏幕截图。" src="<%=asset_path('yt/img/videomanager/promo-new-overview-template-vflMfG5IO.png')%>" class="promo-image">
 														</a>
 														<div class="promo-content">
 															凭借这一新的频道页面概览模板，您可以突出显示上传的热门视频、最近顶过的视频等。<a href="//support.google.com/youtube/bin/answer.py?answer=2737256&amp;hl=zh-CN">了解详情</a>。
@@ -516,7 +516,7 @@ TrueView 插播广告
 														<li class="yt-uix-slider-item">
 														<h3 class="promo-title">向您的视频添加字幕</h3>
 														<a href="//support.google.com/youtube/bin/answer.py?answer=100077&amp;hl=zh-CN">
-														<img alt="在视频上修改字幕的屏幕截图。" src="//s.ytimg.com/yt/img/videomanager/promo-edit-captions-vflLaewiF.png" class="promo-image">
+														<img alt="在视频上修改字幕的屏幕截图。" src="<%=asset_path('yt/img/videomanager/promo-edit-captions-vflLaewiF.png')%>" class="promo-image">
 														</a>
 														<div class="promo-content">
 															您现在可以使用内嵌编辑器修改您视频的字幕了。<a href="//support.google.com/youtube/bin/answer.py?answer=100077&amp;hl=zh-CN">了解详情</a>。
@@ -527,7 +527,7 @@ TrueView 插播广告
 														<li class="yt-uix-slider-item">
 														<h3 class="promo-title">在 Twitter 上关注 @ytcreators</h3>
 														<a href="https://twitter.com/ytcreators">
-														<img alt="@ytcreators 的 Twitter 屏幕截图。" src="//s.ytimg.com/yt/img/videomanager/promo-twitter-ytcreators-vflGlyYgk.png" class="promo-image">
+														<img alt="@ytcreators 的 Twitter 屏幕截图。" src="<%=asset_path('yt/img/videomanager/promo-twitter-ytcreators-vflGlyYgk.png')%>" class="promo-image">
 														</a>
 														<div class="promo-content">
 															请关注 YouTube 合作伙伴和创作者的官方 Twitter 页面 <a href="https://twitter.com/ytcreators">@ytcreators</a>，您也可以在 <a href="https://plus.google.com/102302518872558262838/posts">Google+</a> 上添加我们。
