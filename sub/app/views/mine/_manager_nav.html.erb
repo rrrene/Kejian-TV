@@ -1,0 +1,31 @@
+<div id="yt-admin-sidebar" class="ytg-1col">
+	<span class="yt-uix-button-group vm-upload-menu"><button href="//www.youtube.com/my_videos_upload?feature=vm-menu" type="button" class="start upload-menu-button yt-uix-button yt-uix-button-default yt-uix-button-short" onclick=";window.location.href=this.getAttribute('href');return false;" role="button"><span class="yt-uix-button-content">上传 </span></button><button type="button" class="upload-menu-expand-button end yt-uix-button yt-uix-button-default yt-uix-button-short yt-uix-button-empty" onclick=";return false;" role="button" aria-pressed="false" aria-expanded="false" aria-haspopup="true" aria-activedescendant=""><img class="yt-uix-button-arrow" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" alt="">
+	<ul class=" yt-uix-button-menu yt-uix-button-menu-default" role="menu" aria-haspopup="true" style="display: none;">
+		<li role="menuitem" id="aria-id-87131344437"><span href="//www.youtube.com/my_videos_upload?feature=vm-menu" class=" yt-uix-button-menu-item" onclick=";window.location.href=this.getAttribute('href');return false;">上传视频</span></li>
+		<li role="menuitem" id="aria-id-65580324414"><span href="/my_webcam?feature=vm-menu" class=" yt-uix-button-menu-item" onclick=";window.location.href=this.getAttribute('href');return false;">使用网络摄像头录制</span></li>
+		<li role="menuitem" id="aria-id-48099561704"><span href="/create?feature=vm-menu" class="menu-item-top-divider yt-uix-button-menu-item" onclick=";window.location.href=this.getAttribute('href');return false;">创作者工具</span></li>
+		<li role="menuitem" id="aria-id-28101959227"><span href="https://adwords.google.com/video?utm_source=youtube&amp;utm_medium=permanent&amp;utm_term=drop_down&amp;utm_content=yt_upload_menu&amp;utm_campaign=yt_video_manager" class=" yt-uix-button-menu-item" onclick=";window.location.href=this.getAttribute('href');return false;">AdWords 视频广告</span></li>
+	</ul>
+	</button></span>
+  <ol class="vm-vertical-nav">
+  	<% {
+  	 	'信息中心' => '/mine/dashboard',
+  	 	'上传的课件' => '/mine/my_coursewares',
+  		'课件锦囊' => '/mine/view_all_playlists',
+  		'版权声明' => '/mine/my_videos_copyright',
+  		'历史记录' => '/mine/my_history',
+  		'搜索记录' => '/mine/my_search_history',
+  		'稍后观看' => '/mine/my_watch_later_coursewares',
+  		'收藏' => '/mine/my_favorites',
+  		'顶过的课件' => '/mine/my_liked_coursewares',
+  	}.each do |key,value| %>
+  		<% if value==request.path %>
+  		  <li class="selected"><%= key %></li>
+  	  <% else %>
+    	<li>
+    	<a href="<%= value %>"><%= key %> </a>
+    	</li>	  
+    	<% end %>
+  	<% end %>
+  </ol>
+</div>

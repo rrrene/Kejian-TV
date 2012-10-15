@@ -1,0 +1,555 @@
+<% content_for :armpit do %>
+  <%= stylesheet_link_tag 'ktv/__ytb' %>
+  <%= stylesheet_link_tag "ktv/__ytb_manager", :media => "all" %>
+  <%= stylesheet_link_tag "ktv/__ytb_dashboard", :media => "all" %>
+  <%= stylesheet_link_tag "ktv/__ytb_contract", :media => "all" %>
+<% end %>
+
+
+<%= render 'mine_above' %>
+
+
+
+
+<div class="ytg-fl vm-has-videolist vm-list-view vm-dashboard" id="yt-admin">
+  <%= render 'manager_nav' %>
+	<div class="ytg-fl dashboard_content" id="yt-admin-content">
+		<div class="clearfix" id="dashboard-header">
+			<ul id="dashboard-header-stats">
+				<li>
+				<div class="dashboard-stat-value">
+					 <%= current_user.sum_cw_views_count %>
+				</div>
+				<div class="dashboard-stat-name">
+					 总课件观看次数
+				</div>
+				</li>
+				<li>
+				<div class="dashboard-stat-value">
+					 <%= current_user.followers_count %>
+				</div>
+				<div class="dashboard-stat-name">
+					 订阅人数
+				</div>
+				</li>
+			</ul>
+			<div id="dashboard-header-user-info">
+				<a class="yt-user-photo " href="/user/pmq20?feature=vmdshb">
+				<span class="video-thumb ux-thumb yt-thumb-square-60 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img width="60" alt="<%= current_user.name %>" src="<%=avatar_url(current_user,:middle)%>"><span class="vertical-align"></span></span></span></span>
+				</a>
+				<div id="dashboard-header-user-name-and-label">
+					<h1> <%= current_user.name %> </h1>
+				</div>
+			</div>
+		</div>
+		<div id="vm-general-notifs">
+		</div>
+		<div class="yt-uix-dragdrop dashboard-widgets">
+			<div class="dashboard-widgets-left yt-uix-dragdrop-container">
+				<div data-widget-id="0" class="dashboard-widget display videos yt-uix-dragdrop-draggable-item">
+					<div class="dashboard-widget-header">
+						<div class="dashboard-widget-display-title">
+							<h2>
+							视频 </h2>
+						</div>
+					</div>
+					<div class="dashboard-widget-viewport">
+						<div class="dashboard-widget-inside clearfix">
+							<div class="content">
+								<ol class="video-list">
+									<li class="dashboard-widget-item selectable-item video-list-item clearfix">
+									<div class="vm-thumb">
+										<a data-sessionlink="ei=CNPy1OnDgrMCFdePIQodEj_Muw%3D%3D&amp;feature=vmdshb" class="ux-thumb-wrap yt-uix-sessionlink yt-uix-contextlink contains-addto " href="/watch?v=nsrsFkOClVg&amp;feature=vmdshb"><span class="video-thumb ux-thumb yt-thumb-default-64 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img width="64" alt="缩略图" src="//i3.ytimg.com/vi/nsrsFkOClVg/default.jpg"><span class="vertical-align"></span></span></span></span><span class="video-time">0:00</span>
+										<button role="button" data-video-ids="nsrsFkOClVg" class="addto-button video-actions addto-watch-later-button yt-uix-button yt-uix-button-default yt-uix-button-short yt-uix-tooltip" type="button" title="稍后观看" onclick=";return false;"><span class="yt-uix-button-content"><img alt="稍后观看" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+										</span></button>
+										</a>
+									</div>
+									<div class="video-list-item-info">
+										<div class="video-title">
+											<h3 dir="ltr">
+											<a title="" href="/watch?v=nsrsFkOClVg&amp;feature=vmdshb">中国科学技术大学数学分析（史济怀） sjh20030905 1</a>
+											</h3>
+										</div>
+										<ul class="video-list-item-details">
+											<li>
+											<span class="viewcount">
+											无人观看</span>
+											</li>
+											<li>
+											<span class="video-date-added">3 个月前</span>
+											</li>
+											<li class="video-edit-button">
+											<a href="/my_videos_edit?video_id=nsrsFkOClVg&amp;feature=vmdshb">修改</a>
+											</li>
+										</ul>
+									</div>
+									</li>
+									<li class="dashboard-widget-item selectable-item video-list-item clearfix">
+									<div class="vm-thumb">
+										<a data-sessionlink="ei=CNPy1OnDgrMCFdePIQodEj_Muw%3D%3D&amp;feature=vmdshb" class="ux-thumb-wrap yt-uix-sessionlink yt-uix-contextlink contains-addto " href="/watch?v=eO4V45qp_jU&amp;feature=vmdshb"><span class="video-thumb ux-thumb yt-thumb-default-64 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img width="64" alt="缩略图" src="//i2.ytimg.com/vi/eO4V45qp_jU/default.jpg"><span class="vertical-align"></span></span></span></span><span class="video-time">43:10</span>
+										<button role="button" data-video-ids="eO4V45qp_jU" class="addto-button video-actions addto-watch-later-button yt-uix-button yt-uix-button-default yt-uix-button-short yt-uix-tooltip" type="button" title="稍后观看" onclick=";return false;"><span class="yt-uix-button-content"><img alt="稍后观看" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+										</span></button>
+										</a>
+									</div>
+									<div class="video-list-item-info">
+										<div class="video-title">
+											<h3 dir="ltr">
+											<a title="" href="/watch?v=eO4V45qp_jU&amp;feature=vmdshb">中国科学技术大学数学分析（史济怀） sjh20030903 2</a>
+											</h3>
+										</div>
+										<ul class="video-list-item-details">
+											<li>
+											<span class="viewcount">
+											观看次数：65 次</span>
+											</li>
+											<li>
+											<span class="video-date-added">3 个月前</span>
+											</li>
+											<li class="video-edit-button">
+											<a href="/my_videos_edit?video_id=eO4V45qp_jU&amp;feature=vmdshb">修改</a>
+											</li>
+										</ul>
+									</div>
+									</li>
+									<li class="dashboard-widget-item selectable-item video-list-item clearfix">
+									<div class="vm-thumb">
+										<a data-sessionlink="ei=CNPy1OnDgrMCFdePIQodEj_Muw%3D%3D&amp;feature=vmdshb" class="ux-thumb-wrap yt-uix-sessionlink yt-uix-contextlink contains-addto " href="/watch?v=x3Z0PM1UNAQ&amp;feature=vmdshb"><span class="video-thumb ux-thumb yt-thumb-default-64 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img width="64" alt="缩略图" src="//i1.ytimg.com/vi/x3Z0PM1UNAQ/default.jpg"><span class="vertical-align"></span></span></span></span><span class="video-time">1:06:49</span>
+										<button role="button" data-video-ids="x3Z0PM1UNAQ" class="addto-button video-actions addto-watch-later-button-success yt-uix-button yt-uix-button-default yt-uix-button-short yt-uix-tooltip" type="button" title="稍后观看" onclick=";return false;" data-tooltip-text="稍后观看"><span class="yt-uix-button-content"><img alt="稍后观看" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+										</span></button>
+										</a>
+									</div>
+									<div class="video-list-item-info">
+										<div class="video-title">
+											<h3 dir="ltr">
+											<a title="" href="/watch?v=x3Z0PM1UNAQ&amp;feature=vmdshb">中国科学技术大学数学分析（史济怀） sjh20030901</a>
+											</h3>
+										</div>
+										<ul class="video-list-item-details">
+											<li>
+											<span class="viewcount">
+											观看次数：6 次</span>
+											</li>
+											<li>
+											<span class="video-date-added">3 个月前</span>
+											</li>
+											<li class="video-edit-button">
+											<a href="/my_videos_edit?video_id=x3Z0PM1UNAQ&amp;feature=vmdshb">修改</a>
+											</li>
+										</ul>
+									</div>
+									</li>
+									<li class="dashboard-widget-item selectable-item video-list-item clearfix">
+									<div class="vm-thumb">
+										<a data-sessionlink="ei=CNPy1OnDgrMCFdePIQodEj_Muw%3D%3D&amp;feature=vmdshb" class="ux-thumb-wrap yt-uix-sessionlink yt-uix-contextlink contains-addto " href="/watch?v=rZmt-axGFBk&amp;feature=vmdshb"><span class="video-thumb ux-thumb yt-thumb-default-64 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img width="64" alt="缩略图" src="//i3.ytimg.com/vi/rZmt-axGFBk/default.jpg"><span class="vertical-align"></span></span></span></span><span class="video-time">0:45</span>
+										<button role="button" data-video-ids="rZmt-axGFBk" class="addto-button video-actions addto-watch-later-button yt-uix-button yt-uix-button-default yt-uix-button-short yt-uix-tooltip" type="button" title="稍后观看" onclick=";return false;"><span class="yt-uix-button-content"><img alt="稍后观看" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+										</span></button>
+										</a>
+									</div>
+									<div class="video-list-item-info">
+										<div class="video-title">
+											<h3 dir="ltr">
+											<a title="" href="/watch?v=rZmt-axGFBk&amp;feature=vmdshb">CNUKejian Trailer.m4v</a>
+											</h3>
+										</div>
+										<ul class="video-list-item-details">
+											<li>
+											<span class="viewcount">
+											观看次数：11 次</span>
+											</li>
+											<li>
+											<span class="video-date-added">1 年前</span>
+											</li>
+											<li class="video-edit-button">
+											<a href="/my_videos_edit?video_id=rZmt-axGFBk&amp;feature=vmdshb">修改</a>
+											</li>
+										</ul>
+									</div>
+									</li>
+								</ol>
+								<div class="view-all-link">
+									<a href="/my_videos?feature=vmdshb">
+									查看全部 </a>
+									&nbsp;»
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div data-widget-id="1" class="dashboard-widget display comments yt-uix-dragdrop-draggable-item">
+					<div class="dashboard-widget-header">
+						<div class="dashboard-widget-display-title">
+							<h2>
+							评论 </h2>
+						</div>
+					</div>
+					<div class="dashboard-widget-viewport">
+						<div class="dashboard-widget-inside clearfix">
+							<div class="content">
+								<ol class="comment-list">
+									<li class="dashboard-widget-item selectable-item comment-list-item">
+									<div class="comment-thumb">
+										<a href="/user/mattlee000?feature=vmdshb">
+										<span class="video-thumb ux-thumb yt-thumb-square-28 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img width="28" alt="缩略图" src="//i4.ytimg.com/i/Cvwa26MKqstBsYGG7OzUlw/1.jpg?v=4f7c1445"><span class="vertical-align"></span></span></span></span>
+										</a>
+									</div>
+									<div class="comment-body">
+										<span class="comment-heading">
+										<a href="/user/mattlee000?feature=vmdshb">mattlee000</a>评论了中国科学技术大学数学分析（史济怀） sjh20030903 2 </span>
+										<div class="comment-comment">
+											<img alt="" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" class="quotation-mark">
+											<a href="/watch?v=eO4V45qp_jU&amp;feature=vmdshb">
+											科大&#65279; </a>
+										</div>
+										<ul class="comment-list-item-links">
+											<li>2 周前</li>
+											<li class="vm-link">
+											<a href="http://www.youtube.com/watch?v=eO4V45qp_jU&amp;lcor=1&amp;lc=TkhQgmBKR7dIqicEr5HsN0dDBPus4v92R5X0R2WlFuI&amp;feature=vmdshb">
+											回复 </a>
+											</li>
+										</ul>
+									</div>
+									</li>
+									<li class="dashboard-widget-item selectable-item comment-list-item">
+									<div class="comment-thumb">
+										<a href="/user/libersnail?feature=vmdshb">
+										<span class="video-thumb ux-thumb yt-thumb-square-28 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img width="28" alt="缩略图" src="https://lh5.googleusercontent.com/-8E5EgMGpLTo/AAAAAAAAAAI/AAAAAAAAAAA/Hh1gHr3Vd0M/s28-c-k/photo.jpg"><span class="vertical-align"></span></span></span></span>
+										</a>
+									</div>
+									<div class="comment-body">
+										<span class="comment-heading">
+										<a href="/user/libersnail?feature=vmdshb">Liber Liu</a>评论了Will Power </span>
+										<div class="comment-comment">
+											<img alt="" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" class="quotation-mark">
+											<a href="/watch?v=JZtQ25v7XsQ&amp;feature=vmdshb">
+											......................................无语了&#65279; </a>
+										</div>
+										<ul class="comment-list-item-links">
+											<li>1 年前</li>
+											<li class="vm-link">
+											<a href="http://www.youtube.com/watch?v=JZtQ25v7XsQ&amp;lcor=1&amp;lc=14pXdScR6rO_5BKuwQ5aDbVqsiMbx1Cllu8L4DmoocQ&amp;feature=vmdshb">
+											回复 </a>
+											</li>
+										</ul>
+									</div>
+									</li>
+								</ol>
+								<div class="view-all-link">
+									<a href="/inbox?feature=vmdshb#comments/1">
+									查看全部 </a>
+									&nbsp;»
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="dashboard-widgets-right yt-uix-dragdrop-container">
+				<div class="notifications" id="notifications-widgets">
+					<div class="dashboard-widget notification clearfix">
+						<button role="button" onclick=";return false;" class="yt-rounded notification-dismiss yt-uix-button yt-uix-button-link" type="button"><span class="yt-uix-button-content">x </span></button>
+						<h4 class="notification-title">
+						<div class="yt-alert yt-alert-naked yt-alert-info">
+							<div class="yt-alert-icon">
+								<img alt="提醒图标" class="icon master-sprite" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+							</div>
+						</div>
+						 加入 YouTube 合作伙伴计划 </h4>
+						<div class="notification-content">
+							<p>
+								通过您的视频获利并扩大受众群体
+							</p>
+							。
+							<p>
+								立即成为 YouTube 合作伙伴！
+							</p>
+						</div>
+						<div class="notification-action">
+							<div data-disable-shortcuts="true" data-overlay-class="no-adsense" class="yt-uix-overlay" id="no-adsense-promo">
+								<div class="yt-uix-overlay-content">
+								</div>
+								<button role="button" id="no-adsense-signup-button" onclick=";return false;" class="yt-uix-overlay-target yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-content"> 注册 </span></button>
+								<div id="no-adsense-agreement-overlay-template">
+									<!--
+    <div id="no-adsense-agreement" class="yt-uix-overlay" data-overlay-class="no-adsense" data-disable-shortcuts="true">
+      <div class="yt-uix-overlay-header">
+        <h2>
+为您的帐户启用获利
+        </h2>
+      </div>
+      <div class="overlay-content-container">
+        <p class="overlay-content-text">
+请查看下面的 YouTube 获利协议
+        </p>
+        <div class="yt-scrollable-text-container terms-of-agreement-within-overlay">__no_adsense_agreement__</div>
+      </div>
+      <div>
+        <div class="no-adsense-agreement-checkbox">
+            <span class="yt-uix-form-input-checkbox-container "><input type="checkbox" name="" class="yt-uix-form-input-checkbox" id="agreement-checkbox-1"><span class="yt-uix-form-input-checkbox-element"></span></span>
+          <label for="agreement-checkbox-1">
+我已阅读并同意接受上述条款。
+          </label>
+        </div>
+        <div class="no-adsense-agreement-checkbox">
+            <span class="yt-uix-form-input-checkbox-container "><input type="checkbox" name="" class="yt-uix-form-input-checkbox" id="agreement-checkbox-2"><span class="yt-uix-form-input-checkbox-element"></span></span>
+          <label for="agreement-checkbox-2">
+我承诺，我不会点击我通过 Google 的产品和服务所投放的 Google 广告，以欺骗手段增加自己的收入。
+          </label>
+        </div>
+        <div class="no-adsense-agreement-checkbox">
+            <span class="yt-uix-form-input-checkbox-container "><input type="checkbox" name="" class="yt-uix-form-input-checkbox" id="agreement-checkbox-3"><span class="yt-uix-form-input-checkbox-element"></span></span>
+          <label for="agreement-checkbox-3">
+我不会将任何自己未拥有足够权利的内容用于获利。
+          </label>
+        </div>
+        <div class="no-adsense-review-disclaimer">__review_disclaimer__</div>
+        <div class="no-adsense-underage-message">__underage_message__</div>
+      </div>
+      <div class="no-adsense-button-container">
+        <button type="button" class="yt-uix-overlay-close close-button yt-uix-button yt-uix-button-default" onclick=";return false;" id="agreement-close-button"  role="button"><span class="yt-uix-button-content">取消 </span></button>
+        <button disabled="true" onclick=";return false;" type="button" class="yt-uix-overlay-target no-adsense-sign-agreement-button yt-uix-button yt-uix-button-primary" id="agreement-accept-button"  role="button"><span class="yt-uix-button-content">我接受 &raquo; </span></button>
+      </div>
+      <div class="yt-uix-overlay-content"></div>
+    </div>
+  -->
+								</div>
+								<div id="no-adsense-bulk-monetization-overlay-template">
+									<!--
+    <div id="no-adsense-monetization" class="no-adsense-ad-formats-container">
+      <div class="yt-uix-overlay-header">
+        <h2>
+为我的视频启用获利
+        </h2>
+      </div>
+      <div class="ad-formats-overlay">
+          <div class="form-preview-area">
+    <div class="form-area">
+      <form class="ad-options-overlay-form">
+        <div class="ad-formats-heading">
+广告格式
+        </div>
+        <div class="ad-format overlay">
+            <span class="yt-uix-form-input-checkbox-container "><input type="checkbox" name="overlay" class="yt-uix-form-input-checkbox overlay-checkbox" name="overlay" id="overlay-checkbox"><span class="yt-uix-form-input-checkbox-element"></span></span>
+视频内嵌重叠式广告
+          <span class="helpable-preview" data-preview-id="preview-overlay">预览</span>
+        </div>
+        <div class="ad-format true-view">
+            <span class="yt-uix-form-input-checkbox-container "><input type="checkbox" name="true_view" class="yt-uix-form-input-checkbox trueview-checkbox" name="true_view" id="trueview-checkbox"><span class="yt-uix-form-input-checkbox-element"></span></span>
+TrueView 插播广告
+          <span class="helpable-preview" data-preview-id="preview-trueview">预览</span>
+        </div>
+        <div class="ad-format">
+            <span class="yt-uix-form-input-checkbox-container "><input type="checkbox" name="product_placement" class="yt-uix-form-input-checkbox" name="product_placement"><span class="yt-uix-form-input-checkbox-element"></span></span>
+          <span class="product-placement">
+视频包含产品展示位置
+          </span>
+          <span class="helpable-preview" data-preview-id="preview-product-placement">
+了解详情
+          </span>
+        </div>
+        <div class="ad-format display">
+默认情况下显示展示广告。
+          <span class="helpable-preview" data-preview-id="preview-display">预览</span>
+        </div>
+      </form>
+      <div class="important-note">
+<b>重要提示</b>：要在 YouTube 上通过视频获利，即表示您确认您拥有所有视觉和音频元素的所有必要商业使用权利。YouTube 可能会对多次无法证明其拥有商业使用权利的帐户停用获利。<a href="//support.google.com/youtube/bin/answer.py?answer=97527&amp;hl=zh-CN" target="_blank">了解详情</a>。
+      </div>
+    </div>
+    <div class="preview-area">
+        <div id="preview-overlay" class="ad-format-preview hid">
+      <img src="//s.ytimg.com/yt/img/in-display-overlay-vfllJbecp.png"><br>
+    <p>视频内重叠式广告是显示在您视频下半部分的透明的重叠式广告。
+          <a target="_new" href="//support.google.com/youtube/bin/answer.py?answer=94525&amp;hl=zh-CN">
+了解详情
+          </a>
+    </p>
+  </div>
+        <div id="preview-trueview" class="ad-format-preview hid">
+      <img src="//s.ytimg.com/yt/img/in-stream-trueview-vflyOPLHS.png"><br>
+    <p>TrueView 插播广告由一系列格式组成，允许观众选择并控制显示哪些广告客户讯息及其显示的时间。
+          <a target="_new" href="//support.google.com/youtube/bin/answer.py?answer=1205675&amp;hl=zh-CN">
+了解详情
+          </a>
+    </p>
+  </div>
+        <div id="preview-instream" class="ad-format-preview hid">
+      <img src="//s.ytimg.com/yt/img/in-stream-standard-vflzoarfH.png"><br>
+    <p>标准插播广告是指在主视频播放前、播放期间或播放后插入的视频广告，观众必须先看完广告才能观看所选的视频。
+          <a target="_new" href="//support.google.com/youtube/bin/answer.py?answer=188038&amp;hl=zh-CN">
+了解详情
+          </a>
+    </p>
+  </div>
+        <div id="preview-product-placement" class="ad-format-preview hid">
+    <p>合作伙伴可以在自己的内容中加入付费产品展示位置。所有产品展示位置都需要符合我们的广告政策。
+          <a target="_new" href="//support.google.com/youtube/bin/answer.py?answer=154235&amp;hl=zh-CN">
+了解详情
+          </a>
+    </p>
+  </div>
+        <div id="preview-display" class="ad-format-preview hid">
+      <img src="//s.ytimg.com/yt/img/in-display-vflqN9OMb.png"><br>
+    <p>展示广告（横幅）可以在网站上的所有区域（首页除外）投放。这些广告显示在精选视频右侧和推荐视频列表的上方，大小为 300x250 像素。
+          <a target="_new" href="//support.google.com/youtube/bin/answer.py?answer=1205617&amp;hl=zh-CN">
+了解详情
+          </a>
+    </p>
+  </div>
+    </div>
+  </div>
+        <div class="ad-options-button-area">
+          <button type="button" class="yt-uix-overlay-target monetize-overlay-cancel-button bulk-monetize-overlay-cancel-button yt-uix-button yt-uix-button-default" onclick=";return false;" id="overlay-cancel-button"  role="button"><span class="yt-uix-button-content">跳过 </span></button>
+          <button type="button" class="yt-uix-overlay-target monetize-overlay-monetize-button yt-uix-button yt-uix-button-primary" onclick=";return false;" id="overlay-monetize-button"  role="button"><span class="yt-uix-button-content">获利 </span></button>
+        </div>
+      </div>
+    </div>
+  -->
+								</div>
+								<div id="no-adsense-confirmation-overlay-template">
+									<!--
+    <div id="no-adsense-confirmation" class="yt-uix-overlay" data-overlay-class="no-adsense-confirmation" data-disable-shortcuts="true">
+      <div class="yt-uix-overlay-header">
+        <h2>
+如何利用您的视频获利
+        </h2>
+      </div>
+      <div id="no-adsense-confirmation-alert-container">
+        <div class="yt-alert yt-alert-default yt-alert-warn hid " id="no-adsense-alert-template">  <div class="yt-alert-icon">
+    <img src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" class="icon master-sprite" alt="提醒图标">
+  </div>
+<div class="yt-alert-buttons"><button type="button" class="close yt-uix-close yt-uix-button yt-uix-button-close" onclick=";return false;" data-close-parent-class="yt-alert" role="button"><span class="yt-uix-button-content">关闭 </span></button></div><div class="yt-alert-content" role="alert"></div></div>
+      </div>
+      <div class="overlay-content">
+        <div class="monetization-instructions">
+          <p class="instructions-p">
+点击 $ 图标或在<b>操作</b>下拉菜单中选择“获利”，可利用您的视频获利。
+          </p>
+          <p class="instructions-p">
+有关详情，请访问您的“帐户设置”中的<a href="/account_monetization" target="_blank">获利</a>。
+          </p>
+          <div class="got-it-button">
+            <button type="button" class="confirmation-overlay-dismiss-button yt-uix-button yt-uix-button-primary" onclick=";return false;" id="confirmation-overlay-dismiss-button"  role="button"><span class="yt-uix-button-content">知道了 </span></button>
+          </div>
+        </div>
+        <div class="instructions-image"></div>
+      </div>
+    </div>
+  -->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div data-widget-id="2" class="dashboard-widget display analytics yt-uix-dragdrop-draggable-item">
+					<div class="dashboard-widget-header">
+						<div class="dashboard-widget-display-title">
+							<h2>
+							过去 30 天的主要统计信息 </h2>
+						</div>
+					</div>
+					<div class="dashboard-widget-viewport">
+						<div class="dashboard-widget-inside clearfix">
+							<div class="content">
+								<a href="https://www.youtube.com/analytics?feature=vmdshb">
+								<div class="clearfix section">
+									<div class="section-sparkline">
+										<img width="55" height="55" src="https://chart.googleapis.com/chart?chxt=r&amp;chd=s%3A&amp;chxs=0N%2Af0s%2A%2C%2C9%2C1%2C_&amp;chxr=0%2C0%2C4&amp;chco=5f8fc9&amp;chs=55x55&amp;cht=ls">
+										<img width="128" height="55" alt="显示过去 30 天您获得的观看次数的图表。" src="https://chart.googleapis.com/chart?chxt=&amp;chd=s%3APAPAAAAAfPAAAAPffPPfPAAuAAffA&amp;chxs=0N%2Af0s%2A%2C%2C9%2C1%2C_&amp;chxr=0%2C0%2C4&amp;chco=5f8fc9&amp;chs=128x55&amp;cht=ls">
+									</div>
+									<div class="section-value">
+										 22
+									</div>
+									<div class="section-label">
+										 视频观看次数
+									</div>
+								</div>
+								<div class="clearfix section">
+									<div class="section-sparkline">
+										<img width="55" height="55" src="https://chart.googleapis.com/chart?chxt=r&amp;chd=s%3A&amp;chxs=0N%2Af0s%2A%2C%2C9%2C1%2C_&amp;chxr=0%2C0%2C4&amp;chco=5f8fc9&amp;chs=55x55&amp;cht=ls">
+										<img width="128" height="55" alt="显示过去 30 天您所获订阅次数的变化情况的图表。" src="https://chart.googleapis.com/chart?chxt=&amp;chd=s%3AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA&amp;chxs=0N%2Af0s%2A%2C%2C9%2C1%2C_&amp;chxr=0%2C0%2C4&amp;chco=5f8fc9&amp;chs=128x55&amp;cht=ls">
+									</div>
+									<div class="section-value">
+										 0
+									</div>
+									<div class="section-label">
+										 订阅人数净变化
+									</div>
+								</div>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div data-widget-id="3" class="dashboard-widget display promos yt-uix-dragdrop-draggable-item">
+					<div class="dashboard-widget-header">
+						<div class="dashboard-widget-display-title">
+							<h2>
+							新增内容 </h2>
+						</div>
+					</div>
+					<div class="dashboard-widget-viewport">
+						<div class="dashboard-widget-inside clearfix">
+							<div class="content">
+								<div data-slider-slides="3" class="yt-uix-slider">
+									<div class="promos-slider-container">
+										<button class="yt-uix-button yt-uix-button-default yt-uix-slider-prev" disabled="disabled">
+										<img alt="上一个通知" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" class="yt-uix-slider-prev-arrow">
+										</button>
+										<button class="yt-uix-button yt-uix-button-default yt-uix-slider-next">
+										<img alt="下一个通知" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" class="yt-uix-slider-next-arrow">
+										</button>
+										<div class="promos-content-container">
+											<div class="yt-uix-slider-body">
+												<div class="yt-uix-slider-slides">
+													<ul class="yt-uix-slider-slide">
+														<li class="yt-uix-slider-item">
+														<h3 class="promo-title">新的概览模板</h3>
+														<a href="//support.google.com/youtube/bin/answer.py?answer=2737256&amp;hl=zh-CN">
+														<img alt="使用新的概览模板新建频道架的屏幕截图。" src="//s.ytimg.com/yt/img/videomanager/promo-new-overview-template-vflMfG5IO.png" class="promo-image">
+														</a>
+														<div class="promo-content">
+															凭借这一新的频道页面概览模板，您可以突出显示上传的热门视频、最近顶过的视频等。<a href="//support.google.com/youtube/bin/answer.py?answer=2737256&amp;hl=zh-CN">了解详情</a>。
+														</div>
+														</li>
+													</ul>
+													<ul class="yt-uix-slider-slide">
+														<li class="yt-uix-slider-item">
+														<h3 class="promo-title">向您的视频添加字幕</h3>
+														<a href="//support.google.com/youtube/bin/answer.py?answer=100077&amp;hl=zh-CN">
+														<img alt="在视频上修改字幕的屏幕截图。" src="//s.ytimg.com/yt/img/videomanager/promo-edit-captions-vflLaewiF.png" class="promo-image">
+														</a>
+														<div class="promo-content">
+															您现在可以使用内嵌编辑器修改您视频的字幕了。<a href="//support.google.com/youtube/bin/answer.py?answer=100077&amp;hl=zh-CN">了解详情</a>。
+														</div>
+														</li>
+													</ul>
+													<ul class="yt-uix-slider-slide">
+														<li class="yt-uix-slider-item">
+														<h3 class="promo-title">在 Twitter 上关注 @ytcreators</h3>
+														<a href="https://twitter.com/ytcreators">
+														<img alt="@ytcreators 的 Twitter 屏幕截图。" src="//s.ytimg.com/yt/img/videomanager/promo-twitter-ytcreators-vflGlyYgk.png" class="promo-image">
+														</a>
+														<div class="promo-content">
+															请关注 YouTube 合作伙伴和创作者的官方 Twitter 页面 <a href="https://twitter.com/ytcreators">@ytcreators</a>，您也可以在 <a href="https://plus.google.com/102302518872558262838/posts">Google+</a> 上添加我们。
+														</div>
+														</li>
+													</ul>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="yt-uix-slider-nums yt-uix-pager">
+										<button role="button" data-slider-num="0" onclick=";return false;" class="yt-uix-slider-num yt-uix-slider-num-current yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-content">• </span></button><button role="button" data-slider-num="1" onclick=";return false;" class="yt-uix-slider-num yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-content">• </span></button><button role="button" data-slider-num="2" onclick=";return false;" class="yt-uix-slider-num yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-content">• </span></button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<%= render 'mine_below' %>
+

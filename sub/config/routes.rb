@@ -8,7 +8,15 @@ Sub::Application.routes.draw do
   get '/user_logged_in_required'=>'application#user_logged_in_required'
   get '/modern_required'=>'application#modern_required'
   get '/mine' => 'mine#index'
-
+  get '/mine/dashboard'
+  get '/mine/my_coursewares'
+  get '/mine/view_all_playlists'
+  get '/mine/my_videos_copyright'
+	get '/mine/my_history'
+	get '/mine/my_search_history'
+  get '/mine/my_watch_later_coursewares'
+  get '/mine/my_favorites'
+  get '/mine/my_liked_coursewares'
   post '/mine/delete' => 'mine#delete'
   get '/mine/:page' => 'mine#index'
 
@@ -71,7 +79,6 @@ Sub::Application.routes.draw do
   resources :play_lists
   resources :departments
   resources :courses
-  resources :teachers
   resources :schools
   resources :maps
   get '/un_courses'=>'courses#index'
@@ -155,7 +162,19 @@ Sub::Application.routes.draw do
   match "/doing" => "logs#index"
   
   
-  
+  resources :teachers do
+    member do
+      put :action
+      post :action
+      delete :action
+      get "unfollow"
+      get "followers"
+      get "following"
+      get "invites"
+      post "follow" => 'users#zm_follow'
+      post "unfollow" => 'users#zm_unfollow'
+    end
+  end  
   resources :users do
     collection do
       get 'hot'
