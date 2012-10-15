@@ -9,13 +9,6 @@
   end
 %>
 <% content_for :armpit do %>
-<style type="text/css" media="screen">
-  #mycanvas{
-    background:transparent !important;
-    position:absolute;
-    z-index:9999;
-  }
-</style>
   <%= stylesheet_link_tag "ktv/ppt", :media => "all" %>
   <%= stylesheet_link_tag "jquery.tipsy", :media => "all" %>
   <%= javascript_include_tag "kinetic-v4.0.0.js" %>
@@ -74,6 +67,8 @@
 
     // build my array of image urls
     window.Slide = {
+      mongo_id: '<%= @courseware.id %>',
+      mongo_ktvid: '<%= @courseware.ktvid %>',
       presentation_link: '/coursewares/<%=@courseware.id%>',
       dragging: false,
       click: 0,
@@ -114,6 +109,14 @@
             Slide.show();
           };
         };
+      },
+      always_tipsy:function(text){
+        $('#always_tipsy').css({opacity:1});
+        $('#always_tipsy_content').html(text);
+        $('#always_tipsy').show();
+        setTimeout(function(){
+          $('#always_tipsy').animate({opacity:0},1000);
+        },1000)
       },
       goToSlide: function(id) {
         if (id <= 0 || id > this.urls.length) {
@@ -300,7 +303,6 @@
         Slide.fix_cw_title();
       }
     };
-
     // jquery stuff on load
     $(function(){
       Slide.setSlideSize();
@@ -320,9 +322,10 @@
       $('a#watch_later_button').bind('click', function(){
         $(this).css('opacity',1);
         $(this).css('background-position','0 -183px');
-        $.getJSON('/ajax/watch_later',function(data){
+        $.getJSON('/ajax/watch_later?courseware_id=<%= @courseware.id %>',function(data){
           if(data && data['okay']){
             $('a#watch_later_button').css('background-position','0 -208px');
+            Slide.always_tipsy(data['msg']);
           }else{
             $('a#watch_later_button').css('background-position','0 -234px');            
           }
@@ -805,7 +808,7 @@
   dhtmlxEvent(window, "load", jr);
   </script>
 <% end %>
-
+<div class="tipsy tipsy-s" id="always_tipsy"><div class="tipsy-inner" id="always_tipsy_content">小型播放器</div></div>
 <div id="presenter">
   <div class="header">
     <img alt="Kejian.TV课件交流系统" src="<%=asset_path 'embed_logo.png'%>" />
@@ -851,7 +854,7 @@
 <% end %>
   <div class="previews" style="display:none"><p>第1页, 共6页</p></div>
   <div class="standard_buttons">
-    <a href="javascript:void(0)" id="watch_later_button" class="yt-uix-tooltip" title="稍后观看"></a>
+    <a href="javascript:void(0)" id="watch_later_button" class="yt-uix-tooltip" title="稍后阅读"></a>
     <a href="javascript:void(0)" style="<%= 'opacity:1' unless @courseware.thin? %>" id="single_button" class="yt-uix-tooltip" title="小型播放器"></a>
     <a href="javascript:void(0)" style="<%= 'opacity:1' if @courseware.thin? %>" id="double_button" class="yt-uix-tooltip" title="大型播放器"></a>
   </div>

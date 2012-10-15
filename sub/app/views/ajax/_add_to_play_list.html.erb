@@ -1,0 +1,21 @@
+<li data-time-created="1349352586" data-is-private="False" data-playlist-id="cwVgMt75JZKFVmjO0ymFMUtY7Mw9B0XA" data-title="aa" class="playlist-item">
+   <span class="playlist-title">
+   <%= play_list.title %>
+   <span class="playlist-video-count-container">
+   (<span class="playlist-video-count"><%= play_list.content.size %></span>)
+   </span>
+   </span>
+   <span class="playlist-public-private">
+     <%= play_list.privacy > 0 ? '私密' : '公开' %>
+   </span>
+   <span class="created-at"><%= play_list.created_at %></span>
+   <form method="post" action="/ajax/add_comment_to_playlist" class="playlist-note-form ytg-box hid">
+      <input type="hidden" value="aa" class="playlist-name">
+      <input type="hidden" value="cwVgMt75JZKFVmjO0ymFMUtY7Mw9B0XA" name="playlist_id">
+      <span class="playlist-note yt-uix-form-input-container"><input placeholder="添加可选备注" name="annotation" class="yt-uix-form-input-text playlist-note"></span>
+      <button role="button" onclick=";return false;" class="save-note yt-uix-button yt-uix-button-primary" type="submit"><span class="yt-uix-button-content">添加备注 </span></button>
+      <button role="button" onclick=";return false;" class="cancel-note yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-content">关闭 </span></button>
+   </form>
+   <div style='clear:both' ></div>
+</li>
+

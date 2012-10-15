@@ -26,7 +26,7 @@ class MineController < ApplicationController
     @seo[:title] = "搜索记录"    
   end
   def my_watch_later_coursewares
-    @seo[:title] = "稍后观看"    
+    @seo[:title] = "稍后阅读"    
   end
   def my_favorites
     @seo[:title] = "收藏"    

@@ -35,7 +35,7 @@
               </div>
            </div>
            <h3>
-              添加到播放列表
+              添加到课件锦囊
            </h3>
            <span class="playlist-addto-title-options">
               <span class="yt-uix-form-input-checkbox-container "><input type="checkbox" id="playlist-addto-top-checkbox" class="yt-uix-form-input-checkbox" name="playlist-addto-top"><span class="yt-uix-form-input-checkbox-element"></span></span>
@@ -64,61 +64,12 @@
            </span>
         </div>
         <ul class="playlist-items">
-           <li data-is-private="False" data-title="收藏" class="playlist-item-favorite">
-              <span class="playlist-title">
-              收藏
-              <span class="playlist-video-count-container">
-              (<span class="playlist-video-count">0</span>)
-              </span>
-              </span>
-              <span class="playlist-public-private">
-              公开
-              </span>
-           </li>
-           
-           
-           <li data-time-created="1349352586" data-is-private="False" data-playlist-id="cwVgMt75JZKFVmjO0ymFMUtY7Mw9B0XA" data-title="aa" class="playlist-item">
-              <span class="playlist-title">
-              aa
-              <span class="playlist-video-count-container">
-              (<span class="playlist-video-count">1</span>)
-              </span>
-              </span>
-              <span class="playlist-public-private">
-              公开
-              </span>
-              <span class="created-at">1 秒前</span>
-              <form method="post" action="/ajax/add_comment_to_playlist" class="playlist-note-form ytg-box hid">
-                 <input type="hidden" value="aa" class="playlist-name">
-                 <input type="hidden" value="cwVgMt75JZKFVmjO0ymFMUtY7Mw9B0XA" name="playlist_id">
-                 <span class="playlist-note yt-uix-form-input-container"><input placeholder="添加可选备注" name="annotation" class="yt-uix-form-input-text playlist-note"></span>
-                 <button role="button" onclick=";return false;" class="save-note yt-uix-button yt-uix-button-primary" type="submit"><span class="yt-uix-button-content">添加备注 </span></button>
-                 <button role="button" onclick=";return false;" class="cancel-note yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-content">关闭 </span></button>
-              </form>
-              <div style='clear:both' ></div>
-           </li>
-           <li data-time-created="1349352586" data-is-private="False" data-playlist-id="cwVgMt75JZKFVmjO0ymFMUtY7Mw9B0XA" data-title="aa" class="playlist-item">
-              <span class="playlist-title">
-              ADSFA
-              <span class="playlist-video-count-container">
-              (<span class="playlist-video-count">1</span>)
-              </span>
-              </span>
-              <span class="playlist-public-private">
-              公开
-              </span>
-              <span class="created-at">1 秒前</span>
-              <form method="post" action="/ajax/add_comment_to_playlist" class="playlist-note-form ytg-box hid">
-                 <input type="hidden" value="aa" class="playlist-name">
-                 <input type="hidden" value="cwVgMt75JZKFVmjO0ymFMUtY7Mw9B0XA" name="playlist_id">
-                 <span class="playlist-note yt-uix-form-input-container"><input placeholder="添加可选备注" name="annotation" class="yt-uix-form-input-text playlist-note"></span>
-                 <button role="button" onclick=";return false;" class="save-note yt-uix-button yt-uix-button-primary" type="submit"><span class="yt-uix-button-content">添加备注 </span></button>
-                 <button role="button" onclick=";return false;" class="cancel-note yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-content">关闭 </span></button>
-              </form>
-              <div style='clear:both' ></div>
-           </li>
-           
-           
+<% current_user.play_lists.undestroyable.each do |play_list| %>
+  <%= render :partial => 'add_to_play_list',:locals=>{play_list:play_list} %>
+<% end %>
+<% current_user.play_lists.destroyable.each do |play_list| %>
+  <%= render :partial => 'add_to_play_list',:locals=>{play_list:play_list} %>
+<% end %>
         </ul>
         <form method="post" class="create-playlist" action="/ajax/create_new_playlist">
            <input type="hidden" value="LawWW8fDCrU" name="video_id" class="video-id">
@@ -133,11 +84,11 @@
                     <option value="False">私有</option>
                  </select>
               </span>
-              <button role="button" class="create-new-playlist yt-uix-button yt-uix-button-default" type="submit" onclick=";return false;" disabled="True"><span class="yt-uix-button-content">创建播放列表 </span></button>
+              <button role="button" class="create-new-playlist yt-uix-button yt-uix-button-default" type="submit" onclick=";return false;" disabled="True"><span class="yt-uix-button-content">创建课件锦囊 </span></button>
            </div>
            <div class="playlist-create-form-playlist-name">
              <span class="new-playlist-title yt-uix-form-input-container">
-               <input placeholder="输入新播放列表的名称" name="playlist_name" id="playlist_wired"class="yt-uix-form-input-text new-playlist-title label-input-label">
+               <input placeholder="输入新课件锦囊的名称" name="playlist_name" id="playlist_wired"class="yt-uix-form-input-text new-playlist-title label-input-label">
              </span>
            </div>
         </form>

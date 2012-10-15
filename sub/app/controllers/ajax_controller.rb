@@ -2,7 +2,12 @@
 class AjaxController < ApplicationController
   before_filter :authenticate_user!, :except => [:checkUsername,:checkEmailAjax,:xl_req_get_method_vod,:logincheck,:seg,:star_refresh]
   def watch_later
-    render json:{okay:true}
+    play_list = PlayList.locate(user_id:current_user.id,title:'稍后阅读')
+    if play_list.add_one_thing(params[:courseware_id],true)
+      render json:{okay:true,msg:'已将此课件添加至您的稍后阅读锦囊.'}
+    else
+      render json:{okay:true,msg:'此课件已存在于您的稍后阅读锦囊.'}
+    end
   end
   def checkUsername
     render json:{okay:Ktv::Renren.name_okay?(params[:q])}
@@ -277,7 +282,7 @@ HEREDOC
   def add_to_playlist
     #TODO params[:sort] 
     # params[:on_top] true false
-    
+    binding.pry
     ##TODO  list
     json = {status:'suc',title:params[:list_title],comment:'beizhu',time:'123',cw_id:params[:cw_id]}
     cw_event_add_action("添加收藏",'Courseware',cw.id,true)
