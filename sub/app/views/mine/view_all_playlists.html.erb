@@ -20,7 +20,7 @@
   			<div id="vm-video-actions-inner">
   				<span id="vm-playlist-sort-bar">
   				<span id="vm-view-filter-label">观看：</span>
-  				<button aria-activedescendant="" aria-haspopup="true" aria-expanded="false" aria-pressed="false" role="button" class=" yt-uix-button yt-uix-button-text"  id="vm-playlist-sort-btn" type="button" aria-labelledby="vm-view-filter-label"><span class="yt-uix-button-content">最新创建 </span><img alt="" src= "<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="yt-uix-button-arrow">
+  				<button aria-activedescendant="" aria-haspopup="true" aria-expanded="false" aria-pressed="false" role="button" class=" yt-uix-button yt-uix-button-text" onclick=";return false;" id="vm-playlist-sort-btn" type="button" aria-labelledby="vm-view-filter-label"><span class="yt-uix-button-content">最新创建 </span><img alt="" src="<%= asset_path 'yt/img/pixel-vfl3z5WfW.gif' %>" class="yt-uix-button-arrow">
   				<ul style="display: none;" aria-haspopup="true" role="menu" class=" yt-uix-button-menu yt-uix-button-menu-text">
   					<li id="aria-id-37500572823" role="menuitem"><span class=" yt-uix-button-menu-item"  id="vm-sort-newest" href="?sf=time&amp;sa=1">最新创建</span></li>
   					<li id="aria-id-56296629171" role="menuitem"><span class=" yt-uix-button-menu-item"  id="vm-sort-oldest" href="?sf=time&amp;sa=0">最早创建</span></li>
@@ -30,7 +30,10 @@
   				</button>
   				</span>
   				<div id="vm-playlist-div">
-  					<button role="button" data-button-menu-id="vm-dialog-new-playlist" class=" yt-uix-button yt-uix-button-default"  id="vm-new-playlist" type="button"><span class="yt-uix-button-content">+ 新建课件锦囊 </span><img alt="" src= "<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="yt-uix-button-arrow"></button>
+  					<button role="button" data-button-menu-id="vm-dialog-new-playlist" class="yt-uix-button yt-uix-button-default" onclick=";return false;" id="vm-new-playlist" type="button">
+  					  <span class="yt-uix-button-content">+ 新建播放列表 </span>
+  					  <img alt="" src="<%= asset_path 'yt/img/pixel-vfl3z5WfW.gif' %>" class="yt-uix-button-arrow">
+  					</button>
   				</div>
   			</div>
   		</div>
@@ -72,7 +75,7 @@
   							<span class="vm-pl-title-badges">
   							<a href="/playlist?list=PLU8P_aKcvc6f77n7dAuB7YcpFSSL8kV4D&amp;action_edit=1&amp;feature=view_all">
   							<span title="公开" class="vm-video-privacy vm-public yt-uix-tooltip yt-uix-tooltip-reverse">
-  							<img alt="公开" src= "<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
+  							<img alt="公开" src="<%= asset_path 'yt/img/pixel-vfl3z5WfW.gif' %>">
   							</span>
   							</a>
   							</span>
@@ -90,9 +93,9 @@
   				<div class="vm-video-item-content">
   					<div class="vm-pl-thumbs">
   						<a data-sessionlink="ei=COeKveTNgrMCFdmGIQodlAbXuw%3D%3D&amp;feature=view_all" class="yt-uix-sessionlink" href="/watch?v=nsrsFkOClVg&amp;list=PLU8P_aKcvc6dboIXEKcGeRMirE3sY4Eth&amp;feature=view_all">
-  						<span class="playlist-thumb-strip playlist-thumb-strip-350"><span class="videos videos-1 vertical-cutoff"><span class="clip"><span class="centering-offset"><span class="centering"><span class="ie7-vertical-align-hack">&nbsp;</span><img class="thumb" alt="" src="//i2.ytimg.com/vi/eO4V45qp_jU/hqdefault.jpg"></span></span></span></span><span class="resting-overlay"><img alt="Play all" class="play-button" src= "<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>"><span class="video-count-box">
-  						3 个课件 </span>
-  						</span><span class="hover-overlay"><span class="play-all-container"><strong><img alt="" src= "<%=asset_path('yt/img/ui/playlist_thumb_strip/mini-play-all-vflZu1SBs.png')%>">全部播放</strong></span></span></span>
+  						<span class="playlist-thumb-strip playlist-thumb-strip-350"><span class="videos videos-1 vertical-cutoff"><span class="clip"><span class="centering-offset"><span class="centering"><span class="ie7-vertical-align-hack">&nbsp;</span><img class="thumb" alt="" src="//i2.ytimg.com/vi/eO4V45qp_jU/hqdefault.jpg"></span></span></span></span><span class="resting-overlay"><img alt="Play all" class="play-button" src="<%= asset_path 'yt/img/pixel-vfl3z5WfW.gif' %>"><span class="video-count-box">
+  						3 个视频 </span>
+  						</span><span class="hover-overlay"><span class="play-all-container"><strong><img alt="" src="<%= asset_path 'yt/img/mini-play-all-vflZu1SBs.png' %>">全部播放</strong></span></span></span>
   						</a>
   					</div>
   					<div class="vm-pl-item-inner-content">
@@ -104,7 +107,6 @@
   							<a href="/playlist?list=PLU8P_aKcvc6dboIXEKcGeRMirE3sY4Eth&amp;action_edit=1&amp;feature=view_all">
   							<span title="公开" class="vm-video-privacy vm-public yt-uix-tooltip yt-uix-tooltip-reverse">
   							<img alt="公开" src= "<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
-  							</span>
   							</a>
   							</span>
   							<p>
@@ -120,9 +122,9 @@
   				<div class="vm-video-item-content">
   					<div class="vm-pl-thumbs">
   						<a data-sessionlink="ei=COeKveTNgrMCFdmGIQodlAbXuw%3D%3D&amp;feature=view_all" class="yt-uix-sessionlink" href="/watch?v=nsrsFkOClVg&amp;list=PLU8P_aKcvc6fVyTf04SkjqU4ts3s4E68u&amp;feature=view_all">
-  						<span class="playlist-thumb-strip playlist-thumb-strip-350"><span class="videos videos-1 vertical-cutoff"><span class="clip"><span class="centering-offset"><span class="centering"><span class="ie7-vertical-align-hack">&nbsp;</span><img class="thumb" alt="" src="//i2.ytimg.com/vi/eO4V45qp_jU/hqdefault.jpg"></span></span></span></span><span class="resting-overlay"><img alt="Play all" class="play-button" src= "<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>"><span class="video-count-box">
-  						3 个课件 </span>
-  						</span><span class="hover-overlay"><span class="play-all-container"><strong><img alt="" src= "<%=asset_path('yt/img/ui/playlist_thumb_strip/mini-play-all-vflZu1SBs.png')%>">全部播放</strong></span></span></span>
+  						<span class="playlist-thumb-strip playlist-thumb-strip-350"><span class="videos videos-1 vertical-cutoff"><span class="clip"><span class="centering-offset"><span class="centering"><span class="ie7-vertical-align-hack">&nbsp;</span><img class="thumb" alt="" src="//i2.ytimg.com/vi/eO4V45qp_jU/hqdefault.jpg"></span></span></span></span><span class="resting-overlay"><img alt="Play all" class="play-button" src="<%= asset_path 'yt/img/pixel-vfl3z5WfW.gif' %>"><span class="video-count-box">
+  						3 个视频 </span>
+  						</span><span class="hover-overlay"><span class="play-all-container"><strong><img alt="" src="<%= asset_path 'yt/img/mini-play-all-vflZu1SBs.png' %>">全部播放</strong></span></span></span>
   						</a>
   					</div>
   					<div class="vm-pl-item-inner-content">
@@ -133,7 +135,7 @@
   							<span class="vm-pl-title-badges">
   							<a href="/playlist?list=PLU8P_aKcvc6fVyTf04SkjqU4ts3s4E68u&amp;action_edit=1&amp;feature=view_all">
   							<span title="公开" class="vm-video-privacy vm-public yt-uix-tooltip yt-uix-tooltip-reverse">
-  							<img alt="公开" src= "<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
+  							<img alt="公开" src="<%= asset_path 'yt/img/pixel-vfl3z5WfW.gif' %>">
   							</span>
   							</a>
   							</span>
@@ -161,7 +163,7 @@
   							<span class="vm-pl-title-badges">
   							<a href="/playlist?list=PLU8P_aKcvc6fQ7FPuggvlHNvz4K7RfWCM&amp;action_edit=1&amp;feature=view_all">
   							<span title="公开" class="vm-video-privacy vm-public yt-uix-tooltip yt-uix-tooltip-reverse">
-  							<img alt="公开" src= "<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
+  							<img alt="公开" src="<%= asset_path 'yt/img/pixel-vfl3z5WfW.gif' %>">
   							</span>
   							</a>
   							</span>
@@ -181,5 +183,77 @@
   		</div>
   	</div>
   </div>
+<script type="text/javascript" charset="utf-8">
+  <% content_for :butt2 do %>
+      $('#vm-playlist-div').live('click',function(){
+          $('#vm-new-playlist').toggleClass('yt-uix-button-active');
+          div = $('#vm-dialog-new-playlist');
+          if($('#vm-new-playlist').hasClass('yt-uix-button-active')){
+            $('#vm-dialog-new-playlist').remove();
+            var cssObj = {
+              'min-width': '96px',
+              'left': $(this).offset().left.toString() + 'px', 
+              'top': ($(this).offset().top + $(this).height()).toString() + 'px'
+            };
+            div.show();
+            div.removeClass('hid');
+            div.addClass('vm-dialog yt-uix-button-menu yt-uix-button-menu-external');
+            div.css(cssObj);
+            $('.__ytb').append(div);
+          }
+          else{
+            div.remove();
+            div.addClass('hid');
+            div.hide();
+            $('#yt-admin-content').append(div);
+          }
+      });
+      $(window).scroll(function(){
+        var hidden = '<div style="visibility: hidden; position: static; top: auto; left: auto; display: block; float: none; margin: 0px; width: 766px; height: 54px;"></div>'
+        var cssObj = {
+          'left': $('#vm-page-subheader').offset().left.toString()+'px',
+          'width': '766px',
+          'float': 'none',
+          'position': 'fixed',
+          'top': '0px'
+        };          
+        if($(window).scrollTop() >= $('#vm-page-subheader').offset().top +$('#vm-page-subheader').height()){
+          if(!$('#vm-video-actions-bar').hasClass('scrollfloat')){
+              $('#vm-video-actions-bar').before(hidden);  
+              $('#vm-video-actions-bar').addClass('scrollfloat');
+              $('#vm-video-actions-bar').css(cssObj);
+          }
+        }else{
+           if($('#vm-video-actions-bar').hasClass('scrollfloat')){
+             $('#vm-page-subheader').next().remove();
+             $('#vm-video-actions-bar').removeClass('scrollfloat');
+             $('#vm-video-actions-bar').removeAttr('style');
+           }
+        }
+      });
+      $(document).click(function(e){
+        var target = e.target;
+        if (!$(target).is('#vm-playlist-div') && !$(target).parent().parent().is('#vm-playlist-div') && ) {
+          div = $('#vm-dialog-new-playlist');
+          div.remove();
+          div.addClass('hid');
+          div.hide();
+          $('#yt-admin-content').append(div);
+        }
+      });
+      $('#vm-new-playlist-cancel').live('click',function(){
+         div = $('#vm-dialog-new-playlist');
+         div.remove();
+         div.addClass('hid');
+         div.hide();
+         $('#yt-admin-content').append(div);
+         $('#vm-new-playlist-title-field').val('');
+         $('#vm-new-playlist-desc-field').val('')
+      });
+      $('#vm-new-playlist-save').live('click',function(){
+          
+      });
+  <% end %>
+</script>
 <%= render 'mine_below' %>
-
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>

@@ -333,7 +333,7 @@ courseware_id: '<%=@courseware.id%>'
 
 
 
-           <% unless @courseware.teachers.empty? %>
+           <% unless @courseware.teachers.blank? %>
            <div style="width:51%;float:left" class="extras">
              <h1><%=image_tag('zuozhe.png',alt:'课件原作者',style:'margin-top:16px;margin-bottom:4px')%></h1>
              <% style='width:50%;float:left' %>
@@ -376,7 +376,7 @@ courseware_id: '<%=@courseware.id%>'
               <ul class="delimited share">
                  <li class="download">下载<a target="_blank" href="<%= download_courseware_path(@courseware)%>"><%=Courseware::SORTSTR[@courseware.sort]%>(<%=!@courseware.have_pw ? number_to_human_size(@courseware.down_pdf_size*1000,:precision=>1) : '需要密码' %>)</a></li>
               </ul>
-           <% unless @courseware.teachers.empty? %>
+           <% unless @courseware.teachers.blank? %>
              <h1 style="margin-top:18px"><%=image_tag('zuozhe.png',alt:'课件原作者',style:'margin-top:16px;margin-bottom:4px')%></h1>
              <% style='margin:14px 0 0 6px' %>
              <% @courseware.teachers_ins.each do |teacher| %>
@@ -1268,8 +1268,9 @@ courseware_id: '<%=@courseware.id%>'
                }else if(type =='show-parent'){
                  cid = $(this).parent().parent().parent().parent().parent().parent().attr('data-id');
                }else{
-                 cid = $(this).parent().parent().parent().parent().parent().parent().parent().parent().attr('data-id');
+                 cid = $(this).parent().parent().parent().parent().parent().parent().parent().attr('data-id');
                }
+               
                // console.log(cid); 
                if(type == 'share' || type == 'reply' || type == 'show-parent'){
                  datatype = 'html';
@@ -1287,7 +1288,12 @@ courseware_id: '<%=@courseware.id%>'
                  $('.end.flip.yt-uix-button.yt-uix-button-default.yt-uix-button-empty > .yt-uix-button-menu.yt-uix-button-menu-default').hide().addClass('hid');
                  if(type == 'share'){
                     $('.comments-post-containerx').remove();
-                    $(tmp).parent().parent().parent().parent().parent().parent().parent().parent().append(data);
+                    $(tmp).parent().parent().parent().parent().parent().parent().parent().append(data);
+                    div = $(tmp).parent().parent();
+                    cc = div.prev();
+                    div.remove();
+                    div.hide().addClass('hid');
+                    cc.append(div);
                  }else if(type == 'reply'){
                    $('.comments-post-containerx').remove();
                    $(tmp).parent().parent().parent().parent().parent().append(data);
@@ -1302,8 +1308,17 @@ courseware_id: '<%=@courseware.id%>'
                    if(data['status'] == 'suc'){
                      $('li[data-id='+cid+'] > .comment-body >.content-container > .content >.comment-text').html('<p>该评论已经被删除！</p>');
                    }
+                   div = $(tmp).parent().parent();
+                   cc = div.prev();
+                   div.remove();
+                   div.hide().addClass('hid');
+                   cc.append(div);
                  }else if(type == 'flag'){
-                   
+                   div = $(tmp).parent().parent();
+                   cc = div.prev();
+                   div.remove();
+                   div.hide().addClass('hid');
+                   cc.append(div);
                  }else if(type == 'show-parent'){
                    $(tmp).parent().parent().parent().parent().parent().parent().before('<ul class="comment-list">'+data+'</ul>');
                    $(tmp).parent().parent().parent().parent().parent().parent().addClass('child');
@@ -1313,7 +1328,24 @@ courseware_id: '<%=@courseware.id%>'
              });
              $('.end.flip.yt-uix-button.yt-uix-button-default.yt-uix-button-empty').live('click',function(){
                $(this).toggleClass('yt-uix-button-active');
-               $('.yt-uix-button-menu.yt-uix-button-menu-default',this).toggle().toggleClass('hid');
+               if(!$(this).hasClass('yt-uix-button-active')){
+                 div = $(this).next();
+                 div.remove();
+                 div.hide().addClass('hid');
+                 $(this).append(div);
+               }else{
+                 div = $('.yt-uix-button-menu.yt-uix-button-menu-default',this);
+                 div.remove();
+                 $(this).after(div);
+                 div.show().removeClass('hid');
+                 var cssObj = {
+                      'margin-left': '-10px',
+                      'min-width': '15px', 
+                      'top': '16px'
+                 };
+                 div.css(cssObj);
+      
+               }
              });
              function getURLParameter(name) {
                  return decodeURI(
