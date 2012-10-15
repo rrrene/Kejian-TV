@@ -161,3 +161,114 @@
   }
 }
 
+
+
+
+.yt-uix-range-tooltip-tip,.yt-uix-tooltip-tip {
+	position:absolute;
+	z-index:999;
+	opacity:0;
+	-moz-transition:opacity 0.2s ease-out;
+	-o-transition:opacity 0.2s ease-out;
+	-webkit-transition:opacity 0.2s ease-out
+}
+
+.yt-uix-range-tooltip-tip-visible,.yt-uix-tooltip-tip-visible {
+	opacity:1
+}
+.yt-uix-range-tooltip-tip-body,.yt-uix-tooltip-tip-body,.yt-uix-tooltip-tip-mask {
+	position:absolute;
+	bottom:4px
+}
+
+.yt-uix-range-tooltip-tip-body,.yt-uix-tooltip-tip-body {
+	z-index:999
+}
+.yt-uix-tooltip-tip-mask {
+	z-index:998;
+	border:0;
+	padding:0;
+	margin:0;
+	opacity:0;
+	filter:alpha(opacity=0);
+	height:0;
+	width:0;
+	left:0
+}
+
+.yt-uix-range-tooltip-tip-arrow,.yt-uix-tooltip-tip-arrow {
+	position:absolute;
+	z-index:1000;
+	bottom:0;
+	width:0;
+	height:0;
+	vertical-align:top;
+	border:1px solid transparent;
+	border-width:5px 5px 0 5px;
+	border-top-color:#000
+}
+* html .yt-uix-range-tooltip-tip-arrow,* html .yt-uix-tooltip-tip-arrow {
+	display:none
+}
+
+#yt-uix-tooltip9,#yt-uix-tooltip5{
+  font-size:12px !important;
+}
+.yt-uix-range-tooltip-tip-content,.yt-uix-tooltip-tip-content {
+  -webkit-font-smoothing: subpixel-antialiased;
+	position:relative;
+	padding:9px;
+	color:#fff;
+	white-space:nowrap;
+	-moz-border-radius:2px;
+	-webkit-border-radius:2px;
+	border-radius:2px;
+	-moz-box-shadow:0 0 3px #333;
+	-ms-box-shadow:0 0 3px #333;
+	-webkit-box-shadow:0 0 3px #333;
+	box-shadow:0 0 3px #333;
+	background-image:-moz-linear-gradient(top,#4a4a4a 0,#000 100%);
+	background-image:-ms-linear-gradient(top,#4a4a4a 0,#000 100%);
+	background-image:-o-linear-gradient(top,#4a4a4a 0,#000 100%);
+	background-image:-webkit-gradient(linear,left top,left bottom,color-stop(0,#4a4a4a),color-stop(100%,#000));
+	background-image:-webkit-linear-gradient(top,#4a4a4a 0,#000 100%);
+	background-image:linear-gradient(to bottom,#4a4a4a 0,#000 100%);
+	filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0,StartColorStr=#4a4a4a,EndColorStr=#000000);
+	*zoom:1
+}
+
+@-moz-document url-prefix() {
+	.yt-uix-tooltip-tip-mask+.yt-uix-tooltip-tip-body>.yt-uix-tooltip-tip-content {
+		background:#000;
+		-moz-border-radius:0
+	}
+	.yt-uix-tooltip-tip-mask+.yt-uix-tooltip-tip-body+.yt-uix-tooltip-tip-arrow {
+		border-top-color:#000
+	}
+}
+.yt-uix-tooltip-tip-reverse .yt-uix-tooltip-tip-body,.yt-uix-tooltip-tip-reverse .yt-uix-tooltip-tip-mask {
+	bottom:auto;
+	top:4px
+}
+.yt-uix-tooltip-tip-reverse .yt-uix-tooltip-tip-arrow {
+	bottom:auto;
+	top:0;
+	border-width:0 5px 5px 5px;
+	border-color:#4a4a4a;
+	border-left-color:transparent;
+	border-top-color:transparent;
+	border-right-color:transparent
+}
+.yt-uix-tooltip-normal-wrap {
+	white-space:normal;
+	word-wrap:normal
+}
+.yt-uix-tooltip-tip .tooltip-label {
+	font-weight:bold
+}
+.yt-uix-tooltip-tip .playlist-bar-next-thumb {
+	margin-top:5px
+}
+.yt-uix-tooltip-tip .uploader {
+	display:none
+}

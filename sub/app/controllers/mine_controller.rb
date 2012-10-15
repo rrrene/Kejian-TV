@@ -32,6 +32,7 @@ class MineController < ApplicationController
     @seo[:title] = "收藏"    
   end
   def my_liked_coursewares
+    @thanked_coursewares = Courseware.eager_load(current_user.thanked_courseware_ids)
     @seo[:title] = "顶过的课件"    
   end
 private

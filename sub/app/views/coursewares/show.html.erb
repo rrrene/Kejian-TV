@@ -301,7 +301,7 @@ courseware_id: '<%=@courseware.id%>'
            <div class="extras" style="float:right;margin-right:18px;margin-right:40px">
               <ul class="delimited" style="margin-bottom:0;border-top:none">
                  <li class="like" style="border-top:none">
-                    <% unless current_user and @courseware.user_id==current_user.id%>
+                    <% unless current_user and @courseware.user_ids.include?(current_user.id)%>
                     <% if thank_courseware_ed?(@courseware) %>
                     <a href="#fans" class="unlike purple" rel="nofollow">已顶</a>
                     <% else %>
@@ -351,7 +351,7 @@ courseware_id: '<%=@courseware.id%>'
               <%= render :partial => 'presenter', :locals => {user:@courseware.uploader} if @courseware.uploader %>
               <ul class="delimited">
                  <li class="like">
-                    <% unless current_user and @courseware.user_id==current_user.id%>
+                    <% unless current_user and @courseware.user_ids.include?(current_user.id)%>
                     <% if thank_courseware_ed?(@courseware) %>
                     <a href="#fans" class="unlike purple" rel="nofollow">已顶</a>
                     <% else %>
@@ -400,7 +400,7 @@ courseware_id: '<%=@courseware.id%>'
    </section>
 </div>
 <div class="wrapper">
-<div class="__ytb" id="the_ytb" style="position:absolute;display:none">
+<div class="__ytb" id="the_ytb" style="position:absolute;display:none;background:transparent!important;">
    <div id="watch-main-container" style="padding-top:20px">
       <div id="watch-main">
          <div id="watch-panel">
@@ -680,7 +680,7 @@ courseware_id: '<%=@courseware.id%>'
                 <div class="watch-sidebar-foot">
                    <p class="content">
                        <button type="button" id="watch-more-related-button" onclick=";return false;" class=" yt-uix-button yt-uix-button-default" role="button">
-                           <span class="yt-uix-button-content">载入更多推荐课件  </span>
+                           <span class="yt-uix-button-content yt-uix-tooltip" title="载入更多推荐课件">载入更多推荐课件  </span>
                        </button>
                     </p>
                 </div>
@@ -694,6 +694,10 @@ courseware_id: '<%=@courseware.id%>'
       <div style="visibility: hidden; height: 0px; padding: 0px; overflow: hidden;">
          <div id="baseDiv"></div>
       </div>
+      
+      
+      
+
    </div>
    <script type="text/javascript" charset="utf-8">
            <% content_for :butt2 do %>
@@ -897,7 +901,7 @@ courseware_id: '<%=@courseware.id%>'
                   $(this).toggleClass('yt-uix-button-toggled');
                   ajax_load_board(this,'stat');
               });           
-             $('.yt-uix-tooltip').tipsy({gravity: $.fn.tipsy.autoNS,fade: true,opacity: 0.8});
+             $('.yt-uix-tooltip').tipsy({gravity: $.fn.tipsy.autoNS}); //,fade: false,opacity: 1
              $('#comment_login').click(function(){return KTV.login()});
              $('#watch-more-related-button').live("click",function(){
                 $(this).hide();
@@ -1368,7 +1372,7 @@ courseware_id: '<%=@courseware.id%>'
          <div class="tab-content" id="fans" style="">
              
            <h1>顶过这个课件的人
-             <% unless current_user and @courseware.user_id==current_user.id%>
+             <% unless current_user and @courseware.user_ids.include?(current_user.id)%>
                <span style="<%='display:none' unless thank_courseware_ed?(@courseware) %>" class="unlike" id="weizuozhefasongganxie4">
                  <a rel="nofollow" class="unlike button" href="#fans">✓ 我已顶过!</a>
                </span>

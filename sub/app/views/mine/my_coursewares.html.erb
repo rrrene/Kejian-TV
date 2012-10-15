@@ -13,15 +13,15 @@
 	<div id="yt-admin-content" class="ytg-fl ">
 		<div id="vm-page-subheader" class="clearfix">
 			<div class="vm-page-subheader-content">
-				<h3>上传的视频</h3>
+				<h3>上传的课件</h3>
 				<span id="vm-num-videos-shown" class="yt-badge-vm">8</span>
 			</div>
 			<div class="vm-page-subheader-controls">
 				<form method="get" id="vm-videos-search-form" action="/my_videos">
 					<div id="vm-videos-search-container">
-						<span class=" yt-uix-form-input-container"><input class="yt-uix-form-input-text " name="sq" id="vm-myvideos-search-box" value="" placeholder="搜索上传的视频"></span>
+						<span class=" yt-uix-form-input-container"><input class="yt-uix-form-input-text " name="sq" id="vm-myvideos-search-box" value="" placeholder="搜索上传的课件"></span>
 					</div>
-					<button type="submit" id="vm-myvideos-search-btn" onclick=";return true;" class=" yt-uix-button yt-uix-button-default" role="button"><span class="yt-uix-button-content">搜索 </span></button>
+					<button type="submit" id="vm-myvideos-search-btn"  class=" yt-uix-button yt-uix-button-default" role="button"><span class="yt-uix-button-content">搜索 </span></button>
 				</form>
 			</div>
 		</div>
@@ -30,42 +30,42 @@
 		<div style="" class="goog-scrollfloater" id="vm-video-actions-bar">
 			<div id="vm-video-actions-inner" class="clearfix">
 				<span class="yt-uix-button-group vm-view-toggle" data-button-toggle-group="required">
-				<button aria-label="切换到网格视图" type="button" class="start view-toggle-button yt-uix-button yt-uix-button-default yt-uix-button-empty" onclick=";return false;" data-button-toggle="true" data-page-class="vm-beauty-view" role="button"><span class="yt-uix-button-icon-wrapper"><img class="yt-uix-button-icon yt-uix-button-icon-vm-beauty-view" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt=""><span class="yt-valign-trick"></span></span></button><button aria-label="切换到列表视图" type="button" class="end view-toggle-button yt-uix-button-toggled yt-uix-button yt-uix-button-default yt-uix-button-empty" onclick=";return false;" data-button-toggle="true" data-page-class="vm-list-view" role="button"><span class="yt-uix-button-icon-wrapper"><img class="yt-uix-button-icon yt-uix-button-icon-vm-list-view" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt=""><span class="yt-valign-trick"></span></span></button></span>
+				<button aria-label="切换到网格视图" type="button" class="start view-toggle-button yt-uix-button yt-uix-button-default yt-uix-button-empty"  data-button-toggle="true" data-page-class="vm-beauty-view" role="button"><span class="yt-uix-button-icon-wrapper"><img class="yt-uix-button-icon yt-uix-button-icon-vm-beauty-view" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt=""><span class="yt-valign-trick"></span></span></button><button aria-label="切换到列表视图" type="button" class="end view-toggle-button yt-uix-button-toggled yt-uix-button yt-uix-button-default yt-uix-button-empty"  data-button-toggle="true" data-page-class="vm-list-view" role="button"><span class="yt-uix-button-icon-wrapper"><img class="yt-uix-button-icon yt-uix-button-icon-vm-list-view" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt=""><span class="yt-valign-trick"></span></span></button></span>
 				<span class="yt-uix-form-input-checkbox-container vm-select-all"><input name="vm-video-select-all" class="yt-uix-form-input-checkbox" id="vm-video-select-all" type="checkbox"><span class="yt-uix-form-input-checkbox-element"></span></span>
-				<button disabled="True" type="button" class="addto-button default show-label yt-uix-button yt-uix-button-default" onclick=";return false;" data-button-menu-action="yt.www.lists.addto.toggleMenu" data-button-menu-id="shared-addto-menu" data-video-ids="" data-feature="vm" role="button"><span class="yt-uix-button-icon-wrapper"><img class="yt-uix-button-icon yt-uix-button-icon-addto" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt=""><span class="yt-valign-trick"></span></span><span class="yt-uix-button-content"><span class="addto-label">添加到</span></span><img class="yt-uix-button-arrow" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt=""></button>
-				<button disabled="True" type="button" id="vm-playlist-action-menu" onclick=";return false;" class=" yt-uix-button yt-uix-button-default" role="button" aria-pressed="false" aria-expanded="false" aria-haspopup="true" aria-activedescendant=""><span class="yt-uix-button-content">操作 </span><img class="yt-uix-button-arrow" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="">
+				<button disabled="True" type="button" class="addto-button default show-label yt-uix-button yt-uix-button-default"  data-button-menu-action="yt.www.lists.addto.toggleMenu" data-button-menu-id="shared-addto-menu" data-video-ids="" data-feature="vm" role="button"><span class="yt-uix-button-icon-wrapper"><img class="yt-uix-button-icon yt-uix-button-icon-addto" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt=""><span class="yt-valign-trick"></span></span><span class="yt-uix-button-content"><span class="addto-label">添加到</span></span><img class="yt-uix-button-arrow" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt=""></button>
+				<button disabled="True" type="button" id="vm-playlist-action-menu"  class=" yt-uix-button yt-uix-button-default" role="button" aria-pressed="false" aria-expanded="false" aria-haspopup="true" aria-activedescendant=""><span class="yt-uix-button-content">操作 </span><img class="yt-uix-button-arrow" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="">
 				<ul class=" yt-uix-button-menu yt-uix-button-menu-default" role="menu" aria-haspopup="true" style="display: none;">
-					<li role="menuitem" id="aria-id-28804054661"><span id="vm-playlist-delete-videos" onclick=";return false;" class=" yt-uix-button-menu-item">删除</span></li>
-					<li role="menuitem" id="aria-id-95287531649"><span class="menu-subheading yt-uix-button-menu-item" onclick=";return false;">隐私设置</span></li>
-					<li role="menuitem" id="aria-id-12945458188"><span id="vm-playlist-set-videos-privacy-public" onclick=";return false;" class="menu-subitem yt-uix-button-menu-item">公开</span></li>
-					<li role="menuitem" id="aria-id-35105908756"><span id="vm-playlist-set-videos-privacy-unlisted" onclick=";return false;" class="menu-subitem yt-uix-button-menu-item">不公开的视频</span></li>
-					<li role="menuitem" id="aria-id-91380742013"><span id="vm-playlist-set-videos-privacy-private" onclick=";return false;" class="menu-subitem yt-uix-button-menu-item">私有</span></li>
-					<li role="menuitem" id="aria-id-86843812961"><span class="menu-subheading yt-uix-button-menu-item" onclick=";return false;">许可</span></li>
-					<li role="menuitem" id="aria-id-44264528610"><span id="vm-playlist-set-videos-license-standard" onclick=";return false;" class="menu-subitem yt-uix-button-menu-item">标准许可</span></li>
-					<li role="menuitem" id="aria-id-7867396083"><span id="vm-playlist-set-videos-license-cc" onclick=";return false;" class="menu-subitem yt-uix-button-menu-item">知识共享</span></li>
+					<li role="menuitem" id="aria-id-28804054661"><span id="vm-playlist-delete-videos"  class=" yt-uix-button-menu-item">删除</span></li>
+					<li role="menuitem" id="aria-id-95287531649"><span class="menu-subheading yt-uix-button-menu-item" >隐私设置</span></li>
+					<li role="menuitem" id="aria-id-12945458188"><span id="vm-playlist-set-videos-privacy-public"  class="menu-subitem yt-uix-button-menu-item">公开</span></li>
+					<li role="menuitem" id="aria-id-35105908756"><span id="vm-playlist-set-videos-privacy-unlisted"  class="menu-subitem yt-uix-button-menu-item">不公开的课件</span></li>
+					<li role="menuitem" id="aria-id-91380742013"><span id="vm-playlist-set-videos-privacy-private"  class="menu-subitem yt-uix-button-menu-item">私有</span></li>
+					<li role="menuitem" id="aria-id-86843812961"><span class="menu-subheading yt-uix-button-menu-item" >许可</span></li>
+					<li role="menuitem" id="aria-id-44264528610"><span id="vm-playlist-set-videos-license-standard"  class="menu-subitem yt-uix-button-menu-item">标准许可</span></li>
+					<li role="menuitem" id="aria-id-7867396083"><span id="vm-playlist-set-videos-license-cc"  class="menu-subitem yt-uix-button-menu-item">知识共享</span></li>
 				</ul>
 				</button>
 				<span id="watch-history-pause-container" class="hid">
-				<button type="button" id="watch-history-pause-button" onclick=";return false;" class=" yt-uix-button yt-uix-button-default" role="button"><span class="yt-uix-button-content">暂停观看历史记录 </span></button>
+				<button type="button" id="watch-history-pause-button"  class=" yt-uix-button yt-uix-button-default" role="button"><span class="yt-uix-button-content">暂停观看历史记录 </span></button>
 				</span>
 				<span id="watch-history-resume-container" class="hid">
-				<button type="button" id="watch-history-resume-button" onclick=";return false;" class=" yt-uix-button yt-uix-button-default" role="button"><span class="yt-uix-button-content">恢复观看历史记录 </span></button>
+				<button type="button" id="watch-history-resume-button"  class=" yt-uix-button yt-uix-button-default" role="button"><span class="yt-uix-button-content">恢复观看历史记录 </span></button>
 				</span>
 				<span id="search-history-pause-container" class="hid">
-				<button type="button" id="search-history-pause-button" onclick=";return false;" class=" yt-uix-button yt-uix-button-default" role="button"><span class="yt-uix-button-content">暂停搜索记录 </span></button>
+				<button type="button" id="search-history-pause-button"  class=" yt-uix-button yt-uix-button-default" role="button"><span class="yt-uix-button-content">暂停搜索记录 </span></button>
 				</span>
 				<span id="search-history-resume-container" class="hid">
-				<button type="button" id="search-history-resume-button" onclick=";return false;" class=" yt-uix-button yt-uix-button-default" role="button"><span class="yt-uix-button-content">恢复搜索记录 </span></button>
+				<button type="button" id="search-history-resume-button"  class=" yt-uix-button yt-uix-button-default" role="button"><span class="yt-uix-button-content">恢复搜索记录 </span></button>
 				</span>
 				<span id="vm-view-filter">
 				<span id="vm-view-filter-label">观看：</span>
-				<button aria-labelledby="vm-view-filter-label" type="button" id="vm-view-btn" onclick=";return false;" class=" yt-uix-button yt-uix-button-text" role="button" aria-pressed="false" aria-expanded="false" aria-haspopup="true" aria-activedescendant=""><span class="yt-uix-button-content">最新视频 </span><img class="yt-uix-button-arrow" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="">
+				<button aria-labelledby="vm-view-filter-label" type="button" id="vm-view-btn"  class=" yt-uix-button yt-uix-button-text" role="button" aria-pressed="false" aria-expanded="false" aria-haspopup="true" aria-activedescendant=""><span class="yt-uix-button-content">最新课件 </span><img class="yt-uix-button-arrow" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="">
 				<ul class=" yt-uix-button-menu yt-uix-button-menu-text" role="menu" aria-haspopup="true" style="display: none;">
-					<li role="menuitem" id="aria-id-94205034509"><span href="?vmo=oldest&amp;sa=1&amp;sf=added" id="oldest" onclick=";window.location.href=this.getAttribute('href');return false;" class=" yt-uix-button-menu-item">最早上传</span></li>
-					<li role="menuitem" id="aria-id-52154534779"><span href="?vmo=viewed&amp;sa=0&amp;sf=viewcount" id="viewed" onclick=";window.location.href=this.getAttribute('href');return false;" class=" yt-uix-button-menu-item">观看最多</span></li>
-					<li role="menuitem" id="aria-id-76655227206"><span href="?vmo=public&amp;sq=is%3Apublic" id="public" onclick=";window.location.href=this.getAttribute('href');return false;" class="menu-item-top-divider yt-uix-button-menu-item">公共</span></li>
-					<li role="menuitem" id="aria-id-75210932192"><span href="?vmo=unlisted&amp;sq=is%3Aunlisted" id="unlisted" onclick=";window.location.href=this.getAttribute('href');return false;" class=" yt-uix-button-menu-item">不公开的视频</span></li>
-					<li role="menuitem" id="aria-id-57599943971"><span href="?vmo=private&amp;sq=is%3Aprivate" id="private" onclick=";window.location.href=this.getAttribute('href');return false;" class=" yt-uix-button-menu-item">私有</span></li>
+					<li role="menuitem" id="aria-id-94205034509"><span href="?vmo=oldest&amp;sa=1&amp;sf=added" id="oldest"  class=" yt-uix-button-menu-item">最早上传</span></li>
+					<li role="menuitem" id="aria-id-52154534779"><span href="?vmo=viewed&amp;sa=0&amp;sf=viewcount" id="viewed"  class=" yt-uix-button-menu-item">观看最多</span></li>
+					<li role="menuitem" id="aria-id-76655227206"><span href="?vmo=public&amp;sq=is%3Apublic" id="public"  class="menu-item-top-divider yt-uix-button-menu-item">公共</span></li>
+					<li role="menuitem" id="aria-id-75210932192"><span href="?vmo=unlisted&amp;sq=is%3Aunlisted" id="unlisted"  class=" yt-uix-button-menu-item">不公开的课件</span></li>
+					<li role="menuitem" id="aria-id-57599943971"><span href="?vmo=private&amp;sq=is%3Aprivate" id="private"  class=" yt-uix-button-menu-item">私有</span></li>
 				</ul>
 				</button>
 				</span>
@@ -91,8 +91,8 @@
 					<div class="vm-video-actions-delete-extra-warning hid">
 					</div>
 					<div class="vm-video-actions-delete-button-area">
-						<button type="button" class="yt-uix-overlay-close vm-video-actions-delete-button-cancel yt-uix-button yt-uix-button-default" onclick=";return false;" role="button"><span class="yt-uix-button-content">取消 </span></button>
-						<button type="button" class="vm-video-actions-delete-button-confirm yt-uix-button yt-uix-button-destructive" onclick=";return false;" role="button"><span class="yt-uix-button-content">删除 </span></button>
+						<button type="button" class="yt-uix-overlay-close vm-video-actions-delete-button-cancel yt-uix-button yt-uix-button-default"  role="button"><span class="yt-uix-button-content">取消 </span></button>
+						<button type="button" class="vm-video-actions-delete-button-confirm yt-uix-button yt-uix-button-destructive"  role="button"><span class="yt-uix-button-content">删除 </span></button>
 					</div>
 				</div>
 			</div>
@@ -103,7 +103,7 @@
 		<span class="yt-uix-overlay-content ad-options-overlay-content">
 		<div class="ad-options-full-area">
 			<div class="yt-uix-overlay-header">
-				<h2>通过所选视频获利</h2>
+				<h2>通过所选课件获利</h2>
 			</div>
 			<div>
 				<div class="form-preview-area">
@@ -114,7 +114,7 @@
 							</div>
 							<div class="ad-format overlay">
 								<span class="yt-uix-form-input-checkbox-container "><input name="overlay" class="yt-uix-form-input-checkbox overlay-checkbox" id="overlay-checkbox" type="checkbox"><span class="yt-uix-form-input-checkbox-element"></span></span>
-								视频内嵌重叠式广告 <span class="helpable-preview" data-preview-id="preview-overlay">预览</span>
+								课件内嵌重叠式广告 <span class="helpable-preview" data-preview-id="preview-overlay">预览</span>
 							</div>
 							<div class="ad-format true-view">
 								<span class="yt-uix-form-input-checkbox-container "><input name="true_view" class="yt-uix-form-input-checkbox trueview-checkbox" id="trueview-checkbox" type="checkbox"><span class="yt-uix-form-input-checkbox-element"></span></span>
@@ -123,7 +123,7 @@
 							<div class="ad-format">
 								<span class="yt-uix-form-input-checkbox-container "><input name="product_placement" class="yt-uix-form-input-checkbox" type="checkbox"><span class="yt-uix-form-input-checkbox-element"></span></span>
 								<span class="product-placement">
-								视频包含产品展示位置 </span>
+								课件包含产品展示位置 </span>
 								<span class="helpable-preview" data-preview-id="preview-product-placement">
 								了解详情 </span>
 							</div>
@@ -132,14 +132,14 @@
 							</div>
 						</form>
 						<div class="important-note">
-							<b>重要提示</b>：要在 YouTube 上通过视频获利，即表示您确认您拥有所有视觉和音频元素的所有必要商业使用权利。YouTube 可能会对多次无法证明其拥有商业使用权利的帐户停用获利。<a href="//support.google.com/youtube/bin/answer.py?answer=97527&amp;hl=zh-CN" target="_blank">了解详情</a>。
+							<b>重要提示</b>：要在 YouTube 上通过课件获利，即表示您确认您拥有所有视觉和音频元素的所有必要商业使用权利。YouTube 可能会对多次无法证明其拥有商业使用权利的帐户停用获利。<a href="//support.google.com/youtube/bin/answer.py?answer=97527&amp;hl=zh-CN" target="_blank">了解详情</a>。
 						</div>
 					</div>
 					<div class="preview-area">
 						<div id="preview-overlay" class="ad-format-preview hid">
 							<img src="<%=asset_path('yt/img/in-display-overlay-vfllJbecp.png')%>"><br>
 							<p>
-								视频内重叠式广告是显示在您视频下半部分的透明的重叠式广告。 <a target="_new" href="//support.google.com/youtube/bin/answer.py?answer=94525&amp;hl=zh-CN">
+								课件内重叠式广告是显示在您课件下半部分的透明的重叠式广告。 <a target="_new" href="//support.google.com/youtube/bin/answer.py?answer=94525&amp;hl=zh-CN">
 								了解详情 </a>
 							</p>
 						</div>
@@ -153,7 +153,7 @@
 						<div id="preview-instream" class="ad-format-preview hid">
 							<img src="<%=asset_path('yt/img/in-stream-standard-vflzoarfH.png')%>"><br>
 							<p>
-								标准插播广告是指在主视频播放前、播放期间或播放后插入的视频广告，观众必须先看完广告才能观看所选的视频。 <a target="_new" href="//support.google.com/youtube/bin/answer.py?answer=188038&amp;hl=zh-CN">
+								标准插播广告是指在主课件播放前、播放期间或播放后插入的课件广告，观众必须先看完广告才能观看所选的课件。 <a target="_new" href="//support.google.com/youtube/bin/answer.py?answer=188038&amp;hl=zh-CN">
 								了解详情 </a>
 							</p>
 						</div>
@@ -166,15 +166,15 @@
 						<div id="preview-display" class="ad-format-preview hid">
 							<img src="<%=asset_path('yt/img/in-display-vflqN9OMb.png')%>"><br>
 							<p>
-								展示广告（横幅）可以在网站上的所有区域（首页除外）投放。这些广告显示在精选视频右侧和推荐视频列表的上方，大小为 300x250 像素。 <a target="_new" href="//support.google.com/youtube/bin/answer.py?answer=1205617&amp;hl=zh-CN">
+								展示广告（横幅）可以在网站上的所有区域（首页除外）投放。这些广告显示在精选课件右侧和推荐课件列表的上方，大小为 300x250 像素。 <a target="_new" href="//support.google.com/youtube/bin/answer.py?answer=1205617&amp;hl=zh-CN">
 								了解详情 </a>
 							</p>
 						</div>
 					</div>
 				</div>
 				<div class="ad-options-button-area">
-					<button type="button" class="yt-uix-overlay-close bulk-monetize-overlay-cancel-button yt-uix-button yt-uix-button-default" onclick=";return false;" role="button"><span class="yt-uix-button-content">取消 </span></button>
-					<button type="button" class="yt-uix-overlay-close bulk-monetize-overlay-monetize-button yt-uix-button yt-uix-button-primary" onclick=";return false;" role="button"><span class="yt-uix-button-content">获利 </span></button>
+					<button type="button" class="yt-uix-overlay-close bulk-monetize-overlay-cancel-button yt-uix-button yt-uix-button-default"  role="button"><span class="yt-uix-button-content">取消 </span></button>
+					<button type="button" class="yt-uix-overlay-close bulk-monetize-overlay-monetize-button yt-uix-button yt-uix-button-primary"  role="button"><span class="yt-uix-button-content">获利 </span></button>
 				</div>
 			</div>
 		</div>
@@ -238,7 +238,7 @@
 						</div>
 					</div>
 					<div class="vm-video-delete-failed-upload">
-						<button type="button" class="vm-video-delete yt-uix-button yt-uix-button-default" onclick=";return false;" role="button"><span class="yt-uix-button-content">删除 </span></button>
+						<button type="button" class="vm-video-delete yt-uix-button yt-uix-button-default"  role="button"><span class="yt-uix-button-content">删除 </span></button>
 					</div>
 				</div>
 				</li>
@@ -281,15 +281,15 @@
 						<div class="vm-video-info">
 							<div class="vm-video-info vm-owner-bar">
 								<span class="yt-uix-button-group">
-								<a href="/my_videos_edit?ns=1&amp;video_id=eO4V45qp_jU" class="yt-uix-button yt-uix-sessionlink start vm-playlist-edit-video vm-edit-button-link yt-uix-button-default" data-sessionlink="ei=CPmoyaOFgrMCFdqCIQodoCUsYw%3D%3D"><span class="yt-uix-button-content">修改</span></a><button type="button" class="edit-expand-menu-button end yt-uix-button yt-uix-button-default yt-uix-button-short yt-uix-button-empty" onclick=";return false;" role="button" aria-pressed="false" aria-expanded="false" aria-haspopup="true" aria-activedescendant=""><img class="yt-uix-button-arrow" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="">
+								<a href="/my_videos_edit?ns=1&amp;video_id=eO4V45qp_jU" class="yt-uix-button yt-uix-sessionlink start vm-playlist-edit-video vm-edit-button-link yt-uix-button-default" data-sessionlink="ei=CPmoyaOFgrMCFdqCIQodoCUsYw%3D%3D"><span class="yt-uix-button-content">修改</span></a><button type="button" class="edit-expand-menu-button end yt-uix-button yt-uix-button-default yt-uix-button-short yt-uix-button-empty"  role="button" aria-pressed="false" aria-expanded="false" aria-haspopup="true" aria-activedescendant=""><img class="yt-uix-button-arrow" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="">
 								<ul class=" yt-uix-button-menu yt-uix-button-menu-default" role="menu" aria-haspopup="true" style="display: none;">
-									<li role="menuitem" id="aria-id-70125287611"><span href="/my_videos_edit?ns=1&amp;feature=vm&amp;video_id=eO4V45qp_jU" class="vm-video-info-and-settings yt-uix-button-menu-item" onclick=";window.location.href=this.getAttribute('href');return false;">信息和设置</span></li>
-									<li role="menuitem" id="aria-id-55285424819"><span href="/enhance?feature=vm&amp;v=eO4V45qp_jU" class="vm-video-enhancements yt-uix-button-menu-item" onclick=";window.location.href=this.getAttribute('href');return false;">增强功能</span></li>
-									<li role="menuitem" id="aria-id-1919541426"><span href="/audio?feature=vm&amp;v=eO4V45qp_jU" class="vm-video-audio yt-uix-button-menu-item" onclick=";window.location.href=this.getAttribute('href');return false;">音频</span></li>
-									<li role="menuitem" id="aria-id-23646788897"><span href="/my_videos_annotate?feature=vm&amp;v=eO4V45qp_jU" class="vm-video-annotations yt-uix-button-menu-item" onclick=";window.location.href=this.getAttribute('href');return false;">注释功能</span></li>
-									<li role="menuitem" id="aria-id-63859339339"><span href="/my_videos_timedtext?video_id=eO4V45qp_jU&amp;feature=vm" class="vm-video-captions yt-uix-button-menu-item" onclick=";window.location.href=this.getAttribute('href');return false;">字幕</span></li>
-									<li role="menuitem" id="aria-id-46968589204"><span data-download-url="/download_my_video?t=9KwzIZSF9JdgLNEbzrPi4vT31p58MTM1MDM1NjgxNUAxMzUwMjcwNDE1&amp;v=eO4V45qp_jU" class="vm-download-mp4 yt-uix-button-menu-item" onclick=";return false;">下载 MP4</span></li>
-									<li role="menuitem" id="aria-id-76953461329"><span href="/my_video_ad?v=eO4V45qp_jU&amp;utm_source=youtube&amp;utm_medium=permanent&amp;utm_term=drop_down&amp;utm_content=edit_menu&amp;utm_campaign=yt_video_manager" class="vm-video-promote yt-uix-button-menu-item" onclick=";window.location.href=this.getAttribute('href');return false;">推广</span></li>
+									<li role="menuitem" id="aria-id-70125287611"><span href="/my_videos_edit?ns=1&amp;feature=vm&amp;video_id=eO4V45qp_jU" class="vm-video-info-and-settings yt-uix-button-menu-item" >信息和设置</span></li>
+									<li role="menuitem" id="aria-id-55285424819"><span href="/enhance?feature=vm&amp;v=eO4V45qp_jU" class="vm-video-enhancements yt-uix-button-menu-item" >增强功能</span></li>
+									<li role="menuitem" id="aria-id-1919541426"><span href="/audio?feature=vm&amp;v=eO4V45qp_jU" class="vm-video-audio yt-uix-button-menu-item" >音频</span></li>
+									<li role="menuitem" id="aria-id-23646788897"><span href="/my_videos_annotate?feature=vm&amp;v=eO4V45qp_jU" class="vm-video-annotations yt-uix-button-menu-item" >注释功能</span></li>
+									<li role="menuitem" id="aria-id-63859339339"><span href="/my_videos_timedtext?video_id=eO4V45qp_jU&amp;feature=vm" class="vm-video-captions yt-uix-button-menu-item" >字幕</span></li>
+									<li role="menuitem" id="aria-id-46968589204"><span data-download-url="/download_my_video?t=9KwzIZSF9JdgLNEbzrPi4vT31p58MTM1MDM1NjgxNUAxMzUwMjcwNDE1&amp;v=eO4V45qp_jU" class="vm-download-mp4 yt-uix-button-menu-item" >下载 MP4</span></li>
+									<li role="menuitem" id="aria-id-76953461329"><span href="/my_video_ad?v=eO4V45qp_jU&amp;utm_source=youtube&amp;utm_medium=permanent&amp;utm_term=drop_down&amp;utm_content=edit_menu&amp;utm_campaign=yt_video_manager" class="vm-video-promote yt-uix-button-menu-item" >推广</span></li>
 								</ul>
 								</button></span>
 							</div>
@@ -391,14 +391,14 @@
 						<div class="vm-video-info">
 							<div class="vm-video-info vm-owner-bar">
 								<span class="yt-uix-button-group">
-								<a href="/my_videos_edit?ns=1&amp;video_id=x3Z0PM1UNAQ" class="yt-uix-button yt-uix-sessionlink start vm-playlist-edit-video vm-edit-button-link yt-uix-button-default" data-sessionlink="ei=CPmoyaOFgrMCFdqCIQodoCUsYw%3D%3D"><span class="yt-uix-button-content">修改</span></a><button type="button" class="edit-expand-menu-button end yt-uix-button yt-uix-button-default yt-uix-button-short yt-uix-button-empty" onclick=";return false;" role="button" aria-pressed="false" aria-expanded="false" aria-haspopup="true" aria-activedescendant=""><img class="yt-uix-button-arrow" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="">
+								<a href="/my_videos_edit?ns=1&amp;video_id=x3Z0PM1UNAQ" class="yt-uix-button yt-uix-sessionlink start vm-playlist-edit-video vm-edit-button-link yt-uix-button-default" data-sessionlink="ei=CPmoyaOFgrMCFdqCIQodoCUsYw%3D%3D"><span class="yt-uix-button-content">修改</span></a><button type="button" class="edit-expand-menu-button end yt-uix-button yt-uix-button-default yt-uix-button-short yt-uix-button-empty"  role="button" aria-pressed="false" aria-expanded="false" aria-haspopup="true" aria-activedescendant=""><img class="yt-uix-button-arrow" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="">
 								<ul class=" yt-uix-button-menu yt-uix-button-menu-default" role="menu" aria-haspopup="true" style="display: none;">
-									<li role="menuitem" id="aria-id-75889518553"><span href="/my_videos_edit?ns=1&amp;feature=vm&amp;video_id=x3Z0PM1UNAQ" class="vm-video-info-and-settings yt-uix-button-menu-item" onclick=";window.location.href=this.getAttribute('href');return false;">信息和设置</span></li>
-									<li role="menuitem" id="aria-id-13756742295"><span href="/enhance?feature=vm&amp;v=x3Z0PM1UNAQ" class="vm-video-enhancements yt-uix-button-menu-item" onclick=";window.location.href=this.getAttribute('href');return false;">增强功能</span></li>
-									<li role="menuitem" id="aria-id-43429500935"><span href="/audio?feature=vm&amp;v=x3Z0PM1UNAQ" class="vm-video-audio yt-uix-button-menu-item" onclick=";window.location.href=this.getAttribute('href');return false;">音频</span></li>
-									<li role="menuitem" id="aria-id-23687132580"><span href="/my_videos_annotate?feature=vm&amp;v=x3Z0PM1UNAQ" class="vm-video-annotations yt-uix-button-menu-item" onclick=";window.location.href=this.getAttribute('href');return false;">注释功能</span></li>
-									<li role="menuitem" id="aria-id-15026092627"><span href="/my_videos_timedtext?video_id=x3Z0PM1UNAQ&amp;feature=vm" class="vm-video-captions yt-uix-button-menu-item" onclick=";window.location.href=this.getAttribute('href');return false;">字幕</span></li>
-									<li role="menuitem" id="aria-id-65309151386"><span data-download-url="/download_my_video?t=9KwzIZSF9JdgLNEbzrPi4vT31p58MTM1MDM1NjgxNUAxMzUwMjcwNDE1&amp;v=x3Z0PM1UNAQ" class="vm-download-mp4 yt-uix-button-menu-item" onclick=";return false;">下载 MP4</span></li>
+									<li role="menuitem" id="aria-id-75889518553"><span href="/my_videos_edit?ns=1&amp;feature=vm&amp;video_id=x3Z0PM1UNAQ" class="vm-video-info-and-settings yt-uix-button-menu-item" >信息和设置</span></li>
+									<li role="menuitem" id="aria-id-13756742295"><span href="/enhance?feature=vm&amp;v=x3Z0PM1UNAQ" class="vm-video-enhancements yt-uix-button-menu-item" >增强功能</span></li>
+									<li role="menuitem" id="aria-id-43429500935"><span href="/audio?feature=vm&amp;v=x3Z0PM1UNAQ" class="vm-video-audio yt-uix-button-menu-item" >音频</span></li>
+									<li role="menuitem" id="aria-id-23687132580"><span href="/my_videos_annotate?feature=vm&amp;v=x3Z0PM1UNAQ" class="vm-video-annotations yt-uix-button-menu-item" >注释功能</span></li>
+									<li role="menuitem" id="aria-id-15026092627"><span href="/my_videos_timedtext?video_id=x3Z0PM1UNAQ&amp;feature=vm" class="vm-video-captions yt-uix-button-menu-item" >字幕</span></li>
+									<li role="menuitem" id="aria-id-65309151386"><span data-download-url="/download_my_video?t=9KwzIZSF9JdgLNEbzrPi4vT31p58MTM1MDM1NjgxNUAxMzUwMjcwNDE1&amp;v=x3Z0PM1UNAQ" class="vm-download-mp4 yt-uix-button-menu-item" >下载 MP4</span></li>
 								</ul>
 								</button></span>
 							</div>
@@ -496,14 +496,14 @@
 						<div class="vm-video-info">
 							<div class="vm-video-info vm-owner-bar">
 								<span class="yt-uix-button-group">
-								<a href="/my_videos_edit?ns=1&amp;video_id=rZmt-axGFBk" class="yt-uix-button yt-uix-sessionlink start vm-playlist-edit-video vm-edit-button-link yt-uix-button-default" data-sessionlink="ei=CPmoyaOFgrMCFdqCIQodoCUsYw%3D%3D"><span class="yt-uix-button-content">修改</span></a><button type="button" class="edit-expand-menu-button end yt-uix-button yt-uix-button-default yt-uix-button-short yt-uix-button-empty" onclick=";return false;" role="button" aria-pressed="false" aria-expanded="false" aria-haspopup="true" aria-activedescendant=""><img class="yt-uix-button-arrow" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="">
+								<a href="/my_videos_edit?ns=1&amp;video_id=rZmt-axGFBk" class="yt-uix-button yt-uix-sessionlink start vm-playlist-edit-video vm-edit-button-link yt-uix-button-default" data-sessionlink="ei=CPmoyaOFgrMCFdqCIQodoCUsYw%3D%3D"><span class="yt-uix-button-content">修改</span></a><button type="button" class="edit-expand-menu-button end yt-uix-button yt-uix-button-default yt-uix-button-short yt-uix-button-empty"  role="button" aria-pressed="false" aria-expanded="false" aria-haspopup="true" aria-activedescendant=""><img class="yt-uix-button-arrow" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="">
 								<ul class=" yt-uix-button-menu yt-uix-button-menu-default" role="menu" aria-haspopup="true" style="display: none;">
-									<li role="menuitem" id="aria-id-4042356968"><span href="/my_videos_edit?ns=1&amp;feature=vm&amp;video_id=rZmt-axGFBk" class="vm-video-info-and-settings yt-uix-button-menu-item" onclick=";window.location.href=this.getAttribute('href');return false;">信息和设置</span></li>
-									<li role="menuitem" id="aria-id-94933825509"><span href="/enhance?feature=vm&amp;v=rZmt-axGFBk" class="vm-video-enhancements yt-uix-button-menu-item" onclick=";window.location.href=this.getAttribute('href');return false;">增强功能</span></li>
-									<li role="menuitem" id="aria-id-80032309853"><span href="/audio?feature=vm&amp;v=rZmt-axGFBk" class="vm-video-audio yt-uix-button-menu-item" onclick=";window.location.href=this.getAttribute('href');return false;">音频</span></li>
-									<li role="menuitem" id="aria-id-83519933996"><span href="/my_videos_annotate?feature=vm&amp;v=rZmt-axGFBk" class="vm-video-annotations yt-uix-button-menu-item" onclick=";window.location.href=this.getAttribute('href');return false;">注释功能</span></li>
-									<li role="menuitem" id="aria-id-65315305668"><span href="/my_videos_timedtext?video_id=rZmt-axGFBk&amp;feature=vm" class="vm-video-captions yt-uix-button-menu-item" onclick=";window.location.href=this.getAttribute('href');return false;">字幕</span></li>
-									<li role="menuitem" id="aria-id-30021412908"><span href="/my_video_ad?v=rZmt-axGFBk&amp;utm_source=youtube&amp;utm_medium=permanent&amp;utm_term=drop_down&amp;utm_content=edit_menu&amp;utm_campaign=yt_video_manager" class="vm-video-promote yt-uix-button-menu-item" onclick=";window.location.href=this.getAttribute('href');return false;">推广</span></li>
+									<li role="menuitem" id="aria-id-4042356968"><span href="/my_videos_edit?ns=1&amp;feature=vm&amp;video_id=rZmt-axGFBk" class="vm-video-info-and-settings yt-uix-button-menu-item" >信息和设置</span></li>
+									<li role="menuitem" id="aria-id-94933825509"><span href="/enhance?feature=vm&amp;v=rZmt-axGFBk" class="vm-video-enhancements yt-uix-button-menu-item" >增强功能</span></li>
+									<li role="menuitem" id="aria-id-80032309853"><span href="/audio?feature=vm&amp;v=rZmt-axGFBk" class="vm-video-audio yt-uix-button-menu-item" >音频</span></li>
+									<li role="menuitem" id="aria-id-83519933996"><span href="/my_videos_annotate?feature=vm&amp;v=rZmt-axGFBk" class="vm-video-annotations yt-uix-button-menu-item" >注释功能</span></li>
+									<li role="menuitem" id="aria-id-65315305668"><span href="/my_videos_timedtext?video_id=rZmt-axGFBk&amp;feature=vm" class="vm-video-captions yt-uix-button-menu-item" >字幕</span></li>
+									<li role="menuitem" id="aria-id-30021412908"><span href="/my_video_ad?v=rZmt-axGFBk&amp;utm_source=youtube&amp;utm_medium=permanent&amp;utm_term=drop_down&amp;utm_content=edit_menu&amp;utm_campaign=yt_video_manager" class="vm-video-promote yt-uix-button-menu-item" >推广</span></li>
 								</ul>
 								</button></span>
 								<span class="primary-notification"><a href="/copynotice?video_id=rZmt-axGFBk&amp;feature=vm" class="notification-action">
@@ -607,14 +607,14 @@
 						<div class="vm-video-info">
 							<div class="vm-video-info vm-owner-bar">
 								<span class="yt-uix-button-group">
-								<a href="/my_videos_edit?ns=1&amp;video_id=AvTk1UWEB0I" class="yt-uix-button yt-uix-sessionlink start vm-playlist-edit-video vm-edit-button-link yt-uix-button-default" data-sessionlink="ei=CPmoyaOFgrMCFdqCIQodoCUsYw%3D%3D"><span class="yt-uix-button-content">修改</span></a><button type="button" class="edit-expand-menu-button end yt-uix-button yt-uix-button-default yt-uix-button-short yt-uix-button-empty" onclick=";return false;" role="button" aria-pressed="false" aria-expanded="false" aria-haspopup="true" aria-activedescendant=""><img class="yt-uix-button-arrow" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="">
+								<a href="/my_videos_edit?ns=1&amp;video_id=AvTk1UWEB0I" class="yt-uix-button yt-uix-sessionlink start vm-playlist-edit-video vm-edit-button-link yt-uix-button-default" data-sessionlink="ei=CPmoyaOFgrMCFdqCIQodoCUsYw%3D%3D"><span class="yt-uix-button-content">修改</span></a><button type="button" class="edit-expand-menu-button end yt-uix-button yt-uix-button-default yt-uix-button-short yt-uix-button-empty"  role="button" aria-pressed="false" aria-expanded="false" aria-haspopup="true" aria-activedescendant=""><img class="yt-uix-button-arrow" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="">
 								<ul class=" yt-uix-button-menu yt-uix-button-menu-default" role="menu" aria-haspopup="true" style="display: none;">
-									<li role="menuitem" id="aria-id-97655052562"><span href="/my_videos_edit?ns=1&amp;feature=vm&amp;video_id=AvTk1UWEB0I" class="vm-video-info-and-settings yt-uix-button-menu-item" onclick=";window.location.href=this.getAttribute('href');return false;">信息和设置</span></li>
-									<li role="menuitem" id="aria-id-50351950182"><span href="/enhance?feature=vm&amp;v=AvTk1UWEB0I" class="vm-video-enhancements yt-uix-button-menu-item" onclick=";window.location.href=this.getAttribute('href');return false;">增强功能</span></li>
-									<li role="menuitem" id="aria-id-75623942320"><span href="/audio?feature=vm&amp;v=AvTk1UWEB0I" class="vm-video-audio yt-uix-button-menu-item" onclick=";window.location.href=this.getAttribute('href');return false;">音频</span></li>
-									<li role="menuitem" id="aria-id-21042170893"><span href="/my_videos_annotate?feature=vm&amp;v=AvTk1UWEB0I" class="vm-video-annotations yt-uix-button-menu-item" onclick=";window.location.href=this.getAttribute('href');return false;">注释功能</span></li>
-									<li role="menuitem" id="aria-id-7105236454"><span href="/my_videos_timedtext?video_id=AvTk1UWEB0I&amp;feature=vm" class="vm-video-captions yt-uix-button-menu-item" onclick=";window.location.href=this.getAttribute('href');return false;">字幕</span></li>
-									<li role="menuitem" id="aria-id-16539033631"><span href="/my_video_ad?v=AvTk1UWEB0I&amp;utm_source=youtube&amp;utm_medium=permanent&amp;utm_term=drop_down&amp;utm_content=edit_menu&amp;utm_campaign=yt_video_manager" class="vm-video-promote yt-uix-button-menu-item" onclick=";window.location.href=this.getAttribute('href');return false;">推广</span></li>
+									<li role="menuitem" id="aria-id-97655052562"><span href="/my_videos_edit?ns=1&amp;feature=vm&amp;video_id=AvTk1UWEB0I" class="vm-video-info-and-settings yt-uix-button-menu-item" >信息和设置</span></li>
+									<li role="menuitem" id="aria-id-50351950182"><span href="/enhance?feature=vm&amp;v=AvTk1UWEB0I" class="vm-video-enhancements yt-uix-button-menu-item" >增强功能</span></li>
+									<li role="menuitem" id="aria-id-75623942320"><span href="/audio?feature=vm&amp;v=AvTk1UWEB0I" class="vm-video-audio yt-uix-button-menu-item" >音频</span></li>
+									<li role="menuitem" id="aria-id-21042170893"><span href="/my_videos_annotate?feature=vm&amp;v=AvTk1UWEB0I" class="vm-video-annotations yt-uix-button-menu-item" >注释功能</span></li>
+									<li role="menuitem" id="aria-id-7105236454"><span href="/my_videos_timedtext?video_id=AvTk1UWEB0I&amp;feature=vm" class="vm-video-captions yt-uix-button-menu-item" >字幕</span></li>
+									<li role="menuitem" id="aria-id-16539033631"><span href="/my_video_ad?v=AvTk1UWEB0I&amp;utm_source=youtube&amp;utm_medium=permanent&amp;utm_term=drop_down&amp;utm_content=edit_menu&amp;utm_campaign=yt_video_manager" class="vm-video-promote yt-uix-button-menu-item" >推广</span></li>
 								</ul>
 								</button></span>
 								<span class="primary-notification"><a href="/copynotice?video_id=AvTk1UWEB0I&amp;feature=vm" class="notification-action">
@@ -718,15 +718,15 @@
 						<div class="vm-video-info">
 							<div class="vm-video-info vm-owner-bar">
 								<span class="yt-uix-button-group">
-								<a href="/my_videos_edit?ns=1&amp;video_id=2VeJA6JK-pU" class="yt-uix-button yt-uix-sessionlink start vm-playlist-edit-video vm-edit-button-link yt-uix-button-default" data-sessionlink="ei=CPmoyaOFgrMCFdqCIQodoCUsYw%3D%3D"><span class="yt-uix-button-content">修改</span></a><button type="button" class="edit-expand-menu-button end yt-uix-button yt-uix-button-default yt-uix-button-short yt-uix-button-empty" onclick=";return false;" role="button" aria-pressed="false" aria-expanded="false" aria-haspopup="true" aria-activedescendant=""><img class="yt-uix-button-arrow" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="">
+								<a href="/my_videos_edit?ns=1&amp;video_id=2VeJA6JK-pU" class="yt-uix-button yt-uix-sessionlink start vm-playlist-edit-video vm-edit-button-link yt-uix-button-default" data-sessionlink="ei=CPmoyaOFgrMCFdqCIQodoCUsYw%3D%3D"><span class="yt-uix-button-content">修改</span></a><button type="button" class="edit-expand-menu-button end yt-uix-button yt-uix-button-default yt-uix-button-short yt-uix-button-empty"  role="button" aria-pressed="false" aria-expanded="false" aria-haspopup="true" aria-activedescendant=""><img class="yt-uix-button-arrow" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="">
 								<ul class=" yt-uix-button-menu yt-uix-button-menu-default" role="menu" aria-haspopup="true" style="display: none;">
-									<li role="menuitem" id="aria-id-44958461656"><span href="/my_videos_edit?ns=1&amp;feature=vm&amp;video_id=2VeJA6JK-pU" class="vm-video-info-and-settings yt-uix-button-menu-item" onclick=";window.location.href=this.getAttribute('href');return false;">信息和设置</span></li>
-									<li role="menuitem" id="aria-id-61863126468"><span href="/enhance?feature=vm&amp;v=2VeJA6JK-pU" class="vm-video-enhancements yt-uix-button-menu-item" onclick=";window.location.href=this.getAttribute('href');return false;">增强功能</span></li>
-									<li role="menuitem" id="aria-id-79422756843"><span href="/audio?feature=vm&amp;v=2VeJA6JK-pU" class="vm-video-audio yt-uix-button-menu-item" onclick=";window.location.href=this.getAttribute('href');return false;">音频</span></li>
-									<li role="menuitem" id="aria-id-74113144664"><span href="/my_videos_annotate?feature=vm&amp;v=2VeJA6JK-pU" class="vm-video-annotations yt-uix-button-menu-item" onclick=";window.location.href=this.getAttribute('href');return false;">注释功能</span></li>
-									<li role="menuitem" id="aria-id-31093328916"><span href="/my_videos_timedtext?video_id=2VeJA6JK-pU&amp;feature=vm" class="vm-video-captions yt-uix-button-menu-item" onclick=";window.location.href=this.getAttribute('href');return false;">字幕</span></li>
-									<li role="menuitem" id="aria-id-56477338576"><span data-download-url="/download_my_video?t=9KwzIZSF9JdgLNEbzrPi4vT31p58MTM1MDM1NjgxNUAxMzUwMjcwNDE1&amp;v=2VeJA6JK-pU" class="vm-download-mp4 yt-uix-button-menu-item" onclick=";return false;">下载 MP4</span></li>
-									<li role="menuitem" id="aria-id-76117694214"><span href="/my_video_ad?v=2VeJA6JK-pU&amp;utm_source=youtube&amp;utm_medium=permanent&amp;utm_term=drop_down&amp;utm_content=edit_menu&amp;utm_campaign=yt_video_manager" class="vm-video-promote yt-uix-button-menu-item" onclick=";window.location.href=this.getAttribute('href');return false;">推广</span></li>
+									<li role="menuitem" id="aria-id-44958461656"><span href="/my_videos_edit?ns=1&amp;feature=vm&amp;video_id=2VeJA6JK-pU" class="vm-video-info-and-settings yt-uix-button-menu-item" >信息和设置</span></li>
+									<li role="menuitem" id="aria-id-61863126468"><span href="/enhance?feature=vm&amp;v=2VeJA6JK-pU" class="vm-video-enhancements yt-uix-button-menu-item" >增强功能</span></li>
+									<li role="menuitem" id="aria-id-79422756843"><span href="/audio?feature=vm&amp;v=2VeJA6JK-pU" class="vm-video-audio yt-uix-button-menu-item" >音频</span></li>
+									<li role="menuitem" id="aria-id-74113144664"><span href="/my_videos_annotate?feature=vm&amp;v=2VeJA6JK-pU" class="vm-video-annotations yt-uix-button-menu-item" >注释功能</span></li>
+									<li role="menuitem" id="aria-id-31093328916"><span href="/my_videos_timedtext?video_id=2VeJA6JK-pU&amp;feature=vm" class="vm-video-captions yt-uix-button-menu-item" >字幕</span></li>
+									<li role="menuitem" id="aria-id-56477338576"><span data-download-url="/download_my_video?t=9KwzIZSF9JdgLNEbzrPi4vT31p58MTM1MDM1NjgxNUAxMzUwMjcwNDE1&amp;v=2VeJA6JK-pU" class="vm-download-mp4 yt-uix-button-menu-item" >下载 MP4</span></li>
+									<li role="menuitem" id="aria-id-76117694214"><span href="/my_video_ad?v=2VeJA6JK-pU&amp;utm_source=youtube&amp;utm_medium=permanent&amp;utm_term=drop_down&amp;utm_content=edit_menu&amp;utm_campaign=yt_video_manager" class="vm-video-promote yt-uix-button-menu-item" >推广</span></li>
 								</ul>
 								</button></span>
 							</div>
@@ -827,15 +827,15 @@
 						<div class="vm-video-info">
 							<div class="vm-video-info vm-owner-bar">
 								<span class="yt-uix-button-group">
-								<a href="/my_videos_edit?ns=1&amp;video_id=JZtQ25v7XsQ" class="yt-uix-button yt-uix-sessionlink start vm-playlist-edit-video vm-edit-button-link yt-uix-button-default" data-sessionlink="ei=CPmoyaOFgrMCFdqCIQodoCUsYw%3D%3D"><span class="yt-uix-button-content">修改</span></a><button type="button" class="edit-expand-menu-button end yt-uix-button yt-uix-button-default yt-uix-button-short yt-uix-button-empty" onclick=";return false;" role="button" aria-pressed="false" aria-expanded="false" aria-haspopup="true" aria-activedescendant=""><img class="yt-uix-button-arrow" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="">
+								<a href="/my_videos_edit?ns=1&amp;video_id=JZtQ25v7XsQ" class="yt-uix-button yt-uix-sessionlink start vm-playlist-edit-video vm-edit-button-link yt-uix-button-default" data-sessionlink="ei=CPmoyaOFgrMCFdqCIQodoCUsYw%3D%3D"><span class="yt-uix-button-content">修改</span></a><button type="button" class="edit-expand-menu-button end yt-uix-button yt-uix-button-default yt-uix-button-short yt-uix-button-empty"  role="button" aria-pressed="false" aria-expanded="false" aria-haspopup="true" aria-activedescendant=""><img class="yt-uix-button-arrow" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="">
 								<ul class=" yt-uix-button-menu yt-uix-button-menu-default" role="menu" aria-haspopup="true" style="display: none;">
-									<li role="menuitem" id="aria-id-90908581422"><span href="/my_videos_edit?ns=1&amp;feature=vm&amp;video_id=JZtQ25v7XsQ" class="vm-video-info-and-settings yt-uix-button-menu-item" onclick=";window.location.href=this.getAttribute('href');return false;">信息和设置</span></li>
-									<li role="menuitem" id="aria-id-42243167604"><span href="/enhance?feature=vm&amp;v=JZtQ25v7XsQ" class="vm-video-enhancements yt-uix-button-menu-item" onclick=";window.location.href=this.getAttribute('href');return false;">增强功能</span></li>
-									<li role="menuitem" id="aria-id-28294965980"><span href="/audio?feature=vm&amp;v=JZtQ25v7XsQ" class="vm-video-audio yt-uix-button-menu-item" onclick=";window.location.href=this.getAttribute('href');return false;">音频</span></li>
-									<li role="menuitem" id="aria-id-23956505250"><span href="/my_videos_annotate?feature=vm&amp;v=JZtQ25v7XsQ" class="vm-video-annotations yt-uix-button-menu-item" onclick=";window.location.href=this.getAttribute('href');return false;">注释功能</span></li>
-									<li role="menuitem" id="aria-id-98884096882"><span href="/my_videos_timedtext?video_id=JZtQ25v7XsQ&amp;feature=vm" class="vm-video-captions yt-uix-button-menu-item" onclick=";window.location.href=this.getAttribute('href');return false;">字幕</span></li>
-									<li role="menuitem" id="aria-id-7087932730"><span data-download-url="/download_my_video?t=9KwzIZSF9JdgLNEbzrPi4vT31p58MTM1MDM1NjgxNUAxMzUwMjcwNDE1&amp;v=JZtQ25v7XsQ" class="vm-download-mp4 yt-uix-button-menu-item" onclick=";return false;">下载 MP4</span></li>
-									<li role="menuitem" id="aria-id-29162965944"><span href="/my_video_ad?v=JZtQ25v7XsQ&amp;utm_source=youtube&amp;utm_medium=permanent&amp;utm_term=drop_down&amp;utm_content=edit_menu&amp;utm_campaign=yt_video_manager" class="vm-video-promote yt-uix-button-menu-item" onclick=";window.location.href=this.getAttribute('href');return false;">推广</span></li>
+									<li role="menuitem" id="aria-id-90908581422"><span href="/my_videos_edit?ns=1&amp;feature=vm&amp;video_id=JZtQ25v7XsQ" class="vm-video-info-and-settings yt-uix-button-menu-item" >信息和设置</span></li>
+									<li role="menuitem" id="aria-id-42243167604"><span href="/enhance?feature=vm&amp;v=JZtQ25v7XsQ" class="vm-video-enhancements yt-uix-button-menu-item" >增强功能</span></li>
+									<li role="menuitem" id="aria-id-28294965980"><span href="/audio?feature=vm&amp;v=JZtQ25v7XsQ" class="vm-video-audio yt-uix-button-menu-item" >音频</span></li>
+									<li role="menuitem" id="aria-id-23956505250"><span href="/my_videos_annotate?feature=vm&amp;v=JZtQ25v7XsQ" class="vm-video-annotations yt-uix-button-menu-item" >注释功能</span></li>
+									<li role="menuitem" id="aria-id-98884096882"><span href="/my_videos_timedtext?video_id=JZtQ25v7XsQ&amp;feature=vm" class="vm-video-captions yt-uix-button-menu-item" >字幕</span></li>
+									<li role="menuitem" id="aria-id-7087932730"><span data-download-url="/download_my_video?t=9KwzIZSF9JdgLNEbzrPi4vT31p58MTM1MDM1NjgxNUAxMzUwMjcwNDE1&amp;v=JZtQ25v7XsQ" class="vm-download-mp4 yt-uix-button-menu-item" >下载 MP4</span></li>
+									<li role="menuitem" id="aria-id-29162965944"><span href="/my_video_ad?v=JZtQ25v7XsQ&amp;utm_source=youtube&amp;utm_medium=permanent&amp;utm_term=drop_down&amp;utm_content=edit_menu&amp;utm_campaign=yt_video_manager" class="vm-video-promote yt-uix-button-menu-item" >推广</span></li>
 								</ul>
 								</button></span>
 							</div>
@@ -936,15 +936,15 @@
 						<div class="vm-video-info">
 							<div class="vm-video-info vm-owner-bar">
 								<span class="yt-uix-button-group">
-								<a href="/my_videos_edit?ns=1&amp;video_id=_5FK7_69JPM" class="yt-uix-button yt-uix-sessionlink start vm-playlist-edit-video vm-edit-button-link yt-uix-button-default" data-sessionlink="ei=CPmoyaOFgrMCFdqCIQodoCUsYw%3D%3D"><span class="yt-uix-button-content">修改</span></a><button type="button" class="edit-expand-menu-button end yt-uix-button yt-uix-button-default yt-uix-button-short yt-uix-button-empty" onclick=";return false;" role="button" aria-pressed="false" aria-expanded="false" aria-haspopup="true" aria-activedescendant=""><img class="yt-uix-button-arrow" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="">
+								<a href="/my_videos_edit?ns=1&amp;video_id=_5FK7_69JPM" class="yt-uix-button yt-uix-sessionlink start vm-playlist-edit-video vm-edit-button-link yt-uix-button-default" data-sessionlink="ei=CPmoyaOFgrMCFdqCIQodoCUsYw%3D%3D"><span class="yt-uix-button-content">修改</span></a><button type="button" class="edit-expand-menu-button end yt-uix-button yt-uix-button-default yt-uix-button-short yt-uix-button-empty"  role="button" aria-pressed="false" aria-expanded="false" aria-haspopup="true" aria-activedescendant=""><img class="yt-uix-button-arrow" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="">
 								<ul class=" yt-uix-button-menu yt-uix-button-menu-default" role="menu" aria-haspopup="true" style="display: none;">
-									<li role="menuitem" id="aria-id-12312337170"><span href="/my_videos_edit?ns=1&amp;feature=vm&amp;video_id=_5FK7_69JPM" class="vm-video-info-and-settings yt-uix-button-menu-item" onclick=";window.location.href=this.getAttribute('href');return false;">信息和设置</span></li>
-									<li role="menuitem" id="aria-id-42696052497"><span href="/enhance?feature=vm&amp;v=_5FK7_69JPM" class="vm-video-enhancements yt-uix-button-menu-item" onclick=";window.location.href=this.getAttribute('href');return false;">增强功能</span></li>
-									<li role="menuitem" id="aria-id-74418662172"><span href="/audio?feature=vm&amp;v=_5FK7_69JPM" class="vm-video-audio yt-uix-button-menu-item" onclick=";window.location.href=this.getAttribute('href');return false;">音频</span></li>
-									<li role="menuitem" id="aria-id-11603558232"><span href="/my_videos_annotate?feature=vm&amp;v=_5FK7_69JPM" class="vm-video-annotations yt-uix-button-menu-item" onclick=";window.location.href=this.getAttribute('href');return false;">注释功能</span></li>
-									<li role="menuitem" id="aria-id-88116680161"><span href="/my_videos_timedtext?video_id=_5FK7_69JPM&amp;feature=vm" class="vm-video-captions yt-uix-button-menu-item" onclick=";window.location.href=this.getAttribute('href');return false;">字幕</span></li>
-									<li role="menuitem" id="aria-id-13520301496"><span data-download-url="/download_my_video?t=9KwzIZSF9JdgLNEbzrPi4vT31p58MTM1MDM1NjgxNUAxMzUwMjcwNDE1&amp;v=_5FK7_69JPM" class="vm-download-mp4 yt-uix-button-menu-item" onclick=";return false;">下载 MP4</span></li>
-									<li role="menuitem" id="aria-id-36277499446"><span href="/my_video_ad?v=_5FK7_69JPM&amp;utm_source=youtube&amp;utm_medium=permanent&amp;utm_term=drop_down&amp;utm_content=edit_menu&amp;utm_campaign=yt_video_manager" class="vm-video-promote yt-uix-button-menu-item" onclick=";window.location.href=this.getAttribute('href');return false;">推广</span></li>
+									<li role="menuitem" id="aria-id-12312337170"><span href="/my_videos_edit?ns=1&amp;feature=vm&amp;video_id=_5FK7_69JPM" class="vm-video-info-and-settings yt-uix-button-menu-item" >信息和设置</span></li>
+									<li role="menuitem" id="aria-id-42696052497"><span href="/enhance?feature=vm&amp;v=_5FK7_69JPM" class="vm-video-enhancements yt-uix-button-menu-item" >增强功能</span></li>
+									<li role="menuitem" id="aria-id-74418662172"><span href="/audio?feature=vm&amp;v=_5FK7_69JPM" class="vm-video-audio yt-uix-button-menu-item" >音频</span></li>
+									<li role="menuitem" id="aria-id-11603558232"><span href="/my_videos_annotate?feature=vm&amp;v=_5FK7_69JPM" class="vm-video-annotations yt-uix-button-menu-item" >注释功能</span></li>
+									<li role="menuitem" id="aria-id-88116680161"><span href="/my_videos_timedtext?video_id=_5FK7_69JPM&amp;feature=vm" class="vm-video-captions yt-uix-button-menu-item" >字幕</span></li>
+									<li role="menuitem" id="aria-id-13520301496"><span data-download-url="/download_my_video?t=9KwzIZSF9JdgLNEbzrPi4vT31p58MTM1MDM1NjgxNUAxMzUwMjcwNDE1&amp;v=_5FK7_69JPM" class="vm-download-mp4 yt-uix-button-menu-item" >下载 MP4</span></li>
+									<li role="menuitem" id="aria-id-36277499446"><span href="/my_video_ad?v=_5FK7_69JPM&amp;utm_source=youtube&amp;utm_medium=permanent&amp;utm_term=drop_down&amp;utm_content=edit_menu&amp;utm_campaign=yt_video_manager" class="vm-video-promote yt-uix-button-menu-item" >推广</span></li>
 								</ul>
 								</button></span>
 							</div>
@@ -1019,7 +1019,7 @@
 			<div class="yt-dialog-fg-content yt-dialog-show-content">
 				<div class="yt-dialog-header">
 					<h2 class="yt-dialog-title">
-					改进您的视频 </h2>
+					改进您的课件 </h2>
 				</div>
 				<div class="yt-dialog-loading">
 					<div class="yt-dialog-waiting-content">
@@ -1056,7 +1056,7 @@
 						<a href="#" id="suggested-edit-opt-out" class=" yt-dialog-dismiss" data-action="opt-out">
 						不再询问 </a>
 					</div>
-					<button type="button" class=" yt-dialog-dismiss yt-uix-button yt-uix-button-default" onclick=";return false;" data-action="cancel" role="button"><span class="yt-uix-button-content">不，谢谢！ </span></button><button type="button" class=" yt-dialog-dismiss yt-uix-button yt-uix-button-primary" onclick=";return false;" data-action="save" role="button"><span class="yt-uix-button-content">好的 </span></button>
+					<button type="button" class=" yt-dialog-dismiss yt-uix-button yt-uix-button-default"  data-action="cancel" role="button"><span class="yt-uix-button-content">不，谢谢！ </span></button><button type="button" class=" yt-dialog-dismiss yt-uix-button yt-uix-button-primary"  data-action="save" role="button"><span class="yt-uix-button-content">好的 </span></button>
 				</div>
 			</div>
 		</div>
@@ -1082,12 +1082,12 @@
 				</div>
 				<div class="yt-dialog-content">
 					<p>
-						确定不再希望系统提示您优化视频了吗？
+						确定不再希望系统提示您优化课件了吗？
 					</p>
 					<p>
 					</p>
 					<p>
-						我们将不再显示任何建议，但您仍可以在<em>修改</em>菜单中选择<em>增强功能</em>来优化任意视频。
+						我们将不再显示任何建议，但您仍可以在<em>修改</em>菜单中选择<em>增强功能</em>来优化任意课件。
 					</p>
 				</div>
 				<div class="yt-dialog-working">
@@ -1104,7 +1104,7 @@
 					</div>
 				</div>
 				<div class="yt-dialog-footer">
-					<button type="button" class=" yt-dialog-dismiss yt-uix-button yt-uix-button-default" onclick=";return false;" data-action="cancel" role="button"><span class="yt-uix-button-content">取消 </span></button><button type="button" class=" yt-dialog-dismiss yt-uix-button yt-uix-button-primary" onclick=";return false;" data-action="save" role="button"><span class="yt-uix-button-content">是 </span></button>
+					<button type="button" class=" yt-dialog-dismiss yt-uix-button yt-uix-button-default"  data-action="cancel" role="button"><span class="yt-uix-button-content">取消 </span></button><button type="button" class=" yt-dialog-dismiss yt-uix-button yt-uix-button-primary"  data-action="save" role="button"><span class="yt-uix-button-content">是 </span></button>
 				</div>
 			</div>
 		</div>

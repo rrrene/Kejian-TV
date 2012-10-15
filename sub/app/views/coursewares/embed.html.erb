@@ -17,8 +17,11 @@
   }
 </style>
   <%= stylesheet_link_tag "ktv/ppt", :media => "all" %>
+  <%= stylesheet_link_tag "jquery.tipsy", :media => "all" %>
   <%= javascript_include_tag "kinetic-v4.0.0.js" %>
   <%= javascript_include_tag "ktv/player_ppt" %>
+  <%= javascript_include_tag "for_help/jquery.tipsy" %>
+
   <% if @courseware.yasuobao? %>
     <link href="/dhtmlxtree.css" media="screen" rel="stylesheet" type="text/css" />
     <script src="/dhtmlxtree/dhtmlxcommon.js" type="text/javascript"></script>
@@ -314,6 +317,18 @@
       <% else %>
         $('a#fullscreen').bind('click', Slide.toggleFullScreen);
       <% end %>
+      $('a#watch_later_button').bind('click', function(){
+        $(this).css('opacity',1);
+        $(this).css('background-position','0 -183px');
+        $.getJSON('/ajax/watch_later',function(data){
+          if(data && data['okay']){
+            $('a#watch_later_button').css('background-position','0 -208px');
+          }else{
+            $('a#watch_later_button').css('background-position','0 -234px');            
+          }
+        });
+        return false;
+      });
       $('a#double_button').bind('click', function(){
         Slide.gotoDouble(false)
         return false;
@@ -428,7 +443,8 @@
       <% end %>
       $.preloadThumbs();
       $('.scrubber_holder, .scrubber_holder div, .speakerdeck_toolbar, .navigation').disableSelection();
-
+      $('.yt-uix-tooltip').tipsy({gravity: $.fn.tipsy.autoNS,fade: false,opacity: 1});
+      
       document.onkeyup = function(e) {
         if(document.activeElement.tagName.toLowerCase() !== 'input' && document.activeElement.tagName.toLowerCase() !== 'textarea') {
           var code = (window.event) ? window.event.keyCode : e.keyCode;
@@ -835,9 +851,9 @@
 <% end %>
   <div class="previews" style="display:none"><p>第1页, 共6页</p></div>
   <div class="standard_buttons">
-
-    <a href="javascript:void(0)" style="<%= 'opacity:1' unless @courseware.thin? %>" id="single_button"></a>
-    <a href="javascript:void(0)" style="<%= 'opacity:1' if @courseware.thin? %>" id="double_button"></a>
+    <a href="javascript:void(0)" id="watch_later_button" class="yt-uix-tooltip" title="稍后观看"></a>
+    <a href="javascript:void(0)" style="<%= 'opacity:1' unless @courseware.thin? %>" id="single_button" class="yt-uix-tooltip" title="小型播放器"></a>
+    <a href="javascript:void(0)" style="<%= 'opacity:1' if @courseware.thin? %>" id="double_button" class="yt-uix-tooltip" title="大型播放器"></a>
   </div>
   <div class="overlay"></div>
   <div id="share">

@@ -41,6 +41,7 @@ Sub::Application.routes.draw do
 
   # ________________________________ajax__________________________________________
   get '/all_unread_notification_num' => 'ajax#all_unread_notification_num'
+  get '/ajax/watch_later'
   post '/ajax/seg'=>'ajax#seg'
   post '/presentations' => 'ajax#presentations_upload_finished'
   put '/presentations/:id' => 'ajax#presentations_update'

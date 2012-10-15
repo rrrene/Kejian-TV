@@ -21,8 +21,10 @@
             var title = this.getTitle();
             if (title && this.enabled) {
                 var $tip = this.tip();
-                
                 $tip.find('.tipsy-inner')[this.options.html ? 'html' : 'text'](title);
+				$('#yt-uix-tooltip5').hide();
+				$('#yt-uix-tooltip9').hide();
+				$('.yt-uix-tooltip-tip-content')[this.options.html ? 'html' : 'text'](title);
                 $tip[0].className = 'tipsy'; // reset classname in case of dynamic gravity
                 $tip.remove().css({top: 0, left: 0, visibility: 'hidden', display: 'block'}).prependTo(document.body);
                 
@@ -30,9 +32,23 @@
                     width: this.$element[0].offsetWidth,
                     height: this.$element[0].offsetHeight
                 });
-                
-                var actualWidth = $tip[0].offsetWidth,
-                    actualHeight = $tip[0].offsetHeight,
+
+                var $tip2;
+                switch (gravity.charAt(0)) {
+                    case 'n':
+						$tip2 = $('#yt-uix-tooltip5');
+                        break;
+                    case 's':
+						$tip2 = $('#yt-uix-tooltip9');
+                        break;
+                    case 'e':
+                        break;
+                    case 'w':
+                        break;
+                }
+
+                var actualWidth = $tip2[0].offsetWidth,
+                    actualHeight = $tip2[0].offsetHeight,
                     gravity = maybeCall(this.options.gravity, this.$element[0]);
                 
                 var tp;
@@ -58,18 +74,21 @@
                         tp.left = pos.left + pos.width / 2 - actualWidth + 15;
                     }
                 }
-                
-                $tip.css(tp).addClass('tipsy-' + gravity);
-                $tip.find('.tipsy-arrow')[0].className = 'tipsy-arrow tipsy-arrow-' + gravity.charAt(0);
-                if (this.options.className) {
-                    $tip.addClass(maybeCall(this.options.className, this.$element[0]));
-                }
-                
-                if (this.options.fade) {
-                    $tip.stop().css({opacity: 0, display: 'block', visibility: 'visible'}).animate({opacity: this.options.opacity});
-                } else {
-                    $tip.css({visibility: 'visible', opacity: this.options.opacity});
-                }
+				console.log(tp);
+                $tip2.css(tp);
+				$tip2.show();
+				$tip.hide();
+                // $tip.css(tp).addClass('tipsy-' + gravity);
+                // $tip.find('.tipsy-arrow')[0].className = 'tipsy-arrow tipsy-arrow-' + gravity.charAt(0);
+                // if (this.options.className) {
+                //     $tip.addClass(maybeCall(this.options.className, this.$element[0]));
+                // }
+                // 
+                // if (this.options.fade) {
+                //     $tip.stop().css({opacity: 0, display: 'block', visibility: 'visible'}).animate({opacity: this.options.opacity});
+                // } else {
+                //     $tip.css({visibility: 'visible', opacity: this.options.opacity});
+                // }
             }
         },
         

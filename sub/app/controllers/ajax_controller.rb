@@ -1,6 +1,9 @@
 # -*- encoding : utf-8 -*-
 class AjaxController < ApplicationController
   before_filter :authenticate_user!, :except => [:checkUsername,:checkEmailAjax,:xl_req_get_method_vod,:logincheck,:seg,:star_refresh]
+  def watch_later
+    render json:{okay:true}
+  end
   def checkUsername
     render json:{okay:Ktv::Renren.name_okay?(params[:q])}
   end

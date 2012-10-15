@@ -538,6 +538,15 @@ div.previews:after {
     opacity: .5;
     color: #fff;
 }
+.standard_buttons #watch_later_button{
+  -webkit-transition: opacity 0.2s linear;
+  -moz-transition: opacity 0.2s linear;
+  transition: opacity 0.2s linear;
+  padding: 3px 6px 4px 24px;
+  background: url("<%=asset_path 'share_bird.png'%>") no-repeat 0px -150px;
+  opacity: .5;
+  color: #fff;  
+}
 .standard_buttons #single_button {
     -webkit-transition: opacity 0.2s linear;
     -moz-transition: opacity 0.2s linear;
@@ -556,7 +565,10 @@ div.previews:after {
     opacity: .5;
     color: #fff;
 }
-.standard_buttons #share_button:hover,.standard_buttons #single_button:hover ,.standard_buttons #double_button:hover  {
+.standard_buttons #share_button:hover,
+.standard_buttons #watch_later_button:hover ,
+.standard_buttons #single_button:hover ,
+.standard_buttons #double_button:hover  {
     color: fff;
     opacity: 1;
 }
@@ -565,7 +577,7 @@ div.scrubber_holder {
     z-index: 3;
     padding: 14px 0;
     left: 95px;
-    right: 80px;
+    right: 107px;
     bottom: 0;
     height: 8px;
 }

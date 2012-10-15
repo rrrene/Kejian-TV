@@ -21,27 +21,27 @@
     		<div id="vm-video-actions-bar" class="goog-scrollfloater">
     			<div class="clearfix" id="vm-video-actions-inner">
     				<span class="yt-uix-form-input-checkbox-container vm-select-all"><input type="checkbox" id="vm-video-select-all" class="yt-uix-form-input-checkbox" name="vm-video-select-all"><span class="yt-uix-form-input-checkbox-element"></span></span>
-    				<button role="button" data-feature="vm" data-video-ids="" data-button-menu-id="shared-addto-menu" data-button-menu-action="yt.www.lists.addto.toggleMenu" onclick=";return false;" class="addto-button default show-label yt-uix-button yt-uix-button-default" type="button" disabled="True"><span class="yt-uix-button-icon-wrapper"><img alt="" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" class="yt-uix-button-icon yt-uix-button-icon-addto"><span class="yt-valign-trick"></span></span><span class="yt-uix-button-content"><span class="addto-label">添加到</span></span><img alt="" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" class="yt-uix-button-arrow"></button>
-    				<button role="button" class=" yt-uix-button yt-uix-button-default" onclick=";window.location.href=this.getAttribute('href');return false;" id="vm-playlist-play-all" type="button" href="/watch?v=Tc_OmWppLBE&amp;feature=my_watch_later_videos&amp;list=WL9F5E19B09C8D397C"><span class="yt-uix-button-content">全部播放 </span></button>
-    				<button role="button" class=" yt-uix-button yt-uix-button-default" onclick=";return false;" id="vm-playlist-remove-videos" type="button" disabled="True"><span class="yt-uix-button-content">删除 </span></button>
+    				<button role="button" data-feature="vm" data-video-ids="" data-button-menu-id="shared-addto-menu" data-button-menu-action="yt.www.lists.addto.toggleMenu"  class="addto-button default show-label yt-uix-button yt-uix-button-default" type="button" disabled="True"><span class="yt-uix-button-icon-wrapper"><img alt="" src= "<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="yt-uix-button-icon yt-uix-button-icon-addto"><span class="yt-valign-trick"></span></span><span class="yt-uix-button-content"><span class="addto-label">添加到</span></span><img alt="" src= "<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="yt-uix-button-arrow"></button>
+    				<button role="button" class=" yt-uix-button yt-uix-button-default"  id="vm-playlist-play-all" type="button" href="/watch?v=Tc_OmWppLBE&amp;feature=my_watch_later_videos&amp;list=WL9F5E19B09C8D397C"><span class="yt-uix-button-content">全部播放 </span></button>
+    				<button role="button" class=" yt-uix-button yt-uix-button-default"  id="vm-playlist-remove-videos" type="button" disabled="True"><span class="yt-uix-button-content">删除 </span></button>
     				<span class="hid" id="watch-history-pause-container">
-    				<button role="button" class=" yt-uix-button yt-uix-button-default" onclick=";return false;" id="watch-history-pause-button" type="button"><span class="yt-uix-button-content">暂停观看历史记录 </span></button>
+    				<button role="button" class=" yt-uix-button yt-uix-button-default"  id="watch-history-pause-button" type="button"><span class="yt-uix-button-content">暂停观看历史记录 </span></button>
     				</span>
     				<span class="hid" id="watch-history-resume-container">
-    				<button role="button" class=" yt-uix-button yt-uix-button-default" onclick=";return false;" id="watch-history-resume-button" type="button"><span class="yt-uix-button-content">恢复观看历史记录 </span></button>
+    				<button role="button" class=" yt-uix-button yt-uix-button-default"  id="watch-history-resume-button" type="button"><span class="yt-uix-button-content">恢复观看历史记录 </span></button>
     				</span>
     				<span class="hid" id="search-history-pause-container">
-    				<button role="button" class=" yt-uix-button yt-uix-button-default" onclick=";return false;" id="search-history-pause-button" type="button"><span class="yt-uix-button-content">暂停搜索记录 </span></button>
+    				<button role="button" class=" yt-uix-button yt-uix-button-default"  id="search-history-pause-button" type="button"><span class="yt-uix-button-content">暂停搜索记录 </span></button>
     				</span>
     				<span class="hid" id="search-history-resume-container">
-    				<button role="button" class=" yt-uix-button yt-uix-button-default" onclick=";return false;" id="search-history-resume-button" type="button"><span class="yt-uix-button-content">恢复搜索记录 </span></button>
+    				<button role="button" class=" yt-uix-button yt-uix-button-default"  id="search-history-resume-button" type="button"><span class="yt-uix-button-content">恢复搜索记录 </span></button>
     				</span>
     				<span id="vm-view-filter">
     				<span id="vm-view-filter-label">观看：</span>
-    				<button aria-activedescendant="" aria-haspopup="true" aria-expanded="false" aria-pressed="false" role="button" class=" yt-uix-button yt-uix-button-text" onclick=";return false;" id="vm-view-btn" type="button" aria-labelledby="vm-view-filter-label"><span class="yt-uix-button-content">最新视频 </span><img alt="" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" class="yt-uix-button-arrow">
+    				<button aria-activedescendant="" aria-haspopup="true" aria-expanded="false" aria-pressed="false" role="button" class=" yt-uix-button yt-uix-button-text"  id="vm-view-btn" type="button" aria-labelledby="vm-view-filter-label"><span class="yt-uix-button-content">最新课件 </span><img alt="" src= "<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="yt-uix-button-arrow">
     				<ul style="display: none;" aria-haspopup="true" role="menu" class=" yt-uix-button-menu yt-uix-button-menu-text">
-    					<li id="aria-id-15833117830" role="menuitem"><span class=" yt-uix-button-menu-item" onclick=";window.location.href=this.getAttribute('href');return false;" id="oldest" href="?vmo=oldest&amp;sa=1&amp;sf=added">最早上传</span></li>
-    					<li id="aria-id-23249337134" role="menuitem"><span class=" yt-uix-button-menu-item" onclick=";window.location.href=this.getAttribute('href');return false;" id="viewed" href="?vmo=viewed&amp;sa=0&amp;sf=viewcount">观看最多</span></li>
+    					<li id="aria-id-15833117830" role="menuitem"><span class=" yt-uix-button-menu-item"  id="oldest" href="?vmo=oldest&amp;sa=1&amp;sf=added">最早上传</span></li>
+    					<li id="aria-id-23249337134" role="menuitem"><span class=" yt-uix-button-menu-item"  id="viewed" href="?vmo=viewed&amp;sa=0&amp;sf=viewcount">观看最多</span></li>
     				</ul>
     				</button>
     				</span>
@@ -52,7 +52,7 @@
     				<div class="vm-video-actions-delete-header">
     					<div class="yt-alert yt-alert-naked yt-alert-error ">
     						<div class="yt-alert-icon">
-    							<img alt="提醒图标" class="icon master-sprite" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+    							<img alt="提醒图标" class="icon master-sprite" src= "<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
     						</div>
     						<div role="alert" class="yt-alert-content">
     							<span class="yt-alert-vertical-trick"></span>
@@ -67,8 +67,8 @@
     					<div class="vm-video-actions-delete-extra-warning hid">
     					</div>
     					<div class="vm-video-actions-delete-button-area">
-    						<button role="button" onclick=";return false;" class="yt-uix-overlay-close vm-video-actions-delete-button-cancel yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-content">取消 </span></button>
-    						<button role="button" onclick=";return false;" class="vm-video-actions-delete-button-confirm yt-uix-button yt-uix-button-destructive" type="button"><span class="yt-uix-button-content">删除 </span></button>
+    						<button role="button"  class="yt-uix-overlay-close vm-video-actions-delete-button-cancel yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-content">取消 </span></button>
+    						<button role="button"  class="vm-video-actions-delete-button-confirm yt-uix-button yt-uix-button-destructive" type="button"><span class="yt-uix-button-content">删除 </span></button>
     					</div>
     				</div>
     			</div>
@@ -110,7 +110,7 @@
     							<span class="vm-video-metric video-view-count">
     							<span title="观看次数" class="yt-uix-tooltip">
     							<span class="vm-video-metric-icon">
-    							<img alt="观看次数" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+    							<img alt="观看次数" src= "<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
     							</span>
     							<span class="vm-video-metric-value">41,247</span>
     							</span>
@@ -118,7 +118,7 @@
     							<span class="vm-video-metric video-likes-count">
     							<span title="顶过的人数" class="yt-uix-tooltip">
     							<span class="vm-video-metric-icon">
-    							<img alt="顶过的人数" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+    							<img alt="顶过的人数" src= "<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
     							</span>
     							<span class="vm-video-metric-value">2,031</span>
     							</span>
@@ -126,7 +126,7 @@
     							<span class="vm-video-metric video-dislikes-count">
     							<span title="踩" class="yt-uix-tooltip">
     							<span class="vm-video-metric-icon">
-    							<img alt="踩" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+    							<img alt="踩" src= "<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
     							</span>
     							<span class="vm-video-metric-value">3</span>
     							</span>
@@ -134,7 +134,7 @@
     							<span class="vm-video-metric video-comments">
     							<span title="评论数" class="yt-uix-tooltip">
     							<span class="vm-video-metric-icon">
-    							<img alt="评论数" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+    							<img alt="评论数" src= "<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
     							</span>
     							<span class="vm-video-metric-value">437</span>
     							</span>
@@ -175,7 +175,7 @@
     							<span class="vm-video-metric video-view-count">
     							<span title="观看次数" class="yt-uix-tooltip">
     							<span class="vm-video-metric-icon">
-    							<img alt="观看次数" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+    							<img alt="观看次数" src= "<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
     							</span>
     							<span class="vm-video-metric-value">119,512</span>
     							</span>
@@ -183,7 +183,7 @@
     							<span class="vm-video-metric video-likes-count">
     							<span title="顶过的人数" class="yt-uix-tooltip">
     							<span class="vm-video-metric-icon">
-    							<img alt="顶过的人数" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+    							<img alt="顶过的人数" src= "<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
     							</span>
     							<span class="vm-video-metric-value">429</span>
     							</span>
@@ -191,7 +191,7 @@
     							<span class="vm-video-metric video-dislikes-count">
     							<span title="踩" class="yt-uix-tooltip">
     							<span class="vm-video-metric-icon">
-    							<img alt="踩" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+    							<img alt="踩" src= "<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
     							</span>
     							<span class="vm-video-metric-value">8</span>
     							</span>
@@ -199,7 +199,7 @@
     							<span class="vm-video-metric video-comments">
     							<span title="评论数" class="yt-uix-tooltip">
     							<span class="vm-video-metric-icon">
-    							<img alt="评论数" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+    							<img alt="评论数" src= "<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
     							</span>
     							<span class="vm-video-metric-value">100</span>
     							</span>
@@ -234,13 +234,13 @@
     						<div class="vm-video-info">
     							<div class="vm-video-info vm-owner-bar">
     								<span class="yt-uix-button-group">
-    								<a data-sessionlink="ei=CPXW9tTQgrMCFeGBIQodIxLFtA%3D%3D" class="yt-uix-button yt-uix-sessionlink start vm-playlist-edit-video vm-edit-button-link yt-uix-button-default" href="/my_videos_edit?ns=1&amp;video_id=x3Z0PM1UNAQ"><span class="yt-uix-button-content">修改</span></a><button aria-activedescendant="" aria-haspopup="true" aria-expanded="false" aria-pressed="false" role="button" onclick=";return false;" class="edit-expand-menu-button end yt-uix-button yt-uix-button-default yt-uix-button-short yt-uix-button-empty" type="button"><img alt="" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" class="yt-uix-button-arrow">
+    								<a data-sessionlink="ei=CPXW9tTQgrMCFeGBIQodIxLFtA%3D%3D" class="yt-uix-button yt-uix-sessionlink start vm-playlist-edit-video vm-edit-button-link yt-uix-button-default" href="/my_videos_edit?ns=1&amp;video_id=x3Z0PM1UNAQ"><span class="yt-uix-button-content">修改</span></a><button aria-activedescendant="" aria-haspopup="true" aria-expanded="false" aria-pressed="false" role="button"  class="edit-expand-menu-button end yt-uix-button yt-uix-button-default yt-uix-button-short yt-uix-button-empty" type="button"><img alt="" src= "<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="yt-uix-button-arrow">
     								<ul style="display: none;" aria-haspopup="true" role="menu" class=" yt-uix-button-menu yt-uix-button-menu-default">
-    									<li id="aria-id-49552044886" role="menuitem"><span onclick=";window.location.href=this.getAttribute('href');return false;" class="vm-video-info-and-settings yt-uix-button-menu-item" href="/my_videos_edit?ns=1&amp;feature=vm&amp;video_id=x3Z0PM1UNAQ">信息和设置</span></li>
-    									<li id="aria-id-28244063663" role="menuitem"><span onclick=";window.location.href=this.getAttribute('href');return false;" class="vm-video-enhancements yt-uix-button-menu-item" href="/enhance?feature=vm&amp;v=x3Z0PM1UNAQ">增强功能</span></li>
-    									<li id="aria-id-98013261162" role="menuitem"><span onclick=";window.location.href=this.getAttribute('href');return false;" class="vm-video-audio yt-uix-button-menu-item" href="/audio?feature=vm&amp;v=x3Z0PM1UNAQ">音频</span></li>
-    									<li id="aria-id-48382611461" role="menuitem"><span onclick=";window.location.href=this.getAttribute('href');return false;" class="vm-video-annotations yt-uix-button-menu-item" href="/my_videos_annotate?feature=vm&amp;v=x3Z0PM1UNAQ">注释功能</span></li>
-    									<li id="aria-id-56752425887" role="menuitem"><span onclick=";window.location.href=this.getAttribute('href');return false;" class="vm-video-captions yt-uix-button-menu-item" href="/my_videos_timedtext?video_id=x3Z0PM1UNAQ&amp;feature=vm">字幕</span></li>
+    									<li id="aria-id-49552044886" role="menuitem"><span  class="vm-video-info-and-settings yt-uix-button-menu-item" href="/my_videos_edit?ns=1&amp;feature=vm&amp;video_id=x3Z0PM1UNAQ">信息和设置</span></li>
+    									<li id="aria-id-28244063663" role="menuitem"><span  class="vm-video-enhancements yt-uix-button-menu-item" href="/enhance?feature=vm&amp;v=x3Z0PM1UNAQ">增强功能</span></li>
+    									<li id="aria-id-98013261162" role="menuitem"><span  class="vm-video-audio yt-uix-button-menu-item" href="/audio?feature=vm&amp;v=x3Z0PM1UNAQ">音频</span></li>
+    									<li id="aria-id-48382611461" role="menuitem"><span  class="vm-video-annotations yt-uix-button-menu-item" href="/my_videos_annotate?feature=vm&amp;v=x3Z0PM1UNAQ">注释功能</span></li>
+    									<li id="aria-id-56752425887" role="menuitem"><span  class="vm-video-captions yt-uix-button-menu-item" href="/my_videos_timedtext?video_id=x3Z0PM1UNAQ&amp;feature=vm">字幕</span></li>
     								</ul>
     								</button></span>
     							</div>
@@ -252,7 +252,7 @@
     							<span class="vm-video-metric video-view-count">
     							<span>
     							<span class="vm-video-metric-icon">
-    							<img alt="" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+    							<img alt="" src= "<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
     							</span>
     							<span class="vm-video-metric-value">6</span>
     							</span>
@@ -260,7 +260,7 @@
     							<span class="vm-video-metric video-likes-count">
     							<span>
     							<span class="vm-video-metric-icon">
-    							<img alt="" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+    							<img alt="" src= "<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
     							</span>
     							<span class="vm-video-metric-value">0</span>
     							</span>
@@ -268,7 +268,7 @@
     							<span class="vm-video-metric video-dislikes-count">
     							<span>
     							<span class="vm-video-metric-icon">
-    							<img alt="" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+    							<img alt="" src= "<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
     							</span>
     							<span class="vm-video-metric-value">0</span>
     							</span>
@@ -278,7 +278,7 @@
     							<span class="vm-video-metric video-comments">
     							<span>
     							<span class="vm-video-metric-icon">
-    							<img alt="" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+    							<img alt="" src= "<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
     							</span>
     							<span class="vm-video-metric-value">0</span>
     							</span>
@@ -320,7 +320,7 @@
     							<span class="vm-video-metric video-view-count">
     							<span title="观看次数" class="yt-uix-tooltip">
     							<span class="vm-video-metric-icon">
-    							<img alt="观看次数" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+    							<img alt="观看次数" src= "<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
     							</span>
     							<span class="vm-video-metric-value">78,106</span>
     							</span>
@@ -328,7 +328,7 @@
     							<span class="vm-video-metric video-likes-count">
     							<span title="顶过的人数" class="yt-uix-tooltip">
     							<span class="vm-video-metric-icon">
-    							<img alt="顶过的人数" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+    							<img alt="顶过的人数" src= "<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
     							</span>
     							<span class="vm-video-metric-value">550</span>
     							</span>
@@ -336,7 +336,7 @@
     							<span class="vm-video-metric video-dislikes-count">
     							<span title="踩" class="yt-uix-tooltip">
     							<span class="vm-video-metric-icon">
-    							<img alt="踩" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+    							<img alt="踩" src= "<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
     							</span>
     							<span class="vm-video-metric-value">47</span>
     							</span>
@@ -344,7 +344,7 @@
     							<span class="vm-video-metric video-comments">
     							<span title="评论数" class="yt-uix-tooltip">
     							<span class="vm-video-metric-icon">
-    							<img alt="评论数" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+    							<img alt="评论数" src= "<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
     							</span>
     							<span class="vm-video-metric-value">238</span>
     							</span>
@@ -386,7 +386,7 @@
     							<span class="vm-video-metric video-view-count">
     							<span title="观看次数" class="yt-uix-tooltip">
     							<span class="vm-video-metric-icon">
-    							<img alt="观看次数" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+    							<img alt="观看次数" src= "<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
     							</span>
     							<span class="vm-video-metric-value">1,078</span>
     							</span>
@@ -394,7 +394,7 @@
     							<span class="vm-video-metric video-likes-count">
     							<span title="顶过的人数" class="yt-uix-tooltip">
     							<span class="vm-video-metric-icon">
-    							<img alt="顶过的人数" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+    							<img alt="顶过的人数" src= "<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
     							</span>
     							<span class="vm-video-metric-value">12</span>
     							</span>
@@ -402,7 +402,7 @@
     							<span class="vm-video-metric video-dislikes-count">
     							<span title="踩" class="yt-uix-tooltip">
     							<span class="vm-video-metric-icon">
-    							<img alt="踩" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+    							<img alt="踩" src= "<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
     							</span>
     							<span class="vm-video-metric-value">0</span>
     							</span>
@@ -410,7 +410,7 @@
     							<span class="vm-video-metric video-comments">
     							<span title="评论数" class="yt-uix-tooltip">
     							<span class="vm-video-metric-icon">
-    							<img alt="评论数" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+    							<img alt="评论数" src= "<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
     							</span>
     							<span class="vm-video-metric-value">0</span>
     							</span>
@@ -452,7 +452,7 @@
     							<span class="vm-video-metric video-view-count">
     							<span title="观看次数" class="yt-uix-tooltip">
     							<span class="vm-video-metric-icon">
-    							<img alt="观看次数" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+    							<img alt="观看次数" src= "<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
     							</span>
     							<span class="vm-video-metric-value">156</span>
     							</span>
@@ -460,7 +460,7 @@
     							<span class="vm-video-metric video-likes-count">
     							<span title="顶过的人数" class="yt-uix-tooltip">
     							<span class="vm-video-metric-icon">
-    							<img alt="顶过的人数" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+    							<img alt="顶过的人数" src= "<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
     							</span>
     							<span class="vm-video-metric-value">0</span>
     							</span>
@@ -468,7 +468,7 @@
     							<span class="vm-video-metric video-dislikes-count">
     							<span title="踩" class="yt-uix-tooltip">
     							<span class="vm-video-metric-icon">
-    							<img alt="踩" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+    							<img alt="踩" src= "<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
     							</span>
     							<span class="vm-video-metric-value">0</span>
     							</span>
@@ -476,7 +476,7 @@
     							<span class="vm-video-metric video-comments">
     							<span title="评论数" class="yt-uix-tooltip">
     							<span class="vm-video-metric-icon">
-    							<img alt="评论数" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+    							<img alt="评论数" src= "<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
     							</span>
     							<span class="vm-video-metric-value">0</span>
     							</span>
@@ -517,7 +517,7 @@
     							<span class="vm-video-metric video-view-count">
     							<span title="观看次数" class="yt-uix-tooltip">
     							<span class="vm-video-metric-icon">
-    							<img alt="观看次数" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+    							<img alt="观看次数" src= "<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
     							</span>
     							<span class="vm-video-metric-value">5,100</span>
     							</span>
@@ -525,7 +525,7 @@
     							<span class="vm-video-metric video-likes-count">
     							<span title="顶过的人数" class="yt-uix-tooltip">
     							<span class="vm-video-metric-icon">
-    							<img alt="顶过的人数" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+    							<img alt="顶过的人数" src= "<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
     							</span>
     							<span class="vm-video-metric-value">29</span>
     							</span>
@@ -533,7 +533,7 @@
     							<span class="vm-video-metric video-dislikes-count">
     							<span title="踩" class="yt-uix-tooltip">
     							<span class="vm-video-metric-icon">
-    							<img alt="踩" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+    							<img alt="踩" src= "<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
     							</span>
     							<span class="vm-video-metric-value">3</span>
     							</span>
@@ -541,7 +541,7 @@
     							<span class="vm-video-metric video-comments">
     							<span title="评论数" class="yt-uix-tooltip">
     							<span class="vm-video-metric-icon">
-    							<img alt="评论数" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+    							<img alt="评论数" src= "<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
     							</span>
     							<span class="vm-video-metric-value">7</span>
     							</span>

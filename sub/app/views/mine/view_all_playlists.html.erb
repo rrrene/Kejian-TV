@@ -12,7 +12,7 @@
   	<div class="ytg-fl " id="yt-admin-content">
   		<div class="clearfix" id="vm-page-subheader">
   			<div class="vm-page-subheader-content">
-  				<h3>播放列表</h3>
+  				<h3>课件锦囊</h3>
   				<span class="yt-badge-vm" id="vm-num-videos-shown">4</span>
   			</div>
   		</div>
@@ -20,17 +20,17 @@
   			<div id="vm-video-actions-inner">
   				<span id="vm-playlist-sort-bar">
   				<span id="vm-view-filter-label">观看：</span>
-  				<button aria-activedescendant="" aria-haspopup="true" aria-expanded="false" aria-pressed="false" role="button" class=" yt-uix-button yt-uix-button-text" onclick=";return false;" id="vm-playlist-sort-btn" type="button" aria-labelledby="vm-view-filter-label"><span class="yt-uix-button-content">最新创建 </span><img alt="" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" class="yt-uix-button-arrow">
+  				<button aria-activedescendant="" aria-haspopup="true" aria-expanded="false" aria-pressed="false" role="button" class=" yt-uix-button yt-uix-button-text"  id="vm-playlist-sort-btn" type="button" aria-labelledby="vm-view-filter-label"><span class="yt-uix-button-content">最新创建 </span><img alt="" src= "<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="yt-uix-button-arrow">
   				<ul style="display: none;" aria-haspopup="true" role="menu" class=" yt-uix-button-menu yt-uix-button-menu-text">
-  					<li id="aria-id-37500572823" role="menuitem"><span class=" yt-uix-button-menu-item" onclick=";window.location.href=this.getAttribute('href');return false;" id="vm-sort-newest" href="?sf=time&amp;sa=1">最新创建</span></li>
-  					<li id="aria-id-56296629171" role="menuitem"><span class=" yt-uix-button-menu-item" onclick=";window.location.href=this.getAttribute('href');return false;" id="vm-sort-oldest" href="?sf=time&amp;sa=0">最早创建</span></li>
-  					<li id="aria-id-4294472285" role="menuitem"><span class=" yt-uix-button-menu-item" onclick=";window.location.href=this.getAttribute('href');return false;" id="vm-sort-az" href="?sf=name&amp;sa=0">A-Z</span></li>
-  					<li id="aria-id-63668656227" role="menuitem"><span class=" yt-uix-button-menu-item" onclick=";window.location.href=this.getAttribute('href');return false;" id="vm-sort-za" href="?sf=name&amp;sa=1">Z-A</span></li>
+  					<li id="aria-id-37500572823" role="menuitem"><span class=" yt-uix-button-menu-item"  id="vm-sort-newest" href="?sf=time&amp;sa=1">最新创建</span></li>
+  					<li id="aria-id-56296629171" role="menuitem"><span class=" yt-uix-button-menu-item"  id="vm-sort-oldest" href="?sf=time&amp;sa=0">最早创建</span></li>
+  					<li id="aria-id-4294472285" role="menuitem"><span class=" yt-uix-button-menu-item"  id="vm-sort-az" href="?sf=name&amp;sa=0">A-Z</span></li>
+  					<li id="aria-id-63668656227" role="menuitem"><span class=" yt-uix-button-menu-item"  id="vm-sort-za" href="?sf=name&amp;sa=1">Z-A</span></li>
   				</ul>
   				</button>
   				</span>
   				<div id="vm-playlist-div">
-  					<button role="button" data-button-menu-id="vm-dialog-new-playlist" class=" yt-uix-button yt-uix-button-default" onclick=";return false;" id="vm-new-playlist" type="button"><span class="yt-uix-button-content">+ 新建播放列表 </span><img alt="" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" class="yt-uix-button-arrow"></button>
+  					<button role="button" data-button-menu-id="vm-dialog-new-playlist" class=" yt-uix-button yt-uix-button-default"  id="vm-new-playlist" type="button"><span class="yt-uix-button-content">+ 新建课件锦囊 </span><img alt="" src= "<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="yt-uix-button-arrow"></button>
   				</div>
   			</div>
   		</div>
@@ -38,19 +38,19 @@
   			<div id="vm-new-playlist-notifs">
   			</div>
   			<p>
-  				 播放列表标题
+  				 课件锦囊标题
   			</p>
   			<p>
   				<span class="text yt-uix-form-input-container"><input type="text" maxlength="255" id="vm-new-playlist-title-field" class="yt-uix-form-input-text "></span>
   			</p>
   			<p>
-  				 播放列表说明
+  				 课件锦囊说明
   			</p>
   			<p>
   				<span class="yt-uix-form-input-container text"><textarea rows="6" id="vm-new-playlist-desc-field" class="yt-uix-form-textarea "></textarea></span>
   			</p>
   			<p>
-  				<button role="button" class=" yt-uix-button yt-uix-button-default" onclick=";return false;" id="vm-new-playlist-save" type="button"><span class="yt-uix-button-content">创建播放列表 </span></button>
+  				<button role="button" class=" yt-uix-button yt-uix-button-default"  id="vm-new-playlist-save" type="button"><span class="yt-uix-button-content">创建课件锦囊 </span></button>
   				<a id="vm-new-playlist-cancel">
   				取消 </a>
   			</p>
@@ -72,7 +72,7 @@
   							<span class="vm-pl-title-badges">
   							<a href="/playlist?list=PLU8P_aKcvc6f77n7dAuB7YcpFSSL8kV4D&amp;action_edit=1&amp;feature=view_all">
   							<span title="公开" class="vm-video-privacy vm-public yt-uix-tooltip yt-uix-tooltip-reverse">
-  							<img alt="公开" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+  							<img alt="公开" src= "<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
   							</span>
   							</a>
   							</span>
@@ -82,7 +82,7 @@
   						</div>
   					</div>
   					<div class="vm-pl-edit">
-  						<button role="button" onclick=";window.location.href=this.getAttribute('href');return false;" class=" yt-uix-button yt-uix-button-default" type="button" href="/playlist?list=PLU8P_aKcvc6f77n7dAuB7YcpFSSL8kV4D&amp;action_edit=1&amp;feature=view_all"><span class="yt-uix-button-content">修改 </span></button>
+  						<button role="button"  class=" yt-uix-button yt-uix-button-default" type="button" href="/playlist?list=PLU8P_aKcvc6f77n7dAuB7YcpFSSL8kV4D&amp;action_edit=1&amp;feature=view_all"><span class="yt-uix-button-content">修改 </span></button>
   					</div>
   				</div>
   				</li>
@@ -90,9 +90,9 @@
   				<div class="vm-video-item-content">
   					<div class="vm-pl-thumbs">
   						<a data-sessionlink="ei=COeKveTNgrMCFdmGIQodlAbXuw%3D%3D&amp;feature=view_all" class="yt-uix-sessionlink" href="/watch?v=nsrsFkOClVg&amp;list=PLU8P_aKcvc6dboIXEKcGeRMirE3sY4Eth&amp;feature=view_all">
-  						<span class="playlist-thumb-strip playlist-thumb-strip-350"><span class="videos videos-1 vertical-cutoff"><span class="clip"><span class="centering-offset"><span class="centering"><span class="ie7-vertical-align-hack">&nbsp;</span><img class="thumb" alt="" src="//i2.ytimg.com/vi/eO4V45qp_jU/hqdefault.jpg"></span></span></span></span><span class="resting-overlay"><img alt="Play all" class="play-button" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif"><span class="video-count-box">
-  						3 个视频 </span>
-  						</span><span class="hover-overlay"><span class="play-all-container"><strong><img alt="" src="//s.ytimg.com/yt/img/ui/playlist_thumb_strip/mini-play-all-vflZu1SBs.png">全部播放</strong></span></span></span>
+  						<span class="playlist-thumb-strip playlist-thumb-strip-350"><span class="videos videos-1 vertical-cutoff"><span class="clip"><span class="centering-offset"><span class="centering"><span class="ie7-vertical-align-hack">&nbsp;</span><img class="thumb" alt="" src="//i2.ytimg.com/vi/eO4V45qp_jU/hqdefault.jpg"></span></span></span></span><span class="resting-overlay"><img alt="Play all" class="play-button" src= "<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>"><span class="video-count-box">
+  						3 个课件 </span>
+  						</span><span class="hover-overlay"><span class="play-all-container"><strong><img alt="" src= "<%=asset_path('yt/img/ui/playlist_thumb_strip/mini-play-all-vflZu1SBs.png')%>">全部播放</strong></span></span></span>
   						</a>
   					</div>
   					<div class="vm-pl-item-inner-content">
@@ -103,7 +103,7 @@
   							<span class="vm-pl-title-badges">
   							<a href="/playlist?list=PLU8P_aKcvc6dboIXEKcGeRMirE3sY4Eth&amp;action_edit=1&amp;feature=view_all">
   							<span title="公开" class="vm-video-privacy vm-public yt-uix-tooltip yt-uix-tooltip-reverse">
-  							<img alt="公开" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+  							<img alt="公开" src= "<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
   							</span>
   							</a>
   							</span>
@@ -112,7 +112,7 @@
   						</div>
   					</div>
   					<div class="vm-pl-edit">
-  						<button role="button" onclick=";window.location.href=this.getAttribute('href');return false;" class=" yt-uix-button yt-uix-button-default" type="button" href="/playlist?list=PLU8P_aKcvc6dboIXEKcGeRMirE3sY4Eth&amp;action_edit=1&amp;feature=view_all"><span class="yt-uix-button-content">修改 </span></button>
+  						<button role="button"  class=" yt-uix-button yt-uix-button-default" type="button" href="/playlist?list=PLU8P_aKcvc6dboIXEKcGeRMirE3sY4Eth&amp;action_edit=1&amp;feature=view_all"><span class="yt-uix-button-content">修改 </span></button>
   					</div>
   				</div>
   				</li>
@@ -120,9 +120,9 @@
   				<div class="vm-video-item-content">
   					<div class="vm-pl-thumbs">
   						<a data-sessionlink="ei=COeKveTNgrMCFdmGIQodlAbXuw%3D%3D&amp;feature=view_all" class="yt-uix-sessionlink" href="/watch?v=nsrsFkOClVg&amp;list=PLU8P_aKcvc6fVyTf04SkjqU4ts3s4E68u&amp;feature=view_all">
-  						<span class="playlist-thumb-strip playlist-thumb-strip-350"><span class="videos videos-1 vertical-cutoff"><span class="clip"><span class="centering-offset"><span class="centering"><span class="ie7-vertical-align-hack">&nbsp;</span><img class="thumb" alt="" src="//i2.ytimg.com/vi/eO4V45qp_jU/hqdefault.jpg"></span></span></span></span><span class="resting-overlay"><img alt="Play all" class="play-button" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif"><span class="video-count-box">
-  						3 个视频 </span>
-  						</span><span class="hover-overlay"><span class="play-all-container"><strong><img alt="" src="//s.ytimg.com/yt/img/ui/playlist_thumb_strip/mini-play-all-vflZu1SBs.png">全部播放</strong></span></span></span>
+  						<span class="playlist-thumb-strip playlist-thumb-strip-350"><span class="videos videos-1 vertical-cutoff"><span class="clip"><span class="centering-offset"><span class="centering"><span class="ie7-vertical-align-hack">&nbsp;</span><img class="thumb" alt="" src="//i2.ytimg.com/vi/eO4V45qp_jU/hqdefault.jpg"></span></span></span></span><span class="resting-overlay"><img alt="Play all" class="play-button" src= "<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>"><span class="video-count-box">
+  						3 个课件 </span>
+  						</span><span class="hover-overlay"><span class="play-all-container"><strong><img alt="" src= "<%=asset_path('yt/img/ui/playlist_thumb_strip/mini-play-all-vflZu1SBs.png')%>">全部播放</strong></span></span></span>
   						</a>
   					</div>
   					<div class="vm-pl-item-inner-content">
@@ -133,7 +133,7 @@
   							<span class="vm-pl-title-badges">
   							<a href="/playlist?list=PLU8P_aKcvc6fVyTf04SkjqU4ts3s4E68u&amp;action_edit=1&amp;feature=view_all">
   							<span title="公开" class="vm-video-privacy vm-public yt-uix-tooltip yt-uix-tooltip-reverse">
-  							<img alt="公开" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+  							<img alt="公开" src= "<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
   							</span>
   							</a>
   							</span>
@@ -142,7 +142,7 @@
   						</div>
   					</div>
   					<div class="vm-pl-edit">
-  						<button role="button" onclick=";window.location.href=this.getAttribute('href');return false;" class=" yt-uix-button yt-uix-button-default" type="button" href="/playlist?list=PLU8P_aKcvc6fVyTf04SkjqU4ts3s4E68u&amp;action_edit=1&amp;feature=view_all"><span class="yt-uix-button-content">修改 </span></button>
+  						<button role="button"  class=" yt-uix-button yt-uix-button-default" type="button" href="/playlist?list=PLU8P_aKcvc6fVyTf04SkjqU4ts3s4E68u&amp;action_edit=1&amp;feature=view_all"><span class="yt-uix-button-content">修改 </span></button>
   					</div>
   				</div>
   				</li>
@@ -161,7 +161,7 @@
   							<span class="vm-pl-title-badges">
   							<a href="/playlist?list=PLU8P_aKcvc6fQ7FPuggvlHNvz4K7RfWCM&amp;action_edit=1&amp;feature=view_all">
   							<span title="公开" class="vm-video-privacy vm-public yt-uix-tooltip yt-uix-tooltip-reverse">
-  							<img alt="公开" src="//s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif">
+  							<img alt="公开" src= "<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
   							</span>
   							</a>
   							</span>
@@ -171,7 +171,7 @@
   						</div>
   					</div>
   					<div class="vm-pl-edit">
-  						<button role="button" onclick=";window.location.href=this.getAttribute('href');return false;" class=" yt-uix-button yt-uix-button-default" type="button" href="/playlist?list=PLU8P_aKcvc6fQ7FPuggvlHNvz4K7RfWCM&amp;action_edit=1&amp;feature=view_all"><span class="yt-uix-button-content">修改 </span></button>
+  						<button role="button"  class=" yt-uix-button yt-uix-button-default" type="button" href="/playlist?list=PLU8P_aKcvc6fQ7FPuggvlHNvz4K7RfWCM&amp;action_edit=1&amp;feature=view_all"><span class="yt-uix-button-content">修改 </span></button>
   					</div>
   				</div>
   				</li>
