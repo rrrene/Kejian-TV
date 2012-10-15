@@ -89,34 +89,6 @@ class UsersController < ApplicationController
   end
 
   def show
-    @we_are_inside_qa = false    
-    pagination_get_ready    
-    @coursewares = @user.coursewares.normal.order('id desc')
-    pagination_over(@coursewares.count)
-    @coursewares = @coursewares.paginate(:page => @page, :per_page => @per_page)
-    
-    @per_page = 10
-    @logs = []
-    actions=[]
-    times={}
-    logs = Log.where(:user_id => @user.id).where(:action.ne=>"ADD_TOPIC").desc("created_at")
-    logs.each do |log|
-      if ["AskLog","AnswerLog"].include?(log._type) and ["NEW","EDIT"].include?(log.action) and actions.include?(log._type+"_"+log.target_id.to_s) and (log.created_at+2.days)>times[log._type+"_"+log.target_id.to_s]
-      else
-        @logs<<log
-        times[log._type+"_"+log.target_id.to_s]=log.created_at
-        if !actions.include?(log._type+"_"+log.target_id.to_s)
-          actions<<log._type+"_"+log.target_id.to_s
-        end
-      end
-    end
-    @logs=@logs.paginate(:page => params[:page], :per_page => @per_page)
-    set_seo_meta(@user.name)
-    if params[:format] == "js"
-      render "/logs/index.js"
-    end
-    
-    render "show"
   end
 
   def asked

@@ -4101,7 +4101,7 @@ im.zm.autoLayout.prototype = {
         var q = "";
         var a, d;
         J.isSurprise ? d = "price-label small-label-gift" : d = "price-label small-label";
-        a = '<div class="' + d + '"><span class="leftfold png"></span><span class="rightfold png"><a href="/topics/'+picBoard[j].boardId+'"'+(window.psvr_is_ie ? ' style="color:white"' : '')+'>' + picBoard[j].price + "</a></span></div>";
+        a = '<div class="' + d + '"><span class="leftfold png"></span><span class="rightfold png"><a href="/courses/'+picBoard[j].boardId+'"'+(window.psvr_is_ie ? ' style="color:white"' : '')+'>' + picBoard[j].price + "</a></span></div>";
         if (picBoard[j].isSurprise) {
             a = '<div class="' + d + '"><span class="leftfold png"></span><span class="rightfold png">免费中</span></div>'
         }
@@ -4156,7 +4156,7 @@ im.zm.autoLayout.prototype = {
         if (picBoard[j].boardName == "我的收集") {
             q = ['<li class="share-owner cf"><a href="/users/' + picBoard[j].userId + '" class="avatar"><img src="' + picBoard[j].avatarTiny + '"  usercard="' + picBoard[j].userId + '" havecard="1"/></a>', '<div class="cmt-content"><p class="userinfo"><a havecard="1" href="/users/' + picBoard[j].userId + '" usercard="' + picBoard[j].userId + '" class="username changecolor">' + picBoard[j].nickName + "</a> " + F + "收集</p><p>" + v + "</p></div></li>"].join("")
         } else {
-            q = ['<li class="share-owner cf"><a href="/users/' + picBoard[j].userId + '" class="avatar"><img src="' + picBoard[j].avatarTiny + '"  usercard="' + picBoard[j].userId + '" havecard="1"/></a>', '<div class="cmt-content"><p class="userinfo"><a havecard="1" href="/users/' + picBoard[j].userId + '" class="username changecolor" usercard="' + picBoard[j].userId + '">' + picBoard[j].nickName + "</a> " + F + '上传了此课件到课程 <a href="/topics/' + picBoard[j].boardId + '" class="boardname changecolor">' + picBoard[j].boardName + "</a></p><p>" + v + "</p></div></li>"].join("")
+            q = ['<li class="share-owner cf"><a href="/users/' + picBoard[j].userId + '" class="avatar"><img src="' + picBoard[j].avatarTiny + '"  usercard="' + picBoard[j].userId + '" havecard="1"/></a>', '<div class="cmt-content"><p class="userinfo"><a havecard="1" href="/users/' + picBoard[j].userId + '" class="username changecolor" usercard="' + picBoard[j].userId + '">' + picBoard[j].nickName + "</a> " + F + '上传了此课件到课程 <a href="/courses/' + picBoard[j].boardId + '" class="boardname changecolor">' + picBoard[j].boardName + "</a></p><p>" + v + "</p></div></li>"].join("")
         }
         var b;
         if (picBoard[j].userId == loginUser.id) {
@@ -5183,7 +5183,7 @@ window.autoLayout = {
                 } else {
                     surpriseClass = "price-label small-label"
                 }
-                priceCon = '<div class="' + surpriseClass + '"><span class="leftfold png"></span><span class="rightfold png"><a href="/topics/'+picBoard[j].boardId+'"'+(window.psvr_is_ie ? ' style="color:white"' : '')+'>' + picBoard[j].price + "</a></span></div>"
+                priceCon = '<div class="' + surpriseClass + '"><span class="leftfold png"></span><span class="rightfold png"><a href="/courses/'+picBoard[j].boardId+'"'+(window.psvr_is_ie ? ' style="color:white"' : '')+'>' + picBoard[j].price + "</a></span></div>"
                 // if (parseInt(picBoard[j].price)) {
                 //     priceCon = '<div class="' + surpriseClass + '"><span class="leftfold png"></span><span class="rightfold png">¥' + Math.floor(picBoard[j].price) / 100 + "</span></div>"
                 // } else {
@@ -5255,7 +5255,7 @@ window.autoLayout = {
                 } else {
                     shareContent = [
                     '<li class="share-owner cf"><a href="/users/' + picBoard[j].userId + '" class="avatar"><img width="30" height="30" src="' + picBoard[j].avatarTiny + '" /></a>',
-                    '<div class="cmt-content"><p class="userinfo"><a havecard="1" href="/users/' + picBoard[j].userId + '" class="username changecolor" usercard="' + picBoard[j].userId + '">' + picBoard[j].nickName + "</a> " + cel + picBoard[j].timeAgo+'上传了此课件到课程 <a href="/topics/' + picBoard[j].boardId + '" class="boardname changecolor">' + picBoard[j].boardName + "</a>.</p><p>" + isO + "</p></div></li>"
+                    '<div class="cmt-content"><p class="userinfo"><a havecard="1" href="/users/' + picBoard[j].userId + '" class="username changecolor" usercard="' + picBoard[j].userId + '">' + picBoard[j].nickName + "</a> " + cel + picBoard[j].timeAgo+'上传了此课件到课程 <a href="/courses/' + picBoard[j].boardId + '" class="boardname changecolor">' + picBoard[j].boardName + "</a>.</p><p>" + isO + "</p></div></li>"
                     ].join("")
                 }
                 var _action;

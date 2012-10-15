@@ -59,7 +59,7 @@ class CoursewaresController < ApplicationController
     elsif '2'==params['queryOrder']
       @coursewares = @coursewares.desc('views_count')
     end
-    @coursewares = @coursewares.where(:user_id=>params[:user_id]) if params[:user_id]
+    @coursewares = @coursewares.where(:teacher=>params[:teacher]) if params[:teacher]
     @coursewares = @coursewares.where(:topics=>params[:topic]) if params[:topic]
   end
   def thank
