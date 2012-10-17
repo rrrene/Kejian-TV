@@ -45,7 +45,70 @@ Sub::Application.configure do
   config.assets.compress = true
   config.assets.css_compressor = 'sass-rails'
   config.assets.js_compressor = :uglifier
-  config.assets.precompile += ['ktv/embed.js','ui_orig.js','modernizr.js','pre_application.js','pre_application.css','for_help/application.js','for_help/application.css','for_help/cpanel.js','for_help/cpanel.css','for_help/topics.js','for_help/html5.js','for_help/cpanel_oauth.css','for_help/cpanel_oauth.js','for_help/validationEngine.js','for_help/keditor/kindeditor.js','for_help/jquery.tipsy.js','jquery.tipsy.css','ktv/__ytb.css','ktv/ie.css','ktv/__flo.css']
+  config.assets.precompile += %w{
+    ktv/embed.js
+    ui_orig.js
+    modernizr.js
+    pre_application.js
+    pre_application.css
+    for_help/application.js
+    for_help/application.css
+    for_help/cpanel.js
+    for_help/cpanel.css
+    for_help/topics.js
+    for_help/html5.js
+    for_help/cpanel_oauth.css
+    for_help/cpanel_oauth.js
+    for_help/validationEngine.js
+    for_help/keditor/kindeditor.js
+    for_help/jquery.tipsy.js
+    jquery.tipsy.css
+    ktv/__ytb.css
+    ktv/ie.css
+    ktv/__flo.css
+    ktv/ie7.css
+    ktv/ie6.css
+    css_ie.css
+    jquery.ui.autocomplete.js
+    ktv/ie/application.js
+    ktv/ie/application.css
+    ktv/embed.js
+    ktv/ppt.css
+    ktv/player_ppt.js
+    ktv/s.player.js
+    ktv/ie.css
+    ktv/ie7.css
+    ktv/ie6.css
+    ktv/__zm_sur.css
+    ktv/__zm_hoth.css
+    ktv/__zm_ban.css
+    ktv/__zm_dar.css
+    ktv/__zm_user.css
+    ktv/__zm_friend.css
+    ktv/__zm_dialog.css
+    ktv/__kug.css
+    ktv/__ytb.css
+    ktv/__ytb_contract.css
+    ktv/__ytb_dashboard.css
+    ktv/__ytb_manager.css
+    ktv/__ytb_playlists.css
+    ktv/__sdk.css
+    ktv/__qua.css
+    kinetic-v4.0.0.js
+
+    cpanel.js
+    cpanel.css
+    topics.js
+    html5.js
+    cpanel_oauth.css
+    cpanel_oauth.js
+    validationEngine.js
+    keditor/*
+    about.css
+    css_ie.css
+    jquery.autocomplete.js
+    jquery.ui.autocomplete.js
+  }.uniq
   # 别忘了同时修改:
   # config/initializers/z_ktv.rb
   config.action_controller.asset_host = 'http://ktv-intrinsic-sub.b0.upaiyun.com'

@@ -108,19 +108,6 @@ Ktv.configure do |config|
   config.upyun_bucket = "ktv-pic"
   config.upyun_api_host = 'http://v0.api.upyun.com'
   config.upyun_bucket_domain = "http://ktv-pic.b0.upaiyun.com"
-  config.school_new = Time.new(Setting.school_new[0],Setting.school_new[1],Setting.school_new[2])
-  config.school_exam = Time.new(Setting.school_exam[0],Setting.school_exam[1],Setting.school_exam[2])
-  config.school_over = Time.new(Setting.school_over[0],Setting.school_over[1],Setting.school_over[2])
-  # logo_info = `identify "#{Rails.root}/app/assets/images/logo_ktv_#{Setting.ktv_sub}.png"`
-  # if logo_info=~/PNG (\d+)x(\d+)/
-  #   config.logo_ktv_width = $1.to_i
-  #   config.logo_ktv_height = $2.to_i
-  # end
-  # logo_info = `identify "#{Rails.root}/app/assets/images/logo_#{Setting.ktv_sub}.png"`
-  # if logo_info=~/PNG (\d+)x(\d+)/
-  #   config.logo_width = $1.to_i
-  #   config.logo_height = $2.to_i
-  # end
 end
 
 

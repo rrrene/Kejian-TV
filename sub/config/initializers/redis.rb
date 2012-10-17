@@ -34,6 +34,8 @@ def redis_connect!(index=0)
       Redis::Namespace.new('resque', :redis => redis)
     end
   end
+  Sidekiq.const_set('VERSION',"#{Sidekiq::VERSION}-#{Rails.env}")
+
   select+=1
 
 

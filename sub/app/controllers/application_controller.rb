@@ -75,7 +75,6 @@ class ApplicationController < ActionController::Base
     @is_ie8 = (agent.index('msie 8')!=nil)
     @is_ie9 = (agent.index('msie 9')!=nil)
     @is_ie10 = (agent.index('msie 10')!=nil)
-    @bg_index = rand(Setting.fotos.count)
     @is_mobile = ActiveRecord::ConnectionAdapters::Column.value_to_boolean(request.user_agent =~ /Mobile|webOS/)
   end
   def xookie
