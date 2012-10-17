@@ -21,14 +21,14 @@ namespace :precompile do
     # psvr overriding
     return if false==digest
     puts "PreCompiling with Rails.env=#{Rails.env}"
-    target = File.join(Rails.public_path, "../../_assets_sub")
+    target = File.join(Rails.public_path, "../../_assets_sub_newone")
     config.assets.prefix = ''
     config.action_controller.asset_host = ''
     # --------------
     compiler = Sprockets::StaticCompiler.new(env,
                                              target,
                                              config.assets.precompile,
-                                             :manifest_path => config.assets.manifest,
+                                             :manifest_path => target,
                                              :digest => config.assets.digest,
                                              :manifest => digest.nil?)
     compiler.compile

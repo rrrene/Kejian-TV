@@ -1,5 +1,13 @@
 # -*- encoding : utf-8 -*-
-worker_processes 1
+psvr_worker_processes=case ENV['RAILS_ENV']
+when 'sub_ibeike'
+  4
+when 'sub_cnu'
+  2
+else
+  1
+end
+worker_processes psvr_worker_processes
 working_directory Dir.pwd
 listen "/web/ktv_#{ENV['RAILS_ENV']}.sock", :backlog => 64
 timeout 30

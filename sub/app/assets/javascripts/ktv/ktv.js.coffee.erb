@@ -5,13 +5,6 @@
   KTV.search_cache = {}
   KTV.sss_term_cache = {}
 
-  KTV.logo_css_src0 = window.psvr_asset_host+'/logo_ktv_'+window.psvr_subject+'.png'
-  KTV.logo_css_src1 = window.psvr_asset_host+'/logo_ktv_'+window.psvr_subject+'_hover.png'
-  
-  KTV.browsetext_css_src1 = window.psvr_asset_host+'/browsetext_hover.png'
-  KTV.browsetext_css_src0 = window.psvr_asset_host+'/browsetext.png'
-  KTV.addtext_css_src1 = window.psvr_asset_host+'/ie/addtext_hover.png'
-  KTV.addtext_css_src0 = window.psvr_asset_host+'/ie/addtext.png'
   KTV.sss_escape = (str) ->
     ret=encodeURI(str);
     ret=ret.split('!').join('%21');
@@ -251,13 +244,6 @@
       $('<img/>')[0].src = this
     )
 
-  KTV.preload([
-    KTV.logo_css_src1,
-    KTV.browsetext_css_src1,
-    KTV.browsetext_css_src1,
-    window.psvr_asset_host+'/edit_hover.png'
-  ])
-
   KTV.search_move = (dir) ->
     current_which = $("#core_search_ul li.selected").first()
     next_which = current_which.next('li')
@@ -449,19 +435,25 @@
         false
       )
     $("#core_logotext_wrap").hover(->
-      $("#core_logotext").attr "src", KTV.logo_css_src1
+      if KTV.logo_css_src1
+        $("#core_logotext").attr "src", KTV.logo_css_src1
     , ->
-      $("#core_logotext").attr "src", KTV.logo_css_src0
+      if KTV.logo_css_src0
+        $("#core_logotext").attr "src", KTV.logo_css_src0
     )
     $("#core_browsetext_wrap").hover(->
-      $("#core_browsetext").attr "src", KTV.browsetext_css_src1
+      if KTV.browsetext_css_src1
+        $("#core_browsetext").attr "src", KTV.browsetext_css_src1
     , ->
-      $("#core_browsetext").attr "src", KTV.browsetext_css_src0
+      if KTV.browsetext_css_src0
+        $("#core_browsetext").attr "src", KTV.browsetext_css_src0
     )
     $("#core_addtext_wrap").hover(->
-      $("#core_addtext").attr "src", KTV.addtext_css_src1
+      if KTV.addtext_css_src1
+        $("#core_addtext").attr "src", KTV.addtext_css_src1
     , ->
-      $("#core_addtext").attr "src", KTV.addtext_css_src0
+      if KTV.addtext_css_src0
+        $("#core_addtext").attr "src", KTV.addtext_css_src0
     )
     $('.question-summary').hover(->
       $('.vspiic',this).show()

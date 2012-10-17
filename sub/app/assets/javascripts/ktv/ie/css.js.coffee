@@ -22,7 +22,9 @@ App.headnav_css = ->
 
 App.logo_css = ->
   $('#logolink').hover(->
-    $('#logotext').attr('src',App.logo_css_src1)
+    if App.logo_css_src1
+      $('#logotext').attr('src',App.logo_css_src1)
   ,->
-    $('#logotext').attr('src',App.logo_css_src0)
+    if App.logo_css_src0
+      $('#logotext').attr('src',App.logo_css_src0)
   )

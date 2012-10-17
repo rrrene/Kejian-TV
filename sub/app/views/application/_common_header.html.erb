@@ -1,7 +1,9 @@
 <script type="text/javascript" charset="utf-8">
 <% if $psvr_really_production %>
-  window.psvr_asset_host = 'http://ktv-intrinsic.b0.upaiyun.com';
+  window.psvr_really_production = true;
+  window.psvr_asset_host = 'http://ktv-intrinsic-sub.b0.upaiyun.com';
 <% else %>
+  window.psvr_really_production = false;
   window.psvr_asset_host = '/assets';
 <% end %>
   window.psvr_subject = '<%= Setting.ktv_sub %>';  
@@ -47,4 +49,25 @@ var STYLEID = '1',
     REPORTURL = <%=raw Base64.encode64(request.url).gsub("\n",'').to_json%>,
     SITEURL = 'http://<%= Setting.ktv_subdomain %>/',
     JSPATH = '/simple/static/js/';
+<% content_for :butt2 do %>
+  if(typeof(KTV)!="undefined"){
+    KTV.logo_css_src0 = '<%=asset_path('logo_ktv_'+Setting.ktv_sub+'.png')%>';
+    KTV.logo_css_src1 = '<%=asset_path('logo_ktv_'+Setting.ktv_sub+'_hover.png')%>';
+    KTV.browsetext_css_src1 = '<%=asset_path('browsetext_hover.png')%>';
+    KTV.browsetext_css_src0 = '<%=asset_path('browsetext.png')%>';
+    KTV.addtext_css_src1 = '<%=asset_path('addtext_hover.png')%>';
+    KTV.addtext_css_src0 = '<%=asset_path('addtext.png')%>';
+    KTV.preload([
+      KTV.logo_css_src1,
+      KTV.browsetext_css_src1,
+      KTV.browsetext_css_src1,
+    ]);
+  }else if(typeof(App)!="undefined"){
+    App.logo_css_src0 = '<%=asset_path('logo_ktv_'+Setting.ktv_sub+'.png')%>';
+    App.logo_css_src1 = '<%=asset_path('logo_ktv_'+Setting.ktv_sub+'_hover.png')%>';
+    App.preload([
+      App.logo_css_src1,
+    ]);
+  }
+<% end %>
 </script>

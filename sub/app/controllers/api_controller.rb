@@ -45,7 +45,7 @@ protected
     body = request.body.read.to_s
     return nil if body.blank?
     begin
-      @body = HashWithIndifferentAccess.new(JSON.parse(body))
+      @body = HashWithIndifferentAccess.new(MultiJson.load(body))
     rescue => e
       @body = nil
     end

@@ -87,7 +87,7 @@ class ApplicationController < ActionController::Base
           cookies[key]=value
         end
       end
-      @_G = JSON.parse(res.to_s)
+      @_G = MultiJson.load(res.to_s)
     else
       @_G= {"uid"=>"35", "username"=>"libo-liu", "adminid"=>"1", 
 "groupid"=>"1", "sid"=>"co6B65", "formhash"=>"c075d4b7", "connectguest"=>0, 
