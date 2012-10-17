@@ -979,7 +979,7 @@ courseware_id: '<%=@courseware.id%>'
                $.ajax({
                  type:"POST",
                  url:'/ajax/create_new_playlist',
-                 data:{'list_title':$('#playlist_wired').val(),'is_private':$('.yt-uix-form-input-select.new-playlist-privacy > select.yt-uix-form-input-select-element > option:selected').val()},
+ data:{'list_title':$('#playlist_wired').val(),'is_private':$('.yt-uix-form-input-select.new-playlist-privacy > select.yt-uix-form-input-select-element > option:selected').val()},
                  dataType:'json'
                }).done(function(data){
                  console.log(data);

@@ -1,0 +1,303 @@
+<% content_for :armpit do %>
+<%= stylesheet_link_tag 'ktv/__ytb' %>
+<%= stylesheet_link_tag 'ktv/__ytb_playlists' %>
+<% end %>
+
+<div class="__ytb" style="margin-top:-22px;padding-top:12px;" dir="ltr">
+<div class=" playlist branded-page" id="page">
+	<div id="sb-wrapper">
+		<div class="sb-card sb-off" id="sb-container">
+			<div class="sb-card-arrow">
+			</div>
+			<div class="sb-card-border">
+				<div class="sb-card-body-arrow">
+				</div>
+				<div id="sb-target" class="sb-card-content">
+				</div>
+			</div>
+		</div>
+		<div class="sb-off" id="sb-onepick-target" style="top: 0px;">
+		</div>
+	</div>
+	<div id="content-container">
+		<!-- begin content -->
+		<div id="content" style="width:970px">
+			<form action="/playlist_edit" method="post" id="playlist-editor-form">
+				<input type="hidden" value="U8P_aKcvc6f77n7dAuB7YcpFSSL8kV4D" name="encrypted_playlist_id">
+				<input type="hidden" value="TuLxhBDIcipyhErrvG8vng043_N8MTM1MDI4NTkwM0AxMzUwMTk5NTAz" name="session_token">
+				<div id="playlist-editor-heading-container">
+					<div class="ytg-box" id="playlist-editor-heading" style="height:32px">
+						<h2>
+            创建课件锦囊
+            </h2>
+						<ul>
+							<li>
+              <button role="button" class="ignore-unsaved-changes yt-uix-button yt-uix-button-default" id="playlist-editor-cancel-button" type="button" onclick=";window.location.href=this.getAttribute('href');return false;" href="<%=cancel_href%>"><span class="yt-uix-button-content">取消 </span></button>
+							</li>
+							<li>
+							<button role="button" class="ignore-unsaved-changes yt-uix-button yt-uix-button-default" id="playlist-editor-save-button" type="submit" onclick=";return true;"><span class="yt-uix-button-content">保存</span></button>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="ytg-base playlist-editor" id="branded-page-default-bg">
+					<div class="ytg-base clearfix" id="branded-page-body-container">
+						<div class="ytg-wide" id="branded-page-header-container" style="width:970px">
+							<div class="ytg-wide ytg-box" id="branded-page-header" style="width:970px">
+								<a href="/user/pmq20" class="profile-thumb">
+								<span class="video-thumb ux-thumb yt-thumb-square-77 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img width="77" alt="Thumbnail" src="https://lh3.googleusercontent.com/-gbIM-7w-RGU/AAAAAAAAAAI/AAAAAAAAAAA/xU_37MxSH_M/s55-c-k/photo.jpg"><span class="vertical-align"></span></span></span></span>
+								</a>
+								<div class="ytg-box">
+									<div class="playlist-info">
+										<div class="header-right">
+											<div class="header-stats ytg-box">
+												<ul>
+													<li class="stat-entry first">
+													<span class="stat-value">0</span>
+													<span class="stat-name">
+													videos </span>
+													</li>
+												</ul>
+											</div>
+										</div>
+										<div class="playlist-reference">
+											<label data-char-limit="60" data-warn-at-chars-remaining="20" data-count-char-by-size="true" class="yt-uix-char-counter">
+											锦囊标题 <span class="remaining-chars input-annotation">还可以输入
+											<span class="yt-uix-char-counter-remaining">60</span> 个字符</span>
+											<span class=" yt-uix-form-input-container"><input maxlength="60" value="aaa" name="name" class="yt-uix-form-input-text text yt-uix-char-counter-input" dir=""></span>
+											</label>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div id="branded-page-body">
+							<div id="playlist-pane-container">
+								<div class="primary-pane">
+									<div class="playlist-actions">
+										<span class="yt-uix-form-input-checkbox-container playlist-select-all"><input type="checkbox" id="playlist-select-all" class="yt-uix-form-input-checkbox" name=""><span class="yt-uix-form-input-checkbox-element"></span></span>
+										<button aria-activedescendant="" aria-haspopup="true" aria-expanded="false" aria-pressed="false" role="button" class="yt-uix-button yt-uix-button-default" onclick=";return false;" id="playlist-edit-actions" type="button" disabled=""><span class="yt-uix-button-content">Actions </span><img alt="" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="yt-uix-button-arrow">
+										<ul style="min-width: 78px; left: 455px; top: 272.45px; display: none;" aria-haspopup="true" role="menu" class="yt-uix-button-menu yt-uix-button-menu-default hid">
+											<li id="aria-id-50073136100" role="menuitem"><span onclick=";return false;" class="playlist-move-items-top yt-uix-button-menu-item">Move to top</span></li>
+											<li id="aria-id-35894647422" role="menuitem"><span onclick=";return false;" class="playlist-move-items-bottom yt-uix-button-menu-item">Move to bottom</span></li>
+											<li id="aria-id-70018134867" role="menuitem"><span onclick=";return false;" class="playlist-delete-items yt-uix-button-menu-item">Remove videos from playlist</span></li>
+										</ul>
+										</button>
+										<button role="button" data-button-toggle="true" class="add-playlist-video-button yt-uix-button yt-uix-button-default yt-uix-button-toggled" id="playlist-add-video" type="button" onclick=";return false;"><span class="yt-uix-button-content">Add video by URL </span></button>
+									</div>
+									<div class="" id="add-playlist-video-dialog">
+										<div id="add-video-success">
+											<div class="yt-alert yt-alert-default yt-alert-success ">
+												<div class="yt-alert-icon">
+													<img alt="Alert icon" class="icon master-sprite" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
+												</div>
+												<div class="yt-alert-buttons">
+												</div>
+												<div role="alert" class="yt-alert-content">
+													<span class="yt-alert-vertical-trick"></span>
+													<div class="yt-alert-message">
+														 Video successfully added!
+													</div>
+												</div>
+											</div>
+										</div>
+										<div id="add-video-failed">
+											<div class="yt-alert yt-alert-default yt-alert-error ">
+												<div class="yt-alert-icon">
+													<img alt="Alert icon" class="icon master-sprite" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
+												</div>
+												<div class="yt-alert-buttons">
+												</div>
+												<div role="alert" class="yt-alert-content">
+												</div>
+											</div>
+										</div>
+										<span class=" yt-uix-form-input-container"><input placeholder="Video URL" class="yt-uix-form-input-text add-video-panel-url label-input-label"></span>
+										<button role="button" onclick=";return false;" class="playlist-add-video-url-button-add yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-content">Add </span></button>
+										<span class="add-video-loader loader" id="add-video-in-progress">
+										<img alt="Adding video..." src="<%=asset_path('yt/img/loader-vflff1Mjj.gif')%>">
+										</span>
+									</div>
+									<div class="playlist-landing">
+										<div class="playlist-empty-message">
+											<div class="yt-alert yt-alert-default yt-alert-warn ">
+												<div class="yt-alert-icon">
+													<img alt="Alert icon" class="icon master-sprite" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
+												</div>
+												<div class="yt-alert-buttons">
+												</div>
+												<div role="alert" class="yt-alert-content">
+													<span class="yt-alert-vertical-trick"></span>
+													<div class="yt-alert-message">
+                            这个锦囊内还没有任何物体.
+													</div>
+												</div>
+											</div>
+										</div>
+										<ol class="playlist-video-items yt-uix-dragdrop" id="playlist-video-items">
+										</ol>
+										<ul class="hid" id="playlist-video-item-templates">
+											<li class="playlist-video-item-interstitial-placeholder">
+											Processing new video… </li>
+										</ul>
+									</div>
+								</div>
+								<div class="secondary-pane">
+									<fieldset data-warn-at-chars-remaining="20" data-char-limit="5000" data-count-char-by-size="true" class="yt-uix-char-counter">
+										<label>
+										<span class="editor-input-header">
+										Description <span class="remaining-chars input-annotation">
+										<span class="yt-uix-char-counter-remaining">4997</span> characters remaining </span>
+										</span>
+										<span class="yt-uix-form-input-container "><textarea rows="6" maxlength="5000" name="description" class="yt-uix-form-textarea yt-uix-char-counter-input">bbb</textarea></span>
+										</label>
+									</fieldset>
+									<hr class="yt-horizontal-rule ">
+									<fieldset id="playlist-privacy-setting">
+										<h3>
+										公开程度 </h3>
+										<ul>
+											<li>
+											<label>
+											<span class="yt-uix-form-input-radio-container checked"><input type="radio" value="0" id="playlist-privacy-public-radio-button" checked="checked" class="yt-uix-form-input-radio" name="is_private"><span class="yt-uix-form-input-radio-element"></span></span>
+											公共 </label>
+											</li>
+											<li>
+											<label>
+											<span class="yt-uix-form-input-radio-container "><input type="radio" value="1" id="playlist-privacy-private-radio-button" class="yt-uix-form-input-radio" name="is_private"><span class="yt-uix-form-input-radio-element"></span></span>
+											私有 </label>
+											</li>
+										</ul>
+									</fieldset>
+									<hr class="yt-horizontal-rule ">
+									<fieldset id="playlist-other-settings">
+										<h3>
+										设置 </h3>
+										<div class="checkbox-container active">
+											<span class="yt-uix-form-input-checkbox-container checked"><input type="checkbox" value="1" id="playlist-allow-embedding" checked="checked" class="yt-uix-form-input-checkbox" name="allow_embedding"><span class="yt-uix-form-input-checkbox-element"></span></span>
+											<label for="playlist-allow-embedding">
+											Allow others to embed this playlist </label>
+											<div class="yt-alert yt-alert-naked yt-alert-warn playlist-privacy-warning">
+												<div class="yt-alert-icon">
+													<img alt="Alert icon" class="icon master-sprite" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
+												</div>
+												<div role="alert" class="yt-alert-content">
+													<span class="yt-alert-vertical-trick"></span>
+													<div class="yt-alert-message">
+														 Others will not be able to view this playlist embedded on other sites since this playlist is private.
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="checkbox-container active">
+											<span class="yt-uix-form-input-checkbox-container checked"><input type="checkbox" value="1" id="playlist-allow-ratings" checked="checked" class="yt-uix-form-input-checkbox" name="allow_ratings"><span class="yt-uix-form-input-checkbox-element"></span></span>
+											<label for="playlist-allow-ratings">
+											Allow others to like or dislike this playlist </label>
+											<div class="yt-alert yt-alert-naked yt-alert-warn playlist-privacy-warning">
+												<div class="yt-alert-icon">
+													<img alt="Alert icon" class="icon master-sprite" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
+												</div>
+												<div role="alert" class="yt-alert-content">
+													<span class="yt-alert-vertical-trick"></span>
+													<div class="yt-alert-message">
+														 Others will not be able to like or dislike this playlist since this playlist is private.
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="checkbox-container ">
+											<span class="yt-uix-form-input-checkbox-container "><input type="checkbox" value="1" id="playlist-enable-grid-view" class="yt-uix-form-input-checkbox" name="enable_grid_view"><span class="yt-uix-form-input-checkbox-element"></span></span>
+											<label for="playlist-enable-grid-view">
+											Display this playlist as a grid </label>
+										</div>
+									</fieldset>
+									<hr class="yt-horizontal-rule ">
+									<fieldset id="playlist-delete">
+										<button role="button" onclick=";return false;" class="delete-playlist-button yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-content">Delete Playlist </span></button>
+										<div class="hid" id="delete-playlist-dialog">
+											<p>
+												 Are you sure you want to delete <strong>aaa</strong>?
+											</p>
+											<p>
+												 Note: Deleting playlists is a permanent action and cannot be undone.
+											</p>
+											<button role="button" value="1" class="delete-playlist-confirm ignore-unsaved-changes yt-uix-button yt-uix-button-primary" type="submit" onclick=";return true;" name="action_delete"><span class="yt-uix-button-content">Yes, delete it </span></button>
+											<button role="button" onclick=";return false;" class="delete-playlist-cancel yt-uix-button yt-uix-button-text" type="button"><span class="yt-uix-button-content">cancel </span></button>
+										</div>
+									</fieldset>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+		<!-- end content -->
+	</div>
+	<div data-list-type="QL" data-list-id="" data-video-url="/watch?v=&amp;feature=BFql&amp;playnext=1&amp;list=QL" class="hid passive editable" id="playlist-bar">
+		<div id="playlist-bar-bar-container">
+			<div id="playlist-bar-bar">
+				<div id="playlist-bar-notifications" class="yt-alert yt-alert-naked yt-alert-success hid ">
+					<div class="yt-alert-icon">
+						<img alt="Alert icon" class="icon master-sprite" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
+					</div>
+					<div role="alert" class="yt-alert-content">
+					</div>
+				</div>
+				<span id="playlist-bar-info"><span class="playlist-bar-active playlist-bar-group"><button role="button" class="yt-uix-tooltip yt-uix-tooltip-masked yt-uix-button yt-uix-button-default yt-uix-tooltip yt-uix-button-empty" id="playlist-bar-prev-button" type="button" title="Previous video" onclick=";return false;"><span class="yt-uix-button-icon-wrapper"><img alt="Previous video" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="yt-uix-button-icon yt-uix-button-icon-playlist-bar-prev"><span class="yt-valign-trick"></span></span></button><span class="playlist-bar-count"><span class="playing-index">0</span> / <span class="item-count">0</span></span><button role="button" id="playlist-bar-next-button" onclick=";return false;" class="yt-uix-tooltip yt-uix-tooltip-masked yt-uix-button yt-uix-button-default yt-uix-button-empty" type="button"><span class="yt-uix-button-icon-wrapper"><img alt="" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="yt-uix-button-icon yt-uix-button-icon-playlist-bar-next"><span class="yt-valign-trick"></span></span></button></span><span class="playlist-bar-active playlist-bar-group"><button role="button" data-button-toggle="true" id="playlist-bar-autoplay-button" onclick=";return false;" class="yt-uix-tooltip yt-uix-tooltip-masked yt-uix-button yt-uix-button-default yt-uix-button-empty" type="button"><span class="yt-uix-button-icon-wrapper"><img alt="" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="yt-uix-button-icon yt-uix-button-icon-playlist-bar-autoplay"><span class="yt-valign-trick"></span></span></button><button role="button" data-button-toggle="true" id="playlist-bar-shuffle-button" onclick=";return false;" class="yt-uix-tooltip yt-uix-tooltip-masked yt-uix-button yt-uix-button-default yt-uix-button-empty" type="button"><span class="yt-uix-button-icon-wrapper"><img alt="" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="yt-uix-button-icon yt-uix-button-icon-playlist-bar-shuffle"><span class="yt-valign-trick"></span></span></button></span><span class="playlist-bar-passive playlist-bar-group"><button role="button" class="yt-uix-tooltip yt-uix-tooltip-masked yt-uix-button yt-uix-button-default yt-uix-tooltip yt-uix-button-empty" id="playlist-bar-play-button" type="button" title="Play videos" onclick=";return false;"><span class="yt-uix-button-icon-wrapper"><img alt="Play videos" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="yt-uix-button-icon yt-uix-button-icon-playlist-bar-play"><span class="yt-valign-trick"></span></span></button><span class="playlist-bar-count"><span class="item-count">0</span></span></span><span class="yt-uix-button-group" id="playlist-bar-title"><span class="playlist-title">Unsaved Playlist</span></span></span>
+				<a href="#" id="playlist-bar-lists-back">
+				Return to active list </a>
+				<span id="playlist-bar-controls"><span class="playlist-bar-group"><button role="button" id="playlist-bar-toggle-button" onclick=";return false;" class="yt-uix-tooltip yt-uix-tooltip-masked yt-uix-button yt-uix-button-text yt-uix-button-empty" type="button"><span class="yt-uix-button-icon-wrapper"><img alt="" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="yt-uix-button-icon yt-uix-button-icon-playlist-bar-toggle"><span class="yt-valign-trick"></span></span></button></span><span class="playlist-bar-group"><button role="button" data-button-has-sibling-menu="true" data-button-menu-id="playlist-bar-options-menu" onclick=";return false;" class="yt-uix-tooltip yt-uix-tooltip-masked yt-uix-button-reverse flip yt-uix-button yt-uix-button-text" type="button"><span class="yt-uix-button-content">Options </span><img alt="" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="yt-uix-button-arrow"></button></span></span>
+			</div>
+		</div>
+		<div id="playlist-bar-tray-container">
+			<div class="yt-uix-slider yt-uix-slider-fluid" id="playlist-bar-tray">
+				<button onclick="return false;" class="yt-uix-button playlist-bar-tray-button yt-uix-button-default yt-uix-slider-prev"><img alt="Previous video" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="yt-uix-slider-prev-arrow"></button><button onclick="return false;" class="yt-uix-button playlist-bar-tray-button yt-uix-button-default yt-uix-slider-next"><img alt="Next video" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="yt-uix-slider-next-arrow"></button>
+				<div class="yt-uix-slider-body">
+					<div class="yt-uix-slider-slide" id="playlist-bar-tray-content">
+						<ol class="video-list">
+						</ol>
+						<ol id="playlist-bar-help">
+							<li class="empty playlist-bar-help-message">Your list is empty. Add videos to your list using this button: <img class="addto-button-help" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>"><br>
+							 or <a class="load-lists" href="/view_all_playlists">load a different list</a>.</li>
+						</ol>
+					</div>
+					<div class="yt-uix-slider-shade-left">
+					</div>
+					<div class="yt-uix-slider-shade-right">
+					</div>
+				</div>
+			</div>
+			<div id="playlist-bar-save">
+			</div>
+			<div class="dark-lolz" id="playlist-bar-lists">
+			</div>
+			<div id="playlist-bar-loading">
+				<img alt="Loading..." src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>"><span id="playlist-bar-loading-message">Loading...</span><span class="hid" id="playlist-bar-saving-message">Saving...</span>
+			</div>
+			<div data-video-thumb-url="//i4.ytimg.com/vi/__video_encrypted_id__/default.jpg" style="display: none;" id="playlist-bar-template">
+				<!--<li class="playlist-bar-item yt-uix-slider-slide-unit __classes__" data-video-id="__video_encrypted_id__"><a href="__video_url__" title="__video_title__" class="yt-uix-sessionlink" data-sessionlink="ei=COHF_o39_7ICFSgWIQodIyWHGA%3D%3D&amp;feature=BFa"><span class="video-thumb ux-thumb yt-thumb-default-106 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="__video_title__" data-thumb-manual="true" data-thumb="__video_thumb_url__" width="106" ><span class="vertical-align"></span></span></span></span><span class="screen"></span><span class="count"><strong>__list_position__</strong></span><span class="play"><img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>"></span><span class="yt-uix-button yt-uix-button-default delete"><img class="yt-uix-button-icon-playlist-bar-delete" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="Delete"></span><span class="now-playing">Now playing</span><span dir="ltr" class="title"><span>__video_title__  <span class="uploader">by __video_display_name__</span>
+</span></span><span class="dragger"></span></a></li>-->
+			</div>
+			<div style="display: none;" id="playlist-bar-next-up-template">
+				<!--<div class="playlist-bar-next-thumb"><span class="video-thumb ux-thumb yt-thumb-default-74 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img src="//i4.ytimg.com/vi/__video_encrypted_id__/default.jpg" alt="Thumbnail" width="74" ><span class="vertical-align"></span></span></span></span></div>-->
+			</div>
+		</div>
+		<div class="hid" id="playlist-bar-options-menu">
+			<div id="playlist-bar-extras-menu">
+				<ul>
+					<li><span data-action="save" class="yt-uix-button-menu-item">
+					Save as a new playlist </span></li>
+					<li><span data-action="clear" class="yt-uix-button-menu-item">
+					Clear all videos from this list </span></li>
+				</ul>
+			</div>
+			<ul>
+				<li><span data-action="load-lists" class="yt-uix-button-menu-item">
+				Load a different playlist </span></li>
+				<li><span onclick="window.location.href='//support.google.com/youtube/bin/answer.py?answer=146749&amp;hl=en-US'" class="yt-uix-button-menu-item">Learn more</span></li>
+			</ul>
+		</div>
+	</div>
+</div>
+</div>

@@ -64,6 +64,7 @@ Sub::Application.routes.draw do
   post '/ajax/flagcw' => 'ajax#flag_cw'
   post '/ajax/get_dynamic_dingcai' => 'ajax#get_dynamic_dingcai'
   post '/ajax/comment_action' => 'ajax#comment_action'
+  post '/ajax/get_sorted_playlist' => 'ajax#get_sorted_playlist'
   # ---=small=----
   get 'hack/htc'
   get '/welcome/inactive_sign_up'

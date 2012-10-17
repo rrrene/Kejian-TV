@@ -300,7 +300,16 @@ HEREDOC
     end
   end
   def create_new_playlist
-    json = {status:'suc',list_title:params[:list_title],is_private:params[:is_private]}
+    if params[:list_title].blank?
+        json = {status:'failed',list_title:pl.title,id:pl.id.to_s,is_private:pl.privacy.to_s}
+        render json:json
+        return false
+    end
+    pl = PlayList.find_or_create_by(user_id:current_user.id,title:params[:list_title])
+    pl.ua(:desc,params[:desc]) if !params[:desc].blank?
+    pl.ua(:privacy,params[:is_private]) if !params[:is_private].blank?
+    
+    json = {status:'suc',list_title:pl.title,id:pl.id.to_s,is_private:pl.privacy.to_s}
     render json:json
   end
   ### playlist end 
@@ -454,6 +463,21 @@ HEREDOC
     elsif atype == 'unblock'
     elsif atype == 'block'        
     end
+  end
+
+  def get_sorted_playlist
+    uplist = PlayList.where(:user_id => current_user.id,:undestroyable=>false)
+    case params[:sort]
+    when 'vm-sort-newest'
+        uplist = uplist.desc('created_at')
+    when 'vm-sort-oldest'
+        uplist = uplist.asc('created_at')
+    when 'vm-sort-az'
+        uplist = uplist.asc('title_en')        
+    when 'vm-sort-za'
+        uplist = uplist.desc('title_en')   
+    end
+    render file:'mine/_playlist_sort',locals:{uplist:uplist},layout:false
   end
 end
 
