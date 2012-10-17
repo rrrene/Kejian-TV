@@ -282,8 +282,8 @@ HEREDOC
   def add_to_playlist
     #TODO params[:sort] 
     # params[:on_top] true false
-    binding.pry
     ##TODO  list
+    
     json = {status:'suc',title:params[:list_title],comment:'beizhu',time:'123',cw_id:params[:cw_id]}
     cw_event_add_action("添加收藏",'Courseware',cw.id,true)
     render json:json
@@ -478,6 +478,18 @@ HEREDOC
         uplist = uplist.desc('title_en')   
     end
     render file:'mine/_playlist_sort',locals:{uplist:uplist},layout:false
+  end
+  
+  def add_to_playlist_by_url
+      unless (params[:url] =~ URI::regexp).nil?
+        pl = PlayList.find(params[:playlist_id])
+        url = URI.parse(URI.encode(params[:url]))
+        path = url.path
+        path.split('/coursewares/')
+        pl.add_one_thing()
+      else
+          
+      end
   end
 end
 

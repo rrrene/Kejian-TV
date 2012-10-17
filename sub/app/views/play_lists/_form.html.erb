@@ -1,8 +1,9 @@
+<% puser = User.find(playlist.user_id) %>
 <form action="/playlist/<%= playlist.id %>/update" method="post" id="playlist-editor-form">
    <input type="hidden" value="<%= Digest::MD5.hexdigest(playlist.id.to_s+'.liber.'+Digest::MD5.hexdigest(@formhash)) %>" name="encrypted_playlist_id" />
    <input type="hidden" value="<%= @formhash %>" name="form_hash" />
    <div id="playlist-editor-heading-container">
-      <div class="ytg-box" id="playlist-editor-heading" style="height:32px">>
+      <div class="ytg-box" id="playlist-editor-heading" style="height:32px">
          <h2>
             编辑课件锦囊
          </h2>
@@ -20,8 +21,15 @@
       <div class="ytg-base clearfix" id="branded-page-body-container">
          <div class="ytg-wide" id="branded-page-header-container">
             <div class="ytg-wide ytg-box" id="branded-page-header">
-               <a href="/user/libersnail" class="profile-thumb">
-               <span class="video-thumb ux-thumb yt-thumb-square-77 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img width="77" alt="缩略图" src="https://lh5.googleusercontent.com/-8E5EgMGpLTo/AAAAAAAAAAI/AAAAAAAAAAA/Hh1gHr3Vd0M/s55-c-k/photo.jpg" /><span class="vertical-align"></span></span></span></span>
+               <a href="/users/<%= puser.slug %>" class="profile-thumb">
+               <span class="video-thumb ux-thumb yt-thumb-square-77 ">
+                 <span class="yt-thumb-clip">
+                   <span class="yt-thumb-clip-inner">
+                     <img width="77" alt="缩略图" src="<%=dz_avatar_url(puser.id,puser.email,:small)%>" />
+                     <span class="vertical-align"></span>
+                   </span>
+                 </span>
+               </span>
                </a>
                <div class="ytg-box">
                   <div class="playlist-info">
@@ -49,7 +57,7 @@
         								<label data-char-limit="60" data-warn-at-chars-remaining="20" data-count-char-by-size="true" class="yt-uix-char-counter">
                         课件锦囊标题
                         <span class="remaining-chars input-annotation">
-                        剩余字符数：<span class="yt-uix-char-counter-remaining">47</span>
+                        剩余字符数：<span class="yt-uix-char-counter-remaining"><%= 60- playlist.title.length%></span>
                         </span>
                         <span class=" yt-uix-form-input-container"><input maxlength="60" value="<%= Sanitize.clean(playlist.title.gsub(/\n/, ' '), Sanitize::Config::BASIC).html_safe %>" name="name" class="yt-uix-form-input-text text yt-uix-char-counter-input" dir="ltr" /></span>
                         </label>
@@ -62,7 +70,9 @@
             <div id="playlist-pane-container">
                <div class="primary-pane">
                   <div class="playlist-actions">
-                     <span class="yt-uix-form-input-checkbox-container playlist-select-all"><input type="checkbox" id="playlist-select-all" class="yt-uix-form-input-checkbox" name="" /><span class="yt-uix-form-input-checkbox-element"></span></span>
+                     <span class="yt-uix-form-input-checkbox-container playlist-select-all">
+                       <input type="checkbox" id="playlist-select-all" class="yt-uix-form-input-checkbox" name="" />
+                       <span class="yt-uix-form-input-checkbox-element"></span></span>
                      <span class="playlist-quick-sort-container">
                         快速排序方式：
                         <span class="yt-uix-form-input-select ">
@@ -89,14 +99,17 @@
                         </span>
                      </span>
                      <button aria-activedescendant="" aria-haspopup="true" aria-expanded="false" aria-pressed="false" role="button" class=" yt-uix-button yt-uix-button-default" onclick=";return false;" id="playlist-edit-actions" type="button" disabled="true">
-                        <span class="yt-uix-button-content">操作 </span><img alt="" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="yt-uix-button-arrow" />
+                        <span class="yt-uix-button-content">操作 </span>
+                        <img alt="" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="yt-uix-button-arrow" />
                         <ul style="display: none;" aria-haspopup="true" role="menu" class=" yt-uix-button-menu yt-uix-button-menu-default">
                            <li id="aria-id-85323582582" role="menuitem"><span onclick=";return false;" class="playlist-move-items-top yt-uix-button-menu-item">移至顶部</span></li>
                            <li id="aria-id-49263586045" role="menuitem"><span onclick=";return false;" class="playlist-move-items-bottom yt-uix-button-menu-item">移至底部</span></li>
                            <li id="aria-id-9363248079" role="menuitem"><span onclick=";return false;" class="playlist-delete-items yt-uix-button-menu-item">从课件锦囊中删除视频</span></li>
                         </ul>
                      </button>
-                     <button role="button" data-button-toggle="true" class="add-playlist-video-button yt-uix-button yt-uix-button-default" id="playlist-add-video" type="button" onclick=";return false;"><span class="yt-uix-button-content">通过网址添加视频 </span></button>
+                     <button role="button" data-button-toggle="true" class="add-playlist-video-button yt-uix-button yt-uix-button-default" id="playlist-add-video" type="button" onclick=";return false;">
+                       <span class="yt-uix-button-content">通过网址添加视频 </span>
+                     </button>
                   </div>
                   <div class="hid" id="add-playlist-video-dialog">
                      <div id="add-video-success">
@@ -123,7 +136,9 @@
                         </div>
                      </div>
                      <span class=" yt-uix-form-input-container"><input placeholder="视频网址" class="yt-uix-form-input-text add-video-panel-url" /></span>
-                     <button role="button" onclick=";return false;" class="playlist-add-video-url-button-add yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-content">添加 </span></button>
+                     <button role="button" onclick=";return false;" class="playlist-add-video-url-button-add yt-uix-button yt-uix-button-default" type="button">
+                       <span class="yt-uix-button-content">添加 </span>
+                     </button>
                      <span class="add-video-loader loader" id="add-video-in-progress">
                      <img alt="正在添加视频..." src="<%=asset_path('yt/img/loader-vflff1Mjj.gif')%>" />
                      </span>
@@ -131,33 +146,38 @@
                   <div class="playlist-landing">
                      <% if playlist.content.count > 0 %>
                      <ol class="playlist-video-items yt-uix-dragdrop" id="playlist-video-items">
-                       <% playlist.content.each do |item| %>
+                       <% playlist.content.each_with_index do |cwid,index| %>
+                       <% cw = Courseware.find(cwid) %>
+                       <% user = User.find(cw.uploader_id) %>
                         <li data-encrypted-video-id="LS0zMzjAB9A" data-date-uploaded="1350370809" data-view-count="19419" data-framestrip-url="https://i1.ytimg.com/vd?id=LS0zMzjAB9A&amp;w=70&amp;h=67&amp;n=7&amp;sigh=lLaj5s_JkJ19vGkJlckx_FdAmME" data-length-in-seconds="253" class="playlist-video-item yt-uix-dragdrop-draggable-item
 odd">
                            <div class="active display-state">
-                              <input type="hidden" value="LS0zMzjAB9A" name="playlist_video_src_id" />
-                              <input type="hidden" value="56B44F6D10557CC6" name="playlist_video_id" />
-                              <input type="hidden" value="0" name="playlist_video_deleted" class="delete-playlist-video" />
-                              <input type="hidden" value="False" name="playlist_video_is_interstitial" />
-                              <input type="hidden" value="0" name="clip_start" class="playlist-clip-start" />
-                              <input type="hidden" value="0" name="clip_end" class="playlist-clip-end" />
-                              <button role="button" onclick=";return false;" value="before" class="add-interstitial-button-top add-interstitial yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-content">+ 简介 </span></button>
-                              <button role="button" onclick=";return false;" value="after" class="add-interstitial-button-bottom add-interstitial yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-content">+ 简介 </span></button>
-                              <span class="yt-uix-form-input-checkbox-container playlist-video-item-checkbox-container"><input type="checkbox" class="yt-uix-form-input-checkbox playlist-video-item-checkbox" name="" /><span class="yt-uix-form-input-checkbox-element"></span></span>
-                              <span class="playlist-video-item-controls yt-uix-dragdrop-drag-handle">
+                              <input type="hidden" value="<%= cw.id %>" name="playlist_video_id" />
+                              <span class="yt-uix-form-input-checkbox-container playlist-video-item-checkbox-container">
+                                <input type="checkbox" class="yt-uix-form-input-checkbox playlist-video-item-checkbox" name="" />
+                                <span class="yt-uix-form-input-checkbox-element"></span>
                               </span>
+                              <span class="playlist-video-item-controls yt-uix-dragdrop-drag-handle"></span>
                               <span class="playlist-video-item-base-content video-tile">
-                                 <span class="video-index">1</span>
+                                 <span class="video-index"><%= index+1 %></span>
                                  <span class="playlist-video-thumbnail-wrapper current-thumbnail">
                                  <span class="thumb-container">
                                  <span class="ux-thumb-wrap">
-                                 <span class="video-thumb ux-thumb yt-thumb-default-124 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img width="124" alt="缩略图" src="//i1.ytimg.com/vi/LS0zMzjAB9A/default.jpg" /><span class="vertical-align"></span></span></span></span>
+                                 <span class="video-thumb ux-thumb yt-thumb-default-124 ">
+                                   <span class="yt-thumb-clip">
+                                     <span class="yt-thumb-clip-inner">
+                                       <img width="124" alt="缩略图" src="<%= asset_url('cw/'+ cw.ktvid.to_s + '/thumb_slide_0.jpg') %>" />
+                                       <span class="vertical-align">
+                                       </span>
+                                     </span>
+                                   </span>
+                                 </span>
                                  </span>
                                  </span>
                                  <span class="choose-thumbnail-overlay">
                                  <label for="choose-thumbnail-radio-button-0" class="choose-thumbnail-label">
                                  设为缩略图
-                                 <span class="yt-uix-form-input-radio-container playlist-thumbnail-radio-button checked"><input type="radio" value="LS0zMzjAB9A" id="choose-thumbnail-radio-button-0" checked="checked" class="yt-uix-form-input-radio" name="playlist_thumbnail_video_id" /><span class="yt-uix-form-input-radio-element"></span></span>
+                                 <span class="yt-uix-form-input-radio-container playlist-thumbnail-radio-button checked"><input type="radio" value="<%= cw.id %>" id="choose-thumbnail-radio-button-0" checked="checked" class="yt-uix-form-input-radio" name="playlist_thumbnail_video_id" /><span class="yt-uix-form-input-radio-element"></span></span>
                                  </label>
                                  </span>
                                  </span>
@@ -171,31 +191,35 @@ odd">
                                              </div>
                                           </label>
                                           <span class="video-annotation-display">
-                                             <span class="video-thumb ux-thumb yt-thumb-square-28 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img width="28" alt="缩略图" src="https://lh5.googleusercontent.com/-8E5EgMGpLTo/AAAAAAAAAAI/AAAAAAAAAAA/Hh1gHr3Vd0M/s55-c-k/photo.jpg" /><span class="vertical-align"></span></span></span></span>
+                                             <span class="video-thumb ux-thumb yt-thumb-square-28 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img width="28" alt="缩略图" src="<%=dz_avatar_url(user.id,user.email,:middle)%>" /><span class="vertical-align"></span></span></span></span>
                                              <p class="video-annotation-text"></p>
                                           </span>
-                                          <button role="button" title="添加备注" onclick=";return false;" class="playlist-video-item-edit-annotation yt-uix-tooltip yt-uix-button yt-uix-button-default yt-uix-tooltip" type="button"><span class="yt-uix-button-content">  <img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" />
-                                          </span></button>    
+                                          <button role="button" title="添加备注" onclick=";return false;" class="playlist-video-item-edit-annotation yt-uix-tooltip yt-uix-button yt-uix-button-default yt-uix-tooltip" type="button">
+                                            <span class="yt-uix-button-content">  
+                                              <img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" />
+                                            </span>
+                                          </button>    
                                        </div>
                                     </div>
                                     <span class="playlist-video-item-range-container">
-                                    <span class="playlist-video-item-current-range">
-                                    <span class="range-start-time">0:00</span>-<span class="range-end-time">0:00</span>              </span>
-                                    <button role="button" title="调整该视频在此课件锦囊中的开始和结束时间" onclick=";return false;" class="playlist-video-item-edit-range yt-uix-tooltip yt-uix-button yt-uix-button-default yt-uix-tooltip" type="button"><span class="yt-uix-button-content">  <img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" />
-                                    </span></button>
+                                    <button role="button" title="查看该课件" onclick=";return false;" class="playlist-video-item-edit-range yt-uix-tooltip yt-uix-button yt-uix-button-default yt-uix-tooltip" type="button">
+                                      <span class="yt-uix-button-content">  
+                                        <img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" />
+                                      </span>
+                                    </button>
                                     </span>
                                     <span class="video-overview">
                                     <span class="video-title-container">
-                                    <a href="/watch?v=LS0zMzjAB9A&amp;list=cwVgMt75JZIl8IAn3pvah4QkFB2IpKAg">
-                                    <span dir="ltr" class="title video-title ">Kelly Clarkson - Catch My Breath (Official Lyric Video)</span>
+                                    <a href="/coursewares/<%= cw.id %>">
+                                    <span dir="ltr" class="title video-title "><%= cw.title %></span>
                                     </a>
                                     </span>
                                     <span class="video-details">
                                     <span class="video-owner">
-                                    创建者：<span dir="ltr" class="yt-user-name ">kellyclarksonVEVO</span>
+                                    创建者：<span dir="ltr" class="yt-user-name "><a href="/users/<%= User.get_slug cw.uploader_id %>"><%= name_beautify User.get_name(cw.uploader_id)%></a></span>
                                     </span>
                                     <span class="video-view-count">
-                                    观看次数：19,419 次
+                                    观看次数：<%= number_with_delimiter cw.views_count %> 次
                                     </span>
                                     </span>
                                     </span>
@@ -215,7 +239,7 @@ odd">
                        <div class="playlist-empty-message">
                          <div class="yt-alert yt-alert-default yt-alert-warn  ">  
                            <div class="yt-alert-icon">
-                             <img alt="提醒图标" class="icon master-sprite" src="//s.ytimg.com/yts/img/pixel-vfl3z5WfW.gif">
+                             <img alt="提醒图标" class="icon master-sprite" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
                            </div>
                            <div class="yt-alert-buttons"></div><div role="alert" class="yt-alert-content">    
                              <span class="yt-alert-vertical-trick"></span>
@@ -237,12 +261,14 @@ odd">
                   <fieldset data-warn-at-chars-remaining="20" data-char-limit="5000" data-count-char-by-size="true" class="yt-uix-char-counter">
                      <label>
                      <span class="editor-input-header">
-                     锦囊描述
-                     <span class="remaining-chars input-annotation">
-                     剩余字符数：<span class="yt-uix-char-counter-remaining"><%= (5000 - playlist.desc.length).to_s %></span>
+                       锦囊描述
+                       <span class="remaining-chars input-annotation">
+                       剩余字符数：<span class="yt-uix-char-counter-remaining"><%= (5000 - (playlist.desc.blank? ? 0 : playlist.desc.length)).to_s %></span>
+                       </span>
                      </span>
-                     </span>
-                     <span class="yt-uix-form-input-container "><textarea rows="6" maxlength="5000" name="description" class="yt-uix-form-textarea yt-uix-char-counter-input" style="height: 73px;"><%=  Sanitize.clean(playlist.desc.gsub(/\n/, '<br />'), Sanitize::Config::BASIC).html_safe %></textarea></span>
+                       <span class="yt-uix-form-input-container ">
+                         <textarea rows="6" maxlength="5000" name="description" class="yt-uix-form-textarea yt-uix-char-counter-input" style="height: 73px;"><%=  Sanitize.clean(playlist.desc.gsub(/\n/, '<br />'), Sanitize::Config::BASIC).html_safe if !playlist.desc.blank? %></textarea>
+                       </span>
                      </label>
                   </fieldset>
                   <hr class="yt-horizontal-rule" />
@@ -335,3 +361,26 @@ odd">
       </div>
    </div>
 </form>
+
+<script type="text/javascript" charset="utf-8">
+<% content_for :butt2 do %>
+  $('#playlist-add-video').live('click',function(){
+    $(this).toggleClass('yt-uix-button-toggled');
+    $('#add-playlist-video-dialog').toggle().toggleClass('hid');
+  });
+  $('button.playlist-add-video-url-button-add').live('click',function(){
+    $.ajax({
+      url:'/ajax/add_to_playlist_by_url',
+      type:'POST',
+      data:{'url':$('.yt-uix-form-input-text.add-video-panel-url').val(),'playlist_id':'<%= playlist.id %>'},
+      dataType:'json'
+    }).done(function(json){
+      if(json['html']!= undefined){
+        console.log(json['html']);
+      }else if(json['error_message']!=undefined){
+        console.log(json['error_message']);
+      }
+    });
+  });
+<% end %>
+</script>

@@ -8,6 +8,10 @@ module StringExtensions
                     "\r"    => '\n',
                     '"'     => '\\"',
                     "'"     => "\\'" }
+  extend ActiveSupport::Concern
+  included do
+    alias_method :slipt,:split
+  end
   
   # clear unsafe char with url slug
   def safe_slug(spliter = '-',allow_number = true)

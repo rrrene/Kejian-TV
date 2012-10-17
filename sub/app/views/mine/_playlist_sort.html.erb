@@ -10,14 +10,15 @@
 		<a class="yt-uix-sessionlink" href="/coursewares?watch_all=<%= item.id %>">
 		<span class="playlist-thumb-strip playlist-thumb-strip-350">
 		  <span class="videos videos-<%= item.content.count > 6 ? 6 : item.content.count %> vertical-cutoff">
-        <% item.content.each_with_index do |cw,index| %>
+        <% item.content.each_with_index do |id,index| %>
            <% if index > 5 
                 break
              end %>
+             <% cw = Courseware.find(id) %>
 				    <% if item.content.count < 3  
-				          src = asset_url_eb(cw.id.to_s + '/slide_0.jpg')
+				          src = asset_url_eb(cw.ktvid.to_s + '/slide_0.jpg')
 			         else
-			            src = asset_url('cw/'+ cw.id.to_s + '/thumb_slide_0.jpg')
+			            src = asset_url('cw/'+ cw.ktvid.to_s + '/thumb_slide_0.jpg')
 		           end
 				      %>                      
 				    <span class="clip">
