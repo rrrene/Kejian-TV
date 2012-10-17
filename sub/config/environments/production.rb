@@ -18,7 +18,7 @@ Sub::Application.configure do
   # Disable Rails's static asset server (Apache or nginx will already do this)
   config.serve_static_assets = false
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
+  smtp_settings = {
     :address              => 'smtp.gmail.com',
     :port                 => 587,
     :domain               => 'kejian.tv',
@@ -27,6 +27,12 @@ Sub::Application.configure do
     :authentication       => 'plain',
     :enable_starttls_auto => true  
   }
+  config.action_mailer.smtp_settings = smtp_settings
+  config.middleware.use ExceptionNotifier,
+    :email_prefix => "[#{Setting.ktv_sub.upcase}抛出了异常] ",
+    :sender_address => %{"Kejian.TV" <kejian.tv@gmail.com>},
+    :exception_recipients => %w{pmq2001@gmail.com llb0536@gmail.com},
+    :smtp_settings => smtp_settings
   Mongoid.configure do |config|
     config.logger = nil
   end
@@ -39,7 +45,7 @@ Sub::Application.configure do
   config.assets.compress = true
   config.assets.css_compressor = 'sass-rails'
   config.assets.js_compressor = :uglifier
-  config.assets.precompile += ['ktv/embed.js','ui_orig.js','modernizr.js','pre_application.js','pre_application.css','for_help/application.js','for_help/application.css','for_help/cpanel.js','for_help/cpanel.css','for_help/topics.js','for_help/html5.js','for_help/cpanel_oauth.css','for_help/cpanel_oauth.js','for_help/validationEngine.js','for_help/keditor/kindeditor.js','for_help/jquery.tipsy.js','jquery.tipsy.css']
+  config.assets.precompile += ['ktv/embed.js','ui_orig.js','modernizr.js','pre_application.js','pre_application.css','for_help/application.js','for_help/application.css','for_help/cpanel.js','for_help/cpanel.css','for_help/topics.js','for_help/html5.js','for_help/cpanel_oauth.css','for_help/cpanel_oauth.js','for_help/validationEngine.js','for_help/keditor/kindeditor.js','for_help/jquery.tipsy.js','jquery.tipsy.css','ktv/__ytb.css','ktv/ie.css','ktv/__flo.css']
   # 别忘了同时修改:
   # config/initializers/z_ktv.rb
   config.action_controller.asset_host = 'http://ktv-intrinsic-sub.b0.upaiyun.com'

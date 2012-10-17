@@ -36,6 +36,8 @@ class ApplicationController < ActionController::Base
       str += e.message+"\n"+e.backtrace.join("\n")
       str += "\n---------------------------------------------\n"
       $debug_logger.fatal(str)
+      ExceptionNotifier::Notifier.exception_notification(request.env, exception,
+        :data => {:current_user=>current_user}).deliver
     end
     respond_to do |format|
       format.html { render file: "#{Rails.root}/simple/500.html", layout: false, status: 500 }
