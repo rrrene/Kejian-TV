@@ -2,7 +2,7 @@
 	<div id="mainbar-full" class="user-show-new">
 		<div class="subheader">
       <h1 id="user-displayname"><%= name_beautify @user.name %></h1>
-			<span class="toggle-summary-wrap"><a class="toggle-summary">less info</a></span>
+			<span class="toggle-summary-wrap"><a class="toggle-summary">精简信息</a></span>
 			<div class="sub-header-links fr">
 				<a href="http://meta.skeptics.stackexchange.com/users/23/oddthinking">
 				<img src="http://cdn.sstatic.net/skepticsmeta/img/favicon.ico" alt="meta site favicon">
@@ -26,7 +26,7 @@
 							<span>
 							<a href="/users/23/oddthinking?tab=reputation">27,939</a>
 							</span>
-							reputation
+							名望
 						</div>
 						<div class="badges">
 							<span><span title="3 gold badges"><span class="badge1"></span><span class="badgecount">3</span></span><span title="89 silver badges"><span class="badge2"></span><span class="badgecount">89</span></span><span title="161 bronze badges"><span class="badge3"></span><span class="badgecount">161</span></span></span>
@@ -37,13 +37,13 @@
 						<tbody>
 						<tr>
 							<th>
-								bio
+								简历
 							</th>
 							<td>
-								website
+								个人网站
 							</td>
 							<td>
-								<a href="http://www.somethinkodd.com/oddthinking" rel="me" class="url">somethinkodd.com/oddthinking</a>
+								<a href="http://www.somethinkodd.com/oddthinking" rel="me" class="url"><%= @user.website %></a>
 							</td>
 						</tr>
 						<tr>
@@ -281,7 +281,6 @@
 					<div id="leagueRank">
 						<a href="http://stackexchange.com/leagues/95/alltime/skeptics/2011-02-24/23#23" target="_blank">top <b>0.16%</b> overall</a>
 					</div>
-					<script type="text/javascript">$(function () { $("#leagueRank").addSpinner().load("/users/rank?userId=23"); });</script>
 				</div>
 				<div class="user-panel-content">
 					<div class="user-rep-chart-summary">
@@ -826,11 +825,5 @@
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript">
-StackExchange.ready(function(){$.get('/users/ivc/23/31b5');});
-	</script>
-	<noscript>
-	 &lt;div&gt;&lt;img src="/users/ivc/23/31b5" class="dno" alt="" width="0" height="0"&gt;&lt;/div&gt;
-	</noscript>
 <%= render :partial => 'content_below' %>
 
