@@ -46,7 +46,8 @@ an params example:
           CwEvent.add_action('评论评论','Comment',@comment.id,request.ip,request.url,current_user.id,true,@is_mobile)
       end
       @comment.save(:validate=>false)
-      render 'coursewares/_cw_comment',locals:{comment:@comment,data_score:0},layout:false
+      if !@comment.nil?
+          render 'coursewares/_cw_comment',locals:{comment:@comment,data_score:0},layout:false
     end
   end
 end

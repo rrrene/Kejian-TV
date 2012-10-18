@@ -457,9 +457,10 @@ HEREDOC
         end
         render json:json        
     elsif atype == 'show-parent'
-         cw_event_add_action("查看父评论",'Comment',ct.id,true)
+        cw_event_add_action("查看父评论",'Comment',ct.id,true)
         parent = Comment.find(ct.replied_to_comment_id)
-        render file:'/coursewares/_cw_comment',locals:{comment:parent,data_score:0},layout:false
+        if !parent.nil?
+            render file:'/coursewares/_cw_comment',locals:{comment:parent,data_score:0},layout:false
     elsif atype == 'unblock'
     elsif atype == 'block'        
     end
@@ -481,12 +482,29 @@ HEREDOC
   end
   
   def add_to_playlist_by_url
+      json_failed = {status:'failed',reason:'课件网址无效。'}
       unless (params[:url] =~ URI::regexp).nil?
         pl = PlayList.find(params[:playlist_id])
         url = URI.parse(URI.encode(params[:url]))
         path = url.path
-        path.split('/coursewares/')
-        pl.add_one_thing()
+        path = path.split('/coursewares/')
+        if path.nil?
+            render json:json_failed
+            return false
+        end
+        if (id = path[1]).nil?
+            render json:json_failed
+            return false
+        end
+        cw = Courseware.find(id)
+        if cw.nil?
+            render json:json_failed
+            return false
+        end
+        render json:{
+          status:'suc',
+          content:render_to_string(:file=>"/_#{params[:action]}.html.erb",:layout=>nil, :formats=>[:html]),
+        pl.add_one_thing(cw.id)
       else
           
       end

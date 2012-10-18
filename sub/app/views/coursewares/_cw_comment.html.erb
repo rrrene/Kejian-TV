@@ -37,7 +37,7 @@
                 <span dir="ltr" class="time">
       对    <a dir="ltr"  class="yt-uix-sessionlink yt-user-name " href="/users/<%= User.get_name parent.user_id %>"><%= User.get_name parent.user_id %></a>
       的回复
-         <a data-action="show-parent" onclick="return false;" class="comment-action comment-action-showparent" href="#">(显示评论)</a>
+         <a data-action="show-parent" rel="nofollow" onclick="return false;" class="comment-action comment-action-showparent" href="#">(显示评论)</a>
          <span dir="ltr"><%= timeago(comment.created_at) %><span>
                 </span>
                  <% if (cc=comment.voteup - comment.votedown) > 0 %>

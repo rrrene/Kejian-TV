@@ -542,7 +542,7 @@ courseware_id: '<%=@courseware.id%>'
             <div id="watch-discussion">
                <div class="" data-type="highlights" id="comments-view">
                   <!-- 上传者 热门 发表 评论列表  -->
-                  <% if @self_comments.count >0%>
+                  <% if !@self_comments.nil? and @self_comments.count >0%>
                     <div class="comments-section">
                         <h4>上传者评论
                           (<strong>    <a dir="ltr"  class="yt-uix-sessionlink yt-user-name " href="/users/<%= @courseware.author %>"><%= @courseware.author %></a></strong>)
@@ -582,7 +582,7 @@ courseware_id: '<%=@courseware.id%>'
                        <%= render :partial=>'comment_new',:locals=>{comment:@comment} %>
                      </div>
                      <ul class="comment-list" id="the_comment-list">
-                        <% if @comments.count > 0%>
+                        <% if !@comments.nil? and @comments.count > 0%>
                             <% @comments.each do |comment| %>
                                 <%= render :partial=>'cw_comment',:locals=>{comment:comment,data_score:0} %>
                             <% end %>
