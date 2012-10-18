@@ -521,23 +521,34 @@ HEREDOC
       end
   end
   def playlist_quicksort
-    plc = params[:arr]
-          #binding.pry
+    plc = params[:arr] 
+    hash = Hash.new
     case params[:type].strip
     when 'playlist-sort-views'
+        plc.each do |id|
+          cw = Courseware.find(id)
+          hash[id] = cw.views_count
+        end
+        plc = hash.sort_by{|k,v| v}.map{|k,v| k }.to_a.compact
         by = 'views_count'
     when 'playlist-sort-title'
+        plc.each do |id|
+          cw  = Courseware.find(id)
+          hash[id] = Pinyin.t(cw.title)
+        end
+        plc = hash.sort_by{|k,v| v}.map{|k,v| k }.to_a.compact
         by = 'title'
     when 'playlist-sort-date-uploaded'
-
+        plc.each do |id|
+          cw = Courseware.find(id)
+          hash[id] = cw.created_at
+        end
+        plc = hash.sort_by{|k,v| v}.map{|k,v| k }.to_a.compact
         by = 'created_at'
     when 'playlist-sort-random'
         plc = plc.shuffle
     when 'playlist-sort-reverse'
-        plc.each do |id|
-            cw = Courseware.find(id)
-            att[id] = Pinyin.t(cw.title)
-        end
+        plc = plc.reverse
         by = params[:former]
     end
     
