@@ -1,10 +1,10 @@
   <% content.each_with_index do |cwid,index| %>
    <% cw = Courseware.find(cwid) %>
    <% user = User.find(cw.uploader_id) %>
-    <li data-encrypted-video-id="LS0zMzjAB9A" data-date-uploaded="1350370809" data-view-count="19419" data-framestrip-url="https://i1.ytimg.com/vd?id=LS0zMzjAB9A&amp;w=70&amp;h=67&amp;n=7&amp;sigh=lLaj5s_JkJ19vGkJlckx_FdAmME" data-length-in-seconds="253" class="playlist-video-item yt-uix-dragdrop-draggable-item
-odd">
+    <li data-encrypted-kejian-id="<%= cwid %>" class="playlist-video-item yt-uix-dragdrop-draggable-item
+<% if index%2 ==0 %> even <% else %>odd<% end %>">
        <div class="active display-state">
-          <input type="hidden" value="<%= cw.id %>" name="playlist_video_id" />
+          <input type="hidden" value="<%= cw.id %>" name="playlist_kejian_id" />
           <span class="yt-uix-form-input-checkbox-container playlist-video-item-checkbox-container">
             <input type="checkbox" class="yt-uix-form-input-checkbox playlist-video-item-checkbox" name="" />
             <span class="yt-uix-form-input-checkbox-element"></span>

@@ -26,11 +26,11 @@
 				        <span class="centering">
 				          <span class="ie7-vertical-align-hack">&nbsp;</span>
 				            <img class="thumb" alt="" src="<%= src %>">
-				          </span>
 				        </span>
 				      </span>
 				    </span>
 		    <% end %>
+		</span>
 		<span class="resting-overlay">
 			<img alt="Play all" class="play-button" src="<%= asset_path 'yt/img/pixel-vfl3z5WfW.gif' %>">
 			<span class="video-count-box">
@@ -46,6 +46,7 @@
 		</a>
 		<% end %>
 	</div>
+
 	<div class="vm-pl-item-inner-content">
 		<div class="vm-pl-title vm-video-title">
 			<a class="vm-video-title-text" href="/coursewares?watch_all=<%= item.id %>"><%= item.title %></a>
@@ -65,7 +66,7 @@
 			</a>
 			</span>
 			<p>
-				<%= item.desc %><%= item.created_at %>
+				<%= item.desc %>
 			</p>
 		</div>
 	</div>
