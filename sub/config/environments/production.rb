@@ -46,6 +46,7 @@ Sub::Application.configure do
   config.assets.css_compressor = 'sass-rails'
   config.assets.js_compressor = :uglifier
   config.assets.precompile += %w{
+    __g.css
     ktv/embed.js
     ui_orig.js
     modernizr.js

@@ -63,7 +63,10 @@ class WelcomeController < ApplicationController
     redirect_to cw
   end
   def feeds
-    
+    respond_to do |format|
+      format.html{redirect_to '/welcome/feeds.rss' and return}
+      format.rss{@coursewares = Courseware.normal_father.desc('created_at').limit(10);render :layout=>false}
+    end
   end
 private
 end
