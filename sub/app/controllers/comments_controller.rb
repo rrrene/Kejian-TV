@@ -48,6 +48,7 @@ an params example:
       @comment.save(:validate=>false)
       if !@comment.nil?
           render 'coursewares/_cw_comment',locals:{comment:@comment,data_score:0},layout:false
+      end
     end
   end
 end
