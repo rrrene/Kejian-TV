@@ -226,10 +226,10 @@
 
     
 <div class="module" id="recent-tags">
-    <h4 id="h-recent-tags">按学院筛选课件</h4>
+    <h4 id="h-recent-tags">学院 × 课件数</h4>
     <div id="recent-tags-list">
       <% Department.desc('coursewares_count').each do |item| %>
-        <a href="/departments/<%= item.fid %>" class="post-tag" title="<%= item.name %>" rel="tag"><%= item.name %></a><span class="item-multiplier"><span class="item-multiplier-x"></span></span><br>
+        <a href="/departments/<%= item.fid %>" class="post-tag" title="<%= item.name %>" rel="tag"><%= item.name %></a><span class="item-multiplier"><span class="item-multiplier-x">&times;</span>&nbsp;<span class="item-multiplier-count"><%= item.coursewares_count %></span></span><br>
       <% end %>
     </div>
     <p class="ar"><a href="<%= courses_path %>">全部课程 &raquo;</a></p>

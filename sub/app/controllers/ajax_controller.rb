@@ -522,7 +522,7 @@ HEREDOC
   end
   def playlist_quicksort
     plc = params[:arr]
-          binding.pry
+          #binding.pry
     case params[:type].strip
     when 'playlist-sort-views'
         by = 'views_count'
