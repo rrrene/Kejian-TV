@@ -1,4 +1,4 @@
-<li data-score="<%= data_score %>" data-id="<%= comment.id %>" data-author-id="<%= comment.user_id %>" data-author-viewing="<% if current_user.id == comment.user_id %>True<% else %>False<% end %>" class="comment yt-tile-default">
+<li data-score="<%= data_score %>" data-id="<%= comment.id %>" data-author-id="<%= comment.user_id %>" data-author-viewing="<% if !current_user.nil? and current_user.id == comment.user_id %>True<% else %>False<% end %>" class="comment yt-tile-default">
    <div class="comment-body">
       <div class="content-container">
          <div class="content">
@@ -51,7 +51,7 @@
             </p>
             <% end %>
          </div>
-         <% if comment.deletor_id.nil? %>
+         <% if !current_user.nil? and comment.deletor_id.nil? %>
          <div class="comment-actions">
              <span class="yt-uix-button-group">
                  <button type="button" class="start comment-action-vote-up comment-action yt-uix-button yt-uix-button-default yt-uix-tooltip yt-uix-button-empty" onclick=";return false;" title="顶" data-action="vote-up" role="button">
@@ -73,7 +73,7 @@
                              <li class="comment-action" data-action="share">
                                  <span class="yt-uix-button-menu-item">分享</span>
                              </li>
-                             <% if current_user.id == comment.user_id %>
+                             <% if !current_user.nil? and current_user.id == comment.user_id %>
                              <li class="comment-action-remove comment-action" data-action="remove" style='display:block'>
                                  <span class="yt-uix-button-menu-item">删除</span>
                              </li>

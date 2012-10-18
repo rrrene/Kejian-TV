@@ -7,6 +7,13 @@ class PlayListsController < ApplicationController
     @play_lists = @play_lists.paginate(:page => params[:page], :per_page => @per_page)
   end
   
+<<<<<<< Updated upstream
+=======
+  def new
+    @play_list = PlayList.new
+  end
+  
+>>>>>>> Stashed changes
   def edit
     @play_list = PlayList.find(params[:id])
   end
@@ -16,12 +23,15 @@ class PlayListsController < ApplicationController
     @seo[:title] = "课件锦囊"    
   end
   
+<<<<<<< Updated upstream
   
   def ajax_new
       
     
   end
   
+=======
+>>>>>>> Stashed changes
   def create
     
   end

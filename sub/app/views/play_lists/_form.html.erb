@@ -305,7 +305,23 @@
     });
   });
   $('#playlist-quicksort').live('change',function(){
-    
+    var former = $('.yt-uix-form-input-select-content > .yt-uix-form-input-select-value').text().trim();
+    for(var i=0;i<$('option',this).length;i++){
+      if(former == $('option:eq('+i.toString()+')',this).text().trim()){
+        former = $('option:eq('+i.toString()+')',this).val();
+      }
+    }
+
+    var sort = $('option:selected',this).val();
+    $('.yt-uix-form-input-select-content > .yt-uix-form-input-select-value').text($('option:selected',this).text());
+    $.ajax({
+      url:'/ajax/playlist_quicksort',
+      type:'POST',
+      data:{'pid':'<%= playlist.id %>','type':sort,'former':former},
+      dataType:'html'
+    }).done(function(html){
+      $('#playlist-video-items').html(html);
+    });
   })
 <% end %>
 </script>
