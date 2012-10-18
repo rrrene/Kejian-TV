@@ -146,7 +146,7 @@
                   <div class="playlist-landing">
                      <% if playlist.content.count > 0 %>
                      <ol class="playlist-video-items yt-uix-dragdrop" id="playlist-video-items">
-                        <%= render :partial=>'list',:locals =>{} %>
+                        <%= render :partial=>'list',:locals =>{content:playlist.content} %>
                      </ol>
                      <% else %>
                        <div class="playlist-empty-message">
@@ -286,14 +286,26 @@
       url:'/ajax/add_to_playlist_by_url',
       type:'POST',
       data:{'url':$('.yt-uix-form-input-text.add-video-panel-url').val(),'playlist_id':'<%= playlist.id %>'},
-      dataType:'json'
+      dataType:'json',
+      error: function(){
+        $('#add-video-success').hide();
+        $('#add-video-failed > div > .yt-alert-content').text(json['reason']);
+        $('#add-video-failed').show();
+      }
     }).done(function(json){
-      if(json['html']!= undefined){
-        console.log(json['html']);
-      }else if(json['error_message']!=undefined){
-        console.log(json['error_message']);
+      if(json['status'] == 'suc'){
+        $('#add-video-failed').hide();
+        $('#add-video-success').show();
+        $('#playlist-video-items').html(json['list']);
+      }else if(json['status'] =='failed'){
+        $('#add-video-success').hide();
+        $('#add-video-failed > div > .yt-alert-content').text(json['reason']);
+        $('#add-video-failed').show();
       }
     });
   });
+  $('#playlist-quicksort').live('change',function(){
+    
+  })
 <% end %>
 </script>

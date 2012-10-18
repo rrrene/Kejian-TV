@@ -461,6 +461,7 @@ HEREDOC
         parent = Comment.find(ct.replied_to_comment_id)
         if !parent.nil?
             render file:'/coursewares/_cw_comment',locals:{comment:parent,data_score:0},layout:false
+        end
     elsif atype == 'unblock'
     elsif atype == 'block'        
     end
@@ -496,17 +497,27 @@ HEREDOC
             render json:json_failed
             return false
         end
+        if !BSON::ObjectId.legal?(id)
+            render json:json_failed
+            return false
+        end
+        if pl.content.include?(cw.id)
+            json_failed = {status:'failed',reason:'该课件锦囊里已经有该课件。'}
+            render json:json_failed
+            return false
+        end
         cw = Courseware.find(id)
         if cw.nil?
             render json:json_failed
             return false
         end
-        render json:{
-          status:'suc',
-          content:render_to_string(:file=>"/_#{params[:action]}.html.erb",:layout=>nil, :formats=>[:html]),
         pl.add_one_thing(cw.id)
+        
+        render json:{status:'suc',
+                    list:render_to_string(:file=>"play_lists/_list.html.erb",:locals=>{content:pl.content},:layout=>nil, :formats=>[:html])}
       else
-          
+          render json:json_failed
+          return false
       end
   end
 end
