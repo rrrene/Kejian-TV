@@ -5,6 +5,39 @@ class AccountController < Devise::RegistrationsController
     @user = current_user
     render "edit",layout:'application'
   end
+  def edit_pref
+    @seo[:title] = '偏好设置'
+    render layout:'application'
+  end
+  def edit_avatar
+    @seo[:title] = '修改头像'
+    render layout:'application'
+  end
+  def edit_profile
+    @seo[:title] = '个人资料'
+    render layout:'application'
+  end
+  def edit_notifications
+    @seo[:title] = '通知与提醒'
+    render layout:'application'
+  end
+  def edit_banking
+    @seo[:title] = '帐户与帐单'
+    render layout:'application'
+  end
+  def edit_passwd
+    @seo[:title] = '邮箱与密码安全'
+    render layout:'application'
+  end
+  def edit_i18n
+    @seo[:title] = '国际化设置'
+    render layout:'application'
+  end
+  def edit_invite
+    @seo[:title] = '邀请好友注册'
+    render layout:'application'
+  end
+
   def after_inactive_sign_up_path_for(resource)
     welcome_inactive_sign_up_path
   end

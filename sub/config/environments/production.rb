@@ -47,6 +47,7 @@ Sub::Application.configure do
   config.assets.js_compressor = :uglifier
   config.assets.precompile += %w{
     __g.css
+    __lnk.css
     ktv/embed.js
     ui_orig.js
     modernizr.js

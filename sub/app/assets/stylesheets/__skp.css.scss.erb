@@ -8977,6 +8977,42 @@
   .user-details>a{
     padding-left:1px;
   }
+	
+	
+	#ln_nav{
+		width:155px;
+		margin:0 0 0 -15px;
+		li{
+			list-style:none;
+			background-image: url(<%=asset_path 'ln_nav.png'%>);
+			a{
+				text-indent:-9999em;
+				display:inline-block;
+				width:100%;
+				height:33px;
+			}
+		}
+	}
+	
+	#ln_nav_home.active{background-position:0 0;}
+	#ln_nav_pref{background-position:0 -33px;}
+	#ln_nav_avatar{background-position:0 -66px;}
+	#ln_nav_profile{background-position:0 -99px;}	
+	#ln_nav_notifications{background-position:0 -132px;}	
+	#ln_nav_banking{background-position:0 -165px;}	
+	#ln_nav_passwd{background-position:0 -198px;}	
+	#ln_nav_i18n{background-position:0 -231px;}	
+	#ln_nav_invite{background-position:0 -264px;}	
+
+	#ln_nav_home.active{background-position:155px 0;}
+	#ln_nav_pref.active{background-position:155px -33px;}
+	#ln_nav_avatar.active{background-position:155px -66px;}
+	#ln_nav_profile.active{background-position:155px -99px;}	
+	#ln_nav_notifications.active{background-position:155px -132px;}	
+	#ln_nav_banking.active{background-position:155px -165px;}	
+	#ln_nav_passwd.active{background-position:155px -198px;}	
+	#ln_nav_i18n.active{background-position:155px -231px;}	
+	#ln_nav_invite.active{background-position:155px -264px;}		
 }
 
 

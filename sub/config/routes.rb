@@ -36,6 +36,14 @@ Sub::Application.routes.draw do
     get "/login", :to => "account_sessions#new",as:'login'
     get "/login_ibeike", :to => "account_sessions#new",as:'login_ibeike'
     get '/logout', :to => "account_sessions#destroy", as:'logout'
+    get '/account/edit_pref'
+    get '/account/edit_avatar'
+    get '/account/edit_profile'
+    get '/account/edit_notifications'
+    get '/account/edit_banking'
+    get '/account/edit_passwd'
+    get '/account/edit_i18n'
+    get '/account/edit_invite'
   end
   match "/account/auth/:provider/unbind", :to => "users#auth_unbind"
 
