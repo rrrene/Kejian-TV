@@ -11,5 +11,6 @@
 </ul>
 
 <% content_for :butt2 do %>
-jQuery('#main').height(jQuery('#pagekey-nprofile-edit-success').height()+88);
+$('#pagekey-nprofile-edit-success').resize(KTV.ln_targetize);
+KTV.ln_targetize();
 <% end %>

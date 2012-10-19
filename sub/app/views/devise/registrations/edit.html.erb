@@ -10,6 +10,28 @@
 <%= render 'content_below' %>
 
 <div class="wrapper" style="width:1000px">
+	
+<div class="__skp" style="position:absolute;top:314px;margin-left:185px;z-index:22" id="pagekey-nprofile-psvr-skp">
+	<div class="user-show-new">
+		<div class="user-header">
+			<div class="user-header-left" style="width:156px;margin:0">
+				<div class="gravatar" style="width:100%">
+					<div class="reputation">
+	            <span>
+                <a href="/users/96/sklivvz?tab=reputation">25,489</a>
+	            </span>
+	            名望值
+	        </div>
+					<div class="badges">
+	          <span><span title="9 gold badges"><span class="badge1"></span><span class="badgecount">9</span></span><span title="98 silver badges"><span class="badge2"></span><span class="badgecount">98</span></span><span title="192 bronze badges"><span class="badge3"></span><span class="badgecount">192</span></span></span>                    
+          </div>
+				</div>
+			</div>
+		</div>
+	</div>	
+</div>	
+									
+									
 <div class="__lnk en member v2 edit-my-profile chrome-v4 background-v4 sticky-bg basic-member js " id="pagekey-nprofile-edit-success">
 	<div id="body" class="" role="main">
 		<div class="wrapper hp-nus-wrapper">
@@ -19,7 +41,7 @@
 			<div id="main" class="profile grid-a">
 				<div id="content" class="">
 					<!-- Start profile card -->
-					<div class="top-card">
+					<div class="top-card" style="margin-top:8px">
 						<div class="profile-card vcard">
 							<div class="profile-picture" id="profile-picture">
 								<div class="photo-wrap-lg">
@@ -33,10 +55,10 @@
 								<div id="member-73526537" class="masthead">
 									<h1>
 									<span class="n fn" id="name">
-										<span class="full-name"><%= name_beautify @user.name %> <%= '(未填写真实姓名)' if '_'==@user.name[0] %></span>
+										<span class="full-name"><%= name_beautify @user.name %></span>
 									</span>
 									<span class="edit">
-									<a name="editBasicInfo" href="/account/edit_profile" title="编辑姓名" style="font-size:12px">编辑</a>
+										<a name="editBasicInfo" href="/account/edit_profile" title="编辑姓名" style="font-size:12px">编辑</a>
 									</span>
 									</h1>
 									<span class="phonetic-full-name">
@@ -52,40 +74,15 @@
 										</dd>
 										<dt>领域</dt>
 										<dd class="industry">
-											<%= @user.lingyu.present? ? @user.lingyu : '未知领域或行业' %></dd>
+											<%= @user.lingyu.present? ? @user.lingyu : '未知行业或学术领域' %></dd>
 									</dl>
 								</div>
-								<table summary="Overview for Minqi Pan">
-								<tbody>
-								<tr id="overview-summary-past">
-									<th scope="row" id="overview-summary-past-title">
-										<a class="past-title" href="#profile-experience">曾任职</a>
-									</th>
-									<td>
-										<ol>
-											<li>
-											<span class="miniprofile-container /companies/78784?miniprofile=&amp;goback=%2Ersm_*1_*1_*1_*1" data-tracking="mcp_profile_sum" data-li-getjs="http://s3.licdn.com/scds/concat/common/js?h=dyt8o4nwtaujeutlgncuqe0dn&amp;fc=2" id="yui-gen31"><strong>
-											<a href="/company/78784?goback=%2Ersm_*1_*1_*1_*1&amp;trk=prof-0-ovw-pos">Ruby工程师</a></strong></span></li><li>, <a href="/search?search=&amp;currentCompany=C&amp;company=Snailize+Team&amp;sortCriteria=R&amp;keepFacets=true&amp;goback=%2Ersm_*1_*1_*1_*1" title="Find users who have worked at this company" name="company">智联招聘</a></li>.
-										</ol>
-									</td>
-								</tr>
-								<tr id="overview-summary-education">
-									<th scope="row" id="overview-summary-education-title">
-										<a class="education-title" href="#profile-education">理学士(BS)</a>
-									</th>
-									<td>
-										<ol>
-											<li>2009-2013, 数学科学学院, 首都师范大学</li>.
-										</ol>
-									</td>
-								</tr>
-								</tbody>
-								</table>
+
 								<div class="profile-aux">
 									<div class="member-connections">
 										<strong>
 										63 </strong>
-										人际关系
+										学习伙伴
 									</div>
 									<div class="profile-actions">
 										<div class="guided-actions">
@@ -211,7 +208,7 @@
 									<dl class="public-profile">
 										<dt>公共帐号信息地址</dt>
 										<dd style="line-height:14px">
-											<a href="http://cn.linkedin.com/pub/minqi-pan/20/75a/b5" title="View public profile" name="webProfileURL">http://kejian.tv/<%= @user.slug %></a>
+											<a href="http://cn.linkedin.com/pub/minqi-pan/20/75a/b5" target="_blank" title="View public profile" name="webProfileURL">http://kejian.tv/<%= @user.slug %></a>
 										<a class="edit-public-profile" href="/profile/public-profile-settings?trk=prof-ovw-edit-public_profile">编辑</a>
 										</dd>
 									</dl>

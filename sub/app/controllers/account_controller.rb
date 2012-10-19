@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class AccountController < Devise::RegistrationsController
-  prepend_before_filter :authenticate_scope!, :only => [:edit_pref]
+  prepend_before_filter :authenticate_scope!, :only => [:edit_profile,:update_profile]
   def edit
     common_account_op!
     @seo[:title] = '账号设置'
@@ -21,6 +21,25 @@ class AccountController < Devise::RegistrationsController
     @seo[:title] = '个人资料'
     render layout:'application'
   end
+  
+  def update_profile
+    @user = current_user
+    # 安全覆写™
+    if params[:user][:name].present?
+      @user.name_unknown = false
+      @user.name = params[:user][:name].xi
+    end
+    @user.tagline = params[:user][:tagline].xi
+
+    if @user.save
+      @user.update_consultant!
+      redirect_to edit_user_registration_path,:notice => '个人资料修改成功'
+    else
+      # flash[:alert] = "修改失败：#{@user.errors.full_messages.join(", ")}"
+      render "edit_profile",:layout => "application"
+    end
+  end
+  
   def edit_notifications
     common_account_op!
     @seo[:title] = '通知与提醒'
@@ -104,59 +123,12 @@ class AccountController < Devise::RegistrationsController
       end
     end
   end
-  
   def update
-    # 安全覆写™
-    if params[:user][:name].present? or params[:user][:email].present?
-      resource.name_unknown = false
-      resource.email_unknown = false
-    end
-    resource.mail_be_followed = ('on'==params[resource_name]["mail_be_followed"] ? '1' : '0')
-    resource.mail_new_answer = ('on'==params[resource_name]["mail_new_answer"] ? '1' : '0')
-    resource.mail_invite_to_ask = ('on'==params[resource_name]["mail_invite_to_ask"] ? '1' : '0')
-    resource.mail_ask_me = ('on'==params[resource_name]["mail_ask_me"] ? '1' : '0')
-    old_user = User.find_by_slug(params[resource_name]["slug"])
-    if !old_user.blank? and old_user.id != resource.id and !params[resource_name]["slug"].blank?
-      flash[:notice]="修改失败，用户名重复！"
-      redirect_to request.referer
-      return
-    end
-    if !params[resource_name]["avatar"].blank?
-      resource.avatar_changed_at=Time.now
-    end
-    # 安全覆写™
-    resource.slug = params[:user][:slug]
-    resource.name = params[:user][:name]
-    resource.email = params[:user][:email]
-    resource.avatar = params[:user][:avatar]
-    resource.tagline = params[:user][:tagline]
-    resource.location = params[:user][:location]
-    resource.website = params[:user][:website]
-    resource.bio = params[:user][:bio]      
-    if resource.email_changed?
-      email_warning = '一封确认邮件已经发至您的新电子邮箱地址，请点击其中的链接确认才可成功更改邮箱。'
-    else
-      email_warning = ''
-    end    
-    if params[:user][:password].present?
-      resource.during_registration = true
-      resource.password = params[:user][:password]
-      resource.password_confirmation = params[:user][:password_confirmation]
-      pass_warning='您的密码已经成功修改，请用新密码登录'
-    else
-      pass_warning=''
-    end
-    if resource.save
-      resource.update_consultant!
-      flash[:alert] = email_warning if email_warning.present?
-      cookies[:spetial] = pass_warning if pass_warning.present?
-      redirect_to edit_user_registration_path,:notice => '个人资料修改成功'
-    else
-      flash[:alert] = "修改失败：#{resource.errors.full_messages.join(", ")}"
-      render "edit",:layout => "application_for_devise"
-    end
+    # for safety, please keep this deprecation logic.
+    render text:'this method is deprecated!'
+    return false
   end
-
+  
   def destroy
     # Todo: 用户自杀功能
     resource.soft_delete
@@ -172,4 +144,46 @@ private
   def common_account_op!
     @user = current_user    
   end  
+=begin
+  @user.mail_be_followed = ('on'==params[:user]["mail_be_followed"] ? '1' : '0')
+  @user.mail_new_answer = ('on'==params[:user]["mail_new_answer"] ? '1' : '0')
+  @user.mail_invite_to_ask = ('on'==params[:user]["mail_invite_to_ask"] ? '1' : '0')
+  @user.mail_ask_me = ('on'==params[:user]["mail_ask_me"] ? '1' : '0')
+  old_user = User.find_by_slug(params[:user]["slug"])
+  if !old_user.blank? and old_user.id != @user.id and !params[:user]["slug"].blank?
+    flash[:notice]="修改失败，用户名重复！"
+    redirect_to request.referer
+    return
+  end
+  if !params[:user]["avatar"].blank?
+    @user.avatar_changed_at=Time.now
+  end
+  # 安全覆写™
+  @user.slug = params[:user][:slug]
+  @user.name = params[:user][:name]
+  @user.email = params[:user][:email]
+  @user.avatar = params[:user][:avatar]
+  @user.tagline = params[:user][:tagline]
+  @user.location = params[:user][:location]
+  @user.website = params[:user][:website]
+  @user.bio = params[:user][:bio]      
+  if @user.email_changed?
+    email_warning = '一封确认邮件已经发至您的新电子邮箱地址，请点击其中的链接确认才可成功更改邮箱。'
+  else
+    email_warning = ''
+  end    
+  if params[:user][:password].present?
+    @user.during_registration = true
+    @user.password = params[:user][:password]
+    @user.password_confirmation = params[:user][:password_confirmation]
+    pass_warning='您的密码已经成功修改，请用新密码登录'
+  else
+    pass_warning=''
+  end
+
+
+  flash[:alert] = email_warning if email_warning.present?
+  cookies[:spetial] = pass_warning if pass_warning.present?
+
+=end
 end

@@ -13,6 +13,9 @@
 <div class="wrapper" style="width:1000px">
 <div class="__lnk en member v2 edit-my-profile chrome-v4 background-v4 sticky-bg basic-member js " id="pagekey-nprofile-edit-success">
 
+	<% unless @user.errors.blank? %>
+		<div id="global-error"><div role="alert" class="alert error"><i class="icon"></i><p><strong>您输入的某些信息存在错误，请修正下面标红的数据项.</strong></p></div></div>
+	<% end %>
 <div id="body" class="" role="main">
 	<div id="section-header">
 		<ul id="nav-secondary">
@@ -26,16 +29,28 @@
 		<div id="main" class="profile-edit grid-e">
 			<div id="content">
 				<h1>个人资料</h1>
+				<%= form_for(resource, :as => resource_name, :url => request.path, :html => { :method => :put, :class => 'normal',:id=>'submit_btn_form',:enctype =>  "multipart/form-data",:autocomplete=>"off" }) do |f| %>
+
 				<form action="/profile/edit-basic-info-submit" method="POST" name="editBasicInfoForm" novalidate="novalidate" class="standard-form" id="yui-gen5">
 					<fieldset>
 						<legend><span>真实姓名</span></legend>
 						<ul>
 							<li class="first-name">
-							<label for="firstName-editBasicInfoForm">真实姓名:</label>
+							<%= f.label :name,'真实姓名' %>
 							<div class="fieldgroup">
-								<span class="error" id="firstName-editBasicInfoForm-error"></span>
-								<input type="text" name="firstName" value="<%= @user.name %>" id="firstName-editBasicInfoForm">
+						    <%= f.text_field :name,:class => 's462',:tabindex => 1,:autocomplete=>"off" %>
+								<% unless resource.errors_for_field(:name).blank? %>
+									<span id="firstName-editBasicInfoForm-error" class="error"><%= resource.errors_for_field(:name) %><br></span>						    
+								<% end %>
 							</div>
+							<p class="note">
+								<strong>注意:</strong> 
+						    <% if @user.name_last_changed_at %>
+									<%= "一月只可以修改一次。#{'(下次可修改日期：'+(resource.name_last_changed_at+1.months).getlocal.strftime("%Y年%m月%d日")+')'}" %>
+						    <% else %>
+						      <%= "一月只可以修改一次。" %>
+						    <% end %>
+							</p>
 							</li>
 						</ul>
 					</fieldset>
@@ -43,10 +58,12 @@
 						<legend><span>头衔</span></legend>
 						<ul>
 							<li>
-							<label for="editBasicInfoForm">学术或职业头衔:</label>
+							<%= f.label :tagline,'学术或职业头衔' %>
 							<div class="fieldgroup">
-								<span class="error" id="headline-editBasicInfoForm-error"></span>
-								<input type="text" name="headline" value="<%= @user.tagline %>" id="headline-editBasicInfoForm">
+						    <%= f.text_field :tagline,:class => 's462',:tabindex => 2,:autocomplete=>"off" %>
+								<% unless resource.errors_for_field(:tagline).blank? %>
+                <span id="firstName-editBasicInfoForm-error" class="error"><%= resource.errors_for_field(:tagline) %><br></span>						    
+								<% end %>
 							</div>
 							<p class="note">
 								<strong>例如:</strong> 华东师范大学生物统计中心研究助理，抽象代数领域研究者，首都师范大学教授，世界史博士生导师，经验丰富的交通运输行政主管，网页设计师，信息架构师，远见卓识的企业家和投资者...<a class="" href="/static?key=pop_ex_headlines&amp;goback=%2Ersm_*1_*1_*1_*1%2Enpe_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1" onclick="LI.popup( '/static?key=pop_ex_headlines&amp;goback=%2Ersm_*1_*1_*1_*1%2Enpe_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1', {} ); return false;" title="New window will open">更多示例</a>
@@ -56,16 +73,6 @@
 					</fieldset>
 					<fieldset>
 						<legend><span>Location &amp; Industry</span></legend>
-				<script type="text/javascript" charset="utf-8">
-<% content_for :butt2 do %>
-// $('#homeprovince').change(function(){
-// 	if($(this).value!=''){
-// 		$.getJSON('/ajax/get_cities?province='+$(this).value)
-// 	}
-// 	$('#homeprovince_city').show();
-// })
-<% end %>
-        </script>
 						<ul id="yui-gen4">
 							<li>
 							<label for="countryCode-location-editBasicInfoForm">所在地:</label>
@@ -90,7 +97,7 @@
 							</fieldset>
 							</li>
 							<li>
-							<label for="industryChooser-editBasicInfoForm">领域或行业:</label>
+							<label for="industryChooser-editBasicInfoForm">所属行业或学术领域:</label>
 							<span class="error" id="industryChooser-editBasicInfoForm-error"></span>
 							<select name="industryChooser" id="industryChooser-editBasicInfoForm">
 								<option value="">Choose industry...</option>
@@ -244,32 +251,17 @@
 							</select>
 							</li>
 						</ul>
-						<script id="controlinit-1a7873c8-2aa3-48ce-971a-f7c45964d32f-7" type="text/javascript+initialized" class="li-control">
-        /* extlib: _getregionandcityoptions */
-            LI.Controls.addControl('control-1a7873c8-2aa3-48ce-971a-f7c45964d32f-7', 'getRegionAndCityOptions', {
-        countryFieldId: countryFieldId,
-        postalCodeId: postalCodeId,
-        resultsContainerId: 'location-display-selection',
-        requestURL: requestURL
-      });
-          </script>
+						<p class="note">
+							行业或学术领域二者选一即可.
+						</p>
 					</fieldset>
 					<p class="actions">
-						<input type="submit" name="updateBasicInfo" value="Save Changes" id="btn-submit" class="btn-primary">
-						<div class="progress-indicator" style="line-height: 24px; ">
-						</div>
-						<span class="alternate hidden">or <a href="/profile/edit?goback=%2Ersm_*1_*1_*1_*1">Go back to Edit My Profile</a></span>
+						<input type="submit" name="updateBasicInfo" value="保存修改" id="btn-submit" class="btn-primary">
 					</p>
 					<input type="hidden" name="locale" value="en_US" id="locale-editBasicInfoForm"><input type="hidden" name="nudgeID" value="" id="nudgeID-editBasicInfoForm"><input type="hidden" name="timestamp" value="1350628757304" id="timestamp-editBasicInfoForm"><input type="hidden" name="useJsonResponse" value="" id="useJsonResponse-editBasicInfoForm"><input type="hidden" name="isSubscriber" value="false" id="isSubscriber-editBasicInfoForm"><input type="hidden" name="isJobSeeker" value="false" id="isJobSeeker-editBasicInfoForm"><input type="hidden" name="showFullLastName" value="F" id="showFullLastName-editBasicInfoForm"><input type="hidden" name="csrfToken" value="ajax:1284132373356947614" id="csrfToken-editBasicInfoForm"><input type="hidden" name="sourceAlias" value="0_2LGi6vTm6uM7Apch1ukkLBuTpd9PHbMHgs66raSHmqK" id="sourceAlias-editBasicInfoForm"><input type="hidden" name="goback" value=".rsm_*1_*1_*1_*1.npe_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1" id="goback-editBasicInfoForm">
 					<div class="screen">
 					</div>
-				</form>
-				<script id="controlinit-7884d6e1-b65a-4b99-87f1-9f58c7ac2612-8" type="text/javascript+initialized" class="li-control">
-        /* extlib: _frontierajaxform */
-LI.i18n.register( 'oneOrMoreErrors', 'There were one or more errors in your submission. Please correct the marked fields below.' );
-LI.i18n.register( 'unableToProcessRequest', 'We were unable to handle your request. Please try again.' );
-            LI.Controls.addControl('control-7884d6e1-b65a-4b99-87f1-9f58c7ac2612-8', 'FrontierAJAXForm', {injectAfter: '#btn-submit', errorId: 'global-error'});
-          </script>
+				<% end %>
 			</div>
 		</div>
 	</div>

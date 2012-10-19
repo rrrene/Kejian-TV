@@ -2,6 +2,7 @@
 $(document).ready(function(){
 
 App.psvr_wendao_init = function(){
+  return false;//todo
     // 个人设置弹层，离开隐藏
     $('.userInfoName').mouseover(function(){
         $('#userInfoPop').show();
