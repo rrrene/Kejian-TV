@@ -1,10 +1,10 @@
   <% content.each_with_index do |cwid,index| %>
    <% cw = Courseware.find(cwid) %>
    <% user = User.find(cw.uploader_id) %>
-    <li data-encrypted-kejian-id="<%= cwid %>" class="playlist-video-item yt-uix-dragdrop-draggable-item
-<% if index%2 ==0 %> even <% else %>odd<% end %>">
+
+    <li data-encrypted-kejian-id="<%= cwid %>" class="playlist-video-item yt-uix-dragdrop-draggable-item <% if !annotation[content.index(cwid)].blank? %> annotated <% end %><% if index%2 ==0 %> even <% else %>odd<% end %>">
        <div class="active display-state">
-          <input type="hidden" value="<%= cw.id %>" name="playlist_kejian_id" />
+          <input type="hidden" value="<%= cw.id %>" name="playlist_kejian_id[]" />
           <span class="yt-uix-form-input-checkbox-container playlist-video-item-checkbox-container">
             <input type="checkbox" class="yt-uix-form-input-checkbox playlist-video-item-checkbox" name="" />
             <span class="yt-uix-form-input-checkbox-element"></span>
@@ -39,12 +39,19 @@
                       <label for="annotation_input_<%= index %>" class="video-annotation-input-container">
                          <button role="button" onclick=";return false;" class="playlist-video-item-save-annotation yt-uix-button yt-uix-button-default" style='height:29px'type="button"><span class="yt-uix-button-content">添加备注 </span></button>  
                          <div class="yt-uix-form-input-fluid yt-grid-fluid ">
-                            <span class=" yt-uix-form-input-container"><input maxlength="150" id="annotation_input_<%= index %>" name="playlist_video_annotation" class="yt-uix-form-input-text video-annotation-input text yt-uix-char-counter-input" /></span>
+                            <span class=" yt-uix-form-input-container"><input maxlength="150" id="annotation_input_<%= index %>" name="playlist_video_annotation[]" class="yt-uix-form-input-text video-annotation-input text yt-uix-char-counter-input" value="<%= annotation[content.index(cwid)] %>"/></span>
                          </div>
                       </label>
                       <span class="video-annotation-display">
-                         <span class="video-thumb ux-thumb yt-thumb-square-28 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img width="28" alt="缩略图" src="<%=dz_avatar_url(user.id,user.email,:middle)%>" /><span class="vertical-align"></span></span></span></span>
-                         <p class="video-annotation-text"></p>
+                         <span class="video-thumb ux-thumb yt-thumb-square-28 ">
+                           <span class="yt-thumb-clip">
+                             <span class="yt-thumb-clip-inner">
+                               <img width="28" alt="缩略图" src="<%=dz_avatar_url(user_id,User.find(user_id).email,:middle)%>" />
+                               <span class="vertical-align"></span>
+                             </span>
+                           </span>
+                         </span>
+                         <p class="video-annotation-text"><%= annotation[content.index(cwid)] %></p>
                       </span>
                       <button role="button" title="添加备注" onclick=";return false;" class="playlist-video-item-edit-annotation yt-uix-tooltip yt-uix-button yt-uix-button-default yt-uix-tooltip" type="button">
                         <span class="yt-uix-button-content">  

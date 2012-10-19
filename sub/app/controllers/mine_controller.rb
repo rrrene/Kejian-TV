@@ -15,7 +15,7 @@ class MineController < ApplicationController
   end
   def view_all_playlists
     @seo[:title] = "课件锦囊"    
-    @uplist = PlayList.where(:user_id => current_user.id,:undestroyable=>false).desc('created_at')
+    @uplist = PlayList.nondeleted.where(:user_id => current_user.id,:undestroyable=>false).desc('created_at')
   end
   def my_coursewares_copyright
     @seo[:title] = "版权声明"    

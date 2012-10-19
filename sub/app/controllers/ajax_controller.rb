@@ -517,7 +517,7 @@ HEREDOC
         pl.add_one_thing(cw.id)
         
         render json:{status:'suc',
-                    list:render_to_string(:file=>"play_lists/_list.html.erb",:locals=>{content:pl.content},:layout=>nil, :formats=>[:html])}
+                    list:render_to_string(:file=>"play_lists/_list.html.erb",:locals=>{content:pl.content,annotation:pl.annotation,user_id:pl.user_id},:layout=>nil, :formats=>[:html])}
       else
           render json:json_failed
           return false
@@ -554,7 +554,7 @@ HEREDOC
         plc = plc.reverse
         by = params[:former]
     end
-    render file:'play_lists/_list',locals:{content:plc},layout:false
+    render file:'play_lists/_list',locals:{content:plc,annotation:params[:annotation],user_id:params[:user_id]},layout:false
   end
 end
 

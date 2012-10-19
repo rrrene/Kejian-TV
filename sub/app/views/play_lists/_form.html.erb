@@ -1,5 +1,5 @@
 <% puser = User.find(playlist.user_id) %>
-<form action="/playlist/<%= playlist.id %>/update" method="post" id="playlist-editor-form">
+<form action="/play_lists/<%= playlist.id %>/handler" method="post" id="playlist-editor-form">
    <input type="hidden" value="<%= Digest::MD5.hexdigest(playlist.id.to_s+'.liber.'+Digest::MD5.hexdigest(@formhash)) %>" name="encrypted_playlist_id" />
    <input type="hidden" value="<%= @formhash %>" name="form_hash" />
    <div id="playlist-editor-heading-container">
@@ -59,7 +59,9 @@
                         <span class="remaining-chars input-annotation">
                         剩余字符数：<span class="yt-uix-char-counter-remaining"><%= 60- playlist.title.length%></span>
                         </span>
-                        <span class=" yt-uix-form-input-container"><input maxlength="60" value="<%= Sanitize.clean(playlist.title.gsub(/\n/, ' '), Sanitize::Config::BASIC).html_safe %>" name="name" class="yt-uix-form-input-text text yt-uix-char-counter-input" dir="ltr" /></span>
+                        <span class=" yt-uix-form-input-container">
+                          <input maxlength="60" value="<%= Sanitize.clean(playlist.title.gsub(/\n/, ' '), Sanitize::Config::BASIC).html_safe %>" name="title" class="yt-uix-form-input-text text yt-uix-char-counter-input" dir="ltr" />
+                        </span>
                         </label>
                      </div>
                   </div>
@@ -146,7 +148,7 @@
                   <div class="playlist-landing">
                      <% if playlist.content.count > 0 %>
                      <ol class="playlist-video-items yt-uix-dragdrop" id="playlist-video-items">
-                        <%= render :partial=>'list',:locals =>{content:playlist.content} %>
+                        <%= render :partial=>'list',:locals =>{content:playlist.content,annotation:playlist.annotation,user_id:playlist.user_id} %>
                      </ol>
                      <% else %>
                        <div class="playlist-empty-message">
@@ -180,7 +182,7 @@
                        </span>
                      </span>
                        <span class="yt-uix-form-input-container ">
-                         <textarea rows="6" maxlength="5000" name="description" class="yt-uix-form-textarea yt-uix-char-counter-input" style="height: 73px;"><%=  Sanitize.clean(playlist.desc.gsub(/\n/, '<br />'), Sanitize::Config::BASIC).html_safe if !playlist.desc.blank? %></textarea>
+                         <textarea rows="6" maxlength="5000" name="description" class="yt-uix-form-textarea yt-uix-char-counter-input" style="height: 73px;"><%=  Sanitize.clean(playlist.desc, Sanitize::Config::BASIC).html_safe if !playlist.desc.blank? %></textarea>
                        </span>
                      </label>
                   </fieldset>
@@ -313,16 +315,14 @@
   var choose = new Array();
   var resortList = function(){
         arr = new Array();
-        var len = $('li.playlist-video-item').length;
         var k=1;
-        for(var i=0;i<len;i++){
-          if(!$('li.playlist-video-item:eq('+i.toString()+')').hasClass('removed')){
-            arr.push($('li.playlist-video-item:eq('+i.toString()+')').attr('data-encrypted-kejian-id'));
-            $('li.playlist-video-item:eq('+i.toString()+') > div > .playlist-video-item-base-content > .video-index').text(k.toString());
+				$('li.playlist-video-item').each(function(index,li){
+          if(!$(li).hasClass('removed')){
+            arr.push($(li).attr('data-encrypted-kejian-id'));
+            $('div > .playlist-video-item-base-content > .video-index',li).text(k.toString());
             k++;
           }
-        }
-        console.log(arr);
+				});
   };
   resortList();
   $('#playlist-quicksort').live('change',function(){
@@ -331,7 +331,7 @@
     $.ajax({
       url:'/ajax/playlist_quicksort',
       type:'POST',
-      data:{'type':sort,'arr':arr},
+      data:{'type':sort,'arr':arr,'annotation':'<%= playlist.annotation %>','user_id':'<%= playlist.user_id %>'},
       dataType:'html'
     }).done(function(html){
       $('#playlist-video-items').html(html);
@@ -341,6 +341,7 @@
     if($(this).attr('checked')){
        $('.yt-uix-form-input-checkbox.playlist-video-item-checkbox').attr('checked',true); 
        $('#playlist-edit-actions').attr('disabled',false);
+			 resortList();
        choose = arr;
     }else{
        $('.yt-uix-form-input-checkbox.playlist-video-item-checkbox').attr('checked',false); 
@@ -362,7 +363,6 @@
         $('#playlist-edit-actions').attr('disabled',true);        
       }
     }
-    console.log(choose);
   });
   $(document).click(function(e){
     var target = e.target
@@ -422,21 +422,51 @@
     }
   });
   $('.playlist-video-item-controls.yt-uix-dragdrop-drag-handle').disableSelection();
-  
+  function selected_items(){
+		var tmp = new Array();
+		$('li.playlist-video-item').each(function(index,li){
+      if($('div > span.yt-uix-form-input-checkbox-container.playlist-video-item-checkbox-container > .yt-uix-form-input-checkbox.playlist-video-item-checkbox',li).attr('checked')){
+				$('div > span.yt-uix-form-input-checkbox-container.playlist-video-item-checkbox-container > .yt-uix-form-input-checkbox.playlist-video-item-checkbox',li).attr('checked',false);
+				tmp.push(li);
+				$(li).remove();
+      }
+		});
+		return tmp;
+  };
+	function after_edit_action_processing(){
+    if($('#playlist-select-all').attr('checked'))
+    {
+       $('#playlist-select-all').attr('checked',false)
+    }
+		$('#playlist-edit-actions').attr('disabled',true);
+	};
   $('#aria-id-top').live('click',function(){
-    
+		var tmp = selected_items();
+		$.each(tmp.reverse(),function(index,li){
+			$('#playlist-video-items').prepend(li);
+		});
+    after_edit_action_processing();
+		resortList();
   });
   $('#aria-id-bottom').live('click',function(){
-    
+		arr = new Array();
+		var tmp = selected_items();
+		$.each(tmp,function(index,li){
+			$('#playlist-video-items').append(li);
+		});
+		after_edit_action_processing();
+		resortList();		
   });
   $('#aria-id-delete').live('click',function(){
-    for(var i=0;i<$('li.playlist-video-item').length;i++){
-      var inchoose = $.inArray($('li.playlist-video-item:eq('+i.toString()+')').attr('data-encrypted-kejian-id'),choose);
+    $('li.playlist-video-item').each(function(index,li){
+      var inchoose = $.inArray($(li).attr('data-encrypted-kejian-id'),choose);
       if(inchoose != -1){
-        $('li.playlist-video-item:eq('+i.toString()+')').addClass('removed');
+        $(li).addClass('removed');
+        $('div > span.yt-uix-form-input-checkbox-container.playlist-video-item-checkbox-container > .yt-uix-form-input-checkbox.playlist-video-item-checkbox',li).attr('checked',false);
         choose.splice(inchoose,inchoose+1);
       }
-    }
+    });
+		after_edit_action_processing();
     resortList();
   });
   $('button.undo-video-removal').live('click',function(){
@@ -448,7 +478,31 @@
     $(this).parent().parent().parent().parent().parent().parent().addClass('editing-annotation');
   });
   $('.playlist-video-item-save-annotation').live('click',function(){
-    
+    var id = $(this).parent().attr('for');
+    $(this).parent().parent().parent().parent().parent().parent().parent().removeClass('editing-annotation');
+    $(this).parent().hide();
+    var anno = $('#'+id).val();
+    if($.trim(anno) != ''){
+      $(this).parent().parent().parent().parent().parent().parent().parent().addClass('annotated');
+      $(this).parent().next().find('.video-annotation-text').text(anno);
+    }else{
+      $(this).parent().parent().parent().parent().parent().parent().parent().removeClass('annotated');
+      $(this).parent().next().find('.video-annotation-text').text(anno);
+    }
   });
+  $('.playlist-video-item-edit-range').live('click',function(){
+    var id = $(this).parent().parent().parent().parent().parent().attr('data-encrypted-kejian-id');
+    window.location.href = '/coursewares/'+id;
+  });
+	
+	  $("input[name='title'],textarea[name='description']").live('keyup change',function(){
+      var max = parseInt($(this).attr('maxlength'));
+      if($(this).val().length > max){
+          $(this).val($(this).val().substr(0, max));
+      }
+      $(this).parent().prev().find('.yt-uix-char-counter-remaining').html(max-$(this).val().length);
+  });
+	
+
 <% end %>
 </script>

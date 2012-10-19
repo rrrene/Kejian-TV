@@ -88,7 +88,11 @@ Sub::Application.routes.draw do
   get '/welcome/latest'
   get '/welcome/feeds'
   # ________________________________ktv__________________________________________
-  resources :play_lists
+  resources :play_lists do 
+    member do
+      post 'handler'
+    end
+  end
   resources :departments
   resources :courses
   resources :schools
