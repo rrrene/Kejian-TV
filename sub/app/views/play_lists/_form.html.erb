@@ -102,9 +102,9 @@
                         <span class="yt-uix-button-content">操作 </span>
                         <img alt="" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="yt-uix-button-arrow" />
                         <ul style="display: none;" aria-haspopup="true" role="menu" class=" yt-uix-button-menu yt-uix-button-menu-default">
-                           <li id="aria-id-85323582582" role="menuitem"><span onclick=";return false;" class="playlist-move-items-top yt-uix-button-menu-item">移至顶部</span></li>
-                           <li id="aria-id-49263586045" role="menuitem"><span onclick=";return false;" class="playlist-move-items-bottom yt-uix-button-menu-item">移至底部</span></li>
-                           <li id="aria-id-9363248079" role="menuitem"><span onclick=";return false;" class="playlist-delete-items yt-uix-button-menu-item">从课件锦囊中删除视频</span></li>
+                           <li id="aria-id-top" role="menuitem"><span onclick=";return false;" class="playlist-move-items-top yt-uix-button-menu-item">移至顶部</span></li>
+                           <li id="aria-id-bottom" role="menuitem"><span onclick=";return false;" class="playlist-move-items-bottom yt-uix-button-menu-item">移至底部</span></li>
+                           <li id="aria-id-delete" role="menuitem"><span onclick=";return false;" class="playlist-delete-items yt-uix-button-menu-item">从课件锦囊中删除视频</span></li>
                         </ul>
                      </button>
                      <button role="button" data-button-toggle="true" class="add-playlist-video-button yt-uix-button yt-uix-button-default" id="playlist-add-video" type="button" onclick=";return false;">
@@ -213,8 +213,11 @@
                      <h3>
                         设置
                      </h3>
-                     <div class="checkbox-container active">
-                        <span class="yt-uix-form-input-checkbox-container  checked"><input type="checkbox" value="1" id="playlist-allow-embedding" checked="checked" class="yt-uix-form-input-checkbox" name="allow_embedding" /><span class="yt-uix-form-input-checkbox-element"></span></span>
+                     <div class="checkbox-container <% if playlist.playlist_allow_embedding %> active<% end %>">
+                        <span class="yt-uix-form-input-checkbox-container <% if playlist.playlist_allow_embedding %> checked<% end %>">
+                          <input type="checkbox" value="1" id="playlist-allow-embedding" <% if playlist.playlist_allow_embedding %> checked="checked"<% end %> class="yt-uix-form-input-checkbox" name="allow_embedding" />
+                          <span class="yt-uix-form-input-checkbox-element"></span>
+                        </span>
                         <label for="playlist-allow-embedding">
                         允许其他人嵌入该课件锦囊
                         </label>
@@ -230,8 +233,8 @@
                            </div>
                         </div>
                      </div>
-                     <div class="checkbox-container active">
-                        <span class="yt-uix-form-input-checkbox-container  checked"><input type="checkbox" value="1" id="playlist-allow-ratings" checked="checked" class="yt-uix-form-input-checkbox" name="allow_ratings" /><span class="yt-uix-form-input-checkbox-element"></span></span>
+                     <div class="checkbox-container <% if playlist.playlist_allow_ratings %>active<% end %>">
+                        <span class="yt-uix-form-input-checkbox-container  <% if playlist.playlist_allow_ratings %>checked<% end %>"><input type="checkbox" value="1" id="playlist-allow-ratings" <% if playlist.playlist_allow_ratings %> checked="checked" <% end %>class="yt-uix-form-input-checkbox" name="allow_ratings" /><span class="yt-uix-form-input-checkbox-element"></span></span>
                         <label for="playlist-allow-ratings">
                         允许他人对此课件锦囊执行“顶”或“踩”操作
                         </label>
@@ -247,8 +250,10 @@
                            </div>
                         </div>
                      </div>
-                     <div class="checkbox-container ">
-                        <span class="yt-uix-form-input-checkbox-container "><input type="checkbox" value="1" id="playlist-enable-grid-view" class="yt-uix-form-input-checkbox" name="enable_grid_view" /><span class="yt-uix-form-input-checkbox-element"></span></span>
+                     <div class="checkbox-container <% if playlist.playlist_enable_grid_view %>active<% end %>">
+                        <span class="yt-uix-form-input-checkbox-container <% if playlist.playlist_enable_grid_view %>checked<% end %>">
+                          <input type="checkbox" value="1" id="playlist-enable-grid-view" class="yt-uix-form-input-checkbox" name="enable_grid_view" <% if playlist.playlist_enable_grid_view %> checked='checked' <% end %>/>
+                          <span class="yt-uix-form-input-checkbox-element"></span></span>
                         <label for="playlist-enable-grid-view">
                         以网格形式显示此课件锦囊
                         </label>
@@ -304,12 +309,11 @@
       }
     });
   });
+  var arr = new Array();
+  for(var i=0;i<$('li.playlist-video-item').length;i++){
+    arr.push($('li.playlist-video-item:eq('+i.toString()+')').attr('data-encrypted-kejian-id'));
+  }
   $('#playlist-quicksort').live('change',function(){
-    var arr = new Array();
-    for(var i=0;i<$('li.playlist-video-item').length;i++){
-      arr.push($('li.playlist-video-item:eq('+i.toString()+')').attr('data-encrypted-kejian-id'));
-    }
-    console.log(arr);
     var sort = $('option:selected',this).val();
     $('.yt-uix-form-input-select-content > .yt-uix-form-input-select-value').text($('option:selected',this).text());
     $.ajax({
@@ -320,6 +324,79 @@
     }).done(function(html){
       $('#playlist-video-items').html(html);
     });
-  })
+  });
+  $('#playlist-select-all').live('click',function(){
+    if($(this).attr('checked')){
+       $('.yt-uix-form-input-checkbox.playlist-video-item-checkbox').attr('checked',true); 
+       $('#playlist-edit-actions').attr('disabled',false);
+    }else{
+       $('.yt-uix-form-input-checkbox.playlist-video-item-checkbox').attr('checked',false); 
+       $('#playlist-edit-actions').attr('disabled',true);
+    }
+  });
+  $('.yt-uix-form-input-checkbox.playlist-video-item-checkbox').live('click',function(){
+      $('#playlist-edit-actions').attr('disabled',false);
+  });
+  $(document).click(function(e){
+    var target = e.target
+    if($('#playlist-edit-actions').hasClass('yt-uix-button-toggled') && !$(target).is('#playlist-edit-actions')){
+      $('#playlist-edit-actions').removeClass('yt-uix-button-toggled');
+      var ul = $('.__ytb ul');
+      ul.remove();
+      ul.hide().addClass('hid');
+      $('#playlist-edit-actions').append(ul);
+    }
+  });
+  $('#playlist-edit-actions').live('click',function(e){
+    $(this).toggleClass('yt-uix-button-toggled');
+    e.stopPropagation();
+    if($(this).hasClass('yt-uix-button-toggled')){
+      var ul = $('ul',this);
+      ul.remove();
+      $('.__ytb').append(ul);
+      var cssObj = {
+        'min-width': '96px',
+        'left': $(this).offset().left.toString() + 'px', 
+        'top': ($(this).offset().top + $(this).height()).toString() + 'px'
+      };
+      ul.css(cssObj);
+      ul.show().removeClass('hid');
+    }else{
+      var ul = $('.__ytb ul');
+      ul.remove();
+      ul.hide().addClass('hid');
+      $(this).append(ul);
+    }
+  });
+  $('#playlist-privacy-public-radio-button').live('click',function(){
+      $('#playlist-allow-embedding').parent().parent().find('div.yt-alert.playlist-privacy-warning').hide();
+      $('#playlist-allow-ratings').parent().parent().find('div.yt-alert.playlist-privacy-warning').hide();
+  });
+  $('#playlist-privacy-private-radio-button').live('click',function(){
+    if($('#playlist-allow-embedding').attr('checked')){
+      $('#playlist-allow-embedding').parent().parent().find('div.yt-alert.playlist-privacy-warning').show();
+    }
+    if($('#playlist-allow-ratings').attr('checked')){
+      $('#playlist-allow-ratings').parent().parent().find('div.yt-alert.playlist-privacy-warning').show();
+    }
+  });
+  $('button.delete-playlist-button.yt-uix-button.yt-uix-button-default').live('click',function(){
+    $(this).hide().addClass('hid');
+    $('#delete-playlist-dialog').show().removeClass('hid');
+  });
+  $('button.delete-playlist-cancel').live('click',function(){
+    $('#delete-playlist-dialog').hide().addClass('hid');
+    $('button.delete-playlist-button.yt-uix-button.yt-uix-button-default').show().removeClass('hid');
+  });
+  $('.playlist-landing ol').sortable({handle:".playlist-video-item-controls.yt-uix-dragdrop-drag-handle"}).disableSelection();
+  $('#aria-id-top').live('click',function(){
+    
+  });
+  $('#aria-id-bottom').live('click',function(){
+    
+  });
+  $('#aria-id-delete').live('click',function(){
+    
+  });
 <% end %>
 </script>

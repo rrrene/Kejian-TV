@@ -529,7 +529,7 @@ HEREDOC
           cw = Courseware.find(id)
           hash[id] = cw.views_count
         end
-        plc = hash.sort_by{|k,v| v}.map{|k,v| k }.to_a.compact
+        plc = hash.sort_by{|k,v| -v}.map{|k,v| k }.to_a.compact
         by = 'views_count'
     when 'playlist-sort-title'
         plc.each do |id|
@@ -541,9 +541,9 @@ HEREDOC
     when 'playlist-sort-date-uploaded'
         plc.each do |id|
           cw = Courseware.find(id)
-          hash[id] = cw.created_at
+          hash[id] = cw.created_at.to_i
         end
-        plc = hash.sort_by{|k,v| v}.map{|k,v| k }.to_a.compact
+        plc = hash.sort_by{|k,v| -v}.map{|k,v| k }.to_a.compact
         by = 'created_at'
     when 'playlist-sort-random'
         plc = plc.shuffle
@@ -551,7 +551,7 @@ HEREDOC
         plc = plc.reverse
         by = params[:former]
     end
-    
+    render file:'play_lists/_list',locals:{content:plc},layout:false
   end
 end
 
