@@ -1,9 +1,23 @@
+#pagekey-nprofile-edit-success{
+position:absolute;top:130px;width:844px;
+margin:8px 0 0 156px;
+}
 .__lnk{
 //////////////////////////// 1 ///////////////////////////////////		
 
 	/* scss/base/reset.css */
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-weight: inherit;
+  font-style: inherit;
+  font-size: 100%;
+  font-family: inherit;
+  vertical-align: baseline;
+  -webkit-text-size-adjust: 100%;
 
-	html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td {
+div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td {
 	    margin: 0;
 	    padding: 0;
 	    border: 0;
@@ -141,22 +155,12 @@
 	    outline: 0;
 	}
 
-	body {
-	    font: 62.5%/1.2 Arial,Helvetica,"Nimbus Sans L",sans-serif;
-	    color: #000;
-	    margin: 0;
-	    padding: 0;
-	    border: 0;
-	    outline: 0;
-	}
-
-	body.ko {
-	    font-family: "Malgun Gothic";
-	}
-
-	body.ja {
-	    font-family: "Hiragino Kaku Gothic Pro", "ãƒ’ãƒ©ã‚®ãƒŽè§’ã‚´ Pro W3", ãƒ¡ã‚¤ãƒªã‚ª, Meiryo, "ï¼­ï¼³ ï¼°ã‚´ã‚·ãƒƒã‚¯", "MS PGothic", Arial, Helvetica, "Nimbus Sans L", sans-serif;
-	}
+  font: 62.5%/1.2 Arial,Helvetica,"Nimbus Sans L",sans-serif;
+  color: #000;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
 
 	hr {
 	    display: none;
@@ -257,7 +261,7 @@
 	}
 
 	#notice-close {
-	    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_global_v8.png') right -1294px no-repeat;
+	    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_global_v8.png')%>) right -1294px no-repeat;
 	    display: block;
 	    padding: 7px 0 2px;
 	    position: absolute;
@@ -273,7 +277,7 @@
 
 	.tabs {
 	    height: 26px;
-	    background: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_sprites_tabs.png') 0 3px repeat-x;
+	    background: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_sprites_tabs.png')%>) 0 3px repeat-x;
 	    margin-bottom: 10px;
 	}
 
@@ -293,13 +297,13 @@
 	}
 
 	.tabs li {
-	    background: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_sprites_tabs.png') 0 -47px no-repeat;
+	    background: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_sprites_tabs.png')%>) 0 -47px no-repeat;
 	    margin: 0;
 	    padding: 0;
 	}
 
 	.tabs li.selected {
-	    background: #fff url('http://static02.linkedin.com/scds/common/u/img/bg/bg_sprites_tabs.png') 0 -100px no-repeat;
+	    background: #fff url(<%=asset_path('ln02/scds/common/u/img/bg/bg_sprites_tabs.png')%>) 0 -100px no-repeat;
 	    border-top: 1px solid #CCC;
 	}
 
@@ -312,7 +316,7 @@
 
 	.tabs li.selected a,.tabs li.selected strong {
 	    color: #C60;
-	    background: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_sprites_tabs.png') 100% -100px no-repeat;
+	    background: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_sprites_tabs.png')%>) 100% -100px no-repeat;
 	}
 
 	.tabs li.disabled a,.tabs li.disabled a:hover *,.tabs li.disabled strong {
@@ -322,7 +326,7 @@
 
 	.tabs li strong {
 	    color: #777;
-	    background: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_sprites_tabs.png') 100% -47px no-repeat;
+	    background: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_sprites_tabs.png')%>) 100% -47px no-repeat;
 	    font-weight: bold;
 	    padding: 8px 14px 6px 14px;
 	}
@@ -374,7 +378,7 @@
 	}
 
 	p.check-textarea-message.error {
-	    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_global_v8.png') 0 -968px no-repeat;
+	    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_global_v8.png')%>) 0 -968px no-repeat;
 	    padding: 2px 0 2px 15px !important;
 	    color: #900 !important;
 	}
@@ -481,7 +485,7 @@
 	}
 
 	.chrome-v4 .global-nav .logo a {
-	    background: url('http://static01.linkedin.com/scds/common/u/img/logos/LinkedIn_logo_white_92x22_v2.png') 0 0 no-repeat;
+	    background: url(<%=asset_path('ln01/scds/common/u/img/logos/LinkedIn_logo_white_92x22_v2.png')%>) 0 0 no-repeat;
 	    display: block;
 	    height: 22px;
 	    text-indent: -12345px;
@@ -567,7 +571,7 @@
 	}
 
 	.chrome-v4 .global-nav .header-notifications .activity-tab .activity-toggle {
-	    background: url('http://static02.linkedin.com/scds/common/u/img/sprite/sprite_notifications_v4.png') no-repeat 8px 8px;
+	    background: url(<%=asset_path('ln02/scds/common/u/img/sprite/sprite_notifications_v4.png')%>) no-repeat 8px 8px;
 	    height: 24px;
 	}
 
@@ -889,7 +893,7 @@
 	}
 
 	.chrome-v4 .global-nav .qh-container .qh-btn {
-	    background: transparent url('http://static02.linkedin.com/scds/common/u/lib/hopscotch/0.0.1/img/sprite_li.png') -150px 0 no-repeat;
+	    background: transparent url(<%=asset_path('ln02/scds/common/u/lib/hopscotch/0.0.1/img/sprite_li.png')%>) -150px 0 no-repeat;
 	    color: #fff;
 	    display: block;
 	    font-size: 11px;
@@ -907,12 +911,12 @@
 	}
 
 	.chrome-v4 .global-nav .qh-container .qh-btn.num,.chrome-v4 .global-nav .qh-container.show .qh-btn.num {
-	    background: transparent url('http://static02.linkedin.com/scds/common/u/lib/hopscotch/0.0.1/img/sprite_li.png') -100px -100px no-repeat;
+	    background: transparent url(<%=asset_path('ln02/scds/common/u/lib/hopscotch/0.0.1/img/sprite_li.png')%>) -100px -100px no-repeat;
 	    text-indent: 0;
 	}
 
 	.chrome-v4 .global-nav .qh-container .qh-btn.completed,.chrome-v4 .global-nav .qh-container.show .qh-btn.completed {
-	    background: transparent url('http://static02.linkedin.com/scds/common/u/lib/hopscotch/0.0.1/img/sprite_li.png') -150px -150px no-repeat;
+	    background: transparent url(<%=asset_path('ln02/scds/common/u/lib/hopscotch/0.0.1/img/sprite_li.png')%>) -150px -150px no-repeat;
 	}
 
 	.chrome-v4 .global-nav .qh-container .loading {
@@ -959,11 +963,11 @@
 	}
 
 	.chrome-v4 .global-nav .qh-container .qh-tour-link {
-	    background: transparent url('http://static02.linkedin.com/scds/common/u/lib/hopscotch/0.0.1/img/sprite_li.png') -196px 6px no-repeat;
+	    background: transparent url(<%=asset_path('ln02/scds/common/u/lib/hopscotch/0.0.1/img/sprite_li.png')%>) -196px 6px no-repeat;
 	}
 
 	.chrome-v4 .global-nav .qh-container .qh-tour-link.loading {
-	    background: transparent url('http://static01.linkedin.com/scds/common/u/img/anim/anim_loading_16x16.gif') 1px 4px no-repeat;
+	    background: transparent url(<%=asset_path('ln01/scds/common/u/img/anim/anim_loading_16x16.gif')%>) 1px 4px no-repeat;
 	    margin: 0;
 	    text-align: left;
 	}
@@ -979,7 +983,7 @@
 	}
 
 	.chrome-v4 .global-nav .qh-container .qh-tour-step .step-num {
-	    background-image: url('http://static02.linkedin.com/scds/common/u/lib/hopscotch/0.0.1/img/sprite_li.png');
+	    background-image: url(<%=asset_path('ln02/scds/common/u/lib/hopscotch/0.0.1/img/sprite_li.png')%>);
 	    background-repeat: no-repeat;
 	    display: block;
 	    float: left;
@@ -1133,7 +1137,7 @@
 	}
 
 	.chrome-v4 .global-nav .global-search .search-scope .label span {
-	    background: transparent url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_global_v8.png') no-repeat 100% -1914px;
+	    background: transparent url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_global_v8.png')%>) no-repeat 100% -1914px;
 	    color: #fff;
 	    cursor: pointer;
 	    float: left;
@@ -1242,7 +1246,7 @@
 
 	.chrome-v4 .global-nav .global-search .search-box-container .search-term.gray-text-aware {
 	    background: transparent url(data:image/gif;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw%3D%3D);
-	    *background-image: url('http://static02.linkedin.com/scds/common/u/img/spacer.gif');
+	    *background-image: url(<%=asset_path('ln02/scds/common/u/img/spacer.gif')%>);
 	}
 
 	.ie.ie7 .chrome-v4 .global-nav .global-search .search-box-container .search-term {
@@ -1263,7 +1267,7 @@
 	}
 
 	.chrome-v4 .global-nav .global-search .search-box-container .search-go {
-	    background: transparent url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_global_v8.png') no-repeat 0 -2197px;
+	    background: transparent url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_global_v8.png')%>) no-repeat 0 -2197px;
 	    border: none;
 	    color: #0076a8;
 	    cursor: pointer;
@@ -1315,7 +1319,7 @@
 	}
 
 	#pagekey-member-home.chrome-v4.background-v4,#pagekey-member-home-fizzy.chrome-v4.background-v4 {
-	    background: #e9e9e9 url('http://static01.linkedin.com/scds/common/u/img/bg/bg_grain_200x200.png');
+	    background: #e9e9e9 url(<%=asset_path('ln01/scds/common/u/img/bg/bg_grain_200x200.png')%>);
 	}
 
 	.chrome-v4.sticky-bg .global-nav {
@@ -1341,7 +1345,7 @@
 	}
 
 	#text-ad-container {
-	    background: #e9e9e9 url('http://static01.linkedin.com/scds/common/u/img/bg/bg_grain_200x200.png');
+	    background: #e9e9e9 url(<%=asset_path('ln01/scds/common/u/img/bg/bg_grain_200x200.png')%>);
 	    padding-top: 15px;
 	    padding-bottom: 15px;
 	    margin-top: 77px;
@@ -1382,9 +1386,8 @@
 	    font-size: 12px;
 	}
 
-	body {
 	    background-color: #fff;
-	}
+
 
 	.global-nav ul,.global-nav li,.global-nav p,.global-nav fieldset,#section-header ul,#section-header li,#section-header p,#section-header,.global-search fieldset,.global-search select,.global-search input,#footer ul,#footer li,#footer p {
 	    margin: 0;
@@ -1443,7 +1446,7 @@
 	}
 
 	.chrome-v3 .global-nav .logo a {
-	    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_global_v8.png') no-repeat;
+	    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_global_v8.png')%>) no-repeat;
 	    display: block;
 	    height: 22px;
 	    text-indent: -12345px;
@@ -1486,19 +1489,19 @@
 	}
 
 	.chrome-v3 .global-nav .util .username {
-	    background: #fff url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_global_v8.png') no-repeat 0 -1763px;
+	    background: #fff url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_global_v8.png')%>) no-repeat 0 -1763px;
 	    *background-position: 0 -1762px;
 	    padding-left: 12px;
 	}
 
 	.chrome-v3 .global-nav .bar {
-	    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_global_v8.png') no-repeat 0 -470px;
+	    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_global_v8.png')%>) no-repeat 0 -470px;
 	    width: 100%;
 	}
 
 	.chrome-v3 .global-nav .bar .wrapper {
 	    padding: 0 5px;
-	    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_global_v8.png') no-repeat 0 -510px;
+	    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_global_v8.png')%>) no-repeat 0 -510px;
 	    height: 39px;
 	}
 
@@ -1730,7 +1733,7 @@
 	    cursor: pointer;
 	    border: 1px solid #06598B;
 	    color: #0076A8;
-	    background: #0076a8 url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_global_v8.png') -9px -1170px no-repeat;
+	    background: #0076a8 url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_global_v8.png')%>) -9px -1170px no-repeat;
 	    height: 22px;
 	    width: 20px;
 	    *width: 22px;
@@ -1784,7 +1787,7 @@
 
 	.chrome-v3 .global-nav #main-search-box.gray-text-aware {
 	    background: transparent url(data:image/gif;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw%3D%3D);
-	    *background-image: url('http://static02.linkedin.com/scds/common/u/img/spacer.gif');
+	    *background-image: url(<%=asset_path('ln02/scds/common/u/img/spacer.gif')%>);
 	}
 
 	.chrome-v3 .global-nav #gray-text-field {
@@ -1868,7 +1871,7 @@
 
 	.chrome-v3 .global-nav .search-scope span.label {
 	    float: left;
-	    background: #dcdcdc url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_global_v8.png') 0 -1130px repeat-x;
+	    background: #dcdcdc url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_global_v8.png')%>) 0 -1130px repeat-x;
 	    margin: 0;
 	    border: 1px solid #7c7c7c;
 	    border-width: 1px 0 1px 1px;
@@ -1881,7 +1884,7 @@
 
 	.chrome-v3 .global-nav .search-scope span.label span {
 	    float: left;
-	    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_global_v8.png') 101% -2072px no-repeat;
+	    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_global_v8.png')%>) 101% -2072px no-repeat;
 	    color: #666;
 	    font-weight: bold;
 	    padding: 4px 19px 3px 8px;
@@ -1923,7 +1926,7 @@
 	}
 
 	#section-header,.wrapper #page-title {
-	    background: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_border_3x1.png') repeat-x 0 100%;
+	    background: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_border_3x1.png')%>) repeat-x 0 100%;
 	}
 
 	#section-header h1,#page-title h1 {
@@ -2602,7 +2605,7 @@
 	}
 
 	.header-notifications .activity-toggle {
-	    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_notifications_v1.png') no-repeat 5px 0;
+	    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_notifications_v1.png')%>) no-repeat 5px 0;
 	    display: block;
 	    height: 22px;
 	    padding: 5px;
@@ -2629,7 +2632,7 @@
 	}
 
 	.header-notifications.katy-icons .activity-toggle {
-	    background-image: url('http://static02.linkedin.com/scds/common/u/img/sprite/sprite_notifications_v2.png');
+	    background-image: url(<%=asset_path('ln02/scds/common/u/img/sprite/sprite_notifications_v2.png')%>);
 	}
 
 	.header-notifications.katy-icons .gem {
@@ -2698,7 +2701,7 @@
 	}
 
 	.header-notifications .activity-drop-loading {
-	    background: #fff url('http://static01.linkedin.com/scds/common/u/img/anim/anim_loading_16x16.gif') no-repeat center center;
+	    background: #fff url(<%=asset_path('ln01/scds/common/u/img/anim/anim_loading_16x16.gif')%>) no-repeat center center;
 	    height: 26px;
 	}
 
@@ -2802,13 +2805,13 @@
 	}
 
 	.header-notifications .inbox-item .submitting {
-	    background: url('http://static01.linkedin.com/scds/common/u/img/anim/anim_loading_16x16.gif') no-repeat center center;
+	    background: url(<%=asset_path('ln01/scds/common/u/img/anim/anim_loading_16x16.gif')%>) no-repeat center center;
 	    height: 100%;
 	    text-indent: -12345px;
 	}
 
 	.header-notifications .inbox-item .delete a,.header-notifications .inbox-item .close-confirmation {
-	    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_global_v8.png') no-repeat 3px -1447px;
+	    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_global_v8.png')%>) no-repeat 3px -1447px;
 	    cursor: pointer;
 	    height: 14px;
 	    position: absolute;
@@ -2946,7 +2949,7 @@
 	}
 
 	.premium-member.chrome-v4 .global-nav .logo a {
-	    background: url('http://static02.linkedin.com/scds/common/u/images/logos/logos_gold_inbug_40x28_v2.png') 0 0 no-repeat;
+	    background: url(<%=asset_path('ln02/scds/common/u/images/logos/logos_gold_inbug_40x28_v2.png')%>) 0 0 no-repeat;
 	    height: 28px;
 	    width: 40px;
 	}
@@ -2968,7 +2971,7 @@
 	}
 
 	.premium-member.chrome-v4 .global-nav .search-box-container .search-go {
-	    background: transparent url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_global_v8.png') no-repeat 0 -2233px;
+	    background: transparent url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_global_v8.png')%>) no-repeat 0 -2233px;
 	}
 
 	.premium-member.chrome-v4 .global-nav .tab .tab-name {
@@ -2988,7 +2991,7 @@
 	}
 
 	#pagekey-member-home.premium-member.chrome-v4.background-v4,#pagekey-member-home-fizzy.premium-member.chrome-v4.background-v4 {
-	    background-image: url('http://static02.linkedin.com/scds/common/u/images/themes/katy/textures/texture_premium_grain_60x59_v1.png');
+	    background-image: url(<%=asset_path('ln02/scds/common/u/images/themes/katy/textures/texture_premium_grain_60x59_v1.png')%>);
 	}
 
 
@@ -3104,7 +3107,7 @@
 	.typeahead-results-container .yui-ac-content ul.hasCategory li.category {
 	    cursor: default;
 	    width: 100px;
-	    background: #e7e7e7 url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_typeahead_v00.png') 0 0 repeat-x;
+	    background: #e7e7e7 url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_typeahead_v00.png')%>) 0 0 repeat-x;
 	    padding: 5px 5px 0 0;
 	    min-height: 25px;
 	    height: auto;
@@ -3127,7 +3130,7 @@
 
 	.typeahead-results-container .yui-ac-content ul.hasCategory li.first {
 	    margin-top: -30px;
-	    background: #fff url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_typeahead_v00.png') 0 0 repeat-x;
+	    background: #fff url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_typeahead_v00.png')%>) 0 0 repeat-x;
 	}
 
 	.typeahead-results-container .yui-ac-content ul.hasCategory li.text-only {
@@ -3179,7 +3182,7 @@
 
 	.typeahead-results-container .yui-ac-content ul.hasCategory li.item.sitefeature h4,.typeahead-results-container .yui-ac-content ul.hasCategory li.item.skill h4,.typeahead-results-container .yui-ac-content ul.hasCategory li.item.suggestion h4 {
 	    line-height: 16px;
-	    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_typeahead_v00.png') 13px -85px no-repeat;
+	    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_typeahead_v00.png')%>) 13px -85px no-repeat;
 	    padding: 5px 5px 5px 40px;
 	    max-height: 16px;
 	    height: auto;
@@ -3199,14 +3202,14 @@
 	}
 
 	.typeahead-results-container .yui-ac-content ul.hasCategory li.item.poll h4 {
-	    background: url('http://static01.linkedin.com/scds/common/u/img/bg/bg_search_comment.png') left bottom no-repeat;
+	    background: url(<%=asset_path('ln01/scds/common/u/img/bg/bg_search_comment.png')%>) left bottom no-repeat;
 	    padding-bottom: 8px;
 	}
 
 	.typeahead-results-container .yui-ac-content ul.hasCategory li.item.poll h4 strong {
 	    display: block;
 	    padding: 8px 8px 0 19px;
-	    background: url('http://static01.linkedin.com/scds/common/u/img/bg/bg_search_comment.png') no-repeat;
+	    background: url(<%=asset_path('ln01/scds/common/u/img/bg/bg_search_comment.png')%>) no-repeat;
 	    min-height: 20px;
 	    height: auto;
 	    _height: 20px;
@@ -3282,7 +3285,7 @@
 	}
 
 	.typeahead-reskin .typeahead-results-container .yui-ac-content ul.hasCategory li.item.sitefeature h4,.typeahead-reskin .typeahead-results-container .yui-ac-content ul.hasCategory li.item.skill h4,.typeahead-reskin .typeahead-results-container .yui-ac-content ul.hasCategory li.item.suggestion h4 {
-	    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_typeahead_v00.png') 13px -77px no-repeat;
+	    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_typeahead_v00.png')%>) 13px -77px no-repeat;
 	    padding: 13px 5px 5px 46px;
 	}
 
@@ -3297,14 +3300,9 @@
 
 	/* scss/base/layout.css */
 
-	body.basic #content {
-	    width: 600px;
-	    margin: 0 auto;
-	}
-
 	.grid-a #content {
 	    float: left;
-	    width: 58.3%;
+	    width: 823px;
 	}
 
 	.grid-a #extra {
@@ -3493,7 +3491,7 @@
 	}
 
 	.leo-module.mod-info .header strong {
-	    background: url('http://static01.linkedin.com/scds/common/u/img/icon/icon_lightbulb_10x17.gif') no-repeat;
+	    background: url(<%=asset_path('ln01/scds/common/u/img/icon/icon_lightbulb_10x17.gif')%>) no-repeat;
 	    display: block;
 	    min-height: 17px;
 	    padding-left: 17px;
@@ -3554,7 +3552,7 @@
 	    width: 100%;
 	    height: 100%;
 	    float: left;
-	    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_global_v8.png') 5px -1392px no-repeat;
+	    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_global_v8.png')%>) 5px -1392px no-repeat;
 	    cursor: pointer;
 	    text-indent: -12345px;
 	}
@@ -3575,14 +3573,6 @@
 	    display: none;
 	}
 
-	body.dialog-mask-active select {
-	    _visibility: hidden;
-	}
-
-	body.dialog-mask-active .dialog-window select {
-	    _visibility: visible;
-	}
-
 	#dialog-wrapper {
 	    position: absolute;
 	    top: 0;
@@ -3598,7 +3588,7 @@
 	}
 
 	.dialog-mask {
-	    background: url('http://static01.linkedin.com/scds/common/u/img/bg/bg_dialog_modeless_mask.png') repeat top left;
+	    background: url(<%=asset_path('ln01/scds/common/u/img/bg/bg_dialog_modeless_mask.png')%>) repeat top left;
 	    _background-image: none;
 	    _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/img/bg/bg_dialog_modeless_mask.png', sizingMethod='scale');
 	    -moz-border-radius: 5px;
@@ -3612,7 +3602,7 @@
 	}
 
 	.dialog-title {
-	    background: #787878 url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_global_v8.png') repeat-x left -230px;
+	    background: #787878 url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_global_v8.png')%>) repeat-x left -230px;
 	    padding: 8px 12px;
 	    -moz-border-radius: 5px 5px 0 0;
 	    -webkit-border-top-right-radius: 5px;
@@ -3636,7 +3626,7 @@
 	.dialog-title button {
 	    height: 16px;
 	    width: 16px;
-	    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_global_v8.png') no-repeat 4px -1396px;
+	    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_global_v8.png')%>) no-repeat 4px -1396px;
 	    border: 0;
 	    padding: 0;
 	    float: right;
@@ -3662,12 +3652,12 @@
 	}
 
 	.dialog-body-loading {
-	    background: #fff url('http://static01.linkedin.com/scds/common/u/img/anim/anim_loading_40x40.gif') no-repeat 50% 50%;
+	    background: #fff url(<%=asset_path('ln01/scds/common/u/img/anim/anim_loading_40x40.gif')%>) no-repeat 50% 50%;
 	    height: 60px;
 	}
 
 	.the-wiz {
-	    background-image: url('http://static02.linkedin.com/scds/common/u/img/pic/pic_li_feedback_253x117.png');
+	    background-image: url(<%=asset_path('ln02/scds/common/u/img/pic/pic_li_feedback_253x117.png')%>);
 	    background-position: right bottom;
 	    background-repeat: no-repeat;
 	}
@@ -3702,7 +3692,7 @@
 	}
 
 	.dialog-message {
-	    background: #e1f8d6 url('http://static01.linkedin.com/scds/common/u/img/icon/icon_status_success_26x26.gif') no-repeat;
+	    background: #e1f8d6 url(<%=asset_path('ln01/scds/common/u/img/icon/icon_status_success_26x26.gif')%>) no-repeat;
 	    background-position: 10px 11px;
 	    margin: 1px -9px 0;
 	    font-size: 130%;
@@ -3795,7 +3785,7 @@
 	    -moz-border-radius: 0;
 	    -webkit-border-radius: 0;
 	    border-radius: 0;
-	    background-image: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_dialog_modal_mask.png');
+	    background-image: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_dialog_modal_mask.png')%>);
 	    _background-image: none;
 	    _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/img/bg/bg_dialog_modal_mask.png', sizingMethod='scale');
 	}
@@ -3828,7 +3818,7 @@
 
 	.dialog-interrupt .dialog-message {
 	    background-color: #FEF5CC;
-	    background-image: url('http://static01.linkedin.com/scds/common/u/img/icon/icon_status_info_26x26.png');
+	    background-image: url(<%=asset_path('ln01/scds/common/u/img/icon/icon_status_info_26x26.png')%>);
 	}
 
 	.dialog-interrupt .dialog-actions {
@@ -3860,7 +3850,7 @@
 	}
 
 	.dialog-no-header .dialog-title button,.dialog-noheader-modal .dialog-title button {
-	    background: transparent url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_global_v8.png') no-repeat 1px -1300px;
+	    background: transparent url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_global_v8.png')%>) no-repeat 1px -1300px;
 	    margin: 8px 8px;
 	    position: relative;
 	}
@@ -3949,7 +3939,7 @@
 	}
 
 	.toggle-btn {
-	    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_global_v8.png') no-repeat 4px -1925px;
+	    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_global_v8.png')%>) no-repeat 4px -1925px;
 	    display: inline-block !important;
 	    margin-top: 10px;
 	    width: 15px;
@@ -4387,7 +4377,7 @@
 	}
 
 	.btn-join {
-	    background: #fc0 url('http://static02.linkedin.com/scds/common/u/img/btn/btn_ghome_right_600x33.gif') no-repeat -1px -1px;
+	    background: #fc0 url(<%=asset_path('ln02/scds/common/u/img/btn/btn_ghome_right_600x33.gif')%>) no-repeat -1px -1px;
 	    color: #000000 !important;
 	    cursor: pointer;
 	    float: none;
@@ -4435,8 +4425,8 @@
 	}
 
 	.btn-toggle.icon span {
-	    background: url('http://static02.linkedin.com/scds/common/u/img/sprite/sprite_stars_24bit.png') no-repeat 0 -36px;
-	    _background-image: url('http://static02.linkedin.com/scds/common/u/img/sprite/sprite_stars_8bit.png');
+	    background: url(<%=asset_path('ln02/scds/common/u/img/sprite/sprite_stars_24bit.png')%>) no-repeat 0 -36px;
+	    _background-image: url(<%=asset_path('ln02/scds/common/u/img/sprite/sprite_stars_8bit.png')%>);
 	    font-weight: bold;
 	    padding-left: 20px;
 	    text-align: left;
@@ -4494,7 +4484,7 @@
 	}
 
 	.menu-btn .border {
-	    background: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png') repeat-x top left;
+	    background: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png')%>) repeat-x top left;
 	    padding-top: 1px;
 	}
 
@@ -4627,7 +4617,7 @@
 	}
 
 	.menu-dropdown a.action span strong {
-	    background: url('http://static02.linkedin.com/scds/common/u/img/sprite/sprite_mbox_v2.png') 100% -648px no-repeat;
+	    background: url(<%=asset_path('ln02/scds/common/u/img/sprite/sprite_mbox_v2.png')%>) 100% -648px no-repeat;
 	    padding-right: 22px;
 	}
 
@@ -4716,7 +4706,7 @@
 	/* scss/base/icons.css */
 
 	.accounticon {
-	    background: transparent url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_global_v8.png') no-repeat;
+	    background: transparent url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_global_v8.png')%>) no-repeat;
 	    display: inline-block;
 	    height: 16px;
 	    margin-left: 5px;
@@ -5005,13 +4995,13 @@
 .progress-meter {
     border: 1px solid #666;
     overflow: hidden;
-    background: transparent url('http://static02.linkedin.com/scds/common/u/img/sprite/sprite_progress_meter_v1.png') repeat-x 0 0;
+    background: transparent url(<%=asset_path('ln02/scds/common/u/img/sprite/sprite_progress_meter_v1.png')%>) repeat-x 0 0;
     width: 100px;
 }
 
 .progress-meter .has-progress {
     border-right: 1px solid #666;
-    background: transparent url('http://static02.linkedin.com/scds/common/u/img/sprite/sprite_progress_meter_v1.png') repeat-x 0 -50px;
+    background: transparent url(<%=asset_path('ln02/scds/common/u/img/sprite/sprite_progress_meter_v1.png')%>) repeat-x 0 -50px;
 }
 
 
@@ -5063,7 +5053,7 @@
 }
 
 .standard-form fieldset {
-    background: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png') 0 0 repeat-x;
+    background: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png')%>) 0 0 repeat-x;
     *background-position: 0 1em;
 }
 
@@ -5215,7 +5205,7 @@
 .standard-form li fieldset.details li .info {
     font-size: 13px;
     padding: 0 0 1px 20px;
-    background: url('http://static01.linkedin.com/scds/common/u/img/icon/icon_info_yellow_16x16.png') no-repeat;
+    background: url(<%=asset_path('ln01/scds/common/u/img/icon/icon_info_yellow_16x16.png')%>) no-repeat;
 }
 
 .standard-form input,.standard-form select,.standard-form textarea {
@@ -5236,7 +5226,7 @@
 
 .standard-form p.attention {
     font-size: 13px;
-    background: #fff5cc url('http://static02.linkedin.com/scds/common/u/img/icon/icon_status_info_16x16_v2.png') no-repeat 8px 6px;
+    background: #fff5cc url(<%=asset_path('ln02/scds/common/u/img/icon/icon_status_info_16x16_v2.png')%>) no-repeat 8px 6px;
     padding: 6px 6px 6px 30px;
 }
 
@@ -5246,7 +5236,7 @@
 }
 
 .standard-form p.actions {
-    background: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png') 0 0 repeat-x;
+    background: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png')%>) 0 0 repeat-x;
     padding-top: 20px;
     margin-top: 20px;
     font-size: 13px;
@@ -5393,7 +5383,7 @@
 .standard-form.form-submit-processing .progress-indicator,.ajax-form.form-submit-processing .progress-indicator {
     display: inline;
     padding-left: 21px;
-    background: url('http://static01.linkedin.com/scds/common/u/img/anim/anim_loading_16x16.gif') no-repeat 5px center;
+    background: url(<%=asset_path('ln01/scds/common/u/img/anim/anim_loading_16x16.gif')%>) no-repeat 5px center;
     zoom: 1;
 }
 
@@ -5410,7 +5400,7 @@
 }
 
 #main .alert.attention {
-    background: #fff5cc url('http://static01.linkedin.com/scds/common/u/img/icon/icon_status_info_16x16_v2.gif') no-repeat 8px 6px;
+    background: #fff5cc url(<%=asset_path('ln01/scds/common/u/img/icon/icon_status_info_16x16_v2.gif')%>) no-repeat 8px 6px;
 }
 
 #main .alert.attention a {
@@ -5435,7 +5425,7 @@
 }
 
 .noticeMsg {
-    background: url('http://static02.linkedin.com/scds/common/u/img/sprite/sprite_global_v7.png') no-repeat scroll 7px -803px #ddf0f8;
+    background: url(<%=asset_path('ln02/scds/common/u/img/sprite/sprite_global_v7.png')%>) no-repeat scroll 7px -803px #ddf0f8;
     margin: 0 0 15px;
     padding: 9px 7px 9px 42px;
 }
@@ -5455,7 +5445,7 @@
 }
 
 #main .alert.updates {
-    background: #fff5cc url('http://static02.linkedin.com/scds/common/u/img/icon/icon_status_info_26x26.gif') no-repeat 8px 6px;
+    background: #fff5cc url(<%=asset_path('ln02/scds/common/u/img/icon/icon_status_info_26x26.gif')%>) no-repeat 8px 6px;
     *zoom: 1;
 }
 
@@ -5653,7 +5643,7 @@ div.alert-details {
     height: 22px;
     background-color: white;
     position: absolute;
-    background: #fff url('http://static02.linkedin.com/scds/common/u/img/sprite/sprite_profile_v9.png') 4px -1195px no-repeat;
+    background: #fff url(<%=asset_path('ln02/scds/common/u/img/sprite/sprite_profile_v9.png')%>) 4px -1195px no-repeat;
     cursor: pointer;
     visibility: hidden;
 }
@@ -5663,7 +5653,7 @@ div.alert-details {
 }
 
 .larger-profile-photo .dialog-content .loading {
-    background: #fff url('http://static01.linkedin.com/scds/common/u/img/anim/anim_loading_75x75.gif') no-repeat center center;
+    background: #fff url(<%=asset_path('ln01/scds/common/u/img/anim/anim_loading_75x75.gif')%>) no-repeat center center;
 }
 
 .larger-profile-photo .dialog-content {
@@ -5694,7 +5684,7 @@ div.alert-details {
 }
 
 #overview dd {
-    background: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png') repeat-x 0 100%;
+    background: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png')%>) repeat-x 0 100%;
     margin: -2.6em 0 6px 0;
     overflow: hidden;
     padding: 0 0 6px 13em;
@@ -5755,7 +5745,7 @@ div.alert-details {
 }
 
 #nudge p.suggest-update {
-    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_profile_v8.png') no-repeat 5px -850px;
+    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_profile_v8.png')%>) no-repeat 5px -850px;
     color: #555;
     margin: 10px 0;
     padding: 0 0 10px 18px;
@@ -5958,7 +5948,7 @@ div.alert-details {
     color: #666;
     line-height: 55px;
     padding-right: 225px;
-    background: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_mail_stamp_205x55.png') no-repeat bottom right;
+    background: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_mail_stamp_205x55.png')%>) no-repeat bottom right;
 }
 
 .nudge-message-container {
@@ -6062,7 +6052,7 @@ div.alert-details {
 }
 
 .actions ul li a {
-    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_profile_v8.png') no-repeat 0 -850px;
+    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_profile_v8.png')%>) no-repeat 0 -850px;
     padding: 0 0 0 14px;
     *zoom: 1;
 }
@@ -6176,7 +6166,7 @@ div.alert-details {
     float: right;
     text-align: right;
     clear: both;
-    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_global_v8.png') 100% -2076px no-repeat;
+    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_global_v8.png')%>) 100% -2076px no-repeat;
     padding-right: 16px;
 }
 
@@ -6308,7 +6298,7 @@ div.alert-details {
 }
 
 .utilities .print a {
-    background-image: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_profile_v8.png');
+    background-image: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_profile_v8.png')%>);
     background-position: 0 -301px;
     width: 16px;
     padding-left: 0;
@@ -6320,7 +6310,7 @@ div.alert-details {
 }
 
 .utilities .references a {
-    background-image: url('http://static01.linkedin.com/scds/common/u/img/icon/icon_check_green_18x16.gif');
+    background-image: url(<%=asset_path('ln01/scds/common/u/img/icon/icon_check_green_18x16.gif')%>);
     width: 16px;
     padding-left: 0;
 }
@@ -6331,7 +6321,7 @@ div.alert-details {
 }
 
 .utilities .pdf a {
-    background-image: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_profile_v8.png');
+    background-image: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_profile_v8.png')%>);
     background-position: 0 -442px;
     width: 16px;
     padding-left: 0;
@@ -6344,7 +6334,7 @@ div.alert-details {
 }
 
 .utilities .permalink a {
-    background-image: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_profile_v8.png');
+    background-image: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_profile_v8.png')%>);
     background-position: 0 -665px;
     padding-left: 16px;
     width: 1%;
@@ -6356,7 +6346,7 @@ div.alert-details {
 }
 
 .utilities .bookmark a {
-    background-image: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_profile_v8.png');
+    background-image: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_profile_v8.png')%>);
     background-position: 0 -347px;
     padding-left: 11px;
     width: 1%;
@@ -6368,7 +6358,7 @@ div.alert-details {
 }
 
 .utilities .download-vcard a {
-    background-image: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_profile_v8.png');
+    background-image: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_profile_v8.png')%>);
     background-position: 0 -488px;
     padding-left: 30px;
     width: 1%;
@@ -6379,7 +6369,7 @@ div.alert-details {
 }
 
 .utilities .flag-photo a {
-    background-image: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_profile_v8.png');
+    background-image: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_profile_v8.png')%>);
     background-position: 0 -760px;
     padding-left: 20px;
 }
@@ -6674,7 +6664,7 @@ p.pupnote {
 }
 
 .resume .position,.draggable .position,#pagekey-my_profile .gadget {
-    background: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png') repeat-x 0 0;
+    background: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png')%>) repeat-x 0 0;
     margin: 10px 0 0;
     padding: 5px 0 0;
 }
@@ -6808,7 +6798,7 @@ p.pupnote {
 }
 
 .company-profile {
-    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_profile_v8.png') no-repeat 100% -806px;
+    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_profile_v8.png')%>) no-repeat 100% -806px;
     padding-right: 31px;
     *white-space: nowrap;
 }
@@ -6858,7 +6848,7 @@ p.pupnote {
 }
 
 .section dl dd {
-    background: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png') repeat-x 0 100%;
+    background: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png')%>) repeat-x 0 100%;
     _background-image: none;
     margin: -2.6em 0 6px 0;
     padding: 0 0 6px 14em;
@@ -6955,7 +6945,7 @@ dd#pubgroups ul.groups .group-data .join,dd#pubgroups ul.groups .group-data .pen
 dd#pubgroups ul.groups .group-data .join {
     margin-top: 1px;
     padding-left: 15px;
-    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_global_v8.png') repeat-x 0 -1032px transparent;
+    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_global_v8.png')%>) repeat-x 0 -1032px transparent;
 }
 
 dd#pubgroups ul.groups .group-data .pending {
@@ -7056,7 +7046,7 @@ dd#pubgroups ul.groups .group-data .shared {
 }
 
 .resume li.course-group {
-    background: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png') repeat-x 0 0 transparent;
+    background: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png')%>) repeat-x 0 0 transparent;
     list-style: none;
     padding: 15px 0 0;
     margin: 0 0 15px;
@@ -7072,7 +7062,7 @@ dd#pubgroups ul.groups .group-data .shared {
 }
 
 .resume ul.documents li.organization,.draggable ul.documents li.organization,.resume ul.documents li.testscore,.draggable ul.documents li.testscore,.resume ul.documents li.honoraward,.draggable ul.documents li.honoraward,.resume ul.documents li.project,.draggable ul.documents li.project,.resume ul.documents li.publication,.draggable ul.documents li.publication,.resume ul.documents li.certification,.draggable ul.documents li.certification,.resume ul.documents li.patent,.draggable ul.documents li.patent {
-    background: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png') repeat-x 0 0 transparent;
+    background: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png')%>) repeat-x 0 0 transparent;
     margin: 10px 0 0;
     padding: 5px 0 0;
 }
@@ -7099,7 +7089,7 @@ dd#pubgroups ul.groups .group-data .shared {
 
 .resume ul.documents .specifics li,.draggable ul.documents .specifics li {
     display: inline;
-    *background: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png') no-repeat 0 7px;
+    *background: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png')%>) no-repeat 0 7px;
     padding-right: 5px;
     *padding-left: 6px;
 }
@@ -7173,7 +7163,7 @@ dd#pubgroups ul.groups .group-data .shared {
 }
 
 .resume ul.volunteering .experience,.draggable ul.volunteering .experience {
-    background: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png') repeat-x 0 0;
+    background: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png')%>) repeat-x 0 0;
     margin: 5px 0 0;
     padding: 10px 0 0;
 }
@@ -7201,7 +7191,7 @@ dd#pubgroups ul.groups .group-data .shared {
 .resume ul.volunteering .specifics li,.draggable ul.volunteering .specifics li {
     font-size: 11px;
     display: inline;
-    *background: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png') no-repeat 0 7px;
+    *background: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png')%>) no-repeat 0 7px;
     padding-right: 5px;
     *padding-left: 6px;
 }
@@ -7222,7 +7212,7 @@ dd#pubgroups ul.groups .group-data .shared {
 }
 
 .resume ul.volunteering.experienced .interests {
-    background: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png') repeat-x 0 0;
+    background: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png')%>) repeat-x 0 0;
     margin-top: 10px;
     padding: 10px 0 0;
 }
@@ -7250,7 +7240,7 @@ dd#pubgroups ul.groups .group-data .shared {
 }
 
 .resume .add-volunteer-subsection {
-    background: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png') repeat-x 0 0 transparent;
+    background: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png')%>) repeat-x 0 0 transparent;
     margin: 10px 0 0;
     padding: 8px 0 0;
 }
@@ -7283,7 +7273,7 @@ dd#pubgroups ul.groups .group-data .shared {
     top: -40px;
     left: 5px;
     width: 284px;
-    background: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_bubble_bot_284x16.gif') 0 100% no-repeat;
+    background: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_bubble_bot_284x16.gif')%>) 0 100% no-repeat;
     text-align: left;
 }
 
@@ -7291,7 +7281,7 @@ dd#pubgroups ul.groups .group-data .shared {
     position: relative;
     top: -16px;
     padding: 7px 10px;
-    background: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_bubble_top_284x100.gif') no-repeat;
+    background: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_bubble_top_284x100.gif')%>) no-repeat;
 }
 
 .acctwarn {
@@ -7299,11 +7289,11 @@ dd#pubgroups ul.groups .group-data .shared {
     border-width: 1px 0;
     padding: 10px 25px 10px 65px;
     margin: 15px 0;
-    background: url('http://static01.linkedin.com/scds/common/u/img/icon/icon_profile_summary_28x35.gif') 25px 8px no-repeat;
+    background: url(<%=asset_path('ln01/scds/common/u/img/icon/icon_profile_summary_28x35.gif')%>) 25px 8px no-repeat;
 }
 
 .upgrade {
-    background: url('http://static02.linkedin.com/scds/common/u/img/icon/icon_upgrade_62x65.gif') 5px 50% no-repeat;
+    background: url(<%=asset_path('ln02/scds/common/u/img/icon/icon_upgrade_62x65.gif')%>) 5px 50% no-repeat;
     border: 3px solid #FFF6CF;
     font-size: 108%;
     margin: 15px 0;
@@ -7337,7 +7327,7 @@ dd#pubgroups ul.groups .group-data .shared {
 .flag-position {
     float: left;
     text-indent: -123456px;
-    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_profile_v8.png') no-repeat 0 -760px;
+    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_profile_v8.png')%>) no-repeat 0 -760px;
     height: 16px;
     width: 20px;
     outline: none;
@@ -7395,7 +7385,7 @@ dd#pubgroups ul.groups .group-data .shared {
 
 .panel .module .header {
     color: #fff;
-    background: #acacac url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_global_v8.png') repeat-x 0 -30px;
+    background: #acacac url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_global_v8.png')%>) repeat-x 0 -30px;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
     -o-border-radius: 3px;
@@ -7455,7 +7445,7 @@ dd#pubgroups ul.groups .group-data .shared {
 }
 
 .panel .open .header strong,.panel .close .header strong {
-    background: url('http://static01.linkedin.com/scds/common/u/img/pic/pic_hp_sprites_v1.gif') no-repeat -3px -206px;
+    background: url(<%=asset_path('ln01/scds/common/u/img/pic/pic_hp_sprites_v1.gif')%>) no-repeat -3px -206px;
     padding-left: 17px;
     cursor: pointer;
 }
@@ -7497,7 +7487,7 @@ dd#pubgroups ul.groups .group-data .shared {
 
 .panel .content p.quote {
     margin-top: -5px;
-    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_profile_v8.png') no-repeat 4px -712px;
+    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_profile_v8.png')%>) no-repeat 4px -712px;
     padding: 0 0 0 40px;
     min-height: 17px;
     _height: 17px;
@@ -7509,7 +7499,7 @@ dd#pubgroups ul.groups .group-data .shared {
 }
 
 .panel .content .more {
-    background: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png') repeat-x 0 0;
+    background: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png')%>) repeat-x 0 0;
     margin: 5px 0 0;
     padding: 5px 0 0;
     text-align: right;
@@ -7579,12 +7569,12 @@ dd#pubgroups ul.groups .group-data .shared {
 
 .panel .qanda .q ul {
     padding: 2px 0 0 40px;
-    background: url('http://static02.linkedin.com/scds/common/u/img/icon/icon_q_v2_30x30.png') no-repeat;
+    background: url(<%=asset_path('ln02/scds/common/u/img/icon/icon_q_v2_30x30.png')%>) no-repeat;
 }
 
 .panel .qanda .a ul {
     padding: 2px 0 8px 34px;
-    background: url('http://static01.linkedin.com/scds/common/u/img/icon/icon_expert_26x26.gif') no-repeat 4px 0;
+    background: url(<%=asset_path('ln01/scds/common/u/img/icon/icon_expert_26x26.gif')%>) no-repeat 4px 0;
 }
 
 .panel .qanda .a li {
@@ -7768,7 +7758,7 @@ dd#pubgroups ul.groups .group-data .shared {
 }
 
 #browse h3 {
-    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_profilecnx_v1.png') no-repeat;
+    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_profilecnx_v1.png')%>) no-repeat;
     padding: 2px 0 0 21px;
 }
 
@@ -7826,7 +7816,7 @@ dd#pubgroups ul.groups .group-data .shared {
 
 #browse-connections ul.all-connections {
     padding-bottom: 1px;
-    background: transparent url('http://static02.linkedin.com/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png') repeat-x 0pt 100%;
+    background: transparent url(<%=asset_path('ln02/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png')%>) repeat-x 0pt 100%;
 }
 
 #browse-connections h3 {
@@ -7847,7 +7837,7 @@ dd#pubgroups ul.groups .group-data .shared {
     line-height: 1.2;
     margin: 0 0 3px;
     *margin-bottom: 0;
-    background: #fff url('http://static01.linkedin.com/scds/common/u/img/bg/bg_dots_horiz_whitebg_3x4.png') repeat-x top left;
+    background: #fff url(<%=asset_path('ln01/scds/common/u/img/bg/bg_dots_horiz_whitebg_3x4.png')%>) repeat-x top left;
     overflow: hidden;
     *zoom: 1;
     position: relative;
@@ -7940,7 +7930,7 @@ dd#pubgroups ul.groups .group-data .shared {
     padding-left: 16px;
     display: block;
     line-height: 14px;
-    background: url('http://static02.linkedin.com/scds/common/u/img/sprite/sprite_global_v5.png') no-repeat 0 -1032px;
+    background: url(<%=asset_path('ln02/scds/common/u/img/sprite/sprite_global_v5.png')%>) no-repeat 0 -1032px;
     top: 12px;
     right: 7px;
     font-size: 11px;
@@ -7967,7 +7957,7 @@ dd#pubgroups ul.groups .group-data .shared {
 #browse-connections .vcard .toggle-shared-connections-pymk a {
     line-height: 12px;
     padding-left: 25px;
-    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_facetsearch_v8.png') no-repeat -37px -29px;
+    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_facetsearch_v8.png')%>) no-repeat -37px -29px;
 }
 
 #browse-connections .vcard .shared-connections {
@@ -8072,7 +8062,7 @@ dd#pubgroups ul.groups .group-data .shared {
 }
 
 #recommends .rec blockquote p {
-    background: url('http://static01.linkedin.com/scds/common/u/img/icon/icon_quote_14x12.gif') 0 2px no-repeat;
+    background: url(<%=asset_path('ln01/scds/common/u/img/icon/icon_quote_14x12.gif')%>) 0 2px no-repeat;
     padding-left: 18px;
 }
 
@@ -8151,7 +8141,7 @@ dd#pubgroups ul.groups .group-data .shared {
 }
 
 #qa-tab .answers .experts li {
-    background: url('http://static01.linkedin.com/scds/common/u/img/icon/icon_bullet_grey_4x4.gif') 2px 4px no-repeat;
+    background: url(<%=asset_path('ln01/scds/common/u/img/icon/icon_bullet_grey_4x4.gif')%>) 2px 4px no-repeat;
     padding: 0 0 0 10px;
     font-size: 120%;
     margin: 0;
@@ -8172,7 +8162,7 @@ dd#pubgroups ul.groups .group-data .shared {
 }
 
 #qa-tab .best {
-    background: #e8f7d9 url('http://static01.linkedin.com/scds/common/u/img/icon/icon_star_green_13x11.gif') 2px 2px no-repeat;
+    background: #e8f7d9 url(<%=asset_path('ln01/scds/common/u/img/icon/icon_star_green_13x11.gif')%>) 2px 2px no-repeat;
     padding-left: 18px;
     color: #060;
 }
@@ -8189,7 +8179,7 @@ dd#pubgroups ul.groups .group-data .shared {
 #login-profile .guest {
     width: 380px;
     float: left;
-    background: url('http://static01.linkedin.com/scds/common/u/img/pic/pic_login_network_v2_167x130.png') no-repeat 0 35px;
+    background: url(<%=asset_path('ln01/scds/common/u/img/pic/pic_login_network_v2_167x130.png')%>) no-repeat 0 35px;
     padding-right: 10px;
     border-right: 1px solid #999;
     font-size: 95%;
@@ -8246,7 +8236,7 @@ dd#pubgroups ul.groups .group-data .shared {
 
 #login-profile .forgotpwd {
     display: block;
-    background: url('http://static01.linkedin.com/scds/common/u/img/v2/icon_help_sm.gif') 0 1px no-repeat;
+    background: url(<%=asset_path('ln01/scds/common/u/img/v2/icon_help_sm.gif')%>) 0 1px no-repeat;
     padding: 2px 0 0 22px;
     font-size: 85%;
 }
@@ -8268,11 +8258,11 @@ dd#pubgroups ul.groups .group-data .shared {
 }
 
 .profile-job-applicant .references .off {
-    background: url('http://static02.linkedin.com/scds/common/u/img/icon/icon_reference_off_24x24.gif') no-repeat 50% 0;
+    background: url(<%=asset_path('ln02/scds/common/u/img/icon/icon_reference_off_24x24.gif')%>) no-repeat 50% 0;
 }
 
 .profile-job-applicant .references .on {
-    background: url('http://static02.linkedin.com/scds/common/u/img/icon/icon_reference_on_24x24.gif') no-repeat 50% 0;
+    background: url(<%=asset_path('ln02/scds/common/u/img/icon/icon_reference_on_24x24.gif')%>) no-repeat 50% 0;
 }
 
 .profile-job-applicant .contact-info dl {
@@ -8359,7 +8349,7 @@ dd#pubgroups ul.groups .group-data .shared {
 }
 
 #abook-widget .alert.attention {
-    background: #fff url('http://static01.linkedin.com/scds/common/u/img/icon/icon_status_info_16x16_v2.gif') no-repeat !important;
+    background: #fff url(<%=asset_path('ln01/scds/common/u/img/icon/icon_status_info_16x16_v2.gif')%>) no-repeat !important;
     border: 0 !important;
     padding: 0 0 0 22px !important;
     margin-bottom: 0;
@@ -8367,14 +8357,14 @@ dd#pubgroups ul.groups .group-data .shared {
 
 #abook-widget .mergerule {
     margin-bottom: 10px;
-    background: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png') 0 100% repeat-x;
+    background: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png')%>) 0 100% repeat-x;
     padding-bottom: 10px;
 }
 
 #abook-widget .view-abook {
     display: block;
     float: right;
-    background: url('http://static02.linkedin.com/scds/common/u/img/sprite/sprite_personalnav_v1.png') no-repeat 0 -72px;
+    background: url(<%=asset_path('ln02/scds/common/u/img/sprite/sprite_personalnav_v1.png')%>) no-repeat 0 -72px;
     text-indent: -123456px;
     width: 20px;
     min-height: 16px;
@@ -8383,7 +8373,7 @@ dd#pubgroups ul.groups .group-data .shared {
 
 #abook-widget h4.notes {
     margin-top: 7px;
-    background: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png') repeat-x;
+    background: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png')%>) repeat-x;
     padding-top: 7px;
 }
 
@@ -8498,7 +8488,7 @@ dd#pubgroups ul.groups .group-data .shared {
 
 #merged-contact-modal .vcard li.rule {
     margin-top: 15px;
-    background: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png') repeat-x;
+    background: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png')%>) repeat-x;
     padding-top: 15px;
 }
 
@@ -8579,7 +8569,7 @@ dd#pubgroups ul.groups .group-data .shared {
 }
 
 .inbox-list th {
-    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_inbox_v1.png') 0 -257px repeat-x;
+    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_inbox_v1.png')%>) 0 -257px repeat-x;
     border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
     border-right: 1px solid #ccc;
@@ -8688,7 +8678,7 @@ dd#pubgroups ul.groups .group-data .shared {
 }
 
 .dialog-window .modal-lnl-content .alert {
-    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_global_v8.png') no-repeat 7px -803px #ddf0f8;
+    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_global_v8.png')%>) no-repeat 7px -803px #ddf0f8;
 }
 
 .dialog-window .modal-lnl-content .divider {
@@ -8786,7 +8776,7 @@ dd#pubgroups ul.groups .group-data .shared {
 .ppm-container {
     padding-bottom: 15px;
     margin-bottom: 15px;
-    background: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png') repeat-x 0 100%;
+    background: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png')%>) repeat-x 0 100%;
 }
 
 .profile-progress-meter {
@@ -8866,7 +8856,7 @@ dd#pubgroups ul.groups .group-data .shared {
     width: 0;
     height: 100%;
     z-index: 0;
-    background: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_progress_meter_3x23.gif') 0 0 repeat-x;
+    background: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_progress_meter_3x23.gif')%>) 0 0 repeat-x;
 }
 
 .profile-progress-meter .text-prompt {
@@ -8884,7 +8874,7 @@ dd#pubgroups ul.groups .group-data .shared {
     *zoom: 1;
     padding-bottom: 15px;
     margin-bottom: 15px;
-    background: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png') repeat-x 0 100%;
+    background: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png')%>) repeat-x 0 100%;
 }
 
 .profile-actions-primary a.action {
@@ -8912,7 +8902,7 @@ dd#pubgroups ul.groups .group-data .shared {
 .profile-actions-secondary {
     padding-bottom: 15px;
     margin-bottom: 15px;
-    background: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png') repeat-x 0 100%;
+    background: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png')%>) repeat-x 0 100%;
 }
 
 .profile-actions-secondary li {
@@ -8925,7 +8915,7 @@ dd#pubgroups ul.groups .group-data .shared {
 }
 
 .profile-actions-secondary li.nudged {
-    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_profile_v8.png') no-repeat scroll 0 -1245px;
+    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_profile_v8.png')%>) no-repeat scroll 0 -1245px;
     padding-left: 20px;
     color: #666666;
 }
@@ -8944,7 +8934,7 @@ dd#pubgroups ul.groups .group-data .shared {
 
 .profile-actions-secondary li.new-profile-action .new-feature-learn-more {
     padding: 0 0 0 14px;
-    background: url('http://static02.linkedin.com/scds/common/u/img/sprite/sprite_profile_v9.png') no-repeat 0 -1122px;
+    background: url(<%=asset_path('ln02/scds/common/u/img/sprite/sprite_profile_v9.png')%>) no-repeat 0 -1122px;
     display: block;
     float: right;
     height: 16px;
@@ -8955,7 +8945,7 @@ dd#pubgroups ul.groups .group-data .shared {
 .profile-actions-tertiary span {
     padding: 2px 0 2px 23px;
     outline: none;
-    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_profile_v8.png') no-repeat;
+    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_profile_v8.png')%>) no-repeat;
 }
 
 .profile-actions-tertiary .print span {
@@ -9171,7 +9161,7 @@ p.see-more-less {
 
 .see-more-less a {
     padding-right: 12px;
-    background: url('http://static02.linkedin.com/scds/common/u/img/sprite/sprite_global_v5.png') no-repeat scroll 100% -1763px transparent;
+    background: url(<%=asset_path('ln02/scds/common/u/img/sprite/sprite_global_v5.png')%>) no-repeat scroll 100% -1763px transparent;
 }
 
 .view-all-skills .see-more-less a {
@@ -9253,7 +9243,7 @@ p.see-more-less {
     font-size: 130%;
     margin-top: 8px;
     padding-left: 20px;
-    background: url('http://static02.linkedin.com/scds/common/u/img/sprite/sprite_profile_v9.png') 0 -572px no-repeat;
+    background: url(<%=asset_path('ln02/scds/common/u/img/sprite/sprite_profile_v9.png')%>) 0 -572px no-repeat;
 }
 
 #resume-import.tips {
@@ -9261,7 +9251,7 @@ p.see-more-less {
 }
 
 #resume-import p.upload {
-    background: url('http://static02.linkedin.com/scds/common/u/img/sprite/sprite_profile_v9.png') no-repeat 2px -972px;
+    background: url(<%=asset_path('ln02/scds/common/u/img/sprite/sprite_profile_v9.png')%>) no-repeat 2px -972px;
     padding: 3px 0 0 36px;
     line-height: 1.3;
     font-size: 130%;
@@ -9317,7 +9307,7 @@ p.see-more-less {
 }
 
 .wvmp-stats {
-    background: transparent url('http://static02.linkedin.com/scds/common/u/img/sprite/sprite_wvmp_hp_1.png') no-repeat -55px -310px;
+    background: transparent url(<%=asset_path('ln02/scds/common/u/img/sprite/sprite_wvmp_hp_1.png')%>) no-repeat -55px -310px;
     margin-left: -10px;
     position: relative;
     height: 165px;
@@ -9433,7 +9423,7 @@ p.see-more-less {
     left: -33px;
     top: 106px;
     width: 135px;
-    background: transparent url('http://static02.linkedin.com/scds/common/u/img/sprite/sprite_wvmp_hp_1.png') no-repeat -100px -535px;
+    background: transparent url(<%=asset_path('ln02/scds/common/u/img/sprite/sprite_wvmp_hp_1.png')%>) no-repeat -100px -535px;
 }
 
 .wvmp-stats .wvmp-stats-counter {
@@ -9714,7 +9704,7 @@ p.see-more-less {
     width: 60px;
     height: 60px;
     position: absolute;
-    background: transparent url('http://static02.linkedin.com/scds/common/u/img/sprite/sprite_wvmp_hp.png') no-repeat -9px -535px;
+    background: transparent url(<%=asset_path('ln02/scds/common/u/img/sprite/sprite_wvmp_hp.png')%>) no-repeat -9px -535px;
     left: -23px;
     top: -30px;
 }
@@ -9757,7 +9747,7 @@ p.see-more-less {
 
 #main .alert.attention {
     zoom: 1;
-    background: #fff5cc url('http://static02.linkedin.com/scds/common/u/img/icon/icon_status_info_16x16_v2.png') no-repeat 8px 6px;
+    background: #fff5cc url(<%=asset_path('ln02/scds/common/u/img/icon/icon_status_info_16x16_v2.png')%>) no-repeat 8px 6px;
     padding: 6px 6px 6px 30px;
     margin-top: 6px;
     clear: both;
@@ -9786,7 +9776,7 @@ p.see-more-less {
 }
 
 .edit-my-profile .add {
-    background: url('http://static02.linkedin.com/scds/common/u/img/sprite/sprite_profile_v9.png') 0 -571px no-repeat;
+    background: url(<%=asset_path('ln02/scds/common/u/img/sprite/sprite_profile_v9.png')%>) 0 -571px no-repeat;
     font-size: 12px;
     font-weight: bold;
     padding: 2px 0 2px 15px;
@@ -9944,13 +9934,13 @@ p.see-more-less {
 }
 
 a#ctrl-back {
-    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_carousel_v1.png') no-repeat 0 0;
+    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_carousel_v1.png')%>) no-repeat 0 0;
     cursor: pointer;
     margin-left: 4px;
 }
 
 a#ctrl-forward {
-    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_carousel_v1.png') no-repeat -22px 0;
+    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_carousel_v1.png')%>) no-repeat -22px 0;
     width: 23px;
     cursor: pointer;
 }
@@ -9973,7 +9963,7 @@ a#ctrl-forward {
 
 #ctrl .counter {
     width: 8px;
-    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_carousel_v1.png') no-repeat -18px -162px;
+    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_carousel_v1.png')%>) no-repeat -18px -162px;
     margin: 7px 6px 0 0;
 }
 
@@ -10001,17 +9991,17 @@ dd#pubgroups p {
 
 .mwp {
     width: 570px;
-    background: url('http://static01.linkedin.com/scds/common/u/img/bg/bg_trans_top_570x7.png') no-repeat #baddee;
+    background: url(<%=asset_path('ln01/scds/common/u/img/bg/bg_trans_top_570x7.png')%>) no-repeat #baddee;
     margin: 0 auto;
 }
 
 .mwp-in {
-    background: url('http://static01.linkedin.com/scds/common/u/img/bg/bg_trans_bot_570x7.png') 0 100% no-repeat;
+    background: url(<%=asset_path('ln01/scds/common/u/img/bg/bg_trans_bot_570x7.png')%>) 0 100% no-repeat;
     padding: 10px;
 }
 
 .mwp-in h2 {
-    background: url('http://static02.linkedin.com/scds/common/u/img/icon/icon_webprofile_bluebg_44x32.png') 0 2px no-repeat;
+    background: url(<%=asset_path('ln02/scds/common/u/img/icon/icon_webprofile_bluebg_44x32.png')%>) 0 2px no-repeat;
     color: #069;
     font-size: 216%;
     padding: 3px 0 0 47px;
@@ -10025,12 +10015,12 @@ dd#pubgroups p {
 
 .mwp-inner {
     width: 485px;
-    background: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_blue_top_485x7.png') no-repeat #daeff6;
+    background: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_blue_top_485x7.png')%>) no-repeat #daeff6;
     margin: 0 0 15px 50px;
 }
 
 .mwp-inner-in {
-    background: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_blue_bot_485x7.png') 0 100% no-repeat;
+    background: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_blue_bot_485x7.png')%>) 0 100% no-repeat;
     padding: 10px;
     *padding: 1px 10px;
 }
@@ -10102,7 +10092,7 @@ dd#pubgroups p {
 }
 
 .mwp #ppp {
-    background: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_webpro_225x455.png') no-repeat;
+    background: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_webpro_225x455.png')%>) no-repeat;
     width: 225px;
     height: 455px;
     padding: 20px 0 0 20px;
@@ -10166,7 +10156,7 @@ dd#pubgroups p {
 }
 
 .mwp .view-public a {
-    background: url('http://static02.linkedin.com/scds/common/u/img/icon/icon_webpreview_19x19.png') no-repeat;
+    background: url(<%=asset_path('ln02/scds/common/u/img/icon/icon_webpreview_19x19.png')%>) no-repeat;
     font-weight: bold;
     padding: 2px 0 2px 25px;
 }
@@ -10174,11 +10164,11 @@ dd#pubgroups p {
 .mvu {
     margin-top: 10px;
     width: 550px;
-    background: url('http://static01.linkedin.com/scds/common/u/img/bg/bg_blue_top_550x7.png') no-repeat #daeff6;
+    background: url(<%=asset_path('ln01/scds/common/u/img/bg/bg_blue_top_550x7.png')%>) no-repeat #daeff6;
 }
 
 .mvu-in {
-    background: url('http://static01.linkedin.com/scds/common/u/img/bg/bg_blue_bot_550x7.png') 0 100% no-repeat;
+    background: url(<%=asset_path('ln01/scds/common/u/img/bg/bg_blue_bot_550x7.png')%>) 0 100% no-repeat;
     padding: 8px;
 }
 
@@ -10195,7 +10185,7 @@ dd#pubgroups p {
 }
 
 .mwp h3.url {
-    background: url('http://static02.linkedin.com/scds/common/u/img/icon/icon_vanityurl_16x16.png') 0 2px no-repeat;
+    background: url(<%=asset_path('ln02/scds/common/u/img/icon/icon_vanityurl_16x16.png')%>) 0 2px no-repeat;
     padding-left: 22px;
     margin: 0;
     color: #069;
@@ -10320,14 +10310,14 @@ dd#pubgroups p {
 }
 
 #main .mypro-del {
-    background: url('http://static01.linkedin.com/scds/common/u/img/bg/bg_trans_top_440x7.png') no-repeat #ffa8ad;
+    background: url(<%=asset_path('ln01/scds/common/u/img/bg/bg_trans_top_440x7.png')%>) no-repeat #ffa8ad;
     margin: 20px 0 20px 150px;
     width: 440px;
     font-size: 130%;
 }
 
 #main .mypro-del-in {
-    background: url('http://static01.linkedin.com/scds/common/u/img/bg/bg_trans_bot_440x7.png') 0 100% no-repeat;
+    background: url(<%=asset_path('ln01/scds/common/u/img/bg/bg_trans_bot_440x7.png')%>) 0 100% no-repeat;
     padding: 15px;
 }
 
@@ -10639,7 +10629,7 @@ ul.action-links li ul li a:hover {
 }
 
 .edit-my-profile .drag-handle {
-    background: url('http://static02.linkedin.com/scds/common/u/img/sprite/sprite_profile_v9.png') 0 -1030px no-repeat;
+    background: url(<%=asset_path('ln02/scds/common/u/img/sprite/sprite_profile_v9.png')%>) 0 -1030px no-repeat;
     cursor: move;
     text-indent: 20px;
     width: 100%;
@@ -10671,7 +10661,7 @@ ul.action-links li ul li a:hover {
 }
 
 .edit-my-profile .saving .drag-handle {
-    background: url('http://static01.linkedin.com/scds/common/u/img/anim/anim_loading_16x16.gif') left top no-repeat;
+    background: url(<%=asset_path('ln01/scds/common/u/img/anim/anim_loading_16x16.gif')%>) left top no-repeat;
     cursor: progress;
     text-indent: 20px;
     width: 100%;
@@ -10724,15 +10714,15 @@ ul.action-links li ul li a:hover {
 }
 
 #body .li-editor .yui-toolbar-container .yui-toolbar-titlebar,#body .li-editor .yui-toolbar-container .collapse,#body .li-editor .yui-toolbar-container .yui-button,#body .li-editor .yui-editor-panel .hd h3,#body .li-editor .yui-editor-panel .hd span.close {
-    background-image: url('http://static01.linkedin.com/scds/common/u/lib/yui/2.8.1/assets/skins/sam/sprite.png');
+    background-image: url(<%=asset_path('ln01/scds/common/u/lib/yui/2.8.1/assets/skins/sam/sprite.png')%>);
 }
 
 #body .li-editor .yui-toolbar-container .yui-push-button span.yui-toolbar-icon,#body .li-editor .yui-toolbar-container .yui-color-button span.yui-toolbar-icon,#body .li-editor .yui-toolbar-container .yui-menu-button span.yui-toolbar-icon {
-    background-image: url('http://static02.linkedin.com/scds/common/u/lib/yui/2.8.1/assets/skins/sam/editor-sprite.gif');
+    background-image: url(<%=asset_path('ln02/scds/common/u/lib/yui/2.8.1/assets/skins/sam/editor-sprite.gif')%>);
 }
 
 #body .li-editor .yui-toolbar-container .yui-button-selected span.yui-toolbar-icon,#body .li-editor .yui-toolbar-container .yui-button-hover span.yui-toolbar-icon {
-    background-image: url('http://static01.linkedin.com/scds/common/u/lib/yui/2.8.1/assets/skins/sam/editor-sprite-active.gif');
+    background-image: url(<%=asset_path('ln01/scds/common/u/lib/yui/2.8.1/assets/skins/sam/editor-sprite-active.gif')%>);
 }
 
 #pagekey-my_profile_additional_info .profile-edit .li-editor fieldset legend,#pagekey-nprofile-edit-additional-info .profile-edit .li-editor fieldset legend,.li-editor fieldset legend {
@@ -10741,7 +10731,7 @@ ul.action-links li ul li a:hover {
 
 .profile-edit #content {
     float: left;
-    width: 72.5%;
+    width: 822px;
 }
 
 .profile-edit #extra {
@@ -10813,7 +10803,7 @@ ul.action-links li ul li a:hover {
 }
 
 .profile-edit fieldset {
-    background: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png') 0 100% repeat-x;
+    background: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png')%>) 0 100% repeat-x;
     padding-bottom: 10px;
     margin-bottom: 10px;
     border: none;
@@ -10983,7 +10973,7 @@ button.btn-primary {
     text-indent: -12345px;
     height: 10px;
     width: 10px;
-    background: url('http://static02.linkedin.com/scds/common/u/img/icon/icon_lock_10x30_v2.png') 0 0 no-repeat;
+    background: url(<%=asset_path('ln02/scds/common/u/img/icon/icon_lock_10x30_v2.png')%>) 0 0 no-repeat;
 }
 
 .visibility-settings:hover {
@@ -11015,7 +11005,7 @@ button.btn-primary {
     display: block;
     height: 15px;
     width: 9px;
-    background: url('http://static01.linkedin.com/scds/common/u/img/icon/icon_arrow_dwn_9x9.png') no-repeat 0 6px;
+    background: url(<%=asset_path('ln01/scds/common/u/img/icon/icon_arrow_dwn_9x9.png')%>) no-repeat 0 6px;
     cursor: pointer;
 }
 
@@ -11025,7 +11015,7 @@ button.btn-primary {
 }
 
 .profile-edit .primary-profile-content.collapse-close .control {
-    background-image: url('http://static02.linkedin.com/scds/common/u/img/icon/icon_arrow_rt_9x9.png');
+    background-image: url(<%=asset_path('ln02/scds/common/u/img/icon/icon_arrow_rt_9x9.png')%>);
 }
 
 #headline .checkbox label {
@@ -11037,9 +11027,10 @@ button.btn-primary {
 }
 
 .profile-edit p.note {
-    font-size: 110%;
+    font-size: 12px;
     margin-top: 4px;
     color: #555;
+		line-height:18px;
 }
 
 .profile-edit p.actions {
@@ -11055,7 +11046,7 @@ button.btn-primary {
 .profile-edit p.actions.remove {
     padding: 12px 0 0 0 !important;
     font-size: 110%;
-    background: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png') 0 0 repeat-x;
+    background: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png')%>) 0 0 repeat-x;
 }
 
 .profile-edit p.actions.remove a {
@@ -11171,7 +11162,7 @@ button.btn-primary {
 
 .additional-info p.actions {
     padding: 24px 0 0 0;
-    background: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png') 0 0 repeat-x;
+    background: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png')%>) 0 0 repeat-x;
 }
 
 #pagekey-my_profile_additional_info .profile-edit fieldset legend {
@@ -11266,7 +11257,7 @@ button.btn-primary {
 }
 
 .yui-overlay .status-head,.yui-overlay .status-foot {
-    background-image: url('http://static01.linkedin.com/scds/common/u/img/bg/bg_quote_359x260.png');
+    background-image: url(<%=asset_path('ln01/scds/common/u/img/bg/bg_quote_359x260.png')%>);
 }
 
 .status-dialog .status-wrapper textarea {
@@ -11287,7 +11278,7 @@ button.btn-primary {
     float: right;
     cursor: pointer;
     margin-top: 7px;
-    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_global_v8.png') right -1300px no-repeat;
+    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_global_v8.png')%>) right -1300px no-repeat;
 }
 
 .status-dialog label {
@@ -11351,7 +11342,7 @@ button.btn-primary {
 
 #main .alert.attention {
     zoom: 1;
-    background: #fff5cc url('http://static02.linkedin.com/scds/common/u/img/icon/icon_status_info_16x16_v2.png') no-repeat 8px 6px;
+    background: #fff5cc url(<%=asset_path('ln02/scds/common/u/img/icon/icon_status_info_16x16_v2.png')%>) no-repeat 8px 6px;
     padding: 6px 6px 6px 30px;
     margin-top: 6px;
     clear: both;
@@ -11405,7 +11396,7 @@ p.tip {
 }
 
 #extra .add {
-    background: url('http://static02.linkedin.com/scds/common/u/img/sprite/sprite_profile_v9.png') 0 -571px no-repeat;
+    background: url(<%=asset_path('ln02/scds/common/u/img/sprite/sprite_profile_v9.png')%>) 0 -571px no-repeat;
     font-size: 12px;
     font-weight: bold;
     padding: 2px 0 2px 15px;
@@ -11541,15 +11532,15 @@ p.errors {
 }
 
 #body .li-editor .yui-toolbar-container .yui-toolbar-titlebar,#body .li-editor .yui-toolbar-container .collapse,#body .li-editor .yui-toolbar-container .yui-button,#body .li-editor .yui-editor-panel .hd h3,#body .li-editor .yui-editor-panel .hd span.close {
-    background-image: url('http://static01.linkedin.com/scds/common/u/lib/yui/2.8.1/assets/skins/sam/sprite.png');
+    background-image: url(<%=asset_path('ln01/scds/common/u/lib/yui/2.8.1/assets/skins/sam/sprite.png')%>);
 }
 
 #body .li-editor .yui-toolbar-container .yui-push-button span.yui-toolbar-icon,#body .li-editor .yui-toolbar-container .yui-color-button span.yui-toolbar-icon,#body .li-editor .yui-toolbar-container .yui-menu-button span.yui-toolbar-icon {
-    background-image: url('http://static02.linkedin.com/scds/common/u/lib/yui/2.8.1/assets/skins/sam/editor-sprite.gif');
+    background-image: url(<%=asset_path('ln02/scds/common/u/lib/yui/2.8.1/assets/skins/sam/editor-sprite.gif')%>);
 }
 
 #body .li-editor .yui-toolbar-container .yui-button-selected span.yui-toolbar-icon,#body .li-editor .yui-toolbar-container .yui-button-hover span.yui-toolbar-icon {
-    background-image: url('http://static01.linkedin.com/scds/common/u/lib/yui/2.8.1/assets/skins/sam/editor-sprite-active.gif');
+    background-image: url(<%=asset_path('ln01/scds/common/u/lib/yui/2.8.1/assets/skins/sam/editor-sprite-active.gif')%>);
 }
 
 .visibility {
@@ -11602,7 +11593,7 @@ p.errors {
     text-indent: -12345px;
     height: 10px;
     width: 10px;
-    background: url('http://static02.linkedin.com/scds/common/u/img/icon/icon_lock_10x30_v2.png') 0 0 no-repeat;
+    background: url(<%=asset_path('ln02/scds/common/u/img/icon/icon_lock_10x30_v2.png')%>) 0 0 no-repeat;
 }
 
 .visibility-settings:hover {
@@ -11628,7 +11619,7 @@ p.errors {
     display: block;
     height: 15px;
     width: 9px;
-    background: url('http://static01.linkedin.com/scds/common/u/img/icon/icon_arrow_dwn_9x9.png') no-repeat 0 6px;
+    background: url(<%=asset_path('ln01/scds/common/u/img/icon/icon_arrow_dwn_9x9.png')%>) no-repeat 0 6px;
     cursor: pointer;
 }
 
@@ -11638,7 +11629,7 @@ p.errors {
 }
 
 .profile-edit .primary-profile-content.collapse-close .control {
-    background-image: url('http://static02.linkedin.com/scds/common/u/img/icon/icon_arrow_rt_9x9.png');
+    background-image: url(<%=asset_path('ln02/scds/common/u/img/icon/icon_arrow_rt_9x9.png')%>);
 }
 
 #row-location,#row-province,#row-school {
@@ -11697,7 +11688,7 @@ p.errors {
     border-bottom: 2px solid #ddd;
     margin: 10px 0;
     padding: 7px 5px 10px;
-    background: #fff url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_marketing_bubble_v1.gif') 0 -14px repeat-x;
+    background: #fff url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_marketing_bubble_v1.gif')%>) 0 -14px repeat-x;
 }
 
 .edit-my-profile .add-sections .new {
@@ -11715,7 +11706,7 @@ p.errors {
 .edit-my-profile .add-sections .add {
     float: right;
     font-weight: normal;
-    background: url('http://static02.linkedin.com/scds/common/u/img/sprite/sprite_profile_v9.png') 0 -570px no-repeat;
+    background: url(<%=asset_path('ln02/scds/common/u/img/sprite/sprite_profile_v9.png')%>) 0 -570px no-repeat;
     font-size: 13px;
     padding: 2px 0 2px 15px;
     white-space: nowrap;
@@ -11851,7 +11842,7 @@ p.errors {
 }
 
 #add-sections .overview .thumbnail span {
-    background: url('http://static02.linkedin.com/scds/common/u/img/applications/icon_shadow_64x64_v3.png') no-repeat;
+    background: url(<%=asset_path('ln02/scds/common/u/img/applications/icon_shadow_64x64_v3.png')%>) no-repeat;
     width: 100%;
     height: 100%;
     position: absolute;
@@ -11869,7 +11860,7 @@ p.errors {
 }
 
 #add-sections .showcase h2 {
-    background: #e8e8e8 url('http://static02.linkedin.com/scds/common/u/img/bg/bg_e8e8e8_1x25.gif') 0 0 repeat-x;
+    background: #e8e8e8 url(<%=asset_path('ln02/scds/common/u/img/bg/bg_e8e8e8_1x25.gif')%>) 0 0 repeat-x;
     border: 1px solid #ddd;
     color: #555;
     font-size: 130%;
@@ -11894,7 +11885,7 @@ p.errors {
 }
 
 #add-sections .showcase .footer {
-    background: url('http://static01.linkedin.com/scds/common/u/img/bg/bg_wave_mask_v3.png') 0 0 no-repeat;
+    background: url(<%=asset_path('ln01/scds/common/u/img/bg/bg_wave_mask_v3.png')%>) 0 0 no-repeat;
     _background: none;
     width: 560px;
     height: 31px;
@@ -11966,7 +11957,7 @@ p.errors {
 }
 
 #add-sections .showcase .preview ul.documents li.organization {
-    background: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png') repeat-x 0 0 transparent;
+    background: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png')%>) repeat-x 0 0 transparent;
     margin: 10px 0 0;
     padding: 10px 0 0;
 }
@@ -12015,7 +12006,7 @@ p.errors {
 
 #add-sections .showcase ul.documents .specifics li {
     display: inline;
-    *background: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png') no-repeat 0 7px;
+    *background: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png')%>) no-repeat 0 7px;
     padding-right: 5px;
     *padding-left: 6px;
 }
@@ -12066,7 +12057,7 @@ p.errors {
 
 #add-sections .showcase ul.volunteering .experience .specifics li {
     display: inline;
-    *background: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png') no-repeat 0 7px;
+    *background: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png')%>) no-repeat 0 7px;
     padding-right: 5px;
     *padding-left: 6px;
 }
@@ -12097,7 +12088,7 @@ p.errors {
 }
 
 #add-sections .showcase ul.volunteering .interests {
-    background: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png') repeat-x 0 0 transparent;
+    background: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png')%>) repeat-x 0 0 transparent;
     margin: 12px 0 0;
     padding: 12px 0 0;
 }
@@ -12120,7 +12111,7 @@ p.errors {
 .all-sections-added {
     height: 220px;
     width: 100%;
-    background: #fff url('http://static02.linkedin.com/scds/common/u/img/pic/pic_li_wizard_206x191.png') top right no-repeat;
+    background: #fff url(<%=asset_path('ln02/scds/common/u/img/pic/pic_li_wizard_206x191.png')%>) top right no-repeat;
     color: #555;
 }
 
@@ -12210,7 +12201,7 @@ p.errors {
     margin: 4px 0 0 6px;
     width: 15px;
     height: 15px;
-    background: transparent url('http://static02.linkedin.com/scds/common/u/img/sprite/sprite_profile_v9.png') 0 -1543px no-repeat;
+    background: transparent url(<%=asset_path('ln02/scds/common/u/img/sprite/sprite_profile_v9.png')%>) 0 -1543px no-repeat;
     text-indent: -999em;
     cursor: pointer;
     display: none;
@@ -12375,7 +12366,7 @@ p.skills-counter {
 }
 
 p.skills-counter.error {
-    background: url('http://static02.linkedin.com/scds/common/u/img/sprite/sprite_global_v5.png') no-repeat scroll 0 -968px transparent;
+    background: url(<%=asset_path('ln02/scds/common/u/img/sprite/sprite_global_v5.png')%>) no-repeat scroll 0 -968px transparent;
     color: #990000 !important;
     padding: 2px 0 2px 15px !important;
 }
@@ -12502,7 +12493,7 @@ p.skills-counter.error {
 
 .edit-profile-section .nudged .nudge-explanation {
     display: block;
-    background: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_left_caret_v1.png') no-repeat 0 50%;
+    background: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_left_caret_v1.png')%>) no-repeat 0 50%;
     position: absolute;
     top: 10px;
     right: -240px;
@@ -12848,7 +12839,7 @@ p.skills-counter.error {
     text-align: left;
     width: 17px;
     height: 17px;
-    background: transparent url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_globalnav_v9.png') -6px -262px no-repeat;
+    background: transparent url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_globalnav_v9.png')%>) -6px -262px no-repeat;
     border-left: 1px solid #ccc;
 }
 
@@ -12998,7 +12989,7 @@ p.skills-counter.error {
 }
 
 .post-status .status-twitlogo {
-    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_sharing_v12.png') 0 -69px no-repeat;
+    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_sharing_v12.png')%>) 0 -69px no-repeat;
     width: 21px;
     height: 23px;
     display: block;
@@ -13045,7 +13036,7 @@ p.skills-counter.error {
 
 .post-status .open .selected {
     font-weight: bold;
-    background: #dbeffb url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_sharing_v12.png') 101% -220px no-repeat;
+    background: #dbeffb url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_sharing_v12.png')%>) 101% -220px no-repeat;
     color: #000 !important;
     cursor: text;
 }
@@ -13080,7 +13071,7 @@ p.skills-counter.error {
 }
 
 .feed .feed-item {
-    background: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png') repeat-x;
+    background: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png')%>) repeat-x;
     color: #000;
     padding: 10px 3px;
 }
@@ -13163,7 +13154,7 @@ p.skills-counter.error {
 }
 
 .feed .feed-actions li {
-    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_sharing_v12.png') no-repeat 0 -775px;
+    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_sharing_v12.png')%>) no-repeat 0 -775px;
     _display: inline;
     float: left;
     font-size: 11px;
@@ -13224,7 +13215,7 @@ p.skills-counter.error {
 }
 
 .feed .nus-from-twitter {
-    background: url('http://static01.linkedin.com/scds/common/u/img/icon/icon_twitter_16x12.png') no-repeat center right;
+    background: url(<%=asset_path('ln01/scds/common/u/img/icon/icon_twitter_16x12.png')%>) no-repeat center right;
     display: -moz-inline-box;
     -moz-box-orient: vertical;
     display: inline-block;
@@ -13260,7 +13251,7 @@ p.skills-counter.error {
 }
 
 .feed .feed-actions .invite-dialog {
-    background: url('http://static02.linkedin.com/scds/common/u/img/sprite/sprite_global_v5.png') no-repeat 0 -1032px;
+    background: url(<%=asset_path('ln02/scds/common/u/img/sprite/sprite_global_v5.png')%>) no-repeat 0 -1032px;
     font-weight: bold;
     margin-left: 0;
     padding-left: 16px;
@@ -13271,7 +13262,7 @@ p.skills-counter.error {
 }
 
 .feed .cncttest .feed-actions li {
-    background-image: url('http://static02.linkedin.com/scds/common/u/img/icon/icon_bullet_grey2_4x4.png');
+    background-image: url(<%=asset_path('ln02/scds/common/u/img/icon/icon_bullet_grey2_4x4.png')%>);
     background-position: 100% 4px;
     margin: 0 5px 0 0;
     padding: 0 10px 0 0;
@@ -13323,7 +13314,7 @@ p.skills-counter.error {
 }
 
 .feed .loading {
-    background: url('http://static01.linkedin.com/scds/common/u/img/anim/anim_loading_16x16.gif') no-repeat center center !important;
+    background: url(<%=asset_path('ln01/scds/common/u/img/anim/anim_loading_16x16.gif')%>) no-repeat center center !important;
     display: block;
     height: 16px !important;
     padding: 0 !important;
@@ -13366,12 +13357,12 @@ p.skills-counter.error {
 }
 
 .feed .comments .nus-trending-in-icon {
-    background: url('http://static02.linkedin.com/scds/common/u/img/sprite/sprite_pulse_v12.png') -379px -303px no-repeat;
+    background: url(<%=asset_path('ln02/scds/common/u/img/sprite/sprite_pulse_v12.png')%>) -379px -303px no-repeat;
     padding-left: 18px;
 }
 
 .feed .comments .likers p {
-    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_sharing_v12.png') -88px -630px no-repeat;
+    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_sharing_v12.png')%>) -88px -630px no-repeat;
     font-size: 13px;
     padding-left: 20px;
 }
@@ -13387,7 +13378,7 @@ p.skills-counter.error {
 }
 
 .feed .comments li {
-    background: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png') 0 100% repeat-x;
+    background: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png')%>) 0 100% repeat-x;
     _height: 1%;
     min-height: 0;
     padding: 0 3px 8px 3px;
@@ -13416,7 +13407,7 @@ p.skills-counter.error {
 }
 
 .feed .comments li.injected {
-    background: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png') 0 0 repeat-x;
+    background: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png')%>) 0 0 repeat-x;
 }
 
 .feed .comments ul p {
@@ -13439,7 +13430,7 @@ p.skills-counter.error {
 }
 
 .feed .comments li .delete {
-    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_sharing_v12.png') no-repeat 100% -375px;
+    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_sharing_v12.png')%>) no-repeat 100% -375px;
     display: none;
     _display: block;
     text-indent: -12345px;
@@ -13463,7 +13454,7 @@ p.skills-counter.error {
 }
 
 .feed.feed-redesign .comments li.seemore {
-    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_sharing_v12.png') no-repeat 0 -920px;
+    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_sharing_v12.png')%>) no-repeat 0 -920px;
     padding: 5px 0 5px 21px;
 }
 
@@ -13477,13 +13468,13 @@ p.skills-counter.error {
 }
 
 .feed .comments li.comments-loading p {
-    background: url('http://static01.linkedin.com/scds/common/u/img/anim/anim_loading_16x16.gif') no-repeat center center;
+    background: url(<%=asset_path('ln01/scds/common/u/img/anim/anim_loading_16x16.gif')%>) no-repeat center center;
     height: 16px;
     text-indent: -12345px;
 }
 
 .feed.feed-redesign .comments li.comments-loading {
-    background: url('http://static01.linkedin.com/scds/common/u/img/anim/anim_loading_16x16.gif') no-repeat left center;
+    background: url(<%=asset_path('ln01/scds/common/u/img/anim/anim_loading_16x16.gif')%>) no-repeat left center;
 }
 
 .feed.feed-redesign .comments li.comments-loading:first-child {
@@ -13598,7 +13589,7 @@ p.skills-counter.error {
 }
 
 .feed .feed-marquee .feed-rss {
-    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_sharing_v12.png') no-repeat 0 0;
+    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_sharing_v12.png')%>) no-repeat 0 0;
     float: left;
     height: 12px;
     text-indent: -12345px;
@@ -13637,7 +13628,7 @@ p.skills-counter.error {
 }
 
 .feed-sort-filters li {
-    background: url('http://static02.linkedin.com/scds/common/u/img/icon/icon_bullet_grey2_4x4.png') no-repeat 100% 6px;
+    background: url(<%=asset_path('ln02/scds/common/u/img/icon/icon_bullet_grey2_4x4.png')%>) no-repeat 100% 6px;
     _display: inline;
     float: left;
     margin: 0 5px 0 0;
@@ -13646,7 +13637,7 @@ p.skills-counter.error {
 }
 
 .feed .feed-showing-B .feed-filters li {
-    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_sharing_v12.png') no-repeat 0 -775px;
+    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_sharing_v12.png')%>) no-repeat 0 -775px;
     _display: inline;
     float: left;
     margin-left: 5px;
@@ -13682,7 +13673,7 @@ p.skills-counter.error {
 }
 
 .feed .feed-showing-B .feed-filters .tab-droplist .trigger span {
-    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_global_v8.png') no-repeat 100% -1761px;
+    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_global_v8.png')%>) no-repeat 100% -1761px;
     display: -moz-inline-box;
     -moz-box-orient: vertical;
     display: inline-block;
@@ -13927,7 +13918,7 @@ p.skills-counter.error {
 }
 
 .variable .feedgroup {
-    background: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png') repeat-x top left;
+    background: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png')%>) repeat-x top left;
     min-height: 62px;
     _height: 62px;
     padding: 10px 0;
@@ -14003,7 +13994,7 @@ p.skills-counter.error {
 }
 
 .feed .recent-connect {
-    background: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png') repeat-x;
+    background: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png')%>) repeat-x;
     margin-top: 10px;
 }
 
@@ -14064,7 +14055,7 @@ p.skills-counter.error {
 }
 
 .feed a.nus-hide-item {
-    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_sharing_v12.png') no-repeat 100% -375px;
+    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_sharing_v12.png')%>) no-repeat 100% -375px;
     display: none;
     _display: block;
     height: 12px;
@@ -14190,7 +14181,7 @@ p.skills-counter.error {
 }
 
 .feed .nus-undo .dismiss {
-    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_sharing_v12.png') no-repeat 100% -300px;
+    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_sharing_v12.png')%>) no-repeat 100% -300px;
     cursor: pointer;
     height: 10px;
     overflow: hidden;
@@ -14473,11 +14464,11 @@ p.skills-counter.error {
     height: 16px;
     margin: 2px;
     text-indent: -9999em;
-    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_global_v8.png') 0 -1349px repeat-x;
+    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_global_v8.png')%>) 0 -1349px repeat-x;
 }
 
 .video-container .video-head .video-close:hover {
-    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_global_v8.png') 0 -1299px repeat-x;
+    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_global_v8.png')%>) 0 -1299px repeat-x;
 }
 
 .video-share .image,.feed-content .embed-image {
@@ -14495,7 +14486,7 @@ p.skills-counter.error {
     height: 42px;
     text-indent: -9999em;
     cursor: pointer;
-    background: url('http://static01.linkedin.com/scds/common/u/img/icon/icon_nus_play_video_42x42.png') 0 0 no-repeat;
+    background: url(<%=asset_path('ln01/scds/common/u/img/icon/icon_nus_play_video_42x42.png')%>) 0 0 no-repeat;
     _background: none;
 }
 
@@ -14517,7 +14508,7 @@ p.skills-counter.error {
 }
 
 .feed-content .image .loading-icon {
-    background: url('http://static01.linkedin.com/scds/common/u/img/anim/anim_loading_16x16.gif') 0 0 no-repeat;
+    background: url(<%=asset_path('ln01/scds/common/u/img/anim/anim_loading_16x16.gif')%>) 0 0 no-repeat;
     _background: none;
 }
 
@@ -14648,7 +14639,7 @@ p.skills-counter.error {
 }
 
 .feed .test.upsell {
-    background: url('http://static01.linkedin.com/scds/common/u/img/icon/icon_acct_15x15.png') right 100% no-repeat;
+    background: url(<%=asset_path('ln01/scds/common/u/img/icon/icon_acct_15x15.png')%>) right 100% no-repeat;
     padding-right: 18px;
     margin-right: 5px;
 }
@@ -14848,7 +14839,7 @@ p.skills-counter.error {
 }
 
 .feed-item .feed-multi-photo {
-    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_sharing_v12.png') 0 -840px no-repeat;
+    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_sharing_v12.png')%>) 0 -840px no-repeat;
     border: 0;
     margin-left: 0;
     padding: 3px 3px 9px 9px;
@@ -14878,7 +14869,7 @@ p.skills-counter.error {
 }
 
 .feed-item .aggregation {
-    background: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png') repeat-x;
+    background: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png')%>) repeat-x;
     clear: left;
     display: none;
     font-size: 130%;
@@ -14903,7 +14894,7 @@ p.skills-counter.error {
 }
 
 .feed-item .aggregation a {
-    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_sharing_v12.png') 0 -680px no-repeat;
+    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_sharing_v12.png')%>) 0 -680px no-repeat;
     display: -moz-inline-box;
     -moz-box-orient: vertical;
     display: inline-block;
@@ -14958,7 +14949,7 @@ p.skills-counter.error {
 }
 
 .feed.feed-redesign .feed-item .nest-expand,.feed.feed-redesign .feed-item .nest-collapse {
-    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_sharing_v12.png') no-repeat 0 -977px;
+    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_sharing_v12.png')%>) no-repeat 0 -977px;
     padding-left: 13px;
 }
 
@@ -14967,7 +14958,7 @@ p.skills-counter.error {
 }
 
 .feed.feed-redesign .feed-item .nest-expand-loading,.feed.feed-redesign .feed-item .nest-expand-loading:hover {
-    background: url('http://static01.linkedin.com/scds/common/u/img/anim/anim_loading_16x16.gif') no-repeat left center;
+    background: url(<%=asset_path('ln01/scds/common/u/img/anim/anim_loading_16x16.gif')%>) no-repeat left center;
     color: #888;
     cursor: default;
     display: -moz-inline-box;
@@ -15233,7 +15224,7 @@ p.skills-counter.error {
 
 .incompany-visibility {
     position: absolute;
-    background: url('http://static02.linkedin.com/scds/common/u/img/icon/icon_acorn_lock.png') no-repeat scroll 5px 2px #fff;
+    background: url(<%=asset_path('ln02/scds/common/u/img/icon/icon_acorn_lock.png')%>) no-repeat scroll 5px 2px #fff;
     text-align: center;
     font-family: arial;
     font-weight: bold;
@@ -15261,7 +15252,7 @@ p.skills-counter.error {
 }
 
 .incompany-visibility.visibility-anyone {
-    background: url('http://static01.linkedin.com/scds/common/u/img/icon/icon_acorn_lock_open.png') no-repeat scroll 5px 2px #fff;
+    background: url(<%=asset_path('ln01/scds/common/u/img/icon/icon_acorn_lock_open.png')%>) no-repeat scroll 5px 2px #fff;
 }
 
 .incompany-comment-container {
@@ -15279,7 +15270,7 @@ p.skills-counter.error {
 }
 
 .processing-overlay {
-    background: #fff url('http://static01.linkedin.com/scds/common/u/img/anim/anim_loading_75x75.gif') no-repeat center center;
+    background: #fff url(<%=asset_path('ln01/scds/common/u/img/anim/anim_loading_75x75.gif')%>) no-repeat center center;
     filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
     opacity: 0.6;
     position: absolute;
@@ -15289,11 +15280,11 @@ p.skills-counter.error {
 }
 
 .processing-overlay-40 {
-    background-image: url('http://static01.linkedin.com/scds/common/u/img/anim/anim_loading_40x40.gif');
+    background-image: url(<%=asset_path('ln01/scds/common/u/img/anim/anim_loading_40x40.gif')%>);
 }
 
 .processing-overlay-16 {
-    background-image: url('http://static01.linkedin.com/scds/common/u/img/anim/anim_loading_16x16.gif');
+    background-image: url(<%=asset_path('ln01/scds/common/u/img/anim/anim_loading_16x16.gif')%>);
 }
 
 .keyword-search-form input {
@@ -15312,7 +15303,7 @@ p.skills-counter.error {
 }
 
 .keyword-search-form .search-go {
-    background: #0076a8 url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_global_v8.png') -9px -1170px no-repeat;
+    background: #0076a8 url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_global_v8.png')%>) -9px -1170px no-repeat;
     border: 1px solid #06598B;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
@@ -15374,7 +15365,7 @@ p.skills-counter.error {
 }
 
 .feed .feed-tweet .cncttest .feed-actions .feed-tweet-reply {
-    background: url('http://static02.linkedin.com/scds/common/u/img/icon/icon_bullet_grey2_4x4.png') no-repeat 100% 6px;
+    background: url(<%=asset_path('ln02/scds/common/u/img/icon/icon_bullet_grey2_4x4.png')%>) no-repeat 100% 6px;
 }
 
 .feed .feed-tweet .feed-actions a {
@@ -15384,7 +15375,7 @@ p.skills-counter.error {
 }
 
 .feed .feed-tweet .feed-tweet-favorite a,.feed .feed-tweet .feed-tweet-reply a,.feed .feed-tweet .feed-tweet-retweet a {
-    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_sharing_v12.png') no-repeat 0 -1177px;
+    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_sharing_v12.png')%>) no-repeat 0 -1177px;
 }
 
 .feed .feed-tweet .feed-actions .feed-tweet-favorite a {
@@ -15466,7 +15457,7 @@ p.skills-counter.error {
 }
 
 .feed .feed-tweet-C .feed-actions .feed-tweet-follow a {
-    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_sharing_v12.png') no-repeat -85px -1472px;
+    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_sharing_v12.png')%>) no-repeat -85px -1472px;
 }
 
 .feed .feed-tweet-C .feed-actions .feed-tweet-follow a:hover {
@@ -15492,7 +15483,7 @@ p.skills-counter.error {
 }
 
 .feed .feed-tweet-D .cncttest .feed-actions .feed-tweet-favorite,.feed .feed-tweet-D .cncttest .feed-actions .feed-tweet-retweet {
-    background: url('http://static02.linkedin.com/scds/common/u/img/icon/icon_bullet_grey2_4x4.png') no-repeat 100% 6px;
+    background: url(<%=asset_path('ln02/scds/common/u/img/icon/icon_bullet_grey2_4x4.png')%>) no-repeat 100% 6px;
     padding: 0 10px 0 0;
 }
 
@@ -15544,7 +15535,7 @@ p.skills-counter.error {
 }
 
 .header .relevance-redesigned .feed-sort-filters li:first-child {
-    background: url('http://static02.linkedin.com/scds/common/u/img/icon/icon_bullet_grey2_4x4.png') no-repeat 100% 6px;
+    background: url(<%=asset_path('ln02/scds/common/u/img/icon/icon_bullet_grey2_4x4.png')%>) no-repeat 100% 6px;
     border: 0;
     margin-right: 6px;
     padding-right: 10px;
@@ -15907,7 +15898,7 @@ p.skills-counter.error {
 }
 
 .mini-form .callout {
-    background: #fff url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_marketing_bubble_v1.gif') 0 -14px repeat-x;
+    background: #fff url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_marketing_bubble_v1.gif')%>) 0 -14px repeat-x;
     font-size: 12px;
     line-height: 1;
     margin: -8px -5px 10px;
@@ -16017,7 +16008,7 @@ p.skills-counter.error {
 }
 
 .mini-form .post-warn-icon {
-    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_sharing_v12.png') 0 -578px;
+    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_sharing_v12.png')%>) 0 -578px;
     display: block;
     width: 16px;
     height: 20px;
@@ -16045,12 +16036,6 @@ p.skills-counter.error {
     display: none;
 }
 
-body.sharing-popup {
-    max-width: 600px;
-    min-width: 0;
-    width: auto;
-    background-color: #e6e6e6;
-}
 
 #share-offsite .global-form {
     width: auto;
@@ -16214,7 +16199,7 @@ body.sharing-popup {
 }
 
 .post .cancel-file-upload,.post .post-link-close,.post .share-close,.doc-sharing-file-upload-form .cancel-file-upload,.doc-sharing-file-upload-form .post-link-close,.doc-sharing-file-upload-form .share-close {
-    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_sharing_v12.png') 100% -300px no-repeat;
+    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_sharing_v12.png')%>) 100% -300px no-repeat;
     height: 10px;
     margin: 3px 3px 10px 10px;
     position: absolute;
@@ -16226,7 +16211,7 @@ body.sharing-popup {
 }
 
 .post .share-loading {
-    background: url('http://static01.linkedin.com/scds/common/u/img/anim/anim_loading_16x16.gif') center 10px no-repeat #fff;
+    background: url(<%=asset_path('ln01/scds/common/u/img/anim/anim_loading_16x16.gif')%>) center 10px no-repeat #fff;
     min-height: 15px;
     _height: 15px;
     padding: 10px 0 !important;
@@ -16405,7 +16390,7 @@ body.sharing-popup {
 }
 
 .post .post-actions #attach a {
-    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_sharing_v12.png') no-repeat 0 -528px;
+    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_sharing_v12.png')%>) no-repeat 0 -528px;
     display: block;
     padding-left: 13px;
 }
@@ -16437,14 +16422,14 @@ body.sharing-popup {
     position: absolute;
     top: 0;
     left: 71px;
-    background: url('http://static01.linkedin.com/scds/common/u/img/bg/bg_sharepostmod_567x400.png') bottom left no-repeat;
+    background: url(<%=asset_path('ln01/scds/common/u/img/bg/bg_sharepostmod_567x400.png')%>) bottom left no-repeat;
     width: 567px;
     z-index: 6;
     padding-bottom: 7px;
 }
 
 .post-home .post-module-in {
-    background: url('http://static01.linkedin.com/scds/common/u/img/bg/bg_sharepostmod_567x400.png') 0 0 no-repeat;
+    background: url(<%=asset_path('ln01/scds/common/u/img/bg/bg_sharepostmod_567x400.png')%>) 0 0 no-repeat;
     padding: 7px 7px 0 22px;
     _zoom: 1;
 }
@@ -16712,7 +16697,7 @@ body.sharing-popup {
 }
 
 .post-home-neu .preview_loading .post-link {
-    background: url('http://static01.linkedin.com/scds/common/u/img/anim/anim_loading_16x16.gif') 500px 10px no-repeat #fff;
+    background: url(<%=asset_path('ln01/scds/common/u/img/anim/anim_loading_16x16.gif')%>) 500px 10px no-repeat #fff;
 }
 
 #post-module-neu.inactive .check-textarea-message {
@@ -16933,7 +16918,7 @@ body.sharing-popup {
 .twitter .twitlogo {
     position: absolute;
     display: block;
-    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_sharing_v12.png') 0 -70px no-repeat;
+    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_sharing_v12.png')%>) 0 -70px no-repeat;
     width: 21px;
     height: 23px;
     cursor: pointer;
@@ -16947,7 +16932,7 @@ body.sharing-popup {
 .facebook .fblogo {
     position: absolute;
     display: block;
-    background: url('http://static01.linkedin.com/scds/common/u/img/icon/icon_fblogo_30x21.png') 0 0 no-repeat;
+    background: url(<%=asset_path('ln01/scds/common/u/img/icon/icon_fblogo_30x21.png')%>) 0 0 no-repeat;
     width: 21px;
     height: 23px;
     cursor: pointer;
@@ -16978,7 +16963,7 @@ body.sharing-popup {
 
 .twitter .open .selected {
     font-weight: bold;
-    background: #dbeffb url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_sharing_v12.png') 101% -220px no-repeat;
+    background: #dbeffb url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_sharing_v12.png')%>) 101% -220px no-repeat;
     color: #000 !important;
     cursor: text;
 }
@@ -17025,7 +17010,7 @@ body.sharing-popup {
 
 .twitter .open .selected,.facebook .open .selected {
     font-weight: bold;
-    background: #fff url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_sharing_v12.png') 101% -220px no-repeat !important;
+    background: #fff url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_sharing_v12.png')%>) 101% -220px no-repeat !important;
     color: #000 !important;
     cursor: text;
 }
@@ -17069,7 +17054,7 @@ body.sharing-popup {
 }
 
 .menu-basic span.label span {
-    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_sharing_v12.png') 100% -445px no-repeat;
+    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_sharing_v12.png')%>) 100% -445px no-repeat;
     color: #069;
     cursor: pointer;
     padding-right: 10px;
@@ -17077,7 +17062,7 @@ body.sharing-popup {
 }
 
 .menu-basic li.selected div {
-    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_sharing_v12.png') 101% -220px no-repeat !important;
+    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_sharing_v12.png')%>) 101% -220px no-repeat !important;
     padding-right: 15px;
 }
 
@@ -17210,7 +17195,7 @@ body.sharing-popup {
 }
 
 .group-share .mbox-typeahead span,.group-share .mbox-label span.status,.group-share .msg div {
-    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_grps_v7.png') no-repeat -40px 0px;
+    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_grps_v7.png')%>) no-repeat -40px 0px;
 }
 
 .group-share .mbox-typeahead span {
@@ -17288,7 +17273,7 @@ body.sharing-popup {
 }
 
 #callout-overlay.instructional-callout .callout-body .dismiss {
-    background: transparent url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_global_v8.png') no-repeat scroll right -1300px;
+    background: transparent url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_global_v8.png')%>) no-repeat scroll right -1300px;
     cursor: pointer;
     display: block;
     height: 18px;
@@ -17467,8 +17452,8 @@ body.sharing-popup {
 }
 
 #lui-panel-body .minipanel {
-    background: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_miniprofile_386x683.png') no-repeat transparent;
-    _background-image: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_miniprofile_plain_386x683.gif');
+    background: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_miniprofile_386x683.png')%>) no-repeat transparent;
+    _background-image: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_miniprofile_plain_386x683.gif')%>);
     padding: 10px 20px 0 20px;
     border: 0;
     zoom: 1;
@@ -17477,8 +17462,8 @@ body.sharing-popup {
 }
 
 #lui-panel-body .minipanel-content {
-    background: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_miniprofile_386x683.png') 0 100% no-repeat;
-    _background: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_miniprofile_plain_386x683.gif') 0 100% no-repeat;
+    background: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_miniprofile_386x683.png')%>) 0 100% no-repeat;
+    _background: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_miniprofile_plain_386x683.gif')%>) 0 100% no-repeat;
     padding: 0 20px 20px 20px;
     margin: 0;
     *zoom: 1;
@@ -17489,14 +17474,14 @@ body.sharing-popup {
 }
 
 #lui-panel-body.panel-left .minipanel {
-    background-image: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_miniprofile_left_386x683.png');
-    _background-image: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_miniprofile_plain_left_386x683.gif');
+    background-image: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_miniprofile_left_386x683.png')%>);
+    _background-image: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_miniprofile_plain_left_386x683.gif')%>);
     _background-position: 10px 0;
 }
 
 #lui-panel-body.panel-left .minipanel-content {
-    background: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_miniprofile_left_386x683.png') 0 100% no-repeat;
-    _background: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_miniprofile_plain_left_386x683.gif') 10px 100% no-repeat;
+    background: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_miniprofile_left_386x683.png')%>) 0 100% no-repeat;
+    _background: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_miniprofile_plain_left_386x683.gif')%>) 10px 100% no-repeat;
 }
 
 .minipanel-insert {
@@ -17513,7 +17498,7 @@ body.sharing-popup {
     display: block;
     margin: 0 40px 10px 10px;
     _margin-right: 18px;
-    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_global_v8.png') right -1300px no-repeat;
+    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_global_v8.png')%>) right -1300px no-repeat;
     width: 17px;
     height: 15px;
     padding: 0;
@@ -17526,20 +17511,20 @@ body.sharing-popup {
 }
 
 #lui-panel-body.super-panel .minipanel {
-    background-image: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_miniprofile_603x391.png');
+    background-image: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_miniprofile_603x391.png')%>);
     padding: 20px 15px 0 15px;
     width: 603px;
 }
 
 #lui-panel-body.super-panel .minipanel-content {
-    background-image: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_miniprofile_603x391.png');
+    background-image: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_miniprofile_603x391.png')%>);
     margin-top: -10px;
     padding: 10px 15px 15px;
 }
 
 .miniprofile-container a:hover {
     text-decoration: none;
-    background: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png') repeat-x 0 100%;
+    background: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png')%>) repeat-x 0 100%;
 }
 
 .miniprofile .photo {
@@ -17737,7 +17722,7 @@ body.sharing-popup {
 
 .article-popup a:hover {
     text-decoration: none;
-    background: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png') repeat-x 0 100%;
+    background: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png')%>) repeat-x 0 100%;
 }
 
 .newspanel h2 {
@@ -17770,7 +17755,7 @@ body.sharing-popup {
 .newspanel .action-list {
     margin: 8px 0 0 0;
     padding: 8px 0 0 0;
-    background: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png') repeat-x;
+    background: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png')%>) repeat-x;
 }
 
 .newspanel .action-list.plain {
@@ -17797,7 +17782,7 @@ body.sharing-popup {
 }
 
 .newspanel .action-list li .flag-article-link {
-    background: url('http://static02.linkedin.com/scds/common/u/img/icon/icon_report_17x46.png') no-repeat;
+    background: url(<%=asset_path('ln02/scds/common/u/img/icon/icon_report_17x46.png')%>) no-repeat;
     padding: 2px 0 2px 20px;
     font-size: 110%;
 }
@@ -17807,7 +17792,7 @@ body.sharing-popup {
 }
 
 .newspanel .action-list li .share-article {
-    background: url('http://static01.linkedin.com/scds/common/u/img/icon/icon_forward_rollover_26x42.png') no-repeat;
+    background: url(<%=asset_path('ln01/scds/common/u/img/icon/icon_forward_rollover_26x42.png')%>) no-repeat;
     padding: 2px 0 2px 30px;
     font-size: 110%;
 }
@@ -17873,14 +17858,14 @@ body.sharing-popup {
 }
 
 .miniprofile-container a.co-miniprof-lnk,.miniprofile-container a.co-miniprof-lnk:hover,.miniprofile-container a.company-profile:hover {
-    background: transparent url('http://static02.linkedin.com/scds/common/u/img/sprite/sprite_profile_v9.png') no-repeat 130% -806px;
+    background: transparent url(<%=asset_path('ln02/scds/common/u/img/sprite/sprite_profile_v9.png')%>) no-repeat 130% -806px;
     padding: 0 16px 0 0;
     font-weight: normal;
 }
 
 .company-miniprofile a.company-profile:hover span,.company-miniprofile a.co-miniprof-lnk:hover span,.miniprofile-container a:hover span {
     text-decoration: none;
-    background: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png') repeat-x 0 100%;
+    background: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png')%>) repeat-x 0 100%;
 }
 
 .miniprofile-container a.company-profile,.miniprofile-container a.company-profile:hover {
@@ -18050,7 +18035,7 @@ body.sharing-popup {
 }
 
 .company-miniprofile .stop-following a {
-    background: url('http://static02.linkedin.com/scds/common/u/img/sprite/sprite_cmpfollow_v1.png') no-repeat;
+    background: url(<%=asset_path('ln02/scds/common/u/img/sprite/sprite_cmpfollow_v1.png')%>) no-repeat;
     color: #007C00 !important;
     padding: 2px 0 2px 22px;
     *padding-top: 0;
@@ -18118,7 +18103,7 @@ body.sharing-popup {
 }
 
 .follow-get-more {
-    background: url('http://static02.linkedin.com/scds/common/u/img/pic/pic_followtrial_208x184.jpg') no-repeat;
+    background: url(<%=asset_path('ln02/scds/common/u/img/pic/pic_followtrial_208x184.jpg')%>) no-repeat;
     border-bottom: 1px solid #ccc;
     min-height: 190px;
     padding-left: 250px;
@@ -18159,7 +18144,7 @@ body.sharing-popup {
 }
 
 .company-entice .entice-actions {
-    background: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png') 0 100% repeat-x;
+    background: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png')%>) 0 100% repeat-x;
     font-size: 110%;
     margin: 0 40px 10px 0;
     padding-bottom: 10px;
@@ -18184,7 +18169,7 @@ body.sharing-popup {
 }
 
 .entice-followers {
-    background: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_grey_dotted_v-line_1x3.png') 100% 0 repeat-y;
+    background: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_grey_dotted_v-line_1x3.png')%>) 100% 0 repeat-y;
     float: left;
     margin-right: 10px;
     padding-right: 10px;
@@ -18243,7 +18228,7 @@ body.sharing-popup {
 }
 
 .company-entice-content .notify-me {
-    background: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png') repeat-x;
+    background: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_grey_dotted_h-line_3x1.png')%>) repeat-x;
     font-size: 110%;
     margin-top: 10px;
     padding-top: 10px;
@@ -18522,7 +18507,7 @@ body.sharing-popup {
 }
 
 .profile-actions-primary .btn-edit span {
-    background: url('http://static02.linkedin.com/scds/common/u/img/icon/icon_edit_16x16.png') 0 50% no-repeat;
+    background: url(<%=asset_path('ln02/scds/common/u/img/icon/icon_edit_16x16.png')%>) 0 50% no-repeat;
     padding: 0 0 0 20px;
     min-height: 16px;
 }
@@ -18550,7 +18535,7 @@ body.sharing-popup {
 }
 
 .post-profile .my-current,.post-profile .post-form,.post-profile .feed.feed-redesign .my-current {
-    background: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_talk_bubble_top_v1.png') no-repeat 12px 0;
+    background: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_talk_bubble_top_v1.png')%>) no-repeat 12px 0;
     padding: 14px 0 0;
     margin-top: -17px;
     overflow: visible;
@@ -18576,7 +18561,7 @@ body.sharing-popup {
 }
 
 .profile-header #overview,.profile-header .readmore,.profile-header .view-full-profile,.inv-status {
-    background: url('http://static01.linkedin.com/scds/common/u/img/bg/bg_grey_dotted_h-line_4x1.png') repeat-x;
+    background: url(<%=asset_path('ln01/scds/common/u/img/bg/bg_grey_dotted_h-line_4x1.png')%>) repeat-x;
     border: 0;
     _position: relative;
 }
@@ -18610,7 +18595,7 @@ body.sharing-popup {
 
 #overview p.seeall a {
     padding: 0 9px 0 0;
-    background: url('http://static02.linkedin.com/scds/common/u/img/sprite/sprite_3px_arrow_999.png') no-repeat right 5px;
+    background: url(<%=asset_path('ln02/scds/common/u/img/sprite/sprite_3px_arrow_999.png')%>) no-repeat right 5px;
 }
 
 #overview .showhide-block p.seeall a {
@@ -18656,7 +18641,7 @@ body.sharing-popup {
 }
 
 .resume .position {
-    background-image: url('http://static01.linkedin.com/scds/common/u/img/bg/bg_grey_dotted_h-line_4x1.png');
+    background-image: url(<%=asset_path('ln01/scds/common/u/img/bg/bg_grey_dotted_h-line_4x1.png')%>);
 }
 
 .resume .header h2 {
@@ -18815,7 +18800,7 @@ body.sharing-popup {
     position: absolute;
     left: -22px;
     top: 4px;
-    background: url('http://static01.linkedin.com/scds/common/u/img/anim/anim_loading_16x16.gif') no-repeat;
+    background: url(<%=asset_path('ln01/scds/common/u/img/anim/anim_loading_16x16.gif')%>) no-repeat;
 }
 
 .edit-my-profile .saving .drag-handle {
@@ -18824,7 +18809,7 @@ body.sharing-popup {
     text-indent: 0;
     background: transparent;
     width: auto;
-    *background: url('http://static01.linkedin.com/scds/common/u/img/anim/anim_loading_16x16.gif') 0 5px no-repeat;
+    *background: url(<%=asset_path('ln01/scds/common/u/img/anim/anim_loading_16x16.gif')%>) 0 5px no-repeat;
     *text-indent: 20px;
     *width: 100%;
 }
@@ -18932,7 +18917,7 @@ body.sharing-popup {
 /* scss/themes/consumer/notifications_en_US.css */
 
 .chrome-v4 .global-nav #header-notifications.v2 {
-    background: url('http://static01.linkedin.com/scds/common/u/img/anim/anim_loading_16x16.gif') no-repeat -12345px -12345px;
+    background: url(<%=asset_path('ln01/scds/common/u/img/anim/anim_loading_16x16.gif')%>) no-repeat -12345px -12345px;
 }
 
 .chrome-v4 .global-nav #header-notifications.v2 .activity-tab .arrow,.chrome-v4 .global-nav #header-notifications.v2 .activity-tab .activity-drop {
@@ -19000,13 +18985,13 @@ body.sharing-popup {
     -ms-border-radius: 3px;
     -khtml-border-radius: 3px;
     border-radius: 3px;
-    background: #fff url('http://static01.linkedin.com/scds/common/u/img/anim/anim_loading_16x16.gif') no-repeat center center;
+    background: #fff url(<%=asset_path('ln01/scds/common/u/img/anim/anim_loading_16x16.gif')%>) no-repeat center center;
     height: 26px;
 }
 
 .chrome-v4 .global-nav #header-notifications.v2 .activity-tab.open .activity-drop.is-backfilling .activity-drop-body ol li.loading {
     border-top: 1px solid #d2d2d2;
-    background: #fff url('http://static01.linkedin.com/scds/common/u/img/anim/anim_loading_16x16.gif') no-repeat center center;
+    background: #fff url(<%=asset_path('ln01/scds/common/u/img/anim/anim_loading_16x16.gif')%>) no-repeat center center;
     height: 26px;
 }
 
@@ -19389,7 +19374,7 @@ body.sharing-popup {
 }
 
 #header-notifications.v2.katy-icons .activity-tab.open .activity-drop.activity-drop-loading .activity-drop-body {
-    background: #fff url('http://static01.linkedin.com/scds/common/u/img/anim/anim_loading_16x16.gif') no-repeat center center;
+    background: #fff url(<%=asset_path('ln01/scds/common/u/img/anim/anim_loading_16x16.gif')%>) no-repeat center center;
     height: 26px;
 }
 
@@ -19493,7 +19478,7 @@ body.sharing-popup {
     vertical-align: middle;
     *vertical-align: auto;
     *font-size: 0;
-    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_inbox_v3_icon.png') no-repeat;
+    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_inbox_v3_icon.png')%>) no-repeat;
     height: 12px;
     width: 20px;
 }
@@ -19948,7 +19933,7 @@ body.sharing-popup {
 }
 
 .activity-drop .inbox-list .item-confirmation li {
-    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_inbox_v3_icon.png') no-repeat -22px 5px;
+    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_inbox_v3_icon.png')%>) no-repeat -22px 5px;
     float: left;
     margin-left: 6px;
     padding-left: 11px;
@@ -19977,7 +19962,7 @@ body.sharing-popup {
 }
 
 .activity-drop .inbox-list .close-confirmation {
-    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_inbox_v3_icon.png') no-repeat 0 -202px;
+    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_inbox_v3_icon.png')%>) no-repeat 0 -202px;
     cursor: pointer;
     height: 10px;
     position: absolute;
@@ -20089,7 +20074,7 @@ div.alert h3 {
 }
 
 div.alert .dismiss {
-    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_global_v8.png') right -1294px no-repeat;
+    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_global_v8.png')%>) right -1294px no-repeat;
     display: block;
     padding: 7px 0 2px;
     position: absolute;
@@ -20106,23 +20091,23 @@ div.alert a:visited {
 }
 
 div.alert.attention {
-    background: #fff5cc url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_global_v8.png') no-repeat 7px -723px;
+    background: #fff5cc url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_global_v8.png')%>) no-repeat 7px -723px;
 }
 
 div.alert.warning {
-    background: #fff5cc url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_global_v8.png') no-repeat 7px -723px;
+    background: #fff5cc url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_global_v8.png')%>) no-repeat 7px -723px;
 }
 
 div.alert.error {
-    background: #fee url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_global_v8.png') no-repeat 7px -643px;
+    background: #fee url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_global_v8.png')%>) no-repeat 7px -643px;
 }
 
 div.alert.success {
-    background: #e6f8dd url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_global_v8.png') no-repeat 7px -883px;
+    background: #e6f8dd url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_global_v8.png')%>) no-repeat 7px -883px;
 }
 
 div.alert.notice {
-    background: #ddf0f8 url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_global_v8.png') no-repeat 7px -803px;
+    background: #ddf0f8 url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_global_v8.png')%>) no-repeat 7px -803px;
 }
 
 div.alert i.icon {
@@ -20130,22 +20115,22 @@ div.alert i.icon {
 }
 
 div.alert.error.alert-details,div.errorbox.alert-details {
-    background-image: url('http://static02.linkedin.com/scds/common/u/img/icon/icon_status_fail_26x26.gif');
+    background-image: url(<%=asset_path('ln02/scds/common/u/img/icon/icon_status_fail_26x26.gif')%>);
     background-position: 7px 7px;
 }
 
 div.alert.success.alert-details {
-    background-image: url('http://static01.linkedin.com/scds/common/u/img/icon/icon_status_success_26x26.gif');
+    background-image: url(<%=asset_path('ln01/scds/common/u/img/icon/icon_status_success_26x26.gif')%>);
     background-position: 7px 7px;
 }
 
 div.alert.warning.alert-details {
-    background-image: url('http://static02.linkedin.com/scds/common/u/img/icon/icon_status_info_26x26.gif');
+    background-image: url(<%=asset_path('ln02/scds/common/u/img/icon/icon_status_info_26x26.gif')%>);
     background-position: 7px 7px;
 }
 
 div.alert.notice.alert-details,div.alert.attention.alert-details {
-    background-image: url('http://static01.linkedin.com/scds/common/u/img/icon/icon_status_info_blue_26x26.gif');
+    background-image: url(<%=asset_path('ln01/scds/common/u/img/icon/icon_status_info_blue_26x26.gif')%>);
     background-position: 7px 7px;
 }
 
@@ -20161,7 +20146,7 @@ div.alert.notice.alert-details,div.alert.attention.alert-details {
 .top-card {
     position: relative;
     *position: static;
-    width: 560px;
+    width: 100%;
     background-color: #fafafa;
     *zoom: 1;
     filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FFFCFCFC', endColorstr='#FFFAFAFA');
@@ -20216,7 +20201,7 @@ div.alert.notice.alert-details,div.alert.attention.alert-details {
     position: relative;
     z-index: 5;
     float: right;
-    width: 344px;
+    width: 606px;
     padding: 15px 20px 17px;
     word-wrap: break-word;
 }
@@ -20248,7 +20233,7 @@ div.alert.notice.alert-details,div.alert.attention.alert-details {
 .profile-card .profile-picture .photo-wrap-sm img,.profile-card .profile-picture .photo-wrap-med img {
     display: block;
     border: 1px solid #e1e1e1;
-    background: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_profile_fabric.png');
+    background: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_profile_fabric.png')%>);
     padding: 34px;
 }
 
@@ -20300,7 +20285,7 @@ div.alert.notice.alert-details,div.alert.attention.alert-details {
     display: block;
     width: 21px;
     height: 29px;
-    background: url('http://static02.linkedin.com/scds/common/u/img/icon/icon_clip_21x29.png') no-repeat;
+    background: url(<%=asset_path('ln02/scds/common/u/img/icon/icon_clip_21x29.png')%>) no-repeat;
     content: "";
 }
 
@@ -20373,7 +20358,7 @@ div.alert.notice.alert-details,div.alert.attention.alert-details {
 }
 
 .edit-my-profile .no-photo .photo-wrap-lg img {
-    background: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_profile_fabric.png');
+    background: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_profile_fabric.png')%>);
 }
 
 .edit-my-profile .no-photo .profile-card .profile-overview {
@@ -20408,7 +20393,7 @@ div.alert.notice.alert-details,div.alert.attention.alert-details {
 }
 
 .profile-card th {
-    font-size: 11px;
+    font-size: 12px;
     color: #999;
     padding: 6px 20px 0 0;
     white-space: nowrap;
@@ -21183,7 +21168,7 @@ div.alert.notice.alert-details,div.alert.attention.alert-details {
 .profile-overview .profile-actions .button-menu dt {
     margin: 7px 0;
     padding: 12px 30px;
-    background: #f1f1f1 url('http://static02.linkedin.com/scds/common/u/img/sprite/sprite_profile_top_card_v4.png') no-repeat 12px -121px;
+    background: #f1f1f1 url(<%=asset_path('ln02/scds/common/u/img/sprite/sprite_profile_top_card_v4.png')%>) no-repeat 12px -121px;
     border: 1px solid #ddd;
     border-width: 1px 0;
     color: #666;
@@ -21230,7 +21215,7 @@ div.alert.notice.alert-details,div.alert.attention.alert-details {
 }
 
 .profile-overview .profile-actions .button-menu dd.pm a.new-feature-learn-more {
-    background: url('http://static02.linkedin.com/scds/common/u/img/sprite/sprite_profile_top_card_v4.png') no-repeat 0 -195px;
+    background: url(<%=asset_path('ln02/scds/common/u/img/sprite/sprite_profile_top_card_v4.png')%>) no-repeat 0 -195px;
     display: block;
     float: right;
     padding: 10px 14px 0 0;
@@ -21277,7 +21262,7 @@ div.alert.notice.alert-details,div.alert.attention.alert-details {
 }
 
 .member-connections {
-    font-size: 11px;
+    font-size: 12px;
     color: #999;
     float: right;
     padding: 5px 0 0 10px;
@@ -21289,7 +21274,7 @@ div.alert.notice.alert-details,div.alert.attention.alert-details {
     display: block;
     color: #333;
     font-size: 18px;
-    line-height: 18px;
+    line-height: 22px;
 }
 
 .profile-card-extras {
@@ -21529,10 +21514,11 @@ div.alert.notice.alert-details,div.alert.attention.alert-details {
 }
 
 .profile-card-extras .profile-actions .public-profile a {
+	font-size:12px;
     border: 0;
-    padding: 0 0 0 19px;
+    padding: 0 0 0 21px;
     margin: 0 10px 0 0;
-    background: url('http://static02.linkedin.com/scds/common/u/img/sprite/sprite_profile_top_card_v4.png') no-repeat 0 -249px;
+    background: url(<%=asset_path('ln02/scds/common/u/img/sprite/sprite_profile_top_card_v4.png')%>) no-repeat 0 -249px;
 }
 
 .profile-card-extras .profile-actions .public-profile a:hover {
@@ -21580,7 +21566,7 @@ div.alert.notice.alert-details,div.alert.attention.alert-details {
     border-left: 1px solid #ccc;
     border: 0;
     padding: 1px 10px 1px 31px;
-    background: url('http://static02.linkedin.com/scds/common/u/img/sprite/sprite_profile_top_card_v4.png') no-repeat 8px -98px;
+    background: url(<%=asset_path('ln02/scds/common/u/img/sprite/sprite_profile_top_card_v4.png')%>) no-repeat 8px -98px;
     color: #666;
     white-space: nowrap;
 }
@@ -21613,7 +21599,7 @@ div.alert.notice.alert-details,div.alert.attention.alert-details {
 }
 
 .more-info {
-    background: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_profile_fabric.png');
+    background: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_profile_fabric.png')%>);
     -moz-box-shadow: 0 4px 0 rgba(0,0,0,0.01) inset,0 3px 0 rgba(0,0,0,0.02) inset,0 2px 0 rgba(0,0,0,0.03) inset,0 1px 0 rgba(0,0,0,0.08) inset,0 -2px 10px rgba(255,255,255,0.5) inset;
     -webkit-box-shadow: 0 4px 0 rgba(0,0,0,0.01) inset,0 3px 0 rgba(0,0,0,0.02) inset,0 2px 0 rgba(0,0,0,0.03) inset,0 1px 0 rgba(0,0,0,0.08) inset,0 -2px 10px rgba(255,255,255,0.5) inset;
     -o-box-shadow: 0 4px 0 rgba(0,0,0,0.01) inset,0 3px 0 rgba(0,0,0,0.02) inset,0 2px 0 rgba(0,0,0,0.03) inset,0 1px 0 rgba(0,0,0,0.08) inset,0 -2px 10px rgba(255,255,255,0.5) inset;
@@ -21702,7 +21688,7 @@ div.alert.notice.alert-details,div.alert.attention.alert-details {
     -webkit-transition: width 100ms ease-out;
     -o-transition: width 100ms ease-out;
     transition: width 100ms ease-out;
-    background: url('http://static02.linkedin.com/scds/common/u/img/bg/bg_beta_flag.png');
+    background: url(<%=asset_path('ln02/scds/common/u/img/bg/bg_beta_flag.png')%>);
     width: 24px;
     position: absolute;
     top: 59px;
@@ -21736,7 +21722,7 @@ div.alert.notice.alert-details,div.alert.attention.alert-details {
 }
 
 #profile-skills .header h2 .endorsement-header .learn-more {
-    background: url('http://static02.linkedin.com/scds/common/u/img/sprite/sprite_profile_v10.png') no-repeat scroll 0 -1122px transparent;
+    background: url(<%=asset_path('ln02/scds/common/u/img/sprite/sprite_profile_v10.png')%>) no-repeat scroll 0 -1122px transparent;
     display: inline-block;
     height: 16px;
     margin-left: 3px;
@@ -22087,7 +22073,7 @@ div.alert.notice.alert-details,div.alert.attention.alert-details {
     display: block;
     width: 100%;
     height: 100%;
-    background: #fff url('http://static01.linkedin.com/scds/common/u/img/anim/anim_loading_16x16.gif') no-repeat scroll center center;
+    background: #fff url(<%=asset_path('ln01/scds/common/u/img/anim/anim_loading_16x16.gif')%>) no-repeat scroll center center;
 }
 
 .endorsers-container .endorsers-action:hover .see-all-endorsers .all-endorsers-arrow {
@@ -22284,16 +22270,16 @@ div.alert.notice.alert-details,div.alert.attention.alert-details {
     -ms-border-radius: 2px;
     -khtml-border-radius: 2px;
     border-radius: 2px;
-    background: url('http://static01.linkedin.com/scds/common/u/img/bg/bg_profile_section_skills.png') no-repeat 520px bottom,-webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #3a7bb9), color-stop(100%, #2f6398));
-    background: url('http://static01.linkedin.com/scds/common/u/img/bg/bg_profile_section_skills.png') no-repeat 520px bottom,-webkit-linear-gradient(top, #3a7bb9,#2f6398);
-    background: url('http://static01.linkedin.com/scds/common/u/img/bg/bg_profile_section_skills.png') no-repeat 520px bottom,-moz-linear-gradient(top, #3a7bb9,#2f6398);
-    background: url('http://static01.linkedin.com/scds/common/u/img/bg/bg_profile_section_skills.png') no-repeat 520px bottom,-o-linear-gradient(top, #3a7bb9,#2f6398);
-    background: url('http://static01.linkedin.com/scds/common/u/img/bg/bg_profile_section_skills.png') no-repeat 520px bottom,-ms-linear-gradient(top, #3a7bb9,#2f6398);
-    background: url('http://static01.linkedin.com/scds/common/u/img/bg/bg_profile_section_skills.png') no-repeat 520px bottom,linear-gradient(top, #3a7bb9,#2f6398);
+    background: url(<%=asset_path('ln01/scds/common/u/img/bg/bg_profile_section_skills.png')%>) no-repeat 520px bottom,-webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #3a7bb9), color-stop(100%, #2f6398));
+    background: url(<%=asset_path('ln01/scds/common/u/img/bg/bg_profile_section_skills.png')%>) no-repeat 520px bottom,-webkit-linear-gradient(top, #3a7bb9,#2f6398);
+    background: url(<%=asset_path('ln01/scds/common/u/img/bg/bg_profile_section_skills.png')%>) no-repeat 520px bottom,-moz-linear-gradient(top, #3a7bb9,#2f6398);
+    background: url(<%=asset_path('ln01/scds/common/u/img/bg/bg_profile_section_skills.png')%>) no-repeat 520px bottom,-o-linear-gradient(top, #3a7bb9,#2f6398);
+    background: url(<%=asset_path('ln01/scds/common/u/img/bg/bg_profile_section_skills.png')%>) no-repeat 520px bottom,-ms-linear-gradient(top, #3a7bb9,#2f6398);
+    background: url(<%=asset_path('ln01/scds/common/u/img/bg/bg_profile_section_skills.png')%>) no-repeat 520px bottom,linear-gradient(top, #3a7bb9,#2f6398);
 }
 
 .ie.lte9 .endorse-v2 .pending-endorsements {
-    background: #2f6398 url('http://static01.linkedin.com/scds/common/u/img/bg/bg_profile_section_skills.png') no-repeat 520px bottom;
+    background: #2f6398 url(<%=asset_path('ln01/scds/common/u/img/bg/bg_profile_section_skills.png')%>) no-repeat 520px bottom;
 }
 
 .endorse-v2 .pending-endorsements {
@@ -22304,7 +22290,7 @@ div.alert.notice.alert-details,div.alert.attention.alert-details {
     position: absolute;
     top: 7px;
     right: 7px;
-    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_global_v8.png') no-repeat 3px -1397px;
+    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_global_v8.png')%>) no-repeat 3px -1397px;
     width: 14px;
     height: 14px;
     text-indent: -12345px;
@@ -22458,7 +22444,7 @@ h3.endorse-accept-title {
     height: 13px;
     width: 8px;
     text-indent: -12345em;
-    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_global_v8.png') no-repeat scroll 0 -1496px;
+    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_global_v8.png')%>) no-repeat scroll 0 -1496px;
 }
 
 .endorse-v2 .endorsed-item {
@@ -22895,23 +22881,23 @@ h3.endorse-accept-title {
     -ms-border-radius: 2px;
     -khtml-border-radius: 2px;
     border-radius: 2px;
-    background: url('http://static01.linkedin.com/scds/common/u/img/bg/bg_profile_section_skills.png') no-repeat 520px bottom,-webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #3a7bb9), color-stop(100%, #2f6398));
-    background: url('http://static01.linkedin.com/scds/common/u/img/bg/bg_profile_section_skills.png') no-repeat 520px bottom,-webkit-linear-gradient(top, #3a7bb9,#2f6398);
-    background: url('http://static01.linkedin.com/scds/common/u/img/bg/bg_profile_section_skills.png') no-repeat 520px bottom,-moz-linear-gradient(top, #3a7bb9,#2f6398);
-    background: url('http://static01.linkedin.com/scds/common/u/img/bg/bg_profile_section_skills.png') no-repeat 520px bottom,-o-linear-gradient(top, #3a7bb9,#2f6398);
-    background: url('http://static01.linkedin.com/scds/common/u/img/bg/bg_profile_section_skills.png') no-repeat 520px bottom,-ms-linear-gradient(top, #3a7bb9,#2f6398);
-    background: url('http://static01.linkedin.com/scds/common/u/img/bg/bg_profile_section_skills.png') no-repeat 520px bottom,linear-gradient(top, #3a7bb9,#2f6398);
+    background: url(<%=asset_path('ln01/scds/common/u/img/bg/bg_profile_section_skills.png')%>) no-repeat 520px bottom,-webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #3a7bb9), color-stop(100%, #2f6398));
+    background: url(<%=asset_path('ln01/scds/common/u/img/bg/bg_profile_section_skills.png')%>) no-repeat 520px bottom,-webkit-linear-gradient(top, #3a7bb9,#2f6398);
+    background: url(<%=asset_path('ln01/scds/common/u/img/bg/bg_profile_section_skills.png')%>) no-repeat 520px bottom,-moz-linear-gradient(top, #3a7bb9,#2f6398);
+    background: url(<%=asset_path('ln01/scds/common/u/img/bg/bg_profile_section_skills.png')%>) no-repeat 520px bottom,-o-linear-gradient(top, #3a7bb9,#2f6398);
+    background: url(<%=asset_path('ln01/scds/common/u/img/bg/bg_profile_section_skills.png')%>) no-repeat 520px bottom,-ms-linear-gradient(top, #3a7bb9,#2f6398);
+    background: url(<%=asset_path('ln01/scds/common/u/img/bg/bg_profile_section_skills.png')%>) no-repeat 520px bottom,linear-gradient(top, #3a7bb9,#2f6398);
 }
 
 .ie.lte9 .endorse-v2 .endorse-connections {
-    background: #2f6398 url('http://static01.linkedin.com/scds/common/u/img/bg/bg_profile_section_skills.png') no-repeat 520px bottom;
+    background: #2f6398 url(<%=asset_path('ln01/scds/common/u/img/bg/bg_profile_section_skills.png')%>) no-repeat 520px bottom;
 }
 
 .endorse-connections .close-action {
     position: absolute;
     top: 7px;
     right: 7px;
-    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_global_v8.png') no-repeat 3px -1397px;
+    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_global_v8.png')%>) no-repeat 3px -1397px;
     width: 14px;
     height: 14px;
     text-indent: -12345px;
@@ -22941,7 +22927,7 @@ h3.endorse-connection-title {
 
 h3.endorse-connection-title.post-success {
     padding: 10px 0 2px 40px;
-    background: url('http://static01.linkedin.com/scds/common/u/img/endorsements/icon_alphaCheckmark_27x27.png') no-repeat 0 9px;
+    background: url(<%=asset_path('ln01/scds/common/u/img/endorsements/icon_alphaCheckmark_27x27.png')%>) no-repeat 0 9px;
 }
 
 .endorse-v2 h3.endorse-connection-title.post-success {
@@ -23127,7 +23113,7 @@ p.endorse-question strong {
     position: absolute;
     top: 3px;
     right: 3px;
-    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_global_v8.png') no-repeat 3px -1497px;
+    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_global_v8.png')%>) no-repeat 3px -1497px;
     width: 14px;
     height: 14px;
     text-indent: -12345px;
@@ -23607,7 +23593,7 @@ p.endorse-question strong {
     display: none;
     height: 100%;
     width: 100%;
-    background: url('http://static01.linkedin.com/scds/common/u/img/anim/anim_loading_40x40.gif') no-repeat center center;
+    background: url(<%=asset_path('ln01/scds/common/u/img/anim/anim_loading_40x40.gif')%>) no-repeat center center;
     position: absolute;
     top: 0;
 }
@@ -23645,7 +23631,7 @@ p.endorse-question strong {
 }
 
 .skill-miniprofile .skill-industry-img {
-    background-image: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_pulse_industries_v1.jpg');
+    background-image: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_pulse_industries_v1.jpg')%>);
 }
 
 .skill-miniprofile .skill-industry-img.indy-47 {
@@ -23870,3 +23856,33 @@ p.endorse-question strong {
 
 }
 
+
+
+.__lnk.ko {
+    font-family: "Malgun Gothic";
+}
+
+.__lnk.ja {
+    font-family: "Hiragino Kaku Gothic Pro", "ãƒ’ãƒ©ã‚®ãƒŽè§’ã‚´ Pro W3", ãƒ¡ã‚¤ãƒªã‚ª, Meiryo, "ï¼­ï¼³ ï¼°ã‚´ã‚·ãƒƒã‚¯", "MS PGothic", Arial, Helvetica, "Nimbus Sans L", sans-serif;
+}
+
+.__lnk.basic #content {
+    width: 600px;
+    margin: 0 auto;
+}
+
+.__lnk.dialog-mask-active select {
+    _visibility: hidden;
+}
+
+.__lnk.dialog-mask-active .dialog-window select {
+    _visibility: visible;
+}
+
+
+.__lnk.sharing-popup {
+    max-width: 600px;
+    min-width: 0;
+    width: auto;
+    background-color: #e6e6e6;
+}

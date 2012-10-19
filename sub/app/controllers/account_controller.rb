@@ -1,39 +1,48 @@
 # -*- encoding : utf-8 -*-
 class AccountController < Devise::RegistrationsController
+  prepend_before_filter :authenticate_scope!, :only => [:edit_pref]
   def edit
+    common_account_op!
     @seo[:title] = '账号设置'
-    @user = current_user
     render "edit",layout:'application'
   end
   def edit_pref
+    common_account_op!
     @seo[:title] = '偏好设置'
     render layout:'application'
   end
   def edit_avatar
+    common_account_op!
     @seo[:title] = '修改头像'
     render layout:'application'
   end
   def edit_profile
+    common_account_op!
     @seo[:title] = '个人资料'
     render layout:'application'
   end
   def edit_notifications
+    common_account_op!
     @seo[:title] = '通知与提醒'
     render layout:'application'
   end
   def edit_banking
+    common_account_op!
     @seo[:title] = '帐户与帐单'
     render layout:'application'
   end
   def edit_passwd
+    common_account_op!
     @seo[:title] = '邮箱与密码安全'
     render layout:'application'
   end
   def edit_i18n
+    common_account_op!
     @seo[:title] = '国际化设置'
     render layout:'application'
   end
   def edit_invite
+    common_account_op!
     @seo[:title] = '邀请好友注册'
     render layout:'application'
   end
@@ -159,5 +168,8 @@ class AccountController < Devise::RegistrationsController
   def after_inactive_sign_up_path_for(resource)
     welcome_inactive_sign_up_path
   end
-  
+private
+  def common_account_op!
+    @user = current_user    
+  end  
 end

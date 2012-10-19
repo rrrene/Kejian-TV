@@ -1,5 +1,5 @@
 <% content_for :armpit do %>
-  <%= stylesheet_link_tag "ktv/__lnk", :media => "all" %>
+<%= stylesheet_link_tag "__lnk", :media => "all" %>
 <% end %>
 
 
@@ -9,3 +9,225 @@
 
 <%= render 'content_below' %>
 
+<div class="wrapper" style="width:1000px">
+<div class="__lnk en member v2 edit-my-profile chrome-v4 background-v4 sticky-bg basic-member js " id="pagekey-nprofile-edit-success">
+	<div id="body" class="" role="main">
+		<div class="wrapper hp-nus-wrapper">
+			<div id="global-error">
+			</div>
+			<!-- leo:gobackTemplateLinks/ -->
+			<div id="main" class="profile grid-a">
+				<div id="content" class="">
+					<!-- Start profile card -->
+					<div class="top-card">
+						<div class="profile-card vcard">
+							<div class="profile-picture" id="profile-picture">
+								<div class="photo-wrap-lg">
+									<img src="<%= avatar_url(@user,:big) %>" width="150" height="150" alt="Minqi Pan">
+								</div>
+								<div class="edit-photo">
+									<a href="/account/edit_avatar">修改头像</a>
+								</div>
+							</div>
+							<div class="profile-overview">
+								<div id="member-73526537" class="masthead">
+									<h1>
+									<span class="n fn" id="name">
+										<span class="full-name"><%= name_beautify @user.name %> <%= '(未填写真实姓名)' if '_'==@user.name[0] %></span>
+									</span>
+									<span class="edit">
+									<a name="editBasicInfo" href="/account/edit_profile" title="编辑姓名" style="font-size:12px">编辑</a>
+									</span>
+									</h1>
+									<span class="phonetic-full-name">
+									</span>
+									<p class="title" style="display:block">
+										<%= @user.tagline.present? ? @user.tagline : '(未填写学术或职业头衔)' %>
+									</p>
+									<dl id="headline" class="demographic-info adr">
+										<dt>地区</dt>
+										<dd>
+										<span class="locality">
+											<%= @user.location.present? ? @user.location : '未知地区' %> </span>
+										</dd>
+										<dt>领域</dt>
+										<dd class="industry">
+											<%= @user.lingyu.present? ? @user.lingyu : '未知领域或行业' %></dd>
+									</dl>
+								</div>
+								<table summary="Overview for Minqi Pan">
+								<tbody>
+								<tr id="overview-summary-past">
+									<th scope="row" id="overview-summary-past-title">
+										<a class="past-title" href="#profile-experience">曾任职</a>
+									</th>
+									<td>
+										<ol>
+											<li>
+											<span class="miniprofile-container /companies/78784?miniprofile=&amp;goback=%2Ersm_*1_*1_*1_*1" data-tracking="mcp_profile_sum" data-li-getjs="http://s3.licdn.com/scds/concat/common/js?h=dyt8o4nwtaujeutlgncuqe0dn&amp;fc=2" id="yui-gen31"><strong>
+											<a href="/company/78784?goback=%2Ersm_*1_*1_*1_*1&amp;trk=prof-0-ovw-pos">Ruby工程师</a></strong></span></li><li>, <a href="/search?search=&amp;currentCompany=C&amp;company=Snailize+Team&amp;sortCriteria=R&amp;keepFacets=true&amp;goback=%2Ersm_*1_*1_*1_*1" title="Find users who have worked at this company" name="company">智联招聘</a></li>.
+										</ol>
+									</td>
+								</tr>
+								<tr id="overview-summary-education">
+									<th scope="row" id="overview-summary-education-title">
+										<a class="education-title" href="#profile-education">理学士(BS)</a>
+									</th>
+									<td>
+										<ol>
+											<li>2009-2013, 数学科学学院, 首都师范大学</li>.
+										</ol>
+									</td>
+								</tr>
+								</tbody>
+								</table>
+								<div class="profile-aux">
+									<div class="member-connections">
+										<strong>
+										63 </strong>
+										人际关系
+									</div>
+									<div class="profile-actions">
+										<div class="guided-actions">
+											<a name="guidedEdit" class="button-primary" href="/profile/guided?goback=%2Ersm_*1_*1_*1_*1%2Enpe_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1&amp;trk=prof-0-sb-guided_edit-primary">
+											<span>Improve your profile</span>
+											</a>
+										</div>
+										<noscript>
+										 &lt;a name="shareProfile" class="button-primary withoutjs" href="/forwardProfileMsg?displayCreate=&amp;amp;profileID=73526537&amp;amp;profileName=Minqi+Pan&amp;amp;network=M&amp;amp;authToken=ehue&amp;amp;authType=name&amp;amp;goback=%2Ersm_*1_*1_*1_*1%2Enpe_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1&amp;amp;trk=prof-0-sb-share-primary"&gt;&lt;span&gt;Share profile&lt;/span&gt;&lt;/a&gt;
+										</noscript>
+										<div class="button-group-secondary">
+											<a name="previewProfile" class="button-secondary" href="/profile/view?id=73526537&amp;locale=en_US&amp;trk=prof-0-ovw-view-secondary"><span>查看资料页</span></a>
+											<div class="button-menu connect-menu-toggle">
+												<span>More options</span>
+												<dl class="connect-menu">
+													<dd>
+													<a name="addRecommendations" href="/recRequests?cor=&amp;goback=%2Ersm_*1_*1_*1_*1&amp;trk=prof-0-sb-ask_for_rec-link">请求职位推荐</a>
+													</dd>
+													<dd>
+													<a href="/profile/edit-profile-in-another-language?goback=%2Ersm_*1_*1_*1_*1%2Enpe_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1&amp;trk=prof-0-sb-create_pial-link">建立更多语言的资料页</a>
+													</dd>
+													<dd class="share">
+													<a href="/forwardProfileMsg?displayCreate=&amp;profileID=73526537&amp;profileName=Minqi+Pan&amp;network=M&amp;authToken=ehue&amp;authType=name&amp;goback=%2Ersm_*1_*1_*1_*1%2Enpe_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1&amp;trk=prof-0-ab-share-0" id="yui-gen3">
+													<span>分享我的资料页</span>
+													</a>
+
+
+
+												</dd>
+													<dd class="pdf">
+													<a href="/profile/pdf?id=73526537&amp;locale=en_US&amp;authType=name&amp;authToken=ehue&amp;pdfFileName=MinqiPan&amp;disablePdfCompression=true&amp;trk=pdf_pro_full" title="Download as PDF">
+													<span>生成PDF资料页</span>
+													</a>
+													</dd>
+												</dl>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- End profile-aux -->
+							</div>
+							<!-- End profile-overview -->
+						</div>
+						<!-- End profile card -->
+						<div class="profile-card-extras">
+							<div class="more-info" style="display: none; ">
+								<table summary="Internet Presence">
+								<tbody>
+								<tr>
+									<th scope="row" rowspan="3">
+										Websites
+									</th>
+									<td>
+										 Personal Website <span class="edit"><a class="add" href="/profile/edit-additional-info?locale=en_US&amp;goback=%2Ersm_*1_*1_*1_*1%2Enpe_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1&amp;trk=prof-ovw-edit-websites">Edit</a></span>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										 Blog <span class="edit"><a class="add" href="/profile/edit-additional-info?locale=en_US&amp;goback=%2Ersm_*1_*1_*1_*1%2Enpe_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1&amp;trk=prof-ovw-edit-websites">Edit</a></span>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										 RSS feed <span class="edit"><a class="add" href="/profile/edit-additional-info?locale=en_US&amp;goback=%2Ersm_*1_*1_*1_*1%2Enpe_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1&amp;trk=prof-ovw-edit-websites">Edit</a></span>
+									</td>
+								</tr>
+								<tr>
+									<th scope="row" rowspan="2">
+										Twitter
+									</th>
+									<td>
+										<a href="/redirect?url=http%3A%2F%2Fwww%2Etwitter%2Ecom%2Fpsvr&amp;urlhash=1SEr&amp;trk=pro_twit" target="_blank">psvr</a>
+										<span class="edit">
+										<a href="https://www.linkedin.com/secure/settings?twitterSettings=&amp;goback=%2Ersm_*1_*1_*1_*1%2Enpe_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1&amp;trk=prof-ovw-edit-twitter">Edit</a>
+										</span>
+									</td>
+								</tr>
+								</tbody>
+								</table>
+								<table summary="Contact Info">
+								<tbody>
+								<tr>
+									<th scope="row" rowspan="1">
+										Email
+									</th>
+									<td>
+										<a href="mailto:pmq2001@gmail.com">pmq2001@gmail.com</a>
+									</td>
+								</tr>
+								<tr class="tel">
+									<th scope="row" rowspan="1">
+										Phone
+									</th>
+									<td>
+										 +8618600259326 <span class="type">(mobile)</span>
+										<span class="edit"><a class="add" href="/profile/edit-personal-info?locale=en_US&amp;goback=%2Ersm_*1_*1_*1_*1%2Enpe_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1&amp;trk=prof-ovw-edit-phone">Edit</a></span>
+									</td>
+								</tr>
+								<tr>
+									<th scope="row" rowspan="1">
+										IM
+									</th>
+									<td>
+										 pmq2001@gmail.com (Google Talk) <span class="edit"><a class="add" href="/profile/edit-personal-info?locale=en_US&amp;goback=%2Ersm_*1_*1_*1_*1%2Enpe_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1&amp;trk=prof-ovw-edit-im">Edit</a></span>
+									</td>
+								</tr>
+								<tr>
+									<th scope="row">
+										Address
+									</th>
+									<td>
+										 Xi San Huan Bei Lu #105<br>
+										 Haidian District<br>
+										 100048 Beijing <span class="edit"><a class="add" href="/profile/edit-personal-info?locale=en_US&amp;goback=%2Ersm_*1_*1_*1_*1%2Enpe_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1&amp;trk=prof-ovw-edit-address">Edit</a></span>
+									</td>
+								</tr>
+								</tbody>
+								</table>
+							</div>
+							<div class="profile-actions">
+								<ul>
+									<li>
+									<dl class="public-profile">
+										<dt>公共帐号信息地址</dt>
+										<dd style="line-height:14px">
+											<a href="http://cn.linkedin.com/pub/minqi-pan/20/75a/b5" title="View public profile" name="webProfileURL">http://kejian.tv/<%= @user.slug %></a>
+										<a class="edit-public-profile" href="/profile/public-profile-settings?trk=prof-ovw-edit-public_profile">编辑</a>
+										</dd>
+									</dl>
+									</li>
+								</ul>
+								<div class="show-more-info">
+									<a href="#"><span class="contact">编辑联系方式</span></a>
+								</div>
+							</div>
+							<!-- End profile-actions -->
+						</div>
+						<!-- End profile-extras -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>

@@ -1,5 +1,5 @@
 <% content_for :armpit do %>
-  <%= stylesheet_link_tag "ktv/__lnk", :media => "all" %>
+<%= stylesheet_link_tag "__lnk", :media => "all" %>
 <% end %>
 
 
@@ -9,3 +9,270 @@
 
 <%= render 'content_below' %>
 
+
+<div class="wrapper" style="width:1000px">
+<div class="__lnk en member v2 edit-my-profile chrome-v4 background-v4 sticky-bg basic-member js " id="pagekey-nprofile-edit-success">
+
+<div id="body" class="" role="main">
+	<div id="section-header">
+		<ul id="nav-secondary">
+			<li id="nav-edit-profile" class=""><a href="/profile/edit?locale=en_US"><span>Edit Profile</span></a></li>
+			<li id="nav-my-profile" class=""><a href="/profile/view?id=73526537&amp;locale=en_US&amp;trk=tab_pro"><span>View Profile</span></a></li>
+		</ul>
+	</div>
+	<div class="wrapper hp-nus-wrapper">
+		<div id="global-error">
+		</div>
+		<div id="main" class="profile-edit grid-e">
+			<div id="content">
+				<h1>个人资料</h1>
+				<form action="/profile/edit-basic-info-submit" method="POST" name="editBasicInfoForm" novalidate="novalidate" class="standard-form" id="yui-gen5">
+					<fieldset>
+						<legend><span>真实姓名</span></legend>
+						<ul>
+							<li class="first-name">
+							<label for="firstName-editBasicInfoForm">真实姓名:</label>
+							<div class="fieldgroup">
+								<span class="error" id="firstName-editBasicInfoForm-error"></span>
+								<input type="text" name="firstName" value="<%= @user.name %>" id="firstName-editBasicInfoForm">
+							</div>
+							</li>
+						</ul>
+					</fieldset>
+					<fieldset>
+						<legend><span>头衔</span></legend>
+						<ul>
+							<li>
+							<label for="editBasicInfoForm">学术或职业头衔:</label>
+							<div class="fieldgroup">
+								<span class="error" id="headline-editBasicInfoForm-error"></span>
+								<input type="text" name="headline" value="<%= @user.tagline %>" id="headline-editBasicInfoForm">
+							</div>
+							<p class="note">
+								<strong>例如:</strong> 华东师范大学生物统计中心研究助理，抽象代数领域研究者，首都师范大学教授，世界史博士生导师，经验丰富的交通运输行政主管，网页设计师，信息架构师，远见卓识的企业家和投资者...<a class="" href="/static?key=pop_ex_headlines&amp;goback=%2Ersm_*1_*1_*1_*1%2Enpe_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1" onclick="LI.popup( '/static?key=pop_ex_headlines&amp;goback=%2Ersm_*1_*1_*1_*1%2Enpe_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1', {} ); return false;" title="New window will open">更多示例</a>
+							</p>
+							</li>
+						</ul>
+					</fieldset>
+					<fieldset>
+						<legend><span>Location &amp; Industry</span></legend>
+				<script type="text/javascript" charset="utf-8">
+<% content_for :butt2 do %>
+// $('#homeprovince').change(function(){
+// 	if($(this).value!=''){
+// 		$.getJSON('/ajax/get_cities?province='+$(this).value)
+// 	}
+// 	$('#homeprovince_city').show();
+// })
+<% end %>
+        </script>
+						<ul id="yui-gen4">
+							<li>
+							<label for="countryCode-location-editBasicInfoForm">所在地:</label>
+							<span class="error" id="countryCode-location-editBasicInfoForm-error"></span>
+							<div id="birthdistrictbox">
+<select tabindex="1" onchange="showdistrict('birthdistrictbox', ['birthprovince', 'birthcity', 'birthdist', 'birthcommunity'], 1, 1, 'birth')" class="ps" id="birthprovince" name="birthprovince"><option value="">-省份-</option><option value="北京市" did="1">北京市</option><option value="天津市" did="2">天津市</option><option value="河北省" did="3">河北省</option><option value="山西省" did="4">山西省</option><option value="内蒙古自治区" did="5">内蒙古自治区</option><option value="辽宁省" did="6">辽宁省</option><option value="吉林省" did="7">吉林省</option><option value="黑龙江省" did="8">黑龙江省</option><option value="上海市" did="9">上海市</option><option value="江苏省" did="10">江苏省</option><option value="浙江省" did="11">浙江省</option><option value="安徽省" did="12">安徽省</option><option value="福建省" did="13">福建省</option><option value="江西省" did="14">江西省</option><option value="山东省" did="15">山东省</option><option value="河南省" did="16">河南省</option><option value="湖北省" did="17">湖北省</option><option value="湖南省" did="18">湖南省</option><option value="广东省" did="19">广东省</option><option value="广西壮族自治区" did="20">广西壮族自治区</option><option value="海南省" did="21">海南省</option><option value="重庆市" did="22">重庆市</option><option value="四川省" did="23">四川省</option><option value="贵州省" did="24">贵州省</option><option value="云南省" did="25">云南省</option><option value="西藏自治区" did="26">西藏自治区</option><option value="陕西省" did="27">陕西省</option><option value="甘肃省" did="28">甘肃省</option><option value="青海省" did="29">青海省</option><option value="宁夏回族自治区" did="30">宁夏回族自治区</option><option value="新疆维吾尔自治区" did="31">新疆维吾尔自治区</option><option value="台湾省" did="32">台湾省</option><option value="香港特别行政区" did="33">香港特别行政区</option><option value="澳门特别行政区" did="34">澳门特别行政区</option><option value="海外" did="35">海外</option><option value="其他" did="36">其他</option></select>
+							</div>
+  						</li>
+							<li>
+							<label for="postalCode-location-editBasicInfoForm">邮政编码:</label>
+							<div class="fieldgroup">
+								<span class="error" id="postalCode-location-editBasicInfoForm-error"></span>
+								<input type="text" name="postalCode" value="100048" id="postalCode-location-editBasicInfoForm" data-ime-mode-disabled="">
+							</div>
+							</li>
+							<li id="location-display-selection" style="display: none; ">
+							<fieldset>
+								<legend><span>Location Name:</span></legend>
+								<ul>
+									<li>No matches for your country and postal code.</li>
+								</ul>
+							</fieldset>
+							</li>
+							<li>
+							<label for="industryChooser-editBasicInfoForm">领域或行业:</label>
+							<span class="error" id="industryChooser-editBasicInfoForm-error"></span>
+							<select name="industryChooser" id="industryChooser-editBasicInfoForm">
+								<option value="">Choose industry...</option>
+								<option value="47" class="corp fin">Accounting</option>
+								<option value="94" class="man tech tran">Airlines/Aviation</option>
+								<option value="120" class="leg org">Alternative Dispute Resolution</option>
+								<option value="125" class="hlth">Alternative Medicine</option>
+								<option value="127" class="art med">Animation</option>
+								<option value="19" class="good">Apparel &amp; Fashion</option>
+								<option value="50" class="cons">Architecture &amp; Planning</option>
+								<option value="111" class="art med rec">Arts and Crafts</option>
+								<option value="53" class="man">Automotive</option>
+								<option value="52" class="gov man">Aviation &amp; Aerospace</option>
+								<option value="41" class="fin">Banking</option>
+								<option value="12" class="gov hlth tech">Biotechnology</option>
+								<option value="36" class="med rec">Broadcast Media</option>
+								<option value="49" class="cons">Building Materials</option>
+								<option value="138" class="corp man">Business Supplies and Equipment</option>
+								<option value="129" class="fin">Capital Markets</option>
+								<option value="54" class="man">Chemicals</option>
+								<option value="90" class="org serv">Civic &amp; Social Organization</option>
+								<option value="51" class="cons gov">Civil Engineering</option>
+								<option value="128" class="cons corp fin">Commercial Real Estate</option>
+								<option value="118" class="tech">Computer &amp; Network Security</option>
+								<option value="109" class="med rec">Computer Games</option>
+								<option value="3" class="tech">Computer Hardware</option>
+								<option value="5" class="tech">Computer Networking</option>
+								<option value="4" class="tech">Computer Software</option>
+								<option value="48" class="cons">Construction</option>
+								<option value="24" class="good man">Consumer Electronics</option>
+								<option value="25" class="good man">Consumer Goods</option>
+								<option value="91" class="org serv">Consumer Services</option>
+								<option value="18" class="good">Cosmetics</option>
+								<option value="65" class="agr">Dairy</option>
+								<option value="1" class="gov tech">Defense &amp; Space</option>
+								<option value="99" class="art med">Design</option>
+								<option value="69" class="edu">Education Management</option>
+								<option value="132" class="edu org">E-Learning</option>
+								<option value="112" class="good man">Electrical/Electronic Manufacturing</option>
+								<option value="28" class="med rec">Entertainment</option>
+								<option value="86" class="org serv">Environmental Services</option>
+								<option value="110" class="corp rec serv">Events Services</option>
+								<option value="76" class="gov">Executive Office</option>
+								<option value="122" class="corp serv">Facilities Services</option>
+								<option value="63" class="agr">Farming</option>
+								<option value="43" class="fin">Financial Services</option>
+								<option value="38" class="art med rec">Fine Art</option>
+								<option value="66" class="agr">Fishery</option>
+								<option value="34" class="rec serv">Food &amp; Beverages</option>
+								<option value="23" class="good man serv">Food Production</option>
+								<option value="101" class="org">Fund-Raising</option>
+								<option value="26" class="good man">Furniture</option>
+								<option value="29" class="rec">Gambling &amp; Casinos</option>
+								<option value="145" class="cons man">Glass, Ceramics &amp; Concrete</option>
+								<option value="75" class="gov">Government Administration</option>
+								<option value="148" class="gov">Government Relations</option>
+								<option value="140" class="art med">Graphic Design</option>
+								<option value="124" class="hlth rec">Health, Wellness and Fitness</option>
+								<option value="68" class="edu">Higher Education</option>
+								<option value="14" class="hlth">Hospital &amp; Health Care</option>
+								<option value="31" class="rec serv tran">Hospitality</option>
+								<option value="137" class="corp">Human Resources</option>
+								<option value="134" class="corp good tran">Import and Export</option>
+								<option value="88" class="org serv">Individual &amp; Family Services</option>
+								<option value="147" class="cons man">Industrial Automation</option>
+								<option value="84" class="med serv">Information Services</option>
+								<option value="96" class="tech" selected="">Information Technology and Services</option>
+								<option value="42" class="fin">Insurance</option>
+								<option value="74" class="gov">International Affairs</option>
+								<option value="141" class="gov org tran">International Trade and Development</option>
+								<option value="6" class="tech">Internet</option>
+								<option value="45" class="fin">Investment Banking</option>
+								<option value="46" class="fin">Investment Management</option>
+								<option value="73" class="gov leg">Judiciary</option>
+								<option value="77" class="gov leg">Law Enforcement</option>
+								<option value="9" class="leg">Law Practice</option>
+								<option value="10" class="leg">Legal Services</option>
+								<option value="72" class="gov leg">Legislative Office</option>
+								<option value="30" class="rec serv tran">Leisure, Travel &amp; Tourism</option>
+								<option value="85" class="med rec serv">Libraries</option>
+								<option value="116" class="corp tran">Logistics and Supply Chain</option>
+								<option value="143" class="good">Luxury Goods &amp; Jewelry</option>
+								<option value="55" class="man">Machinery</option>
+								<option value="11" class="corp">Management Consulting</option>
+								<option value="95" class="tran">Maritime</option>
+								<option value="80" class="corp med">Marketing and Advertising</option>
+								<option value="97" class="corp">Market Research</option>
+								<option value="135" class="cons gov man">Mechanical or Industrial Engineering</option>
+								<option value="126" class="med rec">Media Production</option>
+								<option value="17" class="hlth">Medical Devices</option>
+								<option value="13" class="hlth">Medical Practice</option>
+								<option value="139" class="hlth">Mental Health Care</option>
+								<option value="71" class="gov">Military</option>
+								<option value="56" class="man">Mining &amp; Metals</option>
+								<option value="35" class="art med rec">Motion Pictures and Film</option>
+								<option value="37" class="art med rec">Museums and Institutions</option>
+								<option value="115" class="art rec">Music</option>
+								<option value="114" class="gov man tech">Nanotechnology</option>
+								<option value="81" class="med rec">Newspapers</option>
+								<option value="100" class="org">Nonprofit Organization Management</option>
+								<option value="57" class="man">Oil &amp; Energy</option>
+								<option value="113" class="med">Online Media</option>
+								<option value="123" class="corp">Outsourcing/Offshoring</option>
+								<option value="87" class="serv tran">Package/Freight Delivery</option>
+								<option value="146" class="good man">Packaging and Containers</option>
+								<option value="61" class="man">Paper &amp; Forest Products</option>
+								<option value="39" class="art med rec">Performing Arts</option>
+								<option value="15" class="hlth tech">Pharmaceuticals</option>
+								<option value="131" class="org">Philanthropy</option>
+								<option value="136" class="art med rec">Photography</option>
+								<option value="117" class="man">Plastics</option>
+								<option value="107" class="gov org">Political Organization</option>
+								<option value="67" class="edu">Primary/Secondary Education</option>
+								<option value="83" class="med rec">Printing</option>
+								<option value="105" class="corp">Professional Training &amp; Coaching</option>
+								<option value="102" class="corp org">Program Development</option>
+								<option value="79" class="gov">Public Policy</option>
+								<option value="98" class="corp">Public Relations and Communications</option>
+								<option value="78" class="gov">Public Safety</option>
+								<option value="82" class="med rec">Publishing</option>
+								<option value="62" class="man">Railroad Manufacture</option>
+								<option value="64" class="agr">Ranching</option>
+								<option value="44" class="cons fin good">Real Estate</option>
+								<option value="40" class="rec serv">Recreational Facilities and Services</option>
+								<option value="89" class="org serv">Religious Institutions</option>
+								<option value="144" class="gov man org">Renewables &amp; Environment</option>
+								<option value="70" class="edu gov">Research</option>
+								<option value="32" class="rec serv">Restaurants</option>
+								<option value="27" class="good man">Retail</option>
+								<option value="121" class="corp org serv">Security and Investigations</option>
+								<option value="7" class="tech">Semiconductors</option>
+								<option value="58" class="man">Shipbuilding</option>
+								<option value="20" class="good rec">Sporting Goods</option>
+								<option value="33" class="rec">Sports</option>
+								<option value="104" class="corp">Staffing and Recruiting</option>
+								<option value="22" class="good">Supermarkets</option>
+								<option value="8" class="gov tech">Telecommunications</option>
+								<option value="60" class="man">Textiles</option>
+								<option value="130" class="gov org">Think Tanks</option>
+								<option value="21" class="good">Tobacco</option>
+								<option value="108" class="corp gov serv">Translation and Localization</option>
+								<option value="92" class="tran">Transportation/Trucking/Railroad</option>
+								<option value="59" class="man">Utilities</option>
+								<option value="106" class="fin tech">Venture Capital &amp; Private Equity</option>
+								<option value="16" class="hlth">Veterinary</option>
+								<option value="93" class="tran">Warehousing</option>
+								<option value="133" class="good">Wholesale</option>
+								<option value="142" class="good man rec">Wine and Spirits</option>
+								<option value="119" class="tech">Wireless</option>
+								<option value="103" class="art med rec">Writing and Editing</option>
+							</select>
+							</li>
+						</ul>
+						<script id="controlinit-1a7873c8-2aa3-48ce-971a-f7c45964d32f-7" type="text/javascript+initialized" class="li-control">
+        /* extlib: _getregionandcityoptions */
+            LI.Controls.addControl('control-1a7873c8-2aa3-48ce-971a-f7c45964d32f-7', 'getRegionAndCityOptions', {
+        countryFieldId: countryFieldId,
+        postalCodeId: postalCodeId,
+        resultsContainerId: 'location-display-selection',
+        requestURL: requestURL
+      });
+          </script>
+					</fieldset>
+					<p class="actions">
+						<input type="submit" name="updateBasicInfo" value="Save Changes" id="btn-submit" class="btn-primary">
+						<div class="progress-indicator" style="line-height: 24px; ">
+						</div>
+						<span class="alternate hidden">or <a href="/profile/edit?goback=%2Ersm_*1_*1_*1_*1">Go back to Edit My Profile</a></span>
+					</p>
+					<input type="hidden" name="locale" value="en_US" id="locale-editBasicInfoForm"><input type="hidden" name="nudgeID" value="" id="nudgeID-editBasicInfoForm"><input type="hidden" name="timestamp" value="1350628757304" id="timestamp-editBasicInfoForm"><input type="hidden" name="useJsonResponse" value="" id="useJsonResponse-editBasicInfoForm"><input type="hidden" name="isSubscriber" value="false" id="isSubscriber-editBasicInfoForm"><input type="hidden" name="isJobSeeker" value="false" id="isJobSeeker-editBasicInfoForm"><input type="hidden" name="showFullLastName" value="F" id="showFullLastName-editBasicInfoForm"><input type="hidden" name="csrfToken" value="ajax:1284132373356947614" id="csrfToken-editBasicInfoForm"><input type="hidden" name="sourceAlias" value="0_2LGi6vTm6uM7Apch1ukkLBuTpd9PHbMHgs66raSHmqK" id="sourceAlias-editBasicInfoForm"><input type="hidden" name="goback" value=".rsm_*1_*1_*1_*1.npe_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1" id="goback-editBasicInfoForm">
+					<div class="screen">
+					</div>
+				</form>
+				<script id="controlinit-7884d6e1-b65a-4b99-87f1-9f58c7ac2612-8" type="text/javascript+initialized" class="li-control">
+        /* extlib: _frontierajaxform */
+LI.i18n.register( 'oneOrMoreErrors', 'There were one or more errors in your submission. Please correct the marked fields below.' );
+LI.i18n.register( 'unableToProcessRequest', 'We were unable to handle your request. Please try again.' );
+            LI.Controls.addControl('control-7884d6e1-b65a-4b99-87f1-9f58c7ac2612-8', 'FrontierAJAXForm', {injectAfter: '#btn-submit', errorId: 'global-error'});
+          </script>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+</div>

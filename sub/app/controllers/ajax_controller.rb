@@ -1,6 +1,9 @@
 # -*- encoding : utf-8 -*-
 class AjaxController < ApplicationController
   before_filter :authenticate_user!, :except => [:checkUsername,:checkEmailAjax,:xl_req_get_method_vod,:logincheck,:seg,:star_refresh]
+  def get_cities
+    
+  end
   def watch_later
     play_list = PlayList.locate(current_user.id,'稍后阅读')
     if play_list.add_one_thing(params[:courseware_id],true)
