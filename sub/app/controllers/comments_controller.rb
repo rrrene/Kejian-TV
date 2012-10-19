@@ -3,14 +3,18 @@ class CommentsController < ApplicationController
   before_filter :require_user_js, :only => [:create]
 
   def index
-    @type = params[:type]
-    @id = params[:id]
-    @per_page = 10
-    @comments = Comment.where(:commentable_type => @type.titleize, :commentable_id => BSON::ObjectId(@id)).nondeleted.desc("created_at").to_a
-    @comments = @comments.paginate(:page => params[:page], :per_page => @per_page)
-    @comment = Comment.new(:commentable_type => @type.titleize, :commentable_id => @id)
-    respond_to do |format|
-      format.any{render file:'comments/index.js.erb'}
+    if !params[:type].nil?
+        @type = params[:type]
+        @id = params[:id]
+        @per_page = 10
+        @comments = Comment.where(:commentable_type => @type.titleize, :commentable_id => BSON::ObjectId(@id)).nondeleted.desc("created_at").to_a
+        @comments = @comments.paginate(:page => params[:page], :per_page => @per_page)
+        @comment = Comment.new(:commentable_type => @type.titleize, :commentable_id => @id)
+        respond_to do |format|
+          format.any{render file:'comments/index.js.erb'}
+        end
+    else
+        redirect_to '/'
     end
   end
 

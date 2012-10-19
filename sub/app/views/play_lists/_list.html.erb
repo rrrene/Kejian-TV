@@ -29,17 +29,17 @@
              <span class="choose-thumbnail-overlay">
              <label for="choose-thumbnail-radio-button-0" class="choose-thumbnail-label">
              设为缩略图
-             <span class="yt-uix-form-input-radio-container playlist-thumbnail-radio-button checked"><input type="radio" value="<%= cw.id %>" id="choose-thumbnail-radio-button-0" checked="checked" class="yt-uix-form-input-radio" name="playlist_thumbnail_video_id" /><span class="yt-uix-form-input-radio-element"></span></span>
+             <span class="yt-uix-form-input-radio-container playlist-thumbnail-radio-button checked"><input type="radio" value="<%= cw.id %>" id="choose-thumbnail-radio-button-<%= index %>" checked="checked" class="yt-uix-form-input-radio" name="playlist_thumbnail_video_id" /><span class="yt-uix-form-input-radio-element"></span></span>
              </label>
              </span>
              </span>
              <span class="video-info ">
                 <div data-warn-at-chars-remaining="20" data-char-limit="150" class="input-container">
                    <div class="annotation-details">
-                      <label for="annotation_input_0" class="video-annotation-input-container">
-                         <button role="button" onclick=";return false;" class="playlist-video-item-save-annotation yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-content">添加备注 </span></button>  
+                      <label for="annotation_input_<%= index %>" class="video-annotation-input-container">
+                         <button role="button" onclick=";return false;" class="playlist-video-item-save-annotation yt-uix-button yt-uix-button-default" style='height:29px'type="button"><span class="yt-uix-button-content">添加备注 </span></button>  
                          <div class="yt-uix-form-input-fluid yt-grid-fluid ">
-                            <span class=" yt-uix-form-input-container"><input maxlength="150" id="annotation_input_0" name="playlist_video_annotation" class="yt-uix-form-input-text video-annotation-input text yt-uix-char-counter-input" /></span>
+                            <span class=" yt-uix-form-input-container"><input maxlength="150" id="annotation_input_<%= index %>" name="playlist_video_annotation" class="yt-uix-form-input-text video-annotation-input text yt-uix-char-counter-input" /></span>
                          </div>
                       </label>
                       <span class="video-annotation-display">
