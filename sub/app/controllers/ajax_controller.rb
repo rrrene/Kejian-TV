@@ -504,7 +504,7 @@ HEREDOC
             render json:json_failed
             return false
         end
-        if pl.content.include?(cw.id)
+        if pl.content.include?(id)
             json_failed = {status:'failed',reason:'该课件锦囊里已经有该课件。'}
             render json:json_failed
             return false
@@ -517,44 +517,11 @@ HEREDOC
         pl.add_one_thing(cw.id)
         
         render json:{status:'suc',
-                    list:render_to_string(:file=>"play_lists/_list.html.erb",:locals=>{content:pl.content,annotation:pl.annotation,user_id:pl.user_id},:layout=>nil, :formats=>[:html])}
+                    list:render_to_string(:file=>"play_lists/_list.html.erb",:locals=>{content:pl.content,cwid:cw.id,index:(pl.content.count-1),annotation:pl.annotation,user_id:pl.user_id},:layout=>nil, :formats=>[:html])}
       else
           render json:json_failed
           return false
       end
-  end
-  def playlist_quicksort
-    plc = params[:arr] 
-    hash = Hash.new
-    case params[:type].strip
-    when 'playlist-sort-views'
-        plc.each do |id|
-          cw = Courseware.find(id)
-          hash[id] = cw.views_count
-        end
-        plc = hash.sort_by{|k,v| -v}.map{|k,v| k }.to_a.compact
-        by = 'views_count'
-    when 'playlist-sort-title'
-        plc.each do |id|
-          cw  = Courseware.find(id)
-          hash[id] = Pinyin.t(cw.title)
-        end
-        plc = hash.sort_by{|k,v| v}.map{|k,v| k }.to_a.compact
-        by = 'title'
-    when 'playlist-sort-date-uploaded'
-        plc.each do |id|
-          cw = Courseware.find(id)
-          hash[id] = cw.created_at.to_i
-        end
-        plc = hash.sort_by{|k,v| -v}.map{|k,v| k }.to_a.compact
-        by = 'created_at'
-    when 'playlist-sort-random'
-        plc = plc.shuffle
-    when 'playlist-sort-reverse'
-        plc = plc.reverse
-        by = params[:former]
-    end
-    render file:'play_lists/_list',locals:{content:plc,annotation:params[:annotation],user_id:params[:user_id]},layout:false
   end
 end
 

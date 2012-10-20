@@ -1,5 +1,5 @@
 <% uplist.each do |item| %>
-<li id="vm-playlist-<%= item.id %>">
+<li id="vm-playlist-<%= item.id %>" style="margin-right:2px">
 <div class="vm-video-item-content">
 	<div class="vm-pl-thumbs">
 		<% if item.content.count <=0 %>
@@ -49,7 +49,7 @@
 
 	<div class="vm-pl-item-inner-content">
 		<div class="vm-pl-title vm-video-title">
-			<a class="vm-video-title-text" href="/coursewares?watch_all=<%= item.id %>"><%= item.title %></a>
+			<a class="vm-video-title-text" href="/play_lists/<%= item.id %>"><%= item.title %></a>
 		</div>
 		<div class="vm-pl-description vm-video-info">
 			<span class="vm-pl-title-badges">

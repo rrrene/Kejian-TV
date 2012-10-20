@@ -153,29 +153,30 @@
 <% end %>
 
 <div class="__sdk">
-<div id="sdk_flashes">
-<% if !notice.blank? %>
-  <p class="flash notice"><%=raw notice %></p>
-  <%= content_for :butt2 do %>
-      $("#sdk_flashes .notice").fadeOut().fadeIn();
-  <% end %>
-<% end %>
-<% if !alert.blank? %>
-  <p class="flash alert"><%=raw alert %></p>
-  <%= content_for :butt2 do %>
-      $("#sdk_flashes .alert").fadeOut('fast').fadeIn('fast').fadeOut('fast').fadeIn('fast');
-  <% end %>
-<% end %>
-<% if !flash[:insuf_info].blank? %>
-  <p class="flash warning"><%=raw flash[:insuf_info] %></p>
-  <%= content_for :butt2 do %>
-      $("#sdk_flashes .warning").fadeOut('fast').fadeIn('fast').fadeOut('fast').fadeIn('fast');
-  <% end %>
-<% end %>
-</div></div>
+		<div id="sdk_flashes">
+		<% if !notice.blank? %>
+		  <p class="flash notice"><%=raw notice %></p>
+		  <%= content_for :butt2 do %>
+		      $("#sdk_flashes .notice").fadeOut().fadeIn();
+		  <% end %>
+		<% end %>
+		<% if !alert.blank? %>
+		  <p class="flash alert"><%=raw alert %></p>
+		  <%= content_for :butt2 do %>
+		      $("#sdk_flashes .alert").fadeOut('fast').fadeIn('fast').fadeOut('fast').fadeIn('fast');
+		  <% end %>
+		<% end %>
+		<% if !flash[:insuf_info].blank? %>
+		  <p class="flash warning"><%=raw flash[:insuf_info] %></p>
+		  <%= content_for :butt2 do %>
+		      $("#sdk_flashes .warning").fadeOut('fast').fadeIn('fast').fadeOut('fast').fadeIn('fast');
+		  <% end %>
+		<% end %>
+		</div>
+</div>
 
 <% if !@we_are_inside_qa or @raw_raw_raw %>
-  <%= yield %>
+	<%= yield %>
 <% else %>
   <%= render :partial => 'content_above',:locals => {skp_content_style:'padding:0;width:1000px'} %>
   <%= render :partial => 'dz_navi',:locals => {margintop:15,marginleft:28} %>

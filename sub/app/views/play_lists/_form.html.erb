@@ -9,7 +9,7 @@
          </h2>
          <ul>
             <li>
-               <button role="button" class="ignore-unsaved-changes yt-uix-button yt-uix-button-default" id="playlist-editor-cancel-button" type="button" onclick=";window.location.href=this.getAttribute('href');return false;" href="/playlist?list=PLcwVgMt75JZIl8IAn3pvah4QkFB2IpKAg"><span class="yt-uix-button-content">取消 </span></button>
+               <button role="button" class="ignore-unsaved-changes yt-uix-button yt-uix-button-default" id="playlist-editor-cancel-button" type="button" onclick=";window.location.href=this.getAttribute('href');return false;" href="/play_lists/<%= playlist.id %>"><span class="yt-uix-button-content">取消 </span></button>
             </li>
             <li>
                <button role="button" class="ignore-unsaved-changes yt-uix-button yt-uix-button-default" id="playlist-editor-save-button" type="submit" onclick=";return true;"><span class="yt-uix-button-content">保存 </span></button>
@@ -148,7 +148,9 @@
                   <div class="playlist-landing">
                      <% if playlist.content.count > 0 %>
                      <ol class="playlist-video-items yt-uix-dragdrop" id="playlist-video-items">
-                        <%= render :partial=>'list',:locals =>{content:playlist.content,annotation:playlist.annotation,user_id:playlist.user_id} %>
+                      <% playlist.content.each_with_index do |cwid,index| %>
+												<%= render :partial=>'list',:locals =>{content:playlist.content,cwid:cwid,index:index,annotation:playlist.annotation,user_id:playlist.user_id} %>
+											<% end %>
                      </ol>
                      <% else %>
                        <div class="playlist-empty-message">
@@ -303,7 +305,7 @@
       if(json['status'] == 'suc'){
         $('#add-video-failed').hide();
         $('#add-video-success').show();
-        $('#playlist-video-items').html(json['list']);
+        $('#playlist-video-items').append(json['list']);
       }else if(json['status'] =='failed'){
         $('#add-video-success').hide();
         $('#add-video-failed > div > .yt-alert-content').text(json['reason']);
@@ -325,17 +327,54 @@
 				});
   };
   resortList();
+	var sorter = new Array();
+	var quick_sort_gen = function(){
+		sorter = new Array();
+		$('li.playlist-video-item').each(function(index,li){
+			sorter[index] = {};
+			sorter[index]['data_created_at']=$(li).attr('data-created-at');
+			sorter[index]['data_view_count']=$(li).attr('data-view-count');
+			sorter[index]['data_title_pinyin']=$(li).attr('data-title-pinyin');
+			sorter[index]['li']=li;
+		});
+	};
+	quick_sort_gen();
   $('#playlist-quicksort').live('change',function(){
+		quick_sort_gen();
     var sort = $('option:selected',this).val();
     $('.yt-uix-form-input-select-content > .yt-uix-form-input-select-value').text($('option:selected',this).text());
-    $.ajax({
-      url:'/ajax/playlist_quicksort',
-      type:'POST',
-      data:{'type':sort,'arr':arr,'annotation':'<%= playlist.annotation %>','user_id':'<%= playlist.user_id %>'},
-      dataType:'html'
-    }).done(function(html){
-      $('#playlist-video-items').html(html);
-    });
+		switch(sort.trim()){
+    		case 'playlist-sort-views':
+					sorter.sort(function(x,y){
+						return -(x.data_view_count - y.data_view_count)
+					});
+					break;
+		    case 'playlist-sort-title':
+					sorter.sort(function(x,y){
+						return (x.data_title_pinyin > y.data_title_pinyin);
+					});
+					break;
+		    case 'playlist-sort-date-uploaded':
+					sorter.sort(function(x,y){
+						return -(parseInt(x.data_created_at) -parseInt(y.data_created_at));
+					});
+					break;
+				case 'playlist-sort-random':
+					sorter.sort(function(x,y){
+						return (Math.round(Math.random())-0.5);
+					});
+					break;
+				case 'playlist-sort-reverse':
+					sorter.reverse();
+					break;
+				default:
+					break;
+		}
+		$('#playlist-video-items').html('');		
+		$.each(sorter,function(index,li){
+			$('#playlist-video-items').append(li.li);
+		});
+    resortList();
   });
   $('#playlist-select-all').live('click',function(){
     if($(this).attr('checked')){

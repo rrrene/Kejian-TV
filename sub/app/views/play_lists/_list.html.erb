@@ -1,8 +1,8 @@
-  <% content.each_with_index do |cwid,index| %>
+
    <% cw = Courseware.find(cwid) %>
    <% user = User.find(cw.uploader_id) %>
 
-    <li data-encrypted-kejian-id="<%= cwid %>" class="playlist-video-item yt-uix-dragdrop-draggable-item <% if !annotation[content.index(cwid)].blank? %> annotated <% end %><% if index%2 ==0 %> even <% else %>odd<% end %>">
+    <li data-encrypted-kejian-id="<%= cwid %>" class="playlist-video-item yt-uix-dragdrop-draggable-item <% if !annotation[content.index(cwid)].blank? %> annotated <% end %><% if index%2 ==0 %> even <% else %>odd<% end %>" data-created-at="<%= cw.created_at.to_i %>" data-view-count="<%= cw.views_count %>" data-title-pinyin="<%= Pinyin.t(cw.title) %>">
        <div class="active display-state">
           <input type="hidden" value="<%= cw.id %>" name="playlist_kejian_id[]" />
           <span class="yt-uix-form-input-checkbox-container playlist-video-item-checkbox-container">
@@ -92,4 +92,3 @@
           </p>
        </div>
     </li>
-    <% end %>
