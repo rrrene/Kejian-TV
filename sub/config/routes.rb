@@ -76,7 +76,6 @@ Sub::Application.routes.draw do
   post '/ajax/comment_action' => 'ajax#comment_action'
   post '/ajax/get_sorted_playlist' => 'ajax#get_sorted_playlist'
   post '/ajax/add_to_playlist_by_url' => 'ajax#add_to_playlist_by_url'
-  post '/ajax/playlist_quicksort' => 'ajax#playlist_quicksort'
   # ---=small=----
   get 'hack/htc'
   get '/welcome/inactive_sign_up'

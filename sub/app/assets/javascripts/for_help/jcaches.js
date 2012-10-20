@@ -1,4 +1,4 @@
-﻿/**
+/**
  * jCaches - 数据缓存类
  * Author:  李华顺[http://huacn.blogbus.com]<huacnlee@gmail.com>
  * Version: 0.2

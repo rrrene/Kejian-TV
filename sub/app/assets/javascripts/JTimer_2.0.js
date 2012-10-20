@@ -1,4 +1,4 @@
-﻿/*********************************************
+/*********************************************
 * JavaScript Timer Control for Internet
 * Copyright (C) 2010-2020 FreshFlower
 *

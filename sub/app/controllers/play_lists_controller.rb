@@ -13,10 +13,21 @@ class PlayListsController < ApplicationController
 
   def edit
     @play_list = PlayList.find(params[:id])
+    if current_user.nil? or current_user.id != @play_list.user_id 
+        flash[:notice] = "该课件锦囊为私有，您无权修改。"
+        redirect_to '/mine/view_all_playlists'
+        return false
+    end
   end
   
   def show
-    @play_list = PlayList.find(params[:id])
+    @playlist = PlayList.find(params[:id])
+    if @playlist.privacy !=0 and !current_user.nil? and current_user.id != @playlist.user_id
+        flash[:notice] = "该课件锦囊为私有，您无权查看。"
+        redirect_to '/mine/view_all_playlists'
+        return false
+    end
+    @user = User.find(@playlist.user_id)
     @seo[:title] = "课件锦囊"    
   end
   def handler

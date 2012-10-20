@@ -1,0 +1,57 @@
+<% playlist.content.each_with_index do |cwid,index| %>
+  <% cw = Courseware.find(cwid) %>
+  <% user = User.find(cw.uploader_id) %>
+  <% is_annotated = !playlist.annotation[playlist.content.index(cwid)].blank? %>
+	<li class="playlist-video-item <% if index%2==0 %>odd<% else %>even<% end %> <% if is_annotated %>annotated<% end %>">
+	<div class="yt-uix-tile playlist-video-item-base-content">
+		<span class="video-index"><%= index+1 %></span>
+		<div class="thumb-container">
+			<div class="ux-thumb-wrap">
+				<span class="video-thumb ux-thumb yt-thumb-default-124 ">
+				  <span class="yt-thumb-clip">
+				    <span class="yt-thumb-clip-inner">
+              <img width="130" alt="缩略图" src="<%= asset_url('cw/'+ cw.ktvid.to_s + '/thumb_slide_0.jpg') %>" />
+				      <span class="vertical-align"></span>
+				    </span>
+				  </span>
+				</span>
+				<span class="video-time">共<%= cw.slides_count %>页</span>
+				<button role="button" data-video-ids="H5ArpRWcGe0" class="addto-button video-actions addto-watch-later-button yt-uix-button yt-uix-button-default yt-uix-button-short yt-uix-tooltip" type="button" title="稍后观看" onclick=";return false;"><span class="yt-uix-button-content"><img alt="稍后观看" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
+				</span></button>
+			</div>
+		</div>
+		<div class="video-info ">
+		  <% if is_annotated %>
+		  <div class="video-annotation">
+				<span class="video-thumb ux-thumb yt-thumb-square-28 annotation-thumb">
+				  <span class="yt-thumb-clip">
+				    <span class="yt-thumb-clip-inner">
+              <img width="32" alt="缩略图" src="<%=dz_avatar_url(playlist.user_id,User.find(playlist.user_id).email,:middle)%>" />
+				      <span class="vertical-align"></span>
+				    </span>
+				  </span>
+			  </span>
+				<span dir="ltr" class="annotation-text "><%= playlist.annotation[playlist.content.index(cwid)] %></span>
+			</div>
+			<% end %>
+			<div class="video-buttons"></div>
+			<div class="video-overview">
+				<h3 class="video-title-container">
+				<span class="yt-badge-std">
+				已观看 </span>
+				<a class="yt-uix-tile-link" href="/coursewares/<%= cw.id %>">
+				<span dir="ltr" class="title video-title "><%= cw.title %></span>
+				</a>
+				</h3>
+				<p class="video-details">
+					<span class="video-owner">
+				    上传者：<span dir="ltr" class="yt-user-name "><a href="/users/<%= User.get_slug cw.uploader_id %>"><%= name_beautify User.get_name(cw.uploader_id)%></a></span>
+					</span>
+					<span class="video-view-count">
+					观看次数：<%= number_with_delimiter cw.views_count %> 次 </span>
+				</p>
+			</div>
+		</div>
+	</div>
+	</li>
+	<% end %>
