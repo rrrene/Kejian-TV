@@ -158,7 +158,9 @@
   KTV.ytb_targetize = ->
     jQuery('#comments').height(jQuery('#watch-main-container').height());
   KTV.ln_targetize = ->
-    jQuery('#content').height(jQuery('#pagekey-nprofile-edit-success').height()+88);
+    hhh = jQuery('#pagekey-nprofile-edit-success').height()+88
+    hhh=444 if hhh<444
+    jQuery('#content').height(hhh);
     jQuery('#pagekey-nprofile-edit-success').css('top',jQuery('#content').offset().top)
     jQuery('#pagekey-nprofile-psvr-skp').css('top',jQuery('#content').offset().top+184)
   KTV.dz_targetize = ->

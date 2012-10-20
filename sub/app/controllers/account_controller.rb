@@ -1,20 +1,16 @@
 # -*- encoding : utf-8 -*-
 class AccountController < Devise::RegistrationsController
-  prepend_before_filter :authenticate_scope!, :only => [:edit_profile,:update_profile]
+  prepend_before_filter :authenticate_scope!, :only => [
+    :edit,
+    :edit_profile,
+    :update_profile,
+    :edit_slug,
+    :update_slug,
+  ]
   def edit
     common_account_op!
     @seo[:title] = '账号设置'
     render "edit",layout:'application'
-  end
-  def edit_pref
-    common_account_op!
-    @seo[:title] = '偏好设置'
-    render layout:'application'
-  end
-  def edit_avatar
-    common_account_op!
-    @seo[:title] = '修改头像'
-    render layout:'application'
   end
   def edit_profile
     common_account_op!
@@ -49,7 +45,24 @@ class AccountController < Devise::RegistrationsController
       render "edit_profile",:layout => "application"
     end
   end
-  
+  def edit_slug
+    common_account_op!
+    @seo[:title] = '修改资料页的公共访问地址'
+    render layout:'application'
+  end
+  def update_slug
+    
+  end
+  def edit_pref
+    common_account_op!
+    @seo[:title] = '偏好设置'
+    render layout:'application'
+  end
+  def edit_avatar
+    common_account_op!
+    @seo[:title] = '修改头像'
+    render layout:'application'
+  end  
   def edit_notifications
     common_account_op!
     @seo[:title] = '通知与提醒'

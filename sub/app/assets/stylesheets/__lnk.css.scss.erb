@@ -12313,10 +12313,6 @@ p.errors {
     padding-top: 0 !important;
 }
 
-.add-skill-container {
-    display: none;
-}
-
 .js .add-skill-container {
     display: block;
     background-color: #EFEFEF;
@@ -23854,6 +23850,2378 @@ p.endorse-question strong {
 }
 
 
+
+
+
+/* scss/modules/balloon_callout.css */
+
+a.callout-trigger,a.callout-trigger:visited,span.callout-trigger {
+    color: #000;
+    text-decoration: none;
+}
+
+a.callout-trigger:hover,a.callout-trigger.hover,span.callout-trigger.hover {
+    color: #000;
+    text-decoration: none;
+    border-bottom: 1px dotted #000;
+}
+
+a.callout-trigger.instructional-callout-trigger:hover,a.callout-trigger.instructional-callout-trigger.hover,span.callout-trigger.instructional-callout-trigger.hover {
+    border: none;
+}
+
+.whatsthis,.whatisthis {
+    background: url('http://static02.linkedin.com/scds/common/u/img/icon/icon_help_trans_16x16.png') no-repeat;
+    display: block;
+    float: left;
+    width: 16px;
+    height: 16px;
+    text-indent: -119988px;
+    overflow: hidden;
+    text-align: left;
+}
+
+.js .callout-container,#callout-overlay {
+    position: absolute;
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+    -moz-transition: opacity 0.3s ease;
+    -webkit-transition: opacity 0.3s ease;
+    -o-transition: opacity 0.3s ease;
+    transition: opacity 0.3s ease;
+    overflow: hidden;
+    visibility: hidden;
+    *zoom: 1;
+}
+
+.ie.lte8 .js .callout-container,.ie.lte8 #callout-overlay {
+    filter: none;
+    -ms-filter: "none";
+}
+
+#callout-overlay.shown {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+}
+
+.ie.lte8 #callout-overlay.shown {
+    filter: none;
+    -ms-filter: "none";
+}
+
+#callout-overlay .callout-content {
+    border: 2px solid #ccc;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -o-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -khtml-border-radius: 4px;
+    border-radius: 4px;
+    margin: 0;
+    padding: 5px;
+}
+
+#callout-overlay .callout-arrow {
+    overflow: hidden;
+    *zoom: 1;
+    background-color: transparent;
+    background-image: url('http://static01.linkedin.com/scds/common/u/img/bg/bg_callout_arrow_foursided_34x34.gif');
+    background-repeat: no-repeat;
+    position: absolute;
+    border: 0;
+    display: block;
+}
+
+#callout-overlay .callout-content .callout-head {
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 3px;
+}
+
+#callout-overlay .callout-content .callout-body {
+    font-size: 12px;
+    min-height: 14px;
+    height: auto;
+    _height: 14px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+#callout-overlay .callout-content .callout-body p {
+    margin-bottom: 5px;
+}
+
+#callout-overlay.balloon-callout .callout-content {
+    background-color: #fff;
+}
+
+#callout-overlay.error-callout .callout-content {
+    background-color: #fff2f1;
+}
+
+#callout-overlay.error-callout .callout-arrow {
+    background-image: url('http://static01.linkedin.com/scds/common/u/img/bg/bg_error_callout_arrow_foursided_34x34.png');
+}
+
+#callout-overlay.error-callout .callout-content .callout-head {
+    font-weight: normal;
+    color: #f00;
+    padding-left: 18px;
+    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_global_v8.png') no-repeat scroll 0 -968px;
+}
+
+#callout-overlay.error-callout .callout-content .callout-body {
+    padding-left: 18px;
+}
+
+#callout-overlay.instructional-callout .callout-content {
+    background-color: #FFFCD8;
+    border: 1px solid #E5D387;
+    -moz-box-shadow: 0 4px 5px #aaa;
+    -webkit-box-shadow: 0 4px 5px #aaa;
+    -o-box-shadow: 0 4px 5px #aaa;
+    box-shadow: 0 4px 5px #aaa;
+}
+
+#callout-overlay.instructional-callout .callout-arrow {
+    background-image: url('http://static01.linkedin.com/scds/common/u/img/bg/bg_instructional_callout_arrow_foursided_yellow_34x34.png');
+}
+
+#callout-overlay.form-callout .callout-content {
+    background-color: #e3f3fa;
+    color: #666;
+}
+
+#callout-overlay.form-callout .callout-arrow {
+    background-image: url('http://static01.linkedin.com/scds/common/u/img/bg/bg_form_callout_arrow_foursided_34x34.png');
+}
+
+#callout-overlay.overlay-callout .callout-content {
+    background-color: #fff;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    -o-border-radius: 0;
+    -ms-border-radius: 0;
+    -khtml-border-radius: 0;
+    border-radius: 0;
+}
+
+#callout-overlay.overlay-callout .callout-arrow {
+    display: none;
+}
+
+#callout-overlay.tooltip-callout,#callout-overlay.hovercard-callout {
+    overflow: visible;
+    -moz-transition: none;
+    -webkit-transition: none;
+    -o-transition: none;
+    transition: none;
+}
+
+#callout-overlay.tooltip-callout .callout-content,#callout-overlay.hovercard-callout .callout-content {
+    border: none;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    -o-border-radius: 0;
+    -ms-border-radius: 0;
+    -khtml-border-radius: 0;
+    border-radius: 0;
+    padding: 0;
+}
+
+#callout-overlay.tooltip-callout .callout-head,#callout-overlay.hovercard-callout .callout-head {
+    margin-bottom: 0;
+}
+
+#callout-overlay.tooltip-callout .callout-body,#callout-overlay.hovercard-callout .callout-body {
+    padding: 0;
+}
+
+#callout-overlay.tooltip-callout .callout-body p,#callout-overlay.hovercard-callout .callout-body p {
+    margin-bottom: 0;
+}
+
+#callout-overlay.tooltip-callout .callout-content {
+    color: #fff;
+    background: #333;
+    border-color: #333;
+    border-style: solid;
+    border-width: 1px;
+    -moz-box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    -o-box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    max-width: 300px;
+    width: auto;
+    _width: 300px;
+    padding: 3px 10px;
+    display: block;
+    position: absolute;
+    visibility: visible;
+    z-index: 10;
+    font-size: 12px;
+    line-height: 14px;
+    position: static;
+}
+
+#callout-overlay.tooltip-callout.callout-top .callout-arrow {
+    display: -moz-inline-box;
+    -moz-box-orient: vertical;
+    display: inline-block;
+    vertical-align: middle;
+    *vertical-align: auto;
+    vertical-align: middle;
+    height: 0;
+    width: 0;
+    font-size: 0;
+    line-height: 0;
+    border-style: dashed;
+    border-color: transparent;
+    border-width: 0 7px 7px;
+    overflow: hidden;
+    content: "\0020";
+    border-bottom-style: solid;
+    border-bottom-color: #333;
+    position: absolute;
+    margin-left: -7px;
+    left: 50%;
+    bottom: 100%;
+}
+
+#callout-overlay.tooltip-callout.callout-top .callout-arrow {
+    *display: inline;
+}
+
+#callout-overlay.tooltip-callout.callout-top-left .callout-arrow {
+    display: -moz-inline-box;
+    -moz-box-orient: vertical;
+    display: inline-block;
+    vertical-align: middle;
+    *vertical-align: auto;
+    vertical-align: middle;
+    height: 0;
+    width: 0;
+    font-size: 0;
+    line-height: 0;
+    border-style: dashed;
+    border-color: transparent;
+    border-width: 0 7px 7px;
+    overflow: hidden;
+    content: "\0020";
+    position: absolute;
+    left: 5px;
+    border-bottom-style: solid;
+    border-bottom-color: #333;
+    bottom: 100%;
+}
+
+#callout-overlay.tooltip-callout.callout-top-left .callout-arrow {
+    *display: inline;
+}
+
+#callout-overlay.tooltip-callout.callout-top-right .callout-arrow {
+    display: -moz-inline-box;
+    -moz-box-orient: vertical;
+    display: inline-block;
+    vertical-align: middle;
+    *vertical-align: auto;
+    vertical-align: middle;
+    height: 0;
+    width: 0;
+    font-size: 0;
+    line-height: 0;
+    border-style: dashed;
+    border-color: transparent;
+    border-width: 0 7px 7px;
+    overflow: hidden;
+    content: "\0020";
+    position: absolute;
+    border-bottom-style: solid;
+    border-bottom-color: #333;
+    bottom: 100%;
+    right: 5px;
+}
+
+#callout-overlay.tooltip-callout.callout-top-right .callout-arrow {
+    *display: inline;
+}
+
+#callout-overlay.tooltip-callout.callout-bottom .callout-arrow {
+    display: -moz-inline-box;
+    -moz-box-orient: vertical;
+    display: inline-block;
+    vertical-align: middle;
+    *vertical-align: auto;
+    vertical-align: middle;
+    height: 0;
+    width: 0;
+    font-size: 0;
+    line-height: 0;
+    border-style: dashed;
+    border-color: transparent;
+    border-top-style: solid;
+    border-width: 7px 7px 0;
+    border-top-color: #333;
+    overflow: hidden;
+    content: "\0020";
+    position: absolute;
+    margin-left: -7px;
+    top: 100%;
+    left: 50%;
+}
+
+#callout-overlay.tooltip-callout.callout-bottom .callout-arrow {
+    *display: inline;
+}
+
+#callout-overlay.tooltip-callout.callout-bottom-right .callout-arrow {
+    display: -moz-inline-box;
+    -moz-box-orient: vertical;
+    display: inline-block;
+    vertical-align: middle;
+    *vertical-align: auto;
+    vertical-align: middle;
+    height: 0;
+    width: 0;
+    font-size: 0;
+    line-height: 0;
+    border-style: dashed;
+    border-color: transparent;
+    border-top-style: solid;
+    border-width: 7px 7px 0;
+    border-top-color: #333;
+    overflow: hidden;
+    content: "\0020";
+    position: absolute;
+    top: 100%;
+    right: 5px;
+}
+
+#callout-overlay.tooltip-callout.callout-bottom-right .callout-arrow {
+    *display: inline;
+}
+
+#callout-overlay.tooltip-callout.callout-bottom-left .callout-arrow {
+    display: -moz-inline-box;
+    -moz-box-orient: vertical;
+    display: inline-block;
+    vertical-align: middle;
+    *vertical-align: auto;
+    vertical-align: middle;
+    height: 0;
+    width: 0;
+    font-size: 0;
+    line-height: 0;
+    border-style: dashed;
+    border-color: transparent;
+    border-top-style: solid;
+    border-width: 7px 7px 0;
+    border-top-color: #333;
+    overflow: hidden;
+    content: "\0020";
+    position: absolute;
+    top: 100%;
+    left: 5px;
+}
+
+#callout-overlay.tooltip-callout.callout-bottom-left .callout-arrow {
+    *display: inline;
+}
+
+#callout-overlay.tooltip-callout.callout-right .callout-arrow {
+    display: -moz-inline-box;
+    -moz-box-orient: vertical;
+    display: inline-block;
+    vertical-align: middle;
+    *vertical-align: auto;
+    vertical-align: middle;
+    height: 0;
+    width: 0;
+    font-size: 0;
+    line-height: 0;
+    border-style: dashed;
+    border-color: transparent;
+    border-width: 7px 0 7px 7px;
+    overflow: hidden;
+    content: "\0020";
+    border-left-style: solid;
+    border-left-color: #333;
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    margin-top: -7px;
+}
+
+#callout-overlay.tooltip-callout.callout-right .callout-arrow {
+    *display: inline;
+}
+
+#callout-overlay.tooltip-callout.callout-right-top .callout-arrow {
+    display: -moz-inline-box;
+    -moz-box-orient: vertical;
+    display: inline-block;
+    vertical-align: middle;
+    *vertical-align: auto;
+    vertical-align: middle;
+    height: 0;
+    width: 0;
+    font-size: 0;
+    line-height: 0;
+    border-style: dashed;
+    border-color: transparent;
+    border-width: 7px 0 7px 7px;
+    overflow: hidden;
+    content: "\0020";
+    position: absolute;
+    top: 5px;
+    left: 100%;
+    border-left-style: solid;
+    border-left-color: #333;
+}
+
+#callout-overlay.tooltip-callout.callout-right-top .callout-arrow {
+    *display: inline;
+}
+
+#callout-overlay.tooltip-callout.callout-right-bottom .callout-arrow {
+    display: -moz-inline-box;
+    -moz-box-orient: vertical;
+    display: inline-block;
+    vertical-align: middle;
+    *vertical-align: auto;
+    vertical-align: middle;
+    height: 0;
+    width: 0;
+    font-size: 0;
+    line-height: 0;
+    border-style: dashed;
+    border-color: transparent;
+    border-width: 7px 0 7px 7px;
+    overflow: hidden;
+    content: "\0020";
+    position: absolute;
+    left: 100%;
+    border-left-style: solid;
+    border-left-color: #333;
+    bottom: 5px;
+}
+
+#callout-overlay.tooltip-callout.callout-right-bottom .callout-arrow {
+    *display: inline;
+}
+
+#callout-overlay.tooltip-callout.callout-left .callout-arrow {
+    display: -moz-inline-box;
+    -moz-box-orient: vertical;
+    display: inline-block;
+    vertical-align: middle;
+    *vertical-align: auto;
+    vertical-align: middle;
+    height: 0;
+    width: 0;
+    font-size: 0;
+    line-height: 0;
+    border-style: dashed;
+    border-color: transparent;
+    border-width: 7px 7px 7px 0;
+    overflow: hidden;
+    content: "\0020";
+    border-right-style: solid;
+    border-right-color: #333;
+    position: absolute;
+    top: 50%;
+    margin-top: -7px;
+    right: 100%;
+}
+
+#callout-overlay.tooltip-callout.callout-left .callout-arrow {
+    *display: inline;
+}
+
+#callout-overlay.tooltip-callout.callout-left-bottom .callout-arrow {
+    display: -moz-inline-box;
+    -moz-box-orient: vertical;
+    display: inline-block;
+    vertical-align: middle;
+    *vertical-align: auto;
+    vertical-align: middle;
+    height: 0;
+    width: 0;
+    font-size: 0;
+    line-height: 0;
+    border-style: dashed;
+    border-color: transparent;
+    border-width: 7px 7px 7px 0;
+    overflow: hidden;
+    content: "\0020";
+    position: absolute;
+    border-right-style: solid;
+    border-right-color: #333;
+    right: 100%;
+    bottom: 5px;
+}
+
+#callout-overlay.tooltip-callout.callout-left-bottom .callout-arrow {
+    *display: inline;
+}
+
+#callout-overlay.tooltip-callout.callout-left-top .callout-arrow {
+    display: -moz-inline-box;
+    -moz-box-orient: vertical;
+    display: inline-block;
+    vertical-align: middle;
+    *vertical-align: auto;
+    vertical-align: middle;
+    height: 0;
+    width: 0;
+    font-size: 0;
+    line-height: 0;
+    border-style: dashed;
+    border-color: transparent;
+    border-width: 7px 7px 7px 0;
+    overflow: hidden;
+    content: "\0020";
+    position: absolute;
+    top: 5px;
+    border-right-style: solid;
+    border-right-color: #333;
+    right: 100%;
+}
+
+#callout-overlay.tooltip-callout.callout-left-top .callout-arrow {
+    *display: inline;
+}
+
+#callout-overlay.tooltip-callout.callout-top .callout-arrow,#callout-overlay.tooltip-callout.callout-top-left .callout-arrow,#callout-overlay.tooltip-callout.callout-top-right .callout-arrow {
+    top: 0;
+    bottom: auto;
+}
+
+#callout-overlay.tooltip-callout.callout-right .callout-arrow,#callout-overlay.tooltip-callout.callout-right-top .callout-arrow,#callout-overlay.tooltip-callout.callout-right-bottom .callout-arrow {
+    left: auto;
+    right: 0;
+}
+
+#callout-overlay.tooltip-callout.callout-bottom .callout-arrow,#callout-overlay.tooltip-callout.callout-bottom-left .callout-arrow,#callout-overlay.tooltip-callout.callout-bottom-right .callout-arrow {
+    top: auto;
+    bottom: 0;
+}
+
+#callout-overlay.tooltip-callout.callout-left .callout-arrow,#callout-overlay.tooltip-callout.callout-left-top .callout-arrow,#callout-overlay.tooltip-callout.callout-left-bottom .callout-arrow {
+    left: 0;
+    right: auto;
+}
+
+#callout-overlay.hovercard-callout .callout-content {
+    background: #fff;
+    border-color: #ededed #c9c9c9 #a4a4a4;
+    border-style: solid;
+    border-width: 1px;
+    -moz-box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    -o-box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    max-width: 300px;
+    width: auto;
+    _width: 300px;
+    padding: 15px 15px;
+    display: block;
+    position: absolute;
+    visibility: visible;
+    z-index: 10;
+    font-size: 13px;
+    line-height: 17px;
+    color: #333;
+    position: static;
+}
+
+#callout-overlay.hovercard-callout .callout-head {
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 17px;
+    color: #000;
+}
+
+#callout-overlay.hovercard-callout.callout-top .callout-arrow {
+    height: 15px;
+    width: 24px;
+    content: "\0020";
+    position: absolute;
+    display: block;
+    margin-left: -12px;
+    background: transparent url('http://static02.linkedin.com/scds/common/u/img/sprite/sprite_tooltip_white_v1.png') -15px -39px no-repeat;
+    left: 50%;
+    background-position: -15px 0;
+    bottom: 100%;
+}
+
+#callout-overlay.hovercard-callout.callout-top-left .callout-arrow {
+    height: 15px;
+    width: 24px;
+    content: "\0020";
+    position: absolute;
+    display: block;
+    background: transparent url('http://static02.linkedin.com/scds/common/u/img/sprite/sprite_tooltip_white_v1.png') -15px -39px no-repeat;
+    left: 10px;
+    background-position: -15px 0;
+    bottom: 100%;
+}
+
+#callout-overlay.hovercard-callout.callout-top-right .callout-arrow {
+    height: 15px;
+    width: 24px;
+    content: "\0020";
+    position: absolute;
+    display: block;
+    background: transparent url('http://static02.linkedin.com/scds/common/u/img/sprite/sprite_tooltip_white_v1.png') -15px -39px no-repeat;
+    background-position: -15px 0;
+    bottom: 100%;
+    right: 10px;
+}
+
+#callout-overlay.hovercard-callout.callout-bottom .callout-arrow {
+    height: 15px;
+    width: 24px;
+    content: "\0020";
+    position: absolute;
+    display: block;
+    margin-left: -12px;
+    background: transparent url('http://static02.linkedin.com/scds/common/u/img/sprite/sprite_tooltip_white_v1.png') -15px -39px no-repeat;
+    top: 100%;
+    left: 50%;
+}
+
+#callout-overlay.hovercard-callout.callout-bottom-right .callout-arrow {
+    height: 15px;
+    width: 24px;
+    content: "\0020";
+    position: absolute;
+    display: block;
+    background: transparent url('http://static02.linkedin.com/scds/common/u/img/sprite/sprite_tooltip_white_v1.png') -15px -39px no-repeat;
+    top: 100%;
+    right: 10px;
+}
+
+#callout-overlay.hovercard-callout.callout-bottom-left .callout-arrow {
+    height: 15px;
+    width: 24px;
+    content: "\0020";
+    position: absolute;
+    display: block;
+    background: transparent url('http://static02.linkedin.com/scds/common/u/img/sprite/sprite_tooltip_white_v1.png') -15px -39px no-repeat;
+    top: 100%;
+    left: 10px;
+}
+
+#callout-overlay.hovercard-callout.callout-right .callout-arrow {
+    height: 24px;
+    width: 15px;
+    content: "\0020";
+    position: absolute;
+    display: block;
+    background: transparent url('http://static02.linkedin.com/scds/common/u/img/sprite/sprite_tooltip_white_v1.png') -15px -39px no-repeat;
+    top: 50%;
+    left: 100%;
+    margin-top: -12px;
+    background-position: -39px -15px;
+}
+
+#callout-overlay.hovercard-callout.callout-right-top .callout-arrow {
+    height: 24px;
+    width: 15px;
+    content: "\0020";
+    position: absolute;
+    display: block;
+    background: transparent url('http://static02.linkedin.com/scds/common/u/img/sprite/sprite_tooltip_white_v1.png') -15px -39px no-repeat;
+    top: 10px;
+    left: 100%;
+    background-position: -39px -15px;
+}
+
+#callout-overlay.hovercard-callout.callout-right-bottom .callout-arrow {
+    height: 24px;
+    width: 15px;
+    content: "\0020";
+    position: absolute;
+    display: block;
+    background: transparent url('http://static02.linkedin.com/scds/common/u/img/sprite/sprite_tooltip_white_v1.png') -15px -39px no-repeat;
+    left: 100%;
+    background-position: -39px -15px;
+    bottom: 10px;
+}
+
+#callout-overlay.hovercard-callout.callout-left .callout-arrow {
+    height: 24px;
+    width: 15px;
+    content: "\0020";
+    position: absolute;
+    display: block;
+    background: transparent url('http://static02.linkedin.com/scds/common/u/img/sprite/sprite_tooltip_white_v1.png') -15px -39px no-repeat;
+    top: 50%;
+    margin-top: -12px;
+    background-position: 0 -15px;
+    right: 100%;
+}
+
+#callout-overlay.hovercard-callout.callout-left-bottom .callout-arrow {
+    height: 24px;
+    width: 15px;
+    content: "\0020";
+    position: absolute;
+    display: block;
+    background: transparent url('http://static02.linkedin.com/scds/common/u/img/sprite/sprite_tooltip_white_v1.png') -15px -39px no-repeat;
+    background-position: 0 -15px;
+    right: 100%;
+    bottom: 10px;
+}
+
+#callout-overlay.hovercard-callout.callout-left-top .callout-arrow {
+    height: 24px;
+    width: 15px;
+    content: "\0020";
+    position: absolute;
+    display: block;
+    background: transparent url('http://static02.linkedin.com/scds/common/u/img/sprite/sprite_tooltip_white_v1.png') -15px -39px no-repeat;
+    top: 10px;
+    background-position: 0 -15px;
+    right: 100%;
+}
+
+#callout-overlay.hovercard-callout.callout-top .callout-arrow,#callout-overlay.hovercard-callout.callout-top-left .callout-arrow,#callout-overlay.hovercard-callout.callout-top-right .callout-arrow {
+    top: -7px;
+    bottom: auto;
+}
+
+#callout-overlay.hovercard-callout.callout-right .callout-arrow,#callout-overlay.hovercard-callout.callout-right-top .callout-arrow,#callout-overlay.hovercard-callout.callout-right-bottom .callout-arrow {
+    left: auto;
+    right: -7px;
+}
+
+#callout-overlay.hovercard-callout.callout-bottom .callout-arrow,#callout-overlay.hovercard-callout.callout-bottom-left .callout-arrow,#callout-overlay.hovercard-callout.callout-bottom-right .callout-arrow {
+    top: auto;
+    bottom: -7px;
+}
+
+#callout-overlay.hovercard-callout.callout-left .callout-arrow,#callout-overlay.hovercard-callout.callout-left-top .callout-arrow,#callout-overlay.hovercard-callout.callout-left-bottom .callout-arrow {
+    left: -7px;
+    right: auto;
+}
+
+.callout-top,.callout-top-left,.callout-top-right {
+    padding: 7px 0 0 0;
+}
+
+.callout-right,.callout-right-top,.callout-right-bottom {
+    padding: 0 7px 0 0;
+}
+
+.callout-bottom,.callout-bottom-left,.callout-bottom-right {
+    padding: 0 0 7px 0;
+}
+
+.callout-left,.callout-left-top,.callout-left-bottom {
+    padding: 0 0 0 7px;
+}
+
+.callout-top .callout-arrow,.callout-top-left .callout-arrow,.callout-top-right .callout-arrow {
+    width: 34px;
+    height: 9px;
+    top: 0;
+}
+
+.callout-top .callout-arrow {
+    left: 50%;
+    margin-left: -17px;
+}
+
+.callout-top-left .callout-arrow {
+    left: 0;
+}
+
+.callout-top-right .callout-arrow {
+    right: 0;
+}
+
+.callout-bottom .callout-arrow,.callout-bottom-left .callout-arrow,.callout-bottom-right .callout-arrow {
+    width: 34px;
+    height: 9px;
+    bottom: 0;
+    background-position: 0 -25px;
+}
+
+.callout-bottom .callout-arrow {
+    left: 50%;
+    margin-left: -17px;
+}
+
+.callout-bottom-left .callout-arrow {
+    left: 0;
+}
+
+.callout-bottom-right .callout-arrow {
+    right: 0;
+}
+
+.callout-right .callout-arrow,.callout-right-bottom .callout-arrow,.callout-right-top .callout-arrow {
+    width: 9px;
+    height: 34px;
+    right: 0;
+    _right: -1px;
+    background-position: -25px 0;
+}
+
+.callout-right .callout-arrow {
+    top: 50%;
+    margin-top: -17px;
+}
+
+.callout-right-bottom .callout-arrow {
+    bottom: 0;
+}
+
+.callout-right-top .callout-arrow {
+    top: 0;
+}
+
+.callout-left .callout-arrow,.callout-left-bottom .callout-arrow,.callout-left-top .callout-arrow {
+    width: 9px;
+    height: 34px;
+    left: 0;
+    background-position: 0 0;
+}
+
+.callout-left .callout-arrow {
+    top: 50%;
+    margin-top: -17px;
+}
+
+.callout-left-bottom .callout-arrow {
+    bottom: 0;
+}
+
+.callout-left-top .callout-arrow {
+    top: 0;
+}
+
+.instructional-callout.callout-top .callout-arrow,.instructional-callout.callout-top-left .callout-arrow,.instructional-callout.callout-top-right .callout-arrow {
+    width: 30px;
+    height: 8px;
+}
+
+.instructional-callout.callout-top .callout-arrow {
+    left: 50%;
+    margin-left: -15px;
+}
+
+.instructional-callout.callout-top-left .callout-arrow {
+    left: 15px;
+}
+
+.instructional-callout.callout-top-right .callout-arrow {
+    right: 15px;
+}
+
+.instructional-callout.callout-bottom .callout-arrow,.instructional-callout.callout-bottom-left .callout-arrow,.instructional-callout.callout-bottom-right .callout-arrow {
+    width: 30px;
+    height: 8px;
+    background-position: 0 -21px;
+}
+
+.instructional-callout.callout-bottom .callout-arrow {
+    left: 50%;
+    margin-left: -15px;
+}
+
+.instructional-callout.callout-bottom-left .callout-arrow {
+    left: 15px;
+}
+
+.instructional-callout.callout-bottom-right .callout-arrow {
+    right: 15px;
+}
+
+.instructional-callout.callout-right .callout-arrow,.instructional-callout.callout-right-bottom .callout-arrow,.instructional-callout.callout-right-top .callout-arrow {
+    width: 8px;
+    height: 30px;
+    _right: -1px;
+    background-position: -21px 0;
+}
+
+.instructional-callout.callout-right .callout-arrow {
+    top: 50%;
+    margin-top: -15px;
+}
+
+.instructional-callout.callout-left .callout-arrow,.instructional-callout.callout-left-bottom .callout-arrow,.instructional-callout.callout-left-top .callout-arrow {
+    width: 8px;
+    height: 30px;
+    background-position: 0 0;
+}
+
+.instructional-callout.callout-left .callout-arrow {
+    top: 50%;
+    margin-top: -15px;
+}
+
+.tooltip-callout.callout-left .callout-arrow,.tooltip-callout.callout-left-top .callout-arrow,.tooltip-callout.callout-left-bottom .callout-arrow,.hovercard-callout.callout-left .callout-arrow,.hovercard-callout.callout-left-bottom .callout-arrow,.hovercard-callout.callout-left-top .callout-arrow {
+    left: auto;
+}
+
+.tooltip-callout.callout-top .callout-arrow,.tooltip-callout.callout-top-left .callout-arrow,.tooltip-callout.callout-top-right .callout-arrow,.hovercard-callout.callout-top .callout-arrow,.hovercard-callout.callout-top-left .callout-arrow,.hovercard-callout.callout-top-right .callout-arrow {
+    top: auto;
+}
+
+/* scss/modules/post_it.css */
+
+.post-it {
+    border: 1px solid #E5D387;
+    background: #FFFCD8;
+    background: -moz-linear-gradient(113deg, #e5d387, #fffcd8 28%);
+    background: -webkit-gradient(linear, 100% 100%, 85% 53%, from(#e5d387), to(#fffcd8));
+    background: -o-linear-gradient(113deg, #e5d387, #fffcd8 28%);
+    background: linear-gradient(113deg, #e5d387,#fffcd8 28%);
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    position: relative;
+    zoom: 1;
+}
+
+.post-it .wrapper {
+    border: 1px solid #FFF;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+    padding: 0 !important;
+}
+
+.post-it .content {
+    padding: 15px 20px 15px 15px;
+}
+
+.post-it .content .attn {
+    color: #000;
+    font-size: 28px;
+    line-height: 1;
+    margin: 0 0 10px;
+}
+
+.en .post-it .content .attn {
+    font-family: 'LazyDogRegular', Arial, sans-serif;
+}
+
+.ja .post-it .content .attn,.ko .post-it .content .attn {
+    font-family: sans-serif;
+}
+
+.post-it .content p {
+    font-size: 13px;
+    color: #666;
+    line-height: 1.5;
+    margin: 5px 0;
+}
+
+.post-it .content p:first-child {
+    margin: 0;
+}
+
+.post-it.float {
+    -moz-box-shadow: 1px 1px 10px #cfcfcf;
+    -webkit-box-shadow: 1px 1px 10px #cfcfcf;
+    box-shadow: 1px 1px 10px #cfcfcf;
+}
+
+.curl,.curl:after,.curl .wrapper {
+    -webkit-border-bottom-right-radius: 150px 25px;
+    -moz-border-radius-bottomright: 150px 25px;
+    border-bottom-right-radius: 150px 25px;
+}
+
+.curl:before {
+    background: transparent;
+    bottom: 12px;
+    -moz-box-shadow: 11px 11px 11px rgba(207,207,207,0.7);
+    -webkit-box-shadow: 11px 11px 11px rgba(207,207,207,0.7);
+    box-shadow: 11px 11px 11px rgba(207,207,207,0.7);
+    content: '';
+    height: 50%;
+    position: absolute;
+    right: 12px;
+    -moz-transform: rotate(3deg) skew(5deg);
+    -webkit-transform: rotate(3deg) skew(5deg);
+    transform: rotate(3deg) skew(5deg);
+    width: 50%;
+    z-index: -1;
+}
+
+.curl:after {
+    background: transparent;
+    bottom: 13px;
+    -moz-box-shadow: 8px 12px 10px rgba(0,0,0,0.25);
+    -webkit-box-shadow: 8px 12px 10px rgba(0,0,0,0.25);
+    box-shadow: 8px 12px 10px rgba(0,0,0,0.25);
+    content: '';
+    height: 70%;
+    opacity: 50%;
+    position: absolute;
+    right: 11px;
+    -moz-transform: rotate(5deg) skew(10deg);
+    -webkit-transform: rotate(5deg) skew(10deg);
+    transform: rotate(5deg) skew(10deg);
+    width: 70%;
+    z-index: -2;
+}
+
+.post-it .pointer {
+    background: url('http://static01.linkedin.com/scds/common/u/img/bg/bg_pointer_39x39.png') no-repeat;
+    border: 0 solid #E5D387;
+    height: 27px;
+    position: absolute;
+    width: 27px;
+}
+
+.post-it.point-top .pointer {
+    background-position: -6px 3px;
+    top: -18px;
+}
+
+.post-it.point-right .pointer {
+    background-position: -15px -6px;
+    right: -18px;
+}
+
+.post-it.point-bottom .pointer {
+    background-position: -6px -15px;
+    bottom: -18px;
+}
+
+.post-it.point-left .pointer {
+    background-position: 3px -6px;
+    left: -18px;
+}
+
+.post-it .dismiss {
+    background: url('http://static01.linkedin.com/scds/common/u/img/sprite/sprite_global_v8.png') 100% -1300px no-repeat;
+    cursor: pointer;
+    height: 14px;
+    position: absolute;
+    text-indent: -12345px;
+    right: 8px;
+    top: 8px;
+    width: 14px;
+}
+
+.post-it.tiny {
+    background: -webkit-gradient(linear, 100% 100%, 93% 40%, from(#e5d387), to(#fffcd8));
+}
+
+.post-it.tiny .content {
+    padding: 10px 25px 10px 10px;
+}
+
+
+/* scss/modules/jelly_bean_editor.css */
+
+.jellybean-editor ol {
+    padding: 5px;
+    border: 1px solid #CCC;
+}
+
+.jellybean-editor .jellybean-container-item {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 3px;
+    *display: inline;
+    zoom: 1;
+}
+
+.jellybean-editor .jellybean {
+    position: static;
+    left: 0;
+    padding: 3px 5px;
+    font-size: 13px;
+    background: #D6E3EE;
+    color: #069;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: bottom;
+}
+
+.jellybean-editor .jellybean .remove {
+    position: relative;
+    top: -1px;
+    padding-left: 5px;
+    color: #666;
+    font-size: 9px;
+    font-weight: bold;
+}
+
+.jellybean-editor .jellybean:hover {
+    background: #C3D2DF;
+}
+
+.jellybean-editor .jellybean .remove:hover {
+    color: #000;
+}
+
+.jellybean-editor .field {
+    position: relative;
+    display: inline-block;
+    vertical-align: bottom;
+}
+
+.jellybean-editor .editing .field {
+    padding: 1px 2px;
+    border: 2px solid #D6E3EE;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    *padding: 0px 2px;
+}
+
+.jellybean-editor .field input {
+    border: 0;
+    font-size: 13px;
+    outline-width: 0;
+}
+
+.jellybean-editor .jellybean {
+    position: absolute;
+    left: -12345em;
+}
+
+.jellybean-editor .show-bean .field {
+    position: absolute;
+    left: -12345em;
+}
+
+.jellybean-editor .show-bean .jellybean {
+    position: static;
+}
+
+.jellybean-editor .jellybean-container-item .field > label {
+    position: absolute;
+    left: -12345em;
+}
+
+.jellybean-dragging {
+    display: inline-block;
+    padding: 1px;
+    font-size: 13px;
+    background: #E1E1E1;
+    color: #999;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.jellybean-dragging .remove {
+    display: none;
+}
+
+.jellybean-editor .dd-placeholder {
+    border: 1px dashed #999;
+    visibility: visible !important;
+}
+
+.jellybean-editor .dd-placeholder .jellybean {
+    visibility: hidden !important;
+    padding: 2px 4px !important;
+}
+
+
+/* scss/modules/balloon_callout.css */
+
+a.callout-trigger,a.callout-trigger:visited,span.callout-trigger {
+    color: #000;
+    text-decoration: none;
+}
+
+a.callout-trigger:hover,a.callout-trigger.hover,span.callout-trigger.hover {
+    color: #000;
+    text-decoration: none;
+    border-bottom: 1px dotted #000;
+}
+
+a.callout-trigger.instructional-callout-trigger:hover,a.callout-trigger.instructional-callout-trigger.hover,span.callout-trigger.instructional-callout-trigger.hover {
+    border: none;
+}
+
+.whatsthis,.whatisthis {
+    background: url(<%=asset_path('ln02/scds/common/u/img/icon/icon_help_trans_16x16.png')%>) no-repeat;
+    display: block;
+    float: left;
+    width: 16px;
+    height: 16px;
+    text-indent: -119988px;
+    overflow: hidden;
+    text-align: left;
+}
+
+.js .callout-container,#callout-overlay {
+    position: absolute;
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+    -moz-transition: opacity 0.3s ease;
+    -webkit-transition: opacity 0.3s ease;
+    -o-transition: opacity 0.3s ease;
+    transition: opacity 0.3s ease;
+    overflow: hidden;
+    visibility: hidden;
+    *zoom: 1;
+}
+
+.ie.lte8 .js .callout-container,.ie.lte8 #callout-overlay {
+    filter: none;
+    -ms-filter: "none";
+}
+
+#callout-overlay.shown {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+}
+
+.ie.lte8 #callout-overlay.shown {
+    filter: none;
+    -ms-filter: "none";
+}
+
+#callout-overlay .callout-content {
+    border: 2px solid #ccc;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -o-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -khtml-border-radius: 4px;
+    border-radius: 4px;
+    margin: 0;
+    padding: 5px;
+}
+
+#callout-overlay .callout-arrow {
+    overflow: hidden;
+    *zoom: 1;
+    background-color: transparent;
+    background-image: url(<%=asset_path('ln01/scds/common/u/img/bg/bg_callout_arrow_foursided_34x34.gif')%>);
+    background-repeat: no-repeat;
+    position: absolute;
+    border: 0;
+    display: block;
+}
+
+#callout-overlay .callout-content .callout-head {
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 3px;
+}
+
+#callout-overlay .callout-content .callout-body {
+    font-size: 12px;
+    min-height: 14px;
+    height: auto;
+    _height: 14px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+#callout-overlay .callout-content .callout-body p {
+    margin-bottom: 5px;
+}
+
+#callout-overlay.balloon-callout .callout-content {
+    background-color: #fff;
+}
+
+#callout-overlay.error-callout .callout-content {
+    background-color: #fff2f1;
+}
+
+#callout-overlay.error-callout .callout-arrow {
+    background-image: url(<%=asset_path('ln01/scds/common/u/img/bg/bg_error_callout_arrow_foursided_34x34.png')%>);
+}
+
+#callout-overlay.error-callout .callout-content .callout-head {
+    font-weight: normal;
+    color: #f00;
+    padding-left: 18px;
+    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_global_v8.png')%>) no-repeat scroll 0 -968px;
+}
+
+#callout-overlay.error-callout .callout-content .callout-body {
+    padding-left: 18px;
+}
+
+#callout-overlay.instructional-callout .callout-content {
+    background-color: #FFFCD8;
+    border: 1px solid #E5D387;
+    -moz-box-shadow: 0 4px 5px #aaa;
+    -webkit-box-shadow: 0 4px 5px #aaa;
+    -o-box-shadow: 0 4px 5px #aaa;
+    box-shadow: 0 4px 5px #aaa;
+}
+
+#callout-overlay.instructional-callout .callout-arrow {
+    background-image: url(<%=asset_path('ln01/scds/common/u/img/bg/bg_instructional_callout_arrow_foursided_yellow_34x34.png')%>);
+}
+
+#callout-overlay.form-callout .callout-content {
+    background-color: #e3f3fa;
+    color: #666;
+}
+
+#callout-overlay.form-callout .callout-arrow {
+    background-image: url(<%=asset_path('ln01/scds/common/u/img/bg/bg_form_callout_arrow_foursided_34x34.png')%>);
+}
+
+#callout-overlay.overlay-callout .callout-content {
+    background-color: #fff;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    -o-border-radius: 0;
+    -ms-border-radius: 0;
+    -khtml-border-radius: 0;
+    border-radius: 0;
+}
+
+#callout-overlay.overlay-callout .callout-arrow {
+    display: none;
+}
+
+#callout-overlay.tooltip-callout,#callout-overlay.hovercard-callout {
+    overflow: visible;
+    -moz-transition: none;
+    -webkit-transition: none;
+    -o-transition: none;
+    transition: none;
+}
+
+#callout-overlay.tooltip-callout .callout-content,#callout-overlay.hovercard-callout .callout-content {
+    border: none;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    -o-border-radius: 0;
+    -ms-border-radius: 0;
+    -khtml-border-radius: 0;
+    border-radius: 0;
+    padding: 0;
+}
+
+#callout-overlay.tooltip-callout .callout-head,#callout-overlay.hovercard-callout .callout-head {
+    margin-bottom: 0;
+}
+
+#callout-overlay.tooltip-callout .callout-body,#callout-overlay.hovercard-callout .callout-body {
+    padding: 0;
+}
+
+#callout-overlay.tooltip-callout .callout-body p,#callout-overlay.hovercard-callout .callout-body p {
+    margin-bottom: 0;
+}
+
+#callout-overlay.tooltip-callout .callout-content {
+    color: #fff;
+    background: #333;
+    border-color: #333;
+    border-style: solid;
+    border-width: 1px;
+    -moz-box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    -o-box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    max-width: 300px;
+    width: auto;
+    _width: 300px;
+    padding: 3px 10px;
+    display: block;
+    position: absolute;
+    visibility: visible;
+    z-index: 10;
+    font-size: 12px;
+    line-height: 14px;
+    position: static;
+}
+
+#callout-overlay.tooltip-callout.callout-top .callout-arrow {
+    display: -moz-inline-box;
+    -moz-box-orient: vertical;
+    display: inline-block;
+    vertical-align: middle;
+    *vertical-align: auto;
+    vertical-align: middle;
+    height: 0;
+    width: 0;
+    font-size: 0;
+    line-height: 0;
+    border-style: dashed;
+    border-color: transparent;
+    border-width: 0 7px 7px;
+    overflow: hidden;
+    content: "\0020";
+    border-bottom-style: solid;
+    border-bottom-color: #333;
+    position: absolute;
+    margin-left: -7px;
+    left: 50%;
+    bottom: 100%;
+}
+
+#callout-overlay.tooltip-callout.callout-top .callout-arrow {
+    *display: inline;
+}
+
+#callout-overlay.tooltip-callout.callout-top-left .callout-arrow {
+    display: -moz-inline-box;
+    -moz-box-orient: vertical;
+    display: inline-block;
+    vertical-align: middle;
+    *vertical-align: auto;
+    vertical-align: middle;
+    height: 0;
+    width: 0;
+    font-size: 0;
+    line-height: 0;
+    border-style: dashed;
+    border-color: transparent;
+    border-width: 0 7px 7px;
+    overflow: hidden;
+    content: "\0020";
+    position: absolute;
+    left: 5px;
+    border-bottom-style: solid;
+    border-bottom-color: #333;
+    bottom: 100%;
+}
+
+#callout-overlay.tooltip-callout.callout-top-left .callout-arrow {
+    *display: inline;
+}
+
+#callout-overlay.tooltip-callout.callout-top-right .callout-arrow {
+    display: -moz-inline-box;
+    -moz-box-orient: vertical;
+    display: inline-block;
+    vertical-align: middle;
+    *vertical-align: auto;
+    vertical-align: middle;
+    height: 0;
+    width: 0;
+    font-size: 0;
+    line-height: 0;
+    border-style: dashed;
+    border-color: transparent;
+    border-width: 0 7px 7px;
+    overflow: hidden;
+    content: "\0020";
+    position: absolute;
+    border-bottom-style: solid;
+    border-bottom-color: #333;
+    bottom: 100%;
+    right: 5px;
+}
+
+#callout-overlay.tooltip-callout.callout-top-right .callout-arrow {
+    *display: inline;
+}
+
+#callout-overlay.tooltip-callout.callout-bottom .callout-arrow {
+    display: -moz-inline-box;
+    -moz-box-orient: vertical;
+    display: inline-block;
+    vertical-align: middle;
+    *vertical-align: auto;
+    vertical-align: middle;
+    height: 0;
+    width: 0;
+    font-size: 0;
+    line-height: 0;
+    border-style: dashed;
+    border-color: transparent;
+    border-top-style: solid;
+    border-width: 7px 7px 0;
+    border-top-color: #333;
+    overflow: hidden;
+    content: "\0020";
+    position: absolute;
+    margin-left: -7px;
+    top: 100%;
+    left: 50%;
+}
+
+#callout-overlay.tooltip-callout.callout-bottom .callout-arrow {
+    *display: inline;
+}
+
+#callout-overlay.tooltip-callout.callout-bottom-right .callout-arrow {
+    display: -moz-inline-box;
+    -moz-box-orient: vertical;
+    display: inline-block;
+    vertical-align: middle;
+    *vertical-align: auto;
+    vertical-align: middle;
+    height: 0;
+    width: 0;
+    font-size: 0;
+    line-height: 0;
+    border-style: dashed;
+    border-color: transparent;
+    border-top-style: solid;
+    border-width: 7px 7px 0;
+    border-top-color: #333;
+    overflow: hidden;
+    content: "\0020";
+    position: absolute;
+    top: 100%;
+    right: 5px;
+}
+
+#callout-overlay.tooltip-callout.callout-bottom-right .callout-arrow {
+    *display: inline;
+}
+
+#callout-overlay.tooltip-callout.callout-bottom-left .callout-arrow {
+    display: -moz-inline-box;
+    -moz-box-orient: vertical;
+    display: inline-block;
+    vertical-align: middle;
+    *vertical-align: auto;
+    vertical-align: middle;
+    height: 0;
+    width: 0;
+    font-size: 0;
+    line-height: 0;
+    border-style: dashed;
+    border-color: transparent;
+    border-top-style: solid;
+    border-width: 7px 7px 0;
+    border-top-color: #333;
+    overflow: hidden;
+    content: "\0020";
+    position: absolute;
+    top: 100%;
+    left: 5px;
+}
+
+#callout-overlay.tooltip-callout.callout-bottom-left .callout-arrow {
+    *display: inline;
+}
+
+#callout-overlay.tooltip-callout.callout-right .callout-arrow {
+    display: -moz-inline-box;
+    -moz-box-orient: vertical;
+    display: inline-block;
+    vertical-align: middle;
+    *vertical-align: auto;
+    vertical-align: middle;
+    height: 0;
+    width: 0;
+    font-size: 0;
+    line-height: 0;
+    border-style: dashed;
+    border-color: transparent;
+    border-width: 7px 0 7px 7px;
+    overflow: hidden;
+    content: "\0020";
+    border-left-style: solid;
+    border-left-color: #333;
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    margin-top: -7px;
+}
+
+#callout-overlay.tooltip-callout.callout-right .callout-arrow {
+    *display: inline;
+}
+
+#callout-overlay.tooltip-callout.callout-right-top .callout-arrow {
+    display: -moz-inline-box;
+    -moz-box-orient: vertical;
+    display: inline-block;
+    vertical-align: middle;
+    *vertical-align: auto;
+    vertical-align: middle;
+    height: 0;
+    width: 0;
+    font-size: 0;
+    line-height: 0;
+    border-style: dashed;
+    border-color: transparent;
+    border-width: 7px 0 7px 7px;
+    overflow: hidden;
+    content: "\0020";
+    position: absolute;
+    top: 5px;
+    left: 100%;
+    border-left-style: solid;
+    border-left-color: #333;
+}
+
+#callout-overlay.tooltip-callout.callout-right-top .callout-arrow {
+    *display: inline;
+}
+
+#callout-overlay.tooltip-callout.callout-right-bottom .callout-arrow {
+    display: -moz-inline-box;
+    -moz-box-orient: vertical;
+    display: inline-block;
+    vertical-align: middle;
+    *vertical-align: auto;
+    vertical-align: middle;
+    height: 0;
+    width: 0;
+    font-size: 0;
+    line-height: 0;
+    border-style: dashed;
+    border-color: transparent;
+    border-width: 7px 0 7px 7px;
+    overflow: hidden;
+    content: "\0020";
+    position: absolute;
+    left: 100%;
+    border-left-style: solid;
+    border-left-color: #333;
+    bottom: 5px;
+}
+
+#callout-overlay.tooltip-callout.callout-right-bottom .callout-arrow {
+    *display: inline;
+}
+
+#callout-overlay.tooltip-callout.callout-left .callout-arrow {
+    display: -moz-inline-box;
+    -moz-box-orient: vertical;
+    display: inline-block;
+    vertical-align: middle;
+    *vertical-align: auto;
+    vertical-align: middle;
+    height: 0;
+    width: 0;
+    font-size: 0;
+    line-height: 0;
+    border-style: dashed;
+    border-color: transparent;
+    border-width: 7px 7px 7px 0;
+    overflow: hidden;
+    content: "\0020";
+    border-right-style: solid;
+    border-right-color: #333;
+    position: absolute;
+    top: 50%;
+    margin-top: -7px;
+    right: 100%;
+}
+
+#callout-overlay.tooltip-callout.callout-left .callout-arrow {
+    *display: inline;
+}
+
+#callout-overlay.tooltip-callout.callout-left-bottom .callout-arrow {
+    display: -moz-inline-box;
+    -moz-box-orient: vertical;
+    display: inline-block;
+    vertical-align: middle;
+    *vertical-align: auto;
+    vertical-align: middle;
+    height: 0;
+    width: 0;
+    font-size: 0;
+    line-height: 0;
+    border-style: dashed;
+    border-color: transparent;
+    border-width: 7px 7px 7px 0;
+    overflow: hidden;
+    content: "\0020";
+    position: absolute;
+    border-right-style: solid;
+    border-right-color: #333;
+    right: 100%;
+    bottom: 5px;
+}
+
+#callout-overlay.tooltip-callout.callout-left-bottom .callout-arrow {
+    *display: inline;
+}
+
+#callout-overlay.tooltip-callout.callout-left-top .callout-arrow {
+    display: -moz-inline-box;
+    -moz-box-orient: vertical;
+    display: inline-block;
+    vertical-align: middle;
+    *vertical-align: auto;
+    vertical-align: middle;
+    height: 0;
+    width: 0;
+    font-size: 0;
+    line-height: 0;
+    border-style: dashed;
+    border-color: transparent;
+    border-width: 7px 7px 7px 0;
+    overflow: hidden;
+    content: "\0020";
+    position: absolute;
+    top: 5px;
+    border-right-style: solid;
+    border-right-color: #333;
+    right: 100%;
+}
+
+#callout-overlay.tooltip-callout.callout-left-top .callout-arrow {
+    *display: inline;
+}
+
+#callout-overlay.tooltip-callout.callout-top .callout-arrow,#callout-overlay.tooltip-callout.callout-top-left .callout-arrow,#callout-overlay.tooltip-callout.callout-top-right .callout-arrow {
+    top: 0;
+    bottom: auto;
+}
+
+#callout-overlay.tooltip-callout.callout-right .callout-arrow,#callout-overlay.tooltip-callout.callout-right-top .callout-arrow,#callout-overlay.tooltip-callout.callout-right-bottom .callout-arrow {
+    left: auto;
+    right: 0;
+}
+
+#callout-overlay.tooltip-callout.callout-bottom .callout-arrow,#callout-overlay.tooltip-callout.callout-bottom-left .callout-arrow,#callout-overlay.tooltip-callout.callout-bottom-right .callout-arrow {
+    top: auto;
+    bottom: 0;
+}
+
+#callout-overlay.tooltip-callout.callout-left .callout-arrow,#callout-overlay.tooltip-callout.callout-left-top .callout-arrow,#callout-overlay.tooltip-callout.callout-left-bottom .callout-arrow {
+    left: 0;
+    right: auto;
+}
+
+#callout-overlay.hovercard-callout .callout-content {
+    background: #fff;
+    border-color: #ededed #c9c9c9 #a4a4a4;
+    border-style: solid;
+    border-width: 1px;
+    -moz-box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    -o-box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    max-width: 300px;
+    width: auto;
+    _width: 300px;
+    padding: 15px 15px;
+    display: block;
+    position: absolute;
+    visibility: visible;
+    z-index: 10;
+    font-size: 13px;
+    line-height: 17px;
+    color: #333;
+    position: static;
+}
+
+#callout-overlay.hovercard-callout .callout-head {
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 17px;
+    color: #000;
+}
+
+#callout-overlay.hovercard-callout.callout-top .callout-arrow {
+    height: 15px;
+    width: 24px;
+    content: "\0020";
+    position: absolute;
+    display: block;
+    margin-left: -12px;
+    background: transparent url(<%=asset_path('ln02/scds/common/u/img/sprite/sprite_tooltip_white_v1.png')%>) -15px -39px no-repeat;
+    left: 50%;
+    background-position: -15px 0;
+    bottom: 100%;
+}
+
+#callout-overlay.hovercard-callout.callout-top-left .callout-arrow {
+    height: 15px;
+    width: 24px;
+    content: "\0020";
+    position: absolute;
+    display: block;
+    background: transparent url(<%=asset_path('ln02/scds/common/u/img/sprite/sprite_tooltip_white_v1.png')%>) -15px -39px no-repeat;
+    left: 10px;
+    background-position: -15px 0;
+    bottom: 100%;
+}
+
+#callout-overlay.hovercard-callout.callout-top-right .callout-arrow {
+    height: 15px;
+    width: 24px;
+    content: "\0020";
+    position: absolute;
+    display: block;
+    background: transparent url(<%=asset_path('ln02/scds/common/u/img/sprite/sprite_tooltip_white_v1.png')%>) -15px -39px no-repeat;
+    background-position: -15px 0;
+    bottom: 100%;
+    right: 10px;
+}
+
+#callout-overlay.hovercard-callout.callout-bottom .callout-arrow {
+    height: 15px;
+    width: 24px;
+    content: "\0020";
+    position: absolute;
+    display: block;
+    margin-left: -12px;
+    background: transparent url(<%=asset_path('ln02/scds/common/u/img/sprite/sprite_tooltip_white_v1.png')%>) -15px -39px no-repeat;
+    top: 100%;
+    left: 50%;
+}
+
+#callout-overlay.hovercard-callout.callout-bottom-right .callout-arrow {
+    height: 15px;
+    width: 24px;
+    content: "\0020";
+    position: absolute;
+    display: block;
+    background: transparent url(<%=asset_path('ln02/scds/common/u/img/sprite/sprite_tooltip_white_v1.png')%>) -15px -39px no-repeat;
+    top: 100%;
+    right: 10px;
+}
+
+#callout-overlay.hovercard-callout.callout-bottom-left .callout-arrow {
+    height: 15px;
+    width: 24px;
+    content: "\0020";
+    position: absolute;
+    display: block;
+    background: transparent url(<%=asset_path('ln02/scds/common/u/img/sprite/sprite_tooltip_white_v1.png')%>) -15px -39px no-repeat;
+    top: 100%;
+    left: 10px;
+}
+
+#callout-overlay.hovercard-callout.callout-right .callout-arrow {
+    height: 24px;
+    width: 15px;
+    content: "\0020";
+    position: absolute;
+    display: block;
+    background: transparent url(<%=asset_path('ln02/scds/common/u/img/sprite/sprite_tooltip_white_v1.png')%>) -15px -39px no-repeat;
+    top: 50%;
+    left: 100%;
+    margin-top: -12px;
+    background-position: -39px -15px;
+}
+
+#callout-overlay.hovercard-callout.callout-right-top .callout-arrow {
+    height: 24px;
+    width: 15px;
+    content: "\0020";
+    position: absolute;
+    display: block;
+    background: transparent url(<%=asset_path('ln02/scds/common/u/img/sprite/sprite_tooltip_white_v1.png')%>) -15px -39px no-repeat;
+    top: 10px;
+    left: 100%;
+    background-position: -39px -15px;
+}
+
+#callout-overlay.hovercard-callout.callout-right-bottom .callout-arrow {
+    height: 24px;
+    width: 15px;
+    content: "\0020";
+    position: absolute;
+    display: block;
+    background: transparent url(<%=asset_path('ln02/scds/common/u/img/sprite/sprite_tooltip_white_v1.png')%>) -15px -39px no-repeat;
+    left: 100%;
+    background-position: -39px -15px;
+    bottom: 10px;
+}
+
+#callout-overlay.hovercard-callout.callout-left .callout-arrow {
+    height: 24px;
+    width: 15px;
+    content: "\0020";
+    position: absolute;
+    display: block;
+    background: transparent url(<%=asset_path('ln02/scds/common/u/img/sprite/sprite_tooltip_white_v1.png')%>) -15px -39px no-repeat;
+    top: 50%;
+    margin-top: -12px;
+    background-position: 0 -15px;
+    right: 100%;
+}
+
+#callout-overlay.hovercard-callout.callout-left-bottom .callout-arrow {
+    height: 24px;
+    width: 15px;
+    content: "\0020";
+    position: absolute;
+    display: block;
+    background: transparent url(<%=asset_path('ln02/scds/common/u/img/sprite/sprite_tooltip_white_v1.png')%>) -15px -39px no-repeat;
+    background-position: 0 -15px;
+    right: 100%;
+    bottom: 10px;
+}
+
+#callout-overlay.hovercard-callout.callout-left-top .callout-arrow {
+    height: 24px;
+    width: 15px;
+    content: "\0020";
+    position: absolute;
+    display: block;
+    background: transparent url(<%=asset_path('ln02/scds/common/u/img/sprite/sprite_tooltip_white_v1.png')%>) -15px -39px no-repeat;
+    top: 10px;
+    background-position: 0 -15px;
+    right: 100%;
+}
+
+#callout-overlay.hovercard-callout.callout-top .callout-arrow,#callout-overlay.hovercard-callout.callout-top-left .callout-arrow,#callout-overlay.hovercard-callout.callout-top-right .callout-arrow {
+    top: -7px;
+    bottom: auto;
+}
+
+#callout-overlay.hovercard-callout.callout-right .callout-arrow,#callout-overlay.hovercard-callout.callout-right-top .callout-arrow,#callout-overlay.hovercard-callout.callout-right-bottom .callout-arrow {
+    left: auto;
+    right: -7px;
+}
+
+#callout-overlay.hovercard-callout.callout-bottom .callout-arrow,#callout-overlay.hovercard-callout.callout-bottom-left .callout-arrow,#callout-overlay.hovercard-callout.callout-bottom-right .callout-arrow {
+    top: auto;
+    bottom: -7px;
+}
+
+#callout-overlay.hovercard-callout.callout-left .callout-arrow,#callout-overlay.hovercard-callout.callout-left-top .callout-arrow,#callout-overlay.hovercard-callout.callout-left-bottom .callout-arrow {
+    left: -7px;
+    right: auto;
+}
+
+.callout-top,.callout-top-left,.callout-top-right {
+    padding: 7px 0 0 0;
+}
+
+.callout-right,.callout-right-top,.callout-right-bottom {
+    padding: 0 7px 0 0;
+}
+
+.callout-bottom,.callout-bottom-left,.callout-bottom-right {
+    padding: 0 0 7px 0;
+}
+
+.callout-left,.callout-left-top,.callout-left-bottom {
+    padding: 0 0 0 7px;
+}
+
+.callout-top .callout-arrow,.callout-top-left .callout-arrow,.callout-top-right .callout-arrow {
+    width: 34px;
+    height: 9px;
+    top: 0;
+}
+
+.callout-top .callout-arrow {
+    left: 50%;
+    margin-left: -17px;
+}
+
+.callout-top-left .callout-arrow {
+    left: 0;
+}
+
+.callout-top-right .callout-arrow {
+    right: 0;
+}
+
+.callout-bottom .callout-arrow,.callout-bottom-left .callout-arrow,.callout-bottom-right .callout-arrow {
+    width: 34px;
+    height: 9px;
+    bottom: 0;
+    background-position: 0 -25px;
+}
+
+.callout-bottom .callout-arrow {
+    left: 50%;
+    margin-left: -17px;
+}
+
+.callout-bottom-left .callout-arrow {
+    left: 0;
+}
+
+.callout-bottom-right .callout-arrow {
+    right: 0;
+}
+
+.callout-right .callout-arrow,.callout-right-bottom .callout-arrow,.callout-right-top .callout-arrow {
+    width: 9px;
+    height: 34px;
+    right: 0;
+    _right: -1px;
+    background-position: -25px 0;
+}
+
+.callout-right .callout-arrow {
+    top: 50%;
+    margin-top: -17px;
+}
+
+.callout-right-bottom .callout-arrow {
+    bottom: 0;
+}
+
+.callout-right-top .callout-arrow {
+    top: 0;
+}
+
+.callout-left .callout-arrow,.callout-left-bottom .callout-arrow,.callout-left-top .callout-arrow {
+    width: 9px;
+    height: 34px;
+    left: 0;
+    background-position: 0 0;
+}
+
+.callout-left .callout-arrow {
+    top: 50%;
+    margin-top: -17px;
+}
+
+.callout-left-bottom .callout-arrow {
+    bottom: 0;
+}
+
+.callout-left-top .callout-arrow {
+    top: 0;
+}
+
+.instructional-callout.callout-top .callout-arrow,.instructional-callout.callout-top-left .callout-arrow,.instructional-callout.callout-top-right .callout-arrow {
+    width: 30px;
+    height: 8px;
+}
+
+.instructional-callout.callout-top .callout-arrow {
+    left: 50%;
+    margin-left: -15px;
+}
+
+.instructional-callout.callout-top-left .callout-arrow {
+    left: 15px;
+}
+
+.instructional-callout.callout-top-right .callout-arrow {
+    right: 15px;
+}
+
+.instructional-callout.callout-bottom .callout-arrow,.instructional-callout.callout-bottom-left .callout-arrow,.instructional-callout.callout-bottom-right .callout-arrow {
+    width: 30px;
+    height: 8px;
+    background-position: 0 -21px;
+}
+
+.instructional-callout.callout-bottom .callout-arrow {
+    left: 50%;
+    margin-left: -15px;
+}
+
+.instructional-callout.callout-bottom-left .callout-arrow {
+    left: 15px;
+}
+
+.instructional-callout.callout-bottom-right .callout-arrow {
+    right: 15px;
+}
+
+.instructional-callout.callout-right .callout-arrow,.instructional-callout.callout-right-bottom .callout-arrow,.instructional-callout.callout-right-top .callout-arrow {
+    width: 8px;
+    height: 30px;
+    _right: -1px;
+    background-position: -21px 0;
+}
+
+.instructional-callout.callout-right .callout-arrow {
+    top: 50%;
+    margin-top: -15px;
+}
+
+.instructional-callout.callout-left .callout-arrow,.instructional-callout.callout-left-bottom .callout-arrow,.instructional-callout.callout-left-top .callout-arrow {
+    width: 8px;
+    height: 30px;
+    background-position: 0 0;
+}
+
+.instructional-callout.callout-left .callout-arrow {
+    top: 50%;
+    margin-top: -15px;
+}
+
+.tooltip-callout.callout-left .callout-arrow,.tooltip-callout.callout-left-top .callout-arrow,.tooltip-callout.callout-left-bottom .callout-arrow,.hovercard-callout.callout-left .callout-arrow,.hovercard-callout.callout-left-bottom .callout-arrow,.hovercard-callout.callout-left-top .callout-arrow {
+    left: auto;
+}
+
+.tooltip-callout.callout-top .callout-arrow,.tooltip-callout.callout-top-left .callout-arrow,.tooltip-callout.callout-top-right .callout-arrow,.hovercard-callout.callout-top .callout-arrow,.hovercard-callout.callout-top-left .callout-arrow,.hovercard-callout.callout-top-right .callout-arrow {
+    top: auto;
+}
+
+/* scss/modules/post_it.css */
+
+.post-it {
+    border: 1px solid #E5D387;
+    background: #FFFCD8;
+    background: -moz-linear-gradient(113deg, #e5d387, #fffcd8 28%);
+    background: -webkit-gradient(linear, 100% 100%, 85% 53%, from(#e5d387), to(#fffcd8));
+    background: -o-linear-gradient(113deg, #e5d387, #fffcd8 28%);
+    background: linear-gradient(113deg, #e5d387,#fffcd8 28%);
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    position: relative;
+    zoom: 1;
+}
+
+.post-it .wrapper {
+    border: 1px solid #FFF;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+    padding: 0 !important;
+}
+
+.post-it .content {
+    padding: 15px 20px 15px 15px;
+}
+
+.post-it .content .attn {
+    color: #000;
+    font-size: 28px;
+    line-height: 1;
+    margin: 0 0 10px;
+}
+
+.en .post-it .content .attn {
+    font-family: 'LazyDogRegular', Arial, sans-serif;
+}
+
+.ja .post-it .content .attn,.ko .post-it .content .attn {
+    font-family: sans-serif;
+}
+
+.post-it .content p {
+    font-size: 13px;
+    color: #666;
+    line-height: 1.5;
+    margin: 5px 0;
+}
+
+.post-it .content p:first-child {
+    margin: 0;
+}
+
+.post-it.float {
+    -moz-box-shadow: 1px 1px 10px #cfcfcf;
+    -webkit-box-shadow: 1px 1px 10px #cfcfcf;
+    box-shadow: 1px 1px 10px #cfcfcf;
+}
+
+.curl,.curl:after,.curl .wrapper {
+    -webkit-border-bottom-right-radius: 150px 25px;
+    -moz-border-radius-bottomright: 150px 25px;
+    border-bottom-right-radius: 150px 25px;
+}
+
+.curl:before {
+    background: transparent;
+    bottom: 12px;
+    -moz-box-shadow: 11px 11px 11px rgba(207,207,207,0.7);
+    -webkit-box-shadow: 11px 11px 11px rgba(207,207,207,0.7);
+    box-shadow: 11px 11px 11px rgba(207,207,207,0.7);
+    content: '';
+    height: 50%;
+    position: absolute;
+    right: 12px;
+    -moz-transform: rotate(3deg) skew(5deg);
+    -webkit-transform: rotate(3deg) skew(5deg);
+    transform: rotate(3deg) skew(5deg);
+    width: 50%;
+    z-index: -1;
+}
+
+.curl:after {
+    background: transparent;
+    bottom: 13px;
+    -moz-box-shadow: 8px 12px 10px rgba(0,0,0,0.25);
+    -webkit-box-shadow: 8px 12px 10px rgba(0,0,0,0.25);
+    box-shadow: 8px 12px 10px rgba(0,0,0,0.25);
+    content: '';
+    height: 70%;
+    opacity: 50%;
+    position: absolute;
+    right: 11px;
+    -moz-transform: rotate(5deg) skew(10deg);
+    -webkit-transform: rotate(5deg) skew(10deg);
+    transform: rotate(5deg) skew(10deg);
+    width: 70%;
+    z-index: -2;
+}
+
+.post-it .pointer {
+    background: url(<%=asset_path('ln01/scds/common/u/img/bg/bg_pointer_39x39.png')%>) no-repeat;
+    border: 0 solid #E5D387;
+    height: 27px;
+    position: absolute;
+    width: 27px;
+}
+
+.post-it.point-top .pointer {
+    background-position: -6px 3px;
+    top: -18px;
+}
+
+.post-it.point-right .pointer {
+    background-position: -15px -6px;
+    right: -18px;
+}
+
+.post-it.point-bottom .pointer {
+    background-position: -6px -15px;
+    bottom: -18px;
+}
+
+.post-it.point-left .pointer {
+    background-position: 3px -6px;
+    left: -18px;
+}
+
+.post-it .dismiss {
+    background: url(<%=asset_path('ln01/scds/common/u/img/sprite/sprite_global_v8.png')%>) 100% -1300px no-repeat;
+    cursor: pointer;
+    height: 14px;
+    position: absolute;
+    text-indent: -12345px;
+    right: 8px;
+    top: 8px;
+    width: 14px;
+}
+
+.post-it.tiny {
+    background: -webkit-gradient(linear, 100% 100%, 93% 40%, from(#e5d387), to(#fffcd8));
+}
+
+.post-it.tiny .content {
+    padding: 10px 25px 10px 10px;
+}
+
+
+/* scss/modules/jelly_bean_editor.css */
+
+.jellybean-editor ol {
+    padding: 5px;
+    border: 1px solid #CCC;
+}
+
+.jellybean-editor .jellybean-container-item {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 3px;
+    *display: inline;
+    zoom: 1;
+}
+
+.jellybean-editor .jellybean {
+    position: static;
+    left: 0;
+    padding: 3px 5px;
+    font-size: 13px;
+    background: #D6E3EE;
+    color: #069;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: bottom;
+}
+
+.jellybean-editor .jellybean .remove {
+    position: relative;
+    top: -1px;
+    padding-left: 5px;
+    color: #666;
+    font-size: 9px;
+    font-weight: bold;
+}
+
+.jellybean-editor .jellybean:hover {
+    background: #C3D2DF;
+}
+
+.jellybean-editor .jellybean .remove:hover {
+    color: #000;
+}
+
+.jellybean-editor .field {
+    position: relative;
+    display: inline-block;
+    vertical-align: bottom;
+}
+
+.jellybean-editor .editing .field {
+    padding: 1px 2px;
+    border: 2px solid #D6E3EE;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    *padding: 0px 2px;
+}
+
+.jellybean-editor .field input {
+    border: 0;
+    font-size: 13px;
+    outline-width: 0;
+}
+
+.jellybean-editor .jellybean {
+    position: absolute;
+    left: -12345em;
+}
+
+.jellybean-editor .show-bean .field {
+    position: absolute;
+    left: -12345em;
+}
+
+.jellybean-editor .show-bean .jellybean {
+    position: static;
+}
+
+.jellybean-editor .jellybean-container-item .field > label {
+    position: absolute;
+    left: -12345em;
+}
+
+.jellybean-dragging {
+    display: inline-block;
+    padding: 1px;
+    font-size: 13px;
+    background: #E1E1E1;
+    color: #999;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.jellybean-dragging .remove {
+    display: none;
+}
+
+.jellybean-editor .dd-placeholder {
+    border: 1px dashed #999;
+    visibility: visible !important;
+}
+
+.jellybean-editor .dd-placeholder .jellybean {
+    visibility: hidden !important;
+    padding: 2px 4px !important;
+}
+
+
+
+
+
+
+
 }
 
 
@@ -23886,3 +26254,7 @@ p.endorse-question strong {
     width: auto;
     background-color: #e6e6e6;
 }
+
+
+
+

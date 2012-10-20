@@ -1,0 +1,54 @@
+<% content_for :armpit do %>
+<%= stylesheet_link_tag "__lnk", :media => "all" %>
+<% end %>
+
+
+<%= render :partial => 'content_above', :locals=>{:skp_content_style => "height:1888px;background: white url(#{asset_path 'lnbg.png'}) repeat-y scroll 0 0;"} %>
+
+<%= render 'ln_nav' %>
+
+<%= render 'content_below' %>
+
+
+<div class="wrapper" style="width:1000px">
+<div class="__lnk" id="pagekey-nprofile-edit-success">
+<div class=" en member v2 edit-my-profile edit-profile-section chrome-v4 background-v4 sticky-bg basic-member js ">
+  <div role="main" class="" id="body" style="margin-top:0">
+  	<div id="section-header">
+  		<ul id="nav-secondary">
+  			<li class="" id="nav-edit-profile"><a href="/profile/edit?locale=en_US"><span>Edit Profile</span></a></li>
+  			<li class="" id="nav-my-profile"><a href="/profile/view?id=73526537&amp;locale=en_US&amp;trk=tab_pro"><span>View Profile</span></a></li>
+  		</ul>
+  	</div>
+  	<div class="wrapper hp-nus-wrapper">
+  		<div id="global-error">
+  		</div>
+  		<div class="grid-f profile-edit" id="main">
+  			<div id="content">
+  				<h1>修改资料页的公共访问地址</h1>
+          <div class="add-skill-container">
+          <input type="text" class="type-ahead exclude yui-ac-input" name="skill-ta" value="" id="edit-skills-add-ta" placeholder="请输入您想要的新的访问地址后缀" autocomplete="off">
+          <a class="btn-primary" id="edit-skills-add-btn" href="#">测试是否可用</a>
+          <img src="http://s3.licdn.com/scds/common/u/img/anim/anim_loading_16x16.gif" class="typeahead-loading-icon"></div>
+				<%= form_for(resource, :as => resource_name, :url => request.path, :html => { :method => :put, :class => 'standard-form stacked competencies" novalidate',:id=>'submit_btn_form',:enctype =>  "multipart/form-data",:autocomplete=>"off" }) do |f| %>
+  					<div class="skills-editor jellybean-editor" id="yui-gen4">
+  						<span id="skills-editSkillsForm-error" class="error"></span>
+  						<ol class="skills-list" id="yui-gen44" style="font-size:28px;line-height:45px;text-indent:8px">
+                http://kejian.tv/<%= @user.slug %>
+  						</ol>
+  					</div>
+  					<p class="actions">
+  						<input type="submit" id="btn-primary" class="btn-primary" value="保存修改" name="">
+  						<span class="alternate" style="line-height:26px">或 <a href="<%= cancel_href %>">取消</a></span>
+  					</p>
+  					<div class="screen">
+  					</div>
+          <%end %>
+
+  			</div>
+  		</div>
+  	</div>
+  </div>
+</div>
+</div>
+</div>

@@ -39,6 +39,8 @@ Sub::Application.routes.draw do
     get '/account/edit_avatar'
     get '/account/edit_profile'
     put '/account/edit_profile' => 'account#update_profile'
+    get '/account/edit_slug'
+    put '/account/edit_slug' => 'account#update_slug'
     get '/account/edit_notifications'
     get '/account/edit_banking'
     get '/account/edit_passwd'
