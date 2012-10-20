@@ -17,7 +17,7 @@
 	<% unless @user.errors.blank? %>
 		<div id="global-error"><div role="alert" class="alert error"><i class="icon"></i><p><strong>您输入的某些信息存在错误，请修正下面标红的数据项.</strong></p></div></div>
 	<% end %>
-<div id="body" class="" role="main">
+<div id="body" class="" role="main" style="margin-top:0">
 	<div id="section-header">
 		<ul id="nav-secondary">
 			<li id="nav-edit-profile" class=""><a href="/profile/edit?locale=en_US"><span>Edit Profile</span></a></li>
@@ -41,7 +41,7 @@
 							<div class="fieldgroup">
 						    <%= f.text_field :name,:tabindex => 1,:autocomplete=>"off" %>
 								<% unless resource.errors_for_field(:name).blank? %>
-									<span class="error"><%= resource.errors_for_field(:name) %></span>						    
+									<span class="error"><%= resource.errors_for_field(:name) %></span>
 								<% end %>
 							</div>
 							<p class="note">

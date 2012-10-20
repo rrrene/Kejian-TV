@@ -1,8 +1,12 @@
 # -*- encoding : utf-8 -*-
 class AjaxController < ApplicationController
   before_filter :authenticate_user!, :except => [:checkUsername,:checkEmailAjax,:xl_req_get_method_vod,:logincheck,:seg,:star_refresh]
-  def get_cities
-    
+  def check_fangwendizhi
+    ff=User.fangwendizhize(params[:f])
+    not_used = true
+    not_used = (!User::FORBIDDEN_FANGWENDIZHI.include?(ff)) if not_used
+    not_used = ('0'==UCenter::User.update_fangwendizhi(nil,{will_fire:false,fangwendizhi:ff})) if not_used
+    render json:{ff:ff,not_used:not_used}
   end
   def watch_later
     play_list = PlayList.locate(current_user.id,'稍后阅读')

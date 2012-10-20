@@ -5,6 +5,10 @@ class AccountSessionsController < Devise::SessionsController
     clean_up_passwords(resource)
     if request.path=='/login_ibeike'
       @login_ibeike = true
+      if Setting.ktv_sub!='login_ibeike'
+        render text:'this function is not enabled for this site!'
+        return false
+      end
     end
     respond_with(resource, serialize_options(resource)) do |format|
       format.html{render "new"}
@@ -13,6 +17,10 @@ class AccountSessionsController < Devise::SessionsController
   def create
     if params[:login_ibeike]
       @login_ibeike = true
+      if Setting.ktv_sub!='login_ibeike'
+        render text:'this function is not enabled for this site!'
+        return false
+      end
       ret = UCenter::IBeike.login('user',request,{isuid:0,username:params[:user][:email],password:params[:user][:password]})
       status = ret['root']['item'][0].to_i
       suc_flag = false

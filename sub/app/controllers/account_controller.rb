@@ -19,7 +19,7 @@ class AccountController < Devise::RegistrationsController
   end
   
   def update_profile
-    @user = current_user
+    common_account_op!
     # 安全覆写™
     if params[:user][:name].present?
       @user.name_unknown = false
@@ -47,11 +47,19 @@ class AccountController < Devise::RegistrationsController
   end
   def edit_slug
     common_account_op!
-    @seo[:title] = '修改资料页的公共访问地址'
+    @seo[:title] = '修改资料页的访问地址'
     render layout:'application'
   end
   def update_slug
-    
+    common_account_op!
+    @user.fangwendizhi = params['fangwendizhi']
+    if @user.save
+      @user.update_consultant!
+      redirect_to edit_user_registration_path,:notice => '资料页的访问地址修改成功'
+    else
+      flash[:alert] = "修改失败：#{@user.errors.full_messages.join(", ")}"
+      redirect_to "/account/edit_slug"
+    end
   end
   def edit_pref
     common_account_op!

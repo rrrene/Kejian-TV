@@ -220,8 +220,8 @@
 									<dl class="public-profile">
 										<dt>资料页的公共访问地址</dt>
 										<dd style="line-height:14px">
-											<a href="http://kejian.tv/<%= @user.slug %>" target="_blank" title="View public profile" name="webProfileURL">http://kejian.tv/<%= @user.slug %></a>
-										<a class="edit-public-profile" href="/account/edit_slug">编辑</a>
+											<a href="http://<%= Setting.ktv_sub %>.kejian.tv/<%= @user.fangwendizhi %>" target="_blank" title="View public profile" name="webProfileURL"><%= Setting.ktv_sub %>.kejian.tv/<%= @user.fangwendizhi %></a>
+										<a class="edit-public-profile" href="/account/edit_slug">修改访问地址</a>
 										</dd>
 									</dl>
 									</li>

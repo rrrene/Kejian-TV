@@ -50,8 +50,8 @@ class UsersController < ApplicationController
     @users = User.all
   end
   def init_user
-    @user = User.find_by_slug(params[:id])
-    @user = User.find_by_slug(params[:id].force_encoding_zhaopin.split('_').join('.')) if @user.blank? or !@user.deleted.blank?
+    @user = User.where(:fangwendizhi=>params[:id]).first
+    @user ||= User.find_by_slug(params[:id].force_encoding_zhaopin.split('_').join('.'))
     @user ||= User.where(:_id=>params[:id]).first
     if @user.blank? or !@user.normal_deleting_status(current_user)
       render_404

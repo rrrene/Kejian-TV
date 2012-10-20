@@ -6,6 +6,7 @@ Sub::Application.routes.draw do
   post '/api/uc' => 'ucenter#ktv_uc_client'
   get '/user_logged_in_required'=>'application#user_logged_in_required'
   get '/modern_required'=>'application#modern_required'
+  
   get '/mine' => 'mine#index'
   get '/mine/dashboard'
   get '/mine/my_coursewares'
@@ -51,6 +52,7 @@ Sub::Application.routes.draw do
 
   # ________________________________ajax__________________________________________
   get '/all_unread_notification_num' => 'ajax#all_unread_notification_num'
+  get '/ajax/check_fangwendizhi'
   get '/ajax/watch_later'
   post '/ajax/seg'=>'ajax#seg'
   post '/presentations' => 'ajax#presentations_upload_finished'
@@ -77,7 +79,7 @@ Sub::Application.routes.draw do
   post '/ajax/get_sorted_playlist' => 'ajax#get_sorted_playlist'
   post '/ajax/add_to_playlist_by_url' => 'ajax#add_to_playlist_by_url'
   # ---=small=----
-  get 'hack/htc'
+  get '/hack/htc'
   get '/welcome/inactive_sign_up'
   get '/welcome/shuffle'
   get '/welcome/blank'
@@ -141,13 +143,13 @@ Sub::Application.routes.draw do
   
   get '/bugtrack'=>'application#bugtrack'
   get '/agreement'=>'home#agreement'
-  get "traverse/index",as:'traverse'
-  post "traverse/index",as:'traverse'
-  get "traverse/asks_from",as:'asks_from'
-  get 'home/agreement'
+  get "/traverse/index",as:'traverse'
+  post "/traverse/index",as:'traverse'
+  get "/traverse/asks_from",as:'asks_from'
+  get '/home/agreement'
   
-  get 'nb/*file' =>'application#nb'
-  get "home/index",:as => 'for_help'
+  get '/nb/*file' =>'application#nb'
+  get "/home/index",:as => 'for_help'
   get '/root'=>'home#index'
   match '/topics_follow' => 'topics#fol'
   post '/topics_unfollow'=>'topics#unfol'
@@ -348,5 +350,5 @@ Sub::Application.routes.draw do
   constraints constraint do
     mount Sidekiq::Web => '/sidekiq'
   end
-  get "/*identifier" => "home#general_show"
+  get "/*identifier" => "users#show"
 end
