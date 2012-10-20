@@ -16,7 +16,7 @@
             <% if comment.replied_to_comment_id.nil? %>
             <p class="metadata">
                <span class="author ">
-               <a dir="ltr" class="yt-uix-sessionlink yt-user-name " href="/users/<%= User.get_slug comment.user_id %>"><%= User.get_name comment.user_id %></a>
+                 <a dir="ltr" class="yt-uix-sessionlink yt-user-name " href="/<%= User.get_fangwendizhi comment.user_id %>"><%= User.get_name comment.user_id %></a>
                </span>
                <span class="time">
                <%= timeago(comment.created_at) %>
@@ -32,10 +32,10 @@
             <% parent = Comment.find(comment.replied_to_comment_id) %>
             <p class="metadata">
                 <span class="author ">
-                      <a dir="ltr"class="yt-uix-sessionlink yt-user-name " href="/users/<%= User.get_slug comment.user_id %>"><%= User.get_name comment.user_id %></a>
+                      <a dir="ltr"class="yt-uix-sessionlink yt-user-name " href="/<%= User.get_fangwendizhi comment.user_id %>"><%= User.get_name comment.user_id %></a>
                 </span>
                 <span dir="ltr" class="time">
-      对    <a dir="ltr"  class="yt-uix-sessionlink yt-user-name " href="/users/<%= User.get_name parent.user_id %>"><%= User.get_name parent.user_id %></a>
+      对    <a dir="ltr"  class="yt-uix-sessionlink yt-user-name " href="/<%= User.get_fangwendizhi parent.user_id %>"><%= User.get_name parent.user_id %></a>
       的回复
          <a data-action="show-parent" rel="nofollow" onclick="return false;" class="comment-action comment-action-showparent" href="#">(显示评论)</a>
          <span dir="ltr"><%= timeago(comment.created_at) %><span>

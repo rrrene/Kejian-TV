@@ -45,7 +45,7 @@
 				</h3>
 				<p class="video-details">
 					<span class="video-owner">
-				    上传者：<span dir="ltr" class="yt-user-name "><a href="/users/<%= User.get_slug cw.uploader_id %>"><%= name_beautify User.get_name(cw.uploader_id)%></a></span>
+				    上传者：<span dir="ltr" class="yt-user-name "><a href="/<%= User.get_fangwendizhi cw.uploader_id %>"><%= name_beautify User.get_name(cw.uploader_id)%></a></span>
 					</span>
 					<span class="video-view-count">
 					观看次数：<%= number_with_delimiter cw.views_count %> 次 </span>

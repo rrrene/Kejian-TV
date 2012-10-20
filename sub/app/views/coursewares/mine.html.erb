@@ -51,19 +51,19 @@
 </div>
 <ul class="useratten cf">
 <li>
-<a id="user_profile_medium_follow_count" class="gray block usernumber" href="/users/<%= current_user.slug %>/following">
+  <a id="user_profile_medium_follow_count" class="gray block usernumber" href="/<%= current_user.fangwendizhi %>/following">
   <em><%=current_user.following_ids.size%></em><br />
 <span>关注</span>
 </a>
 </li>
 <li>
-<a id="user_profile_medium_fans_count" class="gray block usernumber" href="/users/<%= current_user.slug %>/followers">
+  <a id="user_profile_medium_fans_count" class="gray block usernumber" href="/<%= current_user.fangwendizhi %>/followers">
   <em><%=current_user.follower_ids.size%></em><br />
 <span>粉丝</span>
 </a>
 </li>
 <li>
-<a class="gray block usernumber" href="/users/<%= current_user.slug %>"><%=current_user.coursewares_count%><br />
+  <a class="gray block usernumber" href="/<%= current_user.fangwendizhi %>"><%=current_user.coursewares_count%><br />
 <span>课件</span></a>
 </li>
 </ul>

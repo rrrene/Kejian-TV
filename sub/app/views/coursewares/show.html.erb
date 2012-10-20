@@ -481,7 +481,7 @@ courseware_id: '<%=@courseware.id%>'
                <div class="yt-uix-expander  yt-uix-expander-collapsed" id="watch-description">
                   <div id="watch-description-clip">
                      <p id="watch-uploader-info">
-                        <a dir="ltr" rel="author" class="yt-uix-sessionlink yt-user-name author" href="/users/<%= @courseware.user_id %>"><%= User.get_name @courseware.user_id %></a> 发布于 <span class="watch-video-date" id="eow-date"><%= timeago @courseware.created_at  %></span>
+                        <a dir="ltr" rel="author" class="yt-uix-sessionlink yt-user-name author" href="/<%= User.get_fangwendizhi @courseware.user_id %>"><%= User.get_name @courseware.user_id %></a> 发布于 <span class="watch-video-date" id="eow-date"><%= timeago @courseware.created_at  %></span>
                      </p>
                      <div id="watch-description-text">
                        <p id="eow-description">
@@ -545,7 +545,7 @@ courseware_id: '<%=@courseware.id%>'
                   <% if !@self_comments.nil? and @self_comments.count >0%>
                     <div class="comments-section">
                         <h4>上传者评论
-                          (<strong>    <a dir="ltr"  class="yt-uix-sessionlink yt-user-name " href="/users/<%= @courseware.author %>"><%= @courseware.author %></a></strong>)
+                          (<strong>    <a dir="ltr"  class="yt-uix-sessionlink yt-user-name " href="/<%= User.get_fangwendizhi @courseware.author %>"><%= @courseware.author %></a></strong>)
                         </h4>
                           <ul class="comment-list">
                                     <% @self_comments.each do |comment| %>
@@ -1415,7 +1415,7 @@ courseware_id: '<%=@courseware.id%>'
            </h1>
            <div id="weizuozhefasongganxie5">
              <% @courseware.thanked_user_ids.reverse.each do |user_id| %>
-             <div><a class="" href="/users/<%= User.get_slug(user_id) %>"><img src="<%= avatar_url_quick(user_id,:small) %>" alt="<%= User.get_name(user_id) %>" width="47" height="47"></a></div>
+             <div><a class="" href="/<%= User.get_fangwendizhi(user_id) %>"><img src="<%= avatar_url_quick(user_id,:small) %>" alt="<%= User.get_name(user_id) %>" width="47" height="47"></a></div>
              <% end %>
            </div>
            
@@ -1440,7 +1440,7 @@ courseware_id: '<%=@courseware.id%>'
                  <div class="preview_info">
                 <h3><a href="<%= courseware_path @courseware %>/revisions/<%= version+1 %>">第<%= version+1 %>版<%= '(最新版)' if version==@courseware_real_version %> <%= ": #{@courseware.version_date[version.to_s]}" if @courseware.version_date[version.to_s] %></a></h3>
                 <p class="date">
-                  <%= l(@courseware.created_at, :format => :long) %>, <a href="/users/<%= User.get_slug @courseware.user_id %>"><%= User.get_name @courseware.user_id %></a>
+                  <%= l(@courseware.created_at, :format => :long) %>, <a href="/<%= User.get_fangwendizhi @courseware.user_id %>"><%= User.get_name @courseware.user_id %></a>
                 </p>
                </div>
              </div>

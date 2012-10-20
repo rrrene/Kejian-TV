@@ -34,7 +34,7 @@
 		<span><%= timeago(item.created_at) %></span>
 		</span>
 		<div class="vm-video-info">
-      <a dir="ltr" class="yt-uix-sessionlink yt-user-name " href="/users/<%= User.get_slug item.uploader_id %>"><%= name_beautify User.get_name(item.uploader_id)%></a>
+      <a dir="ltr" class="yt-uix-sessionlink yt-user-name " href="/<%= User.get_fangwendizhi item.uploader_id %>"><%= name_beautify User.get_name(item.uploader_id)%></a>
 		</div>
 	</div>
 	<div class="vm-video-icons">

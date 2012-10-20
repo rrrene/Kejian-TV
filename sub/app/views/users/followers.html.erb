@@ -26,18 +26,18 @@
 
 <div class="ftag">
 <ul class="cf">
-<li class="<%= 'current' if 'double_follow'==params['action'] %>"><a href="/users/<%= @user.slug %>/double_follow">双向关注
+  <li class="<%= 'current' if 'double_follow'==params['action'] %>"><a href="/<%= @user.fangwendizhi %>/double_follow">双向关注
 </a>
 </li>
-<li class="<%= 'current' if 'following'==params['action'] %>"><a href="/users/<%= @user.slug %>/following"><%= user_sex_title(@user,current_user)%>的关注<span class="num"><em><%= @user.following_ids.size %></em></span>
+<li class="<%= 'current' if 'following'==params['action'] %>"><a href="/<%= @user.fangwendizhi %>/following"><%= user_sex_title(@user,current_user)%>的关注<span class="num"><em><%= @user.following_ids.size %></em></span>
 
 </a>
 </li>
-<li class="<%= 'current' if 'followers'==params['action'] %>"><a href="/users/<%= @user.slug %>/followers"><%= user_sex_title(@user,current_user)%>的粉丝<span class="num"><em><%= @user.follower_ids.size %></em></span>
+<li class="<%= 'current' if 'followers'==params['action'] %>"><a href="/<%= @user.fangwendizhi %>/followers"><%= user_sex_title(@user,current_user)%>的粉丝<span class="num"><em><%= @user.follower_ids.size %></em></span>
 
 </a>
 </li>
-<li class="<%= 'current' if 'invites'==params['action'] %>"><a href="/users/<%= @user.slug %>/invites"><%= user_sex_title(@user,current_user)%>的邀请</a></li>
+<li class="<%= 'current' if 'invites'==params['action'] %>"><a href="/<%= @user.fangwendizhi %>/invites"><%= user_sex_title(@user,current_user)%>的邀请</a></li>
 </ul>
 </div>
 
@@ -99,7 +99,7 @@ end
 <div style="overflow:hidden;">
   <div class="uhead" style="height:60px;"><a href="<%= user_path @user%>"><img src="<%=avatar_url(@user,:mid60)%>" /></a></div>
   <div class="uinfo">
-    <p><a href="/users/<%=@user.slug%>" class="blue arial b"><%=@user.name%></a></p>
+    <p><a href="/<%=@user.fangwendizhi%>" class="blue arial b"><%=@user.name%></a></p>
     <p><%= @user.tagline %></p>
   </div>
 </div>
@@ -117,7 +117,7 @@ end
   </a>
   </li>
   <li>
-  <a class="gray block usernumber" href="/users/<%= @user.slug %>"><%=@user.coursewares_count%><br />
+  <a class="gray block usernumber" href="/<%= @user.fangwendizhi %>"><%=@user.coursewares_count%><br />
   <span>课件</span></a>
   </li>
 </ul>

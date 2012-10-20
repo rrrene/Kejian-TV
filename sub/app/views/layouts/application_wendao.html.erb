@@ -62,7 +62,7 @@
               <ul>
                 <li class="username"><%=truncate2(current_user.name,:length => 12,:omission=>'…') %><cite class="arrowDown"></cite></li>
                 <li class="blackline"></li>
-                <li><span class="homepage"></span><a href="/users/<%= (current_user.slug) %>">个人主页</a></li>
+                <li><span class="homepage"></span><a href="/<%= (current_user.fangwendizhi) %>">个人主页</a></li>
                 <li class="blackline"></li>
                 <li><span class="setup"></span><%= link_to('设置', edit_user_registration_path) %></li>
                 <li class="blackline"></li>

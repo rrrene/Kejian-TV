@@ -75,7 +75,7 @@
                 </span>
                 <span class="video-details">
                 <span class="video-owner">
-                创建者：<span dir="ltr" class="yt-user-name "><a href="/users/<%= User.get_slug cw.uploader_id %>"><%= name_beautify User.get_name(cw.uploader_id)%></a></span>
+                  创建者：<span dir="ltr" class="yt-user-name "><a href="/<%= User.get_fangwendizhi cw.uploader_id %>"><%= name_beautify User.get_name(cw.uploader_id)%></a></span>
                 </span>
                 <span class="video-view-count">
                 观看次数：<%= number_with_delimiter cw.views_count %> 次
