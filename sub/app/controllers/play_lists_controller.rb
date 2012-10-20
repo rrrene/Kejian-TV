@@ -27,6 +27,7 @@ class PlayListsController < ApplicationController
         redirect_to '/mine/view_all_playlists'
         return false
     end
+    @playlist.inc(:views_count,1)
     @user = User.find(@playlist.user_id)
     @seo[:title] = "课件锦囊"    
   end

@@ -38,11 +38,11 @@
 	<div id="branded-page-body-container" class="ytg-base clearfix ">
 		<div id="branded-page-header-container" class="ytg-wide ">
 			<div id="branded-page-header" class="ytg-wide ytg-box">
-				<a class="profile-thumb" href="/users/<%= %>">
+				<a class="profile-thumb" href="/users/<%= User.get_slug @playlist.user_id %>">
 				<span class="video-thumb ux-thumb yt-thumb-square-77 ">
 					<span class="yt-thumb-clip">
 						<span class="yt-thumb-clip-inner">
-							<img src="<%=  %>" alt="缩略图" width="77">
+							<img src=" <%=dz_avatar_url(@playlist.user_id,User.find(@playlist.user_id).email,:middle)%> " alt="缩略图" width="77">
 							<span class="vertical-align"></span>
 						</span>
 					</span>
@@ -54,28 +54,34 @@
 							<div class="header-stats ytg-box">
 								<ul>
 									<li class="stat-entry first">
-									<span class="stat-value">23</span>
+									<span class="stat-value"><%= @playlist.coursewares_count%></span>
 									<span class="stat-name">
-									视频 </span>
+									  课件 </span>
 									</li>
 									<li class="stat-entry">
-									<span class="stat-value">73</span>
+                          <span class="stat-value"><%= @playlist.content_total_pages %></span>
+                          <span class="stat-name">
+                  总页数
+                          </span>
+                  </li>
+									<li class="stat-entry">
+									<span class="stat-value"><%= @playlist.views_count %></span>
 									<span class="stat-name">
-									次观看 </span>
+									次查看 </span>
 									</li>
 								</ul>
 							</div>
 						</div>
 						<div class="playlist-reference">
-							<h1 title="收藏的视频">收藏的视频</h1>
+							<h1 title="<%= @playlist.title %>"><%= @playlist.title %></h1>
 							<p class="channel-author-attribution">
-								 来自：<a href="/user/pmq20">Minqi Pan</a>
+								 来自：<a href="/users/<%= User.get_slug @playlist.user_id %>"><%= name_beautify User.get_name(@playlist.user_id)%></a>
 							</p>
 						</div>
 						<span id="play-all-button">
-						<a class="yt-playall-link yt-playall-link-dark yt-uix-sessionlink " href="/watch?v=_tILqds7-jg&amp;list=FLIMHRDN2dx-0gbHFP7uqATA&amp;feature=plpp_play_all" data-sessionlink="ei=CObM-ur_gbMCFZ0VIQodtguFbQ%3D%3D&amp;feature=plpp_play_all">
+						<a class="yt-playall-link yt-playall-link-dark yt-uix-sessionlink " href="/coursewares/<%= @playlist.content[0] %>">
 						<img class="small-arrow" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="">
-						全部播放 </a>
+						全部查看 </a>
 						</span>
 					</div>
 				</div>
@@ -85,7 +91,8 @@
 			<div id="playlist-pane-container">
 				<div class="primary-pane">
 					<div class="playlist-landing ypc-list-container">
-						 <div class="playlist-messages">
+              <% if @playlist.privacy !=0 %>
+						  <div class="playlist-messages">
 						    <div class="yt-alert yt-alert-default yt-alert-warn  ">  
 									<div class="yt-alert-icon">
 						    		<img alt="提醒图标" class="icon master-sprite" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
@@ -94,70 +101,153 @@
 									<div role="alert" class="yt-alert-content">    
 												<span class="yt-alert-vertical-trick"></span>
 							    			<div class="yt-alert-message">
-							            	这是私有播放列表，虽然可以分享，但只有在设为公开后，才能供其他人查看。
+							            	这是私有课件锦囊，虽然可以分享，但只有在设为公开后，才能供其他人查看。
 							    			</div>
 									</div>
 								</div>
 							</div>
+              <% end %>
 							<div id="playlist-actions">
 								<div id="playlist-action-buttons">
-									<button data-tooltip-text="分享或嵌入此课件锦囊" type="button" class="playlist-share yt-uix-button yt-uix-button-default yt-uix-tooltip" onclick=";return false;" title="分享或嵌入此课件锦囊" data-button-toggle="true" data-button-action="yt.www.playlist.share" role="button"><span class="yt-uix-button-content">分享 </span></button>
+									<button data-tooltip-text="分享或嵌入此课件锦囊" type="button" class="playlist-share yt-uix-button yt-uix-button-default yt-uix-tooltip" onclick=";return false;" title="分享或嵌入此课件锦囊" data-button-toggle="true" role="button"><span class="yt-uix-button-content">分享 </span></button>
 								</div>
-								<div id="playlist-share-container" class="playlist-share-area hid">
-								</div>
+								<div id="playlist-share-container" class="playlist-share-area hid"></div>
 								<div id="playlist-share-loading" class="playlist-share-area hid">
 									 正在加载...
 								</div>
 							</div>
+							<script type="text/javascript" charset="utf-8">
+							 <% content_for :butt2 do %>
+							    $('.playlist-share').live('click',function(){
+							      $(this).toggleClass('yt-uix-button-toggled');
+							      if($(this).hasClass('yt-uix-button-toggled')){
+  							        $('#playlist-share-loading').show().removeClass('hid');
+  							        $.ajax({
+  							          url:'/ajax/get_playlist_share',
+  							          type:'POST',
+  							          data:{'playlist_id':'<%= @playlist.id %>'},
+  							          dataType:'html'
+  							        }).done(function(html){
+      							        $('#playlist-share-loading').hide().addClass('hid');
+      							        $('#playlist-share-container').html(html);
+      							        $('#playlist-share-container').show().removeClass('hid');
+  							        });							        
+							      }else{
+  				              $('#playlist-share-container').html('');
+  							        $('#playlist-share-container').hide().addClass('hid');
+							      }
+							    });
+							    $('input.share-panel-url').live('focus',function(){
+                        var $this = $(this);
+                        $this.select();
+                        $this.mouseup(function() {
+                            $this.unbind("mouseup");
+                            return false;
+                        });
+                  });
+							    $('.yt-uix-expander-head').live('click',function(){
+							      $(this).parent().toggleClass('yt-uix-expander-collapsed');
+							    })
+							 <% end %>
+							</script>
               <ol>
                 <%= render partial:'show_list',locals:{playlist:@playlist} %>
               </ol>
 					</div>
 				</div>
 				<div class="secondary-pane">
+				  <%  if !@playlist.desc.blank? %>
+				  <div class="channel-module yt-uix-tooltip" title="课件锦囊描述">
+                      <div class="playlist-description">
+                        <%=  Sanitize.clean(@playlist.desc.gsub(/\n/, '<br />'), Sanitize::Config::BASIC).html_safe %>
+                      </div>
+                      <div class="yt-horizontal-rule ">
+                        <span class="first"></span>
+                        <span class="second"></span>
+                        <span class="third"></span>
+                      </div>
+          </div>
+          <% end %>
 					<div class="channel-module">
 						<div class="playlist-creator-info">
-							<h2>关于 Minqi Pan</h2>
+							<h2>关于 <%= name_beautify User.get_name(@playlist.user_id)%></h2>
 							<div class="creator-links">
-								<a href="/user/pmq20/videos?view=1">
-								4 个课件锦囊 </a>
-								<a href="/user/pmq20/videos?view=0">
-								查看所有视频 </a>
+								<a href="/users/<%= User.get_slug @playlist.user_id %>">
+								<%= @user.play_lists.count %> 个课件锦囊 </a>
+								<a href="/users/<%= User.get_slug @playlist.user_id %>">
+								查看所有课件 </a>
 							</div>
 							<div class="creator-stats">
 								<p>
-									 观看次数：153 次
+									 观看次数： <%= @user.profile_view_count %>次
 								</p>
 								<p>
-									 3 位订阅者
+									 <%= @user.followers_count %> 位订阅者
 								</p>
 							</div>
 						</div>
+						<% if (aa = false) %>
 						<div class="yt-horizontal-rule ">
 							<span class="first"></span><span class="second"></span><span class="third"></span>
 						</div>
+						<% end %>
 					</div>
+					<% if aa %>
 					<div class="playlists-narrow channel-module yt-uix-c3-module-container">
 						<div class="module-view gh-featured">
 							<h2>精选课件锦囊</h2>
 							<div class="playlist yt-tile-visible yt-uix-tile">
-								<a href="/watch?v=eO4V45qp_jU&amp;list=UUIMHRDN2dx-0gbHFP7uqATA&amp;feature=plpp" class="play-all yt-uix-sessionlink yt-uix-contextlink" data-sessionlink="context=C4a376e5FDvjVQa1PpcFNw9Jaj2PTfZ2GKVbGCMTNw0Sh9rtGFxqA%3D">
-								<span class="playlist-thumb-strip playlist-thumb-strip-252"><span class="videos videos-4 horizontal-cutoff"><span class="clip"><span class="centering-offset"><span class="centering"><span class="ie7-vertical-align-hack">&nbsp;</span><img data-group-key="thumb-group-0" src="//i2.ytimg.com/vi/eO4V45qp_jU/default.jpg" data-thumb="//i2.ytimg.com/vi/eO4V45qp_jU/default.jpg" alt="" class="thumb"></span></span></span><span class="clip"><span class="centering-offset"><span class="centering"><span class="ie7-vertical-align-hack">&nbsp;</span><img data-group-key="thumb-group-0" src="//i3.ytimg.com/vi/rZmt-axGFBk/default.jpg" data-thumb="//i3.ytimg.com/vi/rZmt-axGFBk/default.jpg" alt="" class="thumb"></span></span></span><span class="clip"><span class="centering-offset"><span class="centering"><span class="ie7-vertical-align-hack">&nbsp;</span><img data-group-key="thumb-group-0" src="//i2.ytimg.com/vi/AvTk1UWEB0I/default.jpg" data-thumb="//i2.ytimg.com/vi/AvTk1UWEB0I/default.jpg" alt="" class="thumb"></span></span></span><span class="clip"><span class="centering-offset"><span class="centering"><span class="ie7-vertical-align-hack">&nbsp;</span><img data-group-key="thumb-group-0" src="//i3.ytimg.com/vi/2VeJA6JK-pU/default.jpg" data-thumb="//i3.ytimg.com/vi/2VeJA6JK-pU/default.jpg" alt="" class="thumb"></span></span></span></span><span class="resting-overlay"><img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="play-button" alt="Play all"><span class="video-count-box">
-								6 个视频 </span>
-								</span><span class="hover-overlay"><span class="play-all-container"><strong><img src="<%=asset_path('yt/img/mini-play-all-vflZu1SBs.png')%>" alt="">全部播放</strong></span></span></span>
-								</a>
+                	<a class="yt-uix-sessionlink" href="/play_lists/<%= @playlist.id %>">
+              		<span class="playlist-thumb-strip playlist-thumb-strip-252">
+              		  <span class="videos videos-<%= @playlist.content.count > 6 ? 6 : @playlist.content.count %> vertical-cutoff">
+                      <% @playlist.content.each_with_index do |id,index| %>
+                         <% if index > 5 
+                              break
+                           end %>
+                           <% cw = Courseware.find(id) %>
+              				    <% if @playlist.content.count < 3  
+              				          src = asset_url_eb(cw.ktvid.to_s + '/slide_0.jpg')
+              			         else
+              			            src = asset_url('cw/'+ cw.ktvid.to_s + '/thumb_slide_0.jpg')
+              		           end
+              				      %>                      
+              				    <span class="clip">
+              				      <span class="centering-offset">
+              				        <span class="centering">
+              				          <span class="ie7-vertical-align-hack">&nbsp;</span>
+              				            <img class="thumb" alt="" src="<%= src %>">
+              				        </span>
+              				      </span>
+              				    </span>
+              		    <% end %>
+              		</span>
+              		<span class="resting-overlay">
+              			<img alt="Play all" class="play-button" src="<%= asset_path 'yt/img/pixel-vfl3z5WfW.gif' %>">
+              			<span class="video-count-box">
+              			  <%= @playlist.content.count %> 个课件 
+              			</span>
+              		</span>
+              				<span class="hover-overlay">
+              				  <span class="play-all-container">
+              				    <strong><img alt="" src="<%= asset_path 'yt/img/mini-play-all-vflZu1SBs.png' %>">全部播放</strong>
+              				  </span>
+              				</span>
+              		</span>
+              		</a>
+
 								<h3>
 								<a href="/playlist?list=UUIMHRDN2dx-0gbHFP7uqATA&amp;feature=plpp" title="查看课件锦囊中的所有视频。" class="yt-uix-tile-link">
-								上传的视频 </a>
+								上传的课件 </a>
 								</h3>
 								<span class="playlist-author-attribution">
-								所有者：Minqi Pan </span>
+								所有者：<%= name_beautify User.get_name(@playlist.user_id)%></span>
 							</div>
-							<a class="view-all-link" href="/user/pmq20/videos?view=1">
+							<a class="view-all-link" href="/users/<%= User.get_slug @playlist.user_id %>">
 							查看全部 <img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="">
 							</a>
 						</div>
 					</div>
+					<% end %>
 				</div>
 			</div>
 		</div>
@@ -175,6 +265,36 @@
 <% content_for :butt2 do %>
 // var offset = -(jQuery('.__ytb').offset().top - 15 - (jQuery('header').offset().top + jQuery('header').height()));
 // $('.__ytb').css('margin-top',offset.toString()+'px');
-
+   $('.yt-uix-tooltip').tipsy({gravity: $.fn.tipsy.autoNS,fade: <%= @is_WebKit ? 'false' : 'true'%>,opacity: 1});
+   $('.addto-watch-later-button,.addto-watch-later-button-success').live('click',function(){
+     var cwid = $(this).attr('data-kejian-id').trim();
+     var type='addto';
+     if($(this).hasClass('addto-watch-later-button-success')){
+       type='remove'
+     }
+     tmp = this;
+     $.ajax({
+       url:'/ajax/add_to_read_later',
+       type:'POST',
+       data:{'cwid':cwid,'type':type},
+       dataType:'json'
+     }).done(function(json){
+        if(json['status']=='suc'){
+          if(type=='addto'){
+            $(tmp).addClass('addto-watch-later-button-success');
+            $(tmp).removeClass('addto-watch-later-button'); 
+          }else{
+            $(tmp).addClass('addto-watch-later-button');
+            $(tmp).removeClass('addto-watch-later-button-success');
+          }
+        }else{
+          
+        }
+     });
+   });
+   $('.addto-watch-later-button-success').live('click',function(){
+     var cwid = $(this).attr('data-kejian-id').trim();
+     
+   });
 <% end %>
 </script>

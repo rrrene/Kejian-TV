@@ -527,5 +527,30 @@ HEREDOC
           return false
       end
   end
+  
+  def add_to_read_later
+     if current_user.nil?
+         render json:{status:'failed',reason:'您尚未登陆！'}
+         return false
+     end
+     if !BSON::ObjectId.legal?(params[:cwid])
+         render json:{status:'failed',reason:'您导入的内容稍后阅读无啊接受！'}
+         return false
+     end
+     if params[:type] == 'addto'
+         addto  = PlayList.add_to_read_later(current_user.id,params[:cwid])
+     elsif params[:type] == 'remove'
+         addto = PlayList.remove_from_read_later(current_user.id,params[:cwid])
+     end
+     if addto
+         render json:{status:'suc'}
+     else
+         render json:{status:'failed',reason:'该课件已经存在于稍后阅读。'}
+     end
+  end
+  def get_playlist_share
+      url = "http://#{Setting.ktv_sub.nil? ? 'www' : Setting.ktv_sub}.kejian#{$psvr_really_development ? '.lvh.me' : '.tv'}/play_lists/#{params[:playlist_id]}"
+      render file:'play_lists/_playlist_share',locals:{url:url},layout:false
+  end
 end
 

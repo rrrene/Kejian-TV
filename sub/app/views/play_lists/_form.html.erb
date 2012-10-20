@@ -541,7 +541,7 @@
       }
       $(this).parent().prev().find('.yt-uix-char-counter-remaining').html(max-$(this).val().length);
   });
-	
+   $('.yt-uix-tooltip').tipsy({gravity: $.fn.tipsy.autoNS,fade: <%= @is_WebKit ? 'false' : 'true'%>,opacity: 1});	
 
 <% end %>
 </script>

@@ -16,8 +16,10 @@
 				  </span>
 				</span>
 				<span class="video-time">共<%= cw.slides_count %>页</span>
-				<button role="button" data-video-ids="H5ArpRWcGe0" class="addto-button video-actions addto-watch-later-button yt-uix-button yt-uix-button-default yt-uix-button-short yt-uix-tooltip" type="button" title="稍后观看" onclick=";return false;"><span class="yt-uix-button-content"><img alt="稍后观看" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
-				</span></button>
+				<button role="button" data-kejian-id="<%= cwid %>" class="psvr_login_required addto-button video-actions <% if !current_user.nil? and PlayList.exist_in_read_later?(current_user.id,cwid) %>addto-watch-later-button-success<% else %>addto-watch-later-button<% end %> yt-uix-button yt-uix-button-default yt-uix-button-short yt-uix-tooltip" type="button" title="稍后阅读" onclick=";return false;"><span class="yt-uix-button-content">
+				  <img alt="稍后阅读" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
+				</span>
+				</button>
 			</div>
 		</div>
 		<div class="video-info ">
@@ -26,7 +28,7 @@
 				<span class="video-thumb ux-thumb yt-thumb-square-28 annotation-thumb">
 				  <span class="yt-thumb-clip">
 				    <span class="yt-thumb-clip-inner">
-              <img width="32" alt="缩略图" src="<%=dz_avatar_url(playlist.user_id,User.find(playlist.user_id).email,:middle)%>" />
+              <img width="32" alt="缩略图" src="<%=dz_avatar_url(playlist.user_id,User.find(playlist.user_id).email,:small)%>" />
 				      <span class="vertical-align"></span>
 				    </span>
 				  </span>
