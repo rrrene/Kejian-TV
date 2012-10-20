@@ -64,7 +64,7 @@
 									<span class="phonetic-full-name">
 									</span>
 									<p class="title" style="display:block">
-										<%= @user.tagline.present? ? @user.tagline : '(未填写学术或职业头衔)' %>
+										<%= @user.tagline.present? ? @user.tagline : '(未填写一句话介绍)' %>
 									</p>
 									<dl id="headline" class="demographic-info adr">
 										<dt>地区</dt>
@@ -73,8 +73,20 @@
 											<%= @user.location.present? ? @user.location : '未知地区' %> </span>
 										</dd>
 										<dt>领域</dt>
-										<dd class="industry">
-											<%= @user.lingyu.present? ? @user.lingyu : '未知行业或学术领域' %></dd>
+										<% if @user.lingyu_industry.blank? and @user.lingyu_study.blank? %>
+										未知行业或学术领域
+										<% else %>
+											<% if @user.lingyu_industry.present? %>
+											<dd class="industry">
+												<%= @user.lingyu_industry %>
+											</dd>
+											<% end %>
+											<% if @user.lingyu_study.present? %>
+											<dd class="industry">
+												<%= @user.lingyu_study %>
+											</dd>
+											<% end %>
+										<% end %>
 									</dl>
 								</div>
 
@@ -206,7 +218,7 @@
 								<ul>
 									<li>
 									<dl class="public-profile">
-										<dt>公共帐号信息地址</dt>
+										<dt>公共账号信息地址</dt>
 										<dd style="line-height:14px">
 											<a href="http://cn.linkedin.com/pub/minqi-pan/20/75a/b5" target="_blank" title="View public profile" name="webProfileURL">http://kejian.tv/<%= @user.slug %></a>
 										<a class="edit-public-profile" href="/profile/public-profile-settings?trk=prof-ovw-edit-public_profile">编辑</a>

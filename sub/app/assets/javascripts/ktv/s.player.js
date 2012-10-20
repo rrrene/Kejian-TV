@@ -257,7 +257,7 @@
           w("sessionid")
       }
       a.query(j, B, J, E, I)
-  } else a.error("您不是会员，请用会员帐号<a style='color:#1874CA;' href='javascript:;' onclick='XL_CLOUD_FX_INSTANCE.loginNotice();return false;'>登录</a>后回来继续");
+  } else a.error("您不是会员，请用会员账号<a style='color:#1874CA;' href='javascript:;' onclick='XL_CLOUD_FX_INSTANCE.loginNotice();return false;'>登录</a>后回来继续");
   isTimeout = false;
   clearTimeout(b)
 })()

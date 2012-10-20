@@ -2779,7 +2779,7 @@ jQuery.cookie = function (b, k, n) {
             }
         },
         haveEmail: function (obj) {
-            this.thisObjError(obj, "该帐号已经被绑定！")
+            this.thisObjError(obj, "该账号已经被绑定！")
         },
         errorPassword: function (obj) {
             this.animate($(obj).parent());
@@ -4412,7 +4412,7 @@ im.zm.login = function () {
     	"</tr>",
     	"</table></form>",
     	'<div class="dia-zmbottom2">',
-    	'<p class="blue"><a href="/register">注册新用户</a><br><a href="/account/password/new">忘记密码？</a><br><a href="/account/confirmation/new">重发激活邮件</a> / <a href="/account/unlock/new">索取解锁邮件</a><br><a href="javascript:void(0)" id="hasMZ">使用人人网帐号登录</a></p>',
+    	'<p class="blue"><a href="/register">注册新用户</a><br><a href="/account/password/new">忘记密码？</a><br><a href="/account/confirmation/new">重发激活邮件</a> / <a href="/account/unlock/new">索取解锁邮件</a><br><a href="javascript:void(0)" id="hasMZ">使用人人网账号登录</a></p>',
     	"</div>",
     	"</div>",
     	"</div>"
@@ -4582,10 +4582,10 @@ im.zm.login = function () {
                         $("#errortips1").text("验证码错误").attr("class", "errortips").show();
                         break;
                     case 4:
-                        $("#errortips1").text("帐号或密码错误，请重试").attr("class", "errortips").show();
+                        $("#errortips1").text("账号或密码错误，请重试").attr("class", "errortips").show();
                         break;
                     case 5:
-                        $("#errortips1").text("该帐号已被冻结").attr("class", "errortips").show();
+                        $("#errortips1").text("该账号已被冻结").attr("class", "errortips").show();
                         break;
                     case 6:
                         l = !0;

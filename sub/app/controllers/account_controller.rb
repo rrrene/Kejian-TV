@@ -30,6 +30,16 @@ class AccountController < Devise::RegistrationsController
       @user.name = params[:user][:name].xi
     end
     @user.tagline = params[:user][:tagline].xi
+    
+    @user.lingyu_industry=(params[:industryChooser].starts_with?('[') ? '' : params[:industryChooser])
+    @user.lingyu_study=(params[:studyChooser].starts_with?('[') ? '' : params[:studyChooser])
+    
+    [:at_province,
+    :at_city,
+    :at_dist,
+    :at_community].each do |key|
+      @user.send("#{key}=",params['birth'+key.to_s.split('_')[-1]])
+    end
 
     if @user.save
       @user.update_consultant!

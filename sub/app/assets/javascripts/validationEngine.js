@@ -150,9 +150,9 @@
                     // you may want to pass extra data on the ajax call
                     "extraData": "name=eric",
                     // if you provide an "alertTextOk", it will show as a green prompt when the field validates
-                    "alertTextOk": "* 此帐号名称可以使用",
+                    "alertTextOk": "* 此账号名称可以使用",
                     "alertText": "* 此名称已被其他人使用",
-                    "alertTextLoad": "* 正在确认帐号名称是否有其他人使用，请稍等。"
+                    "alertTextLoad": "* 正在确认账号名称是否有其他人使用，请稍等。"
                 },
                 "ajaxNameCall": {
                     // remote json service location
