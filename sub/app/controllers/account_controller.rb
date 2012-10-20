@@ -55,7 +55,7 @@ class AccountController < Devise::RegistrationsController
     @user.fangwendizhi = params['fangwendizhi']
     if @user.save
       @user.update_consultant!
-      redirect_to edit_user_registration_path,:notice => '资料页的访问地址修改成功'
+      redirect_to edit_user_registration_path,:notice => "已启用新的访问地址http://#{Setting.ktv_subdomain}/#{@user.fangwendizhi}"
     else
       flash[:alert] = "修改失败：#{@user.errors.full_messages.join(", ")}"
       redirect_to "/account/edit_slug"

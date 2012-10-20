@@ -24,13 +24,13 @@ $('#edit-skills-add-btn').click(function(){
     $('.typeahead-loading-icon').hide();
     $('#fangwendizhi').val(data['ff']);
     if(data['not_used']){
-    $('#yui-gen44').html("http://<%= Setting.ktv_sub %>.kejian.tv/"+data['ff']);
+    $('#yui-gen44').html("http://<%= Setting.ktv_subdomain %>/"+data['ff']);
       $('#slug-error').addClass('okay');
       $('#slug-error').removeClass('error');      
       $('#btn-primary').removeAttr('disabled');
       $('#slug-error').text('该后缀可以使用，请点击“保存修改”以生效.');
     }else{
-      $('#yui-gen44').html("http://<%= Setting.ktv_sub %>.kejian.tv/<span style=\"color:red;font-size:28px\">"+data['ff']+'</span>');
+      $('#yui-gen44').html("http://<%= Setting.ktv_subdomain %>/<span style=\"color:red;font-size:28px\">"+data['ff']+'</span>');
       $('#slug-error').removeClass('okay');
       $('#slug-error').addClass('error');
       $('#btn-primary').attr('disabled','disabled');
@@ -67,12 +67,12 @@ $('#edit-skills-add-btn').click(function(){
   					<div class="skills-editor jellybean-editor" id="yui-gen4">
   						<span id="skills-editSkillsForm-error" class="error"></span>
   						<ol class="skills-list" id="yui-gen44" style="font-size:28px;line-height:45px;text-indent:8px">
-                http://<%= Setting.ktv_sub %>.kejian.tv/<%= @user.fangwendizhi %>
+                http://<%= Setting.ktv_subdomain %>/<%= @user.fangwendizhi %>
   						</ol>
   					</div>
   					<p class="actions">
   						<input type="submit" id="btn-primary" class="btn-primary" value="保存修改" name="" disabled="disabled">
-              <span class="alternate" style="line-height:26px">或 <a href="/account/edit">返回我的账号首页</a></span>
+              <span class="alternate" style="line-height:26px;font-size:12px">或 <a href="/account/edit">返回我的账号首页</a></span>
   					</p>
   					<div class="screen">
   					</div>

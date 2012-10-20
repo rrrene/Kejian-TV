@@ -350,5 +350,6 @@ Sub::Application.routes.draw do
   constraints constraint do
     mount Sidekiq::Web => '/sidekiq'
   end
-  get "/*identifier" => "users#show"
+  
+  get "/:id" => "users#show"
 end
