@@ -25,6 +25,14 @@
 								<span class="addto-label">添加到</span>
 							</span>
 							<img alt="" src= "<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="yt-uix-button-arrow">
+							<div class="hid" style="display: none;" id="shared-addto-menu">
+							  <div class="addto-menu">
+							      <div class="addto-loading loading-content">
+							        <img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
+							        <span>正在载入播放列表...</span>
+							      </div>
+							  </div>
+							</div>
 						</button>
     				<button role="button" class=" yt-uix-button yt-uix-button-default"  id="vm-playlist-play-all" type="button" href="/watch?v=Tc_OmWppLBE&amp;feature=my_watch_later_videos&amp;list=WL9F5E19B09C8D397C">
 							<span class="yt-uix-button-content">全部播放 </span>
@@ -32,29 +40,9 @@
     				<button role="button" class=" yt-uix-button yt-uix-button-default"  id="vm-playlist-remove-videos" type="button" disabled="True">
 							<span class="yt-uix-button-content">删除 </span>
 						</button>
-    				<span class="hid" id="watch-history-pause-container">
-    					<button role="button" class=" yt-uix-button yt-uix-button-default"  id="watch-history-pause-button" type="button">
-								<span class="yt-uix-button-content">暂停观看历史记录 </span>
-							</button>
-    				</span>
-    				<span class="hid" id="watch-history-resume-container">
-							<button role="button" class=" yt-uix-button yt-uix-button-default"  id="watch-history-resume-button" type="button">
-								<span class="yt-uix-button-content">恢复观看历史记录 </span>
-							</button>
-    				</span>
-    				<span class="hid" id="search-history-pause-container">
-							<button role="button" class=" yt-uix-button yt-uix-button-default"  id="search-history-pause-button" type="button">
-								<span class="yt-uix-button-content">暂停搜索记录 </span>
-							</button>
-    				</span>
-    				<span class="hid" id="search-history-resume-container">
-							<button role="button" class=" yt-uix-button yt-uix-button-default"  id="search-history-resume-button" type="button">
-								<span class="yt-uix-button-content">恢复搜索记录 </span>
-							</button>
-    				</span>
     				<span id="vm-view-filter">
     				<span id="vm-view-filter-label">观看：</span>
-    				<button aria-activedescendant="" aria-haspopup="true" aria-expanded="false" aria-pressed="false" role="button" class=" yt-uix-button yt-uix-button-text"  id="vm-view-btn" type="button" aria-labelledby="vm-view-filter-label">
+    				<button role="button" class=" yt-uix-button yt-uix-button-text"  id="vm-view-btn" type="button">
 							<span class="yt-uix-button-content">最新课件 </span>
 							<img alt="" src= "<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="yt-uix-button-arrow">
     				<ul style="display: none;" aria-haspopup="true" role="menu" class=" yt-uix-button-menu yt-uix-button-menu-text">
@@ -112,6 +100,123 @@
 
 <script type="text/javascript" charset="utf-8">
 	<% content_for :butt2 do %>
+  $(window).scroll(function(){
+    var hidden = '<div style="visibility: hidden; position: static; top: auto; left: auto; display: block; float: none; margin: 0px; width: 766px; height: 54px;"></div>'
+    var cssObj = {
+      'left': ($('#vm-page-subheader').offset().left-2).toString()+'px',
+      'width': '766px',
+      'float': 'none',
+      'position': 'fixed',
+      'top': '0px'
+    };          
+    if($(window).scrollTop() >= $('#vm-page-subheader').offset().top +$('#vm-page-subheader').height()){
+      if(!$('#vm-video-actions-bar').hasClass('scrollfloat')){
+          $('#vm-video-actions-bar').before(hidden);  
+          $('#vm-video-actions-bar').addClass('scrollfloat');
+          $('#vm-video-actions-bar').css(cssObj);
+      }
+    }else{
+       if($('#vm-video-actions-bar').hasClass('scrollfloat')){
+         $('#vm-page-subheader').next().remove();
+         $('#vm-video-actions-bar').removeClass('scrollfloat');
+         $('#vm-video-actions-bar').removeAttr('style');
+       }
+    }
+  });
+	var choose = new Array();
+	var sorter = new Array();
+	var resort = function(){
+		sorter = new Array();
+		$('.vm-video-item').each(function(index,li){
+			sorter[index] = {};
+			sorter[index]['time']=$('input.yt-uix-form-input-checkbox.video-checkbox',li).attr('data-created-at');
+			sorter[index]['views_count']=$('input.yt-uix-form-input-checkbox.video-checkbox',li).attr('data-times');
+			sorter[index]['li']=li;
+		});
+	};
+	resort();
+
+	$('#vm-view-btn').live('click',function(){
+		var ul = $('ul',this);
+		ul.remove();
+		
+		
+		$('.__ytb').append(ul);
+	});
+	function sort_by(type){
+		if(type=='times'){
+			sorter.sort(function(x,y){
+				return -(x.views_count - y.views_count)
+			});
+			$('#vm-playlist-video-list-ol').html('');
+			$.each(sorter,function(index,li){
+				$('#vm-playlist-video-list-ol').append(li.li);
+			});
+		}else{
+			sorter.sort(function(x,y){
+				return -(x.time - y.time)
+			});
+			$('#vm-playlist-video-list-ol').html('');
+			$.each(sorter,function(index,li){
+				$('#vm-playlist-video-list-ol').append(li.li);
+			});
+		}
+	}
+	$('#vm-video-select-all').live('click',function(){
+		choose = new Array();
+		if($(this).attr('checked')){
+			$('input.yt-uix-form-input-checkbox.video-checkbox').attr('checked',true);
+			$('input.yt-uix-form-input-checkbox.video-checkbox').each(function(index,li){
+				choose.push($(li).val());
+				$(li).parent().addClass('checked');
+				$(li).parent().parent().parent().addClass('selected');
+			});
+			setEnable();
+		}else{
+			$('input.yt-uix-form-input-checkbox.video-checkbox').attr('checked',false);
+			$('input.yt-uix-form-input-checkbox.video-checkbox').each(function(index,li){
+				$(li).parent().removeClass('checked');
+				$(li).parent().parent().parent().removeClass('selected');
+			});
+			setDisable();
+		}
+	});
 	
+	var setDisable = function(){
+      $('.addto-button').attr('disabled',true);
+			$('#vm-playlist-remove-videos').attr('disabled',true);
+	};
+	var setEnable = function(){
+    $('button.addto-button').attr('disabled',false);
+		$('#vm-playlist-remove-videos').attr('disabled',false);
+	}
+	$('input.yt-uix-form-input-checkbox.video-checkbox').live('click',function(){
+		var len = $('input.yt-uix-form-input-checkbox.video-checkbox').length
+		if($(this).attr('checked')){
+			if($.inArray($(this).val(),choose)==-1){
+				choose.push($(this).val());
+			}
+			$(this).parent().addClass('checked');
+			$(this).parent().parent().parent().addClass('selected');
+			setEnable();
+			if(choose.length == len){
+				$('#vm-video-select-all').attr('checked',true);
+			}
+		}else{
+      var indexOfele = choose.indexOf($(this).val());
+			$(this).parent().removeClass('checked');
+			$(this).parent().parent().parent().removeClass('selected');
+      if(indexOfele != -1){
+        choose.splice(indexOfele,indexOfele+1);
+      }
+      if(choose.length<1){
+				setDisable();
+      }
+			if(choose.length < len){
+				$('#vm-video-select-all').attr('checked',false);
+			}
+		}
+		console.log(choose);
+	});
 	<% end  %>
 </script>
