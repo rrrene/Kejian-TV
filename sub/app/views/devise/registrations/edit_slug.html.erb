@@ -8,7 +8,10 @@
 <%= render 'ln_nav' %>
 
 <%= render 'content_below' %>
-
+<% content_for :butt2 do %>
+$('#pagekey-nprofile-edit-success').resize(KTV.ln_targetize);
+KTV.ln_targetize();
+<% end %>
 <% content_for :butt2 do %>
 $('#edit-skills-add-ta').keydown(function( e ) {
   if ( e.keyCode == 13 ) {
@@ -59,7 +62,7 @@ $('#edit-skills-add-btn').click(function(){
             <div class="add-skill-container">
               <input type="text" class="type-ahead exclude yui-ac-input" name="fangwendizhi-ta" value="" id="edit-skills-add-ta" placeholder="请输入新的访问地址后缀" autocomplete="off">
               <a class="btn-primary" id="edit-skills-add-btn" href="#">测试是否可用</a>
-    					<span class="error" id="slug-error"></span>
+    					<span class="error" id="slug-error" style="font-size:12px"></span>
               <img src="<%= asset_path 'ln03/scds/common/u/img/anim/anim_loading_16x16.gif' %>" class="typeahead-loading-icon">
             </div>
 				<%= form_for(resource, :as => resource_name, :url => request.path, :html => { :method => :put, :class => 'standard-form stacked competencies" novalidate',:id=>'submit_btn_form',:enctype =>  "multipart/form-data",:autocomplete=>"off" }) do |f| %>

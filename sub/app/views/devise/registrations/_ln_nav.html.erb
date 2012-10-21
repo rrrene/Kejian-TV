@@ -9,8 +9,3 @@
   <li id="ln_nav_i18n" class="<%= 'active' if '/account/edit_i18n'==request.path %>"><a href="/account/edit_i18n">国际化设置</a></li>
   <li id="ln_nav_invite" class="<%= 'active' if '/account/edit_invite'==request.path %>"><a href="/account/edit_invite">邀请好友注册</a></li>
 </ul>
-
-<% content_for :butt2 do %>
-$('#pagekey-nprofile-edit-success').resize(KTV.ln_targetize);
-KTV.ln_targetize();
-<% end %>

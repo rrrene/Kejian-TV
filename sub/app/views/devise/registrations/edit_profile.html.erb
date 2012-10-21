@@ -9,6 +9,10 @@
 
 <%= render 'content_below' %>
 <% content_for :butt2 do %>
+$('#pagekey-nprofile-edit-success').resize(KTV.ln_targetize);
+KTV.ln_targetize();
+<% end %>
+<% content_for :butt2 do %>
 $('#popup_headlines').popupWindow({
   height:440, 
   width:364, 

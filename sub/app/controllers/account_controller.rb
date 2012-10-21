@@ -8,13 +8,23 @@ class AccountController < Devise::RegistrationsController
     :update_slug,
     :edit_services,
   ]
+  def bind
+    @serv=params[:service].to_sym
+    unless Authorization::SERVICES.keys.include? @serv
+      render text:'service not supported yet'
+      return false
+    end
+    @service = Authorization::SERVICES[@serv]
+    render layout:'application'
+  end
   def edit_services
-    
+    render layout:'application'
+    @seo[:title] = '绑定账号'
   end
   def edit
     common_account_op!
     @seo[:title] = '账号设置'
-    render "edit",layout:'application'
+    render layout:'application'
   end
   def edit_profile
     common_account_op!

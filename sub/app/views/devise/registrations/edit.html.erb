@@ -10,7 +10,10 @@ $('.jbttt span').tipsy({gravity: 's',fade: <%= @is_WebKit ? 'false' : 'true'%>,o
 <%= render 'ln_nav' %>
 
 <%= render 'content_below' %>
-
+<% content_for :butt2 do %>
+$('#pagekey-nprofile-edit-success').resize(KTV.ln_targetize);
+KTV.ln_targetize();
+<% end %>
 <div class="wrapper" style="width:1000px">
 	
 <div class="__skp" style="position:absolute;top:314px;margin-left:185px;z-index:22" id="pagekey-nprofile-psvr-skp">
@@ -22,7 +25,7 @@ $('.jbttt span').tipsy({gravity: 's',fade: <%= @is_WebKit ? 'false' : 'true'%>,o
 	            <span>
                 <a href="/users/96/sklivvz?tab=reputation">25,489</a>
 	            </span>
-	            名声
+	            声望
 	        </div>
 					<div class="badges">
 	          <span><span title="9 gold badges"><span class="badge1"></span><span class="badgecount">9</span></span><span title="98 silver badges"><span class="badge2"></span><span class="badgecount">98</span></span><span title="192 bronze badges"><span class="badge3"></span><span class="badgecount">192</span></span></span>                    
@@ -43,7 +46,7 @@ $('.jbttt span').tipsy({gravity: 's',fade: <%= @is_WebKit ? 'false' : 'true'%>,o
 			<div id="main" class="profile grid-a">
 				<div id="content" class="">
 					<!-- Start profile card -->
-          <%= link_to image_tag("efw/r#{@user.completion_rate}.png"),'#wanshan',style:'position:absolute;z-index:23;margin-left:568px;margin-top:202px' %>
+          <%= image_tag("efw/r#{@user.completion_rate}.png",style:'position:absolute;z-index:23;margin-left:568px;margin-top:202px') %>
 					<div class="top-card" style="margin-top:8px">
 						<div class="profile-card vcard">
 							<div class="profile-picture" id="profile-picture">
@@ -64,7 +67,7 @@ $('.jbttt span').tipsy({gravity: 's',fade: <%= @is_WebKit ? 'false' : 'true'%>,o
   											</a>
   										</div>
   										<div class="button-group-secondary">
-  											<a name="previewProfile" class="button-secondary" href="/profile/view?id=73526537&amp;locale=en_US&amp;trk=prof-0-ovw-view-secondary"><span>公共资料页</span></a>
+  											<a name="previewProfile" class="button-secondary" href="/profile/view?id=73526537&amp;locale=en_US&amp;trk=prof-0-ovw-view-secondary"><span>查看资料页</span></a>
   											<div class="button-menu connect-menu-toggle">
   												<span>More options</span>
   												<dl class="connect-menu">
@@ -142,20 +145,14 @@ $('.jbttt span').tipsy({gravity: 's',fade: <%= @is_WebKit ? 'false' : 'true'%>,o
 										<% end %>
 									</dl>
 								</div>
-                <div class="j32" style="width:617px;height:32px;margin:16px 0;">
-                  <a class="jbttt jbt_renren"><span title="绑定人人网账号" class="jiathis_txt jtico jtico_renren"></span></a>
-                  <a class="jbttt jbt_tsina"><span title="绑定新浪微博账号" class="jiathis_txt jtico jtico_tsina"></span></a>
-                  <a class="jbttt jbt_douban"><span title="绑定豆瓣账号" class="jiathis_txt jtico jtico_douban"></span></a>
-                  <a class="jbttt jbt_qq"><span title="绑定QQ账号" class="jiathis_txt jtico jtico_tqq"></span></a>
-                  <a class="jbttt jbt_github"><span title="绑定Github账号" class="jiathis_txt jtico jtico_github"></span></a>
-                  <a class="jbttt jbt_buzz"><span title="绑定谷歌Buzz账号" class="jiathis_txt jtico jtico_buzz"></span></a>
-                  <a class="jbttt jbt_googleplus"><span title="绑定Google+账号" class="jiathis_txt jtico jtico_googleplus"></span></a>
-                  <a class="jbttt jbt_fb"><span title="绑定Facebook账号" class="jiathis_txt jtico jtico_fb"></span></a>
-                  <a class="jbttt jbt_twitter"><span title="绑定Twitter账号" class="jiathis_txt jtico jtico_twitter"></span></a>
-                  <a class="jbttt jbt_linkedin"><span title="绑定LinkedIn账号" class="jiathis_txt jtico jtico_linkedin"></span></a>
-                  <a class="jbttt jbt_msn"><span title="绑定MSN账号" class="jiathis_txt jtico jtico_msn"></span></a>
+                <div class="__jia">
+                  <div class="j32" style="width:617px;height:32px;margin:16px 0;">
+                    <% Authorization::SERVICES.each do |key,value| %>
+                    <a class="jbttt jbt_<%= key %>" href="/account/bind/<%= key %>"><span title="绑定<%= value[:name] %>" class="jiathis_txt jtico jtico_<%= key %>"></span></a>
+                    <% end %>
+                  </div>
                 </div>
-                <table summary="关于<%= @user.name %>的综述">
+                <table summary="关于<%= @user.name %>的综述" style="max-width:400px">
                 <tbody>
                   <tr class="overview-summary-current">
                   	<th id="overview-summary-current-title" scope="row">
