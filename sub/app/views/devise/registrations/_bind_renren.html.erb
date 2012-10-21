@@ -1,9 +1,48 @@
 <% content_for :armpit do %>
 <%= stylesheet_link_tag "bind/__rr", :media => "all" %>
 <% end %>
+<script type="text/javascript" charset="utf-8">
 <% content_for :butt2 do %>
-KTV.bind_service_targetize();
+$('#email,#password,#icode').focus(function(){
+  $(this).parent().css('border-color','rgb(142,150,161)');
+  if($(this).val().length>0){
+    $(this).css('color','rgb(51, 51, 51)');
+  }else{
+    $(this).css('color','rgb(136, 136, 136)');
+  }
+}).blur(function(){
+  $(this).parent().css('border-color','rgb(173, 182, 201)');
+  if($(this).val().length>0){
+    $(this).css('color','rgb(51, 51, 51)');
+  }else{
+    $(this).css('color','rgb(136, 136, 136)');
+  }
+});
+$('#email,#password,#icode').keydown(function(){
+  if($(this).val().length>0){
+    $(this).css('color','rgb(51, 51, 51)');
+  }else{
+    $(this).css('color','rgb(136, 136, 136)');
+  }
+});
+$('#password').focus(function(){
+  $('#codeimg').show();
+  $('#code').show();
+});
+$('#email,#password,#icode').each(function(){
+  if($(this).val().length>0){
+    $(this).css('color','rgb(51, 51, 51)');
+  }else{
+    $(this).css('color','rgb(136, 136, 136)');
+  }
+});
+var _11d=new Date();
+$('#uniqueTimestamp').val(_11d.getFullYear()+_11d.getMonth()+_11d.getDay()+_11d.getHours()+_11d.getSeconds()+_11d.getUTCMilliseconds());
 <%end %>
+
+</script>
+
+
 <div class="__rr" style="width: 822px;position:absolute;top:186px;margin-left:166px" id="bind_service_target">
 	<div id="syshome" class="login" style="width: 822px;">
 		<div id="header">
@@ -12,7 +51,7 @@ KTV.bind_service_targetize();
 					<div class="navigation navigation-new clearfix">
 						<div id="logo2">
 							<h1>
-							<a href="http://www.renren.com" title="人人网 renren.com - 人人网校内是一个真实的社交网络，联系朋友，一起玩游戏">
+							<a href="http://www.renren.com" title="人人网 renren.com - 人人网校内是一个真实的社交网络，联系朋友，一起玩游戏" target="_blank">
 							<img alt="人人网 renren.com - 人人网校内是一个真实的社交网络，联系朋友，一起玩游戏" title="人人网 renren.com - 人人网校内是一个真实的社交网络，联系朋友，一起玩游戏" height="72" width="222" src="http://a.xnimg.cn/n/apps/login/v6/res/logo_new.png">
 							</a>
 							</h1>
@@ -28,91 +67,60 @@ KTV.bind_service_targetize();
 			<div class="full-page-holder">
 				<div class="full-page">
 					<div class="login-page clearfix">
-						<div class="side-column" style="height:222px">
+						<div class="side-column" style="height:354px">
 							<div class="login-panel">
-								<div class="yellow-error" id="yellow_error">
-									<a class="close" href="javascript:closeError();"></a>
-									<p class="wrong">
-										您的用户名和密码不匹配
-									</p>
-									<p class="worp">
-										为了帐号安全，已向您的邮箱： <strong id="sendemail"></strong>发送了一封确认信，请通过邮件内链接登录。
-									</p>
-									<p class="m-26">
-										<a id="gotoEmail" href="#" target="_blank">打开邮箱查收确认信</a>
-									</p>
-									<p class="m-26">
-										<a href="javascript:closeError();">重新输入</a>
-									</p>
-								</div>
-								<div class="yellow-error" id="account_stop">
-									<a class="close" href="javascript:closeStop();"></a>
-									<p class="wrong">
-									</p>
-									<p class="center">
-										您的帐号已停止使用，如有疑问请联系<a style="background:none;padding-left:0;" target="_blank" href="http://help.renren.com/#http://help.renren.com/support/contomvice?pid=2&amp;selection={couId:193,proId:342,cityId:1000375}">客服</a>
-									</p>
-								</div>
-								<div class="yellow-error" id="account_lock">
-									<a class="close" href="javascript:closeLock();"></a>
-									<p class="wrong">
-										您的帐号由于以下某种原因需要解锁才能登录
-									</p>
-									<ol>
-										<li>删除过帐号</li>
-										<li>长时间没有登录网站</li>
-										<li>安全原因</li>
-									</ol>
-									<p class="center">
-										<a href="http://safe.renren.com/relive.do">立即解锁</a>
-									</p>
-								</div>
-								<form method="post" id="loginForm" class="login-form" action="http://www.renren.com/PLogin.do">
+                <%= form_tag request.path, :id=>"loginForm", :class=>"login-form" do |f| %>
 									<dl class="top clearfix">
 										<dt><label for="email">帐号:</label></dt>
 										<dd style="border-color: rgb(173, 182, 201); ">
-										<span id="errorMessage" class="errors_div" style="display:none;"></span>
-										<input type="text" name="email" class="input-text" placeholder="邮箱/手机号/用户名" id="email" tabindex="1" value="" style="color: rgb(136, 136, 136); ">
+										<input type="text" name="email" class="input-text" id="email" tabindex="1" placeholder="邮箱/手机号/用户名" value="" style="color: rgb(136, 136, 136); ">
 										</dd>
 									</dl>
 									<dl class="pwd clearfix">
 										<dt><label for="password">密码:</label></dt>
 										<dd>
-										<input type="password" id="password" name="password" error="请输入密码" class="input-text" tabindex="2" autocomplete="off" placeholder="请输入密码">
-										<a class="forgetPwd" id="forgetPwd" href="http://safe.renren.com/findPass.do" stats="home_findpassword">忘记密码？</a>
+										<input type="password" id="password" name="password" placeholder="请输入密码" class="input-text" tabindex="2" autocomplete="off" style="color: rgb(136, 136, 136); ">
 										</dd>
 									</dl>
 									<div class="caps-lock-tips" id="capsLockMessage" style="display:none">
 									</div>
 									<dl class="savepassword clearfix">
 										<dt>
-										<label title="为了确保您的信息安全，请不要在网吧或者公共机房勾选此项！" for="autoLogin" class="labelCheckbox">
-										<input type="checkbox" name="autoLogin" id="autoLogin" value="true" tabindex="4">下次自动登录 </label>
+										<label for="autoLogin" class="labelCheckbox psvr_zhongwenfont">
+										<input type="checkbox" name="autoLogin" checked="checked" id="autoLogin" value="true" tabindex="4">关注课件交流系统公共主页 </label>
+										</dt>
+										<dt>
+										<label for="autoLogin2" class="labelCheckbox psvr_zhongwenfont">
+
+										<input type="checkbox" name="autoLogin2" checked="checked" id="autoLogin2" value="true" tabindex="4">发表绑定成功状态 </label>
 										</dt>
 										<dd>
-										<span class="getpassword" id="getpassword"><a href="http://safe.renren.com/findPass.do" stats="home_findpassword">忘记密码？</a></span>
 										</dd>
 									</dl>
 									<dl id="codeimg" class="codeimg clearfix">
 										<dt></dt>
-										<dd><img id="verifyPic_login" src="http://icode.renren.com/getcode.do?t=web_login&amp;rnd=Math.random()"><a href="javascript:refreshCode_login();">换一张</a>
+										<dd>
+                      <img id="verifyPic_login" src="data:image/jpeg;base64,<%= raw @captcha %>" />
+                      <!-- todo -->
+                      <a href="document.location.reload(true);">换一张</a>
 										</dd>
 									</dl>
 									<dl id="code" class="code clearfix">
 										<dt><label for="code">验证码:</label></dt>
 										<dd>
-										<input id="icode" type="text" name="icode" class="input-text" tabindex="3" autocomplete="off">
-										<label class="codetip" id="codeTip" for="icode">请输入验证码</label>
+										<input id="icode" type="text" name="icode" class="input-text" tabindex="3" autocomplete="off" placeholder="请输入验证码" style="color: rgb(136, 136, 136); ">
 										</dd>
 									</dl>
 									<dl class="bottom">
-										<input type="hidden" name="origURL" value="http://www.renren.com/home">
-										<input type="hidden" name="domain" value="renren.com">
-										<input type="hidden" name="key_id" value="1">
-										<input type="hidden" name="captcha_type" id="captcha_type" value="web_login">
-										<input type="submit" id="login" class="input-submit login-btn" stats="loginPage_login_button" value="登录人人网" tabindex="5">
+                    <input type="hidden" name="origURL" value="<%= @origURL %>" />
+                    <input type="hidden" name="domain" value="<%= @domain %>" />
+                    <input type="hidden" name="key_id" value="<%= @key_id %>" />
+                    <input type="hidden" name="captcha_type" id="captcha_type" value="<%= @captcha_type %>" />
+                    <input type="hidden" name="renren_cookie" value="<%= @renren_cookie %>" />
+                    <input type="hidden" name="uniqueTimestamp" id="uniqueTimestamp" value="" />
+										<input type="submit" id="login_to_renren" class="input-submit login-btn" stats="loginPage_login_button" value="登录人人网" tabindex="5">
 									</dl>
-								</form>
+								<% end %>
 							</div>
 						</div>
 						<div class="main-column" style="width:565px">

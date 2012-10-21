@@ -6,7 +6,8 @@ class AccountController < Devise::RegistrationsController
     :update_profile,
     :edit_slug,
     :update_slug,
-    :edit_services,
+    :bind,
+    :real_bind,
   ]
   def bind
     @serv=params[:service].to_sym
@@ -15,7 +16,32 @@ class AccountController < Devise::RegistrationsController
       return false
     end
     @service = Authorization::SERVICES[@serv]
+    @seo[:title] = "绑定#{@service[:name]}"
+    self.send("bind_#{@serv}_prepare!")
     render layout:'application'
+  end
+  def bind_renren_prepare!
+    rr = Ktv::Renren.new
+    @origURL, @domain, @key_id, @captcha_type, @captcha = rr.build_login_page
+    @renren_cookie = rr.agent.cookies.join('; ')
+    # to be fiiled: :uniqueTimestamp, :email, :icode, :password
+  end
+  def real_bind
+    rr = Ktv::Renren.new
+    rr.send_login!(
+      request,
+      params[:renren_cookie],
+      params[:uniqueTimestamp],
+      {
+        :email => params[:email],
+        :icode => params[:icode],
+        :origURL => params[:origURL],
+        :domain => params[:domain],
+        :key_id => params[:key_id],
+        :captcha_type => params[:captcha_type],
+        :password => params[:password],
+      }
+    )
   end
   def edit_services
     render layout:'application'
