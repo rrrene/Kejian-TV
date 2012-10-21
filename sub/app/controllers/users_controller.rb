@@ -90,6 +90,9 @@ class UsersController < ApplicationController
 
   def show
   end
+  def redirect_to_service
+    
+  end
 
   def asked
     @per_page = 10

@@ -1,8 +1,10 @@
 <% content_for :armpit do %>
 <%= stylesheet_link_tag "__lnk", :media => "all" %>
+<%= stylesheet_link_tag "jia", :media => "all" %>
 <% end %>
-
-
+<% content_for :butt2 do %>
+$('.jbttt span').tipsy({gravity: 's',fade: <%= @is_WebKit ? 'false' : 'true'%>,opacity: 1});
+<% end %>
 <%= render :partial => 'content_above', :locals=>{:skp_content_style => "height:1888px;background: white url(#{asset_path 'lnbg.png'}) repeat-y scroll 0 0;"} %>
 
 <%= render 'ln_nav' %>
@@ -62,7 +64,7 @@
   											</a>
   										</div>
   										<div class="button-group-secondary">
-  											<a name="previewProfile" class="button-secondary" href="/profile/view?id=73526537&amp;locale=en_US&amp;trk=prof-0-ovw-view-secondary"><span>查看资料页</span></a>
+  											<a name="previewProfile" class="button-secondary" href="/profile/view?id=73526537&amp;locale=en_US&amp;trk=prof-0-ovw-view-secondary"><span>公共资料页</span></a>
   											<div class="button-menu connect-menu-toggle">
   												<span>More options</span>
   												<dl class="connect-menu">
@@ -106,15 +108,26 @@
 									<p class="title" style="display:block">
 										<%= @user.tagline.present? ? @user.tagline : '(未填写一句话介绍)' %>
 									</p>
-									<dl id="headline" class="demographic-info adr">
+									<dl id="headline" class="demographic-info adr" style="font-size:13px">
 										<dt>地区</dt>
 										<dd>
 										<span class="locality">
-											<%= @user.location.present? ? @user.location : '未知地区' %> </span>
+                      <% if @user.location.present? %>
+                        <%= @user.location %>
+                      <% else %>
+                      <span class="add">
+                        <a href="/account/edit_profile">+ 添加地区</a>
+                      </span>
+                      <% end %>
+										</span>
 										</dd>
 										<dt>领域</dt>
 										<% if @user.lingyu_industry.blank? and @user.lingyu_study.blank? %>
-										未知行业或学术领域
+                    <dd class="industry">
+                      <span class="add">
+                        <a href="/account/edit_profile">+ 添加行业或学术领域</a>
+                      </span>
+                    </dd>
 										<% else %>
 											<% if @user.lingyu_industry.present? %>
 											<dd class="industry">
@@ -129,8 +142,50 @@
 										<% end %>
 									</dl>
 								</div>
-
-
+                <div class="j32" style="width:617px;height:32px;margin:16px 0;">
+                  <a class="jbttt jbt_renren"><span title="绑定人人网账号" class="jiathis_txt jtico jtico_renren"></span></a>
+                  <a class="jbttt jbt_tsina"><span title="绑定新浪微博账号" class="jiathis_txt jtico jtico_tsina"></span></a>
+                  <a class="jbttt jbt_douban"><span title="绑定豆瓣账号" class="jiathis_txt jtico jtico_douban"></span></a>
+                  <a class="jbttt jbt_qq"><span title="绑定QQ账号" class="jiathis_txt jtico jtico_tqq"></span></a>
+                  <a class="jbttt jbt_github"><span title="绑定Github账号" class="jiathis_txt jtico jtico_github"></span></a>
+                  <a class="jbttt jbt_buzz"><span title="绑定谷歌Buzz账号" class="jiathis_txt jtico jtico_buzz"></span></a>
+                  <a class="jbttt jbt_googleplus"><span title="绑定Google+账号" class="jiathis_txt jtico jtico_googleplus"></span></a>
+                  <a class="jbttt jbt_fb"><span title="绑定Facebook账号" class="jiathis_txt jtico jtico_fb"></span></a>
+                  <a class="jbttt jbt_twitter"><span title="绑定Twitter账号" class="jiathis_txt jtico jtico_twitter"></span></a>
+                  <a class="jbttt jbt_linkedin"><span title="绑定LinkedIn账号" class="jiathis_txt jtico jtico_linkedin"></span></a>
+                  <a class="jbttt jbt_msn"><span title="绑定MSN账号" class="jiathis_txt jtico jtico_msn"></span></a>
+                </div>
+                <table summary="关于<%= @user.name %>的综述">
+                <tbody>
+                  <tr class="overview-summary-current">
+                  	<th id="overview-summary-current-title" scope="row">
+                  		<a href="#profile-experience" class="current-title">现任职位 / 正在攻读</a>
+                  	</th>
+                  	<td>
+                  		<ol>
+                  			<li>
+                  			<a href="/profile/edit_position" name="addPosition" class="add">
+                  			+ <strong>添加</strong> 您的现任职位或正在攻读的学位 </a>
+                  			</li>
+                  		</ol>
+                  	</td>
+                  </tr>
+                  <tr id="overview-summary-past">
+                  	<th id="overview-summary-past-title" scope="row">
+                  		<a href="#profile-experience" class="past-title">教育与学历</a>
+                  	</th>
+                  	<td>
+                  		<ol>
+                  			<li>
+                  			<a href="/profile/edit_position" name="addPosition" class="add">
+                  			+ <strong>添加</strong> 您的学历信息 </a>
+                  			</li>
+                  		</ol>
+                  	</td>
+                  </tr>
+                </tbody>
+                </table>
+                
 							</div>
 							<!-- End profile-overview -->
 						</div>

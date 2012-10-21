@@ -290,6 +290,7 @@
         });
       <% end %>
     });
+    $('.yt-uix-tooltip').tipsy({gravity: $.fn.tipsy.autoNS,fade: <%= @is_WebKit ? 'false' : 'true'%>,opacity: 1});
     // jQuery.fn.extend({
     //     shareModes:['share-public', 'share-followers','share-private'],
     //     shareMod:['分享该笔记','只好友可见','仅自己可见'],

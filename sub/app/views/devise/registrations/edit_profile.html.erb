@@ -93,24 +93,24 @@ $('#popup_headlines').popupWindow({
   <%= options_for_select(['-省份-']+PreCommonDistrict.where(:level=>1).order('displayorder').collect{|x| [x.name,x.name, {:did => x.id.to_s}]},@user.at_province)%>
 </select>&nbsp;&nbsp;
 
-
+<% if @user.at_province.present? %>
 <% father=PreCommonDistrict.where(:level=>1,:name=>@user.at_province).first %>
 <select name="birthcity" id="birthcity" class="ps" onchange="showdistrict('birthdistrictbox', ['birthprovince', 'birthcity', 'birthdist', 'birthcommunity'], 4, 2, 'birth')" tabindex="4">
   <%= options_for_select(['-城市-']+PreCommonDistrict.where(:level=>2,:upid=>father.id).order('displayorder').collect{|x| [x.name,x.name, {:did => x.id.to_s}]},@user.at_city)%>
 </select>&nbsp;&nbsp;
-<% if @user.at_city.present? and @user.at_city[0]!='-' %>
+<% if @user.at_city.present? and @user.at_city.present? and @user.at_city[0]!='-' %>
 <% father=PreCommonDistrict.where(:level=>2,:name=>@user.at_city).first %>
 <select name="birthdist" id="birthdist" class="ps" onchange="showdistrict('birthdistrictbox', ['birthprovince', 'birthcity', 'birthdist', 'birthcommunity'], 4, 3, 'birth')" tabindex="5">
   <%= options_for_select(['-州县-']+PreCommonDistrict.where(:level=>3,:upid=>father.id).order('displayorder').collect{|x| [x.name,x.name, {:did => x.id.to_s}]},@user.at_dist)%>
 </select>&nbsp;&nbsp;
-<% if @user.at_dist.present? and @user.at_dist[0]!='-' %>
+<% if @user.at_dist.present? and @user.at_dist.present? and @user.at_dist[0]!='-' %>
 <% father=PreCommonDistrict.where(:level=>3,:name=>@user.at_dist).first %>
 <select name="birthcommunity" id="birthcommunity" class="ps" onchange="showdistrict('birthdistrictbox', ['birthprovince', 'birthcity', 'birthdist', 'birthcommunity'], 4, 4, 'birth')" tabindex="6">
   <%= options_for_select(['-乡镇-']+PreCommonDistrict.where(:level=>4,:upid=>father.id).order('displayorder').collect{|x| [x.name,x.name, {:did => x.id.to_s}]},@user.at_community)%>
 </select>&nbsp;&nbsp;
 <% end %>
 <% end %>
-
+<% end %>
 
 <% unless resource.errors_for_field(:location).blank? %>
 <span class="error"><%= resource.errors_for_field(:location) %></span>						    

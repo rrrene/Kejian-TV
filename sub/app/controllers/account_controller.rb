@@ -6,7 +6,11 @@ class AccountController < Devise::RegistrationsController
     :update_profile,
     :edit_slug,
     :update_slug,
+    :edit_services,
   ]
+  def edit_services
+    
+  end
   def edit
     common_account_op!
     @seo[:title] = '账号设置'

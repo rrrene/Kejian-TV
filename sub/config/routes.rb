@@ -47,6 +47,7 @@ Sub::Application.routes.draw do
     get '/account/edit_passwd'
     get '/account/edit_i18n'
     get '/account/edit_invite'
+    get '/account/edit_services'
   end
   match "/account/auth/:provider/unbind", :to => "users#auth_unbind"
 
@@ -354,4 +355,5 @@ Sub::Application.routes.draw do
   end
   
   get "/:id" => "users#show"
+  get "/:id/redirect_to/:service" => "users#redirect_to_service"
 end

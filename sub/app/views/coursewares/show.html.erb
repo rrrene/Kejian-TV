@@ -900,8 +900,7 @@ courseware_id: '<%=@courseware.id%>'
                   removeToggled(this.id);
                   $(this).toggleClass('yt-uix-button-toggled');
                   ajax_load_board(this,'stat');
-              });           
-             $('.yt-uix-tooltip').tipsy({gravity: $.fn.tipsy.autoNS,fade: <%= @is_WebKit ? 'false' : 'true'%>,opacity: 1});
+              }); 
              $('#comment_login').click(function(){return KTV.login()});
              $('#watch-more-related-button').live("click",function(){
                 $(this).hide();
