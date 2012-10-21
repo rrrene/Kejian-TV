@@ -19,7 +19,7 @@ Sub::Application.routes.draw do
   get '/mine/my_liked_coursewares'
   post '/mine/delete' => 'mine#delete'
   get '/mine/:page' => 'mine#index'
-
+  get '/popup/headlines'
   # ________________________________user__________________________________________
   devise_for :users, :path => "account", :controllers => {
       :registrations => :account,

@@ -8,6 +8,14 @@
 <%= render 'ln_nav' %>
 
 <%= render 'content_below' %>
+<% content_for :butt2 do %>
+$('#popup_headlines').popupWindow({
+  height:440, 
+  width:364, 
+  top:50, 
+  left:50
+});
+<% end %>
 
 
 <div class="wrapper" style="width:1000px">
@@ -67,7 +75,7 @@
 								<% end %>
 							</div>
 							<p class="note">
-								<strong>例如:</strong> 首都师范大学数学科学学院学生，华东师范大学生物统计中心研究助理，抽象代数研究者，世界史博士生导师，经验丰富的交通运输行政主管，网页设计师，信息架构师，远见卓识的企业家和投资者...<a class="" href="/static?key=pop_ex_headlines&amp;goback=%2Ersm_*1_*1_*1_*1%2Enpe_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1" onclick="LI.popup( '/static?key=pop_ex_headlines&amp;goback=%2Ersm_*1_*1_*1_*1%2Enpe_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1', {} ); return false;" title="New window will open">更多示例</a>
+								<strong>例如:</strong> 首都师范大学数学科学学院学生，华东师范大学生物统计中心研究助理，抽象代数研究者，世界史博士生导师，经验丰富的交通运输行政主管，网页设计师，信息架构师，专利法专家...<a class="" href="/popup/headlines" title="New window will open" id="popup_headlines">更多示例</a>
 							</p>
 							</li>
 						</ul>

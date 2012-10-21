@@ -5,7 +5,7 @@ class AccountSessionsController < Devise::SessionsController
     clean_up_passwords(resource)
     if request.path=='/login_ibeike'
       @login_ibeike = true
-      if Setting.ktv_sub!='login_ibeike'
+      if Setting.ktv_sub!='ibeike'
         render text:'this function is not enabled for this site!'
         return false
       end
@@ -17,7 +17,7 @@ class AccountSessionsController < Devise::SessionsController
   def create
     if params[:login_ibeike]
       @login_ibeike = true
-      if Setting.ktv_sub!='login_ibeike'
+      if Setting.ktv_sub!='ibeike'
         render text:'this function is not enabled for this site!'
         return false
       end

@@ -20,7 +20,7 @@
 	            <span>
                 <a href="/users/96/sklivvz?tab=reputation">25,489</a>
 	            </span>
-	            名望值
+	            名声
 	        </div>
 					<div class="badges">
 	          <span><span title="9 gold badges"><span class="badge1"></span><span class="badgecount">9</span></span><span title="98 silver badges"><span class="badge2"></span><span class="badgecount">98</span></span><span title="192 bronze badges"><span class="badge3"></span><span class="badgecount">192</span></span></span>                    
@@ -41,6 +41,7 @@
 			<div id="main" class="profile grid-a">
 				<div id="content" class="">
 					<!-- Start profile card -->
+          <%= link_to image_tag("efw/r#{@user.completion_rate}.png"),'#wanshan',style:'position:absolute;z-index:23;margin-left:568px;margin-top:202px' %>
 					<div class="top-card" style="margin-top:8px">
 						<div class="profile-card vcard">
 							<div class="profile-picture" id="profile-picture">
@@ -52,7 +53,46 @@
 								</div>
 							</div>
 							<div class="profile-overview">
-								<div id="member-73526537" class="masthead">
+								<div id="member-73526537" class="masthead" style="<%= @is_firefox ? 'line-height:26px' : '' %>">
+  								<div class="profile-aux" style="position:absolute;margin-top:228px">
+  									<div class="profile-actions">
+  										<div class="guided-actions">
+  											<a name="guidedEdit" class="button-primary" href="/profile/guided?goback=%2Ersm_*1_*1_*1_*1%2Enpe_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1&amp;trk=prof-0-sb-guided_edit-primary">
+  											<span>Improve your profile</span>
+  											</a>
+  										</div>
+  										<div class="button-group-secondary">
+  											<a name="previewProfile" class="button-secondary" href="/profile/view?id=73526537&amp;locale=en_US&amp;trk=prof-0-ovw-view-secondary"><span>查看资料页</span></a>
+  											<div class="button-menu connect-menu-toggle">
+  												<span>More options</span>
+  												<dl class="connect-menu">
+  													<dd>
+  													<a name="addRecommendations" href="/recRequests?cor=&amp;goback=%2Ersm_*1_*1_*1_*1&amp;trk=prof-0-sb-ask_for_rec-link">请求职位推荐</a>
+  													</dd>
+  													<dd>
+  													<a href="/profile/edit-profile-in-another-language?goback=%2Ersm_*1_*1_*1_*1%2Enpe_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1&amp;trk=prof-0-sb-create_pial-link">建立更多语言的资料页</a>
+  													</dd>
+  													<dd class="share">
+  													<a href="/forwardProfileMsg?displayCreate=&amp;profileID=73526537&amp;profileName=Minqi+Pan&amp;network=M&amp;authToken=ehue&amp;authType=name&amp;goback=%2Ersm_*1_*1_*1_*1%2Enpe_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1&amp;trk=prof-0-ab-share-0" id="yui-gen3">
+  													<span>分享我的资料页</span>
+  													</a>
+
+
+
+  												</dd>
+  													<dd class="pdf">
+  													<a href="/profile/pdf?id=73526537&amp;locale=en_US&amp;authType=name&amp;authToken=ehue&amp;pdfFileName=MinqiPan&amp;disablePdfCompression=true&amp;trk=pdf_pro_full" title="Download as PDF">
+  													<span>生成PDF资料页</span>
+  													</a>
+  													</dd>
+  												</dl>
+  											</div>
+  										</div>
+  									</div>
+  								</div>
+  								<!-- End profile-aux -->
+                  
+                  
 									<h1>
 									<span class="n fn" id="name">
 										<span class="full-name"><%= name_beautify @user.name %></span>
@@ -90,51 +130,7 @@
 									</dl>
 								</div>
 
-								<div class="profile-aux">
-									<div class="member-connections">
-										<strong>
-										63 </strong>
-										学习伙伴
-									</div>
-									<div class="profile-actions">
-										<div class="guided-actions">
-											<a name="guidedEdit" class="button-primary" href="/profile/guided?goback=%2Ersm_*1_*1_*1_*1%2Enpe_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1&amp;trk=prof-0-sb-guided_edit-primary">
-											<span>Improve your profile</span>
-											</a>
-										</div>
-										<noscript>
-										 &lt;a name="shareProfile" class="button-primary withoutjs" href="/forwardProfileMsg?displayCreate=&amp;amp;profileID=73526537&amp;amp;profileName=Minqi+Pan&amp;amp;network=M&amp;amp;authToken=ehue&amp;amp;authType=name&amp;amp;goback=%2Ersm_*1_*1_*1_*1%2Enpe_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1&amp;amp;trk=prof-0-sb-share-primary"&gt;&lt;span&gt;Share profile&lt;/span&gt;&lt;/a&gt;
-										</noscript>
-										<div class="button-group-secondary">
-											<a name="previewProfile" class="button-secondary" href="/profile/view?id=73526537&amp;locale=en_US&amp;trk=prof-0-ovw-view-secondary"><span>查看资料页</span></a>
-											<div class="button-menu connect-menu-toggle">
-												<span>More options</span>
-												<dl class="connect-menu">
-													<dd>
-													<a name="addRecommendations" href="/recRequests?cor=&amp;goback=%2Ersm_*1_*1_*1_*1&amp;trk=prof-0-sb-ask_for_rec-link">请求职位推荐</a>
-													</dd>
-													<dd>
-													<a href="/profile/edit-profile-in-another-language?goback=%2Ersm_*1_*1_*1_*1%2Enpe_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1&amp;trk=prof-0-sb-create_pial-link">建立更多语言的资料页</a>
-													</dd>
-													<dd class="share">
-													<a href="/forwardProfileMsg?displayCreate=&amp;profileID=73526537&amp;profileName=Minqi+Pan&amp;network=M&amp;authToken=ehue&amp;authType=name&amp;goback=%2Ersm_*1_*1_*1_*1%2Enpe_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1&amp;trk=prof-0-ab-share-0" id="yui-gen3">
-													<span>分享我的资料页</span>
-													</a>
 
-
-
-												</dd>
-													<dd class="pdf">
-													<a href="/profile/pdf?id=73526537&amp;locale=en_US&amp;authType=name&amp;authToken=ehue&amp;pdfFileName=MinqiPan&amp;disablePdfCompression=true&amp;trk=pdf_pro_full" title="Download as PDF">
-													<span>生成PDF资料页</span>
-													</a>
-													</dd>
-												</dl>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- End profile-aux -->
 							</div>
 							<!-- End profile-overview -->
 						</div>

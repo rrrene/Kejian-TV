@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html lang="en" class="ie ie6 lte9 lte8 lte7 os-mac"> <![endif]-->
+<!--[if IE 7]> <html lang="en" class="ie ie7 lte9 lte8 lte7 os-mac"> <![endif]-->
+<!--[if IE 8]> <html lang="en" class="ie ie8 lte9 lte8 os-mac"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie ie9 lte9 os-mac"> <![endif]-->
+<!--[if gt IE 9]> <html lang="en" class="os-mac"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en" class="os-mac">
+<!--<![endif]-->
+<head>
+  <title><%= @seo[:title] %> | <%= "#{Setting.ktv_subname}课件交流系统" %></title>
+<meta http-equiv="content-type" content="text/html;">
+<meta name="pageKey" content="pop_ex_headlines">
+<%= stylesheet_link_tag "__lnk_popup", :media => "all" %>
+</head>
+<body class=" en member v2 chrome-v4 background-v4 sticky-bg basic-member" id="pagekey-pop_ex_headlines">
+    
+
+<input id="inSlowConfig" type="hidden" value="false"/>
+<div id="header" style="margin-bottom:4px">
+	<div class="meta">
+		<a href="javascript:window.close();" title="Close this window" class="close">关闭此窗口</a>
+	</div>
+	<h1><a href="/" target="_blank"><img src="<%= asset_path 'green_logo.png' %>" width="154" height="34" alt="Kejian.TV" style="padding:2px 0"></a></h1>
+</div>
+<%= yield %>
+<div id="footer">
+	<p>
+		<a href="javascript:window.close();">关闭此窗口</a>
+	</p>
+	<p class="copy">
+    
+		版权所有 &copy; <%= Time.now.year %>, Kejian.TV
+	</p>
+</div>
+
+</body>
+</html>
