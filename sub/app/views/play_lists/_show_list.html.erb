@@ -1,6 +1,5 @@
 <% playlist.content.each_with_index do |cwid,index| %>
   <% cw = Courseware.find(cwid) %>
-  <% user = User.find(cw.uploader_id) %>
   <% is_annotated = !playlist.annotation[playlist.content.index(cwid)].blank? %>
 	<li class="playlist-video-item <% if index%2==0 %>odd<% else %>even<% end %> <% if is_annotated %>annotated<% end %>">
 	<div class="yt-uix-tile playlist-video-item-base-content">
@@ -40,7 +39,7 @@
 			<div class="video-overview">
 				<h3 class="video-title-container">
 				<span class="yt-badge-std">
-				已观看 </span>
+				已阅读 </span>
 				<a class="yt-uix-tile-link" href="/coursewares/<%= cw.id %>">
 				<span dir="ltr" class="title video-title "><%= cw.title %></span>
 				</a>
@@ -50,10 +49,11 @@
 				    上传者：<span dir="ltr" class="yt-user-name "><a href="/<%= User.get_fangwendizhi cw.uploader_id %>"><%= name_beautify User.get_name(cw.uploader_id)%></a></span>
 					</span>
 					<span class="video-view-count">
-					观看次数：<%= number_with_delimiter cw.views_count %> 次 </span>
+					阅读次数：<%= number_with_delimiter cw.views_count %> 次 </span>
 				</p>
 			</div>
 		</div>
 	</div>
+	<a class="tile-link-block video-tile yt-uix-sessionlink yt-uix-tile-link" href="/coursewares/<%= cw.id %>"></a>
 	</li>
 	<% end %>

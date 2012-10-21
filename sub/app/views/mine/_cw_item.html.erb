@@ -1,10 +1,10 @@
-<li class="vm-video-item" id="vm-video-q1sRAXZ-qLM">
+<li class="vm-video-item" id="vm-video-<%= item.id %>">
 <div class="vm-video-item-content">
 	<span class="yt-uix-form-input-checkbox-container "><input type="checkbox" aria-labelledby="checkbox_q1sRAXZ-qLM" value="q1sRAXZ-qLM" class="yt-uix-form-input-checkbox video-checkbox" name="video-checkbox"><span class="yt-uix-form-input-checkbox-element"></span></span>
 	<div class="vm-thumb">
 		<a data-sessionlink="ei=CL6px7bRgrMCFdKGIQodrlpluA%3D%3D&amp;feature=my_liked_videos" class="ux-thumb-wrap yt-uix-sessionlink" href="/coursewares/<%= item.id %>">
 		<span class="video-thumb ux-thumb yt-thumb-default-120 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img width="120" alt="缩略图" src="<%= asset_url("cw/#{item.ktvid}/#{item.revision}thumb_slide_0.jpg") %>"><span class="vertical-align"></span></span></span></span>
-		<span class="video-time"><%= item.slides_count %></span>
+		<span class="video-time">共<%= item.slides_count %>页</span>
 		</a>
 	</div>
 	<div class="vm-video-info-container">
@@ -17,11 +17,14 @@
 		</div>
 		<span class="vm-video-info">
 		<span class="vm-video-desc">
-      <% item.teachers.each do |teacher| %>
-        <a href="/teachers/<%= Teacher.get_id teacher %>">
-          <%= teacher%>
-        </a>, 
-      <% end %>
+			<% if !item.teachers.nil? %>
+	      <% item.teachers.each do |teacher| %>
+	        <a href="/teachers/<%= Teacher.get_id teacher %>">
+	          <%= teacher%>
+	        </a>
+	      <% end %>
+			<% end %>
+			
       <% nd = nil %>
 		  <% if nn=Course.get_name(item.course_fid) %>
         <a href="/courses/<%= item.course_fid %>" class="tag-post"><%= nn %></a><% if nd=Course.get_department(item.course_fid) %>, <a href="/departments/<%= Department.get_fid(nd) %>" class="tag-post"><%= nd %></a>.<% else %>.<% end %>

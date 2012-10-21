@@ -29,7 +29,7 @@ class MineController < ApplicationController
   def my_watch_later_coursewares
     @list = PlayList.locate(current_user.id,'稍后阅读')
     @coursewares_ids = @list.content
-    @coursewares = Courseware.eager_load(current_user.thanked_courseware_ids)
+    @coursewares = Courseware.eager_load(@coursewares_ids)
     @seo[:title] = "稍后阅读"
   end
   def my_favorites

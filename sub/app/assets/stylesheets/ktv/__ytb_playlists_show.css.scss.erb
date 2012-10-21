@@ -500,6 +500,207 @@
 .yt-pl-thumb-link:hover .yt-pl-thumb-overlay {
     display: block;
 }
+#playlist-actions .yt-uix-button:hover .yt-uix-button-icon-playlist-like, #playlist-actions .yt-uix-button-toggled .yt-uix-button-icon-playlist-like {
+    background: url(<%=asset_path('yt/imgbin/www-refresh-vfl5Dug1g.png')%>) no-repeat scroll -181px -105px transparent;
+}
+#playlist-actions .yt-uix-button-icon-playlist-like {
+    background: url(<%=asset_path('yt/imgbin/www-refresh-vfl5Dug1g.png')%>) no-repeat scroll -114px 0 transparent;
+    height: 15px;
+    width: 13px;
+}
+#playlist-actions .yt-uix-button-icon-playlist-dislike {
+    background: url(<%=asset_path('yt/imgbin/www-refresh-vfl5Dug1g.png')%>) no-repeat scroll -44px -182px transparent;
+    height: 15px;
+    width: 13px;
+}
+
+/*card start*/
+.yt-uix-clickcard-content,.yt-uix-hovercard-content,* html .yt-uix-card-border-arrow,* html .yt-uix-card-body-arrow {
+	display:none;
+}
+.yt-uix-clickcard-card,.yt-uix-hovercard-card {
+	position:absolute;
+	z-index:1000000;
+	opacity:.95;
+	-moz-transition:opacity 0.2s ease-out;
+	-ms-transition:opacity 0.2s ease-out;
+	-o-transition:opacity 0.2s ease-out;
+	-webkit-transition:opacity 0.2s ease-out;
+	transition:opacity 0.2s ease-out
+}
+.yt-uix-clickcard-card-border,.yt-uix-hovercard-card-border {
+	float:left;
+	background:#fff;
+	border:1px solid #c5c5c5;
+	-moz-border-radius:2px;
+	-webkit-border-radius:2px;
+	border-radius:2px;
+	-moz-box-shadow:0 5px 5px rgba(0,0,0,.1);
+	-ms-box-shadow:0 5px 5px rgba(0,0,0,.1);
+	-webkit-box-shadow:0 5px 5px rgba(0,0,0,.1);
+	box-shadow:0 5px 5px rgba(0,0,0,.1)
+}
+.yt-uix-clickcard-card-body,.yt-uix-hovercard-card-body {
+	min-height:54px;
+	overflow:hidden;
+	padding:20px;
+	font-size:13px;
+	color:#333
+}
+.yt-uix-clickcard-card-content,.yt-uix-hovercard-card-content {
+	display:block;
+	padding:0;
+	width:235px
+}
+.yt-uix-hovercard-card-reverse .yt-uix-card-arrow {
+	display:block
+}
+.ie7 .yt-uix-card-arrow,.ie8 .yt-uix-card-arrow {
+	display:none
+}
+.yt-uix-card-arrow {
+	position:absolute;
+	display:none;
+	top:-11px;
+	width:24px;
+	height:24px;
+	margin-left:12px;
+	overflow:hidden;
+	-moz-transform:rotate(45deg);
+	-ms-transform:rotate(45deg);
+	-o-transform:rotate(45deg);
+	-webkit-transform:rotate(45deg);
+	transform:rotate(45deg);
+	-moz-transform-origin:0 0;
+	-ms-transform-origin:0 0;
+	-o-transform-origin:0 0;
+	-webkit-transform-origin:0 0;
+	transform-origin:0 0
+}
+.yt-uix-card-arrow-background {
+	position:absolute;
+	top:0;
+	-moz-transform:rotate(-45deg);
+	-ms-transform:rotate(-45deg);
+	-o-transform:rotate(-45deg);
+	-webkit-transform:rotate(-45deg);
+	transform:rotate(-45deg);
+	-moz-transform-origin:0 0;
+	-ms-transform-origin:0 0;
+	-o-transform-origin:0 0;
+	-webkit-transform-origin:0 0;
+	transform-origin:0 0
+}
+.yt-uix-card-border-arrow,.yt-uix-card-body-arrow {
+  background: none repeat scroll 0 0 transparent;
+  border: 12px solid transparent;
+  height: 0;
+  position: absolute;
+  vertical-align: top;
+  width: 0;
+}
+.yt-uix-card-border-arrow-horizontal,.yt-uix-card-body-arrow-horizontal {
+	border-right-width:0
+}
+.yt-uix-card-border-arrow-vertical,.yt-uix-card-body-arrow-vertical {
+	bottom:-10px;
+	border-bottom-width:0
+}
+.yt-uix-card-border-arrow-horizontal {
+	right:-12px;
+	border-left-color:#c5c5c5
+}
+.yt-uix-card-body-arrow-horizontal {
+	right:-11px;
+	border-left-color:#fff
+}
+.yt-uix-card-border-arrow-vertical {
+	margin-bottom:-1px;
+	border-top-color:#c5c5c5
+}
+.yt-uix-card-body-arrow-vertical {
+	border-top-color:#fff
+}
+.yt-uix-clickcard-card-flip .yt-uix-card-border-arrow-horizontal,.yt-uix-clickcard-card-flip .yt-uix-card-body-arrow-horizontal,.yt-uix-hovercard-card-flip .yt-uix-card-border-arrow-horizontal,.yt-uix-hovercard-card-flip .yt-uix-card-body-arrow-horizontal {
+	right:auto;
+	border-right-width:12px;
+	border-left-width:0;
+	border-left-color:transparent
+}
+.yt-uix-clickcard-card-flip .yt-uix-card-border-arrow-horizontal,.yt-uix-hovercard-card-flip .yt-uix-card-border-arrow-horizontal {
+	left:-12px;
+	border-right-color:#c5c5c5
+}
+.yt-uix-clickcard-card-flip .yt-uix-card-body-arrow-horizontal,.yt-uix-hovercard-card-flip .yt-uix-card-body-arrow-horizontal {
+	left:-11px;
+	border-right-color:#fff
+}
+.yt-uix-clickcard-card-reverse .yt-uix-card-border-arrow-vertical,.yt-uix-clickcard-card-reverse .yt-uix-card-body-arrow-vertical,.yt-uix-hovercard-card-reverse .yt-uix-card-border-arrow-vertical,.yt-uix-hovercard-card-reverse .yt-uix-card-body-arrow-vertical {
+	bottom:auto;
+	border-bottom-width:12px;
+	border-top-color:transparent;
+	border-top-width:0;
+	top:-10px
+}
+.yt-uix-clickcard-card-reverse .yt-uix-card-body-arrow-vertical, .yt-uix-hovercard-card-reverse .yt-uix-card-body-arrow-vertical {
+    border-bottom-color: #FFFFFF;
+    top: -10px;
+}
+.yt-uix-clickcard-card-reverse .yt-uix-card-border-arrow-vertical,.yt-uix-hovercard-card-reverse .yt-uix-card-border-arrow-vertical {
+	border-bottom-color:#c5c5c5;
+	margin-top:-1px
+}
+.yt-uix-clickcard-card-reverse .yt-uix-card-body-arrow-vertical,.yt-uix-hovercard-card-reverse .yt-uix-card-body-arrow-vertical {
+	top:-10px;
+	border-bottom-color:#fff
+}
+.yt-uix-clickcard-close {
+	float:right;
+	margin:-5px -5px 5px 5px
+}
+#ie .yt-uix-card-body-arrow-vertical {
+	border-top-color:#fff
+}
+.yt-uix-hovercard-target,.yt-uix-clickcard-target {
+	cursor:pointer
+}
+.yt-uix-hovercard-card h3 {
+	margin:5px 10px 0px 10px;
+	color:#000;
+	font-weight:normal;
+	font-size:1.3333em
+}
+.yt-uix-hovercard-card .description {
+	color:#000;
+	margin:5px 10px;
+	font-size:1.0833em
+}
+.yt-uix-hovercard-card-content p,.yt-uix-hovercard-card .info,.yt-uix-hovercard-card .description {
+	margin-bottom:10px
+}
+.yt-uix-hovercard-card .info {
+	margin-top:3px;
+	line-height:1.3333em
+}
+.yt-uix-hovercard-card .info,.yt-uix-hovercard-card .footer {
+	font-size:.9166em;
+	color:#666;
+	padding-bottom:5px;
+	margin-left:10px;
+	margin-right:10px
+}
+.yt-uix-hovercard-card .info {
+	border-bottom:1px solid #aaa
+}
+.yt-uix-hovercard-card .mpaa {
+	display:inline-block;
+	border:2px solid #aaa;
+	margin:2px 2px 2px 0;
+	padding:1px 3px;
+	font-size:1.0833em;
+	font-weight:bold
+}
+/*card*/
 
 .yt-pl-thumb-overlay .yt-pl-thumb-overlay-content {
     position: absolute;
@@ -2015,5 +2216,6 @@ a:hover .video-thumb-pyv .video-time {
     padding: 2px;
     width: 98%;
 }
+
 
 }

@@ -1,0 +1,40 @@
+<div id="playlist-actions">
+								
+	<div id="playlist-action-buttons">
+		<% if playlist.playlist_allow_ratings %>
+		<div id="playlist-likes-container">
+			<% if (total = playlist.liked_user_ids.count + playlist.disliked_user_ids.count) > 0 %>
+				<div class="playlist-sparkbars">
+					<div style="width: <%= (playlist.liked_user_ids.count*1.0 / (total*1.0))*100 %>%" class="playlist-sparkbar-likes">
+					</div>
+					<div style="width: <%= (playlist.disliked_user_ids.count*1.0 / (total*1.0))*100 %>%" class="playlist-sparkbar-dislikes">
+					</div>
+				</div>
+				<span class="playlist-likes-dislikes">
+					<span class="likes"><%= playlist.liked_user_ids.count %></span> 人顶了此锦囊，<span class="dislikes"><%= playlist.disliked_user_ids.count %></span> 人踩了此锦囊 </span>
+			<%end %>
+		</div>
+		<div class="playlist-like-dislike yt-uix-button-group">
+			<button role="button" title="顶一下" onclick=";return false;" class="psvr_login_required playlist-like start <% if !current_user.nil? and playlist.liked_user_ids.include?(current_user.id) %>yt-uix-button-toggled<% end %> yt-uix-button yt-uix-button-default yt-uix-tooltip" type="button">
+				<span class="yt-uix-button-icon-wrapper">
+					<img alt="顶一下" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="yt-uix-button-icon yt-uix-button-icon-playlist-like">
+					<span class="yt-valign-trick"></span>
+				</span>
+				<span class="yt-uix-button-content">顶 </span>
+			</button>
+			<button role="button" title="踩一下" onclick=";return false;" class="psvr_login_required playlist-dislike end yt-uix-button yt-uix-button-default yt-uix-tooltip <% if !current_user.nil? and playlist.disliked_user_ids.include?(current_user.id) %>yt-uix-button-toggled<% end %> yt-uix-button-empty" type="button">
+				<span class="yt-uix-button-icon-wrapper">
+					<img alt="踩一下" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="yt-uix-button-icon yt-uix-button-icon-playlist-dislike">
+					<span class="yt-valign-trick"></span>
+				</span>
+			</button>
+		</div>
+		<% end %>
+		<button data-tooltip-text="分享或嵌入此课件锦囊" type="button" class="playlist-share yt-uix-button yt-uix-button-default yt-uix-tooltip" onclick=";return false;" title="分享或嵌入此课件锦囊" data-button-toggle="true" role="button"><span class="yt-uix-button-content">分享 </span></button>
+	</div>
+	<div id="playlist-share-container" class="playlist-share-area hid"></div>
+	<div id="playlist-share-loading" class="playlist-share-area hid">
+		 正在加载...
+	</div>
+</div>
+           

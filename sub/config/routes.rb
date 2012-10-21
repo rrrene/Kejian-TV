@@ -82,6 +82,7 @@ Sub::Application.routes.draw do
   post '/ajax/add_to_playlist_by_url' => 'ajax#add_to_playlist_by_url'
   post '/ajax/add_to_read_later' => 'ajax#add_to_read_later'
   post '/ajax/get_playlist_share' => 'ajax#get_playlist_share'
+  post '/ajax/like_playlist' => 'ajax#like_playlist'
   # ---=small=----
   get '/hack/htc'
   get '/welcome/inactive_sign_up'

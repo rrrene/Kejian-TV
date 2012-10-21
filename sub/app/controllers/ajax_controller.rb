@@ -518,10 +518,13 @@ HEREDOC
             render json:json_failed
             return false
         end
-        pl.add_one_thing(cw.id)
-        
-        render json:{status:'suc',
+        add = pl.add_one_thing(cw.id)
+        if add
+             render json:{status:'suc',
                     list:render_to_string(:file=>"play_lists/_list.html.erb",:locals=>{content:pl.content,cwid:cw.id,index:(pl.content.count-1),annotation:pl.annotation,user_id:pl.user_id},:layout=>nil, :formats=>[:html])}
+        else
+          render json:{status:'failed',reason:'该课件已经存在该课件锦囊！'}
+        end
       else
           render json:json_failed
           return false
@@ -551,6 +554,34 @@ HEREDOC
   def get_playlist_share
       url = "http://#{Setting.ktv_sub.nil? ? 'www' : Setting.ktv_sub}.kejian#{$psvr_really_development ? '.lvh.me' : '.tv'}/play_lists/#{params[:playlist_id]}"
       render file:'play_lists/_playlist_share',locals:{url:url},layout:false
+  end
+  def like_playlist
+    return false if current_user.nil?
+    pl = PlayList.find(params[:pid])
+    if params[:type] == 'like'
+      like = current_user.like_playlist(pl)
+      if like
+        aim = 'like'
+      else
+        aim = 'de_like'
+      end
+    elsif params[:type] == 'dislike'
+      dislike = pl.disliked_by_user(current_user)
+      if dislike
+        aim = 'dislike'
+      else
+        aim = 'de_dislike'
+      end
+    end
+    has = pl.vote_up + pl.vote_down
+    if has == 0
+      render json:{status:'suc',has:0,aim:aim}
+    else
+      plike = ((pl.vote_up * 1.0 )/ (has*1.0))*100
+      pdislike = ((pl.vote_down * 1.0 )/ (has*1.0))*100
+      render json:{status:'suc',aim:aim,has:has,like:pl.vote_up,dislike:pl.vote_down,plike:plike,pdislike:pdislike}
+    end    
+    
   end
 end
 

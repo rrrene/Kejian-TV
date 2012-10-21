@@ -4,6 +4,7 @@
 
     <li data-encrypted-kejian-id="<%= cwid %>" class="playlist-video-item yt-uix-dragdrop-draggable-item <% if !annotation[content.index(cwid)].blank? %> annotated <% end %><% if index%2 ==0 %> even <% else %>odd<% end %>" data-created-at="<%= cw.created_at.to_i %>" data-view-count="<%= cw.views_count %>" data-title-pinyin="<%= Pinyin.t(cw.title) %>">
        <div class="active display-state">
+   				<input type="hidden" value="0" name="playlist_kejian_deleted[]" class="delete-playlist-kejian">
           <input type="hidden" value="<%= cw.id %>" name="playlist_kejian_id[]" />
           <span class="yt-uix-form-input-checkbox-container playlist-video-item-checkbox-container">
             <input type="checkbox" class="yt-uix-form-input-checkbox playlist-video-item-checkbox" name="" />
@@ -88,7 +89,8 @@
        <div class="removed display-state">
           <p>
              此视频将被删除。
-             <button role="button" onclick=";return false;" class="undo-video-removal yt-uix-button yt-uix-button-text" type="button"><span class="yt-uix-button-content">撤消 </span></button>
+             <button role="button" onclick=";return false;" class="undo-video-removal yt-uix-button yt-uix-button-text" type="button">
+							 <span class="yt-uix-button-content">撤消 </span></button>
           </p>
        </div>
     </li>

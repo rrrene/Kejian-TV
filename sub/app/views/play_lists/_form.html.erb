@@ -407,7 +407,7 @@
     var target = e.target
     if($('#playlist-edit-actions').hasClass('yt-uix-button-toggled') && !$(target).is('#playlist-edit-actions')){
       $('#playlist-edit-actions').removeClass('yt-uix-button-toggled');
-      var ul = $('.__ytb ul');
+      var ul = $('.__ytb > ul');
       ul.remove();
       ul.hide().addClass('hid');
       $('#playlist-edit-actions').append(ul);
@@ -461,13 +461,14 @@
     }
   });
   $('.playlist-video-item-controls.yt-uix-dragdrop-drag-handle').disableSelection();
+	
   function selected_items(){
 		var tmp = new Array();
-		$('li.playlist-video-item').each(function(index,li){
-      if($('div > span.yt-uix-form-input-checkbox-container.playlist-video-item-checkbox-container > .yt-uix-form-input-checkbox.playlist-video-item-checkbox',li).attr('checked')){
-				$('div > span.yt-uix-form-input-checkbox-container.playlist-video-item-checkbox-container > .yt-uix-form-input-checkbox.playlist-video-item-checkbox',li).attr('checked',false);
-				tmp.push(li);
-				$(li).remove();
+		$('li.playlist-video-item').each(function(index,lix){
+      if($('div > span.yt-uix-form-input-checkbox-container.playlist-video-item-checkbox-container > .yt-uix-form-input-checkbox.playlist-video-item-checkbox',lix).attr('checked')){
+				$('div > span.yt-uix-form-input-checkbox-container.playlist-video-item-checkbox-container > .yt-uix-form-input-checkbox.playlist-video-item-checkbox',lix).attr('checked',false);
+				tmp.push(lix);
+				$(lix).remove();
       }
 		});
 		return tmp;
@@ -501,6 +502,8 @@
       var inchoose = $.inArray($(li).attr('data-encrypted-kejian-id'),choose);
       if(inchoose != -1){
         $(li).addClass('removed');
+				console.log(				$('div > input.delete-playlist-video',li));
+				$('div > input.delete-playlist-kejian',li).val('1');
         $('div > span.yt-uix-form-input-checkbox-container.playlist-video-item-checkbox-container > .yt-uix-form-input-checkbox.playlist-video-item-checkbox',li).attr('checked',false);
         choose.splice(inchoose,inchoose+1);
       }
@@ -510,6 +513,9 @@
   });
   $('button.undo-video-removal').live('click',function(){
     $(this).parent().parent().parent().removeClass('removed');
+		$(this).parent().parent().find('input.delete-playlist-kejian').val('0');
+		after_edit_action_processing();
+    resortList();
   })
   $('.yt-uix-tooltip').tipsy({gravity: $.fn.tipsy.autoNS,fade: <%= @is_WebKit ? 'false' : 'true'%>,opacity: 1});
   $('.playlist-video-item-edit-annotation').live('click',function(){

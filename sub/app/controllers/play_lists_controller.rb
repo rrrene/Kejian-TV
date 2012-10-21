@@ -61,6 +61,12 @@ class PlayListsController < ApplicationController
     pl = PlayList.find(params[:id])
     pl.title = params[:title]
     pl.content = params[:playlist_kejian_id]
+
+    params[:playlist_kejian_deleted].each_with_index do |tf,index|
+      if tf != '0'
+        pl.content.delete_at(index)
+      end
+    end
     pl.annotation = params[:playlist_video_annotation]
     pl.playlist_thumbnail_kejian_id = params[:playlist_thumbnail_video_id].to_s
     pl.desc = params[:description]
