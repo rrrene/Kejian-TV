@@ -138,9 +138,14 @@
 
 	$('#vm-view-btn').live('click',function(){
 		var ul = $('ul',this);
-		ul.remove();
-		
-		
+    ul.remove();
+
+	  cssObj = {
+        'top':($(this).offset().top + $(this).width()).toString() + 'px',
+        'left':$(this).offset().left.toString() + 'px'
+    };
+	  ul.css(cssObj);
+    
 		$('.__ytb').append(ul);
 	});
 	function sort_by(type){
