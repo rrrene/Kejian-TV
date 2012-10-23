@@ -1,6 +1,43 @@
 # -*- encoding : utf-8 -*-
 class AjaxController < ApplicationController
   before_filter :authenticate_user!, :except => [:checkUsername,:checkEmailAjax,:xl_req_get_method_vod,:logincheck,:seg,:star_refresh]
+  def renren_real_bind
+    rr = Ktv::Renren.new
+    result = rr.send_login!(
+      request,
+      params[:renren_cookie],
+      params[:uniqueTimestamp],
+      {
+        :email => params[:email],
+        :icode => params[:icode],
+        :origURL => params[:origURL],
+        :domain => params[:domain],
+        :key_id => params[:key_id],
+        :captcha_type => params[:captcha_type],
+        :password => params[:password],
+      }
+    )
+    ret = MultiJson.decode result
+    if ret['code']
+      # Sidekiq::Client.enqueue(HookerJob,
+      #   'Ktv::Renren',
+      #   nil,
+      #   'import_info',
+      #   current_user.id,
+      #   result.cookies
+      # )
+      agent = request.env['HTTP_USER_AGENT']
+      agent = Setting.user_agent if agent.blank?
+      Ktv::Renren.import_info(agent,current_user.id,result.cookies,ret['homeUrl'],'1'==params[:guanzhu_ktv],'1'==params[:fabiao_ktv])
+      
+      render json:{okay:true}
+    else
+      render json:{okay:false,failDescription:ret['failDescription']}
+    end
+  end
+  def renren_huanyizhang
+    render json:{src:Ktv::Renren.huanyizhang(request,params[:renren_cookie],params[:rnd])}
+  end
   def check_fangwendizhi
     ff=User.fangwendizhize(params[:f])
     not_used = true

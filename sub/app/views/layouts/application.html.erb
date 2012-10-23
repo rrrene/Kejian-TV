@@ -74,7 +74,9 @@
 </head>
 
 <body <%if @is_ie8 or @is_ie7 or @is_ie6 %>onload="window.psvr_ie_readyfix()"<%end%> id="psvr_subject_all" style="  <%=yield :body_style%>" data-subdomain="<%= request.subdomain %>" class="<%=yield :body_klass%> <%= ' chrome ' if @is_chrome %><%= ' firefox ' if @is_firefox %><%= ' mac ' if @is_mac %><%= ' windows ' if @is_windows %>">
-<div id="append_parent" class="__dz"></div><div id="ajaxwaitid" class="__dz"></div>
+<div class="__dz"><div id="append_parent"></div></div>
+<div class="__dz"><div id="ajaxwaitid"></div></div>
+
 <div class="__sdk">
   <header style="background-image:url(<%= asset_path('dark.png') %>)">
     <div class="wrapper" style="<%=yield :sdk_wrapper_style%>">
@@ -291,6 +293,13 @@
       <% end %>
     });
     $('.yt-uix-tooltip').tipsy({gravity: $.fn.tipsy.autoNS,fade: <%= @is_WebKit ? 'false' : 'true'%>,opacity: 1});
+    $('.psvr_standard_ajax_form').bind("ajax:loading", function(){
+      showloading();
+    }).bind("ajax:complete", function(){
+      showloading('none');
+    }).bind('ajax:error', function(xhr, data, status) {
+      showDialog(data['statusText'], 'alert', '请求失败', null, true, null, '', '', '', 3);
+    });
     // jQuery.fn.extend({
     //     shareModes:['share-public', 'share-followers','share-private'],
     //     shareMod:['分享该笔记','只好友可见','仅自己可见'],

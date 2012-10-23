@@ -26,23 +26,6 @@ class AccountController < Devise::RegistrationsController
     @renren_cookie = rr.agent.cookies.join('; ')
     # to be fiiled: :uniqueTimestamp, :email, :icode, :password
   end
-  def real_bind
-    rr = Ktv::Renren.new
-    rr.send_login!(
-      request,
-      params[:renren_cookie],
-      params[:uniqueTimestamp],
-      {
-        :email => params[:email],
-        :icode => params[:icode],
-        :origURL => params[:origURL],
-        :domain => params[:domain],
-        :key_id => params[:key_id],
-        :captcha_type => params[:captcha_type],
-        :password => params[:password],
-      }
-    )
-  end
   def edit_services
     render layout:'application'
     @seo[:title] = '绑定账号'

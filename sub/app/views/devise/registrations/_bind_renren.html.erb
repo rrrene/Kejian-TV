@@ -3,6 +3,15 @@
 <% end %>
 <script type="text/javascript" charset="utf-8">
 <% content_for :butt2 do %>
+$("#loginForm").bind("ajax:success", function(xhr, data, status) {
+  if(!data['okay']){
+    $("#errorMessage").show();
+    $("#errorMessage").html(data['failDescription']);    
+  }else{
+    $("#errorMessage").hide();
+    
+  }
+});
 $('#email,#password,#icode').focus(function(){
   $(this).parent().css('border-color','rgb(142,150,161)');
   if($(this).val().length>0){
@@ -36,6 +45,14 @@ $('#email,#password,#icode').each(function(){
     $(this).css('color','rgb(136, 136, 136)');
   }
 });
+$('#huanyizhang').click(function(){
+  $.post('/ajax/renren_huanyizhang',{
+    'renren_cookie': $('#renren_cookie_id').val(),
+    'rnd':  Math.random()
+  },function(data){
+    $('#verifyPic_login').attr('src',data['src']);
+  },'json');
+});
 var _11d=new Date();
 $('#uniqueTimestamp').val(_11d.getFullYear()+_11d.getMonth()+_11d.getDay()+_11d.getHours()+_11d.getSeconds()+_11d.getUTCMilliseconds());
 <%end %>
@@ -67,12 +84,13 @@ $('#uniqueTimestamp').val(_11d.getFullYear()+_11d.getMonth()+_11d.getDay()+_11d.
 			<div class="full-page-holder">
 				<div class="full-page">
 					<div class="login-page clearfix">
-						<div class="side-column" style="height:354px">
+						<div class="side-column" style="height:382px">
 							<div class="login-panel">
-                <%= form_tag request.path, :id=>"loginForm", :class=>"login-form" do |f| %>
+                <%= form_tag '/ajax/renren_real_bind', :id=>"loginForm", :class=>"login-form psvr_standard_ajax_form", :remote=>true do |f| %>
 									<dl class="top clearfix">
 										<dt><label for="email">帐号:</label></dt>
 										<dd style="border-color: rgb(173, 182, 201); ">
+                    <span id="errorMessage" class="errors_div" style="display: none; "></span>
 										<input type="text" name="email" class="input-text" id="email" tabindex="1" placeholder="邮箱/手机号/用户名" value="" style="color: rgb(136, 136, 136); ">
 										</dd>
 									</dl>
@@ -86,13 +104,12 @@ $('#uniqueTimestamp').val(_11d.getFullYear()+_11d.getMonth()+_11d.getDay()+_11d.
 									</div>
 									<dl class="savepassword clearfix">
 										<dt>
-										<label for="autoLogin" class="labelCheckbox psvr_zhongwenfont">
-										<input type="checkbox" name="autoLogin" checked="checked" id="autoLogin" value="true" tabindex="4">关注课件交流系统公共主页 </label>
+										<label for="guanzhu_ktv" class="labelCheckbox psvr_zhongwenfont">
+										<input type="checkbox" name="guanzhu_ktv"" checked="checked" id="guanzhu_ktv" value="true" tabindex="4">关注课件交流系统公共主页 </label>
 										</dt>
 										<dt>
-										<label for="autoLogin2" class="labelCheckbox psvr_zhongwenfont">
-
-										<input type="checkbox" name="autoLogin2" checked="checked" id="autoLogin2" value="true" tabindex="4">发表绑定成功状态 </label>
+										<label for="fabiao_ktv" class="labelCheckbox psvr_zhongwenfont">
+										<input type="checkbox" name="fabiao_ktv" checked="checked" id="fabiao_ktv" value="true" tabindex="4">发表绑定成功状态 </label>
 										</dt>
 										<dd>
 										</dd>
@@ -102,7 +119,7 @@ $('#uniqueTimestamp').val(_11d.getFullYear()+_11d.getMonth()+_11d.getDay()+_11d.
 										<dd>
                       <img id="verifyPic_login" src="data:image/jpeg;base64,<%= raw @captcha %>" />
                       <!-- todo -->
-                      <a href="document.location.reload(true);">换一张</a>
+                      <a href="javascript:void(0)" id="huanyizhang">换一张</a>
 										</dd>
 									</dl>
 									<dl id="code" class="code clearfix">
@@ -116,15 +133,16 @@ $('#uniqueTimestamp').val(_11d.getFullYear()+_11d.getMonth()+_11d.getDay()+_11d.
                     <input type="hidden" name="domain" value="<%= @domain %>" />
                     <input type="hidden" name="key_id" value="<%= @key_id %>" />
                     <input type="hidden" name="captcha_type" id="captcha_type" value="<%= @captcha_type %>" />
-                    <input type="hidden" name="renren_cookie" value="<%= @renren_cookie %>" />
+                    <input type="hidden" name="renren_cookie" id="renren_cookie_id" value="<%= @renren_cookie %>" />
                     <input type="hidden" name="uniqueTimestamp" id="uniqueTimestamp" value="" />
 										<input type="submit" id="login_to_renren" class="input-submit login-btn" stats="loginPage_login_button" value="登录人人网" tabindex="5">
 									</dl>
 								<% end %>
 							</div>
 						</div>
-						<div class="main-column" style="width:565px">
-              
+						<div class="main-column" style="width:565px;font-size:12px">
+              <%= image_tag 'bind/renren_desc.png',style:'margin-top:60px' %>
+              <%= image_tag 'bind/renren_desc2.png',style:'margin-top:88px' %>
             </div>
 					</div>
 				</div>
