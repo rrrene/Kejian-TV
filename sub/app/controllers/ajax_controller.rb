@@ -568,13 +568,108 @@ HEREDOC
       end
   end
   
+  
+  def add_to_playlist_by_id
+    if current_user.nil?
+      render json:{status:'failed',reason:'您尚未登陆！'}
+      return false
+    end
+      pl = PlayList.find(params[:pid])
+      legal = true
+      add = true
+      params[:cwid].each do |cwid|
+        if !BSON::ObjectId.legal?(cwid)
+          legal = false
+          next
+        end
+        if pl.content.include?(cwid)
+          add = false
+          next
+        end
+        cw = Courseware.find(cwid)
+        if cw.nil?
+          next
+        end
+        add = pl.add_one_thing(cw.id)
+      end
+      
+      if add
+           render json:{status:'suc',title:"<a href='/play_lists/#{pl.id}'>#{pl.title}</a>"}
+      else
+        if !legal
+          render json:{status:'failed',reason:'您导入的内容稍后阅读无法接受！'}
+        else
+          render json:{status:'failed',reason:'该课件已经存在该课件锦囊！'}
+        end
+      end
+  end
+  
+  
+  def create_and_add_to_by_id
+    if current_user.nil?
+      render json:{status:'failed',reason:'您尚未登陆！'}
+      return false
+    end
+    title = params[:title]
+    privacy = params[:is_private]
+    # binding.pry
+    pl = PlayList.locate(current_user.id,title)
+    if pl.nil?
+      pl = PlayList.new
+    end
+    pl.user_id = current_user.id
+    pl.title = title
+    pl.privacy = privacy
+    pl.save(:validate => false)
+    if params[:cwid].count == 1
+      cwid = params[:cwid][0]
+      if !BSON::ObjectId.legal?(cwid)
+        render json:{status:'failed',reason:'您导入的内容稍后阅读无法接受！'}
+        return false
+      end
+      if pl.content.include?(cwid)
+        render json:{status:'failed',reason:'该课件已经存在该课件锦囊！'}
+        return false
+      end
+      cw = Courseware.find(cwid)
+      if cw.nil?
+        render json:{status:'failed',reason:'该课件已经不存在！'}
+        return false
+      end
+      add = pl.add_one_thing(cw.id)
+      if add
+        render json:{status:'onesuc',title:"<a href='/play_lists/#{pl.id}'>#{pl.title}</a>"}
+      else
+        render json:{status:'failed',reason:'该课件已经存在该课件锦囊！'}
+      end
+    elsif params[:cwid].count > 1
+      params[:pid] = pl.id
+      add_to_playlist_by_id
+    else
+      render json:{status:'failed',reason:'未知错误，我们已经记录！'}
+    end
+  end
+  def save_note_for_one_cw
+    if current_user.nil?
+      render json:{status:'failed',reason:'您尚未登陆！'}
+      return false
+    end
+    pl = PlayList.locate(current_user.id,params[:title])
+
+    pl.annotation[pl.content.index(BSON::ObjectId(params[:cwid][0]))] = params[:note]
+    if pl.save(:validate=>false)
+      render json:{status:'suc',title:"<a href='/play_lists/#{pl.id}'>#{pl.title}</a>"}
+    else
+      render json:{status:'failed',reason:'该课件已经存在该课件锦囊！'}
+    end
+  end
   def add_to_read_later
      if current_user.nil?
          render json:{status:'failed',reason:'您尚未登陆！'}
          return false
      end
      if !BSON::ObjectId.legal?(params[:cwid])
-         render json:{status:'failed',reason:'您导入的内容稍后阅读无啊接受！'}
+         render json:{status:'failed',reason:'您导入的内容稍后阅读无法接受！'}
          return false
      end
      if params[:type] == 'addto'
@@ -588,6 +683,37 @@ HEREDOC
          render json:{status:'failed',reason:'该课件已经存在于稍后阅读。'}
      end
   end
+  
+  def add_to_read_later_array
+    if current_user.nil?
+        render json:{status:'failed',reason:'您尚未登陆！'}
+        return false
+    end
+    legal = true
+    addto = true
+    params[:cwid].each  do |cwid|
+        if !BSON::ObjectId.legal?(cwid)
+          legal = false
+          next
+        end
+        if params[:type] == 'addto'
+            addto  = PlayList.add_to_read_later(current_user.id,cwid)
+        elsif params[:type] == 'remove'
+            addto = PlayList.remove_from_read_later(current_user.id,cwid)
+        end
+    end
+
+    if addto
+        render json:{status:'suc'}
+    else
+      if !legal
+        render json:{status:'failed',reason:'您导入的内容稍后阅读无法接受！'}
+      else
+        render json:{status:'failed',reason:'该课件已经存在于稍后阅读。'}
+      end
+    end
+  end
+  
   def get_playlist_share
       url = "http://#{Setting.ktv_sub.nil? ? 'www' : Setting.ktv_sub}.kejian#{$psvr_really_development ? '.lvh.me' : '.tv'}/play_lists/#{params[:playlist_id]}"
       render file:'play_lists/_playlist_share',locals:{url:url},layout:false
@@ -617,8 +743,17 @@ HEREDOC
       plike = ((pl.vote_up * 1.0 )/ (has*1.0))*100
       pdislike = ((pl.vote_down * 1.0 )/ (has*1.0))*100
       render json:{status:'suc',aim:aim,has:has,like:pl.vote_up,dislike:pl.vote_down,plike:plike,pdislike:pdislike}
-    end    
-    
+    end      
+  end
+  def get_addto_menu
+    if current_user.nil?
+      render json:{status:'failed',reason:'尚未登录'}
+      return false
+    end
+    render json:{status:'suc',
+      html:render_to_string(:file=>"mine/_addto_menu.html.erb",
+                                    :locals=>{user:current_user,playlist_readlater:PlayList.locate(current_user.id,'稍后阅读'),playlist_favorite:PlayList.locate(current_user.id,'收藏')},
+                                    :layout=>nil, :formats=>[:html]) }
   end
 end
 

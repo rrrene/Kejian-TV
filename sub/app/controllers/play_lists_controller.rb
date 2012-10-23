@@ -49,22 +49,24 @@ class PlayListsController < ApplicationController
     if !params[:playlist_thumbnail_video_id].blank? and !BSON::ObjectId.legal?(params[:playlist_thumbnail_video_id])
       msg += ' 请不要搞破坏：）要乖哦！'
     end
-    params[:playlist_kejian_id].each do |id|
-      if !BSON::ObjectId.legal?(id)
-        if !msg.include?(' 请不要搞破坏：）')
-          msg += ' 请不要搞破坏：）要乖哦！'
+    if !params[:playlist_kejian_id].blank?
+      params[:playlist_kejian_id].each do |id|
+        if !BSON::ObjectId.legal?(id)
+          if !msg.include?(' 请不要搞破坏：）')
+            msg += ' 请不要搞破坏：）要乖哦！'
+          end
+          break
         end
-        break
       end
     end
-
     pl = PlayList.find(params[:id])
     pl.title = params[:title]
     pl.content = params[:playlist_kejian_id]
-
-    params[:playlist_kejian_deleted].each_with_index do |tf,index|
-      if tf != '0'
-        pl.content.delete_at(index)
+    if !params[:playlist_kejian_deleted].blank?
+      params[:playlist_kejian_deleted].each_with_index do |tf,index|
+        if tf != '0'
+          pl.content.delete_at(index)
+        end
       end
     end
     pl.annotation = params[:playlist_video_annotation]

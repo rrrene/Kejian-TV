@@ -37,12 +37,12 @@
                         <div class="header-stats ytg-box">
                            <ul>
                               <li class="stat-entry first">
-                                 <span class="stat-value"><%= playlist.content.count %></span>
+                                 <span class="stat-value"><%= playlist.content.nil? ? 0 : playlist.content.count %></span>
                                  <span class="stat-name">
                                  课件
                                  </span>
                               </li>
-                              <% if playlist.content.count >0 %>
+                              <% if !playlist.content.nil? and playlist.content.count >0 %>
                               <li class="stat-entry">
                                  <span class="stat-value"><%= playlist.content_total_pages  %></span>
                                  <span class="stat-name">
@@ -106,11 +106,11 @@
                         <ul style="display: none;" aria-haspopup="true" role="menu" class=" yt-uix-button-menu yt-uix-button-menu-default">
                            <li id="aria-id-top" role="menuitem"><span onclick=";return false;" class="playlist-move-items-top yt-uix-button-menu-item">移至顶部</span></li>
                            <li id="aria-id-bottom" role="menuitem"><span onclick=";return false;" class="playlist-move-items-bottom yt-uix-button-menu-item">移至底部</span></li>
-                           <li id="aria-id-delete" role="menuitem"><span onclick=";return false;" class="playlist-delete-items yt-uix-button-menu-item">从课件锦囊中删除视频</span></li>
+                           <li id="aria-id-delete" role="menuitem"><span onclick=";return false;" class="playlist-delete-items yt-uix-button-menu-item">从课件锦囊中删除课件</span></li>
                         </ul>
                      </button>
                      <button role="button" data-button-toggle="true" class="add-playlist-video-button yt-uix-button yt-uix-button-default" id="playlist-add-video" type="button" onclick=";return false;">
-                       <span class="yt-uix-button-content">通过网址添加视频 </span>
+                       <span class="yt-uix-button-content">通过网址添加课件 </span>
                      </button>
                   </div>
                   <div class="hid" id="add-playlist-video-dialog">
@@ -123,7 +123,7 @@
                            <div role="alert" class="yt-alert-content">
                               <span class="yt-alert-vertical-trick"></span>
                               <div class="yt-alert-message">
-                                 视频添加成功！
+                                 课件添加成功！
                               </div>
                            </div>
                         </div>
@@ -137,16 +137,16 @@
                            <div role="alert" class="yt-alert-content"></div>
                         </div>
                      </div>
-                     <span class=" yt-uix-form-input-container"><input placeholder="视频网址" class="yt-uix-form-input-text add-video-panel-url" /></span>
+                     <span class=" yt-uix-form-input-container"><input placeholder="课件网址" class="yt-uix-form-input-text add-video-panel-url" /></span>
                      <button role="button" onclick=";return false;" class="playlist-add-video-url-button-add yt-uix-button yt-uix-button-default" type="button">
                        <span class="yt-uix-button-content">添加 </span>
                      </button>
                      <span class="add-video-loader loader" id="add-video-in-progress">
-                     <img alt="正在添加视频..." src="<%=asset_path('yt/img/loader-vflff1Mjj.gif')%>" />
+                     <img alt="正在添加课件..." src="<%=asset_path('yt/img/loader-vflff1Mjj.gif')%>" />
                      </span>
                   </div>
                   <div class="playlist-landing">
-                     <% if playlist.content.count > 0 %>
+                     <% if !playlist.content.nil? and playlist.content.count > 0 %>
                      <ol class="playlist-video-items yt-uix-dragdrop" id="playlist-video-items">
                       <% playlist.content.each_with_index do |cwid,index| %>
 												<%= render :partial=>'list',:locals =>{content:playlist.content,cwid:cwid,index:index,annotation:playlist.annotation,user_id:playlist.user_id} %>
@@ -161,7 +161,7 @@
                            <div class="yt-alert-buttons"></div><div role="alert" class="yt-alert-content">    
                              <span class="yt-alert-vertical-trick"></span>
                              <div class="yt-alert-message">
-                                 该课件锦囊中没有任何视频。
+                                 该课件锦囊中没有任何课件。
                              </div>
                            </div>
                          </div>
@@ -169,7 +169,7 @@
                      <% end %>
                      <ul class="hid" id="playlist-video-item-templates">
                         <li class="playlist-video-item-interstitial-placeholder">
-                           正在处理新视频...
+                           正在处理新课件...
                         </li>
                      </ul>
                   </div>

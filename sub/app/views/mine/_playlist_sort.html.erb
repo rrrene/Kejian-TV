@@ -2,7 +2,7 @@
 <li id="vm-playlist-<%= item.id %>" style="margin-right:2px">
 <div class="vm-video-item-content">
 	<div class="vm-pl-thumbs">
-		<% if item.content.count <=0 %>
+		<% if item.content.nil? or item.content.count <=0 %>
 		<div class="vm-pl-empty">
 			<span>该列表为空。</span>
 		</div>

@@ -1,0 +1,127 @@
+<div class="menu-panel active-panel" id="addto-list-panel"> 
+		<span data-item-name="稍后阅读" data-item-id="<%= playlist_readlater.id %>"  data-list-action="watch-later" data-tooltip-show-delay="750" data-possible-tooltip="" class="yt-uix-button-menu-item yt-uix-tooltip ">稍后阅读</span>
+    <div class="playlists"> <span class="addto-label">添加到：</span>
+        <ul>
+            <li>
+							<span data-item-name="收藏" data-item-id="<%= playlist_favorite.id %>" data-list-action="favorites" data-tooltip-show-delay="750" data-possible-tooltip="" class="yt-uix-button-menu-item yt-uix-tooltip ">收藏</span>
+            </li>
+						<% user.play_lists_ugc.each do |item| %>
+            <li>
+							<span data-item-name="<%= item.title %>" data-item-id="<%= item.id %>" data-list-action="playlist"  data-possible-tooltip="<%= item.title %>（<%= item.privacy == 0 ? '公开' : '私有' %>）" class="yt-uix-button-menu-item yt-uix-tooltip ">
+								<span class="playlist-name" data-original-html="<%= item.title %>"><%= item.title %></span>
+              	<span class="playlist-count">(<%= item.content.nil? ? 0 : item.content.count %>)</span>
+							</span>
+            </li>
+						<% end %>
+        </ul>
+</div> 
+			<span data-item-name="添加到新课件锦囊" data-list-action="create-playlist" data-tooltip-show-delay="750" data-possible-tooltip="" class="yt-uix-button-menu-item yt-uix-tooltip create-playlist">添加到新课件锦囊</span>
+</div>
+
+<div id="addto-create-panel" class="menu-panel">
+    <div class="yt-uix-char-counter" data-char-limit="60" data-count-char-by-size="true">
+        <div class="create-playlist-box addto-text-box">
+            <textarea id="addto-create-playlist" class="addto-create-playlist yt-uix-char-counter-input"
+            maxlength="60"></textarea>
+            <label class="addto-create-playlist-label" for="addto-create-playlist">输入课件锦囊名称</label>
+        </div>
+				<span class="yt-uix-char-counter-remaining">60</span>
+    </div>
+    <form class="privacy-form">
+        <fieldset id="addto-playlist-privacy-setting">
+            <ul>
+                <li> <span class="yt-uix-form-input-radio-container  checked"><input name="is_private" class="yt-uix-form-input-radio playlist-privacy-option" checked="checked" id="playlist-privacy-public" value="0" type="radio"><span class="yt-uix-form-input-radio-element"></span></span>
+                    <label
+                    for="playlist-privacy-public">公开</label>
+                </li>
+                <li> <span class="yt-uix-form-input-radio-container "><input name="is_private" class="yt-uix-form-input-radio playlist-privacy-option" id="playlist-privacy-private" value="1" type="radio"><span class="yt-uix-form-input-radio-element"></span></span>
+                    <label
+                    for="playlist-privacy-private">私有</label>
+                </li>
+            </ul>
+        </fieldset>
+    </form>
+    <div class="addto-create-buttons">
+        <button type="button" class="addto-create-cancel-button yt-uix-button yt-uix-button-default"
+        onclick=";return false;" role="button"><span class="yt-uix-button-content">取消 </span>
+        </button>
+        <button disabled="disabled" type="button" class="create-playlist-button yt-uix-button yt-uix-button-default"
+        onclick=";return false;" role="button"><span class="yt-uix-button-content">创建课件锦囊 </span>
+        </button>
+    </div>
+</div>
+<div id="addto-list-saved-panel" class="menu-panel">
+    <div class="panel-content">
+        <div class="yt-alert yt-alert-naked yt-alert-success  ">
+            <div class="yt-alert-icon">
+                <img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="icon master-sprite"
+                alt="提醒图标">
+            </div>
+            <div class="yt-alert-content" role="alert"> <span class="yt-alert-vertical-trick"></span>
+
+                <div class="yt-alert-message"> <span class="message">已添加至<span class="addto-title yt-uix-tooltip yt-uix-tooltip-reverse" title="关于此课件锦囊的详情" data-tooltip-show-delay="750"></span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="addto-list-error-panel" class="menu-panel">
+    <div class="panel-content">
+        <img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>"> <span class="error-details"></span>
+ <a class="show-menu-link">返回列表</a>
+
+    </div>
+</div>
+<div id="addto-note-input-panel" class="menu-panel">
+    <div class="panel-content">
+        <div class="yt-alert yt-alert-naked yt-alert-success  ">
+            <div class="yt-alert-icon">
+                <img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="icon master-sprite"
+                alt="提醒图标">
+            </div>
+            <div class="yt-alert-content" role="alert"> <span class="yt-alert-vertical-trick"></span>
+
+                <div class="yt-alert-message"> <span class="message">已添加到课件锦囊：</span>
+ <span class="addto-title yt-uix-tooltip"
+                    title="关于此课件锦囊的详情" data-tooltip-show-delay="750"></span>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="yt-uix-char-counter" data-char-limit="150">
+        <div class="addto-note-box addto-text-box">
+            <textarea id="addto-note" class="addto-note yt-uix-char-counter-input"
+            maxlength="150"></textarea>
+            <label for="addto-note" class="addto-note-label">添加可选备注</label>
+        </div><span class="yt-uix-char-counter-remaining">150</span>
+    </div>
+    <button disabled="disabled" type="button" class="playlist-save-note yt-uix-button yt-uix-button-default"
+    onclick=";return false;" role="button"><span class="yt-uix-button-content">添加备注 </span>
+    </button>
+</div>
+<div id="addto-note-saving-panel" class="menu-panel">
+    <div class="panel-content loading-content">
+        <img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>"> <span>正在保存备注...</span>
+
+    </div>
+</div>
+<div id="addto-note-saved-panel" class="menu-panel">
+    <div class="panel-content">
+        <img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>"> 
+				<span class="message">备注已添加至：</span>
+    </div>
+</div>
+<div id="addto-note-error-panel" class="menu-panel">
+    <div class="panel-content">
+        <img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>"> 
+				<span class="message">添加备注时出现错误：</span>
+        <ul class="error-details"></ul> 
+				<a class="add-note-link">点击以添加新备注</a>
+    </div>
+</div>
+<div class="close-note hid">
+    <img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="close-button">
+</div>
+
+  

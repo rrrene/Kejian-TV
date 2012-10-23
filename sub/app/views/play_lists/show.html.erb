@@ -78,12 +78,14 @@
 								 来自：<a href="/users/<%= User.get_slug @playlist.user_id %>"><%= name_beautify User.get_name(@playlist.user_id)%></a>
 							</p>
 						</div>
-						<span id="play-all-button">
-							<a class="yt-playall-link yt-playall-link-dark yt-uix-sessionlink " href="/coursewares/<%= @playlist.content[0] %>">
-								<img class="small-arrow" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="">
-								全部阅读 
-							</a>
-						</span>
+						<% if !@playlist.content.nil? %>
+								<span id="play-all-button">
+									<a class="yt-playall-link yt-playall-link-dark yt-uix-sessionlink " href="/coursewares/<%= @playlist.content[0] %>">
+										<img class="small-arrow" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="">
+										全部阅读 
+									</a>
+								</span>
+						<% end %>
 						<% if @playlist.playlist_enable_grid_view %>
 							<%= render :partial=>'playlist_actions',:locals=>{playlist:@playlist} %>
 						<% end %>
@@ -115,10 +117,25 @@
 								<%= render :partial=>'playlist_actions',:locals=>{playlist:@playlist} %>
 							<% end %>
 					    <ol>
-								<% if !@playlist.playlist_enable_grid_view %>
-									<%= render partial:'show_list',locals:{playlist:@playlist} %>
+								<% if !@playlist.content.nil? %>">
+										<% if !@playlist.playlist_enable_grid_view %>
+											<%= render partial:'show_list',locals:{playlist:@playlist} %>
+										<% else %>
+											<%= render partial:'show_grid',locals:{playlist:@playlist} %>
+										<% end %>
 								<% else %>
-									<%= render partial:'show_grid',locals:{playlist:@playlist} %>
+	                <div class="playlist-empty-message" style="margin:20px 0 0 20px;width:600px">
+	                  <div class="yt-alert yt-alert-default yt-alert-warn  ">  
+	                    <div class="yt-alert-icon">
+	                      <img alt="提醒图标" class="icon master-sprite" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
+	                    </div>
+	                    <div class="yt-alert-buttons"></div><div role="alert" class="yt-alert-content">    
+	                      <span class="yt-alert-vertical-trick"></span>
+	                      <div class="yt-alert-message">
+	                          该课件锦囊中没有任何课件。
+	                      </div>
+	                    </div>
+	                  </div>
 								<% end %>
               </ol>
 					</div>
