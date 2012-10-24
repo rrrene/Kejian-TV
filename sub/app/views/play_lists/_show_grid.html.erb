@@ -1,6 +1,6 @@
 <% playlist.content.each_with_index do |cwid,index| %>
   <% cw = Courseware.find(cwid) %>
-  <% is_annotated = !playlist.annotation[playlist.content.index(cwid)].blank? %>
+  <% is_annotated = !playlist.annotation[playlist.content.index(cwid.to_s)].blank? %>
 
 <li class="playlist-video-item yt-uix-tile"> <span class="playlist-video-item-base-content">
    <span class="thumb-container">
@@ -39,7 +39,7 @@
        </span>
       </span>
       <span class="ktv-hovercard-content" style='display:none'>
-         <p class="yt"><%= playlist.annotation[playlist.content.index(cwid)] %></p>
+         <p class="yt"><%= playlist.annotation[playlist.content.index(cwid.to_s)] %></p>
       </span>
    </span>
 	 <% end %>

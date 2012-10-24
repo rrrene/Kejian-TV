@@ -26,10 +26,10 @@
 							</span>
 							<img alt="" src= "<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="yt-uix-button-arrow">
 						</button>
-    				<button role="button" class=" yt-uix-button yt-uix-button-default"  id="vm-playlist-play-all" type="button" href="/watch?v=Tc_OmWppLBE&amp;feature=my_watch_later_videos&amp;list=WL9F5E19B09C8D397C">
+    				<button role="button" class=" yt-uix-button yt-uix-button-default"  id="vm-playlist-play-all" type="button">
 							<span class="yt-uix-button-content">全部播放 </span>
 						</button>
-    				<button role="button" class=" yt-uix-button yt-uix-button-default"  id="vm-playlist-remove-videos" type="button" disabled="True">
+    				<button role="button" class=" yt-uix-button yt-uix-button-default"  id="vm-playlist-remove-kejian" type="button" disabled="True">
 							<span class="yt-uix-button-content">删除 </span>
 						</button>
     				<span id="vm-view-filter">
@@ -38,8 +38,8 @@
 							<span class="yt-uix-button-content">最新课件 </span>
 							<img alt="" src= "<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="yt-uix-button-arrow">
     				<ul style="display: none;" aria-haspopup="true" role="menu" class=" yt-uix-button-menu yt-uix-button-menu-text">
-    					<li id="aria-id-15833117830" role="menuitem"><span class=" yt-uix-button-menu-item"  id="oldest" href="?vmo=oldest&amp;sa=1&amp;sf=added">最早上传</span></li>
-    					<li id="aria-id-23249337134" role="menuitem"><span class=" yt-uix-button-menu-item"  id="viewed" href="?vmo=viewed&amp;sa=0&amp;sf=viewcount">观看最多</span></li>
+    					<li id="aria-id-oldest" role="menuitem"><span class=" yt-uix-button-menu-item"  id="oldest" href="?vmo=oldest&amp;sa=1&amp;sf=added">最早上传</span></li>
+    					<li id="aria-id-viewed" role="menuitem"><span class=" yt-uix-button-menu-item"  id="viewed" href="?vmo=viewed&amp;sa=0&amp;sf=viewcount">观看最多</span></li>
     				</ul>
     				</button>
     				</span>
@@ -91,7 +91,7 @@
 		  <div class="addto-menu">
 		      <div class="addto-loading loading-content">
 		        <img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
-		        <span>正在载入播放列表...</span>
+		        <span>正在载入课件锦囊...</span>
 		      </div>
 		  </div>
 		</div>
@@ -100,7 +100,7 @@
 
 <script type="text/javascript" charset="utf-8">
 	<% content_for :butt2 do %>
-	var loading = '<div class="addto-loading loading-content"><img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>"><span>正在载入播放列表...</span></div>';
+	var loading = '<div class="addto-loading loading-content"><img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>"><span>正在载入课件锦囊...</span></div>';
   $(window).scroll(function(){
     var hidden = '<div style="visibility: hidden; position: static; top: auto; left: auto; display: block; float: none; margin: 0px; width: 766px; height: 54px;"></div>'
     var cssObj = {
@@ -184,9 +184,7 @@
 			addto_div.hide().addClass('hid');
 			addto_div.html(loading);
 		}
-
-		
-	})
+	});
 	function sort_by(type){
 		if(type=='times'){
 			sorter.sort(function(x,y){
@@ -271,6 +269,14 @@
 				$('.close-note').show().removeClass('hid');
 				$('#addto-list-saved-panel').addClass('fade active-panel');
 				removeStyle();
+			}else if(json.status == 'onesuc'){
+				$('#addto-list-panel').animate({'left':'-='+$('#addto-list-panel').width().toString() + 'px',opacity:0},{queue:false,duration:400});
+				removeActiveTag();
+				$('#addto-note-input-panel').show().removeClass('hid');
+				$('#addto-note-input-panel .yt-alert-message span.addto-title').html(json.title);
+				$('#addto-note-input-panel').animate({'left':'-='+$('#addto-create-panel').width().toString() + 'px',opacity:1},{queue:false,duration:400});
+				$('#addto-note-input-panel').addClass('fade active-panel');
+				removeStyle();
 			}else if(json.status == 'failed'){
 				$('#addto-list-panel').animate({'left':'-='+$('#addto-list-panel').width().toString() + 'px',opacity:0},{queue:false,duration:400});
 				removeActiveTag();
@@ -282,7 +288,6 @@
 			}
 		});
 	});
-
 	$('#addto-list-panel > span[data-list-action="watch-later"]').live('click',function(e){
 		$.ajax({
 			url:'/ajax/add_to_read_later_array',
@@ -323,7 +328,14 @@
 			$('.addto-create-playlist-label').show().removeClass('hid');
 		}
 	});
-
+	$('#vm-playlist-play-all').live('click',function(){
+		if(choose.length > 0){
+			window.location.href = '/coursewares/'+choose[0];
+		}else{
+			var id =  $('#vm-playlist-video-list-ol li:eq(0)').attr('id').split('-')[2];
+			window.location.href = '/coursewares/'+id.toString();
+		}
+	});
 	max = 60;
 	$('textarea#addto-create-playlist').live('keyup',function(){
 		if($(this).val().length > 0){
@@ -357,17 +369,17 @@
 			type:'POST',
 			data:{'title':$('#addto-note-input-panel .yt-alert-message span.addto-title a').html(),'cwid':choose,'note':$('#addto-note').val()},
 			dataType:'json',
-		  // beforeSend: function ( xhr ) {
-		  // 				$('#addto-note-input-panel').animate({'left':'-='+$('#addto-note-input-panel').width().toString() + 'px',opacity:0},{queue:false,duration:400});
-		  // 				removeActiveTag();
-		  // 				$('#addto-note-saving-panel').show().removeClass('hid');
-		  // 				$('#addto-note-saving-panel').addClass('fade active-panel');
-		  // 				$('#addto-note-saving-panel').animate({'left':'-='+$('#addto-note-input-panel').width().toString() + 'px',opacity:1},{queue:false,duration:400});
-		  // 				removeStyle();
-		  // }
+		  beforeSend: function ( xhr ) {
+		  				$('#addto-note-input-panel').animate({'left':'-='+$('#addto-note-input-panel').width().toString() + 'px',opacity:0},{queue:false,duration:400});
+		  				removeActiveTag();
+		  				$('#addto-note-saving-panel').show().removeClass('hid');
+		  				$('#addto-note-saving-panel').addClass('fade active-panel');
+		  				$('#addto-note-saving-panel').animate({'left':'-='+$('#addto-note-input-panel').width().toString() + 'px',opacity:1},{queue:false,duration:400});
+		  				removeStyle();
+		  }
 		}).done(function(json){
-			// $('#addto-note-saving-panel').animate({'left':'-='+$('#addto-note-saving-panel').width().toString() + 'px',opacity:0},{queue:false,duration:400});
-			$('#addto-note-input-panel').animate({'left':'-='+$('#addto-note-input-panel').width().toString() + 'px',opacity:0},{queue:false,duration:400});
+			$('#addto-note-saving-panel').animate({'left':'-='+$('#addto-note-saving-panel').width().toString() + 'px',opacity:0},{queue:false,duration:400});
+			// $('#addto-note-input-panel').animate({'left':'-='+$('#addto-note-input-panel').width().toString() + 'px',opacity:0},{queue:false,duration:400});
 			removeActiveTag();
 			$('#addto-note-saved-panel').show().removeClass('hid');
 			$('#addto-note-saved-panel span.message').html('备注已添加至：'+json.title);
@@ -426,11 +438,11 @@
 	});
 	var setDisable = function(){
       $('.addto-button').attr('disabled',true);
-			$('#vm-playlist-remove-videos').attr('disabled',true);
+			$('#vm-playlist-remove-kejian').attr('disabled',true);
 	};
 	var setEnable = function(){
     $('button.addto-button').attr('disabled',false);
-		$('#vm-playlist-remove-videos').attr('disabled',false);
+		$('#vm-playlist-remove-kejian').attr('disabled',false);
 	}
 	$('input.yt-uix-form-input-checkbox.video-checkbox').live('click',function(){
 		var len = $('input.yt-uix-form-input-checkbox.video-checkbox').length
@@ -459,6 +471,28 @@
 			}
 		}
 		console.log(choose);
+	});
+	$('#vm-playlist-remove-kejian').live('click',function(){
+		$.ajax({
+			url:'/ajax/add_to_read_later_array',
+			type:'POST',
+			data:{'cwid':choose,'type':'remove'},
+			dataType:'json'
+		}).done(function(json){
+			if(json.status == 'suc'){
+				$.each(choose,function(index,cid){
+					$('li#vm-video-'+cid).remove();
+				});
+			}else{
+				
+			}
+		})
+	});
+	$('#aria-id-oldest').live('click',function(){
+		sort_by('oldest');
+	});
+	$('#aria-id-viewed').live('click',function(){
+		sort_by('times');
 	});
 	<% end  %>
 </script>

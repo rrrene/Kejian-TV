@@ -574,34 +574,39 @@ HEREDOC
       render json:{status:'failed',reason:'您尚未登陆！'}
       return false
     end
-      pl = PlayList.find(params[:pid])
-      legal = true
-      add = true
-      params[:cwid].each do |cwid|
-        if !BSON::ObjectId.legal?(cwid)
-          legal = false
-          next
-        end
-        if pl.content.include?(cwid)
-          add = false
-          next
-        end
-        cw = Courseware.find(cwid)
-        if cw.nil?
-          next
-        end
-        add = pl.add_one_thing(cw.id)
+    pl = PlayList.find(params[:pid])
+    legal = true
+    add = true
+    params[:cwid].each do |cwid|
+      if !BSON::ObjectId.legal?(cwid)
+        legal = false
+        next
       end
-      
-      if add
-           render json:{status:'suc',title:"<a href='/play_lists/#{pl.id}'>#{pl.title}</a>"}
+      if pl.content.include?(cwid)
+        add = false
+        next
+      end
+      cw = Courseware.find(cwid)
+      if cw.nil?
+        next
+      end
+      add = pl.add_one_thing(cw.id)
+    end
+    
+    if params[:cwid].count > 1
+      suc = 'suc'
+    elsif params[:cwid].count == 1
+      suc = 'onesuc'
+    end
+    if add
+         render json:{status:suc,title:"<a href='/play_lists/#{pl.id}'>#{pl.title}</a>"}
+    else
+      if !legal
+        render json:{status:'failed',reason:'您导入的内容稍后阅读无法接受！'}
       else
-        if !legal
-          render json:{status:'failed',reason:'您导入的内容稍后阅读无法接受！'}
-        else
-          render json:{status:'failed',reason:'该课件已经存在该课件锦囊！'}
-        end
+        render json:{status:'failed',reason:'该课件已经存在该课件锦囊！'}
       end
+    end
   end
   
   
@@ -656,7 +661,7 @@ HEREDOC
     end
     pl = PlayList.locate(current_user.id,params[:title])
 
-    pl.annotation[pl.content.index(BSON::ObjectId(params[:cwid][0]))] = params[:note]
+    pl.annotation[pl.content.index(params[:cwid][0])] = params[:note]
     if pl.save(:validate=>false)
       render json:{status:'suc',title:"<a href='/play_lists/#{pl.id}'>#{pl.title}</a>"}
     else
@@ -708,8 +713,10 @@ HEREDOC
     else
       if !legal
         render json:{status:'failed',reason:'您导入的内容稍后阅读无法接受！'}
-      else
+      elsif legal and params[:type] == 'addto'
         render json:{status:'failed',reason:'该课件已经存在于稍后阅读。'}
+      elsif legal and params[:type] == 'remove'
+        render json:{status:'failed',reason:'该课件已经不存在于稍后阅读。'}
       end
     end
   end

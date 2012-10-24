@@ -117,7 +117,7 @@
 								<%= render :partial=>'playlist_actions',:locals=>{playlist:@playlist} %>
 							<% end %>
 					    <ol>
-								<% if !@playlist.content.nil? %>">
+								<% if !@playlist.content.nil? %>
 										<% if !@playlist.playlist_enable_grid_view %>
 											<%= render partial:'show_list',locals:{playlist:@playlist} %>
 										<% else %>
@@ -251,7 +251,8 @@
 // var offset = -(jQuery('.__ytb').offset().top - 15 - (jQuery('header').offset().top + jQuery('header').height()));
 // $('.__ytb').css('margin-top',offset.toString()+'px');
    $('.yt-uix-tooltip').tipsy({gravity: $.fn.tipsy.autoNS,fade: <%= @is_WebKit ? 'false' : 'true'%>,opacity: 1});
-   $('.addto-watch-later-button,.addto-watch-later-button-success').live('click',function(){
+   $('.addto-watch-later-button,.addto-watch-later-button-success').live('click',function(e){
+		 e.stopPropagation();
      var cwid = $(this).attr('data-kejian-id').trim();
      var type='addto';
      if($(this).hasClass('addto-watch-later-button-success')){
