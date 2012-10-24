@@ -44,9 +44,13 @@ KTV.ln_targetize();
 			</div>
 			<!-- leo:gobackTemplateLinks/ -->
 			<div id="main" class="profile grid-a">
-				<div id="content" class="">
+				<div id="content" class="resume hresume">
 					<!-- Start profile card -->
-          <%= image_tag("efw/r#{@user.completion_rate}.png",style:'position:absolute;z-index:23;margin-left:568px;margin-top:202px') %>
+          <%= image_tag("efw/r#{@user.completion_rate}a.png",style:'position:absolute;z-index:23;margin-left:554px;margin-top:195px',usemap:"#psvr_m_r0a") %>
+          <map name="psvr_m_r0a" id="psvr_m_r0a">
+            <area shape="circle" coords="16,140, 8" href="javascript:void(0)" alt="" id='the_ball_small'/>
+          </map>
+          <%= link_to image_tag("efw/r#{@user.completion_rate}b.png",style:'position:absolute;z-index:23;margin-left:682px;margin-top:195px'),'javascript:void(0)',id:'the_ball_big' %>
 					<div class="top-card" style="margin-top:8px">
 						<div class="profile-card vcard">
 							<div class="profile-picture" id="profile-picture">
@@ -282,6 +286,1308 @@ KTV.ln_targetize();
 						</div>
 						<!-- End profile-extras -->
 					</div>
+
+
+
+          <div style="width:100%;height:330px;background:url(<%= asset_path 'efw/bg.png' %>);margin-top:-20px;margin-bottom:-6px">
+            <%= image_tag 'efw/efw.png',style:'margin-left:399px' %>
+          </div>
+
+
+
+
+          <div id="profile_summary">
+          	<div class="section" id="profile-summary">
+          		<div class="header">
+          			<h2>Summary</h2>
+          		</div>
+          		<div class="content">
+          			<p>
+          				I love programming. I gained my National Computer Grade 2 certificate at age 12. I am a hard-working and proficient self-learner. Though I did not receive any formal programming trainings, all of my programming skills are self-taught and polished in real-world projects. Prolonged Self-teaching made me especially skilled in reading English academic literature and technical documents, yet the lack of formal training in computer science is also a disadvantage for me. I am currently teaching myself more theoretical aspects of computer science and trying to become a mature researcher of the field.
+          			</p>
+          		</div>
+          	</div>
+          </div>
+
+
+          <div style="display:block" id="profile-experience" class="section subsection-reorder">
+          	<div class="header">
+          		<h2> Experience </h2>
+          	</div>
+          	<div class="content vcalendar">
+          		<div>
+          			<div>
+          				<div style="display:block" class="position first experience vevent vcard summary-current">
+          					<a href="#name" class="include"></a>
+          					<div class="postitle">
+          						<h3 class="false">
+          						<strong class="title"><a name="title" title="Find users with this title" href="/search?search=&amp;title=CTO&amp;sortCriteria=R&amp;keepFacets=true&amp;currentTitle=C">CTO</a></strong>
+          						</h3>
+          						<h4><strong>
+          						<a name="company" title="Find users who have worked at this company" href="/search?search=&amp;currentCompany=C&amp;company=Kejian%2ETV&amp;sortCriteria=R&amp;keepFacets=true">Kejian.TV</a>
+          						</strong>
+          						</h4>
+          					</div>
+          					<p class="orgstats organization-details current-position">
+          					</p>
+          					<p class="period">
+          						<abbr title="2012" class="dtstart">2012</abbr>
+          						&ndash; <abbr title="2012-10-24" class="dtstamp">Present</abbr>
+          						<span class="duration"><span title="P" class="value-title"></span>(less than a year)</span>
+          						<span class="location">Beijing</span>
+          					</p>
+          					<p class=" description current-position">
+          						 Kejian.TV is a documentations-sharing system featuring online-presentation facilities. I done the initial construction work from scratch, tricky parts of which include, transcoding user-uploaded documents asynchronously to formats that suits online-reading, coordinating between several cloud storage services and remote transcoding services to reduce the central servers’ I/O and CPU pressures, providing real-time tracking of uploading and transcoding progresses, automating backups of high-volume data.
+          					</p>
+          					<div class="student-verticals">
+          						<h4>This position is associated with:</h4>
+          						<ul>
+          							<li><a href="#profile-projects">1 Project</a></li>
+          						</ul>
+          					</div>
+          				</div>
+          			</div>
+          			<div>
+          				<div style="display:block" class="position experience vevent vcard summary-past">
+          					<a href="#name" class="include"></a>
+          					<div class="postitle">
+          						<h3 class="false">
+          						<strong class="title"><a name="title" title="Find users with this title" href="/search?search=&amp;title=Ruby+Engineer&amp;sortCriteria=R&amp;keepFacets=true&amp;currentTitle=C">Ruby Engineer</a></strong>
+          						</h3>
+          						<h4><strong>
+          						<span data-li-getjs="http://s3.licdn.com/scds/concat/common/js?h=dyt8o4nwtaujeutlgncuqe0dn&amp;fc=2" data-tracking="mcp_profile_sum" class="miniprofile-container /companies/78784?miniprofile="><strong>
+          						<a href="/company/78784?trk=pro_other_cmpy" class="company-profile"><span class="org summary">Zhaopin.com</span></a></strong></span>
+          						</strong>
+          						</h4>
+          					</div>
+          					<p class="orgstats organization-details past-position">
+          						 Privately Held; 501-1000 employees; Internet industry
+          					</p>
+          					<p class="period">
+          						<abbr title="2011-09-01" class="dtstart">September 2011</abbr>
+          						&ndash; <abbr title="2012-08-01" class="dtend">August 2012</abbr><span class="duration"><span title="P1Y" class="value-title"></span>(1 year)</span>
+          						<span class="location">Zhaopin.com</span>
+          					</p>
+          					<p class=" description past-position">
+          						 Back-end Ruby Engineer of the Wendao Project (http://wendao.zhaopin.com), which is a Quora-like QA system. I Implemented the back-end of the system using Ruby.<br>
+          						 I tuned the performance of the system to accommodate users of quantities now over half million, rewritten heavy-calculating content-suggestion programs using C++.
+          					</p>
+          					<div class="student-verticals">
+          						<h4>This position is associated with:</h4>
+          						<ul>
+          							<li><a href="#profile-projects">1 Project</a></li>
+          						</ul>
+          					</div>
+          				</div>
+          			</div>
+          			<div>
+          				<div style="display:block" class="position experience vevent vcard summary-past">
+          					<a href="#name" class="include"></a>
+          					<div class="postitle">
+          						<h3 class="false">
+          						<strong class="title"><a name="title" title="Find users with this title" href="/search?search=&amp;title=Core+Developer&amp;sortCriteria=R&amp;keepFacets=true&amp;currentTitle=C">Core Developer</a></strong>
+          						</h3>
+          						<h4><strong>
+          						<a name="company" title="Find users who have worked at this company" href="/search?search=&amp;currentCompany=C&amp;company=Snailize+Team&amp;sortCriteria=R&amp;keepFacets=true">Snailize Team</a>
+          						</strong>
+          						</h4>
+          					</div>
+          					<p class="orgstats organization-details past-position">
+          					</p>
+          					<p class="period">
+          						<abbr title="2009-06-01" class="dtstart">June 2009</abbr>
+          						&ndash; <abbr title="2011-08-01" class="dtend">August 2011</abbr><span class="duration"><span title="P2Y3M" class="value-title"></span>(2 years 3 months)</span>
+          						<span class="location">Beijing</span>
+          					</p>
+          					<p class=" description past-position">
+          						 Snailize Team is a software development group teamed up by in-school students, with intents of leaving marks in the world just like snails. See the projects for example.
+          					</p>
+          					<div class="student-verticals">
+          						<h4>This position is associated with:</h4>
+          						<ul>
+          							<li><a href="#profile-projects">5 Projects</a></li>
+          						</ul>
+          					</div>
+          				</div>
+          			</div>
+          		</div>
+          	</div>
+          </div>
+          <div style="display:block" id="profile-projects" class="section">
+          	<div class="header">
+          		<h2> Projects </h2>
+          	</div>
+          	<div class="content">
+          		<ul class="projects documents">
+          			<li class="project first">
+          			<h3>
+          			<a class="url" name="projectsite" title="New window will open" target="_blank" href="/redir/redirect?url=http%3A%2F%2Fkejian%2Etv&amp;urlhash=7mgw">
+          			Kejian.TV </a>
+          			</h3>
+          			<ul class="specifics">
+          				<li>
+          				July 2012 to Present </li>
+          				<li class="occupation">Kejian.TV</li>
+          			</ul>
+          			<div class="attribution">
+          				 Team Members: <a href="/profile/view?id=73526537&amp;authType=name&amp;authToken=ehue&amp;goback=%2Enpv_73526537_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1&amp;trk=member">Minqi Pan</a>, <a href="/profile/view?id=161374892&amp;authType=name&amp;authToken=9izx&amp;goback=%2Enpv_73526537_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1&amp;trk=member">Shengyuan Liu</a>, <a href="/profile/view?id=204258060&amp;authType=name&amp;authToken=-EBX&amp;goback=%2Enpv_73526537_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1&amp;trk=member">Liber Liu</a>
+          			</div>
+          			<div>
+          				<p class=" ''" id="yui-gen5">
+          					Kejian.TV is a documentations-sharing system featuring online-presentation facilities. I done the initial construction work from scratch, tricky parts of which include, transcoding user-uploaded documents asynchronously to formats that suits online-reading, coordinating between several cloud storage services and remote transcoding services to reduce the central servers’ I/O and CPU pressures,...<a href="#" title="Show more" class="toggle-show-more">more</a>
+          				</p>
+          			</div>
+          			</li>
+          			<li class="project">
+          			<h3>
+          			<a class="url" name="projectsite" title="New window will open" target="_blank" href="/redir/redirect?url=http%3A%2F%2Fwendao%2Ezhaopin%2Ecom&amp;urlhash=gaH9">
+          			Wendao Career QA System </a>
+          			</h3>
+          			<ul class="specifics">
+          				<li>
+          				September 2011 to July 2012 </li>
+          				<li class="occupation">Zhaopin.com</li>
+          			</ul>
+          			<div class="attribution">
+          				 Team Members: <a href="/profile/view?id=73526537&amp;authType=name&amp;authToken=ehue&amp;goback=%2Enpv_73526537_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1&amp;trk=member">Minqi Pan</a>, <a href="/profile/view?id=121137626&amp;authType=name&amp;authToken=Lrss&amp;goback=%2Enpv_73526537_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1&amp;trk=member">YunLong Lee</a>, <a href="/profile/view?id=121925547&amp;authType=name&amp;authToken=7D0y&amp;goback=%2Enpv_73526537_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1&amp;trk=member">chris cai</a>, <a href="/profile/view?id=197776969&amp;authType=name&amp;authToken=-Jzx&amp;goback=%2Enpv_73526537_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1&amp;trk=member">eileen li</a>, <a href="/profile/view?id=35509364&amp;authType=name&amp;authToken=qWQX&amp;goback=%2Enpv_73526537_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1&amp;trk=member">Zhiqiang Liu</a>, <a href="/profile/view?id=127697566&amp;authType=name&amp;authToken=NLcv&amp;goback=%2Enpv_73526537_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1&amp;trk=member">da lu</a>, <a href="/profile/view?id=158953815&amp;authType=name&amp;authToken=XRW-&amp;goback=%2Enpv_73526537_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1&amp;trk=member">li Lesanc.Li</a>
+          			</div>
+          			<div>
+          				<p class=" ''" id="yui-gen6">
+          					 Wendao is a Quora-like QA system. I Implemented the back-end of the system using Ruby.<br>
+          					 I tuned the performance of the system to accommodate users of quantities now over half million, rewritten heavy-calculating content-suggestion programs using C++.
+          				</p>
+          			</div>
+          			</li>
+          			<li class="project">
+          			<h3>
+          			<a class="url" name="projectsite" title="New window will open" target="_blank" href="/redir/redirect?url=https%3A%2F%2Fgithub%2Ecom%2Ft2ku%2Ft2ku&amp;urlhash=EiNq">
+          			T2Ku System </a>
+          			</h3>
+          			<ul class="specifics">
+          				<li>
+          				January 2011 to January 2012 </li>
+          				<li class="occupation">Capital Normal University</li>
+          			</ul>
+          			<div class="attribution">
+          				 Team Members: <a href="/profile/view?id=73526537&amp;authType=name&amp;authToken=ehue&amp;goback=%2Enpv_73526537_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1&amp;trk=member">Minqi Pan</a>
+          			</div>
+          			<div>
+          				<p class=" ''" id="yui-gen7">
+          					 T2Ku aims at building a semantic wiki of mathematics featuring automated reasoning techniques. I designed and crafted the user interface. The whole system is still in construction.
+          				</p>
+          			</div>
+          			</li>
+          			<li class="project">
+          			<h3>
+          			<a class="url" name="projectsite" title="New window will open" target="_blank" href="/redir/redirect?url=https%3A%2F%2Fgithub%2Ecom%2Fpmq20%2FCNUKejian&amp;urlhash=Ixtr">
+          			CNUKejian </a>
+          			</h3>
+          			<ul class="specifics">
+          				<li>
+          				June 2011 to September 2011 </li>
+          				<li class="occupation">Snailize Team</li>
+          			</ul>
+          			<div class="attribution">
+          				 Team Members: <a href="/profile/view?id=73526537&amp;authType=name&amp;authToken=ehue&amp;goback=%2Enpv_73526537_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1&amp;trk=member">Minqi Pan</a>
+          			</div>
+          			<div>
+          				<p class=" ''" id="yui-gen8">
+          					 CNUKejian is a courseware sharing system that I wrote in Ruby. It automatically reads course-information out of the URP Credit Education System, which is a system widely adopted by Chinese Universities. CNUKejian helps to foster an open courseware system by peer uploading and downloading.
+          				</p>
+          			</div>
+          			</li>
+          			<li class="project">
+          			<h3>
+          			<a class="url" name="projectsite" title="New window will open" target="_blank" href="/redir/redirect?url=https%3A%2F%2Fgithub%2Ecom%2Fpmq20%2Fkaokaodianping&amp;urlhash=tRx5">
+          			Kao-Kao Dianping </a>
+          			</h3>
+          			<ul class="specifics">
+          				<li>
+          				July 2011 to September 2011 </li>
+          				<li class="occupation">Snailize Team</li>
+          			</ul>
+          			<div class="attribution">
+          				 Team Members: <a href="/profile/view?id=73526537&amp;authType=name&amp;authToken=ehue&amp;goback=%2Enpv_73526537_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1&amp;trk=member">Minqi Pan</a>, Junbo Shao, Yanzhou Jiang
+          			</div>
+          			<div>
+          				<p class=" ''" id="yui-gen9">
+          					 Kao-Kao Dianping is an entrepreneurial project aimed at gathering customer Reviews to help the customer to pick the best training institutions for him. I was responsible for the technical work while my other two team members dealt with marketing.
+          				</p>
+          			</div>
+          			</li>
+          			<li class="project">
+          			<h3>
+          			<a class="url" name="projectsite" title="New window will open" target="_blank" href="/redir/redirect?url=https%3A%2F%2Fgithub%2Ecom%2Fpmq20%2Fstuinfo&amp;urlhash=3ljD">
+          			Stuinfo </a>
+          			</h3>
+          			<ul class="specifics">
+          				<li>
+          				September 2010 to January 2011 </li>
+          				<li class="occupation">Snailize Team</li>
+          			</ul>
+          			<div class="attribution">
+          				 Team Members: <a href="/profile/view?id=73526537&amp;authType=name&amp;authToken=ehue&amp;goback=%2Enpv_73526537_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1&amp;trk=member">Minqi Pan</a>
+          			</div>
+          			<div>
+          				<p class=" ''" id="yui-gen10">
+          					 Stuinfo is a Student Information Management system I wrote in Ruby. It is now being used in the school intranet by the management staffs of my university.
+          				</p>
+          			</div>
+          			</li>
+          			<li class="project">
+          			<h3>
+          			<a class="url" name="projectsite" title="New window will open" target="_blank" href="/redir/redirect?url=http%3A%2F%2Fitunes%2Eapple%2Ecom%2Fus%2Fapp%2Fgre-hack%2Fid367830524%3Fmt%3D8&amp;urlhash=AzD_">
+          			GRE Hack (iOS App) </a>
+          			</h3>
+          			<ul class="specifics">
+          				<li>
+          				January 2010 to June 2010 </li>
+          				<li class="occupation">Snailize Team</li>
+          			</ul>
+          			<div class="attribution">
+          				 Team Members: <a href="/profile/view?id=73526537&amp;authType=name&amp;authToken=ehue&amp;goback=%2Enpv_73526537_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1&amp;trk=member">Minqi Pan</a>
+          			</div>
+          			<div>
+          				<p class=" ''" id="yui-gen11">
+          					 GRE Hack is a commercial iOS app that I wrote to help the user get ready for the GRE test. I wrote the program and also wrote the problem-solving strategy part of the actual data.
+          				</p>
+          			</div>
+          			</li>
+          			<li class="project">
+          			<h3>
+          			<a class="url" name="projectsite" title="New window will open" target="_blank" href="/redir/redirect?url=https%3A%2F%2Fgithub%2Ecom%2Fpmq20%2FBLOG-OF-P%2ES%2EV%2ER&amp;urlhash=j_52">
+          			Of P.S.V.R </a>
+          			</h3>
+          			<ul class="specifics">
+          				<li>
+          				June 2009 to September 2009 </li>
+          				<li class="occupation">Snailize Team</li>
+          			</ul>
+          			<div class="attribution">
+          				 Team Members: <a href="/profile/view?id=73526537&amp;authType=name&amp;authToken=ehue&amp;goback=%2Enpv_73526537_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1&amp;trk=member">Minqi Pan</a>
+          			</div>
+          			<div>
+          				<p class=" ''" id="yui-gen12">
+          					 Of P.S.V.R is a web application that I wrote in pure C programming language. It is an attempt to develop high performance cache-oriented web applications. After it’s done, I posted its source code on the web and deployed it as my personal blog website.
+          				</p>
+          			</div>
+          			</li>
+          		</ul>
+          	</div>
+          </div>
+          <div style="display:block" id="profile-education" class="section subsection-reorder summary-education">
+          	<div class="header">
+          		<h2>
+          		Education </h2>
+          	</div>
+          	<div class="content vcalendar">
+          		<div>
+          			<div id="92875930" class="position first education vevent vcard">
+          				<h3 class="summary fn org">
+          				<a class="school-link" name="''" title="Find members that attended Capital Normal University" href="/college/?eduSchool=11044&amp;trk=prof-edu-school-name">Capital Normal University</a>
+          				</h3>
+          				<h4 class="details-education">
+          				<span class="degree">Bachelor of Science (B.S.)</span>, <span class="major">
+          				<a name="" title="Find users with this keyword" href="/search?search=&amp;keywords=Mathematics&amp;sortCriteria=R&amp;keepFacets=true">Mathematics</a>
+          				</span>
+          				</h4>
+          				<p class="period">
+          					<abbr title="2009-01-01" class="dtstart">2009</abbr> &ndash; <abbr title="2013-12-31" class="dtend">2013</abbr>
+          					(expected)
+          				</p>
+          				<p class=" desc details-education">
+          				</p>
+          				<p name="activities" class="desc details-education">
+          					<em>Activities and Societies:</em>
+          					<a name="" title="Find users with this keyword" href="/search?search=&amp;keywords=Seminar+on+Principles+of+Mathematical+Analysis&amp;sortCriteria=R&amp;keepFacets=true">Seminar on Principles of Mathematical Analysis</a>, <a name="" title="Find users with this keyword" href="/search?search=&amp;keywords=Beijing+City+Fund+for+Undergraduate+Research+Project%2E&amp;sortCriteria=R&amp;keepFacets=true">Beijing City Fund for Undergraduate Research Project.</a>
+          				</p>
+          				<div class="student-verticals">
+          					<h4>This education is associated with:</h4>
+          					<ul>
+          						<li><a href="#profile-projects">1 Project</a></li>
+          					</ul>
+          				</div>
+          			</div>
+          		</div>
+          	</div>
+          </div>
+
+          <div id="profile-recommendations" class="section">
+          	<div class="header">
+          		<h2 id="recommendations">
+          		Recommendations For Raecoo </h2>
+          	</div>
+          	<div class="content">
+          		<div class="reference-position first">
+          			<div class="postitle">
+          				<h3 class="false">
+          				<span class="title">Senior Engineer</span>
+          				</h3>
+          				<h4><strong>
+          				<span data-li-getjs="http://s3.licdn.com/scds/concat/common/js?h=dyt8o4nwtaujeutlgncuqe0dn&amp;fc=2" data-tracking="mcp_profile_sum" class="miniprofile-container /companies/204091?miniprofile=&amp;goback=%2Enmp_*1_*1_*1_*1_*1_*1_*1_*1_*1" id="yui-gen41"><strong>
+          				<a href="/company/204091?goback=%2Enmp_*1_*1_*1_*1_*1_*1_*1_*1_*1&amp;trk=pro_other_cmpy" class="company-profile"><span class="org summary">Intridea, Inc</span></a></strong></span>
+          				</strong>
+          				</h4>
+          			</div>
+          			<div>
+          				<div class="reference">
+          					<p>
+          						“I had the pleasure of working with Raecoo directly and as part of the same group for over 2 years. He's a very smart engineer who picks up new skills quickly. In addition, he's a team player and very reliable. I would recommend him to anyone seeking a top-notch developer.” <span class="date">May 29, 2012</span>
+          					</p>
+          					<p class="distance deg_2">
+          						<abbr title="David is a 2nd degree contact"><span class="network-degree">2<sup>nd</sup></span></abbr>
+          						<a title="View David's Profile" href="/profile/view?id=5677312&amp;authType=name&amp;authToken=9AAj&amp;goback=%2Enmp_*1_*1_*1_*1_*1_*1_*1_*1_*1%2Enpv_14007276_*1_*1_name_ToTx_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_NUS_*1_*1_*1_*1_*1">David Naffis</a>, <em> CTO, Socialspring</em><br>
+          						 worked directly with Raecoo at Intridea, Inc
+          					</p>
+          				</div>
+          				<div class="reference">
+          					<p>
+          						“Raecoo is a senior engineer with extensive knowledge on web development. Professional, easy to communicate, hard work. You can always get expected output from Raecoo. He won't let you down. I definitely want to work with him again in the future.” <span class="date">May 15, 2012</span>
+          					</p>
+          					<p class="distance deg_2">
+          						<abbr title="Dingding is a 2nd degree contact"><span class="network-degree">2<sup>nd</sup></span></abbr>
+          						<a title="View Dingding's Profile" href="/profile/view?id=18945004&amp;authType=name&amp;authToken=mpSR&amp;goback=%2Enmp_*1_*1_*1_*1_*1_*1_*1_*1_*1%2Enpv_14007276_*1_*1_name_ToTx_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_NUS_*1_*1_*1_*1_*1">Dingding Ye</a>, <em> Software Architect, Intridea, Inc</em><br>
+          						 managed Raecoo at Intridea, Inc
+          					</p>
+          				</div>
+          				<div class="reference">
+          					<p>
+          						“Raecoo helped me in my early stages of learning Ruby and Rails. I owe a lot of thanks to him for pairing with me, and helping me with building my comfort will both a new language and new framework. Raecoo is a balanced developer, and can be a great asset on all parts of a project.” <span class="date">May 9, 2012</span>
+          					</p>
+          					<p class="distance deg_2">
+          						<abbr title="Ted is a 2nd degree contact"><span class="network-degree">2<sup>nd</sup></span></abbr>
+          						<a title="View Ted's Profile" href="/profile/view?id=16920055&amp;authType=name&amp;authToken=9Ng7&amp;goback=%2Enmp_*1_*1_*1_*1_*1_*1_*1_*1_*1%2Enpv_14007276_*1_*1_name_ToTx_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_NUS_*1_*1_*1_*1_*1">Ted O'Meara</a>, <em> Director of User Experience / Project Manager, Intridea, Inc</em><br>
+          						 worked directly with Raecoo at Intridea, Inc
+          					</p>
+          				</div>
+          				<div class="reference">
+          					<p>
+          						“Raecoo is an awesome developer. He can handle all kinds of requests and get them done in a fast and perfect way. He keeps explore new technologies and tools, I learned a lot of interesting stuff from him :) He understand the intention behind requirements. He doesn't just follow them mechanically but willing to spend time to think about why client/someone want to do this, and often come back with better solution. <br>
+          						<br>
+          						 And the best of all, he use vim!” <span class="date">May 9, 2012</span>
+          					</p>
+          					<p class="distance deg_2">
+          						<abbr title="Jan (Hanjian) is a 2nd degree contact"><span class="network-degree">2<sup>nd</sup></span></abbr>
+          						<a title="View Jan (Hanjian)'s Profile" href="/profile/view?id=20419653&amp;authType=name&amp;authToken=3RXs&amp;goback=%2Enmp_*1_*1_*1_*1_*1_*1_*1_*1_*1%2Enpv_14007276_*1_*1_name_ToTx_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_NUS_*1_*1_*1_*1_*1">Jan (Hanjian) Xie</a>, <em> Senior Engineer, Intridea, Inc</em><br>
+          						 worked directly with Raecoo at Intridea, Inc
+          					</p>
+          				</div>
+          				<div class="reference">
+          					<p>
+          						“I have worked with Raecoo for two years and it’s been a great experience. Raecoo is a dedicated young developer, and always open to learning new things and improving his technical skills. If you ever need someone to deliver under pressure, just results, Raecoo won't let you down.” <span class="date">May 9, 2012</span>
+          					</p>
+          					<p class="distance deg_2">
+          						<abbr title="Ping is a 2nd degree contact"><span class="network-degree">2<sup>nd</sup></span></abbr>
+          						<a title="View Ping's Profile" href="/profile/view?id=5051446&amp;authType=name&amp;authToken=7fkp&amp;goback=%2Enmp_*1_*1_*1_*1_*1_*1_*1_*1_*1%2Enpv_14007276_*1_*1_name_ToTx_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_NUS_*1_*1_*1_*1_*1">Ping Yu</a>, <em> Director of Asia Operations, Intridea</em><br>
+          						 managed Raecoo at Intridea, Inc
+          					</p>
+          				</div>
+          			</div>
+          		</div>
+          		<div class="reference-position">
+          			<div class="postitle">
+          				<h3 class="false">
+          				<span class="title">Senior Engineer</span>
+          				</h3>
+          				<h4><strong>
+          				<span data-li-getjs="http://s3.licdn.com/scds/concat/common/js?h=dyt8o4nwtaujeutlgncuqe0dn&amp;fc=2" data-tracking="mcp_profile_sum" class="miniprofile-container /companies/278661?miniprofile=&amp;goback=%2Enmp_*1_*1_*1_*1_*1_*1_*1_*1_*1"><strong>
+          				<a href="/company/278661?goback=%2Enmp_*1_*1_*1_*1_*1_*1_*1_*1_*1&amp;trk=pro_other_cmpy" class="company-profile"><span class="org summary">P1 Media</span></a></strong></span>
+          				</strong>
+          				</h4>
+          			</div>
+          			<div>
+          				<div class="reference">
+          					<p>
+          						“Excellent ability of programing,Good presentation skills,Positive active mind essential.” <span class="date">September 11, 2009</span>
+          					</p>
+          					<p class="distance deg_2">
+          						<abbr title="woody is a 2nd degree contact"><span class="network-degree">2<sup>nd</sup></span></abbr>
+          						<a title="View woody's Profile" href="/profile/view?id=39989214&amp;authType=name&amp;authToken=bkVi&amp;goback=%2Enmp_*1_*1_*1_*1_*1_*1_*1_*1_*1%2Enpv_14007276_*1_*1_name_ToTx_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_NUS_*1_*1_*1_*1_*1">woody lee</a>, <em> SA, P1.CN</em><br>
+          						 worked directly with Raecoo at P1 Media
+          					</p>
+          				</div>
+          			</div>
+          		</div>
+          	</div>
+          </div>
+
+
+          <div style="display:block" id="profile-publications" class="section">
+          	<div class="header">
+          		<h2> Publications </h2>
+          	</div>
+          	<div class="content">
+          		<ul class="publications documents">
+          			<li class="publication vevent vcard first">
+          			<h3>
+          			<a class="url" name="publicationsite" title="New window will open" target="_blank" href="/redir/redirect?url=http%3A%2F%2Farxiv%2Eorg%2Fabs%2F1201%2E5681%2F&amp;urlhash=1F34">
+          			<cite>T2Ku: Building a Semantic Wiki of Mathematics</cite>
+          			</a>
+          			</h3>
+          			<ul class="specifics">
+          				<li>arXiv</li>
+          				<li class="dtstart">January 27, 2012</li>
+          			</ul>
+          			<div class="attribution">
+          				 Authors: <a href="/profile/view?id=73526537&amp;authType=name&amp;authToken=ehue&amp;goback=%2Enpv_73526537_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1&amp;trk=author">Minqi Pan</a>
+          			</div>
+          			<div class="summary">
+          				<p class=" ''" id="yui-gen13">
+          					We introduce T2Ku, an open source project that aims at building a semantic wiki of mathematics featuring automated reasoning(AR) techniques. We want to utilize AR techniques in a way that truly helps mathematical researchers solve problems in the real world, instead of building another ambitious yet useless system. By setting this as our objective, we exploit pragmatic design decisions that have...<a href="#" title="Show more" class="toggle-show-more">more</a>
+          				</p>
+          			</div>
+          			</li>
+          		</ul>
+          	</div>
+          </div>
+          
+
+          <div style="display:block" id="profile-skills" class="section">
+          	<div class="header">
+          		<h2> Skills &amp; Expertise <span class="endorsement-header">Endorsements <a href="javascript:void(0)" class="learn-more" id="yui-gen14">Learn more</a></span></h2>
+          	</div>
+            <div class="content">
+            	<div id="yui-gen11">
+            		<ol class="skills-with-endorsements">
+            			<li class="endorse-item endorsable" data-endorsed-item-name="JavaScript" data-endorsement-id="">
+            			<span id="first-skill" class="miniprofile-container http://www.linkedin.com/skills/api/v2/miniskill/JavaScript?goback=%2Enmp_*1_*1_*1_*1_*1_*1_*1_*1_*1 endorse-button has-endorsements">
+            			<span class="endorse-count">
+            			<span data-count="7" class="num-endorsements">7</span>
+            			<span class="endorse-plus">+</span>
+            			<span class="endorse-minus">-1</span>
+            			</span>
+            			<span class="endorse-item-name">
+            			<span class="endorse-item-name-text">JavaScript</span>
+            			<span class="endorse-text">Endorse</span>
+            			<span class="endorse-action-taken-text">Endorsed!</span>
+            			<span class="endorse-undo-text">Undo</span>
+            			</span>
+            			</span>
+            			<div class="endorsers-container">
+            				<ol class="endorsers-pics">
+            					<li>
+            					<span class="endorse-action">
+            					<a title="Endorse" role="button" href="javascript:void(0)" class="endorse-action-plus ">+</a>
+            					<img width="30" height="30" class="viewer-pic" alt="" src="http://m3.licdn.com/mpr/mpr/shrink_30_30/p/2/000/191/124/3a52b69.jpg">
+            					</span>
+            					</li>
+            					<li data-endorser-id="77254436">
+            					<span class="miniprofile-container /miniprofile?view=&amp;vieweeID=77254436&amp;context=DEFAULT&amp;goback=%2Enmp_*1_*1_*1_*1_*1_*1_*1_*1_*1" id="yui-gen17"><strong>
+            					<img width="30" height="30" alt="" src="http://m3.licdn.com/mpr/mpr/shrink_30_30/p/4/000/133/1ee/0aab02d.jpg">
+            					</strong></span>
+            					</li>
+            					<li data-endorser-id="8423037">
+            					<span class="miniprofile-container /miniprofile?view=&amp;vieweeID=8423037&amp;context=DEFAULT&amp;goback=%2Enmp_*1_*1_*1_*1_*1_*1_*1_*1_*1" id="yui-gen18"><strong>
+            					<img width="30" height="30" alt="" src="http://m4.licdn.com/mpr/mpr/shrink_30_30/p/1/000/048/3c8/218653e.jpg">
+            					</strong></span>
+            					</li>
+            					<li data-endorser-id="44309994">
+            					<span class="miniprofile-container /miniprofile?view=&amp;vieweeID=44309994&amp;context=DEFAULT&amp;goback=%2Enmp_*1_*1_*1_*1_*1_*1_*1_*1_*1"><strong>
+            					<img width="30" height="30" alt="" src="http://m3.licdn.com/mpr/mpr/shrink_30_30/p/1/000/0d4/2fc/2754721.jpg">
+            					</strong></span>
+            					</li>
+            					<li data-endorser-id="28339766">
+            					<span class="miniprofile-container /miniprofile?view=&amp;vieweeID=28339766&amp;context=DEFAULT&amp;goback=%2Enmp_*1_*1_*1_*1_*1_*1_*1_*1_*1"><strong>
+            					<img width="30" height="30" alt="" src="http://m3.licdn.com/mpr/mpr/shrink_30_30/p/1/000/06e/226/205c2ee.jpg">
+            					</strong></span>
+            					</li>
+            					<li data-endorser-id="8601042">
+            					<span class="miniprofile-container /miniprofile?view=&amp;vieweeID=8601042&amp;context=DEFAULT&amp;goback=%2Enmp_*1_*1_*1_*1_*1_*1_*1_*1_*1" id="yui-gen21"><strong>
+            					<img width="30" height="30" alt="" src="http://s4.licdn.com/scds/common/u/img/icon/icon_no_photo_30x30.png">
+            					</strong></span>
+            					</li>
+            					<li data-endorser-id="53679082">
+            					<span class="miniprofile-container /miniprofile?view=&amp;vieweeID=53679082&amp;context=DEFAULT&amp;goback=%2Enmp_*1_*1_*1_*1_*1_*1_*1_*1_*1"><strong>
+            					<img width="30" height="30" alt="" src="http://m4.licdn.com/mpr/mpr/shrink_30_30/p/3/000/05b/09b/2f16c8b.jpg">
+            					</strong></span>
+            					</li>
+            					<li data-endorser-id="41934944">
+            					<span class="miniprofile-container /miniprofile?view=&amp;vieweeID=41934944&amp;context=DEFAULT&amp;goback=%2Enmp_*1_*1_*1_*1_*1_*1_*1_*1_*1"><strong>
+            					<img width="30" height="30" alt="" src="http://s4.licdn.com/scds/common/u/img/icon/icon_no_photo_30x30.png">
+            					</strong></span>
+            					</li>
+            					<li class="endorsers-action ">
+            					<a data-endorser-ids="77254436:120638366,8423037:113094828,44309994:91026129,28339766:89951106,8601042:86152823,53679082:69838115,41934944:68868804" title="See all endorsers" role="button" href="javascript:void(0)" class="see-all-endorsers">
+            					<span class="all-endorsers-arrow"></span>
+            					<span class="loading-ind"></span>
+            					</a>
+            					</li>
+            				</ol>
+            				<hr class="hr-line">
+            			</div>
+            			</li>
+            			<li class="endorse-item endorsable" data-endorsed-item-name="Ruby on Rails" data-endorsement-id="">
+            			<span id="" class="miniprofile-container http://www.linkedin.com/skills/api/v2/miniskill/Ruby+on+Rails?goback=%2Enmp_*1_*1_*1_*1_*1_*1_*1_*1_*1 endorse-button has-endorsements">
+            			<span class="endorse-count">
+            			<span data-count="5" class="num-endorsements">5</span>
+            			<span class="endorse-plus">+</span>
+            			<span class="endorse-minus">-1</span>
+            			</span>
+            			<span class="endorse-item-name">
+            			<span class="endorse-item-name-text">Ruby on Rails</span>
+            			<span class="endorse-text">Endorse</span>
+            			<span class="endorse-action-taken-text">Endorsed!</span>
+            			<span class="endorse-undo-text">Undo</span>
+            			</span>
+            			</span>
+            			<div class="endorsers-container">
+            				<ol class="endorsers-pics">
+            					<li>
+            					<span class="endorse-action">
+            					<a title="Endorse" role="button" href="javascript:void(0)" class="endorse-action-plus ">+</a>
+            					<img width="30" height="30" class="viewer-pic" alt="" src="http://m3.licdn.com/mpr/mpr/shrink_30_30/p/2/000/191/124/3a52b69.jpg">
+            					</span>
+            					</li>
+            					<li data-endorser-id="115321617">
+            					<span class="miniprofile-container /miniprofile?view=&amp;vieweeID=115321617&amp;context=DEFAULT&amp;goback=%2Enmp_*1_*1_*1_*1_*1_*1_*1_*1_*1" id="yui-gen19"><strong>
+            					<img width="30" height="30" alt="" src="http://m3.licdn.com/mpr/mpr/shrink_30_30/p/2/000/0b2/1d1/33470c0.jpg">
+            					</strong></span>
+            					</li>
+            					<li data-endorser-id="125514886">
+            					<span class="miniprofile-container /miniprofile?view=&amp;vieweeID=125514886&amp;context=DEFAULT&amp;goback=%2Enmp_*1_*1_*1_*1_*1_*1_*1_*1_*1"><strong>
+            					<img width="30" height="30" alt="" src="http://m4.licdn.com/mpr/mpr/shrink_30_30/p/2/000/0cc/341/2902aa4.jpg">
+            					</strong></span>
+            					</li>
+            					<li data-endorser-id="77254436">
+            					<span class="miniprofile-container /miniprofile?view=&amp;vieweeID=77254436&amp;context=DEFAULT&amp;goback=%2Enmp_*1_*1_*1_*1_*1_*1_*1_*1_*1" id="yui-gen22"><strong>
+            					<img width="30" height="30" alt="" src="http://m3.licdn.com/mpr/mpr/shrink_30_30/p/4/000/133/1ee/0aab02d.jpg">
+            					</strong></span>
+            					</li>
+            					<li data-endorser-id="8423037">
+            					<span class="miniprofile-container /miniprofile?view=&amp;vieweeID=8423037&amp;context=DEFAULT&amp;goback=%2Enmp_*1_*1_*1_*1_*1_*1_*1_*1_*1"><strong>
+            					<img width="30" height="30" alt="" src="http://m4.licdn.com/mpr/mpr/shrink_30_30/p/1/000/048/3c8/218653e.jpg">
+            					</strong></span>
+            					</li>
+            					<li data-endorser-id="8601042">
+            					<span class="miniprofile-container /miniprofile?view=&amp;vieweeID=8601042&amp;context=DEFAULT&amp;goback=%2Enmp_*1_*1_*1_*1_*1_*1_*1_*1_*1"><strong>
+            					<img width="30" height="30" alt="" src="http://s4.licdn.com/scds/common/u/img/icon/icon_no_photo_30x30.png">
+            					</strong></span>
+            					</li>
+            					<li class="endorsers-action ">
+            					<a data-endorser-ids="115321617:154462305,125514886:149586087,77254436:120640543,8423037:113094827,8601042:86152825" title="See all endorsers" role="button" href="javascript:void(0)" class="see-all-endorsers">
+            					<span class="all-endorsers-arrow"></span>
+            					<span class="loading-ind"></span>
+            					</a>
+            					</li>
+            				</ol>
+            				<hr class="hr-line">
+            			</div>
+            			</li>
+            			<li class="endorse-item endorsable" data-endorsed-item-name="Linux" data-endorsement-id="">
+            			<span id="" class="miniprofile-container http://www.linkedin.com/skills/api/v2/miniskill/Linux?goback=%2Enmp_*1_*1_*1_*1_*1_*1_*1_*1_*1 endorse-button has-endorsements">
+            			<span class="endorse-count">
+            			<span data-count="4" class="num-endorsements">4</span>
+            			<span class="endorse-plus">+</span>
+            			<span class="endorse-minus">-1</span>
+            			</span>
+            			<span class="endorse-item-name">
+            			<span class="endorse-item-name-text">Linux</span>
+            			<span class="endorse-text">Endorse</span>
+            			<span class="endorse-action-taken-text">Endorsed!</span>
+            			<span class="endorse-undo-text">Undo</span>
+            			</span>
+            			</span>
+            			<div class="endorsers-container">
+            				<ol class="endorsers-pics">
+            					<li>
+            					<span class="endorse-action">
+            					<a title="Endorse" role="button" href="javascript:void(0)" class="endorse-action-plus ">+</a>
+            					<img width="30" height="30" class="viewer-pic" alt="" src="http://m3.licdn.com/mpr/mpr/shrink_30_30/p/2/000/191/124/3a52b69.jpg">
+            					</span>
+            					</li>
+            					<li data-endorser-id="53679082">
+            					<span class="miniprofile-container /miniprofile?view=&amp;vieweeID=53679082&amp;context=DEFAULT&amp;goback=%2Enmp_*1_*1_*1_*1_*1_*1_*1_*1_*1"><strong>
+            					<img width="30" height="30" alt="" src="http://m4.licdn.com/mpr/mpr/shrink_30_30/p/3/000/05b/09b/2f16c8b.jpg">
+            					</strong></span>
+            					</li>
+            					<li data-endorser-id="8423037">
+            					<span class="miniprofile-container /miniprofile?view=&amp;vieweeID=8423037&amp;context=DEFAULT&amp;goback=%2Enmp_*1_*1_*1_*1_*1_*1_*1_*1_*1" id="yui-gen28"><strong>
+            					<img width="30" height="30" alt="" src="http://m4.licdn.com/mpr/mpr/shrink_30_30/p/1/000/048/3c8/218653e.jpg">
+            					</strong></span>
+            					</li>
+            					<li data-endorser-id="41934944">
+            					<span class="miniprofile-container /miniprofile?view=&amp;vieweeID=41934944&amp;context=DEFAULT&amp;goback=%2Enmp_*1_*1_*1_*1_*1_*1_*1_*1_*1"><strong>
+            					<img width="30" height="30" alt="" src="http://s4.licdn.com/scds/common/u/img/icon/icon_no_photo_30x30.png">
+            					</strong></span>
+            					</li>
+            					<li data-endorser-id="8601042">
+            					<span class="miniprofile-container /miniprofile?view=&amp;vieweeID=8601042&amp;context=DEFAULT&amp;goback=%2Enmp_*1_*1_*1_*1_*1_*1_*1_*1_*1"><strong>
+            					<img width="30" height="30" alt="" src="http://s4.licdn.com/scds/common/u/img/icon/icon_no_photo_30x30.png">
+            					</strong></span>
+            					</li>
+            					<li class="endorsers-action ">
+            					<a data-endorser-ids="53679082:119274398,8423037:113094829,41934944:111328970,8601042:86152824" title="See all endorsers" role="button" href="javascript:void(0)" class="see-all-endorsers">
+            					<span class="all-endorsers-arrow"></span>
+            					<span class="loading-ind"></span>
+            					</a>
+            					</li>
+            				</ol>
+            				<hr class="hr-line">
+            			</div>
+            			</li>
+            			<li class="endorse-item endorsable" data-endorsed-item-name="Ruby" data-endorsement-id="">
+            			<span id="" class="miniprofile-container http://www.linkedin.com/skills/api/v2/miniskill/Ruby?goback=%2Enmp_*1_*1_*1_*1_*1_*1_*1_*1_*1 endorse-button has-endorsements">
+            			<span class="endorse-count">
+            			<span data-count="3" class="num-endorsements">3</span>
+            			<span class="endorse-plus">+</span>
+            			<span class="endorse-minus">-1</span>
+            			</span>
+            			<span class="endorse-item-name">
+            			<span class="endorse-item-name-text">Ruby</span>
+            			<span class="endorse-text">Endorse</span>
+            			<span class="endorse-action-taken-text">Endorsed!</span>
+            			<span class="endorse-undo-text">Undo</span>
+            			</span>
+            			</span>
+            			<div class="endorsers-container">
+            				<ol class="endorsers-pics">
+            					<li>
+            					<span class="endorse-action">
+            					<a title="Endorse" role="button" href="javascript:void(0)" class="endorse-action-plus ">+</a>
+            					<img width="30" height="30" class="viewer-pic" alt="" src="http://m3.licdn.com/mpr/mpr/shrink_30_30/p/2/000/191/124/3a52b69.jpg">
+            					</span>
+            					</li>
+            					<li data-endorser-id="77254436">
+            					<span class="miniprofile-container /miniprofile?view=&amp;vieweeID=77254436&amp;context=DEFAULT&amp;goback=%2Enmp_*1_*1_*1_*1_*1_*1_*1_*1_*1" id="yui-gen23"><strong>
+            					<img width="30" height="30" alt="" src="http://m3.licdn.com/mpr/mpr/shrink_30_30/p/4/000/133/1ee/0aab02d.jpg">
+            					</strong></span>
+            					</li>
+            					<li data-endorser-id="8423037">
+            					<span class="miniprofile-container /miniprofile?view=&amp;vieweeID=8423037&amp;context=DEFAULT&amp;goback=%2Enmp_*1_*1_*1_*1_*1_*1_*1_*1_*1"><strong>
+            					<img width="30" height="30" alt="" src="http://m4.licdn.com/mpr/mpr/shrink_30_30/p/1/000/048/3c8/218653e.jpg">
+            					</strong></span>
+            					</li>
+            					<li data-endorser-id="8601042">
+            					<span class="miniprofile-container /miniprofile?view=&amp;vieweeID=8601042&amp;context=DEFAULT&amp;goback=%2Enmp_*1_*1_*1_*1_*1_*1_*1_*1_*1"><strong>
+            					<img width="30" height="30" alt="" src="http://s4.licdn.com/scds/common/u/img/icon/icon_no_photo_30x30.png">
+            					</strong></span>
+            					</li>
+            					<li class="endorsers-action ">
+            					<a data-endorser-ids="77254436:120644775,8423037:112999771,8601042:86152826" title="See all endorsers" role="button" href="javascript:void(0)" class="see-all-endorsers">
+            					<span class="all-endorsers-arrow"></span>
+            					<span class="loading-ind"></span>
+            					</a>
+            					</li>
+            				</ol>
+            				<hr class="hr-line">
+            			</div>
+            			</li>
+            			<li class="endorse-item endorsable" data-endorsed-item-name="Git" data-endorsement-id="">
+            			<span id="" class="miniprofile-container http://www.linkedin.com/skills/api/v2/miniskill/Git?goback=%2Enmp_*1_*1_*1_*1_*1_*1_*1_*1_*1 endorse-button has-endorsements">
+            			<span class="endorse-count">
+            			<span data-count="3" class="num-endorsements">3</span>
+            			<span class="endorse-plus">+</span>
+            			<span class="endorse-minus">-1</span>
+            			</span>
+            			<span class="endorse-item-name">
+            			<span class="endorse-item-name-text">Git</span>
+            			<span class="endorse-text">Endorse</span>
+            			<span class="endorse-action-taken-text">Endorsed!</span>
+            			<span class="endorse-undo-text">Undo</span>
+            			</span>
+            			</span>
+            			<div class="endorsers-container">
+            				<ol class="endorsers-pics">
+            					<li>
+            					<span class="endorse-action">
+            					<a title="Endorse" role="button" href="javascript:void(0)" class="endorse-action-plus ">+</a>
+            					<img width="30" height="30" class="viewer-pic" alt="" src="http://m3.licdn.com/mpr/mpr/shrink_30_30/p/2/000/191/124/3a52b69.jpg">
+            					</span>
+            					</li>
+            					<li data-endorser-id="77254436">
+            					<span class="miniprofile-container /miniprofile?view=&amp;vieweeID=77254436&amp;context=DEFAULT&amp;goback=%2Enmp_*1_*1_*1_*1_*1_*1_*1_*1_*1" id="yui-gen24"><strong>
+            					<img width="30" height="30" alt="" src="http://m3.licdn.com/mpr/mpr/shrink_30_30/p/4/000/133/1ee/0aab02d.jpg">
+            					</strong></span>
+            					</li>
+            					<li data-endorser-id="8423037">
+            					<span class="miniprofile-container /miniprofile?view=&amp;vieweeID=8423037&amp;context=DEFAULT&amp;goback=%2Enmp_*1_*1_*1_*1_*1_*1_*1_*1_*1"><strong>
+            					<img width="30" height="30" alt="" src="http://m4.licdn.com/mpr/mpr/shrink_30_30/p/1/000/048/3c8/218653e.jpg">
+            					</strong></span>
+            					</li>
+            					<li data-endorser-id="8601042">
+            					<span class="miniprofile-container /miniprofile?view=&amp;vieweeID=8601042&amp;context=DEFAULT&amp;goback=%2Enmp_*1_*1_*1_*1_*1_*1_*1_*1_*1"><strong>
+            					<img width="30" height="30" alt="" src="http://s4.licdn.com/scds/common/u/img/icon/icon_no_photo_30x30.png">
+            					</strong></span>
+            					</li>
+            					<li class="endorsers-action ">
+            					<a data-endorser-ids="77254436:120646699,8423037:113094830,8601042:86152827" title="See all endorsers" role="button" href="javascript:void(0)" class="see-all-endorsers">
+            					<span class="all-endorsers-arrow"></span>
+            					<span class="loading-ind"></span>
+            					</a>
+            					</li>
+            				</ol>
+            				<hr class="hr-line">
+            			</div>
+            			</li>
+            			<li class="endorse-item endorsable" data-endorsed-item-name="jQuery" data-endorsement-id="">
+            			<span id="" class="miniprofile-container http://www.linkedin.com/skills/api/v2/miniskill/jQuery?goback=%2Enmp_*1_*1_*1_*1_*1_*1_*1_*1_*1 endorse-button has-endorsements">
+            			<span class="endorse-count">
+            			<span data-count="2" class="num-endorsements">2</span>
+            			<span class="endorse-plus">+</span>
+            			<span class="endorse-minus">-1</span>
+            			</span>
+            			<span class="endorse-item-name">
+            			<span class="endorse-item-name-text">jQuery</span>
+            			<span class="endorse-text">Endorse</span>
+            			<span class="endorse-action-taken-text">Endorsed!</span>
+            			<span class="endorse-undo-text">Undo</span>
+            			</span>
+            			</span>
+            			<div class="endorsers-container">
+            				<ol class="endorsers-pics">
+            					<li>
+            					<span class="endorse-action">
+            					<a title="Endorse" role="button" href="javascript:void(0)" class="endorse-action-plus ">+</a>
+            					<img width="30" height="30" class="viewer-pic" alt="" src="http://m3.licdn.com/mpr/mpr/shrink_30_30/p/2/000/191/124/3a52b69.jpg">
+            					</span>
+            					</li>
+            					<li data-endorser-id="8601042">
+            					<span class="miniprofile-container /miniprofile?view=&amp;vieweeID=8601042&amp;context=DEFAULT&amp;goback=%2Enmp_*1_*1_*1_*1_*1_*1_*1_*1_*1" id="yui-gen25"><strong>
+            					<img width="30" height="30" alt="" src="http://s4.licdn.com/scds/common/u/img/icon/icon_no_photo_30x30.png">
+            					</strong></span>
+            					</li>
+            					<li data-endorser-id="8423037">
+            					<span class="miniprofile-container /miniprofile?view=&amp;vieweeID=8423037&amp;context=DEFAULT&amp;goback=%2Enmp_*1_*1_*1_*1_*1_*1_*1_*1_*1"><strong>
+            					<img width="30" height="30" alt="" src="http://m4.licdn.com/mpr/mpr/shrink_30_30/p/1/000/048/3c8/218653e.jpg">
+            					</strong></span>
+            					</li>
+            					<li class="endorsers-action ">
+            					<a data-endorser-ids="8601042:120895038,8423037:113094831" title="See all endorsers" role="button" href="javascript:void(0)" class="see-all-endorsers">
+            					<span class="all-endorsers-arrow"></span>
+            					<span class="loading-ind"></span>
+            					</a>
+            					</li>
+            				</ol>
+            				<hr class="hr-line">
+            			</div>
+            			</li>
+            			<li class="endorse-item endorsable" data-endorsed-item-name="MySQL" data-endorsement-id="">
+            			<span id="" class="miniprofile-container http://www.linkedin.com/skills/api/v2/miniskill/MySQL?goback=%2Enmp_*1_*1_*1_*1_*1_*1_*1_*1_*1 endorse-button has-endorsements">
+            			<span class="endorse-count">
+            			<span data-count="1" class="num-endorsements">1</span>
+            			<span class="endorse-plus">+</span>
+            			<span class="endorse-minus">-1</span>
+            			</span>
+            			<span class="endorse-item-name">
+            			<span class="endorse-item-name-text">MySQL</span>
+            			<span class="endorse-text">Endorse</span>
+            			<span class="endorse-action-taken-text">Endorsed!</span>
+            			<span class="endorse-undo-text">Undo</span>
+            			</span>
+            			</span>
+            			<div class="endorsers-container">
+            				<ol class="endorsers-pics">
+            					<li>
+            					<span class="endorse-action">
+            					<a title="Endorse" role="button" href="javascript:void(0)" class="endorse-action-plus ">+</a>
+            					<img width="30" height="30" class="viewer-pic" alt="" src="http://m3.licdn.com/mpr/mpr/shrink_30_30/p/2/000/191/124/3a52b69.jpg">
+            					</span>
+            					</li>
+            					<li data-endorser-id="8601042">
+            					<span class="miniprofile-container /miniprofile?view=&amp;vieweeID=8601042&amp;context=DEFAULT&amp;goback=%2Enmp_*1_*1_*1_*1_*1_*1_*1_*1_*1"><strong>
+            					<img width="30" height="30" alt="" src="http://s4.licdn.com/scds/common/u/img/icon/icon_no_photo_30x30.png">
+            					</strong></span>
+            					</li>
+            					<li class="endorsers-action ">
+            					<a data-endorser-ids="8601042:120895042" title="See all endorsers" role="button" href="javascript:void(0)" class="see-all-endorsers">
+            					<span class="all-endorsers-arrow"></span>
+            					<span class="loading-ind"></span>
+            					</a>
+            					</li>
+            				</ol>
+            				<hr class="hr-line">
+            			</div>
+            			</li>
+            			<li class="endorse-item endorsable" data-endorsed-item-name="RSpec" data-endorsement-id="">
+            			<span id="" class="miniprofile-container http://www.linkedin.com/skills/api/v2/miniskill/RSpec?goback=%2Enmp_*1_*1_*1_*1_*1_*1_*1_*1_*1 endorse-button has-endorsements">
+            			<span class="endorse-count">
+            			<span data-count="1" class="num-endorsements">1</span>
+            			<span class="endorse-plus">+</span>
+            			<span class="endorse-minus">-1</span>
+            			</span>
+            			<span class="endorse-item-name">
+            			<span class="endorse-item-name-text">RSpec</span>
+            			<span class="endorse-text">Endorse</span>
+            			<span class="endorse-action-taken-text">Endorsed!</span>
+            			<span class="endorse-undo-text">Undo</span>
+            			</span>
+            			</span>
+            			<div class="endorsers-container">
+            				<ol class="endorsers-pics">
+            					<li>
+            					<span class="endorse-action">
+            					<a title="Endorse" role="button" href="javascript:void(0)" class="endorse-action-plus ">+</a>
+            					<img width="30" height="30" class="viewer-pic" alt="" src="http://m3.licdn.com/mpr/mpr/shrink_30_30/p/2/000/191/124/3a52b69.jpg">
+            					</span>
+            					</li>
+            					<li data-endorser-id="8601042">
+            					<span class="miniprofile-container /miniprofile?view=&amp;vieweeID=8601042&amp;context=DEFAULT&amp;goback=%2Enmp_*1_*1_*1_*1_*1_*1_*1_*1_*1"><strong>
+            					<img width="30" height="30" alt="" src="http://s4.licdn.com/scds/common/u/img/icon/icon_no_photo_30x30.png">
+            					</strong></span>
+            					</li>
+            					<li class="endorsers-action ">
+            					<a data-endorser-ids="8601042:120895040" title="See all endorsers" role="button" href="javascript:void(0)" class="see-all-endorsers">
+            					<span class="all-endorsers-arrow"></span>
+            					<span class="loading-ind"></span>
+            					</a>
+            					</li>
+            				</ol>
+            				<hr class="hr-line">
+            			</div>
+            			</li>
+            			<li class="endorse-item endorsable" data-endorsed-item-name="Objective-C" data-endorsement-id="">
+            			<span id="" class="miniprofile-container http://www.linkedin.com/skills/api/v2/miniskill/Objective-C?goback=%2Enmp_*1_*1_*1_*1_*1_*1_*1_*1_*1 endorse-button has-endorsements">
+            			<span class="endorse-count">
+            			<span data-count="1" class="num-endorsements">1</span>
+            			<span class="endorse-plus">+</span>
+            			<span class="endorse-minus">-1</span>
+            			</span>
+            			<span class="endorse-item-name">
+            			<span class="endorse-item-name-text">Objective-C</span>
+            			<span class="endorse-text">Endorse</span>
+            			<span class="endorse-action-taken-text">Endorsed!</span>
+            			<span class="endorse-undo-text">Undo</span>
+            			</span>
+            			</span>
+            			<div class="endorsers-container">
+            				<ol class="endorsers-pics">
+            					<li>
+            					<span class="endorse-action">
+            					<a title="Endorse" role="button" href="javascript:void(0)" class="endorse-action-plus ">+</a>
+            					<img width="30" height="30" class="viewer-pic" alt="" src="http://m3.licdn.com/mpr/mpr/shrink_30_30/p/2/000/191/124/3a52b69.jpg">
+            					</span>
+            					</li>
+            					<li data-endorser-id="8601042">
+            					<span class="miniprofile-container /miniprofile?view=&amp;vieweeID=8601042&amp;context=DEFAULT&amp;goback=%2Enmp_*1_*1_*1_*1_*1_*1_*1_*1_*1"><strong>
+            					<img width="30" height="30" alt="" src="http://s4.licdn.com/scds/common/u/img/icon/icon_no_photo_30x30.png">
+            					</strong></span>
+            					</li>
+            					<li class="endorsers-action ">
+            					<a data-endorser-ids="8601042:120895039" title="See all endorsers" role="button" href="javascript:void(0)" class="see-all-endorsers">
+            					<span class="all-endorsers-arrow"></span>
+            					<span class="loading-ind"></span>
+            					</a>
+            					</li>
+            				</ol>
+            				<hr class="hr-line">
+            			</div>
+            			</li>
+            			<li class="endorse-item endorsable" data-endorsed-item-name="MongoDB" data-endorsement-id="">
+            			<span id="" class="miniprofile-container http://www.linkedin.com/skills/api/v2/miniskill/MongoDB?goback=%2Enmp_*1_*1_*1_*1_*1_*1_*1_*1_*1 endorse-button has-endorsements">
+            			<span class="endorse-count">
+            			<span data-count="1" class="num-endorsements">1</span>
+            			<span class="endorse-plus">+</span>
+            			<span class="endorse-minus">-1</span>
+            			</span>
+            			<span class="endorse-item-name">
+            			<span class="endorse-item-name-text">MongoDB</span>
+            			<span class="endorse-text">Endorse</span>
+            			<span class="endorse-action-taken-text">Endorsed!</span>
+            			<span class="endorse-undo-text">Undo</span>
+            			</span>
+            			</span>
+            			<div class="endorsers-container">
+            				<ol class="endorsers-pics">
+            					<li>
+            					<span class="endorse-action">
+            					<a title="Endorse" role="button" href="javascript:void(0)" class="endorse-action-plus ">+</a>
+            					<img width="30" height="30" class="viewer-pic" alt="" src="http://m3.licdn.com/mpr/mpr/shrink_30_30/p/2/000/191/124/3a52b69.jpg">
+            					</span>
+            					</li>
+            					<li data-endorser-id="8601042">
+            					<span class="miniprofile-container /miniprofile?view=&amp;vieweeID=8601042&amp;context=DEFAULT&amp;goback=%2Enmp_*1_*1_*1_*1_*1_*1_*1_*1_*1"><strong>
+            					<img width="30" height="30" alt="" src="http://s4.licdn.com/scds/common/u/img/icon/icon_no_photo_30x30.png">
+            					</strong></span>
+            					</li>
+            					<li class="endorsers-action ">
+            					<a data-endorser-ids="8601042:120895041" title="See all endorsers" role="button" href="javascript:void(0)" class="see-all-endorsers">
+            					<span class="all-endorsers-arrow"></span>
+            					<span class="loading-ind"></span>
+            					</a>
+            					</li>
+            				</ol>
+            				<hr class="hr-line">
+            			</div>
+            			</li>
+            		</ol>
+            		<h3>More Skills &amp; Expertise</h3>
+            		<ol class="skills-with-endorsements compact-view">
+            			<li class="endorse-item endorsable " data-endorsed-item-name="CoffeeScript" data-endorsement-id="">
+            			<span class="miniprofile-container http://www.linkedin.com/skills/api/v2/miniskill/CoffeeScript?goback=%2Enmp_*1_*1_*1_*1_*1_*1_*1_*1_*1 endorse-button no-endorsements">
+            			<span class="endorse-count">
+            			<span data-count="0" class="num-endorsements">0</span>
+            			<span class="endorse-plus">+</span>
+            			<span class="endorse-minus">-1</span>
+            			</span>
+            			<span class="endorse-item-name">
+            			<span class="endorse-item-name-text">CoffeeScript</span>
+            			<span class="endorse-text">Endorse</span>
+            			<span class="endorse-action-taken-text">Endorsed!</span>
+            			<span class="endorse-undo-text">Undo</span>
+            			</span>
+            			</span>
+            			</li>
+            			<li class="endorse-item endorsable " data-endorsed-item-name="TDD" data-endorsement-id="">
+            			<span class="miniprofile-container http://www.linkedin.com/skills/api/v2/miniskill/TDD?goback=%2Enmp_*1_*1_*1_*1_*1_*1_*1_*1_*1 endorse-button no-endorsements">
+            			<span class="endorse-count">
+            			<span data-count="0" class="num-endorsements">0</span>
+            			<span class="endorse-plus">+</span>
+            			<span class="endorse-minus">-1</span>
+            			</span>
+            			<span class="endorse-item-name">
+            			<span class="endorse-item-name-text">TDD</span>
+            			<span class="endorse-text">Endorse</span>
+            			<span class="endorse-action-taken-text">Endorsed!</span>
+            			<span class="endorse-undo-text">Undo</span>
+            			</span>
+            			</span>
+            			</li>
+            			<li class="endorse-item endorsable " data-endorsed-item-name="HTML" data-endorsement-id="">
+            			<span class="miniprofile-container http://www.linkedin.com/skills/api/v2/miniskill/HTML?goback=%2Enmp_*1_*1_*1_*1_*1_*1_*1_*1_*1 endorse-button no-endorsements" id="yui-gen20">
+            			<span class="endorse-count">
+            			<span data-count="0" class="num-endorsements">0</span>
+            			<span class="endorse-plus">+</span>
+            			<span class="endorse-minus">-1</span>
+            			</span>
+            			<span class="endorse-item-name">
+            			<span class="endorse-item-name-text">HTML</span>
+            			<span class="endorse-text">Endorse</span>
+            			<span class="endorse-action-taken-text">Endorsed!</span>
+            			<span class="endorse-undo-text">Undo</span>
+            			</span>
+            			</span>
+            			</li>
+            			<li class="endorse-item endorsable " data-endorsed-item-name="CSS" data-endorsement-id="">
+            			<span class="miniprofile-container http://www.linkedin.com/skills/api/v2/miniskill/CSS?goback=%2Enmp_*1_*1_*1_*1_*1_*1_*1_*1_*1 endorse-button no-endorsements" id="yui-gen27">
+            			<span class="endorse-count">
+            			<span data-count="0" class="num-endorsements">0</span>
+            			<span class="endorse-plus">+</span>
+            			<span class="endorse-minus">-1</span>
+            			</span>
+            			<span class="endorse-item-name">
+            			<span class="endorse-item-name-text">CSS</span>
+            			<span class="endorse-text">Endorse</span>
+            			<span class="endorse-action-taken-text">Endorsed!</span>
+            			<span class="endorse-undo-text">Undo</span>
+            			</span>
+            			</span>
+            			</li>
+            			<li class="endorse-item endorsable " data-endorsed-item-name="PhoneGap" data-endorsement-id="">
+            			<span class="miniprofile-container http://www.linkedin.com/skills/api/v2/miniskill/PhoneGap?goback=%2Enmp_*1_*1_*1_*1_*1_*1_*1_*1_*1 endorse-button no-endorsements">
+            			<span class="endorse-count">
+            			<span data-count="0" class="num-endorsements">0</span>
+            			<span class="endorse-plus">+</span>
+            			<span class="endorse-minus">-1</span>
+            			</span>
+            			<span class="endorse-item-name">
+            			<span class="endorse-item-name-text">PhoneGap</span>
+            			<span class="endorse-text">Endorse</span>
+            			<span class="endorse-action-taken-text">Endorsed!</span>
+            			<span class="endorse-undo-text">Undo</span>
+            			</span>
+            			</span>
+            			</li>
+            			<li class="endorse-item endorsable " data-endorsed-item-name="PHP" data-endorsement-id="">
+            			<span class="miniprofile-container http://www.linkedin.com/skills/api/v2/miniskill/PHP?goback=%2Enmp_*1_*1_*1_*1_*1_*1_*1_*1_*1 endorse-button no-endorsements">
+            			<span class="endorse-count">
+            			<span data-count="0" class="num-endorsements">0</span>
+            			<span class="endorse-plus">+</span>
+            			<span class="endorse-minus">-1</span>
+            			</span>
+            			<span class="endorse-item-name">
+            			<span class="endorse-item-name-text">PHP</span>
+            			<span class="endorse-text">Endorse</span>
+            			<span class="endorse-action-taken-text">Endorsed!</span>
+            			<span class="endorse-undo-text">Undo</span>
+            			</span>
+            			</span>
+            			</li>
+            			<li class="endorse-item endorsable " data-endorsed-item-name="Photoshop" data-endorsement-id="">
+            			<span class="miniprofile-container http://www.linkedin.com/skills/api/v2/miniskill/Photoshop?goback=%2Enmp_*1_*1_*1_*1_*1_*1_*1_*1_*1 endorse-button no-endorsements">
+            			<span class="endorse-count">
+            			<span data-count="0" class="num-endorsements">0</span>
+            			<span class="endorse-plus">+</span>
+            			<span class="endorse-minus">-1</span>
+            			</span>
+            			<span class="endorse-item-name">
+            			<span class="endorse-item-name-text">Photoshop</span>
+            			<span class="endorse-text">Endorse</span>
+            			<span class="endorse-action-taken-text">Endorsed!</span>
+            			<span class="endorse-undo-text">Undo</span>
+            			</span>
+            			</span>
+            			</li>
+            			<li class="endorse-item endorsable " data-endorsed-item-name="SASS" data-endorsement-id="">
+            			<span class="miniprofile-container http://www.linkedin.com/skills/api/v2/miniskill/SASS?goback=%2Enmp_*1_*1_*1_*1_*1_*1_*1_*1_*1 endorse-button no-endorsements" id="yui-gen26">
+            			<span class="endorse-count">
+            			<span data-count="0" class="num-endorsements">0</span>
+            			<span class="endorse-plus">+</span>
+            			<span class="endorse-minus">-1</span>
+            			</span>
+            			<span class="endorse-item-name">
+            			<span class="endorse-item-name-text">SASS</span>
+            			<span class="endorse-text">Endorse</span>
+            			<span class="endorse-action-taken-text">Endorsed!</span>
+            			<span class="endorse-undo-text">Undo</span>
+            			</span>
+            			</span>
+            			</li>
+            			<li class="endorse-item endorsable " data-endorsed-item-name="PostgreSQL" data-endorsement-id="">
+            			<span class="miniprofile-container http://www.linkedin.com/skills/api/v2/miniskill/PostgreSQL?goback=%2Enmp_*1_*1_*1_*1_*1_*1_*1_*1_*1 endorse-button no-endorsements">
+            			<span class="endorse-count">
+            			<span data-count="0" class="num-endorsements">0</span>
+            			<span class="endorse-plus">+</span>
+            			<span class="endorse-minus">-1</span>
+            			</span>
+            			<span class="endorse-item-name">
+            			<span class="endorse-item-name-text">PostgreSQL</span>
+            			<span class="endorse-text">Endorse</span>
+            			<span class="endorse-action-taken-text">Endorsed!</span>
+            			<span class="endorse-undo-text">Undo</span>
+            			</span>
+            			</span>
+            			</li>
+            			<li class="endorse-item endorsable " data-endorsed-item-name="PostGIS" data-endorsement-id="">
+            			<span class="miniprofile-container http://www.linkedin.com/skills/api/v2/miniskill/PostGIS?goback=%2Enmp_*1_*1_*1_*1_*1_*1_*1_*1_*1 endorse-button no-endorsements">
+            			<span class="endorse-count">
+            			<span data-count="0" class="num-endorsements">0</span>
+            			<span class="endorse-plus">+</span>
+            			<span class="endorse-minus">-1</span>
+            			</span>
+            			<span class="endorse-item-name">
+            			<span class="endorse-item-name-text">PostGIS</span>
+            			<span class="endorse-text">Endorse</span>
+            			<span class="endorse-action-taken-text">Endorsed!</span>
+            			<span class="endorse-undo-text">Undo</span>
+            			</span>
+            			</span>
+            			</li>
+            		</ol>
+            	</div>
+            </div>
+          </div>
+
+          <div id="profile_rec">
+          </div>
+          <div id="profile_addt_info">
+          </div>
+
+
+          <div style="display:block" id="profile-additional" class="section">
+          	<div class="header">
+          		<h2> Additional Information </h2>
+          	</div>
+          	<div class="content">
+          		<dl>
+          			<dt style="display:block" class="websites">Websites:</dt>
+          			<dd style="display:block" class="websites">
+          			<ul>
+          				<li class="website">
+          				<a title="New window will open" target="_blank" href="/redir/redirect?url=http%3A%2F%2Fofpsvr%2Eorg%2F&amp;urlhash=ehT2">
+          				Personal Website </a>
+          				</li>
+          				<li class="website">
+          				<a title="New window will open" target="_blank" href="/redir/redirect?url=http%3A%2F%2Fblog%2Eofpsvr%2Eorg%2F&amp;urlhash=0Fke">
+          				Blog </a>
+          				</li>
+          				<li class="website">
+          				<a title="New window will open" target="_blank" href="/redir/redirect?url=http%3A%2F%2Fblog%2Eofpsvr%2Eorg%2Fblog%2Exml&amp;urlhash=8b88">
+          				RSS feed </a>
+          				</li>
+          			</ul>
+          			</dd>
+          			<dt>Twitter:</dt>
+          			<dd id="twitter">
+          			<ul>
+          				<li>
+          				<a target="_blank" href="/redirect?url=http%3A%2F%2Fwww%2Etwitter%2Ecom%2Fpsvr&amp;urlhash=1SEr&amp;trk=pro_twit">psvr</a>
+          				</li>
+          			</ul>
+          			</dd>
+          			<dt style="display:block" class="interests">Interests:</dt>
+          			<dd style="display:block" id="interests" class="interests">
+          			<p class="">
+          				<a name="" title="Find users with this keyword" href="/search?search=&amp;keywords=Automated+Reasoning&amp;sortCriteria=R&amp;keepFacets=true">Automated Reasoning</a>
+          			</p>
+          			</dd>
+          			<dt style="display:block" class="pubgroups">Groups and Associations:</dt>
+          			<dd style="display:block" id="pubgroups" class="pubgroups">
+          			<ul class="groups">
+          				<li class="affiliation vcard">
+          				<a tracking="fulpro_grplogo" href="/groups/Algorithms-O-1920463" class="group-logo"><img width="60" height="30" alt="Algorithms (O) logo" src="http://m3.licdn.com/media/p/1/000/026/2a1/158c5b6.png">
+          				</a>
+          				<div class="group-data">
+          					<a tracking="fulpro_grplogo" href="/groups/Algorithms-O-1920463"><strong class="fn org">Algorithms (O)</strong></a>
+          				</div>
+          				</li>
+          				<li class="affiliation vcard">
+          				<a tracking="fulpro_grplogo" href="/groups?gid=43399" class="group-logo"><img width="60" height="30" alt="Beijing Linux User Group logo" src="http://m3.licdn.com/media/p/2/000/002/081/097e843.png">
+          				</a>
+          				<div class="group-data">
+          					<a tracking="fulpro_grplogo" href="/groups?gid=43399"><strong class="fn org">Beijing Linux User Group</strong></a>
+          				</div>
+          				</li>
+          				<li class="affiliation vcard">
+          				<a tracking="fulpro_grplogo" href="/groups?gid=1581937" class="group-logo"><img width="60" height="30" alt="Focus on Training logo" src="http://m4.licdn.com/media/p/2/000/02f/3ca/3569ec4.png">
+          				</a>
+          				<div class="group-data">
+          					<a tracking="fulpro_grplogo" href="/groups?gid=1581937"><strong class="fn org">Focus on Training</strong></a>
+          				</div>
+          				</li>
+          				<li class="affiliation vcard">
+          				<a tracking="fulpro_grplogo" href="/groups/HTML5-CSS3-Developers-3680698" class="group-logo"><img width="60" height="30" alt="HTML5 / CSS3 Developers logo" src="http://m3.licdn.com/media/p/3/000/07e/1ca/35da17b.png">
+          				</a>
+          				<div class="group-data">
+          					<a tracking="fulpro_grplogo" href="/groups/HTML5-CSS3-Developers-3680698"><strong class="fn org">HTML5 / CSS3 Developers</strong></a>
+          				</div>
+          				</li>
+          				<li class="affiliation vcard">
+          				<a tracking="fulpro_grplogo" href="/groups?gid=63252" class="group-logo"><img width="60" height="30" alt="IPTV Internet Video Broadcast logo" src="http://m3.licdn.com/media/p/2/000/0a0/054/2baef9d.png">
+          				</a>
+          				<div class="group-data">
+          					<a tracking="fulpro_grplogo" href="/groups?gid=63252"><strong class="fn org">IPTV Internet Video Broadcast</strong></a>
+          				</div>
+          				</li>
+          				<li class="affiliation vcard">
+          				<a tracking="fulpro_grplogo" href="/groups?gid=2129356" class="group-logo"><img width="60" height="30" alt="Project Manager Jobs logo" src="http://m4.licdn.com/media/p/2/000/02b/348/3cb87bf.png">
+          				</a>
+          				<div class="group-data">
+          					<a tracking="fulpro_grplogo" href="/groups?gid=2129356"><strong class="fn org">Project Manager Jobs</strong></a>
+          				</div>
+          				</li>
+          				<li class="affiliation vcard">
+          				<a tracking="fulpro_grplogo" href="/groups?gid=22413" class="group-logo"><img width="60" height="30" alt="Ruby on Rails logo" src="http://m4.licdn.com/media/p/3/000/016/24f/2f6f565.png">
+          				</a>
+          				<div class="group-data">
+          					<a tracking="fulpro_grplogo" href="/groups?gid=22413"><strong class="fn org">Ruby on Rails</strong></a>
+          				</div>
+          				</li>
+          				<li class="affiliation vcard">
+          				<a tracking="fulpro_grplogo" href="/groups/Rubyists-120725" class="group-logo"><img width="60" height="30" alt="Rubyists logo" src="http://m4.licdn.com/media/p/2/000/00b/05d/070c891.gif">
+          				</a>
+          				<div class="group-data">
+          					<a tracking="fulpro_grplogo" href="/groups/Rubyists-120725"><strong class="fn org">Rubyists</strong></a>
+          				</div>
+          				</li>
+          				<li class="affiliation vcard">
+          				<a tracking="fulpro_grplogo" href="/groups?gid=153515" class="group-logo"><img width="60" height="30" alt="Startup on Rails logo" src="http://m3.licdn.com/media/p/3/000/00d/270/2595686.png">
+          				</a>
+          				<div class="group-data">
+          					<a tracking="fulpro_grplogo" href="/groups?gid=153515"><strong class="fn org">Startup on Rails</strong></a>
+          				</div>
+          				</li>
+          				<li class="affiliation vcard">
+          				<a tracking="fulpro_grplogo" href="/groups/iOS-Developers-Group-121874" class="group-logo"><img width="60" height="30" alt="iOS Developers Group logo" src="http://m3.licdn.com/media/p/3/000/00b/0b2/249a0a3.png">
+          				</a>
+          				<div class="group-data">
+          					<a tracking="fulpro_grplogo" href="/groups/iOS-Developers-Group-121874"><strong class="fn org">iOS Developers Group</strong></a>
+          				</div>
+          				</li>
+          			</ul>
+          			</dd>
+          			<dt style="display:block" class="honors">Honors and Awards:</dt>
+          			<dd style="display:block" class="honors">
+          			<p class=" ''">
+          				 Beijing City Fund for Undergraduate Research Project(CNU-BKC-11-0090), 2012.<br>
+          				 2nd Rank Scholarship, Capital Normal University, 2011.<br>
+          				 Scholarship for the Highest Score in CET-4, Capital Normal University, 2011.<br>
+          				 Special Prize for Capital Normal University Programming Contest, 2011.<br>
+          				 2nd Rank Scholarship, Capital Normal University, 2010.
+          			</p>
+          			</dd>
+          		</dl>
+          	</div>
+          </div>
+          <div id="profile_personal_info">
+          	<div class="section" id="profile-personal" style="display:block">
+          		<div class="header">
+          			<h2>Personal Info</h2>
+          		</div>
+          		<div class="content">
+          			<dl>
+          				<dt>Phone:</dt>
+          				<dd>
+          				<p>
+          					+8618600259326 <span class="type">(Mobile)</span>
+          				</p>
+          				</dd>
+          				<dt>Address:</dt>
+          				<dd>
+          				<p>
+          					Xi San Huan Bei Lu #105 Haidian District 100048 Beijing
+          				</p>
+          				</dd>
+          				<dt>IM:</dt>
+          				<dd>
+          				<p>
+          					pmq2001@gmail.com <span class="type">(GTalk)</span>
+          				</p>
+          				</dd>
+          				<dt>Birthday:</dt>
+          				<dd>
+          				<p>
+          					March 13, 1991
+          				</p>
+          				</dd>
+          				<dt>Marital status:</dt>
+          				<dd>
+          				<p>
+          					Single
+          				</p>
+          				</dd>
+          			</dl>
+          		</div>
+          	</div>
+          </div>
+
+          <div style="display:block" id="profile-contact" class="section">
+          	<div class="header">
+          		<h2>Contact Minqi for: </h2>
+          	</div>
+          	<div class="content">
+          		<div class="interested">
+          			<ul>
+          				<li>career opportunities</li>
+          				<li>consulting offers</li>
+          				<li>new ventures</li>
+          				<li>job inquiries</li>
+          				<li>expertise requests</li>
+          				<li>business deals</li>
+          				<li>reference requests</li>
+          				<li>getting back in touch</li>
+          			</ul>
+          		</div>
+          		<div class="alert notice alert-details">
+          			<h4>Contacting You</h4>
+          			<p>
+          				How a user can contact you depends on how he or she is connected to you:
+          			</p>
+          			<ul>
+          				<li>If a connection views your profile, he or she sees your email address</li>
+          				<li>If a user in your network views your profile, he or she sees a “Get Introduced” button</li>
+          				<li>If a user in the LinkedIn Network tries to view your profile, he or she will see an anonymous profile and a “Contact Directly” button</li>
+          			</ul>
+          			<p>
+          				<a href="https://www.linkedin.com/secure/settings?req=">Change your contact settings.</a>
+          			</p>
+          		</div>
+          	</div>
+          </div>
+          
+          <div id="profile_contact">
+          </div>
+
+
+
+<div></div>
+
+
+
+
+
+
+
+
 				</div>
 			</div>
 		</div>
