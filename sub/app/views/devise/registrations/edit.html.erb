@@ -4,16 +4,38 @@
 <% end %>
 <% content_for :butt2 do %>
 $('.jbttt span').tipsy({gravity: 's',fade: <%= @is_WebKit ? 'false' : 'true'%>,opacity: 1});
+window.psvr_toggle_efw = function(){
+  if(!window.psvr_efw_hidden){
+    $('#psvr_efw').animate({height:0},'fast','easeOutQuint',function(){
+      window.psvr_efw_hidden = true;
+    });
+  }else{
+    $('#psvr_efw').animate({height:330},'fast','easeInQuint',function(){
+      window.psvr_efw_hidden = false;
+    });
+  }
+};
+$('#psvr_efw li').click(function(event){
+  if(this==event.target){
+    jQuery('a',this).trigger('click');
+  }
+})
+$('#efw_btn,#the_ball_big,#the_ball_small').click(function(){
+  window.psvr_toggle_efw();
+  return false;
+});
+window.psvr_efw_hidden = true;
+window.psvr_toggle_efw();
+$('#pagekey-nprofile-edit-success').resize(KTV.ln_targetize);
+KTV.ln_targetize();
+
 <% end %>
 <%= render :partial => 'content_above', :locals=>{:skp_content_style => "height:1888px;background: white url(#{asset_path 'lnbg.png'}) repeat-y scroll 0 0;"} %>
 
 <%= render 'ln_nav' %>
 
 <%= render 'content_below' %>
-<% content_for :butt2 do %>
-$('#pagekey-nprofile-edit-success').resize(KTV.ln_targetize);
-KTV.ln_targetize();
-<% end %>
+
 <div class="wrapper" style="width:1000px">
 	
 <div class="__skp" style="position:absolute;top:314px;margin-left:185px;z-index:22" id="pagekey-nprofile-psvr-skp">
@@ -289,8 +311,16 @@ KTV.ln_targetize();
 
 
 
-          <div style="width:100%;height:330px;background:url(<%= asset_path 'efw/bg.png' %>);margin-top:-20px;margin-bottom:-6px">
-            <%= image_tag 'efw/efw.png',style:'margin-left:399px' %>
+          <div id="psvr_efw" style="height:0">
+            <%= image_tag 'efw/efw.png',id:'efw_efw' %>
+            <a href="javascript:void(0)" id="efw_btn">收起完善您的账号Tips</a>
+            <ul>
+              <li><a href="/account/binds">绑定至少一个外部账号</a></li>
+              <li><a href="#">填写姓名与领域行业</a></li>
+              <li><a href="#">添加您的技能及专业知识</a></li>
+              <li><a href="#">完善学术与职业经历</a></li>
+              <li><a href="#">邀请学习伙伴建立联络</a></li>
+            </ul>
           </div>
 
 

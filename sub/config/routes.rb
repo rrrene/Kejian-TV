@@ -48,6 +48,7 @@ Sub::Application.routes.draw do
     get '/account/edit_i18n'
     get '/account/edit_invite'
     get '/account/edit_services'
+    get '/account/binds'
     get '/account/bind/:service' => 'account#bind'
     post '/account/bind/:service' => 'account#real_bind'
   end

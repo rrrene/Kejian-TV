@@ -46,6 +46,7 @@ Sub::Application.configure do
   config.assets.css_compressor = 'sass-rails'
   config.assets.js_compressor = :uglifier
   config.assets.precompile += %w{
+    __lnk_app.css
     jia.css
     __lnk_popup.css
     __g.css

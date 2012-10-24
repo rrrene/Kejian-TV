@@ -6,9 +6,14 @@ class AccountController < Devise::RegistrationsController
     :update_profile,
     :edit_slug,
     :update_slug,
+    :binds,
     :bind,
     :real_bind,
   ]
+  def binds
+    @seo[:title] = '绑定外部账号'
+    render layout:'application'
+  end
   def bind
     @serv=params[:service].to_sym
     unless Authorization::SERVICES.keys.include? @serv
@@ -27,8 +32,8 @@ class AccountController < Devise::RegistrationsController
     # to be fiiled: :uniqueTimestamp, :email, :icode, :password
   end
   def edit_services
-    render layout:'application'
     @seo[:title] = '绑定账号'
+    render layout:'application'
   end
   def edit
     common_account_op!
