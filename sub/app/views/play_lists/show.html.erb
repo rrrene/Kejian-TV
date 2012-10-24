@@ -274,7 +274,10 @@
             $(tmp).removeClass('addto-watch-later-button-success');
           }
         }else{
-          
+          if(type=='remove'){
+            $(tmp).addClass('addto-watch-later-button');
+            $(tmp).removeClass('addto-watch-later-button-success');
+          }
         }
      });
    });

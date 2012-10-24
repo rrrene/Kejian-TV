@@ -720,7 +720,37 @@ HEREDOC
       end
     end
   end
-  
+  def add_to_favorites_array
+    if current_user.nil?
+        render json:{status:'failed',reason:'您尚未登陆！'}
+        return false
+    end
+    legal = true
+    addto = true
+    params[:cwid].each  do |cwid|
+        if !BSON::ObjectId.legal?(cwid)
+          legal = false
+          next
+        end
+        if params[:type] == 'addto'
+            addto  = PlayList.add_to_read_later(current_user.id,cwid,'收藏')
+        elsif params[:type] == 'remove'
+            addto = PlayList.remove_from_read_later(current_user.id,cwid,'收藏')
+        end
+    end
+    
+    if addto
+        render json:{status:'suc'}
+    else
+      if !legal
+        render json:{status:'failed',reason:'您导入的内容收藏夹无法接受！'}
+      elsif legal and params[:type] == 'addto'
+        render json:{status:'failed',reason:'该课件已经存在于收藏夹。'}
+      elsif legal and params[:type] == 'remove'
+        render json:{status:'failed',reason:'该课件已经不存在于收藏夹。'}
+      end
+    end
+  end
   def get_playlist_share
       url = "http://#{Setting.ktv_sub.nil? ? 'www' : Setting.ktv_sub}.kejian#{$psvr_really_development ? '.lvh.me' : '.tv'}/play_lists/#{params[:playlist_id]}"
       render file:'play_lists/_playlist_share',locals:{url:url},layout:false

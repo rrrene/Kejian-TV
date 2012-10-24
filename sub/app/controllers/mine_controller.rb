@@ -27,12 +27,23 @@ class MineController < ApplicationController
     @seo[:title] = "搜索记录"    
   end
   def my_watch_later_coursewares
+    if current_user.nil?
+      redirect_to '/'
+      return false
+    end
     @list = PlayList.locate(current_user.id,'稍后阅读')
     @coursewares_ids = @list.content
     @coursewares = Courseware.eager_load(@coursewares_ids)
     @seo[:title] = "稍后阅读"
   end
   def my_favorites
+    if current_user.nil?
+      redirect_to '/'
+      return false
+    end
+    @list = PlayList.locate(current_user.id,'收藏')
+    @coursewares_ids = @list.content
+    @coursewares = Courseware.eager_load(@coursewares_ids)
     @seo[:title] = "收藏"    
   end
   def my_liked_coursewares
