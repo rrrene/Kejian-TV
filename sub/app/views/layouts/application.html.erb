@@ -293,13 +293,7 @@
       <% end %>
     });
     $('.yt-uix-tooltip').tipsy({gravity: $.fn.tipsy.autoNS,fade: <%= @is_WebKit ? 'false' : 'true'%>,opacity: 1});
-    $('.psvr_standard_ajax_form').bind("ajax:loading", function(){
-      showloading();
-    }).bind("ajax:complete", function(){
-      showloading('none');
-    }).bind('ajax:error', function(xhr, data, status) {
-      showDialog(data['statusText'], 'alert', '请求失败', null, true, null, '', '', '', 3);
-    });
+    KTV.ajaxize($('.psvr_standard_ajax_form'));
     // jQuery.fn.extend({
     //     shareModes:['share-public', 'share-followers','share-private'],
     //     shareMod:['分享该笔记','只好友可见','仅自己可见'],

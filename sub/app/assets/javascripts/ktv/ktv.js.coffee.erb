@@ -23,7 +23,14 @@
     ret=ret.split('+').join('%2B');
     ret=ret.split("\'").join('%27');
     ret
-    
+  KTV.ajaxize = (els)->
+    els.bind("ajax:loading", ->
+      showloading()
+    ).bind("ajax:complete", ()->
+      showloading('none')
+    ).bind('ajax:error', (xhr, data, status) ->
+      showDialog(data['statusText'], 'alert', '请求失败', null, true, null, '', '', '', 3)
+    )
   KTV.sss = (will_blur)->
     $('#psvr_gtable').hide()
     term = $('#gbqfq').val()
