@@ -430,12 +430,10 @@ courseware_id: '<%=@courseware.id%>'
                </div>
                <span id="watch-like-unlike" class="yt-uix-button-group " data-button-toggle-group="optional">
                     
-                      <button onclick=";return false;" title="顶一下" type="button" class="like button psvr_login_required start yt-uix-tooltip-reverse  yt-uix-button yt-uix-button-default yt-uix-tooltip <% if !current_user.nil? and @courseware.thanked_user_ids.include?(current_user.id) %> yt-uix-button-toggled <% end  %>" id="watch-like" data-button-toggle="true" data-button-action="actions.like" role="button">
+                      <button onclick=";return false;" title="顶一下" type="button" class="like button psvr_login_required start yt-uix-tooltip-reverse  yt-uix-button yt-uix-button-default yt-uix-tooltip <% if !current_user.nil? and @courseware.thanked_user_ids.include?(current_user.id) %> yt-uix-button-toggled <% end  %>" id="watch-like" data-button-toggle="true" data-button-action="actions.like" role="button" style="height: 33px;margin-top: -1px;">
                          <span class="yt-uix-button-icon-wrapper"><img class="yt-uix-button-icon yt-uix-button-icon-watch-like" src="<%= asset_path 'yt/wfw.gif' %>" alt="顶一下" /></span>
                          <span class="yt-uix-button-content">人顶 </span>
                       </button>
-
-             
                     <button onclick=";return false;" title="踩一下" type="button" class="psvr_login_required end yt-uix-tooltip-reverse  yt-uix-button yt-uix-button-default yt-uix-tooltip yt-uix-button-empty <% if  !current_user.nil? and @courseware.disliked_user_ids.include?(current_user.id) %> yt-uix-button-toggled <% end  %>" id="watch-unlike" data-button-toggle="true" data-button-action="actions.unlike" role="button">
                         <span class="yt-uix-button-icon-wrapper"><img class="yt-uix-button-icon yt-uix-button-icon-watch-unlike" src="<%= asset_path 'yt/wfw.gif' %>" alt="踩一下"></span>
                     </button>
@@ -483,7 +481,7 @@ courseware_id: '<%=@courseware.id%>'
                      <p id="watch-uploader-info">
                         <a dir="ltr" rel="author" class="yt-uix-sessionlink yt-user-name author" href="/<%= User.get_fangwendizhi @courseware.user_id %>"><%= User.get_name @courseware.user_id %></a> 发布于 <span class="watch-video-date" id="eow-date"><%= timeago @courseware.created_at  %></span>
                      </p>
-                     <div id="watch-description-text">
+                     <div id="watch-description-text" style="margin: 8px 0px 0px 2px;">
                        <p id="eow-description">
                        <% if @courseware.desc.present? %>
                           <%=Sanitize.clean(@courseware.desc.gsub(/\n/, '<br />'), Sanitize::Config::BASIC).html_safe %>

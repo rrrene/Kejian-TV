@@ -2,7 +2,7 @@
    <% cw = Courseware.find(cwid) %>
    <% user = User.find(cw.uploader_id) %>
 
-    <li data-encrypted-kejian-id="<%= cwid %>" class="playlist-video-item yt-uix-dragdrop-draggable-item <% if !annotation[content.index(cwid)].blank? %> annotated <% end %><% if index%2 ==0 %> even <% else %>odd<% end %>" data-created-at="<%= cw.created_at.to_i %>" data-view-count="<%= cw.views_count %>" data-title-pinyin="<%= Pinyin.t(cw.title) %>">
+    <li data-encrypted-kejian-id="<%= cwid %>" class="playlist-video-item yt-uix-dragdrop-draggable-item <% if !annotation[content.index(cwid.to_s)].blank? %> annotated <% end %><% if index%2 ==0 %> even <% else %>odd<% end %>" data-created-at="<%= cw.created_at.to_i %>" data-view-count="<%= cw.views_count %>" data-title-pinyin="<%= Pinyin.t(cw.title) %>">
        <div class="active display-state">
    				<input type="hidden" value="0" name="playlist_kejian_deleted[]" class="delete-playlist-kejian">
           <input type="hidden" value="<%= cw.id %>" name="playlist_kejian_id[]" />
@@ -40,7 +40,7 @@
                       <label for="annotation_input_<%= index %>" class="video-annotation-input-container">
                          <button role="button" onclick=";return false;" class="playlist-video-item-save-annotation yt-uix-button yt-uix-button-default" style='height:29px'type="button"><span class="yt-uix-button-content">添加备注 </span></button>  
                          <div class="yt-uix-form-input-fluid yt-grid-fluid ">
-                            <span class=" yt-uix-form-input-container"><input maxlength="150" id="annotation_input_<%= index %>" name="playlist_video_annotation[]" class="yt-uix-form-input-text video-annotation-input text yt-uix-char-counter-input" value="<%= annotation[content.index(cwid)] %>"/></span>
+                            <span class=" yt-uix-form-input-container"><input maxlength="150" id="annotation_input_<%= index %>" name="playlist_video_annotation[]" class="yt-uix-form-input-text video-annotation-input text yt-uix-char-counter-input" value="<%= annotation[content.index(cwid.to_s)] %>"/></span>
                          </div>
                       </label>
                       <span class="video-annotation-display">
@@ -52,7 +52,7 @@
                              </span>
                            </span>
                          </span>
-                         <p class="video-annotation-text"><%= annotation[content.index(cwid)] %></p>
+                         <p class="video-annotation-text"><%= annotation[content.index(cwid.to_s)] %></p>
                       </span>
                       <button role="button" title="添加备注" onclick=";return false;" class="playlist-video-item-edit-annotation yt-uix-tooltip yt-uix-button yt-uix-button-default yt-uix-tooltip" type="button">
                         <span class="yt-uix-button-content">  

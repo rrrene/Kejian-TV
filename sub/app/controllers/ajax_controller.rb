@@ -286,7 +286,7 @@ HEREDOC
       else
         cw = Courseware.find(params[:cw_id])
         result = current_user.thank_courseware(cw)
-        cw_event_add_action("课件顶",'Courseware',courseware.id,true) if !result
+        cw_event_add_action("课件顶",'Courseware',cw.id,true) if !result
         render file:'coursewares/_watch_like',locals:{cw_id:params[:cw_id]},layout:false  
       end
     elsif params[:type] == 'watch-unlike'
@@ -406,7 +406,9 @@ HEREDOC
     end
     render json:json
   end
-  
+  def remove_ding_array
+    
+  end
   def get_dynamic_dingcai
      cw = Courseware.find(params[:cw_id])
      dp = (cw.thanked_count * 1.0 / ((cw.disliked_count+cw.thanked_count) *1.0 )) * 100

@@ -92,6 +92,7 @@ Sub::Application.routes.draw do
   post '/ajax/create_and_add_to_by_id' => 'ajax#create_and_add_to_by_id'
   post '/ajax/save_note_for_one_cw' => 'ajax#save_note_for_one_cw'
   post '/ajax/add_to_favorites_array' => 'ajax#add_to_favorites_array'
+  post '/ajax/remove_ding_array' => 'ajax#remove_ding_array'
   # ---=small=----
   get '/hack/htc'
   get '/welcome/inactive_sign_up'

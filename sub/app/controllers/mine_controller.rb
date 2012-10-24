@@ -47,7 +47,13 @@ class MineController < ApplicationController
     @seo[:title] = "收藏"    
   end
   def my_liked_coursewares
-    @coursewares = Courseware.eager_load(current_user.thanked_courseware_ids)
+    if current_user.nil?
+      redirect_to '/'
+      return false
+    end
+    @coursewares_ids = current_user.thanked_courseware_ids
+    @thanked_playlist_ids = current_user.thanked_play_list_ids
+    @coursewares = Courseware.eager_load(@coursewares_ids)
     @seo[:title] = "顶过的课件"    
   end
 private
