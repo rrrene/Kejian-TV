@@ -517,7 +517,7 @@ courseware_id: '<%=@courseware.id%>'
                  <% else %>
                   <ul id="watch-description-extra-info">
                        <li>
-                           <div class="video-extras-sparkbars"></div>
+                           <div class="video-extras-sparkbars" style ='border: 0px solid #CCCCCC;'></div>
                          <span class="video-extras-likes-dislikes"></span>
                      </li>
                   </ul>
@@ -778,10 +778,10 @@ courseware_id: '<%=@courseware.id%>'
              });
              function removeToggled(name){
                  tt = 'yt-uix-button-toggled';
-                 if(name != "watch-like" && $("#watch-like").hasClass(tt))
-                    $("#watch-like").removeClass(tt);
-                 if(name != "watch-unlike" && $("#watch-unlike").hasClass(tt))    
-                    $('#watch-unlike').removeClass(tt);
+                 // if(name != "watch-like" && $("#watch-like").hasClass(tt))
+                 //    $("#watch-like").removeClass(tt);
+                 // if(name != "watch-unlike" && $("#watch-unlike").hasClass(tt))    
+                 //    $('#watch-unlike').removeClass(tt);
                  if(name != "actions.addto" && $("button[data-button-action='actions.addto']").hasClass(tt))  
                     $("button[data-button-action='actions.addto']").removeClass(tt);
                  if(name != "actions.share" && $("button[data-button-action='actions.share']").hasClass(tt))  
@@ -794,12 +794,62 @@ courseware_id: '<%=@courseware.id%>'
              $('#watch-like').live("click",function(){
                 removeToggled(this.id);
                 $(this).toggleClass('yt-uix-button-toggled');
-                ajax_load_board(this,this.id);
+								tmp = this;
+								if($("#watch-unlike").hasClass('yt-uix-button-toggled')){
+								 	$("#watch-unlike").removeClass('yt-uix-button-toggled');									
+								}
+				        if($(tmp).hasClass('yt-uix-button-toggled')){
+                  somethingShow('#watch-actions-area-container');
+                  somethingShow('#watch-actions-loading');
+							  }
+                $.ajax({
+                   type:"POST",
+                   url:'/ajax/get_operation',
+                   data:{'type':'watch-like','cw_id':"<%= @courseware.id %>"},
+                   dataType: "html",
+                   cookie:true
+                }).done(function(html){
+	                if($(tmp).hasClass('yt-uix-button-toggled')){
+					            $('#watch-actions-ajax').html(html);
+                      somethingShow('#watch-actions-ajax');
+                      somethingHide('#watch-actions-loading');
+	                }else{
+	                    somethingHide('#watch-actions-area-container');
+	                    somethingHide('#watch-actions-ajax');
+	                    $('#watch-actions-ajax').html('');
+	                }
+                });
+								 ajax_get_dingcai();
              });
              $('#watch-unlike').live("click",function(){
                  removeToggled(this.id);
                  $(this).toggleClass('yt-uix-button-toggled');
-                 ajax_load_board(this,this.id);
+								 tmp = this;
+ 							   if($("#watch-like").hasClass('yt-uix-button-toggled')){
+								      $("#watch-like").removeClass('yt-uix-button-toggled');
+								 }
+				        if($(tmp).hasClass('yt-uix-button-toggled')){
+                  somethingShow('#watch-actions-area-container');
+                  somethingShow('#watch-actions-loading');
+							  }
+                $.ajax({
+                   type:"POST",
+                   url:'/ajax/get_operation',
+                   data:{'type':'watch-unlike','cw_id':"<%= @courseware.id %>"},
+                   dataType: "html",
+                   cookie:true
+                }).done(function(html){
+	                if($(tmp).hasClass('yt-uix-button-toggled')){
+					            $('#watch-actions-ajax').html(html);
+                      somethingShow('#watch-actions-ajax');
+                      somethingHide('#watch-actions-loading');
+	                }else{
+	                    somethingHide('#watch-actions-area-container');
+	                    somethingHide('#watch-actions-ajax');
+	                    $('#watch-actions-ajax').html('');
+	                }
+                });
+								 ajax_get_dingcai();
              });
              function ajax_load_board(who,type){
                hide_everything();
@@ -831,8 +881,15 @@ courseware_id: '<%=@courseware.id%>'
                  data:{'cw_id':"<%= @courseware.id %>"},
                  dataType:'json'
                }).done(function(data){
-                  $('.video-extras-sparkbars').html('<div style="width:'+ data['dingpercent'] +'%" class="video-extras-sparkbar-likes"></div><div style="width:'+ data['caipercent'] +'%" class="video-extras-sparkbar-dislikes"></div>');
-                  $('.video-extras-likes-dislikes').html('<span class="likes">'+data['d']+'</span> 人顶, <span class="dislikes">'+data['c']+'</span> 人踩');
+								 if(data.has != 0){
+  								 $('.video-extras-sparkbars').css({'border':'1px solid #CCCCCC'});
+                   $('.video-extras-sparkbars').html('<div style="width:'+ data['dingpercent'] +'%" class="video-extras-sparkbar-likes"></div><div style="width:'+ data['caipercent'] +'%" class="video-extras-sparkbar-dislikes"></div>');
+                   $('.video-extras-likes-dislikes').html('<span class="likes">'+data['d']+'</span> 人顶, <span class="dislikes">'+data['c']+'</span> 人踩');
+								 }else{
+									$('.video-extras-sparkbars').css({'border':'0px solid #CCCCCC'});
+								 	$('.video-extras-sparkbars').html('');
+									$('.video-extras-likes-dislikes').html('');
+								 }
                })
              }
              $("button[data-button-action='actions.addto']").live("click",function(){
@@ -1130,13 +1187,24 @@ courseware_id: '<%=@courseware.id%>'
               };
              $('#flag-reason-button').live('click',function(e){
                back2normal();
+							 var div = $('#flag-video-menu');
                if($(this).hasClass('yt-uix-button-active')){
-                 $('#flag-video-menu').addClass('hid').hide();
+								 div.remove();
+                 div.addClass('hid').hide();
+								 $(this).after(div);
                  $(this).removeClass('yt-uix-button-active');
                }else{
                  $(this).addClass('yt-uix-button-active');
-                 $('#flag-video-menu').addClass('yt-uix-button-menu yt-uix-button-menu-external');
-                 $('#flag-video-menu').removeClass('hid').show();
+								 div.remove();
+								 css = {
+									 'min-width': '80px', 
+									 'top': ($('#watch-actions-area').height() + $('#flag-reason-button').height()*2.5+6).toString() + 'px', 
+									 'left': ($(this).width() + 14).toString() + 'px'
+								 }
+								 div.css(css);
+	               div.addClass('yt-uix-button-menu yt-uix-button-menu-external');
+								 div.removeClass('hid').show();
+								 $('#watch-main-container').append(div);                 
                 }
                 e.stopPropagation();
              });
@@ -1144,7 +1212,10 @@ courseware_id: '<%=@courseware.id%>'
                var target = e.target;
                if (!$(target).is('#flag-reason-button') && !$(target).parents().is('#flag-reason-button')) {
                  if($('#flag-reason-button').hasClass('yt-uix-button-active')){
-                    $('#flag-video-menu').addClass('hid');
+									  var div =$('#flag-video-menu');
+										div.remove();
+										div.addClass('hid');
+										$('#flag-reason-button').after(div);
                     $('#flag-reason-button').removeClass('yt-uix-button-active');
                  }
                }
@@ -1157,6 +1228,11 @@ courseware_id: '<%=@courseware.id%>'
                $('#flag-reason-button').removeClass('yt-uix-button-active');
                $('#flag-reason-button > .yt-uix-button-content').html($('.label',this).html());
                handleChoose(this);
+									  var div =$('#flag-video-menu');
+										div.remove();
+										div.hide().addClass('hid');
+										$('#flag-reason-button').after(div);
+			              $('#flag-reason-button').removeClass('yt-uix-button-active');
                e.stopPropagation();
              });
              $('.submenu > .yt-uix-button-menu-item').live('click',function(e){
@@ -1169,6 +1245,11 @@ courseware_id: '<%=@courseware.id%>'
                $('#flag-reason-button').removeClass('yt-uix-button-active');
                $('#flag-reason-button > .yt-uix-button-content').html($('.label',this).html());
                handleChoose(this);
+								  var div =$('#flag-video-menu');
+									div.remove();
+									div.hide().addClass('hid');
+									$('#flag-reason-button').after(div);
+		              $('#flag-reason-button').removeClass('yt-uix-button-active');
                e.stopPropagation();
              });
              
@@ -1387,6 +1468,9 @@ courseware_id: '<%=@courseware.id%>'
              $('.collapse.yt-uix-expander-head').live('click',function(){
                 $('.stats-box.yt-uix-expander').addClass('yt-uix-expander-collapsed');
              });
+						 $('.divider a').live('click',function(){
+							 $("button[data-button-action='actions.flag']").trigger('click');
+						 });
            <% end %>
         </script>
 </div>

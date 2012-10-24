@@ -436,11 +436,11 @@
 	});
 	$('#vm-playlist-remove-kejian').live('click',function(){
 		$.ajax({
-			<% if @seo[:title] == '稍后阅读' %>
+			<% if request.path == '/mine/my_watch_later_coursewares' %>
 			url:'/ajax/add_to_read_later_array',
-			<% elsif @seo[:title] == '收藏' %>
+			<% elsif request.path == '/mine/my_favorites' %>
 			url:'/ajax/add_to_favorites_array',
-			<% elsif  @seo[:title] == '顶过的课件' %>
+			<% elsif request.path ==  '/mine/my_liked_coursewares' %>
 			url:'/ajax/remove_ding_array',
 			<% end %>
 			type:'POST',

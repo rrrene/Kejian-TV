@@ -6,14 +6,14 @@
      <div role="alert" class="yt-alert-content">
         <span class="yt-alert-vertical-trick"></span>
         <div class="yt-alert-message">
-           您对此视频给予了差评。感谢您提供反馈意见！
+           您对此课件给予了差评。感谢您提供反馈意见！
         </div>
      </div>
   </div>
   <div id="watch-action-response-message">
      <div class="watch-ratings-stats">
        <% cw = Courseware.find(cw_id) %>
-        <strong>此视频的评分</strong> <span class="watch-ratings-stats-parenthesis">(总计 <%= (total = cw.thanked_count + cw.disliked_count) %> 票)</span><br>
+        <strong>此课件的评分</strong> <span class="watch-ratings-stats-parenthesis">(总计 <%= (total = cw.thanked_count + cw.disliked_count) %> 票)</span><br>
         <table class="watch-ratings-stats-table">
            <tbody>
               <tr>
@@ -39,7 +39,7 @@
      </div>
      <br>
      <div class="divider">
-        <br><strong><img src="<%= asset_path 'yt/wfw.gif' %>" class="master-sprite watch-gray-flag">您是否要<a data-from-dislike="1" onclick="actions.flag(null, true); return false;" class="hLink" href="#">举报此视频包含不当内容？</a></strong><br><br>
+        <br><strong><img src="<%= asset_path 'yt/wfw.gif' %>" class="master-sprite watch-gray-flag">您是否要<a data-from-dislike="1" onclick="return false;" class="hLink" href="#">举报此课件包含不当内容？</a></strong><br><br>
      </div>
   </div>
   <div class="clearL">

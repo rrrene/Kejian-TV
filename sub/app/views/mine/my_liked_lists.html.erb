@@ -1,0 +1,30 @@
+<% content_for :armpit do %>
+  <%= stylesheet_link_tag 'ktv/__ytb' %>
+  <%= stylesheet_link_tag "ktv/__ytb_manager", :media => "all" %>
+<% end %>
+
+
+<%= render 'mine_above' %>
+    <div class="ytg-fl vm-has-videolist vm-list-view" id="yt-admin">
+	    <%= render 'manager_nav' %>
+    	<div class="ytg-fl " id="yt-admin-content">
+    		<div id="vm-page-subheader">
+    			<h3><a href="/mine/my_liked_coursewares">顶过的课件</a></h3>
+    			<span class="yt-badge-vm" id="vm-num-videos-shown"><%= @coursewares_ids.size %></span>
+    			<span class="vm-separator">|</span>
+    			<h3>顶过的课件锦囊</h3>
+    			<span class="yt-badge-vm" id="vm-num】-videos-shown"><%= @thanked_playlist_ids.size %></span>
+    		</div>
+				<%=  render :partial=>'action_header_playlist' %>
+	  		<div id="vm-video-list-container" style='margin-left:2px'>
+	  			<ol class="vm-video-list vm-playlists" id="vm-playlist-video-list-ol">
+		  			  <%= render :partial =>'playlist_sort',locals:{uplist:@uplist} %>
+	  			</ol>
+	  		</div>
+	  		<div id="vm-pagination">
+    		</div>
+    	</div>
+    </div>
+<%= render :partial=>'addto_loading' %>
+<%= render 'mine_below' %>
+

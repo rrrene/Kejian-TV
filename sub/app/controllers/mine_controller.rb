@@ -56,6 +56,12 @@ class MineController < ApplicationController
     @coursewares = Courseware.eager_load(@coursewares_ids)
     @seo[:title] = "顶过的课件"    
   end
+  def my_liked_lists
+    @coursewares_ids = current_user.thanked_courseware_ids
+    @thanked_playlist_ids = current_user.thanked_play_list_ids
+    @uplist = PlayList.eager_load(@thanked_playlist_ids)
+    @seo[:title] = "顶过的课件锦囊"
+  end
 private
   def mine_common_op
     @seo[:aux_title] = "#{Setting.ktv_subname}课件管理器"    

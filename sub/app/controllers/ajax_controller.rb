@@ -286,19 +286,16 @@ HEREDOC
       else
         cw = Courseware.find(params[:cw_id])
         result = current_user.thank_courseware(cw)
-        cw_event_add_action("课件顶",'Courseware',cw.id,true) if !result
-        render file:'coursewares/_watch_like',locals:{cw_id:params[:cw_id]},layout:false  
+        cw_event_add_action("课件顶",'Courseware',cw.id,true) if result
+        render file:'coursewares/_watch_like',locals:{cw_id:params[:cw_id]},layout:false
       end
     elsif params[:type] == 'watch-unlike'
       if current_user.nil?
         render :text => "<div><a href='javascript:void(0)' class='like grey psvr_login_required'>登录</a>之后就可以踩了。</div>"
       else
         cw = Courseware.find(params[:cw_id])
-        if !cw.disliked_user_ids.include?(current_user.id) and !cw.thanked_user_ids.include?(current_user.id)
-          cw.update_attribute(:disliked_count,cw.disliked_count+1)
-          cw.update_attribute(:disliked_user_ids,cw.disliked_user_ids << current_user.id)
-          cw_event_add_action("课件踩",'Courseware',cw.id,true)
-        end
+        result = cw.disliked_by_user(current_user)
+        cw_event_add_action("课件踩",'Courseware',cw.id,true) if result
         render file:'coursewares/_watch_unlike',locals:{cw_id:params[:cw_id]},layout:false  
       end
     elsif params[:type] == 'addto'
@@ -406,16 +403,17 @@ HEREDOC
     end
     render json:json
   end
-  def remove_ding_array
-    
-  end
   def get_dynamic_dingcai
      cw = Courseware.find(params[:cw_id])
-     dp = (cw.thanked_count * 1.0 / ((cw.disliked_count+cw.thanked_count) *1.0 )) * 100
-     cp = (cw.disliked_count*1.0 / ((cw.disliked_count+cw.thanked_count)*1.0))*100
-     
-     json = {dingpercent:dp,caipercent:cp,d:cw.thanked_count,c:cw.disliked_count}
-     render json:json
+     has = cw.disliked_count+cw.thanked_count
+     if has !=0
+         dp = (cw.thanked_count * 1.0 / ((cw.disliked_count+cw.thanked_count) *1.0 )) * 100
+         cp = (cw.disliked_count*1.0 / ((cw.disliked_count+cw.thanked_count)*1.0))*100
+         json = {has:has,dingpercent:dp,caipercent:cp,d:cw.thanked_count,c:cw.disliked_count}
+         render json:json
+     else
+       render json:{has:0}
+     end
   end
   def comment_action
     atype = params[:atype]
@@ -610,7 +608,24 @@ HEREDOC
       end
     end
   end
-  
+  def remove_ding_array
+    if current_user.nil?
+      render json:{status:'failed',reason:'您尚未登陆！'}
+      return false
+    end
+    result = Array.new
+    re = false
+    params[:cwid].each_with_index do |cwid,index|
+      cw = Courseware.find(cwid)
+      result[index] = current_user.thank_courseware(cw)
+    end
+    result.map{|x| re = re or x}
+    if !re
+      render json:{status:'suc'}
+    else
+      render json:{status:'failed',reason:'该课件不存在于恁顶的课件中！'}
+    end
+  end
   
   def create_and_add_to_by_id
     if current_user.nil?
@@ -628,7 +643,7 @@ HEREDOC
     pl.title = title
     pl.privacy = privacy
     pl.save(:validate => false)
-    if params[:cwid].count == 1
+    if params[:cwid].size == 1
       cwid = params[:cwid][0]
       if !BSON::ObjectId.legal?(cwid)
         render json:{status:'failed',reason:'您导入的内容稍后阅读无法接受！'}

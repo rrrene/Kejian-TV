@@ -17,6 +17,7 @@ Sub::Application.routes.draw do
   get '/mine/my_watch_later_coursewares'
   get '/mine/my_favorites'
   get '/mine/my_liked_coursewares'
+  get '/mine/my_liked_lists'
   post '/mine/delete' => 'mine#delete'
   get '/mine/:page' => 'mine#index'
   get '/popup/headlines'
