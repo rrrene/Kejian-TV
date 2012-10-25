@@ -545,12 +545,12 @@ HEREDOC
             render json:json_failed
             return false
         end
-        if pl.content.include?(id)
+        cw = Courseware.find(id)
+        if pl.content.include?(cw.id)
             json_failed = {status:'failed',reason:'该课件锦囊里已经有该课件。'}
             render json:json_failed
             return false
         end
-        cw = Courseware.find(id)
         if cw.nil?
             render json:json_failed
             return false
@@ -582,11 +582,11 @@ HEREDOC
         legal = false
         next
       end
-      if pl.content.include?(cwid)
+      cw = Courseware.find(cwid)
+      if pl.content.include?(cw.id)
         add = false
         next
       end
-      cw = Courseware.find(cwid)
       if cw.nil?
         next
       end
@@ -649,11 +649,11 @@ HEREDOC
         render json:{status:'failed',reason:'您导入的内容稍后阅读无法接受！'}
         return false
       end
-      if pl.content.include?(cwid)
+      cw = Courseware.find(cwid)
+      if pl.content.include?(cw.id)
         render json:{status:'failed',reason:'该课件已经存在该课件锦囊！'}
         return false
       end
-      cw = Courseware.find(cwid)
       if cw.nil?
         render json:{status:'failed',reason:'该课件已经不存在！'}
         return false
@@ -678,7 +678,7 @@ HEREDOC
     end
     pl = PlayList.locate(current_user.id,params[:title])
 
-    pl.annotation[pl.content.index(params[:cwid][0])] = params[:note]
+    pl.annotation[pl.content.index(Courseware.find(params[:cwid][0]).id)] = params[:note]
     if pl.save(:validate=>false)
       render json:{status:'suc',title:"<a href='/play_lists/#{pl.id}'>#{pl.title}</a>"}
     else

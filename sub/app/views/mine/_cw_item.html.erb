@@ -10,8 +10,9 @@
 	</div>
 	<div class="vm-video-info-container">
 		<div class="vm-video-title">
-			<span id="checkbox_q1sRAXZ-qLM" class="vm-video-title-container yt-uix-tooltip">
-			<a data-sessionlink="ei=CL6px7bRgrMCFdKGIQodrlpluA%3D%3D&amp;feature=my_liked_videos" class="vm-video-title-content yt-uix-sessionlink" href="/coursewares/<%= item.id %>"><%= item.title %></a>
+			<% titlelen = 20 %>
+			<span id="checkbox_<%= item.id %>" class="vm-video-title-container yt-uix-tooltip" <% if item.title.length > titlelen %> title='<%= item.title %>' <% end %>>
+			<a class="vm-video-title-content yt-uix-sessionlink" href="/coursewares/<%= item.id %>"><%= item.title[0...titlelen] %><%= if item.title.length> titlelen then '...' end %></a>
 			</span>
 			<span class="vm-video-title-badges">
 			</span>

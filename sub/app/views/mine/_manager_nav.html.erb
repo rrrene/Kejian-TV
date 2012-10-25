@@ -10,10 +10,10 @@
 					<span href="/coursewares/new" class="yt-uix-button-menu-item" onclick=";window.location.href=this.getAttribute('href');return false;">上传课件</span>
 				</li>
 				<li role="menuitem" id="aria-id-create">
-					<span href="" class="menu-item-top-divider yt-uix-button-menu-item">创作者工具</span>
+					<span href="" class="menu-item-top-divider  yt-uix-tooltip yt-uix-button-menu-item" title="正在施工">创作者工具</span>
 				</li>
-				<li role="menuitem" id="aria-id-ads">
-					<span href="" class="yt-uix-button-menu-item">课件广告</span></li>
+				<li role="menuitem" id="aria-id-ads" class='yt-uix-tooltip'  title='正在施工'>
+					<span href="" class="yt-uix-button-menu-item ">课件广告</span></li>
 			</ul>
 	</button>
 </span>
@@ -42,16 +42,16 @@
 
 <script type="text/javascript" charset="utf-8">
 	<% content_for :butt2 do %>
-
+  $('.yt-uix-tooltip').tipsy({gravity: $.fn.tipsy.autoNS,fade: <%= @is_WebKit ? 'false' : 'true'%>,opacity: 1});
 	$('button.upload-menu-expand-button.end').live('click',function(e){
 		$(this).toggleClass('yt-uix-button-active');
 		if($(this).hasClass('yt-uix-button-active')){
 			var ul = $('ul',this).show();
 			ul.remove();
 			css = {
-				'min-width': '38px',
-				'left': ($(this).offset().top + $(this).height()).toString() +'px', 
-				'top':  $(this).offset().left.toString()+'px'
+				'min-width': ($('button.start.upload-menu-button').width()).toString()+'px',
+				'top': ($(this).offset().top + $(this).height()).toString() +'px', 
+				'left':  ($('button.start.upload-menu-button').offset().left+60).toString()+'px'
 			}
 			ul.css(css);
 			$('.__ytb').append(ul);

@@ -206,7 +206,7 @@ $('.presentation').hover(function(){
 <div id="sidebar">    
 <%= render 'welcome_unlogin_user' unless user_signed_in? %>
     <div id="questions-count" class="module">
-      <div class="summarycount al"><%= link_to number_with_delimiter(PlayList.no_privacy.normal.count),'/play_lists' %></div>
+      <div class="summarycount al"><%= link_to number_with_delimiter(PlayList.destroyable.no_privacy.normal.count),'/play_lists' %></div>
       <p style="margin-top:6px">个课件锦囊已创建</p>
     </div>
 <div class="__sdk" style="background:transparent">

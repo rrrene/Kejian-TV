@@ -9,7 +9,7 @@
 		<% else %>
 		<a class="yt-uix-sessionlink" href="/coursewares?watch_all=<%= item.id %>">
 		<span class="playlist-thumb-strip playlist-thumb-strip-350">
-		  <span class="videos videos-<%= item.content.count > 6 ? 6 : item.content.count %> vertical-cutoff">
+		  <span class="videos videos-<%= item.content.count > 5 ? 5 : item.content.count %> vertical-cutoff">
         <% item.content.each_with_index do |id,index| %>
            <% if index > 5 
                 break
