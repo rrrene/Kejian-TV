@@ -54,7 +54,7 @@ class UsersController < ApplicationController
     @user ||= User.find_by_slug(params[:id].force_encoding_zhaopin.split('_').join('.'))
     @user ||= User.where(:_id=>params[:id]).first
     if @user.blank? or !@user.normal_deleting_status(current_user)
-      render_404
+      redirect_to('/',:alert => '未找到此用户')
     end
     @ask_to_user = Ask.new
   end

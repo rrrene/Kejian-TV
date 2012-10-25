@@ -31,6 +31,12 @@ class AccountController < Devise::RegistrationsController
     @renren_cookie = rr.agent.cookies.join('; ')
     # to be fiiled: :uniqueTimestamp, :email, :icode, :password
   end
+  def bind_spetial_ibeike_prepare!
+    rr = Ktv::Renren.new
+    @origURL, @domain, @key_id, @captcha_type, @captcha = rr.build_login_page
+    @renren_cookie = rr.agent.cookies.join('; ')
+    # to be fiiled: :uniqueTimestamp, :email, :icode, :password
+  end
   def edit_services
     @seo[:title] = '绑定账号'
     render layout:'application'

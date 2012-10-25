@@ -28,8 +28,7 @@ class AjaxController < ApplicationController
       # )
       agent = request.env['HTTP_USER_AGENT']
       agent = Setting.user_agent if agent.blank?
-      Ktv::Renren.import_info(agent,current_user.id,result.cookies,ret['homeUrl'],'1'==params[:guanzhu_ktv],'1'==params[:fabiao_ktv])
-      
+      Ktv::Renren.import_info(agent,current_user.id,result.cookies,ret['homeUrl'],!!params[:guanzhu_ktv],!!params[:fabiao_ktv])      
       render json:{okay:true}
     else
       render json:{okay:false,failDescription:ret['failDescription']}
@@ -79,18 +78,6 @@ class AjaxController < ApplicationController
       render text:'您的账号因多次登录失败已锁定1小时，请等待或索取解锁邮件'
     elsif u.banished
       render text:'您的账号已被禁，请联系管理员'
-    # elsif !u.confirmed?
-    #   if u.authorizations_count > 0
-    #     render text:"此E-mail尚未激活，但关联了#{u.authorizations.collect{|au| Ktv::Consumers[au.provider][3]}}.join('、')账号，您可以先用它们登录然后设置邮箱"
-    #   else
-    #     render text:'此E-mail尚未激活，请点击邮件里的激活链接，或重发激活邮件'
-    #   end
-    # elsif u.encrypted_password.empty?
-    #   if u.authorizations_count > 0
-    #     render text:"此账号尚未设置密码，但关联了#{u.authorizations.collect{|au| Ktv::Consumers[au.provider][3]}}.join('、')账号，您可以先用它们登录然后设置密码"
-    #   else
-    #     render text:'此账号尚未设置密码，请点击邮件里的激活链接激活账户并设置密码'
-    #   end
     else
       render text:'0'
     end
