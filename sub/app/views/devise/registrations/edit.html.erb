@@ -173,10 +173,10 @@ KTV.ln_targetize();
 								</div>
                 <div class="__jia">
                   <div class="j32" style="width:617px;height:32px;margin:16px 0;">
-            <% key = "spetial_#{Setting.ktv_sub}".to_sym; if value=Authorization::SERVICES[key] %>
+            <% key = "spetial_#{Setting.ktv_sub}".to_sym; if value=UcThirdPartyAuth::SERVICES[key] %>
             <a class="jbttt jbt_<%= key %> <%= 'active' if @user.getauth(key) %>" href="/account/bind/<%= key %>"><span title="绑定<%= value[:name] %>" class="jiathis_txt jtico jtico_<%= key %>"></span></a>
             <% end %>
-                    <% Authorization::SERVICES.each do |key,value| %>
+                    <% UcThirdPartyAuth::SERVICES.each do |key,value| %>
                     <% next if key.to_s.starts_with?('spetial_') %>
                     <a class="jbttt jbt_<%= key %>" href="/account/bind/<%= key %>"><span title="绑定<%= value[:name] %>" class="jiathis_txt jtico jtico_<%= key %>"></span></a>
                     <% end %>
