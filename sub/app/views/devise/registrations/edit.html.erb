@@ -173,7 +173,11 @@ KTV.ln_targetize();
 								</div>
                 <div class="__jia">
                   <div class="j32" style="width:617px;height:32px;margin:16px 0;">
+            <% key = "spetial_#{Setting.ktv_sub}".to_sym; if value=Authorization::SERVICES[key] %>
+            <a class="jbttt jbt_<%= key %>" href="/account/bind/<%= key %>"><span title="绑定<%= value[:name] %>" class="jiathis_txt jtico jtico_<%= key %>"></span></a>
+            <% end %>
                     <% Authorization::SERVICES.each do |key,value| %>
+                    <% next if key.to_s.starts_with?('spetial_') %>
                     <a class="jbttt jbt_<%= key %>" href="/account/bind/<%= key %>"><span title="绑定<%= value[:name] %>" class="jiathis_txt jtico jtico_<%= key %>"></span></a>
                     <% end %>
                   </div>
@@ -315,7 +319,7 @@ KTV.ln_targetize();
             <%= image_tag 'efw/efw.png',id:'efw_efw' %>
             <a href="javascript:void(0)" id="efw_btn">收起完善您的账号Tips</a>
             <ul>
-              <li><a href="/account/binds">绑定至少一个外部账号</a></li>
+              <li style="position:relative;top:1px"><a href="/account/binds">绑定至少一个外部账号</a></li>
               <li><a href="#">填写姓名与领域行业</a></li>
               <li><a href="#">添加您的技能及专业知识</a></li>
               <li><a href="#">完善学术与职业经历</a></li>
