@@ -1,5 +1,10 @@
 # -*- encoding : utf-8 -*-
 class AccountController < Devise::RegistrationsController
+  before_filter proc{
+    if $psvr_really_production and !params[:psvr_force]
+      render text:'开发中' and return false
+    end
+  }
   prepend_before_filter :authenticate_scope!, :only => [
     :edit,
     :edit_profile,
