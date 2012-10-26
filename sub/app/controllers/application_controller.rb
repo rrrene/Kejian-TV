@@ -159,8 +159,9 @@ class ApplicationController < ActionController::Base
     end
   end
   
+=begin
   before_filter :get_extcredits
-  #before_filter :get_srchhotkeywords
+  before_filter :get_srchhotkeywords
   def get_srchhotkeywords
     @s_keyword  = PreCommonSetting.where(:skey => 'srchhotkeywords').first.svalue
     @hotkeywords_list = @s_keyword.split.compact
@@ -186,6 +187,7 @@ class ApplicationController < ActionController::Base
       @extcredit_name_list = @extcredit_name_list.chop  
     end
   end
+=end
    
   before_filter :check_privilige
   def check_privilige

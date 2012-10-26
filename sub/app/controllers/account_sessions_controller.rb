@@ -65,8 +65,6 @@ class AccountSessionsController < Devise::SessionsController
       sign_in_others
       sign_in(resource_name, resource)
       set_flash_message(:notice, :signed_in) if is_navigational_format?
-      #synlogin = UCenter::User.synlogin(request,{uid:resource.uid})
-      #flash[:extra_ucenter_operations] = synlogin.html_safe if synlogin.present?
       respond_with resource, :location => after_sign_in_path_for(resource)
     else
       redirect_to @login_ibeike ? '/login_ibeike' : '/login'

@@ -3,9 +3,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   before_filter :prepare_auth
   def renren
     @user.name = @info['name']
-    if @info['urls'].present?
-      @user.renren = @info['urls']['Renren']
-    end
     @backinfo = {:renren => Hash[
       "info" => env["omniauth.auth"]['info'],
       "raw_info" => env["omniauth.auth"]['extra']['raw_info']
@@ -374,9 +371,16 @@ private
     end
     provider = env["omniauth.auth"]['provider'].to_s
     uid = env["omniauth.auth"]['uid'].to_s
-    @user = User.where("authorizations.provider" => provider , "authorizations.uid" => uid).first
-    @user ||= User.new
-    @auth = @user.authorizations.find_or_create_by(:provider=> provider,:uid=>uid)
+    @auth = UcThirdPartyAuth.where("provider" => provider , "uid" => uid).first
+    if @auth
+      @user = @auth.user 
+    else
+      @user ||= User.new
+      @auth ||= UcThirdPartyAuth.create! do |x|
+        x.provider = provider
+        x.uid = uid
+      end
+    end
     @info = env["omniauth.auth"]['info']
     p env["omniauth.auth"].inspect
     return true
@@ -388,7 +392,7 @@ private
     @user.regip = request.ip
     @user.save(:validate=>false)
     if @user.uid.blank?
-      if !@user.email_unknown
+      if @user.email.present?
         info0=UCenter::User.get_user(nil,{email:email})
       else
         info0='0'
@@ -410,17 +414,13 @@ private
         User.import_from_dz!(info0)
       end
     end
-    if true
-      UserInfo.user_id_find_or_create(@user.id,@backinfo)
-      @auth.update_attribute(:user_id, @user.id)
-      sign_in(@user)
-      if(@user.name_unknown or @user.email_unknown)
-        redirect_to(edit_user_registration_path(:force_password_change => 1), :notice => '谢谢！您已经成功登录，请补充您的真实姓名和邮箱地址，并设置新密码。')
-      else
-        redirect_to(root_path, :notice =>  '谢谢！您已经成功登录。')
-      end
+    @auth.update_attribute(:uc_uid, @user.uid)
+    sign_in_others
+    sign_in(@user)
+    if(@user.name_unknown or @user.email_unknown)
+      redirect_to(edit_user_registration_path(:force_password_change => 1), :notice => '谢谢！您已经成功登录，请补充您的真实姓名和邮箱地址，并设置新密码。')
     else
-      raise @user.errors
+      redirect_to(root_path, :notice =>  '谢谢！您已经成功登录。')
     end
     
   end
