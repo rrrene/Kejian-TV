@@ -387,17 +387,16 @@ private
   end
   def make_it_done!
     @user.name_unknown = @user.errors[:name].present?
-    @user.email_unknown = @user.errors[:email].present?
-    @user.email_unknown = true if @user.email.starts_with?('unknown')
     @user.regip = request.ip
     @user.save(:validate=>false)
     if @user.uid.blank?
       if @user.email.present?
-        info0=UCenter::User.get_user(nil,{email:email})
+        info0=UCenter::User.get_user(nil,{email:@user.email})
       else
         info0='0'
       end
       if '0'==info0
+        @user.fill_in_unknown_email
         ret = UCenter::User.register(request,{
           username:@user.slug,
           password:'psvr_password_unknown',
@@ -406,7 +405,8 @@ private
           psvr_force:'1'
         })
         if ret.xi.to_i>0
-          @user.update_attribute(:uid,ret.xi.to_i)
+          @user.uid=ret.xi.to_i
+          @user.save(:validate=>false)
         else
           raise '注册UC同步注册错误！！！猿快来看一下！'
         end
