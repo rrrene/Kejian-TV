@@ -1,0 +1,74 @@
+<div id="vm-general-notifs">
+	<div class="yt-alert yt-alert-default yt-alert-success" style="display: none;">  
+		<div class="yt-alert-icon">
+    	<img alt="提醒图标" class="icon master-sprite" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
+  	</div>
+		<div class="yt-alert-buttons">
+			<button role="button" data-close-parent-class="yt-alert" onclick=";return false;" class="close yt-uix-close yt-uix-button yt-uix-button-close" type="button">
+				<span class="yt-uix-button-content">关闭 </span>
+			</button>
+		</div>
+		<div role="alert" class="yt-alert-content"></div>
+	</div>
+</div>
+<div style="" class="goog-scrollfloater" id="vm-video-actions-bar">
+	<div id="vm-video-actions-inner" class="clearfix">
+		<span class="yt-uix-button-group vm-view-toggle" data-button-toggle-group="required">
+		<button aria-label="切换到网格视图" type="button" class="start view-toggle-button yt-uix-button yt-uix-button-default yt-uix-button-empty"  data-button-toggle="true" data-page-class="vm-beauty-view" role="button"><span class="yt-uix-button-icon-wrapper"><img class="yt-uix-button-icon yt-uix-button-icon-vm-beauty-view" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt=""><span class="yt-valign-trick"></span></span></button><button aria-label="切换到列表视图" type="button" class="end view-toggle-button yt-uix-button-toggled yt-uix-button yt-uix-button-default yt-uix-button-empty"  data-button-toggle="true" data-page-class="vm-list-view" role="button"><span class="yt-uix-button-icon-wrapper"><img class="yt-uix-button-icon yt-uix-button-icon-vm-list-view" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt=""><span class="yt-valign-trick"></span></span></button></span>
+		<span class="yt-uix-form-input-checkbox-container vm-select-all"><input name="vm-video-select-all" class="yt-uix-form-input-checkbox" id="vm-video-select-all" type="checkbox"><span class="yt-uix-form-input-checkbox-element"></span></span>
+		<button disabled="True" type="button" class="addto-button default show-label yt-uix-button yt-uix-button-default"  data-button-menu-action="yt.www.lists.addto.toggleMenu" data-button-menu-id="shared-addto-menu" data-video-ids="" data-feature="vm" role="button"><span class="yt-uix-button-icon-wrapper"><img class="yt-uix-button-icon yt-uix-button-icon-addto" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt=""><span class="yt-valign-trick"></span></span><span class="yt-uix-button-content"><span class="addto-label">添加到</span></span><img class="yt-uix-button-arrow" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt=""></button>
+		<button disabled="True" type="button" id="vm-playlist-action-menu"  class=" yt-uix-button yt-uix-button-default" role="button" aria-pressed="false" aria-expanded="false" aria-haspopup="true" aria-activedescendant=""><span class="yt-uix-button-content">操作 </span><img class="yt-uix-button-arrow" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="">
+		<ul class=" yt-uix-button-menu yt-uix-button-menu-default" role="menu" aria-haspopup="true" style="display: none;">
+			<li role="menuitem" id="aria-id-28804054661"><span id="vm-playlist-delete-videos"  class=" yt-uix-button-menu-item">删除</span></li>
+			<li role="menuitem" id="aria-id-95287531649"><span class="menu-subheading yt-uix-button-menu-item" >隐私设置</span></li>
+			<li role="menuitem" id="aria-id-12945458188"><span id="vm-playlist-set-videos-privacy-public"  class="menu-subitem yt-uix-button-menu-item">公开</span></li>
+			<li role="menuitem" id="aria-id-35105908756"><span id="vm-playlist-set-videos-privacy-unlisted"  class="menu-subitem yt-uix-button-menu-item">不公开的课件</span></li>
+			<li role="menuitem" id="aria-id-91380742013"><span id="vm-playlist-set-videos-privacy-private"  class="menu-subitem yt-uix-button-menu-item">私有</span></li>
+			<li role="menuitem" id="aria-id-86843812961"><span class="menu-subheading yt-uix-button-menu-item" >许可</span></li>
+			<li role="menuitem" id="aria-id-44264528610"><span id="vm-playlist-set-videos-license-standard"  class="menu-subitem yt-uix-button-menu-item">标准许可</span></li>
+			<li role="menuitem" id="aria-id-7867396083"><span id="vm-playlist-set-videos-license-cc"  class="menu-subitem yt-uix-button-menu-item">知识共享</span></li>
+		</ul>
+		</button>
+		<span id="vm-view-filter">
+		<span id="vm-view-filter-label">观看：</span>
+		<button aria-labelledby="vm-view-filter-label" type="button" id="vm-view-btn"  class=" yt-uix-button yt-uix-button-text" role="button" aria-pressed="false" aria-expanded="false" aria-haspopup="true" aria-activedescendant=""><span class="yt-uix-button-content">最新课件 </span><img class="yt-uix-button-arrow" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="">
+		<ul class=" yt-uix-button-menu yt-uix-button-menu-text" role="menu" aria-haspopup="true" style="display: none;">
+			<li role="menuitem" id="aria-id-94205034509"><span href="?vmo=oldest&amp;sa=1&amp;sf=added" id="oldest"  class=" yt-uix-button-menu-item">最早上传</span></li>
+			<li role="menuitem" id="aria-id-52154534779"><span href="?vmo=viewed&amp;sa=0&amp;sf=viewcount" id="viewed"  class=" yt-uix-button-menu-item">观看最多</span></li>
+			<li role="menuitem" id="aria-id-76655227206"><span href="?vmo=public&amp;sq=is%3Apublic" id="public"  class="menu-item-top-divider yt-uix-button-menu-item">公共</span></li>
+			<li role="menuitem" id="aria-id-75210932192"><span href="?vmo=unlisted&amp;sq=is%3Aunlisted" id="unlisted"  class=" yt-uix-button-menu-item">不公开的课件</span></li>
+			<li role="menuitem" id="aria-id-57599943971"><span href="?vmo=private&amp;sq=is%3Aprivate" id="private"  class=" yt-uix-button-menu-item">私有</span></li>
+		</ul>
+		</button>
+		</span>
+	</div>
+	<span class="yt-uix-overlay hid" data-overlay-class="vm-video-actions-delete-overlay">
+	<span class="yt-uix-overlay-content vm-video-actions-delete-overlay-content">
+	<div class="vm-video-actions-delete-full-area">
+		<div class="vm-video-actions-delete-header">
+			<div class="yt-alert yt-alert-naked yt-alert-error ">
+				<div class="yt-alert-icon">
+					<img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="icon master-sprite" alt="提醒图标">
+				</div>
+				<div class="yt-alert-content" role="alert">
+					<span class="yt-alert-vertical-trick"></span>
+					<div class="yt-alert-message">
+						 确认
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="vm-video-actions-delete-main-area">
+			<span class="vm-video-actions-delete-warning"></span>
+			<div class="vm-video-actions-delete-extra-warning hid">
+			</div>
+			<div class="vm-video-actions-delete-button-area">
+				<button type="button" class="yt-uix-overlay-close vm-video-actions-delete-button-cancel yt-uix-button yt-uix-button-default"  role="button"><span class="yt-uix-button-content">取消 </span></button>
+				<button type="button" class="vm-video-actions-delete-button-confirm yt-uix-button yt-uix-button-destructive"  role="button"><span class="yt-uix-button-content">删除 </span></button>
+			</div>
+		</div>
+	</div>
+	</span>
+	</span>
+</div>
+	

@@ -6,7 +6,7 @@
       <div class="statscontainer __sdk">
         <div class="presentations">
           <div data-slide-count="1" data-id="<%=page.courseware_id%>" class="presentation">
-            <a href="<%= gen_jump_url(urlcw) %>&keyword=<%= CGI::escape(params[:q]) %>" target="_blank"  class="slide_preview scrub setup">
+            <a href="<%= gen_jump_url(urlcw) %>&keyword=<%= CGI::escape(params[:q]) %>&t=s" target="_blank"  class="slide_preview scrub setup">
               <img src="<%= asset_url("cw/#{page.courseware_ktvid}/thumb_slide_#{page.page_index}.jpg") %>" alt="Thumb_slide_0" width="210" height="158">
             </a>
           </div>
