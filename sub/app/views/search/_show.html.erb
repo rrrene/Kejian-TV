@@ -12,10 +12,12 @@
       <div class="summary wide">
           <h3>
             <% if nn=Course.get_name(item.course_fid) %>
-              <a href="/courses/<%= item.course_fid %>" class="tag-post"><%= nn %></a><br>
+						<% cwurl =  '/courses/' + item.course_fid %>
+              <a href="<%= gen_jump_url(cwurl) %>&keyword=<%= CGI::escape(params[:q]) %>" target="_blank" class="tag-post"><%= nn %></a><br>
               <% nd=Course.get_department(item.course_fid) %>
             <% end %>
-            <a href="/coursewares/<%= item.id %>" class="question-hyperlink">
+						<% cwurlx =  '/coursewares/' + item.id %>
+            <a href="<%= gen_jump_url(cwurlx) %>&keyword=<%= CGI::escape(params[:q]) %>"  target="_blank" class="question-hyperlink">
             <% if search_result.highlight %>
               <%=page_highlight((search_result.highlight.title ? search_result.highlight.title.join('...') : item.title),params[:q])%>
             <% else %>

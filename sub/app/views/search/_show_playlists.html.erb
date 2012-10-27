@@ -3,7 +3,7 @@
 <% eager_load = PlayList.eager_load(@play_lists.collect(&:id)) %>
 <% @play_lists.each_with_index do |search_result,index|%>
   <% item = eager_load[index] %>
-  <div id="question-summary-10960" class="question-summary">
+  <div id="question-summary-<%= item.id %>" class="question-summary">
       <div class="statscontainer __sdk">
         <div class="presentations">
           <%= render :partial => 'play_list',:locals=>{play_list:item} %>
@@ -14,12 +14,12 @@
             <% item.course_fids.each do |course_fid| %>
               <% if nn=Course.get_name(course_fid) %>
 									<% urlc = '/courses/'+ course_fid.to_s %>
-                <a href="<%= gen_jump_url(urlc) %>&keyword=<%= CGI::escape(params[:q]) %>" class="tag-post"><%= nn %></a><br>
+                <a href="<%= gen_jump_url(urlc) %>&keyword=<%= CGI::escape(params[:q]) %>" target="_blank" class="tag-post"><%= nn %></a><br>
                 <% nd=Course.get_department(course_fid) %>
               <% end %>
             <% end %>
 							<% urlp = '/play_lists/'+ item.id.to_s  %>
-            <a href="<%= gen_jump_url(urlp) %>&keyword=<%= CGI::escape(params[:q]) %>" class="question-hyperlink" title="<%= item.title %>">
+            <a href="<%= gen_jump_url(urlp) %>&keyword=<%= CGI::escape(params[:q]) %>" target="_blank"  class="question-hyperlink" title="<%= item.title %>">
             <% if search_result.highlight %>
               <%=page_highlight((search_result.highlight.title ? search_result.highlight.title.join('...') : item.title),params[:q])%>
             <% else %>
@@ -34,15 +34,15 @@
                 <% has_body=true %>
                 <% search_result.highlight['courseware_titles.title'].each_with_index do |ttt,index| %>
                   <% break if index >= 3 %>
-									<% url ='/coursewares/'+search_result.courseware_titles.detect{|x| ttt.gsub('__PSVR_begin_RVSP__','').gsub('__PSVR_end_RVSP__','')==x.title}.id %>
-                  <a href="<%= gen_jump_url(url) %>&keyword=<%= CGI::escape(params[:q]) %>" class="playlist-detail-title yt-uix-sessionlink"><img class="tiny-video-icon" src="<%=asset_path 'yt/img/pixel-vfl3z5WfW.gif'%>" alt=""><span dir="ltr"><%=page_highlight(ttt,params[:q])%></span></a>
+									<% url ='/coursewares/'+ search_result.courseware_titles.detect{|x| ttt.gsub('__PSVR_begin_RVSP__','').gsub('__PSVR_end_RVSP__','')==x.title}.id %>
+                  <a href="<%= gen_jump_url(url) %>&keyword=<%= CGI::escape(params[:q]) %>" target="_blank"  class="playlist-detail-title yt-uix-sessionlink"><img class="tiny-video-icon" src="<%=asset_path 'yt/img/pixel-vfl3z5WfW.gif'%>" alt=""><span dir="ltr"><%=page_highlight(ttt,params[:q])%></span></a>
                 <% end %>
               <% end %>
             <% end %>
             <% if !has_body %>
               <% item.content.limit(3).each do |cwid| %>
-							<% cwurl =  '/coursewares/' + cwid %>
-                <a href="<%= gen_jump_url(cwurl) %>&keyword=<%= CGI::escape(params[:q]) %>" class="playlist-detail-title yt-uix-sessionlink"><img class="tiny-video-icon" src="<%=asset_path 'yt/img/pixel-vfl3z5WfW.gif'%>" alt=""><span dir="ltr"><%=Courseware.get_title cwid%></span></a>
+							<% cwurl =  '/coursewares/' + cwid.to_s %>
+                <a href="<%= gen_jump_url(cwurl) %>&keyword=<%= CGI::escape(params[:q]) %>"  target="_blank" class="playlist-detail-title yt-uix-sessionlink"><img class="tiny-video-icon" src="<%=asset_path 'yt/img/pixel-vfl3z5WfW.gif'%>" alt=""><span dir="ltr"><%=Courseware.get_title cwid%></span></a>
               <% end %>
             <% end %>
           </div>
