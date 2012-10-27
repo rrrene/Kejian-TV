@@ -1,7 +1,7 @@
 <div id="mainbar" class="wide" style="position:absolute;z-index:333;min-height:444px;margin-top:152px;margin-left:138px;">
 <div id="questions" class="wide">
 <% @pages.each do |page|%>
-<% urlcw = '/coursewares/' + page.courseware_id.to_s +'?slide='+ (page.page_index+1).to_s %>
+<% urlcw = '/coursewares/' + page.courseware_id.to_s + '?slide=' + (page.page_index+1).to_s %>
 <div id="question-summary-<%= page.id %>" class="question-summary wide">
       <div class="statscontainer __sdk">
         <div class="presentations">
@@ -15,6 +15,7 @@
       </div>
       <div class="summary wide">
           <h3>
+						
 						<% urlc = '/courses/'+ page.course_fid.to_s %>
               <a href="<%= gen_jump_url(urlc) %>&keyword=<%= CGI::escape(params[:q]) %>" target="_blank" class="tag-post"><%= page.course_name %></a><br>
               <a href="<%= gen_jump_url(urlcw) %>&keyword=<%= CGI::escape(params[:q]) %>" target="_blank" class="question-hyperlink">
