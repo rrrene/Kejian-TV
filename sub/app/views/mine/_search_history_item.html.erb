@@ -1,0 +1,19 @@
+<li class="vm-video-item" id="vm-video-<%= item.id %>" style="margin-left:2px">
+<div class="vm-video-item-content">
+	<span class="yt-uix-form-input-checkbox-container vm-video-info">
+		<input type="checkbox" value="<%= item.id %>" class="yt-uix-form-input-checkbox video-checkbox" name="">
+		<span class="yt-uix-form-input-checkbox-element"></span>
+	</span>
+	<div class="vm-search-history-item vm-video-info">
+		<% s='search'
+		case item.action
+		when 'show'
+			s = 'search'
+		else
+			s = 'search_' + item.action.split('_').last
+		end%>
+		<a href="/<%= s %>/<%= item.keyword %>"><%= item.keyword %></a>
+		<span class="vm-video-info"><%= timeago item.updated_at %></span>
+	</div>
+</div>
+</li>

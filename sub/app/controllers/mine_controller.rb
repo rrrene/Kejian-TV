@@ -42,6 +42,7 @@ class MineController < ApplicationController
   end
   def my_search_history
     @seo[:title] = "搜索记录"    
+    @list = SearchHistory.locate_search_history(current_user.id).paginate(:page => params[:page], :per_page => @per_page)
   end
   def my_watch_later_coursewares
     if current_user.nil?

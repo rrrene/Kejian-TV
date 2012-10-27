@@ -517,7 +517,7 @@ class ApplicationController < ActionController::Base
     @newuser =  PreCommonMember.order('regdate').last
   end
   def redirect_sa_cal(url)
-    return Digest::MD5.hexdigest(Base64.encode64(CGI::escape('liber.'+url)))[2..20]
+    return Digest::MD5.hexdigest(Base64.encode64('liber.'+url))[2..20]
   end
 end
 

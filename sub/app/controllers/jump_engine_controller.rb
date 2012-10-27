@@ -20,16 +20,18 @@ sa 计算方法 详见 application_helper 或者application_controller的  redir
     when 'sr'
       analyze(@url)
     end
-    # if !request.referer.nil? and URI.parse(URI.encode(request.referer)).host.include?('kejian.tv')
-    #     redirect_to @url
-    #     return true
-    # end
     redirect_to @url,:status => :moved_permanently
     return true
   end
   
   def add_to_search_history
-    # SearchHistory.add_search_history(current_user,params[:keyword],request.referer,request.ip)
+    SearchHistory.add_search_jump_history(current_user,params[:keyword],request.referer,request.ip,@url)
   end
   
 end
+
+
+# if !request.referer.nil? and URI.parse(URI.encode(request.referer)).host.include?('kejian.tv')
+#     redirect_to @url
+#     return true
+# end
