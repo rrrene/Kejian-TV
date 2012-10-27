@@ -26,6 +26,7 @@
                   共找到 <%=number_with_delimiter @quans.total_entries%> <%=@quan%>相关<%=@thing%><nobr> (用时 <%=@quans.time%> 毫秒)&nbsp;</nobr>
 								</div>
 							</div>
+							<% if false %>
 							<ol id="ab_ctls">
 								<li class="ab_ctl" id="ab_ctl_opt" style="display: inline-block; "><a class="ab_button" href="/preferences?hl=en" id="abar_button_opt" unselectable="on" role="button" aria-expanded="false" aria-haspopup="true" tabindex="0"><span class="ab_icon" title="Options" id="ab_opt_icon" unselectable="on"></span></a>
 								<div class="ab_dropdown" id="ab_options" role="menu" tabindex="-1" style="visibility:hidden">
@@ -54,14 +55,13 @@
 								</div>
 								</li>
 							</ol>
+							<% end %>
 						</div>
 					</div>
 					<div id="botabar" style="display:none">
 						<div>
 						</div>
 					</div>
-				</div>
-				<div>
 				</div>
 			</div>
 			<div class="mw" id="ucs" style="">
@@ -129,7 +129,9 @@
 									<li class="mitem"><a class="kl" href="/search_users/<%=CGI::escape params[:q]%>">用户</a></li>
                 <% end %>
 								</ul>
+								
 								<div data-ved="0CAwQ_gU" id="more_link">
+									<% if false %>
 									<ul class="nojsb" id="hidden_modes">
 										<li class="mitem"><a class="kl" href="/search?q=%E5%A4%96%E6%98%9F%E4%BA%BA%E5%AD%A6%E7%89%A9%E7%90%862&amp;hl=en&amp;newwindow=1&amp;biw=1374&amp;bih=655&amp;prmd=imvns&amp;source=lnms&amp;tbm=bks&amp;sa=X&amp;ei=04d1UODSOobpiAeU5oGoDQ&amp;ved=0CA0Q_AUoAA">Books</a></li>
 										<li class="mitem"><a class="kl" href="/search?q=%E5%A4%96%E6%98%9F%E4%BA%BA%E5%AD%A6%E7%89%A9%E7%90%862&amp;hl=en&amp;newwindow=1&amp;biw=1374&amp;bih=655&amp;prmd=imvns&amp;source=lnms&amp;tbm=plcs&amp;sa=X&amp;ei=04d1UODSOobpiAeU5oGoDQ&amp;ved=0CA4Q_AUoAQ">Places</a></li>
@@ -140,6 +142,7 @@
 										<li class="mitem"><a class="kl" href="/search?q=%E5%A4%96%E6%98%9F%E4%BA%BA%E5%AD%A6%E7%89%A9%E7%90%862&amp;hl=en&amp;newwindow=1&amp;biw=1374&amp;bih=655&amp;prmd=imvns&amp;source=lnms&amp;tbm=app&amp;sa=X&amp;ei=04d1UODSOobpiAeU5oGoDQ&amp;ved=0CBMQ_AUoBg">Applications</a></li>
 										<li class="mitem"><a class="kl" href="/search?q=%E5%A4%96%E6%98%9F%E4%BA%BA%E5%AD%A6%E7%89%A9%E7%90%862&amp;hl=en&amp;newwindow=1&amp;biw=1374&amp;bih=655&amp;prmd=imvns&amp;source=lnms&amp;tbm=pts&amp;sa=X&amp;ei=04d1UODSOobpiAeU5oGoDQ&amp;ved=0CBQQ_AUoBw">Patents</a></li>
 									</ul>
+									<% end %>
 									<a href="#" class="jsb nj kl" id="showmodes"><span class="msm">更多</span><span class="msl">更少</span></a>
 								</div>
 							</div>

@@ -13,69 +13,7 @@
 				<h3>我的搜索记录</h3>
 			</div>
 		</div>
-		<div id="vm-general-notifs">
-		</div>
-		<div id="vm-video-actions-bar" class="goog-scrollfloater">
-			<div class="clearfix" id="vm-video-actions-inner">
-				<span class="yt-uix-form-input-checkbox-container vm-select-all"><input type="checkbox" id="vm-video-select-all" class="yt-uix-form-input-checkbox" name="vm-video-select-all"><span class="yt-uix-form-input-checkbox-element"></span></span>
-				<button role="button" class=" yt-uix-button yt-uix-button-default"  id="vm-playlist-remove-videos" type="button" disabled="True"><span class="yt-uix-button-content">删除 </span></button>
-				<span class="hid" id="watch-history-pause-container">
-				<button role="button" class=" yt-uix-button yt-uix-button-default"  id="watch-history-pause-button" type="button"><span class="yt-uix-button-content">暂停观看历史记录 </span></button>
-				</span>
-				<span class="hid" id="watch-history-resume-container">
-				<button role="button" class=" yt-uix-button yt-uix-button-default"  id="watch-history-resume-button" type="button"><span class="yt-uix-button-content">恢复观看历史记录 </span></button>
-				</span>
-				<span data-overlay-shown="yt.www.videomanager.MySearchHistory.onClearHistoryOverlayShown" class="yt-uix-overlay">
-				<button role="button"  class="yt-uix-overlay-target yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-content">清除所有搜索记录 </span></button>
-				<div class="yt-uix-overlay-content">
-					<button class="yt-uix-overlay-close close-small">
-					关闭 </button>
-					<h2>清除所有搜索记录</h2>
-					<p class="vm-search-history-message">
-						 您确定要清除所有搜索记录吗？该操作无法撤消。
-					</p>
-					<p class="vm-search-history-container">
-						<button role="button"  class="vm-history-clear yt-uix-overlay-close yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-content">清除所有搜索记录 </span></button>
-						<a class="yt-uix-overlay-close vm-search-history-cancel-button">取消</a>
-					</p>
-				</div>
-				</span>
-				<span id="search-history-pause-container">
-				<button role="button" class=" yt-uix-button yt-uix-button-default"  id="search-history-pause-button" type="button"><span class="yt-uix-button-content">暂停搜索记录 </span></button>
-				</span>
-				<span class="hid" id="search-history-resume-container">
-				<button role="button" class=" yt-uix-button yt-uix-button-default"  id="search-history-resume-button" type="button"><span class="yt-uix-button-content">恢复搜索记录 </span></button>
-				</span>
-			</div>
-			<span data-overlay-class="vm-video-actions-delete-overlay" class="yt-uix-overlay hid">
-			<span class="yt-uix-overlay-content vm-video-actions-delete-overlay-content">
-			<div class="vm-video-actions-delete-full-area">
-				<div class="vm-video-actions-delete-header">
-					<div class="yt-alert yt-alert-naked yt-alert-error ">
-						<div class="yt-alert-icon">
-							<img alt="提醒图标" class="icon master-sprite" src= "<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
-						</div>
-						<div role="alert" class="yt-alert-content">
-							<span class="yt-alert-vertical-trick"></span>
-							<div class="yt-alert-message">
-								 确认
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="vm-video-actions-delete-main-area">
-					<span class="vm-video-actions-delete-warning"></span>
-					<div class="vm-video-actions-delete-extra-warning hid">
-					</div>
-					<div class="vm-video-actions-delete-button-area">
-						<button role="button"  class="yt-uix-overlay-close vm-video-actions-delete-button-cancel yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-content">取消 </span></button>
-						<button role="button"  class="vm-video-actions-delete-button-confirm yt-uix-button yt-uix-button-destructive" type="button"><span class="yt-uix-button-content">删除 </span></button>
-					</div>
-				</div>
-			</div>
-			</span>
-			</span>
-		</div>
+		<%=  render :partial=>'read_later_action_bar' %>
 		<ol class="vm-video-list vm-search-history-list" id="vm-playlist-video-list-ol">
 			<li class="vm-video-item" id="vm-video-1350177018152007">
 			<div class="vm-video-item-content">

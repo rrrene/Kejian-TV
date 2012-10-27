@@ -7,6 +7,8 @@ Sub::Application.routes.draw do
   get '/user_logged_in_required'=>'application#user_logged_in_required'
   get '/modern_required'=>'application#modern_required'
   
+  get '/url' => 'jump_engine#url'
+  
   get '/mine' => 'mine#index'
   get '/mine/dashboard'
   get '/mine/my_coursewares'
