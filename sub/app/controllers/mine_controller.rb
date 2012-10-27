@@ -36,6 +36,7 @@ class MineController < ApplicationController
     end
     @list = PlayList.locate(current_user.id,'历史记录')
     @coursewares_ids = @list.content.paginate(:page => params[:page], :per_page => @per_page)
+    @history_mark = @list.history_time_mark.paginate(:page => params[:page], :per_page => @per_page)
     @coursewares = Courseware.eager_load(@coursewares_ids)    
     @seo[:title] = "历史记录"    
   end

@@ -36,23 +36,27 @@
 		<span class="yt-uix-overlay">
 			<button role="button"  class="yt-uix-overlay-target yt-uix-button yt-uix-button-default" type="button">
 				<span class="yt-uix-button-content">清除所有阅读历史记录 </span>
-			</button>
-			<div class="yt-uix-overlay-content">
-				<button class="yt-uix-overlay-close close-small">关闭</button>
-							<h2>清除所有阅读历史记录</h2>
-							<p>
-								 您确定要清除所有阅读历史记录吗？该操作无法撤消。
-							</p>
-							<p>
-								<button role="button"  class="vm-history-clear yt-uix-overlay-close yt-uix-button yt-uix-button-default" type="button">
-									<span class="yt-uix-button-content">清除所有阅读历史记录 </span>
-								</button>
-								<button role="button"  class="yt-uix-overlay-close yt-uix-button yt-uix-button-primary" type="button">
-									<span class="yt-uix-button-content">取消 </span>
-								</button>
-							</p>
-			</div>
+			</button> 
+					<div class="yt-uix-overlay-content">
+			            <button class="yt-uix-overlay-close close-small">关闭</button>
+									<h2>清除所有阅读记录</h2>
+			            <p>
+							 		 	您确定要清除所有阅读历史记录吗？该操作无法撤消。
+			            </p>
+									<br/>
+			            <p>
+										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			              <button role="button" onclick=";return false;" class="vm-history-clear yt-uix-overlay-close yt-uix-button yt-uix-button-default" type="button">
+											<span class="yt-uix-button-content">清除所有阅读记录 </span>
+										</button>
+										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			              <button role="button" onclick=";return false;" class="yt-uix-overlay-close yt-uix-button yt-uix-button-primary" type="button">
+											<span class="yt-uix-button-content">取消 </span>
+										</button>
+			            </p>
+			      </div>
 		</span>
+		
 		<span id="watch-history-pause-container" >
 				<button role="button" class="yt-uix-button yt-uix-button-default <% if !current_user.nil? and !current_user.mark_history %> hid  <% end %>"  id="watch-history-pause-button" type="button"><span class="yt-uix-button-content">暂停阅读历史记录 </span></button>
 		</span>
@@ -149,6 +153,7 @@
     }
   });
 	var choose = new Array();
+	var history  = new Array();
 	var sorter = new Array();
 	var resort = function(){
 		sorter = new Array();
@@ -230,10 +235,14 @@
 	}
 	$('#vm-video-select-all').live('click',function(){
 		choose = new Array();
+		history = new Array();
 		if($(this).attr('checked')){
 			$('input.yt-uix-form-input-checkbox.video-checkbox').attr('checked',true);
 			$('input.yt-uix-form-input-checkbox.video-checkbox').each(function(index,li){
 				choose.push($(li).val());
+				<% if request.path == '/mine/my_history' %> 
+					history.push($(li).attr('data-history-at'));
+				<% end %>
 				$(li).parent().addClass('checked');
 				$(li).parent().parent().parent().addClass('selected');
 			});
@@ -473,6 +482,9 @@
 		if($(this).attr('checked')){
 			if($.inArray($(this).val(),choose)==-1){
 				choose.push($(this).val());
+				<% if request.path == '/mine/my_history' %> 
+					history.push($(this).attr('data-history-at'));
+				<% end %>
 			}
 			$(this).parent().addClass('checked');
 			$(this).parent().parent().parent().addClass('selected');
@@ -486,6 +498,9 @@
 			$(this).parent().parent().parent().removeClass('selected');
       if(indexOfele != -1){
         choose.splice(indexOfele,indexOfele+1);
+				<% if request.path == '/mine/my_history' %> 
+					history.splice(indexOfele,indexOfele+1);
+				<% end %>
       }
       if(choose.length<1){
 				setDisable();
@@ -494,7 +509,6 @@
 				$('#vm-video-select-all').attr('checked',false);
 			}
 		}
-		console.log(choose);
 	});
 	$('#vm-playlist-remove-kejian').live('click',function(){
 		$.ajax({
@@ -505,10 +519,10 @@
 			<% elsif request.path ==  '/mine/my_liked_coursewares' %>
 			url:'/ajax/remove_ding_array',
 			<% elsif request.path == '/mine/my_history' %>
-			url:'/ajax/remove_one_history'
+			url:'/ajax/remove_one_history',
 			<% end %>
 			type:'POST',
-			data:{'cwid':choose,'type':'remove'<% if request.path == '/mine/my_history' %>,'time':<% end %>},
+			data:{'cwid':choose,'type':'remove'<% if request.path == '/mine/my_history' %>,'time':history<% end %>},
 			dataType:'json'
 		}).done(function(json){
 			if(json.status == 'suc'){
@@ -516,11 +530,21 @@
 					$('li#vm-video-'+cid).remove();
 				});
 				choose = new Array();
+				<% if request.path == '/mine/my_history' %>
+					history = new Array();
+				<% end %>
 				resort();
 				setDisable();
 				$('#vm-video-select-all').attr('checked',false);
 			}else{
+				$.each(choose,function(index,cid){
+					$('li#vm-video-'+cid).removeClass('selected');
+					$('li#vm-video-'+cid+' input[name="kejian-checkbox"]').attr('checked',false).parent().removeClass('checked');
+				});
 				choose = new Array();
+				<% if request.path == '/mine/my_history' %>
+					history = new Array();
+				<% end %>
 				resort();
 				setDisable();
 				$('#vm-video-select-all').attr('checked',false);
@@ -575,6 +599,31 @@
 			$('#vm-general-notifs > div').animate({opacity:'hide'},"slow");
 		},5000);
 	};
-	
+	$('button.yt-uix-overlay-target').live('click',function(e){
+		var content = $(this).next().clone();
+		content.removeClass('yt-uix-overlay-content').addClass('yt-uix-overlay-fg-content');
+		var bg = '<div id="yt-uix-overlay-bg" class="yt-uix-overlay-bg" style="height:'+$('body').height()+'px;"></div>';
+		var base = '<div id="yt-uix-overlay-base" class="yt-uix-overlay-base"><span class="yt-uix-overlay-align"></span><div id="yt-uix-overlay-fg" class="yt-uix-overlay-fg " data-overlay-hidden="">'+$('<div>').append(content.clone()).html()+'</div></div>';
+		$('.__ytb').append(bg);
+		$('.__ytb').append(base);
+	});
+	$('.yt-uix-overlay-fg-content button.yt-uix-overlay-close').live('click',function(){
+		$('#yt-uix-overlay-base').remove();
+		$('#yt-uix-overlay-bg').remove();
+	});
+	var nokejian ='<div id="vm-playlist-no-videos">未找到任何课件。</div>';
+	$('.vm-history-clear.yt-uix-overlay-close').live('click',function(){
+		$.ajax({
+			url:'/ajax/clear_history',
+			type:'POST',
+			dataType:'json'
+		}).done(function(json){
+			if(json.status == 'suc'){
+					$('#vm-video-list-container').html(nokejian);
+					$('#yt-uix-overlay-base').remove();
+					$('#yt-uix-overlay-bg').remove();		
+			}
+		});
+	})
 	<% end  %>
 </script>

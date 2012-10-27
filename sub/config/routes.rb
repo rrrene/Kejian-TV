@@ -98,7 +98,7 @@ Sub::Application.routes.draw do
   post '/ajax/save_page_to_history' => 'ajax#save_page_to_history'
   post '/ajax/pause_history' => 'ajax#pause_history'
   post '/ajax/remove_one_history' => 'ajax#remove_one_history'
-  
+  post '/ajax/clear_history' => 'ajax#clear_history'
   # ---=small=----
   get '/hack/htc'
   get '/welcome/inactive_sign_up'

@@ -90,13 +90,13 @@
           return false;
         } else {
           if ($('.navigation .loading').length == 0) {
-            Slide.pageAjaxUpload();
             timeout = setTimeout(function() {$('.navigation .next').addClass('loading');}, 50);
             Slide.click++;
             Slide.current++;
             if (Slide.click == 2) { $.preLoadImage(0) };
             $('#note_page').val(Slide.current);
             Slide.show();
+            Slide.pageAjaxUpload();
           };
         };
       },
@@ -105,10 +105,10 @@
           return false;
         } else {
           if ($('.navigation .loading').length == 0) {
-            Slide.pageAjaxUpload();
             timeout = setTimeout(function() {$('.navigation .prev').addClass('loading');}, 50);
             Slide.current--;
             Slide.show();
+	          Slide.pageAjaxUpload();
           };
         };
       },
@@ -141,6 +141,7 @@
         } else {
           Slide.current = id - 1;
           Slide.show();
+          Slide.pageAjaxUpload();
         };
       },
       show: function() {
@@ -424,6 +425,7 @@
           if (Slide.dragging) {
             Slide.current = scrubSlide(e);
             Slide.show();
+            Slide.pageAjaxUpload();
             return false;
           } else if (!$('html').hasClass('touch')) {
             $('.previews').show();
@@ -437,6 +439,7 @@
           Slide.dragging = false;
           $('.scrubber_holder').removeClass('dragging');
           Slide.show();
+          Slide.pageAjaxUpload();
         }
       }).bind('mousedown', function(e) {
         if (!$('html').hasClass('touch')) {
@@ -445,6 +448,7 @@
           $('.scrubber_holder').addClass('dragging');
           Slide.current = scrubSlide(e);
           Slide.show();
+          Slide.pageAjaxUpload();
         }
       }).bind('touchstart', function(e) {
         $('.previews').css('opacity', 0);
@@ -452,12 +456,14 @@
         $('.scrubber_holder').addClass('dragging');
         Slide.current = scrubSlide(e);
         Slide.show();
+        Slide.pageAjaxUpload();
       }).bind('mouseup touchend', function() {
         $('.scrubber_holder').removeClass('dragging');
         Slide.dragging = false;
       });
 
       Slide.show();
+      Slide.pageAjaxUpload();
       <% if params[:slide].present? %>
         Slide.goToSlide(<%=params[:slide].to_i%>);
       <% end %>

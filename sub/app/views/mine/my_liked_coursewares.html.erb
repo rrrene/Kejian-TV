@@ -17,14 +17,18 @@
     		</div>
 				<%=  render :partial=>'read_later_action_bar' %>				
 	  		<div id="vm-video-list-container">
+					<% if @coursewares_ids.size >0 %>
 	    			<ol class="vm-video-list" id="vm-playlist-video-list-ol">
-
-	            <% @coursewares_ids.each_with_index do |cw_id,index| %>
-	              <% item = @coursewares[index] %>
-	              <%= render :partial => 'cw_item',:locals=>{item:item} %>
-	            <% end %>
-							
+			            <% @coursewares_ids.each_with_index do |cw_id,index| %>
+			              <% item = @coursewares[index] %>
+			              <%= render :partial => 'cw_item',:locals=>{item:item} %>
+			            <% end %>
 	    			</ol>
+					<% else %>
+						<div id="vm-playlist-no-videos">
+					    未找到任何课件。
+					  </div>
+					<% end %>
 	    	</div>
 <%= render :partial=>'pagination',locals:{coursewares_ids:@coursewares_ids}%>
     	</div>

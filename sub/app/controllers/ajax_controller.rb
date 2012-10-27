@@ -829,17 +829,37 @@ HEREDOC
     render json:{status:'suc'}
     return true
   end
+  
   def remove_one_history
     if current_user.nil?
       render json:{status:'failed',reason:'您尚未登陆！'}
       return false
     end
-    result = PlayList.remove_one_history(current_user.id,params[:cwid],params[:time])
+    result = true
+    params[:time].each_with_index do |tt,index|
+      cwid = params[:cwid][index]
+      result = PlayList.remove_one_history(current_user.id,cwid,tt.to_i)
+    end
     if result
       render json:{status:'suc'}
-      return false
+      return true
     else
       render json:{status:'failed',reason:'不存在该数据.'}
+      return false
+    end
+  end
+  def clear_history
+    if current_user.nil?
+      render json:{status:'failed',reason:'您尚未登陆！'}
+      return false
+    end
+    result = PlayList.clear_history(current_user.id)
+    if result
+      render json:{status:'suc'}
+      return true
+    else
+      render json:{status:'failed',reason:'无法清除历史记录。'}
+      return false
     end
   end
 end
