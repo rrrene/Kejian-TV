@@ -7,6 +7,7 @@ $("#loginForm").bind("ajax:success", function(xhr, data, status) {
   if(!data['okay']){
     $("#errorMessage").show();
     $("#errorMessage").html(data['failDescription']);
+    $('#huanyizhang').trigger('click');
   }else{
     $("#errorMessage").hide();
     //todo: import
