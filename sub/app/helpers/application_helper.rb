@@ -283,4 +283,12 @@ module ApplicationHelper
     raw data
   end
   
+  def redirect_sa_cal(url)
+    return Digest::MD5.hexdigest(Base64.encode64('liber.'+url))[2..20]
+  end  
+  def gen_jump_url(url)
+    sa = redirect_sa_cal(url)
+    url = CGI::escape(url)
+    return '/url?url=#{url}&sa=#{sa}'
+  end
 end

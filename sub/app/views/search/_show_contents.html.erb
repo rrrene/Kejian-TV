@@ -1,7 +1,7 @@
 <div id="mainbar" class="wide" style="position:absolute;z-index:333;min-height:444px;margin-top:152px;margin-left:138px;">
 <div id="questions" class="wide">
 <% @pages.each do |page|%>
-  <div id="question-summary-10960" class="question-summary wide">
+<div id="question-summary-<%= page.id %>" class="question-summary wide">
       <div class="statscontainer __sdk">
         <div class="presentations">
           <div data-slide-count="1" data-id="<%=page.courseware_id%>" class="presentation">
@@ -14,8 +14,10 @@
       </div>
       <div class="summary wide">
           <h3>
-              <a href="/courses/<%= page.course_fid %>" class="tag-post"><%= page.course_name %></a><br>
-              <a href="/coursewares/<%= page.courseware_id %>?slide=<%=page.page_index+1%>" class="question-hyperlink">
+						<% urlc = '/courses/'+page.course_fid %>
+						<% urlcw = '/coursewares/'+page.courseware_id +'?slide='+(page.page_index+1).to_s %>
+              <a href="<%= gen_jump_url(urlc) %>&keyword=<%= CGI::escape(params[:q]) %>" class="tag-post"><%= page.course_name %></a><br>
+              <a href="<%= gen_jump_url(urlcw) %>&keyword=<%= CGI::escape(params[:q]) %>" class="question-hyperlink">
             <% if page.highlight %>
               <%=page_highlight((page.highlight.courseware_title ? page.highlight.courseware_title.join('...') : page.courseware_title),params[:q])%>
             <% else %>
