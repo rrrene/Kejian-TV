@@ -15,7 +15,7 @@
       </div>
       <div class="summary wide">
           <h3>
-						<% urlc = '/courses/'+ page.course_fid %>
+						<% urlc = '/courses/'+ page.course_fid.to_s %>
               <a href="<%= gen_jump_url(urlc) %>&keyword=<%= CGI::escape(params[:q]) %>" target="_blank" class="tag-post"><%= page.course_name %></a><br>
               <a href="<%= gen_jump_url(urlcw) %>&keyword=<%= CGI::escape(params[:q]) %>" target="_blank" class="question-hyperlink">
             <% if page.highlight %>

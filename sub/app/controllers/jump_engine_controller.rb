@@ -29,7 +29,7 @@ sa 计算方法 详见 application_helper 或者application_controller的  redir
   end
   
   def add_to_search_history
-     SearchHistory.add_search_history(current_user,params[:keyword],request.referer,request.ip)
+    # SearchHistory.add_search_history(current_user,params[:keyword],request.referer,request.ip)
   end
   
 end

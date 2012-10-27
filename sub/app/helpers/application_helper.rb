@@ -289,6 +289,6 @@ module ApplicationHelper
   def gen_jump_url(url)
     sa = redirect_sa_cal(url)
     url = CGI::escape(url)
-    return '/url?url=#{url}&sa=#{sa}'
+    return "/url?url=#{url}&sa=#{sa}"
   end
 end
