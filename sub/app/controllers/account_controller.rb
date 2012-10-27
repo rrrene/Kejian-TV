@@ -48,6 +48,9 @@ class AccountController < Devise::RegistrationsController
   end
   def edit
     common_account_op!
+    @material = @user.material
+    @to_connect = MultiJson.load @material.renren_friends rescue []
+    @to_connect ||= []
     @seo[:title] = '账号设置'
     render layout:'application'
   end

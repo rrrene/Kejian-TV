@@ -392,6 +392,7 @@ input.psvr_bt {width: 56px;height: 23px;background:url(<%=asset_path('extand_ima
     list-style: none;
     width:240px;
     li{
+      overflow:hidden;
       cursor:pointer;
       background: transparent url(<%= asset_path 'efw/li.png' %>) no-repeat scroll 8px -23px;
       height:33px;
@@ -404,6 +405,18 @@ input.psvr_bt {width: 56px;height: 23px;background:url(<%=asset_path('extand_ima
     }
     li.finished{
       background-position:8px 9px;
+    }
+  }
+}
+
+.__lnk{
+  #suc_bangding{
+    text-align:center;margin-top:28px;
+    p{
+      font-size:14px;margin-top:18px;
+      a{
+        font-size:14px;
+      }
     }
   }
 }

@@ -19,16 +19,14 @@ class AjaxController < ApplicationController
     )
     ret = MultiJson.decode result
     if ret['code']
-      # Sidekiq::Client.enqueue(HookerJob,
-      #   'Ktv::Renren',
-      #   nil,
-      #   'import_info',
-      #   current_user.id,
-      #   result.cookies
-      # )
       agent = request.env['HTTP_USER_AGENT']
       agent = Setting.user_agent if agent.blank?
-      Ktv::Renren.import_info(agent,current_user.id,result.cookies,ret['homeUrl'],!!params[:guanzhu_ktv],!!params[:fabiao_ktv])      
+      Sidekiq::Client.enqueue(HookerJob,
+        'Ktv::Renren',
+        nil,
+        'import_info',
+        agent,current_user.id,result.cookies,ret['homeUrl'],!!params[:guanzhu_ktv],!!params[:fabiao_ktv]
+      )
       render json:{okay:true}
     else
       render json:{okay:false,failDescription:ret['failDescription']}

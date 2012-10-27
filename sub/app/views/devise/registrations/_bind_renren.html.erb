@@ -3,14 +3,25 @@
 <% end %>
 <script type="text/javascript" charset="utf-8">
 <% content_for :butt2 do %>
-$("#loginForm").bind("ajax:success", function(xhr, data, status) {
+$("#loginForm").bind("ajax:beforeSend", function(){
+  jQuery('#anniu').hide();
+  jQuery('#zhengzaidenglu').show();
+}).bind("ajax:complete", function(){
+  jQuery('#anniu').show();
+  jQuery('#zhengzaidenglu').hide();
+}).bind("ajax:success", function(xhr, data, status) {
   if(!data['okay']){
-    $("#errorMessage").show();
-    $("#errorMessage").html(data['failDescription']);
-    $('#huanyizhang').trigger('click');
+    jQuery('#anniu').show();
+    jQuery('#zhengzaidenglu').hide();
+    jQuery("#errorMessage").show();
+    jQuery("#errorMessage").html(data['failDescription']);
+    jQuery('#huanyizhang').trigger('click');
   }else{
-    $("#errorMessage").hide();
-    //todo: import
+    jQuery("#errorMessage").hide();
+    jQuery('.__rr').hide();
+    jQuery('#content').css('background-color','#F8F8F8');
+    jQuery('.__lnk').css('background-color','#F8F8F8');
+    jQuery('#suc_bangding').show();
   }
 });
 $('#email,#password,#icode').focus(function(){
@@ -85,7 +96,7 @@ $('#uniqueTimestamp').val(_11d.getFullYear()+_11d.getMonth()+_11d.getDay()+_11d.
 			<div class="full-page-holder">
 				<div class="full-page">
 					<div class="login-page clearfix">
-						<div class="side-column" style="height:382px">
+						<div class="side-column" style="height:438px">
 							<div class="login-panel">
                 <%= form_tag '/ajax/renren_real_bind', :id=>"loginForm", :class=>"login-form psvr_standard_ajax_form", :remote=>true do |f| %>
 									<dl class="top clearfix">
@@ -129,7 +140,7 @@ $('#uniqueTimestamp').val(_11d.getFullYear()+_11d.getMonth()+_11d.getDay()+_11d.
 										<input id="icode" type="text" name="icode" class="input-text" tabindex="3" autocomplete="off" placeholder="请输入验证码" style="color: rgb(136, 136, 136); ">
 										</dd>
 									</dl>
-									<dl class="bottom">
+									<dl class="bottom" id="anniu">
                     <input type="hidden" name="origURL" value="<%= @origURL %>" />
                     <input type="hidden" name="domain" value="<%= @domain %>" />
                     <input type="hidden" name="key_id" value="<%= @key_id %>" />
@@ -139,6 +150,10 @@ $('#uniqueTimestamp').val(_11d.getFullYear()+_11d.getMonth()+_11d.getDay()+_11d.
 										<input type="submit" id="login_to_renren" class="input-submit login-btn" stats="loginPage_login_button" value="登录人人网" tabindex="5">
 									</dl>
 								<% end %>
+                <div style="text-align:center;margin-bottom:50px;margin-top:20px;display:none" id="zhengzaidenglu">
+                  <img src="http://a.xnimg.cn/imgpro/icons/load.gif">
+                  <p style="font-weight:bold;margin-top:20px">正在登录</p>
+                </div>
 							</div>
 						</div>
 						<div class="main-column" style="width:565px;font-size:12px">

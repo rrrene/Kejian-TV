@@ -12,8 +12,6 @@ KTV.ln_bind_targetize();
 <% end %>
 <%= render 'content_below' %>
 
-<% content_for :butt2 do %>
-<% end %>
 <div class="wrapper" style="width:1000px">
 <%= render "bind_#{@serv}" %>
 <div class="__lnk" id="pagekey-nprofile-edit-success">
@@ -31,8 +29,10 @@ KTV.ln_bind_targetize();
   		<div class="grid-f profile-edit" id="main">
   			<div id="content">
   				<h1>绑定<%= @service[:name] %></h1>
-          
-  
+          <div id="suc_bangding" style="display:none">
+            <%= image_tag 'suc_bangding.png',:alt => '绑定成功' %>
+            <p>系统正在自动为您导入账号信息，稍后访问[ <a href="/account/edit">我的账号</a> ]即可观察到变化。</p>
+          </div>
   			</div>
   		</div>
   	</div>

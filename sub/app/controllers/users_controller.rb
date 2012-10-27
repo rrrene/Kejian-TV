@@ -89,6 +89,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    @material = @user.material
   end
   def redirect_to_service
     
