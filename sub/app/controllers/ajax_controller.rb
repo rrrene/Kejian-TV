@@ -796,5 +796,50 @@ HEREDOC
                                     :locals=>{user:current_user,playlist_readlater:PlayList.locate(current_user.id,'稍后阅读'),playlist_favorite:PlayList.locate(current_user.id,'收藏')},
                                     :layout=>nil, :formats=>[:html]) }
   end
+  def save_page_to_history
+    if current_user.nil?
+      render json:{status:'failed',reason:'您尚未登陆！'}
+      return false
+    end
+    if request.env['HTTP_REFERER'].blank?
+      render json:{status:'failed',reason:'您尚未登陆！'}
+      return false
+    end
+    if URI.parse(request.env['HTTP_REFERER']).path != '/embed/'+params[:cwid]
+      render json:{status:'failed',reason:'您尚未登陆！'}
+      return false
+    end
+    if !(BSON::ObjectId.legal?(params[:cwid]))
+      render json:{status:'failed',reason:'您传递的数据包无法解析！'}
+      return false
+    end
+    if PlayList.add_to_history(current_user.id,params[:cwid],params[:page].to_i)
+      render json:{status:'suc',page:params[:page].to_i}
+    else
+      render json:{status:'failed',reason:'您传递的数据包无法解析！'}
+    end
+    return true
+  end
+  def pause_history
+    if current_user.nil?
+      render json:{status:'failed',reason:'您尚未登陆！'}
+      return false
+    end
+    PlayList.on_off_history(current_user.id,params[:switch])
+    render json:{status:'suc'}
+    return true
+  end
+  def remove_one_history
+    if current_user.nil?
+      render json:{status:'failed',reason:'您尚未登陆！'}
+      return false
+    end
+    result = PlayList.remove_one_history(current_user.id,params[:cwid],params[:time])
+    if result
+      render json:{status:'suc'}
+      return false
+    else
+      render json:{status:'failed',reason:'不存在该数据.'}
+    end
+  end
 end
-

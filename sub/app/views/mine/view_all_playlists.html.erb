@@ -43,8 +43,7 @@
 	  			  <%= render :partial =>'playlist_sort',locals:{uplist:@uplist} %>
   			</ol>
   		</div>
-  		<div id="vm-pagination">
-  		</div>
+<%= render :partial=>'pagination',locals:{coursewares_ids:@uplist}%>
   	</div>
   </div>
 <%= render 'mine_below' %>

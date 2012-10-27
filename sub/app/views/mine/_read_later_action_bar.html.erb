@@ -1,3 +1,16 @@
+<div id="vm-general-notifs">
+	<div class="yt-alert yt-alert-default yt-alert-success" style="display: none;">  
+		<div class="yt-alert-icon">
+    	<img alt="提醒图标" class="icon master-sprite" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
+  	</div>
+		<div class="yt-alert-buttons">
+			<button role="button" data-close-parent-class="yt-alert" onclick=";return false;" class="close yt-uix-close yt-uix-button yt-uix-button-close" type="button">
+				<span class="yt-uix-button-content">关闭 </span>
+			</button>
+		</div>
+		<div role="alert" class="yt-alert-content"></div>
+	</div>
+</div>
 <div id="vm-video-actions-bar" class="goog-scrollfloater">
 	<div class="clearfix" id="vm-video-actions-inner">
 		<span class="yt-uix-form-input-checkbox-container vm-select-all"><input type="checkbox" id="vm-video-select-all" class="yt-uix-form-input-checkbox" name="vm-video-select-all"><span class="yt-uix-form-input-checkbox-element"></span></span>
@@ -10,23 +23,72 @@
 			</span>
 			<img alt="" src= "<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="yt-uix-button-arrow">
 		</button>
+		<% if request.path ==  '/mine/view_all_playlists' or request.path == '/mine/my_favorites' or request.path == '/mine/my_liked_coursewares' or request.path == '/mine/my_watch_later_coursewares' %>
 		<button role="button" class=" yt-uix-button yt-uix-button-default"  id="vm-playlist-play-all" type="button">
-			<span class="yt-uix-button-content">全部播放 </span>
+			<span class="yt-uix-button-content">阅读全部 </span>
 		</button>
+		<% end %>
 		<button role="button" class=" yt-uix-button yt-uix-button-default"  id="vm-playlist-remove-kejian" type="button" disabled="True">
-			<span class="yt-uix-button-content">删除 </span>
+			<span class="yt-uix-button-content">删除</span>
 		</button>
-		<span id="vm-view-filter">
-		<span id="vm-view-filter-label">观看：</span>
-		<button role="button" class=" yt-uix-button yt-uix-button-text"  id="vm-view-btn" type="button">
-			<span class="yt-uix-button-content">最新课件 </span>
-			<img alt="" src= "<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="yt-uix-button-arrow">
-		<ul style="display: none;" aria-haspopup="true" role="menu" class=" yt-uix-button-menu yt-uix-button-menu-text">
-			<li id="aria-id-oldest" role="menuitem"><span class=" yt-uix-button-menu-item"  id="oldest" href="?vmo=oldest&amp;sa=1&amp;sf=added">最早上传</span></li>
-			<li id="aria-id-viewed" role="menuitem"><span class=" yt-uix-button-menu-item"  id="viewed" href="?vmo=viewed&amp;sa=0&amp;sf=viewcount">观看最多</span></li>
-		</ul>
-		</button>
+		
+		<% if request.path == '/mine/my_history' %>
+		<span class="yt-uix-overlay">
+			<button role="button"  class="yt-uix-overlay-target yt-uix-button yt-uix-button-default" type="button">
+				<span class="yt-uix-button-content">清除所有阅读历史记录 </span>
+			</button>
+			<div class="yt-uix-overlay-content">
+				<button class="yt-uix-overlay-close close-small">关闭</button>
+							<h2>清除所有阅读历史记录</h2>
+							<p>
+								 您确定要清除所有阅读历史记录吗？该操作无法撤消。
+							</p>
+							<p>
+								<button role="button"  class="vm-history-clear yt-uix-overlay-close yt-uix-button yt-uix-button-default" type="button">
+									<span class="yt-uix-button-content">清除所有阅读历史记录 </span>
+								</button>
+								<button role="button"  class="yt-uix-overlay-close yt-uix-button yt-uix-button-primary" type="button">
+									<span class="yt-uix-button-content">取消 </span>
+								</button>
+							</p>
+			</div>
 		</span>
+		<span id="watch-history-pause-container" >
+				<button role="button" class="yt-uix-button yt-uix-button-default <% if !current_user.nil? and !current_user.mark_history %> hid  <% end %>"  id="watch-history-pause-button" type="button"><span class="yt-uix-button-content">暂停阅读历史记录 </span></button>
+		</span>
+		<span  id="watch-history-resume-container">
+				<button role="button" class=" yt-uix-button yt-uix-button-default <% if !current_user.nil? and current_user.mark_history %> hid <% end %>"  id="watch-history-resume-button" type="button"><span class="yt-uix-button-content">恢复阅读历史记录 </span></button>
+		</span>
+		<% end %>
+		<% if request.path == '/mine/my_search_history' %>
+		<span class="hid" id="search-history-pause-container">
+				<button role="button" class=" yt-uix-button yt-uix-button-default"  id="search-history-pause-button" type="button"><span class="yt-uix-button-content">暂停搜索记录 </span></button>
+		</span>
+		<span class="hid" id="search-history-resume-container">
+				<button role="button" class=" yt-uix-button yt-uix-button-default"  id="search-history-resume-button" type="button"><span class="yt-uix-button-content">恢复搜索记录 </span></button>
+		</span>
+		<% end %>
+		<% if !(request.path == '/mine/my_history' or request.path == '/mine/my_search_history') %>
+		<span id="vm-view-filter">
+			<span id="vm-view-filter-label">阅读：</span>
+			<button role="button" class=" yt-uix-button yt-uix-button-text"  id="vm-view-btn" type="button">
+				<span class="yt-uix-button-content">最新课件 </span>
+				<img alt="" src= "<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="yt-uix-button-arrow">
+			<ul style="display: none;" aria-haspopup="true" role="menu" class=" yt-uix-button-menu yt-uix-button-menu-text">
+				<li id="aria-id-oldest" role="menuitem"><span class=" yt-uix-button-menu-item"  id="oldest" href="?vmo=oldest&amp;sa=1&amp;sf=added">最早上传</span></li>
+				<li id="aria-id-viewed" role="menuitem"><span class=" yt-uix-button-menu-item"  id="viewed" href="?vmo=viewed&amp;sa=0&amp;sf=viewcount">阅读最多</span></li>
+			</ul>
+			</button>
+		</span>
+		<% end %>
+		<% if request.path =='/mine/my_search_history' %>
+				<span id="search-history-pause-container">
+				<button role="button" class=" yt-uix-button yt-uix-button-default"  id="search-history-pause-button" type="button"><span class="yt-uix-button-content">暂停搜索记录 </span></button>
+				</span>
+				<span class="hid" id="search-history-resume-container">
+				<button role="button" class=" yt-uix-button yt-uix-button-default"  id="search-history-resume-button" type="button"><span class="yt-uix-button-content">恢复搜索记录 </span></button>
+				</span>
+		<% end %>
 	</div>
 	<span data-overlay-class="vm-video-actions-delete-overlay" class="yt-uix-overlay">
 	<span class="yt-uix-overlay-content vm-video-actions-delete-overlay-content">
@@ -80,7 +142,7 @@
       }
     }else{
        if($('#vm-video-actions-bar').hasClass('scrollfloat')){
-         $('#vm-page-subheader').next().remove();
+         $('#vm-video-actions-bar').prev().remove();
          $('#vm-video-actions-bar').removeClass('scrollfloat');
          $('#vm-video-actions-bar').removeAttr('style');
        }
@@ -442,9 +504,11 @@
 			url:'/ajax/add_to_favorites_array',
 			<% elsif request.path ==  '/mine/my_liked_coursewares' %>
 			url:'/ajax/remove_ding_array',
+			<% elsif request.path == '/mine/my_history' %>
+			url:'/ajax/remove_one_history'
 			<% end %>
 			type:'POST',
-			data:{'cwid':choose,'type':'remove'},
+			data:{'cwid':choose,'type':'remove'<% if request.path == '/mine/my_history' %>,'time':<% end %>},
 			dataType:'json'
 		}).done(function(json){
 			if(json.status == 'suc'){
@@ -469,6 +533,48 @@
 	$('#aria-id-viewed').live('click',function(){
 		sort_by('times');
 	});
+	$('#watch-history-pause-button').live('click',function(e){
+		tmp = this ;
+		$.ajax({
+			url:'/ajax/pause_history',
+			type:'POST',
+			data:{'switch':'off'},
+			dataType:'json'
+		}).done(function(json){
+			if(json.status == 'suc'){
+				$(tmp).hide().addClass('hid');
+				$('#watch-history-resume-button').show().removeClass('hid');
+				showNotification('您的阅读历史记录现已暂停保存。');
+			}
+		});
+	});
+	$('#watch-history-resume-button').live('click',function(e){
+			tmp = this ;
+			$.ajax({
+				url:'/ajax/pause_history',
+				type:'POST',
+				data:{'switch':'on'},
+				dataType:'json'
+			}).done(function(json){
+				if(json.status == 'suc'){
+					$(tmp).hide().addClass('hid');
+					$('#watch-history-pause-button').show().removeClass('hid');
+					showNotification('您的阅读记录现已恢复保存。');
+				}
+			});
+	});
+	$('#vm-general-notifs .close.yt-uix-close').live('click',function(){
+		$('#vm-general-notifs > div').animate({opacity:'hide'},"fast");
+	});
+	var ttimeout = null ;
+	var showNotification = function(text){
+		$('#vm-general-notifs > div > div.yt-alert-content').html(text);
+		$('#vm-general-notifs > div').animate({opacity:'show'},600);
+		clearTimeout(ttimeout);
+		ttimeout = window.setTimeout(function(){
+			$('#vm-general-notifs > div').animate({opacity:'hide'},"slow");
+		},5000);
+	};
+	
 	<% end  %>
 </script>
-		

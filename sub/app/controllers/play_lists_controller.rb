@@ -3,7 +3,7 @@ class PlayListsController < ApplicationController
   def index
     common_op!
     @seo[:title]='课件锦囊'
-    @play_lists = PlayList.no_privacy.destroyable#.normal
+    @play_lists = PlayList.no_privacy.destroyable.normal
     @play_lists = @play_lists.paginate(:page => params[:page], :per_page => @per_page)
   end
   
@@ -38,6 +38,11 @@ class PlayListsController < ApplicationController
       redirect_to '/'
       return false
     end
+    if current_user.nil? 
+      flash[:error] = "请首先登陆。"
+      redirect_to '/'
+      return false
+    end
     if params[:action_delete] == '1'
       destroy
       return true
@@ -62,14 +67,16 @@ class PlayListsController < ApplicationController
     pl = PlayList.find(params[:id])
     pl.title = params[:title]
     pl.content = params[:playlist_kejian_id]
+    pl.annotation = params[:playlist_video_annotation]
     if !params[:playlist_kejian_deleted].blank?
       params[:playlist_kejian_deleted].each_with_index do |tf,index|
         if tf != '0'
           pl.content.delete_at(index)
+          pl.annotation.delete_at(index)
         end
       end
     end
-    pl.annotation = params[:playlist_video_annotation]
+    pl.user_id = current_user.id
     pl.playlist_thumbnail_kejian_id = params[:playlist_thumbnail_video_id].to_s
     pl.desc = params[:description]
     

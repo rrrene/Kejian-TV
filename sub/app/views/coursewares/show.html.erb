@@ -1471,6 +1471,25 @@ courseware_id: '<%=@courseware.id%>'
 						 $('.divider a').live('click',function(){
 							 $("button[data-button-action='actions.flag']").trigger('click');
 						 });
+		         <% if !current_user.nil? and current_user.mark_history %>
+						 pageOpen = new Date();
+						 $(window).unload(function(){
+								var slide_num = $('#presentation iframe').contents().find('div#presenter img#slide_image').attr('src');
+						 		pageClose = new Date();
+						 		minutes = (pageClose.getMinutes() - pageOpen.getMinutes());
+							 	seconds = (pageClose.getSeconds() - pageOpen.getSeconds());
+						 	 	time = (seconds + (minutes * 60));
+								if(time>600){
+							 		var num = parseInt(slide_num.split('/').pop().split('.')[0].split('_').pop());
+							 		$.ajax({
+							 			type:'POST',
+							 			url:'/ajax/save_page_to_history',
+							 			data:{'cwid':"<%=@courseware.id%>",'page':num},
+							 			async : false
+							 		});	
+								}
+						 });
+						 <% end %>
            <% end %>
         </script>
 </div>

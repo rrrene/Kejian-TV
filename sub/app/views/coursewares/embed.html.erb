@@ -27,7 +27,7 @@
   <script>
     var player = new Player();
     var timeout = null;
-
+    var pageTimeout = null;
     (function($) {
       $.preLoadImage = function(idx, count) {
         if (count == undefined) { count = 4/*Slide.urls.length*/ }
@@ -90,6 +90,7 @@
           return false;
         } else {
           if ($('.navigation .loading').length == 0) {
+            Slide.pageAjaxUpload();
             timeout = setTimeout(function() {$('.navigation .next').addClass('loading');}, 50);
             Slide.click++;
             Slide.current++;
@@ -104,12 +105,28 @@
           return false;
         } else {
           if ($('.navigation .loading').length == 0) {
+            Slide.pageAjaxUpload();
             timeout = setTimeout(function() {$('.navigation .prev').addClass('loading');}, 50);
             Slide.current--;
             Slide.show();
           };
         };
       },
+			pageAjaxUpload:function(){
+        <% if !current_user.nil? and current_user.mark_history %>
+    		   clearTimeout(pageTimeout);
+				   pageTimeout = window.setTimeout(function(){
+								 $.ajax({
+							 			type:'POST',
+							 			url:'/ajax/save_page_to_history',
+							 			data:{'cwid':"<%=@courseware.id%>",'page':Slide.current},
+										dataType:'json'
+								 }).done(function(json){
+								 	
+								 });
+						 },30000);
+  		  <% end %>
+			},
       always_tipsy:function(text){
         $('#always_tipsy').css({opacity:1});
         $('#always_tipsy_content').html(text);

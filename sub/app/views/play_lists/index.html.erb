@@ -169,8 +169,8 @@ $('.presentation').hover(function(){
                   创建于<%= timeago(item.created_at,:span=>true) %>
                 </div>
                 <div class="user-gravatar32">
-                    <a href="/users/454/oliver-c"><div class="">
-                      <img width="32" height="32" alt="" src="<%=dz_avatar_url(User.get_uid(item.user_id),User.get_email(item.user_id),:small)%>">
+                    <a href="/users/<%=item.user_id  %>"><div class="">
+                      <img width="32" height="32" alt="" src="<% avatar_url_quick(item.user_id,:small) %>">
                     </div></a>
                 </div>
                 <div class="user-details">
