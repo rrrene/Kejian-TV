@@ -13,7 +13,11 @@
 </div>
 <div id="vm-video-actions-bar" class="goog-scrollfloater">
 	<div class="clearfix" id="vm-video-actions-inner">
-		<span class="yt-uix-form-input-checkbox-container vm-select-all"><input type="checkbox" id="vm-video-select-all" class="yt-uix-form-input-checkbox" name="vm-video-select-all"><span class="yt-uix-form-input-checkbox-element"></span></span>
+		<span class="yt-uix-form-input-checkbox-container vm-select-all">
+			<input type="checkbox" id="vm-video-select-all" class="yt-uix-form-input-checkbox" name="vm-video-select-all">
+			<span class="yt-uix-form-input-checkbox-element"></span>
+		</span>
+			<% if request.path !='/mine/my_search_history' %>
 		<button role="button" class="addto-button psvr_login_required default show-label yt-uix-button yt-uix-button-default" type="button" disabled="True"><span class="yt-uix-button-icon-wrapper">
 			<img alt="" src= "<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="yt-uix-button-icon yt-uix-button-icon-addto">
 				<span class="yt-valign-trick"></span>
@@ -23,6 +27,7 @@
 			</span>
 			<img alt="" src= "<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="yt-uix-button-arrow">
 		</button>
+		<% end %>
 		<% if request.path ==  '/mine/view_all_playlists' or request.path == '/mine/my_favorites' or request.path == '/mine/my_liked_coursewares' or request.path == '/mine/my_watch_later_coursewares' %>
 		<button role="button" class=" yt-uix-button yt-uix-button-default"  id="vm-playlist-play-all" type="button">
 			<span class="yt-uix-button-content">阅读全部 </span>
@@ -34,7 +39,7 @@
 		
 		<% if request.path == '/mine/my_history' %>
 		<span class="yt-uix-overlay">
-			<button role="button"  class="yt-uix-overlay-target yt-uix-button yt-uix-button-default" type="button">
+			<button role="button"  class="yt-uix-overlay-target yt-uix-button yt-uix-button-default" type="button" <% if @list.size == 0 %> disabled="disabled" <% end %>>
 				<span class="yt-uix-button-content">清除所有阅读历史记录 </span>
 			</button> 
 					<div class="yt-uix-overlay-content">
@@ -65,10 +70,31 @@
 		</span>
 		<% end %>
 		<% if request.path == '/mine/my_search_history' %>
-		<span class="hid" id="search-history-pause-container">
+		
+		<span data-overlay-shown="yt.www.videomanager.MySearchHistory.onClearHistoryOverlayShown" class="yt-uix-overlay">
+
+		          <button role="button" onclick=";return false;" class="yt-uix-overlay-target yt-uix-button yt-uix-button-default" type="button"<% if @list.size == 0 %> disabled="disabled"  <% end %>><span class="yt-uix-button-content">清除所有搜索记录 </span></button>
+		          <div class="yt-uix-overlay-content">
+		            <button class="yt-uix-overlay-close close-small">
+		关闭
+		            </button>
+
+		            <h2>清除所有搜索记录</h2>
+		            <p class="vm-search-history-message">
+		您确定要清除所有搜索记录吗？该操作无法撤消。
+		            </p>
+		            <p class="vm-search-history-container">
+		              <button role="button" onclick=";return false;" class="vm-history-clear yt-uix-overlay-close yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-content">清除所有搜索记录 </span></button>
+		              <button role="button" onclick=";return false;" class="yt-uix-overlay-close yt-uix-button yt-uix-button-primary" type="button">
+										<span class="yt-uix-button-content">取消 </span>
+									</button>
+		            </p>
+		          </div>
+		        </span>
+		<span <% if !current_user.nil? and !current_user.mark_search_keyword %>class="hid"<% end %>id="search-history-pause-container">
 				<button role="button" class=" yt-uix-button yt-uix-button-default"  id="search-history-pause-button" type="button"><span class="yt-uix-button-content">暂停搜索记录 </span></button>
 		</span>
-		<span class="hid" id="search-history-resume-container">
+		<span <% if !current_user.nil? and current_user.mark_search_keyword %>class="hid"<% end %> id="search-history-resume-container">
 				<button role="button" class=" yt-uix-button yt-uix-button-default"  id="search-history-resume-button" type="button"><span class="yt-uix-button-content">恢复搜索记录 </span></button>
 		</span>
 		<% end %>
@@ -84,14 +110,6 @@
 			</ul>
 			</button>
 		</span>
-		<% end %>
-		<% if request.path =='/mine/my_search_history' %>
-				<span id="search-history-pause-container">
-				<button role="button" class=" yt-uix-button yt-uix-button-default"  id="search-history-pause-button" type="button"><span class="yt-uix-button-content">暂停搜索记录 </span></button>
-				</span>
-				<span class="hid" id="search-history-resume-container">
-				<button role="button" class=" yt-uix-button yt-uix-button-default"  id="search-history-resume-button" type="button"><span class="yt-uix-button-content">恢复搜索记录 </span></button>
-				</span>
 		<% end %>
 	</div>
 	<span data-overlay-class="vm-video-actions-delete-overlay" class="yt-uix-overlay">
@@ -509,6 +527,7 @@
 				$('#vm-video-select-all').attr('checked',false);
 			}
 		}
+		console.log(choose);
 	});
 	$('#vm-playlist-remove-kejian').live('click',function(){
 		$.ajax({
@@ -520,6 +539,8 @@
 			url:'/ajax/remove_ding_array',
 			<% elsif request.path == '/mine/my_history' %>
 			url:'/ajax/remove_one_history',
+			<% elsif request.path == '/mine/my_search_history' %>
+			url:'/ajax/remove_one_search_history',
 			<% end %>
 			type:'POST',
 			data:{'cwid':choose,'type':'remove'<% if request.path == '/mine/my_history' %>,'time':history<% end %>},
@@ -611,19 +632,60 @@
 		$('#yt-uix-overlay-base').remove();
 		$('#yt-uix-overlay-bg').remove();
 	});
-	var nokejian ='<div id="vm-playlist-no-videos">未找到任何课件。</div>';
+	var nokejian ='<div id="vm-playlist-no-videos">未找到任何<% if request.path == '/mine/my_history' %>课件<% elsif request.path == '/mine/my_search_history' %>搜索记录<% end %>。</div>';
+
 	$('.vm-history-clear.yt-uix-overlay-close').live('click',function(){
 		$.ajax({
+			<% if request.path == '/mine/my_history' %>
 			url:'/ajax/clear_history',
+			<% elsif request.path == '/mine/my_search_history' %>
+			url:'/ajax/clear_search_history',
+			<% end %>
 			type:'POST',
 			dataType:'json'
 		}).done(function(json){
 			if(json.status == 'suc'){
+				<% if request.path == '/mine/my_history' %>
 					$('#vm-video-list-container').html(nokejian);
+				<% elsif request.path == '/mine/my_search_history' %>
+				$('#vm-playlist-video-list-ol').html(nokejian)
+				<% end %>
+					$('button.yt-uix-overlay-target').attr('disabled',true);
+					$('#vm-pagination').html('')
 					$('#yt-uix-overlay-base').remove();
 					$('#yt-uix-overlay-bg').remove();		
 			}
 		});
 	})
+	$('#search-history-pause-container').live('click',function(){
+		tmp = this;
+		$.ajax({
+			url:'/ajax/pause_search_history',
+			type:'POST',
+			data:{'switch':'off'},
+			dataType:'json'
+		}).done(function(json){
+			if(json.status == 'suc'){
+				$(tmp).hide().addClass('hid');
+				$('#search-history-resume-container').show().removeClass('hid');
+				showNotification('您的搜索记录现已暂停。');
+			}
+		});
+	});
+	$('#search-history-resume-container').live('click',function(){
+		tmp = this;
+		$.ajax({
+			url:'/ajax/pause_search_history',
+			type:'POST',
+			data:{'switch':'on'},
+			dataType:'json'
+		}).done(function(json){
+			if(json.status == 'suc'){
+				$(tmp).hide().addClass('hid');
+				$('#search-history-pause-container').show().removeClass('hid');
+				showNotification('您的搜索记录现已恢复。');
+			}
+		});
+	});
 	<% end  %>
 </script>

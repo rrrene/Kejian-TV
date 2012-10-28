@@ -20,7 +20,13 @@ class MineController < ApplicationController
     @seo[:title] = "信息中心"
   end
   def my_coursewares
-    @seo[:title] = "上传的课件"    
+    if current_user.nil?
+      flash[:notice]='您尚未登录'
+      redirect_to '/'
+      return false
+    end
+    @courseware = Courseware.nondeleted.where(uploader_id:current_user.id).paginate(:page => params[:page], :per_page => @per_page)
+    @seo[:title] = "上传的课件" 
   end
   def view_all_playlists
     @seo[:title] = "课件锦囊"    
@@ -42,6 +48,7 @@ class MineController < ApplicationController
   end
   def my_search_history
     @seo[:title] = "搜索记录"    
+    @list = SearchHistory.locate_search_history(current_user.id).paginate(:page => params[:page], :per_page => @per_page)
   end
   def my_watch_later_coursewares
     if current_user.nil?
@@ -69,12 +76,10 @@ class MineController < ApplicationController
       return false
     end
     @coursewares_ids = current_user.thanked_courseware_ids.paginate(:page => params[:page], :per_page => @per_page)
-    @thanked_playlist_ids = current_user.thanked_play_list_ids
     @coursewares = Courseware.eager_load(@coursewares_ids)
     @seo[:title] = "顶过的课件"    
   end
   def my_liked_lists
-    @coursewares_ids = current_user.thanked_courseware_ids
     @thanked_playlist_ids = current_user.thanked_play_list_ids.paginate(:page => params[:page], :per_page => @per_page)
     @uplist = PlayList.eager_load(@thanked_playlist_ids)
     @seo[:title] = "顶过的课件锦囊"

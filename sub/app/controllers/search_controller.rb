@@ -69,6 +69,9 @@ private
     params[:q]=params[:q].xi
   end
   def search_common_over
+    if !current_user.nil? and current_user.mark_search_keyword
+      SearchHistory.add_search_keyword(current_user,params[:q],request.ip,params[:action])      
+    end
     respond_to do |format|
       format.html{
         render 'show'

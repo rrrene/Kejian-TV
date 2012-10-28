@@ -860,4 +860,45 @@ HEREDOC
       return false
     end
   end
+  def pause_search_history
+    if current_user.nil?
+      render json:{status:'failed',reason:'您尚未登陆！'}
+      return false
+    end
+    SearchHistory.on_off_history(current_user.id,params[:switch])
+    render json:{status:'suc'}
+    return true
+  end
+  def remove_one_search_history
+    if current_user.nil?
+      render json:{status:'failed',reason:'您尚未登陆！'}
+      return false
+    end
+    result = true
+    params[:cwid].each_with_index do |shid,index|
+      result =  SearchHistory.remove_one_search_history(shid)
+    end
+    if result
+      render json:{status:'suc'}
+      return true
+    else
+      render json:{status:'failed',reason:'不存在该数据.'}
+      return false
+    end   
+  end
+
+  def clear_search_history
+    if current_user.nil?
+      render json:{status:'failed',reason:'您尚未登陆！'}
+      return false
+    end
+    result = SearchHistory.clear_history(current_user.id)
+    if result
+      render json:{status:'suc'}
+      return true
+    else
+      render json:{status:'failed',reason:'无法清除搜素记录。'}
+      return false
+    end
+  end
 end
