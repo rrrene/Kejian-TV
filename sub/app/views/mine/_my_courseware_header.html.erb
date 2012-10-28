@@ -43,7 +43,7 @@
 		<button disabled="True" type="button" id="vm-playlist-action-menu"  class=" yt-uix-button yt-uix-button-default" role="button" aria-pressed="false" aria-expanded="false" aria-haspopup="true" aria-activedescendant="">
 			<span class="yt-uix-button-content">操作 </span>
 			<img class="yt-uix-button-arrow" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="">
-		<ul class=" yt-uix-button-menu yt-uix-button-menu-default" role="menu" aria-haspopup="true" style="display: none;">
+		<ul class="yt-uix-button-menu yt-uix-button-menu-default" role="menu" aria-haspopup="true" style="display: none;">
 			<li role="menuitem" id="aria-id-remove"><span id="vm-playlist-delete-videos"  class=" yt-uix-button-menu-item">删除</span></li>
 			<li role="menuitem" id="aria-id-privacy"><span class="menu-subheading yt-uix-button-menu-item" >隐私设置</span></li>
 			<li role="menuitem" id="aria-id-public"><span id="vm-playlist-set-videos-privacy-public"  class="menu-subitem yt-uix-button-menu-item">公开</span></li>
@@ -60,11 +60,11 @@
 			<span class="yt-uix-button-content">最新课件 </span>
 			<img class="yt-uix-button-arrow" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="">
 		<ul class=" yt-uix-button-menu yt-uix-button-menu-text" role="menu" aria-haspopup="true" style="display: none;">
-			<li role="menuitem" id="aria-id-94205034509"><span href="?vmo=oldest&amp;sa=1&amp;sf=added" id="oldest"  class=" yt-uix-button-menu-item">最早上传</span></li>
-			<li role="menuitem" id="aria-id-52154534779"><span href="?vmo=viewed&amp;sa=0&amp;sf=viewcount" id="viewed"  class=" yt-uix-button-menu-item">观看最多</span></li>
-			<li role="menuitem" id="aria-id-76655227206"><span href="?vmo=public&amp;sq=is%3Apublic" id="public"  class="menu-item-top-divider yt-uix-button-menu-item">公共</span></li>
-			<li role="menuitem" id="aria-id-75210932192"><span href="?vmo=unlisted&amp;sq=is%3Aunlisted" id="unlisted"  class=" yt-uix-button-menu-item">不公开的课件</span></li>
-			<li role="menuitem" id="aria-id-57599943971"><span href="?vmo=private&amp;sq=is%3Aprivate" id="private"  class=" yt-uix-button-menu-item">私有</span></li>
+			<li role="menuitem" id="aria-id-oldest"><span href="?vmo=oldest&amp;sa=1&amp;sf=added" id="oldest"  class=" yt-uix-button-menu-item">最早上传</span></li>
+			<li role="menuitem" id="aria-id-viewed"><span href="?vmo=viewed&amp;sa=0&amp;sf=viewcount" id="viewed"  class=" yt-uix-button-menu-item">观看最多</span></li>
+			<li role="menuitem" id="aria-id-public"><span href="?vmo=public&amp;sq=is%3Apublic" id="public"  class="menu-item-top-divider yt-uix-button-menu-item">公共</span></li>
+			<li role="menuitem" id="aria-id-notpublic"><span href="?vmo=unlisted&amp;sq=is%3Aunlisted" id="unlisted"  class=" yt-uix-button-menu-item">不公开的课件</span></li>
+			<li role="menuitem" id="aria-id-private"><span href="?vmo=private&amp;sq=is%3Aprivate" id="private"  class=" yt-uix-button-menu-item">私有</span></li>
 		</ul>
 		</button>
 		</span>
@@ -140,16 +140,25 @@
 		});
 	};
 	resort();
-
-	$('#vm-view-btn').live('click',function(e){
-		e.stopPropagation();
-		$(this).toggleClass('yt-uix-button-active');
-		if($(this).hasClass('yt-uix-button-active')){
-			var ul = $('ul',this);
+	function restoreUL(tmp){
+		$(tmp).removeClass('yt-uix-button-active');
+    var ul = $('.__ytb > ul');
+    ul.remove();
+    ul.hide().addClass('hid');
+    $(tmp).append(ul);
+	}
+	function handleUL(tmp,offset){
+		handleConflict(tmp);
+		if(!offset){
+			var offset = 0;
+		}
+		$(tmp).toggleClass('yt-uix-button-active')
+		if($(tmp).hasClass('yt-uix-button-active')){
+			var ul = $('ul',tmp);
 	    ul.remove();
 		  cssObj = {
-	        'top':($(this).offset().top + $(this).height()).toString() + 'px',
-	        'left':$(this).offset().left.toString() + 'px'
+	        'top':($(tmp).offset().top + $(tmp).height()).toString() + 'px',
+	        'left':($(tmp).offset().left+offset).toString() + 'px'
 	    };
 		  ul.css(cssObj);
 			ul.show().removeClass('hid');
@@ -158,11 +167,72 @@
 			var ul = $('.__ytb > ul');
 			ul.remove();
 			ul.hide().addClass('hid');
-			$(this).append(ul);
+			$(tmp).append(ul);
 		}
+	};
+	function handleConflict(tmp){
+		if($(tmp).selector != 'button.addto-button' && $('button.addto-button').hasClass('yt-uix-button-active')){
+				$('button.addto-button').removeClass('yt-uix-button-active');
+				$('#shared-addto-menu').hide().addClass('hid');
+				$('#shared-addto-menu').html(loading);
+		}			
+		if($(tmp).selector !='#vm-view-btn' && $('#vm-view-btn').hasClass('yt-uix-button-active')){
+	      restoreUL('#vm-view-btn');
+		}
+		if($(tmp).selector != '#vm-playlist-action-menu' && $('#vm-playlist-action-menu').hasClass('yt-uix-button-active')){
+				restoreUL('#vm-playlist-action-menu');
+		}
+		if($(tmp).selector != '.edit-expand-menu-button.end' && $('.edit-expand-menu-button.end').hasClass('yt-uix-button-active')){
+				restoreUL('.edit-expand-menu-button.end');
+		}
+	};
+
+  $(document).click(function(e){
+    var target = e.target
+		if($('button.addto-button').hasClass('yt-uix-button-active') && !$(target).is('button.addto-button') && !$(target).is('.shared-addto-menu')){
+				$('button.addto-button').removeClass('yt-uix-button-active');
+				$('#shared-addto-menu').hide().addClass('hid');
+				$('#shared-addto-menu').html(loading);
+		}
+    if($('#vm-view-btn').hasClass('yt-uix-button-active') && !$(target).is('#vm-view-btn')){
+			restoreUL('#vm-view-btn');
+    }
+		if($('#vm-playlist-action-menu').hasClass('yt-uix-button-active') && !$(target).is('#vm-playlist-action-menu') && !$(target).is('.yt-uix-button-menu')){
+			restoreUL('#vm-playlist-action-menu');
+		}
+		if($('.edit-expand-menu-button.end').hasClass('yt-uix-button-active') && !$(target).is('.edit-expand-menu-button.end') && !$(target).is('.yt-uix-button-menu')){
+			restoreUL('.edit-expand-menu-button.end');
+		}
+  });
+	
+	$('#vm-playlist-action-menu').live('click',function(e){
+			e.stopPropagation();			
+			handleUL(this);
+	});
+	$('.edit-expand-menu-button.end').live('click',function(e){
+			e.stopPropagation();			
+			handleUL(this,-45);
+	});
+	$('#vm-view-btn').live('click',function(e){
+		e.stopPropagation();
+		handleUL(this);
 	});
 	$('button.addto-button').live('click',function(e){
-		e.stopPropagation();		
+		e.stopPropagation();
+		if($('#vm-view-btn').hasClass('yt-uix-button-active')){
+      $('#vm-view-btn').removeClass('yt-uix-button-active');
+      var ul = $('.__ytb > ul');
+      ul.remove();
+      ul.hide().addClass('hid');
+      $('#vm-view-btn').append(ul);
+		}
+		if($('#vm-playlist-action-menu').hasClass('yt-uix-button-active')){
+			$('#vm-playlist-action-menu').removeClass('yt-uix-button-active');
+      var ul = $('.__ytb > ul');
+      ul.remove();
+      ul.hide().addClass('hid');
+      $('#vm-playlist-action-menu').append(ul);
+		}
 		$(this).toggleClass('yt-uix-button-active');
 		var addto_div = $('#shared-addto-menu');
 		if($(this).hasClass('yt-uix-button-active')){
@@ -183,7 +253,6 @@
 					$('#shared-addto-menu').html(json.html);
 				}
 			});
-			
 		}else{
 			addto_div.hide().addClass('hid');
 			addto_div.html(loading);
@@ -231,21 +300,7 @@
 			setDisable();
 		}
 	});
-  $(document).click(function(e){
-    var target = e.target
-    if($('#vm-view-btn').hasClass('yt-uix-button-active') && !$(target).is('#vm-view-btn')){
-      $('#vm-view-btn').removeClass('yt-uix-button-active');
-      var ul = $('.__ytb > ul');
-      ul.remove();
-      ul.hide().addClass('hid');
-      $('#vm-view-btn').append(ul);
-    }
-		if($('button.addto-button').hasClass('yt-uix-button-active') && !$(target).is('button.addto-button') && !$(target).is('shared-addto-menu')){
-				$('button.addto-button').removeClass('yt-uix-button-active');
-				$('#shared-addto-menu').hide().addClass('hid');
-				$('#shared-addto-menu').html(loading);
-		}
-  });
+ 
 	var removeStyle = function(){
 		$('#shared-addto-menu > div').each(function(index,div){
 			if (!$(div).hasClass('active-panel')) {
@@ -282,6 +337,7 @@
 				removeActiveTag();
 				$('#addto-note-input-panel').show().removeClass('hid');
 				$('#addto-note-input-panel .yt-alert-message span.addto-title').html(json.title);
+				$('.close-note').show().removeClass('hid');
 				$('#addto-note-input-panel').animate({'left':'-='+$('#addto-create-panel').width().toString() + 'px',opacity:1},{queue:false,duration:400});
 				$('#addto-note-input-panel').addClass('fade active-panel');
 				removeStyle();
@@ -445,11 +501,13 @@
 		$('.close-note').hide().addClass('hid');
 	});
 	var setDisable = function(){
-      $('.addto-button').attr('disabled',true);
+      $('button.addto-button').attr('disabled',true);
+			$('#vm-playlist-action-menu').attr('disabled',true);
 			$('#vm-playlist-remove-kejian').attr('disabled',true);
 	};
 	var setEnable = function(){
     $('button.addto-button').attr('disabled',false);
+		$('#vm-playlist-action-menu').attr('disabled',false);
 		$('#vm-playlist-remove-kejian').attr('disabled',false);
 	}
 	$('input.yt-uix-form-input-checkbox.video-checkbox').live('click',function(){
@@ -486,85 +544,6 @@
 		}
 		console.log(choose);
 	});
-	// $('#vm-playlist-remove-kejian').live('click',function(){
-	// 	$.ajax({
-	// 		<% if request.path == '/mine/my_watch_later_coursewares' %>
-	// 		url:'/ajax/add_to_read_later_array',
-	// 		<% elsif request.path == '/mine/my_favorites' %>
-	// 		url:'/ajax/add_to_favorites_array',
-	// 		<% elsif request.path ==  '/mine/my_liked_coursewares' %>
-	// 		url:'/ajax/remove_ding_array',
-	// 		<% elsif request.path == '/mine/my_history' %>
-	// 		url:'/ajax/remove_one_history',
-	// 		<% elsif request.path == '/mine/my_search_history' %>
-	// 		url:'/ajax/remove_one_search_history',
-	// 		<% end %>
-	// 		type:'POST',
-	// 		data:{'cwid':choose,'type':'remove'<% if request.path == '/mine/my_history' %>,'time':history<% end %>},
-	// 		dataType:'json'
-	// 	}).done(function(json){
-	// 		if(json.status == 'suc'){
-	// 			$.each(choose,function(index,cid){
-	// 				$('li#vm-video-'+cid).remove();
-	// 			});
-	// 			choose = new Array();
-	// 			<% if request.path == '/mine/my_history' %>
-	// 				history = new Array();
-	// 			<% end %>
-	// 			resort();
-	// 			setDisable();
-	// 			$('#vm-video-select-all').attr('checked',false);
-	// 		}else{
-	// 			$.each(choose,function(index,cid){
-	// 				$('li#vm-video-'+cid).removeClass('selected');
-	// 				$('li#vm-video-'+cid+' input[name="kejian-checkbox"]').attr('checked',false).parent().removeClass('checked');
-	// 			});
-	// 			choose = new Array();
-	// 			<% if request.path == '/mine/my_history' %>
-	// 				history = new Array();
-	// 			<% end %>
-	// 			resort();
-	// 			setDisable();
-	// 			$('#vm-video-select-all').attr('checked',false);
-	// 		}
-	// 	});
-	// });
-	$('#aria-id-oldest').live('click',function(){
-		sort_by('oldest');
-	});
-	$('#aria-id-viewed').live('click',function(){
-		sort_by('times');
-	});
-	// $('#watch-history-pause-button').live('click',function(e){
-	// 		tmp = this ;
-	// 		$.ajax({
-	// 			url:'/ajax/pause_history',
-	// 			type:'POST',
-	// 			data:{'switch':'off'},
-	// 			dataType:'json'
-	// 		}).done(function(json){
-	// 			if(json.status == 'suc'){
-	// 				$(tmp).hide().addClass('hid');
-	// 				$('#watch-history-resume-button').show().removeClass('hid');
-	// 				showNotification('您的阅读历史记录现已暂停保存。');
-	// 			}
-	// 		});
-	// 	});
-	// 	$('#watch-history-resume-button').live('click',function(e){
-	// 			tmp = this ;
-	// 			$.ajax({
-	// 				url:'/ajax/pause_history',
-	// 				type:'POST',
-	// 				data:{'switch':'on'},
-	// 				dataType:'json'
-	// 			}).done(function(json){
-	// 				if(json.status == 'suc'){
-	// 					$(tmp).hide().addClass('hid');
-	// 					$('#watch-history-pause-button').show().removeClass('hid');
-	// 					showNotification('您的阅读记录现已恢复保存。');
-	// 				}
-	// 			});
-	// 	});
 	$('#vm-general-notifs .close.yt-uix-close').live('click',function(){
 		$('#vm-general-notifs > div').animate({opacity:'hide'},"fast");
 	});
@@ -589,60 +568,24 @@
 		$('#yt-uix-overlay-base').remove();
 		$('#yt-uix-overlay-bg').remove();
 	});
-	// var nokejian ='<div id="vm-playlist-no-videos">未找到任何<% if request.path == '/mine/my_history' %>课件<% elsif request.path == '/mine/my_search_history' %>搜索记录<% end %>。</div>';
-	// $('.vm-history-clear.yt-uix-overlay-close').live('click',function(){
-	// 	$.ajax({
-	// 		<% if request.path == '/mine/my_history' %>
-	// 		url:'/ajax/clear_history',
-	// 		<% elsif request.path == '/mine/my_search_history' %>
-	// 		url:'/ajax/clear_search_history',
-	// 		<% end %>
-	// 		type:'POST',
-	// 		dataType:'json'
-	// 	}).done(function(json){
-	// 		if(json.status == 'suc'){
-	// 			<% if request.path == '/mine/my_history' %>
-	// 				$('#vm-video-list-container').html(nokejian);
-	// 			<% elsif request.path == '/mine/my_search_history' %>
-	// 			$('#vm-playlist-video-list-ol').html(nokejian)
-	// 			<% end %>
-	// 				$('button.yt-uix-overlay-target').attr('disabled',true);
-	// 				$('#vm-pagination').html('')
-	// 				$('#yt-uix-overlay-base').remove();
-	// 				$('#yt-uix-overlay-bg').remove();		
-	// 		}
-	// 	});
-	// });
-	// $('#search-history-pause-container').live('click',function(){
-	// 	tmp = this;
-	// 	$.ajax({
-	// 		url:'/ajax/pause_search_history',
-	// 		type:'POST',
-	// 		data:{'switch':'off'},
-	// 		dataType:'json'
-	// 	}).done(function(json){
-	// 		if(json.status == 'suc'){
-	// 			$(tmp).hide().addClass('hid');
-	// 			$('#search-history-resume-container').show().removeClass('hid');
-	// 			showNotification('您的搜索记录现已暂停。');
-	// 		}
-	// 	});
-	// });
-	// $('#search-history-resume-container').live('click',function(){
-	// 	tmp = this;
-	// 	$.ajax({
-	// 		url:'/ajax/pause_search_history',
-	// 		type:'POST',
-	// 		data:{'switch':'on'},
-	// 		dataType:'json'
-	// 	}).done(function(json){
-	// 		if(json.status == 'suc'){
-	// 			$(tmp).hide().addClass('hid');
-	// 			$('#search-history-pause-container').show().removeClass('hid');
-	// 			showNotification('您的搜索记录现已恢复。');
-	// 		}
-	// 	});
-	// });
+	$('#vm-video-actions-inner button.start.view-toggle-button').live('click',function(e){
+		$(this).addClass('yt-uix-button-toggled');
+		$(this).next().removeClass('yt-uix-button-toggled');
+		
+	});
+	$('#vm-video-actions-inner button.end.view-toggle-button').live('click',function(e){
+		$(this).addClass('yt-uix-button-toggled');
+		$(this).prev().removeClass('yt-uix-button-toggled');	
+	});
+
+	$('#aria-id-oldest').live('click',function(){
+		sort_by('oldest');
+	});
+	$('#aria-id-viewed').live('click',function(){
+		sort_by('times');
+	});
+	
+
 	<% end  %>
 </script>
 	

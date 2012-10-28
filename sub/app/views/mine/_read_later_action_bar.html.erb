@@ -39,7 +39,7 @@
 		
 		<% if request.path == '/mine/my_history' %>
 		<span class="yt-uix-overlay">
-			<button role="button"  class="yt-uix-overlay-target yt-uix-button yt-uix-button-default" type="button" <% if @list.size == 0 %> disabled="disabled" <% end %>>
+			<button role="button"  class="yt-uix-overlay-target yt-uix-button yt-uix-button-default" type="button" <% if @list.content.size == 0 %> disabled="disabled" <% end %>>
 				<span class="yt-uix-button-content">清除所有阅读历史记录 </span>
 			</button> 
 					<div class="yt-uix-overlay-content">
@@ -184,15 +184,25 @@
 	};
 	resort();
 
-	$('#vm-view-btn').live('click',function(e){
-		e.stopPropagation();
-		$(this).toggleClass('yt-uix-button-active');
-		if($(this).hasClass('yt-uix-button-active')){
-			var ul = $('ul',this);
+	function restoreUL(tmp){
+		$(tmp).removeClass('yt-uix-button-active');
+    var ul = $('.__ytb > ul');
+    ul.remove();
+    ul.hide().addClass('hid');
+    $(tmp).append(ul);
+	}
+	function handleUL(tmp,offset){
+		handleConflict(tmp);
+		if(!offset){
+			var offset = 0;
+		}
+		$(tmp).toggleClass('yt-uix-button-active')
+		if($(tmp).hasClass('yt-uix-button-active')){
+			var ul = $('ul',tmp);
 	    ul.remove();
 		  cssObj = {
-	        'top':($(this).offset().top + $(this).height()).toString() + 'px',
-	        'left':$(this).offset().left.toString() + 'px'
+	        'top':($(tmp).offset().top + $(tmp).height()).toString() + 'px',
+	        'left':($(tmp).offset().left+offset).toString() + 'px'
 	    };
 		  ul.css(cssObj);
 			ul.show().removeClass('hid');
@@ -201,11 +211,32 @@
 			var ul = $('.__ytb > ul');
 			ul.remove();
 			ul.hide().addClass('hid');
-			$(this).append(ul);
+			$(tmp).append(ul);
 		}
+	};
+	function handleConflict(tmp){
+		if($(tmp).selector != 'button.addto-button' && $('button.addto-button').hasClass('yt-uix-button-active')){
+				$('button.addto-button').removeClass('yt-uix-button-active');
+				$('#shared-addto-menu').hide().addClass('hid');
+				$('#shared-addto-menu').html(loading);
+		}			
+		if($(tmp).selector !='#vm-view-btn' && $('#vm-view-btn').hasClass('yt-uix-button-active')){
+	      restoreUL('#vm-view-btn');
+		}
+	};
+	$('#vm-view-btn').live('click',function(e){
+		e.stopPropagation();
+		handleUL(this);
 	});
 	$('button.addto-button').live('click',function(e){
-		e.stopPropagation();		
+		e.stopPropagation();
+    if($('#vm-view-btn').hasClass('yt-uix-button-active')){
+      $('#vm-view-btn').removeClass('yt-uix-button-active');
+      var ul = $('.__ytb > ul');
+      ul.remove();
+      ul.hide().addClass('hid');
+      $('#vm-view-btn').append(ul);
+    }
 		$(this).toggleClass('yt-uix-button-active');
 		var addto_div = $('#shared-addto-menu');
 		if($(this).hasClass('yt-uix-button-active')){
@@ -277,11 +308,7 @@
   $(document).click(function(e){
     var target = e.target
     if($('#vm-view-btn').hasClass('yt-uix-button-active') && !$(target).is('#vm-view-btn')){
-      $('#vm-view-btn').removeClass('yt-uix-button-active');
-      var ul = $('.__ytb > ul');
-      ul.remove();
-      ul.hide().addClass('hid');
-      $('#vm-view-btn').append(ul);
+			restoreUL('#vm-view-btn');
     }
 		if($('button.addto-button').hasClass('yt-uix-button-active') && !$(target).is('button.addto-button') && !$(target).is('shared-addto-menu')){
 				$('button.addto-button').removeClass('yt-uix-button-active');
@@ -324,6 +351,7 @@
 				$('#addto-list-panel').animate({'left':'-='+$('#addto-list-panel').width().toString() + 'px',opacity:0},{queue:false,duration:400});
 				removeActiveTag();
 				$('#addto-note-input-panel').show().removeClass('hid');
+				$('.close-note').show().removeClass('hid');
 				$('#addto-note-input-panel .yt-alert-message span.addto-title').html(json.title);
 				$('#addto-note-input-panel').animate({'left':'-='+$('#addto-create-panel').width().toString() + 'px',opacity:1},{queue:false,duration:400});
 				$('#addto-note-input-panel').addClass('fade active-panel');

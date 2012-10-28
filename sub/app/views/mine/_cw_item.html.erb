@@ -1,11 +1,19 @@
 <li class="vm-video-item" id="vm-video-<%= item.id %>" style="margin-left:2px">
 <div class="vm-video-item-content">
 	<span class="yt-uix-form-input-checkbox-container ">
-	<input type="checkbox"  value="<%= item.id %>" class="yt-uix-form-input-checkbox video-checkbox" name="kejian-checkbox" data-times="<%= item.views_count %>" data-created-at='<%= item.created_at.to_i %>' <% if request.path == '/mine/my_history' %> data-history-at="<%= history_time %>"<% end %> ><span class="yt-uix-form-input-checkbox-element"></span></span>
+	<input type="checkbox"  value="<%= item.id %>" class="yt-uix-form-input-checkbox video-checkbox" name="kejian-checkbox" data-times="<%= item.views_count %>" data-created-at='<%= item.created_at.to_i %>' <% if request.path == '/mine/my_history' %> data-history-at="<%= history_time %>"<% end %> >
+	<span class="yt-uix-form-input-checkbox-element"></span></span>
 	<div class="vm-thumb">
 		<a class="ux-thumb-wrap yt-uix-sessionlink" href="/coursewares/<%= item.id %>">
-		<span class="video-thumb ux-thumb yt-thumb-default-120 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img width="120" alt="缩略图" src="<%= asset_url("cw/#{item.ktvid}/#{item.revision}thumb_slide_0.jpg") %>"><span class="vertical-align"></span></span></span></span>
-		<span class="video-time">共<%= item.slides_count %>页</span>
+			<span class="video-thumb ux-thumb yt-thumb-default-120 ">
+				<span class="yt-thumb-clip">
+					<span class="yt-thumb-clip-inner">
+						<img width="120" alt="缩略图" src="<%= asset_url("cw/#{item.ktvid}/#{item.revision}thumb_slide_0.jpg") %>">
+						<span class="vertical-align"></span>
+					</span>
+				</span>
+			</span>
+			<span class="video-time">共<%= item.slides_count %>页</span>
 		</a>
 	</div>
 	<div class="vm-video-info-container">
