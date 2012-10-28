@@ -14,24 +14,51 @@
 <div style="" class="goog-scrollfloater" id="vm-video-actions-bar">
 	<div id="vm-video-actions-inner" class="clearfix">
 		<span class="yt-uix-button-group vm-view-toggle" data-button-toggle-group="required">
-		<button aria-label="切换到网格视图" type="button" class="start view-toggle-button yt-uix-button yt-uix-button-default yt-uix-button-empty"  data-button-toggle="true" data-page-class="vm-beauty-view" role="button"><span class="yt-uix-button-icon-wrapper"><img class="yt-uix-button-icon yt-uix-button-icon-vm-beauty-view" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt=""><span class="yt-valign-trick"></span></span></button><button aria-label="切换到列表视图" type="button" class="end view-toggle-button yt-uix-button-toggled yt-uix-button yt-uix-button-default yt-uix-button-empty"  data-button-toggle="true" data-page-class="vm-list-view" role="button"><span class="yt-uix-button-icon-wrapper"><img class="yt-uix-button-icon yt-uix-button-icon-vm-list-view" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt=""><span class="yt-valign-trick"></span></span></button></span>
-		<span class="yt-uix-form-input-checkbox-container vm-select-all"><input name="vm-video-select-all" class="yt-uix-form-input-checkbox" id="vm-video-select-all" type="checkbox"><span class="yt-uix-form-input-checkbox-element"></span></span>
-		<button disabled="True" type="button" class="addto-button default show-label yt-uix-button yt-uix-button-default"  data-button-menu-action="yt.www.lists.addto.toggleMenu" data-button-menu-id="shared-addto-menu" data-video-ids="" data-feature="vm" role="button"><span class="yt-uix-button-icon-wrapper"><img class="yt-uix-button-icon yt-uix-button-icon-addto" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt=""><span class="yt-valign-trick"></span></span><span class="yt-uix-button-content"><span class="addto-label">添加到</span></span><img class="yt-uix-button-arrow" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt=""></button>
-		<button disabled="True" type="button" id="vm-playlist-action-menu"  class=" yt-uix-button yt-uix-button-default" role="button" aria-pressed="false" aria-expanded="false" aria-haspopup="true" aria-activedescendant=""><span class="yt-uix-button-content">操作 </span><img class="yt-uix-button-arrow" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="">
+			<button aria-label="切换到网格视图" type="button" class="start view-toggle-button yt-uix-button yt-uix-button-default yt-uix-button-empty"  data-button-toggle="true" data-page-class="vm-beauty-view" role="button">
+				<span class="yt-uix-button-icon-wrapper">
+					<img class="yt-uix-button-icon yt-uix-button-icon-vm-beauty-view" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="">
+					<span class="yt-valign-trick"></span>
+				</span>
+			</button>
+			<button aria-label="切换到列表视图" type="button" class="end view-toggle-button yt-uix-button-toggled yt-uix-button yt-uix-button-default yt-uix-button-empty"  data-button-toggle="true" data-page-class="vm-list-view" role="button">
+				<span class="yt-uix-button-icon-wrapper">
+					<img class="yt-uix-button-icon yt-uix-button-icon-vm-list-view" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="">
+					<span class="yt-valign-trick"></span>
+				</span>
+			</button>
+		</span>
+		<span class="yt-uix-form-input-checkbox-container vm-select-all">
+			<input name="vm-video-select-all" class="yt-uix-form-input-checkbox" id="vm-video-select-all" type="checkbox">
+			<span class="yt-uix-form-input-checkbox-element"></span>
+		</span>
+		<button role="button" class="addto-button psvr_login_required default show-label yt-uix-button yt-uix-button-default" type="button" disabled="True"><span class="yt-uix-button-icon-wrapper">
+			<img alt="" src= "<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="yt-uix-button-icon yt-uix-button-icon-addto">
+				<span class="yt-valign-trick"></span>
+			</span>
+			<span class="yt-uix-button-content">
+				<span class="addto-label">添加到</span>
+			</span>
+			<img alt="" src= "<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="yt-uix-button-arrow">
+		</button>
+		<button disabled="True" type="button" id="vm-playlist-action-menu"  class=" yt-uix-button yt-uix-button-default" role="button" aria-pressed="false" aria-expanded="false" aria-haspopup="true" aria-activedescendant="">
+			<span class="yt-uix-button-content">操作 </span>
+			<img class="yt-uix-button-arrow" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="">
 		<ul class=" yt-uix-button-menu yt-uix-button-menu-default" role="menu" aria-haspopup="true" style="display: none;">
-			<li role="menuitem" id="aria-id-28804054661"><span id="vm-playlist-delete-videos"  class=" yt-uix-button-menu-item">删除</span></li>
-			<li role="menuitem" id="aria-id-95287531649"><span class="menu-subheading yt-uix-button-menu-item" >隐私设置</span></li>
-			<li role="menuitem" id="aria-id-12945458188"><span id="vm-playlist-set-videos-privacy-public"  class="menu-subitem yt-uix-button-menu-item">公开</span></li>
-			<li role="menuitem" id="aria-id-35105908756"><span id="vm-playlist-set-videos-privacy-unlisted"  class="menu-subitem yt-uix-button-menu-item">不公开的课件</span></li>
-			<li role="menuitem" id="aria-id-91380742013"><span id="vm-playlist-set-videos-privacy-private"  class="menu-subitem yt-uix-button-menu-item">私有</span></li>
-			<li role="menuitem" id="aria-id-86843812961"><span class="menu-subheading yt-uix-button-menu-item" >许可</span></li>
-			<li role="menuitem" id="aria-id-44264528610"><span id="vm-playlist-set-videos-license-standard"  class="menu-subitem yt-uix-button-menu-item">标准许可</span></li>
-			<li role="menuitem" id="aria-id-7867396083"><span id="vm-playlist-set-videos-license-cc"  class="menu-subitem yt-uix-button-menu-item">知识共享</span></li>
+			<li role="menuitem" id="aria-id-remove"><span id="vm-playlist-delete-videos"  class=" yt-uix-button-menu-item">删除</span></li>
+			<li role="menuitem" id="aria-id-privacy"><span class="menu-subheading yt-uix-button-menu-item" >隐私设置</span></li>
+			<li role="menuitem" id="aria-id-public"><span id="vm-playlist-set-videos-privacy-public"  class="menu-subitem yt-uix-button-menu-item">公开</span></li>
+			<li role="menuitem" id="aria-id-notpublic"><span id="vm-playlist-set-videos-privacy-unlisted"  class="menu-subitem yt-uix-button-menu-item">不公开的课件</span></li>
+			<li role="menuitem" id="aria-id-private"><span id="vm-playlist-set-videos-privacy-private"  class="menu-subitem yt-uix-button-menu-item">私有</span></li>
+			<li role="menuitem" id="aria-id-allow"><span class="menu-subheading yt-uix-button-menu-item" >许可</span></li>
+			<li role="menuitem" id="aria-id-ktvlisence"><span id="vm-playlist-set-videos-license-standard"  class="menu-subitem yt-uix-button-menu-item">标准许可</span></li>
+			<li role="menuitem" id="aria-id-ktvshare"><span id="vm-playlist-set-videos-license-cc"  class="menu-subitem yt-uix-button-menu-item">知识共享</span></li>
 		</ul>
 		</button>
 		<span id="vm-view-filter">
 		<span id="vm-view-filter-label">观看：</span>
-		<button aria-labelledby="vm-view-filter-label" type="button" id="vm-view-btn"  class=" yt-uix-button yt-uix-button-text" role="button" aria-pressed="false" aria-expanded="false" aria-haspopup="true" aria-activedescendant=""><span class="yt-uix-button-content">最新课件 </span><img class="yt-uix-button-arrow" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="">
+		<button aria-labelledby="vm-view-filter-label" type="button" id="vm-view-btn"  class=" yt-uix-button yt-uix-button-text" role="button" aria-pressed="false" aria-expanded="false" aria-haspopup="true" aria-activedescendant="">
+			<span class="yt-uix-button-content">最新课件 </span>
+			<img class="yt-uix-button-arrow" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="">
 		<ul class=" yt-uix-button-menu yt-uix-button-menu-text" role="menu" aria-haspopup="true" style="display: none;">
 			<li role="menuitem" id="aria-id-94205034509"><span href="?vmo=oldest&amp;sa=1&amp;sf=added" id="oldest"  class=" yt-uix-button-menu-item">最早上传</span></li>
 			<li role="menuitem" id="aria-id-52154534779"><span href="?vmo=viewed&amp;sa=0&amp;sf=viewcount" id="viewed"  class=" yt-uix-button-menu-item">观看最多</span></li>
@@ -43,32 +70,579 @@
 		</span>
 	</div>
 	<span class="yt-uix-overlay hid" data-overlay-class="vm-video-actions-delete-overlay">
-	<span class="yt-uix-overlay-content vm-video-actions-delete-overlay-content">
-	<div class="vm-video-actions-delete-full-area">
-		<div class="vm-video-actions-delete-header">
-			<div class="yt-alert yt-alert-naked yt-alert-error ">
-				<div class="yt-alert-icon">
-					<img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="icon master-sprite" alt="提醒图标">
+		<span class="yt-uix-overlay-content vm-video-actions-delete-overlay-content">
+			<div class="vm-video-actions-delete-full-area">
+				<div class="vm-video-actions-delete-header">
+					<div class="yt-alert yt-alert-naked yt-alert-error ">
+						<div class="yt-alert-icon">
+							<img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="icon master-sprite" alt="提醒图标">
+						</div>
+						<div class="yt-alert-content" role="alert">
+							<span class="yt-alert-vertical-trick"></span>
+							<div class="yt-alert-message">
+								 确认
+							</div>
+						</div>
+					</div>
 				</div>
-				<div class="yt-alert-content" role="alert">
-					<span class="yt-alert-vertical-trick"></span>
-					<div class="yt-alert-message">
-						 确认
+				<div class="vm-video-actions-delete-main-area">
+					<span class="vm-video-actions-delete-warning">确定要删除 <strong>1</strong> 个视频吗？</span>
+					<div class="vm-video-actions-delete-extra-warning hid">
+						您已选择删除<strong>此页上的所有视频</strong>。此更改无法撤消，因此请确认是否要删除 <strong>1 个视频</strong>。
+					</div>
+					<div class="vm-video-actions-delete-button-area">
+						<button type="button" class="yt-uix-overlay-close vm-video-actions-delete-button-cancel yt-uix-button yt-uix-button-default"  role="button"><span class="yt-uix-button-content">取消 </span></button>
+						<button type="button" class="vm-video-actions-delete-button-confirm yt-uix-button yt-uix-button-destructive"  role="button"><span class="yt-uix-button-content">删除 </span></button>
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="vm-video-actions-delete-main-area">
-			<span class="vm-video-actions-delete-warning"></span>
-			<div class="vm-video-actions-delete-extra-warning hid">
-			</div>
-			<div class="vm-video-actions-delete-button-area">
-				<button type="button" class="yt-uix-overlay-close vm-video-actions-delete-button-cancel yt-uix-button yt-uix-button-default"  role="button"><span class="yt-uix-button-content">取消 </span></button>
-				<button type="button" class="vm-video-actions-delete-button-confirm yt-uix-button yt-uix-button-destructive"  role="button"><span class="yt-uix-button-content">删除 </span></button>
-			</div>
-		</div>
-	</div>
-	</span>
+		</span>
 	</span>
 </div>
+	
+	
+<script type="text/javascript" charset="utf-8">
+	<% content_for :butt2 do %>
+	var loading = '<div class="addto-loading loading-content"><img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>"><span>正在载入课件锦囊...</span></div>';
+  $(window).scroll(function(){
+    var hidden = '<div style="visibility: hidden; position: static; top: auto; left: auto; display: block; float: none; margin: 0px; width: 766px; height: 54px;"></div>'
+    var cssObj = {
+      'left': ($('#vm-page-subheader').offset().left-2).toString()+'px',
+      'width': '766px',
+      'float': 'none',
+      'position': 'fixed',
+      'top': '0px'
+    };          
+    if($(window).scrollTop() >= $('#vm-page-subheader').offset().top +$('#vm-page-subheader').height()){
+      if(!$('#vm-video-actions-bar').hasClass('scrollfloat')){
+          $('#vm-video-actions-bar').before(hidden);  
+          $('#vm-video-actions-bar').addClass('scrollfloat');
+          $('#vm-video-actions-bar').css(cssObj);
+      }
+    }else{
+       if($('#vm-video-actions-bar').hasClass('scrollfloat')){
+         $('#vm-video-actions-bar').prev().remove();
+         $('#vm-video-actions-bar').removeClass('scrollfloat');
+         $('#vm-video-actions-bar').removeAttr('style');
+       }
+    }
+  });
+	var choose = new Array();
+	var history  = new Array();
+	var sorter = new Array();
+	var resort = function(){
+		sorter = new Array();
+		$('.vm-video-item').each(function(index,li){
+			sorter[index] = {};
+			sorter[index]['time']=$('input.yt-uix-form-input-checkbox.video-checkbox',li).attr('data-created-at');
+			sorter[index]['views_count']=$('input.yt-uix-form-input-checkbox.video-checkbox',li).attr('data-times');
+			sorter[index]['li']=li;
+		});
+	};
+	resort();
+
+	$('#vm-view-btn').live('click',function(e){
+		e.stopPropagation();
+		$(this).toggleClass('yt-uix-button-active');
+		if($(this).hasClass('yt-uix-button-active')){
+			var ul = $('ul',this);
+	    ul.remove();
+		  cssObj = {
+	        'top':($(this).offset().top + $(this).height()).toString() + 'px',
+	        'left':$(this).offset().left.toString() + 'px'
+	    };
+		  ul.css(cssObj);
+			ul.show().removeClass('hid');
+			$('.__ytb').append(ul);
+		}else{
+			var ul = $('.__ytb > ul');
+			ul.remove();
+			ul.hide().addClass('hid');
+			$(this).append(ul);
+		}
+	});
+	$('button.addto-button').live('click',function(e){
+		e.stopPropagation();		
+		$(this).toggleClass('yt-uix-button-active');
+		var addto_div = $('#shared-addto-menu');
+		if($(this).hasClass('yt-uix-button-active')){
+			cssObj = {
+				'min-width': '84px',
+				'top':($(this).offset().top + $(this).height()).toString() +'px',
+				'left':$(this).offset().left.toString() + 'px'
+			};
+			addto_div.css(cssObj);
+			addto_div.show().removeClass('hid');
+			
+			$.ajax({
+				url:'/ajax/get_addto_menu',
+				type:'POST',
+				dataType:'json'				
+			}).done(function(json){
+				if(json.status == 'suc'){
+					$('#shared-addto-menu').html(json.html);
+				}
+			});
+			
+		}else{
+			addto_div.hide().addClass('hid');
+			addto_div.html(loading);
+		}
+	});
+	function sort_by(type){
+		if(type=='times'){
+			sorter.sort(function(x,y){
+				return -(x.views_count - y.views_count)
+			});
+			$('#vm-playlist-video-list-ol').html('');
+			$.each(sorter,function(index,li){
+				$('#vm-playlist-video-list-ol').append(li.li);
+			});
+		}else if(type=='oldest'){
+			sorter.sort(function(x,y){
+				return (parseInt(x.time) - parseInt(y.time))
+			});
+			$('#vm-playlist-video-list-ol').html('');
+			$.each(sorter,function(index,li){
+				$('#vm-playlist-video-list-ol').append(li.li);
+			});
+		}
+	}
+	$('#vm-video-select-all').live('click',function(){
+		choose = new Array();
+		history = new Array();
+		if($(this).attr('checked')){
+			$('input.yt-uix-form-input-checkbox.video-checkbox').attr('checked',true);
+			$('input.yt-uix-form-input-checkbox.video-checkbox').each(function(index,li){
+				choose.push($(li).val());
+				<% if request.path == '/mine/my_history' %> 
+					history.push($(li).attr('data-history-at'));
+				<% end %>
+				$(li).parent().addClass('checked');
+				$(li).parent().parent().parent().addClass('selected');
+			});
+			setEnable();
+		}else{
+			$('input.yt-uix-form-input-checkbox.video-checkbox').attr('checked',false);
+			$('input.yt-uix-form-input-checkbox.video-checkbox').each(function(index,li){
+				$(li).parent().removeClass('checked');
+				$(li).parent().parent().parent().removeClass('selected');
+			});
+			setDisable();
+		}
+	});
+  $(document).click(function(e){
+    var target = e.target
+    if($('#vm-view-btn').hasClass('yt-uix-button-active') && !$(target).is('#vm-view-btn')){
+      $('#vm-view-btn').removeClass('yt-uix-button-active');
+      var ul = $('.__ytb > ul');
+      ul.remove();
+      ul.hide().addClass('hid');
+      $('#vm-view-btn').append(ul);
+    }
+		if($('button.addto-button').hasClass('yt-uix-button-active') && !$(target).is('button.addto-button') && !$(target).is('shared-addto-menu')){
+				$('button.addto-button').removeClass('yt-uix-button-active');
+				$('#shared-addto-menu').hide().addClass('hid');
+				$('#shared-addto-menu').html(loading);
+		}
+  });
+	var removeStyle = function(){
+		$('#shared-addto-menu > div').each(function(index,div){
+			if (!$(div).hasClass('active-panel')) {
+				$(div).attr('style','');
+			};
+		});
+	};
+	var removeActiveTag = function(){
+		$('#shared-addto-menu > div').each(function(index,div){
+				$(div).removeClass('active-panel');
+		});
+	};
+	$('#shared-addto-menu').live('click',function(e){
+		e.stopPropagation();
+	});
+	$('div.playlists ul li').live('click',function(){
+		tmp = this;
+		$.ajax({
+			url:'/ajax/add_to_playlist_by_id',
+			type:'POST',
+			data:{'pid':$('span',tmp).attr('data-item-id'),'cwid':choose},
+			dataType:'json'
+		}).done(function(json){
+			if(json.status == 'suc'){
+				$('#addto-list-panel').animate({'left':'-='+$('#addto-list-panel').width().toString() + 'px',opacity:0},{queue:false,duration:400});
+				removeActiveTag();
+				$('#addto-list-saved-panel span.message > span').html(json.title);
+				$('#addto-list-saved-panel').animate({'left':'-='+$('#addto-list-saved-panel').width().toString() + 'px',opacity:1},{queue:false,duration:400});
+				$('.close-note').show().removeClass('hid');
+				$('#addto-list-saved-panel').addClass('fade active-panel');
+				removeStyle();
+			}else if(json.status == 'onesuc'){
+				$('#addto-list-panel').animate({'left':'-='+$('#addto-list-panel').width().toString() + 'px',opacity:0},{queue:false,duration:400});
+				removeActiveTag();
+				$('#addto-note-input-panel').show().removeClass('hid');
+				$('#addto-note-input-panel .yt-alert-message span.addto-title').html(json.title);
+				$('#addto-note-input-panel').animate({'left':'-='+$('#addto-create-panel').width().toString() + 'px',opacity:1},{queue:false,duration:400});
+				$('#addto-note-input-panel').addClass('fade active-panel');
+				removeStyle();
+			}else if(json.status == 'failed'){
+				$('#addto-list-panel').animate({'left':'-='+$('#addto-list-panel').width().toString() + 'px',opacity:0},{queue:false,duration:400});
+				removeActiveTag();
+				$('#addto-list-error-panel span.error-details').html(json.reason);
+				$('#addto-list-error-panel').animate({'left':'-='+$('#addto-list-panel').width().toString() + 'px',opacity:1},{duration:400});
+				$('.close-note').show().removeClass('hid');
+				$('#addto-list-error-panel').addClass('fade active-panel');	
+				removeStyle();
+			}
+		});
+	});
+	$('#addto-list-panel > span[data-list-action="watch-later"]').live('click',function(e){
+		$.ajax({
+			url:'/ajax/add_to_read_later_array',
+			type:'POST',
+			data:{'cwid':choose,'type':'addto'},
+			dataType:'json'
+		}).done(function(json){
+			if(json.status == 'suc'){
+				$('#addto-list-panel').animate({'left':'-='+$('#addto-list-panel').width().toString() + 'px',opacity:0},{queue:false,duration:400});
+				removeActiveTag();
+				$('#addto-list-saved-panel span.message > span').html('稍后阅读');
+				$('.close-note').show().removeClass('hid');
+				$('#addto-list-saved-panel').animate({'left':'-='+$('#addto-list-saved-panel').width().toString() + 'px',opacity:1},{queue:false,duration:400});
+				$('#addto-list-saved-panel').addClass('fade active-panel');
+				removeStyle();
+			}else if(json.status == 'failed'){
+				$('#addto-list-panel').animate({'left':'-='+$('#addto-list-panel').width().toString() + 'px',opacity:0},{queue:false,duration:400});
+				removeActiveTag();
+				$('#addto-list-error-panel span.error-details').html(json.reason);
+				$('.close-note').show().removeClass('hid');
+				$('#addto-list-error-panel').animate({'left':'-='+$('#addto-list-panel').width().toString() + 'px',opacity:1},{duration:400});
+				$('#addto-list-error-panel').addClass('fade active-panel');	
+				removeStyle();
+			}
+		});
+	});
+	$('#addto-list-panel > span[data-list-action="create-playlist"]').live('click',function(e){
+		$('#addto-list-panel').animate({'left':'-='+$('#addto-list-panel').width().toString() + 'px',opacity:0},{queue:false,duration:400});
+		$('#addto-create-panel').show().removeClass('hid');
+		$('#addto-create-panel').animate({'left':'-='+$('#addto-create-panel').width().toString() + 'px',opacity:1},{queue:false,duration:400});
+	});
+	$('textarea#addto-create-playlist').live('focus',function(){
+		if($(this).val().length > 0){
+			$('.addto-create-playlist-label').hide().addClass('hid');
+		}
+	}).live('blur',function(){
+		if($(this).val().length == 0){
+			$('.addto-create-playlist-label').show().removeClass('hid');
+		}
+	});
+	// $('#vm-playlist-play-all').live('click',function(){
+	// 		if(choose.length > 0){
+	// 			window.location.href = '/coursewares/'+choose[0];
+	// 		}else{
+	// 			var id =  $('#vm-playlist-video-list-ol li:eq(0)').attr('id').split('-')[2];
+	// 			window.location.href = '/coursewares/'+id.toString();
+	// 		}
+	// 	});
+	max = 60;
+	$('textarea#addto-create-playlist').live('keyup',function(){
+		if($(this).val().length > 0){
+			$('.addto-create-playlist-label').hide().addClass('hid');
+			$('.create-playlist-button').attr('disabled',false);
+		}else{
+			$('.addto-create-playlist-label').show().removeClass('hid');
+			$('.create-playlist-button').attr('disabled',true);
+		}
+    if($(this).val().length > max){
+        $(this).val($(this).val().substr(0, max));
+    }
+    $('.yt-uix-char-counter > .yt-uix-char-counter-remaining').html(max-$(this).val().length);
+	});
+	$('textarea#addto-note').live('keyup',function(){
+		if($(this).val().length > 0){
+			$('.addto-note-label').hide().addClass('hid');
+			$('.playlist-save-note').attr('disabled',false);
+		}else{
+			$('.addto-note-label').show().removeClass('hid');
+			$('.playlist-save-note').attr('disabled',true);
+		}
+    if($(this).val().length > max){
+        $(this).val($(this).val().substr(0, max));
+    }
+    $('.addto-note-box > .yt-uix-char-counter-remaining').html(max-$(this).val().length);
+	});
+	$('.playlist-save-note').live('click',function(){
+		$.ajax({
+			url:'/ajax/save_note_for_one_cw',
+			type:'POST',
+			data:{'title':$('#addto-note-input-panel .yt-alert-message span.addto-title a').html(),'cwid':choose,'note':$('#addto-note').val()},
+			dataType:'json',
+		  beforeSend: function ( xhr ) {
+		  				$('#addto-note-input-panel').animate({'left':'-='+$('#addto-note-input-panel').width().toString() + 'px',opacity:0},{queue:false,duration:400});
+		  				removeActiveTag();
+		  				$('#addto-note-saving-panel').show().removeClass('hid');
+		  				$('#addto-note-saving-panel').addClass('fade active-panel');
+		  				$('#addto-note-saving-panel').animate({'left':'-='+$('#addto-note-input-panel').width().toString() + 'px',opacity:1},{queue:false,duration:400});
+		  				removeStyle();
+		  }
+		}).done(function(json){
+			$('#addto-note-saving-panel').animate({'left':'-='+$('#addto-note-saving-panel').width().toString() + 'px',opacity:0},{queue:false,duration:400});
+			// $('#addto-note-input-panel').animate({'left':'-='+$('#addto-note-input-panel').width().toString() + 'px',opacity:0},{queue:false,duration:400});
+			removeActiveTag();
+			$('#addto-note-saved-panel').show().removeClass('hid');
+			$('#addto-note-saved-panel span.message').html('备注已添加至：'+json.title);
+			$('#addto-note-saved-panel').animate({'left':'-='+$('#addto-note-saved-panel').width().toString() + 'px',opacity:1},{queue:false,duration:400});
+			$('#addto-note-saved-panel').addClass('fade active-panel');
+			$('.close-note').show().removeClass('hid');
+			removeStyle();
+		})
+	});
+	$('.addto-create-cancel-button').live('click',function(){
+		$('.close-note').trigger('click');
+	});
+	$('.create-playlist-button').live('click',function(){
+		$.ajax({
+			url:'/ajax/create_and_add_to_by_id',
+			type:'POST',
+			data:{'title':$('textarea#addto-create-playlist').val(),'is_private':$('input[name="is_private"]:checked').val(),'cwid':choose},
+			dataType:'json'
+		}).done(function(json){
+			if(json.status == 'onesuc'){
+				$('#addto-create-panel').animate({'left':'-='+$('#addto-create-panel').width().toString() + 'px',opacity:0},{queue:false,duration:400});
+				removeActiveTag();
+				$('#addto-note-input-panel').show().removeClass('hid');
+				$('#addto-note-input-panel .yt-alert-message span.addto-title').html(json.title);
+				$('#addto-note-input-panel').animate({'left':'-='+$('#addto-create-panel').width().toString() + 'px',opacity:1},{queue:false,duration:400});
+				$('#addto-note-input-panel').addClass('fade active-panel');
+				removeStyle();
+			}else if(json.status == 'suc'){
+				$('#addto-create-panel').animate({'left':'-='+$('#addto-create-panel').width().toString() + 'px',opacity:0},{queue:false,duration:400});
+				removeActiveTag();
+				$('#addto-list-saved-panel span.message > span').html(json.title);
+				$('#addto-list-saved-panel').animate({'left':'-='+$('#addto-list-saved-panel').width().toString() + 'px',opacity:1},{queue:false,duration:400});
+				$('.close-note').show().removeClass('hid');
+				$('#addto-list-saved-panel').addClass('fade active-panel');
+				removeStyle();
+			}else if(json.status == 'failed'){
+				$('#addto-create-panel').animate({'left':'-='+$('#addto-create-panel').width().toString() + 'px',opacity:0},{queue:false,duration:400});
+				removeActiveTag();
+				$('#addto-list-error-panel span.error-details').html(json.reason);
+				$('#addto-list-error-panel').animate({'left':'-='+$('#addto-list-panel').width().toString() + 'px',opacity:1},{duration:400});
+				$('.close-note').show().removeClass('hid');
+				$('#addto-list-error-panel').addClass('fade active-panel');	
+				removeStyle();
+			}
+		});
+	});
+	$('.close-note').live('click',function(){
+		$('button.addto-button').removeClass('yt-uix-button-active');
+		$(this).parent().hide().addClass('hid').html(loading);
+		$(this).hide().addClass('hid');
+	});
+	$('a.show-menu-link').live('click',function(){
+		$('#addto-list-panel').animate({'left':'+='+$('#addto-list-panel').width().toString() + 'px',opacity:1},{queue:false,duration:400});
+		$('#addto-list-error-panel').animate({'left':'+='+$('#addto-list-panel').width().toString() + 'px',opacity:0},{queue:false,duration:400});
+		$('.close-note').hide().addClass('hid');
+	});
+	var setDisable = function(){
+      $('.addto-button').attr('disabled',true);
+			$('#vm-playlist-remove-kejian').attr('disabled',true);
+	};
+	var setEnable = function(){
+    $('button.addto-button').attr('disabled',false);
+		$('#vm-playlist-remove-kejian').attr('disabled',false);
+	}
+	$('input.yt-uix-form-input-checkbox.video-checkbox').live('click',function(){
+		var len = $('input.yt-uix-form-input-checkbox.video-checkbox').length
+		if($(this).attr('checked')){
+			if($.inArray($(this).val(),choose)==-1){
+				choose.push($(this).val());
+				<% if request.path == '/mine/my_history' %> 
+					history.push($(this).attr('data-history-at'));
+				<% end %>
+			}
+			$(this).parent().addClass('checked');
+			$(this).parent().parent().parent().addClass('selected');
+			setEnable();
+			if(choose.length == len){
+				$('#vm-video-select-all').attr('checked',true);
+			}
+		}else{
+      var indexOfele = choose.indexOf($(this).val());
+			$(this).parent().removeClass('checked');
+			$(this).parent().parent().parent().removeClass('selected');
+      if(indexOfele != -1){
+        choose.splice(indexOfele,indexOfele+1);
+				<% if request.path == '/mine/my_history' %> 
+					history.splice(indexOfele,indexOfele+1);
+				<% end %>
+      }
+      if(choose.length<1){
+				setDisable();
+      }
+			if(choose.length < len){
+				$('#vm-video-select-all').attr('checked',false);
+			}
+		}
+		console.log(choose);
+	});
+	// $('#vm-playlist-remove-kejian').live('click',function(){
+	// 	$.ajax({
+	// 		<% if request.path == '/mine/my_watch_later_coursewares' %>
+	// 		url:'/ajax/add_to_read_later_array',
+	// 		<% elsif request.path == '/mine/my_favorites' %>
+	// 		url:'/ajax/add_to_favorites_array',
+	// 		<% elsif request.path ==  '/mine/my_liked_coursewares' %>
+	// 		url:'/ajax/remove_ding_array',
+	// 		<% elsif request.path == '/mine/my_history' %>
+	// 		url:'/ajax/remove_one_history',
+	// 		<% elsif request.path == '/mine/my_search_history' %>
+	// 		url:'/ajax/remove_one_search_history',
+	// 		<% end %>
+	// 		type:'POST',
+	// 		data:{'cwid':choose,'type':'remove'<% if request.path == '/mine/my_history' %>,'time':history<% end %>},
+	// 		dataType:'json'
+	// 	}).done(function(json){
+	// 		if(json.status == 'suc'){
+	// 			$.each(choose,function(index,cid){
+	// 				$('li#vm-video-'+cid).remove();
+	// 			});
+	// 			choose = new Array();
+	// 			<% if request.path == '/mine/my_history' %>
+	// 				history = new Array();
+	// 			<% end %>
+	// 			resort();
+	// 			setDisable();
+	// 			$('#vm-video-select-all').attr('checked',false);
+	// 		}else{
+	// 			$.each(choose,function(index,cid){
+	// 				$('li#vm-video-'+cid).removeClass('selected');
+	// 				$('li#vm-video-'+cid+' input[name="kejian-checkbox"]').attr('checked',false).parent().removeClass('checked');
+	// 			});
+	// 			choose = new Array();
+	// 			<% if request.path == '/mine/my_history' %>
+	// 				history = new Array();
+	// 			<% end %>
+	// 			resort();
+	// 			setDisable();
+	// 			$('#vm-video-select-all').attr('checked',false);
+	// 		}
+	// 	});
+	// });
+	$('#aria-id-oldest').live('click',function(){
+		sort_by('oldest');
+	});
+	$('#aria-id-viewed').live('click',function(){
+		sort_by('times');
+	});
+	// $('#watch-history-pause-button').live('click',function(e){
+	// 		tmp = this ;
+	// 		$.ajax({
+	// 			url:'/ajax/pause_history',
+	// 			type:'POST',
+	// 			data:{'switch':'off'},
+	// 			dataType:'json'
+	// 		}).done(function(json){
+	// 			if(json.status == 'suc'){
+	// 				$(tmp).hide().addClass('hid');
+	// 				$('#watch-history-resume-button').show().removeClass('hid');
+	// 				showNotification('您的阅读历史记录现已暂停保存。');
+	// 			}
+	// 		});
+	// 	});
+	// 	$('#watch-history-resume-button').live('click',function(e){
+	// 			tmp = this ;
+	// 			$.ajax({
+	// 				url:'/ajax/pause_history',
+	// 				type:'POST',
+	// 				data:{'switch':'on'},
+	// 				dataType:'json'
+	// 			}).done(function(json){
+	// 				if(json.status == 'suc'){
+	// 					$(tmp).hide().addClass('hid');
+	// 					$('#watch-history-pause-button').show().removeClass('hid');
+	// 					showNotification('您的阅读记录现已恢复保存。');
+	// 				}
+	// 			});
+	// 	});
+	$('#vm-general-notifs .close.yt-uix-close').live('click',function(){
+		$('#vm-general-notifs > div').animate({opacity:'hide'},"fast");
+	});
+	var ttimeout = null ;
+	var showNotification = function(text){
+		$('#vm-general-notifs > div > div.yt-alert-content').html(text);
+		$('#vm-general-notifs > div').animate({opacity:'show'},600);
+		clearTimeout(ttimeout);
+		ttimeout = window.setTimeout(function(){
+			$('#vm-general-notifs > div').animate({opacity:'hide'},"slow");
+		},5000);
+	};
+	$('button.yt-uix-overlay-target').live('click',function(e){
+		var content = $(this).next().clone();
+		content.removeClass('yt-uix-overlay-content').addClass('yt-uix-overlay-fg-content');
+		var bg = '<div id="yt-uix-overlay-bg" class="yt-uix-overlay-bg" style="height:'+$('body').height()+'px;"></div>';
+		var base = '<div id="yt-uix-overlay-base" class="yt-uix-overlay-base"><span class="yt-uix-overlay-align"></span><div id="yt-uix-overlay-fg" class="yt-uix-overlay-fg " data-overlay-hidden="">'+$('<div>').append(content.clone()).html()+'</div></div>';
+		$('.__ytb').append(bg);
+		$('.__ytb').append(base);
+	});
+	$('.yt-uix-overlay-fg-content button.yt-uix-overlay-close').live('click',function(){
+		$('#yt-uix-overlay-base').remove();
+		$('#yt-uix-overlay-bg').remove();
+	});
+	// var nokejian ='<div id="vm-playlist-no-videos">未找到任何<% if request.path == '/mine/my_history' %>课件<% elsif request.path == '/mine/my_search_history' %>搜索记录<% end %>。</div>';
+	// $('.vm-history-clear.yt-uix-overlay-close').live('click',function(){
+	// 	$.ajax({
+	// 		<% if request.path == '/mine/my_history' %>
+	// 		url:'/ajax/clear_history',
+	// 		<% elsif request.path == '/mine/my_search_history' %>
+	// 		url:'/ajax/clear_search_history',
+	// 		<% end %>
+	// 		type:'POST',
+	// 		dataType:'json'
+	// 	}).done(function(json){
+	// 		if(json.status == 'suc'){
+	// 			<% if request.path == '/mine/my_history' %>
+	// 				$('#vm-video-list-container').html(nokejian);
+	// 			<% elsif request.path == '/mine/my_search_history' %>
+	// 			$('#vm-playlist-video-list-ol').html(nokejian)
+	// 			<% end %>
+	// 				$('button.yt-uix-overlay-target').attr('disabled',true);
+	// 				$('#vm-pagination').html('')
+	// 				$('#yt-uix-overlay-base').remove();
+	// 				$('#yt-uix-overlay-bg').remove();		
+	// 		}
+	// 	});
+	// });
+	// $('#search-history-pause-container').live('click',function(){
+	// 	tmp = this;
+	// 	$.ajax({
+	// 		url:'/ajax/pause_search_history',
+	// 		type:'POST',
+	// 		data:{'switch':'off'},
+	// 		dataType:'json'
+	// 	}).done(function(json){
+	// 		if(json.status == 'suc'){
+	// 			$(tmp).hide().addClass('hid');
+	// 			$('#search-history-resume-container').show().removeClass('hid');
+	// 			showNotification('您的搜索记录现已暂停。');
+	// 		}
+	// 	});
+	// });
+	// $('#search-history-resume-container').live('click',function(){
+	// 	tmp = this;
+	// 	$.ajax({
+	// 		url:'/ajax/pause_search_history',
+	// 		type:'POST',
+	// 		data:{'switch':'on'},
+	// 		dataType:'json'
+	// 	}).done(function(json){
+	// 		if(json.status == 'suc'){
+	// 			$(tmp).hide().addClass('hid');
+	// 			$('#search-history-pause-container').show().removeClass('hid');
+	// 			showNotification('您的搜索记录现已恢复。');
+	// 		}
+	// 	});
+	// });
+	<% end  %>
+</script>
 	

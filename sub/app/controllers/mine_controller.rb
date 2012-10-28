@@ -25,7 +25,7 @@ class MineController < ApplicationController
       redirect_to '/'
       return false
     end
-    @courseware = Courseware.nondeleted.where(uploader_id:current_user.id).paginate(:page => params[:page], :per_page => @per_page)
+    @coursewares = Courseware.nondeleted.where(uploader_id:current_user.id).paginate(:page => params[:page], :per_page => @per_page)
     @seo[:title] = "上传的课件" 
   end
   def view_all_playlists

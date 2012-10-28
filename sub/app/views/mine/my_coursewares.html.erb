@@ -11,29 +11,26 @@
 		<div id="vm-page-subheader" class="clearfix">
 			<div class="vm-page-subheader-content">
 				<h3>上传的课件</h3>
-				<span id="vm-num-videos-shown" class="yt-badge-vm">8</span>
+				<span id="vm-num-videos-shown" class="yt-badge-vm"><%= current_user.upload_count %></span>
 			</div>
-			<div class="vm-page-subheader-controls">
-				<form method="get" id="vm-videos-search-form" action="/mine/my_coursewares">
-					<div id="vm-videos-search-container">
-						<span class=" yt-uix-form-input-container"><input class="yt-uix-form-input-text " name="sq" id="vm-myvideos-search-box" value="" placeholder="搜索上传的课件"></span>
-					</div>
-					<button type="submit" id="vm-myvideos-search-btn"  class=" yt-uix-button yt-uix-button-default" role="button"><span class="yt-uix-button-content">搜索 </span></button>
-				</form>
-			</div>
+		<%= render partial:'my_courseware_search' %>
 		</div>
+
 		<%= render partial:'my_courseware_header' %>
-		<%=	if false 
-					render partial:'my_courseware_ads' 
-				end %>
+		<%  if false  %>
+				<%=	render partial:'my_courseware_ads' %>
+		<% end %> 
 		<div id="vm-video-list-container">
 			<ol id="vm-playlist-video-list-ol" class="vm-video-list">
-				<%= render partial:'my_courseware_item' %>
+				<% @coursewares.each do |item| %>
+					<%= render partial:'my_courseware_item',locals:{item:item}%>
+				<% end %>
 			</ol>
 		</div>
 		<%=render :partial=>'pagination',locals:{coursewares_ids:@coursewares}%>
 	</div>
 </div>
+<%= render :partial=>'addto_loading' %>
 
 <% if false %>
 <%= render partial:'my_courseware_dialog' %>
