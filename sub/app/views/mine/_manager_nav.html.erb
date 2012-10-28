@@ -5,7 +5,7 @@
 		</button>
 		<button type="button" class="upload-menu-expand-button end yt-uix-button yt-uix-button-default yt-uix-button-short yt-uix-button-empty"  role="button" >
 			<img class="yt-uix-button-arrow" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="">
-			<ul class=" yt-uix-button-menu yt-uix-button-menu-default" role="menu" aria-haspopup="true" style="display: none;">
+			<ul class=" yt-uix-button-menu yt-uix-button-menu-default" id="nav-upload" role="menu" aria-haspopup="true" style="display: none;">
 				<li role="menuitem" id="aria-id-new">
 					<span href="/coursewares/new" class="yt-uix-button-menu-item" onclick=";window.location.href=this.getAttribute('href');return false;">上传课件</span>
 				</li>
@@ -46,7 +46,7 @@
 	$('button.upload-menu-expand-button.end').live('click',function(e){
 		$(this).toggleClass('yt-uix-button-active');
 		if($(this).hasClass('yt-uix-button-active')){
-			var ul = $('ul',this).show();
+			var ul = $("#nav-upload");
 			ul.remove();
 			css = {
 				'min-width': ($('button.start.upload-menu-button').width()).toString()+'px',
@@ -54,24 +54,67 @@
 				'left':  ($('button.start.upload-menu-button').offset().left+60).toString()+'px'
 			}
 			ul.css(css);
-			$('.__ytb').append(ul);
 			ul.show();
+			ul = $('<span>').append(ul);
+			$('.__ytb').append(ul);
 		}else{
-			var ul = $('.__ytb > ul');
+			var ul = $("#nav-upload");
 			ul.hide();
-			ul.remove();
+			ul.parent().remove();
 			$(this).append(ul);
 		}
 		e.stopPropagation();
+		
+		<% pathx = ['/mine/my_history','/mine/my_watch_later_coursewares','/mine/my_favorites','/mine/my_liked_coursewares'] %>
+		<% if request.path=='/mine/my_liked_lists' or request.path == '/mine/view_all_playlists' %>
+				    if ($('#vm-new-playlist').hasClass('yt-uix-button-active')) {
+				      div = $('#vm-dialog-new-playlist');
+				      div.remove();
+				      div.addClass('hid');
+				      div.hide();
+				      $('#yt-admin-content').append(div);
+				      $('#vm-new-playlist').toggleClass('yt-uix-button-active');
+				    }
+				    if($('#vm-playlist-sort-btn').hasClass('yt-uix-button-active')){
+				      div = $('ul.yt-uix-button-menu.yt-uix-button-menu-text');
+				      div.remove();
+				      div.hide().addClass('hid');
+				      $('#vm-playlist-sort-btn').removeClass('yt-uix-button-active');
+				      $('#vm-playlist-sort-btn').append(div);          
+				    }			
+		<% elsif pathx.include?(request.path) %>
+		    if($('#vm-view-btn').hasClass('yt-uix-button-active')){
+					restoreUL('#vm-view-btn');
+		    }
+				if($('button.addto-button').hasClass('yt-uix-button-active') ){
+						$('button.addto-button').removeClass('yt-uix-button-active');
+						$('#shared-addto-menu').hide().addClass('hid');
+						$('#shared-addto-menu').html(loading);
+				}
+		<% elsif request.path == '/mine/my_coursewares'%>
+			    if($('#vm-view-btn').hasClass('yt-uix-button-active')){
+						restoreUL('#vm-view-btn');
+			    }
+					if($('#vm-playlist-action-menu').hasClass('yt-uix-button-active') ){
+						restoreUL('#vm-playlist-action-menu');
+					}
+					if($('.edit-expand-menu-button.end').hasClass('yt-uix-button-active')){
+						restoreUL('.edit-expand-menu-button.end');
+					}
+		<% end %>
 	});
+
 	$(document).click(function(e){
 		var target = e.target;
+		cleanerUpload(target);
+	});
+	var cleanerUpload = function(target){
 		if($('button.upload-menu-expand-button.end').hasClass('yt-uix-button-active') && !$(target).is('button.upload-menu-expand-button.end')){
-			var ul = $('.__ytb > ul');
+			var ul = $("#nav-upload");
 			ul.hide();
-			ul.remove();
+			ul.parent().remove();
 			$('button.upload-menu-expand-button.end').append(ul).removeClass('yt-uix-button-active');
 		}
-	});
+	}
 	<% end %>
 </script>

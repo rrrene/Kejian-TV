@@ -901,4 +901,7 @@ HEREDOC
       return false
     end
   end
+  def delete_upload
+    render json:{status:'suc'}
+  end
 end

@@ -142,10 +142,11 @@ $('.presentation').hover(function(){
           <h3>
             <% item.course_fids.each do |course_fid| %>
               <% if nn=Course.get_name(course_fid) %>
-                <a href="/courses/<%= course_fid %>" class="tag-post"><%= nn %></a><br>
+                <a href="/courses/<%= course_fid %>" class="tag-post"><%= nn %></a>
                 <% nd=Course.get_department(course_fid) %>
               <% end %>
             <% end %>
+						<br>
             <a href="/play_lists/<%= item.id %>" class="question-hyperlink" title="<%= item.title %>">
             <%= item.title %>
             </a>
@@ -163,8 +164,8 @@ $('.presentation').hover(function(){
             <% end%>
           </div>
 
-          <div class="started fr">
-            <div class="user-info ">
+          <div class="started fr" style="min-height: 60px;">
+            <div class="user-info">
                 <div class="user-action-time">
                   创建于<%= timeago(item.created_at,:span=>true) %>
                 </div>
@@ -176,13 +177,22 @@ $('.presentation').hover(function(){
                 <div class="user-details">
                   <a href="/users/<%= User.get_slug item.user_id %>">
                   <%= name_beautify User.get_name(item.user_id)%></a><br>
-                    <span dir="ltr" title="reputation score 26521" class="reputation-score">26.5k</span><span title="2 gold badges"><span class="badge1"></span><span class="badgecount">2</span></span><span title="95 silver badges"><span class="badge2"></span><span class="badgecount">95</span></span><span title="168 bronze badges"><span class="badge3"></span><span class="badgecount">168</span></span>
+                    <span dir="ltr" title="reputation score 26521" class="reputation-score">26.5k</span>
+										<span title="2 gold badges">
+											<span class="badge1"></span>
+											<span class="badgecount">2</span>
+										</span>
+										<span title="95 silver badges">
+											<span class="badge2"></span>
+											<span class="badgecount">95</span>
+										</span>
+										<span title="168 bronze badges">
+											<span class="badge3"></span>
+											<span class="badgecount">168</span>
+										</span>
                 </div>
             </div>
-          </div>  
-
-
-
+          </div>
       </div>
   </div>
   

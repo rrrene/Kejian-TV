@@ -33,7 +33,7 @@
       <span class="video-thumb ux-thumb yt-thumb-square-28 annotation-thumb">
 			 <span class="yt-thumb-clip">
 				 <span class="yt-thumb-clip-inner">
-					 <img width="32" data-orientation="vertical" class="yt-uix-hovercard-target" src="<%=dz_avatar_url(playlist.user_id,User.find(playlist.user_id).email,:small)%>" alt="缩略图" data-position="topright" />
+					 <img width="32" data-orientation="vertical" class="yt-uix-hovercard-target" src="<%=dz_avatar_url(User.get_uid(playlist.user_id),User.get_email(playlist.user_id),:small)%>" alt="缩略图" data-position="topright" />
 					 <span class="vertical-align"></span>
 				 </span>
        </span>

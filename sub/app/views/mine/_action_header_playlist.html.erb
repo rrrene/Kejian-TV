@@ -27,6 +27,7 @@
         e.stopPropagation();
       });
       $('#vm-playlist-div').live('click',function(){
+					cleanerUpload(this);
           $('#vm-new-playlist').toggleClass('yt-uix-button-active');
           div = $('#vm-dialog-new-playlist');
           if($('#vm-new-playlist').hasClass('yt-uix-button-active')){
@@ -49,9 +50,9 @@
             $('#yt-admin-content').append(div);
           }
       });
-      
       $('#vm-playlist-sort-btn').live('click',function(e){
         e.stopPropagation();
+				cleanerUpload(this);
         $(this).toggleClass('yt-uix-button-active')
         if($(this).hasClass('yt-uix-button-active')){
             var div = $('ul',this);

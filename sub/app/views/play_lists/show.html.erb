@@ -42,7 +42,7 @@
 				<span class="video-thumb ux-thumb yt-thumb-square-77 ">
 					<span class="yt-thumb-clip">
 						<span class="yt-thumb-clip-inner">
-							<img src=" <%=dz_avatar_url(@playlist.user_id,User.find(@playlist.user_id).email,:middle)%> " alt="缩略图" width="77">
+							<img src=" <%=dz_avatar_url(User.get_uid(@playlist.user_id),User.get_email(@playlist.user_id),:middle)%> " alt="缩略图" width="77">
 							<span class="vertical-align"></span>
 						</span>
 					</span>

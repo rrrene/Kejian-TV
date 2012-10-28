@@ -85,7 +85,7 @@
 						</a>
 						<button type="button" class="edit-expand-menu-button end yt-uix-button yt-uix-button-default yt-uix-button-short yt-uix-button-empty"  role="button">
 							<img class="yt-uix-button-arrow" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="">
-					<ul class=" yt-uix-button-menu yt-uix-button-menu-default" role="menu" aria-haspopup="true" style="display: none;">
+					<ul class=" yt-uix-button-menu yt-uix-button-menu-default cw-choice" role="menu" style="display: none;">
 						<li role="menuitem" id="aria-id-detail">
 							<span href="/coursewares/<%= item.id %>/edit" class="vm-video-info-and-settings yt-uix-button-menu-item" >信息和设置</span>
 						</li>
@@ -103,13 +103,17 @@
 							<span href="/coursewares_lyric/<%= item.id %>" class="vm-video-captions yt-uix-button-menu-item" >字幕</span>
 						</li>
 						<% end %>
-						<li role="menuitem menu-subheading" id="aria-id-download"><span data-download-url="/" class="vm-download-mp4 yt-uix-button-menu-item" >下载</span></li>
-						<li role="menuitem menu-subheading" id="aria-id-ads"><span href="/coursewares_ads/<%= item.id %>" class="vm-video-promote yt-uix-button-menu-item" >推广</span></li>
+						<li role="menuitem menu-subheading" id="aria-id-download">
+							<span href='/coursewares/<%= item.id %>/download' class="vm-download-mp4 yt-uix-button-menu-item" >下载</span>
+						</li>
+						<li role="menuitem menu-subheading" id="aria-id-ads">
+							<span <% if false %>href="/coursewares_ads/<%= item.id %>"<% end %> class="vm-video-promote yt-uix-button-menu-item menu-subheading" >推广</span>
+						</li>
 					</ul>
 					</button></span>
 				</div>
 			</div>
-			<% elsif item.status == 3 %>
+			<% elsif item.status < 0 %>
 				<div class="vm-video-info">
 				<div class="vm-video-info vm-owner-bar">
 					<span class="vm-video-notifications">
@@ -127,11 +131,14 @@
 					</span>
 					<span class="primary-notification">
 						<!-- =begin -->
+						<% if item.status == -1 %>
 						<a href="/copynotice?cwid=<%= item.id %>" class="notification-action">与第三方内容匹配。 </a>
 						<!-- end
 						=begin -->
+						<% elsif item.status == -2 %>
 						<a href="">失败（上传已中止）</a>
 						<!-- =end -->
+						<% end %>
 					</span>
 				</div>
 			</div>		

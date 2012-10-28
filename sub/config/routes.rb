@@ -104,6 +104,7 @@ Sub::Application.routes.draw do
   post '/ajax/remove_one_search_history' => 'ajax#remove_one_search_history'
   post '/ajax/pause_search_history' => 'ajax#pause_search_history'
   post '/ajax/clear_search_history' => 'ajax#clear_search_history'
+  post '/ajax/delete_upload' => 'ajax#delete_upload'
   # ---=small=----
   get '/hack/htc'
   get '/welcome/inactive_sign_up'
