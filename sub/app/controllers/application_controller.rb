@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
     # puts request.env['HTTP_USER_AGENT']+request.ip
     # puts ' '
     # puts request.path
-    # text = request.user_agent    
+    # text = 
     # render text:text and return
   }
   if $psvr_really_production

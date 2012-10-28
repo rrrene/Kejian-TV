@@ -7,13 +7,13 @@
   <%= f.hidden_field :reset_password_token %>
 
   <div class="field">
-    <%= f.label :password,'新密码' %><div class="field_error" id="error_password"><%= resource.errors_for_field(:password) %></div><br class="clear">
+    <%= f.label :password,'新密码' %><div class="field_error" id="error_password"><%= resource.errors_for_field(:reset_password_token) %><%= resource.errors_for_field(:password) %></div><br class="clear">
     <%= f.password_field :password,:class => 's462',:tabindex => 1 %>
   </div>
   
   <div class="field">
     <%= f.label :password_confirmation,'新密码确认' %><div class="field_error" id="error_password_confirmation"><%= resource.errors_for_field(:password_confirmation) %></div><br class="clear">
-    <%= f.password_field :password_confirmation,:class => 's462',:tabindex => 1 %>
+    <%= f.password_field :password_confirmation,:class => 's462',:tabindex => 1,:id=>'user_password_confirmation' %>
   </div>
 
   <div class="clearfix" style="margin-top:20px;padding-bottom:8px">
@@ -27,4 +27,11 @@
 
 
 
+<% end %>
+<% content_for :butt2 do %>
+$('#user_password_confirmation').keydown(function( e ) {
+  if ( e.keyCode == 13 ) {
+    $('#submit_btn_form').submit();
+  }
+});
 <% end %>
