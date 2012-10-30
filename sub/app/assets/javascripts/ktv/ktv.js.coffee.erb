@@ -453,6 +453,13 @@
         $('#q').blur()
         false
       )
+    $(".core_renren").hover(->
+      if KTV.renren_src1
+        $(".core_renren").attr "src", KTV.renren_src1
+    , ->
+      if KTV.renren_src0
+        $(".core_renren").attr "src", KTV.renren_src0
+    )
     $("#core_logotext_wrap").hover(->
       if KTV.logo_css_src1
         $("#core_logotext").attr "src", KTV.logo_css_src1

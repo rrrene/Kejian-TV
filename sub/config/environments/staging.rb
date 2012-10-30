@@ -34,7 +34,7 @@ Sub::Application.configure do
   # assets___________
   config.assets.manifest = "/home/main/ktv/_assets"
   config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
-  config.assets.debug = false
+  config.assets.debug = true
   config.assets.digest = true
   config.assets.compile = false
   config.assets.compress = true

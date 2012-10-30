@@ -4,13 +4,8 @@
       <% Setting.introductions.each do |content| %>
         <p><%= content %></p>
       <% end %>
-<% if 'ibeike'==Setting.ktv_sub %>
         <p class="ar">
-          <a class="" id="login_ibeike" href="/login_ibeike"><img alt="用iBeike账号登录" src="<%=asset_path 'ibeike.png'%>"></a>
-        </p>
-<%end%>
-        <p class="ar">
-          <a class="" id="login_renren" href="/account/auth/renren"><img alt="用人人网账号登录" src="<%=asset_path 'renren.png'%>"></a>
+          <a class="" id="login_renren" href="/login">登录 / 注册新用户</a>
         </p>
     </div>
 </div>

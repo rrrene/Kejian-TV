@@ -6,8 +6,9 @@
 <div id="reg-header">
 </div>
 <div id="content" class="newreg">
-	<div class="platformusers">
+	<div class="platformusers" style="margin-top:8px">
 		<h2 class="yahei">用以下网站账户登录，5秒完成</h2>
+    <p style="margin:0 0 16px 143px"><a class="renren" href="/account/auth/renren"><img class="core_renren" src="/assets/234_48dark.png" alt="用人人网账号登录"></a><%=image_tag 'zm/r11839/images/reg/tuijian.png',style:'position:relative;top:15px;left:8px',alt:'（推荐）' %> </p>
 		<ul class="cf">
 			<li><a class="yahei sina" href="/login/sina?flag=0&skip=0&p="><em class="png">新浪微博</em></a></li>
 			<li><a class="yahei qq" href="/login/qzone?flag=0&skip=0&p="><em class="png">腾讯QQ</em></a></li>
@@ -50,18 +51,6 @@
 				<dd class="dl-getpwd">
 				<a class="floatright" href="javascript:changeShow('loginForm');changeShow('losePwd');">忘记密码</a>
 				<input type="checkbox" id="userKeepLogin" name="userKeepLogin" checked="checked"/><label for="savingstatus">保存登录状态</label></dd>
-			</dl>
-			<dl id="kapchaTr" style="display:none;" class="loginValidate cf">
-				<dt>验证码：</dt>
-				<dd>
-				<span class="ioginInput kap" style="width:100px;">
-				<span class="innerborder" style="margin-right:10px\9"><input type="text" class="deftest" id="captcha" style="width:85px ;float:left\9; " name="captcha" maxlength="4"/>
-				<!--   onblur="im.user.validate.kaptcha(this);" -->
-				</span>
-				</span>
-				<span id="imgSpan" style="vertical-align: top;"><img id="verifyImg" src="/captcha/image.html" height="37"/></span>
-				<span id="changePic" onclick="showCaptcha()" class="blue" style="cursor:pointer; margin-left:6px">换一张</span><span id="kaptchaTip" class="false stata" style="width:110px ;font-size:12px ; margin-left:4px; vertical-align: text-bottom; vertical-align: middle\9;display:none"></span>
-				</dd>
 			</dl>
 			<dl class="cf">
 				<dt>&nbsp;</dt>
@@ -112,6 +101,7 @@
 	</div>
 </div>
 <script type="text/javascript">
+<% content_for :butt2 do %>
 var pageNeedCaptcha = false;
 $(function(){
 if('' == 'findpassword'){
@@ -281,6 +271,7 @@ return false;
 },'json')
 }
 }
+<% end %>
 </script>
 <div class="totop" id="backtotop" style="display: none;">
   <a href="javascript:void(0);">返回 </a>
@@ -288,9 +279,7 @@ return false;
 <div id="loginLayout">
 </div>
 <script type="text/javascript">
-(function(){
-im.zm.load("http://a.imimg.cn/r17259/scripts/view/defa.js");
-})();
+<% content_for :butt2 do %>
 $("#submitCont").die().live("click",function(){
 var cont = $("#feedbackCont").val();
 var len = cont.length;
@@ -324,6 +313,6 @@ im.window.alert("提交成功，您的支持会让我们做的更好！");
 im("#feedBackBox").dialog("close"); // 关闭弹层
 return false;
 });
+<% end %>
 </script>
-<script src="http://a.imimg.cn/r17259/scripts/tail.js"></script>
-</body>
+</div>
