@@ -141,6 +141,7 @@ class AccountController < Devise::RegistrationsController
     @seo[:title] = '完成新用户注册'
     @simple_header=true
     @simple_header_width=840
+    @serv='renren'#todo
     render "new05",layout:'application'
   end
   def new

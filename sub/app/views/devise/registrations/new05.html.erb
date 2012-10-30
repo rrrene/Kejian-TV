@@ -2,13 +2,20 @@
   <%= stylesheet_link_tag "ktv/__zm", :media => "all" %>
   <%= stylesheet_link_tag "ktv/__zm_reg", :media => "all" %>
 <% end %>
+<% content_for :butt2 do %>
+$('#bind_service_target').resize(KTV.reg05_targetize);
+KTV.reg05_targetize();
+<% end %>
+<div class="wrapper" style="width:822px">
+<%= render :partial=>"bind_#{@serv}",:locals=>{ass_style:'width: 822px;position:absolute;top:218px;margin-left:0;z-index:444'} %>
+</div>
 <div class="__zm">
 <div id="reg-header" class="wide">
 </div>
 <div id="content" class="newreg wide" style="padding-top:6px">
   <div style="width:840px;height:51px;background:url(<%=asset_path 'zm/r11839/images/reg/bad_tiao1.png' %>)">
   </div>
-  <div style="width:838px;border: 1px solid #D6D6D6;border-top: none;height:1000px;">
+  <div style="width:838px;border: 1px solid #D6D6D6;border-top: none;height:888px" id="content_reg05">
   </div>
 </div>
 <% content_for :butt2 do %>

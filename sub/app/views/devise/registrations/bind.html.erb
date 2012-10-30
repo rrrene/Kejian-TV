@@ -13,7 +13,7 @@ KTV.ln_bind_targetize();
 <%= render 'content_below' %>
 
 <div class="wrapper" style="width:1000px">
-<%= render "bind_#{@serv}" %>
+<%= render :partial=>"bind_#{@serv}",:locals=>{ass_style:'width: 822px;position:absolute;top:186px;margin-left:166px'} %>
 <div class="__lnk" id="pagekey-nprofile-edit-success">
 <div class=" en member v2 edit-my-profile edit-profile-section chrome-v4 background-v4 sticky-bg basic-member js ">
   <div role="main" class="" id="body" style="margin-top:0">
