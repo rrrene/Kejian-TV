@@ -7,7 +7,7 @@
     <%= f.text_field :name,:class => 's462',:tabindex => 1,:readonly => true %>
   </div>
   <div class="field">
-    <%= f.label :email,'E-mail' %>(<%= link_to "重发激活邮件", new_user_confirmation_path %>)(<%= link_to "忘记密码", new_password_path(resource_name) %>)<div class="field_error" id="regerror_email"><%= resource.errors_for_field(:email) %></div><br class="clear">
+    <%= f.label :email,'E-mail' %>(<%= link_to "重发确认邮件", new_user_confirmation_path %>)(<%= link_to "忘记密码", new_password_path(resource_name) %>)<div class="field_error" id="regerror_email"><%= resource.errors_for_field(:email) %></div><br class="clear">
     <%= f.email_field :email,:class => 's462',:tabindex => 2,:readonly => true %>
   </div>
   <% if @is_ie6 %>

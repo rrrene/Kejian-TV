@@ -1,5 +1,5 @@
-<% content_for :title do %>重发激活邮件<% end %>
-<%= image_tag 'ie/ktv_confirm_new.png',:class => 'ktvregh2', :alt => '重发激活邮件' %>
+<% content_for :title do %>重发确认邮件<% end %>
+<%= image_tag 'ie/ktv_confirm_new.png',:class => 'ktvregh2', :alt => '重发确认邮件' %>
 
 <%= form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post, :id=>'submit_btn_form',:class=>'normal' }) do |f| %>
   <%# devise_error_messages! %>
@@ -10,7 +10,7 @@
 
   <div class="clearfix" style="margin-top:20px;padding-bottom:8px">
     <div class="field fl">
-      <a href="javascript:void(0)" class="btn btn210 submit_btns" id="submit_btn">重发激活邮件</a>
+      <a href="javascript:void(0)" class="btn btn210 submit_btns" id="submit_btn">重发确认邮件</a>
     </div>
     <div class="field fr">
       <a href="<%= cancel_href %>" class="btn btn210_grey">取消</a>
