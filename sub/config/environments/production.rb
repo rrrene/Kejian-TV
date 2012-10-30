@@ -86,6 +86,7 @@ Sub::Application.configure do
     ktv/ie.css
     ktv/ie7.css
     ktv/ie6.css
+    ktv/__zm_reg.css
     ktv/__zm_sur.css
     ktv/__zm_hoth.css
     ktv/__zm_ban.css

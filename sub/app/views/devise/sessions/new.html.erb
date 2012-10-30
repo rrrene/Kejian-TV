@@ -1,39 +1,329 @@
-<% content_for :title do %>登录<% end %>
-<% if @login_ibeike %>
-<%= image_tag 'ie/ktv_login_ibeike.png',:class => 'ktvregh2', :alt => '使用iBeike账号登录' %>
-<% else %>
-<%= image_tag 'ie/ktv_login.png',:class => 'ktvregh2', :alt => '登录' %>
+<% content_for :armpit do %>
+  <%= stylesheet_link_tag "ktv/__zm", :media => "all" %>
+  <%= stylesheet_link_tag "ktv/__zm_reg", :media => "all" %>
 <% end %>
-<%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html=>{:class => 'normal',:id=>'submit_btn_form'}) do |f| %>
-  <input type="hidden" name="redirect_to" value="<%= request.path %>"/>
-
-  <div class="field">
-<% if @login_ibeike %>
-  <%= f.label :email,'iBeike用户名' %>(<%= link_to "转到iBeike首页", 'http://www.ibeike.com',:target=>'_blank' %>)(<%= link_to "忘记密码", 'http://city.ibeike.com/logging.php?action=login' ,:target=>'_blank' %>)<br class="clear">
-    <input type="hidden" name="login_ibeike" value="1" />
-    <%= f.text_field :email,:class => 's462',:tabindex => 2 %>
-<% else %>
-    <%= f.label :email,'E-mail' %>(<%= link_to "重发激活邮件", new_user_confirmation_path %>)(<%= link_to "忘记密码", new_password_path(resource_name) %>)<div class="field_error" id="regerror_email"><%= resource.errors_for_field(:email) %></div><br class="clear">
-    <%= f.email_field :email,:class => 's462',:tabindex => 2 %>
-<% end %>
-  </div>
-  <div class="field">
-    <%= f.label :password,'密码' %><div class="field_error" id="regerror_email"><%= resource.errors_for_field(:email) %></div><br class="clear">
-    <%= f.password_field :password,:class => 's462',:tabindex => 2,:onkeypress=>"if(event.keyCode==13){$('#submit_btn_form').submit();}" %>
-  </div>
-
-  <% if devise_mapping.rememberable? -%>
-    <% resource.remember_me = true%>
-    <div><%= f.check_box :remember_me,:style=>'height:19px;margin-left:5px',:onkeypress=>"if(event.keyCode==13){$('#submit_btn_form').submit();}" %> <%= f.label :remember_me,'记住我的登录状态' %></div>
-  <% end -%>
-
-  <div class="clearfix" style="margin-top:20px;padding-bottom:8px">
-    <div class="field fl">
-      <a href="javascript:void(0)" class="btn btn210 submit_btns" id="submit_btn">提交登录</a>
-    </div>
-    <div class="field fr">
-      <a href="<%= cancel_href %>" class="btn btn210_grey">取消</a>
-    </div>
-  </div>
-<% end %>
-
+<div class="__zm">
+<div id="reg-header">
+</div>
+<div id="content" class="newreg">
+	<div class="platformusers">
+		<h2 class="yahei">用以下网站账户登录，5秒完成</h2>
+		<ul class="cf">
+			<li><a class="yahei sina" href="/login/sina?flag=0&skip=0&p="><em class="png">新浪微博</em></a></li>
+			<li><a class="yahei qq" href="/login/qzone?flag=0&skip=0&p="><em class="png">腾讯QQ</em></a></li>
+			<li><a class="yahei tencent" href="/login/qqt?flag=0&skip=0&p="><em class="png">腾讯微博</em></a></li>
+			<li><a class="yahei renren" href="/login/renren?flag=0&skip=0&p="><em class="png">人人网</em></a></li>
+			<li><a class="yahei taobao" href="/login/taobao?flag=0&skip=0&p="><em class="png">淘宝</em></a></li>
+			<li><a class="yahei douban" href="/login/douban?flag=0&skip=0&p="><em class="png">豆瓣</em></a></li>
+		</ul>
+	</div>
+	<div class="hsplit">
+	</div>
+	<!--使用知美帐号登录-->
+	<div class="zmusers" id="loginForm">
+		<h2>
+		<a href="javascript:changeShow('loginDiv');" class="title">使用知美帐号登录</a>
+		</h2>
+		<div class="regform" id="loginDiv" style="display: none;">
+			<dl class="cf">
+				<dt>邮箱：</dt>
+				<dd>
+				<span class="ioginInput">
+				<span class="inputouter">
+				<input type="text" id="userEmail" name="userEmail" value="" onfocus="im.user.validate.thisFocus(this , '请输入注册邮箱');"/>
+				</span>
+				</span>
+				<span class="errortips" style="display:block;" id="errortips1"></span>
+				</dd>
+			</dl>
+			<dl class="special cf">
+				<dt>密码：</dt>
+				<dd>
+				<span class="ioginInput">
+				<span class="inputouter"><input type="password" maxlength="16" id="userPassword" name="userPassword" onfocus="im.user.validate.thisFocus(this , '请输入密码');" onblur="im.user.validate.checkPassword(this , false);"/></span>
+				</span>
+				<span class="errortips" style="display:block;"></span>
+				</dd>
+			</dl>
+			<dl class="dl-getpwd cf">
+				<dt>&nbsp;</dt>
+				<dd class="dl-getpwd">
+				<a class="floatright" href="javascript:changeShow('loginForm');changeShow('losePwd');">忘记密码</a>
+				<input type="checkbox" id="userKeepLogin" name="userKeepLogin" checked="checked"/><label for="savingstatus">保存登录状态</label></dd>
+			</dl>
+			<dl id="kapchaTr" style="display:none;" class="loginValidate cf">
+				<dt>验证码：</dt>
+				<dd>
+				<span class="ioginInput kap" style="width:100px;">
+				<span class="innerborder" style="margin-right:10px\9"><input type="text" class="deftest" id="captcha" style="width:85px ;float:left\9; " name="captcha" maxlength="4"/>
+				<!--   onblur="im.user.validate.kaptcha(this);" -->
+				</span>
+				</span>
+				<span id="imgSpan" style="vertical-align: top;"><img id="verifyImg" src="/captcha/image.html" height="37"/></span>
+				<span id="changePic" onclick="showCaptcha()" class="blue" style="cursor:pointer; margin-left:6px">换一张</span><span id="kaptchaTip" class="false stata" style="width:110px ;font-size:12px ; margin-left:4px; vertical-align: text-bottom; vertical-align: middle\9;display:none"></span>
+				</dd>
+			</dl>
+			<dl class="cf">
+				<dt>&nbsp;</dt>
+				<dd><a class="btn-login" href="javaScript:void(0)" onclick="login()"></a></dd>
+			</dl>
+		</div>
+	</div>
+	<!--忘记密码-->
+	<div class="losepwd" id="losePwd" style="display: none;">
+		<h2>
+		<a href="javascript:changeShow('losePwdform');" class="title">忘记密码</a>
+		</h2>
+		<div class="thisform" id="losePwdform">
+			<dl class="cf">
+				<dt>邮箱：</dt>
+				<dd>
+				<span class="ioginInput">
+				<span class="inputouter">
+				<input type="text" class="deftest" id="userEmail_2" name="userEmail" onfocus="im.user.validate.thisFocus(this , '请输入注册邮箱');" onblur="im.user.validate.checkEmail(this , false);"/>
+				</span>
+				</span>
+				<span class="errortips" style="display:block;" id="errortips3"></span>
+				</dd>
+			</dl>
+			<dl class="special cf">
+				<dt>&nbsp;</dt>
+				<dd><a class="btn-getpwd btn-ungetpwd" id="submitButton" href="javaScript:findPassWord()"></a></dd>
+			</dl>
+			<dl class="cf">
+				<dt>&nbsp;</dt>
+				<dd><a href="javascript:changeShow('loginForm');changeShow('losePwd');">返回登录</a></dd>
+			</dl>
+		</div>
+	</div>
+	<!--发送成功-->
+	<div class="sendbox" id="sendEmail" style="display: none;">
+		<h2>
+		<a href="javascript:changeShow('sendboxbody');" class="title unfold">发送成功</a>
+		</h2>
+		<div class="sendboxbody" id="sendboxbody">
+			<div class="mailbox">
+				 邮件已发送至<span id="userSendEmail"></span><br/>请点击其中的链接重设密码
+			</div>
+			<div class="sendbutton">
+				<a id="mailLink" class="adaptbtn btn-gray36" target="_blank"><span class="adaptbtn"><em class="adaptbtn">去我的邮箱</em></span></a><a href="javascript:changeShow('loginForm');changeShow('sendEmail');">返回登录</a>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+var pageNeedCaptcha = false;
+$(function(){
+if('' == 'findpassword'){
+changeShow('loginForm');
+changeShow('losePwd');
+changeShow('loginDiv');
+}
+if('' != ''){
+changeShow('loginDiv');
+$("#userEmail").val('');
+}
+$("#userEmail").blur(function(){
+if(im.user.validate.checkEmail(this, false)){
+var userEmail = $.trim($("#userEmail").val());
+$.post("/logincheck",{userEmail:userEmail, r:Math.random()}, function(data){
+if(data == 1){
+pageNeedCaptcha = true;
+showCaptcha();
+}else{
+pageNeedCaptcha = false;
+hideCaptcha();
+}
+})
+}
+})
+/*
+$("#userEmail_2").blur(function(){
+if(im.user.validate.checkEmail(this, false)){
+$("#submitButton").removeClass("btn-ungetpwd");
+}else{
+$("#submitButton").addClass("btn-ungetpwd");
+}
+})
+*/
+im.user.validate.checkForm({
+objValue : [
+{ele:$("#userEmail_2"),  //表单元素
+type:"text",  //表单类型
+func:selectBottomOl,  //表单元素验证方法，返回是布尔值
+defaultSta:false
+}
+],
+element : $("#submitButton"),  //提交按钮对象
+openClass : "btn-getpwd",  //提交按钮可点击样式
+closeClass : "btn-getpwd btn-ungetpwd"  //提交按钮灰色不可点击样式
+})
+function selectBottomOl(obj){
+var str = $(obj).val();
+var flag=0;
+if(str!="" && str.length>0){
+flag=1;
+}
+if(flag==1){
+return true;
+}
+return false;
+}
+$(document).keydown(function(event){
+if(event.which == 13){
+login();
+}
+})
+})
+function showCaptcha(){
+var dTime = new Date();
+im("#verifyImg").attr("src","/captcha/image.html?t="+dTime.getTime());
+$("#kapchaTr").slideDown(1000,function(){});
+}
+function hideCaptcha(){
+$("#kapchaTr").slideUp(1000,function(){});
+}
+function login(){
+if(im.user.validate.checkEmail(im("#userEmail")) && im.user.validate.checkPassword(im("#userPassword"))){
+var userEmail = $.trim($("#userEmail").val());
+var userPassword = $.trim($("#userPassword").val());
+var userKeepLogin = $("#userKeepLogin").val();
+var captcha = $.trim($("#captcha").val());
+$.post("/ajaxlogin", {userEmail:userEmail, userPassword:userPassword, userKeepLogin:userKeepLogin, pageNeedCaptcha:pageNeedCaptcha, captcha:captcha, r:Math.random()}, function(data){
+switch(data.status){
+case 1:
+switch(0){
+case 2:
+location.href = "http://www.zhimei.com/pin/forward_bind";
+break;
+case 3:
+location.href = "http://www.zhimei.com";
+break;
+case 4:
+location.href = "http://www.zhimei.com";
+break;
+default:
+location.href = "http://www.zhimei.com/home";
+}
+break;
+case 2:
+$("#errortips1").text("邮箱或者密码错误").attr("class","errortips").show();
+break;
+case 3:
+$("#errortips1").text("验证码错误").attr("class","errortips").show();
+break;
+case 4:
+$("#errortips1").text("帐号或密码错误，请重试").attr("class","errortips").show();
+break;
+case 5:
+$("#errortips1").text("该帐号已被冻结").attr("class","errortips").show();
+break;
+case 6:
+pageNeedCaptcha = !0;
+$("#errortips1").text(data.desc).attr("class","errortips").show();
+showCaptcha();
+break;
+default:
+return false;
+}
+},'json')
+}else{  				
+return false;
+}
+}
+function fnfooter() {
+var footObj=document.documentElement || document.body;
+if(document.documentElement.clientHeight<document.body.offsetHeight || $("#footer").offset().top < $("#content").height()+$("#content").offset().top) {
+$("#footer").removeClass("fixedfooter");
+} else {
+$("#footer").addClass("fixedfooter");
+}
+}
+function changeShow(id){
+var dis=$("#"+id).css("display");
+if(dis=="none"){
+$("#"+id).stop(true,true).slideDown(function(){
+fnfooter();
+});
+$("#"+id).parent().find('.title').addClass('unfold');
+}else{
+$("#"+id).stop(true,true).slideUp(function(){
+fnfooter();
+});
+$("#"+id).parent().find('.title').removeClass('unfold');
+}
+}
+function findPassWord(){
+if(im.user.validate.checkEmail(im("#userEmail_2"))){
+$.post("/profile/ajaxfindpassword", {userEmail:$.trim($("#userEmail_2").val()), r:Math.random()}, function(data){
+switch(data.status){
+case 1:
+$("#userSendEmail").text($.trim($("#userEmail_2").val()));
+$("#mailLink").attr("href", data.desc);
+$("#losePwd").hide();
+$("#sendEmail").show();
+break;
+case 2:
+$("#errortips3").text("邮箱不能为空").attr("class","errortips").show();
+break;
+case 3:
+$("#errortips3").text("发送失败！已超过每日请求次数").attr("class","errortips").show();
+break;
+case 4:
+$("#errortips3").text("发送失败！该邮箱不存在").attr("class","errortips").show();
+break;
+case 5:
+$("#errortips3").text("发送失败！请重新发送！").attr("class","errortips").show();
+break;
+default:
+return false;
+}
+},'json')
+}
+}
+</script>
+<div class="totop" id="backtotop" style="display: none;">
+  <a href="javascript:void(0);">返回 </a>
+</div>
+<div id="loginLayout">
+</div>
+<script type="text/javascript">
+(function(){
+im.zm.load("http://a.imimg.cn/r17259/scripts/view/defa.js");
+})();
+$("#submitCont").die().live("click",function(){
+var cont = $("#feedbackCont").val();
+var len = cont.length;
+var tel_val = $.trim($("#contactNumber").val());
+var email_val = $.trim($("#contactEmail").val());
+if(len > 500){
+showTips("输入内容不得大于500字。","error");
+return false;
+}
+if(cont == "" || cont==null || len==0){
+showTips("您还没有给我们写下宝贵意见噢。","error");
+return false;
+}
+if(tel_val.length > 0){
+var reg = /^\d+$/g;
+if(!reg.test(tel_val)){
+showTips("请输入11位手机号码。","error");
+return;
+}
+}
+if(email_val.length > 0){
+var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,3})$/;
+if(!reg.test(email_val)){
+showTips("请输入正确的email地址。","error");
+return;
+}
+}
+$.post("/feedBack/add", {"content":cont,"email":email_val,"telephone":tel_val}, function(data) {
+im.window.alert("提交成功，您的支持会让我们做的更好！");
+});
+im("#feedBackBox").dialog("close"); // 关闭弹层
+return false;
+});
+</script>
+<script src="http://a.imimg.cn/r17259/scripts/tail.js"></script>
+</body>

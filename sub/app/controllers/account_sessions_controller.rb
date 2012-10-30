@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 class AccountSessionsController < Devise::SessionsController 
   def new
+    @seo[:title]='登录'
     resource = build_resource(nil, :unsafe => true)
     clean_up_passwords(resource)
     if request.path=='/login_ibeike'
@@ -11,7 +12,7 @@ class AccountSessionsController < Devise::SessionsController
       end
     end
     respond_with(resource, serialize_options(resource)) do |format|
-      format.html{render "new"}
+      format.html{render "new",layout:'application_for_devise3'}
     end
   end
   def create

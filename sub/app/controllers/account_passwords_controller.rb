@@ -22,7 +22,7 @@ class AccountPasswordsController < Devise::PasswordsController
   def update
     self.resource = resource_class.reset_password_by_token(resource_params)
 
-    if resource.errors.empty?
+    unless resource.errors[:reset_password_token].present? or resource.errors[:password].present? or resource.errors[:password_confirmation].present? 
       flash_message = resource.active_for_authentication? ? :updated : :updated_not_active
       set_flash_message(:notice, flash_message) if is_navigational_format?
       sign_in(resource_name, resource)

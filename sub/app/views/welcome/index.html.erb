@@ -62,7 +62,7 @@
       <% end %>
       <div class="wenjian2 tb">
         <%=
-          case params[:sort].split('|').first
+          case params[:sort].try(:split,'|').try(:first)
           when 'ppt','pptx'
             'PowerPoint幻灯片'
           when 'doc','docx'
