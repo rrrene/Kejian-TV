@@ -210,7 +210,7 @@ window.Users = {
             }
             if(App.strlen(_b7)>12){
               zhenshixingming.parent().attr("class", "input-x-validate-error");
-              $("#tip_zhenshixingming").html('不能多于6个汉字或者12个字符');
+              $("#tip_zhenshixingming").html('真实姓名不能多于6个汉字或者12个字符');
               formFlag["zhenshixingming"] = false;
               return false;
             }

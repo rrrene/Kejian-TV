@@ -21,7 +21,9 @@ class AccountPasswordsController < Devise::PasswordsController
   end
   def update
     self.resource = resource_class.reset_password_by_token(resource_params)
-
+    #下面这句话很重要！不要删
+    resource.valid?
+    #正是因为由上面这句话，下面的判断才管用
     unless resource.errors[:reset_password_token].present? or resource.errors[:password].present? or resource.errors[:password_confirmation].present? 
       flash_message = resource.active_for_authentication? ? :updated : :updated_not_active
       set_flash_message(:notice, flash_message) if is_navigational_format?

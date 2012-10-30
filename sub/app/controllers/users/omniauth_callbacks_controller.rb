@@ -417,7 +417,7 @@ private
     @auth.update_attribute(:uc_uid, @user.uid)
     sign_in_others
     sign_in(@user)
-    if @auth.extent.try(:>=,10)
+    if @user.reg_extent.try(:>=,100)
       redirect_to(root_path, :notice =>  '谢谢！您已经成功登录。')
     else
       redirect_to "/register05"

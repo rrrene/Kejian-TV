@@ -141,7 +141,7 @@ class AccountController < Devise::RegistrationsController
     @seo[:title] = '完成新用户注册'
     @simple_header=true
     @simple_header_width=840
-    @serv='renren'#todo
+    candidate = current_user.authorizations.where(:hardcore_succeeded_at=>nil).order('oauth_succeeded_at desc').first
     render "new05",layout:'application'
   end
   def new
@@ -168,7 +168,9 @@ class AccountController < Devise::RegistrationsController
     resource.name_unknown = false
     resource.email_unknown = false
     resource.regip = request.ip
-    
+    #下面这句话很重要！不要删，否则各种奇怪的用户将接踵而至
+    resource.valid?
+    #正是因为由上面这句话，下面的判断才管用
     unless resource.errors[:name].present? or resource.errors[:email].present?  or resource.errors[:password].present?  or resource.errors[:password_confirmation].present? 
       resource.save(:validate=>false)
       ret = UCenter::User.register(request,{
@@ -186,11 +188,12 @@ class AccountController < Devise::RegistrationsController
       if resource.active_for_authentication?
         set_flash_message :notice, :signed_up if is_navigational_format?
         sign_in(resource_name, resource)
-        respond_with resource, :location => after_sign_up_path_for(resource)
+        redirect_to '/account/edit'
+        return false
       else
-        set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}" if is_navigational_format?
         expire_session_data_after_sign_in!
-        respond_with resource, :location => after_inactive_sign_up_path_for(resource)
+        redirect_to '/welcome/inactive_sign_up'
+        return false
       end
     else
       clean_up_passwords resource

@@ -342,16 +342,11 @@ class ApplicationController < ActionController::Base
     redirect_to(session[:return_to] || default)
     session[:return_to] = nil
   end
-  before_filter :unknown_user_check,:unless=>'"/register05"==request.path or "/logout"==request.path'
+  before_filter :unknown_user_check,:unless=>proc{!current_user or "/register05"==request.path or "/logout"==request.path}
   def unknown_user_check
-    if current_user
-      unknowns = []
-      unknowns << '真实姓名' if current_user.name_unknown
-      unknowns << '邮箱地址' if current_user.email_unknown
-      #unknowns << '密码' if current_user.encrypted_password.blank?
-      unless unknowns.blank?
-        redirect_to '/register05'
-      end
+    if current_user.reg_extent < 100
+      redirect_to '/register05'
+      return false
     end
   end
 

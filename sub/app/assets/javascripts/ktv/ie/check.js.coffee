@@ -45,7 +45,7 @@ App.checkUsername= (el) ->
   if(_b7=="")
     return false;
   if(App.strlen(_b7)>12)
-    App.showRegError("name","不能多于6个汉字或者12个字符");
+    App.showRegError("name","真实姓名不能多于6个汉字或者12个字符");
     return false;
   if(_b7[0] != '_')
     if(App.chinese(_b7)<2)
