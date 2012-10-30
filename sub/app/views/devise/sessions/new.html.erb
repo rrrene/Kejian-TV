@@ -7,15 +7,22 @@
 </div>
 <div id="content" class="newreg">
 	<div class="platformusers" style="margin-top:8px">
-		<h2 class="yahei">用以下网站账户登录，5秒完成</h2>
-    <p style="margin:0 0 16px 143px"><a class="renren" href="/account/auth/renren"><img class="core_renren" src="/assets/234_48dark.png" alt="用人人网账号登录"></a><%=image_tag 'zm/r11839/images/reg/tuijian.png',style:'position:relative;top:15px;left:8px',alt:'（推荐）' %> </p>
+		<h2 class="yahei">用以下网站账号直接登录，5秒完成</h2>
+    <p style="margin:0 0 16px 143px"><a class="renren" href="/account/auth/renren"><img class="core_renren" src="/assets/234_48dark.png" alt="用人人网账号登录"></a><%=image_tag 'zm/r11839/images/reg/tuijian.png',style:'position:relative;left:8px',alt:'（推荐）' %> </p>
+    <% key = "spetial_#{Setting.ktv_sub}".to_sym; if value=UcThirdPartyAuth::SERVICES[key] %>
+    <p style="margin:0 0 16px 143px"><a class="renren" href="/account/auth/<%=key%>"><img class="core_spetial" src="/assets/bind/huge_<%=key%>.png" alt="用<%=value[:name]%>登录"></a> </p>
+    <%end%>
 		<ul class="cf">
 			<li><a class="yahei sina" href="/login/sina?flag=0&skip=0&p="><em class="png">新浪微博</em></a></li>
 			<li><a class="yahei qq" href="/login/qzone?flag=0&skip=0&p="><em class="png">腾讯QQ</em></a></li>
 			<li><a class="yahei tencent" href="/login/qqt?flag=0&skip=0&p="><em class="png">腾讯微博</em></a></li>
-			<li><a class="yahei renren" href="/login/renren?flag=0&skip=0&p="><em class="png">人人网</em></a></li>
-			<li><a class="yahei taobao" href="/login/taobao?flag=0&skip=0&p="><em class="png">淘宝</em></a></li>
 			<li><a class="yahei douban" href="/login/douban?flag=0&skip=0&p="><em class="png">豆瓣</em></a></li>
+			<li><a class="yahei google" href="/login/douban?flag=0&skip=0&p="><em class="png">谷歌账号</em></a></li>
+			<li><a class="yahei zhaopin" href="/login/douban?flag=0&skip=0&p="><em class="png">智联招聘</em></a></li>
+			<li><a class="yahei linkedin" href="/login/douban?flag=0&skip=0&p="><em class="png">LinkedIn</em></a></li>
+			<li><a class="yahei github" href="/login/douban?flag=0&skip=0&p="><em class="png">Github</em></a></li>
+			<li><a class="yahei facebook" href="/login/douban?flag=0&skip=0&p="><em class="png">Facebook</em></a></li>
+			<li><a class="yahei twitter" href="/login/douban?flag=0&skip=0&p="><em class="png">Twitter</em></a></li>
 		</ul>
 	</div>
 	<div class="hsplit">

@@ -59,6 +59,10 @@ var STYLEID = '1',
     KTV.addtext_css_src0 = '<%=asset_path('addtext.png')%>';
     KTV.renren_src1 = '<%=asset_path('234_48darkwhite.png')%>';
     KTV.renren_src0 = '<%=asset_path('234_48dark.png')%>';
+    <% key = "spetial_#{Setting.ktv_sub}".to_sym; if value=UcThirdPartyAuth::SERVICES[key] %>
+      KTV.spetial_src1 = '<%=asset_path("bind/huge_#{key}white.png")%>';
+      KTV.spetial_src0 = '<%=asset_path("bind/huge_#{key}.png")%>';
+    <% end %>
     KTV.preload([
       KTV.logo_css_src1,
       KTV.browsetext_css_src1,
