@@ -2,17 +2,11 @@
 class AccountSessionsController < Devise::SessionsController 
   def new
     @seo[:title]='登录'
+    @simple_header=true
     resource = build_resource(nil, :unsafe => true)
     clean_up_passwords(resource)
-    if request.path=='/login_ibeike'
-      @login_ibeike = true
-      if Setting.ktv_sub!='ibeike'
-        render text:'this function is not enabled for this site!'
-        return false
-      end
-    end
     respond_with(resource, serialize_options(resource)) do |format|
-      format.html{render "new",layout:'application_for_devise3'}
+      format.html{render "new",layout:'application'}
     end
   end
   def create
