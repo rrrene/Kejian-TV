@@ -28,11 +28,12 @@
 	<div class="hsplit">
 	</div>
 	<!--使用Kejian.TV帐号登录-->
+<%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html=>{:id=>'login_form'}) do |f| %>
 	<div class="zmusers" id="loginForm">
 		<h2>
-		<a href="javascript:changeShow('loginDiv');" class="title">使用Kejian.TV帐号登录</a>
+		<a href="javascript:changeShow('loginDiv');" class="title">使用电子邮箱登录或注册</a>
 		</h2>
-		<div class="regform" id="loginDiv" style="display: none;">
+    <div class="regform" id="loginDiv" style="<% unless '1'==params[:traditional]%> display: none;<% end %>">
 			<dl class="cf">
 				<dt>邮箱：</dt>
 				<dd>
@@ -61,10 +62,11 @@
 			</dl>
 			<dl class="cf">
 				<dt>&nbsp;</dt>
-				<dd><a class="btn-login" href="javaScript:void(0)" onclick="login()"></a></dd>
+				<dd><a class="btn-login" href="javaScript:jQuery('#login_form').submit()"></a></dd>
 			</dl>
 		</div>
 	</div>
+<% end %>
 	<!--忘记密码-->
 	<div class="losepwd" id="losePwd" style="display: none;">
 		<h2>
@@ -107,7 +109,6 @@
 		</div>
 	</div>
 </div>
-<script type="text/javascript">
 <% content_for :butt2 do %>
 var pageNeedCaptcha = false;
 $(function () {
@@ -123,18 +124,20 @@ $(function () {
     $("#userEmail").blur(function () {
         if (im.user.validate.checkEmail(this, false)) {
             var userEmail = $.trim($("#userEmail").val());
-            $.post("/logincheck", {
+            $.post("/ajax/logincheck", {
                 userEmail: userEmail,
                 r: Math.random()
             }, function (data) {
-                if (data == 1) {
-                    pageNeedCaptcha = true;
-                    showCaptcha();
+              console.log(data);
+                if (data == '0') {
+                  $('#userEmail').removeClass('errortest');
+                  $('#errortips1').hide();
                 } else {
-                    pageNeedCaptcha = false;
-                    hideCaptcha();
+                  $('#userEmail').addClass('errortest');
+                  $('#errortips1').html(data);
+                  $('#errortips1').show();
                 }
-            })
+            },'text');
         }
     })
     /*
@@ -171,7 +174,7 @@ $("#submitButton").addClass("btn-ungetpwd");
     }
     $(document).keydown(function (event) {
         if (event.which == 13) {
-            login();
+          $('#login_form').submit();
         }
     })
 })
@@ -185,70 +188,8 @@ window.showCaptcha = function() {
 window.hideCaptcha = function() {
     $("#kapchaTr").slideUp(1000, function () {});
 };
-
-window.login = function() {
-    if (im.user.validate.checkEmail(im("#userEmail")) && im.user.validate.checkPassword(im("#userPassword"))) {
-        var userEmail = $.trim($("#userEmail").val());
-        var userPassword = $.trim($("#userPassword").val());
-        var userKeepLogin = $("#userKeepLogin").val();
-        var captcha = $.trim($("#captcha").val());
-        $.post("/ajaxlogin", {
-            userEmail: userEmail,
-            userPassword: userPassword,
-            userKeepLogin: userKeepLogin,
-            pageNeedCaptcha: pageNeedCaptcha,
-            captcha: captcha,
-            r: Math.random()
-        }, function (data) {
-            switch (data.status) {
-                case 1:
-                    switch (0) {
-                        case 2:
-                            location.href = "http://www.zhimei.com/pin/forward_bind";
-                            break;
-                        case 3:
-                            location.href = "http://www.zhimei.com";
-                            break;
-                        case 4:
-                            location.href = "http://www.zhimei.com";
-                            break;
-                        default:
-                            location.href = "http://www.zhimei.com/home";
-                    }
-                    break;
-                case 2:
-                    $("#errortips1").text("邮箱或者密码错误").attr("class", "errortips").show();
-                    break;
-                case 3:
-                    $("#errortips1").text("验证码错误").attr("class", "errortips").show();
-                    break;
-                case 4:
-                    $("#errortips1").text("帐号或密码错误，请重试").attr("class", "errortips").show();
-                    break;
-                case 5:
-                    $("#errortips1").text("该帐号已被冻结").attr("class", "errortips").show();
-                    break;
-                case 6:
-                    pageNeedCaptcha = !0;
-                    $("#errortips1").text(data.desc).attr("class", "errortips").show();
-                    showCaptcha();
-                    break;
-                default:
-                    return false;
-            }
-        }, 'json')
-    } else {
-        return false;
-    }
-};
-
 window.fnfooter = function() {
-    var footObj = document.documentElement || document.body;
-    if (document.documentElement.clientHeight < document.body.offsetHeight || $("#footer").offset().top < $("#content").height() + $("#content").offset().top) {
-        $("#footer").removeClass("fixedfooter");
-    } else {
-        $("#footer").addClass("fixedfooter");
-    }
+  return true;
 };
 
 window.changeShow = function(id) {
@@ -298,13 +239,11 @@ window.findPassWord = function() {
     }
 };
 <% end %>
-</script>
 <div class="totop" id="backtotop" style="display: none;">
   <a href="javascript:void(0);">返回 </a > < /div>
 <div id="loginLayout">
-</div >
+</div>
 
-<script type = "text/javascript">
 <% content_for :butt2 do %>
 $("#submitCont").die().live("click", function () {
     var cont = $("#feedbackCont").val();
@@ -344,5 +283,4 @@ $("#submitCont").die().live("click", function () {
     return false;
 });
 <% end %>
-</script>
 </div>

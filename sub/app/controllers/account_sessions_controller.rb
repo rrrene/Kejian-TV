@@ -10,51 +10,24 @@ class AccountSessionsController < Devise::SessionsController
     end
   end
   def create
-    if params[:login_ibeike]
-      @login_ibeike = true
-      if Setting.ktv_sub!='ibeike'
-        render text:'this function is not enabled for this site!'
-        return false
+    ret = UCenter::User.login(request,{isuid:2,username:params[:userEmail],password:params[:userPassword]})
+    status = ret['root']['item'][0].to_i
+    suc_flag = false
+    if status > 0
+      u = nil
+      u ||= User.where(uid:status).first
+      u ||= User.import_from_dz!(UCenter::User.get_user(request,{username:status,isuid:1}))
+      if u
+        resource = u
+        suc_flag = true
       end
-      ret = UCenter::IBeike.login('user',request,{isuid:0,username:params[:user][:email],password:params[:user][:password]})
-      status = ret['root']['item'][0].to_i
-      suc_flag = false
-      if status > 0
-        u = nil
-        u ||= User.where(ibeike_uid:status).first
-        u ||= User.import_from_ibeike!(UCenter::IBeike.get_user('user',request,{username:status,isuid:1}))
-        if u
-          resource = u
-          suc_flag = true
-        end
-      elsif -1 == status
-        flash[:alert]='无此用户.'
-      elsif -2 == status
-        flash[:alert]='密码错误.'
-      elsif -3 == status
-        flash[:alert]='安全提问的回答错误.'
-        #todo
-      end
-    else
-      ret = UCenter::User.login(request,{isuid:2,username:params[:user][:email],password:params[:user][:password]})
-      status = ret['root']['item'][0].to_i
-      suc_flag = false
-      if status > 0
-        u = nil
-        u ||= User.where(uid:status).first
-        u ||= User.import_from_dz!(UCenter::User.get_user(request,{username:status,isuid:1}))
-        if u
-          resource = u
-          suc_flag = true
-        end
-      elsif -1 == status
-        flash[:alert]='无此用户.'
-      elsif -2 == status
-        flash[:alert]='密码错误.'
-      elsif -3 == status
-        flash[:alert]='安全提问的回答错误.'
-        #todo
-      end
+    elsif -1 == status
+      flash[:alert]='无此用户.'
+    elsif -2 == status
+      flash[:alert]='密码错误.'
+    elsif -3 == status
+      flash[:alert]='安全提问的回答错误.'
+      #todo
     end
     if suc_flag
       sign_in_others
@@ -62,7 +35,7 @@ class AccountSessionsController < Devise::SessionsController
       set_flash_message(:notice, :signed_in) if is_navigational_format?
       respond_with resource, :location => after_sign_in_path_for(resource)
     else
-      redirect_to @login_ibeike ? '/login_ibeike' : '/login'
+      redirect_to '/login?traditional=1'
     end
   end
   def destroy
