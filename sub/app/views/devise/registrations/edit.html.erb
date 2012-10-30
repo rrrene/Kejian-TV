@@ -1543,43 +1543,43 @@ KTV.ln_targetize();
                     		</div>
                     		<div class="content">
                     			<dl>
-                            <% if @user.phone_other.present?  %>
+                            <% if @material.phone_other.present?  %>
                     				<dt>电话:</dt>
                     				<dd>
                     				<p>
-                    					<%= @user.phone_other %>
+                    					<%= @material.phone_other %>
                     				</p>
                     				</dd>
                             <% end %>
-                            <% if @user.phone_mobile.present?  %>
+                            <% if @material.phone_mobile.present?  %>
                     				<dt>手机号码:</dt>
                     				<dd>
                     				<p>
-                    					<%= @user.phone_mobile %>
+                    					<%= @material.phone_mobile %>
                     				</p>
                     				</dd>
                             <% end %>
-                            <% if @user.address_hometown.present? %>
+                            <% if @material.address_hometown.present? %>
                     				<dt>家乡:</dt>
                     				<dd>
                     				<p>
-                    					<%= @user.address_hometown %>
+                    					<%= @material.address_hometown %>
                     				</p>
                     				</dd>
                             <%end %>
-                            <% if @user.im_qq.present? %>
+                            <% if @material.im_qq.present? %>
                     				<dt>QQ号码:</dt>
                     				<dd>
                     				<p>
-                    					<%= @user.im_qq %>
+                    					<%= @material.im_qq %>
                     				</p>
                     				</dd>
                             <%end %>
-                            <% if @user.im_msn.present? %>
+                            <% if @material.im_msn.present? %>
                     				<dt>MSN:</dt>
                     				<dd>
                     				<p>
-                              <%= @user.im_msn %>
+                              <%= @material.im_msn %>
                     				</p>
                     				</dd>
                             <%end %>
