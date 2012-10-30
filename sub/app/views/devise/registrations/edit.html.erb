@@ -305,7 +305,7 @@ KTV.ln_targetize();
             <ul>
               <% if @user.valid? %>
                 <li style="position:relative;top:1px" class="<%= 'finished' if @user.auths.present? %>"><a href="/account/binds">绑定至少一个外部账号</a></li>
-                <li><a href="#">填写姓名与领域行业</a></li>
+                <li><a href="#">填写自我描述</a></li>
                 <li><a href="#">添加您的技能及专业知识</a></li>
                 <li><a href="#">完善学术与职业经历</a></li>
                 <li><a href="#">邀请学习伙伴建立联络</a></li>
@@ -1539,40 +1539,50 @@ KTV.ln_targetize();
                     <div id="profile_personal_info">
                     	<div class="section" id="profile-personal" style="display:block">
                     		<div class="header">
-                    			<h2>Personal Info</h2>
+                    			<h2>个人信息</h2>
                     		</div>
                     		<div class="content">
                     			<dl>
-                    				<dt>Phone:</dt>
+                            <% if @user.phone_other.present?  %>
+                    				<dt>电话:</dt>
                     				<dd>
                     				<p>
-                    					+8618600259326 <span class="type">(Mobile)</span>
+                    					<%= @user.phone_other %>
                     				</p>
                     				</dd>
-                    				<dt>Address:</dt>
+                            <% end %>
+                            <% if @user.phone_mobile.present?  %>
+                    				<dt>手机号码:</dt>
                     				<dd>
                     				<p>
-                    					Xi San Huan Bei Lu #105 Haidian District 100048 Beijing
+                    					<%= @user.phone_mobile %>
                     				</p>
                     				</dd>
-                    				<dt>IM:</dt>
+                            <% end %>
+                            <% if @user.address_hometown.present? %>
+                    				<dt>家乡:</dt>
                     				<dd>
                     				<p>
-                    					pmq2001@gmail.com <span class="type">(GTalk)</span>
+                    					<%= @user.address_hometown %>
                     				</p>
                     				</dd>
-                    				<dt>Birthday:</dt>
+                            <%end %>
+                            <% if @user.im_qq.present? %>
+                    				<dt>QQ号码:</dt>
                     				<dd>
                     				<p>
-                    					March 13, 1991
+                    					<%= @user.im_qq %>
                     				</p>
                     				</dd>
-                    				<dt>Marital status:</dt>
+                            <%end %>
+                            <% if @user.im_msn.present? %>
+                    				<dt>MSN:</dt>
                     				<dd>
                     				<p>
-                    					Single
+                              <%= @user.im_msn %>
                     				</p>
                     				</dd>
+                            <%end %>
                     			</dl>
                     		</div>
                     	</div>
