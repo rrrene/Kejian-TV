@@ -169,7 +169,8 @@ class AccountController < Devise::RegistrationsController
     resource.email_unknown = false
     resource.regip = request.ip
     
-    if resource.save
+    unless resource.errors[:name].present? or resource.errors[:email].present?  or resource.errors[:password].present?  or resource.errors[:password_confirmation].present? 
+      resource.save(:validate=>false)
       ret = UCenter::User.register(request,{
         username:resource.slug,
         password:params[:user][:password],

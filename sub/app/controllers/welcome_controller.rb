@@ -47,7 +47,7 @@ class WelcomeController < ApplicationController
     render 'index'    
   end
   def inactive_sign_up
-    render "inactive_sign_up#{@subsite}",layout:'application_for_devise'
+    render "inactive_sign_up",layout:'application_for_devise'
   end
   def shuffle
     cw = nil
