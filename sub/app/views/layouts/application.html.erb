@@ -80,7 +80,7 @@
 <div class="__sdk">
 <% if @simple_header %>
   <header style="background-image:url(<%= asset_path('dark.png') %>)">
-    <div class="wrapper" style="<%=yield :sdk_wrapper_style%>;width:625px">
+  <div class="wrapper" style="<%=yield :sdk_wrapper_style%>;width:<%=@simple_header_width%>px">
       <h1><a href="/" id="core_logotext_wrap"><%= image_tag "logo_ktv_#{Setting.ktv_sub}.png",:alt => "#{Setting.ktv_subname}课件交流系统",:id=>'core_logotext' %></a></h1>
     </div>
   </header>

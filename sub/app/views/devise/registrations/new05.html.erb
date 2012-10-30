@@ -1,0 +1,188 @@
+<% content_for :armpit do %>
+  <%= stylesheet_link_tag "ktv/__zm", :media => "all" %>
+  <%= stylesheet_link_tag "ktv/__zm_reg", :media => "all" %>
+<% end %>
+<div class="__zm">
+<div id="reg-header" class="wide">
+</div>
+<div id="content" class="newreg wide" style="padding-top:6px">
+  <div style="width:840px;height:51px;background:url(<%=asset_path 'zm/r11839/images/reg/bad_tiao1.png' %>)">
+  </div>
+  <div style="width:838px;border: 1px solid #D6D6D6;border-top: none;height:1000px;">
+  </div>
+</div>
+<% content_for :butt2 do %>
+var pageNeedCaptcha = false;
+$(function () {
+    if ('' == 'findpassword') {
+        changeShow('loginForm');
+        changeShow('losePwd');
+        changeShow('loginDiv');
+    }
+    if ('' != '') {
+        changeShow('loginDiv');
+        $("#userEmail").val('');
+    }
+    $("#userEmail").blur(function () {
+        if (im.user.validate.checkEmail(this, false)) {
+            var userEmail = $.trim($("#userEmail").val());
+            $.post("/ajax/logincheck", {
+                userEmail: userEmail,
+                r: Math.random()
+            }, function (data) {
+              console.log(data);
+                if (data == '0') {
+                  $('#userEmail').removeClass('errortest');
+                  $('#errortips1').hide();
+                } else {
+                  $('#userEmail').addClass('errortest');
+                  $('#errortips1').html(data);
+                  $('#errortips1').show();
+                }
+            },'text');
+        }
+    })
+    /*
+$("#userEmail_2").blur(function(){
+if(im.user.validate.checkEmail(this, false)){
+$("#submitButton").removeClass("btn-ungetpwd");
+}else{
+$("#submitButton").addClass("btn-ungetpwd");
+}
+})
+*/
+    im.user.validate.checkForm({
+        objValue: [{
+            ele: $("#userEmail_2"), //表单元素
+            type: "text", //表单类型
+            func: selectBottomOl, //表单元素验证方法，返回是布尔值
+            defaultSta: false
+        }],
+        element: $("#submitButton"), //提交按钮对象
+        openClass: "btn-getpwd", //提交按钮可点击样式
+        closeClass: "btn-getpwd btn-ungetpwd" //提交按钮灰色不可点击样式
+    })
+
+    function selectBottomOl(obj) {
+        var str = $(obj).val();
+        var flag = 0;
+        if (str != "" && str.length > 0) {
+            flag = 1;
+        }
+        if (flag == 1) {
+            return true;
+        }
+        return false;
+    }
+    $(document).keydown(function (event) {
+        if (event.which == 13) {
+          $('#login_form').submit();
+        }
+    })
+})
+
+window.showCaptcha = function() {
+    var dTime = new Date();
+    im("#verifyImg").attr("src", "/captcha/image.html?t=" + dTime.getTime());
+    $("#kapchaTr").slideDown(1000, function () {});
+};
+
+window.hideCaptcha = function() {
+    $("#kapchaTr").slideUp(1000, function () {});
+};
+window.fnfooter = function() {
+  return true;
+};
+
+window.changeShow = function(id) {
+    var dis = $("#" + id).css("display");
+    if (dis == "none") {
+        $("#" + id).stop(true, true).slideDown(function () {
+            fnfooter();
+        });
+        $("#" + id).parent().find('.title').addClass('unfold');
+    } else {
+        $("#" + id).stop(true, true).slideUp(function () {
+            fnfooter();
+        });
+        $("#" + id).parent().find('.title').removeClass('unfold');
+    }
+};
+
+window.findPassWord = function() {
+    if (im.user.validate.checkEmail(im("#userEmail_2"))) {
+        $.post("/profile/ajaxfindpassword", {
+            userEmail: $.trim($("#userEmail_2").val()),
+            r: Math.random()
+        }, function (data) {
+            switch (data.status) {
+                case 1:
+                    $("#userSendEmail").text($.trim($("#userEmail_2").val()));
+                    $("#mailLink").attr("href", data.desc);
+                    $("#losePwd").hide();
+                    $("#sendEmail").show();
+                    break;
+                case 2:
+                    $("#errortips3").text("邮箱不能为空").attr("class", "errortips").show();
+                    break;
+                case 3:
+                    $("#errortips3").text("发送失败！已超过每日请求次数").attr("class", "errortips").show();
+                    break;
+                case 4:
+                    $("#errortips3").text("发送失败！该邮箱不存在").attr("class", "errortips").show();
+                    break;
+                case 5:
+                    $("#errortips3").text("发送失败！请重新发送！").attr("class", "errortips").show();
+                    break;
+                default:
+                    return false;
+            }
+        }, 'json')
+    }
+};
+<% end %>
+<div class="totop" id="backtotop" style="display: none;">
+  <a href="javascript:void(0);">返回 </a > < /div>
+<div id="loginLayout">
+</div>
+
+<% content_for :butt2 do %>
+$("#submitCont").die().live("click", function () {
+    var cont = $("#feedbackCont").val();
+    var len = cont.length;
+    var tel_val = $.trim($("#contactNumber").val());
+    var email_val = $.trim($("#contactEmail").val());
+    if (len > 500) {
+        showTips("输入内容不得大于500字。", "error");
+        return false;
+    }
+    if (cont == "" || cont == null || len == 0) {
+        showTips("您还没有给我们写下宝贵意见噢。", "error");
+        return false;
+    }
+    if (tel_val.length > 0) {
+        var reg = /^\d+$/g;
+        if (!reg.test(tel_val)) {
+            showTips("请输入11位手机号码。", "error");
+            return;
+        }
+    }
+    if (email_val.length > 0) {
+        var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,3})$/;
+        if (!reg.test(email_val)) {
+            showTips("请输入正确的email地址。", "error");
+            return;
+        }
+    }
+    $.post("/feedBack/add", {
+        "content": cont,
+        "email": email_val,
+        "telephone": tel_val
+    }, function (data) {
+        im.window.alert("提交成功，您的支持会让我们做的更好！");
+    });
+    im("#feedBackBox").dialog("close"); // 关闭弹层
+    return false;
+});
+<% end %>
+</div>

@@ -3,6 +3,7 @@ class AccountSessionsController < Devise::SessionsController
   def new
     @seo[:title]='登录'
     @simple_header=true
+    @simple_header_width=625
     resource = build_resource(nil, :unsafe => true)
     clean_up_passwords(resource)
     respond_with(resource, serialize_options(resource)) do |format|
