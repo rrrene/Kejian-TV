@@ -36,6 +36,7 @@ Sub::Application.routes.draw do
     # finishing reg process
     put '/account/confirmation' => 'account_confirmations#show'
     get "/register", :to => "account#new",as:'register'
+    get "/register05", :to => "account#new05",as:'register'
     get "/login", :to => "account_sessions#new",as:'login'
     get "/login_ibeike", :to => "account_sessions#new",as:'login_ibeike'
     get '/logout', :to => "account_sessions#destroy", as:'logout'

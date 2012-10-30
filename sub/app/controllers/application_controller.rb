@@ -15,6 +15,13 @@ class ApplicationController < ActionController::Base
     rescue_from ActionController::UnknownController, with: :render_404
     rescue_from ActionController::UnknownAction, with: :render_404
   end
+  def from_domestic_ips?
+    @from_domestic = domestic_blocks.any? { |block| block.include?(request.remote_ip) } if @from_domestic.nil?
+    @from_domestic 
+  end
+  def domestic_blocks
+     File.open("#{Rails.root}/lib/domestic.txt").read.split("\n").map { |subnet| attr=subnet.split(/\s/);IPAddr.new(attr[1]).mask(attr[2]) }
+  end
   def render_401(exception=nil)
     redirect_to root_path,:alert => '对不起，权限不足！'
     return false
@@ -343,9 +350,7 @@ class ApplicationController < ActionController::Base
       unknowns << '邮箱地址' if current_user.email_unknown
       #unknowns << '密码' if current_user.encrypted_password.blank?
       unless unknowns.blank?
-        flash[:insuf_info] = "请<a href=\"#{edit_user_registration_path}\">点击这里</a>补充您的#{unknowns.join '和'}".html_safe 
-      else
-        flash[:insuf_info] = nil
+        redirect_to '/register05'
       end
     end
   end

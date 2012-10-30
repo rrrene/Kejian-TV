@@ -417,12 +417,12 @@ private
     @auth.update_attribute(:uc_uid, @user.uid)
     sign_in_others
     sign_in(@user)
-    if(@user.name_unknown or @user.email_unknown)
-      redirect_to(edit_user_registration_path(:force_password_change => 1), :notice => '谢谢！您已经成功登录，请补充您的真实姓名和邮箱地址，并设置新密码。')
-    else
+    if 1==@auth.extent
       redirect_to(root_path, :notice =>  '谢谢！您已经成功登录。')
+    else
+      redirect_to "/register05"
+      return false
     end
-    
   end
 end
 

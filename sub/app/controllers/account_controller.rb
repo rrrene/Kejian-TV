@@ -137,6 +137,10 @@ class AccountController < Devise::RegistrationsController
   def after_inactive_sign_up_path_for(resource)
     welcome_inactive_sign_up_path
   end
+  def new05
+    @seo[:title] = '完成新用户注册'
+    render "new05",layout:'application'
+  end
   def new
     @seo[:title] = '注册新用户'
     if not Setting.allow_register

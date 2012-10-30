@@ -178,12 +178,6 @@
       $("#sdk_flashes .alert").fadeOut('fast').fadeIn('fast').fadeOut('fast').fadeIn('fast');
     <% end %>
   <% end %>
-  <% if !flash[:insuf_info].blank? %>
-    <p class="flash warning"><%=raw flash[:insuf_info] %></p>
-    <%= content_for :butt2 do %>
-      $("#sdk_flashes .warning").fadeOut('fast').fadeIn('fast').fadeOut('fast').fadeIn('fast');
-    <% end %>
-  <% end %>
   </div>
 </div>
 <% if !@we_are_inside_qa or @raw_raw_raw %><%= yield %>
