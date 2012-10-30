@@ -57,6 +57,9 @@ Sub::Application.routes.draw do
     post '/account/bind/:service' => 'account#real_bind'
   end
   match "/account/auth/:provider/unbind", :to => "users#auth_unbind"
+  #_______________________________premium__________________________________
+  get "premium" => 'premium#index'
+  get "premium/plans" => 'premium#plans'
 
   # ________________________________ajax__________________________________________
   get '/all_unread_notification_num' => 'ajax#all_unread_notification_num'
@@ -106,6 +109,7 @@ Sub::Application.routes.draw do
   post '/ajax/pause_search_history' => 'ajax#pause_search_history'
   post '/ajax/clear_search_history' => 'ajax#clear_search_history'
   post '/ajax/delete_upload' => 'ajax#delete_upload'
+  post '/ajax/setting_cw_license' => 'ajax#setting_cw_license'
   # ---=small=----
   get '/hack/htc'
   get '/welcome/inactive_sign_up'

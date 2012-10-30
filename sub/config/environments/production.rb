@@ -104,6 +104,10 @@ Sub::Application.configure do
     ktv/__qua.css
     ktv/__zm_user.css
     ktv/__ytb_playlists_show.css
+    ktv/__slide.css
+    ktv/__slide_fb.css
+    ktv/__slide_pro.css
+    ktv/__slide_plan.css
     kinetic-v4.0.0.js
 
     cpanel.js

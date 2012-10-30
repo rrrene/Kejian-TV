@@ -902,6 +902,69 @@ HEREDOC
     end
   end
   def delete_upload
+    if current_user.nil?
+      render json:{status:'failed',reason:'您尚未登陆！',arr:[]}
+      return false
+    end
+    legal = true
+    null  = true
+    arr = []
+    params[:cwid].each do |id|
+      if !BSON::ObjectId.legal?(id)
+        legal = false
+        next
+      end
+      if (cw = Courseware.find(id)).nil?
+        null  = false
+        next
+      end
+      if cw.uploader_id == current_user.id
+        cw.ua(:deleted,1)
+        arr << id
+      end
+    end
+    if !legal or !null
+      render json:{status:'failed',reason:'存在不合法数据',arr:arr}
+      return false
+    end
     render json:{status:'suc'}
+    return true
+  end
+  
+  def setting_cw_license
+    if current_user.nil?
+      render json:{status:'failed',reason:'您尚未登陆！',arr:[]}
+      return false
+    end
+    legal = true
+    null  = true
+    arr = []
+    params[:cwid].each do |id|
+      if !BSON::ObjectId.legal?(id)
+        legal = false
+        next
+      end
+      if (cw = Courseware.find(id)).nil?
+        null  = false
+        next
+      end
+      if cw.uploader_id == current_user.id
+        result = true
+        if params[:type] == 'std'
+          result = cw.change2std
+        elsif params[:type] == 'cc'
+          result = cw.change2cc
+        end
+        if result
+          arr << id
+        end
+      end
+    end
+    if !legal or !null
+      render json:{status:'failed',reason:'存在不合法数据',arr:arr}
+      return false
+    end
+    render json:{status:'suc'}
+    return true
   end
 end

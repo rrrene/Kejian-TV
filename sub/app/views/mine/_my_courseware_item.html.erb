@@ -54,14 +54,17 @@
 		</div>
 		<div class="vm-video-info-container">
 			<div class="vm-video-title">
-				<span data-tooltip-text="<%= item.title %>" title="<%= item.title %>" class="vm-video-title-container yt-uix-tooltip" id="checkbox_nsrsFkOClVg">
-				<span data-original-html="<%= item.title %>" class="vm-video-title-content"><%= item.title %></span>
+				<% titlelen = 20 %>
+				<span id="checkbox_<%= item.id %>" class="vm-video-title-container yt-uix-tooltip" <% if item.title.length > titlelen %> title='<%= item.title %>' <% end %>>
+				<a class="vm-video-title-content yt-uix-sessionlink" href="/coursewares/<%= item.id %>"><span class="vm-video-title-content"><%= item.title[0...titlelen] %><%= if item.title.length> titlelen then '...' end %></span></a>
 				</span>
 				<span class="vm-video-title-badges">
-					<span class="yt-badge-std">HD</span>
+					<span class="yt-badge-std"><%= Courseware::SORT1STR[item.sort1] %></span>
+					<% if item.license == 1 %>
 					<span title="知识共享（允许重复使用）" class="vm-video-creative-commons yt-uix-tooltip yt-uix-tooltip-reverse" data-tooltip-text="知识共享（允许重复使用）">
 					      <img alt="知识共享（允许重复使用）" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
-					  </span>
+					</span>
+					<% end %>
 				</span>
 			</div>
 			<!-- =begin  ok-->

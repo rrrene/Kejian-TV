@@ -47,8 +47,8 @@
 			<li role="menuitem" id="aria-id-remove"><span id="vm-playlist-delete-videos"  class=" yt-uix-button-menu-item">删除</span></li>
 			<li role="menuitem" id="aria-id-privacy"><span class="menu-subheading yt-uix-button-menu-item" >隐私设置</span></li>
 			<li role="menuitem" id="aria-id-public"><span id="vm-playlist-set-videos-privacy-public"  class="menu-subitem yt-uix-button-menu-item">公开</span></li>
-			<li role="menuitem" id="aria-id-notpublic"><span id="vm-playlist-set-videos-privacy-unlisted"  class="menu-subitem yt-uix-button-menu-item">不公开的课件</span></li>
-			<li role="menuitem" id="aria-id-private"><span id="vm-playlist-set-videos-privacy-private"  class="menu-subitem yt-uix-button-menu-item">私有</span></li>
+			<li role="menuitem" id="aria-id-notpublic"><span id="vm-playlist-set-videos-privacy-unlisted"  class="menu-subitem yt-uix-button-menu-item">不公开的课件(付费用户)</span></li>
+			<li role="menuitem" id="aria-id-private"><span id="vm-playlist-set-videos-privacy-private"  class="menu-subitem yt-uix-button-menu-item">私有(付费用户)</span></li>
 			<li role="menuitem" id="aria-id-allow"><span class="menu-subheading yt-uix-button-menu-item" >许可</span></li>
 			<li role="menuitem" id="aria-id-ktvlisence"><span id="vm-playlist-set-videos-license-standard"  class="menu-subitem yt-uix-button-menu-item">标准许可</span></li>
 			<li role="menuitem" id="aria-id-ktvshare"><span id="vm-playlist-set-videos-license-cc"  class="menu-subitem yt-uix-button-menu-item">知识共享</span></li>
@@ -577,18 +577,24 @@
 		sort_by('times');
 	});
 	$('#aria-id-remove').live('click',function(){
-		var content = $('span[data-overlay-class="vm-video-actions-delete-overlay"]').html();
-<%= @per_pages %>		if(choose.length < 10){
-			$(content).find('div.vm-video-actions-delete-main-area .vm-video-actions-delete-extra-warning').addClass('hid');
-			$(content).find('div.vm-video-actions-delete-main-area .vm-video-actions-delete-warning').removeClass('hid').html('确定要删除 <strong>'+ choose.length +'</strong> 个课件吗？');			
+		var content = $($('span[data-overlay-class="vm-video-actions-delete-overlay"]').html()).clone();
+		if(choose.length < <%=  params[:per_page] ||= 15 %>){
+			$(content).find('div.vm-video-actions-delete-main-area .vm-video-actions-delete-extra-warning').addClass('hid').hide();
+			$(content).find('div.vm-video-actions-delete-main-area .vm-video-actions-delete-warning').removeClass('hid').show().html('确定要删除 <strong>'+ choose.length +'</strong> 个课件吗？');
 		}else{
-			$(content).find('div.vm-video-actions-delete-main-area .vm-video-actions-delete-warning').addClass('hid');
-			$(content).find('div.vm-video-actions-delete-main-area .vm-video-actions-delete-extra-warning').removeClass('hid').html('您已选择删除<strong>此页上的所有课件</strong>。此更改无法撤消，因此请确认是否要删除 <strong>'+ choose.length +'</strong>个课件。');
+			$('div.vm-video-actions-delete-main-area > span.vm-video-actions-delete-warning',content).addClass('hid').hide();
+			$('div.vm-video-actions-delete-main-area > div.vm-video-actions-delete-extra-warning',content).removeClass('hid').show().html('您已选择删除<strong>此页上的所有课件</strong>。此更改无法撤消，因此请确认是否要删除 <strong>'+ choose.length +'</strong>个课件。');
 		}
 		var bg = '<div id="yt-uix-overlay-bg" class="yt-uix-overlay-bg" style="height:'+$('body').height()+'px;"></div>';
 		var base = '<div id="yt-uix-overlay-base" class="yt-uix-overlay-base"><span class="yt-uix-overlay-align"></span><div id="yt-uix-overlay-fg" class="yt-uix-overlay-fg vm-video-actions-delete-overlay" data-overlay-hidden=""><div class="yt-uix-overlay-fg-content">'+$(content).html()+'</div></div></div>';
 		$('.__ytb').append(bg);
 		$('.__ytb').append(base);
+	});
+	$('#aria-id-ktvlisence').live('click',function(){
+		change_license('std');
+	});
+	$('#aria-id-ktvshare').live('click',function(){
+		change_license('cc');
 	});
 	$('.__ytb > ul.cw-choice > li').live('click',function(e){
 		var href = $('span',this).attr('href');
@@ -608,15 +614,55 @@
 			if(json.status == 'suc'){
 				$('#yt-uix-overlay-base').remove();
 				$('#yt-uix-overlay-bg').remove();
-				console.log(choose);
 				$.each(choose,function(index,li){
 					$('#vm-video-'+li).remove();
+				});
+				if(choose.length >= <%=  params[:per_page] ||= 15 %>){
+					window.location.replace('/mine/my_coursewares?page=<%= params[:page] ||= 1 %>');
+				}
+				choose = new Array();
+				resort();
+			}else if(json.status == 'failed'){
+				$('#yt-uix-overlay-base').remove();
+				$('#yt-uix-overlay-bg').remove();
+				$.each(json.arr,function(index,li){
+						$('#vm-video-'+li).remove();
 				});
 				choose = new Array();
 				resort();
 			}
 		});
 	}
+	var change_license = function(tt){
+		var license = '<span title="知识共享（允许重复使用）" class="vm-video-creative-commons yt-uix-tooltip yt-uix-tooltip-reverse" data-tooltip-text="知识共享（允许重复使用）"><img alt="知识共享（允许重复使用）" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>"></span>';
+		$.ajax({
+			url:'/ajax/setting_cw_license',
+			type:'POST',
+			data:{'cwid':choose,'type':tt},
+			dataType:'json'
+		}).done(function(json){
+			if(json.status == 'suc'){
+				$.each(choose,function(index,li){
+					if(tt == 'std'){
+						$('#vm-video-'+li+' span.vm-video-title-badges .vm-video-creative-commons').remove();
+					}else if(tt=='cc'){
+						$('#vm-video-'+li+' span.vm-video-title-badges').append(license);
+					}
+				});
+			}else if(json.status == 'failed'){
+				$.each(json.arr,function(index,li){
+					if(tt == 'std'){
+						$('#vm-video-'+li+' span.vm-video-title-badges .vm-video-creative-commons').remove();
+					}else if(tt=='cc'){
+						$('#vm-video-'+li+' span.vm-video-title-badges').append(license);
+					}
+				});
+			}
+		});
+	};
+	$('#aria-id-notpublic').live('click',function(){
+		
+	});
 	<% end  %>
 </script>
 	
