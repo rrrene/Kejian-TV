@@ -16,11 +16,11 @@ class AccountController < Devise::RegistrationsController
   end
   def bind
     @serv=params[:service].to_sym
-    unless UcThirdPartyAuth::SERVICES.keys.include? @serv
+    unless Ktv::Consumers.keys.include? @serv
       render text:'service not supported yet'
       return false
     end
-    @service = UcThirdPartyAuth::SERVICES[@serv]
+    @service = Ktv::Consumers[@serv]
     @seo[:title] = "绑定#{@service[:name]}"
     self.send("bind_#{@serv}_prepare!")
     render layout:'application'

@@ -15,7 +15,7 @@ Devise.setup do |config|
   config.maximum_attempts = 888
   config.reset_password_within = 6.hours
   Ktv::Consumers.values.each do |value|
-    config.omniauth value[0], value[1], value[2]
+    config.omniauth value[:oauth][0], value[:oauth][1], value[:name_long]
   end
 
 end
