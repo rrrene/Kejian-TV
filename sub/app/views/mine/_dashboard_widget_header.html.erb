@@ -1,0 +1,21 @@
+<div class="dashboard-widget-header">
+   <div class="dashboard-widget-header-controls">
+      <button role="button" onclick=";return false;" class=" yt-uix-button <% if widget == 'config' %>yt-uix-button-dashboard-widget-config<% elsif widget == 'remove' %>yt-uix-button-dashboard-widget-remove<% end %> yt-uix-button-empty" type="button">
+				<span class="yt-uix-button-icon-wrapper">
+					<img alt="" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="yt-uix-button-icon <% if widget == 'config' %>yt-uix-button-icon-dashboard-widget-config<% elsif widget == 'remove' %>yt-uix-button-icon-dashboard-widget-remove<% end %>" />
+					<span class="yt-valign-trick"></span>
+				</span>
+			</button>
+   </div>
+   <div class="dashboard-widget-display-title yt-uix-dragdrop-drag-handle">
+      <img alt="" class="dashboard-widget-handle" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" />
+      <h2>
+         <%= title %>
+      </h2>
+   </div>
+   <div class="dashboard-widget-edit-title">
+      <span class=" yt-uix-form-input-container">
+				<input placeholder="<%= title %>" value="" class="yt-uix-form-input-text dashboard-widget-custom-title" />
+			</span>
+   </div>
+</div>

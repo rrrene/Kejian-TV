@@ -7,24 +7,19 @@
 <%=render 'mine_above' %>
 <div class="ytg-fl vm-has-videolist vm-list-view vm-dashboard" id="yt-admin">
 	<%=render 'manager_nav' %>
-	<div class="ytg-fl dashboard_content" id="yt-admin-content">
+	<div class="ytg-fl dashboard_content" id="yt-admin-content" style="padding-bottom:100px">
 		<%= render partial:'dashboard_header' %>
 		<div class="yt-uix-dragdrop dashboard-widgets">
-			<div class="dashboard-widgets-left yt-uix-dragdrop-container">	
+			<div class="dashboard-widgets-left yt-uix-dragdrop-container">
 				<div data-widget-id="0" class="dashboard-widget display videos yt-uix-dragdrop-draggable-item">
-					<div class="dashboard-widget-header">
-								
-						<div class="dashboard-widget-display-title">
-							<h2>
-								课件
-							</h2>
-						</div>
-					</div>
+					<%= render partial:'dashboard_widget_header',locals:{title:'课件',widget:'config'} %>
 					<div class="dashboard-widget-viewport">
 						<div class="dashboard-widget-inside clearfix">
 							<div class="content">
 								<ol class="video-list">
-									<% @coursewares.each do |item| %><%=render partial: 'dashboard_item',locals:{item:item} %><% end %>
+									<% @coursewares.each do |item| %>
+										<%=render partial: 'dashboard_item',locals:{item:item} %>
+									<% end %>
 								</ol>
 								<div class="view-all-link">
 									<a href="/mine/my_coursewares">查看全部</a> &nbsp;»
@@ -34,49 +29,25 @@
 					</div>
 				</div>
 				<div data-widget-id="1" class="dashboard-widget display comments yt-uix-dragdrop-draggable-item">
-					<div class="dashboard-widget-header">
-						<div class="dashboard-widget-display-title">
-							<h2>
-								评论
-							</h2>
-						</div>
-					</div>
+					<%= render partial:'dashboard_widget_header',locals:{title:'评论',widget:'config'} %>
 					<div class="dashboard-widget-viewport">
 						<div class="dashboard-widget-inside clearfix">
 							<div class="content">
 								<ol class="comment-list">
 									<li class="dashboard-widget-item selectable-item comment-list-item">
 										<div class="comment-thumb">
-											<a href="/user/mattlee000?feature=vmdshb"><span class="video-thumb ux-thumb yt-thumb-square-28"><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img width="28" alt="缩略图" src="//i4.ytimg.com/i/Cvwa26MKqstBsYGG7OzUlw/1.jpg?v=4f7c1445"></span></span></span></a>
-										</div>
-										<div class="comment-body">
-											<span class="comment-heading"><a href="/user/mattlee000?feature=vmdshb">mattlee000</a>评论了中国科学技术大学数学分析（史济怀） sjh20030903 2</span>
-											<div class="comment-comment">
-												<img alt="" src="%3C%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%%3E" class="quotation-mark"> <a href="/watch?v=eO4V45qp_jU&amp;feature=vmdshb">科大﻿</a>
-											</div>
-											<ul class="comment-list-item-links">
-												<li>2 周前
-												</li>
-												<li class="vm-link">
-													<a href="http://www.%E8%AF%BE%E4%BB%B6TV.com/watch?v=eO4V45qp_jU&amp;lcor=1&amp;lc=TkhQgmBKR7dIqicEr5HsN0dDBPus4v92R5X0R2WlFuI&amp;feature=vmdshb">回复</a>
-												</li>
-											</ul>
-										</div>
-									</li>
-									<li class="dashboard-widget-item selectable-item comment-list-item">
-										<div class="comment-thumb">
-											<a href="/user/libersnail?feature=vmdshb"><span class="video-thumb ux-thumb yt-thumb-square-28"><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img width="28" alt="缩略图" src="https://lh5.googleusercontent.com/-8E5EgMGpLTo/AAAAAAAAAAI/AAAAAAAAAAA/Hh1gHr3Vd0M/s28-c-k/photo.jpg"></span></span></span></a>
+											<a href="/user/libersnail?feature=vmdshb"><span class="video-thumb ux-thumb yt-thumb-square-28"><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img width="28" alt="缩略图" src="https://lh5.googleuserconAAAAAAA/Hh1gHr3Vd0M/s28-c-k/photo.jpg"></span></span></span></a>
 										</div>
 										<div class="comment-body">
 											<span class="comment-heading"><a href="/user/libersnail?feature=vmdshb">Liber Liu</a>评论了Will Power</span>
 											<div class="comment-comment">
-												<img alt="" src="%3C%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%%3E" class="quotation-mark"> <a href="/watch?v=JZtQ25v7XsQ&amp;feature=vmdshb">......................................无语了﻿</a>
+												<img alt="" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="quotation-mark"> <a href="/watch?v=JZtQ25v7XsQ&amp;feature=vmdshb">......................................无语了﻿</a>
 											</div>
 											<ul class="comment-list-item-links">
 												<li>1 年前
 												</li>
 												<li class="vm-link">
-													<a href="http://www.%E8%AF%BE%E4%BB%B6TV.com/watch?v=JZtQ25v7XsQ&amp;lcor=1&amp;lc=14pXdScR6rO_5BKuwQ5aDbVqsiMbx1Cllu8L4DmoocQ&amp;feature=vmdshb">回复</a>
+													<a href="DbVqsiMbx1Cllu8L4DmoocQ&amp;feature=vmdshb">回复</a>
 												</li>
 											</ul>
 										</div>
@@ -93,13 +64,7 @@
 			<div class="dashboard-widgets-right yt-uix-dragdrop-container">
 				<%= render partial:'dashboard_notification' %>
 				<div data-widget-id="2" class="dashboard-widget display analytics yt-uix-dragdrop-draggable-item">
-					<div class="dashboard-widget-header">
-						<div class="dashboard-widget-display-title">
-							<h2>
-								过去 30 天的主要统计信息
-							</h2>
-						</div>
-					</div>
+					<%= render partial:'dashboard_widget_header',locals:{title:'过去 30 天的主要统计信息',widget:'remove'} %>
 					<div class="dashboard-widget-viewport">
 						<div class="dashboard-widget-inside clearfix">
 							<div class="content">
@@ -131,23 +96,17 @@
 					</div>
 				</div>
 				<div data-widget-id="3" class="dashboard-widget display promos yt-uix-dragdrop-draggable-item">
-					<div class="dashboard-widget-header">
-								<div class="dashboard-widget-display-title">
-									<h2>
-										新增内容
-									</h2>
-								</div>
-							</div>
+					<%= render partial:'dashboard_widget_header',locals:{title:'新增内容',widget:'remove'} %>
 					<div class="dashboard-widget-viewport">
 						<div class="dashboard-widget-inside clearfix">
 							<div class="content">
-								<div data-slider-slides="3" class="yt-uix-slider">
+								<div data-slider-slides="3" data-slide-current="0" class="yt-uix-slider">
 									<div class="promos-slider-container">
 											<button class="yt-uix-button yt-uix-button-default yt-uix-slider-prev" disabled="disabled">
-												<img alt="上一个通知" src="%3C%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%%3E" class="yt-uix-slider-prev-arrow">
+												<img alt="上一个通知" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="yt-uix-slider-prev-arrow">
 											</button> 
 											<button class="yt-uix-button yt-uix-button-default yt-uix-slider-next">
-												<img alt="下一个通知" src="%3C%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%%3E" class="yt-uix-slider-next-arrow">
+												<img alt="下一个通知" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="yt-uix-slider-next-arrow">
 											</button>
 												<div class="promos-content-container">
 													<div class="yt-uix-slider-body">
@@ -158,7 +117,7 @@
 																		新的概览模板
 																	</h3>
 																	<a href="//support.google.com/%E8%AF%BE%E4%BB%B6TV/bin/answer.py?answer=2737256&amp;hl=zh-CN">
-																		<img alt="使用新的概览模板新建频道架的屏幕截图。" src="%3C%=asset_path('yt/img/videomanager/promo-new-overview-template-vflMfG5IO.png')%%3E" class="promo-image">
+																		<!-- <img alt="使用新的概览模板新建频道架的屏幕截图。" src="<%=asset_path('yt/img/videomanager/promo-new-overview-template-vflMfG5IO.png')%>" class="promo-image"> -->
 																	</a>
 																	<div class="promo-content">
 																		凭借这一新的频道页面概览模板，您可以突出显示上传的热门课件、最近顶过的课件等。<a href="//support.google.com/%E8%AF%BE%E4%BB%B6TV/bin/answer.py?answer=2737256&amp;hl=zh-CN">了解详情</a>。
@@ -169,7 +128,9 @@
 																<li class="yt-uix-slider-item">
 																	<h3 class="promo-title">
 																		向您的课件添加字幕
-																	</h3><a href="//support.google.com/%E8%AF%BE%E4%BB%B6TV/bin/answer.py?answer=100077&amp;hl=zh-CN"><img alt="在课件上修改字幕的屏幕截图。" src="%3C%=asset_path('yt/img/videomanager/promo-edit-captions-vflLaewiF.png')%%3E" class="promo-image"></a>
+																	</h3><a href="//support.google.com/%E8%AF%BE%E4%BB%B6TV/bin/answer.py?answer=100077&amp;hl=zh-CN">
+																		<!-- <img alt="在课件上修改字幕的屏幕截图。" src="<%=asset_path('yt/img/videomanager/promo-edit-captions-vflLaewiF.png')%>" class="promo-image"> -->
+																	</a>
 																	<div class="promo-content">
 																		您现在可以使用内嵌编辑器修改您课件的字幕了。<a href="//support.google.com/%E8%AF%BE%E4%BB%B6TV/bin/answer.py?answer=100077&amp;hl=zh-CN">了解详情</a>。
 																	</div>
@@ -179,7 +140,9 @@
 																<li class="yt-uix-slider-item">
 																	<h3 class="promo-title">
 																		在 Twitter 上关注 @ytcreators
-																	</h3><a href="https://twitter.com/ytcreators"><img alt="@ytcreators 的 Twitter 屏幕截图。" src="%3C%=asset_path('yt/img/videomanager/promo-twitter-ytcreators-vflGlyYgk.png')%%3E" class="promo-image"></a>
+																	</h3><a href="https://twitter.com/ytcreators">
+																		<!-- <img alt="@ytcreators 的 Twitter 屏幕截图。" src="<%=asset_path('yt/img/videomanager/promo-twitter-ytcreators-vflGlyYgk.png')%>" class="promo-image"> -->
+																	</a>
 																	<div class="promo-content">
 																		请关注 课件TV 合作伙伴和创作者的官方 Twitter 页面 <a href="https://twitter.com/ytcreators">@ytcreators</a>，您也可以在 <a href="https://plus.google.com/102302518872558262838/posts">Google+</a>上添加我们。
 																	</div>

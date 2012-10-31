@@ -113,6 +113,8 @@ Sub::Application.routes.draw do
   post '/ajax/setting_cw_license' => 'ajax#setting_cw_license'
   post '/ajax/enable_beauty_view' => 'ajax#enable_beauty_view'
   post '/ajax/set_privacy' => 'ajax#set_privacy'
+  post '/ajax/update_widget_sort' => 'ajax#update_widget_sort'
+  
   # ---=small=----
   get '/hack/htc'
   get '/welcome/inactive_sign_up'

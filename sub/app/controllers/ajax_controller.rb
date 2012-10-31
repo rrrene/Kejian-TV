@@ -1018,4 +1018,12 @@ HEREDOC
     render json:{status:'suc'}
     return true
   end
+  def update_widget_sort
+    if current_user.nil?
+      render json:{status:'failed',reason:'您尚未登陆！',arr:[]}
+      return false
+    end
+    binding.pry
+    
+  end
 end
