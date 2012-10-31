@@ -9,6 +9,7 @@ class AccountController < Devise::RegistrationsController
     :binds,
     :bind,
     :real_bind,
+    :new05,
   ]
   def binds
     @seo[:title] = '绑定外部账号'
@@ -21,21 +22,9 @@ class AccountController < Devise::RegistrationsController
       return false
     end
     @service = Ktv::Consumers[@serv]
-    @seo[:title] = "绑定#{@service[:name]}"
     self.send("bind_#{@serv}_prepare!")
+    @seo[:title] = "绑定#{@service[:name]}"
     render layout:'application'
-  end
-  def bind_renren_prepare!
-    rr = Ktv::Renren.new
-    @origURL, @domain, @key_id, @captcha_type, @captcha = rr.build_login_page
-    @renren_cookie = rr.agent.cookies.join('; ')
-    # to be fiiled: :uniqueTimestamp, :email, :icode, :password
-  end
-  def bind_spetial_ibeike_prepare!
-    rr = Ktv::Renren.new
-    @origURL, @domain, @key_id, @captcha_type, @captcha = rr.build_login_page
-    @renren_cookie = rr.agent.cookies.join('; ')
-    # to be fiiled: :uniqueTimestamp, :email, :icode, :password
   end
   def edit_services
     @seo[:title] = '绑定账号'
@@ -141,8 +130,16 @@ class AccountController < Devise::RegistrationsController
     @seo[:title] = '完成新用户注册'
     @simple_header=true
     @simple_header_width=840
-    candidate = current_user.authorizations.where(:hardcore_succeeded_at=>nil).order('oauth_succeeded_at desc').first
-    render "new05",layout:'application'
+    case current_user.reg_extent
+    when 0
+      # 其实我们只想让他们从人人过来。因为大学生基本上都有人人！
+      @serv = :renren
+      @service = Ktv::Consumers[@serv]
+      self.send("bind_#{@serv}_prepare!")
+      render "new050",layout:'application'
+    when 1
+      render "new051",layout:'application'
+    end
   end
   def new
     @seo[:title] = '注册新用户'

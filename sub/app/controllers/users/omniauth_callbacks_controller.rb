@@ -21,15 +21,21 @@ private
     end
     provider = env["omniauth.auth"]['provider'].to_s
     uid = env["omniauth.auth"]['uid'].to_s
-    @auth = UCenter::ThirdPartyAuth.getauth(nil,{uid:uid,provider:provider})
+    # 好的，所以，如果UCenter找到了这个人，那么@auth 是数组
+    @auth = UCenter::ThirdPartyAuth.getauth(nil,{uid:uid,provider:provider,oauth_succeeded:true}).try(:[],'root').try(:[],'item')
     if @auth
-      @user = @auth.user 
-    else
-      @user ||= User.new
-      @auth ||= UcThirdPartyAuth.create! do |x|
-        x.provider = provider
-        x.uid = uid
-      end
+      # 那么，在这个点上
+      # 如果用户以前从来没有来过这个子站
+      # 那么将被创建，用户资料是从uc那边搞到手的
+      @user = User.find_by_uid(@auth[0])
+    end
+    if !@auth or !@user
+      @user = User.new
+      # 好的，所以，那么如果没找到呢？是个Hash！！！
+      @auth = {
+        :provider => provider,
+        :uid => uid,
+      }
     end
     @info = env["omniauth.auth"]['info']
     p env["omniauth.auth"].inspect
@@ -57,6 +63,8 @@ private
         if ret.xi.to_i>0
           @user.uid=ret.xi.to_i
           @user.save(:validate=>false)
+          # 好的！在这一点上，我们就可以往UC那边写入真正的auth了！
+          UCenter::ThirdPartyAuth.getauth(nil,{uc_uid:@user.uid.to_s,uid:@auth[:uid],provider:@auth[:provider],will_create:true,oauth_succeeded:true})
         else
           raise '注册UC同步注册错误！！！猿快来看一下！'
         end
@@ -64,10 +72,9 @@ private
         User.import_from_dz!(info0)
       end
     end
-    @auth.update_attribute(:uc_uid, @user.uid)
     sign_in_others
     sign_in(@user)
-    if @user.reg_extent.try(:>=,100)
+    if @user.reg_extent_okay?
       redirect_to(root_path, :notice =>  '谢谢！您已经成功登录。')
     else
       redirect_to "/register05"

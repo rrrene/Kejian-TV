@@ -16,12 +16,15 @@ $("#loginForm").bind("ajax:beforeSend", function(){
     jQuery("#errorMessage").show();
     jQuery("#errorMessage").html(data['failDescription']);
     jQuery('#huanyizhang').trigger('click');
-  }else{
+  }else if(1==data['okay']){
     jQuery("#errorMessage").hide();
     jQuery('.__rr').hide();
     jQuery('#content').css('background-color','#F8F8F8');
     jQuery('.__lnk').css('background-color','#F8F8F8');
     jQuery('#suc_bangding').show();
+  }else if(2==data['okay']){
+    jQuery('.__rr').remove();
+    window.location.href = '/';
   }
 });
 $('#email,#password,#icode').focus(function(){
@@ -96,7 +99,7 @@ $('#uniqueTimestamp').val(_11d.getFullYear()+_11d.getMonth()+_11d.getDay()+_11d.
 			<div class="full-page-holder">
 				<div class="full-page">
 					<div class="login-page clearfix">
-						<div class="side-column" style="height:438px">
+						<div class="side-column" style="height:508px">
 							<div class="login-panel">
                 <%= form_tag '/ajax/renren_real_bind', :id=>"loginForm", :class=>"login-form psvr_standard_ajax_form", :remote=>true do |f| %>
 									<dl class="top clearfix">
@@ -154,11 +157,13 @@ $('#uniqueTimestamp').val(_11d.getFullYear()+_11d.getMonth()+_11d.getDay()+_11d.
                   <img src="http://a.xnimg.cn/imgpro/icons/load.gif">
                   <p style="font-weight:bold;margin-top:20px">正在登录</p>
                 </div>
+                <div class="regnow">
+                  <input type="button" onclick="window.open('http://wwv.renren.com/xn.do')" id="regnow" class="input-button login-btn" value="立即注册帐号" tabindex="6" stats="loginPage_signUp_button">
+                </div>
 							</div>
 						</div>
 						<div class="main-column" style="width:565px;font-size:12px">
-              <%= image_tag 'bind/renren_desc.png',style:'margin-top:60px' %>
-              <%= image_tag 'bind/renren_desc2.png',style:'margin-top:162px' %>
+              <%= image_tag 'bind/renren_desc3.png',style:'margin-top:83px;margin-left:-8px' %>
             </div>
 					</div>
 				</div>

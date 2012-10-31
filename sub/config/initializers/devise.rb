@@ -14,9 +14,13 @@ Devise.setup do |config|
   config.reconfirmable = true
   config.maximum_attempts = 888
   config.reset_password_within = 6.hours
+  config.omniauth Ktv::Consumers[:renren][:oauth][0], Ktv::Consumers[:renren][:oauth][1], Ktv::Consumers[:renren][:oauth][2]
+=begin
+被注掉的原因是，在子站，我们不想让用户有太多的第三方网站登录选择。
+其实我们只想让他们从人人过来。因为大学生基本上都有人人！
   Ktv::Consumers.values.each do |value|
     next unless value[:oauth].present?
-    config.omniauth value[:oauth][0], value[:oauth][1], value[:name_long]
+    config.omniauth value[:oauth][0], value[:oauth][1], value[:oauth][2]
   end
-
+=end
 end

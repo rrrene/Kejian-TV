@@ -105,7 +105,8 @@ class ApplicationController < ActionController::Base
       end
     elsif user_signed_in? and @_G['uid']==0
       # me on, dz off
-      flash[:extra_ucenter_operations] = UCenter::User.synlogin(request,{uid:current_user.uid,psvr_uc_simpleappid:Setting.uc_simpleappid})
+      # todo!!!
+      # flash[:extra_ucenter_operations] = UCenter::User.synlogin(request,{uid:current_user.uid,psvr_uc_simpleappid:Setting.uc_simpleappid})
     else
       # me off, dz off
       # me on, dz on
@@ -342,11 +343,19 @@ class ApplicationController < ActionController::Base
     redirect_to(session[:return_to] || default)
     session[:return_to] = nil
   end
-  before_filter :unknown_user_check,:unless=>proc{!current_user or "/register05"==request.path or "/logout"==request.path}
+  NO_REDIRECT_REQUEST_PATHs = [
+    '/register05',
+    '/logout',
+    '/ajax/renren_huanyizhang',
+    '/ajax/renren_real_bind',
+  ]
+  before_filter :unknown_user_check,:if=>'current_user'
   def unknown_user_check
     if current_user.reg_extent < 100
-      # redirect_to '/register05'
-      return false
+      unless ApplicationController::NO_REDIRECT_REQUEST_PATHs.include?(request.path)
+        redirect_to "/register05"
+        return false
+      end
     end
   end
 
@@ -518,6 +527,16 @@ class ApplicationController < ActionController::Base
   end
   def redirect_sa_cal(url)
     return Digest::MD5.hexdigest(Base64.encode64('liber.'+url))[2..20]
+  end
+protected
+  def bind_renren_prepare!
+    rr = Ktv::Renren.new
+    @origURL, @domain, @key_id, @captcha_type, @captcha = rr.build_login_page
+    @renren_cookie = rr.agent.cookies.join('; ')
+    # to be fiiled: :uniqueTimestamp, :email, :icode, :password
+  end
+  def bind_spetial_ibeike_prepare!
+    # todo了啦！
   end
 end
 

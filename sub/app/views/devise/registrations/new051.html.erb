@@ -1,0 +1,28 @@
+<% content_for :armpit do %>
+  <%= stylesheet_link_tag "ktv/__zm", :media => "all" %>
+  <%= stylesheet_link_tag "ktv/__zm_reg", :media => "all" %>
+<% end %>
+<% content_for :butt2 do %>
+
+<% end %>
+<div class="wrapper" style="width:822px">
+</div>
+<div class="__zm">
+<div id="reg-header" class="wide">
+</div>
+<div id="content" class="newreg wide" style="padding-top:6px">
+  <div style="width:840px;height:51px;background:url(<%=asset_path 'zm/r11839/images/reg/bad_tiao1.png' %>)">
+  </div>
+  <div style="width:838px;border: 1px solid #D6D6D6;border-top: none;height:349px;background:#DFDFDF url(<%=asset_path('bind/renren_loading.png')%>) no-repeat scroll top left" id="content_reg05">
+    <div id="psvr_extent_txt" class="psvr_fontifont" style="position: absolute; margin-left: 198px; font-size: 13px; margin-top: 140px;">
+      <%= User::EXTENT_TEXT[current_user.reg_extent] %>...
+    </div>
+    <div id="psvr_extent_txt" class="psvr_fontifont" style="position: absolute; height: 30px; background: transparent url(<%= asset_path 'bind/progress.gif' %>) repeat-x scroll top left; margin-top: 168px; margin-left: 198px; width: <%=454*current_user.reg_extent/10%>px;">&nbsp;</div>
+  </div>
+</div>
+<div class="totop" id="backtotop" style="display: none;">
+  <a href="javascript:void(0);">返回 </a > < /div>
+<div id="loginLayout">
+</div>
+
+</div>

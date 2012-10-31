@@ -12,18 +12,6 @@
     <% key = "spetial_#{Setting.ktv_sub.to_s.split('-')[0]}".to_sym; if value=Ktv::Consumers[key] %>
     <p style="margin:0 0 16px 143px"><a class="renren" href="/account/auth/<%=key%>"><img class="core_spetial" src="/assets/bind/huge_<%=key%>.png" alt="用<%=value[:name]%>登录"></a> </p>
     <%end%>
-    <ul class="cf">
-      <li><a class="yahei sina" href="/account/auth/weibo"><em class="png">新浪微博</em></a></li>
-      <li><a class="yahei qq" href="/account/auth/qq"><em class="png">腾讯QQ</em></a></li>
-      <li><a class="yahei tencent" href="/account/auth/tqq"><em class="png">腾讯微博</em></a></li>
-      <li><a class="yahei douban" href="/account/auth/douban"><em class="png">豆瓣</em></a></li>
-      <li><a class="yahei google" href="/account/auth/google"><em class="png">谷歌账号</em></a></li>
-      <li><a class="yahei zhaopin" href="/account/auth/zhaopin"><em class="png">智联招聘</em></a></li>
-      <li><a class="yahei linkedin" href="/account/auth/linkedin"><em class="png">LinkedIn</em></a></li>
-      <li><a class="yahei github" href="/account/auth/github"><em class="png">Github</em></a></li>
-      <li><a class="yahei facebook" href="/account/auth/facebook"><em class="png">Facebook</em></a></li>
-      <li><a class="yahei twitter" href="/account/auth/twitter"><em class="png">Twitter</em></a></li>
-    </ul>
 	</div>
 	<div class="hsplit">
 	</div>

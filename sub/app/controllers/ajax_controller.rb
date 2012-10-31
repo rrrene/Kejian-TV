@@ -27,7 +27,14 @@ class AjaxController < ApplicationController
         'import_info',
         agent,current_user.id,result.cookies,ret['homeUrl'],!!params[:guanzhu_ktv],!!params[:fabiao_ktv]
       )
-      render json:{okay:true}
+      if current_user.reg_extent_okay?
+        # 1表示只是普通的绑定，成功了，没有后续. ok，该干嘛干嘛。
+        render json:{okay:1}
+      else
+        current_user.update_attribute(:reg_extent,1)
+        # 2表示这个用户登录ok，继续注册.
+        render json:{okay:2}
+      end
     else
       render json:{okay:false,failDescription:ret['failDescription']}
     end
