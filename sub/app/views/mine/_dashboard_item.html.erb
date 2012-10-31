@@ -1,0 +1,51 @@
+<li class="dashboard-widget-item selectable-item video-list-item clearfix">
+<div class="vm-thumb">
+	<a class="ux-thumb-wrap yt-uix-sessionlink yt-uix-contextlink contains-addto " href="/coursewares/<%= item.id %>">
+		<span class="video-thumb ux-thumb yt-thumb-default-64 ">
+			<span class="yt-thumb-clip">
+				<span class="yt-thumb-clip-inner">
+					<% if item.status !=0 or !item.check_upyun_result %>
+					<img width="64" alt="缩略图" src="<%=asset_path('yt/img/mqdefault.jpg')%>">
+					<% else %>
+					<img width="64" alt="缩略图" src="<%= asset_url("cw/#{item.ktvid}/#{item.revision}thumb_slide_0.jpg") %>">
+					<% end %>
+					<span class="vertical-align"></span>
+				</span>
+			</span>
+		</span>
+		<span class="video-time"><% if !item.tree.present? %>共<%=if item.status !=0 then '0' else item.slides_count.to_s end%>页<% else %>共<%=if item.status !=0 then '0' else item.slides_count.to_s end%>个子文件<% end %></span>
+	<% if @readlater.content.include?(item.id) %>
+			<button role="button" data-kejian-ids="<%= item.id %>" class="addto-button video-actions addto-watch-later-button-success yt-uix-button yt-uix-button-default yt-uix-button-short yt-uix-tooltip" type="button" title="稍后阅读"  data-tooltip-text="稍后阅读">
+				<span class="yt-uix-button-content">
+					<img alt="稍后阅读" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
+				</span>
+			</button>
+	 <% else %>
+			<button role="button" data-kejian-ids="<%= item.id %>" class="addto-button video-actions addto-watch-later-button yt-uix-button yt-uix-button-default yt-uix-button-short yt-uix-tooltip" type="button" title="稍后阅读" >
+				<span class="yt-uix-button-content">
+					<img alt="稍后阅读" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
+				</span>
+			</button>
+	<% end %>
+	</a>
+</div>
+<div class="video-list-item-info">
+	<div class="video-title">
+		<h3 dir="ltr">
+			<a title="" href="/coursewares/<%= item.id %>"><%= item.title %></a>
+		</h3>
+	</div>
+	<ul class="video-list-item-details">
+		<li>
+		<span class="viewcount">
+			<% if item.views_count > 0 %>观看次数：<%= item.views_count %> 次<% else %>无人观看<% end %></span>
+		</li>
+		<li>
+			<span class="video-date-added"><%= timeago item.created_at %></span>
+		</li>
+		<li class="video-edit-button">
+			<a href="/coursewares/<%= item.id %>">修改</a>
+		</li>
+	</ul>
+</div>
+</li>

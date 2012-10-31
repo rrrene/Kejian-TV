@@ -345,7 +345,7 @@ class ApplicationController < ActionController::Base
   before_filter :unknown_user_check,:unless=>proc{!current_user or "/register05"==request.path or "/logout"==request.path}
   def unknown_user_check
     if current_user.reg_extent < 100
-      redirect_to '/register05'
+      # redirect_to '/register05'
       return false
     end
   end

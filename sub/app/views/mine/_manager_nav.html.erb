@@ -103,7 +103,6 @@
 					}
 		<% end %>
 	});
-
 	$(document).click(function(e){
 		var target = e.target;
 		cleanerUpload(target);
@@ -115,6 +114,6 @@
 			ul.parent().remove();
 			$('button.upload-menu-expand-button.end').append(ul).removeClass('yt-uix-button-active');
 		}
-	}
+	};
 	<% end %>
 </script>

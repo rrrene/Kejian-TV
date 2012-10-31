@@ -16,7 +16,7 @@
             <% if comment.replied_to_comment_id.nil? %>
             <p class="metadata">
                <span class="author ">
-                 <a dir="ltr" class="yt-uix-sessionlink yt-user-name " href="/<%= User.get_fangwendizhi comment.user_id %>"><%= User.get_name comment.user_id %></a>
+                 <a dir="ltr" class="yt-uix-sessionlink yt-user-name " href="/<%= User.get_fangwendizhi comment.user_id %>"><%=name_beautify User.get_name comment.user_id %></a>
                </span>
                <span class="time">
                <%= timeago(comment.created_at) %>

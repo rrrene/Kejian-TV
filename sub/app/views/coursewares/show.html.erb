@@ -479,7 +479,7 @@ courseware_id: '<%=@courseware.id%>'
                <div class="yt-uix-expander  yt-uix-expander-collapsed" id="watch-description">
                   <div id="watch-description-clip">
                      <p id="watch-uploader-info">
-                        <a dir="ltr" rel="author" class="yt-uix-sessionlink yt-user-name author" href="/<%= User.get_fangwendizhi @courseware.user_id %>"><%= User.get_name @courseware.user_id %></a> 发布于 <span class="watch-video-date" id="eow-date"><%= timeago @courseware.created_at  %></span>
+                        <a dir="ltr" rel="author" class="yt-uix-sessionlink yt-user-name author" href="/<%= User.get_fangwendizhi @courseware.user_id %>"><%=  User.get_name @courseware.user_id %></a> 发布于 <span class="watch-video-date" id="eow-date"><%= timeago @courseware.created_at  %></span>
                      </p>
                      <div id="watch-description-text" style="margin: 8px 0px 0px 2px;">
                        <p id="eow-description">
@@ -498,7 +498,7 @@ courseware_id: '<%=@courseware.id%>'
                         <p id="eow-category"><a href="/music"><%= link_to "/topics/#{Topic.get_name @courseware.topic_id}", @courseware.topic %></a></p>
                         <h4>许可:</h4>
                         <p id="eow-reuse">
-                           标准课件TV许可
+                           <% if @courseware.license == 0 %>标准课件TV许可<% elsif @courseware.license == 1 %>知识共享许可<% end %>
                         </p>
                      </div>
                   </div>

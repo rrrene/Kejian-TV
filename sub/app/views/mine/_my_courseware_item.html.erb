@@ -9,7 +9,7 @@
 				<span class="video-thumb ux-thumb yt-thumb-default-224 ">
 					<span class="yt-thumb-clip">
 						<span class="yt-thumb-clip-inner">
-							<% if item.status !=0 %>
+							<% if item.status !=0 or !item.check_upyun_result %>
 							<img width="224" alt="缩略图" src="<%=asset_path('yt/img/mqdefault.jpg')%>">
 							<% else %>
 							<img width="224" alt="缩略图" src="<%= asset_url("cw/#{item.ktvid}/#{item.revision}thumb_slide_0.jpg") %>">

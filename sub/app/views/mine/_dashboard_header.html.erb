@@ -1,0 +1,37 @@
+<div class="clearfix" id="dashboard-header">
+	<ul id="dashboard-header-stats">
+		<li>
+			<div class="dashboard-stat-value">
+				<%=current_user.sum_cw_views_count %>
+			</div>
+			<div class="dashboard-stat-name">
+				总课件观看次数
+			</div>
+		</li>
+		<li>
+			<div class="dashboard-stat-value">
+				<%=current_user.followers_count %>
+			</div>
+			<div class="dashboard-stat-name">
+				订阅人数
+			</div>
+		</li>
+	</ul>
+	<div id="dashboard-header-user-info">
+		<a class="yt-user-photo" href="<%=user_path(current_user)%>">
+			<span class="video-thumb ux-thumb yt-thumb-square-60">
+				<span class="yt-thumb-clip">
+					<span class="yt-thumb-clip-inner">
+						<img width="60" alt="<%= current_user.name_beautified %>" src="<%=dz_avatar_url(current_user.uid,current_user.email,:small) %>">
+					</span>
+				</span>
+			</span>
+		</a>
+		<div id="dashboard-header-user-name-and-label">
+			<h1>
+				<%= current_user.name_beautified %>
+			</h1>
+		</div>
+	</div>
+</div>
+<div id="vm-general-notifs"></div>
