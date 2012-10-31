@@ -10,6 +10,7 @@ Sub::Application.routes.draw do
   get '/url' => 'jump_engine#url'
   
   get '/mine' => 'mine#index'
+  get '/dashboard' => 'mine#dashboard'
   get '/mine/dashboard'
   get '/mine/my_coursewares'
   get '/mine/view_all_playlists'
@@ -110,6 +111,8 @@ Sub::Application.routes.draw do
   post '/ajax/clear_search_history' => 'ajax#clear_search_history'
   post '/ajax/delete_upload' => 'ajax#delete_upload'
   post '/ajax/setting_cw_license' => 'ajax#setting_cw_license'
+  post '/ajax/enable_beauty_view' => 'ajax#enable_beauty_view'
+  post '/ajax/set_privacy' => 'ajax#set_privacy'
   # ---=small=----
   get '/hack/htc'
   get '/welcome/inactive_sign_up'

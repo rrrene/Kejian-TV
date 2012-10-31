@@ -2,7 +2,7 @@
 	<form method="get" id="vm-videos-search-form" action="/mine/my_coursewares">
 		<div id="vm-videos-search-container">
 			<span class=" yt-uix-form-input-container">
-				<input class="yt-uix-form-input-text " name="sq" id="vm-myvideos-search-box" value="" placeholder="搜索上传的课件">
+				<input class="yt-uix-form-input-text " name="q" id="vm-myvideos-search-box" value="<%= if !params[:q].blank? then params[:q] end %>" placeholder="搜索上传的课件">
 			</span>
 		</div>
 		<button type="submit" id="vm-myvideos-search-btn"  class=" yt-uix-button yt-uix-button-default" role="button">

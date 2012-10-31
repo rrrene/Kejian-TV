@@ -967,4 +967,48 @@ HEREDOC
     render json:{status:'suc'}
     return true
   end
+  
+  def enable_beauty_view
+    if current_user.nil?
+      render json:{status:'failed',reason:'您尚未登陆！'}
+      return false
+    end
+    if params[:tf] =='true'
+      current_user.ua(:enable_beauty_view,true)
+    elsif params[:tf] == 'false'
+      current_user.ua(:enable_beauty_view,false)
+    end
+    render json:{status:'suc'}
+  end
+  def set_privacy
+    if current_user.nil?
+      render json:{status:'failed',reason:'您尚未登陆！',arr:[]}
+      return false
+    end
+    legal = true
+    null  = true
+    arr = []
+    params[:cwid].each do |id|
+      if !BSON::ObjectId.legal?(id)
+        legal = false
+        next
+      end
+      if (cw = Courseware.find(id)).nil?
+        null  = false
+        next
+      end
+      if cw.uploader_id == current_user.id
+        result = cw.set_privacy(params[:type])
+        if result
+          arr << id
+        end
+      end
+    end
+    if !legal or !null
+      render json:{status:'failed',reason:'存在不合法数据',arr:arr}
+      return false
+    end
+    render json:{status:'suc'}
+    return true
+  end
 end

@@ -18,30 +18,28 @@
 						</span>
 					</span>
 				</span>
-				<span class="video-time">共<%=if item.status !=0 then '0' else item.slides_count.to_s end%>页</span>
+				<span class="video-time"><% if !item.tree.present? %>共<%=if item.status !=0 then '0' else item.slides_count.to_s end%>页<% else %>共<%=if item.status !=0 then '0' else item.slides_count.to_s end%>个子文件<% end %></span>
 			</a>
 			<div class="vm-thumb-overlay">
-				<% if false %>
 				<ul class="vm-quick-video-actions">
 					<li>
 						<a href="/coursewares/<%= item.id %>" class="vm-quick-watch-video" title="阅读">
-						<img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="阅读">
-					</a>
+								<img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="阅读">
+						</a>
 					</li>
 					<li>
 							<a href="/coursewares/<%= item.id %>/edit" class="vm-quick-edit-video" title="修改">
-							<img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="修改">
-					</a>
+								<img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="修改">
+							</a>
 					</li>
 					<li>
 							<a class="vm-quick-delete-video vm-video-delete" title="删除">
-							<img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="删除">
-					</a>
+								<img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="删除">
+							</a>
 					</li>
 				</ul>
-				<% end %>
 				<!-- =begin processing-->
-				<% if item.status !=0 %>
+				<% if item.status > 0 %>
 				<div class="vm-processing-overlay">
 					<img alt="" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
 					<span class="vm-thumb-status">
@@ -68,7 +66,7 @@
 				</span>
 			</div>
 			<!-- =begin  ok-->
-			<% if item.status == 0 %>
+			<% if item.status <= 0 %>
 			<span class="vm-video-info vm-date-info">
 				<span class="localized-date" data-timestamp="<%= item.created_at.to_i %>" data-format="longdate">
 					<%= item.created_at.strftime("%Y年%m月%d日%H:%M") %>
@@ -79,7 +77,7 @@
 				正在处理... 
 			</span>
 			<% end %>
-			<% if item.status == 0 %>
+			<% if item.status >= 0 %>
 			<div class="vm-video-info">
 				<div class="vm-video-info vm-owner-bar">
 					<span class="yt-uix-button-group">
@@ -106,17 +104,19 @@
 							<span href="/coursewares_lyric/<%= item.id %>" class="vm-video-captions yt-uix-button-menu-item" >字幕</span>
 						</li>
 						<% end %>
+						<% if item.status == 0 %>
 						<li role="menuitem menu-subheading" id="aria-id-download">
 							<span href='/coursewares/<%= item.id %>/download' class="vm-download-mp4 yt-uix-button-menu-item" >下载</span>
 						</li>
 						<li role="menuitem menu-subheading" id="aria-id-ads">
 							<span <% if false %>href="/coursewares_ads/<%= item.id %>"<% end %> class="vm-video-promote yt-uix-button-menu-item menu-subheading" >推广</span>
 						</li>
+						<% end %>
 					</ul>
 					</button></span>
 				</div>
 			</div>
-			<% elsif item.status < 0 %>
+			<% elsif item.status != 0 %>
 				<div class="vm-video-info">
 				<div class="vm-video-info vm-owner-bar">
 					<span class="vm-video-notifications">
@@ -134,13 +134,16 @@
 					</span>
 					<span class="primary-notification">
 						<!-- =begin -->
-						<% if item.status == -1 %>
+						<% if item.status == 5 %>
 						<a href="/copynotice?cwid=<%= item.id %>" class="notification-action">与第三方内容匹配。 </a>
 						<!-- end
 						=begin -->
-						<% elsif item.status == -2 %>
-						<a href="">失败（上传已中止）</a>
+						<% elsif item.status < 0 %>
+						失败（上传已中止）
 						<!-- =end -->
+						<% end %>
+						<% if item.redirect_to_id.present? %>
+							<a href="/coursewares/<%= item.redirect_to_id %>" class="notification-action">相同课件已经存在。</a>
 						<% end %>
 					</span>
 				</div>
@@ -148,24 +151,26 @@
 			<% end %>
 		</div>			
 	<!-- =begin normal -->
-		<% if item.status == 0 %>
+		<% if item.status >= 0 %>
 		<div class="vm-video-indicators">
-			<span class="vm-video-privacy vm-public yt-uix-tooltip yt-uix-tooltip-reverse" title="公开">
+			<span class="vm-video-privacy vm-public <% if item.privacy != 0 %>hid<% end %> yt-uix-tooltip yt-uix-tooltip-reverse" title="公开">
 			<a href="/coursewares/<%= item.id %>/edit?privacy=public"><img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="公开"></a>
 			</span>
-			<span class="vm-video-privacy vm-unlisted hid yt-uix-tooltip yt-uix-tooltip-reverse" title="不公开">
-			<a href="/coursewares/<%= item.id %>/edit?privacy=notpublic"><img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="不公开"></a>
+			<span class="vm-video-privacy vm-unlisted <% if item.privacy != 1 %>hid<% end %> yt-uix-tooltip yt-uix-tooltip-reverse" title="不公开">
+			<a href="/coursewares/<%= item.id %>/edit?privacy=unlisted"><img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="不公开"></a>
 			</span>
-			<span class="vm-video-privacy vm-private hid yt-uix-tooltip yt-uix-tooltip-reverse" title="私有">
+			<span class="vm-video-privacy vm-private <% if item.privacy != 2 %>hid<% end %>  yt-uix-tooltip yt-uix-tooltip-reverse" title="私有">
 				<a href="/coursewares/<%= item.id %>/edit?privacy=private"><img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="私有"></a>
 			</span>
-			<span class="vm-time-published yt-uix-tooltip yt-uix-tooltip-reverse" title="发布时间：<%= item.created_at.strftime("%Y年%m月%d日(%Z)%H:%M") %> ">
-				<img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="发布时间：<%= item.created_at.strftime("%Y年%m月%d日(%Z)%H:%M") %> ">
+			<% if item.privacy == 0 %>
+			<span class="vm-time-published yt-uix-tooltip yt-uix-tooltip-reverse" title="发布时间：<%= item.public_time.strftime("%Y年%m月%d日(%Z)%H:%M") %> ">
+				<img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="发布时间：<%= item.public_time.strftime("%Y年%m月%d日(%Z)%H:%M") %> ">
 			</span>
+			<% end %>
 		</div>
 		<div class="vm-video-icons">
 			<div class="vm-video-metrics">
-				<a href="/analytics?cwid=<%= item.id %>" class="yt-uix-tooltip" title="查看统计信息">
+				<a href="/analytics?cwid=<%= item.id %>" class="yt-uix-tooltip" title="查看统计信息(开发中...)">
 				<span class="vm-video-metric video-view-count">
 				<span>
 				<span class="vm-video-metric-icon">

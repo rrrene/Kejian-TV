@@ -14,13 +14,13 @@
 <div style="" class="goog-scrollfloater" id="vm-video-actions-bar">
 	<div id="vm-video-actions-inner" class="clearfix">
 		<span class="yt-uix-button-group vm-view-toggle" data-button-toggle-group="required">
-			<button aria-label="切换到网格视图" type="button" class="start view-toggle-button yt-uix-button yt-uix-button-default yt-uix-button-empty"  data-button-toggle="true" data-page-class="vm-beauty-view" role="button">
+			<button aria-label="切换到网格视图" type="button" class="start view-toggle-button <% if !current_user.nil? and current_user.enable_beauty_view %>yt-uix-button-toggled<% end %> yt-uix-button yt-uix-button-default yt-uix-button-empty"  role="button">
 				<span class="yt-uix-button-icon-wrapper">
 					<img class="yt-uix-button-icon yt-uix-button-icon-vm-beauty-view" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="">
 					<span class="yt-valign-trick"></span>
 				</span>
 			</button>
-			<button aria-label="切换到列表视图" type="button" class="end view-toggle-button yt-uix-button-toggled yt-uix-button yt-uix-button-default yt-uix-button-empty"  data-button-toggle="true" data-page-class="vm-list-view" role="button">
+			<button aria-label="切换到列表视图" type="button" class="end view-toggle-button <% if !current_user.nil? and !current_user.enable_beauty_view %>yt-uix-button-toggled<% end %> yt-uix-button yt-uix-button-default yt-uix-button-empty" role="button">
 				<span class="yt-uix-button-icon-wrapper">
 					<img class="yt-uix-button-icon yt-uix-button-icon-vm-list-view" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="">
 					<span class="yt-valign-trick"></span>
@@ -47,8 +47,8 @@
 			<li role="menuitem" id="aria-id-remove"><span id="vm-playlist-delete-videos"  class=" yt-uix-button-menu-item">删除</span></li>
 			<li role="menuitem" id="aria-id-privacy"><span class="menu-subheading yt-uix-button-menu-item" >隐私设置</span></li>
 			<li role="menuitem" id="aria-id-public"><span id="vm-playlist-set-videos-privacy-public"  class="menu-subitem yt-uix-button-menu-item">公开</span></li>
-			<li role="menuitem" id="aria-id-notpublic"><span id="vm-playlist-set-videos-privacy-unlisted"  class="menu-subitem yt-uix-button-menu-item">不公开的课件(付费用户)</span></li>
-			<li role="menuitem" id="aria-id-private"><span id="vm-playlist-set-videos-privacy-private"  class="menu-subitem yt-uix-button-menu-item">私有(付费用户)</span></li>
+			<li role="menuitem" id="aria-id-unlisted"><span id="vm-playlist-set-videos-privacy-unlisted"  class="menu-subitem yt-uix-button-menu-item">不公开</span></li>
+			<li role="menuitem" id="aria-id-private"><span id="vm-playlist-set-videos-privacy-private"  class="menu-subitem yt-uix-button-menu-item">私有</span></li>
 			<li role="menuitem" id="aria-id-allow"><span class="menu-subheading yt-uix-button-menu-item" >许可</span></li>
 			<li role="menuitem" id="aria-id-ktvlisence"><span id="vm-playlist-set-videos-license-standard"  class="menu-subitem yt-uix-button-menu-item">标准许可</span></li>
 			<li role="menuitem" id="aria-id-ktvshare"><span id="vm-playlist-set-videos-license-cc"  class="menu-subitem yt-uix-button-menu-item">知识共享</span></li>
@@ -60,11 +60,21 @@
 			<span class="yt-uix-button-content">最新课件 </span>
 			<img class="yt-uix-button-arrow" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="">
 		<ul class=" yt-uix-button-menu yt-uix-button-menu-text" role="menu" aria-haspopup="true" style="display: none;">
-			<li role="menuitem" id="aria-id-oldest"><span href="?vmo=oldest&amp;sa=1&amp;sf=added" id="oldest"  class=" yt-uix-button-menu-item">最早上传</span></li>
-			<li role="menuitem" id="aria-id-viewed"><span href="?vmo=viewed&amp;sa=0&amp;sf=viewcount" id="viewed"  class=" yt-uix-button-menu-item">观看最多</span></li>
-			<li role="menuitem" id="aria-id-public"><span href="?vmo=public&amp;sq=is%3Apublic" id="public"  class="menu-item-top-divider yt-uix-button-menu-item">公共</span></li>
-			<li role="menuitem" id="aria-id-notpublic"><span href="?vmo=unlisted&amp;sq=is%3Aunlisted" id="unlisted"  class=" yt-uix-button-menu-item">不公开的课件</span></li>
-			<li role="menuitem" id="aria-id-private"><span href="?vmo=private&amp;sq=is%3Aprivate" id="private"  class=" yt-uix-button-menu-item">私有</span></li>
+			<li role="menuitem" id="aria-id-oldest">
+				<span id="oldest"  class="yt-uix-button-menu-item">最早上传</span>
+			</li>
+			<li role="menuitem" id="aria-id-viewed">
+				<span  id="viewed"  class=" yt-uix-button-menu-item">观看最多</span>
+			</li>
+			<li role="menuitem" id="aria-id-public2">
+				<span  id="public"  class="menu-item-top-divider yt-uix-button-menu-item">公共</span>
+			</li>
+			<li role="menuitem" id="aria-id-unlisted2">
+				<span id="unlisted" class=" yt-uix-button-menu-item">不公开</span>
+			</li>
+			<li role="menuitem" id="aria-id-private2">
+				<span id="private"  class=" yt-uix-button-menu-item">私有</span>
+			</li>
 		</ul>
 		</button>
 		</span>
@@ -563,19 +573,30 @@
 	$('#vm-video-actions-inner button.start.view-toggle-button').live('click',function(e){
 		$(this).addClass('yt-uix-button-toggled');
 		$(this).next().removeClass('yt-uix-button-toggled');
-		
+		$('#yt-admin').removeClass('vm-list-view').addClass('vm-beauty-view');
+		enable_beauty_view(true);
 	});
 	$('#vm-video-actions-inner button.end.view-toggle-button').live('click',function(e){
 		$(this).addClass('yt-uix-button-toggled');
 		$(this).prev().removeClass('yt-uix-button-toggled');	
+		$('#yt-admin').removeClass('vm-beauty-view').addClass('vm-list-view');
+		enable_beauty_view(false);
 	});
-
+	var enable_beauty_view = function(tf){
+		$.ajax({
+			url:'/ajax/enable_beauty_view',
+			type:'POST',
+			data:{'tf':tf},
+			dataType:'json'
+		});
+	}
 	$('#aria-id-oldest').live('click',function(){
 		sort_by('oldest');
 	});
 	$('#aria-id-viewed').live('click',function(){
 		sort_by('times');
 	});
+	$('')
 	$('#aria-id-remove').live('click',function(){
 		var content = $($('span[data-overlay-class="vm-video-actions-delete-overlay"]').html()).clone();
 		if(choose.length < <%=  params[:per_page] ||= 15 %>){
@@ -596,6 +617,7 @@
 	$('#aria-id-ktvshare').live('click',function(){
 		change_license('cc');
 	});
+	
 	$('.__ytb > ul.cw-choice > li').live('click',function(e){
 		var href = $('span',this).attr('href');
 		if(href){
@@ -603,6 +625,17 @@
 		}else{
 			e.stopPropagation();
 		}
+	});
+	$('.vm-quick-delete-video.vm-video-delete').live('click',function(){
+		choose = new Array();
+		choose.push($(this).parent().parent().parent().parent().parent().find('.yt-uix-form-input-checkbox.video-checkbox').val());
+		var content = $('span[data-overlay-class="vm-video-actions-delete-overlay"]').html();
+		$(content).find('div.vm-video-actions-delete-main-area .vm-video-actions-delete-extra-warning').addClass('hid');
+		$(content).find('div.vm-video-actions-delete-main-area .vm-video-actions-delete-warning').removeClass('hid').html('确定要删除 <strong>1</strong> 个课件吗？');
+		var bg = '<div id="yt-uix-overlay-bg" class="yt-uix-overlay-bg" style="height:'+$('body').height()+'px;"></div>';
+		var base = '<div id="yt-uix-overlay-base" class="yt-uix-overlay-base"><span class="yt-uix-overlay-align"></span><div id="yt-uix-overlay-fg" class="yt-uix-overlay-fg vm-video-actions-delete-overlay" data-overlay-hidden=""><div class="yt-uix-overlay-fg-content">'+$(content).html()+'</div></div></div>';
+		$('.__ytb').append(bg);
+		$('.__ytb').append(base);
 	});
 	var delete_upload = function(){
 		$.ajax({
@@ -634,6 +667,8 @@
 		});
 	}
 	var change_license = function(tt){
+		$('#vm-general-notifs > .yt-alert').removeClass('yt-alert-success').addClass('yt-alert-info');
+		showNotification('正在更改课件许可，请稍候...');
 		var license = '<span title="知识共享（允许重复使用）" class="vm-video-creative-commons yt-uix-tooltip yt-uix-tooltip-reverse" data-tooltip-text="知识共享（允许重复使用）"><img alt="知识共享（允许重复使用）" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>"></span>';
 		$.ajax({
 			url:'/ajax/setting_cw_license',
@@ -649,20 +684,104 @@
 						$('#vm-video-'+li+' span.vm-video-title-badges').append(license);
 					}
 				});
+				$('#vm-general-notifs > .yt-alert').addClass('yt-alert-success').removeClass('yt-alert-info');
+				showNotification('课件许可已更改。');
 			}else if(json.status == 'failed'){
-				$.each(json.arr,function(index,li){
-					if(tt == 'std'){
-						$('#vm-video-'+li+' span.vm-video-title-badges .vm-video-creative-commons').remove();
-					}else if(tt=='cc'){
-						$('#vm-video-'+li+' span.vm-video-title-badges').append(license);
-					}
-				});
+				if(json.arr.length < choose.length){
+					showNotification('部分课件许可无法更改。');
+					$.each(json.arr,function(index,li){
+						if(tt == 'std'){
+							$('#vm-video-'+li+' span.vm-video-title-badges .vm-video-creative-commons').remove();
+						}else if(tt=='cc'){
+							$('#vm-video-'+li+' span.vm-video-title-badges').append(license);
+						}
+					});
+				}else{
+					showNotification('所选课件许可无法更改。');
+				}
 			}
 		});
 	};
-	$('#aria-id-notpublic').live('click',function(){
-		
+	$('#aria-id-public').live('click',function(){
+		set_privacy_cw('public');
 	});
+	$('#aria-id-unlisted').live('click',function(){
+		set_privacy_cw('unlisted');
+	});
+	$('#aria-id-private').live('click',function(){
+		set_privacy_cw('private');
+	});
+	
+	$('#aria-id-public2').live('click',function(){
+		search_privacy_cw('public');
+	});
+	$('#aria-id-unlisted2').live('click',function(){
+		search_privacy_cw('unlisted');
+	});
+	$('#aria-id-private2').live('click',function(){
+		search_privacy_cw('private');
+	});
+	var set_privacy_cw = function(tt){
+		$('#vm-general-notifs > .yt-alert').removeClass('yt-alert-success').addClass('yt-alert-info');
+		showNotification('正在更改隐私权，请稍候...');
+		$.ajax({
+			url:'/ajax/set_privacy',
+			type:'POST',
+			data:{'cwid':choose,'type':tt},
+			dataType:'json'
+		}).done(function(json){
+			if(json.status == 'suc'){
+				$.each(choose,function(index,li){
+					reset_privacy_display(li);
+					if(tt == 'public'){
+						console.log(tt);
+						$('#vm-video-'+li+' .vm-video-privacy.vm-public').show().removeClass('hid');
+					}else if(tt=='unlisted'){
+						$('#vm-video-'+li+' .vm-video-privacy.vm-unlisted').show().removeClass('hid');
+					}else if(tt=='private'){
+						$('#vm-video-'+li+' .vm-video-privacy.vm-private').show().removeClass('hid');
+					}
+				});
+				$('#vm-general-notifs > .yt-alert').addClass('yt-alert-success').removeClass('yt-alert-info');
+				showNotification('课件的隐私权已更改。');
+			}else{
+				$('#vm-general-notifs > .yt-alert').removeClass('yt-alert-success').removeClass('yt-alert-info').addClass('yt-alter-error');
+				if(json.arr.length < choose.length){
+					showNotification('部分课件的隐私权无法更改。');
+					$.each(json.arr,function(index,li){
+						reset_privacy_display(li);
+						if(tt == 'public'){
+							$('#vm-video-'+li+' .vm-video-privacy.vm-public').show().removeClass('hid');
+						}else if(tt=='unlisted'){
+							$('#vm-video-'+li+' .vm-video-privacy.vm-unlisted').show().removeClass('hid');
+						}else if(tt=='private'){
+							$('#vm-video-'+li+' .vm-video-privacy.vm-private').show().removeClass('hid');
+						}
+					});
+				}else{
+					showNotification('所选课件的隐私权无法更改。');
+				}
+			}
+		});
+	};
+	var reset_privacy_display = function(li){
+		$('#vm-video-'+li+' .vm-video-privacy.vm-public').hide().addClass('hid');
+		$('#vm-video-'+li+' .vm-video-privacy.vm-unlisted').hide().addClass('hid');
+		$('#vm-video-'+li+' .vm-video-privacy.vm-private').hide().addClass('hid');
+	}
+	var search_privacy_cw = function(tt){
+		window.location.href = '?privacy=' + tt + '&q=is:' +tt;
+	}
+			<% if request.path == '/mine/my_coursewares' %>
+				$('#yt-admin-sidebar .vm-vertical-nav .selected').live('click',function(e){
+					var href = '/mine/my_coursewares';
+			    if ( e.ctrlKey || e.metaKey )
+			        window.open(href,"_blank");
+			    else
+			        window.location = href;
+			    return false;
+				});
+			<% end %>
 	<% end  %>
 </script>
 	

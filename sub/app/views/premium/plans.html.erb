@@ -325,5 +325,15 @@
                 buttonPrevHTML: null,
                 wrap: 'last'
 	});
+	
+  $('.j-moreBenefits').live('click',function(){
+      $('.hidden-benefits').slideToggle();
+      $('.hidden-benefits li:nth-child(1)').css("border-top", "none");
+  });
+  $('.j-moreDisplay').live('click',function(){
+      $('.hidden-display').slideToggle();
+      $('.hidden-display li:nth-child(1)').css("border-top", "none");
+  });
+	
 	<% end %>
 </script>

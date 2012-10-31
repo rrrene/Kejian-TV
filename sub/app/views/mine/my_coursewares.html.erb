@@ -5,7 +5,7 @@
 
 
 <%= render 'mine_above' %>
-<div id="yt-admin" class="ytg-fl vm-has-videolist vm-list-view">
+<div id="yt-admin" class="ytg-fl vm-has-videolist <% if !current_user.nil? and current_user.enable_beauty_view  %>vm-beauty-view<% else %>vm-list-view<% end %>">
 	<%= render 'manager_nav' %>
 	<div id="yt-admin-content" class="ytg-fl ">
 		<div id="vm-page-subheader" class="clearfix">
@@ -21,11 +21,15 @@
 				<%=	render partial:'my_courseware_ads' %>
 		<% end %> 
 		<div id="vm-video-list-container">
-			<ol id="vm-playlist-video-list-ol" class="vm-video-list">
-				<% @coursewares.each do |item| %>
-					<%= render partial:'my_courseware_item',locals:{item:item}%>
-				<% end %>
-			</ol>
+			<% if @coursewares.size >0 %>
+				<ol id="vm-playlist-video-list-ol" class="vm-video-list">
+						<%= render partial:'my_courseware_ol',locals:{coursewares:@coursewares}%>
+				</ol>
+			<% else %>
+				<div id="vm-playlist-no-videos">
+			    未找到任何课件。
+			  </div>
+			<% end %>
 		</div>
 		<%=render :partial=>'pagination',locals:{coursewares_ids:@coursewares}%>
 	</div>

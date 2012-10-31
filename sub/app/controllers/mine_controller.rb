@@ -25,7 +25,20 @@ class MineController < ApplicationController
       redirect_to '/'
       return false
     end
-    @coursewares = Courseware.nondeleted.where(uploader_id:current_user.id).desc('created_at').paginate(:page => params[:page], :per_page => @per_page)
+    if params[:privacy].blank? and params[:q].blank?
+      @coursewares = Courseware.nondeleted.where(uploader_id:current_user.id).desc('created_at')
+    elsif params[:privacy] == 'public' or params[:q] == 'is:public'
+      @coursewares = Courseware.nondeleted.where(uploader_id:current_user.id,privacy:0).desc('created_at')
+    elsif params[:privacy] == 'unlisted' or params[:q] == 'is:unlisted'
+      @coursewares = Courseware.nondeleted.where(uploader_id:current_user.id,privacy:1).desc('created_at')
+    elsif params[:privacy] == 'private' or params[:q] == 'is:private'
+      @coursewares = Courseware.nondeleted.where(uploader_id:current_user.id,privacy:2).desc('created_at')
+    elsif params[:privacy].blank? and !params[:q].blank?
+      @coursewares = Courseware.nondeleted.where(uploader_id:current_user.id,title:/#{params[:q]}/).desc('created_at')
+    end
+    if !@coursewares.nil?
+      @coursewares = @coursewares.paginate(:page => params[:page], :per_page => @per_page)
+    end
     @seo[:title] = "上传的课件" 
   end
   def view_all_playlists
