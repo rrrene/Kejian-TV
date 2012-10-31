@@ -17,12 +17,11 @@
 			</div>
 		</li>
 		<li>
-			<% if false %>
 			<div class="yt-uix-clickcard add-widget-clickcard">
-			<span data-orientation="vertical" data-position="topleft" class="yt-uix-clickcard-target">
-			<img alt="" class="add-widget-button" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
-			</span>
-			<div data-widget-limit="10" class="yt-uix-clickcard-content add-widget-menu-content">
+				<span data-orientation="vertical" data-position="topleft" class="yt-uix-clickcard-target">
+					<img alt="" class="add-widget-button" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
+				</span>
+			<div <% if false %> data-widget-limit="10"<% end %> class="yt-uix-clickcard-content add-widget-menu-content">
 				<h2>向您的信息中心添加窗口小部件</h2>
 				<div class="too-many-widgets-alert">
 					<div class="yt-alert yt-alert-naked yt-alert-warn ">
@@ -38,54 +37,53 @@
 					</div>
 				</div>
 				<ul>
-					<li>
-					<div class="add-widget-menu-item add-widget-videos">
-						<div class="add-widget-menu-item-title">
-							 视频
-						</div>
-						<img class="add-widget-menu-item-add" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
-						<div class="add-widget-menu-item-added">
-							 已添加
-						</div>
-					</div>
-					</li>
-					<li>
-					<div class="add-widget-menu-item add-widget-comments added">
-						<div class="add-widget-menu-item-title">
-							 评论
-						</div>
-						<img class="add-widget-menu-item-add" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
-						<div class="add-widget-menu-item-added">
-							 已添加
-						</div>
-					</div>
-					</li>
-					<li>
-					<div class="add-widget-menu-item add-widget-analytics added">
-						<div class="add-widget-menu-item-title">
-							 关键统计信息
-						</div>
-						<img class="add-widget-menu-item-add" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
-						<div class="add-widget-menu-item-added">
-							 已添加
-						</div>
-					</div>
-					</li>
-					<li>
-					<div class="add-widget-menu-item add-widget-promos added">
-						<div class="add-widget-menu-item-title">
-							 新增功能
-						</div>
-						<img class="add-widget-menu-item-add" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
-						<div class="add-widget-menu-item-added">
-							 已添加
-						</div>
-					</div>
-					</li>
+						<li>
+								<div class="add-widget-menu-item added <% if false %>add-widget-video<% end %>">
+									<div class="add-widget-menu-item-title">
+										 课件
+									</div>
+									<img class="add-widget-menu-item-add" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
+									<div class="add-widget-menu-item-added">
+										 已添加
+									</div>
+								</div>
+						</li>
+						<li>
+							<div class="add-widget-menu-item add-widget-comments added">
+								<div class="add-widget-menu-item-title">
+									 评论
+								</div>
+								<img class="add-widget-menu-item-add" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
+								<div class="add-widget-menu-item-added">
+									 已添加
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="add-widget-menu-item add-widget-analytics <% if current_user.widget_sort.values.flatten.include?('2') %>added<% else %>add-widget-analytics<% end %>">
+								<div class="add-widget-menu-item-title">
+									 关键统计信息
+								</div>
+								<img class="add-widget-menu-item-add" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
+								<div class="add-widget-menu-item-added">
+									 已添加
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="add-widget-menu-item  <% if current_user.widget_sort.values.flatten.include?('3') %>added<% else %> add-widget-promos<% end %>">
+								<div class="add-widget-menu-item-title">
+									 新增功能
+								</div>
+								<img class="add-widget-menu-item-add" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
+								<div class="add-widget-menu-item-added">
+									 已添加
+								</div>
+							</div>
+						</li>
 				</ul>
 			</div>
 		</div>
-			<% end %>
 		</li>
 	</ul>
 	<div id="dashboard-header-user-info">
@@ -94,6 +92,7 @@
 				<span class="yt-thumb-clip">
 					<span class="yt-thumb-clip-inner">
 						<img width="60" alt="<%= current_user.name_beautified %>" src="<%=dz_avatar_url(current_user.uid,current_user.email,:small) %>">
+						<span class="vertical-align"></span>
 					</span>
 				</span>
 			</span>
@@ -129,7 +128,22 @@
 			$('.yt-uix-slider').attr('data-slide-current',(parseInt(old)+1).toString());
 			shift(cal);
 		});
-		
+		var widget_update = function(){
+			var left = new Array();
+			var right = new Array();
+			$('.dashboard-widgets-left .dashboard-widget').each(function(index,widget){
+				left.push($(widget).attr('data-widget-id'));
+			});
+			$('.dashboard-widgets-right .dashboard-widget').each(function(index,widget){
+				right.push($(widget).attr('data-widget-id'));
+			});
+			$.ajax({
+				url:'/ajax/update_widget_sort',
+				type:'POST',
+				data:{'left':left,'right':right},
+				dataType:'json'
+			});
+		}
 		var shift = function(cal){
 			now = $('.yt-uix-slider').attr('data-slide-current');
 			$('div.yt-uix-slider-slides').animate({
@@ -152,23 +166,61 @@
 	  $('.dashboard-widgets-left,.dashboard-widgets-right').sortable({
 	    handle:".yt-uix-dragdrop-drag-handle",
 			connectWith:'.yt-uix-dragdrop-container',
-	    update: function(){
-				var left = new Array();
-				var right = new Array();
-				$('.dashboard-widgets-left .dashboard-widget').each(function(index,widget){
-					left.push($(widget).attr('data-widget-id'));
-				});
-				$('.dashboard-widgets-right .dashboard-widget').each(function(index,widget){
-					right.push($(widget).attr('data-widget-id'));
-				});
-				$.ajax({
-					url:'/ajax/update_widget_sort',
-					type:'POST',
-					data:{'left':left,'right':right},
-					dataType:'json'
-				});
+			scroll:true,
+			// forcePlaceholderSize:true,
+	    stop: function(){
+				widget_update();
 	    }
 	  });
 		$('.yt-uix-dragdrop-drag-handle').disableSelection();
+		var card = '<div id="yt-uix-clickcard-card1" class="yt-uix-clickcard-card yt-uix-clickcard-card-reverse yt-uix-clickcard-card-visible"><div class="yt-uix-card-border-arrow yt-uix-card-border-arrow-vertical" style="right: 6px;"></div><div class="yt-uix-clickcard-card-border"><div class="yt-uix-card-body-arrow yt-uix-card-body-arrow-vertical" style="right: 6px;"></div><div class="yt-uix-clickcard-card-body"></div></div></div>'
+		$('.__ytb').append(card);
+		
+		$('.yt-uix-clickcard').live('click',function(e){
+			e.stopPropagation();
+			$(this).toggleClass('yt-uix-clickcard-active');
+			if($(this).hasClass('yt-uix-clickcard-active')){
+				var content = $('.yt-uix-clickcard-content');
+				content.remove().show();
+				$('#yt-uix-clickcard-card1 .yt-uix-clickcard-card-body').html(content);
+				css = {
+					'left':($(this).offset().left - $('#yt-uix-clickcard-card1').width() + $(this).width()*1.2).toString() + 'px',
+					'top':($(this).offset().top +$(this).height()*1.4).toString()+ 'px'
+				}
+				$('#yt-uix-clickcard-card1').css(css).show();
+			}else{
+				$('#yt-uix-clickcard-card1').hide();
+			}
+		});
+		$('.yt-uix-button-dashboard-widget-remove').live('click',function(){
+			var wda = {'0':'add-widget-promos','1':'add-widget-comments','2':'add-widget-analytics','3':'add-widget-promos'};
+			var wid = $(this).parent().parent().parent().attr('data-widget-id');
+			$('.add-widget-menu-content.yt-uix-clickcard-content ul > li:eq('+wid+') > div').removeClass('added').addClass(wda[wid]);
+			$(this).parent().parent().parent().remove();
+			widget_update();
+		});
+		 $('.yt-uix-clickcard-card-body').live('click',function(e){
+		 		e.stopPropagation();
+		 });
+		$(document).click(function(e){
+			var target = e.target;
+			if($('.yt-uix-clickcard').hasClass('yt-uix-clickcard-active') && !$(target).is('.yt-uix-clickcard'))
+			{
+				$('#yt-uix-clickcard-card1').hide();
+				$('.yt-uix-clickcard').removeClass('yt-uix-clickcard-active');
+			}
+		});
+		$('.add-widget-promos').live('click',function(){
+			$.ajax({
+				url:'/ajax/request_widget',
+				type:'POST',
+				data:{'widget_type':'promos'},
+				dataType:'json'
+			}).done(function(json){
+				$('.dashboard-widgets-left').prepend(json.widget);
+			});
+			$('#yt-uix-clickcard-card1').hide();
+			$('.yt-uix-clickcard').removeClass('yt-uix-clickcard-active');
+		});
 	<% end %>
 </script>

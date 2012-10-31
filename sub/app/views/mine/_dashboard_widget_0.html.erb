@@ -1,0 +1,17 @@
+<div data-widget-id="0" class="dashboard-widget display videos yt-uix-dragdrop-draggable-item">
+	<%= render partial:'dashboard_widget_header',locals:{title:'课件',widget:'config'} %>
+	<div class="dashboard-widget-viewport">
+		<div class="dashboard-widget-inside clearfix">
+			<div class="content">
+				<ol class="video-list">
+					<% @coursewares.each do |item| %>
+						<%=render partial: 'dashboard_item',locals:{item:item} %>
+					<% end %>
+				</ol>
+				<div class="view-all-link">
+					<a href="/mine/my_coursewares">查看全部</a> &nbsp;»
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1020,10 +1020,24 @@ HEREDOC
   end
   def update_widget_sort
     if current_user.nil?
-      render json:{status:'failed',reason:'您尚未登陆！',arr:[]}
+      render json:{status:'failed',reason:'您尚未登陆！'}
       return false
     end
-    binding.pry
-    
+    # if !(params[:left].kind_of?(Array) and params[:right].kind_of?(Array))
+    #   render json:{status:'failed',reason:'存在不合法数据！'}
+    #   return false
+    # end
+    # and (params[:right]+ params[:left]).sort ==['0','1','2','3'])
+    sort  = {left:params[:left],right:params[:right]}
+    if current_user.ua(:widget_sort,sort)
+      render json:{status:'suc'}
+      return false
+    else
+      render json:{status:'failed',reason:'存在不合法数据'}
+      return false
+    end
+  end
+  def request_widget
+    render json:{widget:render_to_string(file:'mine/_dashboard_widget_3',:layout=>nil, :formats=>[:html])}
   end
 end
