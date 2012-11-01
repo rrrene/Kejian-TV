@@ -116,6 +116,7 @@ Sub::Application.routes.draw do
   post '/ajax/set_privacy' => 'ajax#set_privacy'
   post '/ajax/update_widget_sort' => 'ajax#update_widget_sort'
   post '/ajax/request_widget' => 'ajax#request_widget'
+  post '/ajax/update_widget_property' => 'ajax#update_widget_property'
   # ---=small=----
   get '/hack/htc'
   get '/welcome/inactive_sign_up'

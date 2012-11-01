@@ -10,12 +10,16 @@
    <div class="dashboard-widget-display-title yt-uix-dragdrop-drag-handle">
       <img alt="" class="dashboard-widget-handle" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" />
       <h2>
-         <%= title %>
+         <%= current_user.widget_property[title][0] %>
       </h2>
    </div>
    <div class="dashboard-widget-edit-title">
-      <span class=" yt-uix-form-input-container">
-				<input placeholder="<%= title %>" value="" class="yt-uix-form-input-text dashboard-widget-custom-title" />
+		 <% if true %>
+			<span class=" yt-uix-form-input-container">
+				<input placeholder="<%= current_user.widget_property[title][0] %>" value="" class="yt-uix-form-input-text dashboard-widget-custom-title" />
 			</span>
+			<% else %>
+			<h2><%= current_user.widget_property[title][0] %></h2>
+			<% end %>
    </div>
 </div>

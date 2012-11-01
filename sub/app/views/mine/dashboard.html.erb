@@ -12,13 +12,13 @@
 		<div class="yt-uix-dragdrop dashboard-widgets">
 			<div class="dashboard-widgets-left yt-uix-dragdrop-container">
 				<% current_user.widget_sort['left'].each do |w| %>
-					<%= render partial:'dashboard_widget_'+w %>
+				<%= render partial:'dashboard_widget_'+w ,locals:{coursewares:@coursewares}%>
 				<% end %>
 			</div>
 			<div class="dashboard-widgets-right yt-uix-dragdrop-container">
 				<%= render partial:'dashboard_notification' %>
 				<% current_user.widget_sort['right'].each do |w| %>
-					<%= render partial:'dashboard_widget_'+w %>
+					<%= render partial:'dashboard_widget_'+w ,locals:{coursewares:@coursewares}%>
 				<% end %>
 			</div>
 		</div>

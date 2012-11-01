@@ -822,13 +822,13 @@ HEREDOC
       return false
     end
     if !(BSON::ObjectId.legal?(params[:cwid]))
-      render json:{status:'failed',reason:'您传递的数据包无法解析！'}
+      render json:{status:'failed',reason:'系统无法完成请求，请稍后重试。'}
       return false
     end
     if PlayList.add_to_history(current_user.id,params[:cwid],params[:page].to_i)
       render json:{status:'suc',page:params[:page].to_i}
     else
-      render json:{status:'failed',reason:'您传递的数据包无法解析！'}
+      render json:{status:'failed',reason:'系统无法完成请求，请稍后重试。'}
     end
     return true
   end
@@ -856,7 +856,7 @@ HEREDOC
       render json:{status:'suc'}
       return true
     else
-      render json:{status:'failed',reason:'不存在该数据.'}
+      render json:{status:'failed',reason:'系统无法完成请求，请稍后重试。'}
       return false
     end
   end
@@ -896,7 +896,7 @@ HEREDOC
       render json:{status:'suc'}
       return true
     else
-      render json:{status:'failed',reason:'不存在该数据.'}
+      render json:{status:'failed',reason:'系统无法完成请求，请稍后重试。'}
       return false
     end   
   end
@@ -938,7 +938,7 @@ HEREDOC
       end
     end
     if !legal or !null
-      render json:{status:'failed',reason:'存在不合法数据',arr:arr}
+      render json:{status:'failed',reason:'系统无法完成请求，请稍后重试。',arr:arr}
       return false
     end
     render json:{status:'suc'}
@@ -975,7 +975,7 @@ HEREDOC
       end
     end
     if !legal or !null
-      render json:{status:'failed',reason:'存在不合法数据',arr:arr}
+      render json:{status:'failed',reason:'系统无法完成请求，请稍后重试。',arr:arr}
       return false
     end
     render json:{status:'suc'}
@@ -1019,7 +1019,7 @@ HEREDOC
       end
     end
     if !legal or !null
-      render json:{status:'failed',reason:'存在不合法数据',arr:arr}
+      render json:{status:'failed',reason:'系统无法完成请求，请稍后重试。',arr:arr}
       return false
     end
     render json:{status:'suc'}
@@ -1030,21 +1030,93 @@ HEREDOC
       render json:{status:'failed',reason:'您尚未登陆！'}
       return false
     end
-    # if !(params[:left].kind_of?(Array) and params[:right].kind_of?(Array))
-    #   render json:{status:'failed',reason:'存在不合法数据！'}
-    #   return false
-    # end
+    if (params[:right].to_a + params[:left].to_a).size > 4
+      render json:{status:'failed',reason:'系统无法完成请求，请稍后重试。！'}
+      return false
+    end
+    # !(params[:left].kind_of?(Array) and params[:right].kind_of?(Array))
     # and (params[:right]+ params[:left]).sort ==['0','1','2','3'])
-    sort  = {left:params[:left],right:params[:right]}
+    sort  = {left:params[:left].to_a,right:params[:right].to_a}
     if current_user.ua(:widget_sort,sort)
       render json:{status:'suc'}
       return false
     else
-      render json:{status:'failed',reason:'存在不合法数据'}
+      render json:{status:'failed',reason:'系统无法完成请求，请稍后重试。'}
       return false
     end
   end
   def request_widget
-    render json:{widget:render_to_string(file:'mine/_dashboard_widget_3',:layout=>nil, :formats=>[:html])}
+    if current_user.nil?
+      render json:{status:'failed',reason:'您尚未登陆！'}
+      return false
+    end
+    wid = nil
+    case params[:widget_type]
+    when 'video'
+      @coursewares = Courseware.nondeleted.where(uploader_id:current_user.id).desc('created_at').limit(4)
+      @readlater = PlayList.where(user_id:current_user.id,undestroyable:true,title:'稍后阅读').first
+      wid = '0'
+    when 'comments'
+      wid = '1'
+    when 'analytics'
+      wid = '2'
+    when 'promos'
+      wid = '3'
+    else
+      render json:{status:'failed',reason:'系统无法完成请求，请稍后重试。'}
+      return false
+    end
+    
+    if current_user.widget_sort.values.flatten.include?(wid) or wid.nil?
+      render json:{status:'failed',reason:'系统无法完成请求，请稍后重试。'}
+      return false
+    end
+    if wid == '0'
+      render json:{widget:render_to_string(file:'mine/_dashboard_widget_'+wid,locals:{coursewares:@coursewares},collections:@readlater,:layout=>false, :formats=>[:html])}
+    else
+      render json:{widget:render_to_string(file:'mine/_dashboard_widget_'+wid,:layout=>false, :formats=>[:html])}
+    end
+    return true
+  end
+  def update_widget_property
+    if current_user.nil?
+      render json:{status:'failed',reason:'您尚未登陆！'}
+      return false
+    end
+    wid = nil
+    case params[:wid]
+    when 'kejian'
+      wid = '0'
+      @coursewares = Courseware.nondeleted.where(uploader_id:current_user.id).desc('created_at').limit(4)
+      @readlater = PlayList.where(user_id:current_user.id,undestroyable:true,title:'稍后阅读').first
+    when 'comments'
+      wid = '1'
+    else
+      render json:{status:'failed',reason:'系统无法完成请求，请稍后重试。'}
+      return false
+    end
+    if (!current_user.widget_sort.values.flatten.include?(wid)) or wid.nil?
+      render json:{status:'failed',reason:'系统无法完成请求，请稍后重试。'}
+      return false
+    end
+    
+    if wid == '0'
+      if current_user.update_widget_kejian(params[:title].to_s,params[:num].to_s,params[:filter].to_s)
+        render json:{widget_html:render_to_string(file:'mine/_dashboard_widget_'+wid,locals:{coursewares:@coursewares},collections:@readlater,:layout=>false, :formats=>[:html])}
+        return true
+      else
+        render json:{status:'failed',reason:'系统无法完成请求，请稍后重试。'}
+        return false
+      end
+    else
+      if current_user.update_widget_commment(params[:title].to_s,params[:num].to_s)
+        render json:{widget_html:render_to_string(file:'mine/_dashboard_widget_'+wid,:layout=>false, :formats=>[:html])}
+        return true
+      else
+        render json:{status:'failed',reason:'系统无法完成请求，请稍后重试。'}
+        return false
+      end
+    end    
+    
   end
 end

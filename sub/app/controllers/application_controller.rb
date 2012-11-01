@@ -354,7 +354,7 @@ class ApplicationController < ActionController::Base
   def unknown_user_check
     if current_user.reg_extent < 100
       unless ApplicationController::NO_REDIRECT_REQUEST_PATHs.include?(request.path)
-        redirect_to "/register05"
+        # redirect_to "/register05"
         return false
       end
     end

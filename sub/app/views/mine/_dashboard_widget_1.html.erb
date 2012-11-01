@@ -1,5 +1,5 @@
 <div data-widget-id="1" class="dashboard-widget display comments yt-uix-dragdrop-draggable-item">
-	<%= render partial:'dashboard_widget_header',locals:{title:'评论',widget:'config'} %>
+	<%= render partial:'mine/dashboard_widget_header',locals:{title:'comments',widget:'config'} %>
 	<div class="dashboard-widget-viewport">
 		<div class="dashboard-widget-inside clearfix">
 			<div class="content">
@@ -33,6 +33,32 @@
 				<div class="view-all-link">
 					<a href="/inbox?feature=vmdshb#comments/1">查看全部</a> &nbsp;»
 				</div>
+			</div>
+			<div class="config">
+			   <div class="comments-widget-number-of-items-box">
+			      <h3>项数：</h3>
+			      <div>
+			         <span class="yt-uix-form-input-select ">
+
+								 <% key = current_user.widget_property['comments'][1] %>
+			            <span class="yt-uix-form-input-select-content"><img class="yt-uix-form-input-select-arrow" src="//s.ytimg.com/yts/img/pixel-vfl3z5WfW.gif" /><span class="yt-uix-form-input-select-value"><%= key %></span></span>
+			            <select class="yt-uix-form-input-select-element comments-widget-count">
+										<% ['1','2','3','4','5','10','15','20'].each do |v| %>
+			               <option <%if key == v %>selected=""<% end %>value="<%= v %>"><%= v %></option>
+										<% end %>
+			            </select>
+			         </span>
+			      </div>
+			   </div>
+			   <div class="config-controls">
+			      <div class="config-controls-left">
+			         <button role="button" onclick=";return false;" class="dashboard-widget-remove yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-content">删除 </span></button>
+			      </div>
+			      <div class="config-controls-right">
+			         <button role="button" onclick=";return false;" class="dashboard-widget-dismiss yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-content">取消 </span></button>
+			         <button role="button" onclick=";return false;" class="dashboard-widget-save yt-uix-button yt-uix-button-primary" type="button"><span class="yt-uix-button-content">保存 </span></button>
+			      </div>
+			   </div>
 			</div>
 		</div>
 	</div>
