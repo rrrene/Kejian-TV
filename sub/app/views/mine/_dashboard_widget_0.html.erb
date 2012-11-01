@@ -17,7 +17,7 @@
 			      <h3>项数：</h3>
 			      <div>
 			         <span class="yt-uix-form-input-select ">
-			            <span class="yt-uix-form-input-select-content"><img class="yt-uix-form-input-select-arrow" src="//s.ytimg.com/yts/img/pixel-vfl3z5WfW.gif" /><span class="yt-uix-form-input-select-value"><%= key = current_user.widget_property['kejians'][1] %></span></span>
+			            <span class="yt-uix-form-input-select-content"><img class="yt-uix-form-input-select-arrow" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" /><span class="yt-uix-form-input-select-value"><%= key = current_user.widget_property['kejians'][1] %></span></span>
 			            <select class="yt-uix-form-input-select-element videos-widget-count">
 										<% ['1','2','3','4','5','10','15','20'].each do |v| %>
 			               <option <%if key == v %>selected=""<% end %>value="<%= v %>"><%= v %></option>
@@ -44,7 +44,7 @@
 								%>
 			         <span class="yt-uix-form-input-select ">
 			            <span class="yt-uix-form-input-select-content">
-										<img class="yt-uix-form-input-select-arrow" src="//s.ytimg.com/yts/img/pixel-vfl3z5WfW.gif" />
+										<img class="yt-uix-form-input-select-arrow" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" />
 										<span class="yt-uix-form-input-select-value"><%= option %></span>
 									</span>
 			            <select class="yt-uix-form-input-select-element videos-widget-search-presets">

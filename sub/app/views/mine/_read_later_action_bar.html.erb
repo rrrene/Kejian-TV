@@ -231,7 +231,7 @@
 	});
 	$('button.addto-button').live('click',function(e){
 		e.stopPropagation();
-		handleConflict(tmp);
+		handleConflict(this);
     if($('#vm-view-btn').hasClass('yt-uix-button-active')){
       $('#vm-view-btn').removeClass('yt-uix-button-active');
       var ul = $('.__ytb > ul');

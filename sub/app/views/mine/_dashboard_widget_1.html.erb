@@ -9,14 +9,14 @@
 							<a href="/user/libersnail?feature=vmdshb"><span class="video-thumb ux-thumb yt-thumb-square-28">
 								<span class="yt-thumb-clip">
 									<span class="yt-thumb-clip-inner">
-										<img width="28" alt="缩略图" src="https://lh5.googleuserconAAAAAAA/Hh1gHr3Vd0M/s28-c-k/photo.jpg">
+										<img width="28" alt="缩略图" src="">
 										<span class="vertical-align"></span>
 									</span>	
 								</span>
 						</a>
 						</div>
 						<div class="comment-body">
-							<span class="comment-heading"><a href="/user/libersnail?feature=vmdshb">Liber Liu</a>评论了Will Power</span>
+							<span class="comment-heading"><a href="/users/">Liber Liu</a>评论了Will Power</span>
 							<div class="comment-comment">
 								<img alt="" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="quotation-mark"> <a href="/watch?v=JZtQ25v7XsQ&amp;feature=vmdshb">......................................无语了﻿</a>
 							</div>
@@ -41,7 +41,7 @@
 			         <span class="yt-uix-form-input-select ">
 
 								 <% key = current_user.widget_property['comments'][1] %>
-			            <span class="yt-uix-form-input-select-content"><img class="yt-uix-form-input-select-arrow" src="//s.ytimg.com/yts/img/pixel-vfl3z5WfW.gif" /><span class="yt-uix-form-input-select-value"><%= key %></span></span>
+			            <span class="yt-uix-form-input-select-content"><img class="yt-uix-form-input-select-arrow" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" /><span class="yt-uix-form-input-select-value"><%= key %></span></span>
 			            <select class="yt-uix-form-input-select-element comments-widget-count">
 										<% ['1','2','3','4','5','10','15','20'].each do |v| %>
 			               <option <%if key == v %>selected=""<% end %>value="<%= v %>"><%= v %></option>
