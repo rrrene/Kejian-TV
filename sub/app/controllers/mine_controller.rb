@@ -17,7 +17,13 @@ class MineController < ApplicationController
   end
   def dashboard
     mine_common_op
-    @coursewares = Courseware.nondeleted.where(uploader_id:current_user.id).desc('created_at').limit(4)
+    if current_user.nil?
+      flash[:notice]='您尚未登录'
+      redirect_to '/'
+      return false
+    end
+    kejian = current_user.widget_property['kejians']
+    @coursewares = Courseware.filter_by_privacy(current_user.id,kejian[2].to_s,kejian[1].to_i)
     @readlater = PlayList.where(user_id:current_user.id,undestroyable:true,title:'稍后阅读').first
     @seo[:title] = "信息中心"
   end

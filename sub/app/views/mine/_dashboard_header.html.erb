@@ -261,7 +261,7 @@
 		$('.dashboard-widget.videos .dashboard-widget-save.yt-uix-button.yt-uix-button-primary').live('click',function(){
 			var title = $('.dashboard-widget.videos input.dashboard-widget-custom-title').val().toString();
 			var num = $('.dashboard-widget.videos .yt-uix-form-input-select-content .yt-uix-form-input-select-value').html().toString();
-			var filter = $('.dashboard-widget.videos .videos-widget-search-query').toString();
+			var filter = $('.dashboard-widget.videos .videos-widget-search-query').val().toString();
 			data = {'title':title,'num':num,'filter':filter,'wid':'kejian'};
 			update_property(data,this);
 		});
@@ -279,7 +279,8 @@
 				dataType:'json'
 			}).done(function(json){
 				if(json.status !='failed'){
-					$(tthis).parents('.dashboard-widget').replaceWith(json.widget_html);
+					$(tthis).parents('.dashboard-widget').removeClass('edit').addClass('display');
+					$(tthis).parents('.dashboard-widget').html($(json.widget_html).html());
 				}
 			})
 		}

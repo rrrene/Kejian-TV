@@ -1087,7 +1087,7 @@ HEREDOC
     case params[:wid]
     when 'kejian'
       wid = '0'
-      @coursewares = Courseware.nondeleted.where(uploader_id:current_user.id).desc('created_at').limit(4)
+      @coursewares = Courseware.filter_by_privacy(current_user.id,params[:filter].to_s,params[:num].to_i)
       @readlater = PlayList.where(user_id:current_user.id,undestroyable:true,title:'稍后阅读').first
     when 'comments'
       wid = '1'
@@ -1101,7 +1101,7 @@ HEREDOC
     end
     
     if wid == '0'
-      if current_user.update_widget_kejian(params[:title].to_s,params[:num].to_s,params[:filter].to_s)
+      if current_user.update_widget_kejian(params[:title].to_s,params[:num].to_s,params[:filter].to_s.strip)
         render json:{widget_html:render_to_string(file:'mine/_dashboard_widget_'+wid,locals:{coursewares:@coursewares},collections:@readlater,:layout=>false, :formats=>[:html])}
         return true
       else
