@@ -130,14 +130,13 @@ class AccountController < Devise::RegistrationsController
     @seo[:title] = '完成新用户注册'
     @simple_header=true
     @simple_header_width=840
-    case current_user.reg_extent
-    when 0
+    if 0 == current_user.reg_extent
       # 其实我们只想让他们从人人过来。因为大学生基本上都有人人！
       @serv = :renren
       @service = Ktv::Consumers[@serv]
       self.send("bind_#{@serv}_prepare!")
       render "new050",layout:'application'
-    when 1
+    elsif !current_user.reg_extent_okay?
       render "new051",layout:'application'
     end
   end

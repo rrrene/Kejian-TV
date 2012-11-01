@@ -1,6 +1,13 @@
 # -*- encoding : utf-8 -*-
 class AjaxController < ApplicationController
-  before_filter :authenticate_user!, :except => [:checkUsername,:checkEmailAjax,:xl_req_get_method_vod,:logincheck,:seg,:star_refresh]
+  before_filter :authenticate_user!, :except => [:checkUsername,:checkEmailAjax,:xl_req_get_method_vod,:logincheck,:seg,:star_refresh,:current_user_reg_extent]
+  def current_user_reg_extent
+    render json:{
+      extent:current_user.reg_extent,
+      psvr_extent_txt:"#{User::EXTENT_TEXT[current_user.reg_extent]}...",
+      psvr_extent_txt_prog_width:454*current_user.reg_extent/10,
+    }
+  end
   def renren_real_bind
     rr = Ktv::Renren.new
     result = rr.send_login!(

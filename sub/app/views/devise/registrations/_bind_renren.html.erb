@@ -7,8 +7,10 @@ $("#loginForm").bind("ajax:beforeSend", function(){
   jQuery('#anniu').hide();
   jQuery('#zhengzaidenglu').show();
 }).bind("ajax:complete", function(){
-  jQuery('#anniu').show();
-  jQuery('#zhengzaidenglu').hide();
+  if(!window.ahhhh_stop_everything){
+    jQuery('#anniu').show();
+    jQuery('#zhengzaidenglu').hide();
+  }
 }).bind("ajax:success", function(xhr, data, status) {
   if(!data['okay']){
     jQuery('#anniu').show();
@@ -23,7 +25,9 @@ $("#loginForm").bind("ajax:beforeSend", function(){
     jQuery('.__lnk').css('background-color','#F8F8F8');
     jQuery('#suc_bangding').show();
   }else if(2==data['okay']){
-    jQuery('.__rr').remove();
+    window.ahhhh_stop_everything = true;
+    jQuery('#anniu').hide();
+    jQuery('#zhengzaidenglu').show();
     window.location.href = '/';
   }
 });

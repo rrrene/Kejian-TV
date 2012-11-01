@@ -24,10 +24,10 @@ module UCenter
   def self.getdef(k)
     @config[k]
   end
-  def self.in_out(m,a,request,opts={})
+  def self.in_out(m,a,request,opts={},extra_cargo={})
     opts ||= {}
     agent = request.nil? ? Setting.special_agent : request.env['HTTP_USER_AGENT']
-    return Ktv::JQuery.ajax({
+    h={
       :url => "#{UCenter.getdef('UC_API')}/index.php",
       :type => 'POST',
       :accept => :xml,
@@ -39,9 +39,10 @@ module UCenter
         release: UCenter.getdef('UC_CLIENT_RELEASE'),
         input: UCenter::Php.uc_api_input2(agent,opts),
         appid: UCenter.getdef('UC_APPID'),
-      },
+      }.merge(extra_cargo),
       :psvr_response_anyway => true
-    })
+    }
+    return Ktv::JQuery.ajax(h)
   end
   def self.in_out_ibeike(m,a,request,opts={})
     opts ||= {}

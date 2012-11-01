@@ -3,7 +3,22 @@
   <%= stylesheet_link_tag "ktv/__zm_reg", :media => "all" %>
 <% end %>
 <% content_for :butt2 do %>
-
+window.current_user_reg_extent_set_timeout = function(){
+  setTimeout(function(){
+    jQuery.getJSON('/ajax/current_user_reg_extent',{},function(data){
+      jQuery('#psvr_extent_txt').html(data['psvr_extent_txt']);
+      jQuery('#psvr_extent_txt_prog').width(data['psvr_extent_txt_prog_width']);
+        if(0==data['extent']){
+          window.current_user_reg_extent_set_timeout = function(){}
+          window.location.href="/";
+          return false;
+        }
+      }).complete(function() {
+        window.current_user_reg_extent_set_timeout();
+      });
+  },1000);
+};
+window.current_user_reg_extent_set_timeout();
 <% end %>
 <div class="wrapper" style="width:822px">
 </div>
@@ -17,7 +32,7 @@
     <div id="psvr_extent_txt" class="psvr_fontifont" style="position: absolute; margin-left: 198px; font-size: 13px; margin-top: 140px;">
       <%= User::EXTENT_TEXT[current_user.reg_extent] %>...
     </div>
-    <div id="psvr_extent_txt" class="psvr_fontifont" style="position: absolute; height: 30px; background: transparent url(<%= asset_path 'bind/progress.gif' %>) repeat-x scroll top left; margin-top: 168px; margin-left: 198px; width: <%=454*current_user.reg_extent/10%>px;">&nbsp;</div>
+    <div id="psvr_extent_txt_prog" class="psvr_fontifont" style="position: absolute; height: 30px; background: transparent url(<%= asset_path 'bind/progress.gif' %>) repeat-x scroll top left; margin-top: 168px; margin-left: 198px; width: <%=454*current_user.reg_extent/10%>px;">&nbsp;</div>
   </div>
 </div>
 <div class="totop" id="backtotop" style="display: none;">

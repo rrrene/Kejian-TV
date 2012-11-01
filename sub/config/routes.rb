@@ -64,6 +64,7 @@ Sub::Application.routes.draw do
 
   # ________________________________ajax__________________________________________
   get '/all_unread_notification_num' => 'ajax#all_unread_notification_num'
+  get '/ajax/current_user_reg_extent'
   post '/ajax/renren_huanyizhang'
   post '/ajax/renren_real_bind'
   get '/ajax/check_fangwendizhi'
@@ -384,9 +385,9 @@ Sub::Application.routes.draw do
   end
   
   constraint = lambda { |request| request.env["warden"].authenticate? and request.env['warden'].user.super_admin? }
-  constraints constraint do
+  #constraints constraint do
     mount Sidekiq::Web => '/sidekiq'
-  end
+  #end
   
   get "/:id" => "users#show"
   get "/:id/redirect_to/:service" => "users#redirect_to_service"
