@@ -186,7 +186,7 @@
 
 	function restoreUL(tmp){
 		$(tmp).removeClass('yt-uix-button-active');
-    var ul = $('.__ytb > ul');
+    var ul = $('#the_ytb > ul');
     ul.remove();
     ul.hide().addClass('hid');
     $(tmp).append(ul);
@@ -206,9 +206,9 @@
 	    };
 		  ul.css(cssObj);
 			ul.show().removeClass('hid');
-			$('.__ytb').append(ul);
+			$('#the_ytb').append(ul);
 		}else{
-			var ul = $('.__ytb > ul');
+			var ul = $('#the_ytb > ul');
 			ul.remove();
 			ul.hide().addClass('hid');
 			$(tmp).append(ul);
@@ -234,7 +234,7 @@
 		handleConflict(this);
     if($('#vm-view-btn').hasClass('yt-uix-button-active')){
       $('#vm-view-btn').removeClass('yt-uix-button-active');
-      var ul = $('.__ytb > ul');
+      var ul = $('#the_ytb > ul');
       ul.remove();
       ul.hide().addClass('hid');
       $('#vm-view-btn').append(ul);
@@ -655,8 +655,8 @@
 		content.removeClass('yt-uix-overlay-content').addClass('yt-uix-overlay-fg-content');
 		var bg = '<div id="yt-uix-overlay-bg" class="yt-uix-overlay-bg" style="height:'+$('body').height()+'px;"></div>';
 		var base = '<div id="yt-uix-overlay-base" class="yt-uix-overlay-base"><span class="yt-uix-overlay-align"></span><div id="yt-uix-overlay-fg" class="yt-uix-overlay-fg " data-overlay-hidden="">'+$('<div>').append(content.clone()).html()+'</div></div>';
-		$('.__ytb').append(bg);
-		$('.__ytb').append(base);
+		$('#the_ytb').append(bg);
+		$('#the_ytb').append(base);
 	});
 	$('.yt-uix-overlay-fg-content button.yt-uix-overlay-close').live('click',function(){
 		$('#yt-uix-overlay-base').remove();

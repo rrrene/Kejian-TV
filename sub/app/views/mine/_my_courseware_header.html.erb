@@ -152,7 +152,7 @@
 	resort();
 	function restoreUL(tmp){
 		$(tmp).removeClass('yt-uix-button-active');
-    var ul = $('.__ytb > ul');
+    var ul = $('#the_ytb > ul');
     ul.remove();
     ul.hide().addClass('hid');
     $(tmp).append(ul);
@@ -172,9 +172,9 @@
 	    };
 		  ul.css(cssObj);
 			ul.show().removeClass('hid');
-			$('.__ytb').append(ul);
+			$('#the_ytb').append(ul);
 		}else{
-			var ul = $('.__ytb > ul');
+			var ul = $('#the_ytb > ul');
 			ul.remove();
 			ul.hide().addClass('hid');
 			$(tmp).append(ul);
@@ -560,8 +560,8 @@
 		$(content).find('div.vm-video-actions-delete-main-area .vm-video-actions-delete-warning').removeClass('hid').html('确定要删除 <strong>1</strong> 个课件吗？');
 		var bg = '<div id="yt-uix-overlay-bg" class="yt-uix-overlay-bg" style="height:'+$('body').height()+'px;"></div>';
 		var base = '<div id="yt-uix-overlay-base" class="yt-uix-overlay-base"><span class="yt-uix-overlay-align"></span><div id="yt-uix-overlay-fg" class="yt-uix-overlay-fg vm-video-actions-delete-overlay" data-overlay-hidden=""><div class="yt-uix-overlay-fg-content">'+$(content).html()+'</div></div></div>';
-		$('.__ytb').append(bg);
-		$('.__ytb').append(base);
+		$('#the_ytb').append(bg);
+		$('#the_ytb').append(base);
 	});
 	$('.vm-video-actions-delete-button-confirm').live('click',function(e){
 		delete_upload();
@@ -608,8 +608,8 @@
 		}
 		var bg = '<div id="yt-uix-overlay-bg" class="yt-uix-overlay-bg" style="height:'+$('body').height()+'px;"></div>';
 		var base = '<div id="yt-uix-overlay-base" class="yt-uix-overlay-base"><span class="yt-uix-overlay-align"></span><div id="yt-uix-overlay-fg" class="yt-uix-overlay-fg vm-video-actions-delete-overlay" data-overlay-hidden=""><div class="yt-uix-overlay-fg-content">'+$(content).html()+'</div></div></div>';
-		$('.__ytb').append(bg);
-		$('.__ytb').append(base);
+		$('#the_ytb').append(bg);
+		$('#the_ytb').append(base);
 	});
 	$('#aria-id-ktvlisence').live('click',function(){
 		change_license('std');
@@ -618,7 +618,7 @@
 		change_license('cc');
 	});
 	
-	$('.__ytb > ul.cw-choice > li').live('click',function(e){
+	$('#the_ytb > ul.cw-choice > li').live('click',function(e){
 		var href = $('span',this).attr('href');
 		if(href){
 		 	window.location.href = href;
@@ -634,8 +634,8 @@
 		$(content).find('div.vm-video-actions-delete-main-area .vm-video-actions-delete-warning').removeClass('hid').html('确定要删除 <strong>1</strong> 个课件吗？');
 		var bg = '<div id="yt-uix-overlay-bg" class="yt-uix-overlay-bg" style="height:'+$('body').height()+'px;"></div>';
 		var base = '<div id="yt-uix-overlay-base" class="yt-uix-overlay-base"><span class="yt-uix-overlay-align"></span><div id="yt-uix-overlay-fg" class="yt-uix-overlay-fg vm-video-actions-delete-overlay" data-overlay-hidden=""><div class="yt-uix-overlay-fg-content">'+$(content).html()+'</div></div></div>';
-		$('.__ytb').append(bg);
-		$('.__ytb').append(base);
+		$('#the_ytb').append(bg);
+		$('#the_ytb').append(base);
 	});
 	var delete_upload = function(){
 		$.ajax({

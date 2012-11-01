@@ -3,7 +3,7 @@
 <%= stylesheet_link_tag 'ktv/__ytb_playlists_show' %>
 <% end %>
 <strong></strong>
-<div class="__ytb" dir="ltr" >
+<div class="__ytb" id="the_ytb" dir="ltr" >
 	<div class=" playlist branded-page" id="page">
 	<div id="sb-wrapper">
 		<div class="sb-card sb-off" id="sb-container">
@@ -248,8 +248,8 @@
 
 <script type="text/javascript" charset="utf-8">
 <% content_for :butt2 do %>
-// var offset = -(jQuery('.__ytb').offset().top - 15 - (jQuery('header').offset().top + jQuery('header').height()));
-// $('.__ytb').css('margin-top',offset.toString()+'px');
+// var offset = -(jQuery('#the_ytb').offset().top - 15 - (jQuery('header').offset().top + jQuery('header').height()));
+// $('#the_ytb').css('margin-top',offset.toString()+'px');
    $('.yt-uix-tooltip').tipsy({gravity: $.fn.tipsy.autoNS,fade: <%= @is_WebKit ? 'false' : 'true'%>,opacity: 1});
    $('.addto-watch-later-button,.addto-watch-later-button-success').live('click',function(e){
 		 e.stopPropagation();

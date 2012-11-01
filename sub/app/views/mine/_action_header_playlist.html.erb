@@ -41,7 +41,7 @@
             div.removeClass('hid');
             div.addClass('vm-dialog yt-uix-button-menu yt-uix-button-menu-external');
             div.css(cssObj);
-            $('.__ytb').append(div);
+            $('#the_ytb').append(div);
           }
           else{
             div.remove();
@@ -64,9 +64,9 @@
             };
             div.css(cssObj);
             div.show().removeClass('hid');
-            $('.__ytb').append(div);
+            $('#the_ytb').append(div);
         }else{
-            var div = $('.__ytb > ul');
+            var div = $('#the_ytb > ul');
             div.remove();
             div.hide().addClass('hid');
             $(this).append(div);

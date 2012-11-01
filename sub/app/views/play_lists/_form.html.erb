@@ -407,7 +407,7 @@
     var target = e.target
     if($('#playlist-edit-actions').hasClass('yt-uix-button-toggled') && !$(target).is('#playlist-edit-actions')){
       $('#playlist-edit-actions').removeClass('yt-uix-button-toggled');
-      var ul = $('.__ytb > ul');
+      var ul = $('#the_ytb > ul');
       ul.remove();
       ul.hide().addClass('hid');
       $('#playlist-edit-actions').append(ul);
@@ -419,7 +419,7 @@
     if($(this).hasClass('yt-uix-button-toggled')){
       var ul = $('ul',this);
       ul.remove();
-      $('.__ytb').append(ul);
+      $('#the_ytb').append(ul);
       var cssObj = {
         'min-width': '96px',
         'left': $(this).offset().left.toString() + 'px', 
@@ -428,7 +428,7 @@
       ul.css(cssObj);
       ul.show().removeClass('hid');
     }else{
-      var ul = $('.__ytb ul');
+      var ul = $('#the_ytb > ul');
       ul.remove();
       ul.hide().addClass('hid');
       $(this).append(ul);
