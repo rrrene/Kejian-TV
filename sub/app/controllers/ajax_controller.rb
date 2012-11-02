@@ -2,11 +2,13 @@
 class AjaxController < ApplicationController
   before_filter :authenticate_user!, :except => [:checkUsername,:checkEmailAjax,:xl_req_get_method_vod,:logincheck,:seg,:star_refresh,:current_user_reg_extent,:renren_invite]
   def renren_invite
+    agent = request.env['HTTP_USER_AGENT']
+    agent = Setting.user_agent if agent.blank?
     Sidekiq::Client.enqueue(HookerJob,
       'Ktv::Renren',
       nil,
       'send_invitation',
-      current_user.id,params[:renren_uids]
+      agent,current_user.id,params[:renren_uids]
     )
     render json:{
       suc:true
