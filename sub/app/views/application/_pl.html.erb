@@ -1,4 +1,5 @@
 <% playlist = PlayList.find('50875ee29a8aa2060e00005c') %>
+<% coursewares = Courseware.eager_load(playlist.content) %>
 <div class="passive editable min" id="playlist-bar">
 	<!-- data-list-type="QL" data-list-id="" data-video-url="/watch?v=&amp;feature=BFql&amp;playnext=1&amp;list=QL" -->
 	<div id="playlist-bar-bar-container">
@@ -21,7 +22,7 @@
 							</span>
 						</button>
 						<span class="playlist-bar-count">
-							<span class="playing-index">0</span> / <span class="item-count">4</span>
+							<span class="playing-index">0</span> / <span class="item-count"><%= playlist.content.size %></span>
 						</span>
 						<button role="button" id="playlist-bar-next-button" onclick=";return false;" class="yt-uix-tooltip yt-uix-tooltip-masked yt-uix-button yt-uix-button-default yt-uix-button-empty" type="button" data-tooltip-text="下一个课件">
 							<span class="yt-uix-button-icon-wrapper">
@@ -52,16 +53,16 @@
 						</span>
 					</button>
 					<span class="playlist-bar-count">
-						<span class="item-count">4</span>
+						<span class="item-count"><%= playlist.content.size %></span>
 					</span>
 				</span>
 				<span class="yt-uix-button-group" id="playlist-bar-title">
-						<button role="button" class="yt-uix-tooltip yt-uix-tooltip-masked start playlist-title yt-uix-button yt-uix-button-default yt-uix-tooltip" type="button" title="关于此课件锦囊的详情" onclick=";window.location.href=this.getAttribute('href');return false;" href="/playlist?list=PLU8P_aKcvc6dboIXEKcGeRMirE3sY4Eth" data-tooltip-text="关于此课件锦囊的详情">
-							<span class="yt-uix-button-content">ke</span>
+						<button role="button" class="yt-uix-tooltip yt-uix-tooltip-masked start playlist-title yt-uix-button yt-uix-button-default yt-uix-tooltip" type="button" title="关于此课件锦囊的详情" onclick=";window.location.href=this.getAttribute('href');return false;" href="/play_lists/<%= playlist.id %>" data-tooltip-text="关于此课件锦囊的详情">
+							<span class="yt-uix-button-content"><%= playlist.title %></span>
 						</button>
-						<button role="button" onclick=";window.location.href=this.getAttribute('href');return false;" class="yt-uix-tooltip yt-uix-tooltip-masked end yt-uix-button yt-uix-button-default" type="button" href="/user/pmq20?feature=BF">
+						<button role="button" onclick=";window.location.href=this.getAttribute('href');return false;" class="yt-uix-tooltip yt-uix-tooltip-masked end yt-uix-button yt-uix-button-default" type="button" href="/users/<%= current_user.name_beautified %>">
 							<span class="yt-uix-button-content">
-								<a class="yt-user-photo" href="/user/pmq20">
+								<a class="yt-user-photo" href="/users/<%= current_user.name_beautified %>">
 									<span class="video-thumb ux-thumb yt-thumb-square-23" >
 										<span class="yt-thumb-clip">
 											<span class="yt-thumb-clip-inner">
@@ -76,7 +77,7 @@
 					</button>
 				</span>
 			</span>
-			<a href="#" id="playlist-bar-lists-back" name="playlist-bar-lists-back">返回活动列表</a>
+			<a href="#" id="playlist-bar-lists-back" name="playlist-bar-lists-back">返回活动锦囊</a>
 			<span id="playlist-bar-controls">
 				<span class="playlist-bar-group">
 					<button role="button" id="playlist-bar-toggle-button" onclick=";return false;" class="yt-uix-tooltip yt-uix-tooltip-masked yt-uix-button yt-uix-button-text yt-uix-button-empty" type="button" data-tooltip-text="显示课件锦囊" title="显示课件锦囊">
@@ -108,111 +109,48 @@
 			<div class="yt-uix-slider-body">
 				<div class="yt-uix-slider-slide" id="playlist-bar-tray-content" style="left: 0px;">
 					<ol class="video-list">
-						<li data-video-id="nsrsFkOClVg" class="playlist-bar-item yt-uix-slider-slide-unit <% if false %>playlist-bar-item-unviewable<% end %> playlist-bar-drag-source">
-							<a data-sessionlink="ei=CPie39S9rbMCFVW3IQodKhZRHg%3D%3D&amp;feature=BFa" class="yt-uix-sessionlink" title="无法阅读的课件" href="/watch?v=nsrsFkOClVg&amp;feature=BFp&amp;list=PLU8P_aKcvc6dboIXEKcGeRMirE3sY4Eth">
+						<% coursewares.each_with_index do |cw,index|  %>
+						<li data-kejian-id="<%= cw.id %>" class="playlist-bar-item yt-uix-slider-slide-unit <% if false and (cw.status !=0 or !cw.check_upyun_result) %>playlist-bar-item-unviewable<% end %> playlist-bar-drag-source">
+							<a class="yt-uix-sessionlink" title="<% if cw.status !=0 or !cw.check_upyun_result or (current_user.id != cw.uploader_id and cw.privacy == 2) %>无法阅读的课件<% else %><%= cw.title %><% end %>" href="/coursewares/<%= cw.id %>">
 								<span class="video-thumb ux-thumb yt-thumb-default-106">
 									<span class="yt-thumb-clip">
 										<span class="yt-thumb-clip-inner">
+											<% if cw.status !=0 or !cw.check_upyun_result %>
 											<img width="106" data-thumb-manual="true" alt="无法阅读的课件" src="<%=asset_path('yt/img/meh_mini-unreadable.png')%>">
+											<% else %>
+											<img width="106" alt="<%= cw.title %>" src="<%= asset_url("cw/#{cw.ktvid}/#{cw.revision}thumb_slide_0.jpg") %>">
+											<% end %>
 											<span class="yt-valign-trick"></span>
 										</span>
 									</span>
 								</span>
 								<span class="screen"></span>
-								<span class="count"><strong>1</strong></span>
+								<span class="count"><strong><%= index+1 %></strong></span>
 								<span class="play">
 									<img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
 								</span>
 								<span class="yt-uix-button yt-uix-button-default delete">
 									<img alt="删除" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="yt-uix-button-icon-playlist-bar-delete">
 								</span>
-								<span class="now-playing">正在阅读</span>
+								<%if false%><span class="now-playing">正在阅读</span><%end%>
 								<span class="title" dir="ltr">
-									<span>
-										无法阅读的课件 <span class="uploader">创建者：Minqi Pan</span>
+									<span><% if cw.status !=0 or !cw.check_upyun_result %>无法阅读的课件 <span class="uploader">创建者：Minqi Pan</span>
+										<% else %>
+										<%= cw.title %>
+										<span class="uploader">创建者：<%= name_beautify User.get_name(cw.uploader_id) %></span>
+										<% end %>
 									</span>
 								</span>
+								<span class="dragger"></span>
 							</a>
 						</li>
-						<li data-video-id="eO4V45qp_jU" class="playlist-bar-item yt-uix-slider-slide-unit playlist-bar-drag-source">
-							<a data-sessionlink="ei=CPie39S9rbMCFVW3IQodKhZRHg%3D%3D&amp;feature=BFa" class="yt-uix-sessionlink" title="中国科学技术大学数学分析（史济怀） sjh20030903 2" href="/watch?v=eO4V45qp_jU&amp;feature=BFp&amp;list=PLU8P_aKcvc6dboIXEKcGeRMirE3sY4Eth">
-								<span class="video-thumb ux-thumb yt-thumb-default-106">
-									<span class="yt-thumb-clip">
-										<span class="yt-thumb-clip-inner">
-											<img width="106" data-thumb-manual="true" alt="中国科学技术大学数学分析（史济怀） sjh20030903 2" src="<%=asset_path('yt/img/meh_mini-unreadable.png')%>">
-											<span class="yt-valign-trick"></span>
-										</span>
-									</span>
-								</span>
-								<span class="count"><strong>2</strong></span>
-								<span class="play">
-									<img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
-								</span>
-								<span class="yt-uix-button yt-uix-button-default delete">
-									<img alt="删除" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="yt-uix-button-icon-playlist-bar-delete">
-								</span>
-								<span class="now-playing">正在阅读</span>
-								<span class="title" dir="ltr">
-									<span>中国科学技术大学数学分析（史济怀） sjh20030903 2 
-										<span class="uploader">创建者：Minqi Pan</span>
-									</span>
-								</span>
-							</a>
-						</li>
-						<li data-video-id="x3Z0PM1UNAQ" class="playlist-bar-item yt-uix-slider-slide-unit playlist-bar-drag-source">
-							<a data-sessionlink="ei=CPie39S9rbMCFVW3IQodKhZRHg%3D%3D&amp;feature=BFa" class="yt-uix-sessionlink" title="中国科学技术大学数学分析（史济怀） sjh20030901" href="/watch?v=x3Z0PM1UNAQ&amp;feature=BFp&amp;list=PLU8P_aKcvc6dboIXEKcGeRMirE3sY4Eth">
-								<span class="video-thumb ux-thumb yt-thumb-default-106">
-									<span class="yt-thumb-clip">
-										<span class="yt-thumb-clip-inner">
-											<img width="106" data-thumb-manual="true" alt="中国科学技术大学数学分析（史济怀） sjh20030901" src="//i4.ytimg.com/vi/x3Z0PM1UNAQ/default.jpg">
-										</span>
-									</span>
-								</span>
-								<span class="count"><strong>3</strong></span>
-								<span class="play">
-									<img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
-								</span>
-								<span class="yt-uix-button yt-uix-button-default delete">
-									<img alt="删除" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="yt-uix-button-icon-playlist-bar-delete">
-								</span>
-								<span class="now-playing">正在阅读</span>
-								<span class="title" dir="ltr">
-									<span>中国科学技术大学数学分析（史济怀） sjh20030901 
-										<span class="uploader">创建者：Minqi Pan</span>
-									</span>
-								</span>
-							</a>
-						</li>
-						<li data-video-id="v2SlpjCz7uE" class="playlist-bar-item yt-uix-slider-slide-unit playlist-bar-drag-source">
-							<a data-sessionlink="ei=CPie39S9rbMCFVW3IQodKhZRHg%3D%3D&amp;feature=BFa" class="yt-uix-sessionlink" title="地上の星 / 中島みゆき [公式]" href="/watch?v=v2SlpjCz7uE&amp;feature=BFp&amp;list=PLU8P_aKcvc6dboIXEKcGeRMirE3sY4Eth">
-								<span class="video-thumb ux-thumb yt-thumb-default-106">
-									<span class="yt-thumb-clip">
-										<span class="yt-thumb-clip-inner">
-											<img width="106" data-thumb="//i4.ytimg.com/vi/v2SlpjCz7uE/default.jpg" data-thumb-manual="true" alt="地上の星 / 中島みゆき [公式]" src="//i4.ytimg.com/vi/v2SlpjCz7uE/default.jpg">
-										</span>
-									</span>
-								</span>
-								<span class="count"><strong>4</strong></span>
-								<span class="play">
-									<img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
-								</span>
-								<span class="yt-uix-button yt-uix-button-default delete">
-									<img alt="删除" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="yt-uix-button-icon-playlist-bar-delete">
-								</span>
-								<span class="now-playing">正在阅读</span>
-								<span class="title" dir="ltr">
-									<span>地上の星 / 中島みゆき [公式] 
-										<span class="uploader">创建者：miyukiofficial</span>
-									</span>
-								</span>
-							</a>
-						</li>
+						<% end %>
 					</ol>
 					<ol id="playlist-bar-help">
 						<li class="empty playlist-bar-help-message">
-							您的列表为空。请点击此按钮 
-							<img class="addto-button-help" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>"> 向列表添加课件或
-							<a class="load-lists" href="/view_all_playlists">加载其他列表</a>。 
+							您的锦囊为空。请点击此按钮
+							<img class="addto-button-help" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>"> 向锦囊添加课件或
+							<a class="load-lists" href="/view_all_playlists">加载其他锦囊</a>。 
 						</li>
 					</ol>
 				</div>
@@ -227,50 +165,8 @@
 			<span id="playlist-bar-loading-message">正在加载...</span>
 			<span class="hid" id="playlist-bar-saving-message">正在保存...</span>
 		</div>
-		<div data-video-thumb-url="//i4.ytimg.com/vi/__video_encrypted_id__/default.jpg" style="display: none;" id="playlist-bar-template">
-			<!-- <li class="playlist-bar-item yt-uix-slider-slide-unit __classes__" data-video-id="__video_encrypted_id__">
-				<a href="__video_url__" title="__video_title__" class="yt-uix-sessionlink" data-sessionlink="ei=CPie39S9rbMCFVW3IQodKhZRHg%3D%3D&amp;feature=BFa">
-					<span class="video-thumb ux-thumb yt-thumb-default-106 ">
-						<span class="yt-thumb-clip">
-							<span class="yt-thumb-clip-inner">
-								<img src="http:<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="__video_title__" data-thumb-manual="true" data-thumb="__video_thumb_url__" width="106" ><span class="vertical-align">
-								</span>
-							</span>
-						</span>
-					</span>
-					<span class="screen"></span>
-					<span class="count">
-						<strong>__list_position__</strong>
-					</span>
-					<span class="play">
-						<img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
-					</span>
-					<span class="yt-uix-button yt-uix-button-default delete">
-						<img class="yt-uix-button-icon-playlist-bar-delete" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="删除"></span>
-						<span class="now-playing">正在阅读</span>
-						<span dir="ltr" class="title">
-							<span>__video_title__  
-								<span class="uploader">创建者：__video_display_name__</span>
-							</span>
-						</span>
-						<span class="dragger"></span>
-					</a>
-				</li> -->
-		</div>
-		<div style="display: none;" id="playlist-bar-next-up-template">
-			<!--<div class="playlist-bar-next-thumb">
-			<span class="video-thumb ux-thumb yt-thumb-default-74 ">
-				<span class="yt-thumb-clip">
-					<span class="yt-thumb-clip-inner">
-						<img src="//i4.ytimg.com/vi/__video_encrypted_id__/default.jpg" alt="缩略图" width="74" >
-						<span class="vertical-align"></span>
-					</span>
-				</span>
-			</span>
-		</div>-->
-		</div>
 	</div>
-	<div class="hid passive" id="playlist-bar-options-menu">
+	<div class="hid passive yt-uix-button-menu yt-uix-button-menu-external" id="playlist-bar-options-menu">
 		<div id="playlist-bar-extras-menu">
 			<ul>
 				<li>
@@ -291,14 +187,50 @@
 		</ul>
 	</div>
 </div>
-
 <script type="text/javascript" charset="utf-8">
 	<% content_for :butt2 do %>
-		$('#playlist-bar-bar,#playlist-bar-toggle-button').live('click',function(e){
+		$('#playlist-bar-bar,#playlist-bar-toggle-button').live('click',function(){
 				$('#playlist-bar').toggleClass('min').toggleClass('max');
 		});
 		$('#playlist-bar-bar button').live('click',function(e){
 			e.stopPropagation();
 		});
+		$('button[data-button-menu-id="playlist-bar-options-menu"]').live('click',function(){
+			$(this).toggleClass('yt-uix-button-active');
+			var menu = $('#playlist-bar-options-menu');
+			if($(this).hasClass('yt-uix-button-active')){
+				var height = $('#playlist-bar-options-menu').height();
+				var width = $('#playlist-bar-options-menu').width();
+				menu.remove();
+				css = {
+					'min-width': '64px',
+					'max-height': '327px',
+					'left': '-'+ (width-$(this).width()*1.75).toString() +'px', 
+					'top': '-'+(height+$(this).height()*2.95).toString()+'px'
+				}
+				console.log(css);
+				menu.css(css);
+				menu.show().removeClass('hid');
+				$(this).after(menu);
+			}else{
+				menu.remove();
+				menu.hide().addClass('hid');
+				$('#playlist-bar').append(menu);
+			}
+		});
+		$('#playlist-bar-options-menu').live('click',function(e){
+			e.stopPropagation();
+		})
+		$(document).click(function(e){
+			if($('button[data-button-menu-id="playlist-bar-options-menu"]').hasClass('yt-uix-button-active')){
+				$('button[data-button-menu-id="playlist-bar-options-menu"]').removeClass('yt-uix-button-active');
+				var menu = $('#playlist-bar-options-menu');
+				menu.remove();
+				menu.hide().addClass('hid');
+				$('#playlist-bar').append(menu);
+			}
+		});
+		
+		
 	<% end %>
 </script>
