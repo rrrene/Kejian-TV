@@ -2,6 +2,10 @@
 <form action="/play_lists/<%= playlist.id %>/handler" method="post" id="playlist-editor-form">
    <input type="hidden" value="<%= Digest::MD5.hexdigest(playlist.id.to_s+'.liber.'+Digest::MD5.hexdigest(@formhash)) %>" name="encrypted_playlist_id" />
    <input type="hidden" value="<%= @formhash %>" name="form_hash" />
+<div style="margin:0;padding:0;display:inline">
+	<input name="utf8" type="hidden" value="✓">
+	<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+</div>
    <div id="playlist-editor-heading-container">
       <div class="ytg-box" id="playlist-editor-heading" style="height:32px">
          <h2>

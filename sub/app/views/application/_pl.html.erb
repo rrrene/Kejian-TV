@@ -183,7 +183,7 @@ end
 				</li>
 				<% end %>
 				<li>
-					<span onclick="window.location.href='/playlist?list=PLU8P_aKcvc6dboIXEKcGeRMirE3sY4Eth'" class="yt-uix-button-menu-item">关于此课件锦囊的详情</span>
+					<span onclick="window.location.href='/play_lists/<%= playlist.id %>'" class="yt-uix-button-menu-item">关于此课件锦囊的详情</span>
 				</li>
 			</ul>
 		</div>
@@ -219,7 +219,7 @@ end
 					'min-width': '64px',
 					'max-height': '327px',
 					'left': '-'+ (width-$(this).width()*1.75).toString() +'px', 
-					'top': '-'+(height+$(this).height()*2.95).toString()+'px'
+					'top': '-'+(height+$(this).height()*2.45).toString()+'px'
 				}
 				console.log(css);
 				menu.css(css);
@@ -297,8 +297,8 @@ end
 				}
 			},
 	    stop: function(){
-				bar_update_sort();
 				bar_resort();
+				bar_update_sort();
 	    }
 		}).disableSelection();
 		var bar_resort  = function(){
@@ -318,6 +318,8 @@ end
 				
 			});
 		};
-		
+		$('#playlist-bar-extras-menu .yt-uix-button-menu-item[data-action="save"]').live('click',function(){
+			
+		});
 	<% end %>
 </script>

@@ -728,7 +728,7 @@ HEREDOC
       end
     end
     annotation = []
-    params[:content_string].each_with_index do |cw|
+    params[:content_string].each_with_index do |cw,index|
       if (inornot = pl.content.index(cw))
         if !pl.annotation[inornot].blank?
           annotation[index] = pl.annotation[inornot]  #对应位置的 Annotation
