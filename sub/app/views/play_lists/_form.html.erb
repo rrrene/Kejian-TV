@@ -148,7 +148,8 @@
                   <div class="playlist-landing">
                      <% if !playlist.content.nil? and playlist.content.count > 0 %>
                      <ol class="playlist-video-items yt-uix-dragdrop" id="playlist-video-items">
-                      <% playlist.content.each_with_index do |cwid,index| %>
+											 <% coursewares = Courseware.eager_load(playlist.content) %>
+                      <% coursewares.each_with_index do |cwid,index| %>
 												<%= render :partial=>'list',:locals =>{content:playlist.content,cwid:cwid,index:index,annotation:playlist.annotation,user_id:playlist.user_id} %>
 											<% end %>
                      </ol>

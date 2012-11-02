@@ -1,5 +1,5 @@
-<% playlist.content.each_with_index do |cwid,index| %>
-  <% cw = Courseware.find(cwid) %>
+<% coursewares = Courseware.eager_load(playlist.content).paginate(:page => params[:page], :per_page => @per_page) %>
+<% coursewares.each_with_index do |cw,index| %>
   <% is_annotated = !playlist.annotation[playlist.content.index(cw.id)].blank? %>
 	<li class="playlist-video-item <% if index%2==0 %>odd<% else %>even<% end %> <% if is_annotated %>annotated<% end %>">
 	<div class="yt-uix-tile playlist-video-item-base-content">
@@ -15,7 +15,7 @@
 				  </span>
 				</span>
 				<span class="video-time">共<%= cw.slides_count %>页</span>
-				<button role="button" data-kejian-id="<%= cwid %>" class="psvr_login_required addto-button video-actions <% if !current_user.nil? and PlayList.exist_in_read_later?(current_user.id,cwid) %>addto-watch-later-button-success<% else %>addto-watch-later-button<% end %> yt-uix-button yt-uix-button-default yt-uix-button-short yt-uix-tooltip" type="button" title="稍后阅读" onclick=";return false;"><span class="yt-uix-button-content">
+				<button role="button" data-kejian-id="<%= cw.id %>" class="psvr_login_required addto-button video-actions <% if !current_user.nil? and PlayList.exist_in_read_later?(current_user.id,cw.id) %>addto-watch-later-button-success<% else %>addto-watch-later-button<% end %> yt-uix-button yt-uix-button-default yt-uix-button-short yt-uix-tooltip" type="button" title="稍后阅读" onclick=";return false;"><span class="yt-uix-button-content">
 				  <img alt="稍后阅读" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
 				</span>
 				</button>
@@ -59,3 +59,4 @@
 	<a class="tile-link-block video-tile yt-uix-sessionlink yt-uix-tile-link" href="/coursewares/<%= cw.id %>"></a>
 	</li>
 	<% end %>
+	<%= render partial:'mine/pagination' ,locals:{coursewares_ids:coursewares}%>

@@ -1,5 +1,14 @@
 # -*- encoding : utf-8 -*-
 class PlayListsController < ApplicationController
+  before_filter :page_require
+  def page_require
+    params[:page] ||= '1'
+    params[:per_page] ||= cookies[:welcome_per_page]
+    params[:per_page] ||= '15'
+    @page = params[:page].to_i
+    @per_page = params[:per_page].to_i
+    cookies[:welcome_per_page] = @per_page
+  end
   def index
     common_op!
     @seo[:title]='课件锦囊'
@@ -19,7 +28,6 @@ class PlayListsController < ApplicationController
         return false
     end
   end
-  
   def show
     @playlist = PlayList.find(params[:id])
     if @playlist.privacy !=0 and !current_user.nil? and current_user.id != @playlist.user_id
@@ -27,6 +35,7 @@ class PlayListsController < ApplicationController
         redirect_to '/mine/view_all_playlists'
         return false
     end
+    # @coursewares = Courseware.eager_load(@playlist.content)
     @playlist.inc(:views_count,1)
     @user = User.find(@playlist.user_id)
     @seo[:title] = "课件锦囊"    
