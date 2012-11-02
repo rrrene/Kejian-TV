@@ -101,6 +101,7 @@ class CoursewaresController < ApplicationController
   end
 
   def show
+    @show_pl_ytb = true
     if @courseware.redirect_to_id.present?
       @courseware = Courseware.where(:_id => @courseware.redirect_to_id.to_s).first
       if @courseware

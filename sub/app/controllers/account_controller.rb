@@ -147,8 +147,9 @@ class AccountController < Devise::RegistrationsController
         #so, 可能会有注册过的没有关注过的朋友哦
         result = [result] unless result.respond_to?(:each)
         uids = result.collect{|x| x['item'].to_i}
-        @regged = User.normal.where(:id.nin=>current_user.following_ids+[current_user.id])#:uid.in=>uids,
-        if @regged.present?
+        @regged = User.normal.where(:id.nin=>current_user.following_ids+[current_user.id]).paginate(:per_page=>100,:page=>1)#:uid.in=>uids,
+        render text:@regged.class.to_s and return false
+        if true or @regged.present?
           render "new052",layout:'application'
           return true
         end

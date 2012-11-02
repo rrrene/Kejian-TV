@@ -14,6 +14,8 @@ $('.buttcheck').change(function(){
 });
 <% end %>
 
+
+
 <div class="wrapper" style="width:838px">
 <div class="__lnk" id="lnreg_target" style="position:absolute;z-index:222;margin-top:158px;width:838px;overflow:hidden;height:448px;background:white">
 <div class="en member v2 guest chrome-v4 background-v4 sticky-bg basic-member js ">
@@ -44,8 +46,10 @@ $('.buttcheck').change(function(){
 				<div class="connect-friends no-long-form" style="width:802px">
 					<div class="grid" style="height: 284px; ">
             <% 0.upto(@regged.count / 2) do |double_i| %>
+              <% puts double_i %>
 						<div class="row ">
               <% 0.upto(1) do |j| %>
+                <% puts j %>
                 <% item = @regged[double_i*2+j] %>
                 <% if item %>
                   <div class="person-ymk checked">
@@ -94,3 +98,4 @@ $('.buttcheck').change(function(){
 		</div>
 	</div>
 </div>
+

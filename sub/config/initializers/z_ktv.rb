@@ -144,6 +144,12 @@ def log_connect!(index=0)
   ActionMailer::Base.logger = Rails.logger
   ActiveResource::Base.logger = Rails.logger
   Rails.application.assets.logger = Rails.logger
+  unless $psvr_really_production
+    Mongoid.logger = Rails.logger
+    Moped.logger = Rails.logger
+    Mongoid.logger.level = Logger::DEBUG
+    Moped.logger.level = Logger::DEBUG
+  end
   Tire.configure do
     logger "#{logger_dirpath}/tire.#{index}.log"
   end

@@ -31,9 +31,8 @@ Sub::Application.configure do
     :sender_address => %{"Kejian.TV" <kejian.tv@gmail.com>},
     :exception_recipients => %w{pmq2001@gmail.com llb0536@gmail.com},
     :smtp_settings => smtp_settings
-  Mongoid.configure do |config|
-    config.logger = nil
-  end
+  Mongoid.logger = nil
+  Moped.logger = nil
   # assets___________
   config.assets.manifest = "/home/main/ktv/_assets_sub"
   config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx

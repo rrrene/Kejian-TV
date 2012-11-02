@@ -28,9 +28,8 @@ Sub::Application.configure do
     :authentication       => 'plain',
     :enable_starttls_auto => true  
   }
-  Mongoid.configure do |config|
-    config.logger = nil
-  end
+  Mongoid.logger = nil
+  Moped.logger = nil
   # assets___________
   config.assets.manifest = "/home/main/ktv/_assets"
   config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
