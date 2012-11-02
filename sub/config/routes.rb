@@ -207,7 +207,9 @@ Sub::Application.routes.draw do
   end
   
   
+=begin
   match "/uploads/*path" => "gridfs#serve"
+=end
   match "/update_in_place" => "home#update_in_place"
   #match "/muted" => "home#muted"
   match "/newbie" => "home#newbie",:as => :newbie
