@@ -120,6 +120,9 @@ Sub::Application.routes.draw do
   post '/ajax/request_widget' => 'ajax#request_widget'
   post '/ajax/update_widget_property' => 'ajax#update_widget_property'
   post '/ajax/bar_update_content_in_playlist' => 'ajax#bar_update_content_in_playlist'
+  post '/ajax/bar_request_save_as' =>'ajax#bar_request_save_as'
+  post '/ajax/bar_playlist_save_as' => 'ajax#bar_playlist_save_as'
+  post '/ajax/bar_request_update_bar' => 'ajax#bar_request_update_bar'
   # ---=small=----
   get '/hack/htc'
   get '/welcome/inactive_sign_up'

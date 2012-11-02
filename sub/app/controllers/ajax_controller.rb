@@ -363,6 +363,15 @@ HEREDOC
     json = {status:'suc',list_title:pl.title,id:pl.id.to_s,is_private:pl.privacy.to_s}
     render json:json
   end
+  def bar_request_save_as
+    
+  end
+  def bar_playlist_save_as
+    
+  end
+  def bar_request_update_bar
+    
+  end
   ### playlist end 
   def get_share_panel
     if current_user.nil?

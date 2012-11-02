@@ -1,0 +1,54 @@
+<form action="/ajax/bar_playlist_save_as" method="post" id="playlist-bar-save-form">
+	<div style="margin:0;padding:0;display:inline">
+		<input name="utf8" type="hidden" value="✓">
+		<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+		<input name="playlist_id" type="hidden" value="<%= playlist_id %>">
+	</div>
+
+	<p class="note">
+		 您随时可以在<a href="/mine/view_all_playlists">我的课件锦囊</a>部分修改或删除保存的课件锦囊。
+	</p>
+	<p>
+		<label for="playlist-bar-title-edit">
+		课件锦囊标题： </label>
+		<input type="text" value="" name="title" id="playlist-bar-title-edit">
+	</p>
+	<p>
+		<label for="playlist-bar-description-edit">
+		说明： </label>
+		<textarea name="description" id="playlist-bar-description-edit"></textarea>
+		<span class="buttons">
+		<button role="button" onclick=";return true;" class=" yt-uix-button yt-uix-button-primary" type="submit">
+			<span class="yt-uix-button-content">保存 </span>
+		</button>
+		&nbsp;或&nbsp; <a id="playlist-bar-save-cancel" href="#">取消</a>
+		</span>
+	</p>
+</form>
+<script type="text/javascript" charset="utf-8">
+	<% content_for :butt2 do %>
+	$('#playlist-bar-save-form').submit(function(){
+		frm = $(this);
+		bar_loading();
+	  $.ajax({
+       type: frm.attr('method'),
+       url: frm.attr('action'),
+       data: frm.serialize(),
+			 dataType:'json'
+   }).done(function(json){
+		if(json.status == 'suc'){
+			$('#playlist-bar').addClass('max').removeClass('save');
+			bar_update_list_and_name(json.new_playlist_id,function(){
+					bar_showNotification('课件锦囊已保存！','success');
+					bar_loading();
+			});
+		}else if(json.status == 'failed'){
+			bar_showNotification('课件锦囊保存失败！','error');					
+		}else{
+			bar_showNotification('请重复检查您的播放列表标题。','warn')
+		}
+   });
+	 return false;
+	});
+	<% end %>
+</script>
