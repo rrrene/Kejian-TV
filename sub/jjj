@@ -1,0 +1,18 @@
+
+      def send_invitation(agent,user_id,to=[])
+        u = User.find user_id
+        renren_cookies=u.renren_cookies
+        rr = Ktv::Renren.new
+        rr.agent.redirect_ok = :all
+        renren_cookies.each do |key,value|
+          cookie = Mechanize::Cookie.new(key, value)
+          cookie.domain = ".renren.com"
+          cookie.path = "/"
+          rr.agent.cookie_jar.add!(cookie)
+        end
+        to.each do |to_id|
+          page = rr.agent.get "http://www.renren.com/#{to_id}/profile"
+          parser = page.parser
+        end
+
+      end

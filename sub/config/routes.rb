@@ -37,7 +37,8 @@ Sub::Application.routes.draw do
     # finishing reg process
     put '/account/confirmation' => 'account_confirmations#show'
     get "/register", :to => "account#new",as:'register'
-    get "/register05", :to => "account#new05",as:'register'
+    get "/register05", :to => "account#new05"
+    get "/register05_force_relogin", :to => "account#new05"
     get "/login", :to => "account_sessions#new",as:'login'
     get "/login_ibeike", :to => "account_sessions#new",as:'login_ibeike'
     get '/logout', :to => "account_sessions#destroy", as:'logout'
@@ -64,6 +65,7 @@ Sub::Application.routes.draw do
 
   # ________________________________ajax__________________________________________
   get '/all_unread_notification_num' => 'ajax#all_unread_notification_num'
+  post '/ajax/renren_invite'
   get '/ajax/current_user_reg_extent'
   post '/ajax/renren_huanyizhang'
   post '/ajax/renren_real_bind'

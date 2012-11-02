@@ -1,6 +1,17 @@
 # -*- encoding : utf-8 -*-
 class AjaxController < ApplicationController
-  before_filter :authenticate_user!, :except => [:checkUsername,:checkEmailAjax,:xl_req_get_method_vod,:logincheck,:seg,:star_refresh,:current_user_reg_extent]
+  before_filter :authenticate_user!, :except => [:checkUsername,:checkEmailAjax,:xl_req_get_method_vod,:logincheck,:seg,:star_refresh,:current_user_reg_extent,:renren_invite]
+  def renren_invite
+    Sidekiq::Client.enqueue(HookerJob,
+      'Ktv::Renren',
+      nil,
+      'send_invitation',
+      current_user.id,params[:renren_uids]
+    )
+    render json:{
+      suc:true
+    }
+  end
   def current_user_reg_extent
     render json:{
       extent:current_user.reg_extent,
@@ -32,7 +43,7 @@ class AjaxController < ApplicationController
         'Ktv::Renren',
         nil,
         'import_info',
-        agent,current_user.id,result.cookies,ret['homeUrl'],!!params[:guanzhu_ktv],!!params[:fabiao_ktv]
+        agent,result.cookies,current_user.id,ret['homeUrl'],!!params[:guanzhu_ktv],!!params[:fabiao_ktv]
       )
       if current_user.reg_extent_okay?
         # 1表示只是普通的绑定，成功了，没有后续. ok，该干嘛干嘛。

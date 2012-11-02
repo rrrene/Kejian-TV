@@ -130,31 +130,39 @@ class AccountController < Devise::RegistrationsController
     @seo[:title] = '完成新用户注册'
     @simple_header=true
     @simple_header_width=840
-    if 0 == current_user.reg_extent
+    if 0 == current_user.reg_extent || '/register05_force_relogin'==request.path
       # 其实我们只想让他们从人人过来。因为大学生基本上都有人人！
       @serv = :renren
       @service = Ktv::Consumers[@serv]
       self.send("bind_#{@serv}_prepare!")
       render "new050",layout:'application'
-    elsif current_user.reg_extent < 10
-      render "new051",layout:'application'
-    elsif current_user.reg_extent < 888
-      rrf = MultiJson.load current_user.sub_user_material.renren_friends
-      friend_rr_uids = rrf.collect{|x| x['id']}
-      friend_rr_uids << '477339815'
-      result = UCenter::ThirdPartyAuth.getregged(nil,{provider:'renren',uids:friend_rr_uids.join(',')}).try(:[],'root').try(:[],'item')
-      if result
-        #so, 可能会有注册过的没有关注过的朋友哦
-        result = [result] unless result.respond_to?(:each)
-        uids = result.collect{|x| x['item'].to_i}
-        @regged = User.normal.where(:id.nin=>current_user.following_ids+[current_user.id]).paginate(:per_page=>100,:page=>1)#:uid.in=>uids,
-        if true or @regged.present?
-          render "new052",layout:'application'
-          return true
+    else
+      if current_user.reg_extent < 10
+        render "new051",layout:'application'
+      elsif current_user.reg_extent < 888
+        unless Ktv::Renren.state_ok?(current_user)
+          redirect_to '/register05_force_relogin',:alert=>'人人登录已超时，请重新登录'
+          return false
         end
+        rrf = MultiJson.load current_user.sub_user_material.renren_friends
+        friend_rr_uids = rrf.collect{|x| x['id']}
+        result = UCenter::ThirdPartyAuth.getregged(nil,{provider:'renren',uids:friend_rr_uids.join(',')}).try(:[],'root').try(:[],'item')
+        result = [result] unless result.kind_of?(Array)
+        result_uids = result.collect{|x| x['item'][0].to_i}
+        result_rr_uids = result.collect{|x| x['item'][1].to_i}
+        if result and !params[:force_053].present?
+          #so, 可能会有注册过的没有关注过的朋友哦
+          @regged = User.normal.where(:uid.in=>result_uids,:id.nin=>current_user.following_ids+[current_user.id]).paginate(:per_page=>100,:page=>1)
+          if @regged.present?
+            render "new052",layout:'application'
+            return true
+          end
+        end
+        #so, 没有注册过的朋友，开始大邀请
+        rrf.delete_if {|x| result_rr_uids.include? x['id']}
+        @regged = rrf
+        render "new053",layout:'application'
       end
-      #so, 没有注册过的朋友，开始大邀请
-      render "new053",layout:'application'
     end
   end
   def new

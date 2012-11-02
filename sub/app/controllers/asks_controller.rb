@@ -71,7 +71,6 @@ class AsksController < ApplicationController
       end
     end
     
-    # 由于 voteable_mongoid 目前的按 votes_point 排序有题，没投过票的无法排序
     @answers = @ask.answers.nondeleted
     if 'new'==params[:filter]
       @answers = @answers.desc('created_at')

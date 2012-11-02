@@ -345,16 +345,18 @@ class ApplicationController < ActionController::Base
   end
   NO_REDIRECT_REQUEST_PATHs = [
     '/register05',
+    '/register05_force_relogin',
     '/logout',
     '/ajax/renren_huanyizhang',
     '/ajax/renren_real_bind',
     '/ajax/current_user_reg_extent',
+    '/users_follow',
   ]
   before_filter :unknown_user_check,:if=>'current_user'
   def unknown_user_check
     if current_user.reg_extent < 100
       unless ApplicationController::NO_REDIRECT_REQUEST_PATHs.include?(request.path)
-        # redirect_to "/register05"
+        redirect_to "/register05"
         return false
       end
     end
