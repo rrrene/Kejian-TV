@@ -20,13 +20,10 @@ Sub::Application.configure do
   config.serve_static_assets = false
   config.action_mailer.delivery_method = :smtp
   smtp_settings = {
-    :address              => 'smtp.gmail.com',
+    :address              => 'smtp.mandrillapp.com',
     :port                 => 587,
-    :domain               => 'kejian.tv',
-    :user_name            => 'kejian.tv@gmail.com',
-    :password             => 'jknlff8-pro-17m7755',
-    :authentication       => 'plain',
-    :enable_starttls_auto => true  
+    :user_name            => 'pmq2001',
+    :password             => '99747048-b116-40cb-a4b6-4e7629d920b0',
   }
   config.action_mailer.smtp_settings = smtp_settings
   config.middleware.use ExceptionNotifier,

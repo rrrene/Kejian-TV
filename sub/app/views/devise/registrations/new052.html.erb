@@ -1,0 +1,96 @@
+<% content_for :armpit do %>
+  <%= stylesheet_link_tag "__lnk_reg", :media => "all" %>
+  <%= stylesheet_link_tag "ktv/__zm", :media => "all" %>
+  <%= stylesheet_link_tag "ktv/__zm_reg", :media => "all" %>
+<% end %>
+<% content_for :butt2 do %>
+KTV.lnreg_targetize();
+$('#select-all-pymk').change(function(){
+  $('.buttcheck').attr('checked', this.checked);
+  $('#regged_count').html($('.buttcheck:checked').length.toString());
+});
+$('.buttcheck').change(function(){
+  $('#regged_count').html($('.buttcheck:checked').length.toString());
+});
+<% end %>
+
+<div class="wrapper" style="width:838px">
+<div class="__lnk" id="lnreg_target" style="position:absolute;z-index:222;margin-top:158px;width:838px;overflow:hidden;height:448px;background:white">
+<div class="en member v2 guest chrome-v4 background-v4 sticky-bg basic-member js ">
+<div id="body" style="border:none">
+		<div id="global-error">
+		</div>
+		<div id="main" class="connect-webmail-contacts" style="background:white;width:804px">
+			<div class="progress-container">
+				<h1>请选中要建立联络的学习伙伴</h1>
+				<p class="progress">
+					<span class="summary">步骤 <strong>1</strong> / <strong>2</strong></span>
+					<span class="progress-meter" title="50% Complete"><span class="has-progress" style="width:50%"></span></span>
+				</p>
+			</div>
+			<div id="register-global-error">
+			</div>
+      <h2>我们发现您的 <%=@regged.count%> 个朋友已经加入了<%=Setting.ktv_subname%>课件交流系统. 请选中要建立联络的朋友.</h2>
+			<form action="/reg/webmail-connect-create" method="POST" name="aBookConnectForm" novalidate="novalidate" class="connections" id="yui-gen1">
+				<div class="header">
+					<p class="select-all">
+						<input type="checkbox" value="all" id="select-all-pymk" checked="">
+						<label for="select-all-pymk">选择全部</label>
+					</p>
+					<p class="number-selected">
+          <span class="total" id="regged_count"><%=@regged.count%></span> 已选中
+					</p>
+				</div>
+				<div class="connect-friends no-long-form" style="width:802px">
+					<div class="grid" style="height: 284px; ">
+            <% 0.upto(@regged.count / 2) do |double_i| %>
+						<div class="row ">
+              <% 0.upto(1) do |j| %>
+                <% item = @regged[double_i*2+j] %>
+                <% if item %>
+                  <div class="person-ymk checked">
+                    <input type="checkbox" class="buttcheck" name="person_<%=item.uid%>" value="3" id="person_<%=item.uid%>" checked="">
+                    <img src="<%=avatar_url(item,:small)%>" class="photo" width="48" height="48" alt="<%item.name_beautified%>" style="padding:3px 2px">
+                    <div class="details">
+                      <h3 class="fn n">
+                      <label for="person_<%=item.uid%>">
+                        <%=item.name_beautified %>
+                      </label>
+                      </h3>
+                      <p class="title">
+                        <%=item.tagline %>
+                      </p>
+                    </div>
+                  </div>
+                <% end %>
+              <% end %>
+						</div>
+            <% end %>
+					</div>
+				</div>
+				<p class="actions">
+					<input class="btn-primary" name="submit" type="submit" value="与他(她)们建立联络" style="font-size:13px;padding:5px 10px 4px">
+					<span class="alternate" style="line-height:35px">
+					或者 <a href="/reg/webmail-connect-invite-skip-entry?origin=&amp;goback=%2Enmp_*1_*1_*1_*1_*1_*1_*1_*1_*1&amp;trk=connect&amp;flow=1qbwqgl-1x89vr3">跳过这一步</a> » </span>
+				</p>
+			</form>
+		</div>
+</div>  
+</div>  
+</div>
+</div>
+<div class="__zm">
+	<div id="reg-header" class="wide">
+	</div>
+	<div id="content" class="newreg wide" style="padding-top:6px">
+    <div style="width:840px;height:51px;background:url(<%=asset_path 'zm/r11839/images/reg/bad_tiao2.png' %>)">
+		</div>
+		<div style="width:838px;border: 1px solid #D6D6D6;border-top: none;height:464px;" id="content_reg05">
+		</div>
+	</div>
+	<div class="totop" id="backtotop" style="display: none;">
+		<a href="javascript:void(0);">返回 </a>< /div>
+		<div id="loginLayout">
+		</div>
+	</div>
+</div>

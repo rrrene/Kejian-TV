@@ -190,7 +190,9 @@ Sub::Application.routes.draw do
   get '/nb/*file' =>'application#nb'
   get "/home/index",:as => 'for_help'
   get '/root'=>'home#index'
-  match '/topics_follow' => 'topics#fol'
+  post '/users_follow' => 'users#fol'
+  post '/users_unfollow'=>'users#unfol'
+  post '/topics_follow' => 'topics#fol'
   post '/topics_unfollow'=>'topics#unfol'
   get '/zero_asks' => 'asks#index',:as => 'zero_asks'
   

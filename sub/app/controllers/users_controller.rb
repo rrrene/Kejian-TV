@@ -105,6 +105,30 @@ class UsersController < ApplicationController
       render "/asks/index.js"
     end
   end
+  def fol
+    suc=0
+    uids=params[:q].split(',')
+    users = User.where(:uid.in=>uids)
+    users.each do |u|
+      current_user.follow(u)
+      suc+=1
+    end
+    render text:suc
+  end
+
+  def unfol
+=begin
+    suc=0
+    params[:q].split(',').each do |id|
+      t=Topic.where(name:(id.strip)).first
+      if t
+        current_user.unfollow_topic(t)
+        suc+=1
+      end
+    end
+    render text:suc
+=end
+  end
   
   def following_topics
     @per_page = 20
