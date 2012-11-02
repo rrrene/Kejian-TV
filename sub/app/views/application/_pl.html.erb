@@ -1,3 +1,8 @@
+<%  
+if Setting.ktv_sub != 'cnu' 
+	return
+end
+%>
 <% playlist = PlayList.find('50875ee29a8aa2060e00005c') %>
 <% coursewares = Courseware.eager_load(playlist.content) %>
 <div class="passive editable min" id="playlist-bar">
@@ -230,7 +235,33 @@
 				$('#playlist-bar').append(menu);
 			}
 		});
-		
+		var per_move_length = $('#playlist-bar-tray-content .playlist-bar-item').outerWidth();
+		$('#playlist-bar-tray .playlist-bar-tray-button').live('click',function(e){
+			var item_count = parseInt("<%= playlist.content.size %>");
+			var cur_state = $('#playlist-bar-tray-content').offset().left;
+			var next_state = 0;
+			if($(this).hasClass('yt-uix-slider-prev')){
+				if(cur_state <= per_move_length){
+					next_state = 0;
+				}else{
+					next_state = cur_state - 3*per_move_length;
+				}
+				if(next_state<0){
+					next_state = 0;
+				}
+				$('#playlist-bar-tray-content').css({'left':next_state + 'px'});
+			}else if($(this).hasClass('yt-uix-slider-next')){
+				if(cur_state > per_move_length){
+					next_state = 0;
+				}else{
+					next_state = cur_state - 3*per_move_length;
+				}
+				if(next_state<0){
+					next_state = 0;
+				}
+				$('#playlist-bar-tray-content').css({'left':'-'+1024+'px'});				
+			}
+		});
 		
 	<% end %>
 </script>
