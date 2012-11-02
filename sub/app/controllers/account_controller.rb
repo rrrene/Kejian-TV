@@ -148,7 +148,6 @@ class AccountController < Devise::RegistrationsController
         result = [result] unless result.respond_to?(:each)
         uids = result.collect{|x| x['item'].to_i}
         @regged = User.normal.where(:id.nin=>current_user.following_ids+[current_user.id]).paginate(:per_page=>100,:page=>1)#:uid.in=>uids,
-        render text:@regged.class.to_s and return false
         if true or @regged.present?
           render "new052",layout:'application'
           return true

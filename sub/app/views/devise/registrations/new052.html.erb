@@ -46,10 +46,8 @@ $('.buttcheck').change(function(){
 				<div class="connect-friends no-long-form" style="width:802px">
 					<div class="grid" style="height: 284px; ">
             <% 0.upto(@regged.count / 2) do |double_i| %>
-              <% puts double_i %>
 						<div class="row ">
               <% 0.upto(1) do |j| %>
-                <% puts j %>
                 <% item = @regged[double_i*2+j] %>
                 <% if item %>
                   <div class="person-ymk checked">
