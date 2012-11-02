@@ -59,6 +59,9 @@
       <% end %>
       <div class="wenjian2 tb">
         <%=
+				if  params[:sort].nil?
+     		 	'全部文件类型'
+				else
           case params[:sort].split('|').first
           when 'ppt','pptx'
             'PowerPoint幻灯片'
@@ -77,6 +80,7 @@
           else
             '全部文件类型'
           end
+				end
         %>
       </div>
       <div class="wenjian">文件类型</div>

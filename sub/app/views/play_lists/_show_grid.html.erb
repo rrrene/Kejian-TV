@@ -1,5 +1,5 @@
-<% playlist.content.each_with_index do |cwid,index| %>
-  <% cw = Courseware.find(cwid) %>
+<% coursewares = Courseware.eager_load(playlist.content).paginate(:page => params[:page], :per_page => @per_page) %>
+<% coursewares.each_with_index do |cw,index| %>
   <% is_annotated = !playlist.annotation[playlist.content.index(cw.id)].blank? %>
 
 <li class="playlist-video-item yt-uix-tile"> <span class="playlist-video-item-base-content">
@@ -47,6 +47,7 @@
 	 <a class="tile-link-block video-tile yt-uix-sessionlink yt-uix-tile-link" href="/coursewares/<%= cw.id %>"></a>
 </li>
 <% end %>
+	<%= render partial:'mine/pagination' ,locals:{coursewares_ids:coursewares}%>
 <script type="text/javascript">
 <% content_for :butt2 do %>
 var card = '<div id="yt-uix-hovercard-card1" class="yt-uix-hovercard-card yt-uix-hovercard-card-flip hid" style="display:none"><div class="yt-uix-card-border-arrow yt-uix-card-border-arrow-vertical" style="left: 8px;"></div><div class="yt-uix-hovercard-card-border"><div class="yt-uix-card-body-arrow yt-uix-card-body-arrow-vertical" style="left: 8px;"></div><div class="yt-uix-hovercard-card-body"><span class="yt-uix-hovercard-card-content"></span></div></div></div>'

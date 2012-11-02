@@ -185,11 +185,10 @@
                 	<a class="yt-uix-sessionlink" href="/play_lists/<%= @playlist.id %>">
               		<span class="playlist-thumb-strip playlist-thumb-strip-252">
               		  <span class="videos videos-<%= @playlist.content.count > 6 ? 6 : @playlist.content.count %> vertical-cutoff">
-                      <% @playlist.content.each_with_index do |id,index| %>
+                      <% @coursewares.each_with_index do |cw,index| %>
                          <% if index > 5 
                               break
                            end %>
-                           <% cw = Courseware.find(id) %>
               				    <% if @playlist.content.count < 3  
               				          src = asset_url_eb(cw.ktvid.to_s + '/slide_0.jpg')
               			         else
@@ -209,7 +208,7 @@
               		<span class="resting-overlay">
               			<img alt="Play all" class="play-button" src="<%= asset_path 'yt/img/pixel-vfl3z5WfW.gif' %>">
               			<span class="video-count-box">
-              			  <%= @playlist.content.count %> 个课件 
+              			  <%= @playlist.content.size %> 个课件 
               			</span>
               		</span>
               				<span class="hover-overlay">
