@@ -42,7 +42,7 @@ class AsksController < ApplicationController
   def show
     @we_are_no_zm_header = true
     begin
-      @ask = Ask.nondeleted.where(_id:BSON::ObjectId(params[:id])).first
+      @ask = Ask.nondeleted.where(_id:Moped::BSON::ObjectId(params[:id])).first
     rescue => e
       render_404
       return

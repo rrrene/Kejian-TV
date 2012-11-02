@@ -5,8 +5,8 @@ end
 %>
 <% playlist = PlayList.find('50875ee29a8aa2060e00005c') %>
 <% coursewares = Courseware.eager_load(playlist.content) %>
-<div class="passive editable min" id="playlist-bar">
-	<!-- data-list-type="QL" data-list-id="" data-video-url="/watch?v=&amp;feature=BFql&amp;playnext=1&amp;list=QL" -->
+<div class="passive editable min" id="playlist-bar" data-list-id="<%= playlist.id %>">
+	<!-- data-list-type="QL"  data-video-url="/watch?v=&amp;feature=BFql&amp;playnext=1&amp;list=QL" -->
 	<div id="playlist-bar-bar-container">
 		<div id="playlist-bar-bar">
 			<div id="playlist-bar-notifications" class="yt-alert yt-alert-naked yt-alert-success hid">
@@ -175,10 +175,15 @@ end
 		<div id="playlist-bar-extras-menu">
 			<ul>
 				<li>
-				<span data-action="save" class="yt-uix-button-menu-item">另存为新的课件锦囊</span>
+					<span data-action="save" class="yt-uix-button-menu-item">另存为新的课件锦囊</span>
 				</li>
+				<% if playlist.id == current_user.id and playlist.undestroyable and playlist.title == '稍后阅读' %>
 				<li>
-				<span onclick="window.location.href='/playlist?list=PLU8P_aKcvc6dboIXEKcGeRMirE3sY4Eth'" class="yt-uix-button-menu-item">关于此课件锦囊的详情</span>
+					<span data-action="clear" class="yt-uix-button-menu-item">清除该列表中的所有视频</span>
+				</li>
+				<% end %>
+				<li>
+					<span onclick="window.location.href='/playlist?list=PLU8P_aKcvc6dboIXEKcGeRMirE3sY4Eth'" class="yt-uix-button-menu-item">关于此课件锦囊的详情</span>
 				</li>
 			</ul>
 		</div>
@@ -186,9 +191,11 @@ end
 			<li>
 			<span data-action="load-lists" class="yt-uix-button-menu-item">加载其他课件锦囊</span>
 			</li>
+			<% if false %>
 			<li>
 			<span onclick="window.location.href='//support.google.com/youtube/bin/answer.py?answer=146749&amp;hl=zh-CN'" class="yt-uix-button-menu-item">了解详情</span>
 			</li>
+			<% end %>
 		</ul>
 	</div>
 </div>
@@ -200,6 +207,7 @@ end
 		$('#playlist-bar-bar button').live('click',function(e){
 			e.stopPropagation();
 		});
+		var bar_li_id = new Array();
 		$('button[data-button-menu-id="playlist-bar-options-menu"]').live('click',function(){
 			$(this).toggleClass('yt-uix-button-active');
 			var menu = $('#playlist-bar-options-menu');
@@ -237,31 +245,79 @@ end
 		});
 		var per_move_length = $('#playlist-bar-tray-content .playlist-bar-item').outerWidth();
 		$('#playlist-bar-tray .playlist-bar-tray-button').live('click',function(e){
+			var win_length = $(window).width();
+			var contain_size = parseInt(win_length/per_move_length);
 			var item_count = parseInt("<%= playlist.content.size %>");
-			var cur_state = $('#playlist-bar-tray-content').offset().left;
+			var total_length = item_count * per_move_length;
+			var cur_state = Math.abs($('#playlist-bar-tray-content').offset().left);
+			var already_length = total_length - cur_state;
+			var left_length = total_length-(win_length+cur_state);
+			// var cur_item = parseInt(cur_state/per_move_length);
 			var next_state = 0;
+			console.log(cur_state,already_length,left_length,total_length)
 			if($(this).hasClass('yt-uix-slider-prev')){
-				if(cur_state <= per_move_length){
+				if(cur_state <= win_length){
 					next_state = 0;
-				}else{
+				}else if(already_length >= 6*per_move_length){
+					next_state = cur_state - win_length + per_move_length * Math.random();
+				}else if(already_length >=  3*per_move_length  && already_length < 6*per_move_length){
 					next_state = cur_state - 3*per_move_length;
+				}else{
+					next_state = cur_state - per_move_length;
 				}
 				if(next_state<0){
 					next_state = 0;
 				}
-				$('#playlist-bar-tray-content').css({'left':next_state + 'px'});
+				console.log(next_state);
+				$('#playlist-bar-tray-content').css({'left':'-'+next_state + 'px'});
 			}else if($(this).hasClass('yt-uix-slider-next')){
-				if(cur_state > per_move_length){
-					next_state = 0;
+				if(left_length > 6*per_move_length){
+					next_state = cur_state + win_length + per_move_length * Math.random();
+				}else if (left_length > 3*per_move_length && left_length < 6*per_move_length ){
+					next_state = cur_state + 3*per_move_length;
 				}else{
-					next_state = cur_state - 3*per_move_length;
+					next_state = total_length - 3*per_move_length;
 				}
-				if(next_state<0){
-					next_state = 0;
+				if(next_state > total_length){
+					next_state = total_length - 3*per_move_length;;
 				}
-				$('#playlist-bar-tray-content').css({'left':'-'+1024+'px'});				
+				$('#playlist-bar-tray-content').css({'left':'-'+next_state+'px'});				
 			}
 		});
+		$('#playlist-bar-tray-content > ol').sortable({
+			forcePlaceholderSize: true,
+			forceHelperSize: true,
+			scroll:false,
+			placeholder: {
+        element: function(currentItem) {
+           return $(currentItem).clone().css({'opacity':'0.5','position':'relative'})[0];
+        },
+				update: function(container, p) {
+				   return;
+				}
+			},
+	    stop: function(){
+				bar_update_sort();
+				bar_resort();
+	    }
+		}).disableSelection();
+		var bar_resort  = function(){
+			bar_li_id = new Array();
+			$('#playlist-bar-tray-content > ol >li').each(function(index,li){
+				$('span.count',li).html('<strong>'+(index+1).toString()+'</strong>');
+				bar_li_id.push($(li).attr('data-kejian-id'));
+			});
+		};
+		var bar_update_sort = function(){
+			$.ajax({
+				url:'/ajax/bar_update_content_in_playlist',
+				type:'POST',
+				data:{'content_string':bar_li_id,'pid':$('#playlist-bar').attr('data-list-id')},
+				dataType:'json'
+			}).done(function(){
+				
+			});
+		};
 		
 	<% end %>
 </script>

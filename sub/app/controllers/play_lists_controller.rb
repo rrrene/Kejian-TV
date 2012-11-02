@@ -60,12 +60,12 @@ class PlayListsController < ApplicationController
     if params[:title].blank?
       msg += " 课件锦囊标题是必填项。"
     end
-    if !params[:playlist_thumbnail_video_id].blank? and !BSON::ObjectId.legal?(params[:playlist_thumbnail_video_id])
+    if !params[:playlist_thumbnail_video_id].blank? and !Moped::BSON::ObjectId.legal?(params[:playlist_thumbnail_video_id])
       msg += ' 请不要搞破坏：）要乖哦！'
     end
     if !params[:playlist_kejian_id].blank?
       params[:playlist_kejian_id].each do |id|
-        if !BSON::ObjectId.legal?(id)
+        if !Moped::BSON::ObjectId.legal?(id)
           if !msg.include?(' 请不要搞破坏：）')
             msg += ' 请不要搞破坏：）要乖哦！'
           end

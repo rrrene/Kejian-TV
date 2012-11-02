@@ -540,7 +540,7 @@ HEREDOC
             render json:json_failed
             return false
         end
-        if !BSON::ObjectId.legal?(id)
+        if !Moped::BSON::ObjectId.legal?(id)
             render json:json_failed
             return false
         end
@@ -577,7 +577,7 @@ HEREDOC
     legal = true
     add = true
     params[:cwid].each do |cwid|
-      if !BSON::ObjectId.legal?(cwid)
+      if !Moped::BSON::ObjectId.legal?(cwid)
         legal = false
         next
       end
@@ -644,7 +644,7 @@ HEREDOC
     pl.save(:validate => false)
     if params[:cwid].size == 1
       cwid = params[:cwid][0]
-      if !BSON::ObjectId.legal?(cwid)
+      if !Moped::BSON::ObjectId.legal?(cwid)
         render json:{status:'failed',reason:'您导入的内容稍后阅读无法接受！'}
         return false
       end
@@ -689,7 +689,7 @@ HEREDOC
          render json:{status:'failed',reason:'您尚未登陆！'}
          return false
      end
-     if !BSON::ObjectId.legal?(params[:cwid])
+     if !Moped::BSON::ObjectId.legal?(params[:cwid])
          render json:{status:'failed',reason:'您导入的内容稍后阅读无法接受！'}
          return false
      end
@@ -705,6 +705,47 @@ HEREDOC
      end
   end
   
+  def bar_update_content_in_playlist
+    if current_user.nil?
+      render json:{status:'failed',reason:'您尚未登陆！'}
+      return false
+    end
+    pl = PlayList.find(params[:pid])
+    if pl.title == '历史记录'
+      render json:{status:'suc'}
+      return true
+    end
+    if pl.user_id != current_user.id
+      render json:{status:'saveas'}
+      return false
+    end
+    params[:content_string].map! do |x|  
+      if Moped::BSON::ObjectId.legal?(x) 
+         x = Moped::BSON::ObjectId(x)
+      else
+        render json:{status:'failed',reason:'系统无法完成请求，请稍后重试。'}
+        return false
+      end
+    end
+    annotation = []
+    params[:content_string].each_with_index do |cw|
+      if (inornot = pl.content.index(cw))
+        if !pl.annotation[inornot].blank?
+          annotation[index] = pl.annotation[inornot]  #对应位置的 Annotation
+        end
+      end
+    end
+    pl.content = params[:content_string].to_a
+    
+    if pl.save(:validate => false)
+      render json:{status:'suc'}
+      return false
+    else
+      render json:{status:'failed',reason:'系统无法完成请求，请稍后重试。'}
+      return false
+    end
+  end
+  
   def add_to_read_later_array
     if current_user.nil?
         render json:{status:'failed',reason:'您尚未登陆！'}
@@ -713,7 +754,7 @@ HEREDOC
     legal = true
     addto = true
     params[:cwid].each  do |cwid|
-        if !BSON::ObjectId.legal?(cwid)
+        if !Moped::BSON::ObjectId.legal?(cwid)
           legal = false
           next
         end
@@ -744,7 +785,7 @@ HEREDOC
     legal = true
     addto = true
     params[:cwid].each  do |cwid|
-        if !BSON::ObjectId.legal?(cwid)
+        if !Moped::BSON::ObjectId.legal?(cwid)
           legal = false
           next
         end
@@ -821,7 +862,7 @@ HEREDOC
       render json:{status:'failed',reason:'您尚未登陆！'}
       return false
     end
-    if !(BSON::ObjectId.legal?(params[:cwid]))
+    if !(Moped::BSON::ObjectId.legal?(params[:cwid]))
       render json:{status:'failed',reason:'系统无法完成请求，请稍后重试。'}
       return false
     end
@@ -924,7 +965,7 @@ HEREDOC
     null  = true
     arr = []
     params[:cwid].each do |id|
-      if !BSON::ObjectId.legal?(id)
+      if !Moped::BSON::ObjectId.legal?(id)
         legal = false
         next
       end
@@ -954,7 +995,7 @@ HEREDOC
     null  = true
     arr = []
     params[:cwid].each do |id|
-      if !BSON::ObjectId.legal?(id)
+      if !Moped::BSON::ObjectId.legal?(id)
         legal = false
         next
       end
@@ -1003,7 +1044,7 @@ HEREDOC
     null  = true
     arr = []
     params[:cwid].each do |id|
-      if !BSON::ObjectId.legal?(id)
+      if !Moped::BSON::ObjectId.legal?(id)
         legal = false
         next
       end
