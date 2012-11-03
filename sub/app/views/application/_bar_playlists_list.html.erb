@@ -1,0 +1,42 @@
+<div class="yt-uix-slider yt-uix-slider-fluid">
+	<button class="yt-uix-button playlist-bar-tray-button yt-uix-button-default yt-uix-slider-prev" onclick="return false;"><img class="yt-uix-slider-prev-arrow" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="上一个视频"></button>
+	<button class="yt-uix-button playlist-bar-tray-button yt-uix-button-default yt-uix-slider-next" onclick="return false;"><img class="yt-uix-slider-next-arrow" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="下一个视频"></button>
+	<div class="yt-uix-slider-body">
+		<h3>我的课件锦囊</h3>
+		<ol id="playlist-bar-lists-content" class="yt-uix-slider-slide">
+			<% playlists.each do |pl| %>
+			<li class="playlist-bar-item playlist-bar-playlist-item yt-uix-slider-slide-unit system" data-list-id="<%= pl.id %>">
+				<a href="/play_lists/<%= pl.id %>" class="playlist-bar-playlist-thumb" title="<%= pl.title %>">
+					<span class="playlist-bar-playlist-thumb">
+						<span class="video-thumb ux-thumb yt-thumb-default-106 ">
+							<span class="yt-thumb-clip">
+								<span class="yt-thumb-clip-inner">
+									<% if !Moped::BSON::ObjectId.legal?(pl.content[0]) %>
+										<img width="106" alt="<%= pl.title %>" src="<%=asset_path('yt/img/meh_mini-unreadable.png')%>">
+									<% else %>
+										<% cw = Courseware.find(pl.content[0]) %>
+										<% if cw.status !=0 or !cw.check_upyun_result %>
+										<img width="106" alt="<%= pl.title %>" src="<%=asset_path('yt/img/meh_mini-unreadable.png')%>">
+										<% else %>
+										<img width="106" alt="<%= pl.title %>" src="<%= asset_url("cw/#{cw.ktvid}/#{cw.revision}thumb_slide_0.jpg") %>">
+										<% end %>
+									<% end %>
+									<span class="vertical-align"></span>
+								</span>
+							</span>
+						</span>
+					</span>
+					<img class="playlist-bar-playlist-item-icon hid" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
+				</a>
+				<span dir="ltr" class="list-title">
+					<a href="/play_lists/<%= pl.id %>"><%= pl.title %></a>
+				</span>
+			</li>
+			<% end %>
+		</ol>
+		<div class="yt-uix-slider-shade-left">
+		</div>
+		<div class="yt-uix-slider-shade-right">
+		</div>
+	</div>
+</div>

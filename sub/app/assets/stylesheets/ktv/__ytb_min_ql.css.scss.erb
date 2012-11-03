@@ -1644,8 +1644,8 @@
   	height:100%
   }
   .yt-thumb-default-106 {
-  	width:104px;
-  	height:59px
+  	width:102px;
+  	height:58px
   }
   .yt-thumb-square-23 {
   	width:23px;
@@ -1829,4 +1829,14 @@
   	width:527px;
   	height:243px
   }
+	#playlist-bar.empty .addto-button-help, #playlist-bar.lists .addto-button-help {
+	    box-shadow: 0 0 3px #000000;
+	}
+	#playlist-bar.empty .addto-button-help, #playlist-bar.lists .addto-button-help, #masthead-expanded .addto-button-help {
+	    background: url(<%=asset_path('yt/img/addto_button_help.png')%>) no-repeat scroll center center transparent;
+	    height: 22px;
+	    margin-left: 0.3em;
+	    vertical-align: bottom;
+	    width: 22px;
+	}
 }

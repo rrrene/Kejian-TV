@@ -5,7 +5,7 @@
 			<span class="yt-thumb-clip">
 				<span class="yt-thumb-clip-inner">
 					<% if cw.status !=0 or !cw.check_upyun_result %>
-					<img width="106" data-thumb-manual="true" alt="无法阅读的课件" src="<%=asset_path('yt/img/meh_mini-unreadable.png')%>">
+					<img width="106" alt="无法阅读的课件" src="<%=asset_path('yt/img/meh_mini-unreadable.png')%>">
 					<% else %>
 					<img width="106" alt="<%= cw.title %>" src="<%= asset_url("cw/#{cw.ktvid}/#{cw.revision}thumb_slide_0.jpg") %>">
 					<% end %>

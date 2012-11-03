@@ -366,13 +366,56 @@ HEREDOC
     render json:json
   end
   def bar_request_save_as
-    
+    if current_user.nil? or !Moped::BSON::ObjectId.legal?(params[:playlist_id])
+      render json:{status:'failed',reason:'您尚未登陆！'}
+      return false
+    end
+    render json:{status:'suc',html:render_to_string(file:'application/_playlist_bar_save',locals:{playlist_id:params[:playlist_id]},:layout=>false, :formats=>[:html])}
+    return true
   end
   def bar_playlist_save_as
-    
+    if current_user.nil? or !Moped::BSON::ObjectId.legal?(params[:playlist_id])
+      render json:{status:'failed',reason:'您尚未登陆！'}
+      return false
+    end
+    if params[:title].blank?
+      render json:{status:'blank',reason:'请重复检查您的课件锦囊标题。'}
+      return false
+    end
+    pl = PlayList.find_or_create_by(user_id:current_user.id,title:params[:title])
+    pl.desc = params[:description] if !params[:description].blank?
+    pl.content = PlayList.find(params[:playlist_id]).content
+    if pl.save(:validate => false)
+      render json:{status:'suc',new_playlist_id:pl.id}
+      return true
+    else
+      render json:{status:'failed',reason:'系统无法完成请求，请稍后重试。'}
+      return false
+    end
+  end
+  def name_beautify(name)
+    '_'==name[0] ? name[1..-1] : name
+  end
+  def dz_avatar_url(uid,email,size=:normal)
+    return "http://uc.#{Setting.ktv_domain}/avatar.php?uid=#{uid}&email=#{Digest::MD5.hexdigest(email)}&size=#{size}"
   end
   def bar_request_update_bar
-    
+    if current_user.nil? or !Moped::BSON::ObjectId.legal?(params[:playlist_id])
+      render json:{status:'failed',reason:'您尚未登陆！'}
+      return false
+    end
+    pl = PlayList.find(params[:playlist_id])
+    if !pl.nil?
+      render json:{status:'suc',
+        count:pl.content.size,title:pl.title,user_id:pl.user_id,
+        user_name:name_beautify(User.get_name(pl.user_id)),
+        user_src:dz_avatar_url(User.get_uid(pl.user_id),User.get_email(pl.user_id),:small),
+        ol:render_to_string(file:'application/_bar_ol',locals:{coursewares:Courseware.eager_load(pl.content)},:layout=>false, :formats=>[:html]),
+        bar_menu:render_to_string(file:'application/_bar_menu',locals:{playlist_id:pl.id,playlist_undestroyable:pl.undestroyable,playlist_title:pl.title},:layout=>false, :formats=>[:html])}
+    else
+      render json:{status:'failed',reason:'系统无法完成请求，请稍后重试。'}
+      return false
+    end
   end
   ### playlist end 
   def get_share_panel
@@ -732,6 +775,18 @@ HEREDOC
       render json:{status:'failed',reason:'您尚未登陆！'}
       return false
     end
+    if params[:content_string].nil?
+      render json:{status:'nil'}
+      return false
+    end
+    params[:content_string].to_a.map! do |x|  
+      if Moped::BSON::ObjectId.legal?(x) 
+         x = Moped::BSON::ObjectId(x)
+      else
+        render json:{status:'failed',reason:'系统无法完成请求，请稍后重试。'}
+        return false
+      end
+    end
     pl = PlayList.find(params[:pid])
     if pl.title == '历史记录'
       render json:{status:'suc'}
@@ -741,16 +796,8 @@ HEREDOC
       render json:{status:'saveas'}
       return false
     end
-    params[:content_string].map! do |x|  
-      if Moped::BSON::ObjectId.legal?(x) 
-         x = Moped::BSON::ObjectId(x)
-      else
-        render json:{status:'failed',reason:'系统无法完成请求，请稍后重试。'}
-        return false
-      end
-    end
     annotation = []
-    params[:content_string].each_with_index do |cw,index|
+    params[:content_string].to_a.each_with_index do |cw,index|
       if (inornot = pl.content.index(cw))
         if !pl.annotation[inornot].blank?
           annotation[index] = pl.annotation[inornot]  #对应位置的 Annotation
@@ -767,7 +814,72 @@ HEREDOC
       return false
     end
   end
-  
+  def bar_undo_delete
+    if current_user.nil?
+      render json:{status:'failed',reason:'您尚未登陆！'}
+      return false
+    end    
+    if !Moped::BSON::ObjectId.legal?(params[:pid])
+      render json:{status:'nil'}
+      return false
+    end
+    pl = PlayList.find(params[:pid])
+    if pl.user_id != current_user.id
+      render json:{status:'saveas'}
+      return false
+    end
+    if pl.content_delete_cache.blank?
+      render json:{status:'failed',reason:'Nothing to undo.'}
+      return false
+    end
+    pl.content << pl.content_delete_cache
+    pl.content_delete_cache = nil
+    if pl.save(:validate => false )
+      render json:{status:'suc',
+        li:render_to_string(file:'application/_bar_ol',locals:{coursewares:Courseware.eager_load([pl.content[-1]])},:layout=>false, :formats=>[:html])}
+      return true
+    else
+      render json:{status:'failed',reason:'系统无法完成请求，请稍后重试。'}
+      return false
+    end
+  end
+  def bar_request_playlists
+    if current_user.nil?
+      render json:{status:'failed',reason:'您尚未登陆！'}
+      return false
+    end
+    render json:{status:'suc',html:render_to_string(file:'application/_bar_playlists_list',locals:{playlists:PlayList.where(user_id:current_user.id)},:layout=>false, :formats=>[:html])}
+    return true
+  end
+  def bar_delete_one_content
+    if current_user.nil?
+      render json:{status:'failed',reason:'您尚未登陆！'}
+      return false
+    end
+    if !Moped::BSON::ObjectId.legal?(params[:kid]) and !Moped::BSON::ObjectId.legal?(params[:pid])
+      render json:{status:'nil'}
+      return false
+    end
+    pl = PlayList.find(params[:pid])
+    if pl.user_id != current_user.id
+      render json:{status:'saveas'}
+      return false
+    end
+    if (inornot = pl.content.index(Moped::BSON::ObjectId(params[:kid])))
+      if !pl.annotation[inornot].blank?
+        pl.annotation.delete_at(inornot)
+      end
+      pl.content.delete(Moped::BSON::ObjectId(params[:kid]))
+      pl.content_delete_cache =Moped::BSON::ObjectId(params[:kid])
+    end
+    if pl.save(:validate => false )
+      render json:{status:'suc'}
+      return true
+    else
+      render json:{status:'failed',reason:'系统无法完成请求，请稍后重试。'}
+      return false
+    end
+  end
   def add_to_read_later_array
     if current_user.nil?
         render json:{status:'failed',reason:'您尚未登陆！'}

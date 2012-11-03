@@ -3,10 +3,9 @@ if Setting.ktv_sub != 'cnu'
 	return
 end
 %>
-<% playlist = PlayList.find('50875ee29a8aa2060e00005c') %>
+<% playlist = PlayList.find(params[:reading]) %>
 <% coursewares = Courseware.eager_load(playlist.content) %>
 <div class="passive editable min" id="playlist-bar" data-list-id="<%= playlist.id %>">
-	<!-- data-list-type="QL"  data-video-url="/watch?v=&amp;feature=BFql&amp;playnext=1&amp;list=QL" -->
 	<div id="playlist-bar-bar-container">
 		<div id="playlist-bar-bar">
 			<div id="playlist-bar-notifications" class="yt-alert yt-alert-naked yt-alert-success hid">
@@ -65,19 +64,20 @@ end
 						<button role="button" class="yt-uix-tooltip yt-uix-tooltip-masked start playlist-title yt-uix-button yt-uix-button-default yt-uix-tooltip" type="button" title="关于此课件锦囊的详情" onclick=";window.location.href=this.getAttribute('href');return false;" href="/play_lists/<%= playlist.id %>" data-tooltip-text="关于此课件锦囊的详情">
 							<span class="yt-uix-button-content"><%= playlist.title %></span>
 						</button>
-						<button role="button" onclick=";window.location.href=this.getAttribute('href');return false;" class="yt-uix-tooltip yt-uix-tooltip-masked end yt-uix-button yt-uix-button-default" type="button" href="/users/<%= current_user.name_beautified %>">
+						<% pu_name = name_beautify User.get_name(playlist.user_id)  %>
+						<button role="button" onclick=";window.location.href=this.getAttribute('href');return false;" class="yt-uix-tooltip yt-uix-tooltip-masked end yt-uix-button yt-uix-button-default" type="button" href="/users/<%=  pu_name %>">
 							<span class="yt-uix-button-content">
-								<a class="yt-user-photo" href="/users/<%= current_user.name_beautified %>">
+								<a class="yt-user-photo" href="/users/<%= pu_name  %>">
 									<span class="video-thumb ux-thumb yt-thumb-square-23" >
 										<span class="yt-thumb-clip">
 											<span class="yt-thumb-clip-inner">
-												<img width="23px" alt="<%= current_user.name_beautified %>" src="<%=dz_avatar_url(current_user.uid,current_user.email,:small) %>">
+												<img width="23px" alt="<%= pu_name %>" src="<%=dz_avatar_url(User.get_uid(playlist.user_id),User.get_email(playlist.user_id),:small) %>">
 												<span class="yt-valign-trick"></span>
 											</span>
 										</span>
 									</span>
 								</a>
-								<span dir="ltr" class="yt-user-name" style="vertical-align: middle;"><%= current_user.name_beautified %></span>
+								<span dir="ltr" class="yt-user-name" style="vertical-align: middle;"><%= pu_name %></span>
 							</span>
 					</button>
 				</span>
@@ -136,33 +136,7 @@ end
 			<span class="hid" id="playlist-bar-saving-message">正在保存...</span>
 		</div>
 	</div>
-	<div class="hid passive yt-uix-button-menu yt-uix-button-menu-external" id="playlist-bar-options-menu">
-		<div id="playlist-bar-extras-menu">
-			<ul>
-				<li>
-					<span data-action="save" class="yt-uix-button-menu-item">另存为新的课件锦囊</span>
-				</li>
-				<% if playlist.id == current_user.id and playlist.undestroyable and playlist.title == '稍后阅读' %>
-				<li>
-					<span data-action="clear" class="yt-uix-button-menu-item">清除该列表中的所有视频</span>
-				</li>
-				<% end %>
-				<li>
-					<span onclick="window.location.href='/play_lists/<%= playlist.id %>'" class="yt-uix-button-menu-item">关于此课件锦囊的详情</span>
-				</li>
-			</ul>
-		</div>
-		<ul>
-			<li>
-			<span data-action="load-lists" class="yt-uix-button-menu-item">加载其他课件锦囊</span>
-			</li>
-			<% if false %>
-			<li>
-			<span onclick="window.location.href='//support.google.com/youtube/bin/answer.py?answer=146749&amp;hl=zh-CN'" class="yt-uix-button-menu-item">了解详情</span>
-			</li>
-			<% end %>
-		</ul>
-	</div>
+	<%= render partial:'bar_menu',locals:{playlist_id:playlist.id,playlist_undestroyable:playlist.undestroyable,playlist_title:playlist.title} %>
 </div>
 <script type="text/javascript" charset="utf-8">
 	<% content_for :butt2 do %>
@@ -173,6 +147,40 @@ end
 			e.stopPropagation();
 		});
 		var bar_li_id = new Array();
+		var bar_resort  = function(){
+			bar_li_id = new Array();
+			$('#playlist-bar-tray-content > ol >li').each(function(index,li){
+				$('span.count',li).html('<strong>'+(index+1).toString()+'</strong>');
+				if($(li).attr('data-kejian-id')!=undefined){
+					bar_li_id.push($(li).attr('data-kejian-id'));	
+				}
+			});
+			$('.item-count').each(function(index,li){
+				$(li).html(bar_li_id.length);
+			});
+			if(bar_li_id.length == 0){
+				$('#playlist-bar').addClass('empty');
+			}else{
+				$('#playlist-bar').removeClass('empty');
+			}
+		};
+		bar_resort();
+		var bar_update_sort = function(){
+			bar_loading();
+			$.ajax({
+				url:'/ajax/bar_update_content_in_playlist',
+				type:'POST',
+				data:{'content_string':bar_li_id,'pid':$('#playlist-bar').attr('data-list-id')},
+				dataType:'json'
+			}).done(function(json){
+				bar_loading();
+				if(json.status == 'suc'){
+					bar_showNotification('课件锦囊更新成功！','success');
+				}else if(json.status == 'failed'){
+					bar_showNotification('课件锦囊更新失败！','error');					
+				}
+			});
+		};
 		$('button[data-button-menu-id="playlist-bar-options-menu"]').live('click',function(){
 			$(this).toggleClass('yt-uix-button-active');
 			var menu = $('#playlist-bar-options-menu');
@@ -186,7 +194,6 @@ end
 					'left': '-'+ (width-$(this).width()*1.75).toString() +'px', 
 					'top': '-'+(height+$(this).height()*2.45).toString()+'px'
 				}
-				console.log(css);
 				menu.css(css);
 				menu.show().removeClass('hid');
 				$(this).after(menu);
@@ -208,18 +215,24 @@ end
 				$('#playlist-bar').append(menu);
 			}
 		});
+		$('#playlist-bar-options-menu li').live('click',function(){
+			$('button[data-button-menu-id="playlist-bar-options-menu"]').removeClass('yt-uix-button-active');
+			var menu = $('#playlist-bar-options-menu');
+			menu.remove();
+			menu.hide().addClass('hid');
+			$('#playlist-bar').append(menu);
+		});
 		var per_move_length = $('#playlist-bar-tray-content .playlist-bar-item').outerWidth();
 		$('#playlist-bar-tray .playlist-bar-tray-button').live('click',function(e){
 			var win_length = $(window).width();
 			var contain_size = parseInt(win_length/per_move_length);
-			var item_count = parseInt("<%= playlist.content.size %>");
+			var item_count = parseInt($('.playlist-bar-count span.item-count').eq(0).html());
 			var total_length = item_count * per_move_length;
 			var cur_state = Math.abs($('#playlist-bar-tray-content').offset().left);
 			var already_length = total_length - cur_state;
 			var left_length = total_length-(win_length+cur_state);
 			// var cur_item = parseInt(cur_state/per_move_length);
 			var next_state = 0;
-			console.log(cur_state,already_length,left_length,total_length)
 			if($(this).hasClass('yt-uix-slider-prev')){
 				if(cur_state <= win_length){
 					next_state = 0;
@@ -233,7 +246,6 @@ end
 				if(next_state<0){
 					next_state = 0;
 				}
-				console.log(next_state);
 				$('#playlist-bar-tray-content').css({'left':'-'+next_state + 'px'});
 			}else if($(this).hasClass('yt-uix-slider-next')){
 				if(left_length > 6*per_move_length){
@@ -249,7 +261,17 @@ end
 				$('#playlist-bar-tray-content').css({'left':'-'+next_state+'px'});				
 			}
 		});
-		$('#playlist-bar-tray-content > ol').sortable({
+		var to_end = function() {
+			var item_count = parseInt($('.playlist-bar-count span.item-count').eq(0).html());
+			var total_length = item_count * per_move_length;
+			next_state = total_length - 3*per_move_length;
+			if(next_state < 0){
+				next_state = 0;
+			}
+			$('#playlist-bar-tray-content').css({'left':'-'+next_state+'px'});
+		}
+		
+		$('#playlist-bar-tray-content > ol.video-list').sortable({
 			forcePlaceholderSize: true,
 			forceHelperSize: true,
 			scroll:false,
@@ -266,27 +288,7 @@ end
 				bar_update_sort();
 	    }
 		}).disableSelection();
-		var bar_resort  = function(){
-			bar_li_id = new Array();
-			$('#playlist-bar-tray-content > ol >li').each(function(index,li){
-				$('span.count',li).html('<strong>'+(index+1).toString()+'</strong>');
-				bar_li_id.push($(li).attr('data-kejian-id'));
-			});
-		};
-		var bar_update_sort = function(){
-			$.ajax({
-				url:'/ajax/bar_update_content_in_playlist',
-				type:'POST',
-				data:{'content_string':bar_li_id,'pid':$('#playlist-bar').attr('data-list-id')},
-				dataType:'json'
-			}).done(function(json){
-				if(json.status == 'suc'){
-					bar_showNotification('课件锦囊更新成功！','success');
-				}else if(json.status == 'failed'){
-					bar_showNotification('课件锦囊更新失败！','error');					
-				}
-			});
-		};
+	
 		$('#playlist-bar-extras-menu .yt-uix-button-menu-item[data-action="save"]').live('click',function(){
 			bar_request_save_as();
 		});
@@ -295,10 +297,10 @@ end
 			$.ajax({
 				url:'/ajax/bar_request_save_as',
 				type:'POST',
-				data:{'authenticity_token':"<%= form_authenticity_token %>",'playlist_id':'<%= playlist.id %>'},
+				data:{'authenticity_token':"<%= form_authenticity_token %>",'playlist_id':$('#playlist-bar').attr('data-list-id')},
 				dataType:'json'
 			}).done(function(json){
-				bar_loading();
+				$('#playlist-bar').removeClass('loading');
 				if(json.status == 'suc'){
 					$('#playlist-bar').removeClass('max').removeClass('min').addClass('save');
 					$('#playlist-bar-save').html(json.html);
@@ -307,28 +309,13 @@ end
 				}
 			});
 		};
-		var bar_update_list_and_name = function(new_playlist_id,copeFunc){
-			$.ajax({
-				url:'/ajax/bar_request_update_bar',
-				type:'POST',
-				data:{'authenticity_token':"<%= form_authenticity_token %>",'playlist_id':new_playlist_id},
-				dataType:'json'
-			}).done(function(json){
-				if(json.status == 'suc'){
-					json.count
-					json.title
-					json.user_id
-					json.user_name
-					new_playlist_id
-					json.ol	
-					copeFunc();
-				}else if(json.status == 'failed'){
-					bar_showNotification('系统无法完成请求，请稍后重试。！','error');
-				}
-			})
-		}
 		
 		var bar_timeout = null ;
+		var bar_hideNotification = function () {
+			clearTimeout(bar_timeout);
+			$('#playlist-bar-notifications .yt-alert-content').html('');
+			$('#playlist-bar-notifications').attr('class','').addClass('yt-alert yt-alert-naked yt-alert-success hid');
+		}
 		var bar_showNotification = function(text,type){
 			// type=>[error,success,warn]
 			$('#playlist-bar-notifications .yt-alert-content').html(text);
@@ -341,7 +328,144 @@ end
 			},5000);
 		};
 		var bar_loading = function(){			
-			$('#playlist-bar').toggleClass('loading');
+			$('#playlist-bar').toggleClass('editable').toggleClass('loading');
 		}
+		$('#playlist-bar-save-form button[type="submit"]').live('click',function(){
+			bar_loading();
+		  $.ajax({
+	       type: 'POST',//jQuery('#playlist-bar-save-form').attr('method')
+	       url: '/ajax/bar_playlist_save_as',
+	       data: $('#playlist-bar-save-form').serialize(),
+				 dataType:'json',
+				 async:false
+	    }).done(function(json){
+				if(json.status == 'suc'){
+					$('#playlist-bar').addClass('max').removeClass('save');
+					bar_update_list_and_name(json.new_playlist_id,function(){
+							bar_showNotification('课件锦囊已保存！','success');
+							bar_loading();
+					});
+				}else if(json.status == 'failed'){
+					bar_showNotification('课件锦囊保存失败！','error');					
+				}else{
+					bar_showNotification('请重复检查您的课件锦囊标题。','warn')
+				}
+	   });
+		});
+		
+		var bar_update_list_and_name = function(new_playlist_id,copeFunc){
+			$.ajax({
+				url:'/ajax/bar_request_update_bar',
+				type:'POST',
+				data:{'authenticity_token':"<%= form_authenticity_token %>",'playlist_id':new_playlist_id},
+				dataType:'json'
+			}).done(function(json){
+				if(json.status == 'suc'){
+					$('ol.video-list').html(json.ol);
+					$('.item-count').each(function(index,li){
+						$(li).html(json.count);
+					});
+					$('#playlist-bar-title .yt-uix-button-content').eq(0).html(json.title);
+					$('#playlist-bar').attr('data-list-id',new_playlist_id);
+					$('#playlist-bar-title button.yt-uix-tooltip-masked.start').attr('href','/play_lists/'+new_playlist_id);
+					$('#playlist-bar-options-menu').replaceWith(json.bar_menu);
+					var puname='/users/'+json.user_name;
+					$('#playlist-bar-title button.yt-uix-tooltip-masked.end').attr('href',puname);
+					$('#playlist-bar-title a.yt-user-photo').attr('href',puname);
+					$('#playlist-bar-title img').attr('alt',json.user_name).attr('src',json.user_src);
+					$('#playlist-bar-title .yt-user-name').html(json.user_name);
+					copeFunc();
+				}else if(json.status == 'failed'){
+					bar_showNotification('系统无法完成请求，请稍后重试。！','error');
+				}
+			});
+		};
+		$('#playlist-bar li.playlist-bar-item a').live('click',function(e){
+			if(e.target != this){
+				e.preventDefault();
+				return false;
+			}
+		});
+		$('#playlist-bar .playlist-bar-item a span.delete').live('click',function(e){
+			e.preventDefault();
+			e.stopPropagation();
+			var kid = $(this).parents('.playlist-bar-item.yt-uix-slider-slide-unit.playlist-bar-drag-source').attr('data-kejian-id');
+			bar_loading();
+			tmp = this;
+			$.ajax({
+				url:'/ajax/bar_delete_one_content',
+				type:'POST',
+				data:{'authenticity_token':"<%= form_authenticity_token %>",'pid':$('#playlist-bar').attr('data-list-id'),'kid':kid},
+				dataType:'json'
+			}).done(function(json){
+				if(json.status == 'suc'){
+					bar_resort();
+					$(tmp).parents('.playlist-bar-item.yt-uix-slider-slide-unit.playlist-bar-drag-source').remove();
+					bar_loading();
+					bar_showNotification('课件已删除。<a class="playlist-bar-undo">撤消</a>','success')
+				}else{
+					bar_loading();
+					bar_showNotification('系统无法完成请求，请稍后重试。！','error');
+				}
+			})
+		});
+		var bar_interval_timeout = null;
+		var bar_interval_count = 0;
+		$('#playlist-bar-notifications').live('click',function(e){
+			e.stopPropagation();
+		});
+		$('#playlist-bar-notifications .playlist-bar-undo').live('click',function(e){
+			e.stopPropagation();
+			bar_loading();
+			$.ajax({
+				url:'/ajax/bar_undo_delete',
+				type:'POST',
+				data:{'authenticity_token':"<%= form_authenticity_token %>",'pid':$('#playlist-bar').attr('data-list-id')},
+				dataType:'json'
+			}).done(function(json){
+				bar_loading();
+				if(json.status == 'suc'){
+					bar_hideNotification();
+					to_end();
+					$('#playlist-bar-tray-content ol.video-list').append(json.li);
+					bar_interval_count=0;
+					clearInterval(bar_interval_timeout);
+					bar_interval_timeout = setInterval(function(){
+						bar_interval_count++;
+						$('#playlist-bar-tray-content ol.video-list li:last').toggleClass('playlist-bar-item-highlight');
+						if(bar_interval_count > 4){
+							clearInterval(bar_interval_timeout);
+							$('#playlist-bar-tray-content ol.video-list li:last').removeClass('playlist-bar-item-highlight');
+						}
+					},100);
+				}else{
+					bar_showNotification('系统无法完成请求，请稍后重试。！','error');
+				}
+			});
+		});
+		$('#playlist-bar-save-cancel').live('click',function(){
+	 	 	$('#playlist-bar').removeClass('save').addClass('max');
+			$('#playlist-bar-save').html('');
+		})
+		$('#playlist-bar-options-menu > ul > li:first').live('click',function(){
+			$('#playlist-bar').removeClass('min').addClass('max').addClass('lists');
+			$.ajax({
+				url:'/ajax/bar_request_playlists',
+				type:'POST',
+				data:{'authenticity_token':"<%= form_authenticity_token %>"},
+				dataType:'json'
+			}).done(function(json){
+				if(json.status == 'suc'){
+					$('#playlist-bar-lists').html(json.html);
+				}else{
+					
+				}
+			});
+		});
+		$('#playlist-bar-lists-back').live('click',function(e){
+			e.stopPropagation();
+			
+			
+		})
 	<% end %>
 </script>
