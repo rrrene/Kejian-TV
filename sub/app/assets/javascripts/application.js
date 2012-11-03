@@ -25,6 +25,7 @@
 //= require jquery.zlzp.validate.js
 //= require jquery.zlzp.popupdiv.js
 //= require wendao
+//= require ./jquery.history
 //= require ./psvr_kina
 //= require ./psvr_dz
 //= require_self

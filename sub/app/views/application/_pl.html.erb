@@ -140,6 +140,7 @@ end
 </div>
 <script type="text/javascript" charset="utf-8">
 	<% content_for :butt2 do %>
+	var Historyx = window.History;
 		$('#playlist-bar-bar,#playlist-bar-toggle-button').live('click',function(){
 				$('#playlist-bar').toggleClass('min').toggleClass('max');
 		});
@@ -401,13 +402,20 @@ end
 					url2=window.location.search
 					url2 = url2.replace(/(.*)(reading=[0-9a-zA-Z]+)(.*)/,'$1reading='+new_playlist_id+'$3');
 					url = url1 + url2
-					History.pushState({'url':url},document.title.split(' - ')[0] + '-正在阅读：'+json.title, decodeURI(url)) if (window.History.enabled)
+					console.log(url);
+					if (window.History.enabled){
+						Historyx.pushState({url:url},null, decodeURI(url));	
+					}	
 					Callback();
 				}else if(json.status == 'failed'){
 					bar_showNotification('系统无法完成请求，请稍后重试。！','error');
 				}
 			});
 		};
+    Historyx.Adapter.bind(window,'statechange',function(){ // Note: We are using statechange instead of popstate
+        var State = History.getState(); // Note: We are using History.getState() instead of event.state
+        Historyx.log(State.data, State.title, State.url);
+    });
 		$('#playlist-bar li.playlist-bar-item a').live('click',function(e){
 			if(e.target != this){
 				e.preventDefault();
@@ -458,10 +466,11 @@ end
 					$('#playlist-bar-tray-content ol.video-list').append(json.li);
 					bar_interval_count=0;
 					clearInterval(bar_interval_timeout);
+					bar_interval_time = 1000;
 					bar_interval_timeout = setInterval(function(){
 						bar_interval_count++;
 						$('#playlist-bar-tray-content ol.video-list li:last').toggleClass('playlist-bar-item-highlight');
-						if(bar_interval_count > 4){
+						if(bar_interval_count > 10){
 							clearInterval(bar_interval_timeout);
 							$('#playlist-bar-tray-content ol.video-list li:last').removeClass('playlist-bar-item-highlight');
 						}
