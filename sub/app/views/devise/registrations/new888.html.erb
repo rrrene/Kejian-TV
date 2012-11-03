@@ -1,0 +1,168 @@
+<% content_for :armpit do %>
+  <%= stylesheet_link_tag "ktv/__zm", :media => "all" %>
+  <%= stylesheet_link_tag "ktv/__zm_reg", :media => "all" %>
+  <%= stylesheet_link_tag "qua_f791fcfc8935e1ad.css", :media => "all" %>
+  <%= stylesheet_link_tag "qua_06b596594fbe5bcf.css", :media => "all" %>
+  <!--[if IE]><%= stylesheet_link_tag "qua_7d84bd7ff4616c9b.css", :media => "all" %><![endif]-->
+  <style type="text/css" media="screen">
+  .__q .interests-selector .topic-col, .__q .people_suggestions_grid .topic-col{
+  width:138px
+  }
+
+  .__q .w2_5{
+  width:250px;
+  }
+  .__q .nux-flow .section h1{
+    font-weight:normal
+  }
+  </style>
+<% end %>
+<% content_for :butt2 do %>
+KTV.q_targetize();
+<% end %>
+<div class="wrapper" style="width:838px">
+<div id="q_target" class="__q" style="position:absolute;z-index:222;overflow:hidden;margin-top:142px;">
+	<div id="ld_gAfjkq_239">
+		<div class=" pmsg_container main wrapper hidden" id="__w2_PosSW4o_pmsg_container">
+		</div>
+		<div class=" main ">
+			<div class="welcome_main contents content main_content" style="width:818px;padding:0 10px">
+				<div id="__w2_Dq4jhsS_content">
+					<div class="row nux-flow ">
+						<div class=" row nux-steps" id="__w2_my46Y4o_nux_steps">
+							<div class="nux-step-line" style="width:50%">
+							</div>
+							<div class="single-step" style="width:50%" id="__w2_my46Y4o_nux_interests_step">
+								<div class="nux-step-wrapper curr" id="__w2_El9rMke_nux_step_wrapper">
+									<div class="number" id="__w2_El9rMke_nux_step_number">
+										1
+									</div>
+									<h2 class="curr-text" id="__w2_El9rMke_nux_step_title">选择您感兴趣的院系</h2>
+								</div>
+							</div>
+							<div class="single-step" style="width:50%" id="__w2_my46Y4o_nux_topics_step">
+								<div class="nux-step-wrapper" id="__w2_gKHJ2jo_nux_step_wrapper">
+									<div class="number" id="__w2_gKHJ2jo_nux_step_number">
+										2
+									</div>
+									<h2 class="text" id="__w2_gKHJ2jo_nux_step_title">关注相关老师或课程</h2>
+								</div>
+							</div>
+						</div>
+						<div class="nux-step-0" id="__w2_D3Vm6lr_interests_wrapper">
+							<div id="ld_3xPEdn_6016">
+								<div id="__w2_lPEHVej_interests">
+									<div class="section w8" style="width:818px">
+										<div>
+											<h1 style="margin-bottom: 0px;">请关注感兴趣的院系，系统可以据此为您呈现更适合您的内容.</h1>
+											<div id="ld_0KNM7J_7114">
+												<div>
+													<h1>请至少关注 5 个院系.</h1>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class=" interests-selector w8 p1" style="width:888px;margin-left:0">
+										<div class="row step_section br5">
+                      <% Department.all.each do |item| %>
+											<div id="ld_0KNM7J_7116">
+												<div class=" topic-card w2_5 not-following" id="__w2_ZTwyAKn_card">
+													<div class="col w1">
+														<div id="ld_dVwl5K_6861">
+                              <img class="profile_photo_img" src="<%=cover_url item,:normal%>" width="100" alt="<%=item.name%>" height="100"/>
+														</div>
+													</div>
+													<div class="topic-col">
+														<div class="topic-info">
+															<h3 class="topic-name" id="__w2_<%item.fid%>_name">
+                              <div id="ld_dVwl5K_<%item.fid%>">
+                                <%=item.name%>
+															</div>
+															</h3>
+															<div class="e_col subtitle light_gray" id="__w2_ZTwyAKn_subtitle">
+                                <%=item.courses_count%> 课程
+															</div>
+														</div>
+														<div class="follow_button" id="__w2_ZTwyAKn_follow_button">
+															＋关注
+														</div>
+													</div>
+												</div>
+											</div>
+                    <% end %>
+										</div>
+									</div>
+									<div class="section w8">
+										<div class="form_buttons" style="text-align: center;">
+											<div id="ld_0KNM7J_7115">
+												<p class=" br3 unbutton">
+                        请再关注 5 个院系才可进入下一步
+												</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="hidden nux-step-1" id="__w2_D3Vm6lr_topics_wrapper">
+							<div id="ld_3xPEdn_6017">
+								<div class=" topics-step" id="__w2_oSn6I6Y_topics">
+									<div class="section w8">
+										<div style="text-align: center;">
+											<h1 style="margin-bottom: 0px;">Almost done! Here are more topic recommendations based on those you just selected.</h1>
+											<div>
+												<h1 id="__w2_oSn6I6Y_topics_text">Choose 5 or more topics that interest you to start using Quora.</h1>
+												<div class="form_buttons" style="text-align: center; margin-top: 15px; display: none;" id="__w2_oSn6I6Y_topics_button">
+													<div id="ld_0szaH0_6986">
+														<div class=" follow_button follow-all hidden" id="__w2_has0J4p_follow_all">
+															＋关注 Topics & Continue &nbsp;&rarr;
+														</div>
+														<p class=" br3 unbutton" id="__w2_has0J4p_unbutton">
+															Choose 5 More Topics to Continue
+														</p>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col relative">
+										<div class="e_col w8">
+										</div>
+									</div>
+									<div class="section w8">
+										<div class="form_buttons">
+											<div id="ld_0szaH0_6987">
+												<div class=" follow_button follow-all hidden" id="__w2_OwXHxNG_follow_all">
+													＋关注 Topics & Continue &nbsp;&rarr;
+												</div>
+												<p class=" br3 unbutton" id="__w2_OwXHxNG_unbutton">
+													Choose 5 More Topics to Continue
+												</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+<div class="__zm">
+<div id="reg-header" class="wide">
+</div>
+<div id="content" class="newreg wide" style="padding-top:6px">
+  <div style="width:840px;height:51px;background:url(<%=asset_path 'zm/r11839/images/reg/bad_tiao3.png' %>)">
+  </div>
+  <div style="width:838px;border: 1px solid #D6D6D6;border-top: none;height:888px;" id="content_reg05">
+  </div>
+</div>
+<div class="totop" id="backtotop" style="display: none;">
+  <a href="javascript:void(0);">返回 </a > < /div>
+<div id="loginLayout">
+</div>
+
+</div>

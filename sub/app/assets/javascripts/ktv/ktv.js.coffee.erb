@@ -175,6 +175,11 @@
     jQuery('#bind_service_target').css('top',jQuery('#content').offset().top+55);
     jQuery('#pagekey-nprofile-edit-success').css('top',jQuery('#content').offset().top)
     jQuery('#pagekey-nprofile-psvr-skp').css('top',jQuery('#content').offset().top+184)
+  KTV.q_targetize = ->
+    hhh = jQuery('#q_target').height()
+    hhh=444 if hhh<444
+    jQuery('#content_reg05').height(hhh);
+
   KTV.lnreg_targetize = ->
     hhh = jQuery('#lnreg_target').height()+16
     hhh=444 if hhh<444

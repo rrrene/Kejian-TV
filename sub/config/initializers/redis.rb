@@ -79,6 +79,7 @@ def redis_connect!(index=0)
   $snda_ktv_eb = $snda_buckets.find("ktv-eb")
   $snda_ktv_down = $snda_buckets.find("ktv-down")
   $snda_ktv_up = $snda_buckets.find("ktv-up")
+  $snda_ktv_app = $snda_buckets.find(Setting.snda_bucket)
 end
 
 

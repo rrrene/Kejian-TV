@@ -1,4 +1,5 @@
 # -*- encoding : utf-8 -*-
+require 'sidekiq/web'
 Sub::Application.routes.draw do
 
   root :to=>'welcome#index'

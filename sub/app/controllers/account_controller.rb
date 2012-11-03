@@ -130,7 +130,7 @@ class AccountController < Devise::RegistrationsController
     @seo[:title] = '完成新用户注册'
     @simple_header=true
     @simple_header_width=840
-    if params[:force_054]
+    if params[:force_888]
       current_user.update_attribute :reg_extent, 888
       redirect_to '/'
       return true
@@ -173,7 +173,7 @@ class AccountController < Devise::RegistrationsController
         end
         render "new053",layout:'application'
       elsif current_user.reg_extent < 1000
-        render "new054",layout:'application'
+        render "new888",layout:'application'
       end
     end
   end

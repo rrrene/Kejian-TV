@@ -4,6 +4,7 @@ URL: http://qsf.cf.quoracdn.net/-06b596594fbe5bcf.css
 Generated: 1351897943403108
 Files: /main.less
 */
+.__q{
 a.edit {
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
@@ -531,7 +532,7 @@ h3 .instruction {
   background-color: #ccc;
 }
 
-body .add_answer_header a.menu_active,a.menu_active,.header .topic_group_search a.nav_item.menu_active,a.menu_active:hover,a.inline_text_menu.light.menu_active {
+.add_answer_header a.menu_active,a.menu_active,.header .topic_group_search a.nav_item.menu_active,a.menu_active:hover,a.inline_text_menu.light.menu_active {
   background: #acacac;
   border-color: #acacac;
   color: #fff;
@@ -1205,7 +1206,7 @@ a .spoiler {
   text-shadow: 0 0 7px #19558d,0 0 7px #6e89a2;
 }
 
-.spoiler:hover,.spoiler.revealed,body.spoiler_revealed .spoiler {
+.spoiler:hover,.spoiler.revealed{
   text-shadow: none;
   color: #333;
   -webkit-transition: all .2s ease;
@@ -1215,11 +1216,11 @@ a .spoiler {
   cursor: pointer;
 }
 
-h1 .spoiler:hover,h1 .spoiler.revealed,body.spoiler_revealed h1 .spoiler {
+h1 .spoiler:hover,h1 .spoiler.revealed{
   color: #161f21;
 }
 
-a .spoiler:hover,a .spoiler.revealed,body.spoiler_revealed a .spoiler {
+a .spoiler:hover,a .spoiler.revealed{
   color: #19558d;
 }
 
@@ -6285,14 +6286,10 @@ body.minimized iframe.quora-prefetched.maximized {
   left: 0;
 }
 
-body {
   font-family: "Helvetica Neue",Arial,sans-serif;
   font-size: 12px;
-}
 
-html {
   overflow-y: scroll;
-}
 
 * {
   margin: 0;
@@ -7670,7 +7667,8 @@ h1,.results_frame li.addquestionitem .result_item,.question .question_text_edit 
   color: #161f21;
 }
 
-body,p,h2,h3,.tabs .selected,.message_title,.results_frame li,.side_tabs .tabs_list .selected a,.side_tabs .tabs_list .selected a:hover,.question_related ul li .question_text,.inbox_message_title a,.feed_item_answer_user a,.section_item_title a,.light .action_button,.comments .qtext_editor_content,.undesirable_answer .qtext_editor_content,.qtext_editor .qtext_editor_buttons .qtext_editor_button a,.link_editor_buttons .qtext_editor_button a,.dialog_tabs .selected,.question_redirect_preview .feed_item_answer_user,.mini_count a strong,.notice_tip h4,.fix_question_note .notice_tip,.attention .notice_tip,.results_frame li .result_item,.annotation_text a,.meta_item_text a,.header_bar h1.header_text .link,.user_profile .main_col .instruction_box_content .title,.topic_search .add_topic_question a,.topic_page .meta_item_text a.link,.profile_topic_preview .topic_name,a.board_item_votes,.board_author_name .user,.board_item_preview_link,.board_item_preview_link a,.feed_item_title a,.bookmark_bar_title,.action_button,.notifications_list .expand span,.tabs .selected,.tabs .selected:hover,.share_url_box.hover .text,.widgets_code_target_name_link_wrapper a,.answer_user.with_ask_to_answer a.user,.wanted_answer_suggestion .name .user,.after_answer_credit_section .credit_page_link,.suggested_answer_diff,.logged_out_signup_call_to_action a.user,.sign_up_for_more_answers,.form_box label.form_row_label,.selected.board_layout_link,.answer_tag_summary,.question_page .section.promote_section,.light .actions_in_feed {
+  color: #333;
+p,h2,h3,.tabs .selected,.message_title,.results_frame li,.side_tabs .tabs_list .selected a,.side_tabs .tabs_list .selected a:hover,.question_related ul li .question_text,.inbox_message_title a,.feed_item_answer_user a,.section_item_title a,.light .action_button,.comments .qtext_editor_content,.undesirable_answer .qtext_editor_content,.qtext_editor .qtext_editor_buttons .qtext_editor_button a,.link_editor_buttons .qtext_editor_button a,.dialog_tabs .selected,.question_redirect_preview .feed_item_answer_user,.mini_count a strong,.notice_tip h4,.fix_question_note .notice_tip,.attention .notice_tip,.results_frame li .result_item,.annotation_text a,.meta_item_text a,.header_bar h1.header_text .link,.user_profile .main_col .instruction_box_content .title,.topic_search .add_topic_question a,.topic_page .meta_item_text a.link,.profile_topic_preview .topic_name,a.board_item_votes,.board_author_name .user,.board_item_preview_link,.board_item_preview_link a,.feed_item_title a,.bookmark_bar_title,.action_button,.notifications_list .expand span,.tabs .selected,.tabs .selected:hover,.share_url_box.hover .text,.widgets_code_target_name_link_wrapper a,.answer_user.with_ask_to_answer a.user,.wanted_answer_suggestion .name .user,.after_answer_credit_section .credit_page_link,.suggested_answer_diff,.logged_out_signup_call_to_action a.user,.sign_up_for_more_answers,.form_box label.form_row_label,.selected.board_layout_link,.answer_tag_summary,.question_page .section.promote_section,.light .actions_in_feed {
   color: #333;
 }
 
@@ -16253,4 +16251,5 @@ body.mobile .dialog input.email_subject {
 .mobile_app_page .settings_page .alert_form_box {
   margin-bottom: 10px;
   background: #eee8aa;
+}
 }

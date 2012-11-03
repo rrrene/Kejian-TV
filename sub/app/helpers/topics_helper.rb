@@ -1,14 +1,14 @@
 # -*- encoding : utf-8 -*-
 module TopicsHelper
-  def cover_url(user,size=:normal)
-    s=AvatarUploader::SIZES[size]
-    url = eval("user.cover.#{size}.url")
-    if user.cover.blank? or url.blank?
+  def cover_url(item,size=:normal)
+    s=CoverUploader::SIZES[size]
+    url = item.try(:cover).try(size).try(:url)
+    if url
+      return url
+    else
       url = "/defaults/cover/#{size}.gif"
     end
-    return url
   end
-
   def topic_name_tag(topic, options = {})
     limit = options[:limit] || 10
     prefix = options[:prefix] || ''
