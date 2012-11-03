@@ -355,7 +355,7 @@ class ApplicationController < ActionController::Base
   ]
   before_filter :unknown_user_check,:if=>'current_user'
   def unknown_user_check
-    if current_user.reg_extent < 100
+    if !current_user.reg_extent_okay?
       unless ApplicationController::NO_REDIRECT_REQUEST_PATHs.include?(request.path)
         redirect_to "/register05"
         return false

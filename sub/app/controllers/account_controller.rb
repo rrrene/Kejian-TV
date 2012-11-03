@@ -130,6 +130,11 @@ class AccountController < Devise::RegistrationsController
     @seo[:title] = '完成新用户注册'
     @simple_header=true
     @simple_header_width=840
+    if params[:force_054]
+      current_user.update_attribute :reg_extent, 888
+      redirect_to '/'
+      return true
+    end
     if 0 == current_user.reg_extent || '/register05_force_relogin'==request.path
       # 其实我们只想让他们从人人过来。因为大学生基本上都有人人！
       @serv = :renren
@@ -161,7 +166,14 @@ class AccountController < Devise::RegistrationsController
         #so, 没有注册过的朋友，开始大邀请
         rrf.delete_if {|x| result_rr_uids.include? x['id']}
         @regged = rrf
+        if @regged.blank?
+          current_user.update_attribute :reg_extent, 888
+          redirect_to '/'
+          return true
+        end
         render "new053",layout:'application'
+      elsif current_user.reg_extent < 1000
+        render "new054",layout:'application'
       end
     end
   end
