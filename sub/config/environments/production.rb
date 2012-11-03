@@ -128,3 +128,4 @@ Sub::Application.configure do
   config.action_mailer.raise_delivery_errors = false
   $psvr_really_production = true
 end
+Mongoid.raise_not_found_error=false
