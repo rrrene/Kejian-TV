@@ -988,22 +988,26 @@ courseware_id: '<%=@courseware.id%>'
                   tmp = this;
                   $(this).addClass('loading');
                   var on_top = 'false';
-                  if($('#playlist-addto-top-checkbox').prop('checked'))
-                    on_top = 'true';
+                  if($('#playlist-addto-top-checkbox').prop('checked')){
+										on_top = 'true';	
+                  }
+									// ,'sort':$('select.yt-uix-form-input-select-element.sort-playlists >option:selected').val()
                   $.ajax({
                     type:"POST",
-                    url:'/ajax/add_to_playlist',
-                    data:{'cw_id':'<%= @courseware.id %>','list_title':$(this).attr('data-title'),'on_top':on_top,'sort':$('select.yt-uix-form-input-select-element.sort-playlists >option:selected').val()},
-                    dataType:'json',
-                  }).done(function(data){
-                    if (data['status'] == "suc") {
-                      $('form > .yt-uix-form-input-container > .yt-uix-form-input-text.playlist-note',tmp).attr('placeholder',data['comment']);
-                      // $('')
-                      
-                      $('.yt-alert-success.added-to-message > .yt-alert-content > .yt-alert-message > .added-to-message-title').html(data['list_title']);
+                    url:'/ajax/add_to_playlist_by_id',
+                    data:{'authenticity_token':"<%= form_authenticity_token %>",'cwid':'<%= @courseware.id %>','pid':$(this).attr('data-playlist-id'),'on_top':on_top},
+                    dataType:'json'
+                  }).done(function(json){
+                    if (json.status == 'onesuc') {
+                      $('form > .yt-uix-form-input-container > .yt-uix-form-input-text.playlist-note',tmp).attr('placeholder',json.annotation);
+                      $('.yt-alert-success.added-to-message > .yt-alert-content > .yt-alert-message > .added-to-message-title').html(json.title);
                       somethingShow('.yt-alert-success.added-to-message');
+											$('.playlist-video-count',tmp).html((parseInt($('.playlist-video-count',tmp).html())+1).toString())
                       $(tmp).removeClass('loading');
                       $(tmp).addClass('selected');
+                    }else{
+                      $(tmp).removeClass('loading');
+											show_add_error(json.reason);                  	
                     }
                   });
                   
@@ -1034,31 +1038,43 @@ courseware_id: '<%=@courseware.id%>'
              });
              
              $('button.create-new-playlist.yt-uix-button.yt-uix-button-default').live('click',function(){
-               $.ajax({
-                 type:"POST",
-                 url:'/ajax/create_new_playlist',
- data:{'list_title':$('#playlist_wired').val(),'is_private':$('.yt-uix-form-input-select.new-playlist-privacy > select.yt-uix-form-input-select-element > option:selected').val()},
-                 dataType:'json'
-               }).done(function(data){
-                 console.log(data);
-                 $('#playlist_wired').val('');
-                 ajax_get_list();
-               });
+							 if($('#playlist_wired').val()){
+		               $.ajax({
+		                 type:"POST",
+		                 url:'/ajax/create_new_playlist',
+		 data:{'list_title':$('#playlist_wired').val(),'is_private':$('.yt-uix-form-input-select.new-playlist-privacy > select.yt-uix-form-input-select-element > option:selected').val(),'cwid':'<%= @courseware.id %>'},
+		                 dataType:'json'
+		               }).done(function(json){
+										 if(json.status == 'suc'){										 	
+			                 $('#playlist_wired').val('');
+			                 ajax_get_list();
+                       $('.yt-alert-success.added-to-message > .yt-alert-content > .yt-alert-message > .added-to-message-title').html(json.title);
+                       somethingShow('.yt-alert-success.added-to-message');
+										 }else{
+										 	show_add_error(json.reason)
+										 }
+		               });
+ 							 }else{
+ 							 	 show_add_error('请填写锦囊标题');
+ 							 }
              });
              
              $('.save-note.yt-uix-button.yt-uix-button-primary').live('click',function(){
                tmp = this;
-               if($('#playlist_wired').val().length>0){
+               if($(this).prev().find('input.playlist-note').val().length>0){
                  $.ajax({
                     type:'POST',
-                    url:'/ajax/add_comment_to_playlist',
-                    data:{'comment':$('.yt-uix-form-input-container > .yt-uix-form-input-text.playlist-note',$(tmp).parent()).val(),'cw_id':'<%= @courseware.id %>','list_title':$(tmp).parent().parent().attr('data-title')},
+                    url:'/ajax/save_note_for_one_cw',
+                    data:{'note':$(this).prev().find('input.playlist-note').val(),'cwid':['<%= @courseware.id %>'],'title':$(tmp).parent().parent().attr('data-title')},
                     dataType:'json'
-                  }).done(function(data){
-                    if(data['status'] == 'suc'){
+                  }).done(function(json){
+                    if(json.status == 'suc'){
                       playlist_back_to_default();                   
-                      $('.yt-alert-success.note-added-message > .yt-alert-content > .yt-alert-message >.note-added-message-title').html(data['title']);
+                      $('.yt-alert-success.note-added-message > .yt-alert-content > .yt-alert-message >.note-added-message-title').html(json.title);
                       somethingShow('.yt-alert-success.note-added-message');
+                    }else{
+											show_add_error(json.reason)
+			                $(this).parent().parent().removeClass('selected');
                     }
                   });
                }else{

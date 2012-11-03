@@ -338,7 +338,7 @@ HEREDOC
     ##TODO  list
     
     json = {status:'suc',title:params[:list_title],comment:'beizhu',time:'123',cw_id:params[:cw_id]}
-    cw_event_add_action("添加收藏",'Courseware',cw.id,true)
+
     render json:json
   end
   def add_comment_to_playlist
@@ -353,17 +353,36 @@ HEREDOC
     end
   end
   def create_new_playlist
+    if current_user.nil?
+      render json:{status:'failed',reason:'您尚未登陆！'}
+      return false
+    end
+    if !Moped::BSON::ObjectId.legal?(params[:cwid])
+      render json:{status:'failed',reason:'系统无法完成请求，请稍后重试。'}
+      return false
+    end
     if params[:list_title].blank?
-        json = {status:'failed',list_title:pl.title,id:pl.id.to_s,is_private:pl.privacy.to_s}
-        render json:json
-        return false
+      render json:{status:'failed',reason:'请填写课件锦囊名称！'}
+      return false
     end
     pl = PlayList.find_or_create_by(user_id:current_user.id,title:params[:list_title])
-    pl.ua(:desc,params[:desc]) if !params[:desc].blank?
-    pl.ua(:privacy,params[:is_private]) if !params[:is_private].blank?
-    
-    json = {status:'suc',list_title:pl.title,id:pl.id.to_s,is_private:pl.privacy.to_s}
-    render json:json
+    pl.desc = params[:desc] if !params[:desc].blank?
+    case params[:is_private]
+    when 'private'
+      pl.privacy = 2
+    when 'unlisted'
+      pl.privacy = 1
+    else
+      pl.privacy = 0
+    end
+    pl.content << Moped::BSON::ObjectId(params[:cwid])
+    if pl.save(:validate => false)
+      render json:{status:'suc',title:"<a href='/play_lists/#{pl.id}'>#{pl.title}</a>"}
+      return true
+    else
+      render json:{status:'failed',reason:'系统无法完成请求，请稍后重试。'}
+      return true
+    end
   end
   def bar_request_save_as
     if current_user.nil? or !Moped::BSON::ObjectId.legal?(params[:playlist_id])
@@ -641,7 +660,7 @@ HEREDOC
     pl = PlayList.find(params[:pid])
     legal = true
     add = true
-    params[:cwid].each do |cwid|
+    params[:cwid].to_a.each do |cwid|
       if !Moped::BSON::ObjectId.legal?(cwid)
         legal = false
         next
@@ -654,21 +673,32 @@ HEREDOC
       if cw.nil?
         next
       end
-      add = pl.add_one_thing(cw.id)
+      if params[:on_top].blank?
+        add = pl.add_one_thing(cw.id)
+      else
+        add = pl.add_one_thing(cw.id,true)
+      end
+      cw_event_add_action("添加收藏",'Courseware',cw.id,true)
     end
-    if params[:cwid].count > 1
+    if params[:cwid].to_a.size > 1
       suc = 'suc'
-    elsif params[:cwid].count == 1
+    elsif params[:cwid].to_a.size == 1
       suc = 'onesuc'
+    end
+    if add and params[:cwid].to_a.size == 1
+      render json:{status:suc,title:"<a href='/play_lists/#{pl.id}'>#{pl.title}</a>",playlist_id:pl.id,annotation:pl.annotation[pl.content.index(Moped::BSON::ObjectId(params[:cwid]))]}
+      return true
     end
     if add
          render json:{status:suc,title:"<a href='/play_lists/#{pl.id}'>#{pl.title}</a>",playlist_id:pl.id}
+         return true
     else
       if !legal
         render json:{status:'failed',reason:'您导入的内容稍后阅读无法接受！'}
       else
         render json:{status:'failed',reason:'该课件已经存在该课件锦囊！'}
       end
+      return false
     end
   end
   def remove_ding_array
@@ -678,7 +708,7 @@ HEREDOC
     end
     result = Array.new
     re = false
-    params[:cwid].each_with_index do |cwid,index|
+    params[:cwid].to_a.each_with_index do |cwid,index|
       cw = Courseware.find(cwid)
       result[index] = current_user.thank_courseware(cw)
     end
@@ -739,13 +769,19 @@ HEREDOC
       render json:{status:'failed',reason:'您尚未登陆！'}
       return false
     end
+    if !Moped::BSON::ObjectId.legal?(params[:cwid][0])
+      render json:{status:'failed',reason:'系统无法完成请求，请稍后重试。'}
+      return false
+    end
     pl = PlayList.locate(current_user.id,params[:title])
-
-    pl.annotation[pl.content.index(Courseware.find(params[:cwid][0]).id)] = params[:note]
+    index = pl.content.index(Moped::BSON::ObjectId(params[:cwid][0]))
+    if index
+      pl.annotation[index] = params[:note].to_s
+    end
     if pl.save(:validate=>false)
       render json:{status:'suc',title:"<a href='/play_lists/#{pl.id}'>#{pl.title}</a>"}
     else
-      render json:{status:'failed',reason:'该课件已经存在该课件锦囊！'}
+      render json:{status:'failed',reason:'该课件并不存在于该课件锦囊！'}
     end
   end
   def add_to_read_later
@@ -894,7 +930,7 @@ HEREDOC
     end
     legal = true
     addto = true
-    params[:cwid].each  do |cwid|
+    params[:cwid].to_a.each  do |cwid|
         if !Moped::BSON::ObjectId.legal?(cwid)
           legal = false
           next
@@ -925,7 +961,7 @@ HEREDOC
     end
     legal = true
     addto = true
-    params[:cwid].each  do |cwid|
+    params[:cwid].to_a.each  do |cwid|
         if !Moped::BSON::ObjectId.legal?(cwid)
           legal = false
           next
@@ -1030,7 +1066,7 @@ HEREDOC
       return false
     end
     result = true
-    params[:time].each_with_index do |tt,index|
+    params[:time].to_a.each_with_index do |tt,index|
       cwid = params[:cwid][index]
       result = PlayList.remove_one_history(current_user.id,cwid,tt.to_i)
     end
@@ -1071,7 +1107,7 @@ HEREDOC
       return false
     end
     result = true
-    params[:cwid].each_with_index do |shid,index|
+    params[:cwid].to_a.each_with_index do |shid,index|
       result =  SearchHistory.remove_one_search_history(shid)
     end
     if result
@@ -1105,7 +1141,7 @@ HEREDOC
     legal = true
     null  = true
     arr = []
-    params[:cwid].each do |id|
+    params[:cwid].to_a.each do |id|
       if !Moped::BSON::ObjectId.legal?(id)
         legal = false
         next
@@ -1135,7 +1171,7 @@ HEREDOC
     legal = true
     null  = true
     arr = []
-    params[:cwid].each do |id|
+    params[:cwid].to_a.each do |id|
       if !Moped::BSON::ObjectId.legal?(id)
         legal = false
         next
@@ -1184,7 +1220,7 @@ HEREDOC
     legal = true
     null  = true
     arr = []
-    params[:cwid].each do |id|
+    params[:cwid].to_a.each do |id|
       if !Moped::BSON::ObjectId.legal?(id)
         legal = false
         next

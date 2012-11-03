@@ -42,7 +42,7 @@
               <label for="playlist-addto-top-checkbox">
               将课件添加到列表顶部
               </label>
-              <span class="yt-uix-form-input-select sort-playlists-container">
+              <span class="yt-uix-form-input-select sort-playlists-container" style="margin-right:18px">
                  <span class="yt-uix-form-input-select-content"><img class="yt-uix-form-input-select-arrow" src="<%= asset_path 'yt/wfw.gif' %>"><span class="yt-uix-form-input-select-value">
                  创建日期
                  </span></span>
@@ -64,24 +64,25 @@
            </span>
         </div>
         <ul class="playlist-items">
-<% current_user.play_lists.undestroyable.each do |play_list| %>
-  <%= render :partial => 'add_to_play_list',:locals=>{play_list:play_list} %>
-<% end %>
-<% current_user.play_lists.destroyable.each do |play_list| %>
+<% current_user.all_play_lists.desc(:undestroyable).asc(:title_en).each do |play_list| %>
   <%= render :partial => 'add_to_play_list',:locals=>{play_list:play_list} %>
 <% end %>
         </ul>
         <form method="post" class="create-playlist" action="/ajax/create_new_playlist">
-           <input type="hidden" value="LawWW8fDCrU" name="video_id" class="video-id">
-           <input type="hidden" value="p-K-xQN-_F5_yRXO_pNswlCV6od8MTM0OTQzODk4N0AxMzQ5MzUyNTg3" name="session_token">
+					 <div style="margin:0;padding:0;display:inline">
+            <input type="hidden" value="<%= cw_id %>" name="kejian_id" class="video-id">
+					 	<input name="utf8" type="hidden" value="✓">
+					 	<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+					 </div>
            <div class="playlist-create-form-actions">
               <span class="yt-uix-form-input-select new-playlist-privacy">
                  <span class="yt-uix-form-input-select-content">
                    <img class="yt-uix-form-input-select-arrow" src="<%= asset_path 'yt/wfw.gif' %>">
                    <span class="yt-uix-form-input-select-value">公开</span></span>
                  <select name="is_public" class="yt-uix-form-input-select-element ">
-                    <option value="True">公开</option>
-                    <option value="False">私有</option>
+                    <option value="public">公开</option>
+	                  <option value="unlisted">不公开</option>
+                    <option value="private">私有</option>
                  </select>
               </span>
               <button role="button" class="create-new-playlist yt-uix-button yt-uix-button-default" type="submit" onclick=";return false;" disabled="True"><span class="yt-uix-button-content">创建课件锦囊 </span></button>

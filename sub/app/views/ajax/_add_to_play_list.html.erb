@@ -1,4 +1,4 @@
-<li data-time-created="1349352586" data-is-private="False" data-playlist-id="<%= play_list.id %>" data-title="aa" class="playlist-item">
+<li data-time-created="<%= play_list.created_at.to_i %>" data-playlist-id="<%= play_list.id %>" data-title="<%= play_list.title %>" class="playlist-item">
    <span class="playlist-title">
    <%= play_list.title %>
    <span class="playlist-video-count-container">
@@ -6,12 +6,24 @@
    </span>
    </span>
    <span class="playlist-public-private">
-     <%= play_list.privacy > 0 ? '私密' : '公开' %>
+     <%= 
+		 case play_list.privacy
+		 when 0
+			 '公开'
+		 when 1
+			 '不公开' 
+		 when 2
+			 '私有'
+		 end
+			 %>
    </span>
-   <span class="created-at"><%= play_list.created_at %></span>
+   <span class="created-at"><%= timeago play_list.created_at %></span>
    <form method="post" action="/ajax/add_comment_to_playlist" class="playlist-note-form ytg-box hid">
-      <input type="hidden" value="aa" class="playlist-name">
-      <input type="hidden" value="cwVgMt75JZKFVmjO0ymFMUtY7Mw9B0XA" name="playlist_id">
+		 <div style="margin:0;padding:0;display:inline">
+      <input type="hidden" value="<%= play_list.id %>" name="playlist_id">
+		 	<input name="utf8" type="hidden" value="✓">
+		 	<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+		 </div>
       <span class="playlist-note yt-uix-form-input-container"><input placeholder="添加可选备注" name="annotation" class="yt-uix-form-input-text playlist-note"></span>
       <button role="button" onclick=";return false;" class="save-note yt-uix-button yt-uix-button-primary" type="submit"><span class="yt-uix-button-content">添加备注 </span></button>
       <button role="button" onclick=";return false;" class="cancel-note yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-content">关闭 </span></button>
