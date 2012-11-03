@@ -223,31 +223,31 @@ end
 			$('#playlist-bar').append(menu);
 		});
 		$('#playlist-bar-tray .playlist-bar-tray-button').live('click',function(e){
-			if($(this).hasClass('yt-uix-slider-prev')){
-				var next_state = bar_slider_cal_next_state('prev','tray');
-				$('#playlist-bar-tray-content').css({'left':next_state + 'px'});
-			}else if($(this).hasClass('yt-uix-slider-next')){
-				var next_state = bar_slider_cal_next_state('next','tray');
-				$('#playlist-bar-tray-content').css({'left':next_state+'px'});
-			}
+			 if($(this).hasClass('yt-uix-slider-prev')){
+                var next_state = bar_slider_cal_next_state('prev','tray');
+                $('#playlist-bar-tray-content').css({'left':next_state + 'px'});
+        }else if($(this).hasClass('yt-uix-slider-next')){
+                var next_state = bar_slider_cal_next_state('next','tray');
+                $('#playlist-bar-tray-content').css({'left':next_state+'px'});
+        }
 		});
 		$('#playlist-bar-lists .playlist-bar-tray-button').live('click',function(e){
-			if($(this).hasClass('yt-uix-slider-prev')){
-				var next_state = bar_slider_cal_next_state('prev','lists');
-				$('#playlist-bar-lists-content').css({'left':next_state + 'px'});
-			}else if($(this).hasClass('yt-uix-slider-next')){
-				var next_state = bar_slider_cal_next_state('next','lists');
-				$('#playlist-bar-lists-content').css({'left':next_state+'px'});				
-			}
+		        if($(this).hasClass('yt-uix-slider-prev')){
+		                var next_state = bar_slider_cal_next_state('prev','lists');
+		                $('#playlist-bar-lists-content').css({'left':next_state + 'px'});
+		        }else if($(this).hasClass('yt-uix-slider-next')){
+		                var next_state = bar_slider_cal_next_state('next','lists');
+		                $('#playlist-bar-lists-content').css({'left':next_state+'px'});                         
+		        }
 		});
 		var bar_slider_cal_next_state = function(direction,lt) {
-			if(lt == 'tray'){
-				var per_move_length = $('#playlist-bar-tray-content .playlist-bar-item').outerWidth();
-				var item_count = parseInt($('.playlist-bar-count span.item-count').eq(0).html());
-			}else{
-				var per_move_length = $('#playlist-bar-lists-content .playlist-bar-item').outerWidth();
-				var item_count = parseInt($('#playlist-bar-lists-content').attr('data-lists-count'));
-			}
+      if(lt == 'tray'){
+              var per_move_length = $('#playlist-bar-tray-content .playlist-bar-item').outerWidth();
+              var item_count = parseInt($('.playlist-bar-count span.item-count').eq(0).html());
+      }else{
+              var per_move_length = $('#playlist-bar-lists-content .playlist-bar-item').outerWidth();
+              var item_count = parseInt($('#playlist-bar-lists-content').attr('data-lists-count'));
+      }
 			var win_length = $(window).width();
 			var contain_size = parseInt(win_length/per_move_length);
 			var total_length = item_count * per_move_length;
@@ -283,7 +283,6 @@ end
 			}
 			return '-'+next_state;
 		};
-		
 		var to_end = function() {
 			var per_move_length = $('#playlist-bar-tray-content .playlist-bar-item').outerWidth();
 			var item_count = parseInt($('.playlist-bar-count span.item-count').eq(0).html());
@@ -398,11 +397,11 @@ end
 					$('#playlist-bar-title a.yt-user-photo').attr('href',puname);
 					$('#playlist-bar-title img').attr('alt',json.user_name).attr('src',json.user_src);
 					$('#playlist-bar-title .yt-user-name').html(json.user_name);
-		      url1=window.location.pathname
+			    url1=window.location.pathname
 					url2=window.location.search
-		      url = "/#{url1}#{new_playlist_id}"
-					term = '正在阅读:'+json.title;
-		      History.pushState({url:url}, "#{document.title.split(' - ')[0]} - #{term}", decodeURI(url)) if ( window.History.enabled )
+					url2 = url2.replace(/(.*)(reading=[0-9a-zA-Z]+)(.*)/,'$1reading='+new_playlist_id+'$3');
+					url = url1 + url2
+					History.pushState({'url':url},document.title.split(' - ')[0] + '-正在阅读：'+json.title, decodeURI(url)) if (window.History.enabled)
 					Callback();
 				}else if(json.status == 'failed'){
 					bar_showNotification('系统无法完成请求，请稍后重试。！','error');
@@ -477,7 +476,7 @@ end
 			$('#playlist-bar-save').html('');
 		})
 		$('#playlist-bar-options-menu > ul > li:first').live('click',function(){
-			bar_loading();			
+			bar_loading();
 			$.ajax({
 				url:'/ajax/bar_request_playlists',
 				type:'POST',
@@ -489,7 +488,7 @@ end
 					$('#playlist-bar').removeClass('min').addClass('max').addClass('lists');
 					$('#playlist-bar-lists').html(json.html);
 				}else{
-					bar_showNotification('系统无法完成请求，请稍后重试。！','error');					
+					bar_showNotification('系统无法完成请求，请稍后重试。！','error');
 				}
 			});
 		});
@@ -499,15 +498,15 @@ end
 			$('#playlist-bar-lists').html('');
 		});
 		$('ol#playlist-bar-lists-content li a').live('click',function(e){
-			e.stopPropagation();
-			bar_loading();
-			href = $(this).attr('href');
-			pid = href.split('/').pop();
-			bar_update_list_and_name(pid,function(){
-				$('#playlist-bar').removeClass('lists');
-				bar_loading();
-			});
-			return false;
+	     e.stopPropagation();
+	     bar_loading();
+	     href = $(this).attr('href');
+	     pid = href.split('/').pop();
+	     bar_update_list_and_name(pid,function(){
+	             $('#playlist-bar').removeClass('lists');
+	             bar_loading();
+	     });
+	     return false;
 		})
 	<% end %>
 </script>
