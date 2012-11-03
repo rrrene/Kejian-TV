@@ -3,7 +3,7 @@
 	<button class="yt-uix-button playlist-bar-tray-button yt-uix-button-default yt-uix-slider-next" onclick="return false;"><img class="yt-uix-slider-next-arrow" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="下一个视频"></button>
 	<div class="yt-uix-slider-body">
 		<h3>我的课件锦囊</h3>
-		<ol id="playlist-bar-lists-content" class="yt-uix-slider-slide">
+		<ol id="playlist-bar-lists-content" class="yt-uix-slider-slide" data-lists-count="<%= playlists.size %>">
 			<% playlists.each do |pl| %>
 			<li class="playlist-bar-item playlist-bar-playlist-item yt-uix-slider-slide-unit system" data-list-id="<%= pl.id %>">
 				<a href="/play_lists/<%= pl.id %>" class="playlist-bar-playlist-thumb" title="<%= pl.title %>">

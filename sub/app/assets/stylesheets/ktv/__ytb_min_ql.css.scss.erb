@@ -570,7 +570,10 @@
   	height:96px
   }
   .dark-lolz .playlist-bar-item a,#ie .dark-lolz .playlist-bar-item a {
-  	width:106px
+  	width:106px;
+		text-overflow:ellipsis;
+		white-space:nowrap; 
+		overflow:hidden;
   }
   .dark-lolz .list-title,#ie .dark-lolz .list-title {
   	display:inline-block;
@@ -578,6 +581,9 @@
   }
   .dark-lolz .playlist-bar-playlist-item:hover .playlist-bar-playlist-thumb,#ie .dark-lolz .playlist-bar-playlist-item:hover .playlist-bar-playlist-thumb {
   	background:#999
+  }
+  .dark-lolz .playlist-bar-playlist-item:hover .list-title a{
+		color:#A8A8A8 ;
   }
   .dark-lolz .playlist-bar-playlist-thumb .playlist-bar-playlist-thumb,.dark-lolz .playlist-bar-playlist-thumb .video-thumb {
   	background:rgba(0,0,0,0.2)
