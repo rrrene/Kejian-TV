@@ -5,7 +5,7 @@ end
 %>
 <% playlist = PlayList.find(params[:reading]) %>
 <% coursewares = Courseware.eager_load(playlist.content) %>
-<div class="passive editable min" id="playlist-bar" data-list-id="<%= playlist.id %>">
+<div class="passive editable <% if params[:bar_max]=='1' %>max<% else %>min<% end %>" id="playlist-bar" data-list-id="<%= playlist.id %>">
 	<div id="playlist-bar-bar-container">
 		<div id="playlist-bar-bar">
 			<div id="playlist-bar-notifications" class="yt-alert yt-alert-naked yt-alert-success hid">
@@ -35,6 +35,7 @@ end
 							</span>
 						</button>
 				</span>
+				<% if false %>
 				<span class="playlist-bar-active playlist-bar-group">
 					<button role="button" data-button-toggle="true" id="playlist-bar-autoplay-button" onclick=";return false;" class="yt-uix-tooltip yt-uix-tooltip-masked yt-uix-button yt-uix-button-default yt-uix-button-empty" type="button" data-tooltip-text="打开自动阅读">
 							<span class="yt-uix-button-icon-wrapper">
@@ -49,6 +50,7 @@ end
 						</span>
 					</button>
 				</span>
+				<% end %>
 				<span class="playlist-bar-passive playlist-bar-group">
 					<button role="button" class="yt-uix-tooltip yt-uix-tooltip-masked yt-uix-button yt-uix-button-default yt-uix-tooltip yt-uix-button-empty" id="playlist-bar-play-button" type="button" title="阅读课件" onclick=";return false;" data-tooltip-text="阅读课件">
 							<span class="yt-uix-button-icon-wrapper">
@@ -114,7 +116,7 @@ end
 			<div class="yt-uix-slider-body">
 				<div class="yt-uix-slider-slide" id="playlist-bar-tray-content" style="left: 0px;">
 					<ol class="video-list">
-						<%= render partial:'bar_ol',locals:{coursewares:coursewares} %>
+						<%= render partial:'bar_ol',locals:{coursewares:coursewares,playlist_id:playlist.id} %>
 					</ol>
 					<ol id="playlist-bar-help">
 						<li class="empty playlist-bar-help-message">
@@ -141,31 +143,94 @@ end
 <script type="text/javascript" charset="utf-8">
 	<% content_for :butt2 do %>
 	var Historyx = window.History;
+	var bar_li_id = new Array();
+	var bar_resort  = function(){
+		bar_li_id = new Array();
+		$('#playlist-bar-tray-content > ol.video-list >li').each(function(index,li){
+			$('span.count',li).html('<strong>'+(index+1).toString()+'</strong>');
+			if($(li).attr('data-kejian-id')!=undefined){
+				bar_li_id.push($(li).attr('data-kejian-id'));	
+			}
+		});
+		$('.item-count').each(function(index,li){
+			$(li).html(bar_li_id.length);
+		});
+		if(bar_li_id.length == 0){
+			$('#playlist-bar').addClass('empty');
+		}else{
+			$('#playlist-bar').removeClass('empty');
+		}
+	};
+	bar_resort();
+	var detect_bar_state = function() {
+		path = window.location.pathname.split('/');
+		index = bar_li_id.indexOf(path[2]);
+		if(path[1] == 'coursewares' && index != -1){
+			$('.playlist-bar-active').removeClass('playlist-bar-active').addClass('playlist-bar-passive');
+			$('.playing-index').html((index+1).toString());
+			if(index==0){
+				$('#playlist-bar-prev-button').attr('disabled',true);
+			}else if(index == bar_li_id.length - 1){
+				$('#playlist-bar-next-button').attr('disabled',true);
+			}
+		}else if(path[1] != 'coursewares'){
+			$('.playlist-bar-active').addClass('playlist-bar-active').removeClass('playlist-bar-passive');
+			$('.playing-index').html('0');
+		}else if(index == -1){
+			$('.playlist-bar-active').addClass('playlist-bar-active').removeClass('playlist-bar-passive');
+			$('.playing-index').html('0');
+			$('#playlist-bar').addClass('min').removeClass('max');
+		}
+	}
+	detect_bar_state();
+	$('#playlist-bar-next-button').live('click',function(e){
+		var path = window.location.pathname.split('/');
+		var index = bar_li_id.indexOf(path[2]);
+		if(path[1] == 'coursewares'){
+			if(index>-1 && index + 1 < bar_li_id.length){
+				$(this).attr('disabled',false);
+				url = '/coursewares/' + bar_li_id[index+1] + '?reading=' + $('#playlist-bar').attr('data-list-id') + '&bar_max=1';
+				window.location.href = url;
+			}else{
+				$(this).attr('disabled',true);
+			}
+		}
+	});
+	$('#playlist-bar-prev-button').live('click',function(e){
+		var path = window.location.pathname.split('/');
+		var index = bar_li_id.indexOf(path[2]);
+		if(path[1] == 'coursewares'){
+			if(index>-1 && index > 0){
+				$(this).attr('disabled',false);
+				url = '/coursewares/' + bar_li_id[index-1] + '?reading=' + $('#playlist-bar').attr('data-list-id') + '&bar_max=1';
+				window.location.href = url;
+			}else{
+				$(this).attr('disabled',true);
+			}
+		}
+	});
 		$('#playlist-bar-bar,#playlist-bar-toggle-button').live('click',function(){
 				$('#playlist-bar').toggleClass('min').toggleClass('max');
+				if($('#playlist-bar').hasClass('max')){
+					bar_max = 1
+				}else{
+					bar_max = 0
+				}
+		    url1=window.location.pathname
+				url2=window.location.search
+				if(url2.match(/(.*)(bar_max=[0-9])(.*)/)){
+					url2 = url2.replace(/(.*)(bar_max=[0-9])(.*)/,'$1bar_max='+bar_max+'$3');
+				}else if(url2){
+					url2 = url2 + '&bar_max='+ bar_max
+				}
+				url = url1 + url2
+				if (window.History.enabled){
+					Historyx.pushState({url:url},null, decodeURI(url));	
+				}
 		});
 		$('#playlist-bar-bar button').live('click',function(e){
 			e.stopPropagation();
 		});
-		var bar_li_id = new Array();
-		var bar_resort  = function(){
-			bar_li_id = new Array();
-			$('#playlist-bar-tray-content > ol >li').each(function(index,li){
-				$('span.count',li).html('<strong>'+(index+1).toString()+'</strong>');
-				if($(li).attr('data-kejian-id')!=undefined){
-					bar_li_id.push($(li).attr('data-kejian-id'));	
-				}
-			});
-			$('.item-count').each(function(index,li){
-				$(li).html(bar_li_id.length);
-			});
-			if(bar_li_id.length == 0){
-				$('#playlist-bar').addClass('empty');
-			}else{
-				$('#playlist-bar').removeClass('empty');
-			}
-		};
-		bar_resort();
 		var bar_update_sort = function(){
 			bar_loading();
 			$.ajax({
@@ -182,6 +247,14 @@ end
 				}
 			});
 		};
+		$('#playlist-bar-play-button').live('click',function(e){
+			bar_resort();
+			if(bar_li_id[0]){
+				window.location.href = '/coursewares/'+bar_li_id[0]+'?reading='+$('#playlist-bar').attr('data-list-id')+'&bar_max=1';	
+			}else{
+				window.location.href = '/mine/view_all_playlists';
+			}
+		});
 		$('button[data-button-menu-id="playlist-bar-options-menu"]').live('click',function(){
 			$(this).toggleClass('yt-uix-button-active');
 			var menu = $('#playlist-bar-options-menu');
@@ -326,7 +399,7 @@ end
 			}).done(function(json){
 				$('#playlist-bar').removeClass('loading');
 				if(json.status == 'suc'){
-					$('#playlist-bar').removeClass('max').removeClass('min').addClass('save');
+					$('#playlist-bar').removeClass('lists').removeClass('max').removeClass('min').addClass('save');
 					$('#playlist-bar-save').html(json.html);
 				}else if(json.status == 'failed'){
 					bar_showNotification('系统无法完成请求，请稍后重试。！','error');					
@@ -402,7 +475,6 @@ end
 					url2=window.location.search
 					url2 = url2.replace(/(.*)(reading=[0-9a-zA-Z]+)(.*)/,'$1reading='+new_playlist_id+'$3');
 					url = url1 + url2
-					console.log(url);
 					if (window.History.enabled){
 						Historyx.pushState({url:url},null, decodeURI(url));	
 					}	
@@ -412,15 +484,15 @@ end
 				}
 			});
 		};
-    Historyx.Adapter.bind(window,'statechange',function(){ // Note: We are using statechange instead of popstate
-        var State = History.getState(); // Note: We are using History.getState() instead of event.state
+    Historyx.Adapter.bind(window,'statechange',function(){
+        var State = History.getState();
         Historyx.log(State.data, State.title, State.url);
     });
 		$('#playlist-bar li.playlist-bar-item a').live('click',function(e){
-			if(e.target != this){
-				e.preventDefault();
-				return false;
-			}
+			// if(e.target != this){
+			// 	e.preventDefault();
+			// 	return false;
+			// }
 		});
 		$('#playlist-bar .playlist-bar-item a span.delete').live('click',function(e){
 			e.preventDefault();
@@ -435,8 +507,8 @@ end
 				dataType:'json'
 			}).done(function(json){
 				if(json.status == 'suc'){
-					bar_resort();
 					$(tmp).parents('.playlist-bar-item.yt-uix-slider-slide-unit.playlist-bar-drag-source').remove();
+					bar_resort();
 					bar_loading();
 					bar_showNotification('课件已删除。<a class="playlist-bar-undo">撤消</a>','success')
 				}else{
@@ -464,13 +536,14 @@ end
 					bar_hideNotification();
 					to_end();
 					$('#playlist-bar-tray-content ol.video-list').append(json.li);
-					bar_interval_count=0;
+					bar_resort();
+					bar_interval_count=0;					
 					clearInterval(bar_interval_timeout);
 					bar_interval_time = 1000;
 					bar_interval_timeout = setInterval(function(){
 						bar_interval_count++;
 						$('#playlist-bar-tray-content ol.video-list li:last').toggleClass('playlist-bar-item-highlight');
-						if(bar_interval_count > 10){
+						if(bar_interval_count > 7){
 							clearInterval(bar_interval_timeout);
 							$('#playlist-bar-tray-content ol.video-list li:last').removeClass('playlist-bar-item-highlight');
 						}
@@ -494,7 +567,7 @@ end
 			}).done(function(json){
 				bar_loading();
 				if(json.status == 'suc'){
-					$('#playlist-bar').removeClass('min').addClass('max').addClass('lists');
+					$('#playlist-bar').removeClass('min').addClass('max').removeClass('save').addClass('lists');
 					$('#playlist-bar-lists').html(json.html);
 				}else{
 					bar_showNotification('系统无法完成请求，请稍后重试。！','error');
@@ -516,6 +589,6 @@ end
 	             bar_loading();
 	     });
 	     return false;
-		})
+		});
 	<% end %>
 </script>

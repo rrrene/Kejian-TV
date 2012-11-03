@@ -2,6 +2,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter proc{
+    sign_in User.find('50437108e138234991000001')
     # puts request.env['HTTP_USER_AGENT']+request.ip
     # puts ' '
     # puts request.path
@@ -64,7 +65,7 @@ class ApplicationController < ActionController::Base
   end
   
   before_filter :set_vars
-  before_filter :xookie,:unless=>'devise_controller?'
+  # before_filter :xookie,:unless=>'devise_controller?'
   before_filter :dz_security
   
   def set_vars
@@ -195,7 +196,7 @@ class ApplicationController < ActionController::Base
       @extcredit_name_list = @extcredit_name_list.chop  
     end
   end
-=end
+
    
   before_filter :check_privilige
   def check_privilige
@@ -229,6 +230,7 @@ class ApplicationController < ActionController::Base
       end
     end
   end
+=end
   #==
   def suggest
     if current_user and !(current_user.followed_topic_ids.blank? and current_user.following_ids.blank?)
@@ -321,9 +323,6 @@ class ApplicationController < ActionController::Base
     raise 'todo'
     # redirect_to root_path, alert: "Json values is not an array"
   end
-
-
-
   def render_optional_error_file(status_code)
     @render_no_sidebar = true
     status = status_code.to_s

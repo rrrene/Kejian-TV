@@ -1,6 +1,6 @@
 <% coursewares.each_with_index do |cw,index|  %>
 <li data-kejian-id="<%= cw.id %>" class="playlist-bar-item yt-uix-slider-slide-unit <% if false and (cw.status !=0 or !cw.check_upyun_result) %>playlist-bar-item-unviewable<% end %> playlist-bar-drag-source">
-	<a class="yt-uix-sessionlink" title="<% if cw.status !=0 or !cw.check_upyun_result or (current_user.id != cw.uploader_id and cw.privacy == 2) %>无法阅读的课件<% else %><%= cw.title %><% end %>" href="/coursewares/<%= cw.id %>">
+	<a class="yt-uix-sessionlink" title="<% if cw.status !=0 or !cw.check_upyun_result or (current_user.id != cw.uploader_id and cw.privacy == 2) %>无法阅读的课件<% else %><%= cw.title %><% end %>" href="/coursewares/<%= cw.id %>?reading=<%= playlist_id %>&bar_max=1">
 		<span class="video-thumb ux-thumb yt-thumb-default-106">
 			<span class="yt-thumb-clip">
 				<span class="yt-thumb-clip-inner">
