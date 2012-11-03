@@ -656,14 +656,13 @@ HEREDOC
       end
       add = pl.add_one_thing(cw.id)
     end
-    
     if params[:cwid].count > 1
       suc = 'suc'
     elsif params[:cwid].count == 1
       suc = 'onesuc'
     end
     if add
-         render json:{status:suc,title:"<a href='/play_lists/#{pl.id}'>#{pl.title}</a>"}
+         render json:{status:suc,title:"<a href='/play_lists/#{pl.id}'>#{pl.title}</a>",playlist_id:pl.id}
     else
       if !legal
         render json:{status:'failed',reason:'您导入的内容稍后阅读无法接受！'}
@@ -724,7 +723,7 @@ HEREDOC
       end
       add = pl.add_one_thing(cw.id)
       if add
-        render json:{status:'onesuc',title:"<a href='/play_lists/#{pl.id}'>#{pl.title}</a>"}
+        render json:{status:'onesuc',title:"<a href='/play_lists/#{pl.id}'>#{pl.title}</a>",playlist_id:pl.id}
       else
         render json:{status:'failed',reason:'该课件已经存在该课件锦囊！'}
       end
@@ -764,7 +763,7 @@ HEREDOC
          addto = PlayList.remove_from_read_later(current_user.id,params[:cwid])
      end
      if addto
-         render json:{status:'suc'}
+         render json:{status:'suc',playlist_id:addto}
      else
          render json:{status:'failed',reason:'该课件已经存在于稍后阅读。'}
      end
@@ -848,7 +847,7 @@ HEREDOC
       render json:{status:'failed',reason:'您尚未登陆！'}
       return false
     end
-    render json:{status:'suc',html:render_to_string(file:'application/_playlists_bar',locals:{playlists_id:params[:playlist_id],bar_max:params[:bar_max]},:layout=>false, :formats=>[:html])}
+    render json:{status:'suc',html:render_to_string(file:'application/_playlist_bar',locals:{playlist_id:params[:playlist_id],bar_max:params[:bar_max]},:layout=>false, :formats=>[:html])}
     return true
   end
   def bar_request_playlists
@@ -908,7 +907,7 @@ HEREDOC
     end
 
     if addto
-        render json:{status:'suc'}
+        render json:{status:'suc',playlist_id:addto}
     else
       if !legal
         render json:{status:'failed',reason:'您导入的内容稍后阅读无法接受！'}
@@ -939,7 +938,7 @@ HEREDOC
     end
     
     if addto
-        render json:{status:'suc'}
+        render json:{status:'suc',playlist_id:addto}
     else
       if !legal
         render json:{status:'failed',reason:'您导入的内容收藏夹无法接受！'}

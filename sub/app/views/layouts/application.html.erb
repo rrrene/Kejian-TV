@@ -289,6 +289,19 @@
     (function($){
     jQuery(function(){
       KTV.ajaxize($('.psvr_standard_ajax_form'));
+			var summonQL = function(playlist_id,bar_max){
+				$.ajax({
+					url:'/ajax/summonQL',
+					type:'POST',
+					data:{'authenticity_token':"<%= form_authenticity_token %>",'playlist_id':playlist_id,'bar_max':bar_max},
+					dataType:'json'
+				}).done(function(json){
+					if(json.status == 'suc'){
+						$('#pl_ytb').show();
+						$('#pl_ytb #page').html(json.html);
+					}
+				});
+			};
       <%= yield :butt2 %>
       KTV.dz_targetize();
       $('#psvr_dz_target').resize(KTV.dz_targetize);
@@ -304,19 +317,6 @@
       <% end %>
     });
     $('.yt-uix-tooltip').tipsy({gravity: $.fn.tipsy.autoNS,fade: <%= @is_WebKit ? 'false' : 'true'%>,opacity: 1});
-		var summonQL = function(playlist_id,bar_max){
-			$.ajax({
-				url:'/ajax/summonQL',
-				type:'POST',
-				data:{'authenticity_token':"<%= form_authenticity_token %>",'playlist_id':playlist_id,'bar_max':bar_max},
-				dataType:'json'
-			}).done(function(json){
-				if(json.status == 'suc'){
-					$('#pl_ytb').show();
-					$('#pl_ytb #page').html(json.html);
-				}
-			});
-		}
 		
     // jQuery.fn.extend({
     //     shareModes:['share-public', 'share-followers','share-private'],
