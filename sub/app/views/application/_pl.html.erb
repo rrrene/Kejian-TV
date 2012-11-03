@@ -82,7 +82,7 @@ end
 					</button>
 				</span>
 			</span>
-			<a href="#" id="playlist-bar-lists-back" name="playlist-bar-lists-back">返回活动锦囊</a>
+			<a href="#" id="playlist-bar-lists-back">返回活动锦囊</a>
 			<span id="playlist-bar-controls">
 				<span class="playlist-bar-group">
 					<button role="button" id="playlist-bar-toggle-button" onclick=";return false;" class="yt-uix-tooltip yt-uix-tooltip-masked yt-uix-button yt-uix-button-text yt-uix-button-empty" type="button" data-tooltip-text="显示课件锦囊" title="显示课件锦囊">
@@ -222,18 +222,41 @@ end
 			menu.hide().addClass('hid');
 			$('#playlist-bar').append(menu);
 		});
-		var per_move_length = $('#playlist-bar-tray-content .playlist-bar-item').outerWidth();
 		$('#playlist-bar-tray .playlist-bar-tray-button').live('click',function(e){
+			if($(this).hasClass('yt-uix-slider-prev')){
+				var next_state = bar_slider_cal_next_state('prev','tray');
+				$('#playlist-bar-tray-content').css({'left':next_state + 'px'});
+			}else if($(this).hasClass('yt-uix-slider-next')){
+				var next_state = bar_slider_cal_next_state('next','tray');
+				$('#playlist-bar-tray-content').css({'left':next_state+'px'});
+			}
+		});
+		$('#playlist-bar-lists .playlist-bar-tray-button').live('click',function(e){
+			if($(this).hasClass('yt-uix-slider-prev')){
+				var next_state = bar_slider_cal_next_state('prev','lists');
+				$('#playlist-bar-lists-content').css({'left':next_state + 'px'});
+			}else if($(this).hasClass('yt-uix-slider-next')){
+				var next_state = bar_slider_cal_next_state('next','lists');
+				$('#playlist-bar-lists-content').css({'left':next_state+'px'});				
+			}
+		});
+		var bar_slider_cal_next_state = function(direction,lt) {
+			if(lt == 'tray'){
+				var per_move_length = $('#playlist-bar-tray-content .playlist-bar-item').outerWidth();
+				var item_count = parseInt($('.playlist-bar-count span.item-count').eq(0).html());
+			}else{
+				var per_move_length = $('#playlist-bar-lists-content .playlist-bar-item').outerWidth();
+				var item_count = parseInt($('#playlist-bar-lists-content').attr('data-lists-count'));
+			}
 			var win_length = $(window).width();
 			var contain_size = parseInt(win_length/per_move_length);
-			var item_count = parseInt($('.playlist-bar-count span.item-count').eq(0).html());
 			var total_length = item_count * per_move_length;
-			var cur_state = Math.abs($('#playlist-bar-tray-content').offset().left);
+			var cur_state = Math.abs($('#playlist-bar-'+lt+'-content').offset().left);
 			var already_length = total_length - cur_state;
 			var left_length = total_length-(win_length+cur_state);
 			// var cur_item = parseInt(cur_state/per_move_length);
 			var next_state = 0;
-			if($(this).hasClass('yt-uix-slider-prev')){
+			if(direction == 'prev'){
 				if(cur_state <= win_length){
 					next_state = 0;
 				}else if(already_length >= 6*per_move_length){
@@ -246,8 +269,7 @@ end
 				if(next_state<0){
 					next_state = 0;
 				}
-				$('#playlist-bar-tray-content').css({'left':'-'+next_state + 'px'});
-			}else if($(this).hasClass('yt-uix-slider-next')){
+			}else if(direction == 'next'){
 				if(left_length > 6*per_move_length){
 					next_state = cur_state + win_length + per_move_length * Math.random();
 				}else if (left_length > 3*per_move_length && left_length < 6*per_move_length ){
@@ -258,10 +280,12 @@ end
 				if(next_state > total_length){
 					next_state = total_length - 3*per_move_length;;
 				}
-				$('#playlist-bar-tray-content').css({'left':'-'+next_state+'px'});				
 			}
-		});
+			return '-'+next_state;
+		};
+		
 		var to_end = function() {
+			var per_move_length = $('#playlist-bar-tray-content .playlist-bar-item').outerWidth();
 			var item_count = parseInt($('.playlist-bar-count span.item-count').eq(0).html());
 			var total_length = item_count * per_move_length;
 			next_state = total_length - 3*per_move_length;
@@ -340,8 +364,8 @@ end
 				 async:false
 	    }).done(function(json){
 				if(json.status == 'suc'){
-					$('#playlist-bar').addClass('max').removeClass('save');
 					bar_update_list_and_name(json.new_playlist_id,function(){
+							$('#playlist-bar').addClass('max').removeClass('save');
 							bar_showNotification('课件锦囊已保存！','success');
 							bar_loading();
 					});
@@ -353,7 +377,7 @@ end
 	   });
 		});
 		
-		var bar_update_list_and_name = function(new_playlist_id,copeFunc){
+		var bar_update_list_and_name = function(new_playlist_id,Callback){
 			$.ajax({
 				url:'/ajax/bar_request_update_bar',
 				type:'POST',
@@ -374,7 +398,12 @@ end
 					$('#playlist-bar-title a.yt-user-photo').attr('href',puname);
 					$('#playlist-bar-title img').attr('alt',json.user_name).attr('src',json.user_src);
 					$('#playlist-bar-title .yt-user-name').html(json.user_name);
-					copeFunc();
+		      url1=window.location.pathname
+					url2=window.location.search
+		      url = "/#{url1}#{new_playlist_id}"
+					term = '正在阅读:'+json.title;
+		      History.pushState({url:url}, "#{document.title.split(' - ')[0]} - #{term}", decodeURI(url)) if ( window.History.enabled )
+					Callback();
 				}else if(json.status == 'failed'){
 					bar_showNotification('系统无法完成请求，请稍后重试。！','error');
 				}
@@ -448,24 +477,37 @@ end
 			$('#playlist-bar-save').html('');
 		})
 		$('#playlist-bar-options-menu > ul > li:first').live('click',function(){
-			$('#playlist-bar').removeClass('min').addClass('max').addClass('lists');
+			bar_loading();			
 			$.ajax({
 				url:'/ajax/bar_request_playlists',
 				type:'POST',
 				data:{'authenticity_token':"<%= form_authenticity_token %>"},
 				dataType:'json'
 			}).done(function(json){
+				bar_loading();
 				if(json.status == 'suc'){
+					$('#playlist-bar').removeClass('min').addClass('max').addClass('lists');
 					$('#playlist-bar-lists').html(json.html);
 				}else{
-					
+					bar_showNotification('系统无法完成请求，请稍后重试。！','error');					
 				}
 			});
 		});
 		$('#playlist-bar-lists-back').live('click',function(e){
 			e.stopPropagation();
-			
-			
+			$('#playlist-bar').removeClass('lists');
+			$('#playlist-bar-lists').html('');
+		});
+		$('ol#playlist-bar-lists-content li a').live('click',function(e){
+			e.stopPropagation();
+			bar_loading();
+			href = $(this).attr('href');
+			pid = href.split('/').pop();
+			bar_update_list_and_name(pid,function(){
+				$('#playlist-bar').removeClass('lists');
+				bar_loading();
+			});
+			return false;
 		})
 	<% end %>
 </script>
