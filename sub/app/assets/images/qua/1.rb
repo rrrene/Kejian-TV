@@ -2,7 +2,7 @@
 require 'fileutils'
 Dir['./*'].each do |f|
   n =File.basename f
-  if n[0]=='_'
+  if n[0]=='-'
     nn = n.dup
     nn=nn[1..-1]
     FileUtils.mv n,nn
