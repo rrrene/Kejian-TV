@@ -173,6 +173,12 @@ class AccountController < Devise::RegistrationsController
         end
         render "new053",layout:'application'
       elsif current_user.reg_extent < 1000
+        if params[:force_last].present? and current_user.followed_department_fids.size>=3
+          @departments = Department.where(:fid.in=>current_user.followed_department_fids)
+          render "new999",layout:'application'
+          return true
+        end
+        @departments = Department.desc('courses_count')
         render "new888",layout:'application'
       end
     end

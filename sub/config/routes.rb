@@ -146,7 +146,12 @@ Sub::Application.routes.draw do
       post 'handler'
     end
   end
-  resources :departments
+  resources :departments do
+    member do
+      get "follow"
+      get "unfollow"
+    end
+  end
   resources :courses
   resources :schools
   resources :maps

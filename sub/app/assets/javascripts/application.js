@@ -20,6 +20,7 @@
 //= require jcaches
 //= require asks
 //= require topics
+//= require departments
 //= require users
 //= require jquery.zlzp.editor
 //= require jquery.zlzp.validate.js

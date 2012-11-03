@@ -402,7 +402,8 @@
     $('.results_frame li').removeClass('selected')
     KTV.search_li_hover()
   KTV.login = ->
-    window.location.href='/login';
+    im.zm.login()
+    $("#loginLayout").definedDialog("open")
     return false;
   KTV.addCW = ->
     # todo

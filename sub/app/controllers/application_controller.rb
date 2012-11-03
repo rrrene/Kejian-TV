@@ -350,12 +350,11 @@ class ApplicationController < ActionController::Base
     '/ajax/renren_real_bind',
     '/ajax/current_user_reg_extent',
     '/ajax/renren_invite',
-    '/users_follow',
   ]
   before_filter :unknown_user_check,:if=>'current_user'
   def unknown_user_check
     if !current_user.reg_extent_okay?
-      unless ApplicationController::NO_REDIRECT_REQUEST_PATHs.include?(request.path)
+      unless ApplicationController::NO_REDIRECT_REQUEST_PATHs.include?(request.path) or request.path =~ /follow/
         redirect_to "/register05"
         return false
       end

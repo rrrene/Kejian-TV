@@ -1,0 +1,415 @@
+<% content_for :armpit do %>
+  <%= stylesheet_link_tag "ktv/__zm", :media => "all" %>
+  <%= stylesheet_link_tag "ktv/__zm_reg", :media => "all" %>
+  <%= stylesheet_link_tag "qua_f791fcfc8935e1ad.css", :media => "all" %>
+  <%= stylesheet_link_tag "qua_06b596594fbe5bcf.css", :media => "all" %>
+  <!--[if IE]><%= stylesheet_link_tag "qua_7d84bd7ff4616c9b.css", :media => "all" %><![endif]-->
+  <style type="text/css" media="screen">
+  .__q .interests-selector .topic-col, .__q .people_suggestions_grid .topic-col{
+  width:138px
+  }
+
+  .__q .w2_5{
+  width:250px;
+  }
+  .__q .nux-flow .section h1{
+    font-weight:normal
+  }
+  </style>
+<% end %>
+<script>
+<% content_for :butt2 do %>
+KTV.q_targetize();
+window.working_cnt = 0;
+window.working_what = function(){
+  if(0==working_cnt){
+    App.loading(false);
+  }else{
+    App.loading(true);
+  }
+};
+window.suc_what = function(){
+  suc_cnt = $('.is-following').length;
+  if(0==suc_cnt){
+    $('#psvr_qing0').show();
+    $('#psvr_qing1').hide();
+  }else{
+    $('#psvr_qing0').hide();
+    $('#psvr_qing1').show();
+  }
+  if(suc_cnt >= 3 ){
+    $('.psvr_ld_0KNM7J_7115').hide();
+    $('.psvr_ld_0KNM7J_71152').show();
+  }else{
+    $('.psvr_ld_0KNM7J_7115').show();
+    $('.psvr_ld_0KNM7J_71152').hide();
+    $('.psvr_shengyu').html((3 - suc_cnt).toString());
+  }
+};
+window.suc_what();
+$('.related-topic-list-item').click(function(){
+  fid = $(this).data('fid');
+  if($(this).hasClass('not-following')){
+    $(this).removeClass('not-following');
+    $(this).addClass('is-following');
+    working_cnt += 1;
+    window.working_what();
+    $.get("/departments/"+fid+"/follow",{}, function(res){
+      window.suc_what();
+    }).complete(function() { 
+      working_cnt -= 1;
+      window.working_what();
+    });
+  }else{
+    $(this).addClass('not-following');
+    $(this).removeClass('is-following');
+    working_cnt += 1;
+    window.working_what();
+    $.get("/departments/"+fid+"/unfollow",{}, function(res){
+      window.suc_what();
+    }).complete(function() { 
+      working_cnt -= 1;
+      window.working_what();
+    });
+  }
+  btn = $('#ffbtn_'+fid+' .follow_button');
+  if(btn.hasClass('unfollow_button')){
+    btn.removeClass('unfollow_button');
+    btn.html('＋关注');
+  }else{
+    btn.addClass('unfollow_button');
+    btn.html('取消关注');
+  }
+});
+<% end %>
+</script>
+<div class="wrapper" style="width:838px">
+<div id="q_target" class="__q" style="position:absolute;z-index:222;overflow:hidden;margin-top:142px;">
+
+
+  <div id="ld_Dx6b9v_951">
+  	<div id="__w2_s59mhCl_pmsg_container" class=" pmsg_container main wrapper hidden">
+  	</div>
+  	<div class=" main wrapper">
+  		<div class="welcome_main contents content main_content" style="width:818px;padding:0 10px">
+  			<div id="__w2_T45TbL0_content">
+  				<div class="row nux-flow " style="padding-bottom:0">
+  					<div id="__w2_E7xbdla_nux_steps" class=" row nux-steps">
+  						<div style="width:50%" class="nux-step-line">
+  						</div>
+  						<div id="__w2_E7xbdla_nux_interests_step" style="width:50%" class="single-step">
+  							<div id="__w2_gS18dBt_nux_step_wrapper" class="nux-step-wrapper clickable">
+  								<div id="__w2_gS18dBt_nux_step_number" class="number">
+  									1
+  								</div>
+  								<h2 id="__w2_gS18dBt_nux_step_title" class="text">选择感兴趣的院系</h2>
+  							</div>
+  						</div>
+  						<div id="__w2_E7xbdla_nux_topics_step" style="width:50%" class="single-step">
+  							<div id="__w2_bESnGep_nux_step_wrapper" class="nux-step-wrapper curr">
+  								<div id="__w2_bESnGep_nux_step_number" class="number">
+  									2
+  								</div>
+  								<h2 id="__w2_bESnGep_nux_step_title" class="curr-text">关注相关老师或课程</h2>
+  							</div>
+  						</div>
+  					</div>
+  					<div id="__w2_OBGwKPv_topics_wrapper" class="nux-step-1" style="display: block;">
+  						<div id="ld_9TAUbn_32360" style="">
+  							<div id="__w2_sxYoK37_topics" class=" topics-step">
+  								<div class="section w8" style="width:818px">
+  									<div style="text-align: center;">
+  										<h1 style="margin-bottom: 0px;">最后一步啦! 根据刚才您刚才选择的院系，我们为您推荐以下老师与课程</h1>
+  										<div>
+  											<h1 id="psvr_qing1">请关注至少 5 个老师或课程</h1>
+  											<div id="psvr_qing0" style="text-align: center; margin-top: 15px; display: none;" class="form_buttons">
+  												<div id="ld_pASXf4_10925">
+  													<div id="__w2_tE0DeAx_follow_all" class=" follow_button follow-all hidden">
+  														Follow Topics &amp; Continue &nbsp;→
+  													</div>
+  													<p id="__w2_tE0DeAx_unbutton" class=" br3 unbutton">
+  														Choose 5 More Topics to Continue
+  													</p>
+  												</div>
+  											</div>
+  										</div>
+  									</div>
+  								</div>
+  								<div class="col relative">
+  									<div class="e_col w8" style="width:818px">
+                      <% @departments.each do |dpt| %>
+    										<div style="margin-left:62px;margin-right:0;" class=" topic-suggestions">
+    											<div>
+    												<h2>
+    												<div class="feed_item_photo">
+    													<div id="ld_pASXf4_10929">
+                                <img width="50" height="50" alt="Books" src="<%=cover_url dpt,:mid%>" class="profile_photo_img">
+    													</div>
+    												</div>
+                            <%=dpt.name%>老师</h2>
+    												<div id="ld_pASXf4_10930">
+    													<div class=" related-topic-suggestions w3_5">
+    														<div id="ld_pASXf4_10939">
+    															<div id="__w2_KUVbZta_topic_list_item" class=" related-topic-list-item">
+    																<div class="row">
+    																	<div id="__w2_KUVbZta_topic_checkbox" class="topic-checkbox">
+    																		<span class="form_row_checkbox"><input type="checkbox" id="__w2_KUVbZta_checkbox" w2cid="KUVbZta" group="__w2_KUVbZta_interaction"></span>
+    																	</div>
+    																	<div style="float: left;" class="single-topic-item">
+    																		<div style="float: right;" class="light">
+    																			78623 Followers
+    																		</div>
+    																		<div class="topic-name">
+    																			<strong>
+    																			<div id="ld_pASXf4_10968">
+    																				Book Recommendations
+    																			</div>
+    																			</strong>
+    																		</div>
+    																	</div>
+    																</div>
+    															</div>
+    														</div>
+    														<div id="ld_pASXf4_10940">
+    															<div id="__w2_Olhz1UY_topic_list_item" class=" related-topic-list-item">
+    																<div class="row">
+    																	<div id="__w2_Olhz1UY_topic_checkbox" class="topic-checkbox">
+    																		<span class="form_row_checkbox"><input type="checkbox" id="__w2_Olhz1UY_checkbox" w2cid="Olhz1UY" group="__w2_Olhz1UY_interaction"></span>
+    																	</div>
+    																	<div style="float: left;" class="single-topic-item">
+    																		<div style="float: right;" class="light">
+    																			56720 Followers
+    																		</div>
+    																		<div class="topic-name">
+    																			<strong>
+    																			<div id="ld_pASXf4_10969">
+    																				Literature
+    																			</div>
+    																			</strong>
+    																		</div>
+    																	</div>
+    																</div>
+    															</div>
+    														</div>
+    														<div id="ld_pASXf4_10941">
+    															<div id="__w2_hwJpLTT_topic_list_item" class=" related-topic-list-item">
+    																<div class="row">
+    																	<div id="__w2_hwJpLTT_topic_checkbox" class="topic-checkbox">
+    																		<span class="form_row_checkbox"><input type="checkbox" id="__w2_hwJpLTT_checkbox" w2cid="hwJpLTT" group="__w2_hwJpLTT_interaction"></span>
+    																	</div>
+    																	<div style="float: left;" class="single-topic-item">
+    																		<div style="float: right;" class="light">
+    																			55482 Followers
+    																		</div>
+    																		<div class="topic-name">
+    																			<strong>
+    																			<div id="ld_pASXf4_10970">
+    																				Reading
+    																			</div>
+    																			</strong>
+    																		</div>
+    																	</div>
+    																</div>
+    															</div>
+    														</div>
+    														<div id="ld_pASXf4_10942">
+    															<div id="__w2_nCVRSxT_topic_list_item" class=" related-topic-list-item">
+    																<div class="row">
+    																	<div id="__w2_nCVRSxT_topic_checkbox" class="topic-checkbox">
+    																		<span class="form_row_checkbox"><input type="checkbox" id="__w2_nCVRSxT_checkbox" w2cid="nCVRSxT" group="__w2_nCVRSxT_interaction"></span>
+    																	</div>
+    																	<div style="float: left;" class="single-topic-item">
+    																		<div style="float: right;" class="light">
+    																			70843 Followers
+    																		</div>
+    																		<div class="topic-name">
+    																			<strong>
+    																			<div id="ld_pASXf4_10971">
+    																				Writing
+    																			</div>
+    																			</strong>
+    																		</div>
+    																	</div>
+    																</div>
+    															</div>
+    														</div>
+    														<div id="ld_pASXf4_10943">
+    															<div id="__w2_AsHQtjm_topic_list_item" class=" related-topic-list-item">
+    																<div class="row">
+    																	<div id="__w2_AsHQtjm_topic_checkbox" class="topic-checkbox">
+    																		<span class="form_row_checkbox"><input type="checkbox" id="__w2_AsHQtjm_checkbox" w2cid="AsHQtjm" group="__w2_AsHQtjm_interaction"></span>
+    																	</div>
+    																	<div style="float: left;" class="single-topic-item">
+    																		<div style="float: right;" class="light">
+    																			29314 Followers
+    																		</div>
+    																		<div class="topic-name">
+    																			<strong>
+    																			<div id="ld_pASXf4_10972">
+    																				Novels
+    																			</div>
+    																			</strong>
+    																		</div>
+    																	</div>
+    																</div>
+    															</div>
+    														</div>
+    													</div>
+    												</div>
+    											</div>
+    										</div>
+    										<div style="" class=" topic-suggestions">
+    											<div>
+    												<h2><%=dpt.name%>课程</h2>
+    												<div id="ld_pASXf4_10932">
+    													<div class=" related-topic-suggestions w3_5">
+    														<div id="ld_pASXf4_10944">
+    															<div id="__w2_MXturIH_topic_list_item" class=" related-topic-list-item">
+    																<div class="row">
+    																	<div id="__w2_MXturIH_topic_checkbox" class="topic-checkbox">
+    																		<span class="form_row_checkbox"><input type="checkbox" id="__w2_MXturIH_checkbox" w2cid="MXturIH" group="__w2_MXturIH_interaction"></span>
+    																	</div>
+    																	<div style="float: left;" class="single-topic-item">
+    																		<div style="float: right;" class="light">
+    																			43290 Followers
+    																		</div>
+    																		<div class="topic-name">
+    																			<strong>
+    																			<div id="ld_pASXf4_10973">
+    																				User Interfaces
+    																			</div>
+    																			</strong>
+    																		</div>
+    																	</div>
+    																</div>
+    															</div>
+    														</div>
+    														<div id="ld_pASXf4_10945">
+    															<div id="__w2_yNMXgzM_topic_list_item" class=" related-topic-list-item">
+    																<div class="row">
+    																	<div id="__w2_yNMXgzM_topic_checkbox" class="topic-checkbox">
+    																		<span class="form_row_checkbox"><input type="checkbox" id="__w2_yNMXgzM_checkbox" w2cid="yNMXgzM" group="__w2_yNMXgzM_interaction"></span>
+    																	</div>
+    																	<div style="float: left;" class="single-topic-item">
+    																		<div style="float: right;" class="light">
+    																			54213 Followers
+    																		</div>
+    																		<div class="topic-name">
+    																			<strong>
+    																			<div id="ld_pASXf4_10974">
+    																				Web Design
+    																			</div>
+    																			</strong>
+    																		</div>
+    																	</div>
+    																</div>
+    															</div>
+    														</div>
+    														<div id="ld_pASXf4_10946">
+    															<div id="__w2_FE3CQyI_topic_list_item" class=" related-topic-list-item">
+    																<div class="row">
+    																	<div id="__w2_FE3CQyI_topic_checkbox" class="topic-checkbox">
+    																		<span class="form_row_checkbox"><input type="checkbox" id="__w2_FE3CQyI_checkbox" w2cid="FE3CQyI" group="__w2_FE3CQyI_interaction"></span>
+    																	</div>
+    																	<div style="float: left;" class="single-topic-item">
+    																		<div style="float: right;" class="light">
+    																			42030 Followers
+    																		</div>
+    																		<div class="topic-name">
+    																			<strong>
+    																			<div id="ld_pASXf4_10975">
+    																				User Experience
+    																			</div>
+    																			</strong>
+    																		</div>
+    																	</div>
+    																</div>
+    															</div>
+    														</div>
+    														<div id="ld_pASXf4_10947">
+    															<div id="__w2_hHdw816_topic_list_item" class=" related-topic-list-item">
+    																<div class="row">
+    																	<div id="__w2_hHdw816_topic_checkbox" class="topic-checkbox">
+    																		<span class="form_row_checkbox"><input type="checkbox" id="__w2_hHdw816_checkbox" w2cid="hHdw816" group="__w2_hHdw816_interaction"></span>
+    																	</div>
+    																	<div style="float: left;" class="single-topic-item">
+    																		<div style="float: right;" class="light">
+    																			35377 Followers
+    																		</div>
+    																		<div class="topic-name">
+    																			<strong>
+    																			<div id="ld_pASXf4_10976">
+    																				Interaction Design
+    																			</div>
+    																			</strong>
+    																		</div>
+    																	</div>
+    																</div>
+    															</div>
+    														</div>
+    														<div id="ld_pASXf4_10948">
+    															<div id="__w2_vfMDZ5w_topic_list_item" class=" related-topic-list-item">
+    																<div class="row">
+    																	<div id="__w2_vfMDZ5w_topic_checkbox" class="topic-checkbox">
+    																		<span class="form_row_checkbox"><input type="checkbox" id="__w2_vfMDZ5w_checkbox" w2cid="vfMDZ5w" group="__w2_vfMDZ5w_interaction"></span>
+    																	</div>
+    																	<div style="float: left;" class="single-topic-item">
+    																		<div style="float: right;" class="light">
+    																			39679 Followers
+    																		</div>
+    																		<div class="topic-name">
+    																			<strong>
+    																			<div id="ld_pASXf4_10977">
+    																				User Experience Design
+    																			</div>
+    																			</strong>
+    																		</div>
+    																	</div>
+    																</div>
+    															</div>
+    														</div>
+    													</div>
+    												</div>
+    											</div>
+    										</div>
+                      <% end %>
+  									</div>
+  								</div>
+  								<div class="section w8" style="width:818px">
+  									<div class="form_buttons">
+  										<div id="ld_pASXf4_10926">
+  											<div id="__w2_LWhqGx8_follow_all" class=" follow_button follow-all hidden">
+  												Follow Topics &amp; Continue &nbsp;→
+  											</div>
+  											<p id="__w2_LWhqGx8_unbutton" class=" br3 unbutton">
+  												Choose 5 More Topics to Continue
+  											</p>
+  										</div>
+  									</div>
+  								</div>
+  							</div>
+  						</div>
+  					</div>
+  				</div>
+  			</div>
+  		</div>
+  	</div>
+  </div>
+
+</div>
+</div>
+<div class="__zm">
+<div id="reg-header" class="wide">
+</div>
+<div id="content" class="newreg wide" style="padding-top:6px">
+  <div style="width:840px;height:51px;background:url(<%=asset_path 'zm/r11839/images/reg/bad_tiao3.png' %>)">
+  </div>
+  <div style="width:838px;border: 1px solid #D6D6D6;border-top: none;height:1888px;" id="content_reg05">
+  </div>
+</div>
+<div class="totop" id="backtotop" style="display: none;">
+  <a href="javascript:void(0);">返回 </a > < /div>
+<div id="loginLayout">
+</div>
+
+</div>

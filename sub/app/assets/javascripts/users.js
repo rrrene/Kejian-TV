@@ -83,6 +83,9 @@ window.Users = {
 
   // modify 2012-2-6 by lesanc.li
   userLogin: function(){
+    im.zm.login()
+    $("#loginLayout").definedDialog("open")
+    return false;
     var lhtml = [];
     lhtml.push('<header>请登录 <a class="close" href="javascript:void(0);"></a></header>');
     lhtml.push('<section class="form clearfix">');

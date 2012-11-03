@@ -17,9 +17,72 @@
   }
   </style>
 <% end %>
+<script>
 <% content_for :butt2 do %>
 KTV.q_targetize();
+window.working_cnt = 0;
+window.working_what = function(){
+  if(0==working_cnt){
+    App.loading(false);
+  }else{
+    App.loading(true);
+  }
+};
+window.suc_what = function(){
+  suc_cnt = $('.is-following').length;
+  if(0==suc_cnt){
+    $('#psvr_qing0').show();
+    $('#psvr_qing1').hide();
+  }else{
+    $('#psvr_qing0').hide();
+    $('#psvr_qing1').show();
+  }
+  if(suc_cnt >= 3 ){
+    $('.psvr_ld_0KNM7J_7115').hide();
+    $('.psvr_ld_0KNM7J_71152').show();
+  }else{
+    $('.psvr_ld_0KNM7J_7115').show();
+    $('.psvr_ld_0KNM7J_71152').hide();
+    $('.psvr_shengyu').html((3 - suc_cnt).toString());
+  }
+};
+window.suc_what();
+$('.topic-card').click(function(){
+  fid = $(this).data('fid');
+  if($(this).hasClass('not-following')){
+    $(this).removeClass('not-following');
+    $(this).addClass('is-following');
+    working_cnt += 1;
+    window.working_what();
+    $.get("/departments/"+fid+"/follow",{}, function(res){
+      window.suc_what();
+    }).complete(function() { 
+      working_cnt -= 1;
+      window.working_what();
+    });
+  }else{
+    $(this).addClass('not-following');
+    $(this).removeClass('is-following');
+    working_cnt += 1;
+    window.working_what();
+    $.get("/departments/"+fid+"/unfollow",{}, function(res){
+      window.suc_what();
+    }).complete(function() { 
+      working_cnt -= 1;
+      window.working_what();
+    });
+  }
+  btn = $('#ffbtn_'+fid+' .follow_button');
+  if(btn.hasClass('unfollow_button')){
+    btn.removeClass('unfollow_button');
+    btn.html('＋关注');
+  }else{
+    btn.addClass('unfollow_button');
+    btn.html('取消关注');
+  }
+});
 <% end %>
+</script>
 <div class="wrapper" style="width:838px">
 <div id="q_target" class="__q" style="position:absolute;z-index:222;overflow:hidden;margin-top:142px;">
 	<div id="ld_gAfjkq_239">
@@ -28,7 +91,7 @@ KTV.q_targetize();
 		<div class=" main ">
 			<div class="welcome_main contents content main_content" style="width:818px;padding:0 10px">
 				<div id="__w2_Dq4jhsS_content">
-					<div class="row nux-flow ">
+					<div class="row nux-flow " style="padding-bottom:0">
 						<div class=" row nux-steps" id="__w2_my46Y4o_nux_steps">
 							<div class="nux-step-line" style="width:50%">
 							</div>
@@ -37,7 +100,7 @@ KTV.q_targetize();
 									<div class="number" id="__w2_El9rMke_nux_step_number">
 										1
 									</div>
-									<h2 class="curr-text" id="__w2_El9rMke_nux_step_title">选择您感兴趣的院系</h2>
+									<h2 class="curr-text" id="__w2_El9rMke_nux_step_title">选择感兴趣的院系</h2>
 								</div>
 							</div>
 							<div class="single-step" style="width:50%" id="__w2_my46Y4o_nux_topics_step">
@@ -54,19 +117,27 @@ KTV.q_targetize();
 								<div id="__w2_lPEHVej_interests">
 									<div class="section w8" style="width:818px">
 										<div>
-											<h1 style="margin-bottom: 0px;">请关注感兴趣的院系，系统可以据此为您呈现更适合您的内容.</h1>
+                      <h1 style="margin-bottom: 0px;">关注感兴趣的<%=Setting.ktv_subname%>院系，系统将可呈现更适合您的内容.</h1>
 											<div id="ld_0KNM7J_7114">
-												<div>
-													<h1>请至少关注 5 个院系.</h1>
+												<div id="psvr_qing0">
+													<h1>请至少关注 3 个院系.</h1>
 												</div>
+                        <div class="form_buttons" style="text-align: center;display:none" id="psvr_qing1">
+                          <div class="psvr_ld_0KNM7J_7115">
+                            <p class=" br3 unbutton">
+                            请再关注 <span class="psvr_shengyu">3</span> 个院系才可进入下一步
+                            </p>
+                          </div>
+                          <div class="psvr_ld_0KNM7J_71152" style="display:none"><a href="/register05?force_last=1" href="#" class=" submit_button">保存并继续&nbsp;→</a></div>
+                        </div>
 											</div>
 										</div>
 									</div>
 									<div class=" interests-selector w8 p1" style="width:888px;margin-left:0">
 										<div class="row step_section br5">
-                      <% Department.all.each do |item| %>
+                      <% @departments.each do |item| %>
 											<div id="ld_0KNM7J_7116">
-												<div class=" topic-card w2_5 not-following" id="__w2_ZTwyAKn_card">
+                        <div class=" topic-card w2_5 <%= current_user.department_followed?(item) ? 'is-following' : 'not-following'  %>" data-fid="<%=item.fid%>">
 													<div class="col w1">
 														<div id="ld_dVwl5K_6861">
                               <img class="profile_photo_img" src="<%=cover_url item,:normal%>" width="100" alt="<%=item.name%>" height="100"/>
@@ -82,23 +153,28 @@ KTV.q_targetize();
 															<div class="e_col subtitle light_gray" id="__w2_ZTwyAKn_subtitle">
                                 <%=item.courses_count%> 课程
 															</div>
-														</div>
-														<div class="follow_button" id="__w2_ZTwyAKn_follow_button">
-															＋关注
-														</div>
+                            </div>
+                            <div id="ffbtn_<%=item.fid%>">
+                            <% if current_user.department_followed?(item) %>
+                              <div class="follow_button unfollow_button">取消关注</div>
+                            <% else %>
+                              <div class="follow_button">＋关注</div>
+                            <% end %>
+                            </div>
 													</div>
 												</div>
 											</div>
                     <% end %>
 										</div>
 									</div>
-									<div class="section w8">
+									<div class="section w8" style="width:818px;padding-bottom:0;margin-bottom:0">
 										<div class="form_buttons" style="text-align: center;">
-											<div id="ld_0KNM7J_7115">
+											<div class="psvr_ld_0KNM7J_7115">
 												<p class=" br3 unbutton">
-                        请再关注 5 个院系才可进入下一步
+                        请再关注 <span class="psvr_shengyu">3</span> 个院系才可进入下一步
 												</p>
 											</div>
+                      <div class="psvr_ld_0KNM7J_71152" style="display:none"><a id="__w2_smD4oHU_next" href="/register05?force_last=1" class=" submit_button">保存并继续&nbsp;→</a></div>
 										</div>
 									</div>
 								</div>
@@ -107,7 +183,7 @@ KTV.q_targetize();
 						<div class="hidden nux-step-1" id="__w2_D3Vm6lr_topics_wrapper">
 							<div id="ld_3xPEdn_6017">
 								<div class=" topics-step" id="__w2_oSn6I6Y_topics">
-									<div class="section w8">
+									<div class="section w8" style="width:818px">
 										<div style="text-align: center;">
 											<h1 style="margin-bottom: 0px;">Almost done! Here are more topic recommendations based on those you just selected.</h1>
 											<div>
@@ -126,10 +202,10 @@ KTV.q_targetize();
 										</div>
 									</div>
 									<div class="col relative">
-										<div class="e_col w8">
+										<div class="e_col w8" style="width:818px">
 										</div>
 									</div>
-									<div class="section w8">
+									<div class="section w8" style="width:818px">
 										<div class="form_buttons">
 											<div id="ld_0szaH0_6987">
 												<div class=" follow_button follow-all hidden" id="__w2_OwXHxNG_follow_all">
@@ -157,7 +233,7 @@ KTV.q_targetize();
 <div id="content" class="newreg wide" style="padding-top:6px">
   <div style="width:840px;height:51px;background:url(<%=asset_path 'zm/r11839/images/reg/bad_tiao3.png' %>)">
   </div>
-  <div style="width:838px;border: 1px solid #D6D6D6;border-top: none;height:888px;" id="content_reg05">
+  <div style="width:838px;border: 1px solid #D6D6D6;border-top: none;height:1888px;" id="content_reg05">
   </div>
 </div>
 <div class="totop" id="backtotop" style="display: none;">
