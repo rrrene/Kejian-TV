@@ -119,7 +119,7 @@
 								 $.ajax({
 							 			type:'POST',
 							 			url:'/ajax/save_page_to_history',
-							 			data:{'cwid':"<%=@courseware.id%>",'page':Slide.current},
+							 			data:{'authenticity_token':"<%= form_authenticity_token %>",'cwid':"<%=@courseware.id%>",'page':Slide.current},
 										dataType:'json'
 								 }).done(function(json){
 								 	

@@ -843,6 +843,14 @@ HEREDOC
       return false
     end
   end
+  def summonQL
+    if current_user.nil?
+      render json:{status:'failed',reason:'您尚未登陆！'}
+      return false
+    end
+    render json:{status:'suc',html:render_to_string(file:'application/_playlists_bar',locals:{playlists_id:params[:playlist_id],bar_max:params[:bar_max]},:layout=>false, :formats=>[:html])}
+    return true
+  end
   def bar_request_playlists
     if current_user.nil?
       render json:{status:'failed',reason:'您尚未登陆！'}

@@ -127,6 +127,7 @@ Sub::Application.routes.draw do
   post '/ajax/bar_delete_one_content' => 'ajax#bar_delete_one_content'
   post '/ajax/bar_undo_delete' => 'ajax#bar_undo_delete'
   post '/ajax/bar_request_playlists' => 'ajax#bar_request_playlists'
+  post '/ajax/summonQL' => 'ajax#summonQL'
   # ---=small=----
   get '/hack/htc'
   get '/welcome/inactive_sign_up'
