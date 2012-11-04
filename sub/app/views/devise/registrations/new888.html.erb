@@ -23,9 +23,9 @@ KTV.q_targetize();
 window.working_cnt = 0;
 window.working_what = function(){
   if(0==working_cnt){
-    App.loading(false);
+    showloading('none');
   }else{
-    App.loading(true);
+    showloading('block','保存中...');
   }
 };
 window.suc_what = function(){
@@ -80,6 +80,7 @@ $('.topic-card').click(function(){
     btn.addClass('unfollow_button');
     btn.html('取消关注');
   }
+  return false;
 });
 <% end %>
 </script>
@@ -128,7 +129,7 @@ $('.topic-card').click(function(){
                             请再关注 <span class="psvr_shengyu">3</span> 个院系才可进入下一步
                             </p>
                           </div>
-                          <div class="psvr_ld_0KNM7J_71152" style="display:none"><a href="/register05?force_last=1" href="#" class=" submit_button">保存并继续&nbsp;→</a></div>
+                          <div class="psvr_ld_0KNM7J_71152" style="display:none"><a href="/register05?force_last=1" class=" submit_button">保存并继续&nbsp;→</a></div>
                         </div>
 											</div>
 										</div>

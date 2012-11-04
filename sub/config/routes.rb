@@ -66,6 +66,7 @@ Sub::Application.routes.draw do
 
   # ________________________________ajax__________________________________________
   get '/all_unread_notification_num' => 'ajax#all_unread_notification_num'
+  get '/ajax/register_huanyihuan'
   post '/ajax/renren_invite'
   get '/ajax/current_user_reg_extent'
   post '/ajax/renren_huanyizhang'
@@ -152,7 +153,12 @@ Sub::Application.routes.draw do
       get "unfollow"
     end
   end
-  resources :courses
+  resources :courses do 
+    member do
+      get "follow"
+      get "unfollow"
+    end
+  end
   resources :schools
   resources :maps
   get '/un_courses'=>'courses#index'
@@ -251,6 +257,8 @@ Sub::Application.routes.draw do
       get "followers"
       get "following"
       get "invites"
+      get "follow"
+      get "unfollow"
       post "follow" => 'users#zm_follow'
       post "unfollow" => 'users#zm_unfollow'
     end

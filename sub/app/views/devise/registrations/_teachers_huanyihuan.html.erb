@@ -1,0 +1,28 @@
+<%
+  first_try = Teacher.where(:department_fid=>fid).desc('followers_count').desc('coursewares_count').paginate(:per_page=>5,:page=>page)
+  first_try = Teacher.where(:department_fid=>fid).desc('followers_count').desc('coursewares_count').paginate(:per_page=>5,:page=>1) if 0==first_try.count
+%>
+                                <% first_try.each do |teacher| %>
+    														<div id="ld_pASXf4_10939">
+    															<div id="__w2_KUVbZta_topic_list_item" class=" related-topic-list-item" data-res="teachers" data-id="<%=teacher.id%>">
+    																<div class="row">
+    																	<div id="__w2_KUVbZta_topic_checkbox" class="topic-checkbox">
+                                        <span class="form_row_checkbox"><input type="checkbox" class="psvr_checkbox" <%= current_user.teacher_followed?(teacher) ? 'checked="checked"' : '' %>></span>
+    																	</div>
+    																	<div style="float: left;" class="single-topic-item">
+    																		<div style="float: right;" class="light">
+                                          <span id="teacher_gonna_<%=teacher.id%>"><%= teacher.followers_count %></span> 粉丝
+    																		</div>
+    																		<div class="topic-name">
+    																			<strong>
+    																			<div id="ld_pASXf4_10968">
+                                            <%= teacher.name %>
+    																			</div>
+    																			</strong>
+    																		</div>
+    																	</div>
+    																</div>
+    															</div>
+    														</div>
+                                <% end %>
+

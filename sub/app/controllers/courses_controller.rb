@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class CoursesController < ApplicationController
-  before_filter :find_item,:only => [:show]
+  before_filter :find_item,:only => [:show,:follow,:unfollow]
   def index
     @seo[:title]='课程目录'
     @courses = Course
@@ -8,6 +8,14 @@ class CoursesController < ApplicationController
     @courses = @courses.desc('coursewares_count')
     @courses = @courses.paginate(:page => params[:page], :per_page => 100)
     @courses_now_count = Course.where(:years=>20122).count
+  end
+  def follow
+    current_user.follow_course(@course)
+    render :text => "1"
+  end
+  def unfollow
+    current_user.unfollow_course(@course)
+    render :text => "1"
   end
 
   def show

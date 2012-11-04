@@ -350,6 +350,7 @@ class ApplicationController < ActionController::Base
     '/ajax/renren_real_bind',
     '/ajax/current_user_reg_extent',
     '/ajax/renren_invite',
+    '/ajax/register_huanyihuan',
   ]
   before_filter :unknown_user_check,:if=>'current_user'
   def unknown_user_check

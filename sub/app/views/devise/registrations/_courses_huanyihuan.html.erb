@@ -1,0 +1,27 @@
+<%
+  first_try = Course.where(:department_fid=>fid).desc('coursewares_count').desc('followers_count').paginate(:per_page=>5,:page=>page)
+  first_try = Course.where(:department_fid=>fid).desc('coursewares_count').desc('followers_count').paginate(:per_page=>5,:page=>1) if 0==first_try.count
+%>
+                                <% first_try.each do |course| %>
+    														<div id="ld_pASXf4_10944">
+    															<div id="__w2_MXturIH_topic_list_item" class=" related-topic-list-item" data-res="courses" data-id="<%=course.fid%>">
+    																<div class="row">
+    																	<div id="__w2_MXturIH_topic_checkbox" class="topic-checkbox">
+    																		<span class="form_row_checkbox"><input type="checkbox" class="psvr_checkbox" <%= current_user.course_followed?(course) ? 'checked="checked"' : '' %>></span>
+    																	</div>
+    																	<div style="float: left;" class="single-topic-item">
+    																		<div style="float: right;" class="light">
+                                          <%= course.coursewares_count %> 课件
+    																		</div>
+    																		<div class="topic-name">
+    																			<strong>
+    																			<div id="ld_pASXf4_10973">
+                                            <%= course.name %>
+    																			</div>
+    																			</strong>
+    																		</div>
+    																	</div>
+    																</div>
+    															</div>
+    														</div>
+                                <% end %>

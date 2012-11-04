@@ -21,15 +21,26 @@
 <% content_for :butt2 do %>
 KTV.q_targetize();
 window.working_cnt = 0;
+window.huanyihuan = function(res,fid){
+  showloading('block','请求中...');
+  current_page = parseInt(jQuery('#'+res+'_'+fid+'_huanyihuan').data('current_page'));
+  $.getJSON('/ajax/register_huanyihuan',{res:res,fid:fid,page:current_page+1},function(data){
+    jQuery('#'+res+'_'+fid+'_huanyihuan').html(data['html']);
+    window.psvr_bind_action();
+  }).complete(function() { 
+    showloading('none');
+  });
+  jQuery('#'+res+'_'+fid+'_huanyihuan').data('current_page',current_page+1);
+};
 window.working_what = function(){
   if(0==working_cnt){
-    App.loading(false);
+    showloading('none');
   }else{
-    App.loading(true);
+    showloading('block','保存中...');
   }
 };
 window.suc_what = function(){
-  suc_cnt = $('.is-following').length;
+  suc_cnt = $('.psvr_checkbox:checked').length;
   if(0==suc_cnt){
     $('#psvr_qing0').show();
     $('#psvr_qing1').hide();
@@ -37,50 +48,67 @@ window.suc_what = function(){
     $('#psvr_qing0').hide();
     $('#psvr_qing1').show();
   }
-  if(suc_cnt >= 3 ){
+  if(suc_cnt >= 5 ){
     $('.psvr_ld_0KNM7J_7115').hide();
     $('.psvr_ld_0KNM7J_71152').show();
   }else{
     $('.psvr_ld_0KNM7J_7115').show();
     $('.psvr_ld_0KNM7J_71152').hide();
-    $('.psvr_shengyu').html((3 - suc_cnt).toString());
+    $('.psvr_shengyu').html((5 - suc_cnt).toString());
   }
 };
 window.suc_what();
-$('.related-topic-list-item').click(function(){
-  fid = $(this).data('fid');
-  if($(this).hasClass('not-following')){
-    $(this).removeClass('not-following');
-    $(this).addClass('is-following');
-    working_cnt += 1;
-    window.working_what();
-    $.get("/departments/"+fid+"/follow",{}, function(res){
-      window.suc_what();
-    }).complete(function() { 
-      working_cnt -= 1;
-      window.working_what();
-    });
-  }else{
-    $(this).addClass('not-following');
-    $(this).removeClass('is-following');
-    working_cnt += 1;
-    window.working_what();
-    $.get("/departments/"+fid+"/unfollow",{}, function(res){
-      window.suc_what();
-    }).complete(function() { 
-      working_cnt -= 1;
-      window.working_what();
-    });
-  }
-  btn = $('#ffbtn_'+fid+' .follow_button');
-  if(btn.hasClass('unfollow_button')){
-    btn.removeClass('unfollow_button');
-    btn.html('＋关注');
-  }else{
-    btn.addClass('unfollow_button');
-    btn.html('取消关注');
-  }
+$('#__w2_gS18dBt_nux_step_wrapper').click(function(e){
+  window.location.href="/register05";
+  return false;
 });
+window.psvr_bind_action = function(){
+  $('.related-topic-list-item').click(function(e){
+    id = $(this).data('id');
+    res = $(this).data('res');
+    checkbox = $('.psvr_checkbox',this);
+    if(!checkbox.is(':checked')){
+      if(!$(e.target).hasClass('psvr_checkbox')){
+        checkbox.attr('checked','checked');
+      }
+      working_cnt += 1;
+      window.working_what();
+      $.get("/"+res+"/"+id+"/follow",{}, function(data){
+        window.suc_what();
+        if('teachers'==res){
+          already = parseInt(jQuery('#teacher_gonna_'+id).html());
+          already += 1;
+          jQuery('#teacher_gonna_'+id).html(already);
+        }
+      }).complete(function() { 
+        working_cnt -= 1;
+        window.working_what();
+      });
+    }else{
+      if(!$(e.target).hasClass('psvr_checkbox')){
+        checkbox.removeAttr('checked');
+      }
+      working_cnt += 1;
+      window.working_what();
+      $.get("/"+res+"/"+id+"/unfollow",{}, function(data){
+        window.suc_what();
+        if('teachers'==res){
+          already = parseInt(jQuery('#teacher_gonna_'+id).html());
+          already -= 1;
+          jQuery('#teacher_gonna_'+id).html(already);
+        }
+      }).complete(function() { 
+        working_cnt -= 1;
+        window.working_what();
+      });
+    }
+    if($(e.target).hasClass('psvr_checkbox')){
+      return true;
+    }
+    return false;
+  });
+};
+window.psvr_bind_action();
 <% end %>
 </script>
 <div class="wrapper" style="width:838px">
@@ -121,14 +149,12 @@ $('.related-topic-list-item').click(function(){
   									<div style="text-align: center;">
   										<h1 style="margin-bottom: 0px;">最后一步啦! 根据刚才您刚才选择的院系，我们为您推荐以下老师与课程</h1>
   										<div>
-  											<h1 id="psvr_qing1">请关注至少 5 个老师或课程</h1>
-  											<div id="psvr_qing0" style="text-align: center; margin-top: 15px; display: none;" class="form_buttons">
+                        <h1 id="psvr_qing0">请关注至少 5 个老师或课程</h1>
+  											<div id="psvr_qing1" style="text-align: center; margin-top: 15px; display: none;" class="form_buttons">
   												<div id="ld_pASXf4_10925">
-  													<div id="__w2_tE0DeAx_follow_all" class=" follow_button follow-all hidden">
-  														Follow Topics &amp; Continue &nbsp;→
-  													</div>
-  													<p id="__w2_tE0DeAx_unbutton" class=" br3 unbutton">
-  														Choose 5 More Topics to Continue
+                            <div class="psvr_ld_0KNM7J_71152" style="display:none"><a href="/register05?checkpoint=1" class="psvr_finalebtn submit_button">保存并继续&nbsp;→</a></div>
+  													<p class="psvr_ld_0KNM7J_7115  br3 unbutton">
+                            请再关注 <span class="psvr_shengyu"></span> 个老师或课程
   													</p>
   												</div>
   											</div>
@@ -146,228 +172,20 @@ $('.related-topic-list-item').click(function(){
                                 <img width="50" height="50" alt="Books" src="<%=cover_url dpt,:mid%>" class="profile_photo_img">
     													</div>
     												</div>
-                            <%=dpt.name%>老师</h2>
+                            <%=dpt.name%>老师推荐<span class="__zm" style="margin:4px 10px 0 0;background:transparent;float:right"><a href="javascript:void(0)" onclick="huanyihuan('teachers','<%=dpt.fid%>')" class="rotationbody" id="zhimei_star_refresh"><span class="iconbg refresh-ico rotation"></span>&nbsp;换一换</a></span></h2>
     												<div id="ld_pASXf4_10930">
-    													<div class=" related-topic-suggestions w3_5">
-    														<div id="ld_pASXf4_10939">
-    															<div id="__w2_KUVbZta_topic_list_item" class=" related-topic-list-item">
-    																<div class="row">
-    																	<div id="__w2_KUVbZta_topic_checkbox" class="topic-checkbox">
-    																		<span class="form_row_checkbox"><input type="checkbox" id="__w2_KUVbZta_checkbox" w2cid="KUVbZta" group="__w2_KUVbZta_interaction"></span>
-    																	</div>
-    																	<div style="float: left;" class="single-topic-item">
-    																		<div style="float: right;" class="light">
-    																			78623 Followers
-    																		</div>
-    																		<div class="topic-name">
-    																			<strong>
-    																			<div id="ld_pASXf4_10968">
-    																				Book Recommendations
-    																			</div>
-    																			</strong>
-    																		</div>
-    																	</div>
-    																</div>
-    															</div>
-    														</div>
-    														<div id="ld_pASXf4_10940">
-    															<div id="__w2_Olhz1UY_topic_list_item" class=" related-topic-list-item">
-    																<div class="row">
-    																	<div id="__w2_Olhz1UY_topic_checkbox" class="topic-checkbox">
-    																		<span class="form_row_checkbox"><input type="checkbox" id="__w2_Olhz1UY_checkbox" w2cid="Olhz1UY" group="__w2_Olhz1UY_interaction"></span>
-    																	</div>
-    																	<div style="float: left;" class="single-topic-item">
-    																		<div style="float: right;" class="light">
-    																			56720 Followers
-    																		</div>
-    																		<div class="topic-name">
-    																			<strong>
-    																			<div id="ld_pASXf4_10969">
-    																				Literature
-    																			</div>
-    																			</strong>
-    																		</div>
-    																	</div>
-    																</div>
-    															</div>
-    														</div>
-    														<div id="ld_pASXf4_10941">
-    															<div id="__w2_hwJpLTT_topic_list_item" class=" related-topic-list-item">
-    																<div class="row">
-    																	<div id="__w2_hwJpLTT_topic_checkbox" class="topic-checkbox">
-    																		<span class="form_row_checkbox"><input type="checkbox" id="__w2_hwJpLTT_checkbox" w2cid="hwJpLTT" group="__w2_hwJpLTT_interaction"></span>
-    																	</div>
-    																	<div style="float: left;" class="single-topic-item">
-    																		<div style="float: right;" class="light">
-    																			55482 Followers
-    																		</div>
-    																		<div class="topic-name">
-    																			<strong>
-    																			<div id="ld_pASXf4_10970">
-    																				Reading
-    																			</div>
-    																			</strong>
-    																		</div>
-    																	</div>
-    																</div>
-    															</div>
-    														</div>
-    														<div id="ld_pASXf4_10942">
-    															<div id="__w2_nCVRSxT_topic_list_item" class=" related-topic-list-item">
-    																<div class="row">
-    																	<div id="__w2_nCVRSxT_topic_checkbox" class="topic-checkbox">
-    																		<span class="form_row_checkbox"><input type="checkbox" id="__w2_nCVRSxT_checkbox" w2cid="nCVRSxT" group="__w2_nCVRSxT_interaction"></span>
-    																	</div>
-    																	<div style="float: left;" class="single-topic-item">
-    																		<div style="float: right;" class="light">
-    																			70843 Followers
-    																		</div>
-    																		<div class="topic-name">
-    																			<strong>
-    																			<div id="ld_pASXf4_10971">
-    																				Writing
-    																			</div>
-    																			</strong>
-    																		</div>
-    																	</div>
-    																</div>
-    															</div>
-    														</div>
-    														<div id="ld_pASXf4_10943">
-    															<div id="__w2_AsHQtjm_topic_list_item" class=" related-topic-list-item">
-    																<div class="row">
-    																	<div id="__w2_AsHQtjm_topic_checkbox" class="topic-checkbox">
-    																		<span class="form_row_checkbox"><input type="checkbox" id="__w2_AsHQtjm_checkbox" w2cid="AsHQtjm" group="__w2_AsHQtjm_interaction"></span>
-    																	</div>
-    																	<div style="float: left;" class="single-topic-item">
-    																		<div style="float: right;" class="light">
-    																			29314 Followers
-    																		</div>
-    																		<div class="topic-name">
-    																			<strong>
-    																			<div id="ld_pASXf4_10972">
-    																				Novels
-    																			</div>
-    																			</strong>
-    																		</div>
-    																	</div>
-    																</div>
-    															</div>
-    														</div>
+                              <div class=" related-topic-suggestions w3_5" id="teachers_<%=dpt.fid%>_huanyihuan" data-current_page="1">
+                                <%= render :partial=>'teachers_huanyihuan',:locals=>{:fid=>dpt.fid,:page=>1}%>
     													</div>
     												</div>
     											</div>
     										</div>
     										<div style="" class=" topic-suggestions">
     											<div>
-    												<h2><%=dpt.name%>课程</h2>
+    												<h2><%=dpt.name%>课程推荐<span class="__zm" style="margin:4px 10px 0 0;background:transparent;float:right"><a href="javascript:void(0)" onclick="huanyihuan('courses','<%=dpt.fid%>')" class="rotationbody" id="zhimei_star_refresh"><span class="iconbg refresh-ico rotation"></span>&nbsp;换一换</a></span></h2>
     												<div id="ld_pASXf4_10932">
-    													<div class=" related-topic-suggestions w3_5">
-    														<div id="ld_pASXf4_10944">
-    															<div id="__w2_MXturIH_topic_list_item" class=" related-topic-list-item">
-    																<div class="row">
-    																	<div id="__w2_MXturIH_topic_checkbox" class="topic-checkbox">
-    																		<span class="form_row_checkbox"><input type="checkbox" id="__w2_MXturIH_checkbox" w2cid="MXturIH" group="__w2_MXturIH_interaction"></span>
-    																	</div>
-    																	<div style="float: left;" class="single-topic-item">
-    																		<div style="float: right;" class="light">
-    																			43290 Followers
-    																		</div>
-    																		<div class="topic-name">
-    																			<strong>
-    																			<div id="ld_pASXf4_10973">
-    																				User Interfaces
-    																			</div>
-    																			</strong>
-    																		</div>
-    																	</div>
-    																</div>
-    															</div>
-    														</div>
-    														<div id="ld_pASXf4_10945">
-    															<div id="__w2_yNMXgzM_topic_list_item" class=" related-topic-list-item">
-    																<div class="row">
-    																	<div id="__w2_yNMXgzM_topic_checkbox" class="topic-checkbox">
-    																		<span class="form_row_checkbox"><input type="checkbox" id="__w2_yNMXgzM_checkbox" w2cid="yNMXgzM" group="__w2_yNMXgzM_interaction"></span>
-    																	</div>
-    																	<div style="float: left;" class="single-topic-item">
-    																		<div style="float: right;" class="light">
-    																			54213 Followers
-    																		</div>
-    																		<div class="topic-name">
-    																			<strong>
-    																			<div id="ld_pASXf4_10974">
-    																				Web Design
-    																			</div>
-    																			</strong>
-    																		</div>
-    																	</div>
-    																</div>
-    															</div>
-    														</div>
-    														<div id="ld_pASXf4_10946">
-    															<div id="__w2_FE3CQyI_topic_list_item" class=" related-topic-list-item">
-    																<div class="row">
-    																	<div id="__w2_FE3CQyI_topic_checkbox" class="topic-checkbox">
-    																		<span class="form_row_checkbox"><input type="checkbox" id="__w2_FE3CQyI_checkbox" w2cid="FE3CQyI" group="__w2_FE3CQyI_interaction"></span>
-    																	</div>
-    																	<div style="float: left;" class="single-topic-item">
-    																		<div style="float: right;" class="light">
-    																			42030 Followers
-    																		</div>
-    																		<div class="topic-name">
-    																			<strong>
-    																			<div id="ld_pASXf4_10975">
-    																				User Experience
-    																			</div>
-    																			</strong>
-    																		</div>
-    																	</div>
-    																</div>
-    															</div>
-    														</div>
-    														<div id="ld_pASXf4_10947">
-    															<div id="__w2_hHdw816_topic_list_item" class=" related-topic-list-item">
-    																<div class="row">
-    																	<div id="__w2_hHdw816_topic_checkbox" class="topic-checkbox">
-    																		<span class="form_row_checkbox"><input type="checkbox" id="__w2_hHdw816_checkbox" w2cid="hHdw816" group="__w2_hHdw816_interaction"></span>
-    																	</div>
-    																	<div style="float: left;" class="single-topic-item">
-    																		<div style="float: right;" class="light">
-    																			35377 Followers
-    																		</div>
-    																		<div class="topic-name">
-    																			<strong>
-    																			<div id="ld_pASXf4_10976">
-    																				Interaction Design
-    																			</div>
-    																			</strong>
-    																		</div>
-    																	</div>
-    																</div>
-    															</div>
-    														</div>
-    														<div id="ld_pASXf4_10948">
-    															<div id="__w2_vfMDZ5w_topic_list_item" class=" related-topic-list-item">
-    																<div class="row">
-    																	<div id="__w2_vfMDZ5w_topic_checkbox" class="topic-checkbox">
-    																		<span class="form_row_checkbox"><input type="checkbox" id="__w2_vfMDZ5w_checkbox" w2cid="vfMDZ5w" group="__w2_vfMDZ5w_interaction"></span>
-    																	</div>
-    																	<div style="float: left;" class="single-topic-item">
-    																		<div style="float: right;" class="light">
-    																			39679 Followers
-    																		</div>
-    																		<div class="topic-name">
-    																			<strong>
-    																			<div id="ld_pASXf4_10977">
-    																				User Experience Design
-    																			</div>
-    																			</strong>
-    																		</div>
-    																	</div>
-    																</div>
-    															</div>
-    														</div>
+    													<div class=" related-topic-suggestions w3_5" id="courses_<%=dpt.fid%>_huanyihuan" data-current_page="1">
+                                <%= render :partial=>'courses_huanyihuan',:locals=>{:fid=>dpt.fid,:page=>1}%>
     													</div>
     												</div>
     											</div>
@@ -378,11 +196,9 @@ $('.related-topic-list-item').click(function(){
   								<div class="section w8" style="width:818px">
   									<div class="form_buttons">
   										<div id="ld_pASXf4_10926">
-  											<div id="__w2_LWhqGx8_follow_all" class=" follow_button follow-all hidden">
-  												Follow Topics &amp; Continue &nbsp;→
-  											</div>
-  											<p id="__w2_LWhqGx8_unbutton" class=" br3 unbutton">
-  												Choose 5 More Topics to Continue
+                          <div class="psvr_ld_0KNM7J_71152" style="display:none"><a href="/register05?checkpoint=1" class="psvr_finalebtn submit_button">保存并继续&nbsp;→</a></div>
+  											<p id="__w2_LWhqGx8_unbutton" class="psvr_ld_0KNM7J_7115 br3 unbutton">
+                            请再关注 <span class="psvr_shengyu"></span> 个老师或课程
   											</p>
   										</div>
   									</div>
