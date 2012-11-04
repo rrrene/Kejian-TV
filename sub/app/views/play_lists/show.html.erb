@@ -79,7 +79,7 @@
 						</div>
 						<% if !@playlist.content.nil? %>
 								<span id="play-all-button">
-									<a class="yt-playall-link yt-playall-link-dark yt-uix-sessionlink " href="/coursewares/<%= @playlist.content[0] %>">
+									<a class="yt-playall-link yt-playall-link-dark yt-uix-sessionlink " href="/coursewares/<%=@playlist.content[0]%>?reading=<%= @playlist.id %>&bar_max=1">
 										<img class="small-arrow" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="">
 										全部阅读 
 									</a>
