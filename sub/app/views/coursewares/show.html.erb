@@ -633,7 +633,7 @@ courseware_id: '<%=@courseware.id%>'
 															 					<% if @recommandation[0].status !=0 or !@recommandation[0].check_upyun_result %>
 															 					<img width="120" alt="无法阅读的课件" src="<%=asset_path('yt/img/meh_mini-unreadable.png')%>">
 															 					<% else %>
-															 					<img width="120" alt="<%= @recommandation[0].title %>" src="<%= asset_url("@recommandation[0]/#{@recommandation[0].ktvid}/#{@recommandation[0].revision}thumb_slide_0.jpg") %>">
+															 					<img width="120" alt="<%= @recommandation[0].title %>" src="<%= asset_url("cw/#{@recommandation[0].ktvid}/#{@recommandation[0].revision}thumb_slide_0.jpg") %>">
 															 					<% end %>
 																				 <span class="vertical-align"></span>
 																			 </span>
