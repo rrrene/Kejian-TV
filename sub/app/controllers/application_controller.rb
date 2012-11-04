@@ -65,8 +65,7 @@ class ApplicationController < ActionController::Base
   end
   
   before_filter :set_vars
-  before_filter :xookie,:unless=>'devise_controller?'
-  before_filter :dz_security
+  before_filter :xookie
   
   def set_vars
     @seo = Hash.new('')
@@ -90,6 +89,9 @@ class ApplicationController < ActionController::Base
   def xookie
     res = Discuz::Request.touch(request)
     res.cookies.each do |key,value|
+      if !@dz_cookiepre_mid and key =~ /#{Setting.dz_cookiepre}([^_]+)_/
+        @dz_cookiepre_mid = $1
+      end
       if(key.ends_with?('_lastact'))
         cookies[key]="#{value.split('%09')[0]}%09#{CGI::escape(request.path)}%09"
       else
@@ -98,6 +100,9 @@ class ApplicationController < ActionController::Base
     end
     @_G = MultiJson.load(res.to_s)
     @_G['uid'] = @_G['uid'].to_i
+    @authkey = @_G['authkey']
+    @formhash = @_G['formhash']
+    
     if !user_signed_in? and @_G['uid'] > 0
       # me off, dz on
       if u = User.authenticate_through_dz_auth!(request,@_G['uid'])
@@ -158,16 +163,7 @@ class ApplicationController < ActionController::Base
           session[:referer] = request.referer
       end
   end
-  
-  def dz_security
-    @authkey = UCenter::Php.md5("#{Setting.dz_authkey}#{cookies[Discuz.cookiepre_real+'saltkey']}")
-    if user_signed_in?
-      @formhash = Discuz::Utils.formhash({'username'=>current_user.slug,'uid'=>current_user.uid,'authkey'=>@authkey})
-    else
-      @formhash = Discuz::Utils.formhash({'username'=>'','uid'=>0,'authkey'=>@authkey})
-    end
-  end
-  
+    
 =begin
   before_filter :get_extcredits
   before_filter :get_srchhotkeywords
