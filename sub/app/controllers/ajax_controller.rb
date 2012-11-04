@@ -790,7 +790,7 @@ HEREDOC
          return false
      end
      if !Moped::BSON::ObjectId.legal?(params[:cwid])
-         render json:{status:'failed',reason:'您导入的内容稍后阅读无法接受！'}
+         render json:{status:'failed',reason:'系统无法完成请求，请稍后重试。'}
          return false
      end
      if params[:type] == 'addto'

@@ -438,7 +438,7 @@ courseware_id: '<%=@courseware.id%>'
                         <span class="yt-uix-button-icon-wrapper"><img class="yt-uix-button-icon yt-uix-button-icon-watch-unlike" src="<%= asset_path 'yt/wfw.gif' %>" alt="踩一下"></span>
                     </button>
                </span>
-               <button role="button" data-button-action="actions.addto" title="添加到收藏夹或系列" onclick=";return false;" class="psvr_login_required yt-uix-tooltip-reverse  yt-uix-button yt-uix-button-default yt-uix-tooltip" type="button" data-tooltip-text="添加到收藏夹或系列">
+               <button role="button" data-button-action="actions.addto" title="添加到收藏夹或课件锦囊" onclick=";return false;" class="psvr_login_required yt-uix-tooltip-reverse  yt-uix-button yt-uix-button-default yt-uix-tooltip" type="button" data-tooltip-text="添加到收藏夹或课件锦囊">
                    <span class="yt-uix-button-content"><span class="addto-label">添加到</span></span>
                 </button>
                 <button onclick=";return false;" title="分享或嵌入此课件" type="button" class="psvr_login_required yt-uix-tooltip-reverse yt-uix-button yt-uix-button-default yt-uix-tooltip" id="watch-share" data-button-action="actions.share" role="button">
@@ -479,7 +479,7 @@ courseware_id: '<%=@courseware.id%>'
                <div class="yt-uix-expander  yt-uix-expander-collapsed" id="watch-description">
                   <div id="watch-description-clip">
                      <p id="watch-uploader-info">
-                        <a dir="ltr" rel="author" class="yt-uix-sessionlink yt-user-name author" href="/<%= User.get_fangwendizhi @courseware.user_id %>"><%=  User.get_name @courseware.user_id %></a> 发布于 <span class="watch-video-date" id="eow-date"><%= timeago @courseware.created_at  %></span>
+                        <a dir="ltr" rel="author" class="yt-uix-sessionlink yt-user-name author" href="/users/<%=name_beautify User.get_name @courseware.uploader_id %>"><%=name_beautify User.get_name @courseware.uploader_id %></a> 发布于 <span class="watch-video-date" id="eow-date"><%= timeago @courseware.created_at  %></span>
                      </p>
                      <div id="watch-description-text" style="margin: 8px 0px 0px 2px;">
                        <p id="eow-description">
@@ -543,7 +543,7 @@ courseware_id: '<%=@courseware.id%>'
                   <% if !@self_comments.nil? and @self_comments.count >0%>
                     <div class="comments-section">
                         <h4>上传者评论
-                          (<strong>    <a dir="ltr"  class="yt-uix-sessionlink yt-user-name " href="/<%= User.get_fangwendizhi @courseware.author %>"><%= @courseware.author %></a></strong>)
+                          (<strong>    <a dir="ltr"  class="yt-uix-sessionlink yt-user-name " href="/users/<%=name_beautify User.get_name(@courseware.uploader_id) %>"><%= name_beautify User.get_name(@courseware.uploader_id) %></a></strong>)
                         </h4>
                           <ul class="comment-list">
                                     <% @self_comments.each do |comment| %>
@@ -611,26 +611,46 @@ courseware_id: '<%=@courseware.id%>'
                 <div class="watch-sidebar-body">
                    <div id="watch-context">
                       <h4 class="context-head">
-                         <a class="context-link" href="/recommended?feature=context-vrec">
-                         <img class="context-icon context-icon-guide-feed" src="<%= asset_path 'yt/wfw.gif' %>" alt="" />
-                         <strong class="context-title" dir="ltr">来自 课件TV 的课件</strong>
+                         <a class="context-link" <% if false %>href="/recommended"<% end %>>
+                         	<img class="context-icon context-icon-guide-feed" src="<%= asset_path 'yt/wfw.gif' %>" alt="" />
+                         	<strong class="context-title" dir="ltr">来自 课件TV 的课件</strong>
                          </a>
                          <img src="<%= asset_path 'yt/wfw.gif' %>" class="context-seeall-icon" alt="" />
                       </h4>
-                      <div class="yt-horizontal-rule "><span class="first"></span><span class="second"></span><span class="third"></span></div>
+                      <div class="yt-horizontal-rule ">
+												<span class="first"></span>
+												<span class="second"></span>
+												<span class="third"></span>
+											</div>
                       <div id="watch-context-body" class="context-body">
                          <ul id="watch-context-item-list" class="video-list">
-                            <li class="video-list-item">
-                               <a href="/watch?v=vN2vxYnAZf0&amp;feature=context-vrec" class="related-video  yt-uix-sessionlink" data-sessionlink="ei=CLLr09jvi7ECFY6lpAodDg3eaQ%3D%3D&amp;feature=context-vrec&amp;context=G2ffce6fRVAAAAAAAABw"><span class="ux-thumb-wrap contains-addto "><span class="video-thumb ux-thumb yt-thumb-default-120 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img data-group-key="thumb-group-0" src="//i3.ytimg.com/vi/vN2vxYnAZf0/default.jpg" alt="Steve Jobs MacWorld - 1999.mov" data-thumb="//i3.ytimg.com/vi/vN2vxYnAZf0/default.jpg" width="120" /><span class="vertical-align"></span></span></span></span><span class="video-time">1:39:48</span>
-                               <button data-tooltip-text="Watch Later" onclick=";return false;" title="Watch Later" type="button" class="addto-button video-actions addto-watch-later-button yt-uix-button yt-uix-button-default yt-uix-button-short yt-uix-tooltip" data-video-ids="vN2vxYnAZf0" role="button"><span class="yt-uix-button-content">  <span class="addto-label">
-                               Watch Later
-                               </span>
-                               <span class="addto-label-error">
-                               Error
-                               </span>
-                               <img src="<%= asset_path 'yt/wfw.gif' %>" />
-                               </span></button>
-                               </span><span dir="ltr" class="title" title="Steve Jobs MacWorld - 1999.mov">Steve Jobs MacWorld - 1999.mov</span><span class="stat attribution">by <span class="yt-user-name " dir="ltr">dogtownmac</span></span><span class="stat view-count">7,679 views</span></a>
+														<li class="video-list-item">
+                               <a href="/coursewares/<%= @recommandation[0].id %>" class="related-video  yt-uix-sessionlink">
+																 <span class="ux-thumb-wrap contains-addto">
+																	 <span class="video-thumb ux-thumb yt-thumb-default-120 ">
+																		 <span class="yt-thumb-clip">
+																			 <span class="yt-thumb-clip-inner">
+															 					<% if @recommandation[0].status !=0 or !@recommandation[0].check_upyun_result %>
+															 					<img width="120" alt="无法阅读的课件" src="<%=asset_path('yt/img/meh_mini-unreadable.png')%>">
+															 					<% else %>
+															 					<img width="120" alt="<%= @recommandation[0].title %>" src="<%= asset_url("@recommandation[0]/#{@recommandation[0].ktvid}/#{@recommandation[0].revision}thumb_slide_0.jpg") %>">
+															 					<% end %>
+																				 <span class="vertical-align"></span>
+																			 </span>
+																		 </span>
+																	 </span>
+																	 <span class="video-time">共<%= @recommandation[0].slides_count %>页</span>
+		                               <button onclick=";return false;" title="稍后阅读" type="button" class="addto-button video-actions addto-watch-later-button yt-uix-button yt-uix-button-default yt-uix-button-short yt-uix-tooltip" data-kejian-id="<%= @recommandation[0].id %>" role="button">
+																		 <span class="yt-uix-button-content">
+																			 <span class="addto-label">稍后阅读</span>
+																			 <span class="addto-label-error">错误</span>
+		                               		 <img src="<%= asset_path 'yt/wfw.gif' %>" />
+		                                 </span>
+																   </button>
+                               	</span>
+																<span dir="ltr" class="title" title="<%= @recommandation[0].title  %>"><%= @recommandation[0].title  %></span>
+																<span class="stat attribution">by:<span class="yt-user-name " dir="ltr"><%= name_beautify User.get_name(@recommandation[0].uploader_id) %></span></span>
+																<span class="stat view-count"><%= @recommandation[0].views_count %>次查看</span></a>
                             </li>
                          </ul>
                       </div>
@@ -646,34 +666,65 @@ courseware_id: '<%=@courseware.id%>'
 								</div>
                 <div id="watch-related-container" class="watch-sidebar-body">
                    <ul id="watch-related" class="video-list">
+<% if false %><%# AD %>
                       <li class="video-list-item watch-pyv-vid">
-                         <a class="video-list-item-link" href="http://googleads.g.doubleclick.net/aclk?sa=l&amp;ai=BDldRn236T5y_ForZkQX3hbXbDK_PtJgCv9LPnEfHyoSmBODUAxABGAEg4_uTAzgAUOPNl6H5_____wFgiQOgAa-2xuwDsgEPd3d3LnlvdXR1YmUuY29tyAEB2gEoaHR0cDovL3d3dy55b3V0dWJlLmNvbS92aWRlby91dnN1QVpGZW04OOABA4ACAcACAagDAbADi9yTE-gDA-gD3wXoA5EG9QMAAAADoAYayAbn44r0Rg&amp;num=1&amp;sig=AOD64_2L9KYsElJwEI2Lsi8YVZAI2OSEtg&amp;ctype=21&amp;video_id=WECufItDCec&amp;client=ca-pub-6219811747049371&amp;adurl=http://www.youtube.com/user/sixpackshortcuts%3Fv%3DWECufItDCec">
-                         <span class="ux-thumb-wrap">
-                         <span class="video-thumb ux-thumb yt-thumb-default-120 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img src="//i1.ytimg.com/vi/WECufItDCec/2.jpg" alt="Thumbnail" width="120" /><span class="vertical-align"></span></span></span></span>
-                         <span class="video-time">9:48</span>
-                         </span>
-                         <span class="title" title="Insane Home Chest Workout">Insane Home Chest Workout</span>
-                         <span class="stat">by sixpackshortcuts</span>
-                         <span class="stat">
-                         1,071,210 views
-                         </span>
-                         <span class="stat alt">Ad</span>
+                         <a class="video-list-item-link" href="/coursewares/<%= ad.id %>">
+	                         <span class="ux-thumb-wrap">
+		                         <span class="video-thumb ux-thumb yt-thumb-default-120 ">
+															 <span class="yt-thumb-clip">
+																 <span class="yt-thumb-clip-inner">
+												 					<% if ad.status !=0 or !ad.check_upyun_result %>
+												 					<img width="120" alt="无法阅读的课件" src="<%=asset_path('yt/img/meh_mini-unreadable.png')%>">
+												 					<% else %>
+												 					<img width="120" alt="<%= ad.title %>" src="<%= asset_url("ad/#{ad.ktvid}/#{ad.revision}thumb_slide_0.jpg") %>">
+												 					<% end %>
+																	 <span class="vertical-align"></span>
+																 </span>
+															 </span>
+														 </span>
+		                         <span class="video-time">共<%= @recommandation[0].slides_count %>页</span>
+	                         </span>
+	                         <span class="title" title="Insane Home Chest Workout">Insane Home Chest Workout</span>
+	                         <span class="stat">by: <%= name_beautify User.get_name(ad.uploader_id) %></span>
+	                         <span class="stat">
+														 <%= ad.views_count %>次查看
+	                         </span>
+	                         <span class="stat alt">广告</span>
                          </a>
                       </li>
-                      <div id="ppv-container" class=""></div>
-                      <li class="video-list-item">    <a href="/watch?v=uvsuAZFem88&amp;feature=list_other&amp;playnext=1&amp;list=SP17677124127540BC" class="related-playlist  yt-uix-sessionlink" data-sessionlink="ved=CAIQzhooAA%3D%3D&amp;ei=CLLr09jvi7ECFY6lpAodDg3eaQ%3D%3D&amp;feature=list_other"><span class="ux-thumb-wrap"><span class="video-thumb ux-thumb yt-thumb-default-120 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img data-group-key="thumb-group-0" src="//i2.ytimg.com/vi/uvsuAZFem88/default.jpg" alt="Steve Jobs' Best Video Moments on Stage" data-thumb="//i2.ytimg.com/vi/uvsuAZFem88/default.jpg" width="120" /><span class="vertical-align"></span></span></span></span><span class="video-count"><strong>3</strong> videos</span></span><span class="thumb-row"><span class="video-thumb ux-thumb yt-thumb-default-40 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img data-group-key="thumb-group-0" src="//i2.ytimg.com/vi/uvsuAZFem88/default.jpg" alt="Thumbnail" data-thumb="//i2.ytimg.com/vi/uvsuAZFem88/default.jpg" width="40" /><span class="vertical-align"></span></span></span></span><span class="video-thumb ux-thumb yt-thumb-default-40 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img data-group-key="thumb-group-0" src="//i4.ytimg.com/vi/7ABFW6rv15g/default.jpg" alt="Thumbnail" data-thumb="//i4.ytimg.com/vi/7ABFW6rv15g/default.jpg" width="40" /><span class="vertical-align"></span></span></span></span><span class="video-thumb ux-thumb yt-thumb-default-40 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img data-group-key="thumb-group-0" src="//i4.ytimg.com/vi/sfVk2qFlePg/default.jpg" alt="Thumbnail" data-thumb="//i4.ytimg.com/vi/sfVk2qFlePg/default.jpg" width="40" /><span class="vertical-align"></span></span></span></span></span><span dir="ltr" class="title" title="Steve Jobs' Best Video Moments on Stage">Steve Jobs' Best Video Moments on Stage</span></a>
-                      </li>
-                      <li class="video-list-item"><a href="/watch?v=lz8aU1EXkBA&amp;feature=related" class="related-video  yt-uix-sessionlink" data-sessionlink="ved=CAMQzRooAQ%3D%3D&amp;ei=CLLr09jvi7ECFY6lpAodDg3eaQ%3D%3D&amp;feature=related"><span class="ux-thumb-wrap contains-addto "><span class="video-thumb ux-thumb yt-thumb-default-120 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img data-group-key="thumb-group-0" src="//i1.ytimg.com/vi/lz8aU1EXkBA/default.jpg" alt="Steve Jobs Full Interview  at 2010 D8 Conference w/ Mossberg" data-thumb="//i1.ytimg.com/vi/lz8aU1EXkBA/default.jpg" width="120" /><span class="vertical-align"></span></span></span></span><span class="video-time">1:35:54</span>
-                         <button onclick=";return false;" title="Watch Later" type="button" class="addto-button video-actions addto-watch-later-button yt-uix-button yt-uix-button-default yt-uix-button-short yt-uix-tooltip" data-video-ids="lz8aU1EXkBA" role="button"><span class="yt-uix-button-content">  <span class="addto-label">
-                         Watch Later
-                         </span>
-                         <span class="addto-label-error">
-                         Error
-                         </span>
-                         <img src="<%= asset_path 'yt/wfw.gif' %>" />
-                         </span></button>
-                         </span><span dir="ltr" class="title" title="Steve Jobs Full Interview  at 2010 D8 Conference w/ Mossberg">Steve Jobs Full Interview  at 2010 D8 Conference w/ Mossberg</span><span class="stat attribution">by <span class="yt-user-name " dir="ltr">Eninety2</span></span><span class="stat view-count">252,843 views</span></a>
-                      </li>
+<% end %>
+<% @recommandation[1..-1].each do |cw| %>
+<li class="video-list-item">
+   <a href="/coursewares/<%= cw.id %>" class="related-video  yt-uix-sessionlink">
+		 <span class="ux-thumb-wrap contains-addto">
+			 <span class="video-thumb ux-thumb yt-thumb-default-120 ">
+				 <span class="yt-thumb-clip">
+					 <span class="yt-thumb-clip-inner">
+	 					<% if cw.status !=0 or !cw.check_upyun_result %>
+	 					<img width="120" alt="无法阅读的课件" src="<%=asset_path('yt/img/meh_mini-unreadable.png')%>">
+	 					<% else %>
+	 					<img width="120" alt="<%= cw.title %>" src="<%= asset_url("cw/#{cw.ktvid}/#{cw.revision}thumb_slide_0.jpg") %>">
+	 					<% end %>
+						 <span class="vertical-align"></span>
+					 </span>
+				 </span>
+			 </span>
+			 <span class="video-time">共<%= cw.slides_count %>页</span>
+       <button onclick=";return false;" title="稍后阅读" type="button" class="addto-button video-actions addto-watch-later-button yt-uix-button yt-uix-button-default yt-uix-button-short yt-uix-tooltip" data-kejian-id="<%= cw.id %>" role="button">
+				 <span class="yt-uix-button-content">
+					 <span class="addto-label">稍后阅读</span>
+					 <span class="addto-label-error">错误</span>
+       		 <img src="<%= asset_path 'yt/wfw.gif' %>" />
+         </span>
+		   </button>
+   	</span>
+		<span dir="ltr" class="title" title="<%= cw.title  %>"><%= cw.title  %></span>
+		<span class="stat attribution">
+			 by:<span class="yt-user-name " dir="ltr"><%= name_beautify User.get_name(cw.uploader_id) %></span>
+		</span>
+		<span class="stat view-count"><%= cw.views_count %>次查看</span></a>
+</li>
+<% end %>
                    </ul>
                    <ul id="watch-more-related" class="video-list hid">
                       <li id="watch-more-related-loading">正在载入更多建议...</li>
@@ -681,9 +732,11 @@ courseware_id: '<%=@courseware.id%>'
                 </div>
                 <div class="watch-sidebar-foot">
                    <p class="content">
+											 <% if false %>
                        <button type="button" id="watch-more-related-button" onclick=";return false;" class=" yt-uix-button yt-uix-button-default" role="button">
                            <span class="yt-uix-button-content yt-uix-tooltip" title="载入更多推荐课件">载入更多推荐课件  </span>
                        </button>
+											 <% end %>
                     </p>
                 </div>
              </div>
@@ -696,822 +749,7 @@ courseware_id: '<%=@courseware.id%>'
       <div style="visibility: hidden; height: 0px; padding: 0px; overflow: hidden;">
          <div id="baseDiv"></div>
       </div>
-      
-      
-      
-
    </div>
-   <script type="text/javascript" charset="utf-8">
-           <% content_for :butt2 do %>
-           // $.ajaxSetup({
-           //                   error: function(jqXHR, exception) {
-           //                       if (jqXHR.status === 0) {
-           //                           alert('Not connect.\n Verify Network.');
-           //                       } else if (jqXHR.status == 404) {
-           //                           alert('Requested page not found. [404]');
-           //                       } else if (jqXHR.status == 500) {
-           //                           alert('Internal Server Error [500].');
-           //                       } else if (exception === 'parsererror') {
-           //                           alert('Requested JSON parse failed.');
-           //                       } else if (exception === 'timeout') {
-           //                           alert('Time out error.');
-           //                       } else if (exception === 'abort') {
-           //                           alert('Ajax request aborted.');
-           //                       } else {
-           //                           alert('Uncaught Error.\n' + jqXHR.responseText);
-           //                       }
-           //                   }
-           //               });
-               var focus_comment = function(){
-                     $('#comment_placeholder').html('');
-                     $('.comments-textarea-container img').css('z-index','2');
-                     $('.comments-textarea-container textarea').height('78');
-                     $('.comments-post-buttons').show();
-               };
-               var give_up_focus = function(){
-                    $('#comment_placeholder').html('说点什么。。。');
-                    $('#comment_placeholder_now').val('');
-                    $('.comments-remaining').hide();
-                    $('.comments-textarea-container img').css('z-index','-1');
-                    $('.comments-textarea-container textarea').height('40');
-                    $('.comments-post-buttons').hide();
-               }
-               $('#new_comment').bind('ajax:success',function(event, responseText, ajaxOptions){
-                 $('#the_comment-list').prepend(responseText);
-                 $('.comments-post-message').addClass('hid');
-                 give_up_focus();
-                 $("abbr.timeago").timeago();
-                 $("span.relativetime").timeago();
-               });
-               $('#new_comment').bind('ajax:error',function(event, request, settings){
-                  $('.comments-post-message > .yt-alert-content').html(request.responseText);
-                  $('.comments-post-message').removeClass('hid');
-                });
-              var closeHide = function(){
-               somethingHide('#watch-actions-area-container');
-               somethingHide('#watch-actions-loading');
-               somethingHide('#watch-actions-ajax');
-               $('#watch-actions-ajax').html('');
-               removeToggled('');
-             };
-             $('#closehide').live('click',closeHide);
-             $("div[data-action='close-share']").live('click',function(){
-               $(this).parent().parent().remove();
-             });
-
-             $('#comment_placeholder_now').focus(focus_comment);
-             $('#comment_placeholder_now').live("keyup change",function(){
-                var max = parseInt($('.comments-remaining-count').attr('data-max-count'));
-                $('.comments-remaining').show();
-                if($(this).val().length > max){
-                    $(this).val($(this).val().substr(0, max));
-                }
-                $('.comments-remaining-count').html(max-$(this).val().length);
-             });  
-             $('#ct2ct_body').live("keyup change",function(){
-                 var max = parseInt($('.comments-remaining-countx').attr('data-max-count'));
-                 $('.comments-remainingx').show();
-                 if($(this).val().length > max){
-                     $(this).val($(this).val().substr(0, max));
-                 }
-                 $('.comments-remaining-countx').html(max-$(this).val().length);
-              });
-             $('#comment_placeholder').live("click",focus_comment);
-             $('#watch-description-toggle').live("click",function(){
-                $('#watch-description').toggleClass('yt-uix-expander-collapsed');
-             });
-             function removeToggled(name){
-                 tt = 'yt-uix-button-toggled';
-                 // if(name != "watch-like" && $("#watch-like").hasClass(tt))
-                 //    $("#watch-like").removeClass(tt);
-                 // if(name != "watch-unlike" && $("#watch-unlike").hasClass(tt))    
-                 //    $('#watch-unlike').removeClass(tt);
-                 if(name != "actions.addto" && $("button[data-button-action='actions.addto']").hasClass(tt))  
-                    $("button[data-button-action='actions.addto']").removeClass(tt);
-                 if(name != "actions.share" && $("button[data-button-action='actions.share']").hasClass(tt))  
-                    $("button[data-button-action='actions.share']").removeClass(tt);
-                 if(name != "actions.flag" && $("button[data-button-action='actions.flag']").hasClass(tt))      
-                    $("button[data-button-action='actions.flag']").removeClass(tt);
-                 if(name != "watch-insight-button" && $("#watch-insight-button").hasClass(tt))      
-                    $("#watch-insight-button").removeClass(tt);
-             };
-             $('#watch-like').live("click",function(){
-                removeToggled(this.id);
-                $(this).toggleClass('yt-uix-button-toggled');
-								tmp = this;
-								if($("#watch-unlike").hasClass('yt-uix-button-toggled')){
-								 	$("#watch-unlike").removeClass('yt-uix-button-toggled');									
-								}
-				        if($(tmp).hasClass('yt-uix-button-toggled')){
-                  somethingShow('#watch-actions-area-container');
-                  somethingShow('#watch-actions-loading');
-							  }
-                $.ajax({
-                   type:"POST",
-                   url:'/ajax/get_operation',
-                   data:{'type':'watch-like','cw_id':"<%= @courseware.id %>"},
-                   dataType: "html",
-                   cookie:true
-                }).done(function(html){
-	                if($(tmp).hasClass('yt-uix-button-toggled')){
-					            $('#watch-actions-ajax').html(html);
-                      somethingShow('#watch-actions-ajax');
-                      somethingHide('#watch-actions-loading');
-	                }else{
-	                    somethingHide('#watch-actions-area-container');
-	                    somethingHide('#watch-actions-ajax');
-	                    $('#watch-actions-ajax').html('');
-	                }
-                });
-								 ajax_get_dingcai();
-             });
-             $('#watch-unlike').live("click",function(){
-                 removeToggled(this.id);
-                 $(this).toggleClass('yt-uix-button-toggled');
-								 tmp = this;
- 							   if($("#watch-like").hasClass('yt-uix-button-toggled')){
-								      $("#watch-like").removeClass('yt-uix-button-toggled');
-								 }
-				        if($(tmp).hasClass('yt-uix-button-toggled')){
-                  somethingShow('#watch-actions-area-container');
-                  somethingShow('#watch-actions-loading');
-							  }
-                $.ajax({
-                   type:"POST",
-                   url:'/ajax/get_operation',
-                   data:{'type':'watch-unlike','cw_id':"<%= @courseware.id %>"},
-                   dataType: "html",
-                   cookie:true
-                }).done(function(html){
-	                if($(tmp).hasClass('yt-uix-button-toggled')){
-					            $('#watch-actions-ajax').html(html);
-                      somethingShow('#watch-actions-ajax');
-                      somethingHide('#watch-actions-loading');
-	                }else{
-	                    somethingHide('#watch-actions-area-container');
-	                    somethingHide('#watch-actions-ajax');
-	                    $('#watch-actions-ajax').html('');
-	                }
-                });
-								 ajax_get_dingcai();
-             });
-             function ajax_load_board(who,type){
-               hide_everything();
-               if($(who).hasClass('yt-uix-button-toggled')){
-                    somethingShow('#watch-actions-area-container');
-                    somethingShow('#watch-actions-loading');
-                    $.ajax({
-                       type:"POST",
-                       url:'/ajax/get_operation',
-                       data:{'type':type,'cw_id':"<%= @courseware.id %>"},
-                       dataType: "html",
-                       cookie:true
-                    }).done(function(html){
-                          $('#watch-actions-ajax').html(html);
-                          somethingShow('#watch-actions-ajax');
-                          somethingHide('#watch-actions-loading');
-                          ajax_get_dingcai();
-                    });            
-                }else{
-                    somethingHide('#watch-actions-area-container');
-                    somethingHide('#watch-actions-ajax');
-                    $('#watch-actions-ajax').html('');
-                }
-             }
-             function ajax_get_dingcai(){
-               $.ajax({
-                 type:"POST",
-                 url:'/ajax/get_dynamic_dingcai',
-                 data:{'cw_id':"<%= @courseware.id %>"},
-                 dataType:'json'
-               }).done(function(data){
-								 if(data.has != 0){
-  								 $('.video-extras-sparkbars').css({'border':'1px solid #CCCCCC'});
-                   $('.video-extras-sparkbars').html('<div style="width:'+ data['dingpercent'] +'%" class="video-extras-sparkbar-likes"></div><div style="width:'+ data['caipercent'] +'%" class="video-extras-sparkbar-dislikes"></div>');
-                   $('.video-extras-likes-dislikes').html('<span class="likes">'+data['d']+'</span> 人顶, <span class="dislikes">'+data['c']+'</span> 人踩');
-								 }else{
-									$('.video-extras-sparkbars').css({'border':'0px solid #CCCCCC'});
-								 	$('.video-extras-sparkbars').html('');
-									$('.video-extras-likes-dislikes').html('');
-								 }
-               })
-             }
-             $("button[data-button-action='actions.addto']").live("click",function(){
-                 removeToggled('actions.addto');
-                 $(this).toggleClass('yt-uix-button-toggled');
-                 if($(this).hasClass('yt-uix-button-toggled')){
-                    hide_everything();
-                    somethingShow('#watch-actions-area-container');
-                    somethingShow('#watch-actions-loading');
-                    $.ajax({
-                       type:"POST",
-                       url:'/ajax/get_operation',
-                       data:{'type':'addto','cw_id':"<%= @courseware.id %>"},
-                       dataType: "html",
-                       cookie:true
-                    }).done(function(html){
-                          $('#watch-actions-addto').html(html);
-                          somethingShow('#watch-actions-addto');
-                          somethingHide('#watch-actions-loading');
-                    });
-                  }  
-                  else{
-                      somethingHide('#watch-actions-area-container');
-                      somethingHide('#watch-actions-addto');
-                      $('#watch-actions-addto').html('');
-                  }
-             });
-             $("button[data-button-action='actions.share']").live("click",function(){
-                 removeToggled('actions.share');
-                 $(this).toggleClass('yt-uix-button-toggled');
-                 if($(this).hasClass('yt-uix-button-toggled')){
-                   hide_everything();
-                   somethingShow('#watch-actions-area-container');
-                   somethingShow('#watch-actions-loading');
-                   $.ajax({
-                      type:"POST",
-                      url:'/ajax/get_share_panel',
-                      data:{'cw_id':"<%= @courseware.id %>"},
-                      dataType: "html",
-                      cookie:true,
-                      timeout:3000
-                   }).done(function(html){
-                         $('#watch-actions-share-panel').html(html);
-                         somethingShow('#watch-actions-share-panel');
-                         somethingShow('#watch-actions-share');
-                         somethingHide('#watch-actions-loading');
-                         somethingHide('#watch-actions-share-loading');
-                   });
-                 }else{
-                      somethingHide('#watch-actions-loading');
-                      somethingHide('#watch-actions-area-container');
-                      somethingHide('#watch-actions-share');
-                      $('#watch-actions-share-panel').html('');
-                 }
-                 
-             });
-             $("button[data-button-action='actions.flag']").live("click",function(){
-                 removeToggled('actions.flag');
-                 $(this).toggleClass('yt-uix-button-toggled');
-                 ajax_load_board(this,'flag');
-             }); 
-              $("#watch-insight-button").live("click",function(){
-                  removeToggled(this.id);
-                  $(this).toggleClass('yt-uix-button-toggled');
-                  ajax_load_board(this,'stat');
-              }); 
-             $('#comment_login').click(function(){return KTV.login()});
-             $('#watch-more-related-button').live("click",function(){
-                $(this).hide();
-                $('#watch-more-related').show();
-                $('#watch-related').append('<li>for ajax</li>');
-                return false;
-             });
-             $("input[name=playlist_name]").live('focus',function(){
-               $(this).removeClass('label-input-label');
-             });
-             $("input[name=playlist_name]").live('blur',function(){
-                $(this).addClass('label-input-label');
-             });
-             $('button[data-close-parent-class=yt-alert]').live('click',function(){
-                somethingHide($(this).parent().parent());
-             });
-             $('.yt-uix-form-input-select').live('focus',function(){
-                $(this).addClass('focused');
-             });
-             $('.yt-uix-form-input-select').live('blur',function(){
-                $(this).removeClass('focused');
-             });
-             $('.playlist-item').live('click',function(){
-               if(!$(this).hasClass('selected') && !$(this).hasClass('loading')){
-                  playlist_back_to_default();
-                  tmp = this;
-                  $(this).addClass('loading');
-                  var on_top = 'false';
-                  if($('#playlist-addto-top-checkbox').prop('checked')){
-										on_top = 'true';	
-                  }
-									// ,'sort':$('select.yt-uix-form-input-select-element.sort-playlists >option:selected').val()
-                  $.ajax({
-                    type:"POST",
-                    url:'/ajax/add_to_playlist_by_id',
-                    data:{'authenticity_token':"<%= form_authenticity_token %>",'cwid':'<%= @courseware.id %>','pid':$(this).attr('data-playlist-id'),'on_top':on_top},
-                    dataType:'json'
-                  }).done(function(json){
-                    if (json.status == 'onesuc') {
-                      $('form > .yt-uix-form-input-container > .yt-uix-form-input-text.playlist-note',tmp).attr('placeholder',json.annotation);
-                      $('.yt-alert-success.added-to-message > .yt-alert-content > .yt-alert-message > .added-to-message-title').html(json.title);
-                      somethingShow('.yt-alert-success.added-to-message');
-											$('.playlist-video-count',tmp).html((parseInt($('.playlist-video-count',tmp).html())+1).toString())
-                      $(tmp).removeClass('loading');
-                      $(tmp).addClass('selected');
-                    }else{
-                      $(tmp).removeClass('loading');
-											show_add_error(json.reason);                  	
-                    }
-                  });
-                  
-               }
-             });
-             $('.cancel-note.yt-uix-button.yt-uix-button-default').live('click',function(){
-               somethingHide('.yt-alert.yt-alert-default');
-               $(this).parent().parent().removeClass('selected');
-               return false;
-             });
-             function ajax_get_list(){
-                $.ajax({
-                  type:"POST",
-                  url:'/ajax/playlist_sort',
-                  data:{'sort':$('select.yt-uix-form-input-select-element.sort-playlists >option:selected').val()},
-                  dataType:'html'
-                }).done(function(html){
-                  $('ul.playlist-items').html(html);
-                });
-             };           
-             $('select.yt-uix-form-input-select-element.sort-playlists').live('change',function(){
-                playlist_back_to_default();
-                $('.yt-uix-form-input-select-content > .yt-uix-form-input-select-value',$(this).parent()).html($('select.yt-uix-form-input-select-element.sort-playlists > option:selected').text());
-                ajax_get_list();
-             });
-             $('.yt-uix-form-input-select.new-playlist-privacy > select.yt-uix-form-input-select-element').live('change',function(){
-               $('.yt-uix-form-input-select-content > .yt-uix-form-input-select-value',$(this).parent()).html($('.yt-uix-form-input-select.new-playlist-privacy > select.yt-uix-form-input-select-element > option:selected').text());
-             });
-             
-             $('button.create-new-playlist.yt-uix-button.yt-uix-button-default').live('click',function(){
-							 if($('#playlist_wired').val()){
-		               $.ajax({
-		                 type:"POST",
-		                 url:'/ajax/create_new_playlist',
-		 data:{'list_title':$('#playlist_wired').val(),'is_private':$('.yt-uix-form-input-select.new-playlist-privacy > select.yt-uix-form-input-select-element > option:selected').val(),'cwid':'<%= @courseware.id %>'},
-		                 dataType:'json'
-		               }).done(function(json){
-										 if(json.status == 'suc'){										 	
-			                 $('#playlist_wired').val('');
-			                 ajax_get_list();
-                       $('.yt-alert-success.added-to-message > .yt-alert-content > .yt-alert-message > .added-to-message-title').html(json.title);
-                       somethingShow('.yt-alert-success.added-to-message');
-										 }else{
-										 	show_add_error(json.reason)
-										 }
-		               });
- 							 }else{
- 							 	 show_add_error('请填写锦囊标题');
- 							 }
-             });
-             
-             $('.save-note.yt-uix-button.yt-uix-button-primary').live('click',function(){
-               tmp = this;
-               if($(this).prev().find('input.playlist-note').val().length>0){
-                 $.ajax({
-                    type:'POST',
-                    url:'/ajax/save_note_for_one_cw',
-                    data:{'note':$(this).prev().find('input.playlist-note').val(),'cwid':['<%= @courseware.id %>'],'title':$(tmp).parent().parent().attr('data-title')},
-                    dataType:'json'
-                  }).done(function(json){
-                    if(json.status == 'suc'){
-                      playlist_back_to_default();                   
-                      $('.yt-alert-success.note-added-message > .yt-alert-content > .yt-alert-message >.note-added-message-title').html(json.title);
-                      somethingShow('.yt-alert-success.note-added-message');
-                    }else{
-											show_add_error(json.reason)
-			                $(this).parent().parent().removeClass('selected');
-                    }
-                  });
-               }else{
-                 show_add_error('请填写备注');
-               }
-                 
-               return false;
-             });
-             
-             function show_add_error(msg){
-               somethingHide('.yt-alert.yt-alert-default');
-               $('.messages-area > .yt-alert-error.added-to-error-message > .yt-alert-content').html(msg);
-               somethingShow('.yt-alert-error.added-to-error-message');
-             }
-             function playlist_back_to_default(){
-               $('.playlist-item').removeClass('selected');
-               $('.playlist-item').removeClass('loading');
-               somethingHide('.yt-alert.yt-alert-default');
-             }
-             function somethingHide(id){
-                 $(id).hide();
-                 $(id).addClass('hid');
-             }
-             function somethingShow(id){
-                 $(id).removeClass('hid');
-                 $(id).slideDown('middle');
-             }
-             function hide_everything(){
-               somethingHide('#watch-actions-area-container');
-               somethingHide('#watch-actions-loading');
-               somethingHide('#watch-actions-share-loading');
-               somethingHide('#watch-actions-error');
-               somethingHide('#watch-actions-addto');
-               somethingHide('#watch-actions-share');
-               somethingHide('#watch-actions-ajax');
-               
-               somethingHide('#watch-actions-share-panel');
-               $('#watch-actions-addto').html('');
-               $('#watch-error-string').html('');
-               $('#watch-actions-share-panel').html('');
-               $('#watch-actions-ajax').html('');
-             }
-             $('#watch-actions-error').ajaxError(function(){
-               hide_everything();
-               $('#watch-error-string').html('该功能目前不可用，请稍后重试。');
-               somethingShow('#watch-actions-error');
-             })
-             
-              $('.yt-uix-expander-head >.share-panel-show-url-options').live('click',function(){
-                $('.share-panel-services.yt-uix-expander').addClass('yt-uix-expander-collapsed');
-                $('.share-panel-url-options.yt-uix-expander').toggleClass('yt-uix-expander-collapsed');
-              });
-              
-              $('.yt-uix-expander-head > .share-panel-show-more').live('click',function(){
-                $('.share-panel-url-options.yt-uix-expander').addClass('yt-uix-expander-collapsed');
-                $('.share-panel-services.yt-uix-expander').toggleClass('yt-uix-expander-collapsed');
-              });
-              $('.yt-uix-form-input-text.share-panel-start-at-time').live('focus',function(){
-                $('input.share-panel-start-at').prop('checked',true);
-                if(!isInt($(this).val())){
-                  $(this).val('');
-                }else{
-                  if(parseInt($(this).val()) > <%= @courseware.slides_count %>){
-                    $(this).val('<%= @courseware.slides_count %>');
-                  }
-                }
-              }).live('blur',function(){
-                if(isInt($(this).val())){
-                  var url= $('.yt-uix-form-input-text.share-panel-url').val();
-                  var arr= parseUri(url);
-                  var former=arr['protocol']+'://' + arr['host'] + arr['path'];
-                  var num=(parseInt($(this).val()) > <%= @courseware.slides_count %>) ? '<%= @courseware.slides_count %>' : $(this).val();
-                  var slidex = '?slide=' + num;
-                  $('.yt-uix-form-input-text.share-panel-url').val(former + slidex);
-                }
-              });
-              var share_panel = function(ix,ux,tx){
-                if($(ix).hasClass('hid')){
-                  $.ajax({
-                    type:'POST',
-                    url:'/ajax/get_share_partial',
-                    data:{'type':tx,'cw_id':'<%= @courseware.id %>'},
-                    dataType:'html',
-                    cookie:true,
-                    timeout:3000
-                  }).done(function(html){
-                    if(!$(ux).hasClass('hid')){
-                      somethingHide(ux);
-                    }
-                    $(ix).html(html);
-                    somethingShow(ix);
-                  });  
-                }else{
-                  somethingHide(ix);
-                }
-              };
-              $('.share-panel-embed').live('click',function(){share_panel('.share-panel-embed-container','.share-panel-email-container','embed');});
-              $('.share-panel-email').live('click',function(){share_panel('.share-panel-email-container','.share-panel-embed-container','email')});
-
-              function isInt(n) {
-                 return n % 1 === 0;
-              }
-              function parseUri (str) {
-              	var	o   = parseUri.options,
-              		m   = o.parser[o.strictMode ? "strict" : "loose"].exec(str),
-              		uri = {},
-              		i   = 14;
-
-              	while (i--) uri[o.key[i]] = m[i] || "";
-
-              	uri[o.q.name] = {};
-              	uri[o.key[12]].replace(o.q.parser, function ($0, $1, $2) {
-              		if ($1) uri[o.q.name][$1] = $2;
-              	});
-
-              	return uri;
-              };
-
-              parseUri.options = {
-              	strictMode: false,
-              	key: ["source","protocol","authority","userInfo","user","password","host","port","relative","path","directory","file","query","anchor"],
-              	q:   {
-              		name:   "queryKey",
-              		parser: /(?:^|&)([^&=]*)=?([^&]*)/g
-              	},
-              	parser: {
-              		strict: /^(?:([^:\/?#]+):)?(?:\/\/((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?))?((((?:[^?#\/]*\/)*)([^?#]*))(?:\?([^#]*))?(?:#(.*))?)/,
-              		loose:  /^(?:(?![^:@]+:[^:@\/]*@)([^:\/?#.]+):)?(?:\/\/)?((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?)(((\/(?:[^?#](?![^?#\/]*\.[^?#\/.]+(?:[?#]|$)))*\/?)?([^?#\/]*))(?:\?([^#]*))?(?:#(.*))?)/
-              	}
-              };
-             $('#flag-reason-button').live('click',function(e){
-               back2normal();
-							 var div = $('#flag-video-menu');
-               if($(this).hasClass('yt-uix-button-active')){
-								 div.remove();
-                 div.addClass('hid').hide();
-								 $(this).after(div);
-                 $(this).removeClass('yt-uix-button-active');
-               }else{
-                 $(this).addClass('yt-uix-button-active');
-								 div.remove();
-								 css = {
-									 'min-width': '80px', 
-									 'top': ($('#watch-actions-area').height() + $('#flag-reason-button').height()*2.5+6).toString() + 'px', 
-									 'left': ($(this).width() + 14).toString() + 'px'
-								 }
-								 div.css(css);
-	               div.addClass('yt-uix-button-menu yt-uix-button-menu-external');
-								 div.removeClass('hid').show();
-								 $('#watch-main-container').append(div);                 
-                }
-                e.stopPropagation();
-             });
-             $(document).click(function(e){
-               var target = e.target;
-               if (!$(target).is('#flag-reason-button') && !$(target).parents().is('#flag-reason-button')) {
-                 if($('#flag-reason-button').hasClass('yt-uix-button-active')){
-									  var div =$('#flag-video-menu');
-										div.remove();
-										div.addClass('hid');
-										$('#flag-reason-button').after(div);
-                    $('#flag-reason-button').removeClass('yt-uix-button-active');
-                 }
-               }
-             });
-             $('.flag-menu > .yt-uix-button-menu-item').live('click',function(e){
-               $('.yt-uix-button-menu-item').removeClass('selected');
-               $('.yt-uix-button-menu-item').removeClass('child-selected');
-               $(this).addClass('selected');
-               $('#flag-video-menu').addClass('hid');
-               $('#flag-reason-button').removeClass('yt-uix-button-active');
-               $('#flag-reason-button > .yt-uix-button-content').html($('.label',this).html());
-               handleChoose(this);
-									  var div =$('#flag-video-menu');
-										div.remove();
-										div.hide().addClass('hid');
-										$('#flag-reason-button').after(div);
-			              $('#flag-reason-button').removeClass('yt-uix-button-active');
-               e.stopPropagation();
-             });
-             $('.submenu > .yt-uix-button-menu-item').live('click',function(e){
-               $('.yt-uix-button-menu-item').removeClass('selected');
-               $('.yt-uix-button-menu-item').removeClass('child-selected');
-               $(this).addClass('selected');
-               $(this).parent().parent().addClass('selected');
-               $(this).parent().parent().addClass('child-selected');
-               $('#flag-video-menu').addClass('hid');
-               $('#flag-reason-button').removeClass('yt-uix-button-active');
-               $('#flag-reason-button > .yt-uix-button-content').html($('.label',this).html());
-               handleChoose(this);
-								  var div =$('#flag-video-menu');
-									div.remove();
-									div.hide().addClass('hid');
-									$('#flag-reason-button').after(div);
-		              $('#flag-reason-button').removeClass('yt-uix-button-active');
-               e.stopPropagation();
-             });
-             
-             var glayer;
-             var greason;
-             var gmsg;
-             $('#flag-video-submit').live('click',function(){
-                  $.ajax({
-                    url:'/ajax/flagcw',
-                    type:'POST',
-                    data:{'cw_id':'<%= @courseware.id %>','user_id':'<%= if current_user then current_user.id end%>','layer':glayer,'reason':greason, 'form':$('#flag-video-form').serializeArray()},
-                    dataType:'json'
-                  }).done(function(json){
-                     if(json['status'] == 'suc'){
-                       $('#flag-video-form-container').hide().addClass('hid');
-                       if(gmsg != undefined){
-                         $('#flag-video-result-'+gmsg).removeClass('hid');
-                       }else{
-                         $('#flag-video-result-default').removeClass('hid');
-                       }
-                     }else{
-                       back2normal();
-                       $('#flag-video-form').removeClass('hid');
-                       $('#flag-video-error').removeClass('hid');
-                     }
-                  });
-             });
-             var handleChoose = function(who){
-               var time = $(who).attr('data-include-time');
-               var message = gmsg = $(who).attr('data-result-message');
-               var textbox  = $(who).attr('data-show-textbox-with-label');
-               var nopost =$(who).attr('data-no-post');
-               var layer = glayer =$(who).attr('data-reason');
-               var reason = ''
-               if(layer != undefined){
-                 layer = 'reason';
-                 reason = greason =$(who).attr('data-reason');
-               }else{
-                 layer = 'subreason';
-                 reason = greason =$(who).attr('data-subreason');
-               }
-               responseType(time,message,textbox,nopost);
-             }
-             var back2normal = function(){
-               $('#flag-video-form').addClass('hid');
-               $('#flag-video-more-info-time').addClass('hid');
-               $('#flag-video-more-info-comment').addClass('hid');
-               $('#flag-video-error').addClass('hid');
-               $('#flag-video-result-default').addClass('hid');
-               $('#flag-video-results-container').hide();
-               $('#flag-video-result-maybe-review').addClass('hid');
-               $('#flag-video-result-hate-speech').addClass('hid');
-               $('#flag-video-result-dcma-policy').addClass('hid');
-               $('#flag-video-result-privacy-center').addClass('hid');
-               $('#flag-video-result-bullying').addClass('hid');
-               $('#flag-video-result-legal-claim').addClass('hid');
-               $('#flag-video-buttons').hide();
-               $('#flag-video-more-info-hate-group').addClass('hid');
-             };
-             
-             var responseType = function(time,message,textbox,nopost){
-               back2normal();
-               $('#flag-video-results-container').removeClass('hid').show();
-               if(time=='true'){
-                 $('#flag-video-form').removeClass('hid');
-                 $('#flag-video-more-info-time').removeClass('hid');
-                 if(nopost != 'true'){
-                   $('#flag-video-buttons').show();
-                 }
-               }
-               if(textbox != undefined){
-                  $('#flag-video-more-info-comment').removeClass('hid');
-                  $('#flag-video-more-info-textarea-label').html(textbox);
-               }
-               if(message == 'hate-speech'){
-                 $('#flag-video-more-info-hate-group').removeClass('hid');
-               }
-               if(nopost =='true' && time!='true'){
-                  $('#flag-video-form-container').hide().addClass('hid');
-                   $('#flag-video-result-'+message).removeClass('hid'); 
-               }else if(nopost !='true' && time!='true'){
-                  $('#flag-video-form').removeClass('hid');
-                  $('#flag-video-buttons').removeClass('hid').show();
-               }
-             };
-             $('.comment-action').live('click',function(){
-               type = $(this).attr('data-action');
-               // console.log(type); 
-               if(type == 'close-share'){
-                 return false; 
-               }               
-               if(type == 'vote-up' || type =='vote-down' || type =='reply'){
-                 cid = $(this).parent().parent().parent().parent().parent().attr('data-id');
-               }else if(type =='show-parent'){
-                 cid = $(this).parent().parent().parent().parent().parent().parent().attr('data-id');
-               }else{
-                 cid = $(this).parent().parent().parent().parent().parent().parent().parent().attr('data-id');
-               }
-               
-               // console.log(cid); 
-               if(type == 'share' || type == 'reply' || type == 'show-parent'){
-                 datatype = 'html';
-               }else{
-                 datatype = 'json';
-               }
-               tmp = this;
-               $.ajax({
-                 url:'/ajax/comment_action',
-                 type:'POST',
-                 data:{'cid':cid,'atype':type},
-                 dataType:datatype,
-               }).done(function(data){
-                 $('.end.flip.yt-uix-button.yt-uix-button-default.yt-uix-button-empty').removeClass('yt-uix-button-active');
-                 $('.end.flip.yt-uix-button.yt-uix-button-default.yt-uix-button-empty > .yt-uix-button-menu.yt-uix-button-menu-default').hide().addClass('hid');
-                 if(type == 'share'){
-                    $('.comments-post-containerx').remove();
-                    $(tmp).parent().parent().parent().parent().parent().parent().parent().append(data);
-                    div = $(tmp).parent().parent();
-                    cc = div.prev();
-                    div.remove();
-                    div.hide().addClass('hid');
-                    cc.append(div);
-                 }else if(type == 'reply'){
-                   $('.comments-post-containerx').remove();
-                   $(tmp).parent().parent().parent().parent().parent().append(data);
-                 }else if(type == 'vote-up' || type =='vote-down'){
-                   if(data['status'] == 'suc'){
-                     if(parseInt(data['cc'])>0){
-                       $('li[data-id='+cid+'] > .comment-body >.content-container >.content > .metadata > .comments-rating-positive').remove();
-                       $('li[data-id='+cid+'] > .comment-body >.content-container >.content > .metadata').append('<span title="顶了 '+data['up']+' 次，踩了 '+ data['down']+' 次" class="comments-rating-positive" dir="ltr"><img src="<%= asset_path "yt/wfw.gif" %>" class="comments-rating-thumbs-up">'+data['up'] +'</span>');
-                     }
-                   }
-                 }else if(type == 'remove'){
-                   if(data['status'] == 'suc'){
-                     $('li[data-id='+cid+'] > .comment-body >.content-container > .content >.comment-text').html('<p>该评论已经被删除！</p>');
-                   }
-                   div = $(tmp).parent().parent();
-                   cc = div.prev();
-                   div.remove();
-                   div.hide().addClass('hid');
-                   cc.append(div);
-                 }else if(type == 'flag'){
-                   div = $(tmp).parent().parent();
-                   cc = div.prev();
-                   div.remove();
-                   div.hide().addClass('hid');
-                   cc.append(div);
-                 }else if(type == 'show-parent'){
-                   $(tmp).parent().parent().parent().parent().parent().parent().before('<ul class="comment-list">'+data+'</ul>');
-                   $(tmp).parent().parent().parent().parent().parent().parent().addClass('child');
-                   $(tmp).remove();
-                 }
-               })
-             });
-             $('.end.flip.yt-uix-button.yt-uix-button-default.yt-uix-button-empty').live('click',function(){
-               $(this).toggleClass('yt-uix-button-active');
-               if(!$(this).hasClass('yt-uix-button-active')){
-                 div = $(this).next();
-                 div.remove();
-                 div.hide().addClass('hid');
-                 $(this).append(div);
-               }else{
-                 div = $('.yt-uix-button-menu.yt-uix-button-menu-default',this);
-                 div.remove();
-                 $(this).after(div);
-                 div.show().removeClass('hid');
-                 var cssObj = {
-                      'margin-left': '-10px',
-                      'min-width': '15px', 
-                      'top': '16px'
-                 };
-                 div.css(cssObj);
-      
-               }
-             });
-             function getURLParameter(name) {
-                 return decodeURI(
-                     (RegExp(name + '=' + '(.+?)(&|$)').exec(location.search)||[,null])[1]
-                 );
-             }
-             <% if !params[:cid].nil? %>
-                 function sharecid(){
-                   var testcid = getURLParameter('cid');
-                   var pageuri = getURLParameter('page');
-                   if (testcid!=undefined) {
-                     <% aa=Hash.new;@comments_all.each_with_index.map{|k,i| aa[k.id.to_s]=i};%>
-                     <% if !aa[params[:cid]].nil? %>
-                        var where_am_i = <%= aa[params[:cid]]+1 %>;
-                        var per_page = <%= cookies[:welcome_per_page] %>;
-                        page = parseInt(where_am_i/per_page) +1;
-                        if(page>1 && pageuri == 'null'){
-                           var url = location.protocol + '//' +location.hostname + location.pathname + '?cid=' + testcid + '&page=' + page + '&per_page=' + per_page;
-                           window.location.replace(url); 
-                           return;
-                         }
-                       $('html, body').animate({scrollTop: $('li[data-id='+testcid+']').offset().top}, 500,'easeInOutExpo');
-                       $('li[data-id='+testcid+']').css('background-color','rgba(255,255,255,.7)');
-                     <% end %>
-                   }
-                 }
-                sharecid();
-             <% end %>
-             
-             $('input.comment-share-url.yt-uix-form-input-text').live('focus',function(){
-                   var $this = $(this);
-                   $this.select();
-                   $this.mouseup(function() {
-                       $this.unbind("mouseup");
-                       return false;
-                   });
-             });
-             $('.expand.yt-uix-expander-head').live('click',function(){
-                // $('dl.extra-events').slideDown('slow');
-                $('.stats-box.yt-uix-expander').removeClass('yt-uix-expander-collapsed');
-             });
-             $('.collapse.yt-uix-expander-head').live('click',function(){
-                $('.stats-box.yt-uix-expander').addClass('yt-uix-expander-collapsed');
-             });
-						 $('.divider a').live('click',function(){
-							 $("button[data-button-action='actions.flag']").trigger('click');
-						 });
-		         <% if !current_user.nil? and current_user.mark_history %>
-						 pageOpen = new Date();
-						 $(window).unload(function(){
-								var slide_num = $('#presentation iframe').contents().find('div#presenter img#slide_image').attr('src');
-						 		pageClose = new Date();
-						 		minutes = (pageClose.getMinutes() - pageOpen.getMinutes());
-							 	seconds = (pageClose.getSeconds() - pageOpen.getSeconds());
-						 	 	time = (seconds + (minutes * 60));
-								if(time>600){
-							 		var num = parseInt(slide_num.split('/').pop().split('.')[0].split('_').pop());
-							 		$.ajax({
-							 			type:'POST',
-							 			url:'/ajax/save_page_to_history',
-							 			data:{'cwid':"<%=@courseware.id%>",'page':num},
-							 			async : false
-							 		});	
-								}
-						 });
-						 <% end %>
-           <% end %>
-        </script>
 </div>
 </div>
 <div class="__sdk">
@@ -1538,7 +776,6 @@ courseware_id: '<%=@courseware.id%>'
              <div><a class="" href="/<%= User.get_fangwendizhi(user_id) %>"><img src="<%= avatar_url_quick(user_id,:small) %>" alt="<%= User.get_name(user_id) %>" width="47" height="47"></a></div>
              <% end %>
            </div>
-           
          </div>
          <div class="tab-content" id="revisions" style="">
            <h1>课件修订历史</h1>
@@ -1560,7 +797,7 @@ courseware_id: '<%=@courseware.id%>'
                  <div class="preview_info">
                 <h3><a href="<%= courseware_path @courseware %>/revisions/<%= version+1 %>">第<%= version+1 %>版<%= '(最新版)' if version==@courseware_real_version %> <%= ": #{@courseware.version_date[version.to_s]}" if @courseware.version_date[version.to_s] %></a></h3>
                 <p class="date">
-                  <%= l(@courseware.created_at, :format => :long) %>, <a href="/<%= User.get_fangwendizhi @courseware.user_id %>"><%= User.get_name @courseware.user_id %></a>
+                  <%= l(@courseware.created_at, :format => :long) %>, <a href="/<%= User.get_fangwendizhi @courseware.uploader_id %>"><%= User.get_name @courseware.user_id %></a>
                 </p>
                </div>
              </div>
@@ -1571,11 +808,845 @@ courseware_id: '<%=@courseware.id%>'
      </div>
    </section>
 </div>
-<% content_for :butt2 do %>
-  KTV.ytb_targetize()
-  jQuery('#the_ytb').resize(KTV.ytb_targetize)
-  jQuery('#the_ytb').show()
-<% end %>
 
+<% content_for :butt2 do %>
+	var targetize = function() {
+	  KTV.ytb_targetize()
+	  jQuery('#watch-main-container').resize(KTV.ytb_targetize)
+	}
+	targetize();
+	jQuery('#the_ytb').show();
+  var focus_comment = function(){
+        $('#comment_placeholder').html('');
+        $('.comments-textarea-container img').css('z-index','2');
+        $('.comments-textarea-container textarea').height('78');
+        $('.comments-post-buttons').show();
+				
+  };
+  var give_up_focus = function(){
+       $('#comment_placeholder').html('说点什么。。。');
+       $('#comment_placeholder_now').val('');
+       $('.comments-remaining').hide();
+       $('.comments-textarea-container img').css('z-index','-1');
+       $('.comments-textarea-container textarea').height('40');
+       $('.comments-post-buttons').hide();
+			 
+  }
+  $('#new_comment').bind('ajax:success',function(event, responseText, ajaxOptions){
+    $('#the_comment-list').prepend(responseText);
+    $('.comments-post-message').addClass('hid');
+    give_up_focus();
+    $("abbr.timeago").timeago();
+    $("span.relativetime").timeago();
+		
+  });
+  $('#new_comment').bind('ajax:error',function(event, request, settings){
+     $('.comments-post-message > .yt-alert-content').html(request.responseText);
+     $('.comments-post-message').removeClass('hid');
+		 
+   });
+	var closeHide = function(){
+	  somethingHide('#watch-actions-area-container');
+	  somethingHide('#watch-actions-loading');
+	  somethingHide('#watch-actions-ajax');
+	  $('#watch-actions-ajax').html('');
+	  removeToggled('');
+  };
+  $('#closehide').live('click',closeHide);
+  $("div[data-action='close-share']").live('click',function(){
+    $(this).parent().parent().remove();
+  });
+
+  $('#comment_placeholder_now').focus(focus_comment);
+  $('#comment_placeholder_now').live("keyup change",function(){
+     var max = parseInt($('.comments-remaining-count').attr('data-max-count'));
+     $('.comments-remaining').show();
+     if($(this).val().length > max){
+         $(this).val($(this).val().substr(0, max));
+     }
+     $('.comments-remaining-count').html(max-$(this).val().length);
+  });  
+  $('#ct2ct_body').live("keyup change",function(){
+      var max = parseInt($('.comments-remaining-countx').attr('data-max-count'));
+      $('.comments-remainingx').show();
+      if($(this).val().length > max){
+          $(this).val($(this).val().substr(0, max));
+      }
+      $('.comments-remaining-countx').html(max-$(this).val().length);
+   });
+  $('#comment_placeholder').live("click",focus_comment);
+  $('#watch-description-toggle').live("click",function(){
+     $('#watch-description').toggleClass('yt-uix-expander-collapsed');
+		 
+  });
+  function removeToggled(name){
+      tt = 'yt-uix-button-toggled';
+      // if(name != "watch-like" && $("#watch-like").hasClass(tt))
+      //    $("#watch-like").removeClass(tt);
+      // if(name != "watch-unlike" && $("#watch-unlike").hasClass(tt))    
+      //    $('#watch-unlike').removeClass(tt);
+      if(name != "actions.addto" && $("button[data-button-action='actions.addto']").hasClass(tt))  
+         $("button[data-button-action='actions.addto']").removeClass(tt);
+      if(name != "actions.share" && $("button[data-button-action='actions.share']").hasClass(tt))  
+         $("button[data-button-action='actions.share']").removeClass(tt);
+      if(name != "actions.flag" && $("button[data-button-action='actions.flag']").hasClass(tt))      
+         $("button[data-button-action='actions.flag']").removeClass(tt);
+      if(name != "watch-insight-button" && $("#watch-insight-button").hasClass(tt))      
+         $("#watch-insight-button").removeClass(tt);
+  };
+ $('.addto-button').live('click',function(e){
+	 var type = 'addto';
+	 if($(this).hasClass('addto-watch-later-button-success')){
+		 type = 'remove';
+	 }
+	 var cwid = $(this).attr('data-kejian-id');
+	 $(this).removeClass('addto-watch-later-button-success')
+	 .removeClass('addto-watch-later-button')
+	 .removeClass('addto-watch-later-button-error').addClass('addto-watch-later-button-loading');
+	 var tmp = this;
+	 $.ajax({
+		 url:'/ajax/add_to_read_later',
+		 type:'POST',
+		 data:{'cwid':cwid,'type':type},
+		 dataType:'json'
+	 }).done(function(json){
+		 $(tmp).removeClass('addto-watch-later-button-loading')
+		 if(json.status == 'suc'){
+			 if(type == 'addto'){
+				 $(tmp).addClass('addto-watch-later-button-success');
+				 summonQL(json.playlist_id,'1');
+			 }else if(type == 'remove'){
+				 $(tmp).addClass('addto-watch-later-button');
+			 }
+		 }else{
+		 	 $(tmp).addClass('addto-watch-later-button-error');
+		 }
+	 });
+ });
+  $('#watch-like').live("click",function(){
+     removeToggled(this.id);
+     $(this).toggleClass('yt-uix-button-toggled');
+		tmp = this;
+		if($("#watch-unlike").hasClass('yt-uix-button-toggled')){
+		 	$("#watch-unlike").removeClass('yt-uix-button-toggled');									
+		}
+    if($(tmp).hasClass('yt-uix-button-toggled')){
+       somethingShow('#watch-actions-area-container');
+       somethingShow('#watch-actions-loading');
+	  }
+     $.ajax({
+        type:"POST",
+        url:'/ajax/get_operation',
+        data:{'type':'watch-like','cw_id':"<%= @courseware.id %>"},
+        dataType: "html",
+        cookie:true
+     }).done(function(html){
+       if($(tmp).hasClass('yt-uix-button-toggled')){
+          $('#watch-actions-ajax').html(html);
+           somethingShow('#watch-actions-ajax');
+           somethingHide('#watch-actions-loading');
+					 
+       }else{
+           somethingHide('#watch-actions-area-container');
+           somethingHide('#watch-actions-ajax');
+           $('#watch-actions-ajax').html('');
+       }
+     });
+		 ajax_get_dingcai();
+		 
+  });
+  $('#watch-unlike').live("click",function(){
+      removeToggled(this.id);
+      $(this).toggleClass('yt-uix-button-toggled');
+		 tmp = this;
+	   if($("#watch-like").hasClass('yt-uix-button-toggled')){
+		      $("#watch-like").removeClass('yt-uix-button-toggled');
+		 }
+    if($(tmp).hasClass('yt-uix-button-toggled')){
+       somethingShow('#watch-actions-area-container');
+       somethingShow('#watch-actions-loading');
+	  }
+     $.ajax({
+        type:"POST",
+        url:'/ajax/get_operation',
+        data:{'type':'watch-unlike','cw_id':"<%= @courseware.id %>"},
+        dataType: "html",
+        cookie:true
+     }).done(function(html){
+       if($(tmp).hasClass('yt-uix-button-toggled')){
+          $('#watch-actions-ajax').html(html);
+           somethingShow('#watch-actions-ajax');
+           somethingHide('#watch-actions-loading');
+       }else{
+           somethingHide('#watch-actions-area-container');
+           somethingHide('#watch-actions-ajax');
+           $('#watch-actions-ajax').html('');
+       }
+     });
+		 ajax_get_dingcai();
+  });
+  function ajax_load_board(who,type){
+    hide_everything();
+    if($(who).hasClass('yt-uix-button-toggled')){
+         somethingShow('#watch-actions-area-container');
+         somethingShow('#watch-actions-loading');
+         $.ajax({
+            type:"POST",
+            url:'/ajax/get_operation',
+            data:{'type':type,'cw_id':"<%= @courseware.id %>"},
+            dataType: "html",
+            cookie:true
+         }).done(function(html){
+               $('#watch-actions-ajax').html(html);
+               somethingShow('#watch-actions-ajax');
+               somethingHide('#watch-actions-loading');
+               ajax_get_dingcai();
+         });            
+     }else{
+         somethingHide('#watch-actions-area-container');
+         somethingHide('#watch-actions-ajax');
+         $('#watch-actions-ajax').html('');
+     }
+  }
+  function ajax_get_dingcai(){
+    $.ajax({
+      type:"POST",
+      url:'/ajax/get_dynamic_dingcai',
+      data:{'cw_id':"<%= @courseware.id %>"},
+      dataType:'json'
+    }).done(function(data){
+		 if(data.has != 0){
+			 $('.video-extras-sparkbars').css({'border':'1px solid #CCCCCC'});
+        $('.video-extras-sparkbars').html('<div style="width:'+ data['dingpercent'] +'%" class="video-extras-sparkbar-likes"></div><div style="width:'+ data['caipercent'] +'%" class="video-extras-sparkbar-dislikes"></div>');
+        $('.video-extras-likes-dislikes').html('<span class="likes">'+data['d']+'</span> 人顶, <span class="dislikes">'+data['c']+'</span> 人踩');
+				
+		 }else{
+			$('.video-extras-sparkbars').css({'border':'0px solid #CCCCCC'});
+		 	$('.video-extras-sparkbars').html('');
+			$('.video-extras-likes-dislikes').html('');
+			
+		 }
+    })
+  }
+  $("button[data-button-action='actions.addto']").live("click",function(){
+      removeToggled('actions.addto');
+      $(this).toggleClass('yt-uix-button-toggled');
+      if($(this).hasClass('yt-uix-button-toggled')){
+         hide_everything();
+         somethingShow('#watch-actions-area-container');
+         somethingShow('#watch-actions-loading');
+         $.ajax({
+            type:"POST",
+            url:'/ajax/get_operation',
+            data:{'type':'addto','cw_id':"<%= @courseware.id %>"},
+            dataType: "html",
+            cookie:true
+         }).done(function(html){
+               $('#watch-actions-addto').html(html);
+               somethingShow('#watch-actions-addto');
+               somethingHide('#watch-actions-loading');
+							 
+         });
+       }  
+       else{
+           somethingHide('#watch-actions-area-container');
+           somethingHide('#watch-actions-addto');
+           $('#watch-actions-addto').html('');
+       }
+  });
+  $("button[data-button-action='actions.share']").live("click",function(){
+      removeToggled('actions.share');
+      $(this).toggleClass('yt-uix-button-toggled');
+      if($(this).hasClass('yt-uix-button-toggled')){
+        hide_everything();
+        somethingShow('#watch-actions-area-container');
+        somethingShow('#watch-actions-loading');
+        $.ajax({
+           type:"POST",
+           url:'/ajax/get_share_panel',
+           data:{'cw_id':"<%= @courseware.id %>"},
+           dataType: "html",
+           cookie:true,
+           timeout:3000
+        }).done(function(html){
+              $('#watch-actions-share-panel').html(html);
+              somethingShow('#watch-actions-share-panel');
+              somethingShow('#watch-actions-share');
+              somethingHide('#watch-actions-loading');
+              somethingHide('#watch-actions-share-loading');
+        });
+      }else{
+           somethingHide('#watch-actions-loading');
+           somethingHide('#watch-actions-area-container');
+           somethingHide('#watch-actions-share');
+           $('#watch-actions-share-panel').html('');
+      }
+                 
+  });
+  $("button[data-button-action='actions.flag']").live("click",function(){
+      removeToggled('actions.flag');
+      $(this).toggleClass('yt-uix-button-toggled');
+      ajax_load_board(this,'flag');
+  }); 
+   $("#watch-insight-button").live("click",function(){
+       removeToggled(this.id);
+       $(this).toggleClass('yt-uix-button-toggled');
+       ajax_load_board(this,'stat');
+   }); 
+  $('#comment_login').click(function(){return KTV.login()});
+  $('#watch-more-related-button').live("click",function(){
+     $(this).hide();
+     $('#watch-more-related').show();
+     $('#watch-related').append('<li></li>');
+     return false;
+  });
+  $("input[name=playlist_name]").live('focus',function(){
+    $(this).removeClass('label-input-label');
+  });
+  $("input[name=playlist_name]").live('blur',function(){
+     $(this).addClass('label-input-label');
+  });
+  $('button[data-close-parent-class=yt-alert]').live('click',function(){
+     somethingHide($(this).parent().parent());
+  });
+  $('.yt-uix-form-input-select').live('focus',function(){
+     $(this).addClass('focused');
+  });
+  $('.yt-uix-form-input-select').live('blur',function(){
+     $(this).removeClass('focused');
+  });
+  $('.playlist-item').live('click',function(){
+    if(!$(this).hasClass('selected') && !$(this).hasClass('loading')){
+       playlist_back_to_default();
+       tmp = this;
+       $(this).addClass('loading');
+       var on_top = 'false';
+       if($('#playlist-addto-top-checkbox').prop('checked')){
+				on_top = 'true';	
+       }
+			// ,'sort':$('select.yt-uix-form-input-select-element.sort-playlists >option:selected').val()
+       $.ajax({
+         type:"POST",
+         url:'/ajax/add_to_playlist_by_id',
+         data:{'authenticity_token':"<%= form_authenticity_token %>",'cwid':'<%= @courseware.id %>','pid':$(this).attr('data-playlist-id'),'on_top':on_top},
+         dataType:'json'
+       }).done(function(json){
+         if (json.status == 'onesuc') {
+           $('form > .yt-uix-form-input-container > .yt-uix-form-input-text.playlist-note',tmp).attr('placeholder',json.annotation);
+           $('.yt-alert-success.added-to-message > .yt-alert-content > .yt-alert-message > .added-to-message-title').html(json.title);
+           somethingShow('.yt-alert-success.added-to-message');
+					$('.playlist-video-count',tmp).html((parseInt($('.playlist-video-count',tmp).html())+1).toString())
+           $(tmp).removeClass('loading');
+           $(tmp).addClass('selected');
+         }else{
+           $(tmp).removeClass('loading');
+					show_add_error(json.reason);                  	
+         }
+       });
+                  
+    }
+  });
+  $('.cancel-note.yt-uix-button.yt-uix-button-default').live('click',function(){
+    somethingHide('.yt-alert.yt-alert-default');
+    $(this).parent().parent().removeClass('selected');
+    return false;
+  });
+  function ajax_get_list(){
+     $.ajax({
+       type:"POST",
+       url:'/ajax/playlist_sort',
+       data:{'sort':$('select.yt-uix-form-input-select-element.sort-playlists >option:selected').val()},
+       dataType:'html'
+     }).done(function(html){
+       $('ul.playlist-items').html(html);
+			 
+     });
+  };           
+  $('select.yt-uix-form-input-select-element.sort-playlists').live('change',function(){
+     playlist_back_to_default();
+     $('.yt-uix-form-input-select-content > .yt-uix-form-input-select-value',$(this).parent()).html($('select.yt-uix-form-input-select-element.sort-playlists > option:selected').text());
+     ajax_get_list();
+  });
+  $('.yt-uix-form-input-select.new-playlist-privacy > select.yt-uix-form-input-select-element').live('change',function(){
+    $('.yt-uix-form-input-select-content > .yt-uix-form-input-select-value',$(this).parent()).html($('.yt-uix-form-input-select.new-playlist-privacy > select.yt-uix-form-input-select-element > option:selected').text());
+  });
+             
+  $('button.create-new-playlist.yt-uix-button.yt-uix-button-default').live('click',function(){
+	 if($('#playlist_wired').val()){
+        $.ajax({
+          type:"POST",
+          url:'/ajax/create_new_playlist',
+data:{'list_title':$('#playlist_wired').val(),'is_private':$('.yt-uix-form-input-select.new-playlist-privacy > select.yt-uix-form-input-select-element > option:selected').val(),'cwid':'<%= @courseware.id %>'},
+          dataType:'json'
+        }).done(function(json){
+				 if(json.status == 'suc'){										 	
+           $('#playlist_wired').val('');
+           ajax_get_list();
+            $('.yt-alert-success.added-to-message > .yt-alert-content > .yt-alert-message > .added-to-message-title').html(json.title);
+            somethingShow('.yt-alert-success.added-to-message');
+				 }else{
+				 	show_add_error(json.reason)
+				 }
+        });
+	 }else{
+	 	 show_add_error('请填写锦囊标题');
+	 }
+  });
+             
+  $('.save-note.yt-uix-button.yt-uix-button-primary').live('click',function(){
+    tmp = this;
+    if($(this).prev().find('input.playlist-note').val().length>0){
+      $.ajax({
+         type:'POST',
+         url:'/ajax/save_note_for_one_cw',
+         data:{'note':$(this).prev().find('input.playlist-note').val(),'cwid':['<%= @courseware.id %>'],'title':$(tmp).parent().parent().attr('data-title')},
+         dataType:'json'
+       }).done(function(json){
+         if(json.status == 'suc'){
+           playlist_back_to_default();                   
+           $('.yt-alert-success.note-added-message > .yt-alert-content > .yt-alert-message >.note-added-message-title').html(json.title);
+           somethingShow('.yt-alert-success.note-added-message');
+         }else{
+					show_add_error(json.reason)
+          $(this).parent().parent().removeClass('selected');
+         }
+       });
+    }else{
+      show_add_error('请填写备注');
+    }
+                 
+    return false;
+  });
+             
+  function show_add_error(msg){
+    somethingHide('.yt-alert.yt-alert-default');
+    $('.messages-area > .yt-alert-error.added-to-error-message > .yt-alert-content').html(msg);
+    somethingShow('.yt-alert-error.added-to-error-message');
+  }
+  function playlist_back_to_default(){
+    $('.playlist-item').removeClass('selected');
+    $('.playlist-item').removeClass('loading');
+    somethingHide('.yt-alert.yt-alert-default');
+  }
+  function somethingHide(id){
+      $(id).hide();
+      $(id).addClass('hid');
+			
+  }
+  function somethingShow(id){
+      $(id).removeClass('hid');
+      $(id).slideDown('middle');
+			
+  }
+  function hide_everything(){
+    somethingHide('#watch-actions-area-container');
+    somethingHide('#watch-actions-loading');
+    somethingHide('#watch-actions-share-loading');
+    somethingHide('#watch-actions-error');
+    somethingHide('#watch-actions-addto');
+    somethingHide('#watch-actions-share');
+    somethingHide('#watch-actions-ajax');
+               
+    somethingHide('#watch-actions-share-panel');
+    $('#watch-actions-addto').html('');
+    $('#watch-error-string').html('');
+    $('#watch-actions-share-panel').html('');
+    $('#watch-actions-ajax').html('');
+  }
+  $('#watch-actions-error').ajaxError(function(){
+    hide_everything();
+    $('#watch-error-string').html('该功能目前不可用，请稍后重试。');
+    somethingShow('#watch-actions-error');
+  })
+             
+   $('.yt-uix-expander-head >.share-panel-show-url-options').live('click',function(){
+     $('.share-panel-services.yt-uix-expander').addClass('yt-uix-expander-collapsed');
+     $('.share-panel-url-options.yt-uix-expander').toggleClass('yt-uix-expander-collapsed');
+   });
+              
+   $('.yt-uix-expander-head > .share-panel-show-more').live('click',function(){
+     $('.share-panel-url-options.yt-uix-expander').addClass('yt-uix-expander-collapsed');
+     $('.share-panel-services.yt-uix-expander').toggleClass('yt-uix-expander-collapsed');
+   });
+   $('.yt-uix-form-input-text.share-panel-start-at-time').live('focus',function(){
+     $('input.share-panel-start-at').prop('checked',true);
+     if(!isInt($(this).val())){
+       $(this).val('');
+     }else{
+       if(parseInt($(this).val()) > <%= @courseware.slides_count %>){
+         $(this).val('<%= @courseware.slides_count %>');
+       }
+     }
+   }).live('blur',function(){
+     if(isInt($(this).val())){
+       var url= $('.yt-uix-form-input-text.share-panel-url').val();
+       var arr= parseUri(url);
+       var former=arr['protocol']+'://' + arr['host'] + arr['path'];
+       var num=(parseInt($(this).val()) > <%= @courseware.slides_count %>) ? '<%= @courseware.slides_count %>' : $(this).val();
+       var slidex = '?slide=' + num;
+       $('.yt-uix-form-input-text.share-panel-url').val(former + slidex);
+     }
+   });
+   var share_panel = function(ix,ux,tx){
+     if($(ix).hasClass('hid')){
+       $.ajax({
+         type:'POST',
+         url:'/ajax/get_share_partial',
+         data:{'type':tx,'cw_id':'<%= @courseware.id %>'},
+         dataType:'html',
+         cookie:true,
+         timeout:3000
+       }).done(function(html){
+         if(!$(ux).hasClass('hid')){
+           somethingHide(ux);
+         }
+         $(ix).html(html);
+         somethingShow(ix);
+       });  
+     }else{
+       somethingHide(ix);
+     }
+   };
+   $('.share-panel-embed').live('click',function(){share_panel('.share-panel-embed-container','.share-panel-email-container','embed');});
+   $('.share-panel-email').live('click',function(){share_panel('.share-panel-email-container','.share-panel-embed-container','email')});
+
+   function isInt(n) {
+      return n % 1 === 0;
+   }
+   function parseUri (str) {
+   	var	o   = parseUri.options,
+   		m   = o.parser[o.strictMode ? "strict" : "loose"].exec(str),
+   		uri = {},
+   		i   = 14;
+
+   	while (i--) uri[o.key[i]] = m[i] || "";
+
+   	uri[o.q.name] = {};
+   	uri[o.key[12]].replace(o.q.parser, function ($0, $1, $2) {
+   		if ($1) uri[o.q.name][$1] = $2;
+   	});
+
+   	return uri;
+   };
+
+   parseUri.options = {
+   	strictMode: false,
+   	key: ["source","protocol","authority","userInfo","user","password","host","port","relative","path","directory","file","query","anchor"],
+   	q:   {
+   		name:   "queryKey",
+   		parser: /(?:^|&)([^&=]*)=?([^&]*)/g
+   	},
+   	parser: {
+   		strict: /^(?:([^:\/?#]+):)?(?:\/\/((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?))?((((?:[^?#\/]*\/)*)([^?#]*))(?:\?([^#]*))?(?:#(.*))?)/,
+   		loose:  /^(?:(?![^:@]+:[^:@\/]*@)([^:\/?#.]+):)?(?:\/\/)?((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?)(((\/(?:[^?#](?![^?#\/]*\.[^?#\/.]+(?:[?#]|$)))*\/?)?([^?#\/]*))(?:\?([^#]*))?(?:#(.*))?)/
+   	}
+   };
+  $('#flag-reason-button').live('click',function(e){
+    back2normal();
+	 var div = $('#flag-video-menu');
+    if($(this).hasClass('yt-uix-button-active')){
+		 div.remove();
+      div.addClass('hid').hide();
+		 $(this).after(div);
+      $(this).removeClass('yt-uix-button-active');
+    }else{
+      $(this).addClass('yt-uix-button-active');
+		 div.remove();
+		 css = {
+			 'min-width': '80px', 
+			 'top': ($('#watch-actions-area').height() + $('#flag-reason-button').height()*2.5+6).toString() + 'px', 
+			 'left': ($(this).width() + 14).toString() + 'px'
+		 }
+		 div.css(css);
+      div.addClass('yt-uix-button-menu yt-uix-button-menu-external');
+		 div.removeClass('hid').show();
+		 $('#watch-main-container').append(div);                 
+     }
+     e.stopPropagation();
+  });
+  $(document).click(function(e){
+    var target = e.target;
+    if (!$(target).is('#flag-reason-button') && !$(target).parents().is('#flag-reason-button')) {
+      if($('#flag-reason-button').hasClass('yt-uix-button-active')){
+			  var div =$('#flag-video-menu');
+				div.remove();
+				div.addClass('hid');
+				$('#flag-reason-button').after(div);
+         $('#flag-reason-button').removeClass('yt-uix-button-active');
+      }
+    }
+  });
+  $('.flag-menu > .yt-uix-button-menu-item').live('click',function(e){
+    $('.yt-uix-button-menu-item').removeClass('selected');
+    $('.yt-uix-button-menu-item').removeClass('child-selected');
+    $(this).addClass('selected');
+    $('#flag-video-menu').addClass('hid');
+    $('#flag-reason-button').removeClass('yt-uix-button-active');
+    $('#flag-reason-button > .yt-uix-button-content').html($('.label',this).html());
+    handleChoose(this);
+			  var div =$('#flag-video-menu');
+				div.remove();
+				div.hide().addClass('hid');
+				$('#flag-reason-button').after(div);
+        $('#flag-reason-button').removeClass('yt-uix-button-active');
+    e.stopPropagation();
+  });
+  $('.submenu > .yt-uix-button-menu-item').live('click',function(e){
+    $('.yt-uix-button-menu-item').removeClass('selected');
+    $('.yt-uix-button-menu-item').removeClass('child-selected');
+    $(this).addClass('selected');
+    $(this).parent().parent().addClass('selected');
+    $(this).parent().parent().addClass('child-selected');
+    $('#flag-video-menu').addClass('hid');
+    $('#flag-reason-button').removeClass('yt-uix-button-active');
+    $('#flag-reason-button > .yt-uix-button-content').html($('.label',this).html());
+    handleChoose(this);
+		  var div =$('#flag-video-menu');
+			div.remove();
+			div.hide().addClass('hid');
+			$('#flag-reason-button').after(div);
+       $('#flag-reason-button').removeClass('yt-uix-button-active');
+    e.stopPropagation();
+  });
+             
+  var glayer;
+  var greason;
+  var gmsg;
+  $('#flag-video-submit').live('click',function(){
+       $.ajax({
+         url:'/ajax/flagcw',
+         type:'POST',
+         data:{'cw_id':'<%= @courseware.id %>','user_id':'<%= if current_user then current_user.id end%>','layer':glayer,'reason':greason, 'form':$('#flag-video-form').serializeArray()},
+         dataType:'json'
+       }).done(function(json){
+          if(json['status'] == 'suc'){
+            $('#flag-video-form-container').hide().addClass('hid');
+            if(gmsg != undefined){
+              $('#flag-video-result-'+gmsg).removeClass('hid');
+            }else{
+              $('#flag-video-result-default').removeClass('hid');
+            }
+          }else{
+            back2normal();
+            $('#flag-video-form').removeClass('hid');
+            $('#flag-video-error').removeClass('hid');
+          }
+       });
+  });
+  var handleChoose = function(who){
+    var time = $(who).attr('data-include-time');
+    var message = gmsg = $(who).attr('data-result-message');
+    var textbox  = $(who).attr('data-show-textbox-with-label');
+    var nopost =$(who).attr('data-no-post');
+    var layer = glayer =$(who).attr('data-reason');
+    var reason = ''
+    if(layer != undefined){
+      layer = 'reason';
+      reason = greason =$(who).attr('data-reason');
+    }else{
+      layer = 'subreason';
+      reason = greason =$(who).attr('data-subreason');
+    }
+    responseType(time,message,textbox,nopost);
+  }
+  var back2normal = function(){
+    $('#flag-video-form').addClass('hid');
+    $('#flag-video-more-info-time').addClass('hid');
+    $('#flag-video-more-info-comment').addClass('hid');
+    $('#flag-video-error').addClass('hid');
+    $('#flag-video-result-default').addClass('hid');
+    $('#flag-video-results-container').hide();
+    $('#flag-video-result-maybe-review').addClass('hid');
+    $('#flag-video-result-hate-speech').addClass('hid');
+    $('#flag-video-result-dcma-policy').addClass('hid');
+    $('#flag-video-result-privacy-center').addClass('hid');
+    $('#flag-video-result-bullying').addClass('hid');
+    $('#flag-video-result-legal-claim').addClass('hid');
+    $('#flag-video-buttons').hide();
+    $('#flag-video-more-info-hate-group').addClass('hid');
+  };
+             
+  var responseType = function(time,message,textbox,nopost){
+    back2normal();
+    $('#flag-video-results-container').removeClass('hid').show();
+    if(time=='true'){
+      $('#flag-video-form').removeClass('hid');
+      $('#flag-video-more-info-time').removeClass('hid');
+      if(nopost != 'true'){
+        $('#flag-video-buttons').show();
+      }
+    }
+    if(textbox != undefined){
+       $('#flag-video-more-info-comment').removeClass('hid');
+       $('#flag-video-more-info-textarea-label').html(textbox);
+    }
+    if(message == 'hate-speech'){
+      $('#flag-video-more-info-hate-group').removeClass('hid');
+    }
+    if(nopost =='true' && time!='true'){
+       $('#flag-video-form-container').hide().addClass('hid');
+        $('#flag-video-result-'+message).removeClass('hid'); 
+    }else if(nopost !='true' && time!='true'){
+       $('#flag-video-form').removeClass('hid');
+       $('#flag-video-buttons').removeClass('hid').show();
+    }
+  };
+  $('.comment-action').live('click',function(){
+    type = $(this).attr('data-action');
+    // console.log(type); 
+    if(type == 'close-share'){
+      return false; 
+    }               
+    if(type == 'vote-up' || type =='vote-down' || type =='reply'){
+      cid = $(this).parent().parent().parent().parent().parent().attr('data-id');
+    }else if(type =='show-parent'){
+      cid = $(this).parent().parent().parent().parent().parent().parent().attr('data-id');
+    }else{
+      cid = $(this).parent().parent().parent().parent().parent().parent().parent().attr('data-id');
+    }
+               
+    // console.log(cid); 
+    if(type == 'share' || type == 'reply' || type == 'show-parent'){
+      datatype = 'html';
+    }else{
+      datatype = 'json';
+    }
+    tmp = this;
+    $.ajax({
+      url:'/ajax/comment_action',
+      type:'POST',
+      data:{'cid':cid,'atype':type},
+      dataType:datatype,
+    }).done(function(data){
+      $('.end.flip.yt-uix-button.yt-uix-button-default.yt-uix-button-empty').removeClass('yt-uix-button-active');
+      $('.end.flip.yt-uix-button.yt-uix-button-default.yt-uix-button-empty > .yt-uix-button-menu.yt-uix-button-menu-default').hide().addClass('hid');
+      if(type == 'share'){
+         $('.comments-post-containerx').remove();
+         $(tmp).parent().parent().parent().parent().parent().parent().parent().append(data);
+         div = $(tmp).parent().parent();
+         cc = div.prev();
+         div.remove();
+         div.hide().addClass('hid');
+         cc.append(div);
+      }else if(type == 'reply'){
+        $('.comments-post-containerx').remove();
+        $(tmp).parent().parent().parent().parent().parent().append(data);
+      }else if(type == 'vote-up' || type =='vote-down'){
+        if(data['status'] == 'suc'){
+          if(parseInt(data['cc'])>0){
+            $('li[data-id='+cid+'] > .comment-body >.content-container >.content > .metadata > .comments-rating-positive').remove();
+            $('li[data-id='+cid+'] > .comment-body >.content-container >.content > .metadata').append('<span title="顶了 '+data['up']+' 次，踩了 '+ data['down']+' 次" class="comments-rating-positive" dir="ltr"><img src="<%= asset_path "yt/wfw.gif" %>" class="comments-rating-thumbs-up">'+data['up'] +'</span>');
+          }
+        }
+      }else if(type == 'remove'){
+        if(data['status'] == 'suc'){
+          $('li[data-id='+cid+'] > .comment-body >.content-container > .content >.comment-text').html('<p>该评论已经被删除！</p>');
+        }
+        div = $(tmp).parent().parent();
+        cc = div.prev();
+        div.remove();
+        div.hide().addClass('hid');
+        cc.append(div);
+      }else if(type == 'flag'){
+        div = $(tmp).parent().parent();
+        cc = div.prev();
+        div.remove();
+        div.hide().addClass('hid');
+        cc.append(div);
+      }else if(type == 'show-parent'){
+        $(tmp).parent().parent().parent().parent().parent().parent().before('<ul class="comment-list">'+data+'</ul>');
+        $(tmp).parent().parent().parent().parent().parent().parent().addClass('child');
+        $(tmp).remove();
+      }
+			
+    })
+  });
+  $('.end.flip.yt-uix-button.yt-uix-button-default.yt-uix-button-empty').live('click',function(){
+    $(this).toggleClass('yt-uix-button-active');
+    if(!$(this).hasClass('yt-uix-button-active')){
+      div = $(this).next();
+      div.remove();
+      div.hide().addClass('hid');
+      $(this).append(div);
+    }else{
+      div = $('.yt-uix-button-menu.yt-uix-button-menu-default',this);
+      div.remove();
+      $(this).after(div);
+      div.show().removeClass('hid');
+      var cssObj = {
+           'margin-left': '-10px',
+           'min-width': '15px', 
+           'top': '16px'
+      };
+      div.css(cssObj);
+      
+    }
+  });
+  function getURLParameter(name) {
+      return decodeURI(
+          (RegExp(name + '=' + '(.+?)(&|$)').exec(location.search)||[,null])[1]
+      );
+  }
+  <% if !params[:cid].nil? %>
+      function sharecid(){
+        var testcid = getURLParameter('cid');
+        var pageuri = getURLParameter('page');
+        if (testcid!=undefined) {
+          <% aa=Hash.new;@comments_all.each_with_index.map{|k,i| aa[k.id.to_s]=i};%>
+          <% if !aa[params[:cid]].nil? %>
+             var where_am_i = <%= aa[params[:cid]]+1 %>;
+             var per_page = <%= cookies[:welcome_per_page] %>;
+             page = parseInt(where_am_i/per_page) +1;
+             if(page>1 && pageuri == 'null'){
+                var url = location.protocol + '//' +location.hostname + location.pathname + '?cid=' + testcid + '&page=' + page + '&per_page=' + per_page;
+                window.location.replace(url); 
+                return;
+              }
+            $('html, body').animate({scrollTop: $('li[data-id='+testcid+']').offset().top}, 500,'easeInOutExpo');
+            $('li[data-id='+testcid+']').css('background-color','rgba(255,255,255,.7)');
+          <% end %>
+        }
+      }
+     sharecid();
+  <% end %>
+             
+  $('input.comment-share-url.yt-uix-form-input-text').live('focus',function(){
+        var $this = $(this);
+        $this.select();
+        $this.mouseup(function() {
+            $this.unbind("mouseup");
+            return false;
+        });
+  });
+  $('.expand.yt-uix-expander-head').live('click',function(){
+     // $('dl.extra-events').slideDown('slow');
+     $('.stats-box.yt-uix-expander').removeClass('yt-uix-expander-collapsed');
+  });
+  $('.collapse.yt-uix-expander-head').live('click',function(){
+     $('.stats-box.yt-uix-expander').addClass('yt-uix-expander-collapsed');
+  });
+ $('.divider a').live('click',function(){
+	 $("button[data-button-action='actions.flag']").trigger('click');
+ });
+  <% if !current_user.nil? and current_user.mark_history %>
+		 pageOpen = new Date();
+		 $(window).unload(function(){
+				var slide_num = $('#presentation iframe').contents().find('div#presenter img#slide_image').attr('src');
+		 		pageClose = new Date();
+		 		minutes = (pageClose.getMinutes() - pageOpen.getMinutes());
+			 	seconds = (pageClose.getSeconds() - pageOpen.getSeconds());
+		 	 	time = (seconds + (minutes * 60));
+				if(time>600){
+			 		var num = parseInt(slide_num.split('/').pop().split('.')[0].split('_').pop());
+			 		$.ajax({
+			 			type:'POST',
+			 			url:'/ajax/save_page_to_history',
+			 			data:{'cwid':"<%=@courseware.id%>",'page':num},
+			 			async : false
+			 		});	
+				}
+		 });
+	<% end %>
+<% end %>
 
 <%= render file:'/application/footers/_sdk_footer' %>

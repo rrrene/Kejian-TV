@@ -20,6 +20,10 @@ class CommentsController < ApplicationController
       render text:'window.location.href="/frozen_page"'
       return
     end
+    if params[:comment][:body].blank? and params[:comment][:body].length < 5
+      render text:'请填写内容，最短5个字'
+      return
+    end
     if SettingItem.get_deleted_nin_boolean
       Deferred.create!(user_id:current_user.id,controller:'comments', body:params, content:params[:comment][:body])
       flash[:notice] = "评论"

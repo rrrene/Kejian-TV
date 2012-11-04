@@ -152,9 +152,9 @@ class CoursewaresController < ApplicationController
             @hot_comments = nil
         end
         # binding.pry
-        @self_comments = @comments.where(:user_id => @courseware.uploader_id)
+        @self_comments = @comments.where(:user_id => @courseware.uploader_id).paginate(:page => 1, :per_page => 5)
         @comments = @comments.paginate(:page => params[:page], :per_page => @per_page)
-
+        @recommandation = Courseware.nondeleted.normal_father.random(4)
         @note = Note.new
         @note.courseware_id = @courseware.id
         @note.page = 0
