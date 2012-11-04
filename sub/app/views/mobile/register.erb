@@ -1,6 +1,10 @@
 <div data-role="content">
     <!-- 注册表单 -->
     <form name="regform">
+			<div style="margin:0;padding:0;display:inline">
+				<input name="utf8" type="hidden" value="✓">
+				<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+			</div>
     <input type="hidden" name="redirect_url" />
     <input type="hidden" name="errbkurl" />
     <div data-role="fieldcontain" class="ui-field-contain ui-body ui-br">

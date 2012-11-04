@@ -1,5 +1,9 @@
 <div id="login_page">
-  <form name="frmLogin" id="frmLogin" method="post" action="http://my.zhaopin.com/loginmgr/loginproc.asp">
+  <form name="frmLogin" id="frmLogin" method="post" action="">
+		<div style="margin:0;padding:0;display:inline">
+			<input name="utf8" type="hidden" value="✓">
+			<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+		</div>
     <div class="login_div">
       <div class="input_div">管理员账号:</div>
       <div class="input_div">

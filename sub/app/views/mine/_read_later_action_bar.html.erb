@@ -253,6 +253,7 @@
 			$.ajax({
 				url:'/ajax/get_addto_menu',
 				type:'POST',
+				data:{'authenticity_token':"<%= form_authenticity_token %>"}
 				dataType:'json'				
 			}).done(function(json){
 				if(json.status == 'suc'){
@@ -338,7 +339,7 @@
 		$.ajax({
 			url:'/ajax/add_to_playlist_by_id',
 			type:'POST',
-			data:{'pid':$('span',tmp).attr('data-item-id'),'cwid':choose},
+			data:{'authenticity_token':"<%= form_authenticity_token %>",'pid':$('span',tmp).attr('data-item-id'),'cwid':choose},
 			dataType:'json'
 		}).done(function(json){
 			if(json.status == 'suc'){
@@ -375,7 +376,7 @@
 		$.ajax({
 			url:'/ajax/add_to_read_later_array',
 			type:'POST',
-			data:{'cwid':choose,'type':'addto'},
+			data:{'authenticity_token':"<%= form_authenticity_token %>",'cwid':choose,'type':'addto'},
 			dataType:'json'
 		}).done(function(json){
 			if(json.status == 'suc'){
@@ -451,7 +452,7 @@
 		$.ajax({
 			url:'/ajax/save_note_for_one_cw',
 			type:'POST',
-			data:{'title':$('#addto-note-input-panel .yt-alert-message span.addto-title a').html(),'cwid':choose,'note':$('#addto-note').val()},
+			data:{'authenticity_token':"<%= form_authenticity_token %>",'title':$('#addto-note-input-panel .yt-alert-message span.addto-title a').html(),'cwid':choose,'note':$('#addto-note').val()},
 			dataType:'json',
 		  beforeSend: function ( xhr ) {
 		  				$('#addto-note-input-panel').animate({'left':'-='+$('#addto-note-input-panel').width().toString() + 'px',opacity:0},{queue:false,duration:400});
@@ -480,7 +481,7 @@
 		$.ajax({
 			url:'/ajax/create_and_add_to_by_id',
 			type:'POST',
-			data:{'title':$('textarea#addto-create-playlist').val(),'is_private':$('input[name="is_private"]:checked').val(),'cwid':choose},
+			data:{'authenticity_token':"<%= form_authenticity_token %>",'title':$('textarea#addto-create-playlist').val(),'is_private':$('input[name="is_private"]:checked').val(),'cwid':choose},
 			dataType:'json'
 		}).done(function(json){
 			if(json.status == 'onesuc'){
@@ -578,7 +579,7 @@
 			url:'/ajax/remove_one_search_history',
 			<% end %>
 			type:'POST',
-			data:{'cwid':choose,'type':'remove'<% if request.path == '/mine/my_history' %>,'time':history<% end %>},
+			data:{'authenticity_token':"<%= form_authenticity_token %>",'cwid':choose,'type':'remove'<% if request.path == '/mine/my_history' %>,'time':history<% end %>},
 			dataType:'json'
 		}).done(function(json){
 			if(json.status == 'suc'){
@@ -618,7 +619,7 @@
 		$.ajax({
 			url:'/ajax/pause_history',
 			type:'POST',
-			data:{'switch':'off'},
+			data:{'authenticity_token':"<%= form_authenticity_token %>",'switch':'off'},
 			dataType:'json'
 		}).done(function(json){
 			if(json.status == 'suc'){
@@ -633,7 +634,7 @@
 			$.ajax({
 				url:'/ajax/pause_history',
 				type:'POST',
-				data:{'switch':'on'},
+				data:{'authenticity_token':"<%= form_authenticity_token %>",'switch':'on'},
 				dataType:'json'
 			}).done(function(json){
 				if(json.status == 'suc'){
@@ -676,6 +677,7 @@
 			<% elsif request.path == '/mine/my_search_history' %>
 			url:'/ajax/clear_search_history',
 			<% end %>
+			data:{'authenticity_token':"<%= form_authenticity_token %>"}
 			type:'POST',
 			dataType:'json'
 		}).done(function(json){
@@ -697,7 +699,7 @@
 		$.ajax({
 			url:'/ajax/pause_search_history',
 			type:'POST',
-			data:{'switch':'off'},
+			data:{'authenticity_token':"<%= form_authenticity_token %>",'switch':'off'},
 			dataType:'json'
 		}).done(function(json){
 			if(json.status == 'suc'){
@@ -712,7 +714,7 @@
 		$.ajax({
 			url:'/ajax/pause_search_history',
 			type:'POST',
-			data:{'switch':'on'},
+			data:{'authenticity_token':"<%= form_authenticity_token %>",'switch':'on'},
 			dataType:'json'
 		}).done(function(json){
 			if(json.status == 'suc'){

@@ -141,7 +141,7 @@
 			$.ajax({
 				url:'/ajax/update_widget_sort',
 				type:'POST',
-				data:{'left':left,'right':right},
+				data:{'authenticity_token':"<%= form_authenticity_token %>",'left':left,'right':right},
 				dataType:'json'
 			});
 		}
@@ -228,7 +228,7 @@
 			$.ajax({
 				url:'/ajax/request_widget',
 				type:'POST',
-				data:{'widget_type':type},
+				data:{'authenticity_token':"<%= form_authenticity_token %>",'widget_type':type},
 				dataType:'json'
 			}).done(function(json){
 				if(json.status!='failed'){
@@ -262,13 +262,13 @@
 			var title = $('.dashboard-widget.videos input.dashboard-widget-custom-title').val().toString();
 			var num = $('.dashboard-widget.videos .yt-uix-form-input-select-content .yt-uix-form-input-select-value').html().toString();
 			var filter = $('.dashboard-widget.videos .videos-widget-search-query').val().toString();
-			data = {'title':title,'num':num,'filter':filter,'wid':'kejian'};
+			data = {'authenticity_token':"<%= form_authenticity_token %>",'title':title,'num':num,'filter':filter,'wid':'kejian'};
 			update_property(data,this);
 		});
 		$('.dashboard-widget.comments .dashboard-widget-save.yt-uix-button.yt-uix-button-primary').live('click',function(){
 			var title = $('.dashboard-widget.comments input.dashboard-widget-custom-title').val().toString();
 			var num = $('.dashboard-widget.comments .yt-uix-form-input-select-content .yt-uix-form-input-select-value').html().toString();
-			data = {'title':title,'num':num,'wid':'comments'};
+			data = {'authenticity_token':"<%= form_authenticity_token %>",'title':title,'num':num,'wid':'comments'};
 			update_property(data,this);
 		});
 		var update_property = function(ddata,tthis){

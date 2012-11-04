@@ -1,5 +1,9 @@
 <% puser = User.find(playlist.user_id) %>
 <form action="/play_lists/<%= playlist.id %>/handler" method="post" id="playlist-editor-form">
+	<div style="margin:0;padding:0;display:inline">
+		<input name="utf8" type="hidden" value="✓">
+		<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+	</div>
    <input type="hidden" value="<%= Digest::MD5.hexdigest(playlist.id.to_s+'.liber.'+Digest::MD5.hexdigest(@formhash)) %>" name="encrypted_playlist_id" />
    <input type="hidden" value="<%= @formhash %>" name="form_hash" />
 <div style="margin:0;padding:0;display:inline">
@@ -299,7 +303,7 @@
     $.ajax({
       url:'/ajax/add_to_playlist_by_url',
       type:'POST',
-      data:{'url':$('.yt-uix-form-input-text.add-video-panel-url').val(),'playlist_id':'<%= playlist.id %>'},
+      data:{'authenticity_token':"<%= form_authenticity_token %>",'url':$('.yt-uix-form-input-text.add-video-panel-url').val(),'playlist_id':'<%= playlist.id %>'},
       dataType:'json',
       error: function(){
         $('#add-video-success').hide();

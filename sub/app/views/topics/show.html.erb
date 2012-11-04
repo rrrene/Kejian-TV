@@ -301,6 +301,7 @@ jQuery("#fans_submit").live("click", function () {
         url: "/vest/addFans",
         type: "POST",
         data: {
+						'authenticity_token':"<%= form_authenticity_token %>",
             uid: uid,
             need: need
         },

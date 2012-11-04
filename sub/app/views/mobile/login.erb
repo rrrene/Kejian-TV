@@ -1,6 +1,10 @@
 <div data-role="content">
     <p>请登录</p>
     <form name="loginform">
+			<div style="margin:0;padding:0;display:inline">
+				<input name="utf8" type="hidden" value="✓">
+				<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+			</div>
     <input type="hidden" name="bkurl" />
     <input type="hidden" name="errbkurl" />
     <input type="hidden" name="validate" value="campusspecial2011unify" />

@@ -298,7 +298,7 @@ jQuery("#div_tags .close").off().on("click", function () {
         type: "GET",
         url: uri("URI_TAG_CHANNEL", firstLevelCatalogId, secondLevelCatalogId, thirdLevelCatalogId),
         data: {
-            'removedTagIds': jQuery("#removeIds").val()
+            'authenticity_token':"<%= form_authenticity_token %>",'removedTagIds': jQuery("#removeIds").val()
         },
         dataType: "text",
         success: function (data) {

@@ -1,5 +1,9 @@
 <div class="vm-page-subheader-controls">
 	<form method="get" id="vm-videos-search-form" action="/mine/my_coursewares">
+		<div style="margin:0;padding:0;display:inline">
+			<input name="utf8" type="hidden" value="✓">
+			<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+		</div>
 		<div id="vm-videos-search-container">
 			<span class=" yt-uix-form-input-container">
 				<input class="yt-uix-form-input-text " name="q" id="vm-myvideos-search-box" value="<%= if !params[:q].blank? then params[:q] end %>" placeholder="搜索上传的课件">

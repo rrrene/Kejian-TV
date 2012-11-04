@@ -67,6 +67,10 @@ $('li.vcard').click(function(){
 			</div>
       <h2>您可以轻松地向您的学习伙伴发出邀请, 在<%=Setting.ktv_subname%>课件交流系统与他们保持联络.</h2>
 			<form action="/reg/webmail-connect-create" method="POST" name="aBookConnectForm" novalidate="novalidate" class="connections" id="yui-gen1">
+				<div style="margin:0;padding:0;display:inline">
+					<input name="utf8" type="hidden" value="✓">
+					<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+				</div>
 				<div class="header">
 					<p class="select-all">
 						<input type="checkbox" value="all" id="select-all-pymk" checked="">

@@ -89,6 +89,10 @@
     <div class="wrapper" style="<%=yield :sdk_wrapper_style%>">
       <h1><a href="/" id="core_logotext_wrap"><%= image_tag "logo_ktv_#{Setting.ktv_sub}.png",:alt => "#{Setting.ktv_subname}课件交流系统",:id=>'core_logotext' %></a></h1>
       <form accept-charset="UTF-8" action="/search" id="search_form" method="get" data-width-tobe="<%= Setting.logo_ktv_width + 490 %>" style="<%= "margin-left:#{Setting.logo_ktv_width + 78}px" %>">
+				<div style="margin:0;padding:0;display:inline">
+					<input name="utf8" type="hidden" value="✓">
+					<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+				</div>
         <input type="text" id="q" name="q" value="" class="placeholded" placeholder="全站搜索" />
       </form>
       <div class="navigation">

@@ -153,7 +153,7 @@ $('#playlist-bar-prev-button').live('click',function(e){
 		$.ajax({
 			url:'/ajax/bar_update_content_in_playlist',
 			type:'POST',
-			data:{'content_string':bar_li_id,'pid':$('#playlist-bar').attr('data-list-id')},
+			data:{'authenticity_token':"<%= form_authenticity_token %>",'content_string':bar_li_id,'pid':$('#playlist-bar').attr('data-list-id')},
 			dataType:'json'
 		}).done(function(json){
 			bar_loading();

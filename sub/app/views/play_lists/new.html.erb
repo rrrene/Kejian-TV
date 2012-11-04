@@ -23,8 +23,10 @@
 		<!-- begin content -->
 		<div id="content" style="width:970px">
 			<form action="/playlist_edit" method="post" id="playlist-editor-form">
-				<input type="hidden" value="U8P_aKcvc6f77n7dAuB7YcpFSSL8kV4D" name="encrypted_playlist_id">
-				<input type="hidden" value="TuLxhBDIcipyhErrvG8vng043_N8MTM1MDI4NTkwM0AxMzUwMTk5NTAz" name="session_token">
+				<div style="margin:0;padding:0;display:inline">
+					<input name="utf8" type="hidden" value="✓">
+					<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+				</div>
 				<div id="playlist-editor-heading-container">
 					<div class="ytg-box" id="playlist-editor-heading" style="height:32px">
 						<h2>

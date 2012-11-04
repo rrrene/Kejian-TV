@@ -261,7 +261,7 @@
      $.ajax({
        url:'/ajax/add_to_read_later',
        type:'POST',
-       data:{'cwid':cwid,'type':type},
+       data:{'authenticity_token':"<%= form_authenticity_token %>",'cwid':cwid,'type':type},
        dataType:'json'
      }).done(function(json){
         if(json['status']=='suc'){
@@ -289,7 +289,7 @@
 		$.ajax({
 			url:'/ajax/like_playlist',
 			type:'POST',
-			data:{'pid':'<%= @playlist.id %>','type':type},
+			data:{'authenticity_token':"<%= form_authenticity_token %>",'pid':'<%= @playlist.id %>','type':type},
 			dataType:'json'
 		}).done(function(json){
 			if(json.status == 'suc'){
@@ -329,7 +329,7 @@
         $.ajax({
           url:'/ajax/get_playlist_share',
           type:'POST',
-          data:{'playlist_id':'<%= @playlist.id %>'},
+          data:{'authenticity_token':"<%= form_authenticity_token %>",'playlist_id':'<%= @playlist.id %>'},
           dataType:'html'
         }).done(function(html){
 		        $('#playlist-share-loading').hide().addClass('hid');

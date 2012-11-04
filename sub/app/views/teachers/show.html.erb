@@ -206,6 +206,7 @@ jQuery("#followBtn").live("click", function () {
             jQuery.ajax({
                 type: "POST",
                 url: postUrl,
+								data:{'authenticity_token':"<%= form_authenticity_token %>"}
                 dataType: "json",
                 success: function (data) {
                     jQuery("#followBtn").removeClass().addClass('concern-ico').find("em").text("关注");
@@ -221,6 +222,7 @@ jQuery("#followBtn").live("click", function () {
         jQuery.ajax({
             type: "POST",
             url: postUrl,
+						data:{'authenticity_token':"<%= form_authenticity_token %>"}
             dataType: "json",
             success: function (data) {
                 jQuery("#followBtn").removeClass().addClass('d-concerned-ico').find("em").text("已关注");
@@ -268,6 +270,7 @@ jQuery("#fans_submit").live("click", function () {
         url: "/vest/addFans",
         type: "POST",
         data: {
+						'authenticity_token':"<%= form_authenticity_token %>",
             uid: uid,
             need: need
         },

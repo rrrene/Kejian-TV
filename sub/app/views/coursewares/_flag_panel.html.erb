@@ -129,6 +129,10 @@
          </ul>
       </div>
       <form action="/ajax/flagcw" class="hid" id="flag-video-form">
+				<div style="margin:0;padding:0;display:inline">
+					<input name="utf8" type="hidden" value="✓">
+					<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+				</div>
          <div class="hid" id="flag-video-more-info-time">
             <p>
                为了帮助我们尽快验证该问题，请同时告诉我们不当资料在课件中所处的位置。

@@ -28,6 +28,10 @@
 				<span class="yt-uix-char-counter-remaining">60</span>
     </div>
     <form class="privacy-form">
+			<div style="margin:0;padding:0;display:inline">
+				<input name="utf8" type="hidden" value="✓">
+				<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+			</div>
         <fieldset id="addto-playlist-privacy-setting">
             <ul>
                 <li> <span class="yt-uix-form-input-radio-container  checked"><input name="is_private" class="yt-uix-form-input-radio playlist-privacy-option" checked="checked" id="playlist-privacy-public" value="0" type="radio"><span class="yt-uix-form-input-radio-element"></span></span>

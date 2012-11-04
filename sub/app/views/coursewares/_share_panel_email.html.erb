@@ -24,6 +24,10 @@
       </div>
       <form action="/ajax/ajax_send_email" method="POST" class="share-email-form">
          <input type="hidden" value="<%= cw.id %>" name="cw_id">
+				 <div style="margin:0;padding:0;display:inline">
+				 	<input name="utf8" type="hidden" value="✓">
+				 	<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+				 </div>
          <div class="section">
             <label for="share-email-recipients">
             收件人<span>（电子邮件地址或用户名）</span>：
@@ -72,7 +76,7 @@
         $.ajax({
           url:"/ajax/ajax_send_email",
           type:"POST",
-          data:{'cw_id':'<%= cw.id %>','recipients':$('.share-email-recipients').val(),'message':$('.share-email-note').val()},
+          data:{'authenticity_token':"<%= form_authenticity_token %>",'cw_id':'<%= cw.id %>','recipients':$('.share-email-recipients').val(),'message':$('.share-email-note').val()},
           dataType:'json'
         }).done(function(json){
           $('.share-email-recipients').val('');

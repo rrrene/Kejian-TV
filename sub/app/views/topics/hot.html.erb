@@ -1112,6 +1112,7 @@ if(type == 1){
 im.window.confirm(jQuery("#"+id),"确认取消关注吗?",function(){
 jQuery.ajax({
 type : "POST",
+data:{'authenticity_token':"<%= form_authenticity_token %>"}
 url : postUrl,
 dataType:"json",
 success : function(data) {
@@ -1128,6 +1129,7 @@ followAllFollows();
 jQuery.ajax({
 type : "POST",
 url : postUrl,
+data:{'authenticity_token':"<%= form_authenticity_token %>"}
 dataType:"json",
 success : function(data) {
 jQuery("#"+id).text("已关注");

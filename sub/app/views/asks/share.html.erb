@@ -11,7 +11,10 @@
       <%= auth_token %>
       <div  class="share_panel hide" id="share_panel_email">
         <input type="hidden" name="type" value="email" />
-
+				<div style="margin:0;padding:0;display:inline">
+					<input name="utf8" type="hidden" value="✓">
+					<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+				</div>
         <dl class="shareEmailTab clearfix">
           <dt><label>收件人：</label></dt>
           <dd><input type="text" name="to" placeholder="如：user@163.com" required="required" type="email" /></dd>

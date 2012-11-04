@@ -45,6 +45,10 @@ $('#popup_headlines').popupWindow({
 				<%= form_for(resource, :as => resource_name, :url => request.path, :html => { :method => :put, :class => 'normal',:id=>'submit_btn_form',:enctype =>  "multipart/form-data",:autocomplete=>"off" }) do |f| %>
 
 				<form action="/profile/edit-basic-info-submit" method="POST" name="editBasicInfoForm" novalidate="novalidate" class="standard-form" id="yui-gen5">
+					<div style="margin:0;padding:0;display:inline">
+						<input name="utf8" type="hidden" value="✓">
+						<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+					</div>
 					<fieldset>
 						<legend><span>真实姓名</span></legend>
 						<ul>

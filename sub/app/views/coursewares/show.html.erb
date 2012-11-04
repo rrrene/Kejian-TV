@@ -907,7 +907,7 @@ courseware_id: '<%=@courseware.id%>'
 	 $.ajax({
 		 url:'/ajax/add_to_read_later',
 		 type:'POST',
-		 data:{'cwid':cwid,'type':type},
+		 data:{'authenticity_token':"<%= form_authenticity_token %>",'cwid':cwid,'type':type},
 		 dataType:'json'
 	 }).done(function(json){
 		 $(tmp).removeClass('addto-watch-later-button-loading')
@@ -937,7 +937,7 @@ courseware_id: '<%=@courseware.id%>'
      $.ajax({
         type:"POST",
         url:'/ajax/get_operation',
-        data:{'type':'watch-like','cw_id':"<%= @courseware.id %>"},
+        data:{'authenticity_token':"<%= form_authenticity_token %>",'type':'watch-like','cw_id':"<%= @courseware.id %>"},
         dataType: "html",
         cookie:true
      }).done(function(html){
@@ -969,7 +969,7 @@ courseware_id: '<%=@courseware.id%>'
      $.ajax({
         type:"POST",
         url:'/ajax/get_operation',
-        data:{'type':'watch-unlike','cw_id':"<%= @courseware.id %>"},
+        data:{'authenticity_token':"<%= form_authenticity_token %>",'type':'watch-unlike','cw_id':"<%= @courseware.id %>"},
         dataType: "html",
         cookie:true
      }).done(function(html){
@@ -993,7 +993,7 @@ courseware_id: '<%=@courseware.id%>'
          $.ajax({
             type:"POST",
             url:'/ajax/get_operation',
-            data:{'type':type,'cw_id':"<%= @courseware.id %>"},
+            data:{'authenticity_token':"<%= form_authenticity_token %>",'type':type,'cw_id':"<%= @courseware.id %>"},
             dataType: "html",
             cookie:true
          }).done(function(html){
@@ -1012,7 +1012,7 @@ courseware_id: '<%=@courseware.id%>'
     $.ajax({
       type:"POST",
       url:'/ajax/get_dynamic_dingcai',
-      data:{'cw_id':"<%= @courseware.id %>"},
+      data:{'authenticity_token':"<%= form_authenticity_token %>",'cw_id':"<%= @courseware.id %>"},
       dataType:'json'
     }).done(function(data){
 		 if(data.has != 0){
@@ -1038,7 +1038,7 @@ courseware_id: '<%=@courseware.id%>'
          $.ajax({
             type:"POST",
             url:'/ajax/get_operation',
-            data:{'type':'addto','cw_id':"<%= @courseware.id %>"},
+            data:{'authenticity_token':"<%= form_authenticity_token %>",'type':'addto','cw_id':"<%= @courseware.id %>"},
             dataType: "html",
             cookie:true
          }).done(function(html){
@@ -1064,7 +1064,7 @@ courseware_id: '<%=@courseware.id%>'
         $.ajax({
            type:"POST",
            url:'/ajax/get_share_panel',
-           data:{'cw_id':"<%= @courseware.id %>"},
+           data:{'authenticity_token':"<%= form_authenticity_token %>",'cw_id':"<%= @courseware.id %>"},
            dataType: "html",
            cookie:true,
            timeout:3000
@@ -1155,7 +1155,7 @@ courseware_id: '<%=@courseware.id%>'
      $.ajax({
        type:"POST",
        url:'/ajax/playlist_sort',
-       data:{'sort':$('select.yt-uix-form-input-select-element.sort-playlists >option:selected').val()},
+       data:{'authenticity_token':"<%= form_authenticity_token %>",'sort':$('select.yt-uix-form-input-select-element.sort-playlists >option:selected').val()},
        dataType:'html'
      }).done(function(html){
        $('ul.playlist-items').html(html);
@@ -1176,7 +1176,7 @@ courseware_id: '<%=@courseware.id%>'
         $.ajax({
           type:"POST",
           url:'/ajax/create_new_playlist',
-data:{'list_title':$('#playlist_wired').val(),'is_private':$('.yt-uix-form-input-select.new-playlist-privacy > select.yt-uix-form-input-select-element > option:selected').val(),'cwid':'<%= @courseware.id %>'},
+data:{'authenticity_token':"<%= form_authenticity_token %>",'list_title':$('#playlist_wired').val(),'is_private':$('.yt-uix-form-input-select.new-playlist-privacy > select.yt-uix-form-input-select-element > option:selected').val(),'cwid':'<%= @courseware.id %>'},
           dataType:'json'
         }).done(function(json){
 				 if(json.status == 'suc'){										 	
@@ -1199,7 +1199,7 @@ data:{'list_title':$('#playlist_wired').val(),'is_private':$('.yt-uix-form-input
       $.ajax({
          type:'POST',
          url:'/ajax/save_note_for_one_cw',
-         data:{'note':$(this).prev().find('input.playlist-note').val(),'cwid':['<%= @courseware.id %>'],'title':$(tmp).parent().parent().attr('data-title')},
+         data:{'authenticity_token':"<%= form_authenticity_token %>",'note':$(this).prev().find('input.playlist-note').val(),'cwid':['<%= @courseware.id %>'],'title':$(tmp).parent().parent().attr('data-title')},
          dataType:'json'
        }).done(function(json){
          if(json.status == 'suc'){
@@ -1292,7 +1292,7 @@ data:{'list_title':$('#playlist_wired').val(),'is_private':$('.yt-uix-form-input
        $.ajax({
          type:'POST',
          url:'/ajax/get_share_partial',
-         data:{'type':tx,'cw_id':'<%= @courseware.id %>'},
+         data:{'authenticity_token':"<%= form_authenticity_token %>",'type':tx,'cw_id':'<%= @courseware.id %>'},
          dataType:'html',
          cookie:true,
          timeout:3000
@@ -1416,7 +1416,7 @@ data:{'list_title':$('#playlist_wired').val(),'is_private':$('.yt-uix-form-input
        $.ajax({
          url:'/ajax/flagcw',
          type:'POST',
-         data:{'cw_id':'<%= @courseware.id %>','user_id':'<%= if current_user then current_user.id end%>','layer':glayer,'reason':greason, 'form':$('#flag-video-form').serializeArray()},
+         data:{'authenticity_token':"<%= form_authenticity_token %>",'cw_id':'<%= @courseware.id %>','user_id':'<%= if current_user then current_user.id end%>','layer':glayer,'reason':greason, 'form':$('#flag-video-form').serializeArray()},
          dataType:'json'
        }).done(function(json){
           if(json['status'] == 'suc'){
@@ -1515,7 +1515,7 @@ data:{'list_title':$('#playlist_wired').val(),'is_private':$('.yt-uix-form-input
     $.ajax({
       url:'/ajax/comment_action',
       type:'POST',
-      data:{'cid':cid,'atype':type},
+      data:{'authenticity_token':"<%= form_authenticity_token %>",'cid':cid,'atype':type},
       dataType:datatype,
     }).done(function(data){
       $('.end.flip.yt-uix-button.yt-uix-button-default.yt-uix-button-empty').removeClass('yt-uix-button-active');
@@ -1641,7 +1641,7 @@ data:{'list_title':$('#playlist_wired').val(),'is_private':$('.yt-uix-form-input
 			 		$.ajax({
 			 			type:'POST',
 			 			url:'/ajax/save_page_to_history',
-			 			data:{'cwid':"<%=@courseware.id%>",'page':num},
+			 			data:{'authenticity_token':"<%= form_authenticity_token %>",'cwid':"<%=@courseware.id%>",'page':num},
 			 			async : false
 			 		});	
 				}

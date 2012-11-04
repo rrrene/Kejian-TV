@@ -5,6 +5,10 @@
 <div class='__slide' style="padding-top:50px">
 
 <form id="subscriptionForm" action="https://www.slideshare.net/business/premium/payment" method="post" class="h-subscriptionForm">
+	<div style="margin:0;padding:0;display:inline">
+		<input name="utf8" type="hidden" value="✓">
+		<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+	</div>
   <input type="hidden" value="0" id="source" name="source">
   <input type="hidden" value="" id="cmp_src" name="cmp_src">
   <div id="logo" class="container">
