@@ -49,6 +49,10 @@ Sub::Application.configure do
     __lnk_popup.css
     __g.css
     __lnk.css
+    __lnk_reg.css 
+    qua_7d84bd7ff4616c9b.css
+    qua_f791fcfc8935e1ad.css
+    qua_06b596594fbe5bcf.css
     ktv/embed.js
     ui_orig.js
     modernizr.js
@@ -82,6 +86,7 @@ Sub::Application.configure do
     ktv/ie.css
     ktv/ie7.css
     ktv/ie6.css
+    ktv/__zm.css
     ktv/__zm_reg.css
     ktv/__zm_sur.css
     ktv/__zm_hoth.css
