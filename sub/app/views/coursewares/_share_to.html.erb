@@ -1,20 +1,8 @@
 <div class="share-panel">
    <div class="share-option-container ytg-box">
       <div class="share-panel-url-container">
-         <span class=" yt-uix-form-input-container"><input data-video-id="q1sRAXZ-qLM" value="http://<%= Setting.ktv_sub.nil? ? 'www' : Setting.ktv_sub %>.kejian<%= $psvr_really_development ? '.lvh.me' : '.tv'%>/coursewares/<%= cw.id %>#" name="share_url" class="yt-uix-form-input-text share-panel-url"></span>
+         <span class=" yt-uix-form-input-container"><input value="http://<%= Setting.ktv_sub.nil? ? 'www' : Setting.ktv_sub %>.kejian<%= $psvr_really_development ? '.lvh.me' : '.tv'%>/coursewares/<%= cw.id %>#" name="share_url" class="yt-uix-form-input-text share-panel-url"></span>
          <div class="share-panel-url-options yt-uix-expander yt-uix-expander-collapsed">
-           <!-- JiaThis Button BEGIN -->
-           <div class="jiathis_style_32x32">
-              <a class="jiathis_button_qzone"></a>
-                <a class="jiathis_button_tsina"></a>
-                  <a class="jiathis_button_tqq"></a>
-                    <a class="jiathis_button_renren"></a>
-                      <a class="jiathis_button_kaixin001"></a>
-                        <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
-                          <a class="jiathis_counter_style"></a>
-                        </div>
-                        <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1351061699325921" charset="utf-8"></script>
-                        <!-- JiaThis Button END -->
             <div class="yt-uix-expander-head">
                <a class="share-panel-show-url-options">
                <span class="collapsed-message">
@@ -35,23 +23,60 @@
                   </label>
                   <input type="text" class="yt-uix-form-input-text share-panel-start-at-time" style='width: 50px;'value="1">
                </li>
-               <li>
+<% if false %>
+							 <li>
                   <label>
                   <input type="checkbox" class="share-panel-long-url">
                   长链接
                   </label>
-               </li>
+							 </li>
+<% end %>
             </ul>
          </div>
       </div>
-      
+      <% if false %>
       <div class="share-panel-buttons yt-uix-expander yt-uix-expander-collapsed">
          <span class="share-panel-main-buttons">
          <button role="button" onclick=";return false;" class="share-panel-embed yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-content">嵌入代码 </span></button>
          <div style="clear:both"></div>
          <button role="button" onclick=";return false;" class="share-panel-email yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-content">电子邮件 </span></button>    </span>
       </div>
-      <div class="share-panel-services yt-uix-expander yt-uix-expander-collapsed">
+			<% end %>
+      <div class="share-panel-services yt-uix-expander yt-uix-expander-collapsed" style="width:auto">
+				<!-- JiaThis Button BEGIN -->
+				<div class="jiathis_style_32x32">
+				<a class="jiathis_button_renren"></a>
+				<a class="jiathis_button_tsina"></a>
+				<a class="jiathis_button_tqq"></a>
+				<a class="jiathis_button_douban"></a>
+				<a class="jiathis_button_hi"></a>
+				<a class="jiathis_button_qzone"></a>
+				<a class="jiathis_counter_style"></a>
+				</div>
+				<% if cw.status !=0 or !cw.check_upyun_result 
+					picurl = asset_path("yt/img/meh_mini-unreadable.png")
+				else 
+					picurl =  asset_url("cw/#{cw.ktvid}/#{cw.revision}thumb_slide_0.jpg") 
+			  end %>
+				<script type="text/javascript" >
+				var jiathis_config={
+					siteNum:0,
+					url:document.getElementsByName('share_url')[0].value,
+					summary:"<%= cw.title %>",
+					title:"课件TV <%= cw.title %>",
+					boldNum:0,
+					pic:"<%= picurl %>",
+					appkey:{
+						"tsina":"2931187294",
+						"tqq":"100285598",
+						"renren":'952ab0cc70fa4a6c9e0fbe260a81657e'
+					},
+					hideMore:true
+				}
+				</script>
+				<script type="text/javascript" src="http://v3.jiathis.com/code_mini/jia.js?uid=1351061699325921" charset="utf-8"></script>
+				<!-- JiaThis Button END -->
+				<% if false %>
          <ul class="share-group ytg-box">
             <li>
                <button class="yt-uix-tooltip share-service-button" title="分享至Facebook" data-service-name="FACEBOOK" onclick="return false;">
@@ -107,6 +132,7 @@
             </div>
          </div>
       </div>
+			<% end %>
       <div class="share-panel-embed-container hid">
          <div>
             正在加载...

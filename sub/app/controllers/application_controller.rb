@@ -2,7 +2,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter proc{
-    sign_in User.find('50437108e138234991000001')
+    # sign_in User.find('50437108e138234991000001')
     # puts request.env['HTTP_USER_AGENT']+request.ip
     # puts ' '
     # puts request.path
@@ -65,7 +65,7 @@ class ApplicationController < ActionController::Base
   end
   
   before_filter :set_vars
-  # before_filter :xookie,:unless=>'devise_controller?'
+  before_filter :xookie,:unless=>'devise_controller?'
   before_filter :dz_security
   
   def set_vars

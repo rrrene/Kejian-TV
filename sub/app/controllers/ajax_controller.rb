@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class AjaxController < ApplicationController
-  before_filter :authenticate_user!, :except => [:checkUsername,:checkEmailAjax,:xl_req_get_method_vod,:logincheck,:seg,:star_refresh,:current_user_reg_extent,:renren_invite]
+  before_filter :authenticate_user!, :except => [:checkUsername,:checkEmailAjax,:xl_req_get_method_vod,:logincheck,:seg,:star_refresh,:current_user_reg_extent,:renren_invite,:get_share_panel]
   def renren_invite
     agent = request.env['HTTP_USER_AGENT']
     agent = Setting.user_agent if agent.blank?
@@ -438,11 +438,13 @@ HEREDOC
   end
   ### playlist end 
   def get_share_panel
-    if current_user.nil?
-      render :text => "<div><a href='javascript:void(0)' class='like grey psvr_login_required'>登录</a>之后就可以踩了。</div>"
-    else
       render file:'coursewares/_share_to',locals:{cw:Courseware.find(params[:cw_id])},layout:false  
-    end
+      return false
+    # if current_user.nil?
+    #   # render :text => "<div><a href='javascript:void(0)' class='like grey psvr_login_required'>登录</a>之后就可以踩了。</div>"
+    # else
+    #   render file:'coursewares/_share_to',locals:{cw:Courseware.find(params[:cw_id])},layout:false  
+    # end
   end
   def get_share_partial
     if params[:type] == 'embed'
