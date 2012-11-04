@@ -5,7 +5,7 @@
       window.psvr_g=<%= Ktv::Utils.safely('undefined'){ret=Department.get_fid(@c.department);if ret.present?;ret;else;raise 'bitch!';end}%>;
       $('#content').click(function(){$('#presentation_teacher_select').hide();$('#presentation_teacher_hv').removeClass('right_on');$('#presentation_sort1_select').hide();$('#presentation_sort1_hv').removeClass('right_on');});
       $('#presentation_topic').focus(function(e){
-        showWindow('nav', '/simple/forum.php?mod=misc&action=nav&already_inside=1&psvr_g='+window.psvr_g+'&psvr_f='+window.psvr_f, 'get', 0);
+        showWindow('nav', '/forum.php?mod=misc&action=nav&already_inside=1&psvr_g='+window.psvr_g+'&psvr_f='+window.psvr_f, 'get', 0);
         return false;
       });
     <% end %>
