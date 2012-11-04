@@ -791,14 +791,14 @@
 
 <% end %>
 <% if @courseware.yasuobao? %>
-  <div id="treeboxbox_tree" class="dhxtree_dhx_skyblue" style="" setImagePath="<%= asset_path('dhtmlxtree-imgs/csh_dhx_skyblue') %>/">
+  <div id="treeboxbox_tree" class="dhxtree_dhx_skyblue" style="" setImagePath="/dhtmlxtree-imgs/csh_dhx_skyblue/">
   </div>
   <script>
   function jr() {
       var json_obj =<%= raw(@courseware.tree.to_json) %>;
       tree = new dhtmlXTreeObject("treeboxbox_tree","100%","100%",0);
-      tree.setImagePath("<%=asset_path('dhtmlxtree-imgs/csh_dhx_skyblue')%>/");
-      tree.setIconsPath("<%=asset_path('dhtmlxtree-imgs/csh_dhx_skyblue')%>/");
+      tree.setImagePath("/dhtmlxtree-imgs/csh_dhx_skyblue/");
+      tree.setIconsPath("/dhtmlxtree-imgs/csh_dhx_skyblue/");
       tree.setSkin('dhx_skyblue');
       tree.enableIEImageFix(true);
       tree.enableDragAndDrop(false);
