@@ -130,6 +130,15 @@ class AccountController < Devise::RegistrationsController
     @seo[:title] = '完成新用户注册'
     @simple_header=true
     @simple_header_width=840
+    if -1==current_user.reg_extent
+      render 'freezing',layout:false
+      return false
+    end
+    if params[:unfreeze]
+      current_user.update_attribute(:reg_extent,0)
+      redirect_to '/'
+      return false
+    end
     if params[:checkpoint]
       # 检查是否可以停止注册了？
       if current_user.reg_extent >= 888
