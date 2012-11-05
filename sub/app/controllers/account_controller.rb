@@ -172,6 +172,12 @@ class AccountController < Devise::RegistrationsController
         rrf = MultiJson.load current_user.sub_user_material.renren_friends
         friend_rr_uids = rrf.collect{|x| x['id']}
         result = UCenter::ThirdPartyAuth.getregged(nil,{provider:'renren',uids:friend_rr_uids.join(',')}).try(:[],'root').try(:[],'item')
+        if result.blank?
+          # 没有朋友
+          current_user.update_attribute :reg_extent, 888
+          redirect_to '/'
+          return true
+        end
         result = [result] unless result.kind_of?(Array)
         result_uids = result.collect{|x| x['item'][0].to_i}
         result_rr_uids = result.collect{|x| x['item'][1].to_i}
