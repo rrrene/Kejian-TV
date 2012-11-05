@@ -202,6 +202,9 @@ module ApplicationHelper
     return false if current_user.blank?
     return true if [User::SUP_ADMIN,User::SUB_ADMIN].include?current_user.admin_type
     user_id = nil
+    if Teacher == item.class
+      return true
+    end
     if item.class == current_user.class
       user_id = item.id
     else

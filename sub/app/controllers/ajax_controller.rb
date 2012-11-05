@@ -368,7 +368,7 @@ HEREDOC
   end
   def create_new_playlist
     if current_user.nil?
-      render json:{status:'failed',reason:'您尚未登陆！'}
+      render json:{status:'failed',reason:'您尚未登录！'}
       return false
     end
     if !Moped::BSON::ObjectId.legal?(params[:cwid])
@@ -400,7 +400,7 @@ HEREDOC
   end
   def bar_request_save_as
     if current_user.nil? or !Moped::BSON::ObjectId.legal?(params[:playlist_id])
-      render json:{status:'failed',reason:'您尚未登陆！'}
+      render json:{status:'failed',reason:'您尚未登录！'}
       return false
     end
     render json:{status:'suc',html:render_to_string(file:'application/_playlist_bar_save',locals:{playlist_id:params[:playlist_id]},:layout=>false, :formats=>[:html])}
@@ -408,7 +408,7 @@ HEREDOC
   end
   def bar_playlist_save_as
     if current_user.nil? or !Moped::BSON::ObjectId.legal?(params[:playlist_id])
-      render json:{status:'failed',reason:'您尚未登陆！'}
+      render json:{status:'failed',reason:'您尚未登录！'}
       return false
     end
     if params[:title].blank?
@@ -434,7 +434,7 @@ HEREDOC
   end
   def bar_request_update_bar
     if current_user.nil? or !Moped::BSON::ObjectId.legal?(params[:playlist_id])
-      render json:{status:'failed',reason:'您尚未登陆！'}
+      render json:{status:'failed',reason:'您尚未登录！'}
       return false
     end
     pl = PlayList.find(params[:playlist_id])
@@ -670,7 +670,7 @@ HEREDOC
   
   def add_to_playlist_by_id
     if current_user.nil?
-      render json:{status:'failed',reason:'您尚未登陆！'}
+      render json:{status:'failed',reason:'您尚未登录！'}
       return false
     end
     pl = PlayList.find(params[:pid])
@@ -719,7 +719,7 @@ HEREDOC
   end
   def remove_ding_array
     if current_user.nil?
-      render json:{status:'failed',reason:'您尚未登陆！'}
+      render json:{status:'failed',reason:'您尚未登录！'}
       return false
     end
     result = Array.new
@@ -738,7 +738,7 @@ HEREDOC
   
   def create_and_add_to_by_id
     if current_user.nil?
-      render json:{status:'failed',reason:'您尚未登陆！'}
+      render json:{status:'failed',reason:'您尚未登录！'}
       return false
     end
     title = params[:title]
@@ -782,7 +782,7 @@ HEREDOC
   end
   def save_note_for_one_cw
     if current_user.nil?
-      render json:{status:'failed',reason:'您尚未登陆！'}
+      render json:{status:'failed',reason:'您尚未登录！'}
       return false
     end
     if !Moped::BSON::ObjectId.legal?(params[:cwid][0])
@@ -802,7 +802,7 @@ HEREDOC
   end
   def add_to_read_later
      if current_user.nil?
-         render json:{status:'failed',reason:'您尚未登陆！'}
+         render json:{status:'failed',reason:'您尚未登录！'}
          return false
      end
      if !Moped::BSON::ObjectId.legal?(params[:cwid])
@@ -823,7 +823,7 @@ HEREDOC
   
   def bar_update_content_in_playlist
     if current_user.nil?
-      render json:{status:'failed',reason:'您尚未登陆！'}
+      render json:{status:'failed',reason:'您尚未登录！'}
       return false
     end
     if params[:content_string].nil?
@@ -867,7 +867,7 @@ HEREDOC
   end
   def bar_undo_delete
     if current_user.nil?
-      render json:{status:'failed',reason:'您尚未登陆！'}
+      render json:{status:'failed',reason:'您尚未登录！'}
       return false
     end    
     if !Moped::BSON::ObjectId.legal?(params[:pid])
@@ -896,7 +896,7 @@ HEREDOC
   end
   def summonQL
     if current_user.nil?
-      render json:{status:'failed',reason:'您尚未登陆！'}
+      render json:{status:'failed',reason:'您尚未登录！'}
       return false
     end
     render json:{status:'suc',html:render_to_string(file:'application/_playlist_bar',locals:{playlist_id:params[:playlist_id],bar_max:params[:bar_max]},:layout=>false, :formats=>[:html])}
@@ -904,7 +904,7 @@ HEREDOC
   end
   def bar_request_playlists
     if current_user.nil?
-      render json:{status:'failed',reason:'您尚未登陆！'}
+      render json:{status:'failed',reason:'您尚未登录！'}
       return false
     end
     render json:{status:'suc',html:render_to_string(file:'application/_bar_playlists_list',locals:{playlists:PlayList.where(user_id:current_user.id).desc(:undestroyable).asc(:title_en)},:layout=>false, :formats=>[:html])}
@@ -912,7 +912,7 @@ HEREDOC
   end
   def bar_delete_one_content
     if current_user.nil?
-      render json:{status:'failed',reason:'您尚未登陆！'}
+      render json:{status:'failed',reason:'您尚未登录！'}
       return false
     end
     if !Moped::BSON::ObjectId.legal?(params[:kid]) and !Moped::BSON::ObjectId.legal?(params[:pid])
@@ -941,7 +941,7 @@ HEREDOC
   end
   def add_to_read_later_array
     if current_user.nil?
-        render json:{status:'failed',reason:'您尚未登陆！'}
+        render json:{status:'failed',reason:'您尚未登录！'}
         return false
     end
     legal = true
@@ -972,7 +972,7 @@ HEREDOC
   end
   def add_to_favorites_array
     if current_user.nil?
-        render json:{status:'failed',reason:'您尚未登陆！'}
+        render json:{status:'failed',reason:'您尚未登录！'}
         return false
     end
     legal = true
@@ -1044,15 +1044,15 @@ HEREDOC
   end
   def save_page_to_history
     if current_user.nil?
-      render json:{status:'failed',reason:'您尚未登陆！'}
+      render json:{status:'failed',reason:'您尚未登录！'}
       return false
     end
     if request.env['HTTP_REFERER'].blank?
-      render json:{status:'failed',reason:'您尚未登陆！'}
+      render json:{status:'failed',reason:'您尚未登录！'}
       return false
     end
     if URI.parse(request.env['HTTP_REFERER']).path != '/embed/'+params[:cwid]
-      render json:{status:'failed',reason:'您尚未登陆！'}
+      render json:{status:'failed',reason:'您尚未登录！'}
       return false
     end
     if !(Moped::BSON::ObjectId.legal?(params[:cwid]))
@@ -1068,7 +1068,7 @@ HEREDOC
   end
   def pause_history
     if current_user.nil?
-      render json:{status:'failed',reason:'您尚未登陆！'}
+      render json:{status:'failed',reason:'您尚未登录！'}
       return false
     end
     PlayList.on_off_history(current_user.id,params[:switch])
@@ -1078,7 +1078,7 @@ HEREDOC
   
   def remove_one_history
     if current_user.nil?
-      render json:{status:'failed',reason:'您尚未登陆！'}
+      render json:{status:'failed',reason:'您尚未登录！'}
       return false
     end
     result = true
@@ -1096,7 +1096,7 @@ HEREDOC
   end
   def clear_history
     if current_user.nil?
-      render json:{status:'failed',reason:'您尚未登陆！'}
+      render json:{status:'failed',reason:'您尚未登录！'}
       return false
     end
     result = PlayList.clear_history(current_user.id)
@@ -1110,7 +1110,7 @@ HEREDOC
   end
   def pause_search_history
     if current_user.nil?
-      render json:{status:'failed',reason:'您尚未登陆！'}
+      render json:{status:'failed',reason:'您尚未登录！'}
       return false
     end
     SearchHistory.on_off_history(current_user.id,params[:switch])
@@ -1119,7 +1119,7 @@ HEREDOC
   end
   def remove_one_search_history
     if current_user.nil?
-      render json:{status:'failed',reason:'您尚未登陆！'}
+      render json:{status:'failed',reason:'您尚未登录！'}
       return false
     end
     result = true
@@ -1137,7 +1137,7 @@ HEREDOC
 
   def clear_search_history
     if current_user.nil?
-      render json:{status:'failed',reason:'您尚未登陆！'}
+      render json:{status:'failed',reason:'您尚未登录！'}
       return false
     end
     result = SearchHistory.clear_history(current_user.id)
@@ -1151,7 +1151,7 @@ HEREDOC
   end
   def delete_upload
     if current_user.nil?
-      render json:{status:'failed',reason:'您尚未登陆！',arr:[]}
+      render json:{status:'failed',reason:'您尚未登录！',arr:[]}
       return false
     end
     legal = true
@@ -1181,7 +1181,7 @@ HEREDOC
   
   def setting_cw_license
     if current_user.nil?
-      render json:{status:'failed',reason:'您尚未登陆！',arr:[]}
+      render json:{status:'failed',reason:'您尚未登录！',arr:[]}
       return false
     end
     legal = true
@@ -1218,7 +1218,7 @@ HEREDOC
   
   def enable_beauty_view
     if current_user.nil?
-      render json:{status:'failed',reason:'您尚未登陆！'}
+      render json:{status:'failed',reason:'您尚未登录！'}
       return false
     end
     if params[:tf] =='true'
@@ -1230,7 +1230,7 @@ HEREDOC
   end
   def set_privacy
     if current_user.nil?
-      render json:{status:'failed',reason:'您尚未登陆！',arr:[]}
+      render json:{status:'failed',reason:'您尚未登录！',arr:[]}
       return false
     end
     legal = true
@@ -1261,7 +1261,7 @@ HEREDOC
   end
   def update_widget_sort
     if current_user.nil?
-      render json:{status:'failed',reason:'您尚未登陆！'}
+      render json:{status:'failed',reason:'您尚未登录！'}
       return false
     end
     if (params[:right].to_a + params[:left].to_a).size > 4
@@ -1281,7 +1281,7 @@ HEREDOC
   end
   def request_widget
     if current_user.nil?
-      render json:{status:'failed',reason:'您尚未登陆！'}
+      render json:{status:'failed',reason:'您尚未登录！'}
       return false
     end
     wid = nil
@@ -1314,7 +1314,7 @@ HEREDOC
   end
   def update_widget_property
     if current_user.nil?
-      render json:{status:'failed',reason:'您尚未登陆！'}
+      render json:{status:'failed',reason:'您尚未登录！'}
       return false
     end
     wid = nil

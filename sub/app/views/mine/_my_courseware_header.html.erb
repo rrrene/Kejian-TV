@@ -242,7 +242,7 @@
 			$.ajax({
 				url:'/ajax/get_addto_menu',
 				type:'POST',
-				data:{'authenticity_token':"<%= form_authenticity_token %>"}
+				data:{'authenticity_token':"<%= form_authenticity_token %>"},
 				dataType:'json'				
 			}).done(function(json){
 				if(json.status == 'suc'){

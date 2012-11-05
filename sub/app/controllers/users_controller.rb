@@ -89,7 +89,6 @@ class UsersController < ApplicationController
   end
 
   def show
-    @material = @user.material
   end
   def redirect_to_service
     
@@ -225,37 +224,6 @@ class UsersController < ApplicationController
     render json:true
   end
 
-  def auth_callback
-		auth = request.env["omniauth.auth"]  
-		redirect_to root_path if auth.blank?
-    provider_name = auth['provider'].gsub(/^t/,"").titleize
-    Rails.logger.debug { auth }
-
-		if current_user
-      Authorization.create_from_hash(auth, current_user)
-      flash[:notice] = "成功绑定了 #{provider_name} 账号。"
-			redirect_to edit_user_registration_path
-		elsif @user = Authorization.find_from_hash(auth)
-      sign_in @user
-			flash[:notice] = "登录成功。"
-			redirect_to "/"
-		else
-      if Setting.allow_register
-        @new_user = Authorization.create_from_hash(auth, current_user) #Create a new user
-        if @new_user.errors.blank?
-          sign_in @new_user
-          flash[:notice] = "欢迎来自 #{provider_name} 的用户，你的账号已经创建成功。"
-          redirect_to "/"
-        else
-          flash[:notice] = "#{provider_name}的账号提供信息不全，无法直接登录，请先注册。"
-          redirect_to "/register"
-        end
-      else
-        flash[:alert] = "你还没有注册用户。"
-        redirect_back_or_default "/login"
-      end
-		end
-  end
   def test
     
     # todo

@@ -11,7 +11,11 @@ class AccountSessionsController < Devise::SessionsController
     end
   end
   def create
-    ret = UCenter::User.login(request,{isuid:2,username:params[:userEmail],password:params[:userPassword]})
+    email = params[:userEmail]
+    passwd = params[:userPassword]
+    email ||= params[:user][:email]
+    passwd ||= params[:user][:password]
+    ret = UCenter::User.login(request,{isuid:2,username:email,password:passwd})
     status = ret['root']['item'][0].to_i
     suc_flag = false
     if status > 0
@@ -31,8 +35,7 @@ class AccountSessionsController < Devise::SessionsController
       #todo
     end
     if suc_flag
-      sign_in_others
-      sign_in(resource_name, resource)
+      sign_in(resource_name, resource);sign_in_others
       set_flash_message(:notice, :signed_in) if is_navigational_format?
       respond_with resource, :location => after_sign_in_path_for(resource)
     else

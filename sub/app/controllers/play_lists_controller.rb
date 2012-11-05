@@ -48,7 +48,7 @@ class PlayListsController < ApplicationController
       return false
     end
     if current_user.nil? 
-      flash[:error] = "请首先登陆。"
+      flash[:error] = "请首先登录。"
       redirect_to '/'
       return false
     end

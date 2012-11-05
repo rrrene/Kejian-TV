@@ -72,8 +72,7 @@ private
         User.import_from_dz!(info0)
       end
     end
-    sign_in_others
-    sign_in(@user)
+    sign_in(@user);sign_in_others
     if @user.reg_extent_okay?
       redirect_to(root_path, :notice =>  '谢谢！您已经成功登录。')
     else

@@ -60,7 +60,7 @@ var App = {
     },
 
     /*
-     * 检查 Ajax 返回结果的登陆状态，如果是未登陆，就转向登陆页面
+     * 检查 Ajax 返回结果的登录状态，如果是未登录，就转向登录页面
      * 此处要配合 ApplicationController 里面的 require_user 使用
      */
     requireUser : function(result, type){

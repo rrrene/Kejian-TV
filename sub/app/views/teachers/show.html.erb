@@ -70,12 +70,12 @@
             <div class="fc999 tfmt __qa clearfix">
   						<div class="ctf-profile" id="user_bio">
   						  <% if @teacher.bio.blank? and (not owner?@teacher) %>
-                  <%= @teacher.name %>还没来得及写他的个人介绍.
+                  还没有人为<%= @teacher.name %>编辑个人介绍.
                 <% else %>
                   <div class="clearfix" style="margin:12px 0"><%= md_body @teacher.bio,:with_tfmt => false %></div>
                 <% end %>
-  						</div>						  
-	            <% if owner?@teacher %><div class="__qa clearfix"><%= in_place_edit_tag(@teacher,:bio,:type => :textarea, :length=>2000, :text_id => "user_bio", :label => "<img class=\"modifyLogo\" src=\"/transparent.png\">#{@teacher.bio.blank? ? '添加个人经历' : '修改个人经历'}".html_safe) %></div><% end %>
+  						</div>				
+	            <% if owner?@teacher %><div class="__qa clearfix"><%= in_place_edit_tag(@teacher,:bio,:type => :textarea, :length=>2000, :text_id => "user_bio", :label => "<img class=\"modifyLogo\" src=\"/transparent.png\">#{@teacher.bio.blank? ? "为#{@teacher.name}编辑个人介绍" : "为#{@teacher.name}修改个人经历"}".html_safe) %></div><% end %>
 						</div>
 						<ul class="useratten ctf-bg cf">
 							<li>
@@ -206,7 +206,7 @@ jQuery("#followBtn").live("click", function () {
             jQuery.ajax({
                 type: "POST",
                 url: postUrl,
-								data:{'authenticity_token':"<%= form_authenticity_token %>"}
+								data:{'authenticity_token':"<%= form_authenticity_token %>"},
                 dataType: "json",
                 success: function (data) {
                     jQuery("#followBtn").removeClass().addClass('concern-ico').find("em").text("关注");
@@ -222,7 +222,7 @@ jQuery("#followBtn").live("click", function () {
         jQuery.ajax({
             type: "POST",
             url: postUrl,
-						data:{'authenticity_token':"<%= form_authenticity_token %>"}
+						data:{'authenticity_token':"<%= form_authenticity_token %>"},
             dataType: "json",
             success: function (data) {
                 jQuery("#followBtn").removeClass().addClass('d-concerned-ico').find("em").text("已关注");

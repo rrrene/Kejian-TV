@@ -1,829 +1,613 @@
-<%= render :partial => 'content_above' %>
-	<div id="mainbar-full" class="user-show-new">
-		<div class="subheader">
-      <h1 id="user-displayname"><%= name_beautify @user.name %></h1>
-			<span class="toggle-summary-wrap"><a class="toggle-summary">精简信息</a></span>
-			<div class="sub-header-links fr">
-				<a href="http://meta.skeptics.stackexchange.com/users/23/oddthinking">
-				<img src="http://cdn.sstatic.net/skepticsmeta/img/favicon.ico" alt="meta site favicon">
-				meta user </a>
-				<span class="lsep">|</span>
-				<a href="http://stackexchange.com/users/5093/oddthinking">
-				<img src="http://cdn.sstatic.net/stackexchange/img/favicon.ico" alt="stack exchange network profile">
-				network profile </a>
+<% content_for :armpit do %>
+  <%= stylesheet_link_tag "ktv/__zm_user.css", :media => "all" %>
+<% end %>
+<% content_for :body_style do %>background:url(<%=asset_path 'zm/r11839/images/common/bodybg.gif'%>) repeat scroll 0 0 #F0EEEE<% end %>
+
+<div class="__zm">
+<% params[:queryOrder] ||= '1' %>
+<input id="queryOrder" type="hidden" value="<%= params[:queryOrder] %>" />
+<div id="pagewrap">
+	<div id="content" style="box-shadow:none;background:none;overflow:visible !important;margin-top:18px">
+		<div class="sheet cf" id="zhimeisheetbar">
+			<div class="hotword floatright">
+				<span class="split">|</span>
+				<h4>排序:</h4>
+<ul id="ulQueryOrder">
+<li  class='current'><a class="queryOrderCss" rel="1" href="javascript:;"><span>最新</span></a></li>
+<li ><a class="queryOrderCss" rel="2" href="javascript:;"><span>最热</span></a></li>
+</ul>
 			</div>
+			<div class="floatright">
+				<span>
+				<a href="/teachers/<%= @teacher.id %>" class="blue"><%= @teacher.coursewares_count %>个课件</a>
+				</span>
+			</div>
+			<span class="sheetname marginleft"><%= @teacher.name %></span>
 		</div>
-		<div id="user-info-container" style="height: auto; ">
-			<div id="large-user-info" class="user-header" style="display: block; ">
-				<div class="user-header-left">
-					<div class="gravatar">
-						<a href="/users/<%= @user.id %>">
-						<div class="">
-							<img src="<%=dz_avatar_url(@user.id,@user.email,:big)%>" alt="" width="200" height="200" class="logo">
+		<script type="text/javascript">
+		<% content_for :butt2 do %>
+      jQuery(function() {
+      if (jQuery("#fix-string01").length == 1) {
+      jQuery("#fix-string01").text(
+      jQuery.fn.fixStr(jQuery("#fix-string01").text(), 12, "..."));
+      }
+      if (jQuery("#fix-string02").length == 1) {
+      jQuery("#fix-string02").text(
+      jQuery.fn.fixStr(jQuery("#fix-string02").text(), 16, "..."));
+      }
+      if (jQuery("#fix-string03").length == 1) {
+      jQuery("#fix-string03").text(
+      jQuery.fn.fixStr(jQuery("#fix-string03").text(), 12, "..."));
+      }
+      if (jQuery("#fix-string04").length == 1) {
+      jQuery("#fix-string04").text(
+      jQuery.fn.fixStr(jQuery("#fix-string04").text(), 16, "..."));
+      }
+      if (jQuery("#fix-string05").length == 1) {
+      jQuery("#fix-string05").text(
+      jQuery.fn.fixStr(jQuery("#fix-string05").text(), 12, "..."));
+      }
+      })
+    <% end %>
+		</script>
+		<!--内容容器开始-->
+		<div style="clear: both;">
+		</div>
+		<div id="contentMain" class="content" style="position: relative;">
+			<div id="rightLabel1" class="rightbox" style="display:none;right:350px; margin-top: -60px">
+				<div class="userbox topline">
+					<div class="userinfo">
+						<div class="uheadbig">
+						  <figure class="avatar">
+							<img style="height:180px !important;width:180px !important;" src="<%= teacher_avatar_url(@teacher,:normal180) %>" title="<%= @teacher.name %>" alt="<%= @teacher.name %>"/>
+							<% if owner? @teacher %>
+							  <div class="__qa clearfix"><div class="edit hide" ><a class="changeUserHead">修改头像</a></div></div>
+							<% end %>
+							</figure>
 						</div>
-						</a>
-						<div class="reputation">
-							<span>
-							<a href="/users/23/oddthinking?tab=reputation">27,939</a>
-							</span>
-							名望
+            <div class="uname alignleft cf"><span class="ctf-username floatleft"><%=@teacher.name%></span></div>
+
+            <div class="fc999 tfmt __qa clearfix">
+  						<div class="ctf-profile" id="user_bio">
+  						  <% if @teacher.bio.blank? and (not owner?@teacher) %>
+                  还没有人编辑<%= @teacher.name %>的个人介绍.
+                <% else %>
+                  <div class="clearfix" style="margin:12px 0"><%= md_body @teacher.bio,:with_tfmt => false %></div>
+                <% end %>
+  						</div>						  
+	            <% if owner?@teacher %><div class="__qa clearfix"><%= in_place_edit_tag(@teacher,:bio,:type => :textarea, :length=>2000, :text_id => "user_bio", :label => "<img class=\"modifyLogo\" src=\"/transparent.png\">#{@teacher.bio.blank? ? '添加个人经历' : '修改个人经历'}".html_safe) %></div><% end %>
 						</div>
-						<div class="badges">
-							<span><span title="3 gold badges"><span class="badge1"></span><span class="badgecount">3</span></span><span title="89 silver badges"><span class="badge2"></span><span class="badgecount">89</span></span><span title="161 bronze badges"><span class="badge3"></span><span class="badgecount">161</span></span></span>
+						<ul class="useratten ctf-bg cf">
+							<li>
+							<a id="user_profile_fans_count" href="/teachers/<%= @teacher.id %>/followers" class="block gray usernumber">
+							<em><%= @teacher.follower_ids.size %></em><br/>
+							<span>粉丝</span>
+							</a>
+							</li>
+							<li>
+							<a href="/teachers/<%= @teacher.id %>" class="gray block usernumber"><%= @teacher.coursewares_count %><br/>
+							<span>课件</span></a></li>
+							<li>
+							<a id="user_profile_fans_count" href="/teachers/<%= @teacher.id %>/courses" class="block gray usernumber">
+							<em><%= @teacher.courses_count %></em><br/>
+							<span>课程</span>
+							</a>
+							</li>
+						</ul>
+            <% unless current_user and @teacher.id==current_user.id%>
+						<div class="concernbox cf">
+						  <% followed = (current_user and current_user.followed?(@teacher)) %>
+							<a href="javascript:;" class="<%= followed ? 'concerned-ico' : 'concern-ico' %>" id="followBtn" follow="<%= followed ? 'true' : 'false' %>">
+							  <em><%= followed ? '已关注' : '关注' %></em></a>
+							<a class="d-letter" style="display:none" href="javascript:void(0)"></a>
 						</div>
+          <% end %>
 					</div>
-					<div class="data">
-						<table>
-						<tbody>
-						<tr>
-							<th>
-								简历
-							</th>
-							<td>
-								个人网站
-							</td>
-							<td>
-								<a href="http://www.somethinkodd.com/oddthinking" rel="me" class="url"><%= @user.website %></a>
-							</td>
-						</tr>
-						<tr>
-							<th>
-							</th>
-							<td>
-								location
-							</td>
-							<td class="label adr">
-								Sydney, Australia
-							</td>
-						</tr>
-						<tr>
-							<th>
-							</th>
-							<td>
-								age
-							</td>
-							<td>
-							</td>
-						</tr>
-						</tbody>
-						<tbody>
-						<tr>
-							<th>
-								visits
-							</th>
-							<td>
-								member for
-							</td>
-							<td class="cool" title="2011-02-24 23:34:43Z">
-								1 year, 7 months
-							</td>
-						</tr>
-						<tr>
-							<th>
-							</th>
-							<td>
-								seen
-							</td>
-							<td class="supernova" title="2012-10-15 01:49:56Z">
-								<span title="2012-10-15 01:49:56Z" class="relativetime">50 mins ago</span>
-							</td>
-						</tr>
-						</tbody>
-						<tbody>
-						<tr>
-							<th>
-								stats
-							</th>
-							<td>
-								profile views
-							</td>
-							<td>
-								1,489
-							</td>
-						</tr>
-						</tbody>
-						</table>
-					</div>
-				</div>
-				<div class="user-about-me note">
-					<p>
-						I'm a software developer (currently focused on Python), living in Australia (currently focused on Sydney).
+					<p class="charm">
+						<span class="colonleft"></span>
+						<span id="user_tagline">
+						<% if @teacher.tagline.present? %>
+						  <%= @teacher.tagline %>
+						<% else %>
+						  <%= @teacher.name %>暂无一句话介绍
+						<% end %>
+						</span>
+						<span class="colonright"></span>
+						<% if owner?@teacher %>
+              <img class="modifyLogo" src="/transparent.png">
+              <div class="__qa clearfix">
+              <%= in_place_edit_tag(@teacher,:tagline,:rich => false, :text_id => "user_tagline", :label => "<img class=\"modifyLogo\" src=\"/transparent.png\">#{@teacher.tagline.blank? ? '添加一句话介绍' : '修改一句话介绍'}".html_safe) %>
+              </div>
+            <% end %>
 					</p>
-					<p>
-						I am a former Pro Tem Moderator of Skeptics.SE, but I handed in my diamond when the first elections were held. Now I can say what I like and no-one needs to listen. :-)
-					</p>
-				</div>
-				<br class="clear">
-			</div>
-			<div id="small-user-info" class="user-header user-header-slim" style="display: none; ">
-				<div class="data">
-					<table>
-					<tbody>
-					<tr>
-						<td rowspan="2" class="gravatar-cell">
-							<div class="gravatar">
-								<a href="http://skeptics.stackexchange.com/users/23/oddthinking">
-								<div class="">
-									<img src="http://www.gravatar.com/avatar/9a51b486fec41adca6738d37f0d9cb3a?s=42&amp;d=identicon&amp;r=PG" alt="" width="42" height="42" class="logo">
-								</div>
-								</a>
-							</div>
-						</td>
-						<td>
-							<div class="reputation">
-								<span class="reputation-score">27,939</span> reputation
-							</div>
-						</td>
-						<th>
-							bio
-						</th>
-						<td>
-							website
-						</td>
-						<td>
-							<a href="http://www.somethinkodd.com/oddthinking" rel="me" class="url">somethinkodd.com/oddthinking</a>
-						</td>
-						<th>
-							visits
-						</th>
-						<td>
-							member for
-						</td>
-						<td class="cool" title="2011-02-24 23:34:43Z">
-							1 year, 7 months
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<div class="badges">
-								<span><span title="3 gold badges"><span class="badge1"></span><span class="badgecount">3</span></span><span title="89 silver badges"><span class="badge2"></span><span class="badgecount">89</span></span><span title="161 bronze badges"><span class="badge3"></span><span class="badgecount">161</span></span></span> badges
-							</div>
-						</td>
-						<th>
-						</th>
-						<td>
-							location
-						</td>
-						<td class="label adr">
-							Sydney, Australia
-						</td>
-						<th>
-						</th>
-						<td>
-							seen
-						</td>
-						<td class="supernova" title="2012-10-15 01:49:56Z">
-							<span title="2012-10-15 01:49:56Z" class="relativetime">50 mins ago</span>
-						</td>
-					</tr>
-					</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-		<div class="subheader user-tabs-nav">
-			<div id="tabs">
-				<a class="youarehere" href="/users/23/oddthinking?tab=summary" title="this user's overall summary">
-				summary </a>
-				<a href="/users/23/oddthinking?tab=answers" title="answers this user has provided">
-				answers </a>
-				<a href="/users/23/oddthinking?tab=questions" title="questions this user has asked">
-				questions </a>
-				<a href="/users/23/oddthinking?tab=tags" title="tags this user has posts in">
-				tags </a>
-				<a href="/users/23/oddthinking?tab=badges" title="badges this user has earned">
-				badges </a>
-				<a href="/users/23/oddthinking?tab=favorites" title="questions this user has favorited">
-				favorites </a>
-				<a href="/users/23/oddthinking?tab=bounties" title="bounties this user has participated in">
-				bounties </a>
-				<a href="/users/23/oddthinking?tab=reputation" title="reputation this user has earned">
-				reputation </a>
-				<a href="/users/23/oddthinking?tab=activity" title="this user's recent activity">
-				activity </a>
-			</div>
-		</div>
-		<div>
-			<div id="user-panel-answers" class="user-panel user-panel-left">
-				<div class="subheader">
-					<h1><a href="/users/23/oddthinking?tab=answers">
-					<span class="count">266</span> Answers </a></h1>
-					<div class="subtabs user-panel-subtabs">
-						<a href="javascript:void(0)" class="youarehere">votes</a>
-						<a href="javascript:void(0)">activity</a>
-						<a href="javascript:void(0)">newest</a>
+
+				  <% @followers = @teacher.follower_ids.rlimit(12) %>
+				  <% if !@followers.blank? %>
+					<div class="labelbox">
+						<h3 class="title">
+						<span class="label"><a href="/teachers/<%= @teacher.id %>/followers">关注<%= user_sex_title(@teacher,current_user)%>的人</a></span><span class="number">(<em class="blue"><a href="/users/<%= @teacher.id %>/followers"><%= @teacher.follower_ids.size %></a></em>) </span>
+						</h3>
+						<ul class="bp cf">
+              <% for follower in @followers.reverse %>
+							<li><%= user_avatar_tag2(follower,:small30,{:size2 => 30}) %></li>
+							<% end %>
+						</ul>
 					</div>
+					<% end %>
 				</div>
-				<div class="user-panel-content">
-					<table class="user-answers lines">
-					<tbody>
-					<tr>
-						<td class="count-cell">
-							<div class="mini-counts answered-accepted">
-								59
-							</div>
-						</td>
-						<td class="answer-hyperlink" title="Were children safer in the good old days?">
-							<a href="/questions/8033/were-children-safer-in-the-good-old-days/9469#9469" class="answer-hyperlink ">Were children safer in the good old days?</a>
-						</td>
-					</tr>
-					<tr>
-						<td class="count-cell">
-							<div class="mini-counts">
-								44
-							</div>
-						</td>
-						<td class="answer-hyperlink" title="Does a webpage with a black background save energy?">
-							<a href="/questions/4373/does-a-webpage-with-a-black-background-save-energy/4379#4379" class="answer-hyperlink ">Does a webpage with a black background save energy?</a>
-						</td>
-					</tr>
-					<tr>
-						<td class="count-cell">
-							<div class="mini-counts answered-accepted">
-								42
-							</div>
-						</td>
-						<td class="answer-hyperlink" title="Does the Pepsi brand name stand for &quot;pay every penny to save Israel&quot;?">
-							<a href="/questions/8493/does-the-pepsi-brand-name-stand-for-pay-every-penny-to-save-israel/8497#8497" class="answer-hyperlink ">Does the Pepsi brand name stand for “pay every penny to save Israel”?</a>
-						</td>
-					</tr>
-					<tr>
-						<td class="count-cell">
-							<div class="mini-counts answered-accepted">
-								34
-							</div>
-						</td>
-						<td class="answer-hyperlink" title="Is it impossible to fold a sheet of paper in half more than seven times?">
-							<a href="/questions/5912/is-it-impossible-to-fold-a-sheet-of-paper-in-half-more-than-seven-times/5913#5913" class="answer-hyperlink ">Is it impossible to fold a sheet of paper in half more than seven times?</a>
-						</td>
-					</tr>
-					<tr>
-						<td class="count-cell">
-							<div class="mini-counts answered-accepted">
-								30
-							</div>
-						</td>
-						<td class="answer-hyperlink" title="Does aloe vera help cure sunburn?">
-							<a href="/questions/10005/does-aloe-vera-help-cure-sunburn/10006#10006" class="answer-hyperlink ">Does aloe vera help cure sunburn?</a>
-						</td>
-					</tr>
-					</tbody>
-					</table>
-				</div>
-				<div class="user-panel-footer">
-					<a href="/users/23/oddthinking?tab=answers&amp;sort=votes">view more</a>
-				</div>
-			</div>
-			<div id="user-panel-reputation" class="user-panel">
-				<div class="subheader">
-					<h1><a href="/users/23/oddthinking?tab=reputation">
-					<span class="count">27,939</span> Reputation </a></h1>
-					<div id="leagueRank">
-						<a href="http://stackexchange.com/leagues/95/alltime/skeptics/2011-02-24/23#23" target="_blank">top <b>0.16%</b> overall</a>
-					</div>
-				</div>
-				<div class="user-panel-content">
-					<div class="user-rep-chart-summary">
-						<div class="user-rep-chart-summary-bar" style="right:0px; height:34.78261%" title="Sunday, Oct 14, 2012: 40 reputation">
-						</div>
-						<div class="user-rep-chart-summary-bar" style="right:15.57px; height:47.82609%" title="Saturday, Oct 13, 2012: 55 reputation">
-						</div>
-						<div class="user-rep-chart-summary-bar" style="right:31.14px; height:39.13044%" title="Friday, Oct 12, 2012: 45 reputation">
-						</div>
-						<div class="user-rep-chart-summary-bar" style="right:46.71px; height:8.695652%" title="Thursday, Oct 11, 2012: 10 reputation">
-						</div>
-						<div class="user-rep-chart-summary-bar" style="right:62.28px; height:13.04348%" title="Wednesday, Oct 10, 2012: 15 reputation">
-						</div>
-						<div class="user-rep-chart-summary-bar" style="right:77.85px; height:0%" title="Tuesday, Oct 9, 2012: 0 reputation">
-						</div>
-						<div class="user-rep-chart-summary-bar" style="right:93.42px; height:30.43478%" title="Monday, Oct 8, 2012: 35 reputation">
-						</div>
-						<div class="user-rep-chart-summary-bar" style="right:108.99px; height:52.17391%" title="Sunday, Oct 7, 2012: 60 reputation">
-						</div>
-						<div class="user-rep-chart-summary-bar" style="right:124.56px; height:0%" title="Saturday, Oct 6, 2012: 0 reputation">
-						</div>
-						<div class="user-rep-chart-summary-bar" style="right:140.13px; height:34.78261%" title="Friday, Oct 5, 2012: 40 reputation">
-						</div>
-						<div class="user-rep-chart-summary-bar" style="right:155.7px; height:17.3913%" title="Thursday, Oct 4, 2012: 20 reputation">
-						</div>
-						<div class="user-rep-chart-summary-bar" style="right:171.27px; height:8.695652%" title="Wednesday, Oct 3, 2012: 10 reputation">
-						</div>
-						<div class="user-rep-chart-summary-bar" style="right:186.84px; height:0%" title="Tuesday, Oct 2, 2012: 0 reputation">
-						</div>
-						<div class="user-rep-chart-summary-bar" style="right:202.41px; height:26.08696%" title="Monday, Oct 1, 2012: 30 reputation">
-						</div>
-						<div class="user-rep-chart-summary-bar" style="right:217.98px; height:26.08696%" title="Sunday, Sep 30, 2012: 30 reputation">
-						</div>
-						<div class="user-rep-chart-summary-bar" style="right:233.55px; height:0%" title="Saturday, Sep 29, 2012: 0 reputation">
-						</div>
-						<div class="user-rep-chart-summary-bar" style="right:249.12px; height:0%" title="Friday, Sep 28, 2012: 0 reputation">
-						</div>
-						<div class="user-rep-chart-summary-bar" style="right:264.69px; height:8.695652%" title="Thursday, Sep 27, 2012: 10 reputation">
-						</div>
-						<div class="user-rep-chart-summary-bar" style="right:280.26px; height:73.91304%" title="Wednesday, Sep 26, 2012: 85 reputation">
-						</div>
-						<div class="user-rep-chart-summary-bar" style="right:295.83px; height:100%" title="Tuesday, Sep 25, 2012: 115 reputation">
-						</div>
-						<div class="user-rep-chart-summary-bar" style="right:311.4px; height:17.3913%" title="Monday, Sep 24, 2012: 20 reputation">
-						</div>
-						<div class="user-rep-chart-summary-bar" style="right:326.97px; height:0%" title="Sunday, Sep 23, 2012: 0 reputation">
-						</div>
-						<div class="user-rep-chart-summary-bar" style="right:342.54px; height:17.3913%" title="Saturday, Sep 22, 2012: 20 reputation">
-						</div>
-						<div class="user-rep-chart-summary-bar" style="right:358.11px; height:26.08696%" title="Friday, Sep 21, 2012: 30 reputation">
-						</div>
-						<div class="user-rep-chart-summary-bar" style="right:373.68px; height:93.91304%" title="Thursday, Sep 20, 2012: 108 reputation">
-						</div>
-						<div class="user-rep-chart-summary-bar" style="right:389.25px; height:43.47826%" title="Wednesday, Sep 19, 2012: 50 reputation">
-						</div>
-						<div class="user-rep-chart-summary-bar" style="right:404.82px; height:52.17391%" title="Tuesday, Sep 18, 2012: 60 reputation">
-						</div>
-						<div class="user-rep-chart-summary-bar" style="right:420.39px; height:39.13044%" title="Monday, Sep 17, 2012: 45 reputation">
-						</div>
-						<div class="user-rep-chart-summary-bar" style="right:435.96px; height:0%" title="Sunday, Sep 16, 2012: 0 reputation">
-						</div>
-						<div class="user-rep-chart-summary-bar" style="right:451.53px; height:0%" title="Saturday, Sep 15, 2012: 0 reputation">
-						</div>
-					</div>
-					<table class="user-rep lines">
-					<tbody>
-					<tr>
-						<td class="rep-amount count-cell">
-							<span class="rep-up">+5</span>
-						</td>
-						<td>
-							<a href="/questions/5887/is-a-proposal-to-build-an-artificial-mountain-being-seriously-considered" class="question-hyperlink">Is a proposal to build an artificial mountain being seriously considered?</a>
-						</td>
-					</tr>
-					<tr>
-						<td class="rep-amount count-cell">
-							<span class="rep-up special-rep">+35</span>
-						</td>
-						<td>
-							<a href="/questions/11217/against-the-law-to-spray-clean-not-according-to-label-directions/11250#11250" class="answer-hyperlink ">Against the law to spray-clean not according to label directions?</a>
-						</td>
-					</tr>
-					<tr>
-						<td class="rep-amount count-cell">
-							<span class="rep-up special-rep">+25</span>
-						</td>
-						<td>
-							<a href="/questions/7663/once-a-burn-has-cooled-with-water-or-not-does-further-submersion-in-cool-wate/8309#8309" class="answer-hyperlink ">Once a burn has cooled (with water or not), does further submersion in cool water help?</a>
-						</td>
-					</tr>
-					<tr>
-						<td class="rep-amount count-cell">
-							<span class="rep-up">+10</span>
-						</td>
-						<td>
-							<a href="/questions/7837/are-all-cells-of-the-human-body-completely-replaced-every-seven-to-ten-years/7843#7843" class="answer-hyperlink ">Are all cells of the human body completely replaced every seven to ten years?</a>
-						</td>
-					</tr>
-					</tbody>
-					</table>
-				</div>
-				<div class="user-panel-footer">
-					<a href="/users/23/oddthinking?tab=reputation">view more</a>
-				</div>
-			</div>
-			<div id="user-panel-questions" class="user-panel user-panel-left">
-				<div class="subheader">
-					<h1><a href="/users/23/oddthinking?tab=questions">
-					<span class="count">38</span> Questions </a></h1>
-					<div class="subtabs user-panel-subtabs">
-						<a href="javascript:void(0)" class="youarehere">votes</a>
-						<a href="javascript:void(0)">activity</a>
-						<a href="javascript:void(0)">newest</a>
-					</div>
-				</div>
-				<div class="user-panel-content">
-					<table class="user-questions lines">
-					<tbody>
-					<tr>
-						<td class="count-cell">
-							<div class="mini-counts">
-								34
-							</div>
-						</td>
-						<td class="question-hyperlink" title="What is the failure rate of Solid-State Drives (SSD)?">
-							<a href="/questions/7084/what-is-the-failure-rate-of-solid-state-drives-ssd" class="question-hyperlink">What is the failure rate of Solid-State Drives (SSD)?</a>
-						</td>
-					</tr>
-					<tr>
-						<td class="count-cell">
-							<div class="mini-counts">
-								21
-							</div>
-						</td>
-						<td class="question-hyperlink" title="Can the Overton Window be deliberately moved by espousing extremist views?">
-							<a href="/questions/5063/can-the-overton-window-be-deliberately-moved-by-espousing-extremist-views" class="question-hyperlink">Can the Overton Window be deliberately moved by espousing extremist views?</a>
-						</td>
-					</tr>
-					<tr>
-						<td class="count-cell">
-							<div class="mini-counts answered-accepted">
-								21
-							</div>
-						</td>
-						<td class="question-hyperlink" title="Do &quot;sword-swallowers&quot; swallow swords?">
-							<a href="/questions/7882/do-sword-swallowers-swallow-swords" class="question-hyperlink">Do “sword-swallowers” swallow swords?</a>
-						</td>
-					</tr>
-					<tr>
-						<td class="count-cell">
-							<div class="mini-counts answered-accepted">
-								19
-							</div>
-						</td>
-						<td class="question-hyperlink" title="Is Colgate suppressing vaccine technology that could prevent tooth decay?">
-							<a href="/questions/3300/is-colgate-suppressing-vaccine-technology-that-could-prevent-tooth-decay" class="question-hyperlink">Is Colgate suppressing vaccine technology that could prevent tooth decay? [closed]</a>
-						</td>
-					</tr>
-					<tr>
-						<td class="count-cell">
-							<div class="mini-counts answered-accepted">
-								19
-							</div>
-						</td>
-						<td class="question-hyperlink" title="Did a nocebo study find that rashes could swap hands?">
-							<a href="/questions/127/did-a-nocebo-study-find-that-rashes-could-swap-hands" class="question-hyperlink">Did a nocebo study find that rashes could swap hands?</a>
-						</td>
-					</tr>
-					</tbody>
-					</table>
-				</div>
-				<div class="user-panel-footer">
-					<a href="/users/23/oddthinking?tab=questions&amp;sort=votes">view more</a>
-				</div>
-			</div>
-			<div id="user-panel-tags" class="user-panel">
-				<div class="subheader">
-					<h1><a href="/users/23/oddthinking?tab=tags">
-					<span class="count">221</span> Tags </a></h1>
-				</div>
-				<div class="user-panel-content">
-					<table class="user-tags">
-					<tbody>
-					<tr>
-						<td>
-							<div class="answer-votes" title="Asked 2 non-wiki questions with a total score of 14. Answered 47 non-wiki questions with a total score of 361." onclick="window.location.href='/search?q=user:23+[medical-science]'">
-								361
-							</div>
-							<a href="/search?q=user:23+[medical-science]" class="post-tag" title="show all posts by this user in 'medical-science'">medical-science</a>
-							<span class="item-multiplier" title="50 posts in the medical-science tag"><span class="item-multiplier-x">×</span>&nbsp;<span class="item-multiplier-count">50</span></span>
-						</td>
-						<td>
-							<div class="answer-votes" title="Asked 6 non-wiki questions with a total score of 56. Answered 20 non-wiki questions with a total score of 122." onclick="window.location.href='/search?q=user:23+[psychology]'">
-								122
-							</div>
-							<a href="/search?q=user:23+[psychology]" class="post-tag" title="show all posts by this user in 'psychology'">psychology</a>
-							<span class="item-multiplier" title="26 posts in the psychology tag"><span class="item-multiplier-x">×</span>&nbsp;<span class="item-multiplier-count">26</span></span>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<div class="answer-votes" title="Asked 1 non-wiki questions with a total score of 6. Answered 22 non-wiki questions with a total score of 208." onclick="window.location.href='/search?q=user:23+[biology]'">
-								208
-							</div>
-							<a href="/search?q=user:23+[biology]" class="post-tag" title="show all posts by this user in 'biology'">biology</a>
-							<span class="item-multiplier" title="23 posts in the biology tag"><span class="item-multiplier-x">×</span>&nbsp;<span class="item-multiplier-count">23</span></span>
-						</td>
-						<td>
-							<div class="answer-votes" title="Answered 13 non-wiki questions with a total score of 106." onclick="window.location.href='/search?q=user:23+[statistics]'">
-								106
-							</div>
-							<a href="/search?q=user:23+[statistics]" class="post-tag" title="show all posts by this user in 'statistics'">statistics</a>
-							<span class="item-multiplier" title="14 posts in the statistics tag"><span class="item-multiplier-x">×</span>&nbsp;<span class="item-multiplier-count">14</span></span>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<div class="answer-votes" title="Asked 2 non-wiki questions with a total score of 9. Answered 14 non-wiki questions with a total score of 167." onclick="window.location.href='/search?q=user:23+[physics]'">
-								167
-							</div>
-							<a href="/search?q=user:23+[physics]" class="post-tag" title="">physics</a>
-							<span class="item-multiplier" title="16 posts in the physics tag"><span class="item-multiplier-x">×</span>&nbsp;<span class="item-multiplier-count">16</span></span>
-						</td>
-						<td>
-							<div class="answer-votes" title="Answered 8 non-wiki questions with a total score of 106." onclick="window.location.href='/search?q=user:23+[cancer]'">
-								106
-							</div>
-							<a href="/search?q=user:23+[cancer]" class="post-tag" title="show all posts by this user in 'cancer'">cancer</a>
-							<span class="item-multiplier" title="8 posts in the cancer tag"><span class="item-multiplier-x">×</span>&nbsp;<span class="item-multiplier-count">8</span></span>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<div class="answer-votes" title="Asked 2 non-wiki questions with a total score of 10. Answered 21 non-wiki questions with a total score of 155." onclick="window.location.href='/search?q=user:23+[nutrition]'">
-								155
-							</div>
-							<a href="/search?q=user:23+[nutrition]" class="post-tag" title="">nutrition</a>
-							<span class="item-multiplier" title="25 posts in the nutrition tag"><span class="item-multiplier-x">×</span>&nbsp;<span class="item-multiplier-count">25</span></span>
-						</td>
-						<td>
-							<div class="answer-votes" title="Asked 3 non-wiki questions with a total score of 31. Answered 13 non-wiki questions with a total score of 100." onclick="window.location.href='/search?q=user:23+[history]'">
-								100
-							</div>
-							<a href="/search?q=user:23+[history]" class="post-tag" title="show all posts by this user in 'history'">history</a>
-							<span class="item-multiplier" title="16 posts in the history tag"><span class="item-multiplier-x">×</span>&nbsp;<span class="item-multiplier-count">16</span></span>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<div class="answer-votes" title="Answered 13 non-wiki questions with a total score of 139." onclick="window.location.href='/search?q=user:23+[animals]'">
-								139
-							</div>
-							<a href="/search?q=user:23+[animals]" class="post-tag" title="">animals</a>
-							<span class="item-multiplier" title="14 posts in the animals tag"><span class="item-multiplier-x">×</span>&nbsp;<span class="item-multiplier-count">14</span></span>
-						</td>
-						<td>
-							<div class="answer-votes" title="Answered 6 non-wiki questions with a total score of 95." onclick="window.location.href='/search?q=user:23+[safety]'">
-								95
-							</div>
-							<a href="/search?q=user:23+[safety]" class="post-tag" title="show all posts by this user in 'safety'">safety</a>
-							<span class="item-multiplier" title="6 posts in the safety tag"><span class="item-multiplier-x">×</span>&nbsp;<span class="item-multiplier-count">6</span></span>
-						</td>
-					</tr>
-					</tbody>
-					</table>
-				</div>
-				<div class="user-panel-footer">
-					<a href="/users/23/oddthinking?tab=tags">view more</a>
-				</div>
-			</div>
-			<div id="user-panel-accounts" class="user-panel user-panel-left">
-				<div class="subheader">
-					<h1><a href="http://stackexchange.com/users/5093/oddthinking?tab=accounts">
-					<span class="count">31</span> Accounts </a></h1>
-				</div>
-				<div class="user-panel-content">
-					<table class="user-accounts lines">
-					<tbody>
-					<tr>
-						<td class="icon-cell">
-							<img class="favicon" src="http://cdn.sstatic.net/skeptics/img/favicon.ico" alt="Skeptics">
-						</td>
-						<td>
-							<a class="site-hyperlink" href="http://skeptics.stackexchange.com/users/23/">Skeptics</a>
-						</td>
-						<td class="reputation">
-							<span class="reputation-score">27,939</span> rep
-						</td>
-						<td class="badges">
-							<span title="3 gold badges"><span class="badge1"></span><span class="badgecount">3</span></span><span title="89 silver badges"><span class="badge2"></span><span class="badgecount">89</span></span><span title="161 bronze badges"><span class="badge3"></span><span class="badgecount">161</span></span>
-						</td>
-					</tr>
-					<tr>
-						<td class="icon-cell">
-							<img class="favicon" src="http://cdn.sstatic.net/stackoverflow/img/favicon.ico" alt="Stack Overflow">
-						</td>
-						<td>
-							<a class="site-hyperlink" href="http://stackoverflow.com/users/8014/">Stack Overflow</a>
-						</td>
-						<td class="reputation">
-							<span class="reputation-score">7,134</span> rep
-						</td>
-						<td class="badges">
-							<span title="3 gold badges"><span class="badge1"></span><span class="badgecount">3</span></span><span title="22 silver badges"><span class="badge2"></span><span class="badgecount">22</span></span><span title="49 bronze badges"><span class="badge3"></span><span class="badgecount">49</span></span>
-						</td>
-					</tr>
-					<tr>
-						<td class="icon-cell">
-							<img class="favicon" src="/content/stackoverflowmeta/img/favicon.ico" alt="Meta Stack Overflow">
-						</td>
-						<td>
-							<a class="site-hyperlink" href="http://meta.stackoverflow.com/users/145319/">Meta Stack Overflow</a>
-						</td>
-						<td class="reputation">
-							<span class="reputation-score">929</span> rep
-						</td>
-						<td class="badges">
-							<span title="4 silver badges"><span class="badge2"></span><span class="badgecount">4</span></span><span title="16 bronze badges"><span class="badge3"></span><span class="badgecount">16</span></span>
-						</td>
-					</tr>
-					<tr>
-						<td class="icon-cell">
-							<img class="favicon" src="http://cdn.sstatic.net/photo/img/favicon.ico" alt="Photography">
-						</td>
-						<td>
-							<a class="site-hyperlink" href="http://photo.stackexchange.com/users/160/">Photography</a>
-						</td>
-						<td class="reputation">
-							<span class="reputation-score">646</span> rep
-						</td>
-						<td class="badges">
-							<span title="3 silver badges"><span class="badge2"></span><span class="badgecount">3</span></span><span title="14 bronze badges"><span class="badge3"></span><span class="badgecount">14</span></span>
-						</td>
-					</tr>
-					<tr>
-						<td class="icon-cell">
-							<img class="favicon" src="http://cdn.sstatic.net/workplace/img/favicon.ico" alt="The Workplace">
-						</td>
-						<td>
-							<a class="site-hyperlink" href="http://workplace.stackexchange.com/users/1547/">The Workplace</a>
-						</td>
-						<td class="reputation">
-							<span class="reputation-score">481</span> rep
-						</td>
-						<td class="badges">
-							<span title="1 silver badge"><span class="badge2"></span><span class="badgecount">1</span></span><span title="4 bronze badges"><span class="badge3"></span><span class="badgecount">4</span></span>
-						</td>
-					</tr>
-					</tbody>
-					</table>
-				</div>
-				<div class="user-panel-footer">
-					<a alt="full list of accounts" href="http://stackexchange.com/users/5093/oddthinking?tab=accounts">
-					<img src="http://cdn.sstatic.net/stackexchange/img/favicon.ico" alt="stack exchange network profile">
-					view more </a>
-				</div>
-			</div>
-			<div id="user-panel-badges" class="user-panel">
-				<div class="subheader">
-					<h1><a href="/users/23/oddthinking?tab=badges">
-					<span class="count">49</span> Badges </a></h1>
-					<div class="subtabs user-panel-subtabs">
-						<a href="javascript:void(0)" class="youarehere">recent</a>
-						<a href="javascript:void(0)">class</a>
-						<a href="javascript:void(0)">name</a>
-					</div>
-				</div>
-				<div class="user-panel-content">
-					<table class="user-badges">
-					<tbody>
-					<tr>
-						<td>
-							<a href="/badges/19/enlightened?userid=23" title="silver badge: First to answer and accepted with at least 10 upvotes" class="badge"><span class="badge2"></span>&nbsp;Enlightened</a>
-							<span class="item-multiplier"><span class="item-multiplier-x">×</span>&nbsp;<span class="item-multiplier-count">56</span></span>
-						</td>
-						<td>
-							<a href="/badges/88/custodian?userid=23" title="bronze badge: Completed at least one review task. This badge is awarded once per review type" class="badge"><span class="badge3"></span>&nbsp;Custodian</a>
-							<span class="item-multiplier"><span class="item-multiplier-x">×</span>&nbsp;<span class="item-multiplier-count">2</span></span>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<a href="/badges/23/nice-answer?userid=23" title="bronze badge: Answer score of 10 or more" class="badge"><span class="badge3"></span>&nbsp;Nice Answer</a>
-							<span class="item-multiplier"><span class="item-multiplier-x">×</span>&nbsp;<span class="item-multiplier-count">94</span></span>
-						</td>
-						<td>
-							<a href="/badges/87/psychology?userid=23" title="bronze badge: Earned 100 upvotes for at least 20 answers in the psychology tag" class="badge-tag"><span class="badge3"></span>&nbsp;psychology</a>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<a href="/badges/24/good-answer?userid=23" title="silver badge: Answer score of 25 or more" class="badge"><span class="badge2"></span>&nbsp;Good Answer</a>
-							<span class="item-multiplier"><span class="item-multiplier-x">×</span>&nbsp;<span class="item-multiplier-count">12</span></span>
-						</td>
-						<td>
-							<a href="/badges/86/nutrition?userid=23" title="bronze badge: Earned 100 upvotes for at least 20 answers in the nutrition tag" class="badge-tag"><span class="badge3"></span>&nbsp;nutrition</a>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<a href="/badges/26/popular-question?userid=23" title="bronze badge: Asked a question with 1,000 views" class="badge"><span class="badge3"></span>&nbsp;Popular Question</a>
-							<span class="item-multiplier"><span class="item-multiplier-x">×</span>&nbsp;<span class="item-multiplier-count">6</span></span>
-						</td>
-						<td>
-							<a href="/badges/17/necromancer?userid=23" title="silver badge: Answered a question more than 60 days later with score of 5 or more" class="badge"><span class="badge2"></span>&nbsp;Necromancer</a>
-							<span class="item-multiplier"><span class="item-multiplier-x">×</span>&nbsp;<span class="item-multiplier-count">7</span></span>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<a href="/badges/27/notable-question?userid=23" title="silver badge: Asked a question with 2,500 views" class="badge"><span class="badge2"></span>&nbsp;Notable Question</a>
-							<span class="item-multiplier"><span class="item-multiplier-x">×</span>&nbsp;<span class="item-multiplier-count">2</span></span>
-						</td>
-						<td>
-							<a href="/badges/64/revival?userid=23" title="bronze badge: Answered more than 30 days later as first answer scoring 2 or more" class="badge"><span class="badge3"></span>&nbsp;Revival</a>
-							<span class="item-multiplier"><span class="item-multiplier-x">×</span>&nbsp;<span class="item-multiplier-count">14</span></span>
-						</td>
-					</tr>
-					</tbody>
-					</table>
-				</div>
-				<div class="user-panel-footer">
-					<a href="/users/23/oddthinking?tab=badges&amp;sort=recent">view more</a>
-				</div>
-			</div>
-			<div id="user-panel-bounties" class="user-panel user-panel-left">
-				<div class="subheader">
-					<h1><a href="/users/23/oddthinking?tab=bounties">
-					<span class="count">0</span> Active bounties</a></h1>
-					<div class="subtabs user-panel-subtabs">
-						<a href="javascript:void(0)" class="youarehere">active</a>
-						<a href="javascript:void(0)">offered</a>
-						<a href="javascript:void(0)">earned</a>
-					</div>
-				</div>
-				<div class="user-panel-content">
-					<div class="empty">
-						This user has no active <a href="/faq#bounty">bounties</a>
-					</div>
-				</div>
-				<div class="user-panel-footer">
-				</div>
-			</div>
-			<div id="user-panel-votes" class="user-panel">
-				<div class="subheader">
-					<h1>
-					<span class="count">1,648</span> Votes Cast </h1>
-				</div>
-				<div class="user-panel-content">
-					<table class="votes-cast-stats">
-					<thead>
-					<tr>
-						<th colspan="2">
-							all time
-						</th>
-						<th class="spacer">
-							&nbsp;
-						</th>
-						<th colspan="2">
-							by type
-						</th>
-						<th class="spacer">
-							&nbsp;
-						</th>
-						<th>
-							month
-						</th>
-						<th class="spacer">
-							&nbsp;
-						</th>
-						<th>
-							week
-						</th>
-						<th class="spacer">
-							&nbsp;
-						</th>
-						<th>
-							day
-						</th>
-					</tr>
-					</thead>
-					<tbody>
-					<tr>
-						<td>
-							1,037
-						</td>
-						<td class="desc">
-							up
-						</td>
-						<td>
-						</td>
-						<td>
-							404
-						</td>
-						<td class="desc">
-							question
-						</td>
-						<td>
-						</td>
-						<td rowspan="2" class="span">
-							18
-						</td>
-						<td>
-						</td>
-						<td rowspan="2" class="span">
-							4
-						</td>
-						<td>
-						</td>
-						<td rowspan="2" class="span">
-							1
-						</td>
-					</tr>
-					<tr>
-						<td>
-							611
-						</td>
-						<td class="desc">
-							down
-						</td>
-						<td>
-						</td>
-						<td>
-							1,244
-						</td>
-						<td class="desc">
-							answer
-						</td>
-						<td>
-						</td>
-					</tr>
-					</tbody>
-					</table>
-				</div>
-				<div class="user-panel-footer">
-				</div>
-			</div>
-		</div>
-		<div id="feed-link">
-			<div id="feed-link-text">
-				<a href="/feeds/user/23" title="feed of the 30 latest questions, answers, and comments from this user"><span class="feed-icon"></span>user feed</a>
 			</div>
 		</div>
 	</div>
-<%= render :partial => 'content_below' %>
+	<div id="imloading" class="imfootloading" style="visibility:hidden;">
+		<div class="loading">
+			正在加载，请稍候...
+		</div>
+	</div>
+</div>
 
+<script type="text/javascript">
+<% content_for :butt2 do %>
+var old_content = jQuery("#contentMain").html();
+jQuery('.queryOrderCss').live('click', function () {
+    var queryOrder = jQuery(this).attr("rel");
+    jQuery('#queryOrder').val(queryOrder);
+    jQuery('#ulQueryOrder > li').removeClass();
+    jQuery(this).parent().addClass('current');
+    queryExec();
+});
+function queryExec(){
+    var queryOrder = jQuery('#queryOrder').val();
+    jQuery("#contentMain").html(old_content);
+    autoLayout.pageAuto = true;
+    autoLayout.pageNums = 0;
+    autoLayout.loading = true;
+    autoLayout.isHasNextPage = true;
+    autoLayout.pageNum = 2;
+    var linkUrl = "/coursewares?teacher=<%=@teacher.name%>",
+        jsonUrl = "/coursewares_with_page?teacher=<%=@teacher.name%>";
+    autoLayout.init({
+        contentID: "contentMain",
+        rightLoad: true,
+        leftID: "",
+        dataContent: {
+            'queryOrder': queryOrder
+        },
+        rightID: ["rightLabel1"],
+        linkUrl: linkUrl,
+        loadingID: "imloading",
+
+        callBack: function () {
+        var showContent = "还没有人为<%=@teacher.name%>上传课件";
+
+            jQuery("#contentMain").prepend('<div style="text-align: center; margin-right: 233px; padding-top: 100px; left: 0px; top: 0px;" class="f14" columns="0">' + showContent + '</div>');
+        }
+    });
+    autoLayout.eachAction(jsonUrl);
+    App.psvr_wendao_init();
+}
+im(function () {
+    queryExec();
+});
+jQuery("#followBtn").live("click", function () {
+    var boardUserId = '<%= @teacher.id %>';
+    var postUrl = "";
+    var follow = jQuery(this).attr("follow");
+    if (eval(follow) == true) {
+        postUrl = uri("URI_FANS_UNFOLLOW_USER", boardUserId);
+    } else {
+        postUrl = uri("URI_FANS_ADD_FOLLOW_USER", boardUserId);
+    }
+    jQuery("#followBtn").bind("click", function () {
+        return false;
+    })
+    var fansCount = jQuery("#user_profile_fans_count").find("em").text();
+    if (eval(follow) == true) {
+        im.window.confirm(jQuery("#followBtn"), "确认取消关注吗?", function () {
+            jQuery.ajax({
+                type: "POST",
+                url: postUrl,
+								data:{'authenticity_token':"<%= form_authenticity_token %>"},
+                dataType: "json",
+                success: function (data) {
+                    jQuery("#followBtn").removeClass().addClass('concern-ico').find("em").text("关注");
+                    fansCount = eval(fansCount) - 1;
+                    jQuery("#user_profile_fans_count").find("em").text(fansCount);
+                    jQuery("#followBtn").attr("follow", false);
+                    jQuery("#followBtn").unbind("click");
+                }
+            });
+        });
+        jQuery("#followBtn").unbind("click");
+    } else {
+        jQuery.ajax({
+            type: "POST",
+            url: postUrl,
+						data:{'authenticity_token':"<%= form_authenticity_token %>"},
+            dataType: "json",
+            success: function (data) {
+                jQuery("#followBtn").removeClass().addClass('d-concerned-ico').find("em").text("已关注");
+                fansCount = eval(fansCount) + 1;
+                jQuery("#user_profile_fans_count").find("em").text(fansCount);
+                jQuery("#followBtn").attr("follow", true);
+                jQuery("#followBtn").unbind("click");
+            }
+        });
+    }
+});
+jQuery("#zmaddfans").hover(
+
+function () {
+    jQuery(this).css({
+        'width': '300px',
+        'height': 'auto',
+        'overflow': 'hidden',
+        'opacity': '1'
+    });
+},
+
+function () {
+    jQuery(this).css({
+        'width': '36px',
+        'height': '36px',
+        'overflow': 'hidden',
+        'opacity': '0.2'
+    });
+})
+jQuery("#fans_submit").live("click", function () {
+    var jQuerythis = jQuery(this);
+    var uid = jQuerythis.data("uid");
+    var need = jQuery("#fans_count").val();
+    if (uid == "") {
+        im.window.alert("参数错误，请稍后再试！");
+        return false;
+    }
+    if (need == "") {
+        im.window.alert("请填写数量！");
+        jQuery("#fans_count").focus();
+        return false;
+    }
+    jQuery.ajax({
+        url: "/vest/addFans",
+        type: "POST",
+        data: {
+						'authenticity_token':"<%= form_authenticity_token %>",
+            uid: uid,
+            need: need
+        },
+        success: function (data) {
+            if (data == 1) {
+                jQuery("#msg_tr").show("slow");
+                jQuery("#sms_span_class").addClass("smstrue");
+            } else {
+                jQuery("#msg_tr").show("slow");
+                jQuery("#sms_span_class").removeClass("smstrue");
+            }
+        }
+    });
+});
+<% end %>
+</script>
+
+
+<!-- add board dialog start -->
+<div id="addBoard" style="display:none;">
+	<div style="height: 400px;overflow: hidden;position:relative;">
+		<div id="newpocket">
+			<div class="addtext">
+				<span class="innerborder"><input id="newBoardName" tabindex="1" type="text" class="deftest gray" maxlength="20" value="请输入图格名称，在20个汉字之内"/></span>
+			</div>
+			<div class="category">
+				<h2 class="f14 b">图格的分类？</h2>
+				<div class="list">
+					<ul class="cf" id="boardcategories">
+					</ul>
+				</div>
+			</div>
+			<div class="category selectuser">
+				<h2 class="f14 b">谁能在图格里添加收集？</h2>
+				<p>
+					<input id="mePerson" type="radio" checked id="radio-12" name="newBoardManageType" value="1" tabindex="3"/><label class="radio omlymy f14" for="mePerson">只是我</label>
+				</p>
+				<p>
+					<input id="otherPerson" type="radio" name="newBoardManageType" value="2"/><label class="radio addothre f14" for="otherPerson">我和其他用户</label>
+					<span class='reSelect' style="display:none">已选择<em></em>位好友 <a href='javascript:;' class='blue'>重新选择</a></span>
+				</p>
+			</div>
+		</div>
+		<div id="selectfriend-1" class="selectfriend">
+			<div class="gotop">
+				<a id="backPerson" href="javascript:void(0)">确认返回</a>
+			</div>
+			<div id="add_friend_lists" class="friendlist" style="display:''">
+				<h3>
+				<span class="f14">我的好友</span><span class="gray" id="friendListSize">(<em>0</em>)</span>
+				</h3>
+				<div class="list">
+					<ul id="friendList" class="cf">
+					</ul>
+				</div>
+			</div>
+			<div id="add_board_nocontent" class="nocontent" style="display:none">
+				<span class="yahe">抱歉，您现在还没有好友</span><br/>
+				<a href="/invite" class="f14 blue">马上去寻找好友&gt;&gt;</a>
+			</div>
+		</div>
+	</div>
+	<div id="addBoard-tips" style="display:none">
+	</div>
+	<div id="createBoardBtnDiv" class="dialogsubmit">
+		<a id="createBoardBtn" class="bigbutton calloff bigbuttongray" href="javascript:void(0);" tabindex="4">确认创建</a><a class="confirmback" href="javascript:;" id="jqruey-goback" style="display:none">确认返回</a>
+	</div>
+</div>
+<!-- add board dialog end -->
+<!-- edit board dialog start -->
+<div id="editBoard" style="display:none;">
+	<div style="height: 400px;overflow: hidden;position:relative;">
+		<div id="editpocket" style="display: block;">
+			<div class="addtext">
+				<span class="innerborder"><input id="editBoardName" class="deftest" type="text" maxlength="20" tabindex="1"/></span>
+			</div>
+			<div class="category">
+				<h2 class="f14 b">图格的分类</h2>
+				<div class="list">
+					<ul class="cf" id="editBoardcategories">
+					</ul>
+				</div>
+			</div>
+			<div class="category">
+				<h2 class="f14 b">谁能在图格里添加收集？</h2>
+				<p>
+					<input id="editMePerson" type="radio" id="radio-12" name="editBoardManageType" value="1" tabindex="3"/><label class="radio omlymy f14" for="editMePerson">只是我</label>
+				</p>
+				<p>
+					<input id="editOtherPerson" type="radio" name="editBoardManageType" value="2"/><label class="radio f14 addothre" for="editOtherPerson">我和其他用户</label>
+					<span id="editSelectedUser" style="display:none;" class="gray">已选择 <em></em>位好友 &nbsp;&nbsp;<a id="editReSelect" href="javascript:;" class="blue">重新选择</a></span>
+				</p>
+			</div>
+		</div>
+		<div id="selectfriend-2" class="selectfriend">
+			<div class="gotop">
+				<a id="editBackPerson" href="javascript:void(0)">确认返回</a>
+			</div>
+			<div class="friendlist">
+				<h3>
+				<span class="f14">我的好友</span><span class="gray" id="editFriendListSize">(<em>0</em>)</span>
+				<!--  <span class="selecterror">您必须选择至少一位好友</span>-->
+				</h3>
+				<div class="list">
+					<ul id="editFriendList" class="cf">
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="optionshare">
+		<div class="modifyborder" id="jquery-option">
+			<span><a href="javascript:;" class="alldel-btn delete dialogdel">删除图格</a></span>
+			<span style="display:none">确认删除图格吗？<a id="delete" href="###" class="enter submitbtn confirm-btn">确认</a><a id="cancel" href="javascript:void(0);" class="reset submitbtn cancel-btn">取消</a></span>
+		</div>
+	</div>
+	<div id="editBoard-tips" style="display:none">
+	</div>
+	<div id="saveBoardBtn" class="dialogsubmit" style="border:none; padding-top:4px">
+		<a class="bigbutton calloff bigbuttongray" href="javascript:void(0);" tabindex="4">保存</a>
+		<a class="confirmback" href="javascript:void(0);" id="jqruey-goback-1" style="display:none">确认返回</a>
+	</div>
+</div>
+<!-- edit board dialog end -->
+<!-- Dialog Start -->
+<div id="reshareDialog" style="display:none;" class="body">
+	<div id="loadings" class="client cf">
+		<div class="block">
+			<div id="reshareDialogBoardPicImage" class="indeximg">
+			</div>
+			<div class="saybox">
+				<div class="selectbox gray" style="margin-bottom: 12px; font-size: 14px">
+					收集到
+				</div>
+				<div class="selectbox margin">
+					<select id="reshareDialogBoardList" name="boardId">
+						<!-- id="assembly1" -->
+					</select>
+				</div>
+				<div class="note cf">
+					<span class="count gray floatright numsText">还可以输入 <em class="shoujiNum">0</em> 字</span><span class="gray">添加描述(可选)</span>
+				</div>
+				<div class="textareabox margin">
+					<span class="innerborder">
+					<textarea name="title" id="reshare-ta"></textarea>
+					</span>
+				</div>
+				<div class="integralbox margin">
+					<input name="isComment" type="checkbox" id="checkbox-1"/>
+					<label id="reshareDialogCommentTo" for="checkbox-1" class="checkbox gray"></label><br>
+					<input name="isComment2" type="checkbox" id="checkbox-2"/>
+					<label id="reshareDialogCommentTo2" for="checkbox-2" class="checkbox gray">同时评论给原收集者</label>
+				</div>
+				<div style="display:none;overflow:hidden;">
+					<span class="smstips smserror"><em class="smstips" id="reshareDialogMessage"></em></span>
+				</div>
+				<div id="reshareCommitButtonDiv" class="submit">
+					<!-- dialogsubmit -->
+					<div class="right">
+						<span class="floatright share">
+						<span class="size" id="reshareCommitButtonDiv-1" style="display: none;">同步到:</span><span id="reshare_sync_sina-1" style="display: none;"><input id="reshare_sync_sina" type="checkbox" value="2"><label for="reshare_sync_sina" class="sina">新浪</label></span><span id="reshare_sync_tencent_weibo-1" style="display: none;"><input id="reshare_sync_tencent_weibo" type="checkbox" value="4"><label for="reshare_sync_tencent_weibo" class="qq">腾讯微博</label></span><span id="reshare_sync_renren-1" style="display: none;"><input id="reshare_sync_renren" type="checkbox" value="1"><label for="reshare_sync_renren" class="renren">人人</label></span><span id="reshare_sync_qzone-1" style="display: none;"><input id="reshare_sync_qzone" type="checkbox" value="8"><label for="reshare_sync_qzone" class="qzone">QQ</label></span>
+						</span>
+					</div>
+					<a id="reshareCommitButton" class="bigbutton big-btn bigbuttongray" href="javascript:void(0);">收集</a>
+				</div>
+			</div>
+			<!-- <div class="submit cf"></div> -->
+		</div>
+	</div>
+</div>
+<!-- Dialog End -->
+<div id="editShareDialog" style="width: 640px; margin-top: 30px; margin-left: 30px; display:none;" class="dialog">
+	<div class="client cf" id="loadings">
+		<div class="block">
+			<div class="indeximg" id="editBoardPicThumb">
+			</div>
+			<div class="saybox">
+				<div class="selectbox margin">
+					<select id="editBoardList">
+					</select>
+				</div>
+				<div class="textareabox margin">
+					<textarea id="editTitle"></textarea>
+					<div class="saynumber">
+						<a class="insertprice pos-left" id="insertprice3"><em>&yen;</em>插入价格</a>
+						<span class="floatright"><em id="sharenumid">1</em>/140</span>
+					</div>
+				</div>
+				<div class="integralbox margin" style="display:none;">
+					<input type="checkbox" id="editIntegral" checked="checked"><label class="checkbox" for="editIntegral">积分悬赏</label><span id="integral"></span> (悬赏后，分享将以 <span class="q"></span> 提问形式发出)
+				</div>
+				<div id="delBoardPic" class="optionshare" style="margin:0;">
+					<div class="modifyborder">
+						<span><a class="alldel-btn delete dialogdel" href="javascript:void(0);" id="delBtn">删除收集</a></span>
+					</div>
+				</div>
+				<div id="delBoardPicConfirm" class="optionshare" style="margin:0;display:none;">
+					<div class="modifyborder">
+						 确认删除此收集吗？<a id="btnDelBoardPicOK" class="enter submitbtn confirm-btn" href="javascript:void(0);">确认</a><a id="btnDelBoardPicCancel" class="reset submitbtn cancel-btn" href="javascript:void(0);">取消</a>
+					</div>
+				</div>
+				<div id="submitDiv" class="submit" style="padding-top:18px;">
+					<input id="editBoardPicId" type="hidden" value=""/>
+					<span id="eidtMsgTip" class="smstips smserror"><em class="smstips"></em></span>
+					<a id="btnSaveBoardPic" class="bigbutton big-btn bigbuttongray" href="javascript:void(0);">完成</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--发私信-->
+<div id="message_dialog" style="display:none;">
+	<div class="client sendmail">
+		<span class="countdown"><em id="jquery-sendmail" class="blue">0</em>/300</span>
+		<div class="sendline cf">
+			<label class="username">收件人：</label>
+			<span class="intext relative">
+			<span class="innerborder">
+			<input type="text" autocomplete="off" id="user_id" to_user_id="0" maxlength="10" class="deftest w200" name="truename">
+			</span>
+			</span>
+		</div>
+		<div class="sendline cf" style="padding-bottom: 12px; _padding-bottom:16px">
+			<label class="usercontent">内&nbsp;容：</label>
+			<span class="intext">
+			<span class="innerborder">
+			<textarea id="message_content"></textarea>
+			</span>
+			</span>
+		</div>
+		<div id="jqeury-smsinfo" style="padding-left:55px; margin-bottom:8px; display:none">
+		</div>
+		<div id="send_div" class="sendsubmit" style="_padding-left:57px">
+			<a id="button_send" class="bigbutton calloff bigbuttongray" href="javascript:void(0);">发送</a>
+		</div>
+	</div>
+</div>
+<!--址址登记-->
+<div id="address_dialog" style="display:none;">
+	<h3 class="yahei f18 aligncenter pad-t16" style="display:none"><span id="address_ok_ico" class="success-ico"></span><span id="address-js-msg-span"></span></h3>
+	<div class="desc aligncenter gray" style="display:none" id="address-js-desc-div">
+	</div>
+	<table class="address" id="address_div">
+	<tbody>
+	<tr id="tr_address_qq" style="display:none">
+		<td class="tdleft">
+			QQ：
+		</td>
+		<td>
+			<span class="innerborder"><input id="address_qq" type="text" class="deftest"/></span>
+			&nbsp;&nbsp;<span class="orange f12" id="js-error-qq"></span>
+		</td>
+	</tr>
+	<tr id="tr_address_mobile" style="display:none">
+		<td class="tdleft">
+			手机：
+		</td>
+		<td>
+			<span class="innerborder"><input id="address_mobile" type="text" maxlength="11" class="deftest"/></span><span id="mobile_alert" style="display:none;font-size:12px;padding-left:6px;" class='highlight'></sapn>
+		</td>
+	</tr>
+	<tr class="address_coin">
+		<td class="tdleft">
+			姓 名：
+		</td>
+		<input type="hidden" id="dialog_address_id" value=""/>
+		<td>
+			<span class="innerborder"><input id="real_name" type="text" class="deftest"/></span>
+		</td>
+	</tr>
+	<tr class="address_coin">
+		<td class="tdleft">
+			联系电话：
+		</td>
+		<td>
+			<span class="innerborder"><input id="telephone" type="text" class="deftest"></span>
+			&nbsp;&nbsp;<span class="orange f12" id="js-error-mobile"></span>
+		</td>
+	</tr>
+	<tr class="address_coin" styl>
+		<td class="tdleft">
+			收货地址：
+		</td>
+		<td>
+			<span class="taouter"><textarea id="address"></textarea></span><br/>
+			<span id="js-error-address" class="orange f12"></span>
+			<div class="historyAdress" style="display:none">
+				<h4 id="address_h4" style="display:none">常用地址</h4>
+				<ul style="display:none" id="address_history">
+				</ul>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<td class="tdleft">
+		</td>
+		<td>
+			<a id="save_address" href="###" class="bigbutton calloff bigbuttongray">提交</a>
+			<a class="bigbutton neednot-btn bigbuttongray" href="javascript:void(0)">取消</a>
+		</td>
+	</tr>
+	</tbody>
+	</table>
+</div>
+
+
+
+</div>
+
+
+<div class="__qa">
+  <div id="edit_topic_cover" class="hide">
+    <header>修改头像 <a class="close" href="javascript:void(0);"></a></header> 
+    <%= simple_form_for(@teacher,:class => "form", :url => user_path(@teacher), :html => { :method => :put, :enctype =>  "multipart/form-data" }) do |f| %>
+      <section class="setupProfile"> 
+        <figure><%= image_tag(@teacher.avatar.normal.url) %></figure> 
+        <div id="file_wrapper">
+          <div id="file_faker">
+            <input id="file_uploader_text" type="text" />
+            <div id="file_btn" class="btnNormalGreen">
+              <span>浏 览</span>
+            </div>
+            <!-- 隐藏真正的上传 -->
+          </div>
+          <input class="file" id="file_uploader" name="user[avatar]" type="file" onchange="checkImg_head(jQuery('#facebox #file_uploader'))" />
+        </div>
+        <p class="fc999 hint">支持 jpg, gif, png 格式的图片，不要超过 2MB。建议图片尺寸大于 300×300。</p>
+        </form>
+      </section>
+      <footer>
+        <div class="btnNormalGreen bold mt20 rightbtn" id="upload_submit" >
+          <span>提 交</span>
+        </div> 
+      </footer>
+    <% end %>
+  </div>						  
+</div>
+
+
+<%= render file:'/application/footers/_zm_footer' %>

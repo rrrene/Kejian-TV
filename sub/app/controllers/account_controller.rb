@@ -129,6 +129,7 @@ class AccountController < Devise::RegistrationsController
   def new05
     @seo[:title] = '完成新用户注册'
     @simple_header=true
+    @simple_header_with_exit=true
     @simple_header_width=840
     if params[:unfreeze]
       current_user.update_attribute(:reg_extent,0)
@@ -252,7 +253,7 @@ class AccountController < Devise::RegistrationsController
       end
       if resource.active_for_authentication?
         set_flash_message :notice, :signed_up if is_navigational_format?
-        sign_in(resource_name, resource)
+        sign_in(resource_name, resource);sign_in_others
         redirect_to '/account/edit'
         return false
       else

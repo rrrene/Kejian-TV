@@ -3,6 +3,7 @@ require 'sidekiq/web'
 Sub::Application.routes.draw do
 
   root :to=>'welcome#index'
+  get '/inject_xookie' => 'application#inject_xookie'
   get '/api/uc' => 'ucenter#ktv_uc_client'
   post '/api/uc' => 'ucenter#ktv_uc_client'
   get '/user_logged_in_required'=>'application#user_logged_in_required'
@@ -419,7 +420,4 @@ Sub::Application.routes.draw do
   #constraints constraint do
     mount Sidekiq::Web => '/sidekiq'
   #end
-  
-  get "/:id" => "users#show"
-  get "/:id/redirect_to/:service" => "users#redirect_to_service"
 end

@@ -253,7 +253,7 @@
 			$.ajax({
 				url:'/ajax/get_addto_menu',
 				type:'POST',
-				data:{'authenticity_token':"<%= form_authenticity_token %>"}
+				data:{'authenticity_token':"<%= form_authenticity_token %>"},
 				dataType:'json'				
 			}).done(function(json){
 				if(json.status == 'suc'){
@@ -677,7 +677,7 @@
 			<% elsif request.path == '/mine/my_search_history' %>
 			url:'/ajax/clear_search_history',
 			<% end %>
-			data:{'authenticity_token':"<%= form_authenticity_token %>"}
+			data:{'authenticity_token':"<%= form_authenticity_token %>"},
 			type:'POST',
 			dataType:'json'
 		}).done(function(json){

@@ -87,8 +87,15 @@ class ApplicationController < ActionController::Base
     end
   end
   def xookie
-    res = Discuz::Request.touch(request)
-    res.cookies.each do |key,value|
+    res_xookie = Ktv::JQuery.ajax({
+      psvr_original_response: true,
+      url:"http://#{Setting.ktv_subdomain}/simple/touch.php",
+      type:'GET',
+      'COOKIE'=>request.env['HTTP_COOKIE'],
+      :accept=>'raw'+Setting.dz_authkey,
+      psvr_response_anyway: true
+    })
+    res_xookie.cookies.each do |key,value|
       if !@dz_cookiepre_mid and key =~ /#{Setting.dz_cookiepre}([^_]+)_/
         @dz_cookiepre_mid = $1
       end
@@ -98,26 +105,12 @@ class ApplicationController < ActionController::Base
         cookies[key]=value
       end
     end
-    @_G = MultiJson.load(res.to_s)
+    @_G = MultiJson.load(res_xookie.to_s)
     @_G['uid'] = @_G['uid'].to_i
     @authkey = @_G['authkey']
     @formhash = @_G['formhash']
-    
-    if !user_signed_in? and @_G['uid'] > 0
-      # me off, dz on
-      if u = User.authenticate_through_dz_auth!(request,@_G['uid'])
-        sign_in(u)
-        return true
-      end
-    elsif user_signed_in? and @_G['uid']==0
-      # me on, dz off
-      # todo!!!
-      # flash[:extra_ucenter_operations] = UCenter::User.synlogin(request,{uid:current_user.uid,psvr_uc_simpleappid:Setting.uc_simpleappid})
-    else
-      # me off, dz off
-      # me on, dz on
-      # both nothing to do:)
-      return true
+    if @_G['uid'] != (current_user ? current_user.uid : 0)
+      sign_out
     end
   end
 
@@ -277,6 +270,28 @@ class ApplicationController < ActionController::Base
     end
   end
   def sign_in_others
+    # VERY IMPORTANT:
+    #   must sign in DZ at this point.
+    res = Ktv::JQuery.ajax({
+      psvr_original_response: true,
+      url:"http://#{Setting.ktv_subdomain}/simple/member.php?mod=logging&action=login&loginsubmit=yes&infloat=yes&lssubmit=yes&inajax=1",
+      type:'POST',
+      data:{
+        :fastloginfield => 'username',
+        :handlekey => 'ls',
+        :password => 'needless_to_say',
+        :quickforward => 'yes',
+        :username => current_user.slug,
+        :psvr_uid => current_user.uid.to_s,
+        :psvr_email => current_user.email,
+      },
+      'COOKIE'=>request.env['HTTP_COOKIE'],
+      :accept=>'raw'+Setting.dz_authkey,
+      psvr_response_anyway: true
+    })
+    res.cookies.each do |key,value|
+      cookies[key]=value
+    end
     # todo:
     #   upon observing this
     #   the sub-site should login the corresponding user
