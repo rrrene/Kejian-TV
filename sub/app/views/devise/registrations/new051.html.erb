@@ -6,7 +6,11 @@
 window.current_user_reg_extent_set_timeout = function(){
   setTimeout(function(){
     jQuery.getJSON('/ajax/current_user_reg_extent',{},function(data){
-        if(0==data['extent'] || data['extent']>10){
+        if(-1==data['extent']){
+          window.current_user_reg_extent_set_timeout = function(){}
+          window.location.reload();
+          return false;
+        }else if(0==data['extent'] || data['extent']>10){
           window.current_user_reg_extent_set_timeout = function(){}
           window.location.href="/";
           return false;

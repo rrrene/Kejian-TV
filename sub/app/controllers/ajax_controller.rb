@@ -44,19 +44,30 @@ class AjaxController < ApplicationController
     if ret['code']
       agent = request.env['HTTP_USER_AGENT']
       agent = Setting.user_agent if agent.blank?
-      Sidekiq::Client.enqueue(HookerJob,
-        'Ktv::Renren',
-        nil,
-        'import_info',
-        agent,result.cookies,current_user.id,ret['homeUrl'],!!params[:guanzhu_ktv],!!params[:fabiao_ktv]
-      )
-      if current_user.reg_extent_okay?
-        # 1表示只是普通的绑定，成功了，没有后续. ok，该干嘛干嘛。
-        render json:{okay:1}
+      if $psvr_really_production
+        Sidekiq::Client.enqueue(HookerJob,
+          'Ktv::Renren',
+          nil,
+          'import_info',
+          agent,result.cookies,current_user.id,ret['homeUrl'],!!params[:guanzhu_ktv],!!params[:fabiao_ktv]
+        )
+        if current_user.reg_extent_okay?
+          # 1表示只是普通的绑定，成功了，没有后续. ok，该干嘛干嘛。
+          render json:{okay:1}
+        else
+          current_user.update_attribute(:reg_extent,1)
+          # 2表示这个用户登录ok，继续注册.
+          render json:{okay:2}
+        end
       else
-        current_user.update_attribute(:reg_extent,1)
-        # 2表示这个用户登录ok，继续注册.
-        render json:{okay:2}
+        Ktv::Renren.import_info agent,result.cookies,current_user.id,ret['homeUrl'],!!params[:guanzhu_ktv],!!params[:fabiao_ktv]
+        if current_user.reg_extent_okay?
+          # 1表示只是普通的绑定，成功了，没有后续. ok，该干嘛干嘛。
+          render json:{okay:1}
+        else
+          # 2表示这个用户登录ok，继续注册.
+          render json:{okay:2}
+        end
       end
     else
       render json:{okay:false,failDescription:ret['failDescription']}
