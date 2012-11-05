@@ -1,0 +1,929 @@
+<% content_for :armpit do %>
+	<%= stylesheet_link_tag 'ktv/__ytb' %>
+	<%= stylesheet_link_tag 'ktv/__ytb_upload' %>
+<% end %>
+<% content_for :butt2 do %>
+  window.psvr_f=<%= Ktv::Utils.safely('undefined'){ret=@c.fid;if ret.present?;ret;else;raise 'bitch!';end} %>;
+  window.psvr_g=<%= Ktv::Utils.safely('undefined'){ret=Department.get_fid(@c.department);if ret.present?;ret;else;raise 'bitch!';end}%>;
+  $('#content').click(function(){$('#presentation_teacher_select').hide();$('#presentation_teacher_hv').removeClass('right_on');$('#presentation_sort1_select').hide();$('#presentation_sort1_hv').removeClass('right_on');});
+  $('#presentation_topic').focus(function(e){
+    showWindow('nav', '/forum.php?mod=misc&action=nav&already_inside=1&psvr_g='+window.psvr_g+'&psvr_f='+window.psvr_f, 'get', 0);
+    return false;
+  });
+<% end %>
+
+<div id="the_upload_ytb" class='__ytb'>
+<div class="upload" id="page">
+	<div id="content-container">
+	  <div id="content">
+			<div class="initial-upload-page" id="upload-page">
+				<div class="ytg-4col" id="main-content">
+					<!-- 多附件弹窗 -->
+					<div class="upload-multifile-popup-glass hid" id="multiple-file-tutorial" style="top: 0px; display: none;">
+						<div class="upload-multifile-popup">
+							<img src="<%=asset_path('yt/img/upload-multi-mac-vflqx1DvO.png')%>">
+							<h1>选择多个文件</h1>
+							<p>
+								 按住 <% if @is_mac %>Command<% elsif @is_windows %>Ctrl<%end %> 键的同时进行选择可选中多个文件。
+							</p>
+							<div class="button-container">
+								<div>
+									<button role="button" data-upload-button-id="multifile-tutorial" class="start-upload-button yt-uix-button yt-uix-button-primary" type="button" onclick="yt.analytics.urchinTracker('/Events/UploadPage/UploadButton');;return false;"><span class="yt-uix-button-content">选择文件 </span></button><input type="file" style="height: 0px; visibility: hidden; position: absolute;" multiple="">
+									<button role="button" onclick=";return false;" class=" yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-content">取消 </span></button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- 头部进度条  -->
+					<div class="upload-header" id="uploader-progress">
+						<h1>
+						<span class="upload-header-status-text">上传课件文件</span>
+						</h1>
+						<div class="upload-header-progress-bar hide-in-initial hid" style="display: none;">
+							<div class="progress-bar-progress">
+							</div>
+							<span class="progress-bar-percentage">0%</span>
+						</div>
+						<div class="uploader-buttons">
+							<button role="button" data-upload-button-id="add-more-videos-top" class="start-upload-button hide-in-initial yt-uix-button yt-uix-button-default" type="button" >
+								<span class="yt-uix-button-icon-wrapper">
+									<img alt="" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="yt-uix-button-icon yt-uix-button-icon-upload-add">
+									<span class="yt-uix-button-valign"></span>
+								</span>
+								<span class="yt-uix-button-content">添加更多课件 </span>
+							</button>
+							<button role="button" onclick=";window.location.href=this.getAttribute('href');return false;" class="hide-in-initial video-manager-button yt-uix-button yt-uix-button-default" type="button" href="/mine/my_coursewares"><span class="yt-uix-button-content">课件管理器 </span></button>
+						</div>
+					</div>
+					<div id="active-uploads-contain">
+					</div>
+					<!-- footer -->
+					<div class="upload-footer">
+						<button role="button" data-upload-button-id="add-more-videos-bottom" class="init-upload-button start-upload-button hide-in-initial yt-uix-button yt-uix-button-default" type="button" onclick=";return false;">
+							<span class="yt-uix-button-icon-wrapper">
+								<img alt="" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="yt-uix-button-icon yt-uix-button-icon-upload-add">
+								<span class="yt-uix-button-valign"></span>
+							</span>
+							<span class="yt-uix-button-content">添加更多课件 </span>
+						</button>
+					</div>
+					<!-- noscript -->
+					<div class="filelist-box" id="filelist-box">
+						<noscript>
+						 &lt;div class="yt-alert yt-alert-default yt-alert-warn "&gt; &lt;div class="yt-alert-icon"&gt; &lt;img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="icon master-sprite" alt="提醒图标"&gt; &lt;/div&gt; &lt;div class="yt-alert-buttons"&gt;&lt;button type="button" class="close yt-uix-close yt-uix-button yt-uix-button-close" onclick=";return false;" data-close-parent-class="yt-alert" role="button"&gt;&lt;span class="yt-uix-button-content"&gt;关闭 &lt;/span&gt;&lt;/button&gt;&lt;/div&gt;&lt;div class="yt-alert-content" role="alert"&gt; &lt;span class="yt-alert-vertical-trick"&gt;&lt;/span&gt; &lt;div class="yt-alert-message"&gt; 您需要启用 Javascript 才能上传课件。 &lt;/div&gt; &lt;/div&gt;&lt;/div&gt;
+						</noscript>
+					</div>
+					<!-- really upload -->
+					<div class="starting-box upload-delay-publishing-box">
+						<!-- Timeout -->
+						<div id="loading-message" style="display: none;" class="hid">
+							 正在加载...
+							<div class="loading-message-timeout hid" id="loading-message-timeout">
+								花费的时间超出预期...如果稍后仍未完成，请尝试<a href="javascript:location.reload(true)">重新加载该网页</a>或使用<a href="/upload_classic">基本上传器</a>。
+							</div>
+							<script>
+			          function showTimeoutMsg() {
+			            var elm = document.getElementById('loading-message-timeout');
+			            elm.style.display = 'block';
+			          }
+			          UPLOADER_LOAD_TIMEOUT = setTimeout("showTimeoutMsg()", 30000);
+			        </script>
+						</div>
+						<!-- really really upload -->
+						<div class="starting-box-inner" id="upload-prompt-box" style="visibility: visible;">
+							<div class="ytg-box starting-box-table">
+				        <div id="uploader" style="display:none">
+				          <input id="presentation_pdf" name="presentation[pdf]" type="file" multiple="multiple" />
+				        </div>
+								<!-- Left -->
+								<div class="starting-box-left-column">
+									<div data-upload-button-id="main" class="starting-box-button-container start-upload-button">
+										<img alt="" src="<%=asset_path('yt/img/icon-upload-single-vflsjkQ5E.png')%>" class="init-upload-action-icon">
+										<button role="button" class="init-upload-button yt-uix-button yt-uix-button-default" id="start-upload-button-single" type="button" onclick=";return false;"><span class="yt-uix-button-content">从计算机上选择文件 </span></button>
+									</div>
+									<div class="upload-delay-publishing-settings">
+										<span class="upload-delay-publishing-label">隐私设置</span>
+										<button  role="button" onclick=";return false;" class="yt-uix-button yt-uix-button-default" type="button">
+											<span class="yt-uix-button-content">公开 </span><img alt="" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="yt-uix-button-arrow">
+											<ul style="min-width: 58px; left: 454px; top: 515px; display: none;" aria-haspopup="true" role="menu" class="yt-uix-button-menu yt-uix-button-menu-default hid">
+												<li id="aria-id-public" role="menuitem"><span onclick="uploader.setVideoPrivacy('public');;return false;" class=" yt-uix-button-menu-item">公开</span></li>
+												<li id="aria-id-unlisted" role="menuitem"><span onclick="uploader.setVideoPrivacy('unlisted');;return false;" class=" yt-uix-button-menu-item">不公开</span></li>
+												<li id="aria-id-private" role="menuitem"><span onclick="uploader.setVideoPrivacy('private');;return false;" class=" yt-uix-button-menu-item">私有</span></li>
+											</ul>
+										</button>
+									</div>
+								</div>
+								<!-- Right -->
+								<div class="more-ways-to-upload">
+									<div class="small-starting-box-action-container" id="multiple-uploads-link">
+										<img alt="" src="<%=asset_path('yt/img/icon-upload-multiple-vfl56lomr.png')%>" class="init-upload-action-icon-small">
+										<h2>上传多个文件</h2>
+										<div class="starting-description">
+											 按住 <% if @is_mac %>Command<% elsif @is_windows %>Ctrl<%end %> 键的同时进行选择可选中多个文件。
+										</div>
+									</div>
+									<div onclick=";return false;" class="small-starting-box-action-container">
+										<img alt="" src="<%=asset_path('yt/img/icon-webcam-vfl6IA83Q.png')%>" class="init-upload-action-icon-small">
+										<h2>支持多种文档转码格式</h2>
+										<div class="starting-description">
+											目前支持格式: PDF, Djvu, PPT, PPTX, DOC, DOCX，打包上传格式: ZIP, RAR, 7Z
+										</div>
+									</div>
+									<div onclick=";return false;" class="small-starting-box-action-container">
+										<img alt="" src="<%=asset_path('yt/img/hangouts-upload-icon-vflyoy2E_.png')%>" class="init-upload-action-icon-small">
+										<h2>上传完成后就可以离开该页面</h2>
+										<div class="starting-description">
+											当转码进度条开始时，您就可以可安全地离开本页面，我们将在后台自动处理您的课件。
+										</div>
+									</div>
+								</div>
+							</div>
+							<div id="upload-drag-drop-description" class="upload-drag-drop-description">
+								 将课件拖放到该页面上的任意位置即可开始上传。
+							</div>	
+							<% if false %>
+							<div class="informational-footer">
+								<div class="information-footer-copyright">
+									<strong>重要提示</strong>：对于任何上传的内容，您都必须拥有版权或相关必要权利。<a href="/t/howto_copyright">了解详情</a>
+								</div>
+							</div>
+							<% end %>
+						</div>
+					</div>
+		
+					<!-- template -->
+					<div class="upload-item collapsed-item hid" id="upload-item-template">
+						<div class="thumbnail-container">
+							<div class="close">
+								<img class="item-close close-button" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
+							</div>
+							<div class="upload-thumb">
+								<div class="upload-thumb-container hid">
+									<span class="video-thumb ux-thumb yt-thumb-default-120 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img width="120" class="upload-thumb-img" alt="" src="<%=asset_path('yt/img/loader-vflff1Mjj.gif')%>"><span class="vertical-align"></span></span></span></span>
+								</div>
+								<img alt="" src="<%=asset_path('yt/img/loader-vflff1Mjj.gif')%>" class="upload-thumb-spinner">
+							</div>
+							<div class="upload-failure hid">
+							</div>
+							<div class="item-header-info">
+								<div class="item-title-area">
+									<h2 class="item-title"></h2>
+									<div class="yt-alert yt-alert-naked yt-alert-success item-title-success">
+										<div class="yt-alert-icon">
+											<img alt="提醒图标" class="icon master-sprite" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
+										</div>
+										<div role="alert" class="yt-alert-content">
+										</div>
+									</div>
+								</div>
+								<div class="item-sub-title">
+									<span class="upload-status-text"></span>
+									<span class="upload-time-remaining hid"></span>
+									<span class="watch-page-link"></span>
+								</div>
+								<div class="progress-bars">
+									<div class="progress-bar-uploading hid">
+										<div class="progress-bar-progress">
+											<span class="progress-bar-head"></span>
+										</div>
+										<span class="progress-bar-percentage">0%</span>
+									</div>
+									<div class="progress-bar-processing hid">
+										<div class="progress-bar-progress">
+											<span class="progress-bar-head"></span>
+										</div>
+										<span class="progress-bar-percentage">0%</span>
+									</div>
+								</div>
+							</div>
+							<span class="action-buttons">
+							<button role="button" data-button-toggle="true" onclick=";return false;" class="post-upload-share hid yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-content">分享 </span></button>
+							<button role="button" data-feature="upload" data-video-ids="SET-BY-JS" data-button-menu-id="shared-addto-menu" data-button-menu-action="yt.www.lists.addto.toggleMenu" onclick=";return false;" class="addto-button default flip hid yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-icon-wrapper"><img alt="" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="yt-uix-button-arrow"></button>
+							<button role="button" onclick=";return false;" class="item-cancel yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-icon-wrapper"><img alt="Cancel" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="yt-uix-button-icon yt-uix-button-icon-upload-cancel"><span class="yt-uix-button-valign"></span></span><span class="yt-uix-button-content">取消 </span></button>
+							</span>
+						</div>
+						<div class="share-container yt-rounded hid">
+							<div class="share-container-inner">
+							</div>
+							<div class="close">
+								<img class="post-upload-share-close-button" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
+							</div>
+						</div>
+						<div id="alert-template" class="yt-alert yt-alert-default yt-alert-warn hid ">
+							<div class="yt-alert-icon">
+								<img alt="提醒图标" class="icon master-sprite" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
+							</div>
+							<div class="yt-alert-buttons">
+							</div>
+							<div role="alert" class="yt-alert-content">
+							</div>
+						</div>
+						<div id="alert-template-with-close" class="yt-alert yt-alert-default yt-alert-warn hid ">
+							<div class="yt-alert-icon">
+								<img alt="提醒图标" class="icon master-sprite" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
+							</div>
+							<div class="yt-alert-buttons">
+								<button role="button" data-close-parent-class="yt-alert" onclick=";return false;" class="close yt-uix-close yt-uix-button yt-uix-button-close" type="button"><span class="yt-uix-button-content">关闭 </span></button>
+							</div>
+							<div role="alert" class="yt-alert-content">
+							</div>
+						</div>
+						<div class="notification-area">
+							<div class="yt-alert yt-alert-actionable yt-alert-warn hid alert-multi">
+								<div class="yt-alert-icon">
+									<img alt="提醒图标" class="icon master-sprite" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
+								</div>
+								<div class="yt-alert-buttons">
+									<button role="button" onclick=";return false;" class="multialert-next yt-uix-button yt-uix-button-alert-warn" type="button"><span class="yt-uix-button-content">Next </span></button>
+									<button role="button" onclick=";return false;" class="multialert-close close yt-uix-button yt-uix-button-close" type="button"><span class="yt-uix-button-content">关闭 </span></button>
+								</div>
+								<div role="alert" class="yt-alert-content">
+									<span class="yt-alert-vertical-trick"></span>
+									<div class="yt-alert-message">
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="sub-item-exp-zippy" >
+							<div class="sub-item-exp fade-during">
+								<div class="metadata-editor-container">
+									<div class="subnav">
+										<ul class="tabs">
+											<li data-tab-id="basic-info" class="tab-header selected">
+											<span>
+											<a href="">基本信息</a>
+											</span>
+											</li>
+											<li data-tab-id="monetization" class="tab-header ">
+											<span>
+											<a href="">获利</a>
+											</span>
+											</li>
+											<li data-tab-id="advanced-settings" class="tab-header ">
+											<span>
+											<a href="">高级设置</a>
+											</span>
+											</li>
+										</ul>
+										<span class="tab-bg"></span>
+										<div class="summary-icons">
+											<span data-tooltip-text="公开" title="公开" class="metadata-status-public metadata-status yt-uix-tooltip yt-uix-tooltip-reverse hid">
+											<img alt="公开" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
+											</span>
+											<span data-tooltip-text="不公开" title="不公开" class="metadata-status-unlisted metadata-status yt-uix-tooltip yt-uix-tooltip-reverse hid">
+											<img alt="不公开" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
+											</span>
+											<span data-tooltip-text="私有" title="私有" class="metadata-status-private metadata-status yt-uix-tooltip yt-uix-tooltip-reverse hid">
+											<img alt="私有" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
+											</span>
+											<span data-tooltip-text="预定" title="预定" class="metadata-status-scheduled metadata-status yt-uix-tooltip yt-uix-tooltip-reverse hid">
+											<img alt="预定" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
+											</span>
+											<span data-tooltip-text="未获利" title="未获利" class="metadata-status-video-not-monetized metadata-status yt-uix-tooltip yt-uix-tooltip-reverse hid">
+											<img alt="未获利" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
+											</span>
+											<span data-tooltip-text="已获利" title="已获利" class="metadata-status-video-monetized metadata-status yt-uix-tooltip yt-uix-tooltip-reverse hid">
+											<img alt="已获利" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
+											</span>
+											<span data-tooltip-text="未声明所有权" title="未声明所有权" class="metadata-status-video-not-claimed metadata-status yt-uix-tooltip yt-uix-tooltip-reverse hid">
+											<img alt="未声明所有权" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
+											</span>
+											<span data-tooltip-text="已声明" title="已声明" class="metadata-status-video-claimed metadata-status yt-uix-tooltip yt-uix-tooltip-reverse hid">
+											<img alt="已声明" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
+											</span>
+											<span data-tooltip-text="已遭拒" title="已遭拒" class="metadata-status-video-rejected metadata-status yt-uix-tooltip yt-uix-tooltip-reverse hid">
+											<img alt="已遭拒" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
+											</span>
+											<span data-tooltip-text="申诉" title="申诉" class="metadata-status-video-appealable metadata-status yt-uix-tooltip yt-uix-tooltip-reverse hid">
+											<img alt="申诉" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
+											</span>
+										</div>
+									</div>
+									<div class="metadata-popups">
+										<div style="display: none;" class="location-map">
+											<div class="map-canvas">
+											</div>
+										</div>
+									</div>
+									<div class="metadata-container">
+										<%= form_for @courseware,:url => "/presentations", :html => { :method => :post,'data-s3' =>@config.to_json,  :class => 'kejian-settings-form', :autocomplete=>"off" } do |f| %>
+											<div data-tab-id="basic-info" class="metadata-tab">
+												<fieldset class="metadata-two-column">
+													<label>
+													<h4>标题</h4>
+													<span class=" yt-uix-form-input-container "><input name="title" class="yt-uix-form-input-text kejian-settings-title"></span>
+													</label>
+													<label>
+													<h4>说明</h4>
+													<span class="yt-uix-form-input-container "><textarea rows="6" name="description" class="yt-uix-form-textarea video-settings-description"></textarea></span>
+													</label>
+													<h4 class="tags-header">
+													标记 <span class="yt-uix-clickcard">
+													<img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" tabindex="0" role="button" class="yt-help-icon yt-uix-clickcard-target">
+													<span class="yt-uix-clickcard-content">
+													<button class="yt-uix-clickcard-close"></button>
+													<p>
+														有助于他人发现您的课件的关键字
+													</p>
+													</span>
+													</span>
+													</h4>
+													<div class="video-settings-tag-chips-container yt-uix-form-textarea">
+														<input type="hidden" data="" value="" class="video-settings-tags" name="keywords"><input placeholder="" aria-haspopup="true" autocomplete="false" spellcheck="false" class="video-settings-add-tag">
+													</div>
+													<div class="upload-item-tag-suggestions clearfix">
+														<div style="display: none;" class="tag-suggest-title">
+															 推荐标签：
+														</div>
+														<div style="display: none;" class="tag-suggest-tags">
+															<span class="generating-tags">正在生成标记建议</span>
+															<img alt="正在加载..." src="<%=asset_path('yt/img/loader-vflff1Mjj.gif')%>">
+														</div>
+														<a style="display: none;" class="tag-suggest-add-all">全部添加</a>
+													</div>
+													<div data-video-id="" class="metadata-thumbnail-chooser horizontal-thumbnail-chooser">
+														<h4>
+														课件缩略图 <span class="yt-uix-clickcard">
+														<img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" tabindex="0" role="button" class="yt-help-icon yt-uix-clickcard-target">
+														<span class="yt-uix-clickcard-content">
+														<button class="yt-uix-clickcard-close"></button>
+														<p>
+															代表您的课件的静态图片（例如在搜索结果中）
+														</p>
+														</span>
+														</span>
+														</h4>
+														<span class="before-standard-thumbs-available">
+														<span class="thumb-placeholder small-thumb-dimensions">
+														课件处理完毕后，系统会显示选中的缩略图。 </span>
+														</span>
+														<span class="standard-thumbs-available hid">
+														<div class="selectable-thumb standard-thumb small-thumb-dimensions">
+															<span class="video-thumb ux-thumb yt-thumb-default-120 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img width="120" alt="缩略图" src="<%=asset_path('yt/img/loader-vflff1Mjj.gif')%>"><span class="vertical-align"></span></span></span></span>
+														</div>
+														<div class="selectable-thumb standard-thumb small-thumb-dimensions">
+															<span class="video-thumb ux-thumb yt-thumb-default-120 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img width="120" alt="缩略图" src="<%=asset_path('yt/img/loader-vflff1Mjj.gif')%>"><span class="vertical-align"></span></span></span></span>
+														</div>
+														<div class="selectable-thumb standard-thumb small-thumb-dimensions">
+															<span class="video-thumb ux-thumb yt-thumb-default-120 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img width="120" alt="缩略图" src="<%=asset_path('yt/img/loader-vflff1Mjj.gif')%>"><span class="vertical-align"></span></span></span></span>
+														</div>
+														<span class="thumbnail-overlay hid overlay-standard small-thumb-dimensions">
+														<span class="thumbnail-overlay-inner-border">
+														<div class="thumbnail-overlay-content">
+															 设为缩略图
+														</div>
+														</span>
+														</span>
+														</span>
+														<span class="custom-thumb-selectable hid">
+														<span class="thumbnail-overlay hid overlay-custom">
+														<span class="thumbnail-overlay-inner-border">
+														<div class="overlay-set-thumbnail">
+															 设为缩略图
+														</div>
+														<div class="overlay-change-thumbnail">
+															 更改图片
+														</div>
+														</span>
+														</span>
+														<span class="thumbnail-overlay hid overlay-change-only">
+														<span class="thumbnail-overlay-inner-border">
+														<div class="overlay-change-thumbnail">
+															 更改图片
+														</div>
+														</span>
+														</span>
+														<div style="display: none;" class="thumbnail-upload-error">
+															<div>
+																<img title="Default Error" alt="Error icon" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="yt-uix-tooltip thumbnail-error-icon" data-tooltip-max-width="116" id="thumbnail-error">
+															</div>
+															<div style="margin-top: 5px">
+																<button role="button" onclick=";return false;" class="thumbnail-try-again-button yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-content">重试... </span></button>
+															</div>
+														</div>
+														<div style="" class="custom-thumb-area horizontal-custom-thumb-area small-thumb-dimensions">
+															<div class="custom-thumb-container">
+																<button role="button" onclick=";return false;" class="custom-thumb-button yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-content">自定义缩略图 </span></button>
+															</div>
+															<div class="yt-uix-hovercard">
+																<span data-position="topright" class="yt-uix-hovercard-target custom-thumb-text">
+																文件大小上限为 2MB。 </span>
+																<div class="yt-uix-hovercard-content custom-thumb-hovercard">
+																	 请上传尽可能大的图片（建议大小：1280x720），因为当您的课件嵌入到其他网站上时，该图片也会用作预览图片。您可以上传 <b>JPG、GIF、BMP</b> 或 <b>PNG</b> 格式的文件。文件大小上限为 <b>2MB</b>。
+																	<div>
+																		 缩略图必须能代表您的课件，并遵守我们的<a href="http://www.课件TV.com/t/community_guidelines">社区准则</a>。请勿上传含有裸露、少儿不宜内容的图片或受版权保护的图片。
+																	</div>
+																</div>
+															</div>
+														</div>
+														<div style="display: none;" class="selectable-thumb custom-thumb hid small-thumb-dimensions">
+															<span class="video-thumb ux-thumb yt-thumb-default-120 "><span class="yt-thumb-clip"><span class="yt-thumb-clip-inner"><img width="120" alt="缩略图" src="<%=asset_path('yt/img/loader-vflff1Mjj.gif')%>"><span class="vertical-align"></span></span></span></span>
+														</div>
+														<div style="display: none;" class="custom-thumb-loader small-thumb-dimensions">
+															<div class="custom-thumb-center">
+																<div class="custom-thumb-uploading">
+																	<img src="<%=asset_path('yt/img/loader-vflff1Mjj.gif')%>">
+																	<span>正在上传</span>
+																</div>
+																<div class="custom-thumb-filename">
+																	temp file name
+																</div>
+																<div class="custom-thumb-center">
+																	<button role="button" onclick=";return false;" class="custom-thumb-cancel-button yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-content">取消 </span></button>
+																</div>
+															</div>
+														</div>
+														</span>
+													</div>
+													<div class="hid" id="expandable-error-detail">
+														<span class="yt-uix-expander yt-uix-expander-collapsed">
+														<span class="yt-uix-expander-head">详细信息</span>
+														<pre class="yt-uix-expander-body">
+															__details__
+														</pre>
+														</span>
+													</div>
+													<input type="hidden" value="2" name="still_id" class="still-id">
+													<input type="hidden" value="" name="still_id_custom_thumb_version" class="still-id-custom-thumb-version">
+												</fieldset>
+												<fieldset class="metadata-column">
+													<label>
+													<h4 class="category-header">类别</h4>
+													<span class="yt-uix-form-input-select "><span class="yt-uix-form-input-select-content"><img class="yt-uix-form-input-select-arrow" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>"><span class="yt-uix-form-input-select-value">选择类别</span></span>
+													<select name="category" class="yt-uix-form-input-select-element category-input">
+														<option value="">选择类别</option>
+														<option value="26">DIY 和生活百科</option>
+														<option value="15">宠物和动物</option>
+														<option value="1">电影和动画</option>
+														<option value="29">公益与社会活动</option>
+														<option value="27">教育</option>
+														<option value="28">科学和技术</option>
+														<option value="19">旅游和活动</option>
+														<option value="2">汽车</option>
+														<option value="22">人物和博客</option>
+														<option value="17">体育</option>
+														<option value="23">喜剧</option>
+														<option value="25">新闻和政治</option>
+														<option value="10">音乐</option>
+														<option value="20">游戏</option>
+														<option value="24">娱乐</option>
+													</select>
+													</span>
+													</label>
+													<h4 class="privacy-header">
+													隐私设置 <span class="yt-uix-clickcard">
+													<img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" tabindex="0" role="button" class="yt-help-icon yt-uix-clickcard-target">
+													<span class="yt-uix-clickcard-content">
+													<button class="yt-uix-clickcard-close"></button>
+													<p>
+														隐私设置关系到您与朋友、家人或公众分享课件的方式。 <a href="//support.google.com/课件TV/bin/answer.py?answer=157177&amp;hl=zh-CN" target="_new">
+														了解详情 </a>
+													</p>
+													</span>
+													</span>
+													</h4>
+													<div class="metadata-privacy-field ">
+														<span class="yt-uix-form-input-select privacy-select"><span class="yt-uix-form-input-select-content"><img class="yt-uix-form-input-select-arrow" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>"><span class="yt-uix-form-input-select-value">
+														公开 </span></span>
+														<select name="privacy" class="yt-uix-form-input-select-element metadata-privacy-input">
+															<option selected="" value="public">
+															公开 </option>
+															<option value="unlisted">
+															不公开 </option>
+															<option value="private">
+															私有 </option>
+															<option disabled="disabled" value="scheduled">
+															预定 </option>
+														</select>
+														</span>
+														<div class="metadata-privacy-settings metadata-public-settings ">
+															<span class="metadata-privacy-option-desc">
+															任何人都可以搜索和观看 </span>
+														</div>
+														<div class="metadata-privacy-settings metadata-unlisted-settings hid">
+															<span class="metadata-privacy-option-desc">
+															知道相关链接的人可以观看 </span>
+														</div>
+														<div class="metadata-privacy-settings metadata-private-settings hid">
+															<span class="metadata-privacy-option-desc">
+															只有您选择的用户才能观看 </span>
+															<div class="sharebox">
+															</div>
+														</div>
+													</div>
+													<div class="metadata-privacy-disabled hid">
+														<p class="metadata-privacy-disabled-rental">
+															 此课件将成为私有内容，并会在获得租借批准后自动公开
+														</p>
+													</div>
+													<div class="license-selection single-field">
+														<h4 class="license-header">
+														许可及所有权 </h4>
+														<span class="yt-uix-form-input-select license-selection-select"><span class="yt-uix-form-input-select-content"><img class="yt-uix-form-input-select-arrow" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>"><span class="yt-uix-form-input-select-value">
+														标准 课件TV 许可 </span></span>
+														<select name="reuse" class="yt-uix-form-input-select-element license-input">
+															<option selected="" value="all_rights_reserved">
+															标准 课件TV 许可 </option>
+															<option value="creative_commons">
+															知识共享 - 署名 </option>
+														</select>
+														</span>
+													</div>
+												</fieldset>
+											</div>
+											<div data-tab-id="monetization" class="metadata-tab hid">
+												<label class="enable-monetization-field">
+												<span class="yt-uix-form-input-checkbox-container ">
+													<input type="checkbox" data-linked-hidden-class="enable-monetization-value" class="yt-uix-form-input-checkbox enable-monetization" name="">
+													<span class="yt-uix-form-input-checkbox-element"></span>
+												</span>
+												<input type="hidden" data-initial-value="no" class="enable-monetization-value" value="no" name="enable_monetization">
+												通过我的课件获利 </label>
+												<div class="monetization-disclaimer hid">
+													 点击此处即确认我拥有此课件的全部资料，也就是说，我拥有利用此课件获利所必需的所有声音和视觉元素的足够的商业使用权。我了解，课件TV 可能需要我提供商业使用权的证明资料和/或可能因为反复滥用此系统而停用我的获利功能或我的帐户。我了解需要提供的材料；请不要再次显示此讯息。
+													<div class="monetization-disclaimer-buttons">
+														<button role="button" onclick=";return false;" class="monetization-disclaimer-cancel yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-content">取消 </span></button>
+														<button role="button" onclick=";return false;" class="monetization-disclaimer-accept yt-uix-button yt-uix-button-primary" type="button"><span class="yt-uix-button-content">知道了 </span></button>
+													</div>
+												</div>
+												<div class="monetization-settings hid">
+													<label>
+													<span class="yt-uix-form-input-radio-container checked"><input type="radio" value="ads" checked="checked" class="yt-uix-form-input-radio monetization-style-ads" name="monetization_style"><span class="yt-uix-form-input-radio-element"></span></span>
+													通过广告获利 </label>
+													<div class="ypp-ads-settings">
+														<div class="monetize-with-ads monetize-options-box">
+															<h4>广告格式</h4>
+															<div>
+																<label>
+																<span class="yt-uix-form-input-checkbox-container checked"><input type="checkbox" data-linked-hidden-class="ads-settings-enable-overlay-ads-value" checked="checked" class="yt-uix-form-input-checkbox ads-settings-enable-overlay-ads" name=""><span class="yt-uix-form-input-checkbox-element"></span></span>
+																<input type="hidden" class="ads-settings-enable-overlay-ads-value" value="yes" name="enable_overlay_ads">
+																课件内嵌重叠式广告 </label>
+																<span class="yt-uix-clickcard">
+																<img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" tabindex="0" role="button" class="yt-help-icon yt-uix-clickcard-target">
+																<span class="yt-uix-clickcard-content">
+																<button class="yt-uix-clickcard-close"></button>
+																<img alt="?" src="<%=asset_path('yt/img/in-display-overlay-vfllJbecp.png')%>"><br>
+																<p>
+																	课件内重叠式广告是显示在您课件下半部分的透明的重叠式广告。 <a href="//support.google.com/课件TV/bin/answer.py?answer=94525&amp;hl=zh-CN" target="_new">
+																	了解详情 </a>
+																</p>
+																</span>
+																</span>
+															</div>
+															<div>
+																<label>
+																<span class="yt-uix-form-input-checkbox-container checked"><input type="checkbox" data-linked-hidden-class="ads-settings-trueview-instream-value" checked="checked" class="yt-uix-form-input-checkbox ads-settings-trueview-instream" name=""><span class="yt-uix-form-input-checkbox-element"></span></span>
+																<input type="hidden" class="ads-settings-trueview-instream-value" value="yes" name="trueview_instream">
+																TrueView 插播广告 </label>
+																<span class="yt-uix-clickcard">
+																<img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" tabindex="0" role="button" class="yt-help-icon yt-uix-clickcard-target">
+																<span class="yt-uix-clickcard-content">
+																<button class="yt-uix-clickcard-close"></button>
+																<img alt="?" src="<%=asset_path('yt/img/in-stream-trueview-vflyOPLHS.png')%>"><br>
+																<p>
+																	TrueView 插播广告由一系列格式组成，允许观众选择并控制显示哪些广告客户讯息及其显示的时间。 <a href="//support.google.com/课件TV/bin/answer.py?answer=1205675&amp;hl=zh-CN" target="_new">
+																	了解详情 </a>
+																</p>
+																</span>
+																</span>
+															</div>
+															<div>
+																<label>
+																<span class="yt-uix-form-input-checkbox-container "><input type="checkbox" data-linked-hidden-class="ads-settings-paid-product-value" class="yt-uix-form-input-checkbox ads-settings-paid-product" name=""><span class="yt-uix-form-input-checkbox-element"></span></span>
+																<input type="hidden" class="ads-settings-paid-product-value" value="no" name="paid_product">
+																<i>此课件中包含一个付费产品展示位置</i>
+																</label>
+																<span class="yt-uix-clickcard">
+																<img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" tabindex="0" role="button" class="yt-help-icon yt-uix-clickcard-target">
+																<span class="yt-uix-clickcard-content">
+																<button class="yt-uix-clickcard-close"></button>
+																<p>
+																	合作伙伴可以在自己的内容中加入付费产品展示位置。所有产品展示位置都需要符合我们的广告政策。 <a href="//support.google.com/课件TV/bin/answer.py?answer=154235&amp;hl=zh-CN" target="_new">
+																	了解详情 </a>
+																</p>
+																</span>
+																</span>
+															</div>
+															<div class="default-ads-info">
+																 默认情况下显示展示广告。
+															</div>
+															<span class="yt-uix-clickcard">
+															<img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" tabindex="0" role="button" class="yt-help-icon yt-uix-clickcard-target">
+															<span class="yt-uix-clickcard-content">
+															<button class="yt-uix-clickcard-close"></button>
+															<img alt="?" src="<%=asset_path('yt/img/in-display-vflqN9OMb.png')%>"><br>
+															<p>
+																展示广告（横幅）可以在网站上的任意区域（首页除外）投放。这些广告显示在精选课件右侧和推荐课件列表的上方，大小为 300x250。 <a href="//support.google.com/课件TV/bin/answer.py?answer=188038&amp;hl=zh-CN" target="_new">
+																了解详情 </a>
+															</p>
+															</span>
+															</span>
+														</div>
+														<div style="clear:both;">
+														</div>
+													</div>
+													<hr class="metadata-separator-line">
+													<div class="metadata-syndication-settings ">
+														<h4 class=" syndication-header">整合</h4>
+														<label class="single-option metadata-syndication-label">
+														<span class="yt-uix-form-input-radio-container checked"><input type="radio" value="yes" checked="checked" class="yt-uix-form-input-radio" name="allow_syndication"><span class="yt-uix-form-input-radio-element"></span></span>
+														所有平台 </label>
+														<span class="metadata-syndication-option-desc">
+														<ul>
+															<li>使此课件可在所有平台上观看</li>
+														</ul>
+														</span>
+														<label class="single-option metadata-syndication-label">
+														<span class="yt-uix-form-input-radio-container "><input type="radio" value="no" class="yt-uix-form-input-radio" name="allow_syndication"><span class="yt-uix-form-input-radio-element"></span></span>
+														获利平台 </label>
+														<span class="metadata-syndication-option-desc">
+														使此课件仅可在获利平台上观看 <span class="yt-uix-clickcard">
+														<img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" tabindex="0" role="button" class="yt-help-icon yt-uix-clickcard-target">
+														<span class="yt-uix-clickcard-content">
+														<button class="yt-uix-clickcard-close"></button>
+														<p>
+															获利平台是指我们用于投放等效课件插播广告的平台，例如 课件TV Android 应用。 <a href="//support.google.com/课件TV/bin/answer.py?answer=2453875&amp;hl=zh-CN" target="_new">
+															了解详情 </a>
+														</p>
+														</span>
+														</span>
+														</span>
+													</div>
+												</div>
+											</div>
+											<div data-tab-id="advanced-settings" class="metadata-tab hid">
+												<div class="metadata-column-half">
+													<h4 class="comments-options-header">评论和回复</h4>
+													<p class="advanced-tab-option">
+														<label>
+														<span class="yt-uix-form-input-checkbox-container checked"><input type="checkbox" data-linked-hidden-class="video-settings-allow-comments-value" checked="checked" class="yt-uix-form-input-checkbox video-settings-allow-comments" name=""><span class="yt-uix-form-input-checkbox-element"></span></span>
+														<input type="hidden" class="video-settings-allow-comments-value" value="yes" name="allow_comments">
+														允许评论 </label>
+														<span class="yt-uix-form-input-select inline-select video-settings-allow-comments-detail "><span class="yt-uix-form-input-select-content"><img class="yt-uix-form-input-select-arrow" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>"><span class="yt-uix-form-input-select-value">
+														全部 </span></span>
+														<select name="allow_comments_detail" class="yt-uix-form-input-select-element ">
+															<option selected="" value="all">
+															全部 </option>
+															<option value="approval">
+															已批准 </option>
+														</select>
+														</span>
+													</p>
+													<p class="advanced-tab-option">
+														<label>
+														<span class="yt-uix-form-input-checkbox-container checked"><input type="checkbox" data-linked-hidden-class="video-settings-allow-comment-ratings-value" checked="checked" class="yt-uix-form-input-checkbox video-settings-allow-comment-ratings" name=""><span class="yt-uix-form-input-checkbox-element"></span></span>
+														<input type="hidden" class="video-settings-allow-comment-ratings-value" value="yes" name="allow_comment_ratings">
+														用户可对评论投票 </label>
+													</p>
+													<p class="advanced-tab-option">
+														<label>
+														<span class="yt-uix-form-input-checkbox-container checked"><input type="checkbox" data-linked-hidden-class="video-settings-allow-ratings-value" checked="checked" class="yt-uix-form-input-checkbox video-settings-allow-ratings" name=""><span class="yt-uix-form-input-checkbox-element"></span></span>
+														<input type="hidden" class="video-settings-allow-ratings-value" value="yes" name="allow_ratings">
+														用户可以查看此课件的评分 </label>
+													</p>
+													<p class="advanced-tab-option">
+														<label>
+														<span class="yt-uix-form-input-checkbox-container checked"><input type="checkbox" data-linked-hidden-class="video-settings-allow-responses-value" checked="checked" class="yt-uix-form-input-checkbox video-settings-allow-responses" name=""><span class="yt-uix-form-input-checkbox-element"></span></span>
+														<input type="hidden" class="video-settings-allow-responses-value" value="yes" name="allow_responses">
+														是否允许课件回复： </label>
+														<span class="yt-uix-form-input-select inline-select video-settings-allow-responses-detail"><span class="yt-uix-form-input-select-content"><img class="yt-uix-form-input-select-arrow" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>"><span class="yt-uix-form-input-select-value">
+														已批准 </span></span>
+														<select name="allow_responses_detail" class="yt-uix-form-input-select-element ">
+															<option value="all">
+															全部 </option>
+															<option selected="" value="approval">
+															已批准 </option>
+														</select>
+														</span>
+													</p>
+													<div>
+														<h4 class=" syndication-header">整合</h4>
+														<label class="single-option metadata-syndication-label ">
+														所有平台 </label>
+													</div>
+													<p class="advanced-tab-option">
+														<label>
+														</label>
+													</p>
+													<h4>字幕认证 <span class="yt-uix-clickcard">
+													<img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" tabindex="0" role="button" class="yt-help-icon yt-uix-clickcard-target">
+													<span class="yt-uix-clickcard-content">
+													<button class="yt-uix-clickcard-close"></button>
+													<p>
+														在美国的电视上播出过的内容需服从 FCC 关于可选字幕的法规。如果需要，请在此处提供字幕认证。
+													</p>
+													</span>
+													</span>
+													</h4>
+													<span class="yt-uix-form-input-select captions-certification-select"><span class="yt-uix-form-input-select-content"><img class="yt-uix-form-input-select-arrow" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>"><span class="yt-uix-form-input-select-value">请选择一个选项 </span></span>
+													<select name="uncaptioned_reason" class="yt-uix-form-input-select-element ">
+														<option selected="" arg="" value="0">请选择一个选项 </option>
+														<option value="1">该内容从未在美国的电视媒体播出过。</option>
+														<option value="2">该内容在美国的电视媒体播出时并未提供字幕。</option>
+														<option value="3">自 2012 年 9 月 30 日以来，该内容还未带字幕在美国的电视媒体播出过。</option>
+														<option value="4">该内容并不是完整的课件节目。</option>
+														<option value="5">根据美国联邦通信委员会 (FCC) 的法规，该内容不属于当前需要字幕的网络节目类别。</option>
+														<option value="6">FCC 和/或美国国会豁免了该内容的字幕要求。</option>
+													</select>
+													</span>
+													<p>
+													</p>
+													<h4 class="embedding-header">分发选项</h4>
+													<div class="">
+														<label>
+														<span class="yt-uix-form-input-checkbox-container checked"><input type="checkbox" data-linked-hidden-class="video-settings-allow-embedding-value" checked="checked" class="yt-uix-form-input-checkbox video-settings-allow-embedding" name=""><span class="yt-uix-form-input-checkbox-element"></span></span>
+														<input type="hidden" class="video-settings-allow-embedding-value" value="yes" name="allow_embedding">
+														允许嵌入 </label>
+														<span class="yt-uix-clickcard">
+														<img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" tabindex="0" role="button" class="yt-help-icon yt-uix-clickcard-target">
+														<span class="yt-uix-clickcard-content">
+														<button class="yt-uix-clickcard-close"></button>
+														<p>
+															允许他人在其网站中嵌入您的课件。 <a href="//support.google.com/课件TV/bin/answer.py?answer=171780&amp;hl=zh-CN" target="_new">
+															了解详情 </a>
+														</p>
+														</span>
+														</span>
+													</div>
+													<label>
+													<span class="yt-uix-form-input-checkbox-container checked"><input type="checkbox" data-linked-hidden-class="sharing-checkbox-feeds-value" checked="checked" class="yt-uix-form-input-checkbox sharing-checkbox-feeds" name=""><span class="yt-uix-form-input-checkbox-element"></span></span>
+													<input type="hidden" class="sharing-checkbox-feeds-value" value="yes" name="creator_share_feeds">
+													通知订阅者 </label>
+													<span class="yt-uix-clickcard">
+													<img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" tabindex="0" role="button" class="yt-help-icon yt-uix-clickcard-target">
+													<span class="yt-uix-clickcard-content">
+													<button class="yt-uix-clickcard-close"></button>
+													<p>
+														Your subscribers will see your videos on their homepages, in their email, etc. <a href="//support.google.com/课件TV/bin/static.py?page=guide.cs&amp;guide=2467581&amp;topic=2565764&amp;hl=zh-CN" target="_new">
+														了解详情 </a>
+													</p>
+													</span>
+													</span>
+												</div>
+												<div class="metadata-column-half">
+													<label>
+													<h4 class="location-header">课件位置</h4>
+													<div class="location-controls">
+														<span class=" yt-uix-form-input-container "><input value="" class="yt-uix-form-input-text location-input"></span>
+														<button role="button" onclick=";return false;" class="map-button-search yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-content">搜索 </span></button>
+														<input type="hidden" value="" class="location-latitude" name="location_latitude">
+														<input type="hidden" value="" class="location-longitude" name="location_longitude">
+														<input type="hidden" value="" class="location-altitude" name="location_altitude">
+													</div>
+													</label>
+													<label>
+													<h4 class="recording-date-header">录制日期</h4>
+													<span class="recorded-date-formatted yt-uix-form-input-container "><input class="yt-uix-form-input-text recorded-date-formatted-input"></span>
+													</label>
+													<button role="button" onclick=";return false;" class="recorded-date-today-button yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-content">今天 </span></button>
+													<input type="hidden" class="recorded-date" name="recorded_date">
+													<h4 class="threed-header">3D 课件</h4>
+													<div>
+														<span class="yt-uix-form-input-select "><span class="yt-uix-form-input-select-content"><img class="yt-uix-form-input-select-arrow" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>"><span class="yt-uix-form-input-select-value">
+														无偏好设置 </span></span>
+														<select name="threed_type" class="yt-uix-form-input-select-element threed_type">
+															<option selected="" value="default">
+															无偏好设置 </option>
+															<option value="off">
+															停用此课件的 3D 效果 </option>
+															<option value="converted">
+															请制作该课件的 3D 版本 </option>
+															<option value="layout">
+															此课件已是 3D 课件 </option>
+														</select>
+														</span>
+														<span class="yt-uix-form-input-select threed-layout hid"><span class="yt-uix-form-input-select-content"><img class="yt-uix-form-input-select-arrow" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>"><span class="yt-uix-form-input-select-value">并排布局：左课件在左</span></span>
+														<select name="threed_layout" class="yt-uix-form-input-select-element ">
+															<option value="1">并排布局：左课件在左</option>
+															<option value="2">并排布局：右课件在左</option>
+															<option value="3">上下布局：左课件在上</option>
+															<option value="4">上下布局：右课件在上</option>
+														</select>
+														</span>
+													</div>
+												</div>
+												<div class="clearfix">
+												</div>
+											</div>
+											<% end %>
+									</div>
+								</div>
+								<div class="metadata-actions">
+									<div class="save-cancel-buttons">
+										<button role="button" onclick=";return false;" class="save-changes-button yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-content">保存更改 </span></button>
+									</div>
+									<span class="save-error-message"></span>
+									<span class="metadata-left-footer">
+									</span>
+								</div>
+							</div>
+						</div>
+						<div class="expand-collapse-link">
+							▼ 展开
+						</div>
+						<div style="max-height: 1px;">
+							<img width="1" height="1" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/962985656/?data=type%3Dupload&amp;label=default" alt="">
+						</div>
+					</div>
+					<div id="suggestion-alert-template" class="yt-alert yt-alert-actionable yt-alert-info hid ">
+						<div class="yt-alert-icon">
+							<img alt="提醒图标" class="icon master-sprite" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
+						</div>
+						<div class="yt-alert-buttons">
+							<button role="button" onclick=";return false;" class="upload-edit-action-yes yt-uix-button yt-uix-button-alert-info" type="button"><span class="yt-uix-button-content">好，请修复 </span></button>
+							<button role="button" onclick=";return false;" class="upload-edit-action-no yt-uix-button yt-uix-button-alert-info" type="button"><span class="yt-uix-button-content">不，谢谢！ </span></button>
+						</div>
+						<div role="alert" class="yt-alert-content">
+							<span class="yt-alert-vertical-trick"></span>
+							<div class="yt-alert-message">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+</div>
+</div>
+</div>
+</div>
+
+<%= render file:'/application/footers/_sdk_footer' %>
+
+<script type="text/javascript" charset="utf-8">
+	<% content_for :butt2 do %>
+	$('#the_upload_ytb .start-upload-button,#the_upload_ytb #multiple-uploads-link').live('click',function(){
+		$('#presentation_pdf').trigger('click');
+	});
+	item = new Array();
+	$('#the_upload_ytb #presentation_pdf').live('change',function(){
+		if(!this.files.length){
+			return false;
+		}
+		$('#the_upload_ytb #upload-page').attr('class','active-upload-page');
+    for (var i = 0; i < this.files.length; i++) {
+       var file = this.files[i];
+			 console.log(file.name,file);
+			 item[i] = $('#the_upload_ytb #upload-item-template').clone();
+			 item[i].attr('id','upload-item-'+i);
+			 item[i].attr('class','upload-item');
+			 if(i!=0){
+				 item[i].addClass('collapsed-item');
+				 item[i].find('.notification-area').next().hide();
+				 item[i].find('.sub-item-exp-zippy').css({'margin-top':'-574px','overflow':'hidden'})
+			 }else{
+				 item[i].find('.expand-collapse-link').html('▲ 折叠');
+			 }
+			 item[i].find('.item-title-area > .item-title').html(file.name);
+			 item[i].find('.item-sub-title > .upload-status-text').html('正在上传您的课件...');
+			 item[i].find('.kejian-settings-form  .kejian-settings-title').val(file.name);
+			 $('#active-uploads-contain').append(item[i][0]);			 
+    }
+	});
+	$('ul.tabs > li.tab-header').live('click',function(e){
+		if($(this).hasClass('selected')){
+			return false;
+		}
+		var oldtab = $('ul.tabs >li.selected').attr('data-tab-id');
+		$('ul.tabs >li.selected').removeClass('selected');
+		$(this).parents('.metadata-editor-container').find('.kejian-settings-form div.metadata-tab[data-tab-id="'+oldtab+'"]').addClass('hid').hide();
+		$(this).addClass('selected');
+		var tabid = $(this).attr('data-tab-id');
+		$(this).parents('.metadata-editor-container').find('.kejian-settings-form div.metadata-tab[data-tab-id="'+tabid+'"]').removeClass('hid').show();
+		console.log('.kejian-settings-form .'+tabid);
+		return false;
+	});
+	var collapsed_upload = function (tmp) {
+	 tmp.addClass('collapsed-item');
+	 tmp.find('.notification-area').next().slideUp();
+ 	 tmp.find('.sub-item-exp-zippy').animate({
+		 'margin-top':'=574'
+	 },'slow');
+	 tmp.find('.expand-collapse-link').html('▼ 展开');
+	}
+	var expand_upload = function (tmp) {
+ 	 tmp.removeClass('collapsed-item');
+ 	 tmp.find('.notification-area').next().show();
+ 	 tmp.find('.sub-item-exp-zippy').animate({
+		 'margin-top': '0'
+	 },'slow');
+	 tmp.find('.expand-collapse-link').html('▲ 折叠');
+	}
+	$('.expand-collapse-link').live('click',function(){
+		var item = $(this).parents('.upload-item');
+		if(item.hasClass('collapsed-item')){
+			expand_upload(item);
+		}else{
+			collapsed_upload(item);
+		}
+	});
+	$('.enable-monetization-field').live('click',function(){
+		$(this).parent().find('.monetization-disclaimer').toggleClass('hid');
+	});
+	$('.monetization-disclaimer-accept').live('click',function(){
+		$(this).parents('.monetization-disclaimer').toggleClass('hid');
+		$(this).parents('.metadata-tab').find('.monetization-settings').toggleClass('hid');
+	});
+	$('select').live('change',function(){
+		$(this).prev().find('.yt-uix-form-input-select-value').html($(this).find('option:selected').html());
+	})
+	<% end %>
+</script>

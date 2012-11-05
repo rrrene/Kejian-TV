@@ -110,6 +110,7 @@ Sub::Application.configure do
     ktv/__slide_pro.css
     ktv/__slide_plan.css
     ktv/__ytb_min_ql.css
+    ktv/__ytb_upload.css
     kinetic-v4.0.0.js
 
     cpanel.js

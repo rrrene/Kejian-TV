@@ -4,11 +4,11 @@ Sub::Application.routes.draw do
 
   root :to=>'welcome#index'
   get '/inject_xookie' => 'application#inject_xookie'
+  get '/upload' => 'coursewares#my_upload'
   get '/api/uc' => 'ucenter#ktv_uc_client'
   post '/api/uc' => 'ucenter#ktv_uc_client'
   get '/user_logged_in_required'=>'application#user_logged_in_required'
   get '/modern_required'=>'application#modern_required'
-  
   get '/url' => 'jump_engine#url'
   
   get '/mine' => 'mine#index'

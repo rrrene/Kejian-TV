@@ -79,6 +79,18 @@ class CoursewaresController < ApplicationController
   def new_sina
     @seo[:title] = '导入外站资源链接'
   end
+  def my_upload
+    @seo[:title] = '上传课件'
+    @c = Course.where(fid:params[:psvr_f].to_i).first
+    if @c
+      @teachers = @c.teachings.collect(&:teacher).uniq
+    else
+      @teachers = []
+    end
+    @courseware = Courseware.new
+    # @courseware.version_date[@courseware.version.to_s] = Time.now.strftime("%Y年%m月%d日")
+    # prepare_s3    
+  end
   def new
     @seo[:title] = '上传课件'
     @c = Course.where(fid:params[:psvr_f].to_i).first
