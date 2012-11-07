@@ -82,6 +82,7 @@
   <div class="wrapper" style="<%=yield :sdk_wrapper_style%>;width:<%=@simple_header_width%>px">
       <h1><a href="/" id="core_logotext_wrap"><%= image_tag "logo_ktv_#{Setting.ktv_sub}.png",:alt => "#{Setting.ktv_subname}课件交流系统",:id=>'core_logotext' %></a></h1>
       <% if @simple_header_with_exit %>
+      <div id="amazing-shadow"></div>
       <div class="navigation">
         <ul id="account-settings" style="min-width:44px">
           <li class="psvr"><a class=" " id="logout" href="/logout">退出登录</a>

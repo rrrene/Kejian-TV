@@ -19,10 +19,10 @@
 			</div>
 			<div class="floatright">
 				<span>
-				<a href="/teachers/<%= @teacher.id %>" class="blue"><%= @teacher.coursewares_count %>个课件</a>
+				<a href="/teachers/<%= @user.id %>" class="blue"><%= @user.coursewares_count %>个课件</a>
 				</span>
 			</div>
-			<span class="sheetname marginleft"><%= @teacher.name %></span>
+			<span class="sheetname marginleft"><%= @user.name %></span>
 		</div>
 		<script type="text/javascript">
 		<% content_for :butt2 do %>
@@ -59,44 +59,44 @@
 					<div class="userinfo">
 						<div class="uheadbig">
 						  <figure class="avatar">
-							<img style="height:180px !important;width:180px !important;" src="<%= teacher_avatar_url(@teacher,:normal180) %>" title="<%= @teacher.name %>" alt="<%= @teacher.name %>"/>
-							<% if owner? @teacher %>
+							<img style="height:180px !important;width:180px !important;" src="<%= teacher_avatar_url(@user,:normal180) %>" title="<%= @user.name %>" alt="<%= @user.name %>"/>
+							<% if owner? @user %>
 							  <div class="__qa clearfix"><div class="edit hide" ><a class="changeUserHead">修改头像</a></div></div>
 							<% end %>
 							</figure>
 						</div>
-            <div class="uname alignleft cf"><span class="ctf-username floatleft"><%=@teacher.name%></span></div>
+            <div class="uname alignleft cf"><span class="ctf-username floatleft"><%=@user.name%></span></div>
 
             <div class="fc999 tfmt __qa clearfix">
   						<div class="ctf-profile" id="user_bio">
-  						  <% if @teacher.bio.blank? and (not owner?@teacher) %>
-                  还没有人编辑<%= @teacher.name %>的个人介绍.
+  						  <% if @user.bio.blank? and (not owner?@user) %>
+                  还没有人编辑<%= @user.name %>的个人介绍.
                 <% else %>
-                  <div class="clearfix" style="margin:12px 0"><%= md_body @teacher.bio,:with_tfmt => false %></div>
+                  <div class="clearfix" style="margin:12px 0"><%= md_body @user.bio,:with_tfmt => false %></div>
                 <% end %>
   						</div>						  
-	            <% if owner?@teacher %><div class="__qa clearfix"><%= in_place_edit_tag(@teacher,:bio,:type => :textarea, :length=>2000, :text_id => "user_bio", :label => "<img class=\"modifyLogo\" src=\"/transparent.png\">#{@teacher.bio.blank? ? '添加个人经历' : '修改个人经历'}".html_safe) %></div><% end %>
+	            <% if owner?@user %><div class="__qa clearfix"><%= in_place_edit_tag(@user,:bio,:type => :textarea, :length=>2000, :text_id => "user_bio", :label => "<img class=\"modifyLogo\" src=\"/transparent.png\">#{@user.bio.blank? ? '添加个人经历' : '修改个人经历'}".html_safe) %></div><% end %>
 						</div>
 						<ul class="useratten ctf-bg cf">
 							<li>
-							<a id="user_profile_fans_count" href="/teachers/<%= @teacher.id %>/followers" class="block gray usernumber">
-							<em><%= @teacher.follower_ids.size %></em><br/>
+							<a id="user_profile_fans_count" href="/teachers/<%= @user.id %>/followers" class="block gray usernumber">
+							<em><%= @user.follower_ids.size %></em><br/>
 							<span>粉丝</span>
 							</a>
 							</li>
 							<li>
-							<a href="/teachers/<%= @teacher.id %>" class="gray block usernumber"><%= @teacher.coursewares_count %><br/>
+							<a href="/teachers/<%= @user.id %>" class="gray block usernumber"><%= @user.coursewares_count %><br/>
 							<span>课件</span></a></li>
 							<li>
-							<a id="user_profile_fans_count" href="/teachers/<%= @teacher.id %>/courses" class="block gray usernumber">
-							<em><%= @teacher.courses_count %></em><br/>
+							<a id="user_profile_fans_count" href="/teachers/<%= @user.id %>/courses" class="block gray usernumber">
+							<em><%= @user.courses_count %></em><br/>
 							<span>课程</span>
 							</a>
 							</li>
 						</ul>
-            <% unless current_user and @teacher.id==current_user.id%>
+            <% unless current_user and @user.id==current_user.id%>
 						<div class="concernbox cf">
-						  <% followed = (current_user and current_user.followed?(@teacher)) %>
+						  <% followed = (current_user and current_user.followed?(@user)) %>
 							<a href="javascript:;" class="<%= followed ? 'concerned-ico' : 'concern-ico' %>" id="followBtn" follow="<%= followed ? 'true' : 'false' %>">
 							  <em><%= followed ? '已关注' : '关注' %></em></a>
 							<a class="d-letter" style="display:none" href="javascript:void(0)"></a>
@@ -106,26 +106,26 @@
 					<p class="charm">
 						<span class="colonleft"></span>
 						<span id="user_tagline">
-						<% if @teacher.tagline.present? %>
-						  <%= @teacher.tagline %>
+						<% if @user.tagline.present? %>
+						  <%= @user.tagline %>
 						<% else %>
-						  <%= @teacher.name %>暂无一句话介绍
+						  <%= @user.name %>暂无一句话介绍
 						<% end %>
 						</span>
 						<span class="colonright"></span>
-						<% if owner?@teacher %>
+						<% if owner?@user %>
               <img class="modifyLogo" src="/transparent.png">
               <div class="__qa clearfix">
-              <%= in_place_edit_tag(@teacher,:tagline,:rich => false, :text_id => "user_tagline", :label => "<img class=\"modifyLogo\" src=\"/transparent.png\">#{@teacher.tagline.blank? ? '添加一句话介绍' : '修改一句话介绍'}".html_safe) %>
+              <%= in_place_edit_tag(@user,:tagline,:rich => false, :text_id => "user_tagline", :label => "<img class=\"modifyLogo\" src=\"/transparent.png\">#{@user.tagline.blank? ? '添加一句话介绍' : '修改一句话介绍'}".html_safe) %>
               </div>
             <% end %>
 					</p>
 
-				  <% @followers = @teacher.follower_ids.rlimit(12) %>
+				  <% @followers = @user.follower_ids.rlimit(12) %>
 				  <% if !@followers.blank? %>
 					<div class="labelbox">
 						<h3 class="title">
-						<span class="label"><a href="/teachers/<%= @teacher.id %>/followers">关注<%= user_sex_title(@teacher,current_user)%>的人</a></span><span class="number">(<em class="blue"><a href="/users/<%= @teacher.id %>/followers"><%= @teacher.follower_ids.size %></a></em>) </span>
+						<span class="label"><a href="/teachers/<%= @user.id %>/followers">关注<%= user_sex_title(@user,current_user)%>的人</a></span><span class="number">(<em class="blue"><a href="/users/<%= @user.id %>/followers"><%= @user.follower_ids.size %></a></em>) </span>
 						</h3>
 						<ul class="bp cf">
               <% for follower in @followers.reverse %>
@@ -163,8 +163,8 @@ function queryExec(){
     autoLayout.loading = true;
     autoLayout.isHasNextPage = true;
     autoLayout.pageNum = 2;
-    var linkUrl = "/coursewares?teacher=<%=@teacher.name%>",
-        jsonUrl = "/coursewares_with_page?teacher=<%=@teacher.name%>";
+    var linkUrl = "/coursewares?teacher=<%=@user.name%>",
+        jsonUrl = "/coursewares_with_page?teacher=<%=@user.name%>";
     autoLayout.init({
         contentID: "contentMain",
         rightLoad: true,
@@ -177,7 +177,7 @@ function queryExec(){
         loadingID: "imloading",
 
         callBack: function () {
-        var showContent = "还没有人为<%=@teacher.name%>上传课件";
+        var showContent = "还没有人为<%=@user.name%>上传课件";
 
             jQuery("#contentMain").prepend('<div style="text-align: center; margin-right: 233px; padding-top: 100px; left: 0px; top: 0px;" class="f14" columns="0">' + showContent + '</div>');
         }
@@ -189,7 +189,7 @@ im(function () {
     queryExec();
 });
 jQuery("#followBtn").live("click", function () {
-    var boardUserId = '<%= @teacher.id %>';
+    var boardUserId = '<%= @user.id %>';
     var postUrl = "";
     var follow = jQuery(this).attr("follow");
     if (eval(follow) == true) {
@@ -584,9 +584,9 @@ jQuery("#fans_submit").live("click", function () {
 <div class="__qa">
   <div id="edit_topic_cover" class="hide">
     <header>修改头像 <a class="close" href="javascript:void(0);"></a></header> 
-    <%= simple_form_for(@teacher,:class => "form", :url => user_path(@teacher), :html => { :method => :put, :enctype =>  "multipart/form-data" }) do |f| %>
+    <%= simple_form_for(@user,:class => "form", :url => user_path(@user), :html => { :method => :put, :enctype =>  "multipart/form-data" }) do |f| %>
       <section class="setupProfile"> 
-        <figure><%= image_tag(@teacher.avatar.normal.url) %></figure> 
+        <figure><%= image_tag(@user.avatar.normal.url) %></figure> 
         <div id="file_wrapper">
           <div id="file_faker">
             <input id="file_uploader_text" type="text" />

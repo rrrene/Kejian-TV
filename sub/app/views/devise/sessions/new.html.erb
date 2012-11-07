@@ -10,7 +10,7 @@
     <h2 class="yahei">用以下任一网站账号登录，5秒完成</h2>
     <p style="margin:0 0 16px 143px"><a class="renren" href="/account/auth/renren"><img class="core_renren" src="/assets/234_48dark.png" alt="用人人网账号登录"></a><%=image_tag 'zm/r11839/images/reg/tuijian.png',style:'position:relative;left:8px',alt:'（推荐）' %> </p>
     <% key = "spetial_#{Setting.ktv_sub.to_s.split('-')[0]}".to_sym; if value=Ktv::Consumers[key] %>
-    <p style="margin:0 0 16px 143px"><a class="renren" href="/account/auth/<%=key%>"><img class="core_spetial" src="<%= asset_path "huge_#{key}.png" %>" alt="用<%=value[:name]%>登录"></a> </p>
+    <p style="margin:0 0 16px 143px"><a class="renren" href="/account/auth/<%=key%>"><img class="core_spetial" src="<%= asset_path "bind/huge_#{key}.png" %>" alt="用<%=value[:name]%>登录"></a> </p>
     <%end%>
 	</div>
 	<div class="hsplit">
