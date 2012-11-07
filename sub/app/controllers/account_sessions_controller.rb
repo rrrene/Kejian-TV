@@ -4,6 +4,7 @@ class AccountSessionsController < Devise::SessionsController
     @seo[:title]='登录'
     @simple_header=true
     @simple_header_width=625
+    @traditional||=params[:traditional].present?
     resource = build_resource(nil, :unsafe => true)
     clean_up_passwords(resource)
     respond_with(resource, serialize_options(resource)) do |format|
@@ -39,7 +40,8 @@ class AccountSessionsController < Devise::SessionsController
       set_flash_message(:notice, :signed_in) if is_navigational_format?
       respond_with resource, :location => after_sign_in_path_for(resource)
     else
-      redirect_to '/login?traditional=1'
+      @traditional = true
+      new
     end
   end
   def destroy
@@ -53,7 +55,7 @@ class AccountSessionsController < Devise::SessionsController
     # We actually need to hardcode this as Rails default responder doesn't
     # support returning empty response on GET request
     respond_to do |format|
-      format.any(*navigational_formats) { redirect_to "/simple/member.php?mod=logging&action=logout&formhash=#{@formhash}" } #redirect_path
+      format.any(*navigational_formats) { redirect_to redirect_path }
       format.all do
         head :no_content
       end

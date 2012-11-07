@@ -2,6 +2,9 @@
   <%= stylesheet_link_tag "ktv/__zm", :media => "all" %>
   <%= stylesheet_link_tag "ktv/__zm_reg", :media => "all" %>
 <% end %>
+<% content_for :butt2 do %>
+
+<% end %>
 <div class="__zm">
 <div id="reg-header">
 </div>
@@ -19,15 +22,15 @@
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html=>{:id=>'login_form'}) do |f| %>
 	<div class="zmusers" id="loginForm">
 		<h2>
-		<a href="javascript:changeShow('loginDiv');" class="title">使用电子邮箱登录或注册</a>
+      <a href="javascript:changeShow('loginDiv');" class="title <% if @traditional%>unfold<%end%>">使用电子邮箱登录或注册</a>
 		</h2>
-    <div class="regform" id="loginDiv" style="<% unless '1'==params[:traditional]%> display: none;<% end %>">
+    <div class="regform" id="loginDiv" style="<% unless @traditional%> display: none;<% end %>">
 			<dl class="cf">
 				<dt>邮箱：</dt>
 				<dd>
 				<span class="ioginInput">
 				<span class="inputouter">
-				<input type="text" id="userEmail" name="userEmail" value="" onfocus="im.user.validate.thisFocus(this , '请输入注册邮箱');"/>
+          <input type="text" id="userEmail" name="userEmail" value="<%=resource.email%>" onfocus="im.user.validate.thisFocus(this , '请输入注册邮箱');"/>
 				</span>
 				</span>
 				<span class="errortips" style="display:block;" id="errortips1"></span>
@@ -164,7 +167,7 @@ $("#submitButton").addClass("btn-ungetpwd");
         }
         return false;
     }
-    $(document).keydown(function (event) {
+    $('#userPassword').keydown(function (event) {
         if (event.which == 13) {
           $('#login_form').submit();
         }

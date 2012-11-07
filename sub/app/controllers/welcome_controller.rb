@@ -1,6 +1,9 @@
 # -*- encoding : utf-8 -*-
 class WelcomeController < ApplicationController
   def index
+    # todo: 新鲜事
+    redirect_to '/welcome/latest'
+    return false
     will_redirect = (!current_user and params[:psvr_force].blank?)
     if !will_redirect
       common_op!

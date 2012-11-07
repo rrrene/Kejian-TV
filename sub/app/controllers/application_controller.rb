@@ -286,9 +286,9 @@ class ApplicationController < ActionController::Base
       :accept=>'raw'+Setting.dz_authkey,
       psvr_response_anyway: true
     })
-    # p 'gonna set------------------'
-    # p res
-    # p 'gonna set------------------'
+    p 'gonna set------------------'
+    p res
+    p 'gonna set------------------'
     res.cookies.each do |key,value|
       cookies[key]=CGI::unescape value
     end
@@ -297,6 +297,13 @@ class ApplicationController < ActionController::Base
     #   the sub-site should login the corresponding user
   end
   def sign_out_others
+    # VERY IMPORTANT:
+    #   must sign out DZ at this point.
+    cookies.each do |k,v|
+      if k.to_s.starts_with? Setting.dz_cookiepre
+        cookies[k]=nil
+      end
+    end
     # todo:
     #   upon observing this
     #   the sub-site should self-destruct its cookies

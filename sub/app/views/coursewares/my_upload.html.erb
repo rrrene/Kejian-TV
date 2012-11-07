@@ -924,6 +924,16 @@
 	});
 	$('select').live('change',function(){
 		$(this).prev().find('.yt-uix-form-input-select-value').html($(this).find('option:selected').html());
-	})
+    });
+  var new_coursewares = function(){
+    $.ajax({
+      url:'/ajax/add_new_coursewares_dynamic',
+      type:'POST',
+      data:{},
+      dataType:'json'
+    }).done(function(json){
+      
+    })
+  }
 	<% end %>
 </script>

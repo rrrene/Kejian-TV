@@ -32,7 +32,6 @@ class AccountController < Devise::RegistrationsController
   end
   def edit
     common_account_op!
-    @material = @user.material
     @to_connect = MultiJson.load @material.renren_friends rescue []
     @to_connect ||= []
     @seo[:title] = '账号设置'
@@ -131,6 +130,10 @@ class AccountController < Devise::RegistrationsController
     @simple_header=true
     @simple_header_with_exit=true
     @simple_header_width=840
+    if !current_user
+      redirect_to '/login'
+      return false
+    end
     if params[:unfreeze]
       current_user.update_attribute(:reg_extent,0)
       redirect_to '/'
@@ -144,6 +147,7 @@ class AccountController < Devise::RegistrationsController
       # 检查是否可以停止注册了？
       if current_user.reg_extent >= 888
         current_user.update_attribute(:reg_extent,1000)
+        current_user.update_attribute(:renren_cookies,'')
         render 'reg_extent_suc' 
         return true
       else
