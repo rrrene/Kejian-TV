@@ -417,7 +417,9 @@ Sub::Application.routes.draw do
   end
   
   constraint = lambda { |request| request.env["warden"].authenticate? and request.env['warden'].user.super_admin? }
-  #constraints constraint do
+  constraints constraint do
     mount Sidekiq::Web => '/sidekiq'
-  #end
+  end
+
+  get "/:whatever" => "application#render_404"
 end

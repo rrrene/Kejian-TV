@@ -69,6 +69,7 @@
   <%= yield :armpit %>
   <%= raw flash[:extra_ucenter_operations] %>
   <%= auto_discovery_link_tag(:rss, "/welcome/feeds.rss") %>
+  <!-- w. <%=Sidekiq::VERSION%> -->
 </head>
 
 <body <%if @is_ie8 or @is_ie7 or @is_ie6 %>onload="window.psvr_ie_readyfix()"<%end%> id="psvr_subject_all" style="  <%=yield :body_style%>" data-subdomain="<%= request.subdomain %>" class="<%=yield :body_klass%> <%= ' chrome ' if @is_chrome %><%= ' firefox ' if @is_firefox %><%= ' mac ' if @is_mac %><%= ' windows ' if @is_windows %>">
@@ -78,17 +79,17 @@
 <div class="__sdk">
 <% if @simple_header %>
   <header style="background-image:url(<%= asset_path('dark.png') %>)">
-  <% if @simple_header_with_exit %>
   <div class="wrapper" style="<%=yield :sdk_wrapper_style%>;width:<%=@simple_header_width%>px">
       <h1><a href="/" id="core_logotext_wrap"><%= image_tag "logo_ktv_#{Setting.ktv_sub}.png",:alt => "#{Setting.ktv_subname}课件交流系统",:id=>'core_logotext' %></a></h1>
+      <% if @simple_header_with_exit %>
       <div class="navigation">
         <ul id="account-settings" style="min-width:44px">
           <li class="psvr"><a class=" " id="logout" href="/logout">退出登录</a>
           </li>
         </ul>
       </div>
+      <% end %>
   </div>
-  <% end %>
   </header>
 <% else %>
   <header style="background-image:url(<%= asset_path('dark.png') %>)">

@@ -99,11 +99,8 @@ class ApplicationController < ActionController::Base
       if !@dz_cookiepre_mid and key =~ /#{Setting.dz_cookiepre}([^_]+)_/
         @dz_cookiepre_mid = $1
       end
-      if(key.ends_with?('_lastact'))
-        cookies[key]="#{value.split('%09')[0]}%09#{CGI::escape(request.path)}%09"
-      else
-        cookies[key]=value
-      end
+      val = CGI::unescape value
+      cookies[key]=val
     end
     @_G = MultiJson.load(res_xookie.to_s)
     @_G['uid'] = @_G['uid'].to_i
@@ -289,8 +286,11 @@ class ApplicationController < ActionController::Base
       :accept=>'raw'+Setting.dz_authkey,
       psvr_response_anyway: true
     })
+    p 'gonna set------------------'
+    p res
+    p 'gonna set------------------'
     res.cookies.each do |key,value|
-      cookies[key]=value
+      cookies[key]=CGI::unescape value
     end
     # todo:
     #   upon observing this
