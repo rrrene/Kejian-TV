@@ -13,7 +13,7 @@ json.title courseware.title
 json.boardPicId 825398
 json.price  Course.get_name(courseware.course_fid)
 json.isOriginal true
-json.nickName User.get_name(courseware.uploader_id)
+json.nickName name_beautify User.get_name(courseware.uploader_id)
 json.userId User.get_slug(courseware.uploader_id)
 json.avatars Hash[]
 json.certifyType 2

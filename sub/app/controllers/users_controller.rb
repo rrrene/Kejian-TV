@@ -32,7 +32,7 @@ class UsersController < ApplicationController
       user.avatar = params[:user][:avatar]
       if user.save
         user.invite_by(current_user,immediately)
-        notice = immediately ? "已向#{user.name}发去邀请，在他/她注册之前，您可以 <a href=\"#{'/users/'+user.slug}\">点击这里</a> 为他/她上传头像与个人简介：）" : "已添加到邀请列表，请必须点击发送按钮系统才会发送邀请邮件。"
+        notice = immediately ? "已向#{user.name_beautified}发去邀请，在他/她注册之前，您可以 <a href=\"#{'/users/'+user.slug}\">点击这里</a> 为他/她上传头像与个人简介：）" : "已添加到邀请列表，请必须点击发送按钮系统才会发送邀请邮件。"
         redirect_to invite_users_path,:notice => notice
       else
         @user = user
@@ -43,7 +43,7 @@ class UsersController < ApplicationController
   def invite_send
     @user.invite_by(current_user)
     user = @user
-    redirect_to invite_users_path,:notice => "已向#{user.name}发去邀请，在他/她注册之前，您可以 <a href=\"#{'/users/'+user.slug}\">点击这里</a> 为他/她上传头像与个人简介：）"
+    redirect_to invite_users_path,:notice => "已向#{user.name_beautified}发去邀请，在他/她注册之前，您可以 <a href=\"#{'/users/'+user.slug}\">点击这里</a> 为他/她上传头像与个人简介：）"
   end
   def index
     @seo[:title] = '我的同学'
@@ -64,7 +64,7 @@ class UsersController < ApplicationController
     @asks = Ask.recent.any_in(_id:@user.answered_ask_ids)
     .nondeleted()
     .paginate(:page => params[:page], :per_page => @per_page)
-    set_seo_meta("#{@user.name}解答过的题")
+    set_seo_meta("#{@user.name_beautified}解答过的题")
     if params[:format] == "js"
       render "/users/answered_asks.js"
     end
@@ -79,7 +79,7 @@ class UsersController < ApplicationController
     @asks = @asks.recent.nondeleted
     .paginate(:page => params[:page], :per_page => @per_page)
     
-    set_seo_meta("问#{@user.name}的题")
+    set_seo_meta("问#{@user.name_beautified}的题")
 
     if params[:format] == "js"
       render "/asks/index.js"
@@ -89,7 +89,9 @@ class UsersController < ApplicationController
   end
 
   def show
+    @seo[:title] = @user.name_beautified
   end
+  
   def redirect_to_service
     
   end
@@ -99,7 +101,7 @@ class UsersController < ApplicationController
     @asks = @user.asks.recent
     .nondeleted
     .paginate(:page => params[:page], :per_page => @per_page)
-    set_seo_meta("#{@user.name}问过的题")
+    set_seo_meta("#{@user.name_beautified}问过的题")
     if params[:format] == "js"
       render "/asks/index.js"
     end
@@ -134,7 +136,7 @@ class UsersController < ApplicationController
     @topics = @user.followed_topic_ids.reverse
     .paginate(:page => params[:page], :per_page => @per_page)
     
-    set_seo_meta("#{@user.name}关注的课程")
+    set_seo_meta("#{@user.name_beautified}关注的课程")
     if params[:format] == "js"
       render "following_topics.js"
     end
@@ -145,7 +147,7 @@ class UsersController < ApplicationController
     @followers = @user.follower_ids.reverse
     .paginate(:page => params[:page], :per_page => @per_page)
     
-    set_seo_meta("关注#{@user.name}的人")
+    set_seo_meta("关注#{@user.name_beautified}的人")
     if params[:format] == "js"
       render "followers.js"
     end
@@ -156,7 +158,7 @@ class UsersController < ApplicationController
     @followers = @user.following_ids.reverse
     .paginate(:page => params[:page], :per_page => @per_page)
     
-    set_seo_meta("#{@user.name}关注的人")
+    set_seo_meta("#{@user.name_beautified}关注的人")
     if params[:format] == "js"
       render "followers.js"
     else
@@ -169,7 +171,7 @@ class UsersController < ApplicationController
     @followers = (@user.following_ids & @user.follower_ids).reverse
     .paginate(:page => params[:page], :per_page => @per_page)
     
-    set_seo_meta("#{@user.name}关注的人")
+    set_seo_meta("#{@user.name_beautified}关注的人")
     if params[:format] == "js"
       render "followers.js"
     else
@@ -182,7 +184,7 @@ class UsersController < ApplicationController
     @followers = User.where(:inviter_ids=>@user.id,:confirmed_at=>nil).desc('created_at')
     .paginate(:page => params[:page], :per_page => @per_page)
     
-    set_seo_meta("#{@user.name}关注的人")
+    set_seo_meta("#{@user.name_beautified}关注的人")
     if params[:format] == "js"
       render "followers.js"
     else

@@ -43,9 +43,9 @@
 
 <div  class="topline userbox userbox-home">
 <div style="overflow:hidden;">
-  <div class="uhead" style="height:60px;"><a href="<%= user_path current_user%>"><img src="<%=avatar_url(current_user,:mid60)%>" /></a></div>
+  <div class="uhead" style="height:60px;"><a href="<%= user_path @user%>"><img src="<%=avatar_url(@user,:normal)%>" width="60" height="60" /></a></div>
   <div class="uinfo">
-    <p><a href="" class="blue arial b"><%=current_user.name%></a></p>
+    <p><a href="" class="blue arial b"><%=current_user.name_beautified%></a></p>
     <p><%= current_user.tagline %></p>
   </div>
 </div>

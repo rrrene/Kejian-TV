@@ -23,6 +23,10 @@ class CoursewaresController < ApplicationController
     respond_to do |format|
       format.json{
         pagination_get_ready
+        
+        # @coursewares = Courseware.nondeleted.normal_father
+        # @coursewares = @coursewares.any_of({:uploader_id=>Moped::BSON::ObjectId('506d559de1382375f3000160')},{:user_ids=>Moped::BSON::ObjectId('507ac0e2e138236b27000147')})
+
         @coursewares = Courseware.nondeleted.normal_father
         deal_with_params!
         pagination_over(@coursewares.count)
@@ -54,6 +58,7 @@ class CoursewaresController < ApplicationController
   def deal_with_params!
     @coursewares = @coursewares.where(:is_thin=>false) if '1'==params['onlyForCommodity']
     @coursewares = @coursewares.where(:slides_count.gt=>50) if '2'==params['queryScope']
+    @coursewares = @coursewares.any_of(:uploader_id=>Moped::BSON::ObjectId(params[:user_id])) if Moped::BSON::ObjectId.legal?(params[:user_id])
     if '1'==params['queryOrder']
       @coursewares = @coursewares.desc('gone_normal_at')
     elsif '2'==params['queryOrder']

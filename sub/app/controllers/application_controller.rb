@@ -286,9 +286,9 @@ class ApplicationController < ActionController::Base
       :accept=>'raw'+Setting.dz_authkey,
       psvr_response_anyway: true
     })
-    p 'gonna set------------------'
-    p res
-    p 'gonna set------------------'
+    # p 'gonna set------------------'
+    # p res
+    # p 'gonna set------------------'
     res.cookies.each do |key,value|
       cookies[key]=CGI::unescape value
     end
