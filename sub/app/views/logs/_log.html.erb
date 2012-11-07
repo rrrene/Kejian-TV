@@ -79,23 +79,23 @@ action = log.action.gsub("ADDTOPIC", "ADD_TOPIC").gsub("DELTOPIC", "DEL_TOPIC")
   when "UserLog"
     answer = item = nil
     if ["FOLLOW", "UNFOLLOW"].include?(action)
-      item = Ask.first(:conditions => {:id => log.target_id})
+      item = Ask.where(:conditions => {:id => log.target_id}).first
     elsif ["FOLLOW_TOPIC", "UNFOLLOW_TOPIC"].include?(action)
-      item = Topic.first(:conditions => { :id => log.target_id })
+      item = Topic.where(:conditions => { :id => log.target_id }).first
       items=[]
       items=Topic.all_in(:id=>log.target_ids).to_a if log.target_ids
     elsif ["FOLLOW_USER", "UNFOLLOW_USER"].include?(action)
-      item = User.first(:conditions => { :id => log.target_id})
+      item = User.where(:conditions => { :id => log.target_id}).first
     elsif ["FOLLOW_ASK", "UNFOLLOW_ASK"].include?(action)
-      item = Ask.first(:conditions => { :id => log.target_id})
+      item = Ask.where(:conditions => { :id => log.target_id}).first
     elsif ["AGREE"].include?(action)
-      answer = Answer.first(:conditions => {:id => log.target_id})
+      answer = Answer.where(:conditions => {:id => log.target_id}).first
       if !answer.blank?
         return raw('<br style="display:none">') if 1==answer.deleted
         item = answer.ask
       end
     elsif ["THANK_ANSWER"].include?(action)
-      item = Answer.first(:conditions => {:id => log.target_id})
+      item = Answer.where(:conditions => {:id => log.target_id}).first
     end
     return raw('<br style="display:none">') if item and 1==item.deleted
     if !item.nil? or (item.is_a?(Ask) and item.spams_count < Setting.ask_spam_max)
