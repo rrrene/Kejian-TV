@@ -1,7 +1,6 @@
 <% content_for :armpit do %>
   <%= stylesheet_link_tag "ktv/__sdk", :media => "all" %>
 <% end %>
-<% content_for :title do %>账户设置<% end %>
 <%= image_tag 'ktv_reg_edit.png',:class => 'ktvregh2', :alt => '账户设置' %>
 <%
 placeholder1 = placeholder2 = ''
@@ -49,12 +48,17 @@ $('#change_password_link').click(function(){
   $('#change_password').show();
 })
 <% end %>
-
+<% if '1'==params[:reload];current_user.update_attribute(:avatar_changed_at,Time.now);current_user.update_consultant!;end  %>
 <div class="field">
   <%= f.label :avatar,'修改头像' %><br>
-  <%= avatar_tag(resource,:normal,'padding:1px;border:1px solid #999999') %>
+  <%= avatar_tag(resource,:middle,'padding:1px;border:1px solid #999999','1'==params[:reload]) %>
 </div>
-
+<script type="text/javascript" charset="utf-8">
+window.updateavatar = function() {
+  window.location.href = '/account/edit?reload=1';
+};
+saveUserdata('avatar_redirect', '/account/edit?reload=1');
+</script>
 <%=raw @_G['psvr_payload']['uc_avatar'] %>
 
 

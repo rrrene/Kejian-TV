@@ -13,22 +13,28 @@ module UsersHelper
   def user_path(user)
     "/users/#{user.slug}"
   end
-  def avatar_url_quick(user,size=:normal)
-    return dz_avatar_url(User.get_uid(user),User.get_email(user),size)
+  def avatar_url_quick(user,size=:normal,reload=false)
+    return dz_avatar_url(User.get_uid(user),User.get_email(user),size,reload)
   end
   def name_beautify(name)
     '_'==name[0] ? name[1..-1] : name
   end
-  def dz_avatar_url(uid,email,size=:normal)
-    return "http://uc.#{Setting.ktv_domain}/avatar.php?uid=#{uid}&email=#{Digest::MD5.hexdigest(email)}&size=#{size}"
+  def dz_avatar_url(uid,email,size=:normal,reload=false)
+    reload = (User.get_avatar_changed_at(uid).to_i > 1.day.ago.to_i)
+    if reload
+      return "http://uc.#{Setting.ktv_domain}/avatar.php?uid=#{uid}&email=#{Digest::MD5.hexdigest(email)}&size=#{size}&psvr_reload=#{Time.now.to_i}"
+    else
+      return "http://uc.#{Setting.ktv_domain}/avatar.php?uid=#{uid}&email=#{Digest::MD5.hexdigest(email)}&size=#{size}"
+    end
+
   end
-  def avatar_url(user,size=:normal)
-    return dz_avatar_url(user.uid,user.email,size)
+  def avatar_url(user,size=:normal,reload=false)
+    return dz_avatar_url(user.uid,user.email,size,reload)
   end
 
-  def avatar_tag(user,size=:normal,style='')
-    s=AvatarUploader::SIZES[size]
-    url = avatar_url(user,size)
+  def avatar_tag(user,size=:normal,style='',reload=false)
+    s=AvatarUploader::DZ_SIZES[size]
+    url = avatar_url(user,size,reload)
     ret="<img src=\"#{url}\" class=\"imgHead\" width=\"#{s}\" height=\"#{s}\" alt=\"\" style=\"#{style}\">".html_safe
     return ret
   end
