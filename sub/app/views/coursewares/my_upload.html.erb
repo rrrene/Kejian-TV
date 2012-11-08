@@ -19,7 +19,7 @@
 							</p>
 							<div class="button-container">
 								<div>
-									<button role="button" data-upload-button-id="multifile-tutorial" class="start-upload-button yt-uix-button yt-uix-button-primary" type="button" onclick="yt.analytics.urchinTracker('/Events/UploadPage/UploadButton');;return false;"><span class="yt-uix-button-content">选择文件 </span></button><input type="file" style="height: 0px; visibility: hidden; position: absolute;" multiple="">
+									<button role="button" data-upload-button-id="multifile-tutorial" class="start-upload-button yt-uix-button yt-uix-button-primary" type="button" ><span class="yt-uix-button-content">选择文件 </span></button><input type="file" style="height: 0px; visibility: hidden; position: absolute;" multiple="">
 									<button role="button" onclick=";return false;" class=" yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-content">取消 </span></button>
 								</div>
 							</div>
@@ -92,9 +92,9 @@
 										<img alt="" src="<%=asset_path('yt/img/icon-upload-single-vflsjkQ5E.png')%>" class="init-upload-action-icon">
 										<button role="button" class="init-upload-button yt-uix-button yt-uix-button-default" id="start-upload-button-single" type="button" onclick=";return false;"><span class="yt-uix-button-content">从计算机上选择文件 </span></button>
 									</div>
-			<% if false %>					
-								 <div class="upload-delay-publishing-settings">
-										<span class="upload-delay-publishing-label">隐私设置</span>
+		
+								 <div class="upload-delay-publishing-settings" style='clear:both;height:20px'>
+													<span class="upload-delay-publishing-label"></span><% if false %>隐私设置
 										<button  role="button" onclick=";return false;" class="yt-uix-button yt-uix-button-default" type="button">
 											<span class="yt-uix-button-content">公开 </span><img alt="" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="yt-uix-button-arrow">
 											<ul style="min-width: 58px; left: 454px; top: 515px; display: none;" aria-haspopup="true" role="menu" class="yt-uix-button-menu yt-uix-button-menu-default hid">
@@ -102,10 +102,10 @@
 												<li id="aria-id-unlisted" role="menuitem"><span onclick="uploader.setVideoPrivacy('unlisted');;return false;" class=" yt-uix-button-menu-item">不公开</span></li>
 												<li id="aria-id-private" role="menuitem"><span onclick="uploader.setVideoPrivacy('private');;return false;" class=" yt-uix-button-menu-item">私有</span></li>
 											</ul>
-										</button>
-									</div>
+										</button>		<% end %>	
+									</div>			
 								</div>
-			<% end %>
+
 								<!-- Right -->
 								<div class="more-ways-to-upload">
 									<div class="small-starting-box-action-container" id="multiple-uploads-link">
@@ -311,7 +311,7 @@
 													<label>
 													<h4>学院与课程名</h4>
 													<span class=" yt-uix-form-input-container ">
-														<input name="presentation[topic]" class="yt-uix-form-input-text kejian-settings-department department_actived" value="<%if @c%><%= @c.department %>: <%= @c.name %> <%end %>" readonly="readonly">
+														<input name="presentation[topic]" class="psvr_login_required yt-uix-form-input-text kejian-settings-department" value="<%if @c%><%= @c.department %>: <%= @c.name %> <%end %>" readonly="readonly">
 													</span>
 													</label>
 													<label>
@@ -837,8 +837,8 @@
 
 <script type="text/javascript" charset="utf-8">
 	<% content_for :butt2 do %>
-  window.psvr_f=<%= Ktv::Utils.safely('undefined'){ret=@c.fid;if ret.present?;ret;else;raise 'bitch!';end} %>;
-  window.psvr_g=<%= Ktv::Utils.safely('undefined'){ret=Department.get_fid(@c.department);if ret.present?;ret;else;raise 'bitch!';end}%>;
+  $('.psvr_f').val(<%= Ktv::Utils.safely('undefined'){ret=@c.fid;if ret.present?;ret;else;raise 'bitch!';end} %>);
+  $('.psvr_g').val(<%= Ktv::Utils.safely('undefined'){ret=Department.get_fid(@c.department);if ret.present?;ret;else;raise 'bitch!';end}%>);
 	
 	$('#the_upload_ytb .start-upload-button,#the_upload_ytb #multiple-uploads-link').live('click',function(){
 		$('#presentation_pdf').trigger('click');

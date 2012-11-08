@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class CoursewaresController < ApplicationController
-  before_filter :authenticate_user!, :only => [:new,:create,:edit,:update,:destroy,:thank,:download]
+  before_filter :authenticate_user!, :only => [:new,:create,:edit,:update,:destroy,:thank,:download,:my_upload]
   before_filter :find_item,:only => [:show,:embed,:download,:edit,:update,:destroy,:thank]
   before_filter :authenticate_user_ownership!, :only => [:update,:destroy]
   
