@@ -45,6 +45,15 @@ class UcenterController < ApplicationController
     render text:API_RETURN_SUCCEED
   end
   def deleteuser
+    puts @get
+    ids=@get['ids'].gsub("'",'')
+    ids.split(',').each do |simple_uid|
+      uid=simple_uid.to_i
+      u=User.where(uid:uid).first
+      u.soft_delete if u
+      p uid
+    end
+    render text:API_RETURN_SUCCEED
   end
   def renameuser
   end
@@ -59,6 +68,7 @@ class UcenterController < ApplicationController
   def updatecreditsettings
   end
   def updateclient
+    binding.pry
   end
   def updatepw
   end

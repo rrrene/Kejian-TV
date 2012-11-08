@@ -12,7 +12,7 @@ module TeachersHelper
   end
   def teacher_avatar_url(teacher,size=:normal)
     s=AvatarUploader::SIZES[size]
-    url = item.try(:avatar).try(size).try(:url)
+    url = teacher.try(:avatar).try(size).try(:url)
     if url.present?
       return url
     else
