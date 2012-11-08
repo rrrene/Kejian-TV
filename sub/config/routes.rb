@@ -163,6 +163,7 @@ Sub::Application.routes.draw do
   resources :schools
   resources :maps
   get '/un_courses'=>'courses#index'
+  get '/courses/:id' => 'courses#show'
   get '/coursewares_by_departments' => 'coursewares#index'
   get '/coursewares_by_teachers' => 'coursewares#index'
   get '/coursewares_by_courses' => 'coursewares#index'

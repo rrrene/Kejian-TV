@@ -20,7 +20,8 @@ class CoursesController < ApplicationController
 
   def show
     @seo[:title]=@course.name
-    render :layout=>false
+    @coursewares = @course.coursewares
+    # render :layout=>false
   end
 protected
   def find_item

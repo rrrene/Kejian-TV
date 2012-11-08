@@ -59,6 +59,8 @@ class CoursewaresController < ApplicationController
     @coursewares = @coursewares.where(:is_thin=>false) if '1'==params['onlyForCommodity']
     @coursewares = @coursewares.where(:slides_count.gt=>50) if '2'==params['queryScope']
     @coursewares = @coursewares.any_of(:uploader_id=>Moped::BSON::ObjectId(params[:user_id])) if Moped::BSON::ObjectId.legal?(params[:user_id])
+    @coursewares = @coursewares.where(:course_fid=>params[:course_fid]) if params[:course_fid]
+    @coursewares = @coursewares.where(:course_fid=>params[:course]) if params[:course]
     if '1'==params['queryOrder']
       @coursewares = @coursewares.desc('gone_normal_at')
     elsif '2'==params['queryOrder']
@@ -66,6 +68,7 @@ class CoursewaresController < ApplicationController
     end
     @coursewares = @coursewares.where(:teacher=>params[:teacher]) if params[:teacher]
     @coursewares = @coursewares.where(:topics=>params[:topic]) if params[:topic]
+
   end
   def thank
     current_user.inc(:thank_coursewares_count,1)
