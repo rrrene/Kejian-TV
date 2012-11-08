@@ -745,7 +745,7 @@
 													</span>
 												</div>
 												<div class="metadata-column-half">
-													<label>
+													 <% if false %><label>
 													<h4 class="location-header">课件位置</h4>
 													<div class="location-controls">
 														<span class=" yt-uix-form-input-container "><input value="" class="yt-uix-form-input-text location-input"></span>
@@ -755,13 +755,13 @@
 														<input type="hidden" value="" class="location-altitude" name="location_altitude">
 													</div>
 													</label>
+													<% end %>
 													<label>
 													<h4 class="recording-date-header">制作日期</h4>
 													<span class="recorded-date-formatted yt-uix-form-input-container ">
-														<input class="yt-uix-form-input-text presentation_version_date recorded-date-formatted-input datepicker publish-date hasDatepicker" value="<%= courseware.version_date[courseware.version.to_s]%>" name="presentation[version_date]"></span>
+														<input class="yt-uix-form-input-text presentation_version_date recorded-date-formatted-input datepicker publish-date hasDatepicker" value="<%= @courseware.version_date[@courseware.version.to_s] %>" name="presentation[version_date]"></span>
 													</label>
 													<button role="button" onclick=";return false;" class="recorded-date-today-button yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-content">今天 </span></button>
-													<input type="hidden" class="recorded-date" name="recorded_date">
 												<% if false %>	
 													<h4 class="threed-header">3D 课件</h4>
 													<div>
@@ -1009,9 +1009,22 @@
     else
       $(this).parents('.metadata-container').find('.presentation_other_teacher').hide();
   })
-  $('.presentation_version_date').click(function(){
+  $('.presentation_version_date').live('click',function(){
     JTC.setday({format:'yyyy年MM月dd日', readOnly: true});
   });
+	$('.recorded-date-today-button').live('click',function(){
+		var d = new Date();
+		var year = d.getFullYear();
+		var month = d.getMonth();
+		if(month <= 9)
+		    month = '0'+(month+1);
+		else
+				month = (month+1);
+		var day= d.getDate();
+		if(day <= 9)
+		    day = '0'+day;
+		$(this).prev().find('input.presentation_version_date').val(year + '年' + month + '月' + day +'日');
+	});
 	<% end %>
 </script>
 <%= render file:'/application/footers/_sdk_footer' %>
