@@ -2,15 +2,6 @@
 	<%= stylesheet_link_tag 'ktv/__ytb' %>
 	<%= stylesheet_link_tag 'ktv/__ytb_upload' %>
 <% end %>
-<% content_for :butt2 do %>
-  window.psvr_f=<%= Ktv::Utils.safely('undefined'){ret=@c.fid;if ret.present?;ret;else;raise 'bitch!';end} %>;
-  window.psvr_g=<%= Ktv::Utils.safely('undefined'){ret=Department.get_fid(@c.department);if ret.present?;ret;else;raise 'bitch!';end}%>;
-  $('#content').click(function(){$('#presentation_teacher_select').hide();$('#presentation_teacher_hv').removeClass('right_on');$('#presentation_sort1_select').hide();$('#presentation_sort1_hv').removeClass('right_on');});
-  $('#presentation_topic').focus(function(e){
-    showWindow('nav', '/forum.php?mod=misc&action=nav&already_inside=1&psvr_g='+window.psvr_g+'&psvr_f='+window.psvr_f, 'get', 0);
-    return false;
-  });
-<% end %>
 
 <div id="the_upload_ytb" class='__ytb'>
 <div class="upload" id="page">
@@ -101,7 +92,8 @@
 										<img alt="" src="<%=asset_path('yt/img/icon-upload-single-vflsjkQ5E.png')%>" class="init-upload-action-icon">
 										<button role="button" class="init-upload-button yt-uix-button yt-uix-button-default" id="start-upload-button-single" type="button" onclick=";return false;"><span class="yt-uix-button-content">从计算机上选择文件 </span></button>
 									</div>
-									<div class="upload-delay-publishing-settings">
+			<% if false %>					
+								 <div class="upload-delay-publishing-settings">
 										<span class="upload-delay-publishing-label">隐私设置</span>
 										<button  role="button" onclick=";return false;" class="yt-uix-button yt-uix-button-default" type="button">
 											<span class="yt-uix-button-content">公开 </span><img alt="" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="yt-uix-button-arrow">
@@ -113,6 +105,7 @@
 										</button>
 									</div>
 								</div>
+			<% end %>
 								<!-- Right -->
 								<div class="more-ways-to-upload">
 									<div class="small-starting-box-action-container" id="multiple-uploads-link">
@@ -144,7 +137,7 @@
 							<% if false %>
 							<div class="informational-footer">
 								<div class="information-footer-copyright">
-									<strong>重要提示</strong>：对于任何上传的内容，您都必须拥有版权或相关必要权利。<a href="/t/howto_copyright">了解详情</a>
+									<strong>重要提示</strong>：对于任何上传的内容，您都必须拥有版权或相关必要权利。<%if false %><a href="/t/howto_copyright">了解详情</a><% end %>
 								</div>
 							</div>
 							<% end %>
@@ -307,6 +300,8 @@
 									</div>
 									<div class="metadata-container">
 										<%= form_for @courseware,:url => "/presentations", :html => { :method => :post,'data-s3' =>@config.to_json,  :class => 'kejian-settings-form', :autocomplete=>"off" } do |f| %>
+					          <input type="hidden" name="psvr_g" value="<%= params[:psvr_g] %>" class="psvr_g">
+					          <input type="hidden" name="psvr_f" value="<%= params[:psvr_f] %>" class="psvr_f">
 											<div data-tab-id="basic-info" class="metadata-tab">
 												<fieldset class="metadata-two-column">
 													<label>
@@ -314,8 +309,14 @@
 													<span class=" yt-uix-form-input-container "><input name="title" class="yt-uix-form-input-text kejian-settings-title"></span>
 													</label>
 													<label>
+													<h4>学院与课程名</h4>
+													<span class=" yt-uix-form-input-container ">
+														<input name="presentation[topic]" class="yt-uix-form-input-text kejian-settings-department department_actived" value="<%if @c%><%= @c.department %>: <%= @c.name %> <%end %>" readonly="readonly">
+													</span>
+													</label>
+													<label>
 													<h4>说明</h4>
-													<span class="yt-uix-form-input-container "><textarea rows="6" name="description" class="yt-uix-form-textarea video-settings-description"></textarea></span>
+													<span class="yt-uix-form-input-container "><textarea rows="6" name="description" class="yt-uix-form-textarea kejian-settings-description"></textarea></span>
 													</label>
 													<h4 class="tags-header">
 													标记 <span class="yt-uix-clickcard">
@@ -448,36 +449,44 @@
 												</fieldset>
 												<fieldset class="metadata-column">
 													<label>
-													<h4 class="category-header">类别</h4>
-													<span class="yt-uix-form-input-select "><span class="yt-uix-form-input-select-content"><img class="yt-uix-form-input-select-arrow" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>"><span class="yt-uix-form-input-select-value">选择类别</span></span>
-													<select name="category" class="yt-uix-form-input-select-element category-input">
-														<option value="">选择类别</option>
-														<option value="26">DIY 和生活百科</option>
-														<option value="15">宠物和动物</option>
-														<option value="1">电影和动画</option>
-														<option value="29">公益与社会活动</option>
-														<option value="27">教育</option>
-														<option value="28">科学和技术</option>
-														<option value="19">旅游和活动</option>
-														<option value="2">汽车</option>
-														<option value="22">人物和博客</option>
-														<option value="17">体育</option>
-														<option value="23">喜剧</option>
-														<option value="25">新闻和政治</option>
-														<option value="10">音乐</option>
-														<option value="20">游戏</option>
-														<option value="24">娱乐</option>
+													<h4 class="category-header">老师姓名</h4>
+													<span class="yt-uix-form-input-select ">
+														<span class="yt-uix-form-input-select-content">
+															<img class="yt-uix-form-input-select-arrow" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
+															<span class="yt-uix-form-input-select-value">请选择老师</span>
+														</span>
+											      <input type="text" class="text" id="presentation_other_teacher" name="presentation[other_teacher]" size="30" placeholder="例: 郭懋正" value="" style="width: 273px;display: none">
+														
+													<select name="presentation[teacher]" class="yt-uix-form-input-select-element category-input">
+														<% @teachers.each do |teacher| %>
+														<option value="<%= teacher %>"><%= teacher %></option>
+														<% end %>
+														<option value="opt_psvr_add_more">其他</option>
 													</select>
 													</span>
 													</label>
+													<h4 class="category-presentation_sort1_hv">课件类型</h4>
+													<span class="yt-uix-form-input-select ">
+														<span class="yt-uix-form-input-select-content">
+															<img class="yt-uix-form-input-select-arrow" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
+															<span class="yt-uix-form-input-select-value">请选择课件类型</span>
+														</span>
+													<select name="presentation[sort1]" class="yt-uix-form-input-select-element category-input">
+										        <% Courseware::SORT1STR.each do |k,v| %>
+										        <option value="<%= v %>"><%= v %></option>
+										        <% end %>
+														<option value="opt_psvr_add_more">其他</option>
+													</select>
+													</span>
+													
 													<h4 class="privacy-header">
 													隐私设置 <span class="yt-uix-clickcard">
 													<img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" tabindex="0" role="button" class="yt-help-icon yt-uix-clickcard-target">
 													<span class="yt-uix-clickcard-content">
 													<button class="yt-uix-clickcard-close"></button>
 													<p>
-														隐私设置关系到您与朋友、家人或公众分享课件的方式。 <a href="//support.google.com/课件TV/bin/answer.py?answer=157177&amp;hl=zh-CN" target="_new">
-														了解详情 </a>
+														隐私设置关系到您与朋友、家人或公众分享课件的方式。 <% if false %><a href="//support.google.com/课件TV/bin/answer.py?answer=157177&amp;hl=zh-CN" target="_new">
+														了解详情 </a><% end %>
 													</p>
 													</span>
 													</span>
@@ -532,15 +541,16 @@
 												</fieldset>
 											</div>
 											<div data-tab-id="monetization" class="metadata-tab hid">
-												<label class="enable-monetization-field">
+												<span class="enable-monetization-field">
 												<span class="yt-uix-form-input-checkbox-container ">
 													<input type="checkbox" data-linked-hidden-class="enable-monetization-value" class="yt-uix-form-input-checkbox enable-monetization" name="">
 													<span class="yt-uix-form-input-checkbox-element"></span>
 												</span>
 												<input type="hidden" data-initial-value="no" class="enable-monetization-value" value="no" name="enable_monetization">
-												通过我的课件获利 </label>
+												通过我的课件获利 
+											</span>
 												<div class="monetization-disclaimer hid">
-													 点击此处即确认我拥有此课件的全部资料，也就是说，我拥有利用此课件获利所必需的所有声音和视觉元素的足够的商业使用权。我了解，课件TV 可能需要我提供商业使用权的证明资料和/或可能因为反复滥用此系统而停用我的获利功能或我的帐户。我了解需要提供的材料；请不要再次显示此讯息。
+													 &nbsp;&nbsp;&nbsp;&nbsp;点击此处即确认我拥有此课件的全部资料及其发布、分享的权利，也就是说，我拥有利用此课件获利所必需的所有声音和视觉元素的足够的商业使用权。我了解，课件TV可能需要我提供商业使用权的证明资料和/或可能因为反复滥用此系统而停用我的获利功能或我的帐户。我了解需要提供的材料。【注】所填信息将会记录，暂时不会开始盈利，当您的课件正式开始盈利时，我们将立刻通知您。
 													<div class="monetization-disclaimer-buttons">
 														<button role="button" onclick=";return false;" class="monetization-disclaimer-cancel yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-content">取消 </span></button>
 														<button role="button" onclick=";return false;" class="monetization-disclaimer-accept yt-uix-button yt-uix-button-primary" type="button"><span class="yt-uix-button-content">知道了 </span></button>
@@ -564,8 +574,8 @@
 																<button class="yt-uix-clickcard-close"></button>
 																<img alt="?" src="<%=asset_path('yt/img/in-display-overlay-vfllJbecp.png')%>"><br>
 																<p>
-																	课件内重叠式广告是显示在您课件下半部分的透明的重叠式广告。 <a href="//support.google.com/课件TV/bin/answer.py?answer=94525&amp;hl=zh-CN" target="_new">
-																	了解详情 </a>
+																	课件内重叠式广告是显示在您课件下半部分的透明的重叠式广告。 <% if false %><a href="//support.google.com/课件TV/bin/answer.py?answer=94525&amp;hl=zh-CN" target="_new">
+																		了解详情 </a><% end %>
 																</p>
 																</span>
 																</span>
@@ -581,8 +591,8 @@
 																<button class="yt-uix-clickcard-close"></button>
 																<img alt="?" src="<%=asset_path('yt/img/in-stream-trueview-vflyOPLHS.png')%>"><br>
 																<p>
-																	TrueView 插播广告由一系列格式组成，允许观众选择并控制显示哪些广告客户讯息及其显示的时间。 <a href="//support.google.com/课件TV/bin/answer.py?answer=1205675&amp;hl=zh-CN" target="_new">
-																	了解详情 </a>
+																	TrueView 插播广告由一系列格式组成，允许观众选择并控制显示哪些广告客户讯息及其显示的时间。 <% if false %><a href="//support.google.com/课件TV/bin/answer.py?answer=1205675&amp;hl=zh-CN" target="_new">
+																	了解详情 </a><% end %>
 																</p>
 																</span>
 																</span>
@@ -598,8 +608,8 @@
 																<span class="yt-uix-clickcard-content">
 																<button class="yt-uix-clickcard-close"></button>
 																<p>
-																	合作伙伴可以在自己的内容中加入付费产品展示位置。所有产品展示位置都需要符合我们的广告政策。 <a href="//support.google.com/课件TV/bin/answer.py?answer=154235&amp;hl=zh-CN" target="_new">
-																	了解详情 </a>
+																	合作伙伴可以在自己的内容中加入付费产品展示位置。所有产品展示位置都需要符合我们的广告政策。 <% if false %><a href="//support.google.com/课件TV/bin/answer.py?answer=154235&amp;hl=zh-CN" target="_new">
+																	了解详情 </a><% end %>
 																</p>
 																</span>
 																</span>
@@ -613,8 +623,8 @@
 															<button class="yt-uix-clickcard-close"></button>
 															<img alt="?" src="<%=asset_path('yt/img/in-display-vflqN9OMb.png')%>"><br>
 															<p>
-																展示广告（横幅）可以在网站上的任意区域（首页除外）投放。这些广告显示在精选课件右侧和推荐课件列表的上方，大小为 300x250。 <a href="//support.google.com/课件TV/bin/answer.py?answer=188038&amp;hl=zh-CN" target="_new">
-																了解详情 </a>
+																展示广告（横幅）可以在网站上的任意区域（首页除外）投放。这些广告显示在精选课件右侧和推荐课件列表的上方，大小为 300x250。 <%if false %><a href="//support.google.com/课件TV/bin/answer.py?answer=188038&amp;hl=zh-CN" target="_new">
+																了解详情 </a><% end %>
 															</p>
 															</span>
 															</span>
@@ -642,8 +652,8 @@
 														<span class="yt-uix-clickcard-content">
 														<button class="yt-uix-clickcard-close"></button>
 														<p>
-															获利平台是指我们用于投放等效课件插播广告的平台，例如 课件TV Android 应用。 <a href="//support.google.com/课件TV/bin/answer.py?answer=2453875&amp;hl=zh-CN" target="_new">
-															了解详情 </a>
+															获利平台是指我们用于投放等效课件插播广告的平台，例如 课件TV Android 应用。 <% if false %><a href="//support.google.com/课件TV/bin/answer.py?answer=2453875&amp;hl=zh-CN" target="_new">
+															了解详情 </a><% end %>
 														</p>
 														</span>
 														</span>
@@ -705,29 +715,6 @@
 														<label>
 														</label>
 													</p>
-													<h4>字幕认证 <span class="yt-uix-clickcard">
-													<img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" tabindex="0" role="button" class="yt-help-icon yt-uix-clickcard-target">
-													<span class="yt-uix-clickcard-content">
-													<button class="yt-uix-clickcard-close"></button>
-													<p>
-														在美国的电视上播出过的内容需服从 FCC 关于可选字幕的法规。如果需要，请在此处提供字幕认证。
-													</p>
-													</span>
-													</span>
-													</h4>
-													<span class="yt-uix-form-input-select captions-certification-select"><span class="yt-uix-form-input-select-content"><img class="yt-uix-form-input-select-arrow" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>"><span class="yt-uix-form-input-select-value">请选择一个选项 </span></span>
-													<select name="uncaptioned_reason" class="yt-uix-form-input-select-element ">
-														<option selected="" arg="" value="0">请选择一个选项 </option>
-														<option value="1">该内容从未在美国的电视媒体播出过。</option>
-														<option value="2">该内容在美国的电视媒体播出时并未提供字幕。</option>
-														<option value="3">自 2012 年 9 月 30 日以来，该内容还未带字幕在美国的电视媒体播出过。</option>
-														<option value="4">该内容并不是完整的课件节目。</option>
-														<option value="5">根据美国联邦通信委员会 (FCC) 的法规，该内容不属于当前需要字幕的网络节目类别。</option>
-														<option value="6">FCC 和/或美国国会豁免了该内容的字幕要求。</option>
-													</select>
-													</span>
-													<p>
-													</p>
 													<h4 class="embedding-header">分发选项</h4>
 													<div class="">
 														<label>
@@ -739,8 +726,8 @@
 														<span class="yt-uix-clickcard-content">
 														<button class="yt-uix-clickcard-close"></button>
 														<p>
-															允许他人在其网站中嵌入您的课件。 <a href="//support.google.com/课件TV/bin/answer.py?answer=171780&amp;hl=zh-CN" target="_new">
-															了解详情 </a>
+															允许他人在其网站中嵌入您的课件。 <%if false %><a href="//support.google.com/课件TV/bin/answer.py?answer=171780&amp;hl=zh-CN" target="_new">
+															了解详情 </a><% end %>
 														</p>
 														</span>
 														</span>
@@ -748,14 +735,14 @@
 													<label>
 													<span class="yt-uix-form-input-checkbox-container checked"><input type="checkbox" data-linked-hidden-class="sharing-checkbox-feeds-value" checked="checked" class="yt-uix-form-input-checkbox sharing-checkbox-feeds" name=""><span class="yt-uix-form-input-checkbox-element"></span></span>
 													<input type="hidden" class="sharing-checkbox-feeds-value" value="yes" name="creator_share_feeds">
-													通知订阅者 </label>
+													通知粉丝 </label>
 													<span class="yt-uix-clickcard">
 													<img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" tabindex="0" role="button" class="yt-help-icon yt-uix-clickcard-target">
 													<span class="yt-uix-clickcard-content">
 													<button class="yt-uix-clickcard-close"></button>
 													<p>
-														Your subscribers will see your videos on their homepages, in their email, etc. <a href="//support.google.com/课件TV/bin/static.py?page=guide.cs&amp;guide=2467581&amp;topic=2565764&amp;hl=zh-CN" target="_new">
-														了解详情 </a>
+														您的粉丝将会从主页和邮箱看到您上传了该课件。 <% if false %><a href="//support.google.com/课件TV/bin/static.py?page=guide.cs&amp;guide=2467581&amp;topic=2565764&amp;hl=zh-CN" target="_new">
+														了解详情 </a><% end %>
 													</p>
 													</span>
 													</span>
@@ -772,11 +759,12 @@
 													</div>
 													</label>
 													<label>
-													<h4 class="recording-date-header">录制日期</h4>
+													<h4 class="recording-date-header">制作日期</h4>
 													<span class="recorded-date-formatted yt-uix-form-input-container "><input class="yt-uix-form-input-text recorded-date-formatted-input"></span>
 													</label>
 													<button role="button" onclick=";return false;" class="recorded-date-today-button yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-content">今天 </span></button>
 													<input type="hidden" class="recorded-date" name="recorded_date">
+												<% if false %>	
 													<h4 class="threed-header">3D 课件</h4>
 													<div>
 														<span class="yt-uix-form-input-select "><span class="yt-uix-form-input-select-content"><img class="yt-uix-form-input-select-arrow" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>"><span class="yt-uix-form-input-select-value">
@@ -801,6 +789,7 @@
 														</select>
 														</span>
 													</div>
+												<% end %>
 												</div>
 												<div class="clearfix">
 												</div>
@@ -846,10 +835,11 @@
 </div>
 </div>
 
-<%= render file:'/application/footers/_sdk_footer' %>
-
 <script type="text/javascript" charset="utf-8">
 	<% content_for :butt2 do %>
+  window.psvr_f=<%= Ktv::Utils.safely('undefined'){ret=@c.fid;if ret.present?;ret;else;raise 'bitch!';end} %>;
+  window.psvr_g=<%= Ktv::Utils.safely('undefined'){ret=Department.get_fid(@c.department);if ret.present?;ret;else;raise 'bitch!';end}%>;
+	
 	$('#the_upload_ytb .start-upload-button,#the_upload_ytb #multiple-uploads-link').live('click',function(){
 		$('#presentation_pdf').trigger('click');
 	});
@@ -868,7 +858,7 @@
 			 if(i!=0){
 				 item[i].addClass('collapsed-item');
 				 item[i].find('.notification-area').next().hide();
-				 item[i].find('.sub-item-exp-zippy').css({'margin-top':'-574px','overflow':'hidden'})
+				 item[i].find('.sub-item-exp-zippy').css({'margin-top':'0px','overflow':'hidden','display':'none'})
 			 }else{
 				 item[i].find('.expand-collapse-link').html('▲ 折叠');
 			 }
@@ -895,7 +885,8 @@
 	 tmp.addClass('collapsed-item');
 	 tmp.find('.notification-area').next().slideUp();
  	 tmp.find('.sub-item-exp-zippy').animate({
-		 'margin-top':'=574'
+		 'margin-top':'=574',
+		 'opacity':'hide'
 	 },'slow');
 	 tmp.find('.expand-collapse-link').html('▼ 展开');
 	}
@@ -903,7 +894,8 @@
  	 tmp.removeClass('collapsed-item');
  	 tmp.find('.notification-area').next().show();
  	 tmp.find('.sub-item-exp-zippy').animate({
-		 'margin-top': '0'
+		 'margin-top': '0',
+		 'opacity':'show'
 	 },'slow');
 	 tmp.find('.expand-collapse-link').html('▲ 折叠');
 	}
@@ -915,13 +907,31 @@
 			collapsed_upload(item);
 		}
 	});
-	$('.enable-monetization-field').live('click',function(){
+	$('span.enable-monetization-field').live('click',function(){
 		$(this).parent().find('.monetization-disclaimer').toggleClass('hid');
+		if($(this).parent().find('.monetization-disclaimer').hasClass('hid')){
+			$(this).find('input.yt-uix-form-input-checkbox.enable-monetization').attr('checked',false);
+			if(!$(this).parents('.metadata-tab').find('.monetization-settings').hasClass('hid')){
+				$(this).parents('.metadata-tab').find('.monetization-settings').toggleClass('hid');	
+			}
+		}else{
+			if($(this).parents('.metadata-tab').find('.monetization-settings').hasClass('hid')){
+				$(this).find('input.yt-uix-form-input-checkbox.enable-monetization').attr('checked',true);
+			}else{
+				$(this).find('input.yt-uix-form-input-checkbox.enable-monetization').attr('checked',false);
+				$(this).parents('.metadata-tab').find('.monetization-settings').toggleClass('hid');	
+				$(this).parent().find('.monetization-disclaimer').toggleClass('hid');
+			}
+		}
 	});
 	$('.monetization-disclaimer-accept').live('click',function(){
 		$(this).parents('.monetization-disclaimer').toggleClass('hid');
 		$(this).parents('.metadata-tab').find('.monetization-settings').toggleClass('hid');
 	});
+	$('.monetization-disclaimer-cancel').live('click',function(){
+		$(this).parents('.monetization-disclaimer').toggleClass('hid');
+		$(this).find('input.yt-uix-form-input-checkbox.enable-monetization').attr('checked',false);
+	})
 	$('select').live('change',function(){
 		$(this).prev().find('.yt-uix-form-input-select-value').html($(this).find('option:selected').html());
     });
@@ -935,5 +945,61 @@
       
     })
   }
+	var card = '<div id="yt-uix-clickcard-card4" class="yt-uix-clickcard-card yt-uix-clickcard-card-visible" style="display:none;"><div class="yt-uix-card-border-arrow yt-uix-card-border-arrow-horizontal" style="bottom: 6px;"></div><div class="yt-uix-clickcard-card-border"><div class="yt-uix-card-body-arrow yt-uix-card-body-arrow-horizontal" style="bottom: 6px;"></div><div class="yt-uix-clickcard-card-body"></div></div></div>'
+	$('#the_upload_ytb').append(card)
+	
+	$('.yt-uix-clickcard').live('click',function(e){
+		e.stopPropagation();
+		if(!$(this).hasClass('yt-uix-clickcard-active')){
+			$('#yt-uix-clickcard-card4').hide();
+			var contentx = $('#yt-uix-clickcard-card4 .yt-uix-clickcard-card-body').html();
+			$(contentx).hide();
+			$('.yt-uix-clickcard.yt-uix-clickcard-active').append(contentx);
+			$('.yt-uix-clickcard.yt-uix-clickcard-active').removeClass('yt-uix-clickcard-active');
+		}
+		$(this).toggleClass('yt-uix-clickcard-active');
+		if($(this).hasClass('yt-uix-clickcard-active')){
+			var content = $(this).find('.yt-uix-clickcard-content');
+			$('#yt-uix-clickcard-card4 .yt-uix-clickcard-card-body').html(content);
+			css = {
+				'left':($(this).offset().left - $('#yt-uix-clickcard-card4').width() - 13).toString() + 'px',
+				'top':($(this).offset().top - $('#yt-uix-clickcard-card4').height() + 26).toString()+ 'px'
+			}
+			$('#yt-uix-clickcard-card4').css(css).show();
+		}else{
+			$('#yt-uix-clickcard-card4').hide();
+			var content = $('#yt-uix-clickcard-card4 .yt-uix-clickcard-card-body').html();
+			$(content).hide();
+			$(this).append(content);
+		}
+	});
+	$(document).click(function(e){
+		var target = e.target;
+		var contentx = $('#yt-uix-clickcard-card4 .yt-uix-clickcard-card-body').html();
+		$(contentx).hide();
+		$('.yt-uix-clickcard.yt-uix-clickcard-active').append(contentx);
+		if($('.yt-uix-clickcard').hasClass('yt-uix-clickcard-active') && !$(target).is('.yt-uix-clickcard'))
+		{
+			$('#yt-uix-clickcard-card4').hide();
+			$('.yt-uix-clickcard.yt-uix-clickcard-active').removeClass('yt-uix-clickcard-active');
+		}
+	});
+	$('#yt-uix-clickcard-card4').live('click',function(e){
+		e.stopPropagation();
+	});
+	$('#yt-uix-clickcard-card4 .yt-uix-clickcard-close').live('click',function(e){
+		e.stopPropagation();
+		$('#yt-uix-clickcard-card4').hide();
+		var contentx = $('#yt-uix-clickcard-card4 .yt-uix-clickcard-card-body').html();
+		$(contentx).hide();
+		$('.yt-uix-clickcard.yt-uix-clickcard-active').append(contentx);
+		$('.yt-uix-clickcard.yt-uix-clickcard-active').removeClass('yt-uix-clickcard-active');
+	})
+  $('.kejian-settings-department').live('focus',function(e){
+		$(this).toggleClass('department_actived');
+    showWindow('nav', '/forum.php?mod=misc&action=nav&already_inside=1&psvr_g='+$(this).parents('.metadata-container').find('.psvr_g').val()+'&psvr_f='+$(this).parents('.metadata-container').find('.psvr_f').val(), 'get', 0);
+    return false;
+  });
 	<% end %>
 </script>
+<%= render file:'/application/footers/_sdk_footer' %>
