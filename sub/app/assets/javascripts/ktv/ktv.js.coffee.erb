@@ -240,26 +240,34 @@
     )
 		
   KTV.upload_page_new_cws_load_teachers = ->
-    $('#presentation_teacher').val("请选择老师");
-    $('#presentation_teacher_select li.first-child').addClass('current');
-		$('#presentation_teacher_select_dynamic').html('');
-		$('#presentation_other_teacher').hide()
-		$('#presentation_teacher_select').hide()
-		$('#presentation_teacher_hv').removeClass('right_on')
-		jQuery.getJSON('/ajax/get_teachers.json?psvr_f='+window.psvr_f,(data)->
-			for teacher in data
-				$('#presentation_teacher_select_dynamic').append('<li>' + teacher + '</li>');
-			KTV.new_cw_trigger_teachers()
-		)
+    $('.department_online').parents('.metadata-container').find('.yt-uix-form-input-select-content.presentation_teacher_span .yt-uix-form-input-select-value').html("请选择老师");
+    $('.department_online').parents('.metadata-container').find('.presentation_other_teacher').hide();
+    # $('.department_online').parents('.metadata-container').find('.presentation_teacher_hv').removeClass('right_on')
+    jQuery.getJSON('/ajax/get_teachers.json?psvr_f='+$('.department_actived').parents('.metadata-container').find('.psvr_f').val(),(data)->
+      $('.department_online').parents('.metadata-container').find('.yt-uix-form-input-select-content.presentation_teacher_span .yt-uix-form-input-select-value').html("请选择老师");
+      $('.department_online').parents('.metadata-container').find('select.presentation_teacher_select_dynamic').html('');
+      $('.department_online').parents('.metadata-container').find('.presentation_other_teacher').hide();
+      for teacher in data
+        $('.department_online').parents('.metadata-container').find('select.presentation_teacher_select_dynamic').append('<option value="' + teacher + '">' + teacher + '</option>');
+      $('.department_online').parents('.metadata-container').find('select.presentation_teacher_select_dynamic').append('<option value="opt_psvr_add_more">其他</option>');
+      # KTV.upload_page_new_cw_trigger_teachers()
+      $('.department_online').removeClass('department_online');
+    )
+  # KTV.upload_page_new_cw_trigger_teachers = ->
+  #   $('select.presentation_teacher_select_dynamic option').off().on('click',(e)->
+  #     if($(this).val() == 'opt_psvr_add_more')
+  #       $(this).parents('.metadata-container').find('.presentation_other_teacher').show();
+  #     else
+  #       $(this).parents('.metadata-container').find('.presentation_other_teacher').hide();
+  #   )
 		
   KTV.upload_page_generate  = (g,f,t) ->
     $('.department_actived').parents('.metadata-container').find('.psvr_g').val(g); # window.psvr_g
     $('.department_actived').parents('.metadata-container').find('.psvr_f').val(f);	# window.psvr_f=selectfid
-    $('.department_actived').parents('.metadata-container').find('.kejian-settings-department').val(t);		
-    #jQuery('#presentation_topic').val(generate_title());
-    KTV.upload_page_new_cws_load_teachers();
+    $('.department_actived').parents('.metadata-container').find('.kejian-settings-department').val(t);
+    KTV.upload_page_new_cws_load_teachers()
     hideWindow('nav');
-    $('.department_actived').removeClass('department_actived');
+    $('.department_actived').removeClass('department_actived').addClass('department_online');
 	
   KTV.Utilities.wrap_with_matches = (str,keyword)->
     objRegExp = /// (

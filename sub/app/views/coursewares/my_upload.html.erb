@@ -450,21 +450,19 @@
 												<fieldset class="metadata-column">
 													<label>
 													<h4 class="category-header">老师姓名</h4>
-													<span class="yt-uix-form-input-select ">
+													<span class="yt-uix-form-input-select presentation_teacher_span">
 														<span class="yt-uix-form-input-select-content">
 															<img class="yt-uix-form-input-select-arrow" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
 															<span class="yt-uix-form-input-select-value">请选择老师</span>
 														</span>
-											      <input type="text" class="text" id="presentation_other_teacher" name="presentation[other_teacher]" size="30" placeholder="例: 郭懋正" value="" style="width: 273px;display: none">
-														
-													<select name="presentation[teacher]" class="yt-uix-form-input-select-element category-input">
-														<% @teachers.each do |teacher| %>
-														<option value="<%= teacher %>"><%= teacher %></option>
-														<% end %>
-														<option value="opt_psvr_add_more">其他</option>
+													<select name="presentation[teacher]" class="yt-uix-form-input-select-element category-input presentation_teacher_select_dynamic">
+															<% @teachers.each do |teacher| %>
+															<option value="<%= teacher %>"><%= teacher %></option>
+															<% end %>
 													</select>
 													</span>
 													</label>
+													<input type="text" class="yt-uix-form-input-text  presentation_other_teacher" name="presentation[other_teacher]"  placeholder="例: 郭懋正" value="" style="margin-top:6px;display: none">
 													<h4 class="category-presentation_sort1_hv">课件类型</h4>
 													<span class="yt-uix-form-input-select ">
 														<span class="yt-uix-form-input-select-content">
@@ -475,7 +473,6 @@
 										        <% Courseware::SORT1STR.each do |k,v| %>
 										        <option value="<%= v %>"><%= v %></option>
 										        <% end %>
-														<option value="opt_psvr_add_more">其他</option>
 													</select>
 													</span>
 													
@@ -760,7 +757,8 @@
 													</label>
 													<label>
 													<h4 class="recording-date-header">制作日期</h4>
-													<span class="recorded-date-formatted yt-uix-form-input-container "><input class="yt-uix-form-input-text recorded-date-formatted-input"></span>
+													<span class="recorded-date-formatted yt-uix-form-input-container ">
+														<input class="yt-uix-form-input-text presentation_version_date recorded-date-formatted-input datepicker publish-date hasDatepicker" value="<%= courseware.version_date[courseware.version.to_s]%>" name="presentation[version_date]"></span>
 													</label>
 													<button role="button" onclick=";return false;" class="recorded-date-today-button yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-content">今天 </span></button>
 													<input type="hidden" class="recorded-date" name="recorded_date">
@@ -879,6 +877,7 @@
 		var tabid = $(this).attr('data-tab-id');
 		$(this).parents('.metadata-editor-container').find('.kejian-settings-form div.metadata-tab[data-tab-id="'+tabid+'"]').removeClass('hid').show();
 		console.log('.kejian-settings-form .'+tabid);
+		clean_card4();
 		return false;
 	});
 	var collapsed_upload = function (tmp) {
@@ -989,16 +988,29 @@
 	});
 	$('#yt-uix-clickcard-card4 .yt-uix-clickcard-close').live('click',function(e){
 		e.stopPropagation();
+		clean_card4();
+	})
+	var clean_card4 = function() {
 		$('#yt-uix-clickcard-card4').hide();
 		var contentx = $('#yt-uix-clickcard-card4 .yt-uix-clickcard-card-body').html();
 		$(contentx).hide();
 		$('.yt-uix-clickcard.yt-uix-clickcard-active').append(contentx);
 		$('.yt-uix-clickcard.yt-uix-clickcard-active').removeClass('yt-uix-clickcard-active');
-	})
+	}
+	
   $('.kejian-settings-department').live('focus',function(e){
 		$(this).toggleClass('department_actived');
     showWindow('nav', '/forum.php?mod=misc&action=nav&already_inside=1&psvr_g='+$(this).parents('.metadata-container').find('.psvr_g').val()+'&psvr_f='+$(this).parents('.metadata-container').find('.psvr_f').val(), 'get', 0);
     return false;
+  });
+  $('select.presentation_teacher_select_dynamic').live('change',function(e){
+    if($('option:selected',this).val() == 'opt_psvr_add_more')
+      $(this).parents('.metadata-container').find('.presentation_other_teacher').show();
+    else
+      $(this).parents('.metadata-container').find('.presentation_other_teacher').hide();
+  })
+  $('.presentation_version_date').click(function(){
+    JTC.setday({format:'yyyy年MM月dd日', readOnly: true});
   });
 	<% end %>
 </script>
