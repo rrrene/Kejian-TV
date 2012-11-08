@@ -587,7 +587,7 @@ jQuery("#fans_submit").live("click", function () {
     <%= simple_form_for(@teacher,:class => "form", :url => teacher_path(@teacher), :html => { :method => :put, :enctype =>  "multipart/form-data" }) do |f| %>
       <section class="setupProfile"> 
 							
-      <figure><img src="<%= avatar_url(@teacher,:middle) %>" width="120" height="120" src="<%= teacher_avatar_url(@teacher,:middle) %>" title="<%= @teacher.name %>" alt="<%= @teacher.name %>"/>></figure> 
+      <figure><img width="120" height="120" src="<%= teacher_avatar_url(@teacher,:middle) %>" title="<%= @teacher.name %>" alt="<%= @teacher.name %>"/>></figure> 
         <div id="file_wrapper">
           <div id="file_faker">
             <input id="file_uploader_text" type="text" />

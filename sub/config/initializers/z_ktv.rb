@@ -163,11 +163,11 @@ log_connect! unless $im_running_under_unicorn
 
 
 
-
+global_xookie_url = "http://#{Setting.ktv_subdomain}/simple/touch.php"
 global_xookie = Ktv::JQuery.ajax({
   psvr_original_response: true,
-  url:"http://#{Setting.ktv_subdomain}/simple/touch.php",
-  type:'GET',
+  url: global_xookie_url,
+  type:'POST',
   data:{psvr_initializing:1},
   :accept=>'raw'+Setting.dz_authkey,
   psvr_response_anyway: true
@@ -175,3 +175,4 @@ global_xookie = Ktv::JQuery.ajax({
 raise 'global_xookie failed!' unless 200==global_xookie.to_i
 raise 'global_xookie called with collission' if $_G.present?
 $_G = MultiJson.load(global_xookie.to_s)
+
