@@ -27,29 +27,34 @@ class AccountSessionsController < Devise::SessionsController
   end
   def create
     if params[:login_ibeike]
-      @login_ibeike = true
-      if Setting.ktv_sub!='ibeike'
-        render text:'this function is not enabled for this site!'
-        return false
-      end
-      ret = UCenter::IBeike.login('user',request,{isuid:0,username:params[:user][:email],password:params[:user][:password]})
-      status = ret['root']['item'][0].to_i
-      suc_flag = false
-      if status > 0
-        u = nil
-        u ||= User.where(ibeike_uid:status).first
-        u ||= User.import_from_ibeike!(UCenter::IBeike.get_user('user',request,{username:status,isuid:1}))
-        if u
-          resource = u
-          suc_flag = true
+      begin
+        @login_ibeike = true
+        if Setting.ktv_sub!='ibeike'
+          render text:'this function is not enabled for this site!'
+          return false
         end
-      elsif -1 == status
-        flash[:alert]='无此用户.'
-      elsif -2 == status
-        flash[:alert]='密码错误.'
-      elsif -3 == status
-        flash[:alert]='安全提问的回答错误.'
-        #todo
+        ret = UCenter::IBeike.login('user',request,{isuid:0,username:params[:user][:email],password:params[:user][:password]})
+        status = ret['root']['item'][0].to_i
+        suc_flag = false
+        if status > 0
+          u = nil
+          u ||= User.where(ibeike_uid:status).first
+          u ||= User.import_from_ibeike!(UCenter::IBeike.get_user('user',request,{username:status,isuid:1}))
+          if u
+            resource = u
+            suc_flag = true
+          end
+        elsif -1 == status
+          flash[:alert]='无此用户.'
+        elsif -2 == status
+          flash[:alert]='密码错误.'
+        elsif -3 == status
+          flash[:alert]='安全提问的回答错误.'
+          #todo
+        end
+      rescue => e
+        render text:'对不起，iBeiKe网站正处于暂时关闭状态，请尝试其他登录方式'
+        return false
       end
     else
       @traditional = true

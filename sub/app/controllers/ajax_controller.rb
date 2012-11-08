@@ -43,7 +43,8 @@ class AjaxController < ApplicationController
     ret = MultiJson.decode result
     if ret['code']
       if params[:email] =~ /@/
-        current_user.update_attribute(:email,params[:email])
+        binding.pry
+        # current_user.update_attribute(:email,params[:email])
       end
       agent = request.env['HTTP_USER_AGENT']
       agent = Setting.user_agent if agent.blank?

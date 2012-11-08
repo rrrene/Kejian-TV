@@ -132,6 +132,7 @@ class AccountController < Devise::RegistrationsController
   def new05
     @seo[:title] = '完成新用户注册'
     @simple_header=true
+    @simple_header_width=840
     @simple_header_with_exit=true
     if current_user.reg_extent_okay?
       @simple_header_width=602

@@ -62,6 +62,7 @@ private
         })
         if ret.xi.to_i>0
           @user.uid=ret.xi.to_i
+          @user.valid?
           @user.save(:validate=>false)
           # 好的！在这一点上，我们就可以往UC那边写入真正的auth了！
           UCenter::ThirdPartyAuth.getauth(nil,{uc_uid:@user.uid.to_s,uid:@auth[:uid],provider:@auth[:provider],will_create:true,oauth_succeeded:true})

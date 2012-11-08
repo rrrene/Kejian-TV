@@ -109,6 +109,8 @@ class ApplicationController < ActionController::Base
     @authkey = @_G['authkey']
     @formhash = @_G['formhash']
     if @_G['uid'] != (current_user ? current_user.uid : 0)
+      p @_G['uid']
+      p (current_user ? current_user.uid : 0)
       sign_out
     end
   end
@@ -234,22 +236,18 @@ class ApplicationController < ActionController::Base
     #   upon observing this
     #   the sub-site should login the corresponding user
   end
+  
   def sign_out_others
     # VERY IMPORTANT:
     #   must sign out DZ at this point.
     cookies.each do |k,v|
-      if k.to_s.starts_with? Setting.dz_cookiepre
-        cookies[k]=nil
+      if k.starts_with? Setting.dz_cookiepre
+        cookies.delete k
       end
     end
     # todo:
     #   upon observing this
     #   the sub-site should self-destruct its cookies
-    #cookies.each do |k,v|
-    #  if k.starts_with?(Discuz.cookiepre)
-    #    cookies.delete(k, 'domain' => (Discuz.cookiedomain))
-    #  end
-    #end
   end
   
   

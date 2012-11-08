@@ -260,7 +260,7 @@ protected
   end
   def authenticate_user_ownership!
     # todo: more admin
-    unless current_user.id==@courseware.user_id or current_user.id==@courseware.uploader_id or Setting.admin_emails.include?(current_user.email)
+    unless current_user.id==@courseware.user_id or current_user.id==@courseware.uploader_id or current_user.super_admin?
       render text:'这不是你的课件.', status: 401
       return false
     end
