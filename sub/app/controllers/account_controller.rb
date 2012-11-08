@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 class AccountController < Devise::RegistrationsController
+  prepend_before_filter proc{@psvr_payloads||=[];@psvr_payloads << 'uc_avatar'},:only=>[:edit]
   prepend_before_filter :authenticate_scope!, :only => [
     :edit,
     :edit_profile,
@@ -35,7 +36,7 @@ class AccountController < Devise::RegistrationsController
     @to_connect = MultiJson.load @material.renren_friends rescue []
     @to_connect ||= []
     @seo[:title] = '账号设置'
-    render layout:'application'
+    render layout:'application_for_devise'
   end
   def edit_profile
     common_account_op!

@@ -87,14 +87,16 @@ class ApplicationController < ActionController::Base
     end
   end
   def xookie
-    res_xookie = Ktv::JQuery.ajax({
+    h_xookie = {
       psvr_original_response: true,
       url:"http://#{Setting.ktv_subdomain}/simple/touch.php",
-      type:'GET',
+      type:'POST',
       'COOKIE'=>request.env['HTTP_COOKIE'],
       :accept=>'raw'+Setting.dz_authkey,
       psvr_response_anyway: true
-    })
+    }
+    h_xookie[:data] = {:psvr_payloads => @psvr_payloads.to_json} if @psvr_payloads.present?
+    res_xookie = Ktv::JQuery.ajax(h_xookie)
     res_xookie.cookies.each do |key,value|
       if !@dz_cookiepre_mid and key =~ /#{Setting.dz_cookiepre}([^_]+)_/
         @dz_cookiepre_mid = $1

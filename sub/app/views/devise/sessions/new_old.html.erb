@@ -1,6 +1,5 @@
-<% content_for :title do %>登录<% end %>
 <% if @login_ibeike %>
-<%= image_tag 'ie/ktv_login_ibeike.png',:class => 'ktvregh2', :alt => '使用iBeike账号登录' %>
+<%= image_tag 'ie/ktv_login_ibeike.png',:class => 'ktvregh2', :alt => '使用iBeiKe账号登录' %>
 <% else %>
 <%= image_tag 'ie/ktv_login.png',:class => 'ktvregh2', :alt => '登录' %>
 <% end %>
@@ -9,7 +8,7 @@
 
   <div class="field">
 <% if @login_ibeike %>
-  <%= f.label :email,'iBeike用户名' %>(<%= link_to "转到iBeike首页", 'http://www.ibeike.com',:target=>'_blank' %>)(<%= link_to "忘记密码", 'http://city.ibeike.com/logging.php?action=login' ,:target=>'_blank' %>)<br class="clear">
+    <%= f.label :email,'iBeiKe用户名' %>(<%= link_to "注册iBeiKe账号", 'http://city.ibeike.com',:target=>'_blank' %>)(<%= link_to "忘记密码", 'http://city.ibeike.com' ,:target=>'_blank' %>)<br class="clear">
     <input type="hidden" name="login_ibeike" value="1" />
     <%= f.text_field :email,:class => 's462',:tabindex => 2 %>
 <% else %>

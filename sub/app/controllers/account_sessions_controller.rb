@@ -7,40 +7,81 @@ class AccountSessionsController < Devise::SessionsController
     @traditional||=params[:traditional].present?
     resource = build_resource(nil, :unsafe => true)
     clean_up_passwords(resource)
-    respond_with(resource, serialize_options(resource)) do |format|
-      format.html{render "new",layout:'application'}
+    @login_ibeike ||= (request.path=~/\/spetial_ibeike$/)
+    if @login_ibeike
+      @seo[:title]='用iBeiKe账号登录'
+      if Setting.ktv_sub!='ibeike'
+        render text:'this function is not enabled for this site!'
+        return false
+      else
+        respond_with(resource, serialize_options(resource)) do |format|
+          format.html{render "new_old",layout:'application_for_devise'}
+        end
+      end
+    else
+      respond_with(resource, serialize_options(resource)) do |format|
+        format.html{render "new",layout:'application'}
+      end
     end
+
   end
   def create
-    email = params[:userEmail]
-    passwd = params[:userPassword]
-    email ||= params[:user][:email]
-    passwd ||= params[:user][:password]
-    ret = UCenter::User.login(request,{isuid:2,username:email,password:passwd})
-    status = ret['root']['item'][0].to_i
-    suc_flag = false
-    if status > 0
-      u = nil
-      u ||= User.where(uid:status).first
-      u ||= User.import_from_dz!(UCenter::User.get_user(request,{username:status,isuid:1}))
-      if u
-        resource = u
-        suc_flag = true
+    if params[:login_ibeike]
+      @login_ibeike = true
+      if Setting.ktv_sub!='ibeike'
+        render text:'this function is not enabled for this site!'
+        return false
       end
-    elsif -1 == status
-      flash[:alert]='无此用户.'
-    elsif -2 == status
-      flash[:alert]='密码错误.'
-    elsif -3 == status
-      flash[:alert]='安全提问的回答错误.'
-      #todo
+      ret = UCenter::IBeike.login('user',request,{isuid:0,username:params[:user][:email],password:params[:user][:password]})
+      status = ret['root']['item'][0].to_i
+      suc_flag = false
+      if status > 0
+        u = nil
+        u ||= User.where(ibeike_uid:status).first
+        u ||= User.import_from_ibeike!(UCenter::IBeike.get_user('user',request,{username:status,isuid:1}))
+        if u
+          resource = u
+          suc_flag = true
+        end
+      elsif -1 == status
+        flash[:alert]='无此用户.'
+      elsif -2 == status
+        flash[:alert]='密码错误.'
+      elsif -3 == status
+        flash[:alert]='安全提问的回答错误.'
+        #todo
+      end
+    else
+      @traditional = true
+      email = params[:userEmail]
+      passwd = params[:userPassword]
+      email ||= params[:user][:email]
+      passwd ||= params[:user][:password]
+      ret = UCenter::User.login(request,{isuid:2,username:email,password:passwd})
+      status = ret['root']['item'][0].to_i
+      suc_flag = false
+      if status > 0
+        u = nil
+        u ||= User.where(uid:status).first
+        u ||= User.import_from_dz!(UCenter::User.get_user(request,{username:status,isuid:1}))
+        if u
+          resource = u
+          suc_flag = true
+        end
+      elsif -1 == status
+        flash[:alert]='无此用户.'
+      elsif -2 == status
+        flash[:alert]='密码错误.'
+      elsif -3 == status
+        flash[:alert]='安全提问的回答错误.'
+        #todo
+      end
     end
     if suc_flag
       sign_in(resource_name, resource);sign_in_others
       set_flash_message(:notice, :signed_in) if is_navigational_format?
       respond_with resource, :location => after_sign_in_path_for(resource)
     else
-      @traditional = true
       new
     end
   end
