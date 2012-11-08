@@ -1147,7 +1147,7 @@ FlashDetect.JS_RELEASE = "1.0.4", function (a, b) {function c(b, c) {
             a(this).each(function () {
                 var c = a.extend({
                     id: a(this).attr("id"),
-                    uploader: "uploadify.swf",
+                    uploader: "/flash/uploadify.swf",
                     script: "uploadify.php",
                     expressInstall: null,
                     folder: "",
@@ -1159,7 +1159,7 @@ FlashDetect.JS_RELEASE = "1.0.4", function (a, b) {function c(b, c) {
                     fileDataName: "Filedata",
                     method: "POST",
                     queueSizeLimit: 999,
-                    simUploadLimit: 1,
+                    // simUploadLimit: 1,
                     queueID: !1,
                     displayData: "percentage",
                     removeCompleted: !0,
@@ -2451,132 +2451,3 @@ $(function () {
 })(jQuery);
 
 // =====================================liber add ================================================
-(function($){
-$(function () {
-    $("div.preview",'#the_upload_ytb').hover(function () {
-        $(this).addClass("preview_hover")
-    }, function () {
-        $(this).removeClass("preview_hover")
-    }), $("div.preview",'#the_upload_ytb').click(function () {
-        window.location.href = $(this).children("a").attr("href")
-    }), $("#new_presentation",'#the_upload_ytb').live("submit", function () {
-        if ($(this).closest(".uploaded").length == 0) return !1
-    }), $("[data-processing-presentation]",'#the_upload_ytb').each(function () {
-        var a = $(this),
-            b = a.attr("data-processing-presentation");
-        setTimeout(function () {
-            showProcessProgress(b)
-        }, 2e3)
-    })
-}), function () {
-    var a, b, c, d = Object.prototype.hasOwnProperty,
-        e = function (a, b) {function e() {
-                this.constructor = a
-            }
-            for (var c in b) d.call(b, c) && (a[c] = b[c]);
-            return e.prototype = b.prototype, a.prototype = new e, a.__super__ = b.prototype, a
-        };
-    c = function () {function a(a) {
-            this.form = a
-        }
-        return a.prototype.start = function (a) {
-            return $(".qq-uploader",'#the_upload_ytb').addClass("selected"), $("#upload_progress",'#the_upload_ytb').addClass("active").removeClass("inactive"), $("#upload_progress .progress_title",'#the_upload_ytb').text("正在上传 " + a)
-        }, a.prototype.progress = function (a, b) {
-            var c;
-            return c = "已上传 " + this.formatSize(a), a !== b && (c += ", 共" + this.formatSize(b)), $("#upload_progress .progress_title",'#the_upload_ytb').text(c), $("#upload_progress .progress_meter",'#the_upload_ytb').width(a * 100 / b + "%")
-        }, a.prototype.complete = function (a) {
-            return $("#the_slides",'#the_upload_ytb').remove(), this.form.attr("action", "/presentations/" + a.id).append('<input type="hidden" name="_method" value="PUT" />').addClass("uploaded"), $(".presentation_wrapper",'#the_upload_ytb').attr("id", "presentation_" + a.id), $("#process_progress",'#the_upload_ytb').addClass("active").closest(".step").attr("data-processing-presentation", a.id), showProcessProgress(a.id)
-        }, a.prototype.formatSize = function (a) {
-            var b;
-            b = -1;
-            while (a > 99) a /= 1024, b++;
-            return Math.max(a, .1).toFixed(1) + ["KB", "MB", "GB", "TB", "PB", "EB"][b]
-        }, a
-    }(), b = function () {function a() {
-            a.__super__.constructor.apply(this, arguments), this.container = $("#uploader",'#the_upload_ytb'), this.setup()
-        }
-        return e(a, c), a.prototype.setup = function () {
-            var a, b = this;
-            return this.form.find('input[name="presentation[id]"]').remove(), a = {
-                authenticity_token: $("meta[name=csrf-token]",'#the_upload_ytb').attr("content")
-            }, a[this.container.data("session-key-name")] = this.container.data("session-key"), this.uploader = new qq.FileUploader({
-                allowedExtensions: ["pdf",'djvu','ppt','pptx','doc','docx','zip','rar','7z'],
-                element: this.container.get(0),
-                action: this.form.attr("action") + ".json",
-                requestType: this.form.find("input[name=_method]").val() || "POST",
-                multiple: !1,
-                params: a,
-                template: '<div class="qq-uploader">                  <div class="qq-upload-button">                    <div class="qq-upload-drop-area"><span>Drop files here to upload</span></div>                    <span class="button primary select">选择要上传的文件</span>                    <span class="button primary cancel">文件已选定</span>                  </div>                  <ul class="qq-upload-list"></ul>                </div>',
-                onProgress: function (a, c, d, e) {
-                    return b.progress(d, e)
-                },
-                onComplete: function (a, c, d) {
-                    return b.complete(d)
-                },
-                onSubmit: function (a, c) {
-                    return b.start(c)
-                }
-            })
-        }, a
-    }(), a = function () {function a() {
-            a.__super__.constructor.apply(this, arguments), this.config = this.form.data("s3"), this.setup()
-        }
-        return e(a, c), a.prototype.setup = function () {
-            var a = this;
-            return $("#uploader",'#the_upload_ytb').append('<div class="qq-uploader">        <div class="qq-upload-button">          <span class="button primary select">选择要上传的文件</span>          <span class="button primary cancel">文件已选定</span>        </div>        <ul class="qq-upload-list"></ul>      </div>'), $("#presentation_pdf",'#the_upload_ytb').uploadify({
-                uploader: "/flash/uploadify.swf",
-                hideButton: !0,
-                wmode: "transparent",
-                width: 200,
-                height: 49,
-                script: "http://v0.api.upyun.com/ktv-up/",//'http://kejian.lvh.me/ktv',
-                fileDataName: "file",
-                scriptData: {
-                    policy: encodeURIComponent(encodeURIComponent(this.config.policy)),
-                    signature: encodeURIComponent(encodeURIComponent(this.config.signature)),
-                },
-                fileDesc: "Presentation",
-                fileExt: "*.pdf; *.djvu; *.ppt; *.pptx; *.doc; *.docx; *.zip; *.rar; *.7z",
-                onSelect: function (b, c, d) {
-                    $('#presentation_title').val($('#presentation_title').val()+((d.name.lastIndexOf(".") != -1) ? d.name.substring(0, d.name.lastIndexOf(".")) : d.name));
-                    $('#biaozhu_cw').show();
-                    return $("#presentation_pdfUploader",'#the_upload_ytb').css({
-                        left: "-5000px"
-                    }), a.start(d.name)
-                },
-                onComplete: function (b, c, d, e) {
-                    a.form.attr("enctype", "").find("input#presentation_pdf").remove();
-                    a.form.ajaxSubmit({
-                        url: a.form.attr("action") + ".json",
-                        data: {
-                            "presentation[pdf_filename]": d.name
-                        },
-                        dataType: "json",
-                        success: function (b) {
-                            return a.complete(b)
-                        }
-                    });
-                    $('#ok_to_leave').show();
-                    $("#ok_to_leave").fadeOut('fast').fadeIn('fast').fadeOut('fast').fadeIn('fast');
-                },
-                onProgress: function (b, c, d, e) {
-                    return a.progress(e.bytesLoaded, d.size)
-                },
-                scriptAccess: "always",
-                queueID: "uploadifyQueue",
-                auto: !0,
-                folder: "",
-                sizeLimit: 104857600,
-                multi: !1
-            })
-        }, a
-    }(), a.supported = function (a) {
-        return FlashDetect.installed && a.data("s3")
-    }, jQuery(function () {
-        var c;
-        c = $("#upload_presentation",'#the_upload_ytb');
-        if (c.length > 0) return a.supported(c) ? window.uploader = new a(c) : window.uploader = new b(c)
-    })
-}.call(this);
-
-})(jQuery);

@@ -83,8 +83,8 @@
 						<!-- really really upload -->
 						<div class="starting-box-inner" id="upload-prompt-box" style="visibility: visible;">
 							<div class="ytg-box starting-box-table">
-				        <div id="uploader" style="display:none">
-				          <input id="presentation_pdf" name="presentation[pdf]" type="file" multiple="multiple" />
+				        <div id="uploader">
+				          <input id="presentation_pdf" name="presentation[pdf]" type="file" style="display:none" />
 				        </div>
 								<!-- Left -->
 								<div class="starting-box-left-column">
@@ -299,7 +299,7 @@
 										</div>
 									</div>
 									<div class="metadata-container">
-										<%= form_for @courseware,:url => "/presentations", :html => { :method => :post,'data-s3' =>@config.to_json,  :class => 'kejian-settings-form', :autocomplete=>"off" } do |f| %>
+										<%= form_for @courseware,:url => "/presentations", :html => { :method => :post,'data-s3' => @config.to_json,  :class => 'kejian-settings-form', :autocomplete=>"off" } do |f| %>
 					          <input type="hidden" name="psvr_g" value="<%= params[:psvr_g] %>" class="psvr_g">
 					          <input type="hidden" name="psvr_f" value="<%= params[:psvr_f] %>" class="psvr_f">
 								    <input id="presentation_uptime" name="presentation[uptime]" type="hidden" value="<%=@uptime%>" />
@@ -838,38 +838,38 @@
 
 <script type="text/javascript" charset="utf-8">
 	<% content_for :butt2 do %>
+
   $('.psvr_f').val(<%= Ktv::Utils.safely('undefined'){ret=@c.fid;if ret.present?;ret;else;raise 'bitch!';end} %>);
   $('.psvr_g').val(<%= Ktv::Utils.safely('undefined'){ret=Department.get_fid(@c.department);if ret.present?;ret;else;raise 'bitch!';end}%>);
 	
 	$('#the_upload_ytb .start-upload-button,#the_upload_ytb #multiple-uploads-link').live('click',function(){
-		$('#presentation_pdf').trigger('click');
+		$('.starting-box-left-column').trigger('click');
 	});
 	item = new Array();
-	$('#the_upload_ytb #presentation_pdf').live('change',function(){
-		if(!this.files.length){
-			return false;
-		}
-		$('#the_upload_ytb #upload-page').attr('class','active-upload-page');
-    for (var i = 0; i < this.files.length; i++) {
-       var file = this.files[i];
-			 console.log(file.name,file);
-			 
-			 item[i] = $('#the_upload_ytb #upload-item-template').clone();
-			 item[i].attr('id','upload-item-'+i);
-			 item[i].attr('class','upload-item');
-			 if(i!=0){
-				 item[i].addClass('collapsed-item');
-				 item[i].find('.notification-area').next().hide();
-				 item[i].find('.sub-item-exp-zippy').css({'margin-top':'0px','overflow':'hidden','display':'none'})
-			 }else{
-				 item[i].find('.expand-collapse-link').html('▲ 折叠');
-			 }
-			 item[i].find('.item-title-area > .item-title').html(file.name);
-			 item[i].find('.item-sub-title > .upload-status-text').html('正在上传您的课件...');
-			 item[i].find('.kejian-settings-form  .kejian-settings-title').val(file.name);
-			 $('#active-uploads-contain').append(item[i][0]);			 
-    }
-	});
+	// $('#the_upload_ytb #presentation_pdf').live('change',function(){
+	// 	if(!this.files.length){
+	// 		return false;
+	// 	}
+	// 	$('#the_upload_ytb #upload-page').attr('class','active-upload-page');
+	//     for (var i = 0; i < this.files.length; i++) {
+	//        var file = this.files[i];
+	// 		 
+	// 		 item[i] = $('#the_upload_ytb #upload-item-template').clone();
+	// 		 item[i].attr('id','upload-item-'+i);
+	// 		 item[i].attr('class','upload-item');
+	// 		 if(i!=0){
+	// 			 item[i].addClass('collapsed-item');
+	// 			 item[i].find('.notification-area').next().hide();
+	// 			 item[i].find('.sub-item-exp-zippy').css({'margin-top':'0px','overflow':'hidden','display':'none'})
+	// 		 }else{
+	// 			 item[i].find('.expand-collapse-link').html('▲ 折叠');
+	// 		 }
+	// 		 item[i].find('.item-title-area > .item-title').html(file.name);
+	// 		 item[i].find('.item-sub-title > .upload-status-text').html('正在上传您的课件...');
+	// 		 item[i].find('.kejian-settings-form  .kejian-settings-title').val(file.name);
+	// 		 $('#active-uploads-contain').append(item[i][0]);			 
+	//     }
+	// });
 	
   var new_coursewares = function(count){
     $.ajax({
@@ -892,7 +892,6 @@
 		$(this).addClass('selected');
 		var tabid = $(this).attr('data-tab-id');
 		$(this).parents('.metadata-editor-container').find('.kejian-settings-form div.metadata-tab[data-tab-id="'+tabid+'"]').removeClass('hid').show();
-		console.log('.kejian-settings-form .'+tabid);
 		clean_card4();
 		return false;
 	});
@@ -1031,6 +1030,169 @@
 		    day = '0'+day;
 		$(this).prev().find('input.presentation_version_date').val(year + '年' + month + '月' + day +'日');
 	});
+	var jsonArray = new Array();
+(function($) {
+			var countingdown_upload = 0;
+	    var a, b, c, d = Object.prototype.hasOwnProperty,
+      e = function (a, b) {function e() {
+              this.constructor = a
+          }
+          for (var c in b) d.call(b, c) && (a[c] = b[c]);
+          return e.prototype = b.prototype, a.prototype = new e, a.__super__ = b.prototype, a
+      };
+	    c = function () {
+				function a(a) {
+	          this.form = a
+	      }
+        return a.prototype.start = function (a) {
+            return $(".qq-uploader",'#the_upload_ytb').addClass("selected"), $("#upload_progress",'#the_upload_ytb').addClass("active").removeClass("inactive"), $("#upload_progress .progress_title",'#the_upload_ytb').text("正在上传 " + a)
+        }, 
+				a.prototype.progress = function (a, b) {
+	            var c;
+	            return c = "已上传 " + this.formatSize(a), a !== b && (c += ", 共" + this.formatSize(b)), $("#upload_progress .progress_title",'#the_upload_ytb').text(c), $("#upload_progress .progress_meter",'#the_upload_ytb').width(a * 100 / b + "%")
+        }, a.prototype.complete = function (a) {
+	            return $("#the_slides",'#the_upload_ytb').remove(), this.form.attr("action", "/presentations/" + a.id).append('<input type="hidden" name="_method" value="PUT" />').addClass("uploaded"), $(".presentation_wrapper",'#the_upload_ytb').attr("id", "presentation_" + a.id), $("#process_progress",'#the_upload_ytb').addClass("active").closest(".step").attr("data-processing-presentation", a.id), showProcessProgress(a.id)
+        }, a.prototype.formatSize = function (a) {
+	            var b;
+	            b = -1;
+	            while (a > 99) a /= 1024, b++;
+	            return Math.max(a, .1).toFixed(1) + ["KB", "MB", "GB", "TB", "PB", "EB"][b]
+        }, a
+	    }(), 
+			b = function () {
+					function a() {
+	            a.__super__.constructor.apply(this, arguments), this.container = $("#uploader",'#the_upload_ytb'), this.setup()
+	        }
+	        return e(a, c), a.prototype.setup = function () {
+	            var a, b = this;
+	            return this.form.find('input[name="presentation[id]"]').remove(), a = {
+	                authenticity_token: $("meta[name=csrf-token]",'#the_upload_ytb').attr("content")
+	            }, a[this.container.data("session-key-name")] = this.container.data("session-key"), this.uploader = new qq.FileUploader({
+	                allowedExtensions: ["pdf",'djvu','ppt','pptx','doc','docx','zip','rar','7z'],
+	                element: this.container.get(0),
+	                action: this.form.attr("action") + ".json",
+	                requestType: this.form.find("input[name=_method]").val() || "POST",
+	                multiple: !1,
+	                params: a,
+	                template: '<div class="qq-uploader">                  <div class="qq-upload-button">                    <div class="qq-upload-drop-area"><span>Drop files here to upload</span></div>                    <span class="button primary select">选择要上传的文件</span>                    <span class="button primary cancel">文件已选定</span>                  </div>                  <ul class="qq-upload-list"></ul>                </div>',
+	                onProgress: function (a, c, d, e) {
+	                    return b.progress(d, e)
+	                },
+	                onComplete: function (a, c, d) {
+	                    return b.complete(d)
+	                },
+	                onSubmit: function (a, c) {
+	                    return b.start(c)
+	                }
+	            })
+	        }, a
+	    }(), 
+			a = function () {
+					function a() {
+	            a.__super__.constructor.apply(this, arguments), this.config = this.form.data("s3"), this.setup()
+	        }
+	        return e(a, c), a.prototype.setup = function () {
+	            var a = this;
+	            return $("#presentation_pdf",'#the_upload_ytb').uploadify({
+						      uploader: "/flash/uploadify.swf",
+									swf:"/flash/uploadify.swf",
+						      hideButton: !0,
+						      wmode: "transparent",
+						      width: $('.starting-box-left-column').width(),
+						      height: $('.starting-box-left-column').height(),
+						      multi: true,
+						      script: "http://v0.api.upyun.com/ktv-up/",//'http://kejian.lvh.me/ktv',
+						      fileDataName: "file",
+						      fileDesc: "Presentation",
+						      fileExt: "*.pdf; *.djvu; *.ppt; *.pptx; *.doc; *.docx; *.zip; *.rar; *.7z",
+						      onSelect: function (b, c, d) {
+											if(!d){
+												return false;
+											}
+											$('#the_upload_ytb #upload-page').attr('class','active-upload-page');
+								      var file = d;
+											var xxx= this;
+			                $.ajax({
+			                	url:'/ajax/prepare_upload',
+												type:'POST',
+												data:{'authenticity_token':"<%= form_authenticity_token %>"},
+												dataType:'json'
+			                }).done(function(json){
+												jsonArray.push(json.config);
+												$("#presentation_pdf",'#the_upload_ytb').uploadify('settings','scriptData',{
+				                    policy: encodeURIComponent(encodeURIComponent(json.config.policy)),
+				                    signature: encodeURIComponent(encodeURIComponent(json.config.signature))
+				                });
+												$("#presentation_pdf",'#the_upload_ytb').uploadify('upload',c);
+												console.log(xxx);
+			                });
+											item[countingdown_upload] = $('#the_upload_ytb #upload-item-template').clone();
+											item[countingdown_upload].attr('id','upload-item-'+countingdown_upload);
+											item[countingdown_upload].attr('class','upload-item');
+											if(countingdown_upload!=0){
+												 item[countingdown_upload].addClass('collapsed-item');
+												 item[countingdown_upload].find('.notification-area').next().hide();
+												 item[countingdown_upload].find('.sub-item-exp-zippy').css({'margin-top':'0px','overflow':'hidden','display':'none'})
+											}else{
+												 item[countingdown_upload].find('.expand-collapse-link').html('▲ 折叠');
+											}
+											item[countingdown_upload].find('.item-title-area > .item-title').html(file.name);
+											item[countingdown_upload].find('.item-sub-title > .upload-status-text').html('正在上传您的课件...');
+											item[countingdown_upload].find('.kejian-settings-form  .kejian-settings-title').val(((d.name.lastIndexOf(".") != -1) ? d.name.substring(0, d.name.lastIndexOf(".")) : d.name));
+											 $('#active-uploads-contain').append(item[countingdown_upload][0]);			 
+						          // $('#presentation_title').val($('#presentation_title').val()+((d.name.lastIndexOf(".") != -1) ? d.name.substring(0, d.name.lastIndexOf(".")) : d.name));
+						          // $('#biaozhu_cw').show();
+											countingdown_upload++;
+						          return a.start(d.name)
+						      },
+						      onComplete: function (b, c, d, e) {
+											window.onbeforeunload = null;
+						          a.form.attr("enctype", "").find("input#presentation_pdf").remove();
+						          a.form.ajaxSubmit({
+						              url: a.form.attr("action") + ".json",
+						              data: {
+						                  "presentation[pdf_filename]": d.name
+						              },
+						              dataType: "json",
+						              success: function (b) {
+						                  return a.complete(b)
+						              }
+						          });
+						          $('#ok_to_leave').show();
+						          $("#ok_to_leave").fadeOut('fast').fadeIn('fast').fadeOut('fast').fadeIn('fast');
+						      },
+						      onProgress: function (b, c, d, e) {
+											window.onbeforeunload = confirmExit;
+										  function confirmExit()
+										  {
+										    return "您即将离开此页面。" + "\n\n" + "如果此时您离开此页面可能会丢失您所填的内容。";
+										  }
+						          return a.progress(e.bytesLoaded, d.size)
+						      }, 
+									onUploadProgress : function(file, bytesUploaded, bytesTotal, totalBytesUploaded, totalBytesTotal) {
+										console.log(totalBytesUploaded + ' bytes uploaded of ' + totalBytesTotal + ' bytes.');
+									},
+									onSWFReady: function(){
+											$('#presentation_pdfUploader').css({'left':$('.starting-box-left-column').offset().left,'position':'absolute','float':'left'});				
+									},
+						      scriptAccess: "always",
+						      queueID: "uploadifyQueue",
+						      auto: false,
+						      folder: "",
+						      sizeLimit: 104857600
+						  });
+	        }, a
+	    }(), 
+			a.supported = function (a) {
+	        return FlashDetect.installed && a.data("s3")
+	    }, 
+			jQuery(function () {
+	        var c;
+	        c = $(".kejian-settings-form",'#the_upload_ytb');
+	        if (c.length > 0) return a.supported(c) ? window.uploader = new a(c) : window.uploader = new b(c)
+	    })
+})(jQuery);
+
 	<% end %>
 </script>
 <%= render file:'/application/footers/_sdk_footer' %>

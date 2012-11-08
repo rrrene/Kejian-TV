@@ -271,6 +271,26 @@ HEREDOC
     @courseware.save!
     redirect_to @courseware
   end
+  def prepare_upload
+    if current_user.nil?
+      render json:{status:'failed',reason:'您尚未登录！'}
+      return false
+    end
+    uptime = Time.now.to_i
+    policy = {
+      'save-key' =>  "/#{current_user.id}/#{uptime}.pdf",
+      expiration: "#{1.hour.since.to_i}",
+      bucket: 'ktv-up',
+      'allow-file-type' =>  'pdf,djvu,ppt,pptx,doc,docx,zip,rar,7z',
+      'content-length-range' =>  '0,199000000',
+    }.to_json
+    policy = Base64.encode64(policy).split("\n").join('')
+    config = {
+      policy: policy,
+      signature: Digest::MD5.hexdigest(policy+'&'+'Vv0WpPhlztxkPn7c9F3x3S8zgRE=')
+    }
+    render json:{status:'suc',uptime:uptime,config:config}
+  end
   def seg
     params[:q] = params[:q].strip
     render text:'' and return if params[:q].blank?
