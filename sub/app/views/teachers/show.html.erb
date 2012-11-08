@@ -584,9 +584,10 @@ jQuery("#fans_submit").live("click", function () {
 <div class="__qa">
   <div id="edit_topic_cover" class="hide">
     <header>修改头像 <a class="close" href="javascript:void(0);"></a></header> 
-    <%= simple_form_for(@teacher,:class => "form", :url => user_path(@teacher), :html => { :method => :put, :enctype =>  "multipart/form-data" }) do |f| %>
+    <%= simple_form_for(@teacher,:class => "form", :url => teacher_path(@teacher), :html => { :method => :put, :enctype =>  "multipart/form-data" }) do |f| %>
       <section class="setupProfile"> 
-        <figure><%= image_tag(@teacher.avatar.normal.url) %></figure> 
+							
+      <figure><img src="<%= avatar_url(@teacher,:middle) %>" width="120" height="120" src="<%= teacher_avatar_url(@teacher,:middle) %>" title="<%= @teacher.name %>" alt="<%= @teacher.name %>"/>></figure> 
         <div id="file_wrapper">
           <div id="file_faker">
             <input id="file_uploader_text" type="text" />

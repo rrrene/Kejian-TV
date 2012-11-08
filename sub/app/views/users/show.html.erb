@@ -601,7 +601,7 @@ $("#fans_submit").live("click", function () {
     <header>修改头像 <a class="close" href="javascript:void(0);"></a></header> 
     <%= simple_form_for(@user,:class => "form", :url => user_path(@user), :html => { :method => :put, :enctype =>  "multipart/form-data" }) do |f| %>
       <section class="setupProfile"> 
-        <figure><%= image_tag(@user.avatar.normal.url) %></figure> 
+      <figure><img src="<%= avatar_url(@user,:middle) %>" alt="<%=@user.name_beautified%>" width="120" height="120" ></figure> 
         <div id="file_wrapper">
           <div id="file_faker">
             <input id="file_uploader_text" type="text" />
