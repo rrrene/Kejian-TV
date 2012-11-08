@@ -302,11 +302,14 @@
 										<%= form_for @courseware,:url => "/presentations", :html => { :method => :post,'data-s3' =>@config.to_json,  :class => 'kejian-settings-form', :autocomplete=>"off" } do |f| %>
 					          <input type="hidden" name="psvr_g" value="<%= params[:psvr_g] %>" class="psvr_g">
 					          <input type="hidden" name="psvr_f" value="<%= params[:psvr_f] %>" class="psvr_f">
+								    <input id="presentation_uptime" name="presentation[uptime]" type="hidden" value="<%=@uptime%>" />
 											<div data-tab-id="basic-info" class="metadata-tab">
 												<fieldset class="metadata-two-column">
 													<label>
 													<h4>标题</h4>
-													<span class=" yt-uix-form-input-container "><input name="title" class="yt-uix-form-input-text kejian-settings-title"></span>
+													<span class=" yt-uix-form-input-container ">
+														<input name="presentation[title]" class="presentation_title yt-uix-form-input-text kejian-settings-title" placeholder="例: 阅读与练习第1次 - 解析函数的判定"  value="<%= cookies[:presentation_pretitle] %><%= ': ' if cookies[:presentation_pretitle].present? %>">
+													</span>
 													</label>
 													<label>
 													<h4>学院与课程名</h4>
@@ -809,7 +812,7 @@
 							▼ 展开
 						</div>
 						<div style="max-height: 1px;">
-							<img width="1" height="1" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/962985656/?data=type%3Dupload&amp;label=default" alt="">
+							<img width="1" height="1" src="" alt="">
 						</div>
 					</div>
 					<div id="suggestion-alert-template" class="yt-alert yt-alert-actionable yt-alert-info hid ">
@@ -850,6 +853,7 @@
     for (var i = 0; i < this.files.length; i++) {
        var file = this.files[i];
 			 console.log(file.name,file);
+			 
 			 item[i] = $('#the_upload_ytb #upload-item-template').clone();
 			 item[i].attr('id','upload-item-'+i);
 			 item[i].attr('class','upload-item');
@@ -866,6 +870,18 @@
 			 $('#active-uploads-contain').append(item[i][0]);			 
     }
 	});
+	
+  var new_coursewares = function(count){
+    $.ajax({
+      url:'/ajax/add_new_coursewares_dynamic',
+      type:'POST',
+      data:{'count':count},
+      dataType:'json'
+    }).done(function(json){
+      
+    })
+  }
+	
 	$('ul.tabs > li.tab-header').live('click',function(e){
 		if($(this).hasClass('selected')){
 			return false;
@@ -933,17 +949,7 @@
 	})
 	$('select').live('change',function(){
 		$(this).prev().find('.yt-uix-form-input-select-value').html($(this).find('option:selected').html());
-    });
-  var new_coursewares = function(){
-    $.ajax({
-      url:'/ajax/add_new_coursewares_dynamic',
-      type:'POST',
-      data:{},
-      dataType:'json'
-    }).done(function(json){
-      
-    })
-  }
+  });
 	var card = '<div id="yt-uix-clickcard-card4" class="yt-uix-clickcard-card yt-uix-clickcard-card-visible" style="display:none;"><div class="yt-uix-card-border-arrow yt-uix-card-border-arrow-horizontal" style="bottom: 6px;"></div><div class="yt-uix-clickcard-card-border"><div class="yt-uix-card-body-arrow yt-uix-card-body-arrow-horizontal" style="bottom: 6px;"></div><div class="yt-uix-clickcard-card-body"></div></div></div>'
 	$('#the_upload_ytb').append(card)
 	

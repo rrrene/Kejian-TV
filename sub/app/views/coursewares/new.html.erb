@@ -10,7 +10,7 @@
       });
     <% end %>
     
-  <%= form_for @courseware,:url => "/presentations", :html => { :method => :post,'data-s3' =>@config.to_json,  :class => 'new_presentation', :id=>'upload_presentation', :autocomplete=>"off" } do |f| %>
+  <%= form_for @courseware,:url => "/presentations", :html => { :method => :post,'data-s3' => @config.to_json,  :class => 'new_presentation', :id=>'upload_presentation', :autocomplete=>"off" } do |f| %>
     <input id="presentation_uptime" name="presentation[uptime]" type="hidden" value="<%=@uptime%>" />
     <section id="presentation" class="supplimental">
       <div class="wrapper">
