@@ -133,7 +133,12 @@ class AccountController < Devise::RegistrationsController
     @seo[:title] = '完成新用户注册'
     @simple_header=true
     @simple_header_with_exit=true
-    @simple_header_width=840
+    if current_user.reg_extent_okay?
+      @simple_header_width=602
+      @simple_header_with_exit=false
+      render 'reg_extent_suc',:layout=>'application'
+      return true
+    end
     if params[:unfreeze]
       current_user.update_attribute(:reg_extent,0)
       redirect_to '/'
@@ -148,7 +153,9 @@ class AccountController < Devise::RegistrationsController
       if current_user.reg_extent >= 888
         current_user.update_attribute(:reg_extent,1000)
         current_user.update_attribute(:renren_cookies,'')
-        render 'reg_extent_suc' 
+        @simple_header_width=602
+        @simple_header_with_exit=false
+        render 'reg_extent_suc',:layout=>'application' 
         return true
       else
         redirect_to '/'
