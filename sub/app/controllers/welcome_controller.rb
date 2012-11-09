@@ -8,7 +8,7 @@ class WelcomeController < ApplicationController
     if !will_redirect
       common_op!
       if current_user
-        @coursewares=Courseware.normal_father.any_of(
+        @coursewares=Courseware.nondeleted.normal.is_father.any_of(
           {:user_id.in => current_user.following_ids},
           {:uploader_id.in => current_user.following_ids},
           {:course_fid.in => current_user.followed_course_fids}
@@ -32,7 +32,7 @@ class WelcomeController < ApplicationController
   def latest
     @seo[:title] = '全部课件'
     common_op!
-    @coursewares = Courseware.normal_father.no_privacy
+    @coursewares = Courseware.nondeleted.normal.is_father.no_privacy
     @coursewares = Courseware.additional_conditions(@coursewares,params)
     @coursewares = @coursewares.paginate(:page => params[:page], :per_page => @per_page)
     render 'index'
@@ -40,13 +40,13 @@ class WelcomeController < ApplicationController
   def featured
     @seo[:title] = '资源广场'
     common_op!
-    @coursewares=Courseware.normal.desc('downloads_count').paginate(:page => params[:page], :per_page => @per_page)
+    @coursewares=Courseware.nondeleted.normal.is_father.desc('downloads_count').paginate(:page => params[:page], :per_page => @per_page)
     render 'index'
   end
   def hot
     @seo[:title] = '最热课件'
     common_op!
-    @coursewares=Courseware.normal.desc('views_count').paginate(:page => params[:page], :per_page => @per_page)
+    @coursewares=Courseware.nondeleted.normal.is_father.desc('views_count').paginate(:page => params[:page], :per_page => @per_page)
     render 'index'    
   end
   def inactive_sign_up
@@ -68,7 +68,7 @@ class WelcomeController < ApplicationController
   def feeds
     respond_to do |format|
       format.html{redirect_to '/welcome/feeds.rss' and return}
-      format.rss{@coursewares = Courseware.normal_father.desc('created_at').limit(10);render :layout=>false}
+      format.rss{@coursewares = Courseware.nondeleted.normal.is_father.desc('created_at').limit(10);render :layout=>false}
     end
   end
 private

@@ -24,10 +24,10 @@ class CoursewaresController < ApplicationController
       format.json{
         pagination_get_ready
         
-        # @coursewares = Courseware.nondeleted.normal_father
+        # @coursewares = Courseware.nondeleted.normal.is_father
         # @coursewares = @coursewares.any_of({:uploader_id=>Moped::BSON::ObjectId('506d559de1382375f3000160')},{:user_ids=>Moped::BSON::ObjectId('507ac0e2e138236b27000147')})
 
-        @coursewares = Courseware.nondeleted.normal_father
+        @coursewares = Courseware.nondeleted.normal.is_father
         deal_with_params!
         pagination_over(@coursewares.count)
         @coursewares = @coursewares.paginate(:page => @page, :per_page => @per_page)
@@ -44,7 +44,7 @@ class CoursewaresController < ApplicationController
       format.json{
         pagination_get_ready
         @coursewares = Courseware.any_of({:user_id.in => current_user.following_ids},
-                        {:topic.in => current_user.followed_topic_ids}).nondeleted.normal
+                        {:topic.in => current_user.followed_topic_ids}).nondeleted.normal.is_father
         deal_with_params!
         pagination_over(@coursewares.count)
         @coursewares = @coursewares.paginate(:page => @page, :per_page => @per_page)
@@ -123,7 +123,7 @@ class CoursewaresController < ApplicationController
   def show
     @show_pl_ytb = true
     if @courseware.redirect_to_id.present?
-      @courseware = Courseware.where(:_id => @courseware.redirect_to_id.to_s).first
+      @courseware = Courseware.nondeleted.where(:_id => @courseware.redirect_to_id.to_s).first
       if @courseware
         redirect_to "/coursewares/#{@courseware.id}",notice:"相同的文件已经存在，页面自动跳转."
         return false
@@ -174,7 +174,7 @@ class CoursewaresController < ApplicationController
         # binding.pry
         @self_comments = @comments.where(:user_id => @courseware.uploader_id).paginate(:page => 1, :per_page => 5)
         @comments = @comments.paginate(:page => params[:page], :per_page => @per_page)
-        @recommandation = Courseware.nondeleted.normal_father.random(4)
+        @recommandation = Courseware.nondeleted.normal.is_father.random(4)
         @note = Note.new
         @note.courseware_id = @courseware.id
         @note.page = 0
@@ -237,7 +237,7 @@ class CoursewaresController < ApplicationController
   end
 protected
   def find_item
-    @courseware = Courseware.where(:_id => params[:id]).first
+    @courseware = Courseware.nondeleted.where(:_id => params[:id]).first
     if @courseware.nil?
       render_404
       return false
