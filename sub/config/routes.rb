@@ -253,6 +253,8 @@ Sub::Application.routes.draw do
   
   resources :teachers do
     member do
+      get 'coursewares' => 'coursewares#index'
+      get 'coursewares_with_page/:page' => 'coursewares#index'
       put :action
       post :action
       delete :action
@@ -273,6 +275,8 @@ Sub::Application.routes.draw do
       post 'invite_submit'
     end
     member do
+      get 'coursewares' => 'coursewares#index'
+      get 'coursewares_with_page/:page' => 'coursewares#index'
       post 'invite_send'
       get "answered"
       get "asked"

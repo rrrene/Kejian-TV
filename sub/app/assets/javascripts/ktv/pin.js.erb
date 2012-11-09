@@ -5726,7 +5726,12 @@ window.autoLayout = {
             k($(this))
         });
         window.App.pin_resize_psvr_handler = function () {
-          console.log('resized!');
+            console.log('resized!');
+            if(!window.loginUser){
+              jQuery('.psvr_login_required').attr('onclick','').unbind('click').die('click').on('click',function(){
+                return KTV.login();
+              });
+            }
             if (!autoLayout.defaults.isFixed) {
                 autoLayout.debounceFunc(autoLayout.updateDiv(), 30, true)
             }

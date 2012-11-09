@@ -314,7 +314,7 @@
       $("abbr.timeago").timeago();
       $("span.relativetime").timeago();
       <% unless current_user %>
-        $('.psvr_login_required').attr('onclick','').unbind('click').bind('click',function(){
+        jQuery('.psvr_login_required').attr('onclick','').unbind('click').die('click').on('click',function(){
           return KTV.login();
         });
       <% end %>

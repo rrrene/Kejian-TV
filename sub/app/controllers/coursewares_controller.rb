@@ -56,9 +56,15 @@ class CoursewaresController < ApplicationController
     end
   end
   def deal_with_params!
+    if(request.path.starts_with? '/teachers/')
+      params[:teacher]=params.delete(:id)
+    end
+    if(request.path.starts_with? '/users/')
+      params[:user_id]=params.delete(:id)
+    end
     @coursewares = @coursewares.where(:is_thin=>false) if '1'==params['onlyForCommodity']
     @coursewares = @coursewares.where(:slides_count.gt=>50) if '2'==params['queryScope']
-    @coursewares = @coursewares.any_of(:uploader_id=>Moped::BSON::ObjectId(params[:user_id])) if Moped::BSON::ObjectId.legal?(params[:user_id])
+    @coursewares = @coursewares.where(:uploader_id=>Moped::BSON::ObjectId(params[:user_id])) if Moped::BSON::ObjectId.legal?(params[:user_id])
     @coursewares = @coursewares.where(:course_fid=>params[:course_fid]) if params[:course_fid]
     @coursewares = @coursewares.where(:course_fid=>params[:course]) if params[:course]
     if '1'==params['queryOrder']

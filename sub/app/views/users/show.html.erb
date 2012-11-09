@@ -19,7 +19,7 @@
 			</div>
 			<div class="floatright">
 				<span>
-				<a href="/users/<%= @user.slug %>" class="blue"><%= @user.coursewares_count %>个课件</a>
+				<a href="/users/<%= @user.slug %>" class="blue"><%=@user.coursewares_uploaded_count + @user.coursewares_count %>个课件</a>
 				</span>
 			</div>
 			<span class="sheetname marginleft"><%= @user.name_beautified %></span>
@@ -101,7 +101,7 @@
             <% unless current_user and @user.id==current_user.id%>
 						<div class="concernbox cf">
 						  <% followed = (current_user and current_user.followed?(@user)) %>
-							<a href="javascript:;" class="<%= followed ? 'concerned-ico' : 'concern-ico' %>" id="followBtn" follow="<%= followed ? 'true' : 'false' %>">
+							<a href="javascript:;" class="psvr_login_required <%= followed ? 'concerned-ico' : 'concern-ico' %>" id="followBtn" follow="<%= followed ? 'true' : 'false' %>">
 							  <em><%= followed ? '已关注' : '关注' %></em></a>
 							<a class="d-letter" style="display:none" href="javascript:void(0)"></a>
 						</div>
@@ -181,8 +181,8 @@ function queryExec(){
     autoLayout.loading = true;
     autoLayout.isHasNextPage = true;
     autoLayout.pageNum = 2;
-    var linkUrl = "/coursewares?user_id=<%=@user.id%>",
-        jsonUrl = "/coursewares_with_page?user_id=<%=@user.id%>";
+    var linkUrl = "/users/<%=@user.id%>/coursewares",
+        jsonUrl = "/users/<%=@user.id%>/coursewares_with_page/";
     autoLayout.init({
         contentID: "contentMain",
         rightLoad: true,
