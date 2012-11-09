@@ -221,7 +221,7 @@
       <p class="cw_abnormal"><%=number_with_delimiter Courseware.no_privacy.abnormal.count%> 文件有误</p>
     </div>
 <div class="__sdk" style="background:transparent">
-  <a class="button primary psvr_login_required" id="cw_newhuge" href="/coursewares/new" style="color:white">上传分享课件</a>
+  <a class="button primary psvr_login_required" id="cw_newhuge" href="/coursewares/new" style="color:white">上传课件获取积分</a>
 </div>
 <div class="module" id="chat-feature" style="padding-top:0">
     
@@ -240,26 +240,30 @@
 
            <strong><a href="/simple/home.php?mod=space&amp;do=friend&amp;view=online&amp;type=member"></a></strong>
 <div id="online-users" class="module">
-    <h4 id="h-recent-badges">在线用户: <strong><%= @session_count %></strong> 人在线
-     - <strong><%= @onlinelist_count %></strong> 用户(<strong><%= @online_invisible_count %></strong> 隐身),
-     <strong><%= @guest_count %></strong> 位游客
-     - 最高记录是 <strong><%= @onlinerecord[0] %></strong> 于 <strong><%=Time.at(@onlinerecord[1].to_i).strftime("%F")%></strong></span>
+    <h4 id="h-recent-badges">在线用户: <strong><%= @_G['psvr_payload']['whosonlinestatus']['onlinenum'] %></strong> 人在线
+     - <strong><%= @_G['psvr_payload']['whosonlinestatus']['membercount'] %></strong> 用户(<strong><%= @_G['psvr_payload']['whosonlinestatus']['invisiblecount'] %></strong> 隐身),
+     <strong><%= @_G['psvr_payload']['whosonlinestatus']['guestcount'] %></strong> 位游客
+     - 最高记录是 <strong><%= @_G['psvr_payload']['whosonlinestatus']['onlineinfo'][0] %></strong> 于 <strong><%=Time.at(@_G['psvr_payload']['whosonlinestatus']['onlineinfo'][1].to_i).strftime("%F")%></strong></span>
     </h4>
+    
     <table>
     <tbody>
-     <% if @on_display.empty? %>
+     <% if @_G['psvr_payload']['whosonlinestatus']['whosonline'].blank? %>
       <tr><td>当前只有游客或隐身用户在线</td></tr>
      <% else %>
-       <% @on_display.each do |uid,online| %>
-        <% if !online[2][1] %>
-           <tr><td><a class="badge" href="/simple/?<%= uid %>"><span class="badge2" style="background-image:url(/simple/static/image/common/<%= online[3][1] %>);background-position:0 0;"></span>&nbsp;<%= online[1][0] %></a>
-             <a href="/simple/?<%= uid %>"><%= timeago(Time.at(online[2][0])) %></a></td></tr>
-        <% end %>
+       <% @_G['psvr_payload']['whosonlinestatus']['whosonline'].each do |online| %>
+         <% id=User.get_id online['uid'].to_i %>
+         <tr><td title="<%= online['lastactivity'] %>"><a class="badge" href="/users/<%= id %>"><span class="badge2" style="background-image:url(/simple/static/image/common/<%= online['icon'] %>);background-position:0 0;"></span>&nbsp;<%= User.get_name(id) %></a>
+         <a href="/users/<%= id %>"><%= timeago(Time.at online['lastolupdate'].to_i) %></a></td></tr>
        <% end %>
      <% end %>
 
     </tbody></table>
-    <p class="ar"><a href="/simple/home.php?mod=space&amp;do=friend&amp;view=online&amp;type=member">所有在线用户 »</a></p>
+    
+    
+    
+    
+    <p class="ar"><a href="/simple/home.php?mod=space&do=friend&view=online&type=member">所有在线用户 »</a></p>
 </div>
 
 <div id="feed-link">
