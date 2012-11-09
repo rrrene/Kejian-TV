@@ -2,6 +2,7 @@
   <%= stylesheet_link_tag "ktv/__zm", :media => "all" %>
   <%= stylesheet_link_tag "ktv/__zm_reg", :media => "all" %>
 <% end %>
+<%content_for :body_style do%> overflow-x:hidden <%end%>
 <% content_for :butt2 do %>
 $('#pic_reg_extent_suc').animate({'margin-top':0}, {duration: 888, queue:false, easing: 'easeOutBounce', complete:function(){
   $('#reg_suc1').css({opacity:0,display:'block'});

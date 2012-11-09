@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class AccountController < Devise::RegistrationsController
-  prepend_before_filter proc{@psvr_payloads||=[];@psvr_payloads << 'uc_avatar'},:only=>[:edit]
+  prepend_before_filter proc{@psvr_payloads||=[];@psvr_payloads << 'uc_avatar'},:only=>[:edit,:update]
   prepend_before_filter proc{
     if !current_user
       redirect_to '/login'
@@ -285,7 +285,8 @@ class AccountController < Devise::RegistrationsController
     # # for safety, please keep this deprecation logic.
     # render text:'this method is deprecated!'
     # return false
-
+    params[:user].delete :slug
+    params[:user].delete :avatar
     begin
       # 安全覆写™
       if params[:user][:name].present? or params[:user][:email].present?
@@ -312,7 +313,6 @@ class AccountController < Devise::RegistrationsController
         resource.avatar_changed_at=Time.now
       end
       # 安全覆写™
-      resource.slug = params[:user][:slug]
       resource.name = params[:user][:name]
       resource.email = params[:user][:email]
       resource.avatar = params[:user][:avatar]
@@ -353,7 +353,7 @@ class AccountController < Devise::RegistrationsController
   def destroy
     # Todo: 用户自杀功能
     resource.soft_delete
-    sign_out_and_redirect("/login")
+    sign_out_and_redirect("/login");sign_out_others
     set_flash_message :notice, :destroyed
   end
   

@@ -42,9 +42,21 @@ class AjaxController < ApplicationController
     )
     ret = MultiJson.decode result
     if ret['code']
-      if params[:email] =~ /@/
-        binding.pry
+      if params[:email] =~ /@/ and current_user.email_unknown
+        current_user.email_unknown=false
+        current_user.skip_reconfirmation!
+        current_user.email=params[:email].xi
+        current_user.skip_confirmation!
+        current_user.save(:validate=>false)
         # current_user.update_attribute(:email,params[:email])
+      end
+      if params[:email]=~/^1\d{10}$/ and
+        material = current_user.sub_user_material
+        material ||= current_user.build_sub_user_material
+        if material.phone_mobile.blank?
+          material.phone_mobile=params[:email].xi
+        end
+        current_user.save(:validate=>false)
       end
       agent = request.env['HTTP_USER_AGENT']
       agent = Setting.user_agent if agent.blank?

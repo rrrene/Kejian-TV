@@ -109,9 +109,8 @@ class ApplicationController < ActionController::Base
     @authkey = @_G['authkey']
     @formhash = @_G['formhash']
     if @_G['uid'] != (current_user ? current_user.uid : 0)
-      p @_G['uid']
-      p (current_user ? current_user.uid : 0)
-      sign_out
+      sign_out;sign_out_others
+      return false
     end
   end
 
@@ -312,6 +311,19 @@ class ApplicationController < ActionController::Base
       unless ApplicationController::NO_REDIRECT_REQUEST_PATHs.include?(request.path) or request.path =~ /follow/
         redirect_to "/register05"
         return false
+      end
+    else
+      unknowns = []
+      unknowns << '真实姓名' if current_user.name_unknown
+      unknowns << '邮箱地址' if current_user.email_unknown
+      #unknowns << '密码' if current_user.encrypted_password.blank?
+      unless unknowns.blank?
+        flash[:insuf_info] = "请<a href=\"#{edit_user_registration_path}\">点击这里</a>补充您的#{unknowns.join '和'}".html_safe 
+      else
+        flash[:insuf_info] = nil
+      end
+      if current_user.unconfirmed_email.present?
+        flash[:insuf_info] = "请点击邮箱#{current_user.unconfirmed_email}内的确认链接以完成邮箱修改".html_safe 
       end
     end
   end

@@ -169,6 +169,12 @@
 
 <div class="__sdk">
   <div id="sdk_flashes">
+  <% if !flash[:insuf_info].blank? %>
+    <p class="flash warning"><%=raw flash[:insuf_info] %></p>
+    <%= content_for :butt2 do %>
+        $("#sdk_flashes .warning").fadeOut('fast').fadeIn('fast').fadeOut('fast').fadeIn('fast');
+    <% end %>
+  <% end %>
   <% if !notice.blank? %>
     <p class="flash notice"><%=raw notice %></p>
     <%= content_for :butt2 do %>
