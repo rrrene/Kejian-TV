@@ -14,10 +14,6 @@ class TeachersController < ApplicationController
   end
 
   def show
-    pagination_get_ready
-    @coursewares = @teacher.coursewares.normal_father.desc(:created_at)
-    pagination_over(@coursewares.count)
-    @coursewares = @coursewares.paginate(:page => @page, :per_page => @per_page)
     set_seo_meta(@teacher.name)
   end
   def init_teacher
