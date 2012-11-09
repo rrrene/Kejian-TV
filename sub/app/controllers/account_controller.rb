@@ -196,7 +196,7 @@ class AccountController < Devise::RegistrationsController
         result_rr_uids = result.collect{|x| x['item'][1].to_i}
         if result and !params[:force_053].present?
           #so, 可能会有注册过的没有关注过的朋友哦
-          @regged = User.normal.where(:uid.in=>result_uids,:id.nin=>current_user.following_ids+[current_user.id]).paginate(:per_page=>100,:page=>1)
+          @regged = User.nondeleted.normal.where(:uid.in=>result_uids,:id.nin=>current_user.following_ids+[current_user.id]).paginate(:per_page=>100,:page=>1)
           if @regged.present?
             render "new052",layout:'application'
             return true

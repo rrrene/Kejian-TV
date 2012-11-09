@@ -7,12 +7,16 @@ class AjaxController < ApplicationController
   def renren_invite
     agent = request.env['HTTP_USER_AGENT']
     agent = Setting.user_agent if agent.blank?
-    Sidekiq::Client.enqueue(HookerJob,
-      'Ktv::Renren',
-      nil,
-      'send_invitation',
-      agent,current_user.id,params[:renren_uids]
-    )
+    if $psvr_really_production
+      Sidekiq::Client.enqueue(HookerJob,
+        'Ktv::Renren',
+        nil,
+        'send_invitation',
+        agent,current_user.id,params[:renren_uids]
+      )
+    else
+      Ktv::Renren.send_invitation agent,current_user.id,params[:renren_uids]
+    end
     render json:{
       suc:true
     }
@@ -810,7 +814,6 @@ HEREDOC
     end
     title = params[:title]
     privacy = params[:is_private]
-    # binding.pry
     pl = PlayList.locate(current_user.id,title)
     if pl.nil?
       pl = PlayList.new

@@ -36,7 +36,7 @@ $('#submit_btn_ass').click(function(){
     renren_uids.push($(value).attr('name').split('person_')[1]);
   });
   $.post("/ajax/renren_invite",{renren_uids:renren_uids}, function(res){
-    window.location.href='/register05?force_053=1';
+    window.location.href='/register05?force_888=1';
   });
   return false;
 });
