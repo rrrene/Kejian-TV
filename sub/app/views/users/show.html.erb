@@ -1,7 +1,8 @@
 <% content_for :armpit do %>
   <%= stylesheet_link_tag "ktv/__zm_user.css", :media => "all" %>
+  <%= stylesheet_link_tag "jia", :media => "all" %>
 <% end %>
-<% content_for :body_style do %>background: none repeat scroll 0 0 #F0EEEE<% end %>
+<% content_for :body_style do %>background: url(<%=asset_path 'zm/r11839/images/common/bodybg.gif'%>) repeat scroll 0 0 #F0EEEE<% end %>
 
 <div class="__zm">
 <% params[:queryOrder] ||= '1' %>
@@ -71,6 +72,24 @@
 							<span class="ctf-username floatleft"><%= @user.name_beautified %></span><span class="ctf-icon long-ctf-star floatleft"></span>
 						</div>
 						<% end %>
+            <%if (auths = @user.getauth) || @user.ibeike_uid.present?%>
+                <div class="__jia">
+                  <div class="j32" style="width:617px;height:32px;margin:16px 0;">
+                    <% key = "spetial_#{Setting.ktv_sub}".to_sym; if value=Ktv::Consumers[key] %>
+                      <% if :spetial_ibeike==key and @user.ibeike_uid.present? %>
+                        <a class="jbttt jbt_<%= key %>" href="city.ibeike.com/?<%= @user.ibeike_uid %>" target="_blank"><span title="转到<%= value[:name] %>" class="jiathis_txt jtico jtico_<%= key %> active"></span></a>
+                      <%end %>
+                    <% end %>
+                    <% Ktv::Consumers.each do |key,value| %>
+                    <% next if key.to_s.starts_with?('spetial_') %>
+                    <% if auth=@user.getauth(key) %>
+                      <a class="jbttt jbt_<%= key %>" href="<%= auth.try(:[],'root').try(:[],'item').try(:[],4) %>" target="_blank"><span title="转到<%= value[:name] %>" class="jiathis_txt jtico jtico_<%= key %> active"></span></a>
+                    <%end %>
+                    <% end %>
+                  </div>
+                </div>
+              <% end %>
+              
 
             <div class="fc999 tfmt __qa clearfix">
   						<div class="ctf-profile" id="user_bio">
