@@ -32,6 +32,7 @@ class WelcomeController < ApplicationController
   def latest
     @seo[:title] = '全部课件'
     common_op!
+    dz_op!
     @coursewares = Courseware.nondeleted.normal.is_father.no_privacy
     @coursewares = Courseware.additional_conditions(@coursewares,params)
     @coursewares = @coursewares.paginate(:page => params[:page], :per_page => @per_page)
@@ -72,5 +73,16 @@ class WelcomeController < ApplicationController
     end
   end
 private
+  def common_op!
+    params[:page] ||= '1'
+    params[:per_page] ||= cookies[:welcome_per_page]
+    params[:per_page] ||= '15'
+    @page = params[:page].to_i
+    @per_page = params[:per_page].to_i
+    cookies[:welcome_per_page] = @per_page
+  end
+  def dz_op!
+    binding.pry
+  end
 end
 
