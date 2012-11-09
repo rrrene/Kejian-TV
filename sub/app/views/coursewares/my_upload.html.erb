@@ -298,7 +298,8 @@
 										</div>
 									</div>
 									<div class="metadata-container">
-										<%= form_for @courseware,:url => "/presentations", :html => { :method => :post, :class => 'kejian-settings-form', :autocomplete=>"off" } do |f| %>
+										<%= form_for @courseware,:url => "/upload_page_auto_save", :html => { :method => :post, :class => 'kejian-settings-form', :autocomplete=>"off" } do |f| %>
+										<input type="hidden" name="id" value="" class="id">
 					          <input type="hidden" name="psvr_g" value="<%= params[:psvr_g] %>" class="psvr_g">
 					          <input type="hidden" name="psvr_f" value="<%= params[:psvr_f] %>" class="psvr_f">
 								    <input class="presentation_uptime" name="presentation[uptime]" type="hidden" value="" />
@@ -335,15 +336,16 @@
 													</span>
 													</span>
 													</h4>
-													<div class="video-settings-tag-chips-container yt-uix-form-textarea">
-														<input type="hidden" data="" value="" class="video-settings-tags" name="presentation[keywords]">
-														<input placeholder="" aria-haspopup="true" autocomplete="false" spellcheck="false" class="video-settings-add-tag">
+													<div class="kejian-settings-tag-chips-container yt-uix-form-textarea">
+														<input type="hidden" data="" value="" class="kejian-settings-tags" name="presentation[keywords]">
+														<input placeholder="请用逗号分隔多个标签" aria-haspopup="true" autocomplete="false" spellcheck="false" class="kejian-settings-add-tag">
 													</div>
 													<div class="upload-item-tag-suggestions clearfix">
 														<div style="display: none;" class="tag-suggest-title">
 															 推荐标签：
 														</div>
 														<div style="display: none;" class="tag-suggest-tags">
+															<div class="tag"><span class="tag-add">+</span><span class="tag-title">a</span></div>
 															<span class="generating-tags">正在生成标记建议</span>
 															<img alt="正在加载..." src="<%=asset_path('yt/img/loader-vflff1Mjj.gif')%>">
 														</div>
@@ -868,8 +870,8 @@
 <script type="text/javascript" charset="utf-8">
 	<% content_for :butt2 do %>
 
-  $('.psvr_f').val(<%= Ktv::Utils.safely('undefined'){ret=@c.fid;if ret.present?;ret;else;raise 'bitch!';end} %>);
-  $('.psvr_g').val(<%= Ktv::Utils.safely('undefined'){ret=Department.get_fid(@c.department);if ret.present?;ret;else;raise 'bitch!';end}%>);
+  $('.psvr_f').val(<%= Ktv::Utils.safely('undefined'){ret=@c.fid if @c;if ret.present?;ret;;end} %>);
+  $('.psvr_g').val(<%= Ktv::Utils.safely('undefined'){ret=Department.get_fid(@c.department)if @c ;if ret.present?;ret;end}%>);
 	
 	item = new Array();
 	// $('#the_upload_ytb #presentation_pdf').live('change',function(){
@@ -1086,8 +1088,8 @@
     file_post_name: "file",
     file_types_description: "Presentation",
     file_types: "*.pdf; *.djvu; *.ppt; *.pptx; *.doc; *.docx; *.zip; *.rar; *.7z",	
-		file_upload_limit : 100, 
-		file_queue_limit : 2,
+		file_upload_limit : 0, 
+		file_queue_limit : 0,
 		debug : false, 
 		prevent_swf_caching : false, 
 		preserve_relative_urls : false,
@@ -1147,24 +1149,11 @@
 			remaining_process_number++;
 			$('#the_upload_ytb .'+file.id).find('.progress-bar-uploading').addClass('hid').parent().find('.progress-bar-processing').removeClass('hid');
 			$('#the_upload_ytb .'+file.id).find('.progress-bar-processing .progress-bar-progress').removeClass('hid').css({'width':'50%'}).parent().find('.progress-bar-percentage').html('50%');
-			auto_ajax_save($('#the_upload_ytb .'+file.id).find('form').serialize());
-			// 	    $.ajax({
-			// 	        url: "/presentations/" + file.id + "/status",
-			// 	        dataType: "json",
-			// 	        success: function (b) {
-			// 	            b.complete < b.total ? ($("[data-processing-presentation=" + a + "]",'.__sdk').html(b.html), setTimeout(function () {
-			// 	                showProcessProgress(a)
-			// 	            }, 2e3)) : b.complete === undefined || b.total == 0 ? setTimeout(function () {
-			// 	                showProcessProgress(a)
-			// 	            }, 2e3) : setTimeout(function () {
-			// 	                $("#upload h1",'.__sdk').text("课件预览");
-			// 	                $("#reupload",'.__sdk').hide();
-			// 	                $("#presentation_" + a,'.__sdk').html("").parent().addClass("slide_frame");
-			// 	                $(".slide_frame.processing",'.__sdk').removeClass("processing");
-			// 	                $("body").append("<script type='text/javascript' src='/embed/" + b.id + ".js?container=presentation_" + a + "'></scr" + "ipt>")
-			// 	            }, 2e3)
-			// 	        }
-			// 	    });
+			if(!$('#the_upload_ytb .'+file.id).find('input.id').val()){
+				auto_ajax_save($('#the_upload_ytb .'+file.id).find('form').serialize()).done(function(json){
+					$('#the_upload_ytb .'+file.id).find('input.id').val(json.id);
+				});
+			}
 			this.startUpload();
 			if(remaining_upload_number==0){
 				window.onbeforeunload = null;	
@@ -1184,18 +1173,72 @@
 		swfu.selectFiles()
 	});
 	var auto_ajax_save = function(data){
-		$.ajax({
-			url:'/ajax/upload_page_auto_save',
+		return $.ajax({
+			url:'/upload_page_auto_save',
 			type:'POST',
 			data:data,
-			dataType:'json'
-		}).done(function(json){
-				
+			dataType:'json',
 		});
 	};
 	$('.save-changes-button').live('click',function(){
-		auto_ajax_save($(this).parents('.upload-item').find('form').serialize());
+		auto_ajax_save($(this).parents('.upload-item').find('form').serialize()).done(function(json){
+			
+		});
 	});
+	var tag = '<span class="yt-chip"><span></span><span class="yt-delete-chip"></span></span>';
+	$('.kejian-settings-add-tag').live('keyup',function(event){
+		console.log(event.which,event);
+		if(event.which==188){
+			event.preventDefault();
+			var tagg = $(this).val().replace(/,/g,'').replace(/，/g,'');
+			if(tagg.length > 0){
+				$(this).before('<span class="yt-chip"><span>'+tagg+'</span><span class="yt-delete-chip"></span></span>');
+				$(this).val('');
+				$(this).parent().find('.kejian-settings-tags').val($(this).parent().find('.kejian-settings-tags').val() + ' '+tagg)
+			}
+		}else if(event.which == 8){
+			event.preventDefault();
+			var tagg = $(this).val();
+			if(tagg.length == 0){
+				var taggx = $(this).prev().find('span:eq(0)').html();
+				$(this).val(taggx);
+				$(this).select();
+				$(this).prev().find('.yt-delete-chip').trigger('click');
+			}
+		}
+	});
+	$('.yt-delete-chip').live('click',function(){
+		var tagg = $(this).parents('.yt-chip').find('span:eq(0)').html();
+		var tags = $(this).parents('.kejian-settings-tag-chips-container').find('.kejian-settings-tags').val();
+		console.log(tags);
+		tags = tags.split(' ');
+		var index = tags.indexOf(tagg);
+		if(index!=-1){
+			tags.splice(index,index+1);
+			tags = tags.join(' ');
+		}
+		console.log(tags);
+		$(this).parents('.kejian-settings-tag-chips-container').find('.kejian-settings-tags').val(tags);
+		$(this).parents('.yt-chip').remove();
+	})
+	
+	// 	    $.ajax({
+	// 	        url: "/presentations/" + file.id + "/status",
+	// 	        dataType: "json",
+	// 	        success: function (b) {
+	// 	            b.complete < b.total ? ($("[data-processing-presentation=" + a + "]",'.__sdk').html(b.html), setTimeout(function () {
+	// 	                showProcessProgress(a)
+	// 	            }, 2e3)) : b.complete === undefined || b.total == 0 ? setTimeout(function () {
+	// 	                showProcessProgress(a)
+	// 	            }, 2e3) : setTimeout(function () {
+	// 	                $("#upload h1",'.__sdk').text("课件预览");
+	// 	                $("#reupload",'.__sdk').hide();
+	// 	                $("#presentation_" + a,'.__sdk').html("").parent().addClass("slide_frame");
+	// 	                $(".slide_frame.processing",'.__sdk').removeClass("processing");
+	// 	                $("body").append("<script type='text/javascript' src='/embed/" + b.id + ".js?container=presentation_" + a + "'></scr" + "ipt>")
+	// 	            }, 2e3)
+	// 	        }
+	// 	    });
 	<% end %>
 </script>
 <%= render file:'/application/footers/_sdk_footer' %>

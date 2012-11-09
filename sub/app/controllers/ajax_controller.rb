@@ -142,16 +142,23 @@ class AjaxController < ApplicationController
     end
   end
   def upload_page_auto_save
-    binding.pry
-    xx
+    # update teacher
+    if !params[:psvr_f].blank?
+      teacher = params[:teacher] == 'opt_psvr_add_more' ? param[:other_teacher] : params[:teacher]
+      if !teacher.blank?
+        Course.where(fid:params[:psvr_f].to_i).first.teachings.find_or_create_by(teacher:teacher).save(:validate=>false)
+        Teacher.find_or_create_by(name:teacher,department_fid:params[:psvr_f]).save(:validate=>false)
+      end
+    end
     presentation = params[:presentation].with_indifferent_access
     cw = Courseware.presentations_upload_finished(presentation,current_user)
     cw.upload_persentage = presentation[:upload_persentage].to_i
-    cw.keywords = presentation[:keywords]
+    cw.keywords = presentation[:keywords].split(' ')
+    cw.desc = presentation[:description]
     cw.enable_monetization = presentation[:enable_monetization] == 'enable' ? true : false
     cw.monetization_style = presentation[:monetization_style]
     cw.enable_overlay_ads = presentation[:enable_overlay_ads] == 'yes' ? true : false
-    cw.trueview_instrea = presentation[:trueview_instrea] == 'on' ? true : false
+    cw.trueview_instream = presentation[:trueview_instream] == 'on' ? true : false
     cw.allow_syndication = presentation[:allow_syndication] == 'no' ? false : true
     cw.allow_comments = presentation[:allow_comments] == 'yes' ? true :false
     cw.allow_comments_detail = presentation[:allow_comments_detail] == 'all' ? 0 : 1
@@ -161,12 +168,12 @@ class AjaxController < ApplicationController
     cw.allow_responses_detail = presentation[:allow_responses_detail] == 'all' ? 0 : 1
     cw.allow_embedding = presentation[:allow_embedding] == 'on' ? true : false
     cw.creator_share_feeds = presentation[:creator_share_feeds] == 'on' ? true : false
-    
+    cw.save!
     unless '课程请求'==cw.topic
       cookies[:presentation_topic] = cw.topic
     end
     cookies[:presentation_pretitle] = (cw.title.split(/[:：]/).size>1) ? cw.title.split(/[:：]/)[0] : ''
-    
+    render json:{id:cw.id}
   end
   def presentations_upload_finished
     presentation = params[:presentation]
@@ -252,6 +259,7 @@ HEREDOC
       else
         cookies[:presentation_topic] = cw.topic
       end
+      
       cw.title = presentation[:title]
       cw.title = File.basename(cw.pdf_filename) if cw.title.blank?
       cw.title = '课件标题请求' if cw.title.blank?
