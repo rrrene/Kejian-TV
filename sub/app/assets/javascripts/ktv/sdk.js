@@ -1159,7 +1159,7 @@ FlashDetect.JS_RELEASE = "1.0.4", function (a, b) {function c(b, c) {
                     fileDataName: "Filedata",
                     method: "POST",
                     queueSizeLimit: 999,
-                    // simUploadLimit: 1,
+                    simUploadLimit: 1,
                     queueID: !1,
                     displayData: "percentage",
                     removeCompleted: !0,
@@ -2449,5 +2449,3 @@ $(function () {
 }.call(this);
 
 })(jQuery);
-
-// =====================================liber add ================================================

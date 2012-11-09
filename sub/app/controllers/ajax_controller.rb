@@ -281,27 +281,39 @@ HEREDOC
     cw.uploader_ids[cw.version.to_s]=cw.uploader_id
     cw.created_ats[cw.version.to_s]=cw.created_at
     @courseware.save!
-    redirect_to @courseware
+    redirect_to '/mine/my_coursewares'#@courseware
   end
   def prepare_upload
     if current_user.nil?
       render json:{status:'failed',reason:'您尚未登录！'}
       return false
     end
+    config = Array.new
     uptime = Time.now.to_i
-    policy = {
-      'save-key' =>  "/#{current_user.id}/#{uptime}.pdf",
-      expiration: "#{1.hour.since.to_i}",
-      bucket: 'ktv-up',
-      'allow-file-type' =>  'pdf,djvu,ppt,pptx,doc,docx,zip,rar,7z',
-      'content-length-range' =>  '0,199000000',
-    }.to_json
-    policy = Base64.encode64(policy).split("\n").join('')
-    config = {
-      policy: policy,
-      signature: Digest::MD5.hexdigest(policy+'&'+'Vv0WpPhlztxkPn7c9F3x3S8zgRE=')
-    }
+    for i in 0...5
+      uptime = uptime + i
+      policy = {
+        'save-key' =>  "/#{current_user.id}/#{uptime}.pdf",
+        expiration: "#{1.hour.since.to_i}",
+        bucket: 'ktv-up',
+        'allow-file-type' =>  'pdf,djvu,ppt,pptx,doc,docx,zip,rar,7z',
+        'content-length-range' =>  '0,199000000',
+      }.to_json
+      policy = Base64.encode64(policy).split("\n").join('')
+      config << {
+        policy: policy,
+        signature: Digest::MD5.hexdigest(policy+'&'+'Vv0WpPhlztxkPn7c9F3x3S8zgRE=')
+      }
+    end
     render json:{status:'suc',uptime:uptime,config:config}
+  end
+  def upload_page_auto_save
+    binding.pry
+    ncw = Courseware.new
+    
+    ncw.save(:validate=>false)
+    params[:id] = ncw.id
+    presentations_update
   end
   def seg
     params[:q] = params[:q].strip

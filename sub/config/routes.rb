@@ -131,6 +131,7 @@ Sub::Application.routes.draw do
   post '/ajax/bar_request_playlists' => 'ajax#bar_request_playlists'
   post '/ajax/summonQL' => 'ajax#summonQL'
   post '/ajax/prepare_upload' => 'ajax#prepare_upload'
+  post '/ajax/upload_page_auto_save' => 'ajax#upload_page_auto_save'
   # ---=small=----
   get '/hack/htc'
   get '/welcome/inactive_sign_up'

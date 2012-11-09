@@ -120,6 +120,7 @@ Sub::Application.configure do
     cpanel_oauth.css
     cpanel_oauth.js
     validationEngine.js
+    ktv/swfupload.js
     keditor/*
     about.css
     css_ie.css

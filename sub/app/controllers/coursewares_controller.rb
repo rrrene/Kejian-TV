@@ -103,7 +103,7 @@ class CoursewaresController < ApplicationController
     end
     @courseware = Courseware.new
     @courseware.version_date[@courseware.version.to_s] = Time.now.strftime("%Y年%m月%d日")
-    prepare_s3    
+    # prepare_s3    
   end
   def new
     render text:'开发中' and return false
