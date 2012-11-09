@@ -137,6 +137,33 @@ class AjaxController < ApplicationController
       render text:'0'
     end
   end
+  def upload_page_auto_save
+    binding.pry
+    xx
+    presentation = params[:presentation].with_indifferent_access
+    cw = Courseware.presentations_upload_finished(presentation,current_user)
+    cw.upload_persentage = presentation[:upload_persentage].to_i
+    cw.keywords = presentation[:keywords]
+    cw.enable_monetization = presentation[:enable_monetization] == 'enable' ? true : false
+    cw.monetization_style = presentation[:monetization_style]
+    cw.enable_overlay_ads = presentation[:enable_overlay_ads] == 'yes' ? true : false
+    cw.trueview_instrea = presentation[:trueview_instrea] == 'on' ? true : false
+    cw.allow_syndication = presentation[:allow_syndication] == 'no' ? false : true
+    cw.allow_comments = presentation[:allow_comments] == 'yes' ? true :false
+    cw.allow_comments_detail = presentation[:allow_comments_detail] == 'all' ? 0 : 1
+    cw.allow_comment_ratings = presentation[:allow_comment_ratings]
+    cw.allow_ratings = presentation[:allow_ratings] == 'yes' ? true : false
+    cw.allow_responses = presentation[:allow_responses] == 'on' ? true : false
+    cw.allow_responses_detail = presentation[:allow_responses_detail] == 'all' ? 0 : 1
+    cw.allow_embedding = presentation[:allow_embedding] == 'on' ? true : false
+    cw.creator_share_feeds = presentation[:creator_share_feeds] == 'on' ? true : false
+    
+    unless '课程请求'==cw.topic
+      cookies[:presentation_topic] = cw.topic
+    end
+    cookies[:presentation_pretitle] = (cw.title.split(/[:：]/).size>1) ? cw.title.split(/[:：]/)[0] : ''
+    
+  end
   def presentations_upload_finished
     presentation = params[:presentation]
     cw = Courseware.presentations_upload_finished(presentation,current_user)
@@ -306,14 +333,6 @@ HEREDOC
       }
     end
     render json:{status:'suc',uptime:uptime,config:config}
-  end
-  def upload_page_auto_save
-    binding.pry
-    ncw = Courseware.new
-    
-    ncw.save(:validate=>false)
-    params[:id] = ncw.id
-    presentations_update
   end
   def seg
     params[:q] = params[:q].strip

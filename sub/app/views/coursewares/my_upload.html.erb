@@ -303,6 +303,7 @@
 					          <input type="hidden" name="psvr_f" value="<%= params[:psvr_f] %>" class="psvr_f">
 								    <input class="presentation_uptime" name="presentation[uptime]" type="hidden" value="" />
 								    <input class="pdf_filename" name="presentation[pdf_filename]" type="hidden" value="" />
+										<input class="upload_persentage" name="presentation[upload_persentage]" type="hidden" value="" />
 											<div data-tab-id="basic-info" class="metadata-tab">
 												<fieldset class="metadata-two-column">
 													<label>
@@ -1134,7 +1135,9 @@
 				countingdown_upload++;
 		},
 		upload_progress_handler:function(file,completeBytes,totalBytes){
-					$('#the_upload_ytb .'+file.id).find('.progress-bar-uploading .progress-bar-progress').css({'width':parseInt(completeBytes/totalBytes*100).toString()+'%'}).parent().find('.progress-bar-percentage').html(parseInt(completeBytes/totalBytes*100).toString()+'%');
+			var percentage = parseInt(completeBytes/totalBytes*100);
+					$('#the_upload_ytb .'+file.id).find('.progress-bar-uploading .progress-bar-progress').css({'width':percentage.toString()+'%'}).parent().find('.progress-bar-percentage').html(percentage.toString()+'%');
+					$('#the_upload_ytb .'+file.id).find('input.upload_persentage').val(percentage);
 		},
 		upload_error_handler:function(file, code, message){
 				console.log(file.name,code, message);
