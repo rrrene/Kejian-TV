@@ -127,7 +127,7 @@
             <a class="user" href="<%= user_path(current_user) %>"><img src="<%=dz_avatar_url(current_user.uid,current_user.email,:small)%>" class="imgHead" width="47" height="47" alt="" style=""><%= current_user.name.present? ? name_beautify(current_user.name) : '姓名未知' %>
                 
                 <span id="hardest_a_ever"><span dir="ltr" title="your reputation; view reputation changes" class="reputation-score">
-                  <%=@_G['member']['credits']%>
+                  <%=number_with_delimiter @_G['member']['credits']%>
                 </span></span>
                 </a>
               <ul>

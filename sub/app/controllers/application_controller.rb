@@ -109,6 +109,8 @@ class ApplicationController < ActionController::Base
     @authkey = @_G['authkey']
     @formhash = @_G['formhash']
     if @_G['uid'] != (current_user ? current_user.uid : 0)
+      p @_G['uid']
+      p (current_user ? current_user.uid : 0)
       sign_out;sign_out_others
       return false
     end
@@ -247,7 +249,7 @@ class ApplicationController < ActionController::Base
   def clear_dz!
     cookies.each do |k,v|
       if k.starts_with? Setting.dz_cookiepre
-        cookies.delete k,:domain=>Setting.ktv_subdomain
+        cookies.delete k
       end
     end
   end

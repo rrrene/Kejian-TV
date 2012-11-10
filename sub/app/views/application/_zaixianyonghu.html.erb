@@ -12,7 +12,7 @@
      <% else %>
        <% @_G['psvr_payload']['whosonlinestatus']['whosonline'].each do |online| %>
          <% id=User.get_id online['uid'].to_i %>
-         <tr><td title="<%= online['lastactivity'] %>"><a class="badge" href="/users/<%= id %>"><span class="badge2" style="background-image:url(/simple/static/image/common/<%= online['icon'] %>);background-position:0 0;"></span>&nbsp;<%= User.get_name(id) %></a>
+         <tr><td title="<%= online['lastactivity'] %>"><a class="badge" href="/users/<%= id %>"><span class="badge2" style="background-image:url(/simple/static/image/common/<%= online['icon'] %>);background-position:0 0;"></span>&nbsp;<%=name_beautify User.get_name(id) %></a>
          <a href="/users/<%= id %>"><%= timeago(Time.at online['lastolupdate'].to_i) %></a></td></tr>
        <% end %>
      <% end %>

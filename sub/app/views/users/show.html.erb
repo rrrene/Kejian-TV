@@ -66,25 +66,24 @@
 							<% end %>
 							</figure>
 						</div>
-            <div class="uname alignleft cf"><span class="ctf-username floatleft"><%=@user.name_beautified%></span></div>
+            <div class="uname alignleft cf"><span class="ctf-username floatleft"><%=@user.name_beautified%></span> (积分: <%=number_with_delimiter User.get_credits(@user.uid) %>)</div>
             <% if @user.is_expert %>
 						<div class="uname alignleft cf">
 							<span class="ctf-username floatleft"><%= @user.name_beautified %></span><span class="ctf-icon long-ctf-star floatleft"></span>
 						</div>
 						<% end %>
-            <%if (auths = @user.getauth) || @user.ibeike_uid.present?%>
+            <%if (auths = @user.getauth.try(:[],'root').try(:[],'item')) || @user.ibeike_uid.present?%>
+              <% auths = [auths].compact unless auths.kind_of?(Array) %>
                 <div class="__jia">
                   <div class="j32" style="width:617px;height:32px;margin:16px 0;">
                     <% key = "spetial_#{Setting.ktv_sub}".to_sym; if value=Ktv::Consumers[key] %>
                       <% if :spetial_ibeike==key and @user.ibeike_uid.present? %>
-                        <a class="jbttt jbt_<%= key %>" href="city.ibeike.com/?<%= @user.ibeike_uid %>" target="_blank"><span title="转到<%= value[:name] %>" class="jiathis_txt jtico jtico_<%= key %> active"></span></a>
+                        <a class="jbttt jbt_<%= key %>" href="http://city.ibeike.com/?<%= @user.ibeike_uid %>" target="_blank"><span title="转到<%= value[:name] %>" class="jiathis_txt jtico jtico_<%= key %> active"></span></a>
                       <%end %>
                     <% end %>
-                    <% Ktv::Consumers.each do |key,value| %>
-                    <% next if key.to_s.starts_with?('spetial_') %>
-                    <% if auth=@user.getauth(key) %>
-                      <a class="jbttt jbt_<%= key %>" href="<%= auth.try(:[],'root').try(:[],'item').try(:[],4) %>" target="_blank"><span title="转到<%= value[:name] %>" class="jiathis_txt jtico jtico_<%= key %> active"></span></a>
-                    <%end %>
+                    <% auths.each do |auth_item| %>
+                      <% key=auth_item['item'][2].to_sym;value=Ktv::Consumers[key];next unless value;next if key.to_s.starts_with?('spetial_') %>
+                      <a class="jbttt jbt_<%= key %>" href="<%= auth_item['item'][4] %>" target="_blank"><span title="转到<%= value[:name] %>" class="jiathis_txt jtico jtico_<%= key %> active"></span></a>
                     <% end %>
                   </div>
                 </div>

@@ -1,11 +1,11 @@
 <div id="vm-pagination" style="margin-bottom:76px">
   <% if coursewares_ids.total_pages > 1 %>
    <div class="yt-uix-pager" style="float:right;">
-       <a class="yt-uix-button yt-uix-sessionlink yt-uix-pager-page-num yt-uix-pager-button yt-uix-button-default <%= ' yt-uix-button-toggled' if 9==@per_page %>" title="每页显示9个评论" href="<%= request.path %>?page=1&per_page=9">9</a>
-       <a class="yt-uix-button yt-uix-sessionlink yt-uix-pager-page-num yt-uix-pager-button yt-uix-button-default <%= ' yt-uix-button-toggled' if 15==@per_page %>" title="每页显示15个评论" href="<%= request.path %>?page=1&per_page=15">15</a>
-       <a class="yt-uix-button yt-uix-sessionlink yt-uix-pager-page-num yt-uix-pager-button yt-uix-button-default<%= ' yt-uix-button-toggled' if 30==@per_page %>" title="每页显示30个评论" href="<%= request.path %>?page=1&per_page=30">30</a>
-       <a class="yt-uix-button yt-uix-sessionlink yt-uix-pager-page-num yt-uix-pager-button yt-uix-button-default<%= ' yt-uix-button-toggled' if 50==@per_page %>" title="每页显示50个评论" href="<%= request.path %>?page=1&per_page=50">50</a>
-       <span class="page-numbers desc">评论/页</span>
+       <a class="yt-uix-button yt-uix-sessionlink yt-uix-pager-page-num yt-uix-pager-button yt-uix-button-default <%= ' yt-uix-button-toggled' if 9==@per_page %>" title="每页显示9项" href="<%= request.path %>?page=1&per_page=9">9</a>
+       <a class="yt-uix-button yt-uix-sessionlink yt-uix-pager-page-num yt-uix-pager-button yt-uix-button-default <%= ' yt-uix-button-toggled' if 15==@per_page %>" title="每页显示15项" href="<%= request.path %>?page=1&per_page=15">15</a>
+       <a class="yt-uix-button yt-uix-sessionlink yt-uix-pager-page-num yt-uix-pager-button yt-uix-button-default<%= ' yt-uix-button-toggled' if 30==@per_page %>" title="每页显示30项" href="<%= request.path %>?page=1&per_page=30">30</a>
+       <a class="yt-uix-button yt-uix-sessionlink yt-uix-pager-page-num yt-uix-pager-button yt-uix-button-default<%= ' yt-uix-button-toggled' if 50==@per_page %>" title="每页显示50项" href="<%= request.path %>?page=1&per_page=50">50</a>
+       <span class="page-numbers desc">课件/页</span>
    </div>
 	 <div style="float:left;">
 	 	<%= will_paginate coursewares_ids,:renderer=> YTBLinkRenderer,:inner_window=>4,:previous_label => "« 上一页",:next_label => "下一页 »"%>

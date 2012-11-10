@@ -598,7 +598,7 @@ courseware_id: '<%=@courseware.id%>'
                               <a class="yt-uix-button yt-uix-sessionlink yt-uix-pager-page-num yt-uix-pager-button yt-uix-button-default <%= ' yt-uix-button-toggled' if 15==@per_page %>" title="每页显示15个评论" href="<%= request.path %>?page=1&per_page=15">15</a>
                               <a class="yt-uix-button yt-uix-sessionlink yt-uix-pager-page-num yt-uix-pager-button yt-uix-button-default<%= ' yt-uix-button-toggled' if 30==@per_page %>" title="每页显示30个评论" href="<%= request.path %>?page=1&per_page=30">30</a>
                               <a class="yt-uix-button yt-uix-sessionlink yt-uix-pager-page-num yt-uix-pager-button yt-uix-button-default<%= ' yt-uix-button-toggled' if 50==@per_page %>" title="每页显示50个评论" href="<%= request.path %>?page=1&per_page=50">50</a>
-                              <span class="page-numbers desc">评论/页</span>
+                              <span class="page-numbers desc">项/页</span>
                           </div>
                           <%= will_paginate @comments,:renderer=> YTBLinkRenderer,:inner_window=>4,:previous_label => "« 上一页",:next_label => "下一页 »"%>
                           <% end %>
