@@ -329,7 +329,7 @@
         $.ajax({
           url:'/ajax/get_playlist_share',
           type:'POST',
-          data:{'authenticity_token':"<%= form_authenticity_token %>",'playlist_id':'<%= @playlist.id %>'},
+          data:{'authenticity_token':"<%= form_authenticity_token %>",'playlist_id':'<%= @playlist.id %>','title':'<%= @playlist.title %>'},
           dataType:'html'
         }).done(function(html){
 		        $('#playlist-share-loading').hide().addClass('hid');

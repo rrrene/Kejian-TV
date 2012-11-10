@@ -1,9 +1,39 @@
 <div class="share-panel">
 	<div class="share-option-container ytg-box">
 		<div class="share-panel-url-container" style="width: 400px;">
-			<label class="share-panel-url-label">
-			<input type="text" value="<%= url %>" class="yt-uix-form-input-text share-panel-url">
+			<label class="share-panel-url-label" >
+			<input type="text" value="<%= url %>" name="share_url" class="yt-uix-form-input-text share-panel-url">
 			</label>
+			<br/>
+			<div id="jiathisxxx" style="margin:20px 0 0 20px;padding-top:20px">
+					<!-- JiaThis Button BEGIN -->
+					<div class="jiathis_style_32x32">
+					<a class="jiathis_button_renren"></a>
+					<a class="jiathis_button_tsina"></a>
+					<a class="jiathis_button_tqq"></a>
+					<a class="jiathis_button_douban"></a>
+					<a class="jiathis_button_hi"></a>
+					<a class="jiathis_button_qzone"></a>
+					<a class="jiathis_counter_style"></a>
+					</div>
+					<script type="text/javascript" >
+					var jiathis_config={
+						siteNum:0,
+						url:jQuery('input.share-panel-url[name="share_url"]').val(),// document.getElementsByName('share_url')[0].value,
+						summary:"<%= title %>",
+						title:"课件TV 课件锦囊<%= title %>",
+						boldNum:0,
+						appkey:{
+							"tsina":"2931187294",
+							"tqq":"100285598",
+							"renren":'952ab0cc70fa4a6c9e0fbe260a81657e'
+						},
+						hideMore:true
+					}
+					</script>
+					<script type="text/javascript" src="http://v3.jiathis.com/code_mini/jia.js?uid=1351061699325921" charset="utf-8"></script>
+					<!-- JiaThis Button END -->
+			</div>
 		</div>
 		<% if false %>
 		<div class="share-panel-buttons yt-uix-expander yt-uix-expander-collapsed">
@@ -11,92 +41,9 @@
 			<button role="button" onclick=";return false;" class="share-panel-embed yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-content">嵌入代码 </span></button><button role="button" onclick=";return false;" class="share-panel-email yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-content">电子邮件 </span></button></span>
 		</div>
     <% end %>
-    <div class="share-panel-services yt-uix-expander yt-uix-expander-collapsed">
-       <ul class="share-group ytg-box">
-          <li>
-             <button class="yt-uix-tooltip share-service-button" title="&#20998;&#20139;&#33267;Facebook" data-service-name="FACEBOOK" onclick="yt.tracking.shareList(&quot;FACEBOOK&quot;, &quot;PLcwVgMt75JZJNsQjwiONSZdnZoxqemnDM&quot;,null, &quot;zh_TW&quot;,&quot;sharepanel&quot;);yt.window.popup(&quot;http:\/\/www.facebook.com\/sharer.php?u=http%3A%2F%2Fwww.youtube.com%2Fplaylist%3Flist%3DPLcwVgMt75JZJNsQjwiONSZdnZoxqemnDM\u0026t=xd%EF%BC%88%E6%92%AD%E6%94%BE%E5%88%97%E8%A1%A8%EF%BC%89&quot;, {'height': 440,'width': 620,'scrollbars': true});return false;">
-             <img class="share-service-icon share-service-icon-facebook" alt="Facebook" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" />
-             <span>Facebook</span>
-             </button>
-          </li>
-          <li>
-             <button class="yt-uix-tooltip share-service-button" title="&#20998;&#20139;&#33267;Twitter" data-service-name="TWITTER" onclick="yt.tracking.shareList(&quot;TWITTER&quot;, &quot;PLcwVgMt75JZJNsQjwiONSZdnZoxqemnDM&quot;,null, &quot;zh_TW&quot;,&quot;sharepanel&quot;);yt.window.popup(&quot;http:\/\/twitter.com\/share?url=http%3A%2F%2Fwww.youtube.com%2Fplaylist%3Flist%3DPLcwVgMt75JZJNsQjwiONSZdnZoxqemnDM\u0026text=xd%EF%BC%88%E6%92%AD%E6%94%BE%E5%88%97%E8%A1%A8%EF%BC%89%3A\u0026via=youtube&quot;, {'height': 650,'width': 1024,'scrollbars': true});return false;">
-             <img class="share-service-icon share-service-icon-twitter" alt="Twitter" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" />
-             <span>Twitter</span>
-             </button>
-          </li>
-          <li>
-             <button class="yt-uix-tooltip share-service-button" title="&#20998;&#20139;&#33267;Google+" data-service-name="GOOGLEPLUS" onclick="yt.tracking.shareList(&quot;GOOGLEPLUS&quot;, &quot;PLcwVgMt75JZJNsQjwiONSZdnZoxqemnDM&quot;,null, &quot;zh_TW&quot;,&quot;sharepanel&quot;);yt.window.popup(&quot;https:\/\/plus.google.com\/u\/0\/share?url=http%3A%2F%2Fwww.youtube.com%2Fplaylist%3Flist%3DPLcwVgMt75JZJNsQjwiONSZdnZoxqemnDM\u0026source=yt&quot;, {'height': 620,'width': 620,'scrollbars': true});return false;">
-             <img class="share-service-icon share-service-icon-googleplus" alt="Google+" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" />
-             <span>Google+</span>
-             </button>
-          </li>
-       </ul>
-       <div class="yt-uix-expander-head">
-          <a class="share-panel-show-more">
-          <span class="collapsed-message">
-          展开
-          <img alt="" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="arrow" />
-          </span>
-          <span class="expanded-message">
-          折叠
-          <img alt="" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="arrow" />
-          </span>
-          </a>
-       </div>
-       <div class="yt-uix-expander-body share-options-secondary">
-          <div class="secondary">
-             <div class="share-groups">
-                <ul>
-                   <li>
-                      <button class="share-service-button" data-service-name="TUMBLR" onclick="yt.tracking.shareList(&quot;TUMBLR&quot;, &quot;PLcwVgMt75JZJNsQjwiONSZdnZoxqemnDM&quot;,null, &quot;zh_TW&quot;,&quot;sharepanel&quot;);yt.window.popup(&quot;http:\/\/www.tumblr.com\/share?v=3\u0026u=http%3A%2F%2Fwww.youtube.com%2Fplaylist%3Flist%3DPLcwVgMt75JZJNsQjwiONSZdnZoxqemnDM&quot;, {'height': 650,'width': 1024,'scrollbars': true});return false;">
-                      <img class="share-service-icon share-service-icon-tumblr" alt="tumblr." src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" />
-                      <span>tumblr.</span>
-                      </button>
-                      <span>tumblr.</span>
-                   </li>
-                   <li>
-                      <button class="share-service-button" data-service-name="BLOGGER" onclick="yt.tracking.shareList(&quot;BLOGGER&quot;, &quot;PLcwVgMt75JZJNsQjwiONSZdnZoxqemnDM&quot;,null, &quot;zh_TW&quot;,&quot;sharepanel&quot;);yt.window.popup(&quot;http:\/\/www.blogger.com\/blog-this.g?n=xd%EF%BC%88%E6%92%AD%E6%94%BE%E5%88%97%E8%A1%A8%EF%BC%89\u0026source=youtube\u0026b=%3Ciframe+width%3D%22425%22+height%3D%22344%22+src%3D%22http%3A%2F%2Fwww.youtube.com%2Fembed%2Fvideoseries%3Flist%3DPLcwVgMt75JZJNsQjwiONSZdnZoxqemnDM%26hl%3Dzh_CN%22+frameborder%3D%220%22+allowfullscreen%3E%3C%2Fiframe%3E\u0026eurl=https%3A%2F%2Fi1.ytimg.com%2Fvi%2FH5ArpRWcGe0%2Fhqdefault.jpg&quot;, {'height': 468,'width': 768,'scrollbars': true});return false;">
-                      <img class="share-service-icon share-service-icon-blogger" alt="Blogger" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" />
-                      <span>Blogger</span>
-                      </button>
-                      <span>Blogger</span>
-                   </li>
-                   <li>
-                      <button class="share-service-button" data-service-name="MYSPACE" onclick="yt.tracking.shareList(&quot;MYSPACE&quot;, &quot;PLcwVgMt75JZJNsQjwiONSZdnZoxqemnDM&quot;,null, &quot;zh_TW&quot;,&quot;sharepanel&quot;);yt.window.popup(&quot;http:\/\/www.myspace.com\/Modules\/PostTo\/Pages\/?t=xd%EF%BC%88%E6%92%AD%E6%94%BE%E5%88%97%E8%A1%A8%EF%BC%89\u0026u=http%3A%2F%2Fwww.youtube.com%2Fplaylist%3Flist%3DPLcwVgMt75JZJNsQjwiONSZdnZoxqemnDM\u0026l=1&quot;, {'height': 650,'width': 1024,'scrollbars': true});return false;">
-                      <img class="share-service-icon share-service-icon-myspace" alt="Myspace" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" />
-                      <span>Myspace</span>
-                      </button>
-                      <span>Myspace</span>
-                   </li>
-                </ul>
-                <ul>
-                   <li>
-                      <button class="share-service-button" data-service-name="DIGG" onclick="yt.tracking.shareList(&quot;DIGG&quot;, &quot;PLcwVgMt75JZJNsQjwiONSZdnZoxqemnDM&quot;,null, &quot;zh_TW&quot;,&quot;sharepanel&quot;);yt.window.popup(&quot;http:\/\/digg.com\/submit?phase=2\u0026url=http%3A%2F%2Fwww.youtube.com%2Fplaylist%3Flist%3DPLcwVgMt75JZJNsQjwiONSZdnZoxqemnDM\u0026title=xd%EF%BC%88%E6%92%AD%E6%94%BE%E5%88%97%E8%A1%A8%EF%BC%89\u0026bodytext=adsfa\u0026topic=videos_people&quot;, {'height': 650,'width': 1024,'scrollbars': true});return false;">
-                      <img class="share-service-icon share-service-icon-digg" alt="Digg" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" />
-                      <span>Digg</span>
-                      </button>
-                      <span>Digg</span>
-                   </li>
-                   <li>
-                      <button class="share-service-button" data-service-name="DELICIOUS" onclick="yt.tracking.shareList(&quot;DELICIOUS&quot;, &quot;PLcwVgMt75JZJNsQjwiONSZdnZoxqemnDM&quot;,null, &quot;zh_TW&quot;,&quot;sharepanel&quot;);yt.window.popup(&quot;http:\/\/del.icio.us\/post?v=4\u0026jump=close\u0026url=http%3A%2F%2Fwww.youtube.com%2Fplaylist%3Flist%3DPLcwVgMt75JZJNsQjwiONSZdnZoxqemnDM\u0026title=xd%EF%BC%88%E6%92%AD%E6%94%BE%E5%88%97%E8%A1%A8%EF%BC%89\u0026partner=youtube&quot;, {'height': 650,'width': 1024,'scrollbars': true});return false;">
-                      <img class="share-service-icon share-service-icon-delicious" alt="del.icio.us" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" />
-                      <span>del.icio.us</span>
-                      </button>
-                      <span>del.icio.us</span>
-                   </li>
-                   <li>
-                      <button class="share-service-button" data-service-name="REDDIT" onclick="yt.tracking.shareList(&quot;REDDIT&quot;, &quot;PLcwVgMt75JZJNsQjwiONSZdnZoxqemnDM&quot;,null, &quot;zh_TW&quot;,&quot;sharepanel&quot;);yt.window.popup(&quot;http:\/\/reddit.com\/submit?url=http%3A%2F%2Fwww.youtube.com%2Fplaylist%3Flist%3DPLcwVgMt75JZJNsQjwiONSZdnZoxqemnDM\u0026title=xd%EF%BC%88%E6%92%AD%E6%94%BE%E5%88%97%E8%A1%A8%EF%BC%89&quot;, {'height': 650,'width': 1024,'scrollbars': true});return false;">
-                      <img class="share-service-icon share-service-icon-reddit" alt="reddit" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" />
-                      <span>reddit</span>
-                      </button>
-                      <span>reddit</span>
-                   </li>
-                </ul>
-             </div>
-          </div>
-       </div>
-    </div>
+  
+			
+      <div class="share-panel-services yt-uix-expander yt-uix-expander-collapsed"></div>
 		<% if false %>
 		<div class="share-panel-embed-container hid">
 			<div>
@@ -111,3 +58,94 @@
     <% end %>
 	</div>
 </div>
+
+
+
+
+
+<% if false %>
+<ul class="share-group ytg-box">
+   <li>
+      <button class="yt-uix-tooltip share-service-button" title="&#20998;&#20139;&#33267;Facebook" data-service-name="FACEBOOK" onclick="yt.tracking.shareList(&quot;FACEBOOK&quot;, &quot;PLcwVgMt75JZJNsQjwiONSZdnZoxqemnDM&quot;,null, &quot;zh_TW&quot;,&quot;sharepanel&quot;);yt.window.popup(&quot;http:\/\/www.facebook.com\/sharer.php?u=http%3A%2F%2Fwww.youtube.com%2Fplaylist%3Flist%3DPLcwVgMt75JZJNsQjwiONSZdnZoxqemnDM\u0026t=xd%EF%BC%88%E6%92%AD%E6%94%BE%E5%88%97%E8%A1%A8%EF%BC%89&quot;, {'height': 440,'width': 620,'scrollbars': true});return false;">
+      <img class="share-service-icon share-service-icon-facebook" alt="Facebook" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" />
+      <span>Facebook</span>
+      </button>
+   </li>
+   <li>
+      <button class="yt-uix-tooltip share-service-button" title="&#20998;&#20139;&#33267;Twitter" data-service-name="TWITTER" onclick="yt.tracking.shareList(&quot;TWITTER&quot;, &quot;PLcwVgMt75JZJNsQjwiONSZdnZoxqemnDM&quot;,null, &quot;zh_TW&quot;,&quot;sharepanel&quot;);yt.window.popup(&quot;http:\/\/twitter.com\/share?url=http%3A%2F%2Fwww.youtube.com%2Fplaylist%3Flist%3DPLcwVgMt75JZJNsQjwiONSZdnZoxqemnDM\u0026text=xd%EF%BC%88%E6%92%AD%E6%94%BE%E5%88%97%E8%A1%A8%EF%BC%89%3A\u0026via=youtube&quot;, {'height': 650,'width': 1024,'scrollbars': true});return false;">
+      <img class="share-service-icon share-service-icon-twitter" alt="Twitter" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" />
+      <span>Twitter</span>
+      </button>
+   </li>
+   <li>
+      <button class="yt-uix-tooltip share-service-button" title="&#20998;&#20139;&#33267;Google+" data-service-name="GOOGLEPLUS" onclick="yt.tracking.shareList(&quot;GOOGLEPLUS&quot;, &quot;PLcwVgMt75JZJNsQjwiONSZdnZoxqemnDM&quot;,null, &quot;zh_TW&quot;,&quot;sharepanel&quot;);yt.window.popup(&quot;https:\/\/plus.google.com\/u\/0\/share?url=http%3A%2F%2Fwww.youtube.com%2Fplaylist%3Flist%3DPLcwVgMt75JZJNsQjwiONSZdnZoxqemnDM\u0026source=yt&quot;, {'height': 620,'width': 620,'scrollbars': true});return false;">
+      <img class="share-service-icon share-service-icon-googleplus" alt="Google+" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" />
+      <span>Google+</span>
+      </button>
+   </li>
+</ul>
+<div class="yt-uix-expander-head">
+   <a class="share-panel-show-more">
+   <span class="collapsed-message">
+   展开
+   <img alt="" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="arrow" />
+   </span>
+   <span class="expanded-message">
+   折叠
+   <img alt="" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="arrow" />
+   </span>
+   </a>
+</div>
+<div class="yt-uix-expander-body share-options-secondary">
+   <div class="secondary">
+      <div class="share-groups">
+         <ul>
+            <li>
+               <button class="share-service-button" data-service-name="TUMBLR" onclick="yt.tracking.shareList(&quot;TUMBLR&quot;, &quot;PLcwVgMt75JZJNsQjwiONSZdnZoxqemnDM&quot;,null, &quot;zh_TW&quot;,&quot;sharepanel&quot;);yt.window.popup(&quot;http:\/\/www.tumblr.com\/share?v=3\u0026u=http%3A%2F%2Fwww.youtube.com%2Fplaylist%3Flist%3DPLcwVgMt75JZJNsQjwiONSZdnZoxqemnDM&quot;, {'height': 650,'width': 1024,'scrollbars': true});return false;">
+               <img class="share-service-icon share-service-icon-tumblr" alt="tumblr." src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" />
+               <span>tumblr.</span>
+               </button>
+               <span>tumblr.</span>
+            </li>
+            <li>
+               <button class="share-service-button" data-service-name="BLOGGER" onclick="yt.tracking.shareList(&quot;BLOGGER&quot;, &quot;PLcwVgMt75JZJNsQjwiONSZdnZoxqemnDM&quot;,null, &quot;zh_TW&quot;,&quot;sharepanel&quot;);yt.window.popup(&quot;http:\/\/www.blogger.com\/blog-this.g?n=xd%EF%BC%88%E6%92%AD%E6%94%BE%E5%88%97%E8%A1%A8%EF%BC%89\u0026source=youtube\u0026b=%3Ciframe+width%3D%22425%22+height%3D%22344%22+src%3D%22http%3A%2F%2Fwww.youtube.com%2Fembed%2Fvideoseries%3Flist%3DPLcwVgMt75JZJNsQjwiONSZdnZoxqemnDM%26hl%3Dzh_CN%22+frameborder%3D%220%22+allowfullscreen%3E%3C%2Fiframe%3E\u0026eurl=https%3A%2F%2Fi1.ytimg.com%2Fvi%2FH5ArpRWcGe0%2Fhqdefault.jpg&quot;, {'height': 468,'width': 768,'scrollbars': true});return false;">
+               <img class="share-service-icon share-service-icon-blogger" alt="Blogger" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" />
+               <span>Blogger</span>
+               </button>
+               <span>Blogger</span>
+            </li>
+            <li>
+               <button class="share-service-button" data-service-name="MYSPACE" onclick="yt.tracking.shareList(&quot;MYSPACE&quot;, &quot;PLcwVgMt75JZJNsQjwiONSZdnZoxqemnDM&quot;,null, &quot;zh_TW&quot;,&quot;sharepanel&quot;);yt.window.popup(&quot;http:\/\/www.myspace.com\/Modules\/PostTo\/Pages\/?t=xd%EF%BC%88%E6%92%AD%E6%94%BE%E5%88%97%E8%A1%A8%EF%BC%89\u0026u=http%3A%2F%2Fwww.youtube.com%2Fplaylist%3Flist%3DPLcwVgMt75JZJNsQjwiONSZdnZoxqemnDM\u0026l=1&quot;, {'height': 650,'width': 1024,'scrollbars': true});return false;">
+               <img class="share-service-icon share-service-icon-myspace" alt="Myspace" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" />
+               <span>Myspace</span>
+               </button>
+               <span>Myspace</span>
+            </li>
+         </ul>
+         <ul>
+            <li>
+               <button class="share-service-button" data-service-name="DIGG" onclick="yt.tracking.shareList(&quot;DIGG&quot;, &quot;PLcwVgMt75JZJNsQjwiONSZdnZoxqemnDM&quot;,null, &quot;zh_TW&quot;,&quot;sharepanel&quot;);yt.window.popup(&quot;http:\/\/digg.com\/submit?phase=2\u0026url=http%3A%2F%2Fwww.youtube.com%2Fplaylist%3Flist%3DPLcwVgMt75JZJNsQjwiONSZdnZoxqemnDM\u0026title=xd%EF%BC%88%E6%92%AD%E6%94%BE%E5%88%97%E8%A1%A8%EF%BC%89\u0026bodytext=adsfa\u0026topic=videos_people&quot;, {'height': 650,'width': 1024,'scrollbars': true});return false;">
+               <img class="share-service-icon share-service-icon-digg" alt="Digg" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" />
+               <span>Digg</span>
+               </button>
+               <span>Digg</span>
+            </li>
+            <li>
+               <button class="share-service-button" data-service-name="DELICIOUS" onclick="yt.tracking.shareList(&quot;DELICIOUS&quot;, &quot;PLcwVgMt75JZJNsQjwiONSZdnZoxqemnDM&quot;,null, &quot;zh_TW&quot;,&quot;sharepanel&quot;);yt.window.popup(&quot;http:\/\/del.icio.us\/post?v=4\u0026jump=close\u0026url=http%3A%2F%2Fwww.youtube.com%2Fplaylist%3Flist%3DPLcwVgMt75JZJNsQjwiONSZdnZoxqemnDM\u0026title=xd%EF%BC%88%E6%92%AD%E6%94%BE%E5%88%97%E8%A1%A8%EF%BC%89\u0026partner=youtube&quot;, {'height': 650,'width': 1024,'scrollbars': true});return false;">
+               <img class="share-service-icon share-service-icon-delicious" alt="del.icio.us" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" />
+               <span>del.icio.us</span>
+               </button>
+               <span>del.icio.us</span>
+            </li>
+            <li>
+               <button class="share-service-button" data-service-name="REDDIT" onclick="yt.tracking.shareList(&quot;REDDIT&quot;, &quot;PLcwVgMt75JZJNsQjwiONSZdnZoxqemnDM&quot;,null, &quot;zh_TW&quot;,&quot;sharepanel&quot;);yt.window.popup(&quot;http:\/\/reddit.com\/submit?url=http%3A%2F%2Fwww.youtube.com%2Fplaylist%3Flist%3DPLcwVgMt75JZJNsQjwiONSZdnZoxqemnDM\u0026title=xd%EF%BC%88%E6%92%AD%E6%94%BE%E5%88%97%E8%A1%A8%EF%BC%89&quot;, {'height': 650,'width': 1024,'scrollbars': true});return false;">
+               <img class="share-service-icon share-service-icon-reddit" alt="reddit" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" />
+               <span>reddit</span>
+               </button>
+               <span>reddit</span>
+            </li>
+         </ul>
+      </div>
+   </div>
+</div>
+<% end %>

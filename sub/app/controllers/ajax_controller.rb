@@ -1087,7 +1087,7 @@ HEREDOC
   end
   def get_playlist_share
       url = "http://#{Setting.ktv_sub.nil? ? 'www' : Setting.ktv_sub}.kejian#{$psvr_really_development ? '.lvh.me' : '.tv'}/play_lists/#{params[:playlist_id]}"
-      render file:'play_lists/_playlist_share',locals:{url:url},layout:false
+      render file:'play_lists/_playlist_share',locals:{url:url,title:params[:title]},layout:false
   end
   def like_playlist
     return false if current_user.nil?
