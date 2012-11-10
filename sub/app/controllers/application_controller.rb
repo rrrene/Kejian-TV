@@ -112,6 +112,7 @@ class ApplicationController < ActionController::Base
       sign_out;sign_out_others
       return false
     end
+    p request.env['HTTP_COOKIE']
   end
 
   def rand_sid(len)
@@ -229,24 +230,30 @@ class ApplicationController < ActionController::Base
     p res
     p 'gonna set------------------'
     res.cookies.each do |key,value|
+      p key
+      p value
       cookies[key]=CGI::unescape value
     end
+    p 'gonna set------------------'
     # todo:
     #   upon observing this
     #   the sub-site should login the corresponding user
   end
-  
+   
   def sign_out_others
     # VERY IMPORTANT:
     #   must sign out DZ at this point.
-    cookies.each do |k,v|
-      if k.starts_with? Setting.dz_cookiepre
-        cookies.delete k
-      end
-    end
+    clear_dz!
     # todo:
     #   upon observing this
     #   the sub-site should self-destruct its cookies
+  end
+  def clear_dz!
+    cookies.each do |k,v|
+      if k.starts_with? Setting.dz_cookiepre
+        cookies.delete k,:domain=>'.'+Setting.ktv_subdomain
+      end
+    end
   end
   
   
