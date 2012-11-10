@@ -1148,11 +1148,16 @@
 			remaining_upload_number--;
 			remaining_process_number++;
 			$('#the_upload_ytb .'+file.id).find('.progress-bar-uploading').addClass('hid').parent().find('.progress-bar-processing').removeClass('hid');
-			$('#the_upload_ytb .'+file.id).find('.progress-bar-processing .progress-bar-progress').removeClass('hid').css({'width':'50%'}).parent().find('.progress-bar-percentage').html('50%');
+			$('#the_upload_ytb .'+file.id).find('.progress-bar-processing .progress-bar-progress').removeClass('hid').css({'width':'50%'}).parent().find('.progress-bar-percentage').html('0%');
+			$('#the_upload_ytb .'+file.id).find('.upload-status-text').html('开始处理您的视频...');
 			if(!$('#the_upload_ytb .'+file.id).find('input.id').val()){
 				auto_ajax_save($('#the_upload_ytb .'+file.id).find('form').serialize()).done(function(json){
 					$('#the_upload_ytb .'+file.id).find('input.id').val(json.id);
+					$('#the_upload_ytb .'+file.id).find('.watch-page-link').html('<span class="watch-page-link"> 您的课件将在以下位置阅读： <a href="http://"></a></span>');
+					update_processing_bar(json.id);
 				});
+			}else{
+				update_processing_bar($('#the_upload_ytb .'+file.id).find('input.id').val());
 			}
 			this.startUpload();
 			if(remaining_upload_number==0){
@@ -1221,24 +1226,27 @@
 		$(this).parents('.kejian-settings-tag-chips-container').find('.kejian-settings-tags').val(tags);
 		$(this).parents('.yt-chip').remove();
 	})
-	
-	// 	    $.ajax({
-	// 	        url: "/presentations/" + file.id + "/status",
-	// 	        dataType: "json",
-	// 	        success: function (b) {
-	// 	            b.complete < b.total ? ($("[data-processing-presentation=" + a + "]",'.__sdk').html(b.html), setTimeout(function () {
-	// 	                showProcessProgress(a)
-	// 	            }, 2e3)) : b.complete === undefined || b.total == 0 ? setTimeout(function () {
-	// 	                showProcessProgress(a)
-	// 	            }, 2e3) : setTimeout(function () {
-	// 	                $("#upload h1",'.__sdk').text("课件预览");
-	// 	                $("#reupload",'.__sdk').hide();
-	// 	                $("#presentation_" + a,'.__sdk').html("").parent().addClass("slide_frame");
-	// 	                $(".slide_frame.processing",'.__sdk').removeClass("processing");
-	// 	                $("body").append("<script type='text/javascript' src='/embed/" + b.id + ".js?container=presentation_" + a + "'></scr" + "ipt>")
-	// 	            }, 2e3)
-	// 	        }
-	// 	    });
+	var update_processing_bar = function(a){
+	  $.ajax({
+	      url: "/presentations/" + a + "/status",
+	      dataType: "json",
+	      success: function (b) {
+	          b.complete < b.total ? ($("[data-processing-presentation=" + a + "]",'.__sdk').html(b.html), setTimeout(function () {
+	              update_processing_bar(a)
+	          }, 2e3)) : b.complete === undefined || b.total == 0 ? setTimeout(function () {
+	              update_processing_bar(a)
+	          }, 2e3) : setTimeout(function () {
+								console.log($('form .id[value="'+a+'"]]'));
+	              // $("#upload h1",'.__sdk').text("课件预览");
+	              // $("#reupload",'.__sdk').hide();
+	              // $("#presentation_" + a,'.__sdk').html("").parent().addClass("slide_frame");
+	              // $(".slide_frame.processing",'.__sdk').removeClass("processing");
+	              $("body").append("<script type='text/jav/ascript' src='/embed/" + b.id + ".js?container=presentation_" + a + "'></scr" + "ipt>")
+	          }, 2e3)
+	      }
+	  });		
+	}
+
 	<% end %>
 </script>
 <%= render file:'/application/footers/_sdk_footer' %>

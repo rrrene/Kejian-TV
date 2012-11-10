@@ -61,7 +61,7 @@
 				<script type="text/javascript" >
 				var jiathis_config={
 					siteNum:0,
-					url:document.getElementsByName('share_url')[0].value,
+					url:jQuery('input.share-panel-url[name="share_url"]').val(),// document.getElementsByName('share_url')[0].value,
 					summary:"<%= cw.title %>",
 					title:"课件TV <%= cw.title %>",
 					boldNum:0,
