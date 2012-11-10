@@ -1186,23 +1186,23 @@
 		});
 	});
 	var tag = '<span class="yt-chip"><span></span><span class="yt-delete-chip"></span></span>';
-	$('.kejian-settings-add-tag').live('keyup',function(event){
+	$('.kejian-settings-add-tag').live('keydown',function(event){
 		console.log(event.which,event);
 		if(event.which==188){
 			event.preventDefault();
-			var tagg = $(this).val().replace(/,/g,'').replace(/，/g,'');
+			var tagg = $(this).val().trim().replace(/,/g,'').replace(/，/g,'');
 			if(tagg.length > 0){
 				$(this).before('<span class="yt-chip"><span>'+tagg+'</span><span class="yt-delete-chip"></span></span>');
 				$(this).val('');
 				$(this).parent().find('.kejian-settings-tags').val($(this).parent().find('.kejian-settings-tags').val() + ' '+tagg)
 			}
-		}else if(event.which == 8){
-			event.preventDefault();
+		}else if($(this).val().length==0 && event.which == 8){
 			var tagg = $(this).val();
 			if(tagg.length == 0){
 				var taggx = $(this).prev().find('span:eq(0)').html();
 				$(this).val(taggx);
 				$(this).select();
+				event.preventDefault();
 				$(this).prev().find('.yt-delete-chip').trigger('click');
 			}
 		}
