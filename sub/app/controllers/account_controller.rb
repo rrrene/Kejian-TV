@@ -263,16 +263,10 @@ class AccountController < Devise::RegistrationsController
       else
         raise '注册UC同步注册错误！！！猿快来看一下！'
       end
-      if resource.active_for_authentication?
-        set_flash_message :notice, :signed_up if is_navigational_format?
-        sign_in(resource_name, resource);sign_in_others
-        redirect_to '/account/edit'
-        return false
-      else
-        expire_session_data_after_sign_in!
-        redirect_to '/welcome/inactive_sign_up'
-        return false
-      end
+      set_flash_message :notice, :signed_up if is_navigational_format?
+      sign_in(resource_name, resource);sign_in_others
+      redirect_to '/welcome/inactive_sign_up'
+      return false
     else
       clean_up_passwords resource
       respond_with resource do |format|

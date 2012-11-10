@@ -241,30 +241,7 @@ $('.presentation').hover(function(){
 </div>      
 </div>
 
-           <strong><a href="/simple/home.php?mod=space&amp;do=friend&amp;view=online&amp;type=member"></a></strong>
-<div id="online-users" class="module">
-    <h4 id="h-recent-badges">在线用户: <strong><%= @session_count %></strong> 人在线
-     - <strong><%= @onlinelist_count %></strong> 用户(<strong><%= @online_invisible_count %></strong> 隐身),
-     <strong><%= @guest_count %></strong> 位游客
-     - 最高记录是 <strong><%= @onlinerecord[0] %></strong> 于 <strong><%=Time.at(@onlinerecord[1].to_i).strftime("%F")%></strong></span>
-    </h4>
-    <table>
-    <tbody>
-     <% if @on_display.empty? %>
-      <tr><td>当前只有游客或隐身用户在线</td></tr>
-     <% else %>
-       <% @on_display.each do |uid,online| %>
-        <% if !online[2][1] %>
-           <tr><td><a class="badge" href="/simple/?<%= uid %>"><span class="badge2" style="background-image:url(/simple/static/image/common/<%= online[3][1] %>);background-position:0 0;"></span>&nbsp;<%= online[1][0] %></a>
-             <a href="/simple/?<%= uid %>"><%= timeago(Time.at(online[2][0])) %></a></td></tr>
-        <% end %>
-       <% end %>
-     <% end %>
-
-    </tbody></table>
-    <p class="ar"><a href="/simple/home.php?mod=space&amp;do=friend&amp;view=online&amp;type=member">所有在线用户 »</a></p>
-</div>
-
+<%=render 'zaixianyonghu'%>
 <div id="feed-link">
     <div id="feed-link-text"><a href="/welcome/feeds" title="RSS订阅最新课件"><span class="feed-icon"></span>RSS订阅最新课件</a></div>
 </div>

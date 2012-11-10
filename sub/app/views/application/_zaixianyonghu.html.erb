@@ -1,0 +1,27 @@
+<div id="online-users" class="module">
+    <h4 id="h-recent-badges">在线用户: <strong><%= @_G['psvr_payload']['whosonlinestatus']['onlinenum'] %></strong> 人在线
+     - <strong><%= @_G['psvr_payload']['whosonlinestatus']['membercount'] %></strong> 用户(<strong><%= @_G['psvr_payload']['whosonlinestatus']['invisiblecount'] %></strong> 隐身),
+     <strong><%= @_G['psvr_payload']['whosonlinestatus']['guestcount'] %></strong> 位游客
+     - 最高记录是 <strong><%= @_G['psvr_payload']['whosonlinestatus']['onlineinfo'][0] %></strong> 于 <strong><%=Time.at(@_G['psvr_payload']['whosonlinestatus']['onlineinfo'][1].to_i).strftime("%F")%></strong></span>
+    </h4>
+    
+    <table>
+    <tbody>
+     <% if @_G['psvr_payload']['whosonlinestatus']['whosonline'].blank? %>
+      <tr><td>当前只有游客或隐身用户在线</td></tr>
+     <% else %>
+       <% @_G['psvr_payload']['whosonlinestatus']['whosonline'].each do |online| %>
+         <% id=User.get_id online['uid'].to_i %>
+         <tr><td title="<%= online['lastactivity'] %>"><a class="badge" href="/users/<%= id %>"><span class="badge2" style="background-image:url(/simple/static/image/common/<%= online['icon'] %>);background-position:0 0;"></span>&nbsp;<%= User.get_name(id) %></a>
+         <a href="/users/<%= id %>"><%= timeago(Time.at online['lastolupdate'].to_i) %></a></td></tr>
+       <% end %>
+     <% end %>
+
+    </tbody></table>
+    
+    
+    
+    
+    <p class="ar"><a href="/simple/home.php?mod=space&do=friend&view=online&type=member">所有在线用户 »</a></p>
+</div>
+

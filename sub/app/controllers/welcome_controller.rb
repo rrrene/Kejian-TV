@@ -51,6 +51,7 @@ class WelcomeController < ApplicationController
     render 'index'    
   end
   def inactive_sign_up
+    @seo[:title]='请查收确认邮件'
     render "inactive_sign_up",layout:'application_for_devise'
   end
   def shuffle

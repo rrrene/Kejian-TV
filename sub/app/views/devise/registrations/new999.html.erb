@@ -39,8 +39,8 @@ window.working_what = function(){
     showloading('block','保存中...');
   }
 };
+window.suc_cnt = 0;
 window.suc_what = function(){
-  suc_cnt = $('.psvr_checkbox:checked').length;
   if(0==suc_cnt){
     $('#psvr_qing0').show();
     $('#psvr_qing1').hide();
@@ -74,6 +74,7 @@ window.psvr_bind_action = function(){
       working_cnt += 1;
       window.working_what();
       $.get("/"+res+"/"+id+"/follow",{}, function(data){
+        window.suc_cnt+=1;
         window.suc_what();
         if('teachers'==res){
           already = parseInt(jQuery('#teacher_gonna_'+id).html());
@@ -91,6 +92,7 @@ window.psvr_bind_action = function(){
       working_cnt += 1;
       window.working_what();
       $.get("/"+res+"/"+id+"/unfollow",{}, function(data){
+        window.suc_cnt-=1;
         window.suc_what();
         if('teachers'==res){
           already = parseInt(jQuery('#teacher_gonna_'+id).html());
@@ -152,7 +154,7 @@ window.psvr_bind_action();
                         <h1 id="psvr_qing0">请关注至少 5 个老师或课程</h1>
   											<div id="psvr_qing1" style="text-align: center; margin-top: 15px; display: none;" class="form_buttons">
   												<div id="ld_pASXf4_10925">
-                            <div class="psvr_ld_0KNM7J_71152" style="display:none"><a href="/register05?checkpoint=1" class="psvr_finalebtn submit_button">保存并继续&nbsp;→</a></div>
+                            <div class="psvr_ld_0KNM7J_71152" style="display:none"><a href="/register05?checkpoint=1" class="psvr_finalebtn submit_button">保存并完成注册&nbsp;→</a></div>
   													<p class="psvr_ld_0KNM7J_7115  br3 unbutton">
                             请再关注 <span class="psvr_shengyu"></span> 个老师或课程
   													</p>
@@ -196,7 +198,7 @@ window.psvr_bind_action();
   								<div class="section w8" style="width:818px">
   									<div class="form_buttons">
   										<div id="ld_pASXf4_10926">
-                          <div class="psvr_ld_0KNM7J_71152" style="display:none"><a href="/register05?checkpoint=1" class="psvr_finalebtn submit_button">保存并继续&nbsp;→</a></div>
+                          <div class="psvr_ld_0KNM7J_71152" style="display:none"><a href="/register05?checkpoint=1" class="psvr_finalebtn submit_button">保存并完成注册&nbsp;→</a></div>
   											<p id="__w2_LWhqGx8_unbutton" class="psvr_ld_0KNM7J_7115 br3 unbutton">
                             请再关注 <span class="psvr_shengyu"></span> 个老师或课程
   											</p>
@@ -217,7 +219,7 @@ window.psvr_bind_action();
 <div class="__zm">
 <div id="reg-header" class="wide">
 </div>
-<div id="content" class="newreg wide" style="padding-top:6px">
+<div id="content" class="newreg wide" style="padding-top:6px;margin-bottom:22px">
   <div style="width:840px;height:51px;background:url(<%=asset_path 'zm/r11839/images/reg/bad_tiao3.png' %>)">
   </div>
   <div style="width:838px;border: 1px solid #D6D6D6;border-top: none;height:1888px;" id="content_reg05">

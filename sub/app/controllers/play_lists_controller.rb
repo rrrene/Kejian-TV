@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 class PlayListsController < ApplicationController
+  prepend_before_filter proc{@psvr_payloads||=[];@psvr_payloads << 'whosonlinestatus'},:only=>[:index]
   before_filter :page_require
   def page_require
     params[:page] ||= '1'
@@ -10,7 +11,6 @@ class PlayListsController < ApplicationController
     cookies[:welcome_per_page] = @per_page
   end
   def index
-    common_op!
     @seo[:title]='课件锦囊'
     @play_lists = PlayList.no_privacy.destroyable.normal
     @play_lists = @play_lists.paginate(:page => params[:page], :per_page => @per_page)

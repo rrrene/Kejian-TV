@@ -297,6 +297,7 @@ class ApplicationController < ActionController::Base
   end
   NO_REDIRECT_REQUEST_PATHs = [
     '/register05',
+    '/register05',
     '/register05_force_relogin',
     '/logout',
     '/ajax/renren_huanyizhang',
@@ -304,6 +305,8 @@ class ApplicationController < ActionController::Base
     '/ajax/current_user_reg_extent',
     '/ajax/renren_invite',
     '/ajax/register_huanyihuan',
+    '/welcome/inactive_sign_up',
+    '/account/confirmation/new',
   ]
   before_filter :unknown_user_check,:if=>'current_user'
   def unknown_user_check
@@ -324,6 +327,8 @@ class ApplicationController < ActionController::Base
       end
       if current_user.unconfirmed_email.present?
         flash[:insuf_info] = "请点击邮箱#{current_user.unconfirmed_email}内的确认链接以完成邮箱修改".html_safe 
+      elsif !current_user.email_unknown and !current_user.confirmed?
+        flash[:insuf_info] = "请查收邮箱#{current_user.email}内的激活邮件. [<a href=\"/account/confirmation/new\">重发激活邮件</a>]".html_safe 
       end
     end
   end
