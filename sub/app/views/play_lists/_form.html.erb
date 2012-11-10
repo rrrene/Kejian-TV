@@ -1,4 +1,10 @@
-<% puser = User.find(playlist.user_id) %>
+<% 
+if playlist.user_id 
+	puser = User.find(playlist.user_id)
+else
+	puser = current_user
+end
+%>
 <form action="/play_lists/<%= playlist.id %>/handler" method="post" id="playlist-editor-form">
 	<div style="margin:0;padding:0;display:inline">
 		<input name="utf8" type="hidden" value="✓">
@@ -12,8 +18,12 @@
 </div>
    <div id="playlist-editor-heading-container">
       <div class="ytg-box" id="playlist-editor-heading" style="height:32px">
-         <h2>
+         <h2 style="padding-top: 10px;">
+					 <% if edit == 1 %>
             编辑课件锦囊
+  			 	 <% else %>
+						 新建课件锦囊
+					 <% end %>
          </h2>
          <ul>
             <li>
@@ -65,10 +75,10 @@
         								<label data-char-limit="60" data-warn-at-chars-remaining="20" data-count-char-by-size="true" class="yt-uix-char-counter">
                         课件锦囊标题
                         <span class="remaining-chars input-annotation">
-                        剩余字符数：<span class="yt-uix-char-counter-remaining"><%= 60- playlist.title.length%></span>
+													剩余字符数：<span class="yt-uix-char-counter-remaining"><%= 60- playlist.title.to_s.size%></span>
                         </span>
                         <span class=" yt-uix-form-input-container">
-                          <input maxlength="60" value="<%= Sanitize.clean(playlist.title.gsub(/\n/, ' '), Sanitize::Config::BASIC).html_safe %>" name="title" class="yt-uix-form-input-text text yt-uix-char-counter-input" dir="ltr" />
+                          <input maxlength="60" value="<%= Sanitize.clean(playlist.title.to_s.gsub(/\n/, ' '), Sanitize::Config::BASIC).html_safe %>" name="title" class="yt-uix-form-input-text text yt-uix-char-counter-input" dir="ltr" />
                         </span>
                         </label>
                      </div>
@@ -117,7 +127,7 @@
                            <li id="aria-id-delete" role="menuitem"><span onclick=";return false;" class="playlist-delete-items yt-uix-button-menu-item">从课件锦囊中删除课件</span></li>
                         </ul>
                      </button>
-                     <button role="button" data-button-toggle="true" class="add-playlist-video-button yt-uix-button yt-uix-button-default" id="playlist-add-video" type="button" onclick=";return false;">
+                     <button role="button" class="add-playlist-video-button yt-uix-button yt-uix-button-default" id="playlist-add-video" type="button" onclick=";return false;" <% if edit == 0 %> disabled="true" <% end %>>
                        <span class="yt-uix-button-content">通过网址添加课件 </span>
                      </button>
                   </div>
@@ -175,6 +185,8 @@
                            </div>
                          </div>
                        </div>
+											 <ol class="playlist-video-items yt-uix-dragdrop" id="playlist-video-items">
+											 </ol>
                      <% end %>
                      <ul class="hid" id="playlist-video-item-templates">
                         <li class="playlist-video-item-interstitial-placeholder">
@@ -189,7 +201,7 @@
                      <span class="editor-input-header">
                        锦囊描述
                        <span class="remaining-chars input-annotation">
-                       剩余字符数：<span class="yt-uix-char-counter-remaining"><%= (5000 - (playlist.desc.blank? ? 0 : playlist.desc.length)).to_s %></span>
+												 剩余字符数：<span class="yt-uix-char-counter-remaining"><%= (5000 - (playlist.desc.blank? ? 0 : playlist.desc.to_s.size)).to_s %></span>
                        </span>
                      </span>
                        <span class="yt-uix-form-input-container ">
@@ -277,7 +289,7 @@
                      <button role="button" onclick=";return false;" class="delete-playlist-button yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-content">删除课件锦囊 </span></button>
                      <div class="hid" id="delete-playlist-dialog">
                         <p>
-                           您确定要删除<strong><%=  Sanitize.clean(playlist.title.gsub(/\n/, ' '), Sanitize::Config::BASIC).html_safe %>是</strong>吗？
+                           您确定要删除<strong><%=  Sanitize.clean(playlist.title.to_s.gsub(/\n/, ' '), Sanitize::Config::BASIC).html_safe %>是</strong>吗？
                         </p>
                         <p>
                            注意：删除课件锦囊是一项无法撤消的永久性操作。
@@ -314,6 +326,7 @@
       if(json['status'] == 'suc'){
         $('#add-video-failed').hide();
         $('#add-video-success').show();
+				$('.playlist-empty-message').hide();
         $('#playlist-video-items').append(json['list']);
       }else if(json['status'] =='failed'){
         $('#add-video-success').hide();
@@ -511,7 +524,7 @@
       var inchoose = $.inArray($(li).attr('data-encrypted-kejian-id'),choose);
       if(inchoose != -1){
         $(li).addClass('removed');
-				console.log(				$('div > input.delete-playlist-video',li));
+				// console.log(				$('div > input.delete-playlist-video',li));
 				$('div > input.delete-playlist-kejian',li).val('1');
         $('div > span.yt-uix-form-input-checkbox-container.playlist-video-item-checkbox-container > .yt-uix-form-input-checkbox.playlist-video-item-checkbox',li).attr('checked',false);
         choose.splice(inchoose,inchoose+1);

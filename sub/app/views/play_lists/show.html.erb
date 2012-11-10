@@ -116,7 +116,7 @@
 								<%= render :partial=>'playlist_actions',:locals=>{playlist:@playlist} %>
 							<% end %>
 					    <ol>
-								<% if !@playlist.content.nil? %>
+								<% if !@playlist.content.blank? %>
 										<% if !@playlist.playlist_enable_grid_view %>
 											<%= render partial:'show_list',locals:{playlist:@playlist} %>
 										<% else %>

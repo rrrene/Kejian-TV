@@ -144,7 +144,7 @@
             dataType:'json'
           }).done(function(data){
             if(data['status'] == 'suc'){
-              window.location.replace('/play_lists/'+data['id'] + '/edit');
+              window.location.replace('/play_lists/'+data.id + '/edit');
             }else{
               
             }

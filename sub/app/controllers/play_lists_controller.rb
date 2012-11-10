@@ -17,10 +17,20 @@ class PlayListsController < ApplicationController
   end
   
   def new
+    if current_user.nil?
+      flash[:notice]='您尚未登录'
+      redirect_to '/'
+      return false
+    end
     @play_list = PlayList.new
   end
 
   def edit
+    if current_user.nil?
+      flash[:notice]='您尚未登录'
+      redirect_to '/'
+      return false
+    end
     @play_list = PlayList.find(params[:id])
     if current_user.nil? or current_user.id != @play_list.user_id 
         flash[:notice] = "该课件锦囊为私有，您无权修改。"
@@ -41,6 +51,11 @@ class PlayListsController < ApplicationController
     @seo[:title] = "课件锦囊"    
   end
   def handler
+    if current_user.nil?
+      flash[:notice]='您尚未登录'
+      redirect_to '/'
+      return false
+    end
     hash = Digest::MD5.hexdigest(params[:id]+'.liber.'+Digest::MD5.hexdigest(params[:form_hash]))
     if hash != params[:encrypted_playlist_id]
       flash[:error] = "来路不明。"
@@ -73,7 +88,7 @@ class PlayListsController < ApplicationController
         end
       end
     end
-    pl = PlayList.find(params[:id])
+    pl = PlayList.find_or_create_by(id:params[:id])
     pl.title = params[:title]
     pl.content = params[:playlist_kejian_id]
     pl.annotation = params[:playlist_video_annotation]
@@ -103,6 +118,11 @@ class PlayListsController < ApplicationController
     end
   end
   def destroy
+    if current_user.nil?
+      flash[:notice]='您尚未登录'
+      redirect_to '/'
+      return false
+    end
     pl = PlayList.find(params[:id])
     if !current_user.nil? and current_user.id == pl.user_id
       pl.deleted = 1

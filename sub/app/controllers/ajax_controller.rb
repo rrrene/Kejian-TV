@@ -142,18 +142,19 @@ class AjaxController < ApplicationController
     end
   end
   def upload_page_auto_save
+    presentation = params[:presentation].with_indifferent_access
+    cw = Courseware.presentations_upload_finished(presentation,current_user)
+    
     # update teacher
     if !params[:psvr_f].blank?
-      teacher = params[:teacher] == 'opt_psvr_add_more' ? param[:other_teacher] : params[:teacher]
+      teacher = presentation[:teacher] == 'opt_psvr_add_more' ? presentation[:other_teacher] : presentation[:teacher]
       if !teacher.blank?
         Course.where(fid:params[:psvr_f].to_i).first.teachings.find_or_create_by(teacher:teacher).save(:validate=>false)
         Teacher.find_or_create_by(name:teacher,department_fid:params[:psvr_f]).save(:validate=>false)
       end
-    end
-    presentation = params[:presentation].with_indifferent_access
-    cw = Courseware.presentations_upload_finished(presentation,current_user)
+    end    
     cw.upload_persentage = presentation[:upload_persentage].to_i
-    cw.keywords = presentation[:keywords].split(' ')
+    cw.keywords = presentation[:keywords].strip.split(' ')
     cw.desc = presentation[:description]
     cw.enable_monetization = presentation[:enable_monetization] == 'enable' ? true : false
     cw.monetization_style = presentation[:monetization_style]
@@ -450,7 +451,7 @@ HEREDOC
       render json:{status:'failed',reason:'您尚未登录！'}
       return false
     end
-    if !Moped::BSON::ObjectId.legal?(params[:cwid])
+    if !params[:cwid].blank? and !Moped::BSON::ObjectId.legal?(params[:cwid])
       render json:{status:'failed',reason:'系统无法完成请求，请稍后重试。'}
       return false
     end
@@ -460,17 +461,19 @@ HEREDOC
     end
     pl = PlayList.find_or_create_by(user_id:current_user.id,title:params[:list_title])
     pl.desc = params[:desc] if !params[:desc].blank?
-    case params[:is_private]
-    when 'private'
-      pl.privacy = 2
-    when 'unlisted'
-      pl.privacy = 1
-    else
-      pl.privacy = 0
+    if !params[:is_private].blank?
+      case params[:is_private]
+      when 'private'
+        pl.privacy = 2
+      when 'unlisted'
+        pl.privacy = 1
+      else
+        pl.privacy = 0
+      end
     end
-    pl.content << Moped::BSON::ObjectId(params[:cwid])
+    pl.content << Moped::BSON::ObjectId(params[:cwid]) if !params[:cwid].blank?
     if pl.save(:validate => false)
-      render json:{status:'suc',title:"<a href='/play_lists/#{pl.id}'>#{pl.title}</a>"}
+      render json:{status:'suc',title:"<a href='/play_lists/#{pl.id}'>#{pl.title}</a>",id:pl.id}
       return true
     else
       render json:{status:'failed',reason:'系统无法完成请求，请稍后重试。'}
@@ -706,6 +709,10 @@ HEREDOC
   
   def add_to_playlist_by_url
       json_failed = {status:'failed',reason:'课件网址无效。'}
+      if PlayList.where(id:params[:playlist_id]).first.nil?
+        render json:{status:'failed',reason:'请先保存课件锦囊！'}
+        return false
+      end
       unless (params[:url] =~ URI::regexp).nil?
         pl = PlayList.find(params[:playlist_id])
         url = URI.parse(URI.encode(params[:url]))
@@ -725,8 +732,7 @@ HEREDOC
         end
         cw = Courseware.find(id)
         if pl.content.include?(cw.id)
-            json_failed = {status:'failed',reason:'该课件锦囊里已经有该课件。'}
-            render json:json_failed
+            render json:{status:'failed',reason:'该课件锦囊里已经有该课件。'}
             return false
         end
         if cw.nil?
@@ -736,7 +742,7 @@ HEREDOC
         add = pl.add_one_thing(cw.id)
         if add
              render json:{status:'suc',
-                    list:render_to_string(:file=>"play_lists/_list.html.erb",:locals=>{content:pl.content,cwid:cw.id,index:(pl.content.count-1),annotation:pl.annotation,user_id:pl.user_id},:layout=>nil, :formats=>[:html])}
+                    list:render_to_string(:file=>"play_lists/_list.html.erb",:locals=>{content:pl.content,cwid:cw,index:(pl.content.count-1),annotation:pl.annotation,user_id:pl.user_id},:layout=>nil, :formats=>[:html])}
         else
           render json:{status:'failed',reason:'该课件已经存在该课件锦囊！'}
         end
