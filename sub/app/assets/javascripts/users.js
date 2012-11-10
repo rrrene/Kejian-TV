@@ -88,7 +88,7 @@ window.Users = {
     var lhtml = [];
     lhtml.push('<header>请登录 <a class="close" href="javascript:void(0);"></a></header>');
     lhtml.push('<section class="form clearfix">');
-    lhtml.push('<form name="frmLogin" id="frmLogin" method="post" action="http://my.kejian.tv/loginmgr/loginproc.asp">');
+    lhtml.push('<form name="frmLogin" id="frmLogin" method="post" action="http://my.0db5.com/loginmgr/loginproc.asp">');
     lhtml.push('<dl>');
     lhtml.push('<dt>账&nbsp;&nbsp;号:</dt>');
     lhtml.push('<dd><input type="text" class="fl input-x-validate" name="loginname" maxlength="100" value="" />');
@@ -97,7 +97,7 @@ window.Users = {
     lhtml.push('<dd><input type="password" class="fl input-x-validate" name="password" maxlength="25" value="" />');
     lhtml.push('<div class="validImg fl"></div><div class="validTip fl" id="tip_password"></div></dd>');
     lhtml.push('<dt></dt>');
-    lhtml.push('<dd  style="height:18px;"><span style="float:right;"><a href="http://my.kejian.tv/loginmgr/forgetpassword.asp" target="_blank">忘记密码？</a></span>');
+    lhtml.push('<dd  style="height:18px;"><span style="float:right;"><a href="http://my.0db5.com/loginmgr/forgetpassword.asp" target="_blank">忘记密码？</a></span>');
     lhtml.push('<input style="width:18px;" type="checkbox" class="noBorder" name="isautologin" value="1" />记住登录状态</dd>');
     lhtml.push('<input type="hidden" name="Validate" id="Validate" value="campusspecial2011unify" />');
     lhtml.push('<input type="hidden" name="errbkurl" id="errbkurl" value="'+location.href+((location.href.indexOf('error=1')>-1)?'':'?error=1')+'" />');
@@ -154,7 +154,7 @@ window.Users = {
   userLogout: function(){
     var url = location.href;
     if (/(^http:\/\/[^\/]+\/)/i.test(url)){
-      location.href='http://my.kejian.tv/loginmgr/logout.asp?strBkUrl='+RegExp['$1'];
+      location.href='http://my.0db5.com/loginmgr/logout.asp?strBkUrl='+RegExp['$1'];
     }
     return false;
   },
@@ -186,7 +186,7 @@ window.Users = {
     lhtml.push('<dd><input type="password" class="fl input-x-validate" name="user[password_confirmation]" id="password2" value="" size="32" />');
     lhtml.push('<div class="validImg fl"></div><div class="validTip fl" id="tip_password2"></div></dd>');
     lhtml.push('<dt></dt>');
-    lhtml.push('<dd class="clear"><div class="details" style="display:none"><input type="checkbox" class="noBorder accept" name="accept" checked="checked" style="width:20px;" />我接受 <a target="_blank" href="/agreement">Kejian.TV用户协议</a> 和 <a target="_blank" href="http://jobseeker.kejian.tv/zhaopin/aboutus/secrecy.html">课件交流系统隐私协议</a></div></dd>');
+    lhtml.push('<dd class="clear"><div class="details" style="display:none"><input type="checkbox" class="noBorder accept" name="accept" checked="checked" style="width:20px;" />我接受 <a target="_blank" href="/agreement">Kejian.TV用户协议</a> 和 <a target="_blank" href="http://jobseeker.0db5.com/zhaopin/aboutus/secrecy.html">课件交流系统隐私协议</a></div></dd>');
     lhtml.push('</dl>');
     lhtml.push('</form></section>');
     lhtml.push('<footer>');

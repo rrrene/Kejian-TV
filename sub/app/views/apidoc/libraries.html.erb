@@ -22,7 +22,7 @@ me = herder.user 'jhelwig'
 => #<WendaoHerder::User:0x7f792d3b6070 ...>
 
 me.html_url
-=> "https://kejian.tv/jhelwig"
+=> "https://0db5.com/jhelwig"
 
 me.available_attributes.sort
 => ["asks","topics",...]
@@ -38,7 +38,7 @@ repos = me.asks
 client = Wendao::Client.new(:login => "me", :password => "secret")
 client.follow!("psvr")
 </pre>  
-<p>或者，你可以使用你手中的访问令牌。注意：这个令牌<strong>不是</strong>你在<a href="http://api.kejian.tv/clients">应用程序管理</a>里看到的应用程序ID！而是通过用授权码换取访问令牌得到的那个字符串。</p>
+<p>或者，你可以使用你手中的访问令牌。注意：这个令牌<strong>不是</strong>你在<a href="http://api.0db5.com/clients">应用程序管理</a>里看到的应用程序ID！而是通过用授权码换取访问令牌得到的那个字符串。</p>
 <pre>
 client = Wendao::Client.new(:login => "me", :oauth_token => "oauth2token")
 client.follow!("psvr")

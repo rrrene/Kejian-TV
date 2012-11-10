@@ -9,10 +9,10 @@
 <p>只您只需提供您的客户端ID。这个信息可以通过在URI的最后添加“?client_id=your_id”来实现，也可以添加到HTTP请求体中传送来的查询JSON中，作为`client_id`的键值。例如：</p>
 
 <pre class="terminal">
-$ curl -i http://api.kejian.tv/asks\?client_id\=4f853634c3666e05e1000002\&per_page\=1
+$ curl -i http://api.0db5.com/asks\?client_id\=4f853634c3666e05e1000002\&per_page\=1
 
 HTTP/1.1 200 OK 
-Link: <https://api.kejian.tv/asks?page=2&per_page=1>; rel="next",<https://api.kejian.tv/asks?page=1016&per_page=1>; rel="last",<https://api.kejian.tv/asks?page=1&per_page=1>; rel="first"
+Link: <https://api.0db5.com/asks?page=2&per_page=1>; rel="next",<https://api.0db5.com/asks?page=1016&per_page=1>; rel="last",<https://api.0db5.com/asks?page=1&per_page=1>; rel="first"
 Content-Type: application/json; charset=utf-8
 X-Ua-Compatible: IE=Edge
 Etag: "217090261e7c7e0c3f7eea834178de74"
@@ -32,7 +32,7 @@ Set-Cookie: _quora_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRkkiJTQxYjM5MTdmODk2OTVjN
 <p>client_id是必需提供的，同样的例子若无此值，则会：</p>
 
 <pre class="terminal">
-$ curl -i http://api.kejian.tv/asks\?per_page\=1
+$ curl -i http://api.0db5.com/asks\?per_page\=1
 
 HTTP/1.1 401 Unauthorized 
 Content-Type: text/html; charset=utf-8

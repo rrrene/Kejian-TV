@@ -87,7 +87,7 @@
         //加载状态提示
         function _loading(isShow){          
           if (isShow){
-            $("#ajaxLoading").css({"position":"absolute","z-index":"9999","left":$(window).width()/2-16+"px","top":$(window).height()/2-16+"px"}).html('<img src="http://myimg.kejian.tv/images/new_v3/ani_ajaxload.gif" \/>').show();
+            $("#ajaxLoading").css({"position":"absolute","z-index":"9999","left":$(window).width()/2-16+"px","top":$(window).height()/2-16+"px"}).html('<img src="http://myimg.0db5.com/images/new_v3/ani_ajaxload.gif" \/>').show();
             ajaxLoadingTimeId = setTimeout(function(){
               clearTimeout(ajaxLoadingTimeId);
               $("#ajaxLoading").hide();
@@ -131,7 +131,7 @@
           }
           //初始化加载状态
           if(!$("#ajaxLoading").length){
-            $("body").append('<div id="ajaxLoading" style="display:none;"><img src="http://myimg.kejian.tv/images/new_v3/ani_ajaxload.gif" \/></div>');
+            $("body").append('<div id="ajaxLoading" style="display:none;"><img src="http://myimg.0db5.com/images/new_v3/ani_ajaxload.gif" \/></div>');
           }
         }
         //加载失败提示
@@ -346,7 +346,7 @@
             if ($("#divMask").length){
               $("#divMask").hide();
             }
-            $("#popupInnerCon").html("<div class=\"ajaxLoading\"><img src=\"http://myimg.kejian.tv/images/new_v3/ani_ajaxload.gif\" \/></div>");
+            $("#popupInnerCon").html("<div class=\"ajaxLoading\"><img src=\"http://myimg.0db5.com/images/new_v3/ani_ajaxload.gif\" \/></div>");
             if ($("#divPopup form").length){
               $("#divPopup form").unbind("submit");
             }

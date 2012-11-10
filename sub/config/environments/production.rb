@@ -28,7 +28,7 @@ Sub::Application.configure do
   config.action_mailer.smtp_settings = smtp_settings
   config.middleware.use ExceptionNotifier,
     :email_prefix => "[#{Setting.ktv_sub.upcase}抛出了异常] ",
-    :sender_address => %{"Kejian.TV" <kejian.tv@gmail.com>},
+    :sender_address => %{"Kejian.TV" <0db5.com@gmail.com>},
     :exception_recipients => %w{pmq2001@gmail.com llb0536@gmail.com},
     :smtp_settings => smtp_settings
   Mongoid.logger = nil

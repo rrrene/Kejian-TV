@@ -1,4 +1,4 @@
-<div class="contentItem" style="background:url("http://kejian.tv/assets/usermailerbg.png") repeat-x left bottom;padding:20px;">
+<div class="contentItem" style="background:url("http://0db5.com/assets/usermailerbg.png") repeat-x left bottom;padding:20px;">
 	<div style="margin:5px 0;">
 		<%= raw @invitors.collect { |u| user_name_tag(u,:url => true) }.join(", ") %>邀请你解答<br>
 		·<a href="<%= ask_url(@ask.id) %>" target="_blank" style="color:#360;font-weight:bold;font-size:14px;text-decoration:none;"><%= @ask.title%></a>
