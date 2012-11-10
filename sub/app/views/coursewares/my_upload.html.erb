@@ -36,7 +36,7 @@
 							<span class="progress-bar-percentage">0%</span>
 						</div>
 						<div class="uploader-buttons">
-							<button role="button" data-upload-button-id="add-more-videos-top" class="start-upload-button hide-in-initial yt-uix-button yt-uix-button-default" type="button" >
+							<button role="button" class="start-upload-button hide-in-initial yt-uix-button yt-uix-button-default" type="button" style="display:none">
 								<span class="yt-uix-button-icon-wrapper">
 									<img alt="" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="yt-uix-button-icon yt-uix-button-icon-upload-add">
 									<span class="yt-uix-button-valign"></span>
@@ -50,13 +50,6 @@
 					</div>
 					<!-- footer -->
 					<div class="upload-footer">
-						<button role="button" data-upload-button-id="add-more-videos-bottom" class="init-upload-button start-upload-button hide-in-initial yt-uix-button yt-uix-button-default" type="button" onclick=";return false;">
-							<span class="yt-uix-button-icon-wrapper">
-								<img alt="" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="yt-uix-button-icon yt-uix-button-icon-upload-add">
-								<span class="yt-uix-button-valign"></span>
-							</span>
-							<span class="yt-uix-button-content">添加更多课件 </span>
-						</button>
 					</div>
 					<!-- noscript -->
 					<div class="filelist-box" id="filelist-box">
@@ -190,8 +183,23 @@
 							</div>
 							<span class="action-buttons">
 							<button role="button" data-button-toggle="true" onclick=";return false;" class="post-upload-share hid yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-content">分享 </span></button>
-							<button role="button" data-feature="upload" data-video-ids="SET-BY-JS" data-button-menu-id="shared-addto-menu" data-button-menu-action="yt.www.lists.addto.toggleMenu" onclick=";return false;" class="addto-button default flip hid yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-icon-wrapper"><img alt="" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="yt-uix-button-arrow"></button>
-							<button role="button" onclick=";return false;" class="item-cancel yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-icon-wrapper"><img alt="Cancel" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="yt-uix-button-icon yt-uix-button-icon-upload-cancel"><span class="yt-uix-button-valign"></span></span><span class="yt-uix-button-content">取消 </span></button>
+							<button role="button"  onclick=";return false;" class="addto-button default flip yt-uix-button hid yt-uix-button-default" type="button" >
+								<span class="yt-uix-button-icon-wrapper">
+									<img alt="" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="yt-uix-button-icon yt-uix-button-icon-addto">
+									<span class="yt-uix-button-valign"></span>
+								</span>
+								<span class="yt-uix-button-content">
+									<span class="addto-label">添加到</span> 
+								</span>
+								<img alt="" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="yt-uix-button-arrow">
+							</button>
+							<button role="button" onclick=";return false;" class="item-cancel yt-uix-button yt-uix-button-default" type="button">
+								<span class="yt-uix-button-icon-wrapper">
+									<img alt="Cancel" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="yt-uix-button-icon yt-uix-button-icon-upload-cancel">
+									<span class="yt-uix-button-valign"></span>
+								</span>
+								<span class="yt-uix-button-content">取消 </span>
+							</button>
 							</span>
 						</div>
 						<div class="share-container yt-rounded hid">
@@ -845,6 +853,7 @@
 						<div style="max-height: 1px;">
 							<img width="1" height="1" src="" alt="">
 						</div>
+						<%= render :partial=>'mine/addto_loading' %>
 					</div>
 					<div id="suggestion-alert-template" class="yt-alert yt-alert-actionable yt-alert-info hid ">
 						<div class="yt-alert-icon">
@@ -872,7 +881,7 @@
 
   $('.psvr_f').val(<%= Ktv::Utils.safely('undefined'){ret=@c.fid if @c;if ret.present?;ret;;end} %>);
   $('.psvr_g').val(<%= Ktv::Utils.safely('undefined'){ret=Department.get_fid(@c.department)if @c ;if ret.present?;ret;end}%>);
-	
+	var loading = '<div class="addto-loading loading-content"><img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>"><span>正在载入课件锦囊...</span></div>';
 	item = new Array();
 	// $('#the_upload_ytb #presentation_pdf').live('change',function(){
 	// 		if(!this.files.length){
@@ -1015,6 +1024,11 @@
 			$('#yt-uix-clickcard-card4').hide();
 			$('.yt-uix-clickcard.yt-uix-clickcard-active').removeClass('yt-uix-clickcard-active');
 		}
+		if($('button.addto-button').hasClass('yt-uix-button-active') && !$(target).is('button.addto-button') && !$(target).is('shared-addto-menu')){
+				$('button.addto-button').removeClass('yt-uix-button-active');
+				$('#shared-addto-menu').hide().addClass('hid');
+				$('#shared-addto-menu').html(loading);
+		}
 	});
 	$('#yt-uix-clickcard-card4').live('click',function(e){
 		e.stopPropagation();
@@ -1105,6 +1119,7 @@
 						return false;
 					}
 					remaining_upload_number = selected;
+					$('#SWFUpload_0').css({'left':$('.start-upload-button.hide-in-initial').position().left + 15,'top':($('.start-upload-button.hide-in-initial').offset().top),'position':'absolute','float':'left','width': $('.start-upload-button.hide-in-initial').outerWidth(),'height':$('.start-upload-button.hide-in-initial').outerHeight()});
 					this.startUpload();
 		},
 		file_queued_handler:function(file){
@@ -1120,7 +1135,8 @@
 				var uptime = parseInt(countingdown_upload/5);
 				item[countingdown_upload] = $('#the_upload_ytb #upload-item-template').clone();
 				item[countingdown_upload].attr('id','upload-item-'+countingdown_upload);
-				item[countingdown_upload].attr('class','upload-item '+file.id);
+				item[countingdown_upload].attr('class','upload-item');
+				item[countingdown_upload].attr('data-file-id',file.id);
 				item[countingdown_upload].find('input.presentation_uptime').val(jsonTime[uptime]+countingdown_upload);
 				item[countingdown_upload].find('.pdf_filename').val(file.name);
 				if(countingdown_upload!=0){
@@ -1138,8 +1154,8 @@
 		},
 		upload_progress_handler:function(file,completeBytes,totalBytes){
 			var percentage = parseInt(completeBytes/totalBytes*100);
-					$('#the_upload_ytb .'+file.id).find('.progress-bar-uploading .progress-bar-progress').css({'width':percentage.toString()+'%'}).parent().find('.progress-bar-percentage').html(percentage.toString()+'%');
-					$('#the_upload_ytb .'+file.id).find('input.upload_persentage').val(percentage);
+					$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.progress-bar-uploading .progress-bar-progress').css({'width':percentage.toString()+'%'}).parent().find('.progress-bar-percentage').html(percentage.toString()+'%');
+					$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('input.upload_persentage').val(percentage);
 		},
 		upload_error_handler:function(file, code, message){
 				console.log(file.name,code, message);
@@ -1147,17 +1163,19 @@
 		upload_complete_handler:function(file){
 			remaining_upload_number--;
 			remaining_process_number++;
-			$('#the_upload_ytb .'+file.id).find('.progress-bar-uploading').addClass('hid').parent().find('.progress-bar-processing').removeClass('hid');
-			$('#the_upload_ytb .'+file.id).find('.progress-bar-processing .progress-bar-progress').removeClass('hid').css({'width':'0%'}).parent().find('.progress-bar-percentage').html('0%');
-			$('#the_upload_ytb .'+file.id).find('.upload-status-text').html('开始为课件转码...');
-			if(!$('#the_upload_ytb .'+file.id).find('input.id').val()){
-				auto_ajax_save($('#the_upload_ytb .'+file.id).find('form').serialize()).done(function(json){
-					$('#the_upload_ytb .'+file.id).find('input.id').val(json.id);
-					$('#the_upload_ytb .'+file.id).find('.watch-page-link').html('<span class="watch-page-link"> 您的课件将在以下位置阅读： <a href="http://<%= Setting.ktv_sub %>.kejian.tv/coursewares/'+json.id+'"></a></span>');
+			$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.progress-bar-uploading').addClass('hid').parent().find('.progress-bar-processing').removeClass('hid');
+			$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.progress-bar-processing .progress-bar-progress').removeClass('hid').css({'width':'0%'}).parent().find('.progress-bar-percentage').html('0%');
+			$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.upload-status-text').html('开始为课件转码...');
+			$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.item-cancel').addClass('hid');
+			$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.addto-button').removeClass('hid');
+			if(!$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('input.id').val()){
+				auto_ajax_save($('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('form').serialize()).done(function(json){
+					$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('input.id').val(json.id);
+					$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.watch-page-link').html('您的课件将在以下位置阅读： <a href="http://<%= Setting.ktv_sub %>.kejian.tv/coursewares/'+json.id+'">http://<%= Setting.ktv_sub %>.kejian.tv/coursewares/'+json.id+'</a>');
 					update_processing_bar(json.id);
 				});
 			}else{
-         	update_processing_bar($('#the_upload_ytb .'+file.id).find('input.id').val());
+         	update_processing_bar($('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('input.id').val());
 			}
 			this.startUpload();
 			if(remaining_upload_number==0){
@@ -1166,16 +1184,14 @@
 		},
     upload_start_handler: function(file){
 			window.onbeforeunload = function(){return "您即将离开此页面。" + "\n\n" + "如果此时您离开此页面可能会丢失您所填的内容。您确定离开？";}
-			
-			$('#the_upload_ytb .'+file.id).find('.progress-bar-uploading').removeClass('hid');
-    }  
+			$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.progress-bar-uploading').removeClass('hid');
+    }
 	}); 
 	SWFUpload.onload = function () { 
 		$('#SWFUpload_0').css({'left':$('.starting-box-left-column').offset().left,'position':'absolute','float':'left'});
 	}
 	$('#the_upload_ytb .start-upload-button,#the_upload_ytb #multiple-uploads-link').live('click',function(){
-		// $('.starting-box-left-column').trigger('click');
-		swfu.selectFiles()
+		swfu.selectFiles();
 	});
 	var auto_ajax_save = function(data){
 		return $.ajax({
@@ -1232,23 +1248,294 @@
         url: "/presentations/" + a + "/status",
         dataType: "json",
         success: function (b) {
-            $('form input.id[value="'+a+'"]').parents('.upload-item').find('.upload-status-text').html(b.html);
-            b.complete < b.total ? ($("[data-processing-presentation=" + a + "]",'.__sdk').html(b.html), setTimeout(function () {
+            b.complete < b.total ? (deal_json(a,b), setTimeout(function () {
                 update_processing_bar(a)
             }, 2e3)) : b.complete === undefined || b.total == 0 ? setTimeout(function () {
                 update_processing_bar(a)
             }, 2e3) : setTimeout(function () {
-                $('form input.id[value="'+a+'"]').parents('.upload-item').find('.upload-status-text').html(b.html);
-                // $("#upload h1",'.__sdk').text("课件预览");
-                // $("#reupload",'.__sdk').hide();
-                // $("#presentation_" + a,'.__sdk').html("").parent().addClass("slide_frame");
-                // $(".slide_frame.processing",'.__sdk').removeClass("processing");
-                $("body").append("<script type='text/jav/ascript' src='/embed/" + b.id + ".js?container=presentation_" + a + "'></scr" + "ipt>");
+								deal_json(a,b);
+								$('form input.id[value="'+a+'"]').parents('.upload-item').addClass('upload-item-finished');
+								
             }, 2e3)
         }
     });           
-  }
-
+  };
+	var deal_json = function(a,b){
+		var percent = parseInt(b.complete/b.total).toString()+'%';
+    $('form input.id[value="'+a+'"]').parents('.upload-item').find('.upload-status-text').html(b.state + b.more);
+		$('form input.id[value="'+a+'"]').parents('.upload-item').find('.progress-bar-percentage').html(percent);
+		$('form input.id[value="'+a+'"]').parents('.upload-item').find('.progress-bar-progress').css({'width':percent});
+	}
+	$('.item-cancel').live('click',function(){
+		$(this).parents('.upload-item').addClass('upload-item-failed');
+		collapsed_upload($(this).parents('.upload-item'));
+		$(this).parents('.upload-item').find('.upload-failure').html('上传已取消。');
+		fileid = $(this).parents('.upload-item').attr('data-file-id');
+		swfu.cancelUpload(fileid,false);
+	});
+	//#==========================
+	$('button.addto-button').live('click',function(e){
+		e.stopPropagation();
+		$(this).toggleClass('yt-uix-button-active');
+		var addto_div = $('#shared-addto-menu');
+		if($(this).hasClass('yt-uix-button-active')){
+			cssObj = {
+				'min-width': '84px',
+				'top':($(this).parent().position().top+$(this).height()*1.7).toString() +'px',
+				'left':($(this).parent().position().left+20).toString() + 'px'
+			};
+			addto_div.css(cssObj);
+			addto_div.show().removeClass('hid');
+			$.ajax({
+				url:'/ajax/get_addto_menu',
+				type:'POST',
+				data:{'authenticity_token':"<%= form_authenticity_token %>"},
+				dataType:'json'				
+			}).done(function(json){
+				if(json.status == 'suc'){
+					$('#shared-addto-menu').html(json.html);
+				}
+			});
+			
+		}else{
+			addto_div.hide().addClass('hid');
+			addto_div.html(loading);
+		}
+	});
+	var removeStyle = function(){
+		$('#shared-addto-menu > div').each(function(index,div){
+			if (!$(div).hasClass('active-panel')) {
+				$(div).attr('style','');
+			};
+		});
+	};
+	var removeActiveTag = function(){
+		$('#shared-addto-menu > div').each(function(index,div){
+				$(div).removeClass('active-panel');
+		});
+	};
+	$('#shared-addto-menu').live('click',function(e){
+		e.stopPropagation();
+	});
+	$('div.playlists ul li').live('click',function(){
+		tmp = this;
+		$.ajax({
+			url:'/ajax/add_to_playlist_by_id',
+			type:'POST',
+			data:{'authenticity_token':"<%= form_authenticity_token %>",'pid':$('span',tmp).attr('data-item-id'),'cwid':[$(tmp).parents('.upload-item').find('form input.id').val()]},
+			dataType:'json'
+		}).done(function(json){
+			if(json.status == 'suc'){
+				$('#addto-list-panel').animate({'left':'-='+$('#addto-list-panel').width().toString() + 'px',opacity:0},{queue:false,duration:400});
+				removeActiveTag();
+				$('#addto-list-saved-panel span.message > span').html(json.title);
+				$('#addto-list-saved-panel').animate({'left':'-='+$('#addto-list-saved-panel').width().toString() + 'px',opacity:1},{queue:false,duration:400});
+				$('.close-note').show().removeClass('hid');
+				$('#addto-list-saved-panel').addClass('fade active-panel');
+				removeStyle();
+				summonQL(json.playlist_id,'1');
+			}else if(json.status == 'onesuc'){
+				$('#addto-list-panel').animate({'left':'-='+$('#addto-list-panel').width().toString() + 'px',opacity:0},{queue:false,duration:400});
+				removeActiveTag();
+				$('#addto-note-input-panel').show().removeClass('hid');
+				$('.close-note').show().removeClass('hid');
+				$('#addto-note-input-panel .yt-alert-message span.addto-title').html(json.title);
+				$('#addto-note-input-panel').animate({'left':'-='+$('#addto-create-panel').width().toString() + 'px',opacity:1},{queue:false,duration:400});
+				$('#addto-note-input-panel').addClass('fade active-panel');
+				removeStyle();
+				summonQL(json.playlist_id,'1');
+			}else if(json.status == 'failed'){
+				$('#addto-list-panel').animate({'left':'-='+$('#addto-list-panel').width().toString() + 'px',opacity:0},{queue:false,duration:400});
+				removeActiveTag();
+				$('#addto-list-error-panel span.error-details').html(json.reason);
+				$('#addto-list-error-panel').animate({'left':'-='+$('#addto-list-panel').width().toString() + 'px',opacity:1},{duration:400});
+				$('.close-note').show().removeClass('hid');
+				$('#addto-list-error-panel').addClass('fade active-panel');	
+				removeStyle();
+			}
+		});
+	});
+	$('#addto-list-panel > span[data-list-action="watch-later"]').live('click',function(e){
+		tmp = this;
+		$.ajax({
+			url:'/ajax/add_to_read_later_array',
+			type:'POST',
+			data:{'authenticity_token':"<%= form_authenticity_token %>",'cwid':[$(tmp).parents('.upload-item').find('form input.id').val()],'type':'addto'},
+			dataType:'json'
+		}).done(function(json){
+			if(json.status == 'suc'){
+				$('#addto-list-panel').animate({'left':'-='+$('#addto-list-panel').width().toString() + 'px',opacity:0},{queue:false,duration:400});
+				removeActiveTag();
+				$('#addto-list-saved-panel span.message > span').html('稍后阅读');
+				$('.close-note').show().removeClass('hid');
+				$('#addto-list-saved-panel').animate({'left':'-='+$('#addto-list-saved-panel').width().toString() + 'px',opacity:1},{queue:false,duration:400});
+				$('#addto-list-saved-panel').addClass('fade active-panel');
+				removeStyle();
+				summonQL(json.playlist_id,'1');
+			}else if(json.status == 'failed'){
+				$('#addto-list-panel').animate({'left':'-='+$('#addto-list-panel').width().toString() + 'px',opacity:0},{queue:false,duration:400});
+				removeActiveTag();
+				$('#addto-list-error-panel span.error-details').html(json.reason);
+				$('.close-note').show().removeClass('hid');
+				$('#addto-list-error-panel').animate({'left':'-='+$('#addto-list-panel').width().toString() + 'px',opacity:1},{duration:400});
+				$('#addto-list-error-panel').addClass('fade active-panel');	
+				removeStyle();
+			}
+		});
+	});
+	$('#addto-list-panel > span[data-list-action="create-playlist"]').live('click',function(e){
+		$('#addto-list-panel').animate({'left':'-='+$('#addto-list-panel').width().toString() + 'px',opacity:0},{queue:false,duration:400});
+		$('#addto-create-panel').show().removeClass('hid');
+		$('#addto-create-panel').animate({'left':'-='+$('#addto-create-panel').width().toString() + 'px',opacity:1},{queue:false,duration:400});
+	});
+	$('textarea#addto-create-playlist').live('focus',function(){
+		if($(this).val().length > 0){
+			$('.addto-create-playlist-label').hide().addClass('hid');
+		}
+	}).live('blur',function(){
+		if($(this).val().length == 0){
+			$('.addto-create-playlist-label').show().removeClass('hid');
+		}
+	});
+	max = 60;
+	$('textarea#addto-create-playlist').live('keyup',function(){
+		if($(this).val().length > 0){
+			$('.addto-create-playlist-label').hide().addClass('hid');
+			$('.create-playlist-button').attr('disabled',false);
+		}else{
+			$('.addto-create-playlist-label').show().removeClass('hid');
+			$('.create-playlist-button').attr('disabled',true);
+		}
+    if($(this).val().length > max){
+        $(this).val($(this).val().substr(0, max));
+    }
+    $('.yt-uix-char-counter > .yt-uix-char-counter-remaining').html(max-$(this).val().length);
+	});
+	$('textarea#addto-note').live('keyup',function(){
+		if($(this).val().length > 0){
+			$('.addto-note-label').hide().addClass('hid');
+			$('.playlist-save-note').attr('disabled',false);
+		}else{
+			$('.addto-note-label').show().removeClass('hid');
+			$('.playlist-save-note').attr('disabled',true);
+		}
+    if($(this).val().length > max){
+        $(this).val($(this).val().substr(0, max));
+    }
+    $('.addto-note-box > .yt-uix-char-counter-remaining').html(max-$(this).val().length);
+	});
+	$('.playlist-save-note').live('click',function(){
+		tmp = this;
+		$.ajax({
+			url:'/ajax/save_note_for_one_cw',
+			type:'POST',
+			data:{'authenticity_token':"<%= form_authenticity_token %>",'title':$('#addto-note-input-panel .yt-alert-message span.addto-title a').html(),'cwid':[$(tmp).parents('.upload-item').find('form input.id').val()],'note':$('#addto-note').val()},
+			dataType:'json',
+		  beforeSend: function ( xhr ) {
+		  				$('#addto-note-input-panel').animate({'left':'-='+$('#addto-note-input-panel').width().toString() + 'px',opacity:0},{queue:false,duration:400});
+		  				removeActiveTag();
+		  				$('#addto-note-saving-panel').show().removeClass('hid');
+		  				$('#addto-note-saving-panel').addClass('fade active-panel');
+		  				$('#addto-note-saving-panel').animate({'left':'-='+$('#addto-note-input-panel').width().toString() + 'px',opacity:1},{queue:false,duration:400});
+		  				removeStyle();
+		  }
+		}).done(function(json){
+			$('#addto-note-saving-panel').animate({'left':'-='+$('#addto-note-saving-panel').width().toString() + 'px',opacity:0},{queue:false,duration:400});
+			// $('#addto-note-input-panel').animate({'left':'-='+$('#addto-note-input-panel').width().toString() + 'px',opacity:0},{queue:false,duration:400});
+			removeActiveTag();
+			$('#addto-note-saved-panel').show().removeClass('hid');
+			$('#addto-note-saved-panel span.message').html('备注已添加至：'+json.title);
+			$('#addto-note-saved-panel').animate({'left':'-='+$('#addto-note-saved-panel').width().toString() + 'px',opacity:1},{queue:false,duration:400});
+			$('#addto-note-saved-panel').addClass('fade active-panel');
+			$('.close-note').show().removeClass('hid');
+			removeStyle();
+		})
+	});
+	$('.addto-create-cancel-button').live('click',function(){
+		$('.close-note').trigger('click');
+	});
+	$('.create-playlist-button').live('click',function(){
+		tmp = this;
+		$.ajax({
+			url:'/ajax/create_and_add_to_by_id',
+			type:'POST',
+			data:{'authenticity_token':"<%= form_authenticity_token %>",'title':$('textarea#addto-create-playlist').val(),'is_private':$('input[name="is_private"]:checked').val(),'cwid':[$(tmp).parents('.upload-item').find('form input.id').val()]},
+			dataType:'json'
+		}).done(function(json){
+			if(json.status == 'onesuc'){
+				$('#addto-create-panel').animate({'left':'-='+$('#addto-create-panel').width().toString() + 'px',opacity:0},{queue:false,duration:400});
+				removeActiveTag();
+				$('#addto-note-input-panel').show().removeClass('hid');
+				$('#addto-note-input-panel .yt-alert-message span.addto-title').html(json.title);
+				$('#addto-note-input-panel').animate({'left':'-='+$('#addto-create-panel').width().toString() + 'px',opacity:1},{queue:false,duration:400});
+				$('#addto-note-input-panel').addClass('fade active-panel');
+				removeStyle();
+				summonQL(json.playlist_id,'1');
+			}else if(json.status == 'suc'){
+				$('#addto-create-panel').animate({'left':'-='+$('#addto-create-panel').width().toString() + 'px',opacity:0},{queue:false,duration:400});
+				removeActiveTag();
+				$('#addto-list-saved-panel span.message > span').html(json.title);
+				$('#addto-list-saved-panel').animate({'left':'-='+$('#addto-list-saved-panel').width().toString() + 'px',opacity:1},{queue:false,duration:400});
+				$('.close-note').show().removeClass('hid');
+				$('#addto-list-saved-panel').addClass('fade active-panel');
+				removeStyle();
+				summonQL(json.playlist_id,'1');
+			}else if(json.status == 'failed'){
+				$('#addto-create-panel').animate({'left':'-='+$('#addto-create-panel').width().toString() + 'px',opacity:0},{queue:false,duration:400});
+				removeActiveTag();
+				$('#addto-list-error-panel span.error-details').html(json.reason);
+				$('#addto-list-error-panel').animate({'left':'-='+$('#addto-list-panel').width().toString() + 'px',opacity:1},{duration:400});
+				$('.close-note').show().removeClass('hid');
+				$('#addto-list-error-panel').addClass('fade active-panel');	
+				removeStyle();
+			}
+		});
+	});
+	$('.close-note').live('click',function(){
+		$('button.addto-button').removeClass('yt-uix-button-active');
+		$(this).parent().hide().addClass('hid').html(loading);
+		$(this).hide().addClass('hid');
+	});
+	$('a.show-menu-link').live('click',function(){
+		$('#addto-list-panel').animate({'left':'+='+$('#addto-list-panel').width().toString() + 'px',opacity:1},{queue:false,duration:400});
+		$('#addto-list-error-panel').animate({'left':'+='+$('#addto-list-panel').width().toString() + 'px',opacity:0},{queue:false,duration:400});
+		$('.close-note').hide().addClass('hid');
+	});
+	var setDisable = function(){
+      $('.addto-button').attr('disabled',true);
+			$('#vm-playlist-remove-kejian').attr('disabled',true);
+	};
+	var setEnable = function(){
+    $('button.addto-button').attr('disabled',false);
+		$('#vm-playlist-remove-kejian').attr('disabled',false);
+	}
+  $(".post-upload-share").live("click",function(){
+		tmp = this;
+    $(this).toggleClass('yt-uix-button-toggled');
+    if($(this).hasClass('yt-uix-button-toggled')){
+      $.ajax({
+         type:"POST",
+         url:'/ajax/get_share_panel',
+         data:{'authenticity_token':"<%= form_authenticity_token %>",'cw_id':$(tmp).parents('.upload-item').find('form input.id').val()},
+         dataType: "html"
+      }).done(function(html){
+				$(tmp).parents('.upload-item').find('.share-container.yt-rounded').removeClass('hid').show();
+        $(tmp).parents('.upload-item').find('.share-container.yt-rounded .share-container-inner').html(html).removeClass('hid').show();
+      });
+    }else{
+  		 $(tmp).parents('.upload-item').find('.share-container.yt-rounded').addClass('hid').hide();
+			 $(tmp).parents('.upload-item').find('.share-container.yt-rounded .share-container-inner').addClass('hid').hide();
+			 $('iframe[src="http://i.jiathis.com/url/jiathis_utility.html"]').remove();
+			 $('iframe[src="http://v3.jiathis.com/code_mini/jiathis_utility.html"]').remove();
+			 $('.jiathis_style').remove();
+			 $('iframe').remove();
+			 $('link[href="http://i.jiathis.com/url/css/jiathis_share.css"]').remove();
+			 $('link[href="http://v3.jiathis.com/code_mini/css/jiathis_counter.css"]').remove();
+			 $('script[src="http://tajs.qq.com/jiathis.php?uid=1351061699325921&dm=cnu.kejian.lvh.me"]').remove();
+			 $('script[src*="//i.jiathis.com/url/shares.php"]').remove();
+    }
+                 
+  });
 	<% end %>
 </script>
 <%= render file:'/application/footers/_sdk_footer' %>
