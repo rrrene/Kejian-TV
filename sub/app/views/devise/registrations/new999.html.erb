@@ -39,7 +39,7 @@ window.working_what = function(){
     showloading('block','保存中...');
   }
 };
-window.suc_cnt = 0;
+window.suc_cnt = $('.psvr_checkbox:checked').length;
 window.suc_what = function(){
   if(0==suc_cnt){
     $('#psvr_qing0').show();
