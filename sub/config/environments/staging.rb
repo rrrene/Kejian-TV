@@ -22,8 +22,8 @@ Sub::Application.configure do
   config.action_mailer.smtp_settings = {
     :address              => 'smtp.gmail.com',
     :port                 => 587,
-    :domain               => '0db5.com',
-    :user_name            => '0db5.com@gmail.com',
+    :domain               => 'kejian.tv',
+    :user_name            => 'kejian.tv@gmail.com',
     :password             => 'jknlff8-pro-17m7755',
     :authentication       => 'plain',
     :enable_starttls_auto => true  

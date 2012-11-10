@@ -31,7 +31,7 @@ sa 计算方法 详见 application_helper 或者application_controller的  redir
 end
 
 
-# if !request.referer.nil? and URI.parse(URI.encode(request.referer)).host.include?('0db5.com')
+# if !request.referer.nil? and URI.parse(URI.encode(request.referer)).host.include?('kejian.tv')
 #     redirect_to @url
 #     return true
 # end

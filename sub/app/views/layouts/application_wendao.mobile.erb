@@ -32,7 +32,7 @@
                 <h1 style="margin-top:0;"><img src="<%=asset_path 'mobile_logo.png' %>" alt="Kejian.TV" /></h1>
 <!--
 <% if current_user %>
-            <a href="http://my.0db5.com/loginmgr/logout.asp?strBkUrl=http://<%= request.host_with_port %>/" class="ui-btn-right" data-role="button" data-icon="info">退出(<%= current_user.name %>)</a>
+            <a href="http://my.kejian.tv/loginmgr/logout.asp?strBkUrl=http://<%= request.host_with_port %>/" class="ui-btn-right" data-role="button" data-icon="info">退出(<%= current_user.name %>)</a>
           <% else %>
             <a href="/mobile/login" class="ui-btn-right" data-role="button" data-icon="info">登录/注册</a>
 <% end %>
@@ -99,7 +99,7 @@
 
         var _dyweq = _dyweq || [];
         _dyweq.push(['_setAccount','log000001']);
-        _dyweq.push(['_setDomainName','.0db5.com']);
+        _dyweq.push(['_setDomainName','.kejian.tv']);
         _dyweq.push(['_trackPageview']);
         (function(){
                 var dywe = document.createElement('script'); dywe.type = 'text/javascript'; dywe.async = true;
@@ -108,7 +108,7 @@
         })()
         var _gaq = _gaq || [];
         _gaq.push(['_setAccount','UA-7874902-2']);
-        _gaq.push(['_setDomainName','0db5.com']);
+        _gaq.push(['_setDomainName','kejian.tv']);
         _gaq.push(['_addOrganic','youdao','q']);
         _gaq.push(['_addOrganic','sogou','query']);
         _gaq.push(['_addOrganic','soso','w']);
@@ -136,7 +136,7 @@
           }catch(err){
                 var i=new Image(1,1);
                 var e=document.location;
-            i.src="http://l.0db5.com/track_err.gif?dywee=5("+category+"*"+action+")&dywehn="+ed(e.hostname)+"&dywep="+ed(e.pathname+e.search,true);
+            i.src="http://l.kejian.tv/track_err.gif?dywee=5("+category+"*"+action+")&dywehn="+ed(e.hostname)+"&dywep="+ed(e.pathname+e.search,true);
           }
         }
       </script>

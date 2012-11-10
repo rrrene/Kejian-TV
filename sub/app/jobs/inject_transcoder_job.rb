@@ -9,7 +9,7 @@ class InjectTranscoderJob
               # at this moment
               # we have no idea what the subsite data is
               # we are 
-              # doing on the 0db5.com's behalf
+              # doing on the kejian.tv's behalf
     opts = opts.with_indifferent_access
     if :dz.to_s== mode.to_s
       # subsite = cnu
@@ -24,7 +24,7 @@ class InjectTranscoderJob
       p[:title] = opts[:title] unless opts[:title].present?
       if ['ppt','pptx','doc','docx'].include? opts[:sort].downcase
         rest = opts[:dz_filepath].split('/home/main/ktv/sub/simple/')[-1].split('/').collect{|x| CGI::escape(x.to_s)}.join('/')
-        p[:remote_filepath]="http://#{opts[:subsite]}.0db5.com/#{rest}"
+        p[:remote_filepath]="http://#{opts[:subsite]}.kejian.tv/#{rest}"
       else
         p[:remote_filepath]=opts[:dz_filepath]
       end

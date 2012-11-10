@@ -79,7 +79,7 @@ protected
       return false
     else 
       @client_uri = @token ? @token.client_uri : @current_client.uri
-      @resource_owner_uri = @token ? @token.resource_owner_uri : "http://0db5.com/users/#{@current_client.user.slug}"
+      @resource_owner_uri = @token ? @token.resource_owner_uri : "http://kejian.tv/users/#{@current_client.user.slug}"
       access = OauthAccess.find_or_create_by(client_uri: @client_uri , resource_owner_uri: @resource_owner_uri)
       access.accessed!
     end
@@ -118,10 +118,10 @@ protected
   def pagination_over(sumcount)
     @pages = (sumcount*1.0 / @per_page).ceil
     info_next=info_last=info_first=info_prev=nil
-    info_next = "<https://api.0db5.com#{request.path}?page=#{@page + 1}&per_page=#{@per_page}>; rel=\"next\"" if @page < @pages
-    info_last = "<https://api.0db5.com#{request.path}?page=#{@pages}&per_page=#{@per_page}>; rel=\"last\""
-    info_first = "<https://api.0db5.com#{request.path}?page=1&per_page=#{@per_page}>; rel=\"first\""
-    info_prev = "<https://api.0db5.com#{request.path}?page=#{@page - 1}&per_page=#{@per_page}>; rel=\"prev\"" if @page > 1
+    info_next = "<https://api.kejian.tv#{request.path}?page=#{@page + 1}&per_page=#{@per_page}>; rel=\"next\"" if @page < @pages
+    info_last = "<https://api.kejian.tv#{request.path}?page=#{@pages}&per_page=#{@per_page}>; rel=\"last\""
+    info_first = "<https://api.kejian.tv#{request.path}?page=1&per_page=#{@per_page}>; rel=\"first\""
+    info_prev = "<https://api.kejian.tv#{request.path}?page=#{@page - 1}&per_page=#{@per_page}>; rel=\"prev\"" if @page > 1
     infos=[info_next,info_last,info_first,info_prev].compact
     headers['Link']=infos.join(',')
     @meta_link = infos.collect{|info|

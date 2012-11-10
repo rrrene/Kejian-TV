@@ -13,7 +13,7 @@ $(document).ready(function(){
       return false;
     }
     loginform.method = "post";
-    loginform.action = "http://my.0db5.com//loginmgr/loginproc.asp";
+    loginform.action = "http://my.kejian.tv//loginmgr/loginproc.asp";
     loginform.bkurl.value = "http://"+location.host+"/?force_mobile=1";
     loginform.errbkurl.value = "http://"+location.host+"//mobile/login?error=1";
     return true;
@@ -43,10 +43,10 @@ $(document).ready(function(){
       return false;
     }
     regform.method = "post";
-    regform.action = "http://my.0db5.com/loginmgr/registerProc.asp";
+    regform.action = "http://my.kejian.tv/loginmgr/registerProc.asp";
     regform.redirect_url.value = "http://"+location.host+"/";
     $.mobile.showPageLoadingMsg();
-    $.getScript("http://my.0db5.com/myzhaopin/CEF_markhome.asp?timestamp=" + new Date().getTime()+"&opt=1&email=" + regform.email.value, function(){
+    $.getScript("http://my.kejian.tv/myzhaopin/CEF_markhome.asp?timestamp=" + new Date().getTime()+"&opt=1&email=" + regform.email.value, function(){
       $.mobile.hidePageLoadingMsg();
       if (typeof cefmarkhome != 'undefined' && cefmarkhome != 1){
           regform.submit();
