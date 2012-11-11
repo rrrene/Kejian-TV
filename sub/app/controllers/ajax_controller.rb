@@ -156,6 +156,7 @@ class AjaxController < ApplicationController
     cw.upload_persentage = presentation[:upload_persentage].to_i
     cw.keywords = presentation[:keywords].strip.split(' ')
     cw.desc = presentation[:description]
+    cw.set_privacy(presentation[:privacy])
     cw.enable_monetization = presentation[:enable_monetization] == 'enable' ? true : false
     cw.monetization_style = presentation[:monetization_style]
     cw.enable_overlay_ads = presentation[:enable_overlay_ads] == 'yes' ? true : false

@@ -182,6 +182,9 @@
 										<span class="progress-bar-percentage">0%</span>
 									</div>
 								</div>
+								<div class="item-leave-title hid" style="padding-top: 5px;font-size: 11px; color: #666;">
+										<span class="upload-leave-safe">此时您可安全地离开本页面，我们将在后台自动处理您的课件。</span>
+								</div>
 							</div>
 							<span class="action-buttons">
 							<button role="button" data-button-toggle="true" onclick=";return false;" class="post-upload-share hid yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-content">分享 </span></button>
@@ -309,7 +312,7 @@
 									</div>
 									<div class="metadata-container">
 										<%= form_for @courseware,:url => "/upload_page_auto_save", :html => { :method => :post, :class => 'kejian-settings-form', :autocomplete=>"off" } do |f| %>
-										<input type="hidden" name="id" value="" class="id">
+										<input type="hidden" name="presentation[id]" value="" class="id">
 					          <input type="hidden" name="psvr_g" value="<%= params[:psvr_g] %>" class="psvr_g">
 					          <input type="hidden" name="psvr_f" value="<%= params[:psvr_f] %>" class="psvr_f">
 								    <input class="presentation_uptime" name="presentation[uptime]" type="hidden" value="" />
@@ -841,7 +844,7 @@
 								</div>
 								<div class="metadata-actions">
 									<div class="save-cancel-buttons">
-										<button role="button" onclick=";return false;" class="save-changes-button yt-uix-button yt-uix-button-default" type="button"><span class="yt-uix-button-content">保存更改 </span></button>
+										<button role="button" onclick=";return false;" class="save-changes-button yt-uix-button yt-uix-button-default" type="button" disable="true"><span class="yt-uix-button-content">保存更改 </span></button>
 									</div>
 									<span class="save-error-message"></span>
 									<span class="metadata-left-footer">
@@ -882,7 +885,6 @@
 	<% content_for :butt2 do %>
 	$('.psvr_f').val(<%= Ktv::Utils.safely('undefined'){ret=@c.fid if @c;if ret.present?;ret;;end} %>);
 	$('.psvr_g').val(<%= Ktv::Utils.safely('undefined'){ret=Department.get_fid(@c.department)if @c ;if ret.present?;ret;end}%>);
-	var loading = '<div class="addto-loading loading-content"><img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>"><span>正在载入课件锦囊...</span></div>';
 	<% end %>
 </script>
 <%= render file:'/application/footers/_sdk_footer' %>
