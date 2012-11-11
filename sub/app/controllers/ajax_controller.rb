@@ -221,7 +221,7 @@ class AjaxController < ApplicationController
       else
         complete = cw.pdf_slide_processed
         total = cw.slides_count + 1
-        more = "第#{:complete}页, 共#{cw.slides_count}页"
+        more = "第#{complete}页, 共#{cw.slides_count}页"
       end
     else
       complete = 0
