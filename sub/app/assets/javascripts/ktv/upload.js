@@ -1,4 +1,34 @@
 (function($){
+	//type has [info,warn,success,error]
+	function showBigNotification(dom,text,type,next){
+		if(!type){
+			type='warn';
+		}
+		$(dom).parents('.upload-item').find('.notification-area .yt-alert-content .yt-alert-message').html(text);
+		$(dom).parents('.upload-item').find('.notification-area .yt-alert.yt-alert-actionable').attr('class','yt-alert yt-alert-actionable alert-multi hid yt-alert-'+type);
+		$(dom).parents('.upload-item').find('.notification-area .yt-alert.yt-alert-actionable').animate({opacity:'show'},'fast',function(){$(this).removeClass('hid')});
+		if(next){
+			$(dom).parents('.upload-item').find('.notification-area .multialert-next').attr('class','multialert-next yt-uix-button hid yt-uix-button-alert-'+type);
+			$(dom).parents('.upload-item').find('.notification-area .multialert-next').show().removeClass('hid');
+		}
+	}
+	function showNotification(dom,text,type){
+		if(!type){
+			type='warn';
+		}
+		$(dom).parents('.upload-item').find('.alert-template-with-close').attr('class','alert-template-with-close yt-alert yt-alert-default yt-alert-'+type);
+		$(dom).parents('.upload-item').find('.alert-template-with-close .yt-alert-content .yt-alert-message').html(text);
+	}
+	$('.yt-alert .close').live('click',function(){
+		$(this).parents('.yt-alert').animate({opacity:'hide'},'fast',function(){$(this).addClass('hid');});
+	});
+	$('.thumbnail-container .close').live('click',function(){
+		$(this).parents('.upload-item').animate({opacity:'hide'},'fast');
+	});
+	$('select.yt-uix-form-input-select-element.metadata-privacy-input').live('change',function(){
+		$(this).parents('.upload-item').find('.metadata-status-public,.metadata-status-unlisted,.metadata-status-private').addClass('hid');
+		$(this).parents('.upload-item').find('.metadata-status.metadata-status-'+$('option:selected',this).val()).removeClass('hid');
+	})
 	item = new Array();
 	var loading = '<div class="addto-loading loading-content"><img src='+vfl3z5WfW+'><span>正在载入课件锦囊...</span></div>';
 	$('ul.tabs > li.tab-header').live('click',function(e){
@@ -254,9 +284,52 @@
 					$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('input.upload_persentage').val(percentage);
 		},
 		upload_error_handler:function(file, code, message){
-				console.log(file.name,code, message);
+			swf.
+				var stats = {'dom':'#the_upload_ytb .upload-item[data-file-id="'+file.id+'"] .progress-bar-uploading','text':'','debug':'','type':'error'}
+				try {
+							switch (code) {
+							case SWFUpload.UPLOAD_ERROR.HTTP_ERROR:
+								stats.text = "上传错误: " + message;
+								stats.debug = "错误提示：http错误，文件名：" + file.name + ", 信息： " + message;
+								break;
+							case SWFUpload.UPLOAD_ERROR.UPLOAD_FAILED:
+								stats.text = "上传失败";
+								stats.debug = "错误提示：上传失败，文件名称: " + file.name + ", 文件大小：" + file.size + ", 信息：" + message;
+								break;
+							case SWFUpload.UPLOAD_ERROR.IO_ERROR:
+								stats.text = "服务器错误";
+								stats.debug = "错误提示：服务器错误, 文件名称: " + file.name + ", 信息： " + message;
+								break;
+							case SWFUpload.UPLOAD_ERROR.SECURITY_ERROR:
+								stats.text = "安全性错误";
+								stats.debug = "错误提示： 安全性错误, 文件名称: " + file.name + ", 信息： " + message;
+								break;
+							case SWFUpload.UPLOAD_ERROR.UPLOAD_LIMIT_EXCEEDED:
+								stats.text = "上传超过限制。";
+								stats.debug = "错误提示：上传超过限制,文件名称:  " + file.name + ", 文件大小： " + file.size + ", 信息：" + message;
+								break;
+							case SWFUpload.UPLOAD_ERROR.FILE_VALIDATION_FAILED:
+								stats.text = "验证失败。上传跳过。";
+								stats.debug = "错误提示： 验证失败，上传跳过。文件名称: " + file.name + ", 文件大小： " + file.size + ", 信息：" + message;
+								break;
+							case SWFUpload.UPLOAD_ERROR.FILE_CANCELLED:
+								break;
+							case SWFUpload.UPLOAD_ERROR.UPLOAD_STOPPED:
+								// stats.text = "停止";
+								break;
+							default:
+								stats.text = "未知错误: " + errorCode;
+								stats.debug = "错误提示： " + errorCode + ", 文件名称: " + file.name + ", 文件大小：" + file.size + ", 信息： " + message;
+								break;
+							}
+						} catch (ex) {
+						}
+						if(stats.text!='')
+							showBigNotification(stats.dom,stats.text+'<br/>'+stats.debug,stats.type);
 		},
 		upload_complete_handler:function(file){
+			// showBigNotification('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"] .progress-bar-uploading','xdafdasf','success',1);
+			// showNotification('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"] .progress-bar-uploading','xdafdasf','error');
 			remaining_upload_number--;
 			remaining_process_number++;
 			$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.progress-bar-uploading').addClass('hid').parent().find('.progress-bar-processing').removeClass('hid');
@@ -359,6 +432,7 @@
 	              update_processing_bar(a)
 	          }, 2e3) : setTimeout(function () {
 								deal_json(a,b);
+								$('form input.id[value="'+a+'"]').parents('.upload-item').find('.upload-thumb-container').removeClass('hid');
 								$('form input.id[value="'+a+'"]').parents('.upload-item').find('.upload-thumb-img').attr('src','/slide_pic?id='+ a +'&pic=thumb_slide_0.jpg')
 								$('form input.id[value="'+a+'"]').parents('.upload-item').addClass('upload-item-finished');
 	          }, 2e3)
@@ -639,7 +713,6 @@
 			 $('link[href="http://v3.jiathis.com/code_mini/css/jiathis_counter.css"]').remove();
 			 $('script[src="http://tajs.qq.com/jiathis.php?uid=1351061699325921&dm=cnu.kejian.lvh.me"]').remove();
 			 $('script[src*="//i.jiathis.com/url/shares.php"]').remove();
-	  }
-                 
+	  }      
 	});
 })(jQuery);

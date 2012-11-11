@@ -101,7 +101,7 @@
 								</div>
 
 								<!-- Right -->
-								<div class="more-ways-to-upload">
+								<div class="more-ways-to-upload" style="padding-bottom:40px">
 									<div class="small-starting-box-action-container" id="multiple-uploads-link">
 										<img alt="" src="<%=asset_path('yt/img/icon-upload-multiple-vfl56lomr.png')%>" class="init-upload-action-icon-small">
 										<h2>上传多个文件</h2>
@@ -125,7 +125,7 @@
 									</div>
 								</div>
 							</div>
-							<div id="upload-drag-drop-description" class="upload-drag-drop-description">
+							<div id="upload-drag-drop-description" class="upload-drag-drop-description" style="display:none">
 								 将课件拖放到该页面上的任意位置即可开始上传。
 							</div>	
 							<% if false %>
@@ -214,7 +214,7 @@
 								<img class="post-upload-share-close-button" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
 							</div>
 						</div>
-						<div id="alert-template" class="yt-alert yt-alert-default yt-alert-warn hid ">
+						<div id="alert-template" class="alert-template yt-alert yt-alert-default yt-alert-warn hid ">
 							<div class="yt-alert-icon">
 								<img alt="提醒图标" class="icon master-sprite" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
 							</div>
@@ -223,7 +223,7 @@
 							<div role="alert" class="yt-alert-content">
 							</div>
 						</div>
-						<div id="alert-template-with-close" class="yt-alert yt-alert-default yt-alert-warn hid ">
+						<div id="alert-template-with-close" class="alert-template-with-close yt-alert yt-alert-default yt-alert-warn hid ">
 							<div class="yt-alert-icon">
 								<img alt="提醒图标" class="icon master-sprite" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
 							</div>
@@ -231,6 +231,8 @@
 								<button role="button" data-close-parent-class="yt-alert" onclick=";return false;" class="close yt-uix-close yt-uix-button yt-uix-button-close" type="button"><span class="yt-uix-button-content">关闭 </span></button>
 							</div>
 							<div role="alert" class="yt-alert-content">
+								<div class="yt-alert-message">
+								</div>
 							</div>
 						</div>
 						<div class="notification-area">
@@ -239,7 +241,7 @@
 									<img alt="提醒图标" class="icon master-sprite" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
 								</div>
 								<div class="yt-alert-buttons">
-									<button role="button" onclick=";return false;" class="multialert-next yt-uix-button yt-uix-button-alert-warn" type="button"><span class="yt-uix-button-content">Next </span></button>
+									<button role="button" onclick=";return false;" class="multialert-next yt-uix-button hid yt-uix-button-alert-warn" type="button"><span class="yt-uix-button-content">下一条 </span></button>
 									<button role="button" onclick=";return false;" class="multialert-close close yt-uix-button yt-uix-button-close" type="button"><span class="yt-uix-button-content">关闭 </span></button>
 								</div>
 								<div role="alert" class="yt-alert-content">
@@ -272,7 +274,7 @@
 										</ul>
 										<span class="tab-bg"></span>
 										<div class="summary-icons">
-											<span data-tooltip-text="公开" title="公开" class="metadata-status-public metadata-status yt-uix-tooltip yt-uix-tooltip-reverse hid">
+											<span data-tooltip-text="公开" title="公开" class="metadata-status-public metadata-status yt-uix-tooltip yt-uix-tooltip-reverse ">
 											<img alt="公开" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
 											</span>
 											<span data-tooltip-text="不公开" title="不公开" class="metadata-status-unlisted metadata-status yt-uix-tooltip yt-uix-tooltip-reverse hid">
@@ -284,7 +286,7 @@
 											<span data-tooltip-text="预定" title="预定" class="metadata-status-scheduled metadata-status yt-uix-tooltip yt-uix-tooltip-reverse hid">
 											<img alt="预定" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
 											</span>
-											<span data-tooltip-text="未获利" title="未获利" class="metadata-status-video-not-monetized metadata-status yt-uix-tooltip yt-uix-tooltip-reverse hid">
+											<span data-tooltip-text="未获利" title="未获利" class="metadata-status-video-not-monetized metadata-status yt-uix-tooltip yt-uix-tooltip-reverse ">
 											<img alt="未获利" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
 											</span>
 											<span data-tooltip-text="已获利" title="已获利" class="metadata-status-video-monetized metadata-status yt-uix-tooltip yt-uix-tooltip-reverse hid">
@@ -885,6 +887,7 @@
 	<% content_for :butt2 do %>
 	$('.psvr_f').val(<%= Ktv::Utils.safely('undefined'){ret=@c.fid if @c;if ret.present?;ret;;end} %>);
 	$('.psvr_g').val(<%= Ktv::Utils.safely('undefined'){ret=Department.get_fid(@c.department)if @c ;if ret.present?;ret;end}%>);
+  $('.yt-uix-tooltip').tipsy({gravity: $.fn.tipsy.autoNS,opacity: 1});
 	<% end %>
 </script>
 <%= render file:'/application/footers/_sdk_footer' %>
