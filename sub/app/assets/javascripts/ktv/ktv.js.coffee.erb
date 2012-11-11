@@ -462,32 +462,24 @@
     )
 
   jQuery ->
-    if window.psvr_is_ie
-    else
-      $('#q').bind( "input.autocomplete", ->
-        $(this).trigger('keydown.autocomplete')
+    $('#q').focus(->
+      $('div.navigation').fadeOut('fast')
+      $('#psvr_dz_target').data('top-orig',parseInt($('#psvr_dz_target').css('top')))
+      $('#search_form').animate({
+        width: $('#search_form').data('width-tobe')
+      }, 200, ->
+        $('#psvr_dz_target').animate({top: parseInt($('#psvr_dz_target').css('top'))+$('#core_search_ul').height()+28}, {duration: 200, queue:false})
       )
-      $('#q').focus(->
-        $('div.navigation').fadeOut('fast')
-        $('#psvr_dz_target').data('top-orig',parseInt($('#psvr_dz_target').css('top')))
-        $('#search_form').animate({
-          width: $('#search_form').data('width-tobe')
-        }, 200, ->
-          KTV.search_li_hover()
-          $('#psvr_dz_target').animate({top: parseInt($('#psvr_dz_target').css('top'))+$('#core_search_ul').height()+28}, {duration: 200, queue:false})
-        )
-      ).blur(->
-        $('#search_form input').removeClass('focused')
-        $('#psvr_dz_target').animate({top: $('#psvr_dz_target').data('top-orig')}, {duration: 200, queue:false})
-        $('#search_form').animate({
-          width: jQuery('#search_form').data('width-orig')
-        }, {duration: 200, queue:false})
-        $('div.navigation').fadeIn('fast')
-      )
-      $('#search_form').submit(->
-        $('#q').blur()
-        false
-      )
+      true
+    ).blur(->
+      $('#search_form input').removeClass('focused')
+      $('#psvr_dz_target').animate({top: $('#psvr_dz_target').data('top-orig')}, {duration: 200, queue:false})
+      $('#search_form').animate({
+        width: jQuery('#search_form').data('width-orig')
+      }, {duration: 200, queue:false})
+      $('div.navigation').fadeIn('fast')
+      true
+    )
     KTV.core_login_css()
     $("#core_logotext_wrap").hover(->
       if KTV.logo_css_src1
