@@ -16,6 +16,7 @@ class AutocompleteController < ApplicationController
       ret['Department']=[]
       ret['Teacher']=[]
       ret['User']=[]
+      ret['final']=params[:q]
     end)
   end
 end

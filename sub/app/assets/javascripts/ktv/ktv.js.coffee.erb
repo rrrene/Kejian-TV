@@ -84,7 +84,7 @@
           term = request.term
           if term.length > 0
             KTV.sss(false)
-          if false and KTV.sss_term_cache[term]
+          if KTV.sss_term_cache[term]
             KTV.sss_term_cater( KTV.sss_term_cache[ term ], term )
           else
             $.get("/autocomplete/swords", request, ( data, status, xhr ) ->
@@ -342,13 +342,12 @@
       target.addClass('selected')
 
   KTV.search_li_hover = ->
-    $('#core_search_ul li').hover(->
-      $('#core_search_ul li').removeClass('selected')
-      $(this).css('cursor','pointer')
-      $(this).addClass('selected')
+    $('#psvr_bd_place dd').hover(->
+      $(this).addClass('over')
+      window.psvr_search_li_hovered = true
     ,->
-      $(this).css('cursor','auto');
-      $(this).removeClass('selected')
+      $(this).removeClass('over')
+      window.psvr_search_li_hovered = false
     )
     if $('#core_search_ul li.selected').length is 0
       $('#core_search_ul li').first().addClass('selected')
@@ -359,6 +358,7 @@
     failed = false
     if data is null or data.length is 0
       $('#psvr_bd_place_wrapper').hide()
+      $('#psvr_bd_place_huichenotice').hide()
       return false
     else
       ret = ''
@@ -372,14 +372,6 @@
               <dd><a href=\"/song/19157772\"><span class=\"songname\">Someone Like You</span><span class=\"artistname\"><i class=\"h-line\">-</i><span class=\"ci\">A</span>lternative Rocks!</span></a></dd>\
               <dd class=\"last-item\"><a href=\"/song/2794752\"><span class=\"songname\">Someone Like You</span><span class=\"artistname\"><i class=\"h-line\">-</i><span class=\"ci\">A</span>marna</span></a></dd>\
       			</dl>"
-        else if 'Department'==index
-          ret += "<dl class=\"sug-song clearfix\" style=\"width:#{window.psvr_search_cache_width-40}px\">\
-      				<dt class=\"sug-title clearfix\">学院</dt>\
-              <dd class=\"first-item\"><a href=\"/song/520743\"><span class=\"songname\">Dj</span><span class=\"artistname\"><i class=\"h-line\">-</i><span class=\"ci\">A</span>lphabeat</span></a></dd>\
-              <dd><a href=\"/song/20659362\"><span class=\"songname\">Someone Like You</span><span class=\"artistname\"><i class=\"h-line\">-</i><span class=\"ci\">A</span>lco</span></a></dd>\
-              <dd><a href=\"/song/19157772\"><span class=\"songname\">Someone Like You</span><span class=\"artistname\"><i class=\"h-line\">-</i><span class=\"ci\">A</span>lternative Rocks!</span></a></dd>\
-              <dd class=\"last-item\"><a href=\"/song/2794752\"><span class=\"songname\">Someone Like You</span><span class=\"artistname\"><i class=\"h-line\">-</i><span class=\"ci\">A</span>marna</span></a></dd>\
-      			</dl>"
         else if 'Course'==index
           ret += "<dl class=\"sug-song clearfix\" style=\"width:#{window.psvr_search_cache_width-40}px\">\
       				<dt class=\"sug-title clearfix\">课程</dt>\
@@ -388,25 +380,38 @@
               <dd><a href=\"/song/19157772\"><span class=\"songname\">Someone Like You</span><span class=\"artistname\"><i class=\"h-line\">-</i><span class=\"ci\">A</span>lternative Rocks!</span></a></dd>\
               <dd class=\"last-item\"><a href=\"/song/2794752\"><span class=\"songname\">Someone Like You</span><span class=\"artistname\"><i class=\"h-line\">-</i><span class=\"ci\">A</span>marna</span></a></dd>\
       			</dl>"
-        else if 'Teacher'==index
-          ret += "<dl class=\"sug-song clearfix\" style=\"width:#{window.psvr_search_cache_width-40}px\">\
-      				<dt class=\"sug-title clearfix\">老师</dt>\
-              <dd class=\"first-item\"><a href=\"/song/520743\"><span class=\"songname\">Dj</span><span class=\"artistname\"><i class=\"h-line\">-</i><span class=\"ci\">A</span>lphabeat</span></a></dd>\
-              <dd><a href=\"/song/20659362\"><span class=\"songname\">Someone Like You</span><span class=\"artistname\"><i class=\"h-line\">-</i><span class=\"ci\">A</span>lco</span></a></dd>\
-              <dd><a href=\"/song/19157772\"><span class=\"songname\">Someone Like You</span><span class=\"artistname\"><i class=\"h-line\">-</i><span class=\"ci\">A</span>lternative Rocks!</span></a></dd>\
-              <dd class=\"last-item\"><a href=\"/song/2794752\"><span class=\"songname\">Someone Like You</span><span class=\"artistname\"><i class=\"h-line\">-</i><span class=\"ci\">A</span>marna</span></a></dd>\
-      			</dl>"          
-        else if 'User'==index
-          ret += "<dl class=\"sug-song clearfix\" style=\"width:#{window.psvr_search_cache_width-40}px\">\
-      				<dt class=\"sug-title clearfix\">用户</dt>\
-              <dd class=\"first-item\"><a href=\"/song/520743\"><span class=\"songname\">Dj</span><span class=\"artistname\"><i class=\"h-line\">-</i><span class=\"ci\">A</span>lphabeat</span></a></dd>\
-              <dd><a href=\"/song/20659362\"><span class=\"songname\">Someone Like You</span><span class=\"artistname\"><i class=\"h-line\">-</i><span class=\"ci\">A</span>lco</span></a></dd>\
-              <dd><a href=\"/song/19157772\"><span class=\"songname\">Someone Like You</span><span class=\"artistname\"><i class=\"h-line\">-</i><span class=\"ci\">A</span>lternative Rocks!</span></a></dd>\
-              <dd class=\"last-item\"><a href=\"/song/2794752\"><span class=\"songname\">Someone Like You</span><span class=\"artistname\"><i class=\"h-line\">-</i><span class=\"ci\">A</span>marna</span></a></dd>\
+        else if 'Department'==index
+          ret += "<dl class=\"sug-album clearfix\" style=\"width:#{window.psvr_search_cache_width-40}px\">\
+      				<dt class=\"sug-title clearfix\">学院</dt>\
+              <dd class=\"first-item\"><a href=\"/album/17492991\"><div class=\"borderdiv\"><span class=\"sidepic\"></span><img src=\"http://hiphotos.baidu.com/ting_su/pic/item/246cca2a1a523857023bf617.jpg\" alt=\"Someone Like You\" height=\"40px\" width=\"40px\"></div><div>《Someone Like You》</div><div class=\"artistname\"><span class=\"ci\">A</span>ngel Taylor</div></a></dd>\
+              <dd class=\"last-item\"><a href=\"/album/17500519\"><div class=\"borderdiv\"><span class=\"sidepic\"></span><img src=\"http://hiphotos.baidu.com/ting_su/pic/item/6c63514adf7c608a08f7efa7.jpg\" alt=\"Apologize\" height=\"40px\" width=\"40px\"></div><div>《<span class=\"ci\">A</span>pologize》</div><div class=\"artistname\">Ch<span class=\"ci\">a</span>rlotte Sometimes</div></a></dd>\
       			</dl>"
+        else if 'Teacher'==index
+          ret += "<dl class=\"sug-artist clearfix\" style=\"width:#{window.psvr_search_cache_width-40}px\">\
+      				<dt class=\"sug-title clearfix\">老师</dt>\
+              <dd class=\"first-item\"><a href=\"/artist/45561\"><img src=\"http://hiphotos.baidu.com/ting_su/pic/item/d57e999484ffe198d31b7060.jpg\" alt=\"王菲\" height=\"40px\" width=\"40px\"><span>王菲</span></a></dd>\
+              <dd><a href=\"/artist/1157\"><img src=\"http://hiphotos.baidu.com/ting_su/pic/item/ca525754b3420fe6574e0031.jpg\" alt=\"汪峰\" height=\"40px\" width=\"40px\"><span>汪峰</span></a></dd>\
+              <dd class=\"last-item\"><a href=\"/artist/1392\"><img src=\"http://hiphotos.baidu.com/ting_su/pic/item/79b1e93632143f490b55a9f5.jpg\" alt=\"吴克群\" height=\"40px\" width=\"40px\"><span>吴克群</span></a></dd>\
+      			</dl>"
+        else if 'User'==index
+          ret += "<dl class=\"sug-artist clearfix\" style=\"width:#{window.psvr_search_cache_width-40}px\">\
+    				<dt class=\"sug-title clearfix\">用户</dt>\
+            <dd class=\"first-item\"><a href=\"/artist/45561\"><img src=\"http://hiphotos.baidu.com/ting_su/pic/item/d57e999484ffe198d31b7060.jpg\" alt=\"王菲\" height=\"40px\" width=\"40px\"><span>王菲</span></a></dd>\
+            <dd><a href=\"/artist/1157\"><img src=\"http://hiphotos.baidu.com/ting_su/pic/item/ca525754b3420fe6574e0031.jpg\" alt=\"汪峰\" height=\"40px\" width=\"40px\"><span>汪峰</span></a></dd>\
+            <dd class=\"last-item\"><a href=\"/artist/1392\"><img src=\"http://hiphotos.baidu.com/ting_su/pic/item/79b1e93632143f490b55a9f5.jpg\" alt=\"吴克群\" height=\"40px\" width=\"40px\"><span>吴克群</span></a></dd>\
+    			</dl>"
+        else if 'final'==index
+          ret += "<dl class=\"sug-album clearfix\" style=\"padding-left: 5px;\">\
+            <dd class=\"first-item\" style=\"border:none;\">\
+            <a class=\"\" href=\"/search/#{KTV.sss_escape(itemRaw)}\" style=\"background: none repeat scroll 0% 0% rgb(248, 248, 248); font-size: 13px; line-height: 20px; padding-top: 9px;\">全部搜索结果：<span class=\"ci\">#{itemRaw}</span></a>\
+            </dd>\
+            </dl>"
+        
                               
       )
-      $('#psvr_bd_place').html(ret) 
+      $('#psvr_bd_place').html(ret)
+      $('#psvr_bd_place_huichenotice').show()
+      KTV.search_li_hover()
       
   KTV.login = ->
     im.zm.login()
@@ -440,6 +445,15 @@
     )
 
   jQuery ->
+    $('#search_form').submit(->
+      false
+    )
+    $('#q').keyup((e)->
+      if e.which is 13
+        e.preventDefault()
+        e.stopPropagation()
+        window.location.href = "/search/#{KTV.sss_escape($('#q').val())}"
+    )
     window.psvr_search_cache_width = $('#psvr_bd_place_wrapper .shadowleft').width();
     $('#q').autocomplete(
       minLength: 1,
@@ -457,7 +471,7 @@
             KTV.search_cater( data, term )
           , 'json')
     )
-    $('#q').focus(->
+    $('#q').focus((e)->
       $('div.navigation').fadeOut('fast')
       $('#psvr_dz_target').data('top-orig',parseInt($('#psvr_dz_target').css('top')))
       $('#search_form').animate({
@@ -466,8 +480,11 @@
         $('#psvr_dz_target').animate({top: parseInt($('#psvr_dz_target').css('top'))+$('#core_search_ul').height()+28}, {duration: 200, queue:false})
       )
       true
-    ).blur(->
+    ).blur((e)->
+      $('#psvr_bd_place_huichenotice').hide();
+      return false if window.psvr_search_li_hovered
       $('#search_form input').removeClass('focused')
+      $('#psvr_bd_place_wrapper').hide()
       $('#psvr_dz_target').animate({top: $('#psvr_dz_target').data('top-orig')}, {duration: 200, queue:false})
       $('#search_form').animate({
         width: jQuery('#search_form').data('width-orig')
