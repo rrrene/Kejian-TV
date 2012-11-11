@@ -333,6 +333,7 @@ HEREDOC
     end
     config = Array.new
     uptime = Time.now.to_i
+    tmp_uptime = uptime
     for i in 0...5
       uptime = uptime + i
       policy = {
@@ -348,7 +349,7 @@ HEREDOC
         signature: Digest::MD5.hexdigest(policy+'&'+'Vv0WpPhlztxkPn7c9F3x3S8zgRE=')
       }
     end
-    render json:{status:'suc',uptime:uptime,config:config}
+    render json:{status:'suc',uptime:tmp_uptime,config:config}
   end
   def seg
     params[:q] = params[:q].strip
