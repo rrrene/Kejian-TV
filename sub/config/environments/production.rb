@@ -54,6 +54,7 @@ Sub::Application.configure do
     qua_f791fcfc8935e1ad.css
     qua_06b596594fbe5bcf.css
     ktv/embed.js
+    ktv/upload.js
     ui_orig.js
     modernizr.js
     pre_application.js
