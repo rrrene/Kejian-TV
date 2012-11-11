@@ -83,7 +83,7 @@ window.Asks = {
         }
         jDialog.close();
     $.facebox({ div : "#redirect_ask", overlay : false });
-        $(".facebox_window.simple_form input.search").autocomplete("/search/asks",{
+        $(".facebox_window.simple_form input.search").autocomplete("/autocomplete/asks",{
             minChars: 1,
             delay: 50,
             width: 456,
@@ -148,7 +148,7 @@ window.Asks = {
     /* 问题，话题，人搜索自动完成 */
     completeAll : function(el){
         input = $(el);
-        input.autocomplete("/search/all",{
+        input.autocomplete("/autocomplete/all",{
             mincChars: 1,
             delay: 50,
             x: -8,
@@ -196,7 +196,7 @@ window.Asks = {
                     url = "/users/" + data[6];
                     break;
                 case "Total":
-                    url = "/search/" + KTV.sss_escape(data[0]);
+                    url = "/autocomplete/" + KTV.sss_escape(data[0]);
                     break;
             }
             location.href = url;
@@ -206,7 +206,7 @@ window.Asks = {
 
 
     completeTopic : function(el){
-        $(el).autocomplete("/search/topics",{
+        $(el).autocomplete("/autocomplete/topics",{
             minChars: 1,
             delay: 50,
             width: 200,
@@ -220,7 +220,7 @@ window.Asks = {
     },
 
     completeTopicForAsk : function(el){
-        $(el).autocomplete("/search/topics",{
+        $(el).autocomplete("/autocomplete/topics",{
             minChars: 1,
             delay: 50,
             width: 200,
@@ -246,7 +246,7 @@ window.Asks = {
     completeInviteToAnswer : function(){
         input = $("#ask_to_answer");
         App.placeHolder(input, "可通过人名、课程、职务等搜索");
-        input.autocomplete("/search/users", {
+        input.autocomplete("/autocomplete/users", {
             mincChars: 1,
             x: -5,
             y: 2,
