@@ -315,6 +315,47 @@ window.Asks = {
         html += count1+'个关注者·'+count2+'个课件';
         return html;
     },
+    completeLineDepartment : function(data,allow_link){
+        var html = "";
+        var cover = data[4];
+        var count1 = data[2];
+        var count2 = data[3];
+        if(cover.length > 0){
+            html += '<img class="imgHead" width="38" height="38" src="'+ cover +'" alt="'+data[0]+'" title="'+data[0]+'" />';
+        }
+        if(allow_link == true){
+            html += '<a href="/departments/'+data[1]+'">'+ data[0] +'</a>';
+        }
+        else{
+            html += data[0];
+        }
+        html += ' <span class="fc999">课程</span>';
+        html += '<br>';
+        html += count1+'个关注者·'+count2+'个课件';
+        return html;
+    },
+
+
+
+    completeLineCourse : function(data,allow_link){
+        var html = "";
+        var cover = data[4];
+        var count1 = data[2];
+        var count2 = data[3];
+        if(cover.length > 0){
+            html += '<img class="imgHead" width="38" height="38" src="'+ cover +'" alt="'+data[0]+'" title="'+data[0]+'" />';
+        }
+        if(allow_link == true){
+            html += '<a href="/courses/'+data[1]+'">'+ data[0] +'</a>';
+        }
+        else{
+            html += data[0];
+        }
+        html += ' <span class="fc999">课程</span>';
+        html += '<br>';
+        html += count1+'个关注者·'+count2+'个课件';
+        return html;
+    },
 
 
     completeLineCourseware : function(data, allow_link){
@@ -337,6 +378,38 @@ window.Asks = {
             html += '<a href="/asks/'+data[1]+'">'+data[0].replace("/","")+'</a>';
         }
         html += '('+count+'个答案)';
+        return html;
+    },
+    completeLineTeacher : function(data,allow_link,limit){
+        var html = "", len, tempStr;
+        var avatar = data[3];
+        var username = data[0];
+        var tagline = data[2];
+        var count1 = data[4];
+        var count2 = data[5];
+        if(/^\/upload/.test(avatar) == false){
+            avatar = "" + avatar;
+        }
+        if (limit && !isNaN(limit)){
+            len = username.replace(/[^\u0000-\u00ff]/gi, "aa").length;        
+            if (len > limit){
+                username = App.shortStr(username, limit - 3) + "...";
+                tagline = "";
+            } else if (len < limit && tagline.replace(/[^\u0000-\u00ff]/gi, "aa").length > limit - len -1){
+                tagline = App.shortStr(tagline, limit - len - 3) + "...";
+            } else if (len === limit){      
+                tagline = "";
+            }
+        }
+        html += '<img class="imgHead" width="38" height="38" src="'+ avatar +'" alt="'+data[0]+'" title="'+data[0]+'" />';
+        if(allow_link == true){
+            html += '<a href="/users/'+data[data.length-2]+'">'+username+'</a>';
+        }else{
+            html += username;
+        }     
+        html += ' <span class="fc999">'+tagline+'</span>';
+        html += '<br>';
+        html += count1+'个关注者·'+count2+'个课件';
         return html;
     },
 

@@ -339,97 +339,61 @@
     if $('#core_search_ul li.selected').length is 0
       $('#core_search_ul li').first().addClass('selected')
   KTV.search_cater = (data,term) ->
-    $('#core_search_ul').html('')  
+    $('#psvr_bd_place').html('')  
     keyword = term
     last_one = new_one = ''
     failed = false
     if data is null or data.length is 0
-      last_one = "<li class=\"lightlink\">未找到与“#{term}”相关的内容，请尝试其他关键词</li>"
+      $('#psvr_bd_place_wrapper').hide()
+      return false
     else
-      datas = data.split("\n")
-      $.each(datas,(index,itemRaw)->
-        item = itemRaw.split("#!#")
-        if 'Topic' == item[item.length-1]
-          title = KTV.Utilities.wrap_with_matches(item[0],keyword)
-          title = item[0] if false==title
-          # slice1 = KTV.Utilities.slice_with_matches(item['name_en'],keyword,18)
-          # slice2 = KTV.Utilities.slice_with_matches(item['name_pinyin'],keyword,18)
-          # if false==slice1
-          #   if false==slice2
-          #     # do nothing
-          #   else
-          #     title += " <span class=\"en_match\">(#{slice2})</span>"
-          # else
-          #   title += " <span class=\"en_match\">(#{slice1})</span>"
-          $('#core_search_ul').append("<li class=\"user\">\
-            <a href=\"/topics/#{item[1]}\" class=\"result_item\">\
-              <div class=\"text\">\
-                <div class=\"pic\">\
-                  <img width=\"38\" height=\"38\" alt=\"#{item[0]}\" class=\"\" src=\"#{item[item.length-2]}\">\
-                    </div>\
-                   课程: #{title}\
-                     <span class=\"faded\">#{item[2]}个课件</span>\
-                </div>\
-                </a>\
-              </li>" )
-        else if 'User' == item[item.length-1]
-          title = KTV.Utilities.wrap_with_matches(item[0],keyword)
-          title = item[0] if false==title
-          # slice1 = KTV.Utilities.slice_with_matches(item['name_en'],keyword,18)
-          # slice2 = KTV.Utilities.slice_with_matches(item['name_pinyin'],keyword,18)
-          # if false==slice1
-          #   if false==slice2
-          #     # do nothing
-          #   else
-          #     title += " <span class=\"en_match\">(#{slice2})</span>"
-          # else
-          #   title += " <span class=\"en_match\">(#{slice1})</span>"
-          $('#core_search_ul').append("<li class=\"user\">\
-            <a href=\"/users/#{item[item.length-2]}\" class=\"result_item\">\
-              <div class=\"text\">\
-                <div class=\"pic\">\
-                  <img width=\"38\" height=\"38\" alt=\"#{item[0]}\" class=\"\" src=\"#{item[3]}\">\
-                    </div>\
-                     #{title}\
-                     <span class=\"faded\">#{item[2]} #{item[item.length-4]}关注 #{item[item.length-3]}课件</span>\
-                </div>\
-                </a>\
-              </li>" )
-        else if 'Courseware' == item[item.length-1]
-          title = KTV.Utilities.wrap_with_matches(item[0],keyword)
-          title = item[0] if false==title
-          # slice1 = false # KTV.Utilities.slice_with_matches(item['name_en'],keyword,38)
-          # slice2 = false #KTV.Utilities.slice_with_matches(item['name_pinyin'],keyword,6)
-          # if false==slice1
-          #   if false==slice2
-          #     # do nothing
-          #   else
-          #     title += " <span class=\"en_match\">(#{slice2})</span>"
-          # else
-          #   title += " <span class=\"en_match\">(#{slice1})</span>"
-          $('#core_search_ul').append("<li class=\"topic with_img\">\
-            <a class=\"result_item\" href=\"/coursewares/#{item[1]}\">\
-              <div class=\"row main_col\">\
-                <span class=\"col w5 match-info\">\
-                  <div style=\"margin-top: 5px\">\
-                  <div class=\"text\">#{title}</div></div></span>\
-                    <span class=\"col w2_5 faded desc\" style=\"white-space: nowrap; overflow: hidden;\">\
-                      <div class=\"pic\">\
-                        <img src=\"#{item[item.length-2]}\" height=\"23\" width=\"23\">\
-                        </div><div style=\"margin-top: 7px\">#{item[item.length-3]}</div></span></div></a></li>")
-        # else if 'more' == item['type']
-        #   keyword = item['what']
-        #   last_one = "<li class=\"lightlink\"><a href=\"#\" class=\"result_item result_item_more\">全部搜索结果: #{item['what']}</a></li>"
-        #   new_one = "<li class=\"addquestionitem\" style=\"padding-top:10px\"><strong class=\"inline_label col\">#{item['what']}</strong><span class=\"lil_action_button submit_button col\" style=\"font-weight:normal\">开设新课程</span></li>"
-        # else
-        #   failed = true
-        #   keyword = item['what']
-        #   last_one = "<li class=\"lightlink\">未找到与“#{item['what']}”相关的内容，请尝试其他关键词</li>"
+      ret = ''
+      $('#psvr_bd_place_wrapper').show()
+      $.each(data,(index,itemRaw)->
+        if 'Courseware'==index
+          ret += "<dl class=\"sug-song clearfix\" style=\"width:#{window.psvr_search_cache_width-40}px\">\
+      				<dt class=\"sug-title clearfix\">课件</dt>\
+              <dd class=\"first-item\"><a href=\"/song/520743\"><span class=\"songname\">Dj</span><span class=\"artistname\"><i class=\"h-line\">-</i><span class=\"ci\">A</span>lphabeat</span></a></dd>\
+              <dd><a href=\"/song/20659362\"><span class=\"songname\">Someone Like You</span><span class=\"artistname\"><i class=\"h-line\">-</i><span class=\"ci\">A</span>lco</span></a></dd>\
+              <dd><a href=\"/song/19157772\"><span class=\"songname\">Someone Like You</span><span class=\"artistname\"><i class=\"h-line\">-</i><span class=\"ci\">A</span>lternative Rocks!</span></a></dd>\
+              <dd class=\"last-item\"><a href=\"/song/2794752\"><span class=\"songname\">Someone Like You</span><span class=\"artistname\"><i class=\"h-line\">-</i><span class=\"ci\">A</span>marna</span></a></dd>\
+      			</dl>"
+        else if 'Department'==index
+          ret += "<dl class=\"sug-song clearfix\" style=\"width:#{window.psvr_search_cache_width-40}px\">\
+      				<dt class=\"sug-title clearfix\">学院</dt>\
+              <dd class=\"first-item\"><a href=\"/song/520743\"><span class=\"songname\">Dj</span><span class=\"artistname\"><i class=\"h-line\">-</i><span class=\"ci\">A</span>lphabeat</span></a></dd>\
+              <dd><a href=\"/song/20659362\"><span class=\"songname\">Someone Like You</span><span class=\"artistname\"><i class=\"h-line\">-</i><span class=\"ci\">A</span>lco</span></a></dd>\
+              <dd><a href=\"/song/19157772\"><span class=\"songname\">Someone Like You</span><span class=\"artistname\"><i class=\"h-line\">-</i><span class=\"ci\">A</span>lternative Rocks!</span></a></dd>\
+              <dd class=\"last-item\"><a href=\"/song/2794752\"><span class=\"songname\">Someone Like You</span><span class=\"artistname\"><i class=\"h-line\">-</i><span class=\"ci\">A</span>marna</span></a></dd>\
+      			</dl>"
+        else if 'Course'==index
+          ret += "<dl class=\"sug-song clearfix\" style=\"width:#{window.psvr_search_cache_width-40}px\">\
+      				<dt class=\"sug-title clearfix\">课程</dt>\
+              <dd class=\"first-item\"><a href=\"/song/520743\"><span class=\"songname\">Dj</span><span class=\"artistname\"><i class=\"h-line\">-</i><span class=\"ci\">A</span>lphabeat</span></a></dd>\
+              <dd><a href=\"/song/20659362\"><span class=\"songname\">Someone Like You</span><span class=\"artistname\"><i class=\"h-line\">-</i><span class=\"ci\">A</span>lco</span></a></dd>\
+              <dd><a href=\"/song/19157772\"><span class=\"songname\">Someone Like You</span><span class=\"artistname\"><i class=\"h-line\">-</i><span class=\"ci\">A</span>lternative Rocks!</span></a></dd>\
+              <dd class=\"last-item\"><a href=\"/song/2794752\"><span class=\"songname\">Someone Like You</span><span class=\"artistname\"><i class=\"h-line\">-</i><span class=\"ci\">A</span>marna</span></a></dd>\
+      			</dl>"
+        else if 'Teacher'==index
+          ret += "<dl class=\"sug-song clearfix\" style=\"width:#{window.psvr_search_cache_width-40}px\">\
+      				<dt class=\"sug-title clearfix\">老师</dt>\
+              <dd class=\"first-item\"><a href=\"/song/520743\"><span class=\"songname\">Dj</span><span class=\"artistname\"><i class=\"h-line\">-</i><span class=\"ci\">A</span>lphabeat</span></a></dd>\
+              <dd><a href=\"/song/20659362\"><span class=\"songname\">Someone Like You</span><span class=\"artistname\"><i class=\"h-line\">-</i><span class=\"ci\">A</span>lco</span></a></dd>\
+              <dd><a href=\"/song/19157772\"><span class=\"songname\">Someone Like You</span><span class=\"artistname\"><i class=\"h-line\">-</i><span class=\"ci\">A</span>lternative Rocks!</span></a></dd>\
+              <dd class=\"last-item\"><a href=\"/song/2794752\"><span class=\"songname\">Someone Like You</span><span class=\"artistname\"><i class=\"h-line\">-</i><span class=\"ci\">A</span>marna</span></a></dd>\
+      			</dl>"          
+        else if 'User'==index
+          ret += "<dl class=\"sug-song clearfix\" style=\"width:#{window.psvr_search_cache_width-40}px\">\
+      				<dt class=\"sug-title clearfix\">用户</dt>\
+              <dd class=\"first-item\"><a href=\"/song/520743\"><span class=\"songname\">Dj</span><span class=\"artistname\"><i class=\"h-line\">-</i><span class=\"ci\">A</span>lphabeat</span></a></dd>\
+              <dd><a href=\"/song/20659362\"><span class=\"songname\">Someone Like You</span><span class=\"artistname\"><i class=\"h-line\">-</i><span class=\"ci\">A</span>lco</span></a></dd>\
+              <dd><a href=\"/song/19157772\"><span class=\"songname\">Someone Like You</span><span class=\"artistname\"><i class=\"h-line\">-</i><span class=\"ci\">A</span>lternative Rocks!</span></a></dd>\
+              <dd class=\"last-item\"><a href=\"/song/2794752\"><span class=\"songname\">Someone Like You</span><span class=\"artistname\"><i class=\"h-line\">-</i><span class=\"ci\">A</span>marna</span></a></dd>\
+      			</dl>"
+                              
       )
-    $('#core_search_ul').append(last_one)
-    $('#results_tray').height("#{$('#core_search_ul').height()+28}px")
-    $('.results_frame li').removeClass('selected')
-    KTV.search_li_hover()
+      $('#psvr_bd_place').html(ret) 
+      
   KTV.login = ->
     im.zm.login()
     $("#loginLayout").definedDialog("open")
@@ -462,6 +426,23 @@
     )
 
   jQuery ->
+    window.psvr_search_cache_width = $('#psvr_bd_place_wrapper .shadowleft').width();
+    $('#q').autocomplete(
+      minLength: 1,
+      source: ( request, response ) ->
+        term = request.term
+        if false and KTV.search_cache[term]
+          console.log 'cache hit'
+          KTV.search_cater( KTV.search_cache[ term ], term )
+        else
+          $('#search_form').addClass("searching")
+          request.q = request.term
+          request.term = null
+          $.get("/autocomplete/all", request, ( data, status, xhr ) ->
+            $('#search_form').removeClass("searching")
+            KTV.search_cater( data, term )
+          , 'json')
+    )
     $('#q').focus(->
       $('div.navigation').fadeOut('fast')
       $('#psvr_dz_target').data('top-orig',parseInt($('#psvr_dz_target').css('top')))

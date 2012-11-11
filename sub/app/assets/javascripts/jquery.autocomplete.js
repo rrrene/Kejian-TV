@@ -630,11 +630,7 @@ $.Autocompleter.Select = function (options, input, select, config) {
     .attr("id", "popSearchTip")  //modify 2012-2-6 by lesanc.li
 		.css("position", "absolute")
 		.appendTo(document.body)
-    .wrap('<div />')
-    .wrap('<div class="shadowright" />')
-    .wrap('<div class="shadowleft" />')
-    .wrap('<div class="sug-result" />')
-    .wrap('<div class="__bd" />')
+    .wrap('<div class="__qa" />')
 		.hover(function(event) {
 		  // Browsers except FF do not fire mouseup event on scrollbars, resulting in mouseDownOnSelect remaining true, and results list not always hiding.
 		  if($(this).is(":visible")) {

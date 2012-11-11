@@ -14,7 +14,6 @@
 //= require application_instinct
 //= require facebox
 //= require jquery.jdialog
-//= require jquery.autocomplete.js
 //= require jquery.qeditor
 //= require jquery.cookie
 //= require jquery.placeholder
