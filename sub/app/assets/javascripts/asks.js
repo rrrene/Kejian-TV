@@ -162,11 +162,14 @@ window.Asks = {
             formatItem : function(data, i, total){
                 klass = data[data.length - 1];
                 switch(klass){
-                    case "Ask":
-                        return Asks.completeLineAsk(data, true);
+                    case "Courseware":
+                        return Asks.completeLineCourseware(data, true);
                         break;
-                    case "Topic":
-                        return Asks.completeLineTopic(data, true);
+                    case "Course":
+                        return Asks.completeLineCourse(data, true);
+                        break;
+                    case "Department":
+                        return Asks.completeLineDepartment(data, true);
                         break;
                     case "User":
                         return Asks.completeLineUser(data, true);
