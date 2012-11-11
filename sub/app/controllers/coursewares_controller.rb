@@ -1,8 +1,8 @@
 # -*- encoding : utf-8 -*-
 class CoursewaresController < ApplicationController
-  before_filter :authenticate_user!, :only => [:new,:create,:edit,:update,:destroy,:thank,:download,:my_upload]
-  before_filter :find_item,:only => [:show,:embed,:download,:edit,:update,:destroy,:thank]
-  before_filter :authenticate_user_ownership!, :only => [:update,:destroy]
+  before_filter :authenticate_user!, :only => [:new,:create,:edit,:update,:destroy,:thank,:download,:my_upload,:my_edit]
+  before_filter :find_item,:only => [:show,:embed,:download,:edit,:update,:destroy,:thank,:my_edit]
+  before_filter :authenticate_user_ownership!, :only => [:update,:destroy,:edit,:my_edit]
   
   def latest
     @seo[:title] = '最新课件'
@@ -208,7 +208,15 @@ class CoursewaresController < ApplicationController
     prepare_s3
   end
   def my_edit
-    
+    @seo[:title] = '编辑课件'
+    @c = Course.where(fid:params[:psvr_f].to_i).first
+    if @c
+      @teachers = @c.teachings.collect(&:teacher).uniq
+    else
+      @teachers = []
+    end
+    @courseware.version_date[@courseware.version.to_s] = Time.now.strftime("%Y年%m月%d日")
+    prepare_s3
   end
   def destroy
     @courseware.soft_delete
@@ -271,7 +279,7 @@ protected
   def authenticate_user_ownership!
     # todo: more admin
     unless current_user.id==@courseware.user_id or current_user.id==@courseware.uploader_id or current_user.super_admin?
-      render text:'这不是你的课件.', status: 401
+      render text:'这不是您的课件.', status: 401
       return false
     end
   end
