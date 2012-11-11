@@ -1,4 +1,34 @@
 (function($){
+	//type has [info,warn,success,error]
+	function showBigNotification(dom,text,type,next){
+		if(!type){
+			type='warn';
+		}
+		$(dom).parents('.upload-item').find('.notification-area .yt-alert-content .yt-alert-message').html(text);
+		$(dom).parents('.upload-item').find('.notification-area .yt-alert.yt-alert-actionable').attr('class','yt-alert yt-alert-actionable alert-multi hid yt-alert-'+type);
+		$(dom).parents('.upload-item').find('.notification-area .yt-alert.yt-alert-actionable').animate({opacity:'show'},'fast',function(){$(this).removeClass('hid')});
+		if(next){
+			$(dom).parents('.upload-item').find('.notification-area .multialert-next').attr('class','multialert-next yt-uix-button hid yt-uix-button-alert-'+type);
+			$(dom).parents('.upload-item').find('.notification-area .multialert-next').show().removeClass('hid');
+		}
+	}
+	function showNotification(dom,text,type){
+		if(!type){
+			type='warn';
+		}
+		$(dom).parents('.upload-item').find('.alert-template-with-close').attr('class','alert-template-with-close yt-alert yt-alert-default yt-alert-'+type);
+		$(dom).parents('.upload-item').find('.alert-template-with-close .yt-alert-content .yt-alert-message').html(text);
+	}
+	$('.yt-alert .close').live('click',function(){
+		$(this).parents('.yt-alert').animate({opacity:'hide'},'fast',function(){$(this).addClass('hid');});
+	});
+	$('.thumbnail-container .close').live('click',function(){
+		$(this).parents('.upload-item').animate({opacity:'hide'},'fast');
+	});
+	$('select.yt-uix-form-input-select-element.metadata-privacy-input').live('change',function(){
+		$(this).parents('.upload-item').find('.metadata-status-public,.metadata-status-unlisted,.metadata-status-private').addClass('hid');
+		$(this).parents('.upload-item').find('.metadata-status.metadata-status-'+$('option:selected',this).val()).removeClass('hid');
+	})
 	item = new Array();
 	var loading = '<div class="addto-loading loading-content"><img src='+vfl3z5WfW+'><span>正在载入课件锦囊...</span></div>';
 	$('ul.tabs > li.tab-header').live('click',function(e){
@@ -108,8 +138,10 @@
 		}
 		if($('button.addto-button').hasClass('yt-uix-button-active') && !$(target).is('button.addto-button') && !$(target).is('shared-addto-menu')){
 				$('button.addto-button').removeClass('yt-uix-button-active');
-				$('#shared-addto-menu').hide().addClass('hid');
-				$('#shared-addto-menu').html(loading);
+				$('.shared-addto-menu').hide().addClass('hid');
+				$('.shared-addto-menu').each(function(index,box){
+					$(box).html(loading);
+				})
 		}
 	});
 	$('#yt-uix-clickcard-card4').live('click',function(e){
@@ -130,6 +162,8 @@
 	$('.kejian-settings-department').live('focus',function(e){
 		$(this).toggleClass('department_actived');
 	  showWindow('nav', '/forum.php?mod=misc&action=nav&already_inside=1&psvr_g='+$(this).parents('.metadata-container').find('.psvr_g').val()+'&psvr_f='+$(this).parents('.metadata-container').find('.psvr_f').val(), 'get', 0);
+		$(this).parents('.upload-item').find('.save-error-message').addClass('critical').html('某些更改尚未保存。');
+		$(this).parents('.upload-item').find('.save-changes-button').attr('disabled',false);
 	  return false;
 	});
 	$('select.presentation_teacher_select_dynamic').live('change',function(e){
@@ -155,21 +189,26 @@
 		$(this).prev().find('input.presentation_version_date').val(year + '年' + month + '月' + day +'日');
 	});
 	var swfu;
+	var queueLeft = new Array();
+	var preQueue = 5;
 	jsonArray = new Array();
 	jsonTime = new Array();
-	var configAjax = function(){
+	function configAjax(count,callback){
 		$.ajax({
 	  	url:'/ajax/prepare_upload',
 			type:'POST',
-			data:{'authenticity_token':encodeURIComponent(AUTH_TOKEN)},
+			data:{'authenticity_token':encodeURIComponent(AUTH_TOKEN),'count':count},
 			dataType:'json',
 			async:false
 	  }).done(function(json){
-			jsonArray = [].concat(json.config);
+			jsonArray = jsonArray.concat(json.config);
 			jsonTime.push(json.uptime);
+			if(callback){
+				callback();	
+			}
 	  });
 	};
-	configAjax();
+	configAjax(preQueue);
 	var countingdown_upload = 0;
 	var remaining_upload_number = 0;
 	var remaining_process_number = 0;
@@ -201,19 +240,26 @@
 						return false;
 					}
 					remaining_upload_number = selected;
+					configAjax(selected - preQueue,function(){
+						for(var i=preQueue;i<selected;i++){
+							swfu.addFileParam(queueLeft[i-preQueue],'policy',jsonArray[i].policy);
+							swfu.addFileParam(queueLeft[i-preQueue],'signature',jsonArray[i].signature);
+						}						
+					});
 					// $('#SWFUpload_0').css({'left':$('.start-upload-button.hide-in-initial').position().left + 15,'top':($('.start-upload-button.hide-in-initial').offset().top),'position':'absolute','float':'left','width': $('.start-upload-button.hide-in-initial').outerWidth(),'height':$('.start-upload-button.hide-in-initial').outerHeight()});
+					
 					this.startUpload();
 		},
 		file_queued_handler:function(file){
-				if(countingdown_upload >= jsonArray.length-1){
-					configAjax();
+				if(countingdown_upload > jsonArray.length-1){
+					queueLeft.push(file.id);
+				}else{
+					swfu.addFileParam(file.id,'policy',jsonArray[countingdown_upload].policy);
+				 	swfu.addFileParam(file.id,'signature',jsonArray[countingdown_upload].signature);
 				}
 				if(countingdown_upload  == 0){
 					$('#the_upload_ytb #upload-page').attr('class','active-upload-page');	
-				}
-				swfu.addFileParam(file.id,'policy',jsonArray[countingdown_upload].policy);
-			 	swfu.addFileParam(file.id,'signature',jsonArray[countingdown_upload].signature);
-				
+				}				
 				var uptime = parseInt(countingdown_upload/5);
 				item[countingdown_upload] = $('#the_upload_ytb #upload-item-template').clone();
 				item[countingdown_upload].attr('id','upload-item-'+countingdown_upload);
@@ -231,7 +277,7 @@
 				item[countingdown_upload].find('.item-title-area > .item-title').html(file.name);
 				item[countingdown_upload].find('.item-sub-title > .upload-status-text').html('正在上传您的课件...');
 				item[countingdown_upload].find('.kejian-settings-form  .kejian-settings-title').val(((file.name.lastIndexOf(".") != -1) ? file.name.substring(0, file.name.lastIndexOf(".")) : file.name));
-				 $('#active-uploads-contain').append(item[countingdown_upload][0]);			 
+				$('#active-uploads-contain').append(item[countingdown_upload][0]);
 				countingdown_upload++;
 		},
 		upload_progress_handler:function(file,completeBytes,totalBytes){
@@ -240,9 +286,52 @@
 					$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('input.upload_persentage').val(percentage);
 		},
 		upload_error_handler:function(file, code, message){
-				console.log(file.name,code, message);
+				swfu.cancelUpload(file.id,false);
+				var stats = {'dom':'#the_upload_ytb .upload-item[data-file-id="'+file.id+'"] .progress-bar-uploading','text':'','debug':'','type':'error'}
+				try {
+							switch (code) {
+							case SWFUpload.UPLOAD_ERROR.HTTP_ERROR:
+								stats.text = "上传错误: " + message;
+								stats.debug = "错误提示：http错误，文件名：" + file.name + ", 信息： " + message;
+								break;
+							case SWFUpload.UPLOAD_ERROR.UPLOAD_FAILED:
+								stats.text = "上传失败";
+								stats.debug = "错误提示：上传失败，文件名称: " + file.name + ", 文件大小：" + file.size + ", 信息：" + message;
+								break;
+							case SWFUpload.UPLOAD_ERROR.IO_ERROR:
+								stats.text = "服务器错误";
+								stats.debug = "错误提示：服务器错误, 文件名称: " + file.name + ", 信息： " + message;
+								break;
+							case SWFUpload.UPLOAD_ERROR.SECURITY_ERROR:
+								stats.text = "安全性错误";
+								stats.debug = "错误提示： 安全性错误, 文件名称: " + file.name + ", 信息： " + message;
+								break;
+							case SWFUpload.UPLOAD_ERROR.UPLOAD_LIMIT_EXCEEDED:
+								stats.text = "上传超过限制。";
+								stats.debug = "错误提示：上传超过限制,文件名称:  " + file.name + ", 文件大小： " + file.size + ", 信息：" + message;
+								break;
+							case SWFUpload.UPLOAD_ERROR.FILE_VALIDATION_FAILED:
+								stats.text = "验证失败。上传跳过。";
+								stats.debug = "错误提示： 验证失败，上传跳过。文件名称: " + file.name + ", 文件大小： " + file.size + ", 信息：" + message;
+								break;
+							case SWFUpload.UPLOAD_ERROR.FILE_CANCELLED:
+								break;
+							case SWFUpload.UPLOAD_ERROR.UPLOAD_STOPPED:
+								// stats.text = "停止";
+								break;
+							default:
+								stats.text = "未知错误: " + errorCode;
+								stats.debug = "错误提示： " + errorCode + ", 文件名称: " + file.name + ", 文件大小：" + file.size + ", 信息： " + message;
+								break;
+							}
+						} catch (ex) {
+						}
+						if(stats.text!='')
+							showBigNotification(stats.dom,stats.text+'<br/>'+stats.debug,stats.type);
 		},
 		upload_complete_handler:function(file){
+			// showBigNotification('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"] .progress-bar-uploading','xdafdasf','success',1);
+			// showNotification('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"] .progress-bar-uploading','xdafdasf','error');
 			remaining_upload_number--;
 			remaining_process_number++;
 			$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.progress-bar-uploading').addClass('hid').parent().find('.progress-bar-processing').removeClass('hid');
@@ -263,7 +352,7 @@
 	       	update_processing_bar($('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('input.id').val());
 			}
 			this.startUpload();
-			if(remaining_upload_number==0){
+			if(remaining_upload_number<=0){
 				window.onbeforeunload = null;	
 			}	
 		},
@@ -288,14 +377,18 @@
 	};
 	$('.save-changes-button').live('click',function(){
 		tmp = this;
+		$(this).parents('.upload-item').find('.save-error-message').removeClass('critical').html('正在保存所有更改...');
 		auto_ajax_save($(this).parents('.upload-item').find('form').serialize()).done(function(json){
+			$(tmp).parents('.upload-item').find('.save-error-message').removeClass('critical').html('已保存所有更改。');
 			$(tmp).attr('disabled',true);
 		});
 	});
-	$('form input').live('keyup change paste',function(){
+	$('form input,form textarea').live('keyup change paste',function(){
+		$(this).parents('.upload-item').find('.save-error-message').addClass('critical').html('某些更改尚未保存。');
 		$(this).parents('.upload-item').find('.save-changes-button').attr('disabled',false);
 	});
 	$('form select').live('change',function(){
+		$(this).parents('.upload-item').find('.save-error-message').addClass('critical').html('某些更改尚未保存。');
 		$(this).parents('.upload-item').find('.save-changes-button').attr('disabled',false);
 	});
 	var tag = '<span class="yt-chip"><span></span><span class="yt-delete-chip"></span></span>';
@@ -345,6 +438,8 @@
 	              update_processing_bar(a)
 	          }, 2e3) : setTimeout(function () {
 								deal_json(a,b);
+								$('form input.id[value="'+a+'"]').parents('.upload-item').find('.upload-thumb-container').removeClass('hid');
+								$('form input.id[value="'+a+'"]').parents('.upload-item').find('.upload-thumb-img').attr('src','/slide_pic?id='+ a +'&pic=thumb_slide_0.jpg')
 								$('form input.id[value="'+a+'"]').parents('.upload-item').addClass('upload-item-finished');
 	          }, 2e3)
 	      }
@@ -367,11 +462,12 @@
 	$('button.addto-button').live('click',function(e){
 		e.stopPropagation();
 		$(this).toggleClass('yt-uix-button-active');
-		var addto_div = $('#shared-addto-menu');
+		var addto_div = $(this).parents('.upload-item').find('.shared-addto-menu');
+		tmp  = this;
 		if($(this).hasClass('yt-uix-button-active')){
 			cssObj = {
 				'min-width': '84px',
-				'top':($(this).parent().position().top+$(this).height()*1.7).toString() +'px',
+				'top':($(this).position().top +$(this).height()*1.7).toString() +'px',
 				'left':($(this).parent().position().left+20).toString() + 'px'
 			};
 			addto_div.css(cssObj);
@@ -383,7 +479,7 @@
 				dataType:'json'				
 			}).done(function(json){
 				if(json.status == 'suc'){
-					$('#shared-addto-menu').html(json.html);
+					$(tmp).parents('.upload-item').find('.shared-addto-menu').html(json.html);
 				}
 			});
 			
@@ -393,18 +489,18 @@
 		}
 	});
 	var removeStyle = function(){
-		$('#shared-addto-menu > div').each(function(index,div){
+		$('.shared-addto-menu > div').each(function(index,div){
 			if (!$(div).hasClass('active-panel')) {
 				$(div).attr('style','');
 			};
 		});
 	};
 	var removeActiveTag = function(){
-		$('#shared-addto-menu > div').each(function(index,div){
+		$('.shared-addto-menu > div').each(function(index,div){
 				$(div).removeClass('active-panel');
 		});
 	};
-	$('#shared-addto-menu').live('click',function(e){
+	$('.shared-addto-menu').live('click',function(e){
 		e.stopPropagation();
 	});
 	$('div.playlists ul li').live('click',function(){
@@ -623,7 +719,6 @@
 			 $('link[href="http://v3.jiathis.com/code_mini/css/jiathis_counter.css"]').remove();
 			 $('script[src="http://tajs.qq.com/jiathis.php?uid=1351061699325921&dm=cnu.kejian.lvh.me"]').remove();
 			 $('script[src*="//i.jiathis.com/url/shares.php"]').remove();
-	  }
-                 
+	  }      
 	});
 })(jQuery);

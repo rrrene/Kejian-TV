@@ -104,6 +104,14 @@ class AjaxController < ApplicationController
     render json:{ff:ff,not_used:not_used}
   end
   def watch_later
+    if current_user.nil?
+      render json:{okay:false,reason:'您尚未登录！'}
+      return false
+    end
+    if params[:courseware_id].blank? or !Moped::BSON::ObjectId.legal?(params[:courseware_id])
+      render json:{okay:false,reason:'系统无法完成请求，请稍后重试。'}
+      return false
+    end
     play_list = PlayList.locate(current_user.id,'稍后阅读')
     if play_list.add_one_thing(params[:courseware_id],true)
       render json:{okay:true,msg:'已将此课件添加至您的稍后阅读锦囊中.'}
@@ -337,7 +345,7 @@ HEREDOC
     config = Array.new
     uptime = Time.now.to_i
     tmp_uptime = uptime
-    for i in 0...5
+    for i in 0...params[:count].to_i
       uptime = uptime + i
       policy = {
         'save-key' =>  "/#{current_user.id}/#{uptime}.pdf",
@@ -458,7 +466,7 @@ HEREDOC
       render json:{status:'failed',reason:'您尚未登录！'}
       return false
     end
-    if !params[:cwid].blank? and !Moped::BSON::ObjectId.legal?(params[:cwid])
+    if params[:cwid].blank? or !Moped::BSON::ObjectId.legal?(params[:cwid])
       render json:{status:'failed',reason:'系统无法完成请求，请稍后重试。'}
       return false
     end
@@ -849,13 +857,13 @@ HEREDOC
         render json:{status:'failed',reason:'您导入的内容稍后阅读无法接受！'}
         return false
       end
-      cw = Courseware.find(cwid)
-      if pl.content.include?(cw.id)
-        render json:{status:'failed',reason:'该课件已经存在该课件锦囊！'}
-        return false
-      end
+      cw = Courseware.where(id:cwid).first
       if cw.nil?
         render json:{status:'failed',reason:'该课件已经不存在！'}
+        return false
+      end
+      if pl.content.include?(cw.id)
+        render json:{status:'failed',reason:'该课件已经存在该课件锦囊！'}
         return false
       end
       add = pl.add_one_thing(cw.id)
@@ -1253,7 +1261,7 @@ HEREDOC
         legal = false
         next
       end
-      if (cw = Courseware.find(id)).nil?
+      if (cw = Courseware.where(id:id).first).nil?
         null  = false
         next
       end
@@ -1283,7 +1291,7 @@ HEREDOC
         legal = false
         next
       end
-      if (cw = Courseware.find(id)).nil?
+      if (cw = Courseware.where(id:id).first).nil?
         null  = false
         next
       end
@@ -1332,7 +1340,7 @@ HEREDOC
         legal = false
         next
       end
-      if (cw = Courseware.find(id)).nil?
+      if (cw = Courseware.where(id:id)).nil?
         null  = false
         next
       end

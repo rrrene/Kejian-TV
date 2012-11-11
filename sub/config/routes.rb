@@ -10,6 +10,7 @@ Sub::Application.routes.draw do
   get '/user_logged_in_required'=>'application#user_logged_in_required'
   get '/modern_required'=>'application#modern_required'
   get '/url' => 'jump_engine#url'
+  get '/slide_pic' => 'jump_engine#ktvid_slide_pic'
   
   get '/mine' => 'mine#index'
   get '/dashboard' => 'mine#dashboard'

@@ -207,6 +207,9 @@ class CoursewaresController < ApplicationController
     @seo[:title] = '编辑课件'
     prepare_s3
   end
+  def my_edit
+    
+  end
   def destroy
     @courseware.soft_delete
     redirect_to '/',:notice=>'已成功删除'
