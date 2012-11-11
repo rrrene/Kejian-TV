@@ -162,6 +162,8 @@
 	$('.kejian-settings-department').live('focus',function(e){
 		$(this).toggleClass('department_actived');
 	  showWindow('nav', '/forum.php?mod=misc&action=nav&already_inside=1&psvr_g='+$(this).parents('.metadata-container').find('.psvr_g').val()+'&psvr_f='+$(this).parents('.metadata-container').find('.psvr_f').val(), 'get', 0);
+		$(this).parents('.upload-item').find('.save-error-message').addClass('critical').html('某些更改尚未保存。');
+		$(this).parents('.upload-item').find('.save-changes-button').attr('disabled',false);
 	  return false;
 	});
 	$('select.presentation_teacher_select_dynamic').live('change',function(e){
@@ -284,7 +286,7 @@
 					$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('input.upload_persentage').val(percentage);
 		},
 		upload_error_handler:function(file, code, message){
-			swf.
+				swfu.cancelUpload(file.id,false);
 				var stats = {'dom':'#the_upload_ytb .upload-item[data-file-id="'+file.id+'"] .progress-bar-uploading','text':'','debug':'','type':'error'}
 				try {
 							switch (code) {
@@ -375,14 +377,18 @@
 	};
 	$('.save-changes-button').live('click',function(){
 		tmp = this;
+		$(this).parents('.upload-item').find('.save-error-message').removeClass('critical').html('正在保存所有更改...');
 		auto_ajax_save($(this).parents('.upload-item').find('form').serialize()).done(function(json){
+			$(tmp).parents('.upload-item').find('.save-error-message').removeClass('critical').html('已保存所有更改。');
 			$(tmp).attr('disabled',true);
 		});
 	});
-	$('form input').live('keyup change paste',function(){
+	$('form input,form textarea').live('keyup change paste',function(){
+		$(this).parents('.upload-item').find('.save-error-message').addClass('critical').html('某些更改尚未保存。');
 		$(this).parents('.upload-item').find('.save-changes-button').attr('disabled',false);
 	});
 	$('form select').live('change',function(){
+		$(this).parents('.upload-item').find('.save-error-message').addClass('critical').html('某些更改尚未保存。');
 		$(this).parents('.upload-item').find('.save-changes-button').attr('disabled',false);
 	});
 	var tag = '<span class="yt-chip"><span></span><span class="yt-delete-chip"></span></span>';

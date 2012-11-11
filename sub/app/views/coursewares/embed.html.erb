@@ -877,7 +877,7 @@
 <% end %>
   <div class="previews" style="display:none"><p>第1页, 共6页</p></div>
   <div class="standard_buttons">
-    <a href="javascript:void(0)" id="watch_later_button" class="yt-uix-tooltip" title="稍后阅读"></a>
+    <a href="javascript:void(0)" id="watch_later_button" class="yt-uix-tooltip" title="稍后阅读" <% if !current_user.nil? and PlayList.locate(current_user.id,'稍后阅读').content.include?(@courseware.id)%>style="opacity: 1; background-position: 0px -208px; "<% end %>></a>
     <a href="javascript:void(0)" style="<%= 'opacity:1' unless @courseware.thin? %>" id="single_button" class="yt-uix-tooltip" title="小型播放器"></a>
     <a href="javascript:void(0)" style="<%= 'opacity:1' if @courseware.thin? %>" id="double_button" class="yt-uix-tooltip" title="大型播放器"></a>
   </div>
