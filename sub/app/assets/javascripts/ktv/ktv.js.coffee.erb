@@ -464,22 +464,6 @@
   jQuery ->
     if window.psvr_is_ie
     else
-      $('#q').autocomplete({
-        minLength: 1,
-        source: ( request, response ) ->
-          term = request.term
-          if false and KTV.search_cache[term]
-            console.log 'cache hit'
-            KTV.search_cater( KTV.search_cache[ term ], term )
-          else
-            $('#search_form').addClass("searching")
-            request.q = request.term
-            request.term = null
-            $.get("/autocomplete/all", request, ( data, status, xhr ) ->
-              $('#search_form').removeClass("searching")
-              KTV.search_cater( data, term )
-            , 'html')
-      })
       $('#q').bind( "input.autocomplete", ->
         $(this).trigger('keydown.autocomplete')
       )
@@ -489,25 +473,16 @@
         $('#search_form').animate({
           width: $('#search_form').data('width-tobe')
         }, 200, ->
-          $('#search_form input').addClass('focused')
-          $('#results_tray_content').fadeIn('fast')
-          $('#results_tray_div').css('padding-bottom','2px')
-          $('#results_tray').animate({height: $('#core_search_ul').height()+28}, {duration: 200, queue:false, easing: 'swing', complete: -> 
-            KTV.search_li_hover()
-          })
+          KTV.search_li_hover()
           $('#psvr_dz_target').animate({top: parseInt($('#psvr_dz_target').css('top'))+$('#core_search_ul').height()+28}, {duration: 200, queue:false})
         )
       ).blur(->
         $('#search_form input').removeClass('focused')
-        $('#results_tray_div').css('padding-bottom','0')
-        $('#results_tray_content').fadeOut('fast')  
         $('#psvr_dz_target').animate({top: $('#psvr_dz_target').data('top-orig')}, {duration: 200, queue:false})
-        $('#results_tray').animate({height:0}, {duration: 200, queue:false, easing: 'swing', complete: ->
-          $('#search_form').animate({
-            width: jQuery('#search_form').data('width-orig')
-          }, 200)
-          $('div.navigation').fadeIn('fast')
-        })
+        $('#search_form').animate({
+          width: jQuery('#search_form').data('width-orig')
+        }, {duration: 200, queue:false})
+        $('div.navigation').fadeIn('fast')
       )
       $('#search_form').submit(->
         $('#q').blur()

@@ -102,7 +102,7 @@
 					<input name="utf8" type="hidden" value="✓">
 					<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
 				</div>
-        <input type="text" id="q" name="q" value="" class="placeholded" placeholder="全站搜索" />
+        <input type="text" id="q" name="q" value="" class="placeholded" placeholder="搜索..." />
       </form>
       <div class="navigation">
         <ul>
@@ -151,21 +151,8 @@
 <% end %>
 </div>
 
-<% if @is_ie %>
-  <%= content_for :butt2 do %>
-    Asks.completeAll($("#q"));
-  <% end %>
-<% else %>
-  <div style="background:none repeat scroll 0 0 #F5F5F5" id="results_tray_div">
-  <div class="wrapper">
-  <div class="__qua" id="results_tray" data-data-height="32" style="height:0px">
-  <div id="__w2_bOT1DHU_results_frame" class="results_frame new_results_frame">
-    <ul id="core_search_ul">
-  <li class="instruction" id="__w2_eqidaIV_list_item_0"><a class="result_item" href="#">请输入汉字或拼音作为关键词，按回车可进入详细搜索结果页</a></li>
-    </ul></div>
-  </div>
-  </div>
-  </div>
+<%= content_for :butt2 do %>
+  Asks.completeAll($("#q"));
 <% end %>
 
 <div class="__sdk">
@@ -294,7 +281,6 @@
   <!-- JavaScript at the bottom for fast page loading -->
 	<div id="js">
   <%= javascript_include_tag "ktv/application" %>
-  <%= javascript_include_tag !@is_ie ? "jquery.ui.autocomplete.js" : "jquery.autocomplete.js" %>
   <script type="text/javascript" charset="utf-8">
     (function($){
     jQuery(function(){

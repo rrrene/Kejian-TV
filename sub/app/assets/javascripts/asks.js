@@ -145,7 +145,7 @@ window.Asks = {
         }
     },
 
-    /* 题，课程，人搜索自动完成 */
+    /* 问题，话题，人搜索自动完成 */
     completeAll : function(el){
         input = $(el);
         input.autocomplete("/search/all",{
@@ -162,8 +162,8 @@ window.Asks = {
             formatItem : function(data, i, total){
                 klass = data[data.length - 1];
                 switch(klass){
-                    case "Courseware":
-                        return Asks.completeLineCourseware(data, true);
+                    case "Ask":
+                        return Asks.completeLineAsk(data, true);
                         break;
                     case "Topic":
                         return Asks.completeLineTopic(data, true);
@@ -172,10 +172,8 @@ window.Asks = {
                         return Asks.completeLineUser(data, true);
                         break;
                     case "Total":
-                        //todo
-                        return false
-                        break;
                         return Asks.completeLineTotal(data, true);
+                        break;
                     default:
                         return "";
                         break;
@@ -185,23 +183,24 @@ window.Asks = {
             url = "/";
             klass = data[data.length - 1];
             switch(klass){
-                case "Courseware":
-                    url = "/coursewares/" + data[1];
+                case "Ask":
+                    url = "/asks/" + data[1];
                     break;
                 case "Topic":
-                    url = "/topics/" + data[1];
+                    url = "/topics/" + data[0];
                     break;
                 case "User":
-                    url = "/users/" + data[data.length-2];
+                    url = "/users/" + data[6];
                     break;
                 case "Total":
-                    url = "/traverse/index?q=" + (encodeURIComponent?encodeURIComponent(data[0]):escape(data[0]));
+                    url = "/search/" + KTV.sss_escape(data[0]);
                     break;
             }
             location.href = url;
             return false;
         }).keydown(Asks.keydownToSearch);
     },
+
 
     completeTopic : function(el){
         $(el).autocomplete("/search/topics",{
