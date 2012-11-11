@@ -337,7 +337,7 @@ HEREDOC
     config = Array.new
     uptime = Time.now.to_i
     tmp_uptime = uptime
-    for i in 0...5
+    for i in 0...params[:count].to_i
       uptime = uptime + i
       policy = {
         'save-key' =>  "/#{current_user.id}/#{uptime}.pdf",
@@ -849,13 +849,13 @@ HEREDOC
         render json:{status:'failed',reason:'您导入的内容稍后阅读无法接受！'}
         return false
       end
-      cw = Courseware.find(cwid)
-      if pl.content.include?(cw.id)
-        render json:{status:'failed',reason:'该课件已经存在该课件锦囊！'}
-        return false
-      end
+      cw = Courseware.where(id:cwid).first
       if cw.nil?
         render json:{status:'failed',reason:'该课件已经不存在！'}
+        return false
+      end
+      if pl.content.include?(cw.id)
+        render json:{status:'failed',reason:'该课件已经存在该课件锦囊！'}
         return false
       end
       add = pl.add_one_thing(cw.id)
@@ -1253,7 +1253,7 @@ HEREDOC
         legal = false
         next
       end
-      if (cw = Courseware.find(id)).nil?
+      if (cw = Courseware.where(id:id).first).nil?
         null  = false
         next
       end
@@ -1283,7 +1283,7 @@ HEREDOC
         legal = false
         next
       end
-      if (cw = Courseware.find(id)).nil?
+      if (cw = Courseware.where(id:id).first).nil?
         null  = false
         next
       end
@@ -1332,7 +1332,7 @@ HEREDOC
         legal = false
         next
       end
-      if (cw = Courseware.find(id)).nil?
+      if (cw = Courseware.where(id:id)).nil?
         null  = false
         next
       end
