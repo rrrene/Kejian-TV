@@ -1,5 +1,6 @@
 (function($){
 	item = new Array();
+	var loading = '<div class="addto-loading loading-content"><img src='+vfl3z5WfW+'><span>正在载入课件锦囊...</span></div>';
 	$('ul.tabs > li.tab-header').live('click',function(e){
 		if($(this).hasClass('selected')){
 			return false;
@@ -200,7 +201,7 @@
 						return false;
 					}
 					remaining_upload_number = selected;
-					$('#SWFUpload_0').css({'left':$('.start-upload-button.hide-in-initial').position().left + 15,'top':($('.start-upload-button.hide-in-initial').offset().top),'position':'absolute','float':'left','width': $('.start-upload-button.hide-in-initial').outerWidth(),'height':$('.start-upload-button.hide-in-initial').outerHeight()});
+					// $('#SWFUpload_0').css({'left':$('.start-upload-button.hide-in-initial').position().left + 15,'top':($('.start-upload-button.hide-in-initial').offset().top),'position':'absolute','float':'left','width': $('.start-upload-button.hide-in-initial').outerWidth(),'height':$('.start-upload-button.hide-in-initial').outerHeight()});
 					this.startUpload();
 		},
 		file_queued_handler:function(file){
@@ -249,6 +250,9 @@
 			$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.upload-status-text').html('开始为课件转码...');
 			$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.item-cancel').addClass('hid');
 			$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.addto-button').removeClass('hid');
+			$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.save-changes-button').attr('disabled',false);
+			$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.item-leave-title').removeClass('hid');
+			
 			if(!$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('input.id').val()){
 				auto_ajax_save($('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('form').serialize()).done(function(json){
 					$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('input.id').val(json.id);
@@ -283,13 +287,20 @@
 		});
 	};
 	$('.save-changes-button').live('click',function(){
+		tmp = this;
 		auto_ajax_save($(this).parents('.upload-item').find('form').serialize()).done(function(json){
-			
+			$(tmp).attr('disabled',true);
 		});
 	});
+	$('form input').live('keyup change paste',function(){
+		$(this).parents('.upload-item').find('.save-changes-button').attr('disabled',false);
+	});
+	$('form select').live('change',function(){
+		$(this).parents('.upload-item').find('.save-changes-button').attr('disabled',false);
+	});
 	var tag = '<span class="yt-chip"><span></span><span class="yt-delete-chip"></span></span>';
+	$('.kejian-settings-tag-chips-container .yt-chip').disableSelection();
 	$('.kejian-settings-add-tag').live('keydown',function(event){
-		console.log(event.which,event);
 		if(event.which==188){
 			event.preventDefault();
 			var tagg = $(this).val().trim().replace(/,/g,'').replace(/，/g,'');
@@ -312,14 +323,12 @@
 	$('.yt-delete-chip').live('click',function(){
 		var tagg = $(this).parents('.yt-chip').find('span:eq(0)').html();
 		var tags = $(this).parents('.kejian-settings-tag-chips-container').find('.kejian-settings-tags').val();
-		console.log(tags);
 		tags = tags.split(' ');
 		var index = tags.indexOf(tagg);
 		if(index!=-1){
 			tags.splice(index,index+1);
 			tags = tags.join(' ');
 		}
-		console.log(tags);
 		$(this).parents('.kejian-settings-tag-chips-container').find('.kejian-settings-tags').val(tags);
 		$(this).parents('.yt-chip').remove();
 	})
@@ -337,7 +346,6 @@
 	          }, 2e3) : setTimeout(function () {
 								deal_json(a,b);
 								$('form input.id[value="'+a+'"]').parents('.upload-item').addClass('upload-item-finished');
-								
 	          }, 2e3)
 	      }
 	  });           
@@ -345,8 +353,8 @@
 	var deal_json = function(a,b){
 		var percent = parseInt(b.complete/b.total).toString()+'%';
 	  $('form input.id[value="'+a+'"]').parents('.upload-item').find('.upload-status-text').html(b.state + b.more);
-		$('form input.id[value="'+a+'"]').parents('.upload-item').find('.progress-bar-percentage').html(percent);
-		$('form input.id[value="'+a+'"]').parents('.upload-item').find('.progress-bar-progress').css({'width':percent});
+		$('form input.id[value="'+a+'"]').parents('.upload-item').find('.progress-bar-processing .progress-bar-percentage').html(percent);
+		$('form input.id[value="'+a+'"]').parents('.upload-item').find('.progress-bar-processing .progress-bar-progress').css({'width':percent});
 	}
 	$('.item-cancel').live('click',function(){
 		$(this).parents('.upload-item').addClass('upload-item-failed');
@@ -415,7 +423,7 @@
 				$('.close-note').show().removeClass('hid');
 				$('#addto-list-saved-panel').addClass('fade active-panel');
 				removeStyle();
-				summonQL(json.playlist_id,'1');
+				KTV.summonQL(json.playlist_id,'1');
 			}else if(json.status == 'onesuc'){
 				$('#addto-list-panel').animate({'left':'-='+$('#addto-list-panel').width().toString() + 'px',opacity:0},{queue:false,duration:400});
 				removeActiveTag();
@@ -425,7 +433,7 @@
 				$('#addto-note-input-panel').animate({'left':'-='+$('#addto-create-panel').width().toString() + 'px',opacity:1},{queue:false,duration:400});
 				$('#addto-note-input-panel').addClass('fade active-panel');
 				removeStyle();
-				summonQL(json.playlist_id,'1');
+				KTV.summonQL(json.playlist_id,'1');
 			}else if(json.status == 'failed'){
 				$('#addto-list-panel').animate({'left':'-='+$('#addto-list-panel').width().toString() + 'px',opacity:0},{queue:false,duration:400});
 				removeActiveTag();
@@ -453,7 +461,7 @@
 				$('#addto-list-saved-panel').animate({'left':'-='+$('#addto-list-saved-panel').width().toString() + 'px',opacity:1},{queue:false,duration:400});
 				$('#addto-list-saved-panel').addClass('fade active-panel');
 				removeStyle();
-				summonQL(json.playlist_id,'1');
+				KTV.summonQL(json.playlist_id,'1');
 			}else if(json.status == 'failed'){
 				$('#addto-list-panel').animate({'left':'-='+$('#addto-list-panel').width().toString() + 'px',opacity:0},{queue:false,duration:400});
 				removeActiveTag();
@@ -552,7 +560,7 @@
 				$('#addto-note-input-panel').animate({'left':'-='+$('#addto-create-panel').width().toString() + 'px',opacity:1},{queue:false,duration:400});
 				$('#addto-note-input-panel').addClass('fade active-panel');
 				removeStyle();
-				summonQL(json.playlist_id,'1');
+				KTV.summonQL(json.playlist_id,'1');
 			}else if(json.status == 'suc'){
 				$('#addto-create-panel').animate({'left':'-='+$('#addto-create-panel').width().toString() + 'px',opacity:0},{queue:false,duration:400});
 				removeActiveTag();
@@ -561,7 +569,7 @@
 				$('.close-note').show().removeClass('hid');
 				$('#addto-list-saved-panel').addClass('fade active-panel');
 				removeStyle();
-				summonQL(json.playlist_id,'1');
+				KTV.summonQL(json.playlist_id,'1');
 			}else if(json.status == 'failed'){
 				$('#addto-create-panel').animate({'left':'-='+$('#addto-create-panel').width().toString() + 'px',opacity:0},{queue:false,duration:400});
 				removeActiveTag();

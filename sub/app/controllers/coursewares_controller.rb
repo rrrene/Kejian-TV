@@ -106,7 +106,7 @@ class CoursewaresController < ApplicationController
     # prepare_s3    
   end
   def new
-    render text:'开发中' and return false
+    # render text:'开发中' and return false
     @seo[:title] = '上传课件'
     @c = Course.where(fid:params[:psvr_f].to_i).first
     if @c

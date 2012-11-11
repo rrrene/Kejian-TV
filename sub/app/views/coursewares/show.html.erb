@@ -487,6 +487,7 @@ courseware_id: '<%=@courseware.id%>'
                           <%=Sanitize.clean(@courseware.desc.gsub(/\n/, '<br />'), Sanitize::Config::BASIC).html_safe %>
                        <% end %>
                        </p>
+											 <br/>
                        <p id="eow-fileinfo-description">
                          <%= @courseware.fileinfo %>
                        </p>
@@ -918,7 +919,7 @@ courseware_id: '<%=@courseware.id%>'
 		 if(json.status == 'suc'){
 			 if(type == 'addto'){
 				 $(tmp).addClass('addto-watch-later-button-success');
-				 summonQL(json.playlist_id,'1');
+				 KTV.summonQL(json.playlist_id,'1');
 			 }else if(type == 'remove'){
 				 $(tmp).addClass('addto-watch-later-button');
 			 }

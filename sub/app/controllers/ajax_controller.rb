@@ -156,6 +156,7 @@ class AjaxController < ApplicationController
     cw.upload_persentage = presentation[:upload_persentage].to_i
     cw.keywords = presentation[:keywords].strip.split(' ')
     cw.desc = presentation[:description]
+    cw.set_privacy(presentation[:privacy])
     cw.enable_monetization = presentation[:enable_monetization] == 'enable' ? true : false
     cw.monetization_style = presentation[:monetization_style]
     cw.enable_overlay_ads = presentation[:enable_overlay_ads] == 'yes' ? true : false
@@ -219,8 +220,11 @@ class AjaxController < ApplicationController
         more = "  第#{complete+1}个子文件,共#{cw.slides_count}个子文件"
       else
         complete = cw.pdf_slide_processed
-        total = cw.slides_count + 1
-        more = "第#{:complete}页, 共#{cw.slides_count}页"
+        total = cw.slides_count + 1 
+        more = "第#{complete}页, 共#{cw.slides_count}页"
+        if cw.status == 3
+          more = ''
+        end
       end
     else
       complete = 0
@@ -332,6 +336,7 @@ HEREDOC
     end
     config = Array.new
     uptime = Time.now.to_i
+    tmp_uptime = uptime
     for i in 0...5
       uptime = uptime + i
       policy = {
@@ -347,7 +352,7 @@ HEREDOC
         signature: Digest::MD5.hexdigest(policy+'&'+'Vv0WpPhlztxkPn7c9F3x3S8zgRE=')
       }
     end
-    render json:{status:'suc',uptime:uptime,config:config}
+    render json:{status:'suc',uptime:tmp_uptime,config:config}
   end
   def seg
     params[:q] = params[:q].strip
