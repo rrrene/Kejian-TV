@@ -388,7 +388,7 @@
           ret += "<dl class=\"sug-song clearfix\" style=\"width:#{window.psvr_search_cache_width-40}px\">\
       				<dt class=\"sug-title clearfix\">课程</dt>"
           for crs in itemRaw
-            ret += "<dd class=\"first-item\"><a href=\"/song/520743\"><span class=\"songname\">#{crs['title']}</span><span class=\"artistname\"><i class=\"h-line\">-</i>#{crs['department_name']}, #{crs['teachers'].join(', ')}</span></a></dd>"
+            ret += "<dd class=\"first-item\"><a href=\"/courses/#{crs['fid']}}\"><span class=\"songname\">#{crs['title']}</span><span class=\"artistname\"><i class=\"h-line\">-</i>#{crs['redis_search_alias']}</span></a></dd>"
           ret+="</dl>"
         else if 'Courseware'==index
           ret += "<dl class=\"sug-song clearfix\" style=\"width:#{window.psvr_search_cache_width-40}px\">\
@@ -466,7 +466,7 @@
       minLength: 1,
       source: ( request, response ) ->
         term = request.term
-        if false and KTV.search_cache[term]
+        if KTV.search_cache[term]
           console.log 'cache hit'
           KTV.search_cater( KTV.search_cache[ term ], term )
         else
