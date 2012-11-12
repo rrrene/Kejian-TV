@@ -28,6 +28,8 @@
 	$('select.yt-uix-form-input-select-element.metadata-privacy-input').live('change',function(){
 		$(this).parents('.upload-item').find('.metadata-status-public,.metadata-status-unlisted,.metadata-status-private').addClass('hid');
 		$(this).parents('.upload-item').find('.metadata-status.metadata-status-'+$('option:selected',this).val()).removeClass('hid');
+		$(this).parents('.upload-item').find('.metadata-privacy-settings').addClass('hid');
+		$(this).parents('.upload-item').find('.metadata-privacy-settings.metadata-'+$('option:selected',this).val()+'-settings').removeClass('hid');
 	})
 	item = new Array();
 	var loading = '<div class="addto-loading loading-content"><img src='+vfl3z5WfW+'><span>正在载入课件锦囊...</span></div>';
@@ -163,6 +165,7 @@
 		$(this).toggleClass('department_actived');
 	  showWindow('nav', '/forum.php?mod=misc&action=nav&already_inside=1&psvr_g='+$(this).parents('.metadata-container').find('.psvr_g').val()+'&psvr_f='+$(this).parents('.metadata-container').find('.psvr_f').val(), 'get', 0);
 		$(this).parents('.upload-item').find('.save-error-message').addClass('critical').html('某些更改尚未保存。');
+		$(this).parents('.upload-item').find('.save-changes-button .yt-uix-button-content').html('保存更改');
 		$(this).parents('.upload-item').find('.save-changes-button').attr('disabled',false);
 	  return false;
 	});
@@ -212,6 +215,11 @@
 	var countingdown_upload = 0;
 	var remaining_upload_number = 0;
 	var remaining_process_number = 0;
+	var _width=$('.starting-box-left-column').outerWidth(),_height=$('.starting-box-left-column').outerHeight();
+	if(window.location.pathname.split('/')[1]=='edit'){
+		_width = $('#edit-upload').outerWidth();
+		_height = $('#edit-upload').outerHeight();
+	}
 	swfu = new SWFUpload({ 
 		upload_url : "http://v0.api.upyun.com/ktv-up/", 
 		flash_url : "/flash/swfupload.swf",
@@ -229,8 +237,8 @@
 		prevent_swf_caching : false, 
 		preserve_relative_urls : false,
 		button_placeholder_id : "uploader", 
-		button_width : $('.starting-box-left-column').width(), 
-		button_height :$('.starting-box-left-column').height(), 
+		button_width : _width,
+		button_height :_height,
 		button_action : SWFUpload.BUTTON_ACTION.SELECT_FILES, 
 		button_disabled : false, 
 		button_cursor : SWFUpload.CURSOR.HAND, 
@@ -340,12 +348,13 @@
 			$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.item-cancel').addClass('hid');
 			$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.addto-button').removeClass('hid');
 			$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.save-changes-button').attr('disabled',false);
+			$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.save-changes-button .yt-uix-button-content').html('已保存');
 			$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.item-leave-title').removeClass('hid');
-			
 			if(!$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('input.id').val()){
 				auto_ajax_save($('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('form').serialize()).done(function(json){
 					$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('input.id').val(json.id);
 					$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.watch-page-link').html('您的课件将在以下位置阅读： <a target="_blank" href="http://'+ window.location.host +'/coursewares/'+json.id+'">http://'+ window.location.host +'/coursewares/'+json.id+'</a>');
+					$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.save-changes-button').attr('disabled',true);
 					update_processing_bar(json.id);
 				});
 			}else{
@@ -362,7 +371,10 @@
 	  }
 	}); 
 	SWFUpload.onload = function () { 
-		$('#SWFUpload_0').css({'left':$('.starting-box-left-column').offset().left,'position':'absolute','float':'left'});
+		if(window.location.pathname=='/upload')
+			$('#SWFUpload_0').css({'left':$('.starting-box-left-column').offset().left,'position':'absolute','float':'left'});
+		else if(window.location.pathname.split('/')[1]=='edit')
+			$('#SWFUpload_0').css({'left':$('#edit-upload').offset().left,'top':$('#edit-upload').offset().top,'z-index':'2','position':'absolute','float':'left'});
 	}
 	$('#the_upload_ytb .start-upload-button,#the_upload_ytb #multiple-uploads-link').live('click',function(){
 		swfu.selectFiles();
@@ -380,15 +392,18 @@
 		$(this).parents('.upload-item').find('.save-error-message').removeClass('critical').html('正在保存所有更改...');
 		auto_ajax_save($(this).parents('.upload-item').find('form').serialize()).done(function(json){
 			$(tmp).parents('.upload-item').find('.save-error-message').removeClass('critical').html('已保存所有更改。');
+			$(tmp).find('.yt-uix-button-content').html('已保存');
 			$(tmp).attr('disabled',true);
 		});
 	});
 	$('form input,form textarea').live('keyup change paste',function(){
 		$(this).parents('.upload-item').find('.save-error-message').addClass('critical').html('某些更改尚未保存。');
+		$(this).parents('.upload-item').find('.save-changes-button .yt-uix-button-content').html('保存更改');
 		$(this).parents('.upload-item').find('.save-changes-button').attr('disabled',false);
 	});
 	$('form select').live('change',function(){
 		$(this).parents('.upload-item').find('.save-error-message').addClass('critical').html('某些更改尚未保存。');
+		$(this).parents('.upload-item').find('.save-changes-button .yt-uix-button-content').html('保存更改');
 		$(this).parents('.upload-item').find('.save-changes-button').attr('disabled',false);
 	});
 	var tag = '<span class="yt-chip"><span></span><span class="yt-delete-chip"></span></span>';

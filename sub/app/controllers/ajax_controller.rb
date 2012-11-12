@@ -160,7 +160,8 @@ class AjaxController < ApplicationController
         Course.where(fid:params[:psvr_f].to_i).first.teachings.find_or_create_by(teacher:teacher).save(:validate=>false)
         Teacher.find_or_create_by(name:teacher,department_fid:params[:psvr_f]).save(:validate=>false)
       end
-    end    
+    end
+    cw.license = Courseware::LICENSE_EN_TO_I[presentation[:reuse]]
     cw.upload_persentage = presentation[:upload_persentage].to_i
     cw.keywords = presentation[:keywords].strip.split(' ')
     cw.desc = presentation[:description]
@@ -169,6 +170,7 @@ class AjaxController < ApplicationController
     cw.monetization_style = presentation[:monetization_style]
     cw.enable_overlay_ads = presentation[:enable_overlay_ads] == 'yes' ? true : false
     cw.trueview_instream = presentation[:trueview_instream] == 'on' ? true : false
+    cw.paid_product = presentation[:paid_product] == 'yes' ? true :false
     cw.allow_syndication = presentation[:allow_syndication] == 'no' ? false : true
     cw.allow_comments = presentation[:allow_comments] == 'yes' ? true :false
     cw.allow_comments_detail = presentation[:allow_comments_detail] == 'all' ? 0 : 1

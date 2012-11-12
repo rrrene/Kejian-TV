@@ -209,13 +209,13 @@ class CoursewaresController < ApplicationController
   end
   def my_edit
     @seo[:title] = '编辑课件'
-    @c = Course.where(fid:params[:psvr_f].to_i).first
+    @c = Course.where(fid:@courseware.course_fid).first
     if @c
       @teachers = @c.teachings.collect(&:teacher).uniq
     else
       @teachers = []
     end
-    @courseware.version_date[@courseware.version.to_s] = Time.now.strftime("%Y年%m月%d日")
+    # @courseware.version_date[@courseware.version.to_s] = Time.now.strftime("%Y年%m月%d日")
     prepare_s3
   end
   def destroy
