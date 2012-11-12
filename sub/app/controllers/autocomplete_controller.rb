@@ -18,7 +18,10 @@ class AutocompleteController < ApplicationController
       ret['Department'] += Redis::Search.query("Department",q,:sort_field=>'coursewares_count') if ret['Department'].size<3
       ret['Department'] = ret['Department'].uniq.limit(3)
       ret.delete('Department') if ret['Department'].blank?
-      ret['Teacher']=[]
+      ret['Teacher'] = Redis::Search.query("Teacher",q,:limit=>3,:sort_field=>'coursewares_count')
+      ret['Teacher'] += Redis::Search.query("Teacher",q,:sort_field=>'coursewares_count') if ret['Teacher'].size<3
+      ret['Teacher'] = ret['Teacher'].uniq.limit(3)
+      ret.delete('Teacher') if ret['Teacher'].blank?
       ret['Course']=[]
       ret['User']=[]
       ret['final']=q

@@ -366,10 +366,10 @@
       $.each(data,(index,itemRaw)->
         if 'Teacher'==index
           ret += "<dl class=\"sug-album clearfix\" style=\"width:#{window.psvr_search_cache_width-40}px\">\
-      				<dt class=\"sug-title clearfix\">老师</dt>\
-              <dd class=\"first-item\"><a href=\"/album/17492991\"><div class=\"borderdiv\"><span class=\"sidepic\"></span><img src=\"http://hiphotos.baidu.com/ting_su/pic/item/246cca2a1a523857023bf617.jpg\" alt=\"Someone Like You\" height=\"40px\" width=\"40px\"></div><div>《Someone Like You》</div><div class=\"artistname\"><span class=\"ci\">A</span>ngel Taylor</div></a></dd>\
-              <dd class=\"last-item\"><a href=\"/album/17500519\"><div class=\"borderdiv\"><span class=\"sidepic\"></span><img src=\"http://hiphotos.baidu.com/ting_su/pic/item/6c63514adf7c608a08f7efa7.jpg\" alt=\"Apologize\" height=\"40px\" width=\"40px\"></div><div>《<span class=\"ci\">A</span>pologize》</div><div class=\"artistname\">Ch<span class=\"ci\">a</span>rlotte Sometimes</div></a></dd>\
-      			</dl>"
+      				<dt class=\"sug-title clearfix\">老师</dt>"
+          for tch in itemRaw
+            ret+="<dd class=\"first-item\"><a href=\"/teachers/#{tch['id']}\"><div class=\"borderdiv\"><span class=\"sidepic\"></span><img src=\"#{tch['avatar_small32']}\" alt=\"#{tch['title']}\" height=\"40\" width=\"40\"></div><div>#{tch['title']}</div><div class=\"artistname\">#{tch['redis_search_alias']}, #{tch['coursewares_count']}个课件</div></a></dd>"
+          ret += "</dl>"
         else if 'Department'==index
           ret += "<dl class=\"sug-artist clearfix\" style=\"width:#{window.psvr_search_cache_width-40}px\">\
     				<dt class=\"sug-title clearfix\">院系</dt>"
