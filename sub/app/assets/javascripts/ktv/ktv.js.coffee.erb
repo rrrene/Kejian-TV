@@ -366,24 +366,30 @@
       $.each(data,(index,itemRaw)->
         if 'Teacher'==index
           ret += "<dl class=\"sug-album clearfix\" style=\"width:#{window.psvr_search_cache_width-40}px\">\
-      				<dt class=\"sug-title clearfix\">老师</dt>"
+              <dt class=\"sug-title clearfix\">老师</dt>"
           for tch in itemRaw
-            ret+="<dd class=\"first-item\"><a href=\"/teachers/#{tch['id']}\"><div class=\"borderdiv\"><span class=\"sidepic\"></span><img src=\"#{tch['avatar_small32']}\" alt=\"#{tch['title']}\" height=\"40\" width=\"40\"></div><div>#{tch['title']}</div><div class=\"artistname\">#{tch['redis_search_alias']}, #{tch['coursewares_count']}个课件</div></a></dd>"
+            if tch['avatar_small40']
+              avatar=tch['avatar_small40']
+            else
+              avatar='/defaults/avatar/small40.png'
+            ret+="<dd><a href=\"/teachers/#{tch['id']}\"><div class=\"borderdiv\"><img src=\"#{avatar}\" alt=\"#{tch['title']}\" height=\"40\" width=\"40\"></div><div>#{tch['title']}</div><div class=\"artistname\">#{tch['redis_search_alias']}, #{tch['coursewares_count']}个课件</div></a></dd>"
           ret += "</dl>"
         else if 'Department'==index
           ret += "<dl class=\"sug-artist clearfix\" style=\"width:#{window.psvr_search_cache_width-40}px\">\
     				<dt class=\"sug-title clearfix\">院系</dt>"
           for dpt in itemRaw
-            ret+= "<dd class=\"first-item\"><a href=\"/departments/#{dpt['fid']}\"><img src=\"#{dpt['cover_small38']}\" alt=\"#{dpt['title']}\" height=\"40px\" width=\"40px\"><span>#{dpt['title']}</span></a></dd>"
+            if dpt['cover_small38']
+              cover=dpt['cover_small38']
+            else
+              cover='/defaults/cover/small40.gif'
+            ret+= "<dd class=\"first-item\"><a href=\"/departments/#{dpt['fid']}\"><img src=\"#{cover}\" alt=\"#{dpt['title']}\" height=\"40px\" width=\"40px\"><span>#{dpt['title']}</span></a></dd>"
           ret+="</dl>"
         else if 'Course'==index
           ret += "<dl class=\"sug-song clearfix\" style=\"width:#{window.psvr_search_cache_width-40}px\">\
-      				<dt class=\"sug-title clearfix\">课程</dt>\
-              <dd class=\"first-item\"><a href=\"/song/520743\"><span class=\"songname\">Dj</span><span class=\"artistname\"><i class=\"h-line\">-</i><span class=\"ci\">A</span>lphabeat</span></a></dd>\
-              <dd><a href=\"/song/20659362\"><span class=\"songname\">Someone Like You</span><span class=\"artistname\"><i class=\"h-line\">-</i><span class=\"ci\">A</span>lco</span></a></dd>\
-              <dd><a href=\"/song/19157772\"><span class=\"songname\">Someone Like You</span><span class=\"artistname\"><i class=\"h-line\">-</i><span class=\"ci\">A</span>lternative Rocks!</span></a></dd>\
-              <dd class=\"last-item\"><a href=\"/song/2794752\"><span class=\"songname\">Someone Like You</span><span class=\"artistname\"><i class=\"h-line\">-</i><span class=\"ci\">A</span>marna</span></a></dd>\
-      			</dl>"
+      				<dt class=\"sug-title clearfix\">课程</dt>"
+          for crs in itemRaw
+            ret += "<dd class=\"first-item\"><a href=\"/song/520743\"><span class=\"songname\">#{crs['title']}</span><span class=\"artistname\"><i class=\"h-line\">-</i>#{crs['department_name']}, #{crs['teachers'].join(', ')}</span></a></dd>"
+          ret+="</dl>"
         else if 'Courseware'==index
           ret += "<dl class=\"sug-song clearfix\" style=\"width:#{window.psvr_search_cache_width-40}px\">\
       				<dt class=\"sug-title clearfix\">课件</dt>"
@@ -391,12 +397,15 @@
             ret += "<dd><a href=\"/coursewares/#{cw['id']}\"><span class=\"songname\">#{cw['title']}</span><span class=\"artistname\"> <i class=\"h-line\">-</i>#{cw['teachers'].join(', ')}, #{cw['course_name']}, #{cw['slides_count']}页</span></a></dd>"
           ret += "</dl>"
         else if 'User'==index
-          ret += "<dl class=\"sug-artist clearfix\" style=\"width:#{window.psvr_search_cache_width-40}px\">\
-    				<dt class=\"sug-title clearfix\">用户</dt>\
-            <dd class=\"first-item\"><a href=\"/artist/45561\"><img src=\"http://hiphotos.baidu.com/ting_su/pic/item/d57e999484ffe198d31b7060.jpg\" alt=\"王菲\" height=\"40px\" width=\"40px\"><span>王菲</span></a></dd>\
-            <dd><a href=\"/artist/1157\"><img src=\"http://hiphotos.baidu.com/ting_su/pic/item/ca525754b3420fe6574e0031.jpg\" alt=\"汪峰\" height=\"40px\" width=\"40px\"><span>汪峰</span></a></dd>\
-            <dd class=\"last-item\"><a href=\"/artist/1392\"><img src=\"http://hiphotos.baidu.com/ting_su/pic/item/79b1e93632143f490b55a9f5.jpg\" alt=\"吴克群\" height=\"40px\" width=\"40px\"><span>吴克群</span></a></dd>\
-    			</dl>"
+          ret += "<dl class=\"sug-album clearfix\" style=\"width:#{window.psvr_search_cache_width-40}px\">\
+    				<dt class=\"sug-title clearfix\">用户</dt>"
+          for usr in itemRaw
+            if '_'==usr['title'][0]
+              name = usr['title'].substr(1,usr['title'].length-1)
+            else
+              name = usr['title']
+            ret+="<dd><a href=\"/users/#{usr['id']}\"><div class=\"borderdiv\"><img src=\"http://uc.<%=Setting.ktv_domain%>/avatar.php?uid=#{usr['uid']}&size=small\" alt=\"#{name}\" height=\"40\" width=\"40\"></div><div>#{name}</div><div class=\"artistname\">#{usr['tagline']}, #{usr['following_count']}个关注, #{usr['followers_count']}个粉丝, #{usr['coursewares_uploaded_count']}个课件</div></a></dd>"
+          ret += "</dl>"
         else if 'final'==index
           ret += "<dl class=\"sug-album clearfix\" style=\"padding-left: 5px;\">\
             <dd class=\"first-item\" style=\"border:none;\">\

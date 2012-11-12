@@ -22,9 +22,9 @@ module UsersHelper
   def dz_avatar_url(uid,email,size=:normal,reload=false)
     reload = (User.get_avatar_changed_at(uid).to_i > 1.day.ago.to_i)
     if reload
-      return "http://uc.#{Setting.ktv_domain}/avatar.php?uid=#{uid}&email=#{Digest::MD5.hexdigest(email)}&size=#{size}&psvr_reload=#{Time.now.to_i}"
+      return "http://uc.#{Setting.ktv_domain}/avatar.php?uid=#{uid}&email=&size=#{size}&psvr_reload=#{Time.now.to_i}"
     else
-      return "http://uc.#{Setting.ktv_domain}/avatar.php?uid=#{uid}&email=#{Digest::MD5.hexdigest(email)}&size=#{size}"
+      return "http://uc.#{Setting.ktv_domain}/avatar.php?uid=#{uid}&email=&size=#{size}"
     end
 
   end
