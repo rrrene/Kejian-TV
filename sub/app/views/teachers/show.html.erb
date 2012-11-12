@@ -163,8 +163,8 @@ function queryExec(){
     autoLayout.loading = true;
     autoLayout.isHasNextPage = true;
     autoLayout.pageNum = 2;
-    var linkUrl = "/teachers/<%=@teacher.name%>/coursewares",
-        jsonUrl = "/teachers/<%=@teacher.name%>/coursewares_with_page/";
+    var linkUrl = "/teachers/<%=@teacher.id%>/coursewares",
+        jsonUrl = "/teachers/<%=@teacher.id%>/coursewares_with_page/";
     autoLayout.init({
         contentID: "contentMain",
         rightLoad: true,

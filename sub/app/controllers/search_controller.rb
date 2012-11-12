@@ -45,6 +45,18 @@ class SearchController < ApplicationController
   end
   def show_teachers
     search_common_op
+    q=params[:q]
+    r0 = Time.now
+    @teachers = Redis::Search.query("Teacher",q,:limit=>500,:sort_field=>'coursewares_count')
+    @teachers += Redis::Search.complete("Teacher",q,:limit=>500,:sort_field=>'coursewares_count')
+    @teachers = @teachers.psvr_uniq
+    @teachers = @teachers.paginate(:page => @page, :per_page => @per_page)
+    @time_elapsed = ((Time.now - r0) * 1000.0).to_i
+    @quans=@teachers
+    @quan='位'
+    @thing='老师'
+    @mode=:laoshi
+    search_common_over
   end
   def show_users
     search_common_op

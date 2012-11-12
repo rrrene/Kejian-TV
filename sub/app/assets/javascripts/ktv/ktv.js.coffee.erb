@@ -63,6 +63,7 @@
       $('#gbqfqw').removeClass('focused');
     );
     $('#gbqf').submit(->
+      KTV.switch_inside_sss() unless window.switched_inside_sss 
       KTV.sss(true)
       false
     )
@@ -127,6 +128,7 @@
     KTV.sss_tr_op();
     
   KTV.switch_inside_sss = ->
+    window.switched_inside_sss = true
     $('#gbx1').show()
     $('#gbq2').css('top','22px');
     $('#gbqfbw').css('display','inline-block');
@@ -388,13 +390,19 @@
           ret += "<dl class=\"sug-song clearfix\" style=\"width:#{window.psvr_search_cache_width-40}px\">\
       				<dt class=\"sug-title clearfix\">课程</dt>"
           for crs in itemRaw
-            ret += "<dd class=\"first-item\"><a href=\"/courses/#{crs['fid']}}\"><span class=\"songname\">#{crs['title']}</span><span class=\"artistname\"><i class=\"h-line\">-</i>#{crs['redis_search_alias']}</span></a></dd>"
+            ret += "<dd class=\"first-item\"><a href=\"/courses/#{crs['fid']}\"><span class=\"songname\">#{crs['title']}</span><span class=\"artistname\"><i class=\"h-line\">-</i>#{crs['redis_search_alias']}</span></a></dd>"
           ret+="</dl>"
         else if 'Courseware'==index
           ret += "<dl class=\"sug-song clearfix\" style=\"width:#{window.psvr_search_cache_width-40}px\">\
       				<dt class=\"sug-title clearfix\">课件</dt>"
           for cw in itemRaw
-            ret += "<dd><a href=\"/coursewares/#{cw['id']}\"><span class=\"songname\">#{cw['title']}</span><span class=\"artistname\"> <i class=\"h-line\">-</i>#{cw['teachers'].join(', ')}, #{cw['course_name']}, #{cw['slides_count']}页</span></a></dd>"
+            ret += "<dd><a href=\"/coursewares/#{cw['id']}\"><span class=\"songname\">《#{cw['title']}》</span><span class=\"artistname\"> <i class=\"h-line\">-</i>#{cw['teachers'].join(', ')}, #{cw['course_name']}, #{cw['slides_count']}页</span></a></dd>"
+          ret += "</dl>"
+        else if 'PlayList'==index
+          ret += "<dl class=\"sug-song clearfix\" style=\"width:#{window.psvr_search_cache_width-40}px\">\
+      				<dt class=\"sug-title clearfix\">锦囊</dt>"
+          for pl in itemRaw
+            ret += "<dd><a href=\"/play_lists/#{pl['id']}\"><span class=\"songname\">【#{pl['coursewares_count']}个课件】#{pl['title']}</span><span class=\"artistname\"> <i class=\"h-line\">-</i>#{pl['courseware_titles'].join(', ')}</span></a></dd>"
           ret += "</dl>"
         else if 'User'==index
           ret += "<dl class=\"sug-album clearfix\" style=\"width:#{window.psvr_search_cache_width-40}px\">\
@@ -404,7 +412,11 @@
               name = usr['title'].substr(1,usr['title'].length-1)
             else
               name = usr['title']
-            ret+="<dd><a href=\"/users/#{usr['id']}\"><div class=\"borderdiv\"><img src=\"http://uc.<%=Setting.ktv_domain%>/avatar.php?uid=#{usr['uid']}&size=small\" alt=\"#{name}\" height=\"40\" width=\"40\"></div><div>#{name}</div><div class=\"artistname\">#{usr['tagline']}, #{usr['following_count']}个关注, #{usr['followers_count']}个粉丝, #{usr['coursewares_uploaded_count']}个课件</div></a></dd>"
+            if usr['tagline']
+              tagline = usr['tagline']+', '
+            else
+              tagline = ''
+            ret+="<dd><a href=\"/users/#{usr['id']}\"><div class=\"borderdiv\"><img src=\"http://uc.<%=Setting.ktv_domain%>/avatar.php?uid=#{usr['uid']}&size=small\" alt=\"#{name}\" height=\"40\" width=\"40\"></div><div>#{name}</div><div class=\"artistname\">#{tagline}#{usr['followers_count']}个粉丝, #{usr['following_count']}个关注, #{usr['coursewares_uploaded_count']}个课件</div></a></dd>"
           ret += "</dl>"
         else if 'final'==index
           ret += "<dl class=\"sug-album clearfix\" style=\"padding-left: 5px;\">\

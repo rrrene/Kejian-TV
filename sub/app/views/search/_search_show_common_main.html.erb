@@ -23,7 +23,7 @@
 							</div>
 							<div id="sbfrm_l">
 								<div id="resultStats">
-                  共找到 <%=number_with_delimiter @quans.total_entries%> <%=@quan%>相关<%=@thing%><nobr> (用时 <%=@quans.time%> 毫秒)&nbsp;</nobr>
+                  共找到 <%=number_with_delimiter @quans.total_entries%> <%=@quan%>相关<%=@thing%><nobr> (用时 <%=@quans.respond_to?(:time) ? @quans.time : @time_elapsed %> 毫秒)&nbsp;</nobr>
 								</div>
 							</div>
 							<% if false %>
@@ -101,15 +101,6 @@
                 <% else %>
 									<li class="mitem"><a class="kl" href="/search_playlists/<%=params[:q]%>">课件锦囊</a></li>
                 <% end %>
-                <% if :kecheng==@mode %>
-                  <li class="mitem msel">
-									<div class="kls">
-										课程
-									</div>
-									</li>
-                <% else %>
-									<li class="mitem"><a class="kl" href="/search_courses/<%=params[:q]%>">课程</a></li>
-                <% end %>
                 <% if :laoshi==@mode %>
                   <li class="mitem msel">
 									<div class="kls">
@@ -118,6 +109,15 @@
 									</li>
                 <% else %>
 									<li class="mitem"><a class="kl" href="/search_teachers/<%=params[:q]%>">老师</a></li>
+                <% end %>
+                <% if :kecheng==@mode %>
+                  <li class="mitem msel">
+									<div class="kls">
+										课程
+									</div>
+									</li>
+                <% else %>
+									<li class="mitem"><a class="kl" href="/search_courses/<%=params[:q]%>">课程</a></li>
                 <% end %>
                 <% if :yonghu==@mode %>
                   <li class="mitem msel">

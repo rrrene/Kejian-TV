@@ -113,7 +113,7 @@
 							</li>
 							<!-- <li><span>9</span> <span>积分</span></li> -->
 							<li>
-							<a href="/users/<%= @user.slug %>" class="gray block usernumber"><%= @user.coursewares_count %><br/>
+							<a href="/users/<%= @user.slug %>" class="gray block usernumber"><%= @user.coursewares_uploaded_count %><br/>
 							<span>课件</span></a></li>
 						</ul>
             <% unless current_user and @user.id==current_user.id%>

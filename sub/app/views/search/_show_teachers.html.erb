@@ -1,0 +1,9 @@
+<div id="mainbar" class="wide" style="position:absolute;z-index:333;min-height:444px;margin-top:152px;margin-left:138px;">
+<div id="questions">
+<% @teachers.each_with_index do |search_result,index|%>
+  <%=search_result%> 
+<% end %>
+
+</div>
+<%= render 'quans_paginate' %>
+</div>
