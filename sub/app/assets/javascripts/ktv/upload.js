@@ -1,4 +1,8 @@
 (function($){
+	var is_upload = true;
+	if(window.location.pathname.split('/')[1]=='edit'){
+		is_upload = false;
+	}
 	//type has [info,warn,success,error]
 	function showBigNotification(dom,text,type,next){
 		if(!type){
@@ -18,6 +22,12 @@
 		}
 		$(dom).parents('.upload-item').find('.alert-template-with-close').attr('class','alert-template-with-close yt-alert yt-alert-default yt-alert-'+type);
 		$(dom).parents('.upload-item').find('.alert-template-with-close .yt-alert-content .yt-alert-message').html(text);
+	}
+	function hideBigNotification(dom){
+		$(dom).parents('.upload-item').find('.notification-area').animate({opacity:'hide'},'fast',function(){$(this).addClass('hid');});
+	}
+	function hideNotification(dom){
+		$(dom).parents('.upload-item').find('.alert-template-with-close').animate({opacity:'hide'},'fast',function(){$(this).addClass('hid');});
 	}
 	$('.yt-alert .close').live('click',function(){
 		$(this).parents('.yt-alert').animate({opacity:'hide'},'fast',function(){$(this).addClass('hid');});
@@ -226,158 +236,165 @@
 		_width = $('#edit-upload').outerWidth();
 		_height = $('#edit-upload').outerHeight();
 	}
-	swfu = new SWFUpload({ 
-		upload_url : "http://v0.api.upyun.com/ktv-up/", 
-		flash_url : "/flash/swfupload.swf",
-		flash9_url: "/flash/swfupload_fp9.swf",
-		requeue_on_error : false,
-		file_size_limit: "1000 MB",
-		http_success : [201, 303, 202,200], 
-		assume_success_timeout : 0,
-	  file_post_name: "file",
-	  file_types_description: "Presentation",
-	  file_types: "*.pdf; *.djvu; *.ppt; *.pptx; *.doc; *.docx; *.zip; *.rar; *.7z",	
-		file_upload_limit : 0, 
-		file_queue_limit : 0,
-		debug : false, 
-		prevent_swf_caching : false, 
-		preserve_relative_urls : false,
-		button_placeholder_id : "uploader", 
-		button_width : _width,
-		button_height :_height,
-		button_action : SWFUpload.BUTTON_ACTION.SELECT_FILES, 
-		button_disabled : false, 
-		button_cursor : SWFUpload.CURSOR.HAND, 
-		button_window_mode : SWFUpload.WINDOW_MODE.TRANSPARENT,
-		file_dialog_complete_handler:function(selected,queued,inqueue){
-					if(!selected){
-						return false;
-					}
-					remaining_upload_number = selected;
-					configAjax(selected - preQueue,function(){
-						for(var i=preQueue;i<selected;i++){
-							swfu.addFileParam(queueLeft[i-preQueue],'policy',jsonArray[i].policy);
-							swfu.addFileParam(queueLeft[i-preQueue],'signature',jsonArray[i].signature);
-						}						
-					});
-					// $('#SWFUpload_0').css({'left':$('.start-upload-button.hide-in-initial').position().left + 15,'top':($('.start-upload-button.hide-in-initial').offset().top),'position':'absolute','float':'left','width': $('.start-upload-button.hide-in-initial').outerWidth(),'height':$('.start-upload-button.hide-in-initial').outerHeight()});
-					
-					this.startUpload();
-		},
-		file_queued_handler:function(file){
-				if(countingdown_upload > jsonArray.length-1){
-					queueLeft.push(file.id);
-				}else{
-					swfu.addFileParam(file.id,'policy',jsonArray[countingdown_upload].policy);
-				 	swfu.addFileParam(file.id,'signature',jsonArray[countingdown_upload].signature);
-				}
-				if(countingdown_upload  == 0){
-					$('#the_upload_ytb #upload-page').attr('class','active-upload-page');	
-				}				
-				var uptime = parseInt(countingdown_upload/5);
-				item[countingdown_upload] = $('#the_upload_ytb #upload-item-template').clone();
-				item[countingdown_upload].attr('id','upload-item-'+countingdown_upload);
-				item[countingdown_upload].attr('class','upload-item');
-				item[countingdown_upload].attr('data-file-id',file.id);
-				item[countingdown_upload].find('input.presentation_uptime').val(jsonTime[uptime]+countingdown_upload);
-				item[countingdown_upload].find('.pdf_filename').val(file.name);
-				if(countingdown_upload!=0){
-					 item[countingdown_upload].addClass('collapsed-item');
-					 item[countingdown_upload].find('.notification-area').next().hide();
-					 item[countingdown_upload].find('.sub-item-exp-zippy').css({'margin-top':'0px','overflow':'hidden','display':'none'})
-				}else{
-					 item[countingdown_upload].find('.expand-collapse-link').html('▲ 折叠');
-				}
-				item[countingdown_upload].find('.item-title-area > .item-title').html(file.name);
-				item[countingdown_upload].find('.item-sub-title > .upload-status-text').html('正在上传您的课件...');
-				item[countingdown_upload].find('.kejian-settings-form  .kejian-settings-title').val(((file.name.lastIndexOf(".") != -1) ? file.name.substring(0, file.name.lastIndexOf(".")) : file.name));
-				$('#active-uploads-contain').append(item[countingdown_upload][0]);
-				countingdown_upload++;
-		},
-		upload_progress_handler:function(file,completeBytes,totalBytes){
-			var percentage = parseInt(completeBytes/totalBytes*100);
-					$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.progress-bar-uploading .progress-bar-progress').css({'width':percentage.toString()+'%'}).parent().find('.progress-bar-percentage').html(percentage.toString()+'%');
-					$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('input.upload_persentage').val(percentage);
-		},
-		upload_error_handler:function(file, code, message){
-				swfu.cancelUpload(file.id,false);
-				var stats = {'dom':'#the_upload_ytb .upload-item[data-file-id="'+file.id+'"] .progress-bar-uploading','text':'','debug':'','type':'error'}
-				try {
-							switch (code) {
-							case SWFUpload.UPLOAD_ERROR.HTTP_ERROR:
-								stats.text = "上传错误: " + message;
-								stats.debug = "错误提示：http错误，文件名：" + file.name + ", 信息： " + message;
-								break;
-							case SWFUpload.UPLOAD_ERROR.UPLOAD_FAILED:
-								stats.text = "上传失败";
-								stats.debug = "错误提示：上传失败，文件名称: " + file.name + ", 文件大小：" + file.size + ", 信息：" + message;
-								break;
-							case SWFUpload.UPLOAD_ERROR.IO_ERROR:
-								stats.text = "服务器错误";
-								stats.debug = "错误提示：服务器错误, 文件名称: " + file.name + ", 信息： " + message;
-								break;
-							case SWFUpload.UPLOAD_ERROR.SECURITY_ERROR:
-								stats.text = "安全性错误";
-								stats.debug = "错误提示： 安全性错误, 文件名称: " + file.name + ", 信息： " + message;
-								break;
-							case SWFUpload.UPLOAD_ERROR.UPLOAD_LIMIT_EXCEEDED:
-								stats.text = "上传超过限制。";
-								stats.debug = "错误提示：上传超过限制,文件名称:  " + file.name + ", 文件大小： " + file.size + ", 信息：" + message;
-								break;
-							case SWFUpload.UPLOAD_ERROR.FILE_VALIDATION_FAILED:
-								stats.text = "验证失败。上传跳过。";
-								stats.debug = "错误提示： 验证失败，上传跳过。文件名称: " + file.name + ", 文件大小： " + file.size + ", 信息：" + message;
-								break;
-							case SWFUpload.UPLOAD_ERROR.FILE_CANCELLED:
-								break;
-							case SWFUpload.UPLOAD_ERROR.UPLOAD_STOPPED:
-								// stats.text = "停止";
-								break;
-							default:
-								stats.text = "未知错误: " + errorCode;
-								stats.debug = "错误提示： " + errorCode + ", 文件名称: " + file.name + ", 文件大小：" + file.size + ", 信息： " + message;
-								break;
-							}
-						} catch (ex) {
+	if(is_upload){
+		swfu = new SWFUpload({ 
+			upload_url : "http://v0.api.upyun.com/ktv-up/", 
+			flash_url : "/flash/swfupload.swf",
+			flash9_url: "/flash/swfupload_fp9.swf",
+			requeue_on_error : false,
+			file_size_limit: "1000 MB",
+			http_success : [201, 303, 202,200], 
+			assume_success_timeout : 0,
+		  file_post_name: "file",
+		  file_types_description: "Presentation",
+		  file_types: "*.pdf; *.djvu; *.ppt; *.pptx; *.doc; *.docx; *.zip; *.rar; *.7z",	
+			file_upload_limit : 0, 
+			file_queue_limit : 0,
+			debug : false, 
+			prevent_swf_caching : false, 
+			preserve_relative_urls : false,
+			button_placeholder_id : "uploader", 
+			button_width : _width,
+			button_height :_height,
+			button_action : SWFUpload.BUTTON_ACTION.SELECT_FILES, 
+			button_disabled : false, 
+			button_cursor : SWFUpload.CURSOR.HAND, 
+			button_window_mode : SWFUpload.WINDOW_MODE.TRANSPARENT,
+			file_dialog_complete_handler:function(selected,queued,inqueue){
+						if(!selected){
+							return false;
 						}
-						if(stats.text!='')
-							showBigNotification(stats.dom,stats.text+'<br/>'+stats.debug,stats.type);
-		},
-		upload_complete_handler:function(file){
-			// showBigNotification('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"] .progress-bar-uploading','xdafdasf','success',1);
-			// showNotification('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"] .progress-bar-uploading','xdafdasf','error');
-			remaining_upload_number--;
-			remaining_process_number++;
-			$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.progress-bar-uploading').addClass('hid').parent().find('.progress-bar-processing').removeClass('hid');
-			$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.progress-bar-processing .progress-bar-progress').removeClass('hid').css({'width':'0%'}).parent().find('.progress-bar-percentage').html('0%');
-			$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.upload-status-text').html('开始为课件转码...');
-			$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.item-cancel').addClass('hid');
-			$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.addto-button').removeClass('hid');
-			$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.save-changes-button').attr('disabled',false);
-			$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.save-changes-button .yt-uix-button-content').html('已保存');
-			$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.item-leave-title').removeClass('hid');
-			if(!$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('input.id').val()){
-				auto_ajax_save(jQuery.param(
-					$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('form').serializeArray().concat({name:"presentation[auto_save]",value:"auto"})
-				)).done(function(json){
-					$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('input.id').val(json.id);
-					$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.watch-page-link').html('您的课件将在以下位置阅读： <a target="_blank" href="http://'+ window.location.host +'/coursewares/'+json.id+'">http://'+ window.location.host +'/coursewares/'+json.id+'</a>');
+						remaining_upload_number = selected;
+						configAjax(selected - preQueue,function(){
+							for(var i=preQueue;i<selected;i++){
+								swfu.addFileParam(queueLeft[i-preQueue],'policy',jsonArray[i].policy);
+								swfu.addFileParam(queueLeft[i-preQueue],'signature',jsonArray[i].signature);
+							}						
+						});
+						// $('#SWFUpload_0').css({'left':$('.start-upload-button.hide-in-initial').position().left + 15,'top':($('.start-upload-button.hide-in-initial').offset().top),'position':'absolute','float':'left','width': $('.start-upload-button.hide-in-initial').outerWidth(),'height':$('.start-upload-button.hide-in-initial').outerHeight()});
+					
+						this.startUpload();
+			},
+			file_queued_handler:function(file){
+					if(countingdown_upload > jsonArray.length-1){
+						queueLeft.push(file.id);
+					}else{
+						swfu.addFileParam(file.id,'policy',jsonArray[countingdown_upload].policy);
+					 	swfu.addFileParam(file.id,'signature',jsonArray[countingdown_upload].signature);
+					}
+					if(countingdown_upload  == 0){
+						$('#the_upload_ytb #upload-page').attr('class','active-upload-page');	
+					}				
+					var uptime = parseInt(countingdown_upload/5);
+					item[countingdown_upload] = $('#the_upload_ytb #upload-item-template').clone();
+					item[countingdown_upload].attr('id','upload-item-'+countingdown_upload);
+					item[countingdown_upload].attr('class','upload-item');
+					item[countingdown_upload].attr('data-file-id',file.id);
+					item[countingdown_upload].find('input.presentation_uptime').val(jsonTime[uptime]+countingdown_upload);
+					item[countingdown_upload].find('.pdf_filename').val(file.name);
+					if(countingdown_upload!=0){
+						 item[countingdown_upload].addClass('collapsed-item');
+						 item[countingdown_upload].find('.notification-area').next().hide();
+						 item[countingdown_upload].find('.sub-item-exp-zippy').css({'margin-top':'0px','overflow':'hidden','display':'none'})
+					}else{
+						 item[countingdown_upload].find('.expand-collapse-link').html('▲ 折叠');
+					}
+					item[countingdown_upload].find('.item-title-area > .item-title').html(file.name);
+					item[countingdown_upload].find('.item-sub-title > .upload-status-text').html('正在排队等待上传...');
+					item[countingdown_upload].find('.kejian-settings-form  .kejian-settings-title').val(((file.name.lastIndexOf(".") != -1) ? file.name.substring(0, file.name.lastIndexOf(".")) : file.name));
+					$('#active-uploads-contain').append(item[countingdown_upload][0]);
+					countingdown_upload++;
+			},
+			upload_progress_handler:function(file,completeBytes,totalBytes){
+				var percentage = parseInt(completeBytes/totalBytes*100);
+						$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.progress-bar-uploading .progress-bar-progress').css({'width':percentage.toString()+'%'}).parent().find('.progress-bar-percentage').html(percentage.toString()+'%');
+						$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('input.upload_persentage').val(percentage);
+			},
+			upload_error_handler:function(file, code, message){
+					swfu.cancelUpload(file.id,false);
+					var stats = {'dom':'#the_upload_ytb .upload-item[data-file-id="'+file.id+'"] .progress-bar-uploading','text':'','debug':'','type':'error'}
+					try {
+								switch (code) {
+								case SWFUpload.UPLOAD_ERROR.HTTP_ERROR:
+									stats.text = "上传错误: " + message;
+									stats.debug = "错误提示：http错误，文件名：" + file.name + ", 信息： " + message;
+									break;
+								case SWFUpload.UPLOAD_ERROR.UPLOAD_FAILED:
+									stats.text = "上传失败";
+									stats.debug = "错误提示：上传失败，文件名称: " + file.name + ", 文件大小：" + file.size + ", 信息：" + message;
+									break;
+								case SWFUpload.UPLOAD_ERROR.IO_ERROR:
+									stats.text = "服务器错误";
+									stats.debug = "错误提示：服务器错误, 文件名称: " + file.name + ", 信息： " + message;
+									break;
+								case SWFUpload.UPLOAD_ERROR.SECURITY_ERROR:
+									stats.text = "安全性错误";
+									stats.debug = "错误提示： 安全性错误, 文件名称: " + file.name + ", 信息： " + message;
+									break;
+								case SWFUpload.UPLOAD_ERROR.UPLOAD_LIMIT_EXCEEDED:
+									stats.text = "上传超过限制。";
+									stats.debug = "错误提示：上传超过限制,文件名称:  " + file.name + ", 文件大小： " + file.size + ", 信息：" + message;
+									break;
+								case SWFUpload.UPLOAD_ERROR.FILE_VALIDATION_FAILED:
+									stats.text = "验证失败。上传跳过。";
+									stats.debug = "错误提示： 验证失败，上传跳过。文件名称: " + file.name + ", 文件大小： " + file.size + ", 信息：" + message;
+									break;
+								case SWFUpload.UPLOAD_ERROR.FILE_CANCELLED:
+									break;
+								case SWFUpload.UPLOAD_ERROR.UPLOAD_STOPPED:
+									// stats.text = "停止";
+									break;
+								default:
+									stats.text = "未知错误: " + errorCode;
+									stats.debug = "错误提示： " + errorCode + ", 文件名称: " + file.name + ", 文件大小：" + file.size + ", 信息： " + message;
+									break;
+								}
+							} catch (ex) {
+							}
+							if(stats.text!='')
+								showBigNotification(stats.dom,stats.text+'<br/>'+stats.debug,stats.type);
+			},
+			upload_complete_handler:function(file){
+				remaining_upload_number--;
+				remaining_process_number++;
+				$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.progress-bar-uploading').addClass('hid').parent().find('.progress-bar-processing').removeClass('hid');
+				$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.progress-bar-processing .progress-bar-progress').removeClass('hid').css({'width':'0%'}).parent().find('.progress-bar-percentage').html('0%');
+				$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.upload-status-text').html('等待您选择学院与课程名...');
+				if(!$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('input.id').val()){
+					$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.addto-button').removeClass('hid');
 					$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.save-changes-button').attr('disabled',true);
-					update_processing_bar(json.id);
-				});
-			}else{
-	       	update_processing_bar($('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('input.id').val());
-			}
-			this.startUpload();
-			if(remaining_upload_number<=0){
-				window.onbeforeunload = null;	
-			}	
-		},
-	  upload_start_handler: function(file){
-			window.onbeforeunload = function(){return "您即将离开此页面。" + "\n\n" + "如果此时您离开此页面可能会丢失您所填的内容。您确定离开？";}
-			$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.progress-bar-uploading').removeClass('hid');
-	  }
-	}); 
+					$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.save-changes-button .yt-uix-button-content').html('无法保存');
+					auto_ajax_save(jQuery.param(
+						$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('form').serializeArray().concat({name:"presentation[auto_save]",value:"auto"})
+					),'#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').done(function(json){
+						$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.item-cancel').addClass('hid');
+						$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.upload-status-text').html('开始为课件转码...');
+						$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.addto-button').removeClass('hid');
+						$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.save-changes-button').attr('disabled',false);
+						$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.save-changes-button .yt-uix-button-content').html('已保存');
+						$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.item-leave-title').removeClass('hid');
+						$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('input.id').val(json.id);
+						$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.watch-page-link').html('您的课件将在以下位置阅读： <a target="_blank" href="http://'+ window.location.host +'/coursewares/'+json.id+'">http://'+ window.location.host +'/coursewares/'+json.id+'</a>');
+						$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.save-changes-button').attr('disabled',true);
+						update_processing_bar(json.id);
+					});
+				}else{
+		       	update_processing_bar($('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('input.id').val());
+				}
+				this.startUpload();
+				if(remaining_upload_number<=0){
+					window.onbeforeunload = null;	
+				}	
+			},
+		  upload_start_handler: function(file){
+				window.onbeforeunload = function(){return "您即将离开此页面。" + "\n\n" + "如果此时您离开此页面可能会丢失您所填的内容。您确定离开？";}
+				$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.progress-bar-uploading').removeClass('hid');
+				$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.item-sub-title > .upload-status-text').html('正在上传您的课件...');
+		  }
+		});
+	}else{
+		swfu = new SWFUpload({});
+	}
 	SWFUpload.onload = function () { 
 		if(window.location.pathname=='/upload')
 			$('#SWFUpload_0').css({'left':$('.starting-box-left-column').offset().left,'position':'absolute','float':'left'});
@@ -387,7 +404,11 @@
 	$('#the_upload_ytb .start-upload-button,#the_upload_ytb #multiple-uploads-link').live('click',function(){
 		swfu.selectFiles();
 	});
-	var auto_ajax_save = function(data){
+	function auto_ajax_save(data,dom){
+		if(!$(dom).find('form input.psvr_f').val() && is_upload){
+			showNotification(dom+' form',"请先选择学院与课程名，以便方便课件分类，之后我们就可以为您的课件开始转码。",'warn');
+			return $.ajax({});
+		}
 		return $.ajax({
 			url:'/upload_page_auto_save',
 			type:'POST',
@@ -395,12 +416,46 @@
 			dataType:'json',
 		});
 	};
+	$('.psvr_f').live('change',function(){
+		tmp = this;
+		$(this).parents('.upload-item').find('.save-error-message').removeClass('critical').html('正在保存所有更改...');
+		var fileid = $(this).parents('.upload-item').attr('data-file-id')
+		var auto_manual = 'manual';
+		if(!$('#the_upload_ytb .upload-item[data-file-id="'+fileid+'"]').find('input.id').val() && is_upload){
+			auto_manual = 'auto';
+		}
+		auto_ajax_save(jQuery.param(
+			$(tmp).parents('.upload-item').find('form').serializeArray().concat({name:"presentation[auto_save]",value:auto_manual})
+		),'#the_upload_ytb .upload-item[data-file-id="'+fileid+'"]').done(function(json){
+			hideNotification('#the_upload_ytb .upload-item[data-file-id="'+fileid+'"] form');
+			if(json.status == 'auto' && is_upload){
+				$('#the_upload_ytb .upload-item[data-file-id="'+fileid+'"]').find('.item-cancel').addClass('hid');
+				$('#the_upload_ytb .upload-item[data-file-id="'+fileid+'"]').find('.upload-status-text').html('开始为课件转码...');
+				$('#the_upload_ytb .upload-item[data-file-id="'+fileid+'"]').find('.addto-button').removeClass('hid');
+				$('#the_upload_ytb .upload-item[data-file-id="'+fileid+'"]').find('.save-changes-button').attr('disabled',false);
+				$('#the_upload_ytb .upload-item[data-file-id="'+fileid+'"]').find('.save-changes-button .yt-uix-button-content').html('已保存');
+				$('#the_upload_ytb .upload-item[data-file-id="'+fileid+'"]').find('.item-leave-title').removeClass('hid');
+				$('#the_upload_ytb .upload-item[data-file-id="'+fileid+'"]').find('input.id').val(json.id);
+				$('#the_upload_ytb .upload-item[data-file-id="'+fileid+'"]').find('.watch-page-link').html('您的课件将在以下位置阅读： <a target="_blank" href="http://'+ window.location.host +'/coursewares/'+json.id+'">http://'+ window.location.host +'/coursewares/'+json.id+'</a>');
+				$('#the_upload_ytb .upload-item[data-file-id="'+fileid+'"]').find('.save-changes-button').attr('disabled',true);
+				update_processing_bar(json.id);
+			}else if(json.status == 'manual'){
+				$(tmp).parents('.upload-item').find('.save-error-message').removeClass('critical').html('已保存所有更改。');
+				$('#the_upload_ytb .upload-item[data-file-id="'+fileid+'"]').find('.save-changes-button .yt-uix-button-content').html('已保存');
+				$('#the_upload_ytb .upload-item[data-file-id="'+fileid+'"]').find('.save-changes-button').attr('disabled',true);	
+			}else if(json.status == 'psvr_f'){
+				showNotification('#the_upload_ytb .upload-item[data-file-id="'+fileid+'"] form',"请先选择学院与课程名，以便方便课件分类，之后我们就可以为您的课件开始转码。",'warn');
+			}else if(json.status == 'error'){
+				showNotification('#the_upload_ytb .upload-item[data-file-id="'+fileid+'"] form',"系统无法完成您的请求，请稍后重试。",'error');
+			}
+		});
+	});
 	$('.save-changes-button').live('click',function(){
 		tmp = this;
 		$(this).parents('.upload-item').find('.save-error-message').removeClass('critical').html('正在保存所有更改...');
 		auto_ajax_save(jQuery.param(
 			$(tmp).parents('.upload-item').find('form').serializeArray().concat({name:"presentation[auto_save]",value:"manual"})
-		)).done(function(json){
+		),'#the_upload_ytb .upload-item[data-file-id="'+$(tmp).parents('.upload-item').attr('data-file-id')+'"]').done(function(json){
 			$(tmp).parents('.upload-item').find('.save-error-message').removeClass('critical').html('已保存所有更改。');
 			$(tmp).find('.yt-uix-button-content').html('已保存');
 			$(tmp).attr('disabled',true);

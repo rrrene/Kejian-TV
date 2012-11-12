@@ -276,8 +276,8 @@
   #   )
 		
   KTV.upload_page_generate  = (g,f,t) ->
-    $('.department_actived').parents('.metadata-container').find('.psvr_g').val(g); # window.psvr_g
-    $('.department_actived').parents('.metadata-container').find('.psvr_f').val(f);	# window.psvr_f=selectfid
+    $('.department_actived').parents('.metadata-container').find('.psvr_g').val(g).change(); # window.psvr_g
+    $('.department_actived').parents('.metadata-container').find('.psvr_f').val(f).change();	# window.psvr_f=selectfid
     $('.department_actived').parents('.metadata-container').find('.kejian-settings-department').val(t);
     KTV.upload_page_new_cws_load_teachers()
     hideWindow('nav');

@@ -258,17 +258,17 @@
 										<ul class="tabs">
 											<li data-tab-id="basic-info" class="tab-header selected">
 											<span>
-											<a href="">基本信息</a>
+											基本信息
 											</span>
 											</li>
 											<li data-tab-id="monetization" class="tab-header ">
 											<span>
-											<a href="">获利</a>
+											获利
 											</span>
 											</li>
 											<li data-tab-id="advanced-settings" class="tab-header ">
 											<span>
-											<a href="">高级设置</a>
+											高级设置
 											</span>
 											</li>
 										</ul>
@@ -491,11 +491,11 @@
 													<span class="yt-uix-form-input-select ">
 														<span class="yt-uix-form-input-select-content">
 															<img class="yt-uix-form-input-select-arrow" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
-															<span class="yt-uix-form-input-select-value">请选择课件类型</span>
+															<span class="yt-uix-form-input-select-value"><%= Courseware::SORT1STR['lecture_notes'] %></span>
 														</span>
 													<select name="presentation[sort1]" class="yt-uix-form-input-select-element category-input">
 										        <% Courseware::SORT1STR.each do |k,v| %>
-										        <option value="<%= v %>"><%= v %></option>
+										        <option value="<%= k %>"><%= v %></option>
 										        <% end %>
 													</select>
 													</span>

@@ -150,9 +150,18 @@ class AjaxController < ApplicationController
     end
   end
   def upload_page_auto_save
+    if params[:psvr_f].blank?
+      render json:{status:'psvr_f'}
+      return false
+    end
     presentation = params[:presentation].with_indifferent_access
     cw = Courseware.presentations_upload_finished(presentation,current_user)
+    status = "manual"
+    if cw.course_fid.nil? #if course_fid is nil,it means this is the first time auto save. if not nil and 运行到这了,means,首先填了psvrf,而且不是首次填写。so manual
+      status = 'auto'
+    end
     
+    cw.course_fid = params[:psvr_f].to_i
     # update teacher
     if !params[:psvr_f].blank?
       teacher = presentation[:teacher] == 'opt_psvr_add_more' ? presentation[:other_teacher] : presentation[:teacher]
@@ -180,13 +189,19 @@ class AjaxController < ApplicationController
     cw.allow_responses_detail = presentation[:allow_responses_detail] == 'all' ? 0 : 1
     cw.allow_embedding = presentation[:allow_embedding] == 'on' ? true : false
     cw.creator_share_feeds = presentation[:creator_share_feeds] == 'on' ? true : false
-    cw.save!
+    if cw.save!
+      # do nothing
+    else
+      render json:{status:'error',id:cw.id}
+      return false
+    end
     unless '课程请求'==cw.topic
       cookies[:presentation_topic] = cw.topic
     end
     cookies[:presentation_pretitle] = (cw.title.split(/[:：]/).size>1) ? cw.title.split(/[:：]/)[0] : ''
-    render json:{id:cw.id}
+    render json:{status:status,id:cw.id}
   end
+  
   def presentations_upload_finished
     presentation = params[:presentation]
     cw = Courseware.presentations_upload_finished(presentation,current_user)
