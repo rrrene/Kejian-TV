@@ -81,7 +81,7 @@
 									</div>
 									</li>
                 <% else %>
-                  <li class="mitem"><a class="kl" href="/search/<%=CGI::escape params[:q]%>">课件</a></li>
+                  <li class="mitem"><a class="kl" href="/search/<%=params[:q]%>">课件</a></li>
                 <% end %>
                 <% if :kejianneirong==@mode %>
                   <li class="mitem msel">
@@ -90,7 +90,7 @@
 									</div>
 									</li>
                 <% else %>
-									<li class="mitem"><a class="kl" href="/search_contents/<%=CGI::escape params[:q]%>">课件内容</a></li>
+									<li class="mitem"><a class="kl" href="/search_contents/<%=params[:q]%>">课件内容</a></li>
                 <% end %>
                 <% if :bofangliebiao==@mode %>
                   <li class="mitem msel">
@@ -99,7 +99,7 @@
 									</div>
 									</li>
                 <% else %>
-									<li class="mitem"><a class="kl" href="/search_playlists/<%=CGI::escape params[:q]%>">课件锦囊</a></li>
+									<li class="mitem"><a class="kl" href="/search_playlists/<%=params[:q]%>">课件锦囊</a></li>
                 <% end %>
                 <% if :kecheng==@mode %>
                   <li class="mitem msel">
@@ -108,7 +108,7 @@
 									</div>
 									</li>
                 <% else %>
-									<li class="mitem"><a class="kl" href="/search_courses/<%=CGI::escape params[:q]%>">课程</a></li>
+									<li class="mitem"><a class="kl" href="/search_courses/<%=params[:q]%>">课程</a></li>
                 <% end %>
                 <% if :laoshi==@mode %>
                   <li class="mitem msel">
@@ -117,7 +117,7 @@
 									</div>
 									</li>
                 <% else %>
-									<li class="mitem"><a class="kl" href="/search_teachers/<%=CGI::escape params[:q]%>">老师</a></li>
+									<li class="mitem"><a class="kl" href="/search_teachers/<%=params[:q]%>">老师</a></li>
                 <% end %>
                 <% if :yonghu==@mode %>
                   <li class="mitem msel">
@@ -126,7 +126,7 @@
 									</div>
 									</li>
                 <% else %>
-									<li class="mitem"><a class="kl" href="/search_users/<%=CGI::escape params[:q]%>">用户</a></li>
+									<li class="mitem"><a class="kl" href="/search_users/<%=params[:q]%>">用户</a></li>
                 <% end %>
 								</ul>
 								

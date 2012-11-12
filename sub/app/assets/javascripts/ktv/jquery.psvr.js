@@ -279,3 +279,15 @@ jQuery.fn.disableSelection = function () {
   
 })(jQuery,this);
 
+
+
+jQuery.fn.highlight = function(what,spanClass) {
+    return this.each(function(){
+        var container = this,
+            content = container.innerHTML,
+            pattern = new RegExp('(>[^<.]*)(' + what + ')([^<.]*)','gi'),
+            replaceWith = '$1<span ' + ( spanClass ? 'class="' + spanClass + '"' : '' ) + '">$2</span>$3',
+            highlighted = content.replace(pattern,replaceWith);
+        container.innerHTML = highlighted;
+    });
+}
