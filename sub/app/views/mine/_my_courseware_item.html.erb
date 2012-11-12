@@ -28,7 +28,7 @@
 						</a>
 					</li>
 					<li>
-							<a href="/coursewares/<%= item.id %>/edit" class="vm-quick-edit-video" title="修改">
+							<a href="/edit/<%= item.id %>" class="vm-quick-edit-video" title="修改">
 								<img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="修改">
 							</a>
 					</li>
@@ -81,14 +81,14 @@
 			<div class="vm-video-info">
 				<div class="vm-video-info vm-owner-bar">
 					<span class="yt-uix-button-group">
-						<a href="/coursewares/<%= item.id %>/edit" class="yt-uix-button yt-uix-sessionlink start vm-playlist-edit-video vm-edit-button-link yt-uix-button-default">
+						<a href="/edit/<%= item.id %>" class="yt-uix-button yt-uix-sessionlink start vm-playlist-edit-video vm-edit-button-link yt-uix-button-default">
 							<span class="yt-uix-button-content">修改</span>
 						</a>
 						<button type="button" class="edit-expand-menu-button end yt-uix-button yt-uix-button-default yt-uix-button-short yt-uix-button-empty"  role="button">
 							<img class="yt-uix-button-arrow" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="">
 					<ul class=" yt-uix-button-menu yt-uix-button-menu-default cw-choice" role="menu" style="display: none;">
 						<li role="menuitem" id="aria-id-detail">
-							<span href="/coursewares/<%= item.id %>/edit" class="vm-video-info-and-settings yt-uix-button-menu-item" >信息和设置</span>
+							<span href="/edit/<%= item.id %>" class="vm-video-info-and-settings yt-uix-button-menu-item" >信息和设置</span>
 						</li>
 						<% if false %>
 						<li role="menuitem" id="aria-id-enhance">
@@ -154,13 +154,13 @@
 		<% if item.status >= 0 %>
 		<div class="vm-video-indicators">
 			<span class="vm-video-privacy vm-public <% if item.privacy != 0 %>hid<% end %> yt-uix-tooltip yt-uix-tooltip-reverse" title="公开">
-			<a href="/coursewares/<%= item.id %>/edit?privacy=public"><img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="公开"></a>
+			<a href="/edit/<%= item.id %>?privacy=public"><img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="公开"></a>
 			</span>
 			<span class="vm-video-privacy vm-unlisted <% if item.privacy != 1 %>hid<% end %> yt-uix-tooltip yt-uix-tooltip-reverse" title="不公开">
-			<a href="/coursewares/<%= item.id %>/edit?privacy=unlisted"><img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="不公开"></a>
+			<a href="/edit/<%= item.id %>?privacy=unlisted"><img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="不公开"></a>
 			</span>
 			<span class="vm-video-privacy vm-private <% if item.privacy != 2 %>hid<% end %>  yt-uix-tooltip yt-uix-tooltip-reverse" title="私有">
-				<a href="/coursewares/<%= item.id %>/edit?privacy=private"><img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="私有"></a>
+				<a href="/edit/<%= item.id %>?privacy=private"><img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" alt="私有"></a>
 			</span>
 			<% if item.privacy == 0 %>
 			<span class="vm-time-published yt-uix-tooltip yt-uix-tooltip-reverse" title="发布时间：<%= item.public_time.strftime("%Y年%m月%d日(%Z)%H:%M") %> ">

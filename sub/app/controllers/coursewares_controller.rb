@@ -106,7 +106,8 @@ class CoursewaresController < ApplicationController
     # prepare_s3    
   end
   def new
-    # render text:'开发中' and return false
+    redirect_to '/upload',:status => :moved_permanently  
+    return false
     @seo[:title] = '上传课件'
     @c = Course.where(fid:params[:psvr_f].to_i).first
     if @c
@@ -204,6 +205,8 @@ class CoursewaresController < ApplicationController
     end
   end
   def edit
+    redirect_to "/edit/#{params[:id]}",:status => :moved_permanently  
+    return false
     @seo[:title] = '编辑课件'
     prepare_s3
   end

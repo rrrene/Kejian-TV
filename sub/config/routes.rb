@@ -4,9 +4,12 @@ Sub::Application.routes.draw do
 
   root :to=>'welcome#index'
   get '/inject_xookie' => 'application#inject_xookie'
+  # =>  just for ensure upload & edit page
   get '/upload' => 'coursewares#my_upload'
+  get '/coursewares/new' => 'coursewares#my_upload'
   get '/edit/:id' => 'coursewares#my_edit'
-  
+  get '/coursewares/:id/edit' => 'courseware#my_edit'
+    
   get '/api/uc' => 'ucenter#ktv_uc_client'
   post '/api/uc' => 'ucenter#ktv_uc_client'
   get '/user_logged_in_required'=>'application#user_logged_in_required'

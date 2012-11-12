@@ -116,10 +116,10 @@
           <li class="browse"><a href="/coursewares_by_departments" class="lh39 pa0 core_wraps" id="core_all_wrap">课件瀑布</a></li>
 <% end %>    
 
-<%if request.path == '/coursewares/new'%>
+<%if request.path == '/upload'%>
           <li class="upload"><a href="/" class="lh39 pa0 core_wraps">返回首页</a></li>
 <% else %>    
-          <li class="upload"><a href="<%= new_courseware_path %>" class="lh39 pa0 core_wraps" id="core_addcw_wrap">上传课件</a></li>
+          <li class="upload"><a href="/upload" class="lh39 pa0 core_wraps" id="core_addcw_wrap">上传课件</a></li>
 <% end %>
         </ul>
         <div id="amazing-shadow"></div>

@@ -207,7 +207,7 @@ courseware_id: '<%=@courseware.id%>'
             </span>
             <%end%>
             <% if owner? @courseware %>
-            <a id="edit_presentation" class="grey" style="display:inline-block;" href="<%= edit_courseware_path(@courseware) %>">编辑课件</a>
+            <a id="edit_presentation" class="grey" style="display:inline-block;" href="/edit/<%= @courseware.id %>">编辑课件</a>
             <% end %>
             <% if @courseware.yasuobao? %>
             <br>
