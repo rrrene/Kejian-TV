@@ -382,6 +382,9 @@ a:hover {
 .overnav a {
     outline: 0;
 }
+.overnav a.prev:hover{
+	 cursor: url(<%=asset_path('left-pointer.png')%>), auto;
+}
 .overnav a.prev {
     position: absolute;
     display: block;
@@ -392,6 +395,9 @@ a:hover {
     background: "<%=asset_path('embed_back.png')%>";
     text-indent: -9999px;
     overflow: hidden;
+}
+.overnav a.next:hover {
+		cursor: url(<%=asset_path('right-pointer.png')%>), auto;
 }
 .overnav a.next {
     position: absolute;
