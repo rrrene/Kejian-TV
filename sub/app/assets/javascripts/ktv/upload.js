@@ -176,6 +176,9 @@
 	    $(this).parents('.metadata-container').find('.presentation_other_teacher').hide();
 	})
 	$('.presentation_version_date').live('click',function(){
+		$(this).parents('.upload-item').find('.save-error-message').addClass('critical').html('某些更改尚未保存。');
+		$(this).parents('.upload-item').find('.save-changes-button .yt-uix-button-content').html('保存更改');
+		$(this).parents('.upload-item').find('.save-changes-button').attr('disabled',false);
 	  JTC.setday({format:'yyyy年MM月dd日', readOnly: true});
 	});
 	$('.recorded-date-today-button').live('click',function(){
@@ -190,6 +193,9 @@
 		if(day <= 9)
 		    day = '0'+day;
 		$(this).prev().find('input.presentation_version_date').val(year + '年' + month + '月' + day +'日');
+		$(this).parents('.upload-item').find('.save-error-message').addClass('critical').html('某些更改尚未保存。');
+		$(this).parents('.upload-item').find('.save-changes-button .yt-uix-button-content').html('保存更改');
+		$(this).parents('.upload-item').find('.save-changes-button').attr('disabled',false);
 	});
 	var swfu;
 	var queueLeft = new Array();
@@ -351,7 +357,9 @@
 			$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.save-changes-button .yt-uix-button-content').html('已保存');
 			$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.item-leave-title').removeClass('hid');
 			if(!$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('input.id').val()){
-				auto_ajax_save($('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('form').serialize()).done(function(json){
+				auto_ajax_save(jQuery.param(
+					$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('form').serializeArray().concat({name:"presentation[auto_save]",value:"auto"})
+				)).done(function(json){
 					$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('input.id').val(json.id);
 					$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.watch-page-link').html('您的课件将在以下位置阅读： <a target="_blank" href="http://'+ window.location.host +'/coursewares/'+json.id+'">http://'+ window.location.host +'/coursewares/'+json.id+'</a>');
 					$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.save-changes-button').attr('disabled',true);
@@ -390,7 +398,9 @@
 	$('.save-changes-button').live('click',function(){
 		tmp = this;
 		$(this).parents('.upload-item').find('.save-error-message').removeClass('critical').html('正在保存所有更改...');
-		auto_ajax_save($(this).parents('.upload-item').find('form').serialize()).done(function(json){
+		auto_ajax_save(jQuery.param(
+			$(tmp).parents('.upload-item').find('form').serializeArray().concat({name:"presentation[auto_save]",value:"manual"})
+		)).done(function(json){
 			$(tmp).parents('.upload-item').find('.save-error-message').removeClass('critical').html('已保存所有更改。');
 			$(tmp).find('.yt-uix-button-content').html('已保存');
 			$(tmp).attr('disabled',true);
