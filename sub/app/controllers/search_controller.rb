@@ -44,11 +44,14 @@ class SearchController < ApplicationController
     search_common_op
   end
   def show_teachers
+    @quans3=true
     search_common_op
     q=params[:q]
     r0 = Time.now
     @teachers = Redis::Search.query("Teacher",q,:limit=>500,:sort_field=>'coursewares_count')
     @teachers += Redis::Search.complete("Teacher",q,:limit=>500,:sort_field=>'coursewares_count')
+    @teachers += Redis::Search.query("Teacher",PinyinSplit.split(q),:limit=>500,:sort_field=>'coursewares_count')
+    @teachers += Redis::Search.complete("Teacher",PinyinSplit.split(q),:limit=>500,:sort_field=>'coursewares_count')
     @teachers = @teachers.psvr_uniq
     @teachers = @teachers.paginate(:page => @page, :per_page => @per_page)
     @time_elapsed = ((Time.now - r0) * 1000.0).to_i
@@ -77,6 +80,12 @@ private
       @per_page = 10 
       params[:per_page] = @per_page.to_s
     end
+    if @quans3 and @per_page%3!=0
+      @per_page = 15
+    elsif !@quans3 and ![10,30,50].include? @per_page
+      @per_page = 10
+    end
+    params[:per_page]=@per_page.to_s
     cookies[:search_per_page] = @per_page.to_s
     params[:q]=params[:q].xi
   end
