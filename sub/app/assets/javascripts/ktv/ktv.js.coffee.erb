@@ -48,10 +48,9 @@
         $('#content').html(data['content'])
         $('#main').html(data['main'])
         $('.psvr_search_whitebox').hide()
-        if url1 is 'search_teachers' or url1 is 'search_courses' or url1 is 'search_users'
-          $.each(data['terms'],(index,itemRaw)->
-            $('#mainbar').highlight(itemRaw,'search-highlight');
-          )
+        $.each(data['terms'],(index,itemRaw)->
+          $('#mainbar').highlight(itemRaw,'search-highlight');
+        )
         jQuery('#main').height(jQuery('#mainbar').height()+88);
         jQuery('.psvr_search_whitebox').height(jQuery('#main').height()-64);
       , 'json')

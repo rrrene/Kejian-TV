@@ -42,7 +42,7 @@ class SearchController < ApplicationController
   end
   def show_courses
     search_common_op
-    q=CGI::unescape(params[:q])
+    q=params[:q]
     r0 = Time.now
     @courses = Redis::Search.query("Course",q,:limit=>500,:sort_field=>'coursewares_count')
     @courses += Redis::Search.complete("Course",q,:limit=>500,:sort_field=>'coursewares_count')
@@ -61,7 +61,7 @@ class SearchController < ApplicationController
   def show_teachers
     @quans3=true
     search_common_op
-    q=CGI::unescape(params[:q])
+    q=params[:q]
     r0 = Time.now
     @teachers = Redis::Search.query("Teacher",q,:limit=>500,:sort_field=>'coursewares_count')
     @teachers += Redis::Search.complete("Teacher",q,:limit=>500,:sort_field=>'coursewares_count')
@@ -79,7 +79,7 @@ class SearchController < ApplicationController
   def show_users
     @quans3=true
     search_common_op
-    q=CGI::unescape(params[:q])
+    q=params[:q]
     r0 = Time.now
     @users = Redis::Search.query("User",q,:limit=>500,:sort_field=>'followers_count')
     @users += Redis::Search.complete("User",q,:limit=>500,:sort_field=>'followers_count')
@@ -118,12 +118,14 @@ private
     params[:per_page]=@per_page.to_s
     cookies[:search_per_page] = @per_page.to_s
     params[:q]=params[:q].xi
-    q=CGI::unescape(params[:q])
-    @liber_terms = PinyinSplit.split(q)
+    q=params[:q]
+    @liber_terms = PinyinSplit.split(q.gsub(/[^\w]/,'').downcase)
     @fenci_terms = Redis::Search.split(q).collect{|x| x.force_encoding('utf-8')}
     @elastic_terms = [] 
+    @spetial_symbols=q.scan(/[-+#]+/).to_a
   end
   def search_common_over
+    p @final_term=(@liber_terms.split(/\s+/)+@fenci_terms+@elastic_terms+@spetial_symbols).uniq
     if !current_user.nil? and current_user.mark_search_keyword
       SearchHistory.add_search_keyword(current_user,params[:q],request.ip,params[:action])      
     end
@@ -134,7 +136,7 @@ private
       format.json{
         render json:{
           term:@user_provided_term,
-          terms:(@liber_terms.split(/\s+/)+@fenci_terms+@elastic_terms).uniq,
+          terms:@final_term,
           content:render_to_string(:file=>"search/_#{params[:action]}.html.erb",:layout=>nil, :formats=>[:html]),
           main:render_to_string(:file=>'search/_search_show_common_main.html.erb',:layout=>nil, :formats=>[:html])
         }

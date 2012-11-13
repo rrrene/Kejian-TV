@@ -1,8 +1,3 @@
-<% content_for :butt2 do %>
-  <% @liber_terms.split(/\s+/).each do |itemRaw|%>
-    $('#mainbar').highlight(<%=raw itemRaw.to_json%>,'search-highlight');
-  <% end %>
-<% end %>
 <div id="mainbar" style="position:absolute;z-index:333;min-height:444px;margin-top:170px;margin-left:138px;">
   <div class="psvr_content" style="margin:0 0 0 5px !important;width:818px">
       <div class="psvr_contentbox">

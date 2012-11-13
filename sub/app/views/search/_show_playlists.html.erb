@@ -34,7 +34,7 @@
                 <% has_body=true %>
                 <% search_result.highlight['courseware_titles.title'].each_with_index do |ttt,index| %>
                   <% break if index >= 3 %>
-									<% url ='/coursewares/'+ search_result.courseware_titles.detect{|x| ttt.gsub('__PSVR_begin_RVSP__','').gsub('__PSVR_end_RVSP__','')==x.title}.id %>
+									<% url ='/coursewares/'+ search_result.courseware_titles.detect{|x| ttt==x.title}.id %>
                   <a href="<%= gen_jump_url(url) %>&keyword=<%= CGI::escape(params[:q]) %>&t=s" target="_blank"  class="playlist-detail-title yt-uix-sessionlink"><img class="tiny-video-icon" src="<%=asset_path 'yt/img/pixel-vfl3z5WfW.gif'%>" alt=""><span dir="ltr"><%=page_highlight(ttt,params[:q])%></span></a>
                 <% end %>
               <% end %>

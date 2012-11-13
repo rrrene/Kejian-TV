@@ -11,8 +11,9 @@ class AutocompleteController < ApplicationController
   end
   def all
     q=CGI::unescape(params[:q]).xi
-    @liber_terms = PinyinSplit.split(q.gsub(/[^\w]/,''))
+    @liber_terms = PinyinSplit.split(q.gsub(/[^\w]/,'').downcase)
     @fenci_terms = Redis::Search.split(q).collect{|x| x.force_encoding('utf-8')}
+    @spetial_symbols=q.scan(/[-+#]+/).to_a
     render json:({}.tap do |ret|
       ret['Courseware'] = Redis::Search.query("Courseware",q,:limit=>4,:sort_field=>'score')
       ret['Courseware'] += Redis::Search.query("Courseware",@liber_terms,:limit=>4,:sort_field=>'score') if ret['Courseware'].size<4
@@ -52,7 +53,8 @@ class AutocompleteController < ApplicationController
       ret['User'] = ret['User'].psvr_uniq.limit(3)
       ret.delete('User') if ret['User'].blank?
 
-      ret['final']=(@liber_terms.split(/\s+/)+@fenci_terms).uniq
+      p @final_term=(@liber_terms.split(/\s+/)+@fenci_terms+@spetial_symbols).uniq
+      ret['final']=@final_term
     end)
   end
 end
