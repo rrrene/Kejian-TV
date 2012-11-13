@@ -32,11 +32,11 @@
           <%=link_to item.number ? "[#{item.number}] #{item.name}" : item.name,cpath(item),class:'psvr'%> 
         </td>
         <td>  
-          <%= link_to item.department,"/departments/#{Department.get_id(item.department)}"%>
+          <%= link_to item.department,"/departments/#{Department.get_fid(item.department)}"%>
         </td>
         <td>  
           <% item.teachings.each do |teaching| %>
-            <%= link_to teaching.teacher,"/teachers/#{teaching.typeid}" %>
+            <%= link_to teaching.teacher,"/teachers/#{Teacher.get_id(teaching.teacher)}" %>
           <% end %>
         </td>
         <td><%=link_to item.coursewares_count,cpath(item),class:'psvr'%></td> 
