@@ -42,16 +42,31 @@ class SearchController < ApplicationController
   end
   def show_courses
     search_common_op
+    q=CGI::unescape(params[:q])
+    r0 = Time.now
+    @courses = Redis::Search.query("Course",q,:limit=>500,:sort_field=>'coursewares_count')
+    @courses += Redis::Search.complete("Course",q,:limit=>500,:sort_field=>'coursewares_count')
+    @courses += Redis::Search.query("Course",@liber_terms,:limit=>500,:sort_field=>'coursewares_count')
+    @courses += Redis::Search.complete("Course",@liber_terms,:limit=>500,:sort_field=>'coursewares_count')
+    @courses = @courses.psvr_uniq
+    @per_page = 100
+    @courses = @courses.paginate(:page => @page, :per_page => @per_page)
+    @time_elapsed = ((Time.now - r0) * 1000.0).to_i
+    @quans=@courses
+    @quan='个'
+    @thing='课程'
+    @mode=:kecheng
+    search_common_over
   end
   def show_teachers
     @quans3=true
     search_common_op
-    q=params[:q]
+    q=CGI::unescape(params[:q])
     r0 = Time.now
     @teachers = Redis::Search.query("Teacher",q,:limit=>500,:sort_field=>'coursewares_count')
     @teachers += Redis::Search.complete("Teacher",q,:limit=>500,:sort_field=>'coursewares_count')
-    @teachers += Redis::Search.query("Teacher",PinyinSplit.split(q),:limit=>500,:sort_field=>'coursewares_count')
-    @teachers += Redis::Search.complete("Teacher",PinyinSplit.split(q),:limit=>500,:sort_field=>'coursewares_count')
+    @teachers += Redis::Search.query("Teacher",@liber_terms,:limit=>500,:sort_field=>'coursewares_count')
+    @teachers += Redis::Search.complete("Teacher",@liber_terms,:limit=>500,:sort_field=>'coursewares_count')
     @teachers = @teachers.psvr_uniq
     @teachers = @teachers.paginate(:page => @page, :per_page => @per_page)
     @time_elapsed = ((Time.now - r0) * 1000.0).to_i
@@ -62,7 +77,22 @@ class SearchController < ApplicationController
     search_common_over
   end
   def show_users
+    @quans3=true
     search_common_op
+    q=CGI::unescape(params[:q])
+    r0 = Time.now
+    @users = Redis::Search.query("User",q,:limit=>500,:sort_field=>'followers_count')
+    @users += Redis::Search.complete("User",q,:limit=>500,:sort_field=>'followers_count')
+    @users += Redis::Search.query("User",@liber_terms,:limit=>500,:sort_field=>'followers_count')
+    @users += Redis::Search.complete("User",@liber_terms,:limit=>500,:sort_field=>'followers_count')
+    @users = @users.psvr_uniq
+    @users = @users.paginate(:page => @page, :per_page => @per_page)
+    @time_elapsed = ((Time.now - r0) * 1000.0).to_i
+    @quans=@users
+    @quan='位'
+    @thing='用户'
+    @mode=:yonghu
+    search_common_over
   end
 private
   def search_common_op
@@ -88,6 +118,10 @@ private
     params[:per_page]=@per_page.to_s
     cookies[:search_per_page] = @per_page.to_s
     params[:q]=params[:q].xi
+    q=CGI::unescape(params[:q])
+    @liber_terms = PinyinSplit.split(q)
+    @fenci_terms = Redis::Search.split(q).collect{|x| x.force_encoding('utf-8')}
+    @elastic_terms = [] 
   end
   def search_common_over
     if !current_user.nil? and current_user.mark_search_keyword
@@ -100,6 +134,7 @@ private
       format.json{
         render json:{
           term:@user_provided_term,
+          terms:(@liber_terms.split(/\s+/)+@fenci_terms+@elastic_terms).uniq,
           content:render_to_string(:file=>"search/_#{params[:action]}.html.erb",:layout=>nil, :formats=>[:html]),
           main:render_to_string(:file=>'search/_search_show_common_main.html.erb',:layout=>nil, :formats=>[:html])
         }

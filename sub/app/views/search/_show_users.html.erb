@@ -1,0 +1,50 @@
+<% content_for :butt2 do %>
+  <% @liber_terms.split(/\s+/).each do |itemRaw|%>
+    $('#mainbar').highlight(<%=raw itemRaw.to_json%>,'search-highlight');
+  <% end %>
+<% end %>
+<div id="mainbar" class="wide users-page" style="position:absolute;z-index:333;min-height:444px;margin-top:170px;margin-left:138px;">
+<div id="user-browser">
+	<table>
+	<tbody>
+<% 0.upto(@users.count/3) do |i|%>
+	<tr>
+  <% 0.upto(2) do |j| %>
+    <% usr = @users[i*3 + j] %>
+    <%
+      next unless usr
+      if usr['avatar_small40']
+        avatar=usr['avatar_small40']
+      else
+        avatar='/defaults/avatar/small48.png'
+      end
+    %>
+		<td>
+			<div class="user-info " style="width:262px">
+				<div class="user-gravatar48">
+          <a href="/users/<%=usr['id']%>">
+					<div class="">
+            <img src="http://uc.<%=Setting.ktv_domain%>/avatar.php?uid=<%=usr['uid']%>&size=small" alt="<%=name_beautify usr['title']%>" width="48" height="48">
+        </div>
+					</a>
+				</div>
+				<div class="user-details">
+          <a href="/users/<%=usr['id']%>"><%=name_beautify usr['title']%></a><br>
+					<span class="user-location"><%=number_with_delimiter User.get_credits(usr['uid']) %></span><br>
+          <span class="reputation-score" dir="ltr"><%=usr['followers_count']%>个粉丝, <%=usr['following_count']%>个关注, <%=usr['coursewares_uploaded_count']%>个课件</span>
+				</div>
+        <div class="user-tags">
+          <%=usr['tagline']%>
+        </div>
+			</div>
+		</td>
+  <% end %>
+	</tr>
+<% end %>
+	</tbody>
+	</table>
+</div>
+
+
+<%= render 'quans_paginate' %>
+</div>

@@ -216,7 +216,9 @@ class Redis
   
       # 生成 uuid，用于作为 hashes 的 field, sets 关键词的值
       def self.mk_sets_key(type, key)
-        "#{type}:#{key.downcase}"
+        return "#{type}:#{key.downcase}"
+      rescue => e
+        return "#{type}:#{key}"
       end
     
       def self.mk_score_key(type, id)
