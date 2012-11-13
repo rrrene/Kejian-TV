@@ -767,14 +767,16 @@ courseware_id: '<%=@courseware.id%>'
          <div class="tab-content" id="fans" style="">
              
            <h1>顶过这个课件的人
-             <% unless current_user and @courseware.user_ids.include?(current_user.id)%>
-               <span style="<%='display:none' unless thank_courseware_ed?(@courseware) %>" class="unlike" id="weizuozhefasongganxie4">
-                 <a rel="nofollow" class="unlike button" href="#fans">✓ 我已顶过!</a>
-               </span>
-               <span style="<%='display:none' if thank_courseware_ed?(@courseware) %>" class="like" id="weizuozhefasongganxie3">
-                 <a rel="nofollow" class="like button psvr_login_required" href="javascript:void(0)">顶一下这个课件</a>
-               </span>
-             <% end %>
+						 <% if false %>
+	             <% unless current_user and @courseware.user_ids.include?(current_user.id)%>
+	               <span style="<%='display:none' unless thank_courseware_ed?(@courseware) %>" class="unlike" id="weizuozhefasongganxie4">
+	                 <a rel="nofollow" class="unlike button" href="#fans">✓ 我已顶过!</a>
+	               </span>
+	               <span style="<%='display:none' if thank_courseware_ed?(@courseware) %>" class="like" id="weizuozhefasongganxie3">
+	                 <a rel="nofollow" class="like button psvr_login_required" href="javascript:void(0)">顶一下这个课件</a>
+	               </span>
+	             <% end %>
+						 <% end %>
            </h1>
            <div id="weizuozhefasongganxie5">
              <% @courseware.thanked_user_ids.reverse.each do |user_id| %>
