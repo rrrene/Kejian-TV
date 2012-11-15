@@ -3,11 +3,11 @@ class CoursewareIntegrationTest < IntegrationTest
   def setup
     @cw=Courseware.nondeleted.normal.is_father.first
   end
-  def smoking
+  def test_smoking
     visit "/coursewares/#{@cw.id}"
     assert page.text.include? @cw.title
   end
-  def sum_cw_views_count
+  def test_sum_cw_views_count
     denglu! @user1
     user1_sum_cw_views_count = @user1.sum_cw_views_count
     visit "/coursewares/#{@cw.id}"

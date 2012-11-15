@@ -4,7 +4,7 @@ class UserTest < MiniTest::Unit::TestCase
     @user1 = User.find('506d5558e1382375f30000dc')
     @user2 = User.find('506d559ee1382375f3000163')
   end
-  def followers_n_following
+  def test_followers_n_following
     u1_followers_count_before = @user1.followers_count
     u2_followers_count_before = @user2.followers_count
     u1_following_count_before = @user1.following_count
@@ -24,7 +24,7 @@ class UserTest < MiniTest::Unit::TestCase
     refute @user1.followed?(@user2)
     refute @user2.followed_by?(@user1)
   end
-  def thank_courseware
+  def test_thank_courseware
     @courseware = Courseware.nondeleted.normal.is_father.where(:uploader_id=>@user2.id).first
     user1_thank_coursewares_count = @user1.thank_coursewares_count
     user2_thanked_coursewares_count = @user2.thanked_coursewares_count
