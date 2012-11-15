@@ -1,6 +1,4 @@
 # -*- encoding : utf-8 -*-
-unless $psvr_really_development
-
 ( puts <<-INSTALL
  [ERROR] You don’t appear to have ElasticSearch installed. Please install and launch it with the following commands:
 
@@ -10,5 +8,3 @@ unless $psvr_really_development
 INSTALL
 exit(1) 
 ) unless (RestClient.get('http://0.0.0.0:9200') rescue false)
-
-end
