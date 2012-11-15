@@ -1,0 +1,72 @@
+1.nginx
+  server {
+    listen 80;
+    server_name uc.kejian.lvh.me,uc-test.kejian.lvh.me;
+    root /Users/pmq20/ktv/uc;
+    try_files $uri =404;
+    location / {
+	  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header X-Forwarded-Proto $scheme;
+      proxy_set_header Host $http_host;
+      proxy_redirect off;
+      proxy_pass http://ktv_apache;
+    }
+    error_page 500 502 503 504 /maintenance.html;
+  }
+
+  server {
+    listen 80;
+    server_name sub-test.kejian.lvh.me;
+    root /Users/pmq20/ktv/sub/simple;
+    try_files $uri =404;
+    location = /favicon.ico {
+      try_files /favicon_test.ico =404;
+    }
+    location /simple {
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header X-Forwarded-Proto $scheme;
+      proxy_set_header Host $http_host;
+      proxy_redirect off;
+      proxy_pass http://ktv_apache;
+    }
+    error_page 500 502 503 504 /maintenance.html;
+  }
+
+  
+2.hosts
+0.0.0.0 test.kejian.lvh.me
+0.0.0.0 sub-test.kejian.lvh.me
+0.0.0.0 uc-test.kejian.lvh.me
+
+
+3.apache
+<VirtualHost *:8080>
+    DocumentRoot "/Users/pmq20/ktv/uc"
+    ServerName uc-test.kejian.lvh.me
+    ErrorLog "/Users/pmq20/ktv/log/uc-test.err.log"
+    CustomLog "/Users/pmq20/ktv/log/uc-test.log" common
+</VirtualHost>
+<VirtualHost *:8080>
+    DocumentRoot "/Users/pmq20/ktv/uc"
+    ServerName uc.kejian.lvh.me
+    ErrorLog "/Users/pmq20/ktv/log/uc.err.log"
+    CustomLog "/Users/pmq20/ktv/log/uc.log" common
+</VirtualHost>
+<VirtualHost *:8080>
+    DocumentRoot "/Users/pmq20/ktv/sub/simple"
+    ServerName ibeike.kejian.lvh.me
+    ErrorLog "/Users/pmq20/ktv/log/ibeike.err.log"
+    CustomLog "/Users/pmq20/ktv/log/ibeike.log" common
+</VirtualHost>
+<VirtualHost *:8080>
+    DocumentRoot "/Users/pmq20/ktv/sub/simple"
+    ServerName cnu.kejian.lvh.me
+    ErrorLog "/Users/pmq20/ktv/log/cnu.err.log"
+    CustomLog "/Users/pmq20/ktv/log/cnu.log" common
+</VirtualHost>
+<VirtualHost *:8080>
+    DocumentRoot "/Users/pmq20/ktv/sub/simple"
+    ServerName sub-test.kejian.lvh.me
+    ErrorLog "/Users/pmq20/ktv/log/sub-test.err.log"
+    CustomLog "/Users/pmq20/ktv/log/sub-test.log" common
+</VirtualHost>

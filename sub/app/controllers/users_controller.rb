@@ -30,7 +30,7 @@ class UsersController < ApplicationController
     else
       user = User.new(:email => params[:user][:email], :name => params[:user][:name])
       user.avatar = params[:user][:avatar]
-      if user.save
+      if current_user.invite_by(user)
         user.invite_by(current_user,immediately)
         notice = immediately ? "已向#{user.name_beautified}发去邀请，在他/她注册之前，您可以 <a href=\"#{'/users/'+user.slug}\">点击这里</a> 为他/她上传头像与个人简介：）" : "已添加到邀请列表，请必须点击发送按钮系统才会发送邀请邮件。"
         redirect_to invite_users_path,:notice => notice

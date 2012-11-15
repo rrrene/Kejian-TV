@@ -1,9 +1,17 @@
 require "minitest_helper"
-
-describe "Courseware Integration"  do
-  it "show Courseware title" do
-    cw = FactoryGirl.build(:courseware)
-    visit courseware_path(cw)
-    page.text.must_include "#{cw.title}" 
+class CoursewareIntegrationTest < IntegrationTest
+  def setup
+    @cw=Courseware.nondeleted.normal.is_father.first
+  end
+  def smoking
+    visit "/coursewares/#{@cw.id}"
+    assert page.text.include? @cw.title
+  end
+  def sum_cw_views_count
+    denglu! @user1
+    user1_sum_cw_views_count = @user1.sum_cw_views_count
+    visit "/coursewares/#{@cw.id}"
+    @user1.reload
+    assert user1_sum_cw_views_count + 1 == @user1.sum_cw_views_count
   end
 end

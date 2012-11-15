@@ -175,4 +175,3 @@ global_xookie = Ktv::JQuery.ajax({
 raise 'global_xookie failed!' unless 200==global_xookie.to_i
 raise 'global_xookie called with collission' if $_G.present?
 $_G = MultiJson.load(global_xookie.to_s)
-

@@ -10,7 +10,7 @@ class AccountSessionsController < Devise::SessionsController
     @login_ibeike ||= (request.path=~/\/spetial_ibeike$/)
     if @login_ibeike
       @seo[:title]='用iBeiKe账号登录'
-      if Setting.ktv_sub!='ibeike'
+      if !$psvr_really_testing && Setting.ktv_sub!='ibeike'
         render text:'this function is not enabled for this site!'
         return false
       else
@@ -29,7 +29,7 @@ class AccountSessionsController < Devise::SessionsController
     if params[:login_ibeike]
       begin
         @login_ibeike = true
-        if Setting.ktv_sub!='ibeike'
+        if !$psvr_really_testing && Setting.ktv_sub!='ibeike'
           render text:'this function is not enabled for this site!'
           return false
         end
