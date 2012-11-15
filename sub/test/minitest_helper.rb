@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 ENV["RAILS_ENV"] = "test"
 require File.expand_path('../../config/environment', __FILE__)
-
+p $:
 require "minitest/autorun"
 require 'minitest/pride'
 require "capybara/rails"
