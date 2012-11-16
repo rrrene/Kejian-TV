@@ -7,28 +7,28 @@ describe Courseware do
     @user2 = User.find('506d559ee1382375f3000163')
   end
   it "normal_after_save_coursewares_uploaded_count" do
-    @courseware = Courseware.where(:uploader_id=>@user2.id).nondeleted.normal.is_father.first
+    @courseware = Courseware.where(:uploader_id=>@user1.id).nondeleted.normal.is_father.first
     user1_coursewares_uploaded_count_before = @user1.coursewares_uploaded_count
     user2_coursewares_uploaded_count_before = @user2.coursewares_uploaded_count
-    @courseware.uploader_id = @user1.id
-    @courseware.save(:validate=>false)
-    @user1.reload
-    @user2.reload
-    assert user1_coursewares_uploaded_count_before + 1 == @user1.coursewares_uploaded_count,'课件改了作者，新的作者的课件数应该在保存之后被+1'
-    assert user2_coursewares_uploaded_count_before - 1 == @user2.coursewares_uploaded_count,'课件改了作者，旧的作者的课件数应该在保存之后被-1'
     @courseware.uploader_id = @user2.id
     @courseware.save(:validate=>false)
     @user1.reload
     @user2.reload
-    assert user1_coursewares_uploaded_count_before == @user1.coursewares_uploaded_count,'可恢复计数，当作者又被改回来了'
+    assert user2_coursewares_uploaded_count_before + 1 == @user2.coursewares_uploaded_count,'课件改了作者，新的作者的课件数应该在保存之后被+1'
+    assert user1_coursewares_uploaded_count_before - 1 == @user1.coursewares_uploaded_count,'课件改了作者，旧的作者的课件数应该在保存之后被-1'
+    @courseware.uploader_id = @user1.id
+    @courseware.save(:validate=>false)
+    @user1.reload
+    @user2.reload
     assert user2_coursewares_uploaded_count_before == @user2.coursewares_uploaded_count,'可恢复计数，当作者又被改回来了'
+    assert user1_coursewares_uploaded_count_before == @user1.coursewares_uploaded_count,'可恢复计数，当作者又被改回来了'
   end
   it "abnormal_after_save_coursewares_uploaded_count" do
     user1_coursewares_uploaded_count_before = @user1.coursewares_uploaded_count
     @courseware = Courseware.new
     @courseware.status=1
     @courseware.uploader_id = @user1.id
-    @courseware.save(:validate=>false)    
+    @courseware.save(:validate=>false)
     @user1.reload
     assert user1_coursewares_uploaded_count_before == @user1.coursewares_uploaded_count,'当改变了作者，但是课件还没有完成转码，不能+1'
     @courseware.status=0
