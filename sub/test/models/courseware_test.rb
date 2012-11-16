@@ -40,8 +40,8 @@ describe Courseware do
     @courseware = Courseware.nondeleted.normal.is_father.where(:uploader_id=>@user2.id).first
     user1_dislike_coursewares_count = @user1.dislike_coursewares_count
     user2_disliked_coursewares_count = @user2.disliked_coursewares_count
-    user1_thank_coursewares_count = @user1.thank_coursewares_count
-    user2_thanked_coursewares_count = @user2.thanked_coursewares_count
+    user1_thank_count = @user1.thank_count
+    user2_thanked_count = @user2.thanked_count
     courseware_thanked_count = @courseware.thanked_count
     courseware_disliked_count = @courseware.disliked_count
     @courseware.disliked_by_user(@user1)
