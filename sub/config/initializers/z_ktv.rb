@@ -91,7 +91,6 @@ else
 end
 
 Ktv.configure do |config|
-  config.redis = Redis::Search.config.redis
   config.consultants = [Ktv::Baidu,Ktv::Google]
   config.logger = Logger.new("#{Rails.root}/log_#{Rails.env}/ktv.log",File::WRONLY|File::APPEND)
   config.google_simple_api_key = 'AIzaSyBlxza4_3kcy8jzeAwWZOiIO4qAJl607FY'

@@ -84,6 +84,6 @@ end
 
 
 
-redis_connect! unless $im_running_under_unicorn
+redis_connect! unless $im_running_under_unicorn or $psvr_really_testing
 
 

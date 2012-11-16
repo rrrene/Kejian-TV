@@ -1,12 +1,12 @@
 # -*- encoding : utf-8 -*-
-require "minitest_helper"
+require "test_helper"
 
 describe Courseware do
-  def setup
+  before do 
     @user1 = User.find('506d5558e1382375f30000dc')
     @user2 = User.find('506d559ee1382375f3000163')
   end
-  def test_normal_after_save_coursewares_uploaded_count
+  it "normal_after_save_coursewares_uploaded_count" do
     @courseware = Courseware.where(:uploader_id=>@user2.id).nondeleted.normal.is_father.first
     user1_coursewares_uploaded_count_before = @user1.coursewares_uploaded_count
     user2_coursewares_uploaded_count_before = @user2.coursewares_uploaded_count
@@ -23,7 +23,7 @@ describe Courseware do
     assert user1_coursewares_uploaded_count_before == @user1.coursewares_uploaded_count,'可恢复计数，当作者又被改回来了'
     assert user2_coursewares_uploaded_count_before == @user2.coursewares_uploaded_count,'可恢复计数，当作者又被改回来了'
   end
-  def test_abnormal_after_save_coursewares_uploaded_count
+  it "abnormal_after_save_coursewares_uploaded_count" do
     user1_coursewares_uploaded_count_before = @user1.coursewares_uploaded_count
     @courseware = Courseware.new
     @courseware.status=1
@@ -36,7 +36,7 @@ describe Courseware do
     @user1.reload
     assert user1_coursewares_uploaded_count_before + 1 == @user1.coursewares_uploaded_count,'当改变了作者，而且课件转码完成了，才+1'
   end
-  def test_disliked_then_thanked_by_user
+  it "disliked_then_thanked_by_user" do
     @courseware = Courseware.nondeleted.normal.is_father.where(:uploader_id=>@user2.id).first
     user1_dislike_coursewares_count = @user1.dislike_coursewares_count
     user2_disliked_coursewares_count = @user2.disliked_coursewares_count

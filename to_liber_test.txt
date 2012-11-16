@@ -70,3 +70,8 @@
     ErrorLog "/Users/pmq20/ktv/log/sub-test.err.log"
     CustomLog "/Users/pmq20/ktv/log/sub-test.log" common
 </VirtualHost>
+
+4.
+alias spork="RAILS_ENV=sub_sub-test bundle exec spork"
+alias guard="bundle exec guard"
+
