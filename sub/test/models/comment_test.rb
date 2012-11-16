@@ -15,7 +15,7 @@ class CommentTest < MiniTest::Unit::TestCase
     c.save(:validate=>false)
     @user1.reload
     @courseware1.reload
-    assert user1_comments_count + 1 == @user1.comments_count
-    assert courseware1_comments_count + 1 == @courseware1.comments_count
+    assert user1_comments_count + 1 == @user1.comments_count,'用户评论后用户的评论数字应该+1'
+    assert courseware1_comments_count + 1 == @courseware1.comments_count,'用户名评论后被评论的课件的评论数字应+1'
   end
 end

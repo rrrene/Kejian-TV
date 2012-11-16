@@ -12,17 +12,17 @@ class UserTest < MiniTest::Unit::TestCase
     @user1.follow(@user2)
     @user1.reload
     @user2.reload
-    assert u1_following_count_before + 1 == @user1.following_count
-    assert u2_followers_count_before + 1 == @user2.followers_count
-    assert @user1.followed?(@user2)
-    assert @user2.followed_by?(@user1)
+    assert u1_following_count_before + 1 == @user1.following_count,'A关注B,A关注数+1'
+    assert u2_followers_count_before + 1 == @user2.followers_count,'A关注B,B被关注数+1'
+    assert @user1.followed?(@user2),'A关注B,A记录了B的关注行为'
+    assert @user2.followed_by?(@user1),'A关注B,B记录了A的关注行为'
     @user1.unfollow(@user2)
     @user1.reload
     @user2.reload
-    assert u1_following_count_before == @user1.following_count
-    assert u2_followers_count_before == @user2.followers_count
-    refute @user1.followed?(@user2)
-    refute @user2.followed_by?(@user1)
+    assert u1_following_count_before == @user1.following_count,'A取消关注B,A关注数恢复'
+    assert u2_followers_count_before == @user2.followers_count,'A取消关注B,B被关注数恢复'
+    refute @user1.followed?(@user2),'A取消关注B,A取消了B的关注行为'
+    refute @user2.followed_by?(@user1),'A取消关注B,A取消了B的关注行为'
   end
   def test_thank_courseware
     @courseware = Courseware.nondeleted.normal.is_father.where(:uploader_id=>@user2.id).first
@@ -34,11 +34,11 @@ class UserTest < MiniTest::Unit::TestCase
     @user1.reload
     @user2.reload
     @courseware.reload
-    assert user1_thank_coursewares_count + 1 == @user1.user1_thank_coursewares_count
-    assert user2_thanked_coursewares_count + 1 == @user2.user2_thanked_coursewares_count
-    assert courseware_thanked_count + 1 == @courseware.thanked_count
-    assert courseware_disliked_count == @courseware.disliked_count
-    assert @courseware.thanked_user_ids.include?(@user1)
-    refute @courseware.disliked_user_ids.include?(@user1)
+    assert user1_thank_coursewares_count + 1 == @user1.user1_thank_coursewares_count,'喜欢了课件之后，用户的喜欢课件次数+1'
+    assert user2_thanked_coursewares_count + 1 == @user2.user2_thanked_coursewares_count,'课件的主人的被喜欢次数+1'
+    assert courseware_thanked_count + 1 == @courseware.thanked_count,'课件的被喜欢次数+1'
+    # assert courseware_disliked_count == @courseware.disliked_count,''
+    assert @courseware.thanked_user_ids.include?(@user1),'课件的喜欢人包含了用户'
+    refute @courseware.disliked_user_ids.include?(@user1),'课件的不喜欢人不再包含用户'
   end
 end
