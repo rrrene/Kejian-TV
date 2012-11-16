@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require "minitest_helper"
 class UserTest < MiniTest::Unit::TestCase
   def setup

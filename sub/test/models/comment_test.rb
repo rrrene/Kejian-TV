@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require "minitest_helper"
 class CommentTest < MiniTest::Unit::TestCase
   def setup

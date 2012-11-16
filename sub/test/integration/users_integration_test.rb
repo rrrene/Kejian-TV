@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require "minitest_helper"
 class UserIntegrationTest < IntegrationTest
   def test_profile_view_count
