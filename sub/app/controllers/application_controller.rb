@@ -88,7 +88,7 @@ class ApplicationController < ActionController::Base
   end
   def xookie
     p 'xookie'
-    p cookies.collect{|k,v| "#{k}=#{v}"}.join('; '),
+    p cookies.collect{|k,v| "#{k}=#{v}"}.join('; ')
     p 'xookie'
     h_xookie = {
       psvr_original_response: true,
