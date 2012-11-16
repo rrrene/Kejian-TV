@@ -222,6 +222,9 @@ class TranscoderJob
           Sidekiq::Client.enqueue(HookerJob,"Courseware",nil,:push_trigger,@courseware.id) 
         end
         @courseware.go_to_normal unless @courseware.really_broken
+        if @courseware.status == 0
+          Sidekiq::Client.enqueue(HookerJob,"Courseware",nil,:start_counting,@courseware.id)
+        end
         @courseware.update_attribute(:gone_normal_at,Time.now)
       end
     rescue => e

@@ -67,4 +67,16 @@ describe Courseware do
     assert @courseware.thanked_user_ids.include?(@user1),'课件记录了喜欢者'
     refute @courseware.disliked_user_ids.include?(@user1),'不喜欢者里不再包含这个人'
   end
+  it "thank the courseware had been thanked" do
+    
+  end
+  it "thank the courseware had been disliked" do
+    
+  end
+  it "dislike the courseware had been thanked" do
+    
+  end
+  it "dislike the courseware had been disliked" do
+    
+  end
 end
