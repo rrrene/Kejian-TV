@@ -91,7 +91,7 @@ class ApplicationController < ActionController::Base
       psvr_original_response: true,
       url:"http://#{Setting.ktv_subdomain}/simple/touch.php",
       type:'POST',
-      'COOKIE'=>request.env['HTTP_COOKIE'],
+      'COOKIE'=>cookies.collect{|k,v| "#{k}=#{v}"}.join('; '),
       :accept=>'raw'+Setting.dz_authkey,
       psvr_response_anyway: true
     }
@@ -110,7 +110,6 @@ class ApplicationController < ActionController::Base
     @formhash = @_G['formhash']
     if @_G['uid'] != (current_user ? current_user.uid : 0)
       p @_G['uid']
-      p request.env['HTTP_COOKIE']
       p (current_user ? current_user.uid : 0)
       sign_out;sign_out_others
       return false
@@ -224,7 +223,7 @@ class ApplicationController < ActionController::Base
         :psvr_uid => current_user.uid.to_s,
         :psvr_email => current_user.email,
       },
-      'COOKIE'=>request.env['HTTP_COOKIE'],
+      'COOKIE'=>cookies.collect{|k,v| "#{k}=#{v}"}.join('; '),
       :accept=>'raw'+Setting.dz_authkey,
       psvr_response_anyway: true
     })
@@ -232,7 +231,6 @@ class ApplicationController < ActionController::Base
     # p res
     # p 'gonna set------------------'
     res.cookies.each do |key,value|
-      puts "set #{key}=#{CGI::unescape value}"
       cookies[key]=CGI::unescape value
     end
     # todo:
