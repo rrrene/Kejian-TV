@@ -44,7 +44,6 @@ var STYLEID = '1',
     showusercard = '1',
     attackevasive = '0',
     disallowfloat = 'newthread',
-<%binding.pry %>
     creditnotice = '<%=$_G['setting']['extcredits'].collect{|k,v| "#{k}|#{v["title"]}|"}.join(',')%>',
     defaultstyle = '',
     REPORTURL = <%=raw Base64.encode64(request.url).gsub("\n",'').to_json%>,
