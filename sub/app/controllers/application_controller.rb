@@ -110,6 +110,7 @@ class ApplicationController < ActionController::Base
     @formhash = @_G['formhash']
     if @_G['uid'] != (current_user ? current_user.uid : 0)
       p @_G['uid']
+      p request.env['HTTP_COOKIE']
       p (current_user ? current_user.uid : 0)
       sign_out;sign_out_others
       return false
@@ -231,6 +232,7 @@ class ApplicationController < ActionController::Base
     # p res
     # p 'gonna set------------------'
     res.cookies.each do |key,value|
+      puts "set #{key}=#{CGI::unescape value}"
       cookies[key]=CGI::unescape value
     end
     # todo:

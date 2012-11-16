@@ -8,7 +8,7 @@ describe CoursewaresController do
   end
   it "smokes" do
     get :show,:id=>@cw.id
-    assert @response.success?,'冒烟啊冒烟，课件应该能打开'    
+    assert @response.success?,'课件冒烟，课件应该能show'    
   end
   it "sum_cw_views_count okay" do
     denglu! @user

@@ -89,6 +89,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    @user.inc(:profile_view_count,1)
     @seo[:title] = @user.name_beautified
   end
   

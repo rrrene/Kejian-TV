@@ -129,6 +129,9 @@ class CoursewaresController < ApplicationController
   end
 
   def show
+    if user_signed_in?
+      current_user.inc(:sum_cw_views_count,1)
+    end
     @show_pl_ytb = true
     if @courseware.redirect_to_id.present?
       @courseware = Courseware.nondeleted.where(:_id => @courseware.redirect_to_id.to_s).first
