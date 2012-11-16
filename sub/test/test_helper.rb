@@ -17,7 +17,7 @@ Spork.prefork do
   require 'turn/autorun'
 
 
-  Turn.config.format = :cue
+  Turn.config.format = :pretty
 
 
   module MiniTest
