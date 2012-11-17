@@ -38,6 +38,7 @@ end
 
 Spork.each_run do
   ActiveSupport::Dependencies.clear
+  ActiveRecord::Base.instantiate_observers
   # This code will be run each time you run your specs.
   redis_connect!
-end
+end if Spork.using_spork?

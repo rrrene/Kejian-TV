@@ -18,6 +18,14 @@ describe User do
     @user2.reload
   end
   it "followers_n_following" do
+    @user1.following_ids=[]
+    @user2.following_ids=[]
+    @user1.follower_ids=[]
+    @user2.follower_ids=[]
+    @user1.save(:validate=>false)
+    @user2.save(:validate=>false)
+    @user1.reload
+    @user2.reload
     u1_followers_count_before = @user1.followers_count
     u2_followers_count_before = @user2.followers_count
     u1_following_count_before = @user1.following_count
@@ -37,4 +45,29 @@ describe User do
     refute @user1.followed?(@user2),'A取消关注B,A取消了B的关注行为'
     refute @user2.followed_by?(@user1),'A取消关注B,A取消了B的关注行为'
   end
+  it "follow_n_unfollowing department" do
+    @department = Department.first
+    @user1.followed_department_fids=[]
+    @department.follower_ids = []
+    @user1.save(:validate=>false)
+    @department.save(:validate=>false)
+    @user1.reload
+    @department.reload
+    department_followers_count = @department.followers_count
+    # !!!
+    @user1.follow_department(@department)
+    # !!!
+    @user1.reload
+    @department.reload
+    assert @user1.department_followed?(@department),'成功关注学院'
+    assert department_followers_count+1 == @department.followers_count,'学院的关注数字加1'
+    # !!!
+    @user1.unfollow_department(@department)
+    # !!!
+    @user1.reload
+    @department.reload
+    refute @user1.department_followed?(@department),'成功取消关注学院'
+    assert department_followers_count == @department.followers_count,'学院的关注数字恢复'
+  end
+  
 end
