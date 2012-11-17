@@ -20,7 +20,7 @@ describe Courseware do
     @user2.reload
 
   end
-  it "normal_after_save_coursewares_uploaded_count" do
+  it "转码完毕的课件改变作者，作者的课件计数作出相应变化" do
     user1_coursewares_uploaded_count_before = @user1.coursewares_uploaded_count
     user2_coursewares_uploaded_count_before = @user2.coursewares_uploaded_count
     @courseware.uploader_id = @user2.id
@@ -36,7 +36,7 @@ describe Courseware do
     assert user2_coursewares_uploaded_count_before == @user2.coursewares_uploaded_count,'可恢复计数，当作者又被改回来了'
     assert user1_coursewares_uploaded_count_before == @user1.coursewares_uploaded_count,'可恢复计数，当作者又被改回来了'
   end
-  it "abnormal_after_save_coursewares_uploaded_count" do
+  it "转码没有完成的课件改变作者，作者的课件计数暂不变化" do
     user1_coursewares_uploaded_count_before = @user1.coursewares_uploaded_count
     @courseware = Courseware.new
     @courseware.status=1
@@ -50,7 +50,12 @@ describe Courseware do
     @user1.reload
     assert user1_coursewares_uploaded_count_before + 1 == @user1.coursewares_uploaded_count,'当改变了作者，而且课件转码完成了，才+1'
   end
-  it "disliked_then_thanked_by_user" do
+  it "课件的
+ oooO ↘┏━┓ ↙ Oooo 
+ ( 踩)→┃顶┃ ←(踩 ) 
+  \ ( →┃√┃ ← ) / 
+　 \_)↗┗━┛ ↖(_/ 
+" do
     @courseware_user2 = Courseware.where(:uploader_id=>@user2.id).nondeleted.normal.is_father.first
     @courseware_user2.thanked_user_ids = []
     @courseware_user2.disliked_user_ids = []

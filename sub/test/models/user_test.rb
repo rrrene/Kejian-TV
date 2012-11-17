@@ -5,7 +5,7 @@ describe User do
     @user1 = User.find('506d5558e1382375f30000dc')
     @user2 = User.find('506d559ee1382375f3000163')
   end
-  it "followers_n_following" do
+  it "用户关注用户" do
     @user1.following_ids=[]
     @user2.following_ids=[]
     @user1.follower_ids=[]
@@ -33,7 +33,7 @@ describe User do
     refute @user1.followed?(@user2),'A取消关注B,A取消了B的关注行为'
     refute @user2.followed_by?(@user1),'A取消关注B,A取消了B的关注行为'
   end
-  it "follow_n_unfollowing department" do
+  it "用户关注院系" do
     @department = Department.first
     @user1.followed_department_fids=[]
     @department.follower_ids = []
@@ -58,7 +58,7 @@ describe User do
     refute @user1.department_followed?(@department),'成功取消关注学院'
     assert department_followers_count == @department.followers_count,'学院的关注数字恢复'
   end
-  it "follow_n_unfollowing course" do
+  it "用户关注课程" do
     @course = Course.first
     @user1.followed_course_fids=[]
     @course.follower_ids = []
@@ -83,5 +83,13 @@ describe User do
     refute @user1.course_followed?(@course),'成功取消关注课程'
     assert course_followers_count == @course.followers_count,'课程的关注数字恢复'
   end
-
+  it "初次创建后，为用户创建三个默认的播放列表" do
+    u = User.new
+    u.save(:validate=>false)
+    pl1 = PlayList.nondeleted.where(:user_id => u.id,:undestroyable=>true).collect(&:title)
+    assert pl1.include?('收藏'),'初次创建后，为用户创建"收藏"播放列表'
+    assert pl1.include?('稍后阅读'),'初次创建后，为用户创建"稍后阅读"播放列表'
+    assert pl1.include?('历史记录'),'初次创建后，为用户创建"历史记录"播放列表'
+  end
+  
 end

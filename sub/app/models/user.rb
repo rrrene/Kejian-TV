@@ -493,6 +493,7 @@ kejians:['课件','num','filter'],comments:['评论','num']
   def title
     self.name
   end
+  after_create :create_playlists_for_user
   def create_playlists_for_user
       x=PlayList.find_or_create_by(user_id:self.id,title:'收藏')
       y=PlayList.find_or_create_by(user_id:self.id,title:'稍后阅读')
