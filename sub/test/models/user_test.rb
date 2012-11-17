@@ -55,7 +55,7 @@ describe User do
     # !!!
     @user1.reload
     @department.reload
-    binding.pry if !@user1.department_followed?(@department)
+    # binding.pry if !@user1.department_followed?(@department)
     refute @user1.department_followed?(@department),'成功取消关注学院'
     assert department_followers_count == @department.followers_count,'学院的关注数字恢复'
   end
