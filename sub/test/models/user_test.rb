@@ -9,7 +9,7 @@ describe User do
     u1_followers_count_before = @user1.followers_count
     u2_followers_count_before = @user2.followers_count
     u1_following_count_before = @user1.following_count
-    u2_following_count_before = @user2.following_count  
+    u2_following_count_before = @user2.following_count
     @user1.follow(@user2)
     @user1.reload
     @user2.reload

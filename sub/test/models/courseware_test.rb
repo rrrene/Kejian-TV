@@ -117,6 +117,26 @@ describe Courseware do
     assert courseware_disliked_count  == @courseware_user2.disliked_count,'撤销被不喜欢后，课件的不喜欢次数不变'
     refute @courseware_user2.disliked_user_ids.include?(@user1.id),'撤销被不喜欢后，课件的不喜欢人撤销不喜欢者'
     refute @courseware_user2.thanked_user_ids.include?(@user1.id),'被不喜欢后，课件的喜欢人就不再包含这个人了'
+    ## 被喜欢后，撤销喜欢
+    @user1.reload
+    @user2.reload
+    @courseware_user2.reload
+    @user1.thank_courseware(@courseware_user2)
+    @user1.reload
+    @user2.reload
+    @courseware_user2.reload
+    @user1.thank_courseware(@courseware_user2)
+    @user1.reload
+    @user2.reload
+    @courseware_user2.reload
+    assert user1_thank_count == @user1.thanked_count,'喜欢后撤销喜欢，这个人又突然喜欢了这个课件，那么这个人的喜欢表达次数不变'
+    assert user2_thanked_count  == @user2.thank_count,'喜欢后撤销，被喜欢这个课件的被喜欢次数不变'
+    assert user1_dislike_coursewares_count == @user1.disliked_coursewares_count,'不喜欢次数恢复'
+    assert user2_disliked_coursewares_count == @user2.dislike_coursewares_count,'被不喜欢次数恢复'
+    assert courseware_thanked_count == @courseware_user2.thanked_count,'课件的喜欢数'
+    assert courseware_disliked_count == @courseware_user2.disliked_count,'此时，喜欢和不喜欢没关系了'
+    refute @courseware_user2.thanked_user_ids.include?(@user1.id),'撤销喜欢，课件不记录记录了喜欢者'
+    refute @courseware_user2.disliked_user_ids.include?(@user1.id),'不喜欢者里不再包含这个人'
   end
   it "thank the courseware had been thanked" do
     
