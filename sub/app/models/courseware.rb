@@ -546,6 +546,19 @@ class Courseware
       self.uploader.inc(:coursewares_uploaded_count,1)
     end
   end  
+  before_save :course_work
+  def course_work
+    if course_fid_changed? 
+      if !new_record?
+        old_course = Course.where(:fid => course_fid_was).first 
+      end
+      if old_course
+        old_course.inc(:coursewares_count,-1)
+      end
+      c = Course.where(:fid => course_fid).first
+      c.inc(:coursewares_count,1)
+    end
+  end
   def wh_ratio
     self.width*1.0/self.height
   end
