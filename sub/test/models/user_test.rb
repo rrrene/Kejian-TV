@@ -4,18 +4,6 @@ describe User do
   before do
     @user1 = User.find('506d5558e1382375f30000dc')
     @user2 = User.find('506d559ee1382375f3000163')
-    @user1.following_count = 0
-    @user2.following_count = 0
-    @user1.followers_count = 0
-    @user2.followers_count = 0
-    @user1.follower_ids = 0
-    @user2.follower_ids = 0
-    @user1.following_ids = 0
-    @user2.following_ids = 0
-    @user1.save(:validate=>false)
-    @user2.save(:validate=>false)
-    @user1.reload
-    @user2.reload
   end
   it "followers_n_following" do
     @user1.following_ids=[]
@@ -69,5 +57,29 @@ describe User do
     refute @user1.department_followed?(@department),'成功取消关注学院'
     assert department_followers_count == @department.followers_count,'学院的关注数字恢复'
   end
-  
+  it "follow_n_unfollowing course" do
+    @course = Course.first
+    @user1.followed_course_fids=[]
+    @course.follower_ids = []
+    @user1.save(:validate=>false)
+    @course.save(:validate=>false)
+    @user1.reload
+    @course.reload
+    course_followers_count = @course.followers_count
+    # !!!
+    @user1.follow_course(@course)
+    # !!!
+    @user1.reload
+    @course.reload
+    assert @user1.course_followed?(@course),'成功关注学院'
+    assert course_followers_count+1 == @course.followers_count,'课程的关注数字加1'
+    # !!!
+    @user1.unfollow_course(@course)
+    # !!!
+    @user1.reload
+    @course.reload
+    refute @user1.course_followed?(@course),'成功取消关注学院'
+    assert course_followers_count == @course.followers_count,'课程的关注数字恢复'
+  end
+
 end
