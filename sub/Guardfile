@@ -23,7 +23,7 @@ guard 'spork',:test_unit => false,:minitest => true,:wait=>180 do
   watch('test/test_helper.rb') { :minitest }
 end
 
-guard 'minitest', :drb => true, :notify => true do
+guard 'minitest', :drb => true do
   # with Minitest::Unit
   watch(%r|^test/(.*)\/?(.*)_test\.rb|)
   watch(%r|^lib/(.*)([^/]+)\.rb|) { |m| "test/lib/#{m[1]}test_#{m[2]}.rb" }

@@ -25,21 +25,4 @@ describe User do
     refute @user1.followed?(@user2),'A取消关注B,A取消了B的关注行为'
     refute @user2.followed_by?(@user1),'A取消关注B,A取消了B的关注行为'
   end
-  it "thank_courseware" do
-    @courseware = Courseware.nondeleted.normal.is_father.where(:uploader_id=>@user2.id).first
-    user1_thank_coursewares_count = @user1.thank_coursewares_count
-    user2_thanked_coursewares_count = @user2.thanked_coursewares_count
-    courseware_thanked_count = @courseware.thanked_count
-    courseware_disliked_count = @courseware.disliked_count
-    @user1.thank_courseware(@courseware)
-    @user1.reload
-    @user2.reload
-    @courseware.reload
-    assert user1_thank_coursewares_count + 1 == @user1.user1_thank_coursewares_count,'喜欢了课件之后，用户的喜欢课件次数+1'
-    assert user2_thanked_coursewares_count + 1 == @user2.user2_thanked_coursewares_count,'课件的主人的被喜欢次数+1'
-    assert courseware_thanked_count + 1 == @courseware.thanked_count,'课件的被喜欢次数+1'
-    # assert courseware_disliked_count == @courseware.disliked_count,''
-    assert @courseware.thanked_user_ids.include?(@user1),'课件的喜欢人包含了用户'
-    refute @courseware.disliked_user_ids.include?(@user1),'课件的不喜欢人不再包含用户'
-  end
 end

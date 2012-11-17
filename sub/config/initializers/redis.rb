@@ -73,16 +73,17 @@ def redis_connect!(index=0)
     config.disable_rmmseg = false
   end
 
-  
-  $snda_service = Sndacs::Service.new(:access_key_id => Setting.snda_id, :secret_access_key => Setting.snda_key)
-  $snda_buckets = $snda_service.buckets
-  $snda_ktv_eb = $snda_buckets.find("ktv-eb")
-  $snda_ktv_down = $snda_buckets.find("ktv-down")
-  $snda_ktv_up = $snda_buckets.find("ktv-up")
-  $snda_ktv_app = $snda_buckets.find(Setting.snda_bucket)
 end
 
 
+
+  
+$snda_service = Sndacs::Service.new(:access_key_id => Setting.snda_id, :secret_access_key => Setting.snda_key)
+$snda_buckets = $snda_service.buckets
+$snda_ktv_eb = $snda_buckets.find("ktv-eb")
+$snda_ktv_down = $snda_buckets.find("ktv-down")
+$snda_ktv_up = $snda_buckets.find("ktv-up")
+$snda_ktv_app = $snda_buckets.find(Setting.snda_bucket)
 
 redis_connect! unless $im_running_under_unicorn or $psvr_really_testing
 

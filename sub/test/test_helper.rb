@@ -17,7 +17,7 @@ Spork.prefork do
   require 'turn/autorun'
 
 
-  Turn.config.format = :pretty
+  Turn.config.format = :outline
 
 
   module MiniTest
@@ -37,6 +37,7 @@ Spork.prefork do
 end
 
 Spork.each_run do
+  ActiveSupport::Dependencies.clear
   # This code will be run each time you run your specs.
   redis_connect!
 end
