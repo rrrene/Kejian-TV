@@ -55,7 +55,6 @@ describe User do
     # !!!
     @user1.reload
     @department.reload
-    # binding.pry if !@user1.department_followed?(@department)
     refute @user1.department_followed?(@department),'成功取消关注学院'
     assert department_followers_count == @department.followers_count,'学院的关注数字恢复'
   end
@@ -63,6 +62,7 @@ describe User do
     @course = Course.first
     @user1.followed_course_fids=[]
     @course.follower_ids = []
+    @course.followers_count = 0
     @user1.save(:validate=>false)
     @course.save(:validate=>false)
     @user1.reload
@@ -73,14 +73,14 @@ describe User do
     # !!!
     @user1.reload
     @course.reload
-    assert @user1.course_followed?(@course),'成功关注学院'
+    assert @user1.course_followed?(@course),'成功关注课程'
     assert course_followers_count+1 == @course.followers_count,'课程的关注数字加1'
     # !!!
     @user1.unfollow_course(@course)
     # !!!
     @user1.reload
     @course.reload
-    refute @user1.course_followed?(@course),'成功取消关注学院'
+    refute @user1.course_followed?(@course),'成功取消关注课程'
     assert course_followers_count == @course.followers_count,'课程的关注数字恢复'
   end
 

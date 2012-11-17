@@ -1195,6 +1195,7 @@ kejians:['课件','num','filter'],comments:['评论','num']
     self.followed_course_fids << topicid
     self.save(:validate => false)
     topic.follower_ids << self.id
+    topic.followers_count = topic.follower_ids.count
     topic.save(:validate => false)
 
     # 清除推荐课程
@@ -1253,10 +1254,11 @@ kejians:['课件','num','filter'],comments:['评论','num']
   
   
   def unfollow_course(topic,withlog=true)
-    self.followed_course_fids.delete(topic.id)
+    self.followed_course_fids.delete(topic.fid)
     self.save(:validate => false)
     
     topic.follower_ids.delete(self.id)
+    topic.followers_count = topic.follower_ids.count
     topic.save(:validate => false)
     
     insert_follow_log("UNFOLLOW_COURSE", topic) if withlog
@@ -1271,7 +1273,7 @@ kejians:['课件','num','filter'],comments:['评论','num']
     insert_follow_log("UNFOLLOW_TEACHER", topic) if withlog
   end
   def unfollow_department(topic,withlog=true)
-    self.followed_department_fids.delete(topic.id)
+    self.followed_department_fids.delete(topic.fid)
     self.save(:validate => false)
     
     topic.follower_ids.delete(self.id)
