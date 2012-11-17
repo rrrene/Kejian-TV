@@ -65,8 +65,8 @@ class CoursewaresController < ApplicationController
     @coursewares = @coursewares.where(:is_thin=>false) if '1'==params['onlyForCommodity']
     @coursewares = @coursewares.where(:slides_count.gt=>50) if '2'==params['queryScope']
     @coursewares = @coursewares.where(:uploader_id=>Moped::BSON::ObjectId(params[:user_id])) if Moped::BSON::ObjectId.legal?(params[:user_id])
-    @coursewares = @coursewares.where(:course_fid=>params[:course_fid]) if params[:course_fid]
-    @coursewares = @coursewares.where(:course_fid=>params[:course]) if params[:course]
+    @coursewares = @coursewares.where(:course_fid=>params[:course_fid].to_i) if params[:course_fid]
+    @coursewares = @coursewares.where(:course_fid=>params[:course].to_i) if params[:course]
     if '1'==params['queryOrder']
       @coursewares = @coursewares.desc('gone_normal_at')
     elsif '2'==params['queryOrder']
