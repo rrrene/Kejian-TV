@@ -87,14 +87,11 @@ class ApplicationController < ActionController::Base
     end
   end
   def xookie
-    p 'xookie'
-    p cookies.collect{|k,v| "#{k}=#{v}"}.join('; ')
-    p 'xookie'
     h_xookie = {
       psvr_original_response: true,
       url:"http://#{Setting.ktv_subdomain}/simple/touch.php",
       type:'POST',
-      'COOKIE'=>cookies.collect{|k,v| "#{k}=#{v}"}.join('; '),
+      'COOKIE'=>request.env['HTTP_COOKIE'],
       :accept=>'raw'+Setting.dz_authkey,
       psvr_response_anyway: true
     }
@@ -226,7 +223,7 @@ class ApplicationController < ActionController::Base
         :psvr_uid => current_user.uid.to_s,
         :psvr_email => current_user.email,
       },
-      'COOKIE'=>cookies.collect{|k,v| "#{k}=#{v}"}.join('; '),
+      'COOKIE'=>request.env['HTTP_COOKIE'],
       :accept=>'raw'+Setting.dz_authkey,
       psvr_response_anyway: true
     })
