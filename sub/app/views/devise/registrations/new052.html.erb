@@ -35,7 +35,7 @@ $('#submit_btn_ass').click(function(){
   $('.buttcheck:checked').each(function(index,value){
     uids.push($(value).attr('name').split('person_')[1]);
   });
-  $.post("/users_follow",{q:uids.join(",")}, function(res){
+  $.post("/ajax/users_follow",{q:uids.join(",")}, function(res){
     window.location.href='/register05?force_053=1';
   });
   return false;

@@ -91,5 +91,4 @@ describe User do
     assert pl1.include?('稍后阅读'),'初次创建后，为用户创建"稍后阅读"播放列表'
     assert pl1.include?('历史记录'),'初次创建后，为用户创建"历史记录"播放列表'
   end
-  
 end

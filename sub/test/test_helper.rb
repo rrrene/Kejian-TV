@@ -28,6 +28,7 @@ Spork.prefork do
           def denglu!(u)
             sign_in(u)
             @controller.sign_in_others
+            @request.env['HTTP_COOKIE'] = cookies.collect{|k,v| "#{k}=#{v}"}.join('; ')
           end
         end
       end

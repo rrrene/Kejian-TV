@@ -134,4 +134,22 @@ describe Courseware do
     refute @courseware_user2.thanked_user_ids.include?(@user1.id),'撤销喜欢，课件不记录记录了喜欢者'
     refute @courseware_user2.disliked_user_ids.include?(@user1.id),'不喜欢者里不再包含这个人'
   end
+  it "当一个课件添加到一个课程的时候，这个课程的课件总计数应该做出相应改变" do
+    c = Courseware.new
+    cc = Course.first
+    c.course_fid = cc.fid
+    cc_coursewares_count = cc.coursewares_count
+    c.save(:validate=>false)
+    cc.reload
+    assert cc.coursewares_count == cc_coursewares_count + 1,"当一个课件添加到一个课程的时候，这个课程的课件总计数应+1"
+    ccc = Course.where(:fid.ne=>cc.fid).first
+    c.course_fid = ccc.fid
+    ccc_coursewares_count =ccc.coursewares_count
+    c.save(:validate=>false)
+    ccc.reload
+    cc.reload
+    assert cc.coursewares_count == cc_coursewares_count,"课件的课程被修改了，那么原来老的课程的课件总计数恢复"
+    assert ccc.coursewares_count == ccc_coursewares_count +1,"课件的课程被修改了，新的课程的课件计数+1"
+  end
+
 end

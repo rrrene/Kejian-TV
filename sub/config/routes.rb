@@ -7,6 +7,7 @@ Sub::Application.routes.draw do
   # =>  just for ensure upload & edit page
   get '/upload' => 'coursewares#my_upload'
   get '/coursewares/new' => 'coursewares#my_upload'
+  get '/embed/:id' => 'coursewares#embed'
   get '/edit/:id' => 'coursewares#my_edit'
   get '/coursewares/:id/edit' => 'courseware#my_edit'
     
@@ -72,6 +73,8 @@ Sub::Application.routes.draw do
   get "premium/plans" => 'premium#plans'
 
   # ________________________________ajax__________________________________________
+  post '/ajax/users_follow' => 'users#fol'
+  post '/ajax/users_unfollow'=>'users#unfol'
   get '/all_unread_notification_num' => 'ajax#all_unread_notification_num'
   get '/ajax/register_huanyihuan'
   post '/ajax/renren_invite'
@@ -140,6 +143,7 @@ Sub::Application.routes.draw do
   post '/upload_page_auto_save' => 'ajax#upload_page_auto_save'
   # ---=small=----
   get '/hack/htc'
+  # ________________________________ktv__________________________________________
   get '/welcome/inactive_sign_up'
   get '/welcome/shuffle'
   get '/welcome/blank'
@@ -150,7 +154,6 @@ Sub::Application.routes.draw do
   get '/welcome/main'
   get '/welcome/latest'
   get '/welcome/feeds'
-  # ________________________________ktv__________________________________________
   resources :play_lists do 
     member do
       post 'handler'
@@ -168,8 +171,6 @@ Sub::Application.routes.draw do
       get "unfollow"
     end
   end
-  resources :schools
-  resources :maps
   get '/un_courses'=>'courses#index'
   get '/courses/:id' => 'courses#show'
   get '/coursewares_by_departments' => 'coursewares#index'
@@ -186,7 +187,6 @@ Sub::Application.routes.draw do
   get '/users/test' => 'users#test'
   # resources :notes, :path_prefix => "/coursewares/:id/",
   resources :coursewares do
-    resources :notes
     collection do
       get 'mine'
       get 'latest'
@@ -203,61 +203,6 @@ Sub::Application.routes.draw do
       get "thank"
     end
   end
-  get '/embed/:id' => 'coursewares#embed'
-
-  # ________________________________q-n-a__________________________________________
-  get '/home/index',:as=>'home_index'
-  match '/mobile'=>'home#mobile'
-  get '/under_verification' => 'home#under_verification'
-  get '/frozen_page' => 'home#frozen_page'
-  
-  get '/refresh_sugg' => 'home#refresh_sugg'
-  get '/refresh_sugg_ex' => 'home#refresh_sugg_ex'
-  
-  get '/bugtrack'=>'application#bugtrack'
-  get '/agreement'=>'home#agreement'
-  get "/traverse/index",as:'traverse'
-  post "/traverse/index",as:'traverse'
-  get "/traverse/asks_from",as:'asks_from'
-  get '/home/agreement'
-  
-  get '/nb/*file' =>'application#nb'
-  get "/home/index",:as => 'for_help'
-  get '/root'=>'home#index'
-  post '/users_follow' => 'users#fol'
-  post '/users_unfollow'=>'users#unfol'
-  post '/topics_follow' => 'topics#fol'
-  post '/topics_unfollow'=>'topics#unfol'
-  get '/zero_asks' => 'asks#index',:as => 'zero_asks'
-  
-  scope 'mobile',:as=>'mobile' do
-    controller "mobile" do
-      get 'noticepage'
-      get 'login'
-      get 'register'
-      get 'search'
-      get 'notifications'
-    end
-  end
-  
-  
-=begin
-  match "/uploads/*path" => "gridfs#serve"
-=end
-  match "/update_in_place" => "home#update_in_place"
-  #match "/muted" => "home#muted"
-  match "/newbie" => "home#newbie",:as => :newbie
-  match "/followed" => "home#followed"
-  match "/recommended" => "home#recommended"
-  match "/mark_all_notifies_as_read" => "home#mark_all_notifies_as_read"
-  match "/mark_notifies_as_read" => "home#mark_notifies_as_read"
-  
-  match "/mute_suggest_item" => "home#mute_suggest_item"
-  match "/report" => "home#report"
-  #match "/about" => "home#about"
-  match "/doing" => "logs#index"
-  
-  
   resources :teachers do
     member do
       get 'coursewares' => 'coursewares#index'
@@ -300,6 +245,7 @@ Sub::Application.routes.draw do
       # get "following_asks"
     end
   end
+  resources :comments
   get '/autocomplete/all'
   get '/autocomplete/swords'
   get '/search' => 'search#index'
@@ -310,31 +256,79 @@ Sub::Application.routes.draw do
   get '/search_teachers/:q' => 'search#show_teachers'
   get '/search_users/:q' => 'search#show_users'
   get '/search_lucky/:q' => 'search#lucky'
+  # ________________________________q-n-a__________________________________________
+  # get '/home/index',:as=>'home_index'
+  # match '/mobile'=>'home#mobile'
+  # get '/under_verification' => 'home#under_verification'
+  # get '/frozen_page' => 'home#frozen_page'
+  # 
+  # get '/refresh_sugg' => 'home#refresh_sugg'
+  # get '/refresh_sugg_ex' => 'home#refresh_sugg_ex'
+  # 
+  # get '/bugtrack'=>'application#bugtrack'
+  # get '/agreement'=>'home#agreement'
+  # get "/traverse/index",as:'traverse'
+  # post "/traverse/index",as:'traverse'
+  # get "/traverse/asks_from",as:'asks_from'
+  # get '/home/agreement'
+  # 
+  # get '/nb/*file' =>'application#nb'
+  # get "/home/index",:as => 'for_help'
+  # get '/root'=>'home#index'
+  # post '/topics_follow' => 'topics#fol'
+  # post '/topics_unfollow'=>'topics#unfol'
+  # get '/zero_asks' => 'asks#index',:as => 'zero_asks'
+  # 
+  # scope 'mobile',:as=>'mobile' do
+  #   controller "mobile" do
+  #     get 'noticepage'
+  #     get 'login'
+  #     get 'register'
+  #     get 'search'
+  #     get 'notifications'
+  #   end
+  # end
   
-  resources :asks do
-    member do
-      get "spam"
-      get "follow"
-      get "unfollow"
-      get "mute"
-      get "unmute"
-      post "answer"
-      post "update_topic"
-      get "update_topic"
-      get "redirect"
-      get "invite_to_answer"
-      get "share"
-      post "share"
-    end
-  end
-  resources :answers do
-    member do
-      get "vote"
-      get "spam"
-      get "thank"
-    end
-  end
-  resources :comments
+  
+=begin
+  match "/uploads/*path" => "gridfs#serve"
+=end
+  # match "/update_in_place" => "home#update_in_place"
+  # #match "/muted" => "home#muted"
+  # match "/newbie" => "home#newbie",:as => :newbie
+  # match "/followed" => "home#followed"
+  # match "/recommended" => "home#recommended"
+  # match "/mark_all_notifies_as_read" => "home#mark_all_notifies_as_read"
+  # match "/mark_notifies_as_read" => "home#mark_notifies_as_read"
+  # 
+  # match "/mute_suggest_item" => "home#mute_suggest_item"
+  # match "/report" => "home#report"
+  # #match "/about" => "home#about"
+  # match "/doing" => "logs#index"
+  
+  # resources :asks do
+  #   member do
+  #     get "spam"
+  #     get "follow"
+  #     get "unfollow"
+  #     get "mute"
+  #     get "unmute"
+  #     post "answer"
+  #     post "update_topic"
+  #     get "update_topic"
+  #     get "redirect"
+  #     get "invite_to_answer"
+  #     get "share"
+  #     post "share"
+  #   end
+  # end
+  # resources :answers do
+  #   member do
+  #     get "vote"
+  #     get "spam"
+  #     get "thank"
+  #   end
+  # end
   
   resources :topics do #, :constraints => { :id => /[a-zA-Z\w\s\.%\-_]+/ }
     collection do
