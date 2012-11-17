@@ -330,24 +330,24 @@ Sub::Application.routes.draw do
   #   end
   # end
   
-  resources :topics do #, :constraints => { :id => /[a-zA-Z\w\s\.%\-_]+/ }
-    collection do
-      get 'hot'
-    end
-    member do
-      get "follow"
-      get "unfollow"
-      post 'update_fathers'
-      post 'update_title'
-    end
-  end
-  resources :logs do
-    collection do
-      get 'all'
-    end
-  end
-  resources :inbox
-  
+  # resources :topics do #, :constraints => { :id => /[a-zA-Z\w\s\.%\-_]+/ }
+  #   collection do
+  #     get 'hot'
+  #   end
+  #   member do
+  #     get "follow"
+  #     get "unfollow"
+  #     post 'update_fathers'
+  #     post 'update_title'
+  #   end
+  # end
+  # resources :logs do
+  #   collection do
+  #     get 'all'
+  #   end
+  # end
+  # resources :inbox
+  # 
   namespace :cpanel do
     get "/flagrecords" => 'flag_record#index'
     post '/toggle' => 'asks#toggle'

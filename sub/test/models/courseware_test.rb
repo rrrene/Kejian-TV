@@ -134,22 +134,86 @@ describe Courseware do
     refute @courseware_user2.thanked_user_ids.include?(@user1.id),'撤销喜欢，课件不记录记录了喜欢者'
     refute @courseware_user2.disliked_user_ids.include?(@user1.id),'不喜欢者里不再包含这个人'
   end
-  it "当一个课件添加到一个课程的时候，这个课程的课件总计数应该做出相应改变" do
+  it "当一个课件的所属课程发生了改变，新旧课程的课件总计数，以及新旧课程所属学院的课件总计数，都应该做出相应改变" do
     c = Courseware.new
-    cc = Course.first
+    cc = Course.nondeleted.where(:department_fid.ne=>nil).first
+    dpt = cc.department_ins
     c.course_fid = cc.fid
+    cc_coursewares_count = cc.coursewares_count
+    dpt_coursewares_count = dpt.coursewares_count
+    c.save(:validate=>false)
+    cc.reload
+    dpt.reload
+    assert cc.coursewares_count == cc_coursewares_count + 1,"当一个课件的所属课程发生了改变，这个课程的课件总计数应+1"
+    assert dpt.coursewares_count == dpt_coursewares_count + 1,"当一个课件的所属课程发生了改变，这个课程所属学院的课件总计数应+1"
+    # -------------------------
+    ccc = Course.nondeleted.where(:id.ne=>cc.id).first
+    dpt2 = cc.department_ins
+    c.course_fid = ccc.fid
+    ccc_coursewares_count =ccc.coursewares_count
+    dpt2_coursewares_count = dpt2.coursewares_count
+    c.save(:validate=>false)
+    ccc.reload
+    cc.reload
+    dpt2.reload
+    assert cc.coursewares_count == cc_coursewares_count,"当一个课件的所属课程发生了改变，那么原来老的课程的课件总计数恢复"
+    assert ccc.coursewares_count == ccc_coursewares_count +1,"当一个课件的所属课程发生了改变，新的课程的课件计数+1"
+    assert dpt.coursewares_count == dpt_coursewares_count,"当一个课件的所属课程发生了改变，原来老的课程所属学院的课件总计数恢复"
+    assert dpt2.coursewares_count == dpt2_coursewares_count + 1,"当一个课件的所属课程发生了改变，新的课程所属学院的课件总计数应+1"
+  end
+  it "当一个课件的填了不存在的老师姓名，保存后这个老师就存在了" do
+    name = "FUCK#{Time.now.to_i}"
+    assert Teacher.where(name:name).first.nil?,'为了测试，这个名字必须不能存在'
+    c = Courseware.new
+    c.teachers = [name]
+    c.save(:validate=>false)
+    refute Teacher.where(name:name).first.nil?,'保存后这个老师就存在了'
+  end
+  it "当一个课件的所属老师发生了改变，这个老师的课件总计数应该做出相应改变" do
+    c = Courseware.new
+    cc = Teacher.nondeleted.first
+    c.teachers = [cc.name]
     cc_coursewares_count = cc.coursewares_count
     c.save(:validate=>false)
     cc.reload
-    assert cc.coursewares_count == cc_coursewares_count + 1,"当一个课件添加到一个课程的时候，这个课程的课件总计数应+1"
-    ccc = Course.where(:fid.ne=>cc.fid).first
-    c.course_fid = ccc.fid
+    assert cc.coursewares_count == cc_coursewares_count + 1,"当一个课件添加到一个老师的时候，这个老师的课件总计数应+1"
+    ccc = Teacher.nondeleted.where(:id.ne=>cc.id).first
+    c.teachers = [ccc.name]
     ccc_coursewares_count =ccc.coursewares_count
     c.save(:validate=>false)
     ccc.reload
     cc.reload
-    assert cc.coursewares_count == cc_coursewares_count,"课件的课程被修改了，那么原来老的课程的课件总计数恢复"
-    assert ccc.coursewares_count == ccc_coursewares_count +1,"课件的课程被修改了，新的课程的课件计数+1"
+    assert cc.coursewares_count == cc_coursewares_count,"课件的老师被修改了，那么原来老的老师的课件总计数恢复"
+    assert ccc.coursewares_count == ccc_coursewares_count +1,"课件的老师被修改了，新的老师的课件计数+1"
   end
-
+  it "当一个课件的上传人发生了改变，这个上传人的课件总计数应该做出相应改变" do
+    c = Courseware.new
+    cc = User.nondeleted.first
+    c.uploader_id = cc.id
+    cc_coursewares_uploaded_count = cc.coursewares_uploaded_count
+    c.save(:validate=>false)
+    cc.reload
+    assert cc.coursewares_uploaded_count == cc_coursewares_uploaded_count + 1,"当一个课件添加到一个上传人的时候，这个上传人的课件总计数应+1"
+    # -----------------------
+    cc2 = User.nondeleted.where(:id.ne=>cc.id).first
+    cc2_coursewares_uploaded_count = cc2.coursewares_uploaded_count
+    c.uploader_id_candidates = [cc2.id]
+    c.save(:validate=>false)
+    cc2.reload
+    assert cc2.coursewares_uploaded_count == cc2_coursewares_uploaded_count + 1,"当一个课件添加到一个上传人的时候，这个上传人的课件总计数应+1，即便上传了别人已经上传过的课件"
+    c.uploader_id_candidates = []
+    c.save(:validate=>false)
+    cc2.reload
+    assert cc2.coursewares_uploaded_count == cc2_coursewares_uploaded_count,"课件总计数可以恢复，即便上传了别人已经上传过的课件"
+    # -----------------------
+    ccc = User.nondeleted.where(:id.nin=>[cc.id,cc2.id]).first
+    c.uploader_id = ccc.id
+    ccc_coursewares_uploaded_count =ccc.coursewares_uploaded_count
+    c.save(:validate=>false)
+    ccc.reload
+    cc.reload
+    assert cc.coursewares_uploaded_count == cc_coursewares_uploaded_count,"课件的上传人被修改了，那么原来老的上传人的课件总计数恢复"
+    assert ccc.coursewares_uploaded_count == ccc_coursewares_uploaded_count +1,"课件的上传人被修改了，新的上传人的课件计数+1"
+  end
+  
 end

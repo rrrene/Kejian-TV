@@ -96,6 +96,7 @@ class ApplicationController < ActionController::Base
       psvr_response_anyway: true
     }
     h_xookie[:data] = {:psvr_payloads => @psvr_payloads.to_json} if @psvr_payloads.present?
+    
     res_xookie = Ktv::JQuery.ajax(h_xookie)
     res_xookie.cookies.each do |key,value|
       if !@dz_cookiepre_mid and key =~ /#{Setting.dz_cookiepre}([^_]+)_/
@@ -112,6 +113,7 @@ class ApplicationController < ActionController::Base
       p @_G['uid']
       p (current_user ? current_user.uid : 0)
       sign_out;sign_out_others
+
       return false
     end
   end

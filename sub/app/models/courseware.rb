@@ -318,7 +318,10 @@ class Courseware
   field :downloads_count, :type => Integer, :default => 0
   field :version, :type => Integer, :default => 0
   field :version_date, :type => Hash, :default => {}
+  # 这个是给版本用的
   field :uploader_ids, :type => Hash, :default => {}
+  # 这个是给重复上传用的
+  field :uploader_id_candidates, :type => Hash, :default => []
   field :md5hash, :type => Hash, :default => {}
   field :md5s, :type => Array, :default => []
   field :created_ats, :type => Hash, :default => {}

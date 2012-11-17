@@ -14,7 +14,8 @@ class Course
   end
   field :department
   def department_ins
-    Department.where(:name=>self.department).first
+    @department = nil if self.department_fid_changed?
+    @department ||= Department.where(:name=>self.department).first
   end
   field :ctype
   field :number
