@@ -82,7 +82,7 @@ class Comment
       self.user.inc(:comments_count,1)
     end
   end
-  after_create :create_log
+  # after_create :create_log
   
   def create_log
     log = CommentLog.new

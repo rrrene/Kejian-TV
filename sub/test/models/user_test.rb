@@ -4,6 +4,18 @@ describe User do
   before do
     @user1 = User.find('506d5558e1382375f30000dc')
     @user2 = User.find('506d559ee1382375f3000163')
+    @user1.following_count = 0
+    @user2.following_count = 0
+    @user1.follower_count = 0
+    @user2.follower_count = 0
+    @user1.follower_ids = 0
+    @user2.follower_ids = 0
+    @user1.following_ids = 0
+    @user2.following_ids = 0
+    @user1.save(:validate=>false)
+    @user2.save(:validate=>false)
+    @user1.reload
+    @user2.reload
   end
   it "followers_n_following" do
     u1_followers_count_before = @user1.followers_count

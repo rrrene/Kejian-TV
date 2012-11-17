@@ -30,7 +30,6 @@ class User
     $redis_users.hset(uid,:credits,val)
   end
 
-
   def getauth(provider_name=nil)
     h={uc_uid:self.uid}
     if provider_name.present?
@@ -1301,8 +1300,12 @@ kejians:['课件','num','filter'],comments:['评论','num']
       self.following_count = self.following_ids.count
       self.save(:validate => false)
       user.follower_ids << self.id
+      ## counter
+      user.followers_count = user.follower_ids.count
+      ##
       user.save(:validate => false)
-
+      
+      
       # 清除推荐课程
       # UserSuggestItem.delete(self.id, "User", user.id)
 
@@ -1334,10 +1337,15 @@ kejians:['课件','num','filter'],comments:['评论','num']
   
   def unfollow(user,nolog=false)
     self.following_ids.delete(user.id)
+    ## counter
     self.following_count = self.following_ids.count
+    ##
     self.save(:validate => false)
     
     user.follower_ids.delete(self.id)
+    ## counter
+    user.follower_count = user.follower_ids.count
+    ##
     user.save(:validate => false)
     
     insert_follow_log("UNFOLLOW_USER", user) unless nolog
