@@ -119,6 +119,7 @@ courseware_id: '<%=@courseware.id%>'
    
    <% end %>
 </script>
+<% if false %>
 <div class="__own">
    <div class="wrapper">
       <div id="stickies" style="display:none">
@@ -154,7 +155,7 @@ courseware_id: '<%=@courseware.id%>'
       </div>
    </div>
 </div>
-
+<% end %>
 <script>
   window.parent_gotoSingle = function(){
     if(jQuery('#presentation .main').width()==708){return}

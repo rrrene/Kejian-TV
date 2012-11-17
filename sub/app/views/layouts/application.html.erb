@@ -107,9 +107,9 @@
       </form>
       <div class="navigation">
         <ul>
-<!--
+<% if false %>
           <li class="raise_ask"><a href="<%= new_ask_path %>" class="lh39 pa0" id="core_addtext_wrap">我要提问</a></li>
--->
+<% end %>
 <%if request.path.starts_with?('/coursewares_')%>
           <li class="browse"><a href="/" class="lh39 pa0 core_wraps" id="core_all_wrap">返回首页</a></li>
 <% else %>    
