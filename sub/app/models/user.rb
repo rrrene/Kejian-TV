@@ -1344,7 +1344,7 @@ kejians:['课件','num','filter'],comments:['评论','num']
     
     user.follower_ids.delete(self.id)
     ## counter
-    user.follower_count = user.follower_ids.count
+    user.followers_count = user.follower_ids.count
     ##
     user.save(:validate => false)
     

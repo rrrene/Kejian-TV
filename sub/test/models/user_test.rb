@@ -6,8 +6,8 @@ describe User do
     @user2 = User.find('506d559ee1382375f3000163')
     @user1.following_count = 0
     @user2.following_count = 0
-    @user1.follower_count = 0
-    @user2.follower_count = 0
+    @user1.followers_count = 0
+    @user2.followers_count = 0
     @user1.follower_ids = 0
     @user2.follower_ids = 0
     @user1.following_ids = 0

@@ -215,10 +215,10 @@ gem 'curb'
 
 ## TEST Framework & Integration Framework
 group :development do
-  gem 'rb-inotify', :require => false
-  gem 'rb-fsevent', :require => false
-  gem 'rb-fchange', :require => false
-  gem 'terminal-notifier-guard'
+  gem 'rb-inotify', :require => false if RUBY_PLATFORM =~ /linux/i
+  gem 'rb-fsevent', :require => false if RUBY_PLATFORM =~ /darwin/i
+  gem 'rb-fchange', :require => false if RUBY_PLATFORM =~ /mswin32|mingw/i
+  gem 'terminal-notifier-guard' if RUBY_PLATFORM =~ /darwin/i
 end
 group :test,:development do
   # Framework & Integration Framework
@@ -243,8 +243,6 @@ group :test,:development do
   ## 辅助作用的：simplecov生成报告
   gem 'turn'
   gem 'simplecov', :require => false 
-  gem 'rb-inotify', :require => false if RUBY_PLATFORM =~ /linux/i
-  gem 'rb-fsevent', :require => false if RUBY_PLATFORM =~ /darwin/i
   gem 'spork', '0.9.2'
   gem "spork-minitest", ">= 1.0.0.beta1"
   gem 'guard'
