@@ -1082,9 +1082,9 @@ kejians:['课件','num','filter'],comments:['评论','num']
   def followed_by?(user)
     return false if user.blank?
     if user.respond_to?(:id)
-      self.following_ids.include?(user.id)
+      self.follower_ids.include?(user.id)
     else
-      self.following_ids.include?(user)
+      self.follower_ids.include?(user)
     end
   end
   
@@ -1216,6 +1216,7 @@ kejians:['课件','num','filter'],comments:['评论','num']
     self.followed_department_fids << topicid
     self.save(:validate => false)
     topic.follower_ids << self.id
+    topic.followers_count = topic.follower_ids.count
     topic.save(:validate => false)
 
     # 清除推荐课程
@@ -1274,6 +1275,7 @@ kejians:['课件','num','filter'],comments:['评论','num']
     self.save(:validate => false)
     
     topic.follower_ids.delete(self.id)
+    topic.followers_count = topic.follower_ids.count
     topic.save(:validate => false)
     
     insert_follow_log("UNFOLLOW_DEPARTMENT", topic) if withlog
