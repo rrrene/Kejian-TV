@@ -729,11 +729,18 @@ class Courseware
       @papa = Courseware.find(@cw.father_id)
       @papa.update_attribute(:transcoding_count,@papa.transcoding_count - 1)
       if @papa.transcoding_count <= 0
-        @papa.update_attribute(:status,0)
+        tmp = @papa.get_children
+        if tmp.map{|x| Courseware.find(x)}.map(&:status).take_while{|x| x == 0}.size == tmp.size
+          @papa.update_attribute(:status,0)
+        else
+          @papa.update_attribute(:status,4)
+        end
       end
     end
   end
-  
+  def get_children      # return Array
+    children = self.tree.to_s.scan(/"id"=>"([a-z0-9]{20,})"/).flatten.compact
+  end
   def self.presentations_upload_finished(presentation,user)
     presentation = presentation.with_indifferent_access
 =begin
