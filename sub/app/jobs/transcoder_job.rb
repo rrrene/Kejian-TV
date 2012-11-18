@@ -205,7 +205,7 @@ class TranscoderJob
             `mkdir -p #{working_dir}/father`
             `cp #{working_dir}/#{@courseware.revision}thumb_slide_0.jpg #{working_dir}/father/#{tmp_papa.revision}thumb_slide_#{@courseware.child_rank}.jpg`
             if @courseware.child_rank == 0
-                `cp #{working_dir}/#{@courseware.revision}pin.* #{working_dir}/father/#{tmp_papa.revision}#{tmp_papa.pinpicname}`
+                `cp #{working_dir}/#{@courseware.revision}#{@courseware.pinpicname} #{working_dir}/father/#{tmp_papa.revision}#{tmp_papa.pinpicname}`
                 `#{Rails.root}/bin/ftpupyun_pic "#{working_dir}/father/" "/cw/#{tmp_papa.ktvid}/" "#{tmp_papa.revision}"`
             end
           end
