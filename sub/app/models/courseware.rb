@@ -179,6 +179,7 @@ class Courseware
   field :md5
   field :status
   field :uploader_id
+  field :uploader_id_candidates,:type=>Array,:default=>[]
   def uploader_ins
     User.find(self.uploader_id)
   end
@@ -318,10 +319,7 @@ class Courseware
   field :downloads_count, :type => Integer, :default => 0
   field :version, :type => Integer, :default => 0
   field :version_date, :type => Hash, :default => {}
-  # 这个是给版本用的
   field :uploader_ids, :type => Hash, :default => {}
-  # 这个是给重复上传用的
-  field :uploader_id_candidates, :type => Hash, :default => []
   field :md5hash, :type => Hash, :default => {}
   field :md5s, :type => Array, :default => []
   field :created_ats, :type => Hash, :default => {}
@@ -548,18 +546,54 @@ class Courseware
       end
       self.uploader.inc(:coursewares_uploaded_count,1)
     end
+    if uploader_id_candidates_changed?
+      added = uploader_id_candidates - uploader_id_candidates_was.to_a
+      deleted = uploader_id_candidates_was.to_a - uploader_id_candidates
+      added.each do |u|
+        User.find(u).inc(:coursewares_uploaded_count,1)
+      end
+      deleted.each do |u|
+        User.find(u).inc(:coursewares_uploaded_count,-1)
+      end
+    end
   end  
   before_save :course_work
   def course_work
     if course_fid_changed? 
-      if !new_record?
-        old_course = Course.where(:fid => course_fid_was).first 
+      if !new_record? and !course_fid_was.nil?
+        old_course = Course.where(:fid => course_fid_was).first
       end
       if old_course
+        old_course.department_ins.reload.inc(:coursewares_count,-1)
         old_course.inc(:coursewares_count,-1)
       end
       c = Course.where(:fid => course_fid).first
+      c.department_ins.inc(:coursewares_count,1)
       c.inc(:coursewares_count,1)
+    end
+  end
+  before_save :teachers_work
+  def teachers_work
+    if teachers_changed? && !teachers.blank? && teachers[0] != "教师请求"
+      if teachers_was.blank?
+        added = teachers
+        deleted = []
+      else
+        added = teachers - teachers_was
+        deleted = teachers_was - teachers
+      end
+      if !added.blank?
+        added.each do |a|
+          t = Teacher.find_or_create_by(:name=>a)
+          t.inc(:coursewares_count,1)
+        end
+      end
+      if !deleted.blank?
+        deleted.each do |d|
+          t = Teacher.find_or_create_by(:name=>d)
+          t.inc(:coursewares_count,-1)
+        end
+      end
     end
   end
   def wh_ratio
