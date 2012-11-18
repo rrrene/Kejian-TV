@@ -577,6 +577,9 @@ class Courseware
   end
   before_save :teachers_work
   def teachers_work
+    if status_changed? && status !=0
+      return
+    end
     if teachers_changed? && !teachers.blank? && teachers[0] != "教师请求"
       if teachers_was.blank?
         added = teachers
@@ -597,6 +600,7 @@ class Courseware
           t.inc(:coursewares_count,-1)
         end
       end
+      return true
     end
   end
   def wh_ratio

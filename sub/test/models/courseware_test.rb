@@ -32,6 +32,7 @@ describe Courseware do
     teacher3_coursewares_count_before = t3.coursewares_count
     @courseware = Courseware.new
     @courseware.status=1
+    @courseware.uploader_id = @user1.id
     @courseware.teachers = [t1.name,t2.name,t3.name]
     @courseware.save(:validate=>false)
     t1.reload
