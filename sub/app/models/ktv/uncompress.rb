@@ -12,7 +12,14 @@ module Ktv
         @blacklist = ['git','svn','ds_store','exe','obj','']
         @courseware = Courseware.find(id)
         @courseware.make_sure_globalktvid!
-      
+        if @courseware.tree.present?
+          tmp = @courseware.tree.to_s.scan(/"id"=>"([a-z0-9]{20,})"/).compact.flatten
+          tmp.each do |t|
+            if t.redirect_to_id.present?
+              t.destroy
+            end
+          end
+        end
         @title = @courseware.title
         sort=File.extname(@courseware.pdf_filename).split('.')[-1].to_s.downcase
         @courseware.update_attribute(:pdf_slide_processed,0)
