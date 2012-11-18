@@ -551,10 +551,10 @@ class Courseware
       added = uploader_id_candidates - uploader_id_candidates_was.to_a
       deleted = uploader_id_candidates_was.to_a - uploader_id_candidates
       added.each do |u|
-        User.find(u).inc(:coursewares_uploaded_count,1)
+        # User.find(u).inc(:coursewares_uploaded_count,1)
       end
       deleted.each do |u|
-        User.find(u).inc(:coursewares_uploaded_count,-1)
+        # User.find(u).inc(:coursewares_uploaded_count,-1)
       end
     end
   end  
@@ -713,8 +713,9 @@ class Courseware
     presentation[:pdf_filename]=self.title #chifanqu
     Sidekiq::Client.enqueue(HookerJob,Courseware,nil,presentations_upload_finished,presentation,slug)
   end
-  def get_papa
-    
+  def papa
+    @papa = nil if self.father_id_changed?
+    @papa ||= Courseware.find(self.father_id)
   end
   def self.push_trigger(id)
     # field :tree,:type=>Hash,:default=>{}
