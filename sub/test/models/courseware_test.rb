@@ -5,19 +5,7 @@ describe Courseware do
   before do 
     @user1 = User.find('506d5558e1382375f30000dc')
     @user2 = User.find('506d559ee1382375f3000163')
-    @courseware = Courseware.where(:uploader_id=>@user1.id).nondeleted.normal.is_father.first
-    @courseware.thanked_user_ids = []
-    @courseware.disliked_user_ids = []
-    @user1.thanked_courseware_ids = []
-    @user2.thanked_courseware_ids = []
-
-    @user1.save(:validate=>false)
-    @user2.save(:validate=>false)
-    @courseware.save(:validate=>false)
-
-    @courseware.reload    
-    @user1.reload
-    @user2.reload
+    @courseware = Courseware.where(:uploader_id=>@user1.id).non_redirect.nondeleted.normal.is_father.first
 
   end
   it "转码完毕的课件改变作者，作者的课件计数作出相应变化" do
@@ -56,7 +44,20 @@ describe Courseware do
   \ ( →┃√┃ ← ) / 
 　 \_)↗┗━┛ ↖(_/ 
 " do
-    @courseware_user2 = Courseware.where(:uploader_id=>@user2.id).nondeleted.normal.is_father.first
+    @courseware.thanked_user_ids = []
+    @courseware.disliked_user_ids = []
+    @user1.thanked_courseware_ids = []
+    @user2.thanked_courseware_ids = []
+
+    @user1.save(:validate=>false)
+    @user2.save(:validate=>false)
+    @courseware.save(:validate=>false)
+
+    @courseware.reload    
+    @user1.reload
+    @user2.reload
+
+    @courseware_user2 = Courseware.where(:uploader_id=>@user2.id).non_redirect.nondeleted.normal.is_father.first
     @courseware_user2.thanked_user_ids = []
     @courseware_user2.disliked_user_ids = []
     @courseware_user2.save(:validate=>false)
@@ -152,7 +153,7 @@ describe Courseware do
     assert cc.coursewares_count == cc_coursewares_count + 1,"当一个课件的所属课程发生了改变，这个课程的课件总计数应+1"
     assert dpt.coursewares_count == dpt_coursewares_count + 1,"当一个课件的所属课程发生了改变，这个课程所属学院的课件总计数应+1"
     # -------------------------
-    ccc = Course.nondeleted.where(:id.ne=>cc.id).first
+    ccc = Course.nondeleted.where(:id.ne=>cc.id,:department_fid.nin=>[cc.department_fid,nil]).first
     dpt2 = ccc.department_ins                                       
     c.course_fid = ccc.fid
     ccc_coursewares_count =ccc.coursewares_count
@@ -164,8 +165,8 @@ describe Courseware do
     dpt.reload                                                    ##  need reload,Liber add
     assert cc.coursewares_count == cc_coursewares_count,"当一个课件的所属课程发生了改变，那么原来老的课程的课件总计数恢复"
     assert ccc.coursewares_count == ccc_coursewares_count +1,"当一个课件的所属课程发生了改变，新的课程的课件计数+1"
-    # assert dpt.coursewares_count == dpt_coursewares_count,"当一个课件的所属课程发生了改变，原来老的课程所属学院的课件总计数恢复"   ##逻辑错误，如果课程同属于一个学院呢
-    # assert dpt2.coursewares_count == dpt2_coursewares_count + 1,"当一个课件的所属课程发生了改变，新的课程所属学院的课件总计数应+1"
+    assert dpt.coursewares_count == dpt_coursewares_count,"当一个课件的所属课程发生了改变，原来老的课程所属学院的课件总计数恢复"  
+    assert dpt2.coursewares_count == dpt2_coursewares_count + 1,"当一个课件的所属课程发生了改变，新的课程所属学院的课件总计数应+1"
   end
   it "当一个课件的填了不存在的老师姓名，保存后这个老师就存在了" do
     name = "FUCK#{Time.now.to_i}"
@@ -211,12 +212,7 @@ describe Courseware do
     c.uploader_id_candidates = [cc2.id]
     c.save(:validate=>false)
     cc2.reload
-    assert cc2.coursewares_uploaded_count == cc2_coursewares_uploaded_count + 1,"当一个课件添加到一个上传人的时候，这个上传人的课件总计数应+1，即便上传了别人已经上传过的课件"  
-    ### 不能加，加了所有人都不断上传重复的课件。
-    c.uploader_id_candidates = []
-    c.save(:validate=>false)
-    cc2.reload
-    assert cc2.coursewares_uploaded_count == cc2_coursewares_uploaded_count,"课件总计数可以恢复，即便上传了别人已经上传过的课件"
+    assert cc2.coursewares_uploaded_count == cc2_coursewares_uploaded_count,"当一个课件添加到一个上传人的时候，这个上传人的课件总计数不应该+1"  
     # -----------------------
     ccc = User.nondeleted.where(:id.nin=>[cc.id,cc2.id]).first
     c.uploader_id = ccc.id
@@ -227,5 +223,98 @@ describe Courseware do
     assert cc.coursewares_uploaded_count == cc_coursewares_uploaded_count,"课件的上传人被修改了，那么原来老的上传人的课件总计数恢复"
     assert ccc.coursewares_uploaded_count == ccc_coursewares_uploaded_count +1,"课件的上传人被修改了，新的上传人的课件计数+1"
   end
-  
+  it "一级重定向" do
+    # 与另一人的课件重复
+    cw = Courseware.new
+    cw.uploader_id = @user2.id
+    cw.redirect_to_id = @courseware.id # 注意@courseware属于@user1
+    cw.save(:validate=>false)
+    cw.reload
+    assert 1==cw.uploader_id_candidates.count(@user2.id),'用户被加入候选uploader_id'
+    # 与本人的课件重复
+    cw = Courseware.new
+    cw.uploader_id = @user1.id
+    cw.redirect_to_id = @courseware.id # 注意@courseware属于@user1
+    cw.save(:validate=>false)
+    cw.reload
+    assert 0==cw.uploader_id_candidates.count(@user1.id),'用户与主uploader_id相同则不会被加入候选uploader_id'
+    assert @user1.id==cw.uploader_id,'uploader_id依然是uploader_id'
+    # Courseware创建后的延迟手工判重
+    other_courseware = Courseware.non_redirect.nondeleted.normal.is_father.where(:id.ne=>@courseware.id,:uploader_id.nin=>[@user1.id,@user2.id]).first
+    other_courseware_uploader_id = other_courseware.uploader_id
+    other_courseware.uploader_id_candidates = []
+    @courseware.redirect_to_id = other_courseware.id # 注意@courseware属于@user1
+    @courseware.save(:validate=>false)
+    other_courseware.save(:validate=>false)
+    other_courseware.reload
+    assert 1==other_courseware.uploader_id_candidates.count(@user1.id),'用户被加入候选uploader_id'
+    assert other_courseware_uploader_id == other_courseware.uploader_id,'uploader_id依然是uploader_id'
+    new_cw = Courseware.new
+    new_cw.uploader_id = @user1.id
+    new_cw.redirect_to_id = other_courseware.id # 注意@courseware属于@user1
+    new_cw.save(:validate=>false)
+    other_courseware.reload
+    assert 1==other_courseware.uploader_id_candidates.count(@user1.id),'用户被已经被加入候选uploader_id，不要重复加入'
+    assert other_courseware_uploader_id == other_courseware.uploader_id,'uploader_id依然是uploader_id'
+    @courseware.redirect_to_id = nil
+    @courseware.save(:validate=>false)
+    other_courseware.save(:validate=>false)
+    other_courseware.reload
+    assert 1==other_courseware.uploader_id_candidates.count(@user1.id),'用户不能被清除于候选uploader_id，因为还有一个课件指向它'
+    assert other_courseware_uploader_id == other_courseware.uploader_id,'uploader_id依然是uploader_id'
+    new_cw.uploader_id = @user2.id
+    new_cw.save(:validate=>false)
+    other_courseware.reload
+    assert 0==other_courseware.uploader_id_candidates.count(@user1.id),'用户被清除于候选uploader_id，因为没有任何课件指向它了'
+    assert 1==other_courseware.uploader_id_candidates.count(@user2.id),'当已经设置了redirect_to_id的时候修改uploader_id，需要设置新的uploader_id_candidates'
+    assert other_courseware_uploader_id == other_courseware.uploader_id,'uploader_id依然是uploader_id'
+    # 已转向的情况下再转向
+    new_cw2 = Courseware.new
+    new_cw2.uploader_id = @user1.id
+    new_cw2.save(:validate=>false)
+    new_cw.redirect_to_id = new_cw2.id # 注意@courseware属于@user1
+    new_cw.save(:validate=>false)
+    other_courseware.reload
+    assert other_courseware.uploader_id_candidates.empty?,'没有任何课件指向other_courseware了'
+    assert other_courseware_uploader_id == other_courseware.uploader_id,'uploader_id依然是uploader_id'    
+    new_cw2.reload
+    assert [@user2.id] == new_cw2.uploader_id_candidates,'需要清除以前的uploader_id_candidates'
+    assert new_cw2.uploader_id == @user1.id,'uploader_id依然是uploader_id'    
+  end
+  it "多级重定向消除为一级重定向" do
+    cw1 = Courseware.new;cw1.uploader_id = @user1.id;
+    cw2 = Courseware.new;cw2.uploader_id = @user2.id;
+    cw3 = Courseware.new;u3=User.new;u3.save(:validate=>false);cw3.uploader_id = u3.id;
+    cw4 = Courseware.new;u4=User.new;u4.save(:validate=>false);cw4.uploader_id = u4.id;
+    cw1.redirect_to_id = @courseware.id
+    cw2.redirect_to_id = cw1.id
+    cw3.redirect_to_id = cw2.id
+    cw4.redirect_to_id = cw2.id
+    cw1.save(:validate=>false)
+    cw2.save(:validate=>false)
+    cw3.save(:validate=>false)
+    cw4.save(:validate=>false)
+    cw1.reload
+    cw2.reload
+    cw3.reload
+    cw4.reload
+    @courseware.reload
+    assert cw1.redirect_to_id == @courseware.id,'连环重定向需传递闭包'
+    assert cw2.redirect_to_id == @courseware.id,'连环重定向需传递闭包'
+    assert cw3.redirect_to_id == @courseware.id,'连环重定向需传递闭包'
+    assert cw4.redirect_to_id == @courseware.id,'连环重定向需传递闭包'
+    assert 1==@courseware.uploader_id_candidates.count(@user1.id),'连环重定向需传递闭包'
+    assert 1==@courseware.uploader_id_candidates.count(@user2.id),'连环重定向需传递闭包'
+    assert 1==@courseware.uploader_id_candidates.count(u3.id),'连环重定向需传递闭包'
+    assert 1==@courseware.uploader_id_candidates.count(u4.id),'连环重定向需传递闭包'
+    # ---
+    @courseware.redirect_to_id = cw2.id
+    @courseware.save(:validate=>false)
+    assert @courseware.redirect_to_id.nil?,'发现重定向环时应改设此定向关系为nil'
+  end
+  it "软删除逻辑" do
+    # todo:删除课件时，判断candidates
+  end
+  it "硬删除逻辑" do
+  end
 end

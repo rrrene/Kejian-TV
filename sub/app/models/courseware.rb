@@ -72,6 +72,7 @@ class Courseware
   }
   
   scope :normal, where(:status => 0)
+  scope :non_redirect,where(:redirect_to_id => nil)
   scope :is_father,where(:is_children.ne=>true)
   scope :is_child,where(:is_children=>true)
   scope :abnormal, where(:status.lt => 0)
