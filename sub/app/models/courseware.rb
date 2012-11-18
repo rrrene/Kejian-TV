@@ -7,6 +7,9 @@ class Courseware
   # sort by this
   field :score,:type=>Integer,:default=>0  
   @before_soft_delete = proc{
+    p "#{self.id} before_soft_delete todo"
+  }
+  @after_soft_delete = proc{
     redis_search_index_destroy
   }
   FILE_INFO_TRANS = {
@@ -124,7 +127,6 @@ class Courseware
       u.inc(:thank_coursewares_count,-1)
       thanked = true
     end
-    #redirect id ....... big bugs
     self.user.inc(:thank_coursewares_count,-1) if thanked
     self.topic_inst.redis_search_index_create
   end

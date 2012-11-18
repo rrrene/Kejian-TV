@@ -6,6 +6,7 @@ class Course
   include BaseModel
   field :department_fid
   def calculate_department_fid
+    # 一般不需要调用
     self.department_fid=self.department_ins.fid
   end
   def asynchronously_clean_me

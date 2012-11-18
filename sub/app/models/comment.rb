@@ -5,6 +5,15 @@ class Comment
   
   include BaseModel
   def self.real_create(params,current_user)
+# params is like
+# {"utf8"=>"✓",
+#  "authenticity_token"=>"/cc04uIQtllZhTCOXvDS/qT5cZRph+sUTN2/lQBkRRM=",
+#  "comment"=>
+#   {"commentable_type"=>"Courseware",
+#    "commentable_id"=>"50a116a6e138239259000007",
+#    "body"=>"fadsdfsa"},
+#  "action"=>"create",
+#  "controller"=>"comments"}
     comment = Comment.new
     comment.body = params[:comment]['body']
     comment.commentable_id = params[:comment]['commentable_id']

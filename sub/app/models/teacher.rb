@@ -15,7 +15,11 @@ class Teacher
   field :coursewares_count,:type=>Integer,:default=>0
   field :followers_count, :type => Integer, :default => 0
   field :department_fid
+  def self.locate(name)
+    Teacher.find_or_create_by(name:name)
+  end
   def calculate_department_fid
+    # 一般不需要调用
     raw_res = self.coursewares.collect(&:department_fid)
     res = raw_res.uniq.collect{|fid|
       [fid,raw_res.count(fid)]

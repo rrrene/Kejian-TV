@@ -41,7 +41,7 @@ class PlayList
   validates :title,:presence =>true
   field :title_en
   field :coursewares_count
-  field :views_count
+  field :views_count,:type=>Integer,:default=>0
   field :ibeike_course_id
   field :sort1
 
@@ -64,6 +64,7 @@ class PlayList
   field :playlist_enable_grid_view,:type=>Boolean,:default => false
   field :disliked_user_ids, :type => Array, :default => []
   field :liked_user_ids, :type => Array, :default => []
+
   
   # index :content
   scope :series_by_cw, proc{|cw_id|CoursewareSeries.where(:content=>cw_id)}
@@ -100,7 +101,7 @@ class PlayList
   end
   
   def self.locate(user_id,title)
-    self.where(user_id:user_id,title:title).first
+    self.find_or_create_by(user_id:user_id,title:title)
   end
   def self.create_defaults_for_all_users
     User.all.each do |u|
@@ -227,7 +228,6 @@ class PlayList
       return true if pl.content.include?(Courseware.find(cwid).id)
       return false
   end
-  
   def add_one_thing(thing,ding=false)
     return false if !Moped::BSON::ObjectId.legal?(thing.to_s)
     cw = Courseware.find(thing)
@@ -248,6 +248,9 @@ class PlayList
   end
 
   before_save :thumb_ktvids_op
+  def set_status
+    #todo
+  end
   def thumb_ktvids_op
     if self.undestroyable == true
         if self.title_changed? or self.desc_changed? or self.privacy_changed? or self.is_history_changed? or self.user_id_changed?

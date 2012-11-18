@@ -93,14 +93,16 @@ end
   
   
 def soft_delete(async=false)
-  self.instance_eval(&self.class.before_soft_delete) unless self.class.before_soft_delete.nil?
-  self.update_attribute(:deleted,1)
-  self.instance_eval(&self.class.after_soft_delete) unless self.class.after_soft_delete.nil?
-  if self.respond_to?(:asynchronously_clean_me)
-    if async
-      Sidekiq::Client.enqueue(HookerJob,self.class.to_s,self.id,:asynchronously_clean_me)
-    else
-      self.asynchronously_clean_me
+  ret = self.instance_eval(&self.class.before_soft_delete) unless self.class.before_soft_delete.nil?
+  unless false==ret
+    self.update_attribute(:deleted,1)
+    self.instance_eval(&self.class.after_soft_delete) unless self.class.after_soft_delete.nil?
+    if self.respond_to?(:asynchronously_clean_me)
+      if async
+        Sidekiq::Client.enqueue(HookerJob,self.class.to_s,self.id,:asynchronously_clean_me)
+      else
+        self.asynchronously_clean_me
+      end
     end
   end
 end
