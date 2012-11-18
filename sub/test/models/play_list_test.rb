@@ -23,36 +23,52 @@ describe PlayList do
     assert play_list.content.index(cw1.id) < play_list.content.index(cw2.id),'成功放入课件，先来后到'
     assert 0==play_list.content.index(cw3.id),'成功在头部放入课件'
   end
-  it "播放列表的状态正常 当且仅当 它所包含的所有课件状态正常" do
-    user_n = User.new
-    user_n.save(:validate=>false)
-    cw1 = Courseware.new
-    cw1.status=1
-    cw1.uploader_id = user_n.id
-    cw1.save(:validate=>false)
-    cw2 = Courseware.new
-    cw2.uploader_id = user_n.id
-    cw2.status=2
-    cw2.save(:validate=>false)
-    cw3 = Courseware.new
-    cw3.uploader_id = user_n.id
-    cw3.status=0
-    cw3.save(:validate=>false)
+  it "播放列表放入物品之时，要计算总的status" do
+    ss = Courseware.non_redirect.nondeleted.normal.is_father
+    cw1=ss[0]
+    cw2=ss[1]
     play_list = PlayList.locate(@user1.id,"PL#{Time.now.to_i}#{rand}")
     play_list.add_one_thing(cw1.id)
+    play_list.reload
+    refute 0==play_list.status,'只有一个课件=>不正常'
     play_list.add_one_thing(cw2.id)
-    play_list.add_one_thing(cw3.id)
-    play_list.set_status
     play_list.reload
-    refute 0==play_list.status,'cw1和cw2未达到正常状态，所以在执行了set_status之后play_list也不正常'
-    cw1.status=0
-    cw1.save(:validate=>false)
-    cw2.status=0
-    cw2.save(:validate=>false)
-    play_list.set_status
+    assert 0==play_list.status,'两个正常课件=>正常'
+    cw3 = Courseware.new
+    cw1.ktvid = nil
+    cw3.uploader_id = @user1.id
+    cw3.status=0
+    cw3.save(:validate=>false)
+    play_list.add_one_thing(cw3.id)    
     play_list.reload
-    assert 0==play_list.status,'cw1和cw2达到了正常状态，所以在执行了set_status之后play_list也正常了'    
+    refute 0==play_list.status,'放入了没有ktvid的课件=>不正常'
+    play_list.content.delete(cw3.id)
+    play_list.save(:validate=>false)
+    play_list.reload
+    assert 0==play_list.status,'取出了没有ktvid的课件=>正常'
+    cw4 = Courseware.new
+    cw4.ktvid = '5058960ce13823076c00002e'
+    cw4.uploader_id = @user1.id
+    cw4.status=-1
+    cw4.save(:validate=>false)
+    play_list.add_one_thing(cw4.id)    
+    play_list.reload
+    refute 0==play_list.status,'放入了status不正常的课件=>不正常'    
   end
+
+  it "播放列表放入物品之时，要计算更新播放列表的总页数" do
+    ss=Courseware.where(:slides_count.gt=>0)
+    cw1=ss[0]
+    cw2=ss[1]
+    play_list = PlayList.locate(@user1.id,"PL#{Time.now.to_i}#{rand}")
+    play_list.add_one_thing(cw1.id)
+    play_list.reload
+    assert cw1.slides_count==play_list.content_total_pages,'计算content_total_pages'
+    play_list.add_one_thing(cw2.id)
+    play_list.reload
+    assert cw1.slides_count+cw2.slides_count==play_list.content_total_pages,'计算content_total_pages'
+  end
+
   it "播放列表的course_fids的计算" do
     cw1 = Courseware.first
     cw2 = Courseware.where(:course_fid.ne=>cw1.course_fid).first

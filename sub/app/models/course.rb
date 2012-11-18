@@ -27,6 +27,7 @@ class Course
   field :coursewares_count,:type=>Integer,:default=>0
   field :play_lists_count,:type=>Integer,:default=>0
   def teaching_affairs
+    # 一般不调用
     self.teachers = self.teachings.collect do |x|
       x.teacher
     end.uniq.compact

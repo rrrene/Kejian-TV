@@ -7,7 +7,7 @@ describe Courseware do
     @user2 = User.find('506d559ee1382375f3000163')
   end
   it "转码完毕的课件改变作者，作者的课件计数作出相应变化" do
-    @courseware = Courseware.where(:uploader_id=>@user1.id).non_redirect.nondeleted.normal.is_father.first
+    @courseware = Courseware.non_redirect.nondeleted.normal.is_father.where(:uploader_id=>@user1.id).first
     user1_coursewares_uploaded_count_before = @user1.coursewares_uploaded_count
     user2_coursewares_uploaded_count_before = @user2.coursewares_uploaded_count
     @courseware.uploader_id = @user2.id
@@ -366,6 +366,24 @@ describe Courseware do
     @courseware.save(:validate=>false)
     assert @courseware.redirect_to_id.nil?,'发现重定向环时应改设此定向关系为nil'
   end
+  it '课件的slides_count发生改变的时候，需要通知引用它的播放列表更新总页数' do
+    cw1 = Courseware.new;cw1.save(:validate=>false)
+    cw2 = Courseware.new;cw2.save(:validate=>false)
+    user_n = User.new
+    user_n.save(:validate=>false)
+    play_list = PlayList.locate(@user1.id,"PL#{Time.now.to_i}#{rand}")
+    play_list.add_one_thing(cw1.id)
+    play_list.add_one_thing(cw2.id)
+    play_list.reload
+    assert 0==play_list.content_total_pages,'课件没有页，播放列表总页数为0'
+    cw1.update_attribute(:slides_count,101)
+    play_list.reload
+    assert 101==play_list.content_total_pages,'增长了101页'
+    cw2.update_attribute(:slides_count,101)
+    play_list.reload
+    assert 101*2==play_list.content_total_pages,'又增长了101页'
+  end
+
   it "压缩包" do
     # todo
   end
@@ -375,6 +393,7 @@ describe Courseware do
   it "搜索" do
     # todo
   end
+
   it "软删除之前判断是否有上传人候选，是真要删还是假要删？ -- Courseware.before_soft_delete" do
     user_n = User.new
     user_n.save(:validate=>false)
@@ -441,7 +460,7 @@ describe Courseware do
     user_n = User.new
     user_n.save(:validate=>false)
     pl1 = PlayList.locate(@user1.id,"PL#{Time.now.to_i}#{rand}")
-    pl2 = PlayList.locate(user_n.id,"PL#{Time.now.to_i}#{rand}")
+    pl2 = PlayList.locate(user_n.id,"收藏")
     cw_kid1 = Courseware.new;cw_kid1.is_children=true;cw_kid1.save(:validate=>false)
     cw_kid2 = Courseware.new;cw_kid2.is_children=true;cw_kid2.save(:validate=>false)
     cw_kid3 = Courseware.new;cw_kid3.is_children=true;cw_kid3.save(:validate=>false)

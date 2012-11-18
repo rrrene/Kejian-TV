@@ -3,7 +3,7 @@ require "test_helper"
 
 describe CoursewaresController do
   before do
-    @cw=Courseware.nondeleted.normal.is_father.first
+    @cw=Courseware.non_redirect.nondeleted.normal.is_father.first
     @user=User.nondeleted.first    
   end
   it "smokes" do
