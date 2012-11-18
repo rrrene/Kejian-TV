@@ -207,7 +207,7 @@ module Ktv
       p[:subsite] = opts[:subsite]
       p[:id] = nil
       # p[:tid]= @courseware.tid
-      user = User.find(@courseware.user_id)
+      user = @courseware.uploader
       Courseware.presentations_upload_finished(p,user)
     end
 

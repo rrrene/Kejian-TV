@@ -713,6 +713,9 @@ class Courseware
     presentation[:pdf_filename]=self.title #chifanqu
     Sidekiq::Client.enqueue(HookerJob,Courseware,nil,presentations_upload_finished,presentation,slug)
   end
+  def get_papa
+    
+  end
   def self.push_trigger(id)
     # field :tree,:type=>Hash,:default=>{}
     # field :father_id

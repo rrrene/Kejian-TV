@@ -206,11 +206,18 @@ class TranscoderJob
             `cp #{working_dir}/#{@courseware.revision}thumb_slide_0.jpg #{working_dir}/father/#{tmp_papa.revision}thumb_slide_#{@courseware.child_rank}.jpg`
             if @courseware.child_rank == 0
                 `cp #{working_dir}/#{@courseware.revision}pin.* #{working_dir}/father/#{tmp_papa.revision}#{tmp_papa.pinpicname}`
+                `#{Rails.root}/bin/ftpupyun_pic "#{working_dir}/father/" "/cw/#{tmp_papa.ktvid}/" "#{tmp_papa.revision}"`
             end
-            puts `#{Rails.root}/bin/ftpupyun_pic "#{working_dir}/father/" "/cw/#{tmp_papa.ktvid}/" "#{tmp_papa.revision}"`
           end
           @courseware.check_upyun
-          break if @courseware.check_upyun_result
+          if @courseware.is_children and @courseware.child_rank == 0
+             @courseware.papa.check_upyun
+            if @courseware.check_upyun_result and  @courseware.papa.check_upyun_result
+              break
+            end
+          else
+            break if @courseware.check_upyun_result
+          end
           if really_broken > 10
             @courseware.update_attribute(:really_broken,true)
             break
