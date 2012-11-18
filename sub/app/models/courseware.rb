@@ -74,7 +74,7 @@ class Courseware
     :win_error=>'您的文件含密码或为只读'
   }
   
-  scope :normal, where(:status => 0)
+  scope :normal, where(:status => 0, :ktvid.ne=>nil)
   scope :non_redirect,where(:redirect_to_id => nil)
   scope :is_father,where(:is_children.ne=>true)
   scope :is_child,where(:is_children=>true)

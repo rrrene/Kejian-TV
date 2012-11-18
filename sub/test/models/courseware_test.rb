@@ -7,7 +7,7 @@ describe Courseware do
     @user2 = User.find('506d559ee1382375f3000163')
   end
   it "转码完毕的课件改变作者，作者的课件计数作出相应变化" do
-    @courseware = Courseware.non_redirect.nondeleted.normal.is_father.where(:uploader_id=>@user1.id).first
+    @courseware = Courseware.where(:uploader_id=>@user1.id).non_redirect.nondeleted.normal.is_father.first
     user1_coursewares_uploaded_count_before = @user1.coursewares_uploaded_count
     user2_coursewares_uploaded_count_before = @user2.coursewares_uploaded_count
     @courseware.uploader_id = @user2.id
@@ -383,7 +383,36 @@ describe Courseware do
     play_list.reload
     assert 101*2==play_list.content_total_pages,'又增长了101页'
   end
-
+  it "课件状态转为正常之时，需要通知引用它的播放列表更新状态" do
+    user_n = User.new
+    user_n.save(:validate=>false)
+    cw1 = Courseware.new
+    cw1.status=1
+    cw1.ktvid = '5058960ce13823076c00002e'
+    cw1.uploader_id = user_n.id
+    cw1.save(:validate=>false)
+    cw2 = Courseware.new
+    cw2.uploader_id = user_n.id
+    cw2.ktvid = '5058960ce13823076c00002e'
+    cw2.status=2
+    cw2.save(:validate=>false)
+    cw3 = Courseware.new
+    cw3.ktvid = nil
+    cw3.uploader_id = user_n.id
+    cw3.status=0
+    cw3.save(:validate=>false)
+    play_list = PlayList.locate(@user1.id,"PL#{Time.now.to_i}#{rand}")
+    play_list.add_one_thing(cw1.id)
+    play_list.add_one_thing(cw2.id)
+    play_list.add_one_thing(cw3.id)
+    cw1.update_attribute(:status,0)
+    play_list.reload
+    refute 0==play_list.status,'cw2和cw3未达到正常状态，所以play_list也不正常'
+    cw2.update_attribute(:status,0)
+    cw3.update_attribute(:ktvid,'5058960ce13823076c00002e')
+    play_list.reload
+    assert 0==play_list.status,'cw1和cw2达到了正常状态，课件改变状态应通知引用它的播放列表，之后play_list也被通知为正常了'    
+  end
   it "压缩包" do
     # todo
   end
@@ -393,7 +422,6 @@ describe Courseware do
   it "搜索" do
     # todo
   end
-
   it "软删除之前判断是否有上传人候选，是真要删还是假要删？ -- Courseware.before_soft_delete" do
     user_n = User.new
     user_n.save(:validate=>false)
@@ -460,7 +488,7 @@ describe Courseware do
     user_n = User.new
     user_n.save(:validate=>false)
     pl1 = PlayList.locate(@user1.id,"PL#{Time.now.to_i}#{rand}")
-    pl2 = PlayList.locate(user_n.id,"收藏")
+    pl2 = PlayList.locate(user_n.id,"PL#{Time.now.to_i}#{rand}")
     cw_kid1 = Courseware.new;cw_kid1.is_children=true;cw_kid1.save(:validate=>false)
     cw_kid2 = Courseware.new;cw_kid2.is_children=true;cw_kid2.save(:validate=>false)
     cw_kid3 = Courseware.new;cw_kid3.is_children=true;cw_kid3.save(:validate=>false)
