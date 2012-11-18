@@ -4,6 +4,9 @@ class Course
   include Mongoid::Timestamps
   include Redis::Search
   include BaseModel
+  @before_soft_delete = proc{
+    p "#{self.id} before_soft_delete todo"
+  }
   field :department_fid
   def calculate_department_fid
     # 一般不需要调用

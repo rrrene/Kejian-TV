@@ -69,16 +69,58 @@ describe PlayList do
     assert cw1.slides_count+cw2.slides_count==play_list.content_total_pages,'计算content_total_pages'
   end
 
-  it "播放列表的course_fids的计算" do
+  it "播放列表的course_fids的计算及多种播放列表计数变化" do
     cw1 = Courseware.first
-    cw2 = Courseware.where(:course_fid.ne=>cw1.course_fid).first
+    c1 = cw1.course_ins
+    dp1 = cw1.department_ins
+    cw2 = Courseware.where(:department_fid.ne=>cw1.department_fid).first
+    c2 = cw2.course_ins
+    dp2 = cw2.department_ins
+    d1 = dp1.play_lists_count
+    d2 = dp2.play_lists_count
+    d3 = c1.play_lists_count
+    d4 = c1.play_lists_count
     play_list = PlayList.locate(@user1.id,"PL#{Time.now.to_i}#{rand}")
+
     play_list.add_one_thing(cw1.id)
+    dp1.reload
+    dp2.reload
+    c1.reload
+    c2.reload
+    play_list.reload
     assert 1==play_list.course_fids.count(cw1.course_fid),'加一个课件有一个课件的课程fid'
+    assert 0==play_list.course_fids.count(cw2.course_fid),'加一个课件有一个课件的课程fid'
+    assert d1+1==d1.play_lists_count,'课程的学院播放列表计数变化'
+    assert d2==d2.play_lists_count,'课程的学院播放列表计数变化'
+    assert d3+1==c1.play_lists_count,'课程播放列表计数变化'
+    assert d4==c2.play_lists_count,'课程的学院播放列表计数变化'
+    
     play_list.add_one_thing(cw2.id)
+    dp1.reload
+    dp2.reload
+    c1.reload
+    c2.reload
+    play_list.reload
+    assert 1==play_list.course_fids.count(cw1.course_fid),'加一个课件有一个课件的课程fid'
     assert 1==play_list.course_fids.count(cw2.course_fid),'加一个课件就有一个课件的课程fid'
+    assert d1+1==d1.play_lists_count,'课程的学院播放列表计数变化'
+    assert d2+1==d2.play_lists_count,'课程的学院播放列表计数变化'
+    assert d3+1==c1.play_lists_count,'课程播放列表计数变化'
+    assert d4+1==c2.play_lists_count,'课程的学院播放列表计数变化'
+
     play_list.content.delete(cw2.id)
+    play_list.save(:validate=>false)
+    dp1.reload
+    dp2.reload
+    c1.reload
+    c2.reload
+    play_list.reload
+    assert 1==play_list.course_fids.count(cw1.course_fid),'没动的还在'
     assert 0==play_list.course_fids.count(cw2.course_fid),'没了cw2就没了cw2.course_fids'
+    assert d1+1==d1.play_lists_count,'课程的学院播放列表计数变化'
+    assert d2==d2.play_lists_count,'课程的学院播放列表计数变化'
+    assert d3+1==c1.play_lists_count,'课程播放列表计数变化'
+    assert d4==c2.play_lists_count,'课程的学院播放列表计数变化'
   end
   it "播放列表的
  oooO ↘┏━┓ ↙ Oooo 
@@ -205,8 +247,13 @@ describe PlayList do
     @user2.save(:validate=>false)
     @user1.reload
     @user2.reload
+    ss = Courseware.non_redirect.nondeleted.normal.is_father
+    cw1=ss[0]
+    cw2=ss[1]
     crazy_pl = PlayList.locate(user_n.id,"PL#{Time.now.to_i}#{rand}")
     crazy_pl.disliked_by_user(@user1)
+    crazy_pl.add_one_thing(cw1.id)
+    crazy_pl.add_one_thing(cw2.id)
     @user2.like_playlist(crazy_pl)
     # 1. 预检--------------    
     b1 = @user1.disliked_play_lists_count
@@ -221,10 +268,13 @@ describe PlayList do
     @user1.reload
     @user2.reload
     # -----------------  
+    assert crazy_pl.soft_deleted?
     assert b1-1 == @user1.disliked_play_lists_count,'复原计数'
     assert b2-1 == user_n.dislike_play_lists_count,'复原计数'
     assert b3-1 == @user2.liked_play_lists_count,'复原计数'
     assert b4-1 == user_n.like_play_lists_count,'复原计数'
+    refute cw1.soft_deleted?,'播放列表没了，课件不能没啊！'
+    refute cw2.soft_deleted?,'播放列表没了，课件不能没啊！'
   end
   it "软删除之后的逻辑" do
     # todo

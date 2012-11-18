@@ -206,6 +206,10 @@ class Courseware
     alt=self.course_fid if !alt
     Course.where(fid:alt).first
   end
+  def department_ins(alt=nil)
+    alt=self.department_fid if !alt
+    Department.where(fid:self.department_fid).first
+  end
   field :teachers,:type=>Array,:default=>[]
   def teachers_ins
     Teacher.where(:name.in=>self.teachers)

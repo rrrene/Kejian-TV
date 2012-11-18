@@ -4,6 +4,9 @@ class Department
   include Mongoid::Timestamps
   include Redis::Search
   include BaseModel
+  @before_soft_delete = proc{
+    p "#{self.id} before_soft_delete todo"
+  }
   # Followers
   field :follower_ids, :type => Array, :default => []
   field :cover
@@ -33,11 +36,13 @@ class Department
     Course.where(:department=>self.name)
   end
   def self.fid_fill!
+    # 一般不执行
     self.asc('created_at').each_with_index do |item,index|
       item.update_attribute(:fid,PreForumForum.find_by_name_and_type("#{item.name}",'group').fid)
     end
   end
   def self.count_fill!
+    # 一般不执行
     self.all.each_with_index do |item,index|
       item.update_attribute(:coursewares_count,item.courses.inject(0){|sum,course| sum+course.coursewares_count})
       item.update_attribute(:play_lists_count,item.courses.inject(0){|sum,course| sum+course.play_lists_count})

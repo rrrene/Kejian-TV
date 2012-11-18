@@ -57,7 +57,7 @@ class WelcomeController < ApplicationController
   def shuffle
     cw = nil
     i = 0
-    while !(cw and 0==cw.status and !cw.deleted?)
+    while !(cw and 0==cw.status and !cw.soft_deleted?)
       cw = Courseware.skip(rand(Courseware.count)).first
       i += 1
       if i>10

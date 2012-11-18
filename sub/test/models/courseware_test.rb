@@ -519,6 +519,23 @@ describe Courseware do
     success_cm2,cm2 = Comment.real_create({:comment => {"commentable_type"=>"Courseware","commentable_id"=>crazy_cw.id.to_s,"body"=>"#{Time.now.to_i}#{rand.to_s}",'replied_to_comment_id'=>cm1.id.to_s}}.with_indifferent_access,@user2)
     success_cm3,cm3 = Comment.real_create({:comment => {"commentable_type"=>"Courseware","commentable_id"=>crazy_cw.id.to_s,"body"=>"#{Time.now.to_i}#{rand.to_s}"}}.with_indifferent_access,user_n)
     # 1. 预检--------------    
+    crazy_cw.reload
+    t1.reload
+    t2.reload
+    t3.reload
+    user_n.reload
+    @user1.reload
+    @user2.reload
+    c.reload
+    dpt.reload
+    pl1.reload
+    pl2.reload
+    cw_kid1.reload
+    cw_kid2.reload
+    cw_kid3.reload
+    cm1.reload
+    cm2.reload
+    cm3.reload
     b11 = t1.coursewares_count
     b12 = t2.coursewares_count
     b13 = t3.coursewares_count
@@ -546,7 +563,7 @@ describe Courseware do
     cm1.reload
     cm2.reload
     cm3.reload
-    # -----------------
+    assert crazy_cw.soft_deleted?
     assert 0 == user_n.coursewares_uploaded_count,'just like new'
     assert 0 == user_n.thank_count,'just like new'
     assert 0 == user_n.dislike_coursewares_count,'just like new'
@@ -560,12 +577,12 @@ describe Courseware do
     refute pl1.content.include?(crazy_cw.id),'不管是谁的播放列表引用了这个课件，课件被删后不能留有脏引用'
     refute pl2.content.include?(crazy_cw.id),'不管是谁的播放列表引用了这个课件，课件被删后不能留有脏引用'
     refute @user2.thanked_courseware_ids.include?(crazy_cw.id),'顶了这个课件，课件被删后不能留有脏引用'
-    assert cw_kid1.deleted?,'软删除传播到了这个课件的每个子课件'
-    assert cw_kid2.deleted?,'软删除传播到了这个课件的每个子课件'
-    assert cw_kid3.deleted?,'软删除传播到了这个课件的每个子课件'
-    assert cm1.deleted?,'软删除传播到了这个课件的每个评论'
-    assert cm2.deleted?,'软删除传播到了这个课件的每个评论'
-    assert cm3.deleted?,'软删除传播到了这个课件的每个评论'
+    assert cw_kid1.soft_deleted?,'软删除传播到了这个课件的每个子课件'
+    assert cw_kid2.soft_deleted?,'软删除传播到了这个课件的每个子课件'
+    assert cw_kid3.soft_deleted?,'软删除传播到了这个课件的每个子课件'
+    assert cm1.soft_deleted?,'软删除传播到了这个课件的每个评论'
+    assert cm2.soft_deleted?,'软删除传播到了这个课件的每个评论'
+    assert cm3.soft_deleted?,'软删除传播到了这个课件的每个评论'
   end
   it "软删除之后的逻辑" do
     # todo
