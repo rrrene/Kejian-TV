@@ -551,7 +551,7 @@ class Courseware
       if uploader_id_was.present? and old_user = User.where(:_id=>uploader_id_was).first
         old_user.inc(:coursewares_uploaded_count,-1)
       end
-      self.uploader.inc(:coursewares_uploaded_count,1)
+      self.uploader.inc(:coursewares_uploaded_count,1) if self.uploader 
     end
     if uploader_id_candidates_changed?
       added = uploader_id_candidates - uploader_id_candidates_was.to_a
@@ -574,6 +574,7 @@ class Courseware
         old_course.department_ins.reload.inc(:coursewares_count,-1)
         old_course.inc(:coursewares_count,-1)
       end
+      calculate_department_fid
       c = Course.where(:fid => course_fid).first
       c.department_ins.inc(:coursewares_count,1)
       c.inc(:coursewares_count,1)
@@ -581,30 +582,86 @@ class Courseware
   end
   before_save :teachers_work
   def teachers_work
-    if status_changed? && status !=0
-      return
+    if status_changed? && status_was !=0 && status != 0
+      # return
     end
-    if teachers_changed? && !teachers.blank? && teachers[0] != "教师请求"
-      if teachers_was.blank?
-        added = teachers
-        deleted = []
+    if status_changed? && status_was == 0 && status != 0
+      if teachers_changed? && !teachers.blank?
+        teachers_was.to_a.uniq.to_a.each do |a|
+          next if a == "教师请求"
+          t = Teacher.find_or_create_by(:name=>a)
+          t.inc(:coursewares_count,-1)
+        end
       else
-        added = teachers - teachers_was
-        deleted = teachers_was - teachers
+        teachers.to_a.uniq.each do |a|
+          next if a == "教师请求"
+          t = Teacher.find_or_create_by(:name=>a)
+          t.inc(:coursewares_count,-1)
+        end
       end
-      if !added.blank?
-        added.each do |a|
+    end
+    if status_changed? && status_was != 0 && status == 0
+      if teachers_changed? && !teachers.blank?
+        teachers.to_a.uniq.each do |a|
+          next if a == "教师请求"
+          t = Teacher.find_or_create_by(:name=>a)
+          t.inc(:coursewares_count,1)
+        end
+      else
+        teachers.to_a.uniq.each do |a|
+          next if a == "教师请求"
           t = Teacher.find_or_create_by(:name=>a)
           t.inc(:coursewares_count,1)
         end
       end
-      if !deleted.blank?
-        deleted.each do |d|
+    end
+
+    if !status_changed? and teachers_changed? and !teachers.blank?
+      teachers.to_a.uniq.each do |a|
+        next if a == "教师请求"
+        t = Teacher.find_or_create_by(:name=>a)
+      end
+      added =  teachers - teachers_was.to_a
+      if !added.blank? && status == 0
+        added.to_a.uniq.each do |d|
+          next if d == "教师请求"
+          t = Teacher.find_or_create_by(:name=>d)
+          t.inc(:coursewares_count,1)
+        end
+      end
+      deleted = teachers_was.to_a - teachers
+      if !deleted.blank? && status == 0
+        deleted.to_a.uniq.each do |d|
+          next if d == "教师请求"
           t = Teacher.find_or_create_by(:name=>d)
           t.inc(:coursewares_count,-1)
         end
       end
-      return true
+    end
+  end
+  
+  before_save :redirect_work
+  def redirect_work
+    if (redirect_to_id_changed? or uploader_id_changed?) and redirect_to_id.present?
+      if redirect_to_id_was
+        uploader_id_changed? ? uploaderx = uploader_id_was : uploaderx = uploader_id
+        old_re = Courseware.find(redirect_to_id_was)
+        old_re.uploader_id_candidates.delete(uploaderx)
+        old_re.save(:validate=>false)
+      end
+      cw = Courseware.find(redirect_to_id)
+      if cw.uploader_id != uploader_id
+        if !cw.uploader_id_candidates.include?(uploader_id)
+          cw.uploader_id_candidates << uploader_id 
+        end
+        if cw.uploader_id_candidates.include?(cw.uploader_id)
+          cw.uploader_id_candidates.delete(cw.uploader_id)
+        end
+      end
+      if uploader_id_changed? and cw.uploader_id_candidates.include?(uploader_id_was)
+        cw.uploader_id_candidates.delete(uploader_id_was)
+      end
+      cw.save(:validate=>false)
     end
   end
   def wh_ratio

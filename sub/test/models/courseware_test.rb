@@ -274,22 +274,24 @@ describe Courseware do
     cw.redirect_to_id = @courseware.id # 注意@courseware属于@user1
     cw.save(:validate=>false)
     cw.reload
-    assert 1==cw.uploader_id_candidates.count(@user2.id),'用户被加入候选uploader_id'
+    @courseware.reload
+    assert 1==@courseware.uploader_id_candidates.count(@user2.id),'用户被加入候选uploader_id'
     # 与本人的课件重复
     cw = Courseware.new
     cw.uploader_id = @user1.id
     cw.redirect_to_id = @courseware.id # 注意@courseware属于@user1
     cw.save(:validate=>false)
     cw.reload
-    assert 0==cw.uploader_id_candidates.count(@user1.id),'用户与主uploader_id相同则不会被加入候选uploader_id'
+    @courseware.reload
+    assert 0==@courseware.uploader_id_candidates.count(@user1.id),'用户与主uploader_id相同则不会被加入候选uploader_id'
     assert @user1.id==cw.uploader_id,'uploader_id依然是uploader_id'
     # Courseware创建后的延迟手工判重
     other_courseware = Courseware.non_redirect.nondeleted.normal.is_father.where(:id.ne=>@courseware.id,:uploader_id.nin=>[@user1.id,@user2.id]).first
     other_courseware_uploader_id = other_courseware.uploader_id
     other_courseware.uploader_id_candidates = []
+    other_courseware.save(:validate=>false)
     @courseware.redirect_to_id = other_courseware.id # 注意@courseware属于@user1
     @courseware.save(:validate=>false)
-    other_courseware.save(:validate=>false)
     other_courseware.reload
     assert 1==other_courseware.uploader_id_candidates.count(@user1.id),'用户被加入候选uploader_id'
     assert other_courseware_uploader_id == other_courseware.uploader_id,'uploader_id依然是uploader_id'
@@ -310,10 +312,11 @@ describe Courseware do
     user_n = User.new
     user_n.save(:validate=>false)
     cw_n = Courseware.new
-    cw_n.uplodaer_id = user_n.id
+    cw_n.uploader_id = user_n.id
     cw_n.redirect_to_id = other_courseware.id
     cw_n.save(:validate=>false)
-    assert other_courseware.uploader_id_candidates.index(@user1.id)<other_courseware.uploader_id_candidates.index(user_n.id),'先来后到'
+    other_courseware.reload
+    assert other_courseware.uploader_id_candidates.index(@user1.id) < other_courseware.uploader_id_candidates.index(user_n.id),'先来后到'
     # ---    
     new_cw.uploader_id = @user2.id
     new_cw.save(:validate=>false)
@@ -327,11 +330,15 @@ describe Courseware do
     new_cw2.save(:validate=>false)
     new_cw.redirect_to_id = new_cw2.id # 注意@courseware属于@user1
     new_cw.save(:validate=>false)
+    ##############################################################################to psvr
+    cw_n.redirect_to_id = new_cw2.id # 注意@courseware属于@user1
+    cw_n.save(:validate=>false)
+    ##############################################################################
     other_courseware.reload
-    assert other_courseware.uploader_id_candidates.empty?,'没有任何课件指向other_courseware了'
+    assert other_courseware.uploader_id_candidates.empty?,'没有任何课件指向other_courseware了'  ##
     assert other_courseware_uploader_id == other_courseware.uploader_id,'uploader_id依然是uploader_id'    
     new_cw2.reload
-    assert [@user2.id] == new_cw2.uploader_id_candidates,'需要清除以前的uploader_id_candidates'
+    assert [@user2.id,user_n.id] == new_cw2.uploader_id_candidates,'需要清除以前的uploader_id_candidates'
     assert new_cw2.uploader_id == @user1.id,'uploader_id依然是uploader_id'    
   end
   it "多级重定向消除为一级重定向 c.f redirect_to_id_op" do
@@ -433,10 +440,10 @@ describe Courseware do
     refute false==ret,'没有上传人候选，before_soft_delete必须不能返回false以让软删除的进一步执行。'
     cw1 = Courseware.new;cw1.uploader_id = @user2.id;
     cw2 = Courseware.new;cw2.uploader_id = @user2.id;
-    cw1.redirect_to_id = cw2.id
     cw2.redirect_to_id = nil
+    cw2.save(:validate=>false)
+    cw1.redirect_to_id = cw2.id
     cw1.save(:validate=>false)
-    cw2.save(:validate=>false)    
     cw1.reload
     cw2.reload
     ret = cw2.instance_eval(&Courseware.before_soft_delete)
