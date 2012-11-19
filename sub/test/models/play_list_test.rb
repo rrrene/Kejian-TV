@@ -134,15 +134,15 @@ describe PlayList do
     @user1.thanked_play_list_ids = []
     @user2.thanked_play_list_ids = []
 
-    @user1.dislike_play_lists_count = 0
-    @user1.like_play_lists_count = 0
-    @user1.disliked_play_lists_count = 0
-    @user1.liked_play_lists_count = 0
+    @user1.disthank_count = 0
+    @user1.thank_count = 0
+    @user1.disthanked_count = 0
+    @user1.thanked_count = 0
 
-    @user2.dislike_play_lists_count = 0
-    @user2.like_play_lists_count = 0
-    @user2.disliked_play_lists_count = 0
-    @user2.liked_play_lists_count = 0
+    @user2.disthank_count = 0
+    @user2.thank_count = 0
+    @user2.disthanked_count = 0
+    @user2.thanked_count = 0
 
     @user1.save(:validate=>false)
     @user2.save(:validate=>false)
@@ -157,20 +157,20 @@ describe PlayList do
     @play_list_user2.vote_down=0
     @play_list_user2.save(:validate=>false)
     @play_list_user2.reload
-    user1_dislike_play_lists_count = @user1.dislike_play_lists_count
-    user2_disliked_play_lists_count = @user2.disliked_play_lists_count
-    user1_like_play_lists_count = @user1.like_play_lists_count
-    user2_liked_play_lists_count = @user2.liked_play_lists_count
-    play_list_liked_play_lists_count = @play_list_user2.vote_up
+    user1_disthank_count = @user1.disthank_count
+    user2_disthanked_count = @user2.disthanked_count
+    user1_thank_count = @user1.thank_count
+    user2_thanked_count = @user2.thanked_count
+    play_list_thanked_count = @play_list_user2.vote_up
     play_list_disliked_count = @play_list_user2.vote_down
     ## 被不喜欢
     @play_list_user2.disliked_by_user(@user1)
     @user1.reload
     @user2.reload
     @play_list_user2.reload
-    assert user1_dislike_play_lists_count + 1 == @user1.disliked_play_lists_count,'不喜欢这个播放列表的用户的不喜欢表达总次数+1'
-    assert user2_disliked_play_lists_count + 1 == @user2.dislike_play_lists_count,'被不喜欢这个播放列表的用户的被不喜欢总次数+1'
-    assert play_list_liked_play_lists_count == @play_list_user2.vote_up,'被不喜欢后，播放列表的喜欢次数保持不变'  
+    assert user1_disthank_count + 1 == @user1.disthanked_count,'不喜欢这个播放列表的用户的不喜欢表达总次数+1'
+    assert user2_disthanked_count + 1 == @user2.disthank_count,'被不喜欢这个播放列表的用户的被不喜欢总次数+1'
+    assert play_list_thanked_count == @play_list_user2.vote_up,'被不喜欢后，播放列表的喜欢次数保持不变'  
     assert play_list_disliked_count + 1 == @play_list_user2.vote_down,'被不喜欢后，播放列表的不喜欢次数+1'
     assert @play_list_user2.disliked_user_ids.include?(@user1.id),'被不喜欢后，播放列表的不喜欢人记录了不喜欢者'
     refute @play_list_user2.liked_user_ids.include?(@user1.id),'被不喜欢后，播放列表的喜欢人就不再包含这个人了'
@@ -179,11 +179,11 @@ describe PlayList do
     @user1.reload
     @user2.reload
     @play_list_user2.reload
-    assert user1_like_play_lists_count + 1 == @user1.liked_play_lists_count,'之后，这个人又突然喜欢了这个播放列表，那么这个人的喜欢表达次数+1'
-    assert user2_liked_play_lists_count + 1 == @user2.like_play_lists_count,'被喜欢这个播放列表的被喜欢次数+1'
-    assert user1_dislike_play_lists_count == @user1.disliked_play_lists_count,'不喜欢次数恢复'
-    assert user2_disliked_play_lists_count == @user2.dislike_play_lists_count,'被不喜欢次数恢复'
-    assert play_list_liked_play_lists_count + 1 == @play_list_user2.vote_up,'播放列表的喜欢数+1'
+    assert user1_thank_count + 1 == @user1.thanked_count,'之后，这个人又突然喜欢了这个播放列表，那么这个人的喜欢表达次数+1'
+    assert user2_thanked_count + 1 == @user2.thank_count,'被喜欢这个播放列表的被喜欢次数+1'
+    assert user1_disthank_count == @user1.disthanked_count,'不喜欢次数恢复'
+    assert user2_disthanked_count == @user2.disthank_count,'被不喜欢次数恢复'
+    assert play_list_thanked_count + 1 == @play_list_user2.vote_up,'播放列表的喜欢数+1'
     assert play_list_disliked_count == @play_list_user2.vote_down,''
     assert @play_list_user2.liked_user_ids.include?(@user1.id),'播放列表记录了喜欢者'
     refute @play_list_user2.disliked_user_ids.include?(@user1.id),'不喜欢者里不再包含这个人'
@@ -192,9 +192,9 @@ describe PlayList do
     @user1.reload
     @user2.reload
     @play_list_user2.reload
-    assert user1_dislike_play_lists_count + 1 == @user1.disliked_play_lists_count,'不喜欢这个播放列表的用户的不喜欢表达总次数+1'
-    assert user2_disliked_play_lists_count + 1 == @user2.dislike_play_lists_count,'被不喜欢这个播放列表的用户的被不喜欢总次数+1'
-    assert play_list_liked_play_lists_count +1 -1== @play_list_user2.vote_up,'原来喜欢，被不喜欢后，播放列表的喜欢和之前的之前一样了'
+    assert user1_disthank_count + 1 == @user1.disthanked_count,'不喜欢这个播放列表的用户的不喜欢表达总次数+1'
+    assert user2_disthanked_count + 1 == @user2.disthank_count,'被不喜欢这个播放列表的用户的被不喜欢总次数+1'
+    assert play_list_thanked_count +1 -1== @play_list_user2.vote_up,'原来喜欢，被不喜欢后，播放列表的喜欢和之前的之前一样了'
     assert play_list_disliked_count + 1 == @play_list_user2.vote_down,'被不喜欢后，播放列表的不喜欢次数+1'
     assert @play_list_user2.disliked_user_ids.include?(@user1.id),'被不喜欢后，播放列表的不喜欢人记录了不喜欢者'
     refute @play_list_user2.liked_user_ids.include?(@user1.id),'被不喜欢后，播放列表的喜欢人就不再包含这个人了'
@@ -203,9 +203,9 @@ describe PlayList do
     @user1.reload
     @user2.reload
     @play_list_user2.reload
-    assert user1_dislike_play_lists_count == @user1.disliked_play_lists_count,'撤销不喜欢这个播放列表的用户的不喜欢表达总次数，就不变了'
-    assert user2_disliked_play_lists_count  == @user2.dislike_play_lists_count,'撤销被不喜欢这个播放列表的用户的被不喜欢总次数，不变了'
-    assert play_list_liked_play_lists_count == @play_list_user2.vote_up,'撤销被不喜欢后，播放列表的喜欢次数保持不变'  
+    assert user1_disthank_count == @user1.disthanked_count,'撤销不喜欢这个播放列表的用户的不喜欢表达总次数，就不变了'
+    assert user2_disthanked_count  == @user2.disthank_count,'撤销被不喜欢这个播放列表的用户的被不喜欢总次数，不变了'
+    assert play_list_thanked_count == @play_list_user2.vote_up,'撤销被不喜欢后，播放列表的喜欢次数保持不变'  
     assert play_list_disliked_count  == @play_list_user2.vote_down,'撤销被不喜欢后，播放列表的不喜欢次数不变'
     refute @play_list_user2.disliked_user_ids.include?(@user1.id),'撤销被不喜欢后，播放列表的不喜欢人撤销不喜欢者'
     refute @play_list_user2.liked_user_ids.include?(@user1.id),'被不喜欢后，播放列表的喜欢人就不再包含这个人了'
@@ -221,11 +221,11 @@ describe PlayList do
     @user1.reload
     @user2.reload
     @play_list_user2.reload
-    assert user1_like_play_lists_count == @user1.liked_play_lists_count,'喜欢后撤销喜欢，这个人又突然喜欢了这个播放列表，那么这个人的喜欢表达次数不变'
-    assert user2_liked_play_lists_count  == @user2.like_play_lists_count,'喜欢后撤销，被喜欢这个播放列表的被喜欢次数不变'
-    assert user1_dislike_play_lists_count == @user1.disliked_play_lists_count,'不喜欢次数恢复'
-    assert user2_disliked_play_lists_count == @user2.dislike_play_lists_count,'被不喜欢次数恢复'
-    assert play_list_liked_play_lists_count == @play_list_user2.vote_up,'播放列表的喜欢数'
+    assert user1_thank_count == @user1.thanked_count,'喜欢后撤销喜欢，这个人又突然喜欢了这个播放列表，那么这个人的喜欢表达次数不变'
+    assert user2_thanked_count  == @user2.thank_count,'喜欢后撤销，被喜欢这个播放列表的被喜欢次数不变'
+    assert user1_disthank_count == @user1.disthanked_count,'不喜欢次数恢复'
+    assert user2_disthanked_count == @user2.disthank_count,'被不喜欢次数恢复'
+    assert play_list_thanked_count == @play_list_user2.vote_up,'播放列表的喜欢数'
     assert play_list_disliked_count == @play_list_user2.vote_down,'此时，喜欢和不喜欢没关系了'
     refute @play_list_user2.liked_user_ids.include?(@user1.id),'撤销喜欢，播放列表不记录记录了喜欢者'
     refute @play_list_user2.disliked_user_ids.include?(@user1.id),'不喜欢者里不再包含这个人'
@@ -235,14 +235,14 @@ describe PlayList do
     user_n.save(:validate=>false)
     @user1.thanked_play_list_ids = []
     @user2.thanked_play_list_ids = []
-    @user1.dislike_play_lists_count = 0
-    @user1.like_play_lists_count = 0
-    @user1.disliked_play_lists_count = 0
-    @user1.liked_play_lists_count = 0
-    @user2.dislike_play_lists_count = 0
-    @user2.like_play_lists_count = 0
-    @user2.disliked_play_lists_count = 0
-    @user2.liked_play_lists_count = 0
+    @user1.disthank_count = 0
+    @user1.thank_count = 0
+    @user1.disthanked_count = 0
+    @user1.thanked_count = 0
+    @user2.disthank_count = 0
+    @user2.thank_count = 0
+    @user2.disthanked_count = 0
+    @user2.thanked_count = 0
     @user1.save(:validate=>false)
     @user2.save(:validate=>false)
     @user1.reload
@@ -256,10 +256,10 @@ describe PlayList do
     crazy_pl.add_one_thing(cw2.id)
     @user2.like_playlist(crazy_pl)
     # 1. 预检--------------    
-    b1 = @user1.disliked_play_lists_count
-    b2 = user_n.dislike_play_lists_count
-    b3 = @user2.liked_play_lists_count
-    b4 = user_n.like_play_lists_count
+    b1 = @user1.disthanked_count
+    b2 = user_n.disthank_count
+    b3 = @user2.thanked_count
+    b4 = user_n.thank_count
     # 2. 清理！！！--------------    
     crazy_pl.asynchronously_clean_me
     # 3. 重检--------------
@@ -269,10 +269,10 @@ describe PlayList do
     @user2.reload
     # -----------------  
     assert crazy_pl.soft_deleted?
-    assert b1-1 == @user1.disliked_play_lists_count,'复原计数'
-    assert b2-1 == user_n.dislike_play_lists_count,'复原计数'
-    assert b3-1 == @user2.liked_play_lists_count,'复原计数'
-    assert b4-1 == user_n.like_play_lists_count,'复原计数'
+    assert b1-1 == @user1.disthanked_count,'复原计数'
+    assert b2-1 == user_n.disthank_count,'复原计数'
+    assert b3-1 == @user2.thanked_count,'复原计数'
+    assert b4-1 == user_n.thank_count,'复原计数'
     refute cw1.soft_deleted?,'播放列表没了，课件不能没啊！'
     refute cw2.soft_deleted?,'播放列表没了，课件不能没啊！'
   end

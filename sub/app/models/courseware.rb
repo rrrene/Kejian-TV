@@ -418,8 +418,8 @@ class Courseware
     if self.disliked_user_ids.index(user.id)
       self.disliked_user_ids.delete(user.id)
       ## counter
-      uploader.dislike_coursewares_count -= 1
-      user.disliked_coursewares_count -=1
+      uploader.dislike_count -= 1
+      user.disliked_count -=1
 
       self.disliked_count -= 1
       ##
@@ -430,8 +430,8 @@ class Courseware
     end
     self.disliked_user_ids << user.id
     ## counter
-    uploader.dislike_coursewares_count += 1
-    user.disliked_coursewares_count += 1
+    uploader.dislike_count += 1
+    user.disliked_count += 1
 
     self.disliked_count += 1
     ##

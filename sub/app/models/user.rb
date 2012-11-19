@@ -1372,8 +1372,8 @@ kejians:['课件','num','filter'],comments:['评论','num']
     uploader = courseware.uploader.reload
     if courseware.disliked_user_ids.include?(self.id)
       ## counter
-      self.disliked_coursewares_count -= 1
-      uploader.dislike_coursewares_count -= 1
+      self.disliked_count -= 1
+      uploader.dislike_count -= 1
       courseware.disliked_count -= 1
       ##
       courseware.disliked_user_ids.delete(self.id)
