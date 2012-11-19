@@ -1167,10 +1167,9 @@ opts={   :subsite=>Setting.ktv_sub,
   alias_method :redis_search_index_create_before_psvr,:redis_search_index_create
   alias_method :redis_search_index_need_reindex_before_psvr,:redis_search_index_need_reindex
   def redis_search_psvr_okay?
-    0==self.status and 0==self.privacy
+    0==self.status and 0==self.privacy and self.title.present? and self.redis_search_alias.present?
   end
   def redis_search_index_need_reindex
-    return false unless self.title.present? and self.redis_search_alias.present?
     if self.status_changed? && redis_search_psvr_okay?
       return true
     else

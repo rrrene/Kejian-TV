@@ -5,6 +5,9 @@ class Teacher
   include Mongoid::Timestamps
   include Redis::Search
   include BaseModel
+  @before_soft_delete = proc{
+    p "#{self.id} before_soft_delete todo"
+  }
   field :user_id
   field :name
   field :email
@@ -37,6 +40,7 @@ class Teacher
     Course.where(:teachers=>self.name)
   end
   def import_counters
+    # 一般不需要调用
     self.coursewares_count = self.coursewares.nondeleted.normal.is_father.count
     self.courses_count = self.courses.count
   end

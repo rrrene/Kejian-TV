@@ -317,6 +317,8 @@ describe Courseware do
     cw_n.save(:validate=>false)
     other_courseware.reload
     assert other_courseware.uploader_id_candidates.index(@user1.id) < other_courseware.uploader_id_candidates.index(user_n.id),'先来后到'
+    cw_n.redirect_to_id = nil
+    cw_n.save(:validate=>false)
     # ---    
     new_cw.uploader_id = @user2.id
     new_cw.save(:validate=>false)
@@ -330,15 +332,11 @@ describe Courseware do
     new_cw2.save(:validate=>false)
     new_cw.redirect_to_id = new_cw2.id # 注意@courseware属于@user1
     new_cw.save(:validate=>false)
-    ##############################################################################to psvr
-    cw_n.redirect_to_id = new_cw2.id # 注意@courseware属于@user1
-    cw_n.save(:validate=>false)
-    ##############################################################################
     other_courseware.reload
-    # assert other_courseware.uploader_id_candidates.empty?,'没有任何课件指向other_courseware了'  ##
+    assert other_courseware.uploader_id_candidates.empty?,'没有任何课件指向other_courseware了'  ##
     assert other_courseware_uploader_id == other_courseware.uploader_id,'uploader_id依然是uploader_id'    
     new_cw2.reload
-    assert [@user2.id,user_n.id] == new_cw2.uploader_id_candidates,'需要清除以前的uploader_id_candidates'
+    assert [@user2.id] == new_cw2.uploader_id_candidates,'new_cw2的uploader_id_candidates'
     assert new_cw2.uploader_id == @user1.id,'uploader_id依然是uploader_id'    
   end
   it "多级重定向消除为一级重定向 c.f redirect_to_id_op" do
@@ -364,7 +362,7 @@ describe Courseware do
     assert cw2.redirect_to_id == @courseware.id,'连环重定向需传递闭包'
     assert cw3.redirect_to_id == @courseware.id,'连环重定向需传递闭包'
     assert cw4.redirect_to_id == @courseware.id,'连环重定向需传递闭包'
-    # assert 1==@courseware.uploader_id_candidates.count(@user1.id),'连环重定向需传递闭包'    #########TO PSVR  @courseware是user1的，user1不能保存在里面。应该是refute
+    refute 1==@courseware.uploader_id_candidates.count(@user1.id),'连环重定向需传递闭包'
     assert 1==@courseware.uploader_id_candidates.count(@user2.id),'连环重定向需传递闭包'
     assert 1==@courseware.uploader_id_candidates.count(u3.id),'连环重定向需传递闭包'
     assert 1==@courseware.uploader_id_candidates.count(u4.id),'连环重定向需传递闭包'
@@ -396,20 +394,14 @@ describe Courseware do
     cw1 = Courseware.new
     cw1.status=1
     cw1.ktvid = '5058960ce13823076c00002e'
-    cw1.uploader_id = user_n.id
-    cw1.title = "abc"                                  #########To PSVR  if no title playlist redis_search_index_create_before_psvr error
     cw1.save(:validate=>false)
     cw2 = Courseware.new
-    cw2.uploader_id = user_n.id
     cw2.ktvid = '5058960ce13823076c00002e'
     cw2.status=2
-    cw2.title = "cde"
     cw2.save(:validate=>false)
     cw3 = Courseware.new
     cw3.ktvid = nil
-    cw3.uploader_id = user_n.id
     cw3.status=0
-    cw3.title = "fgh"
     cw3.save(:validate=>false)
     play_list = PlayList.locate(@user1.id,"PL#{Time.now.to_i}#{rand}")
     play_list.add_one_thing(cw1.id)

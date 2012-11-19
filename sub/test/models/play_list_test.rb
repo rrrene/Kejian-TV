@@ -9,7 +9,7 @@ describe PlayList do
     name = "PL#{Time.now.to_i}#{rand}"
     assert PlayList.where(:title => name).first.nil?,"为了测试，这个名字肯定不存在"
     play_list = PlayList.locate(@user1.id,name)
-    assert play_list.persisted?,"如果没有这个名字的播放列表，定位后就有了"
+    assert play_list.persisted? && play_list.title == name,"如果没有这个名字的播放列表，定位后就有了"
   end
   it "添加课件" do
     cw1 = Courseware.new;cw1.save(:validate=>false)

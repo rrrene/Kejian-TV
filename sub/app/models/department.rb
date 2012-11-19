@@ -15,6 +15,7 @@ class Department
   field :fid
   field :sort
   field :followers_count,:type=>Integer,:default=>0
+  field :teachers_count,:type=>Integer,:default=>0
   field :courses_count,:type=>Integer,:default=>0
   field :coursewares_count,:type=>Integer,:default=>0
   field :play_lists_count,:type=>Integer,:default=>0

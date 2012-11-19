@@ -25,23 +25,29 @@ describe Course do
     t1.courses_count = 0
     t2.courses_count = 0
     t3.courses_count = 0
+    c.teachers_count = 0
     t1.save(:validate=>false)
     t2.save(:validate=>false)
     t3.save(:validate=>false)
+    c.save(:validate=>false)
     c.update_attribute(:teachers,[t1.name,t2.name])
     t1.reload
     t2.reload
     t3.reload
-    assert 1==t1.courses_count,'课程属于新的老师，这个老师的课程计数相应调整'
-    assert 1==t2.courses_count,'课程属于新的老师，这个老师的课程计数相应调整'
-    assert 0==t3.courses_count,'课程属于新的老师，这个老师的课程计数相应调整'
-    c.update_attribute(:teachers,[t2.name,t3.name])
+    c.reload
+    assert 1==t1.courses_count,'课程有了新的老师，这个老师的课程计数相应调整'
+    assert 1==t2.courses_count,'课程有了新的老师，这个老师的课程计数相应调整'
+    assert 0==t3.courses_count,'课程有了新的老师，这个老师的课程计数相应调整'
+    assert 2==c.teachers_count,'课程有了新的老师，课程的老师计数相应调整'
+    c.update_attribute(:teachers,[t3.name])
     t1.reload
     t2.reload
     t3.reload
-    assert 0==t1.courses_count,'课程属于新的老师，这个老师的课程计数相应调整'
-    assert 1==t2.courses_count,'课程属于新的老师，这个老师的课程计数相应调整'
-    assert 1==t3.courses_count,'课程属于新的老师，这个老师的课程计数相应调整'
+    c.reload
+    assert 0==t1.courses_count,'课程有了新的老师，这个老师的课程计数相应调整'
+    assert 0==t2.courses_count,'课程有了新的老师，这个老师的课程计数相应调整'
+    assert 1==t3.courses_count,'课程有了新的老师，这个老师的课程计数相应调整'
+    assert 1==c.teachers_count,'课程有了新的老师，课程的老师计数相应调整'
   end
   it "DZ" do
     # todo

@@ -85,6 +85,6 @@ $snda_ktv_down = $snda_buckets.find("ktv-down")
 $snda_ktv_up = $snda_buckets.find("ktv-up")
 $snda_ktv_app = $snda_buckets.find(Setting.snda_bucket)
 
-redis_connect! unless $im_running_under_unicorn or $psvr_really_testing
+redis_connect! unless $im_running_under_unicorn or Spork.using_spork?
 
 

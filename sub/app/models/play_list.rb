@@ -421,7 +421,7 @@ class PlayList
   alias_method :redis_search_index_create_before_psvr,:redis_search_index_create
   alias_method :redis_search_index_need_reindex_before_psvr,:redis_search_index_need_reindex
   def redis_search_psvr_okay?
-    !self.undestroyable and 0==self.status and 0==self.privacy
+    !self.undestroyable and 0==self.status and 0==self.privacy and self.title.present? and self.courseware_titles.present?
   end
   def redis_search_index_need_reindex
     if self.status_changed? && self.redis_search_psvr_okay?
