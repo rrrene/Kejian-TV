@@ -40,7 +40,7 @@ class UcenterController < ApplicationController
   	pp(@post) if @post.present?
     send(@get['action'])
   end
-  
+private
   def test
     render text:API_RETURN_SUCCEED
   end

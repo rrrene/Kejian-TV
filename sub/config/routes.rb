@@ -3,13 +3,11 @@ require 'sidekiq/web'
 Sub::Application.routes.draw do
 
   root :to=>'welcome#index'
-  get '/inject_xookie' => 'application#inject_xookie'
   # =>  just for ensure upload & edit page
-  get '/upload' => 'coursewares#my_upload'
-  get '/coursewares/new' => 'coursewares#my_upload'
+  get '/upload' => 'coursewares#new'
   get '/embed/:id' => 'coursewares#embed'
-  get '/edit/:id' => 'coursewares#my_edit'
-  get '/coursewares/:id/edit' => 'courseware#my_edit'
+  get '/edit/:id' => 'coursewares#edit'
+  get '/coursewares/:id/edit' => 'courseware#edit'
     
   get '/api/uc' => 'ucenter#ktv_uc_client'
   post '/api/uc' => 'ucenter#ktv_uc_client'

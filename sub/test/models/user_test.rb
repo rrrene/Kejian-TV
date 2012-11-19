@@ -245,6 +245,9 @@ describe User do
     refute pl1.soft_deleted?,'无辜的资源不能删'
     refute pl2.soft_deleted?,'无辜的资源不能删'
   end
-
+  it "禁用户" do
+    # todo
+  end
+  
 end
 
