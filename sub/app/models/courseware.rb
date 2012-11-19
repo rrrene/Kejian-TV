@@ -535,7 +535,15 @@ class Courseware
     self.topics = topic.ancestors
   end
   before_save :counter_work
+  def update_pl
+    pls = PlayList.where(:content=>self.id)
+    pls.each do |pl|
+      pl.save(:validate=>false)
+    end
+  end
   def counter_work
+    @ktvidchangedandpresent = false
+    @statuschangedandeq0 = false
     if user_id_changed?
       if user_id_was.present? and old_user = User.where(:_id=>user_id_was).first
         old_user.inc(:coursewares_count,-1)
@@ -544,8 +552,12 @@ class Courseware
       self.user.inc(:coursewares_count,1)
       self.user.school.inc(:coursewares_count,1) if self.user.school
     end
-    if status_changed? && 0==status
+    if status_changed? and 0==status
       self.uploader.inc(:coursewares_uploaded_count,1)
+      @statuschangedandeq0 = true
+    end
+    if ktvid_changed? and ktvid.present?
+      @ktvidchangedandpresent = true
     end
     if uploader_id_changed? && uploader_id_was.present?
       if uploader_id_was.present? and old_user = User.where(:_id=>uploader_id_was).first
@@ -563,21 +575,48 @@ class Courseware
         # User.find(u).inc(:coursewares_uploaded_count,-1)
       end
     end
+    if slides_count_changed?
+      pls = PlayList.where(:content=>id)
+      pls.each do |pl|
+        pl.content_total_pages = pl.content_total_pages - slides_count_was + slides_count
+        pl.save(:validate=>false)
+      end
+    end
   end  
+  after_save :update_playlist
+  def update_playlist
+    if @statuschangedandeq0
+      if ktvid.present?
+        self.update_pl
+      end
+    end
+    if @ktvidchangedandpresent
+      if 0==status
+        self.update_pl
+      end
+    end
+  end
   before_save :course_work
   def course_work
     if course_fid_changed? 
       if !new_record? and !course_fid_was.nil?
         old_course = Course.where(:fid => course_fid_was).first
       end
+      c = Course.where(:fid => course_fid).first
+      c.inc(:coursewares_count,1)
+      cd = c.department_ins.reload
+      if (old_course and (od = old_course.department_ins.reload).id != cd.id) or !old_course
+        cd.inc(:coursewares_count,1)
+      end
+      # binding.pry
       if old_course
-        old_course.department_ins.reload.inc(:coursewares_count,-1)
+        if od.id != cd.id
+          # binding.pry
+          od.inc(:coursewares_count,-1)
+        end
         old_course.inc(:coursewares_count,-1)
       end
       calculate_department_fid
-      c = Course.where(:fid => course_fid).first
-      c.department_ins.inc(:coursewares_count,1)
-      c.inc(:coursewares_count,1)
     end
   end
   before_save :teachers_work
@@ -662,6 +701,7 @@ class Courseware
         cw.uploader_id_candidates.delete(uploader_id_was)
       end
       cw.save(:validate=>false)
+      redirect_to_id_op
     end
   end
   def wh_ratio
@@ -706,10 +746,18 @@ class Courseware
   def redirect_to_id_op
     x=self
     history=[x.id.to_s]
+    candidates_history = x.uploader_id_candidates
     while x.redirect_to_id.present?
       x=Courseware.find(x.redirect_to_id)
       history << x.id.to_s
-      raise 'uniq cycle!!!' if history.uniq.size < history.size
+      candidates_history += x.uploader_id_candidates
+    end
+    # binding.pry
+    x.ua(:uploader_id_candidates,candidates_history.uniq)
+    if history.uniq.size < history.size
+        self.redirect_to_id = nil
+        self.ktvid=x.ktvid
+        return
     end
     self.redirect_to_id=x.id
     self.ktvid=x.ktvid
