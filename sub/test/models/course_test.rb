@@ -6,7 +6,7 @@ describe Course do
     @user2 = User.find('506d559ee1382375f3000163')
   end
   it "创建新课程并添加到某学院（上传课件时如果课程不够用，需要添加新课程）" do
-    dpt = Department.first
+    dpt = Department.nondeleted.first
     dpt_courses_count = dpt.courses_count
     c = Course.new
     c.department_fid = dpt.fid
@@ -15,7 +15,7 @@ describe Course do
     assert dpt_courses_count +1 == dpt.courses_count,'新的课程属于某个学院，这个学院的课程总数+1'
   end
   it "被添加老师（上传课件时如果老师不够用，需要添加新老师）" do
-    dpt = Department.first
+    dpt = Department.nondeleted.first
     c = Course.new
     c.department_fid = dpt.fid
     c.save(:validate=>false)
@@ -55,7 +55,7 @@ describe Course do
   it "软删除之前判断是否有课件依赖于这个课程" do
     user_n = User.new
     user_n.save(:validate=>false)
-    dpt = Department.first
+    dpt = Department.nondeleted.first
     c = Course.new
     c.department_fid = dpt.fid
     c.save(:validate=>false)
@@ -81,7 +81,7 @@ describe Course do
     @user2.followed_course_fids=[]
     @user2.save(:validate=>false)
     @user2.reload
-    dpt = Department.first
+    dpt = Department.nondeleted.first
     t1 = Teacher.locate("TCH#{Time.now.to_i}#{rand}")
     t2 = Teacher.locate("TCH#{Time.now.to_i}#{rand}")
     t3 = Teacher.locate("TCH#{Time.now.to_i}#{rand}")
@@ -120,5 +120,10 @@ describe Course do
     assert t1_courses_count - 1 == t1.courses_count,'老师的课程计数还原'
     assert t2_courses_count - 1 == t2.courses_count,'老师的课程计数还原'
     assert t3_courses_count - 1 == t3.courses_count,'老师的课程计数还原'    
+    refute t1.soft_deleted?,'课程没了老师不能没'
+    refute t2.soft_deleted?,'课程没了老师不能没'
+    refute t3.soft_deleted?,'课程没了老师不能没'
+    refute dpt.soft_deleted?,'课程没了院系不能没'
   end
 end
+

@@ -34,7 +34,7 @@ describe User do
     refute @user2.followed_by?(@user1),'A取消关注B,A取消了B的关注行为'
   end
   it "用户关注院系" do
-    @department = Department.first
+    @department = Department.nondeleted.first
     @user1.followed_department_fids=[]
     @department.follower_ids = []
     @department.followers_count = 0
