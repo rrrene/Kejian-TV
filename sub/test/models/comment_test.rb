@@ -34,6 +34,7 @@ describe Comment do
     assert @courseware1.comments.collect(&:body).include?(cm3.body),'成功评论了课件'
   end
   it "异步清理" do
+    @courseware1 = Courseware.non_redirect.nondeleted.normal.is_father.first
     # 1. 预检--------------    
     # 2. 清理！！！--------------    
     # 3. 重检--------------

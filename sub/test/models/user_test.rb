@@ -59,7 +59,7 @@ describe User do
     assert department_followers_count == @department.followers_count,'学院的关注数字恢复'
   end
   it "用户关注课程" do
-    @course = Course.first
+    @course = Course.nondeleted.first
     @user1.followed_course_fids=[]
     @course.follower_ids = []
     @course.followers_count = 0

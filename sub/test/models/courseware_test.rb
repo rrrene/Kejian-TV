@@ -485,7 +485,7 @@ describe Courseware do
     t1 = Teacher.locate("TCH#{Time.now.to_i}#{rand}")
     t2 = Teacher.locate("TCH#{Time.now.to_i}#{rand}")
     t3 = Teacher.locate("TCH#{Time.now.to_i}#{rand}")
-    c = Course.first
+    c = Course.nondeleted.first
     dpt = c.department_ins
     user_n = User.new
     user_n.save(:validate=>false)
@@ -585,6 +585,12 @@ describe Courseware do
     assert cm1.soft_deleted?,'软删除传播到了这个课件的每个评论'
     assert cm2.soft_deleted?,'软删除传播到了这个课件的每个评论'
     assert cm3.soft_deleted?,'软删除传播到了这个课件的每个评论'
+    refute pl1.soft_deleted?,'课件没了，播放列表不能没'
+    refute pl2.soft_deleted?,'课件没了，播放列表不能没'
+    refute 0==pl1.status,'列表空了，播放列表自然不是正常的'
+    refute 0==pl2.status,'列表空了，播放列表自然不是正常的'
+    refute c.soft_deleted?,'课件没了，课程不能没'
+    refute dpt.soft_deleted?,'课件没了，学院不能没'
   end
   it "软删除之后的逻辑" do
     # todo

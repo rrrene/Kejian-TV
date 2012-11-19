@@ -840,16 +840,10 @@ kejians:['课件','num','filter'],comments:['评论','num']
   field :invite_count, :type => Integer, :default => 0
   field :invited_count, :type => Integer, :default => 0
 
-  field :thank_count, :type => Integer, :default => 0                   # => 课件被其他用户感谢的次数
-  field :dislike_coursewares_count, :type => Integer, :default => 0     # => 课件被其他用户不喜欢的次数
-  field :thanked_count, :type => Integer, :default => 0                 # => 被该self用户感谢的课件数量
-  field :disliked_coursewares_count, :type => Integer, :default => 0    # => 被该self用户不喜欢的课件数量
-  
-  field :like_play_lists_count, :type => Integer, :default => 0 
-  field :dislike_play_lists_count, :type => Integer, :default => 0 
-  field :liked_play_lists_count, :type => Integer, :default => 0 
-  field :disliked_play_lists_count, :type => Integer, :default => 0   
-
+  field :thank_count, :type => Integer, :default => 0                   # => 被其他用户ding的次数
+  field :dislike_count, :type => Integer, :default => 0     # => 被其他用户不喜欢的次数
+  field :thanked_count, :type => Integer, :default => 0                 # => 表达感谢的数量
+  field :disliked_count, :type => Integer, :default => 0    # => 表达不喜欢的数量
   
   field :coursewares_count, :type => Integer, :default => 0
   field :coursewares_uploaded_count, :type => Integer, :default => 0

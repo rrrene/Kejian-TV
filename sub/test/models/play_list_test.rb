@@ -70,10 +70,10 @@ describe PlayList do
   end
 
   it "播放列表的course_fids的计算及多种播放列表计数变化" do
-    cw1 = Courseware.first
+    cw1 = Courseware.non_redirect.nondeleted.normal.is_father.first
     c1 = cw1.course_ins
     dp1 = cw1.department_ins
-    cw2 = Courseware.where(:department_fid.ne=>cw1.department_fid).first
+    cw2 = Courseware.non_redirect.nondeleted.normal.is_father.where(:department_fid.ne=>cw1.department_fid).first
     c2 = cw2.course_ins
     dp2 = cw2.department_ins
     d1 = dp1.play_lists_count
