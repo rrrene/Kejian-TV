@@ -48,7 +48,7 @@ $('#change_password_link').click(function(){
   $('#change_password').show();
 })
 <% end %>
-<% if '1'==params[:reload];current_user.update_attribute(:avatar_changed_at,Time.now);current_user.update_consultant!;end  %>
+<% if '1'==params[:reload];current_user.update_attribute(:avatar_changed_at,Time.now);end  %>
 <div class="field">
   <%= f.label :avatar,'修改头像' %><br class="clear">
   <%= avatar_tag(resource,:middle,'padding:1px;border:1px solid #999999','1'==params[:reload]) %>

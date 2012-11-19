@@ -139,7 +139,7 @@
           <h3>
             <% if nn=Course.get_name(item.course_fid) %>
               <a href="/courses/<%= item.course_fid %>" class="tag-post"><%= nn %></a><br>
-              <% nd=Course.get_department(item.course_fid) %>
+              <% nd=Course.get_department_fid(item.course_fid) %>
             <% end %>
             <a href="/coursewares/<%= item.id %>" class="question-hyperlink">
             <%= item.title %>
@@ -149,12 +149,6 @@
             <%= render :partial=>'cw_excerpt',:locals=>{item:item} %>
           </div>
 
-          <div class="tags t-nutrition">
-            <% if false and nd %>
-              <!-- todo -->
-              <a href="/departments/<%= item.course_fid %>" class="post-tag" title="<%= nd %>" rel="tag"><%= nd %></a> 
-            <% end %>
-          </div>
           <div class="started fr" style="margin-top:12px;margin-right:12px">
 
 

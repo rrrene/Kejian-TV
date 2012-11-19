@@ -14,7 +14,6 @@ class FlagRecord
   field :layer
   field :reason_id
   field :atype,:type=>Integer,:default=>0
-  field :deleted_at,:type=>Time
   field :deletor_id
   
   field :times,:type=>Integer,:default=>1

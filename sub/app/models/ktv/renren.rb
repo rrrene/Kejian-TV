@@ -451,7 +451,6 @@ module Ktv
           u.save(:validate=>false)
           finally_suc = true
         ensure
-          u.update_consultant!
           unless finally_suc
             page = rr.agent.get callback
             if page.title =~ /解冻/

@@ -67,7 +67,6 @@ class AccountController < Devise::RegistrationsController
     end
 
     if @user.save
-      @user.update_consultant!
       redirect_to edit_user_registration_path,:notice => '个人资料修改成功'
     else
       # flash[:alert] = "修改失败：#{@user.errors.full_messages.join(", ")}"
@@ -83,7 +82,6 @@ class AccountController < Devise::RegistrationsController
     common_account_op!
     @user.fangwendizhi = params['fangwendizhi']
     if @user.save
-      @user.update_consultant!
       redirect_to edit_user_registration_path,:notice => "已启用新的访问地址http://#{Setting.ktv_subdomain}/#{@user.fangwendizhi}"
     else
       flash[:alert] = "修改失败：#{@user.errors.full_messages.join(", ")}"
@@ -328,7 +326,6 @@ class AccountController < Devise::RegistrationsController
         pass_warning=''
       end
       if resource.save
-        resource.update_consultant!
         flash[:alert] = email_warning if email_warning.present?
         cookies[:spetial] = pass_warning if pass_warning.present?
         redirect_to edit_user_registration_path,:notice => '个人资料修改成功'

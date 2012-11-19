@@ -553,7 +553,7 @@ class Courseware
       self.user.school.inc(:coursewares_count,1) if self.user.school
     end
     if status_changed? and 0==status
-      self.uploader.inc(:coursewares_uploaded_count,1)
+      self.uploader.inc(:coursewares_uploaded_count,1) if self.uploader
       @statuschangedandeq0 = true
     end
     if ktvid_changed? and ktvid.present?
@@ -1141,13 +1141,13 @@ opts={   :subsite=>Setting.ktv_sub,
     return true
   end
   def redis_search_alias
-    [self.teachers.to_a.join(', '),self.course_name].join(', ')
+    [self.teachers.to_a.join(', '),self.course_name].map { |e| e if e.present? }.compact.join(', ')
   end
   def redis_search_alias_changed?
     self.teachers_changed? or self.course_fid_changed?
   end
   def redis_search_alias_was
-    [self.teachers_was.to_a.join(', '),self.course_name_was].join(', ')
+    [self.teachers_was.to_a.join(', '),self.course_name_was].map { |e| e if e.present? }.compact.join(', ')
   end
   def course_name
     Course.get_name(self.course_fid)
@@ -1167,21 +1167,20 @@ opts={   :subsite=>Setting.ktv_sub,
   alias_method :redis_search_index_create_before_psvr,:redis_search_index_create
   alias_method :redis_search_index_need_reindex_before_psvr,:redis_search_index_need_reindex
   def redis_search_psvr_okay?
-    0==self.status and 0==self.privacy and self.title.present? and self.redis_search_alias.present?
+    !self.soft_deleted? and 0==self.status and 0==self.privacy and self.title.present? and self.redis_search_alias.present?
   end
   def redis_search_index_need_reindex
-    if self.status_changed? && redis_search_psvr_okay?
-      return true
+    if !redis_search_psvr_okay?
+      redis_search_index_destroy
+      redis_search_psvr_was_delete!
+      return false
     else
-      return self.redis_search_index_need_reindex_before_psvr
+      return (self.deleted_changed? || self.status_changed? || self.privacy_changed? || self.redis_search_index_need_reindex_before_psvr)      
     end
   end
+
   def redis_search_index_create
-    if self.redis_search_psvr_okay?
-      return self.redis_search_index_create_before_psvr
-    else
-      return true
-    end
+    self.redis_search_index_create_before_psvr if self.redis_search_psvr_okay?
   end
   unless $psvr_really_development
     include Tire::Model::Search

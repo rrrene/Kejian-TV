@@ -14,7 +14,7 @@
             <% if nn=Course.get_name(item.course_fid) %>
 						<% cwurl =  '/courses/' + item.course_fid.to_s %>
               <a href="<%= gen_jump_url(cwurl) %>&keyword=<%= CGI::escape(params[:q]) %>&t=s" target="_blank" class="tag-post"><%= nn %></a><br>
-              <% nd=Course.get_department(item.course_fid) %>
+              <% nd=Course.get_department_fid(item.course_fid) %>
             <% end %>
 						<% cwurlx =  '/coursewares/' + item.id.to_s %>
             <a href="<%= gen_jump_url(cwurlx) %>&keyword=<%= CGI::escape(params[:q]) %>&t=s"  target="_blank" class="question-hyperlink">
@@ -52,17 +52,6 @@
               <% unless arr.blank? %>
                 <br><%= arr.join(', ')+'.' %>
               <% end %>
-            <% end %>
-          </div>
-
-          <div class="tags t-nutrition">
-            <% if false and item.teacher.present? %>
-              <!-- todo -->
-              <a href="/teachers/<%= item.teacher_typeid %>" class="post-tag" title="<%= item.teacher %>" rel="tag"><%= item.teacher %></a> 
-            <% end %>
-            <% if false and nd %>
-              <!-- todo -->
-              <a href="/departments/<%= item.course_fid %>" class="post-tag" title="<%= nd %>" rel="tag"><%= nd %></a> 
             <% end %>
           </div>
       </div>

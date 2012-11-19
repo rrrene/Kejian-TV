@@ -38,7 +38,9 @@ class Redis
           
           def redis_search_alias_value(field)
             return [] if field.blank? or field == "_was"
-            val = instance_eval("self.\#{field}").clone
+            psvr_ret = instance_eval("self.\#{field}")
+            return [] if psvr_ret.blank?
+            val = psvr_ret.clone
             return [] if !val.class.in?([String,Array])
             if val.is_a?(String)
               val = val.to_s.split(",")
@@ -73,10 +75,11 @@ class Redis
           before_destroy :redis_search_index_destroy
           def redis_search_index_destroy
             titles = []
-            titles = redis_search_alias_value("#{alias_field}")
-            titles << self.#{title_field}
-            
-            redis_search_index_delete(titles)
+            redis_search_alias_value("#{alias_field}").each do |psvr_what|
+              titles << psvr_what if psvr_what.present?
+            end
+            titles << self.#{title_field} if self.#{title_field}.present?
+            redis_search_index_delete(titles) if titles.present?
             true
           end
           
@@ -106,12 +109,18 @@ class Redis
             return index_fields_changed
           end
           
+          def redis_search_psvr_was_delete!
+            titles = []
+            redis_search_alias_value("#{alias_field}_was").each do |psvr_what|
+              titles << psvr_what if psvr_what.present?
+            end
+            titles << self.#{title_field}_was if self.#{title_field}_was.present?
+            redis_search_index_delete(titles) if titles.present?
+          end
+          
           after_update do
             if self.redis_search_index_need_reindex
-              titles = []
-              titles = redis_search_alias_value("#{alias_field}_was")
-              titles << self.#{title_field}_was
-              redis_search_index_delete(titles)
+              redis_search_psvr_was_delete!
             end
             true
           end

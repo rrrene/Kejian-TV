@@ -15,7 +15,7 @@
               <% if nn=Course.get_name(course_fid) %>
 									<% urlc = '/courses/'+ course_fid.to_s %>
                 <a href="<%= gen_jump_url(urlc) %>&keyword=<%= CGI::escape(params[:q]) %>&t=s" target="_blank" class="tag-post"><%= nn %></a><br>
-                <% nd=Course.get_department(course_fid) %>
+                <% nd=Course.get_department_fid(course_fid) %>
               <% end %>
             <% end %>
 							<% urlp = '/play_lists/'+ item.id.to_s  %>

@@ -2,6 +2,6 @@
 require "test_helper"
 describe DepartmentsController do
   before do
-    @department = Department.nondeleted.first
+    @department = Department.nondeleted.gotfid.first
   end
 end

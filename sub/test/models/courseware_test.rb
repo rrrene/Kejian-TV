@@ -168,7 +168,7 @@ describe Courseware do
   end
   it "当一个课件的所属课程发生了改变，新旧课程的课件总计数，以及新旧课程所属学院的课件总计数，都应该做出相应改变" do
     c = Courseware.new
-    cc = Course.nondeleted.where(:department_fid.ne=>nil).first
+    cc = Course.nondeleted.gotfid.first
     cc.department_ins.ua(:coursewares_count,0)
     cc.coursewares_count = 0
     cc.save(:validate=>false)
@@ -184,7 +184,7 @@ describe Courseware do
     assert cc.coursewares_count == cc_coursewares_count + 1,"当一个课件的所属课程发生了改变，这个课程的课件总计数应+1"
     assert dpt.coursewares_count == dpt_coursewares_count + 1,"当一个课件的所属课程发生了改变，这个课程所属学院的课件总计数应+1"
     # -------------------------
-    ccc = Course.nondeleted.where(:id.ne=>cc.id,:department_fid.nin=>[dpt.fid,nil]).first
+    ccc = Course.nondeleted.gotfid.where(:id.ne=>cc.id,:department_fid.nin=>[dpt.fid,nil]).first
     dpt2 = ccc.department_ins                                       
     c.course_fid = ccc.fid
     ccc_coursewares_count =ccc.coursewares_count
@@ -211,7 +211,6 @@ describe Courseware do
   end
   it "当一个课件的所属老师发生了改变，这个老师的课件总计数应该做出相应改变" do
     c = Courseware.new
-    c.uploader_id = @user1.id         ##需要加上这句话~Liber加
     c.status = 0                      ##需要加上这句话，否则逻辑冲突,如果status!=0不会加1~~Liber加
     cc = Teacher.nondeleted.first
     c.teachers = [cc.name]
@@ -221,7 +220,7 @@ describe Courseware do
     c.reload
     assert cc.coursewares_count == cc_coursewares_count + 1,"当一个课件添加到一个老师的时候，这个老师的课件总计数应+1"
     ccc = Teacher.nondeleted.where(:id.ne=>cc.id).first
-    c.teachers = [ccc.name]                                     ##老师可能重名。。。disaster
+    c.teachers = [ccc.name]
     ccc_coursewares_count =ccc.coursewares_count
     c.save(:validate=>false)
     ccc.reload
@@ -411,9 +410,6 @@ describe Courseware do
   it "统计" do
     # todo
   end
-  it "搜索" do
-    # todo
-  end
   it "软删除之前判断是否有上传人候选，是真要删还是假要删？ -- Courseware.before_soft_delete" do
     user_n = User.new
     user_n.save(:validate=>false)
@@ -467,7 +463,7 @@ describe Courseware do
     t1 = Teacher.locate("TCH#{Time.now.to_i}#{rand}")
     t2 = Teacher.locate("TCH#{Time.now.to_i}#{rand}")
     t3 = Teacher.locate("TCH#{Time.now.to_i}#{rand}")
-    c = Course.nondeleted.first
+    c = Course.nondeleted.gotfid.first
     dpt = c.department_ins
     user_n = User.new
     user_n.save(:validate=>false)
@@ -547,7 +543,7 @@ describe Courseware do
     cm1.reload
     cm2.reload
     cm3.reload
-    assert crazy_cw.soft_deleted?
+    assert crazy_cw.soft_deleted?,'自身删除成功'
     assert 0 == user_n.coursewares_uploaded_count,'just like new'
     assert 0 == user_n.thank_count,'just like new'
     assert 0 == user_n.dislike_count,'just like new'
@@ -574,8 +570,76 @@ describe Courseware do
     refute c.soft_deleted?,'课件没了，课程不能没'
     refute dpt.soft_deleted?,'课件没了，学院不能没'
   end
-  it "软删除之后的逻辑" do
-    # todo
-    # 删除二阶搜索索引
+  it "课件的一阶索引" do
+    user_n = User.new
+    user_n.save(:validate=>false)
+    cw0 = Courseware.new
+    title = "pppppssssssvvvvvvrrrrrcwcw#{Courseware.count+1}"
+    cw0.title = title
+    cw0.save(:validate=>false)
+    refute Redis::Search.query("Courseware", cw0.title).try(:[],0).try(:[],'id') == cw0.id.to_s, '信息不全，不建立一阶索引'
+    cw0.status = 0
+    cw0.privacy = 0
+    tch="TCH#{Time.now.to_i}#{rand}"
+    cw0.teachers = [tch]
+    cc = Course.nondeleted.gotfid
+    cw0.course_fid = cc[0].fid
+    cw0.save(:validate=>false)
+    assert Redis::Search.query("Courseware", title).try(:[],0).try(:[],'id') == cw0.id.to_s, '信息齐全后，保存即建立这个课件的一阶索引'
+
+    cw0.update_attribute(:status,1)
+    refute Redis::Search.query("Courseware", title).try(:[],0).try(:[],'id') == cw0.id.to_s, '信息改为不正常，删除其一阶索引'
+    cw0.update_attribute(:status,0)
+    assert Redis::Search.query("Courseware", title).try(:[],0).try(:[],'id') == cw0.id.to_s, '信息恢复正常，恢复其一阶索引'    
+
+    cw0.update_attribute(:privacy,1)
+    refute Redis::Search.query("Courseware", title).try(:[],0).try(:[],'id') == cw0.id.to_s, '信息改为不正常，删除其一阶索引'
+    cw0.update_attribute(:privacy,0)
+    assert Redis::Search.query("Courseware", title).try(:[],0).try(:[],'id') == cw0.id.to_s, '信息恢复正常，恢复其一阶索引'    
+
+    cw0.update_attribute(:title,'')
+    refute Redis::Search.query("Courseware", title).try(:[],0).try(:[],'id') == cw0.id.to_s, '信息改为不正常，删除其一阶索引'
+    cw0.update_attribute(:title, title)
+    assert Redis::Search.query("Courseware", title).try(:[],0).try(:[],'id') == cw0.id.to_s, '信息恢复正常，恢复其一阶索引'    
+    
+    cw0_teachers = cw0.teachers
+    cw0_course_fid = cw0.course_fid
+    cw0.update_attribute(:teachers,[])
+    cw0.update_attribute(:course_fid,nil)
+    refute Redis::Search.query("Courseware", title).try(:[],0).try(:[],'id') == cw0.id.to_s, '信息改为不正常，删除其一阶索引'
+    cw0.update_attribute(:teachers,cw0_teachers)
+    cw0.update_attribute(:course_fid,cw0_course_fid)
+    assert Redis::Search.query("Courseware", title).try(:[],0).try(:[],'id') == cw0.id.to_s, '信息恢复正常，恢复其一阶索引'    
+    
+    title2 = title.reverse
+    assert title2!=title
+    cw0.update_attribute(:title, title2)
+    refute Redis::Search.query("Courseware", title).try(:[],0).try(:[],'id') == cw0.id.to_s, '标题改了，老标题索引不再存在'    
+    assert Redis::Search.query("Courseware", title2).try(:[],0).try(:[],'id') == cw0.id.to_s, '标题改了，新标题索引存在'    
+        
+    cw0.reload
+    old_alias = cw0.redis_search_alias
+    tch2="TCH#{Time.now.to_i}#{rand}"
+    cw0.update_attribute(:course_fid, cc[1].fid)
+    cw0.update_attribute(:teachers, [tch2])
+    cw0.reload
+    new_alias = cw0.redis_search_alias
+    assert old_alias!=new_alias,'老师、课程名改了，新索引键需反应此修改'
+    assert new_alias.include?(tch2),'老师、课程名改了，新索引键需反应此修改'
+    assert new_alias.include?(cc[1].name),'老师、课程名改了，新索引键需反应此修改'
+    refute Redis::Search.query("Courseware", old_alias).try(:[],0).try(:[],'id') == cw0.id.to_s, '老师、课程名改了，老索引不再存在'
+    assert Redis::Search.query("Courseware", new_alias).try(:[],0).try(:[],'id') == cw0.id.to_s, '老师、课程名改了，新索引存在'
+    assert 0==Redis::Search.query("Courseware", new_alias).try(:[],0).try(:[],'slides_count'), '索引要记录正确的页数'
+    cw0.update_attribute(:slides_count,100)
+    assert 100==Redis::Search.query("Courseware", new_alias).try(:[],0).try(:[],'slides_count'), '索引要记录正确的页数'
+    
+    cw0.instance_eval(&Courseware.after_soft_delete)
+    refute Redis::Search.query("Courseware", title).try(:[],0).try(:[],'id') == cw0.id.to_s, '软删除之后删除课件的一阶索引'
+  end
+  it "课件的二阶索引" do
+  end
+  it "课件的三阶索引" do
   end
 end
+
+

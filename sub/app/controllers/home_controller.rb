@@ -259,7 +259,6 @@ class HomeController < ApplicationController
       else
         render :text => object.send(field).to_s
       end
-      object.update_consultant! if "user"==klass
     else
       Rails.logger.info "object.errors.full_messages: #{object.errors.full_messages}"
       render :text => object.errors.full_messages.join("\n"), :status => 422

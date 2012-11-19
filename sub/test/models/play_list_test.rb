@@ -165,7 +165,7 @@ describe PlayList do
     assert @play_list_user2.disliked_user_ids.include?(@user1.id),'被不喜欢后，播放列表的不喜欢人记录了不喜欢者'
     refute @play_list_user2.liked_user_ids.include?(@user1.id),'被不喜欢后，播放列表的喜欢人就不再包含这个人了'
     ## 不喜欢后，被喜欢
-    @user1.thank_play_list(@play_list_user2)
+    @user1.like_playlist(@play_list_user2)
     @user1.reload
     @user2.reload
     @play_list_user2.reload
@@ -203,11 +203,11 @@ describe PlayList do
     @user1.reload
     @user2.reload
     @play_list_user2.reload
-    @user1.thank_play_list(@play_list_user2)
+    @user1.like_playlist(@play_list_user2)
     @user1.reload
     @user2.reload
     @play_list_user2.reload
-    @user1.thank_play_list(@play_list_user2)
+    @user1.like_playlist(@play_list_user2)
     @user1.reload
     @user2.reload
     @play_list_user2.reload
@@ -250,7 +250,7 @@ describe PlayList do
     @user1.reload
     @user2.reload
     # -----------------  
-    assert crazy_pl.soft_deleted?
+    assert crazy_pl.soft_deleted?,'自身删除成功'
     assert b1-1 == @user1.disliked_count,'复原计数'
     assert b2-1 == user_n.dislike_count,'复原计数'
     assert b3-1 == @user2.thanked_count,'复原计数'
@@ -258,8 +258,5 @@ describe PlayList do
     refute cw1.soft_deleted?,'播放列表没了，课件不能没啊！'
     refute cw2.soft_deleted?,'播放列表没了，课件不能没啊！'
   end
-  it "软删除之后的逻辑" do
-    # todo
-    # 删除二阶搜索索引
-  end
+
 end

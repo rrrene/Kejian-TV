@@ -316,6 +316,9 @@ kejians:['课件','num','filter'],comments:['评论','num']
   field :authentication_token, :type => String
   
   @before_soft_delete = proc{
+    # todo
+  }
+  @after_soft_delete = proc{
     redis_search_index_destroy
     $redis_users.hdel self.uid,:id
     $redis_users.hdel self.id,:name
@@ -324,12 +327,12 @@ kejians:['课件','num','filter'],comments:['评论','num']
     $redis_users.hdel self.id,:slug
     # $redis_users.hdel self.id,:fangwendizhi
     $redis_users.hdel self.id,:avatar_filename
-  }
-  @after_soft_delete = proc{
     self.update_attribute(:banished,"1")
     self.update_attribute(:user_type,User::BAN_USER)
   }
   def asynchronously_clean_me
+    # todo
+    return
     bad_ids = [self.id]
     Util.bad_id_out_of!(AskInvite,:invitor_ids,bad_ids)
     Util.bad_id_out_of!(Topic,:follower_ids,bad_ids)
@@ -409,7 +412,7 @@ kejians:['课件','num','filter'],comments:['评论','num']
     "http://#{Setting.domain}/users/#{self.slug}"
   end
   # todo: temporarily disable----------------------------------------------
-  # cache_consultant :fangwendizhi,:no_callbacks=>true
+  # cache_consultant :fangwendizhi
   def User.get_fangwendizhi(id)
     return "users/#{id}"
   end
@@ -1406,7 +1409,9 @@ kejians:['课件','num','filter'],comments:['评论','num']
     return true
   end
   
-  
+  def like_comment(comment)
+    #todo
+  end  
   def like_playlist(playlist)
     self.thanked_play_list_ids ||= []
     if playlist.disliked_user_ids.include?(self.id)
@@ -1447,17 +1452,14 @@ kejians:['课件','num','filter'],comments:['评论','num']
   def async_info_delete(user_id)
     self.coursewares.each do |a|
       a.update_attribute(:deletor_id,Moped::BSON::ObjectId(user_id))
-      a.update_attribute(:deleted_at,Time.now)
       a.update_attribute(:deleted,1)
     end
     self.play_lists.each do |a|
       a.update_attribute(:deletor_id,Moped::BSON::ObjectId(user_id))
-      a.update_attribute(:deleted_at,Time.now)
       a.update_attribute(:deleted,1)
     end
     self.comments.each do |c|
       c.update_attribute(:deletor_id,Moped::BSON::ObjectId(user_id))
-      c.update_attribute(:deleted_at,Time.now)
       c.update_attribute(:deleted,1)
     end
   end
@@ -1586,33 +1588,20 @@ kejians:['课件','num','filter'],comments:['评论','num']
   #   end
   #   saved_count
   # end
-  cache_consultant :id,:from_what => :uid,:no_callbacks=>true
-  cache_consultant :name,:no_callbacks=>true
-  cache_consultant :uid,:no_callbacks=>true
-  cache_consultant :email,:no_callbacks=>true
-  cache_consultant :slug,:no_callbacks=>true
-  def self.get_avatar_changed_at(uid)
-    $redis_users.hget(uid,:avatar_changed_at)    
-  end
-  cache_consultant :avatar_filename,:no_callbacks=>true
-  cache_consultant :is_expert_why,:redis_varname=>'$redis_experts',:no_callbacks=>true
-  cache_consultant :reputation,:no_callbacks=>true
+  cache_consultant :id,:from_what => :uid
+  cache_consultant :name
+  cache_consultant :uid
+  cache_consultant :email
+  cache_consultant :slug
+  cache_consultant :avatar_changed_at
+  cache_consultant :avatar_filename
+  cache_consultant :reputation
   before_create :check_slug_presence
   def check_slug_presence
     self.slug = self.id.to_s unless self.slug.present?
     return true
   end
-  after_create :update_consultant!
-  def update_consultant!
-    $redis_users.hset(self.uid,:id,self.id.to_s)
-    $redis_users.hset(self.id,:name,self.name)
-    $redis_users.hset(self.id,:uid,self.uid)
-    $redis_users.hset(self.id,:email,self.email)
-    $redis_users.hset(self.id,:slug,self.slug)
-    # $redis_users.hset(self.id,:fangwendizhi,self.fangwendizhi)
-    $redis_users.hset(self.id,:avatar_filename,self.avatar_filename)
-    $redis_users.hset(self.uid,:avatar_changed_at,self.avatar_changed_at.to_i)
-  end
+
   def play_lists
     PlayList.undestroyable.nondeleted.where(:user_id=>self.id)
   end
@@ -1656,7 +1645,6 @@ kejians:['课件','num','filter'],comments:['评论','num']
     u.email = incoming_opts['email']
     u.slug = incoming_opts['username']
     u.save(:validate=>false)
-    u.update_consultant! unless u.new_record?
     return u
   end
   def self.import_from_ibeike!(info0)
@@ -1672,7 +1660,6 @@ kejians:['课件','num','filter'],comments:['评论','num']
     u.email = incoming_opts['email']
     u.ibeike_slug = incoming_opts['username']
     u.save(:validate=>false)
-    u.update_consultant! unless u.new_record?
     if u.uid.blank?
       ret = UCenter::User.get_user(nil,{username:u.email,isemail:1})
       if '0'!=ret

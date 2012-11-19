@@ -17,7 +17,7 @@ module UsersHelper
     return dz_avatar_url(User.get_uid(user),User.get_email(user),size,reload)
   end
   def name_beautify(name)
-    '_'==name[0] ? name[1..-1] : name
+    '_'==name.try(:[],0) ? name[1..-1] : name
   end
   def dz_avatar_url(uid,email,size=:normal,reload=false)
     reload = (User.get_avatar_changed_at(uid).to_i > 1.day.ago.to_i)

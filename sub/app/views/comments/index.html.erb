@@ -31,7 +31,7 @@
                                      <h3>
                                        <% if nn=Course.get_name(item.course_fid) %>
                                          <a href="/courses/<%= item.course_fid %>" class="tag-post"><%= nn %></a><br>
-                                         <% nd=Course.get_department(item.course_fid) %>
+                                         <% nd=Course.get_department_fid(item.course_fid) %>
                                        <% end %>
                                        <a href="/coursewares/<%= item.id %>" class="question-hyperlink">
                                        <%= item.title %>
@@ -58,16 +58,6 @@
                                        <% end %>
                                      </div>
 
-                                     <div class="tags t-nutrition">
-                                       <% if false and item.teacher.present? %>
-                                         <!-- todo -->
-                                         <a href="/teachers/<%= item.teacher_typeid %>" class="post-tag" title="<%= item.teacher %>" rel="tag"><%= item.teacher %></a> 
-                                       <% end %>
-                                       <% if false and nd %>
-                                         <!-- todo -->
-                                         <a href="/departments/<%= item.course_fid %>" class="post-tag" title="<%= nd %>" rel="tag"><%= nd %></a> 
-                                       <% end %>
-                                     </div>
                                      <div class="started fr">
 
 

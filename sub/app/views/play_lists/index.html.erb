@@ -147,7 +147,7 @@ $('.presentation').hover(function(){
             <% item.course_fids.each do |course_fid| %>
               <% if nn=Course.get_name(course_fid) %>
                 <a href="/courses/<%= course_fid %>" class="tag-post"><%= nn %></a>
-                <% nd=Course.get_department(course_fid) %>
+                <% nd=Course.get_department_fid(course_fid) %>
               <% end %>
             <% end %>
 						<br>

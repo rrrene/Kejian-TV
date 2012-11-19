@@ -6,7 +6,7 @@ describe Comment do
     @user2 = User.find('506d559ee1382375f3000163')
   end
   
-  it "after_create_comments_count +1" do
+  it "评论人与被评论物体的评论计数 +1" do
     @courseware1 = Courseware.non_redirect.nondeleted.normal.is_father.first
     user1_comments_count = @user1.comments_count
     courseware1_comments_count = @courseware1.comments_count
@@ -41,15 +41,9 @@ describe Comment do
   \ ( →┃√┃ ← ) / 
 　 \_)↗┗━┛ ↖(_/ 
 " do
-
-    @user1.save(:validate=>false)
-    @user2.save(:validate=>false)
-
-    @user1.reload
-    @user2.reload
-
     @courseware1 = Courseware.non_redirect.nondeleted.normal.is_father.first
     success_comment_user2,@comment_user2 = Comment.real_create({:comment => {"commentable_type"=>"Courseware","commentable_id"=>@courseware1.id.to_s,"body"=>"#{Time.now.to_i}#{rand.to_s}"}}.with_indifferent_access,@user2)
+    assert success_comment_user2
     @comment_user2.voteup_user_ids = []
     @comment_user2.votedown_user_ids = []
     @comment_user2.voteup = 0
@@ -75,7 +69,7 @@ describe Comment do
     assert @comment_user2.votedown_user_ids.include?(@user1.id),'被不喜欢后，课件的不喜欢人记录了不喜欢者'
     refute @comment_user2.voteup_user_ids.include?(@user1.id),'被不喜欢后，课件的喜欢人就不再包含这个人了'
     ## 不喜欢后，被喜欢
-    @user1.thank_comment(@comment_user2)
+    @user1.like_comment(@comment_user2)
     @user1.reload
     @user2.reload
     @comment_user2.reload
@@ -113,11 +107,11 @@ describe Comment do
     @user1.reload
     @user2.reload
     @comment_user2.reload
-    @user1.thank_comment(@comment_user2)
+    @user1.like_comment(@comment_user2)
     @user1.reload
     @user2.reload
     @comment_user2.reload
-    @user1.thank_comment(@comment_user2)
+    @user1.like_comment(@comment_user2)
     @user1.reload
     @user2.reload
     @comment_user2.reload
@@ -133,10 +127,44 @@ describe Comment do
 
   it "异步清理" do
     @courseware1 = Courseware.non_redirect.nondeleted.normal.is_father.first
+    # 以下评论由@user2创建
+    success_crazy_comment,crazy_comment = Comment.real_create({:comment => {"commentable_type"=>"Courseware","commentable_id"=>@courseware1.id.to_s,"body"=>"#{Time.now.to_i}#{rand.to_s}"}}.with_indifferent_access,@user2)
+    assert success_crazy_comment
+    # 以下评论由@user1创建
+    success_comment_kid1,comment_kid1 = Comment.real_create({:comment => {"commentable_type"=>"Courseware","commentable_id"=>@courseware1.id.to_s,"body"=>"#{Time.now.to_i}#{rand.to_s}",'replied_to_comment_id'=>crazy_comment.id}}.with_indifferent_access,@user1)
+    success_comment_kid2,comment_kid2 = Comment.real_create({:comment => {"commentable_type"=>"Courseware","commentable_id"=>@courseware1.id.to_s,"body"=>"#{Time.now.to_i}#{rand.to_s}",'replied_to_comment_id'=>crazy_comment.id}}.with_indifferent_access,@user1)
+    assert success_comment_kid1
+    assert success_comment_kid2
+    crazy_comment.disliked_by_user(@user1)
+    @user2.like_comment(crazy_comment)
     # 1. 预检--------------    
+    crazy_comment.reload
+    @user1.reload
+    @user2.reload
+    comment_kid1.reload
+    comment_kid2.reload
+    @courseware1.reload
+    d1 = @user1.disliked_count
+    d2 = @user2.thanked_count
+    d3 = @user1.comments_count
+    d4 = @user2.comments_count
+    d5 = @courseware1.comments_count
     # 2. 清理！！！--------------    
+    crazy_comment.asynchronously_clean_me
     # 3. 重检--------------
-    # -----------------  
+    crazy_comment.reload
+    @user1.reload
+    @user2.reload
+    comment_kid1.reload
+    comment_kid2.reload
+    @courseware1.reload
+    assert crazy_comment.soft_deleted?,'自身删除成功'
+    assert comment_kid1.soft_deleted?,'软删除传播至子评论'
+    assert comment_kid2.soft_deleted?,'软删除传播至子评论'
+    assert d1 - 1 == @user1.disliked_count,'评论的投票人计数复原'
+    assert d2 - 1 == @user2.thanked_count,'评论的投票人计数复原'
+    assert d3 - 1 == @user1.comments_count,'评论的创建人计数复原'
+    assert d5 - 1 == @user1.comments_count,'被评论物体的计数复原'
   end
 
 end

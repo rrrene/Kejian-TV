@@ -19,18 +19,24 @@ class Department
   field :courses_count,:type=>Integer,:default=>0
   field :coursewares_count,:type=>Integer,:default=>0
   field :play_lists_count,:type=>Integer,:default=>0
+  def gotfid?
+    self.fid>0
+  end
+  scope :gotfid,where(:fid.gt=>0)
   validates_uniqueness_of :name,:message=>'与已有院系名重复，请尝试其他名'
-  cache_consultant :fid,:from_what => :name,:no_callbacks=>true
-  cache_consultant :id,:from_what => :name,:no_callbacks=>true
-  cache_consultant :name,:from_what => :fid,:no_callbacks=>true
+  cache_consultant :fid,:from_what => :name
+  cache_consultant :id,:from_what => :name
+  cache_consultant :name,:from_what => :fid
+  before_save :dz_op!
+  def dz_op!
+    if self.name.present? and self.fid.blank?
+      inst = PreForumForum.insert1("#{self.name}",Department.count+1)
+      self.fid=inst.fid
+    end
+  end
   
-  after_create :update_consultant!
   def integrity_op
     self.courses_count = self.courses.count
-  end
-  def update_consultant!
-    $redis_users.hset(self.name,:fid,self.fid)
-    $redis_users.hset(self.name,:id,self.id)
   end
   
   def courses
@@ -76,5 +82,24 @@ class Department
     :prefix_index_enable => true,
     :ext_fields => [:cover_small38,:fid],
     :score_field => :coursewares_count)
+  alias_method :redis_search_index_create_before_psvr,:redis_search_index_create
+  alias_method :redis_search_index_need_reindex_before_psvr,:redis_search_index_need_reindex
+  def redis_search_psvr_okay?
+    !self.soft_deleted? and self.name.present? and self.gotfid?
+  end
+  def redis_search_index_need_reindex
+    if !redis_search_psvr_okay?
+      redis_search_psvr_was_delete! if name_was.present?
+      return false
+    end
+    return self.redis_search_index_need_reindex_before_psvr
+  end
+  def redis_search_index_create
+    if self.redis_search_psvr_okay?
+      return self.redis_search_index_create_before_psvr
+    else
+      return true
+    end
+  end
 end
 

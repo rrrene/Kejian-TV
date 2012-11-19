@@ -8,6 +8,7 @@ module BaseModel
       attr_accessor :after_soft_delete
     end
     field :deleted, :type => Integer, :default => 0
+    field :deleted_at, :type => Time
     scope :nondeleted, where(:deleted.nin=>[1,3])
     scope :be_deleted, where(:deleted=>1)
     scope :recent, desc("created_at")
@@ -39,15 +40,13 @@ module BaseModel
           ret
         end
       RUBY
-      unless opts[:no_callbacks]      
-        class_eval <<-RUBY, __FILE__, __LINE__ + 1
-            after_save{
-              unless 1==self.deleted
-                self.class.set_#{child}(self.#{(opts[:from_what] == :id) ? '_id' : opts[:from_what]},self.#{child})
-              end
-            }
-        RUBY
-      end
+      class_eval <<-RUBY, __FILE__, __LINE__ + 1
+          before_save{
+            unless self.soft_deleted?
+              self.class.set_#{child}(self.#{(opts[:from_what] == :id) ? '_id' : opts[:from_what]},self.#{child}) if self.#{(opts[:from_what] == :id) ? '_id' : opts[:from_what]}_changed?
+            end
+          }
+      RUBY
     end
   end
   
@@ -97,6 +96,7 @@ module BaseModel
     ret = self.instance_eval(&self.class.before_soft_delete) unless self.class.before_soft_delete.nil?
     unless false==ret
       self.update_attribute(:deleted,1)
+      self.update_attribute(:deleted_at,Time.now)
       self.instance_eval(&self.class.after_soft_delete) unless self.class.after_soft_delete.nil?
       if self.respond_to?(:asynchronously_clean_me)
         if async

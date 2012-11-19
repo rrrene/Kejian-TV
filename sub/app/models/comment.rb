@@ -44,14 +44,12 @@ class Comment
 
   #后台删除操作记录
   field :deletor_id
-  field :deleted_at, :type => Time
   #添加后台删除操作记录
   def info_delete(user_id)
     Sidekiq::Client.enqueue(HookerJob,self.class.to_s,self.id,:async_info_delete,user_id)
   end
   def async_info_delete(user_id)
     self.update_attribute(:deletor_id,Moped::BSON::ObjectId(user_id))
-    self.update_attribute(:deleted_at,Time.now)
   end
   
   belongs_to :commentable, :polymorphic => true
@@ -92,7 +90,9 @@ class Comment
     end
   end
   # after_create :create_log
-  
+  def disliked_by_user(user)
+    #todo
+  end
   def create_log
     log = CommentLog.new
     log.user_id = self.user_id

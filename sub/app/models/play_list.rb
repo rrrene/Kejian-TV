@@ -248,9 +248,6 @@ class PlayList
   end
 
   before_save :thumb_ktvids_op
-  def set_status
-    #todo
-  end
   def thumb_ktvids_op
     if self.undestroyable == true
         if self.title_changed? or self.desc_changed? or self.privacy_changed? or self.is_history_changed? or self.user_id_changed?
@@ -404,7 +401,7 @@ class PlayList
     return Courseware.eager_load(self.content)
   end
   def courseware_titles
-    self.coursewares.collect &:title
+    self.coursewares.collect(&:title)
   end
   def courseware_titles_changed?
     self.content_changed?
@@ -412,8 +409,18 @@ class PlayList
   def courseware_titles_was
     self.coursewares(self.content_was).collect &:title
   end
+  def redis_search_alias(alt=nil)
+    alt=self.courseware_titles if alt.nil?
+    alt.map { |e|  e if e.present? }.compact.join(', ')
+  end
+  def redis_search_alias_changed?
+    self.courseware_titles_changed?
+  end
+  def redis_search_alias_was
+    self.redis_search_alias(courseware_titles_was)
+  end
   redis_search_index(:title_field => :title,
-                     :alias_field => :courseware_titles,
+                     :alias_field => :redis_search_alias,
                      :score_field => :score,
                      :ext_fields => [:coursewares_count,:courseware_titles],
                      :prefix_index_enable => false,
@@ -421,7 +428,7 @@ class PlayList
   alias_method :redis_search_index_create_before_psvr,:redis_search_index_create
   alias_method :redis_search_index_need_reindex_before_psvr,:redis_search_index_need_reindex
   def redis_search_psvr_okay?
-    !self.undestroyable and 0==self.status and 0==self.privacy and self.title.present? and self.courseware_titles.present?
+    !self.soft_deleted? and !self.undestroyable and 0==self.status and 0==self.privacy and self.title.present? and self.redis_search_alias.present?
   end
   def redis_search_index_need_reindex
     if self.status_changed? && self.redis_search_psvr_okay?

@@ -9,7 +9,6 @@ class UsersController < ApplicationController
       return
     end
     @user.avatar=params[:user][:avatar]
-    @user.update_consultant!
     @user.save!
     redirect_to "/users/#{@user.slug}",notice:'头像更新成功！'
   end  

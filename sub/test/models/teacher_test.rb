@@ -13,7 +13,7 @@ describe Teacher do
   end
   it "老师是有学院的" do
     t = Teacher.locate("TCH#{Time.now.to_i}#{rand}")
-    dpt = Department.nondeleted.first
+    dpt = Department.nondeleted.gotfid.first
     d1 = dpt.teachers_count
     t.department_fid = dpt.fid
     t.save(:validate=>false)
@@ -49,8 +49,8 @@ describe Teacher do
     @user2.followed_teacher_ids=[]
     @user2.save(:validate=>false)
     @user2.reload
-    dpt = Department.nondeleted.first
-    cc = Course.nondeleted
+    dpt = Department.nondeleted.gotfid.first
+    cc = Course.nondeleted.gotfid
     c1 = cc[0]
     c2 = cc[1]
     c3 = cc[2]
@@ -86,7 +86,7 @@ describe Teacher do
     c1.reload
     c2.reload
     c3.reload
-    assert crazy_teacher.soft_deleted?
+    assert crazy_teacher.soft_deleted?,'自身删除成功'
     refute @user1.followed_teacher_ids.include?(crazy_teacher.id),'清除关注课程赃引用'
     refute @user2.followed_teacher_ids.include?(crazy_teacher.id),'清除关注课程赃引用'
     assert d0 - 1 == dpt.teachers_count,'所属院系的老师计数还原'

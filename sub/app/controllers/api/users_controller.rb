@@ -212,7 +212,6 @@ class Api::UsersController < ApiController
             u.name = u.name[0..19] if u.name.length > 20
             suc = u.save
             if suc
-              u.update_consultant!
               render json:{success:true,user:u}
             else
               render json:{success:false,errors:u.errors.full_messages}

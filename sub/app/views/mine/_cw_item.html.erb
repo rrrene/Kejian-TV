@@ -37,7 +37,7 @@
 			
       <% nd = nil %>
 		  <% if nn=Course.get_name(item.course_fid) %>
-        <a href="/courses/<%= item.course_fid %>" class="tag-post"><%= nn %></a><% if nd=Course.get_department(item.course_fid) %>, <a href="/departments/<%= Department.get_fid(nd) %>" class="tag-post"><%= nd %></a>.<% else %>.<% end %>
+        <a href="/courses/<%= item.course_fid %>" class="tag-post"><%= nn %></a><% if nd=Course.get_department_fid(item.course_fid) %>, <a href="/departments/<%= nd %>" class="tag-post"><%= Department.get_name nd %></a>.<% else %>.<% end %>
       <% end %>
       
       

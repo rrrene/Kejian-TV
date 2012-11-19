@@ -8,6 +8,10 @@ class Course
     p "#{self.id} before_soft_delete todo"
   }
   field :department_fid
+  def department_ins
+    @department = nil if self.department_fid_changed?
+    @department ||= Department.where(:fid=>self.department_fid).first
+  end
   def calculate_department_fid
     # 一般不需要调用
     self.department_fid=self.department_ins.fid
@@ -15,11 +19,6 @@ class Course
   def asynchronously_clean_me
     bad_ids = [self.fid]
     Util.bad_id_out_of!(User,:followed_course_fids,bad_ids)
-  end
-  field :department
-  def department_ins
-    @department = nil if self.department_fid_changed?
-    @department ||= Department.where(:name=>self.department).first
   end
   field :ctype
   field :number
@@ -47,17 +46,14 @@ class Course
   field :neirongjianjie
   field :book1
   field :book2
-  
+  def gotfid?
+    self.fid.try(:>,0) and self.department_fid.try(:>,0)
+  end
+  scope :gotfid,where(:fid.gt=>0,:department_fid.gt=>0)  
   
   # index :fid
-  cache_consultant :name,:from_what => :fid,:no_callbacks=>true
-  cache_consultant :department,:from_what => :fid,:no_callbacks=>true
-  
-  after_create :update_consultant!
-  def update_consultant!
-    $redis_users.hset(self.fid,:name,self.name)
-    $redis_users.hset(self.fid,:department,self.department)
-  end
+  cache_consultant :name,:from_what => :fid
+  cache_consultant :department_fid,:from_what => :fid
   
   embeds_many :teachings
   
@@ -140,5 +136,21 @@ class Course
                      :prefix_index_enable => true,
                      :ext_fields => [:fid,:department_name,:ctype,:teachers],
                      :score_field => :coursewares_count)
+  alias_method :redis_search_index_create_before_psvr,:redis_search_index_create
+  alias_method :redis_search_index_need_reindex_before_psvr,:redis_search_index_need_reindex
+  def redis_search_psvr_okay?
+    !self.soft_deleted? and self.name_long.present? and self.redis_search_alias.present? and self.gotfid?
+  end
+  def redis_search_index_need_reindex
+    return false if !redis_search_psvr_okay?
+    return self.redis_search_index_need_reindex_before_psvr
+  end
+  def redis_search_index_create
+    if self.redis_search_psvr_okay?
+      return self.redis_search_index_create_before_psvr
+    else
+      return true
+    end
+  end
 end
 

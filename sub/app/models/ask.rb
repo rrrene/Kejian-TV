@@ -129,21 +129,17 @@ class Ask
   field :redirect_ask_id
   #后台删除操作记录
   field :deletor_id
-  field :deleted_at, :type => Time
   #添加后台删除操作记录
   def info_delete(user_id)
     Sidekiq::Client.enqueue(HookerJob,self.class.to_s,self.id,:async_info_delete,user_id)
   end
   def async_info_delete(user_id)
     self.update_attribute(:deletor_id,Moped::BSON::ObjectId(user_id))
-    self.update_attribute(:deleted_at,Time.now)
     self.answers.each do |a|
       a.update_attribute(:deletor_id,Moped::BSON::ObjectId(user_id))
-      a.update_attribute(:deleted_at,Time.now)
     end
     self.comments.each do |c|
       c.update_attribute(:deletor_id,Moped::BSON::ObjectId(user_id))
-      c.update_attribute(:deleted_at,Time.now)
     end
   end
   #更新首页热门题

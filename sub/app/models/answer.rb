@@ -56,17 +56,15 @@ class Answer
   field :spams_count, :type => Integer, :default => 0
   #后台删除操作记录
   field :deletor_id
-  field :deleted_at, :type => Time
+
   #添加后台删除操作记录
   def info_delete(user_id)
     Sidekiq::Client.enqueue(HookerJob,self.class.to_s,self.id,:async_info_delete,user_id)
   end
   def async_info_delete(user_id)
     self.update_attribute(:deletor_id,Moped::BSON::ObjectId(user_id))
-    self.update_attribute(:deleted_at,Time.now)
     self.comments.each do |c|
       c.update_attribute(:deletor_id,Moped::BSON::ObjectId(user_id))
-      c.update_attribute(:deleted_at,Time.now)
     end
   end
   before_save :counter_work

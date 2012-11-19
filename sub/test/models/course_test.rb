@@ -5,8 +5,21 @@ describe Course do
     @user1 = User.find('506d5558e1382375f30000dc')
     @user2 = User.find('506d559ee1382375f3000163')
   end
+  it "向DZ要一个fid" do
+    c = Course.new
+    c.save(:validate=>false)
+    c.reload
+    refute c.fid.present?,'没有名字不能申请课程fid'
+    c.update_attribute(:name,"DPT#{Time.now.to_i}#{rand}")
+    c.reload
+    refute c.fid.present?,'没有学院fid不能申请课程fid'
+    c.update_attribute(:department_fid,Department.nondeleted.gotfid.first.fid)
+    c.reload
+    assert c.fid.present?,'申请成功fid'
+    assert 1==Course.where(fid:c.fid).count,'申请成功唯一的fid'
+  end
   it "创建新课程并添加到某学院（上传课件时如果课程不够用，需要添加新课程）" do
-    dpt = Department.nondeleted.first
+    dpt = Department.nondeleted.gotfid.first
     dpt_courses_count = dpt.courses_count
     c = Course.new
     c.department_fid = dpt.fid
@@ -14,8 +27,8 @@ describe Course do
     dpt.reload
     assert dpt_courses_count +1 == dpt.courses_count,'新的课程属于某个学院，这个学院的课程总数+1'
   end
-  it "被添加老师（上传课件时如果老师不够用，需要添加新老师）" do
-    dpt = Department.nondeleted.first
+  it "往课程里添加老师（上传课件时如果老师不够用，需要添加新老师）" do
+    dpt = Department.nondeleted.gotfid.first
     c = Course.new
     c.department_fid = dpt.fid
     c.save(:validate=>false)
@@ -49,17 +62,16 @@ describe Course do
     assert 1==t3.courses_count,'课程有了新的老师，这个老师的课程计数相应调整'
     assert 1==c.teachers_count,'课程有了新的老师，课程的老师计数相应调整'
   end
-  it "DZ" do
-    # todo
+  it "一阶搜索" do
   end
   it "软删除之前判断是否有课件依赖于这个课程" do
     user_n = User.new
     user_n.save(:validate=>false)
-    dpt = Department.nondeleted.first
+    dpt = Department.nondeleted.gotfid.first
     c = Course.new
     c.department_fid = dpt.fid
     c.save(:validate=>false)
-    c_other = Course.nondeleted.where(:id.ne=>c.id).first
+    c_other = Course.nondeleted.gotfid.where(:id.ne=>c.id).first
     ret = c.instance_eval(&Course.before_soft_delete)
     refute false==ret,'没有任何课件依赖，可以进行删除'
     cw=Courseware.non_redirect.nondeleted.normal.is_father.first
@@ -81,7 +93,7 @@ describe Course do
     @user2.followed_course_fids=[]
     @user2.save(:validate=>false)
     @user2.reload
-    dpt = Department.nondeleted.first
+    dpt = Department.nondeleted.gotfid.first
     t1 = Teacher.locate("TCH#{Time.now.to_i}#{rand}")
     t2 = Teacher.locate("TCH#{Time.now.to_i}#{rand}")
     t3 = Teacher.locate("TCH#{Time.now.to_i}#{rand}")
@@ -113,7 +125,7 @@ describe Course do
     t1.reload
     t2.reload
     t3.reload
-    assert crazy_course.soft_deleted?
+    assert crazy_course.soft_deleted?,'自身删除成功'
     refute @user1.followed_course_fids.include?(crazy_course.id),'清除关注课程赃引用'
     refute @user2.followed_course_fids.include?(crazy_course.id),'清除关注课程赃引用'
     assert dpt_courses_count - 1 == dpt.courses_count,'所属院系的课程计数还原'

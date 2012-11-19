@@ -65,19 +65,6 @@ class Teacher
       return ''
     end
   end
-  def self.set_id(k,v)
-    $redis_teachers.hset(k,:id,v)
-  end
-  def self.get_id(namearg)
-    ret = $redis_teachers.hget(namearg,:id)
-    if ret.nil?
-      item = Teacher.where(name:namearg).first
-      return nil if item.nil?
-      ret = item.id
-      self.set_id(namearg,ret)
-    end
-    ret
-  end
   mount_uploader :avatar, AvatarUploader
   def department_name
     self.department_fid.present? ? Department.get_name(self.department_fid).to_s : ''

@@ -311,28 +311,7 @@ class Topic
   
   cache_consultant :name
   cache_consultant :summary
-  def self.set_id(k,v)
-    $redis_topics.hset(k,:id,v)
-  end
-  def self.get_id(namearg)
-    ret = $redis_topics.hget(namearg,:id)
-    if ret.nil?
-      topic = Topic.where(name:namearg).first
-      return nil if topic.nil?
-      ret = topic.id
-      self.set_id(namearg,ret)
-    end
-    ret
-  end
-
-  after_save{
-    self.class.set_id(self.name,self.id)
-  }
-  def update_consultant!
-    self.class.set_name(self.id,self.name)
-    self.class.set_id(self.name,self.id)
-  end
- 
+  cache_consultant :id,:from_what => :name 
   protected
   def insert_action_log(action)
     begin
