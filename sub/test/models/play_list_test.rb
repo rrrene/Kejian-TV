@@ -134,16 +134,6 @@ describe PlayList do
     @user1.thanked_play_list_ids = []
     @user2.thanked_play_list_ids = []
 
-    @user1.dislike_count = 0
-    @user1.thank_count = 0
-    @user1.disliked_count = 0
-    @user1.thanked_count = 0
-
-    @user2.dislike_count = 0
-    @user2.thank_count = 0
-    @user2.disliked_count = 0
-    @user2.thanked_count = 0
-
     @user1.save(:validate=>false)
     @user2.save(:validate=>false)
 
@@ -235,14 +225,6 @@ describe PlayList do
     user_n.save(:validate=>false)
     @user1.thanked_play_list_ids = []
     @user2.thanked_play_list_ids = []
-    @user1.dislike_count = 0
-    @user1.thank_count = 0
-    @user1.disliked_count = 0
-    @user1.thanked_count = 0
-    @user2.dislike_count = 0
-    @user2.thank_count = 0
-    @user2.disliked_count = 0
-    @user2.thanked_count = 0
     @user1.save(:validate=>false)
     @user2.save(:validate=>false)
     @user1.reload

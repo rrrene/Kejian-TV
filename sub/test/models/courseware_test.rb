@@ -80,16 +80,6 @@ describe Courseware do
     @user1.thanked_courseware_ids = []
     @user2.thanked_courseware_ids = []
 
-    @user1.thank_count = 0
-    @user1.thanked_count = 0
-    @user1.dislike_count = 0
-    @user1.disliked_count = 0
-    
-    @user2.thank_count = 0
-    @user2.thanked_count = 0
-    @user2.dislike_count = 0
-    @user2.disliked_count = 0
-        
     @user1.save(:validate=>false)
     @user2.save(:validate=>false)
 
@@ -470,14 +460,6 @@ describe Courseware do
   it "异步清理 -- Courseware#asynchronously_clean_me" do
     @user1.thanked_courseware_ids = []
     @user2.thanked_courseware_ids = []
-    @user1.thank_count = 0
-    @user1.thanked_count = 0
-    @user1.dislike_count = 0
-    @user1.disliked_count = 0
-    @user2.thank_count = 0
-    @user2.thanked_count = 0
-    @user2.dislike_count = 0
-    @user2.disliked_count = 0
     @user1.save(:validate=>false)
     @user2.save(:validate=>false)
     @user1.reload
