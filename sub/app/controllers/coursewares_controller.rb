@@ -149,9 +149,13 @@ class CoursewaresController < ApplicationController
       current_user.inc(:sum_cw_views_count,1)
     end
     @show_pl_ytb = true
+    if @courseware.deleted == 1
+      render_404
+      return false
+    end
     if @courseware.redirect_to_id.present?
       @courseware = Courseware.nondeleted.where(:_id => @courseware.redirect_to_id.to_s).first
-      if @courseware
+      if @courseware and @courseware.deleted != 1
         redirect_to "/coursewares/#{@courseware.id}",notice:"相同的文件已经存在，页面自动跳转."
         return false
       else

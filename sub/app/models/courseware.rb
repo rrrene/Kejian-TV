@@ -7,7 +7,13 @@ class Courseware
   # sort by this
   field :score,:type=>Integer,:default=>0  
   @before_soft_delete = proc{
-    p "#{self.id} before_soft_delete todo"
+    if self.uploader_id_candidates.blank?
+      true
+    else
+      self.uploader_id = self.uploader_id_candidates[0]
+      self.save(:validate=>false)
+      false
+    end
   }
   @after_soft_delete = proc{
     redis_search_index_destroy
@@ -408,8 +414,8 @@ class Courseware
       user.thanked_courseware_ids.delete(self.id)
       self.thanked_user_ids.delete(user.id)
       ## counter
-      uploader.thank_count -= 1
-      user.thanked_count -= 1
+      uploader.thanked_count -= 1
+      user.thank_count -= 1
 
       self.thanked_count -= 1
       ##
@@ -418,8 +424,8 @@ class Courseware
     if self.disliked_user_ids.index(user.id)
       self.disliked_user_ids.delete(user.id)
       ## counter
-      uploader.dislike_count -= 1
-      user.disliked_count -=1
+      uploader.disliked_count -= 1
+      user.dislike_count -=1
 
       self.disliked_count -= 1
       ##
@@ -430,8 +436,8 @@ class Courseware
     end
     self.disliked_user_ids << user.id
     ## counter
-    uploader.dislike_count += 1
-    user.disliked_count += 1
+    uploader.disliked_count += 1
+    user.dislike_count += 1
 
     self.disliked_count += 1
     ##
@@ -559,11 +565,12 @@ class Courseware
     if ktvid_changed? and ktvid.present?
       @ktvidchangedandpresent = true
     end
-    if uploader_id_changed? && uploader_id_was.present?
+    if uploader_id_changed?
       if uploader_id_was.present? and old_user = User.where(:_id=>uploader_id_was).first
         old_user.inc(:coursewares_uploaded_count,-1)
       end
-      self.uploader.inc(:coursewares_uploaded_count,1) if self.uploader 
+      self.uploader.inc(:coursewares_uploaded_count,1) if self.uploader
+      self.uploader.save(:validate=>false) if self.uploader
     end
     if uploader_id_candidates_changed?
       added = uploader_id_candidates - uploader_id_candidates_was.to_a
@@ -681,13 +688,19 @@ class Courseware
   
   before_save :redirect_work
   def redirect_work
-    if (redirect_to_id_changed? or uploader_id_changed?) and redirect_to_id.present?
-      if redirect_to_id_was
-        uploader_id_changed? ? uploaderx = uploader_id_was : uploaderx = uploader_id
-        old_re = Courseware.find(redirect_to_id_was)
+    uploader_id_candidates.delete(uploader_id)
+    if redirect_to_id_was.present?
+      uploader_id_changed? ? uploaderx = uploader_id_was : uploaderx = uploader_id
+      old_re = Courseware.find(redirect_to_id_was)
+      if Courseware.where(redirect_to_id:redirect_to_id_was,uploader_id:uploaderx).count < 2
         old_re.uploader_id_candidates.delete(uploaderx)
-        old_re.save(:validate=>false)
+      else
+        old_re.uploader_id_candidates.delete(uploaderx)
+        Courseware.where(redirect_to_id:redirect_to_id_was,uploader_id:uploaderx).map{|x| x.deleted = 1;x.save(:validate=>false)}
       end
+      old_re.save(:validate=>false)      
+    end
+    if (redirect_to_id_changed? or uploader_id_changed?) and redirect_to_id.present?
       cw = Courseware.find(redirect_to_id)
       if cw.uploader_id != uploader_id
         if !cw.uploader_id_candidates.include?(uploader_id)
@@ -750,7 +763,7 @@ class Courseware
     while x.redirect_to_id.present?
       x=Courseware.find(x.redirect_to_id)
       history << x.id.to_s
-      candidates_history += x.uploader_id_candidates
+      candidates_history = x.uploader_id_candidates +  candidates_history
     end
     # binding.pry
     x.ua(:uploader_id_candidates,candidates_history.uniq)

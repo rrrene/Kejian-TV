@@ -1376,8 +1376,8 @@ kejians:['课件','num','filter'],comments:['评论','num']
     uploader = courseware.uploader.reload if courseware.uploader
     if courseware.disliked_user_ids.include?(self.id)
       ## counter
-      self.disliked_count -= 1
-      uploader.dislike_count -= 1
+      self.dislike_count -= 1
+      uploader.disliked_count -= 1
       courseware.disliked_count -= 1
       ##
       courseware.disliked_user_ids.delete(self.id)
@@ -1386,8 +1386,8 @@ kejians:['课件','num','filter'],comments:['评论','num']
       self.thanked_courseware_ids.delete(courseware.id)
       courseware.thanked_user_ids.delete(self.id)
       ## counter
-      self.thanked_count -= 1
-      uploader.thank_count -= 1
+      self.thank_count -= 1
+      uploader.thanked_count -= 1
       courseware.thanked_count -= 1
       ##
       courseware.save(:validate=>false)
@@ -1399,8 +1399,8 @@ kejians:['课件','num','filter'],comments:['评论','num']
     self.thanked_courseware_ids << courseware.id
     courseware.thanked_user_ids << self.id
     ## counter
-    self.thanked_count +=1
-    uploader.thank_count += 1
+    self.thank_count +=1
+    uploader.thanked_count += 1
     courseware.thanked_count += 1
     ##
     uploader.save(:validate=>false)

@@ -6,6 +6,7 @@ describe Courseware do
     @user1 = User.find('506d54f4e1382375f3000025')
     @user2 = User.find('506d559ee1382375f3000163')
   end
+=begin  
   it "转码完毕的课件改变作者，作者的课件计数作出相应变化" do
     @courseware = Courseware.where(:uploader_id=>@user1.id).non_redirect.nondeleted.normal.is_father.first
     user1_coursewares_uploaded_count_before = @user1.coursewares_uploaded_count
@@ -93,7 +94,7 @@ describe Courseware do
     @courseware_user2.disliked_count = 0
     @courseware_user2.save(:validate=>false)
     @courseware_user2.reload
-    user1_dislike_count = @user1.dislike_count
+    user1_dislike_count = @user1.dislike_count                                 ### 
     user2_disliked_count = @user2.disliked_count
     user1_thank_count = @user1.thank_count
     user2_thanked_count = @user2.thanked_count
@@ -104,8 +105,8 @@ describe Courseware do
     @user1.reload
     @user2.reload
     @courseware_user2.reload
-    assert user1_dislike_count + 1 == @user1.disliked_count,'不喜欢这个课件的用户的不喜欢表达总次数+1'
-    assert user2_disliked_count + 1 == @user2.dislike_count,'被不喜欢这个课件的用户的被不喜欢总次数+1'
+    assert user1_dislike_count + 1 == @user1.dislike_count,'不喜欢这个课件的用户的不喜欢表达总次数+1'
+    assert user2_disliked_count + 1 == @user2.disliked_count,'被不喜欢这个课件的用户的被不喜欢总次数+1'
     assert courseware_thanked_count == @courseware_user2.thanked_count,'被不喜欢后，课件的喜欢次数保持不变'  
     assert courseware_disliked_count + 1 == @courseware_user2.disliked_count,'被不喜欢后，课件的不喜欢次数+1'
     assert @courseware_user2.disliked_user_ids.include?(@user1.id),'被不喜欢后，课件的不喜欢人记录了不喜欢者'
@@ -115,10 +116,10 @@ describe Courseware do
     @user1.reload
     @user2.reload
     @courseware_user2.reload
-    assert user1_thank_count + 1 == @user1.thanked_count,'之后，这个人又突然喜欢了这个课件，那么这个人的喜欢表达次数+1'
-    assert user2_thanked_count + 1 == @user2.thank_count,'被喜欢这个课件的被喜欢次数+1'
-    assert user1_dislike_count == @user1.disliked_count,'不喜欢次数恢复'
-    assert user2_disliked_count == @user2.dislike_count,'被不喜欢次数恢复'
+    assert user1_thank_count + 1 == @user1.thank_count,'之后，这个人又突然喜欢了这个课件，那么这个人的喜欢表达次数+1'
+    assert user2_thanked_count + 1 == @user2.thanked_count,'被喜欢这个课件的被喜欢次数+1'
+    assert user1_dislike_count == @user1.dislike_count,'不喜欢次数恢复'
+    assert user2_disliked_count == @user2.disliked_count,'被不喜欢次数恢复'
     assert courseware_thanked_count + 1 == @courseware_user2.thanked_count,'课件的喜欢数+1'
     assert courseware_disliked_count == @courseware_user2.disliked_count,''
     assert @courseware_user2.thanked_user_ids.include?(@user1.id),'课件记录了喜欢者'
@@ -128,8 +129,8 @@ describe Courseware do
     @user1.reload
     @user2.reload
     @courseware_user2.reload
-    assert user1_dislike_count + 1 == @user1.disliked_count,'不喜欢这个课件的用户的不喜欢表达总次数+1'
-    assert user2_disliked_count + 1 == @user2.dislike_count,'被不喜欢这个课件的用户的被不喜欢总次数+1'
+    assert user1_dislike_count + 1 == @user1.dislike_count,'不喜欢这个课件的用户的不喜欢表达总次数+1'
+    assert user2_disliked_count + 1 == @user2.disliked_count,'被不喜欢这个课件的用户的被不喜欢总次数+1'
     assert courseware_thanked_count +1 -1== @courseware_user2.thanked_count,'原来喜欢，被不喜欢后，课件的喜欢和之前的之前一样了'
     assert courseware_disliked_count + 1 == @courseware_user2.disliked_count,'被不喜欢后，课件的不喜欢次数+1'
     assert @courseware_user2.disliked_user_ids.include?(@user1.id),'被不喜欢后，课件的不喜欢人记录了不喜欢者'
@@ -139,8 +140,8 @@ describe Courseware do
     @user1.reload
     @user2.reload
     @courseware_user2.reload
-    assert user1_dislike_count == @user1.disliked_count,'撤销不喜欢这个课件的用户的不喜欢表达总次数，就不变了'
-    assert user2_disliked_count  == @user2.dislike_count,'撤销被不喜欢这个课件的用户的被不喜欢总次数，不变了'
+    assert user1_dislike_count == @user1.dislike_count,'撤销不喜欢这个课件的用户的不喜欢表达总次数，就不变了'
+    assert user2_disliked_count  == @user2.disliked_count,'撤销被不喜欢这个课件的用户的被不喜欢总次数，不变了'
     assert courseware_thanked_count == @courseware_user2.thanked_count,'撤销被不喜欢后，课件的喜欢次数保持不变'  
     assert courseware_disliked_count  == @courseware_user2.disliked_count,'撤销被不喜欢后，课件的不喜欢次数不变'
     refute @courseware_user2.disliked_user_ids.include?(@user1.id),'撤销被不喜欢后，课件的不喜欢人撤销不喜欢者'
@@ -157,10 +158,10 @@ describe Courseware do
     @user1.reload
     @user2.reload
     @courseware_user2.reload
-    assert user1_thank_count == @user1.thanked_count,'喜欢后撤销喜欢，这个人又突然喜欢了这个课件，那么这个人的喜欢表达次数不变'
-    assert user2_thanked_count  == @user2.thank_count,'喜欢后撤销，被喜欢这个课件的被喜欢次数不变'
-    assert user1_dislike_count == @user1.disliked_count,'不喜欢次数恢复'
-    assert user2_disliked_count == @user2.dislike_count,'被不喜欢次数恢复'
+    assert user1_thank_count == @user1.thank_count,'喜欢后撤销喜欢，这个人又突然喜欢了这个课件，那么这个人的喜欢表达次数不变'
+    assert user2_thanked_count  == @user2.thanked_count,'喜欢后撤销，被喜欢这个课件的被喜欢次数不变'
+    assert user1_dislike_count == @user1.dislike_count,'不喜欢次数恢复'
+    assert user2_disliked_count == @user2.disliked_count,'被不喜欢次数恢复'
     assert courseware_thanked_count == @courseware_user2.thanked_count,'课件的喜欢数'
     assert courseware_disliked_count == @courseware_user2.disliked_count,'此时，喜欢和不喜欢没关系了'
     refute @courseware_user2.thanked_user_ids.include?(@user1.id),'撤销喜欢，课件不记录记录了喜欢者'
@@ -255,8 +256,12 @@ describe Courseware do
     assert cc.coursewares_uploaded_count == cc_coursewares_uploaded_count,"课件的上传人被修改了，那么原来老的上传人的课件总计数恢复"
     assert ccc.coursewares_uploaded_count == ccc_coursewares_uploaded_count +1,"课件的上传人被修改了，新的上传人的课件计数+1"
   end
+=end
   it "一级重定向" do
     @courseware = Courseware.where(:uploader_id=>@user1.id).non_redirect.nondeleted.normal.is_father.first
+    @courseware.uploader_id_candidates=[]
+    @courseware.redirect_to_id = nil
+    @courseware.save(:validate=>false)
     # 与另一人的课件重复
     cw = Courseware.new
     cw.uploader_id = @user2.id
@@ -360,6 +365,7 @@ describe Courseware do
     @courseware.save(:validate=>false)
     assert @courseware.redirect_to_id.nil?,'发现重定向环时应改设此定向关系为nil'
   end
+=begin
   it '课件的slides_count发生改变的时候，需要通知引用它的播放列表更新总页数' do
     cw1 = Courseware.new;cw1.save(:validate=>false)
     cw2 = Courseware.new;cw2.save(:validate=>false)
@@ -410,6 +416,7 @@ describe Courseware do
   it "统计" do
     # todo
   end
+=end
   it "软删除之前判断是否有上传人候选，是真要删还是假要删？ -- Courseware.before_soft_delete" do
     user_n = User.new
     user_n.save(:validate=>false)
@@ -437,7 +444,7 @@ describe Courseware do
     cw0.reload
     cw1.reload
     cw2.reload
-    cw2_uploader_id_candidates = cw2.uploader_id_candidates
+    cw2_uploader_id_candidates = cw2.uploader_id_candidates.clone
     user2_coursewares_uploaded_count = @user2.coursewares_uploaded_count
     user_n_coursewares_uploaded_count = user_n.coursewares_uploaded_count
     ret = cw2.instance_eval(&Courseware.before_soft_delete)
@@ -451,7 +458,8 @@ describe Courseware do
     cw2.reload
     assert cw2.uploader_id == cw2_uploader_id_candidates[1],'before_soft_delete虽然返回了false，但是user_n从此被剥夺了此课件的拥有权，第2个候选人继承拥有权'
     user_n.reload
-    assert user_n_coursewares_uploaded_count-1 == user_n.coursewares_uploaded_count,'user_n被剥夺了此课件的拥有权的计数体现'
+    binding.pry
+    assert user_n_coursewares_uploaded_count - 1 == user_n.coursewares_uploaded_count,'user_n剥夺了此课件的拥有权的计数体现'
   end
   it "异步清理 -- Courseware#asynchronously_clean_me" do
     @user1.thanked_courseware_ids = []
@@ -570,6 +578,7 @@ describe Courseware do
     refute c.soft_deleted?,'课件没了，课程不能没'
     refute dpt.soft_deleted?,'课件没了，学院不能没'
   end
+=begin  
   it "课件的一阶索引" do
     user_n = User.new
     user_n.save(:validate=>false)
@@ -640,6 +649,6 @@ describe Courseware do
   end
   it "课件的三阶索引" do
   end
+=end
 end
-
 
