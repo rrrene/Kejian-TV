@@ -403,7 +403,7 @@ class Courseware
   
   def disliked_by_user(user)
     self.disliked_user_ids ||=[]
-    uploader = User.find(self.uploader_id)
+    uploader = User.find(self.uploader_id) if self.uploader_id
     if user.thanked_courseware_ids.include?(self.id)
       user.thanked_courseware_ids.delete(self.id)
       self.thanked_user_ids.delete(user.id)
