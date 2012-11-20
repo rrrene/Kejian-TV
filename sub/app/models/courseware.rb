@@ -589,14 +589,16 @@ class Courseware
       self.user.school.inc(:coursewares_count,1) if self.user.school
     end
     if status_changed? and 0==status
-      self.uploader.inc(:coursewares_uploaded_count,1) if self.uploader
+      if !uploader_id_changed? 
+        self.uploader.inc(:coursewares_uploaded_count,1) if self.uploader
+      end        
       @statuschangedandeq0 = true
     end
     if ktvid_changed? and ktvid.present?
       @ktvidchangedandpresent = true
     end
-    if uploader_id_changed?
-      if uploader_id_was.present? and old_user = User.where(:_id=>uploader_id_was).first
+    if uploader_id_changed? and 0==status
+      if uploader_id_was.present? and old_user = User.where(:id=>uploader_id_was).first
         old_user.inc(:coursewares_uploaded_count,-1)
       end
       self.uploader.inc(:coursewares_uploaded_count,1) if self.uploader
@@ -719,16 +721,12 @@ class Courseware
   def redirect_work
     uploader_id_candidates.delete(uploader_id)
     if redirect_to_id_was.present?
-      uploader_id_changed? and !uploader_id_was.blank? ? uploaderx = uploader_id_was : uploaderx = uploader_id
+      (uploader_id_changed? and !uploader_id_was.blank?) ? uploaderx = uploader_id_was : uploaderx = uploader_id
       old_re = Courseware.find(redirect_to_id_was)
-      self.uploader_id_candidates.each do |c|
-      end
-        binding.pry      if redirect_to_id.nil?
-
-      old_re.uploader_id_candidates -= self.uploader_id_candidates
-      # if Courseware.where(redirect_to_id:redirect_to_id_was,uploader_id:uploaderx).size < 2
-      old_re.uploader_id_candidates.delete(uploaderx)
-      # end  
+      # old_re.uploader_id_candidates -= self.uploader_id_candidates
+      if Courseware.where(redirect_to_id:redirect_to_id_was,uploader_id:uploaderx).size < 2
+         old_re.uploader_id_candidates.delete(uploaderx)
+      end  
       old_re.save(:validate=>false)
     end
     if (redirect_to_id_changed? or uploader_id_changed?) and redirect_to_id.present?

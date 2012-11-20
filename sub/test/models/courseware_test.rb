@@ -6,7 +6,6 @@ describe Courseware do
     @user1 = User.find('506d54f4e1382375f3000025')
     @user2 = User.find('506d559ee1382375f3000163')
   end
-=begin  
   it "转码完毕的课件改变作者，作者的课件计数作出相应变化" do
     @courseware = Courseware.where(:uploader_id=>@user1.id).non_redirect.nondeleted.normal.is_father.first
     user1_coursewares_uploaded_count_before = @user1.coursewares_uploaded_count
@@ -231,13 +230,14 @@ describe Courseware do
   end
   it "当一个课件的上传人发生了改变，这个上传人的课件总计数应该做出相应改变" do
     c = Courseware.new
-    c.status = 0                      ##需要加上这句话，否则逻辑冲突哦~~Liber加
+    c.status = 0                      ##to psvr需要加上这句话，否则逻辑冲突哦~~Liber加
     cc = User.nondeleted.normal.first
     c.uploader_id = cc.id
     cc_coursewares_uploaded_count = cc.coursewares_uploaded_count
     c.save(:validate=>false)
     cc.reload
     c.reload
+    binding.pry if cc.coursewares_uploaded_count !=  1 + cc_coursewares_uploaded_count
     assert cc.coursewares_uploaded_count == cc_coursewares_uploaded_count + 1,"当一个课件添加到一个上传人的时候，这个上传人的课件总计数应+1"
     # -----------------------
     cc2 = User.nondeleted.normal.where(:id.ne=>cc.id).first
@@ -256,7 +256,6 @@ describe Courseware do
     assert cc.coursewares_uploaded_count == cc_coursewares_uploaded_count,"课件的上传人被修改了，那么原来老的上传人的课件总计数恢复"
     assert ccc.coursewares_uploaded_count == ccc_coursewares_uploaded_count +1,"课件的上传人被修改了，新的上传人的课件计数+1"
   end
-=end
   it "一级重定向" do
     @courseware = Courseware.where(:uploader_id=>@user1.id).non_redirect.nondeleted.normal.is_father.first
     @courseware.uploader_id_candidates=[]
@@ -300,7 +299,7 @@ describe Courseware do
     @courseware.save(:validate=>false)
     other_courseware.save(:validate=>false)
     other_courseware.reload
-    assert 1==other_courseware.uploader_id_candidates.count(@user1.id),'用户不能被清除于候选uploader_id，因为还有一个课件指向它'
+    assert 1==other_courseware.uploader_id_candidates.count(@user1.id),'用户不能被清除于候选uploader_id，因为还有一个课件指向它'       ####To PSVR，此处逻辑可能和下面有冲突==自己的去掉？
     assert other_courseware_uploader_id == other_courseware.uploader_id,'uploader_id依然是uploader_id'
     # ---
     user_n = User.new
@@ -366,7 +365,6 @@ describe Courseware do
     @courseware.save(:validate=>false)
     assert @courseware.redirect_to_id.nil?,'发现重定向环时应改设此定向关系为nil'
   end
-=begin
   it '课件的slides_count发生改变的时候，需要通知引用它的播放列表更新总页数' do
     cw1 = Courseware.new;cw1.save(:validate=>false)
     cw2 = Courseware.new;cw2.save(:validate=>false)
@@ -417,19 +415,19 @@ describe Courseware do
   it "统计" do
     # todo
   end
-=end
   it "软删除之前判断是否有上传人候选，是真要删还是假要删？ -- Courseware.before_soft_delete" do
     user_n = User.new
     user_n.save(:validate=>false)
     cw0 = Courseware.new
+    cw0.status = 0                                                                ## to psvr 必须是转完码的，否则不会计数
     cw0.uploader_id = user_n.id
     cw0.save(:validate=>false)
     ret = cw0.instance_eval(&Courseware.before_soft_delete)
     cw0.reload
     user_n.reload
     refute false==ret,'没有上传人候选，before_soft_delete必须不能返回false以让软删除的进一步执行。'
-    cw1 = Courseware.new;cw1.uploader_id = @user2.id;
-    cw2 = Courseware.new;cw2.uploader_id = @user2.id;
+    cw1 = Courseware.new;cw1.uploader_id = @user2.id;cw1.status = 0;            ## to psvr 这俩也是，必须是转完码的，否则不会计数
+    cw2 = Courseware.new;cw2.uploader_id = @user2.id;cw2.status = 0;
     cw2.redirect_to_id = nil
     cw2.save(:validate=>false)
     cw1.redirect_to_id = cw2.id
@@ -585,8 +583,7 @@ describe Courseware do
     refute 0==pl2.status,'列表空了，播放列表自然不是正常的'
     refute c.soft_deleted?,'课件没了，课程不能没'
     refute dpt.soft_deleted?,'课件没了，学院不能没'
-  end
-=begin  
+  end  
   it "课件的一阶索引" do
     user_n = User.new
     user_n.save(:validate=>false)
@@ -657,6 +654,5 @@ describe Courseware do
   end
   it "课件的三阶索引" do
   end
-=end
 end
 
