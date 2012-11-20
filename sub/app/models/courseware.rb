@@ -735,7 +735,7 @@ class Courseware
       cw = Courseware.find(redirect_to_id)
       if cw.uploader_id != uploader_id
         if !cw.uploader_id_candidates.include?(uploader_id)
-          cw.uploader_id_candidates << uploader_id 
+          cw.uploader_id_candidates << uploader_id
         end
         if cw.uploader_id_candidates.include?(cw.uploader_id)
           cw.uploader_id_candidates.delete(cw.uploader_id)

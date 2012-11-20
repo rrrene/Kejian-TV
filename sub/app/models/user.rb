@@ -280,7 +280,10 @@ class User
 =begin
 widget_property 
 kejians:['课件','num','filter'],comments:['评论','num']
-
+#TO PSVR
+r c run:
+hash = {"left"=>["0", "1"], "right"=>["2", "3"]}
+User.all.map{|x| x.ua(:widget_sort,hash)}
 =end
   def update_widget_kejian(title,num,filter)
     if title.blank?
