@@ -3,7 +3,7 @@
     <div class="comment-share-content">
       <h4>链接到此评论：</h4>
       <div>
-        <input type="text" class="comment-share-url yt-uix-form-input-text" value="http://<%= Setting.ktv_sub.nil? ? 'www' : Setting.ktv_sub %>.kejian<%= $psvr_really_development ? '.lvh.me' : '.tv'%>/coursewares/<%= cw.id %>?cid=<%= comment.id %>">
+        <input type="text" class="comment-share-url yt-uix-form-input-text" value="http://<%= Setting.ktv_sub.nil? ? 'www' : Setting.ktv_sub %>.<%= Setting.ktv_domain %>/coursewares/<%= cw.id %>?cid=<%= comment.id %>">
       </div>
       <div>
         <span>分享到：</span>

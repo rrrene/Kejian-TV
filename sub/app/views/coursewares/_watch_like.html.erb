@@ -27,7 +27,7 @@
               </button>
            </li>
         </ul>
-        <input type="text" onclick="this.select()" value="http://<%= Setting.ktv_sub.nil? ? 'www' : Setting.ktv_sub %>.kejian<%= $psvr_really_development ? '.lvh.me' : '.tv'%>/coursewares/<%= cw_id %>" class="share-panel-url">
+        <input type="text" onclick="this.select()" value="http://<%= Setting.ktv_sub.nil? ? 'www' : Setting.ktv_sub %>.<%= Setting.ktv_domain %>/coursewares/<%= cw_id %>" class="share-panel-url">
      </div>
   </div>
 </div>

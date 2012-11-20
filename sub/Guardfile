@@ -14,10 +14,7 @@
 
 
 guard 'spork',:test_unit => false,:minitest => true,:wait=>180 do
-  watch('config/application.rb')
-  watch('config/environment.rb')
-  watch('config/environments/sub_sub-test.rb')
-  watch(%r{^config/initializers/.+\.rb$})
+  watch(%r{^config/.+\.rb$})
   watch('Gemfile')
   watch('Gemfile.lock')
   watch('test/test_helper.rb') { :minitest }

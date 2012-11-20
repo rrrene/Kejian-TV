@@ -6,7 +6,12 @@ class AccountPasswordsController < Devise::PasswordsController
   end
   def create
     self.resource = recoverable = User.find_by_email(resource_params[:email])
-    recoverable.send_reset_password_instructions if recoverable.persisted?
+    unless recoverable and recoverable.persisted?
+      flash[:error] = '此用户不存在' 
+      self.send 'new'
+      return false
+    end
+    recoverable.send_reset_password_instructions
 
     if successfully_sent?(resource)
       respond_with({}, :location => after_sending_reset_password_instructions_path_for(resource_name))

@@ -43,66 +43,66 @@ describe MineController do
     denglu! @user
     assert @controller.current_user.id==@user.id
     get :index
-    assert @response.success?
+    assert @response.success?,'登录的用户可以访问课件管理器首页'
   end
   it 'dashboard' do
     denglu! @user
     assert @controller.current_user.id==@user.id
     get :dashboard
-    assert @response.success?
+    assert @response.success?,'登录的用户可以访问信息中心'
   end
   it 'my_coursewares' do
     denglu! @user
     assert @controller.current_user.id==@user.id
     get :my_coursewares
-    assert @response.success?
+    assert @response.success?,'登录的用户可以访问上传的课件'
   end
   it 'view_all_playlists' do
     denglu! @user
     assert @controller.current_user.id==@user.id
     get :view_all_playlists
-    assert @response.success?
+    assert @response.success?,'登录的用户可以访问课件锦囊'
   end
   it 'my_coursewares_copyright' do
     denglu! @user
     assert @controller.current_user.id==@user.id
     get :my_coursewares_copyright
-    assert @response.success?
+    assert @response.success?,'登录的用户可以访问版权声明'
   end
 	it 'my_history' do
     denglu! @user
     assert @controller.current_user.id==@user.id
     get :my_history
-    assert @response.success?
+    assert @response.success?,'登录的用户可以访问历史记录'
   end
 	it 'my_search_history' do
     denglu! @user
     assert @controller.current_user.id==@user.id
     get :my_search_history
-    assert @response.success?
+    assert @response.success?,'登录的用户可以访问搜索记录'
   end
   it 'my_watch_later_coursewares' do
     denglu! @user
     assert @controller.current_user.id==@user.id
     get :my_watch_later_coursewares
-    assert @response.success?
+    assert @response.success?,'登录的用户可以访问稍后阅读'
   end
   it 'my_favorites' do
     denglu! @user
     assert @controller.current_user.id==@user.id
     get :my_favorites
-    assert @response.success?
+    assert @response.success?,'登录的用户可以访问收藏过的课件'
   end
   it 'my_liked_coursewares' do
     denglu! @user
     assert @controller.current_user.id==@user.id
     get :my_liked_coursewares
-    assert @response.success?
+    assert @response.success?,'登录的用户可以访问顶过的课件'
   end
   it 'my_liked_lists' do
     denglu! @user
     assert @controller.current_user.id==@user.id
     get :my_liked_lists
-    assert @response.success?
+    assert @response.success?,'登录的用户可以访问顶过的课件锦囊'
   end
 end

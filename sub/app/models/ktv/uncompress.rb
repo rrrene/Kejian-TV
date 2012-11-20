@@ -22,7 +22,7 @@ module Ktv
         @title = @courseware.title
         sort=File.extname(@courseware.pdf_filename).split('.')[-1].to_s.downcase
         @courseware.update_attribute(:pdf_slide_processed,0)
-        @working_dir = $psvr_really_development ? "#{Rails.root}/simple/tmp/uncompress_#{Setting.ktv_sub}/#{@courseware.id}_#{sort}" : "/media/hd2/auxiliary_#{Setting.ktv_sub}/ftp/cw/#{@courseware.id}"
+        @working_dir = $psvr_really_production ? "/media/hd2/auxiliary_#{Setting.ktv_sub}/ftp/cw/#{@courseware.id}" : "#{Rails.root}/simple/tmp/uncompress_#{Setting.ktv_sub}/#{@courseware.id}_#{sort}"
         begin
           uncom_path = "#{@working_dir}/#{@courseware.pdf_filename.gsub(".","_")}"
           `mkdir -p "#{@working_dir}"`
@@ -203,7 +203,7 @@ module Ktv
       ## end child
 
       if ['ppt','pptx','doc','docx'].include? opts[:sort].downcase
-        p[:remote_filepath]="http://special_agentx.kejian.#{$psvr_really_development ? "lvh.me" : "tv"}/#{@courseware.id}/#{rest}"
+        p[:remote_filepath]="http://special_agentx.#{Setting.ktv_domain}/#{@courseware.id}/#{rest}"
       else
         p[:remote_filepath]=opts[:filepath]
       end

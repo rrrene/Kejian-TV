@@ -39,9 +39,9 @@ module Ktv
     def start_mode_with_out_admin(mode=nil)
         @mode = mode
         if @mode.present?
-          @base_url = "http://#{@mode}.kejian.#{$psvr_really_development ? 'lvh.me' : 'tv' }/simple"
+          @base_url = "http://#{@mode}.#{Setting.ktv_domain}/simple"
         else
-          @base_url = "http://kejian.#{$psvr_really_development ? 'lvh.me' : 'tv' }/simple"
+          @base_url = "http://#{Setting.ktv_domain}/simple"
         end
         puts @base_url
         # 依赖于forum.php显示登陆框框
@@ -57,9 +57,9 @@ module Ktv
     def publish_thread(fid,course,mode=nil)
       @mode = mode
       if @mode.present?
-        @base_url = "http://#{@mode}.kejian.#{$psvr_really_development ? 'lvh.me' : 'tv' }/simple"
+        @base_url = "http://#{@mode}.#{Setting.ktv_domain}/simple"
       else
-        @base_url = "http://kejian.#{$psvr_really_development ? 'lvh.me' : 'tv' }/simple"
+        @base_url = "http://#{Setting.ktv_domain}/simple"
       end
       # puts url = "/forum.php?mod=forumdisplay&fid=#{fid}"
       # "http://ibeike.kejian.lvh.me/simple/forum.php?mod=post&action=newthread&fid=61"

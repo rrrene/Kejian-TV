@@ -2,7 +2,13 @@
 # Be sure to restart your server when you modify this file.
 
 
-key = ($psvr_really_development ?  "_ktv_#{Setting.ktv_sub}_local_session" : "_ktv_#{Setting.ktv_sub}_session")
+if $psvr_really_development
+  key = "_ktv_#{Setting.ktv_sub}_local_session"
+elsif $psvr_really_testing
+  key = "_ktv_#{Setting.ktv_sub}_test_session"
+else
+  key = "_ktv_#{Setting.ktv_sub}_session"
+end
 domain = Setting.ktv_subdomain
 
 Sub::Application.config.session_store :cookie_store, 

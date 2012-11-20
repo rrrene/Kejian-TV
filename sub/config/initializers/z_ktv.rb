@@ -86,6 +86,8 @@ UCenter.define('UC_APPID', Setting.uc_appid);
 UCenter.define('UC_KEY', Setting.uc_key);
 if $psvr_really_development
   UCenter.define('UC_API', 'http://uc.kejian.lvh.me');
+elsif $psvr_really_testing
+  UCenter.define('UC_API', 'http://test-uc.kejian.lvh.me');
 else
   UCenter.define('UC_API', 'http://uc.kejian.tv');
 end

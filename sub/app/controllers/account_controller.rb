@@ -17,6 +17,7 @@ class AccountController < Devise::RegistrationsController
     :real_bind,
     :new05,
   ]
+  prepend_before_filter :require_no_authentication,:only=>[:new,:create]
   def binds
     @seo[:title] = '绑定外部账号'
     render layout:'application'
@@ -342,13 +343,17 @@ class AccountController < Devise::RegistrationsController
   end
   
   def destroy
+    render text:'todo', status: 401
+    return false
     # Todo: 用户自杀功能
     resource.soft_delete
     sign_out_and_redirect("/login");sign_out_others
     set_flash_message :notice, :destroyed
   end
-  
-  
+  def cancle
+    render text:'todo', status: 401
+    return false
+  end  
   def after_inactive_sign_up_path_for(resource)
     welcome_inactive_sign_up_path
   end

@@ -81,7 +81,7 @@
       <td width="8%"><a dir="ltr" rel="author" class="yt-uix-sessionlink yt-user-name author" href="/users/<%= cw.uploader_id %>"><%= User.get_name cw.uploader_id %></a></td>
     <% elsif fr.atype == FlagRecord::COMMENT %>
       <% ct = Comment.find(fr.cwid)%>
-      <td width="18%"><%= link_to truncate(ct.body,:length=>15),"http://#{Setting.ktv_sub.nil? ? 'www' : Setting.ktv_sub }.kejian#{$psvr_really_development ? '.lvh.me' : '.tv'}/coursewares/#{ct.commentable_id}##{ct.id}"%></td>
+      <td width="18%"><%= link_to truncate(ct.body,:length=>15),"http://#{Setting.ktv_sub.nil? ? 'www' : Setting.ktv_sub }.#{Setting.ktv_domain }/coursewares/#{ct.commentable_id}##{ct.id}"%></td>
       <td width="8%"><a dir="ltr" rel="author" class="yt-uix-sessionlink yt-user-name author" href="/users/<%= ct.user_id %>"><%= User.get_name ct.user_id %></a></td>
     <% end %>
     <td width="8%"><%= fr.flag_page.nil? ? 0 : fr.flag_page %></td>

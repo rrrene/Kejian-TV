@@ -1051,6 +1051,7 @@ kejians:['课件','num','filter'],comments:['评论','num']
     ret = User.where({:email => email}).first
     if ret.nil?
       info0 = UCenter::User.get_user(nil,{username:email,isemail:1})
+      binding.pry
       if '0'!=info0
         u = import_from_dz!(info0)
         return u
