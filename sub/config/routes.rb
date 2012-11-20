@@ -76,7 +76,7 @@ Sub::Application.routes.draw do
   get '/ajax/current_user_reg_extent'
   post '/ajax/renren_huanyizhang'
   post '/ajax/renren_real_bind'
-  get '/ajax/check_fangwendizhi'
+  # get '/ajax/check_fangwendizhi'
   get '/ajax/watch_later'
   post '/ajax/seg'=>'ajax#seg'
   post '/presentations' => 'ajax#presentations_upload_finished'

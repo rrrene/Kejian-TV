@@ -378,18 +378,18 @@ class ApplicationController < ActionController::Base
       return false
     elsif format == "json"
       if current_user.blank?
-        render :json => { :success => false, :msg => "你还没有登录。" }
+        render :json => { :success => false, :msg => "你还没有登录。" },:status => 401
         return false
       end
     elsif format == "text"
       # Ajax 调用的时候如果没有登录，那直接返回 nologin，前段自动处理
       if current_user.blank?
-        render :text => "_nologin_" 
+        render :text => "_nologin_",:status => 401 
         return false
       end
     elsif format == "js"
       if current_user.blank?
-        render :js => "window.location.href = '#{login_url}';"
+        render :js => "window.location.href = '#{login_url}';",:status => 401
         return false
       end
     end

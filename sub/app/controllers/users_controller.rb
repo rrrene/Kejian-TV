@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   skip_before_filter :verify_authenticity_token, :only => [:auth_callback]
   before_filter :init_user, :except => [:auth_callback,:index,:hot,:invite,:invite_submit,:test]
   before_filter :require_user,:only=>[:invite,:invite_send]
+  before_filter :require_user_js,:only=>[:fol,:unfol]
   def update
     unless view_context.owner?(@user)
       render_401
@@ -118,17 +119,14 @@ class UsersController < ApplicationController
   end
 
   def unfol
-=begin
     suc=0
-    params[:q].split(',').each do |id|
-      t=Topic.where(name:(id.strip)).first
-      if t
-        current_user.unfollow_topic(t)
-        suc+=1
-      end
+    uids=params[:q].split(',')
+    users = User.where(:uid.in=>uids)
+    users.each do |u|
+      current_user.unfollow(u)
+      suc+=1
     end
     render text:suc
-=end
   end
   
   def following_topics
