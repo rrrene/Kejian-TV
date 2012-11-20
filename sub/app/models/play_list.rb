@@ -79,24 +79,33 @@ class PlayList
         x.save(:validate => false)
     end
   end
-  
+  def user
+    @user = nil if self.user_id_changed?
+    @user ||= User.where(id:self.user_id).first
+  end
   def disliked_by_user(user)
     self.disliked_user_ids ||=[]
     if user.thanked_play_list_ids.include?(self.id)
-      user.thanked_play_list_ids.delete(self.id)
       self.liked_user_ids.delete(user.id)
+      user.thanked_play_list_ids.delete(self.id)
       self.inc(:vote_up,-1)
+      self.user.inc(:thanked_count,-1)
+      user.thank_count -= 1
       user.save(:validate=>false)
     end
     if self.disliked_user_ids.index(user.id)
       self.disliked_user_ids.delete(user.id)
       self.inc(:vote_down,-1)
-      self.save(:validate=>false) 
+      self.save(:validate=>false)
+      self.user.inc(:disliked_count,-1)
+      user.inc(:dislike_count,-1)
       return false
     end
     self.disliked_user_ids << user.id
     self.inc(:vote_down,1)
     self.save(:validate=>false)
+    self.user.inc(:disliked_count,1)
+    user.inc(:dislike_count,1)
     return true
   end
   
@@ -260,7 +269,14 @@ class PlayList
     harr=[]
     arr=[]
     content = []
-    if !self.content.nil?
+    added = []
+    deled = []
+    if self.content_changed? 
+      self.content_total_pages = 0 
+      added = self.content - self.content_was.to_a
+      deled = self.content_was.to_a - self.content
+    end
+    if self.content.present?
       self.content.each_with_index do |id,index|
         cw=Courseware.where(id:id).first
         if cw.nil?
@@ -269,7 +285,24 @@ class PlayList
         self.status=3 if cw.status != 0
         self.status=1 if cw.ktvid.blank?
         ### Liber TODO raise exception and log 
-        self.content_total_pages += cw.slides_count if self.content_changed?
+        if self.content_changed? 
+          self.content_total_pages += cw.slides_count
+          if added.include?(cw.id) 
+            ci = cw.course_ins
+            di = cw.department_ins
+            ci.inc(:play_lists_count,1) if ci
+            di.inc(:play_lists_count,1) if di
+          end
+          deled.each do |d|
+            dcw = Courseware.where(id:d).first
+            if dcw
+              ci = dcw.course_ins
+              di = dcw.department_ins 
+              ci.inc(:play_lists_count,-1) if ci
+              di.inc(:play_lists_count,-1) if di
+            end
+          end
+        end
         harr << cw.ktvid
         arr << cw.course_fid
         content[index] = cw.id
@@ -393,6 +426,18 @@ class PlayList
   end
   def asynchronously_clean_me
     bad_ids = [self.id]
+    self.disliked_user_ids.each do |uid|
+      u = User.where(id:uid).first
+      u.inc(:dislike_count,-1) if u
+      su = self.user
+      su.inc(:disliked_count,-1) if su
+    end
+    self.liked_user_ids.each do |uid|
+      u = User.where(id:uid).first
+      u.inc(:thank_count,-1) if u
+      su = self.user
+      su.inc(:thanked_count,-1) if su
+    end
     Util.bad_id_out_of!(User,:thanked_play_list_ids,bad_ids)
     thanked = false
   end

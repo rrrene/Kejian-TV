@@ -1421,20 +1421,26 @@ User.all.map{|x| x.ua(:widget_sort,hash)}
     if playlist.disliked_user_ids.include?(self.id)
       playlist.disliked_user_ids.delete(self.id)
       playlist.inc(:vote_down,-1)
+      self.inc(:dislike_count,-1)
+      playlist.user.inc(:disliked_count,-1)
     end
     if self.thanked_play_list_ids.index(playlist.id)
-      self.thanked_play_list_ids.delete(playlist.id)
       playlist.liked_user_ids.delete(self.id)
+      self.thanked_play_list_ids.delete(playlist.id)
       playlist.inc(:vote_up,-1)
-      self.save(:validate =>false)
       playlist.save(:validate=>false)
+      playlist.user.inc(:thanked_count,-1)
+      self.thank_count -= 1
+      self.save(:validate =>false)
       insert_follow_log("DE_LIKE_PLAYLIST", playlist)
       return false
     end
-    self.thanked_play_list_ids << playlist.id
     playlist.liked_user_ids << self.id
+    self.thanked_play_list_ids << playlist.id
     playlist.inc(:vote_up,1)
     playlist.save(:validate=>false)
+    playlist.user.inc(:thanked_count,1)
+    self.thank_count += 1
     self.save(:validate => false)
     insert_follow_log("LIKE_PLAYLIST", playlist)
     return true

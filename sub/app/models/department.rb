@@ -5,7 +5,8 @@ class Department
   include Redis::Search
   include BaseModel
   @before_soft_delete = proc{
-    p "#{self.id} before_soft_delete todo"
+    num = Course.where(department_fid:self.fid).size + Teacher.where(department_fid:self.fid).size
+    num < 1
   }
   # Followers
   field :follower_ids, :type => Array, :default => []
@@ -100,6 +101,10 @@ class Department
     else
       return true
     end
+  end
+  def asynchronously_clean_me
+    bad_ids = [self.fid]
+    Util.bad_id_out_of!(User,:followed_department_fids,bad_ids)
   end
 end
 
