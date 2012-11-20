@@ -16,9 +16,11 @@ Spork.prefork do
   require 'minitest/pride'
   require 'turn/autorun'
 
-
-  Turn.config.format = :pretty
-
+  if(defined?(Spork) && Spork.using_spork?)
+    Turn.config.format = :pretty
+  else
+    Turn.config.format = :progress
+  end
 
   module MiniTest
     module Rails

@@ -88,4 +88,118 @@ describe AccountController do
     get :cancel
     assert 302==@response.status,'登录的用户不能cancel它的session'
   end
+  # 
+  # it "账号邀请好友注册 - 游客状态" do
+  #   get :edit_invite
+  # end
+  # it "账号邀请好友注册" do
+  #   get :edit_invite
+  # end
+  # 
+  # it "账号刚刚注册完提示查邮件 - 游客状态" do
+  #   get :after_inactive_sign_up_path_for
+  # end
+  # it "账号刚刚注册完提示查邮件" do
+  #   get :after_inactive_sign_up_path_for
+  # end
+  # 
+  # it "new05 - 游客状态" do
+  #   get :new05
+  # end
+  # it "new05" do
+  #   get :new05
+  # end
+  ##############################################################
+  # it "账号绑定外部账号binds - 游客状态" do
+  #   get :binds
+  # end
+  # it "账号绑定外部账号binds" do
+  #   get :binds
+  # end
+  # 
+  # it "账号绑定外部账号bind - 游客状态" do
+  #   get :bind
+  # end
+  # it "账号绑定外部账号bind" do
+  #   get :bind
+  # end
+  # 
+  # it "账号绑定账号edit_services - 游客状态" do
+  #   get :edit_services
+  # end
+  # it "账号绑定账号edit_services" do
+  #   get :edit_services
+  # end
+  # 
+  # it "账号个人资料edit_profile - 游客状态" do
+  #   get :edit_profile
+  # end
+  # it "账号个人资料edit_profile" do
+  #   get :edit_profile
+  # end
+  # 
+  # it "账号个人资料修改update_profile - 游客状态" do
+  #   get :update_profile
+  # end
+  # it "账号个人资料修改update_profile" do
+  #   get :update_profile
+  # end
+  # 
+  # it "账号修改资料页的访问地址edit_slug - 游客状态" do
+  #   get :edit_slug
+  # end
+  # it "账号修改资料页的访问地址edit_slug" do
+  #   get :edit_slug
+  # end
+  # 
+  # it "账号启用新的访问地址 - 游客状态" do
+  #   get :update_slug
+  # end
+  # it "账号启用新的访问地址" do
+  #   get :update_slug
+  # end
+  # 
+  # it "账号偏好设置 - 游客状态" do
+  #   get :edit_pref
+  # end
+  # it "账号偏好设置" do
+  #   get :edit_pref
+  # end
+  # 
+  # it "账号修改头像 - 游客状态" do
+  #   get :edit_avatar
+  # end
+  # it "账号修改头像" do
+  #   get :edit_avatar
+  # end
+  # 
+  # it "账号通知与提醒 - 游客状态" do
+  #   get :edit_notifications
+  # end
+  # it "账号通知与提醒" do
+  #   get :edit_notifications
+  # end
+  # 
+  # it "账号帐户与帐单 - 游客状态" do
+  #   get :edit_banking
+  # end
+  # it "账号帐户与帐单" do
+  #   get :edit_banking
+  # end
+  # 
+  # it "账号邮箱与密码安全 - 游客状态" do
+  #   get :edit_passwd
+  # end
+  # it "账号邮箱与密码安全" do
+  #   get :edit_passwd
+  # end
+  # 
+  # it "账号国际化设置 - 游客状态" do
+  #   get :edit_i18n
+  # end
+  # it "账号国际化设置" do
+  #   get :edit_i18n
+  # end
+
+
 end

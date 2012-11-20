@@ -58,14 +58,14 @@ Sub::Application.routes.draw do
     # get '/account/edit_i18n'
     # get '/account/edit_invite'
     # get '/account/edit_services'
-    get '/account/binds'
+    # get '/account/binds'
     get '/account/bind/:service' => 'account#bind'
     post '/account/bind/:service' => 'account#real_bind'
   end
   match "/account/auth/:provider/unbind", :to => "users#auth_unbind"
   #_______________________________premium__________________________________
-  get "premium" => 'premium#index'
-  get "premium/plans" => 'premium#plans'
+  # get "premium" => 'premium#index'
+  # get "premium/plans" => 'premium#plans'
 
   # ________________________________ajax__________________________________________
   post '/ajax/users_follow' => 'users#fol'

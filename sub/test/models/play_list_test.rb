@@ -233,6 +233,7 @@ describe PlayList do
     cw1=ss[0]
     cw2=ss[1]
     crazy_pl = PlayList.locate(user_n.id,"PL#{Time.now.to_i}#{rand}")
+    crazy_pl.user_id = user_n.id
     crazy_pl.disliked_by_user(@user1)
     crazy_pl.add_one_thing(cw1.id)
     crazy_pl.add_one_thing(cw2.id)
