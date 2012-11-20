@@ -6,7 +6,8 @@ class Teacher
   include Redis::Search
   include BaseModel
   @before_soft_delete = proc{
-    p "#{self.id} before_soft_delete todo"
+    cws = Courseware.where(teachers:self.name).size
+    cws < 1
   }
   field :user_id
   field :name
@@ -20,6 +21,30 @@ class Teacher
   field :department_fid
   def self.locate(name)
     Teacher.find_or_create_by(name:name)
+  end
+  before_save :counter_work
+  def counter_work
+    if department_fid_changed?
+      if department_fid_was
+        dep = Department.where(fid:department_fid_was).first
+        dep.inc(:teachers_count,-1) if dep
+      end
+      if department_fid
+        dep = Department.where(fid:department_fid).first
+        dep.inc(:teachers_count,1) if dep
+      end
+    end
+  end
+  def asynchronously_clean_me
+    bad_ids = [self.id]
+    dep = Department.where(fid:self.department_fid).first
+    dep.inc(:teachers_count,-1) if dep
+    Course.where(teachers:self.name).each do |t|
+      t.teachers.delete(self.name)
+      t.teachers_count -= 1
+      t.save(:validate=>false)
+    end
+    Util.bad_id_out_of!(User,:followed_teacher_ids,bad_ids)
   end
   def calculate_department_fid
     # 一般不需要调用
