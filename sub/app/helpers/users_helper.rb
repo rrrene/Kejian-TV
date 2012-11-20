@@ -106,49 +106,50 @@ module UsersHelper
     return "" if ca[:slug].blank?
     url = avatar_url_quick(user)
     hash = {class:size.to_s,alt:ca[:name]}
-      hash.merge!({width:ca[:size2],height:ca[:size2],class:'imgHead'}) if ca[:size2]
-        mid = image_tag(mk_url(url),hash)
-        if nolink
-          raw mid
-        else
-          raw "<a href=\"#{ca[:path]}\" class=\"\" title=\"#{ca[:name]}\">"+mid+"</a>"
-        end
+    hash.merge!({width:ca[:size2],height:ca[:size2],class:'imgHead'}) if ca[:size2]
+    mid = image_tag(mk_url(url),hash)
+    if nolink
+      raw mid
+    else
+      raw "<a href=\"#{ca[:path]}\" class=\"\" title=\"#{ca[:name]}\">"+mid+"</a>"
+    end
 
-      end
+  end
 
 
-      def user_tagline_tag(user,options = {})
-        return "" if user.blank?
-        prefix = options[:prefix] || ""
-        return "" if user.tagline.blank?
-        raw "#{prefix}#{h(truncate(user.tagline, :length => 30))}"
-      end
+  def user_tagline_tag(user,options = {})
+    return "" if user.blank?
+    prefix = options[:prefix] || ""
+    return "" if user.tagline.blank?
+    raw "#{prefix}#{h(truncate(user.tagline, :length => 30))}"
+  end
 
-      def user_sex_title(user,current_user=nil)
-        return "" if user.blank?
-        return "我" if current_user==user
-        "他"
-      end
+  def user_sex_title(user,current_user=nil)
+    return "" if user.blank?
+    return "我" if current_user==user
+    "他"
+  end
 
-      # 支持者列表
-      def up_voter_links(up_voters, options = {})
-        # TODO: optimize via redis
-        limit = options[:limit] || 3
-        links = []
-        hide_links = []
-        up_voters.each_with_index do |u,i|
-          link = user_name_tag(u)
-          if i <= limit
-            links << link
-          else
-            hide_links << link
-          end
-        end
-        html = "<span class=\"voters\">#{links.join(",")}"
-        if !hide_links.blank?
-          html += "<a href=\"#\" onclick=\"$(this).next().show();$(this).replaceWith(',');return false;\" class=\"more\">(更多)</a><span class=\"hide\">#{hide_links.join(",")}</span>"
-        end
-        html += "</span>"
-        raw html
+  # 支持者列表
+  def up_voter_links(up_voters, options = {})
+    # TODO: optimize via redis
+    limit = options[:limit] || 3
+    links = []
+    hide_links = []
+    up_voters.each_with_index do |u,i|
+      link = user_name_tag(u)
+      if i <= limit
+        links << link
+      else
+        hide_links << link
       end
     end
+    html = "<span class=\"voters\">#{links.join(",")}"
+    if !hide_links.blank?
+      html += "<a href=\"#\" onclick=\"$(this).next().show();$(this).replaceWith(',');return false;\" class=\"more\">(更多)</a><span class=\"hide\">#{hide_links.join(",")}</span>"
+    end
+    html += "</span>"
+    raw html
+  end
+  module_function(*instance_methods)
+end

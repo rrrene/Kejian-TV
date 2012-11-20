@@ -26,9 +26,14 @@ Spork.prefork do
         class TestCase
           include Devise::TestHelpers
           def denglu!(u)
-            sign_in(u)
+            sign_in :user,u
             @controller.sign_in_others
             @request.env['HTTP_COOKIE'] = cookies.collect{|k,v| "#{k}=#{CGI::escape v}"}.join('; ')
+          end
+          def dengchu!
+            sign_out :user
+            @controller.sign_out_others
+            @request.env['HTTP_COOKIE'] = ''
           end
         end
       end

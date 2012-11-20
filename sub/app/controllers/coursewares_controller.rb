@@ -1,8 +1,24 @@
 # -*- encoding : utf-8 -*-
 class CoursewaresController < ApplicationController
-  before_filter :authenticate_user!, :only => [:new,:create,:edit,:update,:destroy,:thank,:download,:my_upload,:my_edit]
-  before_filter :find_item,:only => [:show,:embed,:download,:edit,:update,:destroy,:thank,:my_edit]
-  before_filter :authenticate_user_ownership!, :only => [:update,:destroy,:edit,:my_edit]
+  before_filter :authenticate_user!, :only => [:new,:create,:edit,:update,:destroy,:thank,:download,:new_old,:edit_old]
+  before_filter :find_item,:only => [:show,:embed,:download,:edit,:update,:destroy,:thank,:edit_old]
+  before_filter :authenticate_user_ownership!, :only => [:update,:destroy,:edit,:edit_old]
+  def ktvid_slide_pic
+    if !Moped::BSON::ObjectId.legal?(params[:id].to_s)
+      redirect_to '/mqdefault.jpg',:status => :found
+      return false
+    end
+    cw = Courseware.where(id:params[:id].to_s).first
+    if cw.nil?
+      redirect_to '/mqdefault.jpg',:status => :found
+      return false
+    end
+    params[:pic] ||= "thumb_slide_0.jpg"
+    pic = params[:pic]
+    url = CdnHelper.asset_url_eb("/cw/#{cw.ktvid}/#{cw.revision}#{pic}")
+    redirect_to url,:status => :moved_permanently      
+    return false
+  end
   
   def latest
     @seo[:title] = '最新课件'

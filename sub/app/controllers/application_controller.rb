@@ -96,8 +96,12 @@ class ApplicationController < ActionController::Base
       psvr_response_anyway: true
     }
     h_xookie[:data] = {:psvr_payloads => @psvr_payloads.to_json} if @psvr_payloads.present?
-    
-    res_xookie = Ktv::JQuery.ajax(h_xookie)
+    res_xookie = nil
+    retry_times = 0
+    while res_xookie.nil? and retry_times<=3
+      retry_times += 1
+      res_xookie = Ktv::JQuery.ajax(h_xookie)
+    end
     res_xookie.cookies.each do |key,value|
       if !@dz_cookiepre_mid and key =~ /#{Setting.dz_cookiepre}([^_]+)_/
         @dz_cookiepre_mid = $1

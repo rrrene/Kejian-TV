@@ -11,10 +11,8 @@ Sub::Application.routes.draw do
     
   get '/api/uc' => 'ucenter#ktv_uc_client'
   post '/api/uc' => 'ucenter#ktv_uc_client'
-  get '/user_logged_in_required'=>'application#user_logged_in_required'
-  get '/modern_required'=>'application#modern_required'
   get '/url' => 'jump_engine#url'
-  get '/slide_pic' => 'jump_engine#ktvid_slide_pic'
+  get '/slide_pic' => 'coursewares#ktvid_slide_pic'
   
   get '/mine' => 'mine#index'
   get '/dashboard' => 'mine#dashboard'
@@ -28,9 +26,8 @@ Sub::Application.routes.draw do
   get '/mine/my_favorites'
   get '/mine/my_liked_coursewares'
   get '/mine/my_liked_lists'
-  post '/mine/delete' => 'mine#delete'
-  get '/mine/:page' => 'mine#index'
-  get '/popup/headlines'
+  
+  # get '/popup/headlines'
   # ________________________________user__________________________________________
   devise_for :users, :path => "account", :controllers => {
       :registrations => :account,
@@ -427,4 +424,7 @@ Sub::Application.routes.draw do
   end
 
   get "/:whatever" => "application#render_404"
+  # 废弃井-----------------------------------
+  # get '/user_logged_in_required'=>'application#user_logged_in_required'
+  # get '/modern_required'=>'application#modern_required'
 end

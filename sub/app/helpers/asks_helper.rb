@@ -105,6 +105,7 @@ module AsksHelper
       return summary
     end
   end
+  module_function(*instance_methods)
 
   
 end

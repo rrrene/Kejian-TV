@@ -28,4 +28,5 @@ module InPlaceEditHelper
       options[:label]
     end
   end
+  module_function(*instance_methods)
 end

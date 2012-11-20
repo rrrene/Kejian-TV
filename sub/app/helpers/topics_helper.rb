@@ -24,4 +24,5 @@ module TopicsHelper
   def topic_avatar(topic_id)
     "#{Setting.upload_url}/topic/cover/#{topic_id}/small38_______.jpg" 
   end
+  module_function(*instance_methods)
 end

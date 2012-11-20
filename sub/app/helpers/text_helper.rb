@@ -8,6 +8,7 @@ module TextHelper
     actual_length = max_length - ellipsis_length
     content_length > actual_length ? doc.truncate(actual_length).inner_html + ellipsis : text.to_s
   end
+  module_function(*instance_methods)
 
 end
 

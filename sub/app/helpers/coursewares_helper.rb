@@ -17,4 +17,5 @@ module CoursewaresHelper
       gap = ((milestone.getlocal.beginning_of_day.to_i-first)/3600/24).to_f
       return (gap/all*100).to_i
   end
+  module_function(*instance_methods)
 end

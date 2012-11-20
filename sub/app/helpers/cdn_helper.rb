@@ -13,4 +13,5 @@ module CdnHelper
   def asset_url_eb(path)
     "http://storage-huabei-1.sdcloud.cn/ktv-eb/#{path}"
   end
+  module_function(*instance_methods)
 end

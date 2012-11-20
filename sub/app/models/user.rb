@@ -651,7 +651,8 @@ kejians:['课件','num','filter'],comments:['评论','num']
   end
   scope :jiaxingming,where(:name=>/^_/) # 假姓名
   scope :zhenshixingming,where(:name=>/^[^_]/) # 真实姓名
-  scope :normal,where(:uid.gt=>0)
+  scope :normal,where(:uid.gt=>0,:reg_extent.gte=>1000)
+  
   scope :already_confirmed,where(:confirmed_at.ne => nil)
   scope :name_unknown, where(:name_unknown => true)
   scope :email_unknown, where(:email_unknown => true)
@@ -1372,7 +1373,7 @@ kejians:['课件','num','filter'],comments:['评论','num']
   end
   def thank_courseware(courseware)
     self.thanked_courseware_ids ||= []
-    uploader = courseware.uploader.reload
+    uploader = courseware.uploader.reload if courseware.uploader
     if courseware.disliked_user_ids.include?(self.id)
       ## counter
       self.disliked_count -= 1

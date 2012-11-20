@@ -231,7 +231,7 @@ describe Courseware do
   it "当一个课件的上传人发生了改变，这个上传人的课件总计数应该做出相应改变" do
     c = Courseware.new
     c.status = 0                      ##需要加上这句话，否则逻辑冲突哦~~Liber加
-    cc = User.nondeleted.first
+    cc = User.nondeleted.normal.first
     c.uploader_id = cc.id
     cc_coursewares_uploaded_count = cc.coursewares_uploaded_count
     c.save(:validate=>false)
@@ -239,14 +239,14 @@ describe Courseware do
     c.reload
     assert cc.coursewares_uploaded_count == cc_coursewares_uploaded_count + 1,"当一个课件添加到一个上传人的时候，这个上传人的课件总计数应+1"
     # -----------------------
-    cc2 = User.nondeleted.where(:id.ne=>cc.id).first
+    cc2 = User.nondeleted.normal.where(:id.ne=>cc.id).first
     cc2_coursewares_uploaded_count = cc2.coursewares_uploaded_count
     c.uploader_id_candidates = [cc2.id]
     c.save(:validate=>false)
     cc2.reload
     assert cc2.coursewares_uploaded_count == cc2_coursewares_uploaded_count,"当一个课件添加到一个上传人的时候，这个上传人的课件总计数不应该+1"  
     # -----------------------
-    ccc = User.nondeleted.where(:id.nin=>[cc.id,cc2.id]).first
+    ccc = User.nondeleted.normal.where(:id.nin=>[cc.id,cc2.id]).first
     c.uploader_id = ccc.id
     ccc_coursewares_uploaded_count =ccc.coursewares_uploaded_count
     c.save(:validate=>false)

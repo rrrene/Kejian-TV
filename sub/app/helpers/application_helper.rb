@@ -295,4 +295,5 @@ module ApplicationHelper
     href = "/url?url="+ url +"&sa=" + sa
     return href
   end
+  module_function(*instance_methods)
 end

@@ -20,29 +20,12 @@ sa 计算方法 详见 application_helper 或者application_controller的  redir
     when 'sr'
       analyze(@url)
     end
-    redirect_to @url,:status => :moved_permanently
+    redirect_to @url,:status => :found
     return true
   end
   
   def add_to_search_history
     SearchHistory.add_search_jump_history(current_user,params[:keyword],request.referer,request.ip,@url)
-  end
-
-  def ktvid_slide_pic
-    if !Moped::BSON::ObjectId.legal?(params[:id].to_s)
-      redirect_to '/mqdefault.jpg',:status => :moved_permanently      
-      return false
-    end
-    cw = Courseware.where(id:params[:id].to_s).first
-    if cw.nil?
-      redirect_to '/mqdefault.jpg',:status => :moved_permanently      
-      return false
-    end
-    params[:pic] ||= "thumb_slide_0.jpg"
-    pic = params[:pic]
-    url = "http://ktv-pic.b0.upaiyun.com/cw/#{cw.ktvid}/#{cw.revision}#{pic}"
-    redirect_to url,:status => :moved_permanently      
-    return false
   end
 end
 
