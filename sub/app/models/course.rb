@@ -5,7 +5,8 @@ class Course
   include Redis::Search
   include BaseModel
   @before_soft_delete = proc{
-    p "#{self.id} before_soft_delete todo"
+    cws = Courseware.where(course_fid:self.fid).size
+    cws < 1
   }
   field :department_fid
   def department_ins
@@ -18,6 +19,12 @@ class Course
   end
   def asynchronously_clean_me
     bad_ids = [self.fid]
+    dep = Department.where(fid:self.department_fid).first
+    dep.inc(:courses_count,-1) if dep
+    self.teachers.each do |t|
+      tc = Teacher.where(name:t).first
+      tc.inc(:courses_count,-1) if tc
+    end
     Util.bad_id_out_of!(User,:followed_course_fids,bad_ids)
   end
   field :ctype
@@ -56,7 +63,51 @@ class Course
   cache_consultant :department_fid,:from_what => :fid
   
   embeds_many :teachings
-  
+  before_save :dz_op!
+  def dz_op!
+    if self.name.present? and self.department_fid.present? and self.fid.blank?
+      if self.number.present?
+        name = "[#{self.number}] #{self.name}"
+      else
+        name = "#{self.name}"
+      end
+      if PreForumForum.where(:name=>self.name).first.present?
+        inst=PreForumForum.where(:name=>name).first
+      else
+        ddid=self.department_fid
+        raise "department_fid shouldn't be blank" if ddid.blank?
+        inst = PreForumForum.insert2(ddid,self.name,Course.count+1)
+      end
+      self.update_attribute(:fid,inst.fid)
+    end
+  end 
+  before_save :teacher_work
+  def teacher_work
+    if self.teachers_changed?
+      self.teachers_count = self.teachers.size      ##不能用更改dep的方式，因为老师可以跨dep教课
+      added = self.teachers - self.teachers_was.to_a
+      deled = self.teachers_was.to_a - self.teachers
+      added.each do |t|
+        tc = Teacher.where(name:t).first
+        tc.inc(:courses_count,1) if tc
+      end
+      deled.each do |t|
+        tc = Teacher.where(name:t).first
+        tc.inc(:courses_count,-1) if tc
+      end
+    end
+  end
+  before_save :department_work
+  def department_work
+    if self.department_fid_changed?
+      dep = Department.where(fid:self.department_fid).first
+      dep.inc(:courses_count,1)
+      if self.department_fid_was.present?
+        dep = Department.where(fiq:department_fid).first
+        dep.inc(:courses_count,-1)
+      end
+    end
+  end
   def self.reflect_onto_discuz!
     self.all.asc('created_at').each_with_index do |item,index|
       next if item.fid.present?

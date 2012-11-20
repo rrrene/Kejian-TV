@@ -6,6 +6,9 @@ class User
   #include Mongo::Voter
   include Redis::Search
   include BaseModel
+  @before_soft_delete = proc{
+    self.coursewares_uploaded_count < 1
+  }
   after_update :after_update_uc
   def after_update_uc
     if self.encrypted_password_changed?

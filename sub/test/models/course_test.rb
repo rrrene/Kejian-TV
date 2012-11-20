@@ -19,7 +19,7 @@ describe Course do
     assert 1==Course.where(fid:c.fid).count,'申请成功唯一的fid'
   end
   it "创建新课程并添加到某学院（上传课件时如果课程不够用，需要添加新课程）" do
-    dpt = Department.nondeleted.gotfid.first
+    dpt = Department.nondeleted.gotfid.first                      ##to PSVR  不完整，如果是修改学院呢。上传的时候不用考虑貌似。
     dpt_courses_count = dpt.courses_count
     c = Course.new
     c.department_fid = dpt.fid
@@ -73,7 +73,7 @@ describe Course do
     c.save(:validate=>false)
     c_other = Course.nondeleted.gotfid.where(:id.ne=>c.id).first
     ret = c.instance_eval(&Course.before_soft_delete)
-    refute false==ret,'没有任何课件依赖，可以进行删除'
+    assert true==ret,'没有任何课件依赖，可以进行删除'
     cw=Courseware.non_redirect.nondeleted.normal.is_father.first
     cw.course_fid = c.fid
     cw.save(:validate=>false)
@@ -127,6 +127,7 @@ describe Course do
     t3.reload
     refute @user1.followed_course_fids.include?(crazy_course.id),'清除关注课程赃引用'
     refute @user2.followed_course_fids.include?(crazy_course.id),'清除关注课程赃引用'
+    binding.pry if dpt_courses_count - 1 != dpt.courses_count
     assert dpt_courses_count - 1 == dpt.courses_count,'所属院系的课程计数还原'
     assert t1_courses_count - 1 == t1.courses_count,'老师的课程计数还原'
     assert t2_courses_count - 1 == t2.courses_count,'老师的课程计数还原'

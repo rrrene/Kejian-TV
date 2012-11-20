@@ -69,9 +69,11 @@ describe PlayList do
   end
   it "课件锦囊的course_fids的计算及多种课件锦囊计数变化" do
     cw1 = Courseware.non_redirect.nondeleted.normal.is_father.first
+    cw1.ua(:course_fid,971)      #################to psvr 这个课件可能没有course_fid
     c1 = cw1.course_ins
     dp1 = cw1.department_ins
     cw2 = Courseware.non_redirect.nondeleted.normal.is_father.where(:department_fid.ne=>cw1.department_fid).first
+    cw2.ua(:course_fid,2805)
     c2 = cw2.course_ins
     dp2 = cw2.department_ins
     d1 = dp1.play_lists_count

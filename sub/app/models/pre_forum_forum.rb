@@ -2,6 +2,7 @@
 class PreForumForum < ActiveRecord::Base
   include ActiveBaseModel
   self.table_name =  'pre_forum_forum'
+  
   # 这个是用来添加一级板块用的
   # name 名字
   # displayorder 显示顺序
