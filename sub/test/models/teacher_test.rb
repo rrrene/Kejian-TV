@@ -86,7 +86,6 @@ describe Teacher do
     c1.reload
     c2.reload
     c3.reload
-    assert crazy_teacher.soft_deleted?,'自身删除成功'
     refute @user1.followed_teacher_ids.include?(crazy_teacher.id),'清除关注课程赃引用'
     refute @user2.followed_teacher_ids.include?(crazy_teacher.id),'清除关注课程赃引用'
     assert d0 - 1 == dpt.teachers_count,'所属院系的老师计数还原'

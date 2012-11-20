@@ -327,6 +327,7 @@ describe Courseware do
     new_cw.redirect_to_id = new_cw2.id # 注意@courseware属于@user1
     new_cw.save(:validate=>false)
     other_courseware.reload
+    binding.pry if !other_courseware.uploader_id_candidates.empty?
     assert other_courseware.uploader_id_candidates.empty?,'没有任何课件指向other_courseware了'  ##
     assert other_courseware_uploader_id == other_courseware.uploader_id,'uploader_id依然是uploader_id'    
     new_cw2.reload
@@ -425,6 +426,7 @@ describe Courseware do
     cw0.save(:validate=>false)
     ret = cw0.instance_eval(&Courseware.before_soft_delete)
     cw0.reload
+    user_n.reload
     refute false==ret,'没有上传人候选，before_soft_delete必须不能返回false以让软删除的进一步执行。'
     cw1 = Courseware.new;cw1.uploader_id = @user2.id;
     cw2 = Courseware.new;cw2.uploader_id = @user2.id;
@@ -441,6 +443,7 @@ describe Courseware do
     cw1.save(:validate=>false)
     cw0.redirect_to_id = cw2.id
     cw0.save(:validate=>false)
+    @user2.reload
     cw0.reload
     cw1.reload
     cw2.reload
@@ -458,8 +461,7 @@ describe Courseware do
     cw2.reload
     assert cw2.uploader_id == cw2_uploader_id_candidates[1],'before_soft_delete虽然返回了false，但是user_n从此被剥夺了此课件的拥有权，第2个候选人继承拥有权'
     user_n.reload
-    binding.pry
-    assert user_n_coursewares_uploaded_count - 1 == user_n.coursewares_uploaded_count,'user_n剥夺了此课件的拥有权的计数体现'
+    assert user_n_coursewares_uploaded_count - 1 == user_n.coursewares_uploaded_count,'user_n被剥夺此课件的拥有权的计数体现'
   end
   it "异步清理 -- Courseware#asynchronously_clean_me" do
     @user1.thanked_courseware_ids = []
@@ -508,6 +510,7 @@ describe Courseware do
     success_cm3,cm3 = Comment.real_create({:comment => {"commentable_type"=>"Courseware","commentable_id"=>crazy_cw.id.to_s,"body"=>"#{Time.now.to_i}#{rand.to_s}"}}.with_indifferent_access,user_n)
     # 1. 预检--------------    
     crazy_cw.reload
+    crazy_cw.uploader.reload
     t1.reload
     t2.reload
     t3.reload
@@ -529,12 +532,15 @@ describe Courseware do
     b13 = t3.coursewares_count
     b2 = c.coursewares_count
     b3 = dpt.coursewares_count
-    b5 = @user1.disliked_count
-    b6 = @user2.thanked_count
+    b5 = @user1.dislike_count
+    b6 = @user2.thank_count
+    b7 = crazy_cw.uploader.disliked_count
+    b8 = crazy_cw.uploader.thanked_count
     # 2. 清理！！！--------------
     crazy_cw.asynchronously_clean_me
     # 3. 重检--------------
     crazy_cw.reload
+    crazy_cw.uploader.reload
     t1.reload
     t2.reload
     t3.reload
@@ -551,23 +557,25 @@ describe Courseware do
     cm1.reload
     cm2.reload
     cm3.reload
-    assert crazy_cw.soft_deleted?,'自身删除成功'
     assert 0 == user_n.coursewares_uploaded_count,'just like new'
     assert 0 == user_n.thank_count,'just like new'
     assert 0 == user_n.dislike_count,'just like new'
+    binding.pry if b11 - 1 != t1.coursewares_count
     assert b11 - 1 == t1.coursewares_count,'撤销老师1的课件计数'
     assert b12 - 1 == t2.coursewares_count,'撤销老师2的课件计数'
     assert b13 - 1 == t3.coursewares_count,'撤销老师3的课件计数'
     assert b2 - 1 == c.coursewares_count,'课程的课件被删了，课程课件计数-1'
     assert b3 - 1 == dpt.coursewares_count,'院系的课件被删了，院系课件计数-1'
-    assert b5 -1 == @user1.disliked_count,'撤销踩计数'
-    assert b6 -1 == @user2.thanked_count,'撤销顶计数'
+    assert b5 - 1 == @user1.dislike_count,'撤销踩计数'
+    assert b6 - 1 == @user2.thank_count,'撤销顶计数'
+    assert b7 - 1 == crazy_cw.uploader.disliked_count
+    assert b8 - 1 == crazy_cw.uploader.thanked_count
     refute pl1.content.include?(crazy_cw.id),'不管是谁的播放列表引用了这个课件，课件被删后不能留有脏引用'
     refute pl2.content.include?(crazy_cw.id),'不管是谁的播放列表引用了这个课件，课件被删后不能留有脏引用'
     refute @user2.thanked_courseware_ids.include?(crazy_cw.id),'顶了这个课件，课件被删后不能留有脏引用'
-    assert cw_kid1.soft_deleted?,'软删除传播到了这个课件的每个子课件'
-    assert cw_kid2.soft_deleted?,'软删除传播到了这个课件的每个子课件'
-    assert cw_kid3.soft_deleted?,'软删除传播到了这个课件的每个子课件'
+    assert (cw_kid1.soft_deleted? or cw_kid1.uploader_id != crazy_cw.uploader_id),'软删除传播到了这个课件的每个子课件'
+    assert (cw_kid2.soft_deleted? or cw_kid2.uploader_id != crazy_cw.uploader_id),'软删除传播到了这个课件的每个子课件'
+    assert (cw_kid3.soft_deleted? or cw_kid3.uploader_id != crazy_cw.uploader_id),'软删除传播到了这个课件的每个子课件'
     assert cm1.soft_deleted?,'软删除传播到了这个课件的每个评论'
     assert cm2.soft_deleted?,'软删除传播到了这个课件的每个评论'
     assert cm3.soft_deleted?,'软删除传播到了这个课件的每个评论'

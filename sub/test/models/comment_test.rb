@@ -158,7 +158,6 @@ describe Comment do
     comment_kid1.reload
     comment_kid2.reload
     @courseware1.reload
-    assert crazy_comment.soft_deleted?,'自身删除成功'
     assert comment_kid1.soft_deleted?,'软删除传播至子评论'
     assert comment_kid2.soft_deleted?,'软删除传播至子评论'
     assert d1 - 1 == @user1.disliked_count,'评论的投票人计数复原'

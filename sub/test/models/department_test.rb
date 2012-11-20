@@ -63,7 +63,6 @@ describe Department do
     crazy_dpt.reload
     @user1.reload
     @user2.reload
-    assert crazy_dpt.soft_deleted?,'自身删除成功'
     refute @user1.followed_department_fids.include?(crazy_dpt.fid),'followed_department_fids复原'
     refute @user2.followed_department_fids.include?(crazy_dpt.fid),'followed_department_fids复原'
   end

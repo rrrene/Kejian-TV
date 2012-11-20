@@ -275,7 +275,7 @@ class User
   field :mark_history,       :type => Boolean, :default => true
   field :mark_search_keyword,:type => Boolean, :default => true
   field :enable_beauty_view, :type => Boolean, :default => false
-  field :widget_sort,        :type => Hash,    :default => {'left' => ['1','2'],'right' => ['3','4']}
+  field :widget_sort,        :type => Hash,    :default => {'left' => ['0','1'],'right' => ['2','3']}
   field :widget_property,    :type => Hash,    :default => {kejians:['课件','4',''],comments:['评论','4'],analytics:['过去 30 天的主要统计信息'],promos:['新增内容']}
 =begin
 widget_property 

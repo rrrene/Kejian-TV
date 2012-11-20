@@ -251,7 +251,6 @@ describe PlayList do
     @user1.reload
     @user2.reload
     # -----------------  
-    assert crazy_pl.soft_deleted?,'自身删除成功'
     assert b1-1 == @user1.disliked_count,'复原计数'
     assert b2-1 == user_n.dislike_count,'复原计数'
     assert b3-1 == @user2.thanked_count,'复原计数'

@@ -11,6 +11,13 @@ class Courseware
       true
     else
       self.uploader_id = self.uploader_id_candidates[0]
+      Courseware.where(redirect_to_id:self.id,uploader_id:self.uploader_id,:id.ne => self.id).each do |x|
+        x.uploader_id_candidates = []
+        x.redirect_to_id = nil
+        x.save(:validate=>false)
+        self.uploader.inc(:coursewares_uploaded_count,-1)
+        x.soft_delete
+      end
       self.save(:validate=>false)
       false
     end
@@ -126,14 +133,37 @@ class Courseware
     bad_ids = [self.id]
     self.user.inc(:coursewares_count,-1) if self.user
     self.uploader.inc(:coursewares_uploaded_count,-1) if self.uploader
-    Util.bad_id_out_of!(User,:thanked_courseware_ids,bad_ids)
-    Util.del_propogate_to(Comment,:_id,self.comments.collect(&:id))
+    self.teachers.each do |x|
+      Teacher.locate(x).inc(:coursewares_count,-1)
+    end
+    Course.where(fid:self.course_fid).first.inc(:coursewares_count,-1)
+    dep = Department.where(fid:self.department_fid).first
+    dep.inc(:coursewares_count,-1) if dep
+    
     thanked = false
     User.where(:thanked_courseware_ids=>self.id).each do |u|
-      u.inc(:thank_coursewares_count,-1)
+      u.inc(:thank_count,-1)
       thanked = true
     end
-    self.user.inc(:thank_coursewares_count,-1) if thanked
+    self.uploader.inc(:thanked_count,-1) if thanked and self.uploader
+    disliked = false
+    self.disliked_user_ids.each do |x|
+      u = User.where(id:x).first
+      if u
+        u.inc(:dislike_count,-1) 
+        disliked = true
+      end
+    end
+    self.uploader.inc(:disliked_count,-1) if disliked and self.uploader
+    
+    Util.bad_id_out_of!(User,:thanked_courseware_ids,bad_ids)
+    Util.bad_id_out_of!(PlayList,:content,bad_ids)
+    Util.del_propogate_to(Comment,:_id,self.comments.collect(&:id))
+    if self.tree.present?
+      self.get_children.each do |child|
+        child
+      end
+    end
     self.topic_inst.redis_search_index_create
   end
   field :privacy, :type=>Integer, :default=>0
@@ -570,18 +600,17 @@ class Courseware
         old_user.inc(:coursewares_uploaded_count,-1)
       end
       self.uploader.inc(:coursewares_uploaded_count,1) if self.uploader
-      self.uploader.save(:validate=>false) if self.uploader
     end
-    if uploader_id_candidates_changed?
-      added = uploader_id_candidates - uploader_id_candidates_was.to_a
-      deleted = uploader_id_candidates_was.to_a - uploader_id_candidates
-      added.each do |u|
-        # User.find(u).inc(:coursewares_uploaded_count,1)
-      end
-      deleted.each do |u|
-        # User.find(u).inc(:coursewares_uploaded_count,-1)
-      end
-    end
+    # if uploader_id_candidates_changed?
+    #   added = uploader_id_candidates - uploader_id_candidates_was.to_a
+    #   deleted = uploader_id_candidates_was.to_a - uploader_id_candidates
+    #   added.each do |u|
+    #     # User.find(u).inc(:coursewares_uploaded_count,1)
+    #   end
+    #   deleted.each do |u|
+    #     # User.find(u).inc(:coursewares_uploaded_count,-1)
+    #   end
+    # end
     if slides_count_changed?
       pls = PlayList.where(:content=>id)
       pls.each do |pl|
@@ -690,15 +719,17 @@ class Courseware
   def redirect_work
     uploader_id_candidates.delete(uploader_id)
     if redirect_to_id_was.present?
-      uploader_id_changed? ? uploaderx = uploader_id_was : uploaderx = uploader_id
+      uploader_id_changed? and !uploader_id_was.blank? ? uploaderx = uploader_id_was : uploaderx = uploader_id
       old_re = Courseware.find(redirect_to_id_was)
-      if Courseware.where(redirect_to_id:redirect_to_id_was,uploader_id:uploaderx).count < 2
-        old_re.uploader_id_candidates.delete(uploaderx)
-      else
-        old_re.uploader_id_candidates.delete(uploaderx)
-        Courseware.where(redirect_to_id:redirect_to_id_was,uploader_id:uploaderx).map{|x| x.deleted = 1;x.save(:validate=>false)}
+      self.uploader_id_candidates.each do |c|
       end
-      old_re.save(:validate=>false)      
+        binding.pry      if redirect_to_id.nil?
+
+      old_re.uploader_id_candidates -= self.uploader_id_candidates
+      # if Courseware.where(redirect_to_id:redirect_to_id_was,uploader_id:uploaderx).size < 2
+      old_re.uploader_id_candidates.delete(uploaderx)
+      # end  
+      old_re.save(:validate=>false)
     end
     if (redirect_to_id_changed? or uploader_id_changed?) and redirect_to_id.present?
       cw = Courseware.find(redirect_to_id)

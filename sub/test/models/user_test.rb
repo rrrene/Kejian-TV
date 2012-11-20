@@ -202,7 +202,6 @@ describe User do
     cw2.reload
     pl1.reload
     pl2.reload
-    assert crazy_user.soft_deleted?,'自身删除成功'
     assert pl_default_1.soft_deleted?,'删除【传播】到了用户的三个默认的播放列表'
     assert pl_default_2.soft_deleted?,'删除【传播】到了用户的三个默认的播放列表'
     assert pl_default_3.soft_deleted?,'删除【传播】到了用户的三个默认的播放列表'

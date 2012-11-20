@@ -125,7 +125,6 @@ describe Course do
     t1.reload
     t2.reload
     t3.reload
-    assert crazy_course.soft_deleted?,'自身删除成功'
     refute @user1.followed_course_fids.include?(crazy_course.id),'清除关注课程赃引用'
     refute @user2.followed_course_fids.include?(crazy_course.id),'清除关注课程赃引用'
     assert dpt_courses_count - 1 == dpt.courses_count,'所属院系的课程计数还原'
