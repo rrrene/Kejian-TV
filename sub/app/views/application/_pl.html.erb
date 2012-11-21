@@ -57,7 +57,7 @@
 <%else %>
 	<%= render partial:'playlist_bar' %>
 <% end %>
-
+<script type="text/javascript" charset="utf-8">
 <% content_for :butt2 do %>
 var Historyx = window.History;
 var bar_li_id = new Array();
@@ -149,6 +149,7 @@ $('#playlist-bar-prev-button').live('click',function(e){
 		e.stopPropagation();
 	});
 	var bar_update_sort = function(){
+<% if current_user %>
 		bar_loading();
 		$.ajax({
 			url:'/ajax/bar_update_content_in_playlist',
@@ -162,10 +163,13 @@ $('#playlist-bar-prev-button').live('click',function(e){
 			}else if(json.status == 'failed'){
 				bar_showNotification('课件锦囊更新失败！','error');					
 			}else if(json.status == 'saveas'){
+				bar_request_save_as();
 				bar_showNotification('此课件锦囊非您所有请先另存为。','warn');
-				bar_update_content_in_playlist();
 			}
 		});
+<% else %>
+			 return KTV.login();
+<% end %>
 	};
 	$('#playlist-bar-play-button').live('click',function(e){
 		bar_resort();
@@ -310,6 +314,7 @@ $('#playlist-bar-prev-button').live('click',function(e){
 		bar_request_save_as();
 	});
 	var bar_request_save_as = function(){
+		<% if current_user %>
 		bar_loading();
 		$.ajax({
 			url:'/ajax/bar_request_save_as',
@@ -325,6 +330,9 @@ $('#playlist-bar-prev-button').live('click',function(e){
 				bar_showNotification('系统无法完成请求，请稍后重试。！','error');					
 			}
 		});
+		<% else %>
+       return KTV.login();
+    <% end %>
 	};
 		
 	var bar_timeout = null ;
@@ -345,9 +353,14 @@ $('#playlist-bar-prev-button').live('click',function(e){
 		},5000);
 	};
 	var bar_loading = function(){			
-		$('#playlist-bar').toggleClass('editable').toggleClass('loading');
+		 <% if current_user %>
+			$('#playlist-bar').toggleClass('editable').toggleClass('loading');
+		 <% else %>
+		 return KTV.login();
+		 <% end %>
 	}
 	$('#playlist-bar-save-form button[type="submit"]').live('click',function(){
+ <% if current_user %>
 		bar_loading();
 	  $.ajax({
        type: 'POST',//jQuery('#playlist-bar-save-form').attr('method')
@@ -368,9 +381,11 @@ $('#playlist-bar-prev-button').live('click',function(e){
 				bar_showNotification('请重复检查您的课件锦囊标题。','warn')
 			}
    });
+<% end %>
 	});
 		
 	var bar_update_list_and_name = function(new_playlist_id,Callback){
+<% if current_user %>
 		$.ajax({
 			url:'/ajax/bar_request_update_bar',
 			type:'POST',
@@ -403,6 +418,9 @@ $('#playlist-bar-prev-button').live('click',function(e){
 				bar_showNotification('系统无法完成请求，请稍后重试。！','error');
 			}
 		});
+<% else %>
+    return KTV.login();
+<% end %>
 	};
   Historyx.Adapter.bind(window,'statechange',function(){
       var State = History.getState();
@@ -418,6 +436,7 @@ $('#playlist-bar-prev-button').live('click',function(e){
 		e.preventDefault();
 		e.stopPropagation();
 		var kid = $(this).parents('.playlist-bar-item.yt-uix-slider-slide-unit.playlist-bar-drag-source').attr('data-kejian-id');
+<% if current_user %>
 		bar_loading();
 		tmp = this;
 		$.ajax({
@@ -433,12 +452,15 @@ $('#playlist-bar-prev-button').live('click',function(e){
 				bar_showNotification('课件已删除。<a class="playlist-bar-undo">撤消</a>','success')
 			}else if(json.status == 'saveas'){
 				bar_showNotification('此课件锦囊非您所有请先另存为。','warn');
-				bar_update_content_in_playlist();
+				bar_request_save_as();
 			}else{
 				bar_loading();
 				bar_showNotification('系统无法完成请求，请稍后重试。！','error');
 			}
-		})
+		});
+<%else %>
+   return KTV.login();
+<% end %>
 	});
 	var bar_interval_timeout = null;
 	var bar_interval_count = 0;
@@ -447,6 +469,7 @@ $('#playlist-bar-prev-button').live('click',function(e){
 	});
 	$('#playlist-bar-notifications .playlist-bar-undo').live('click',function(e){
 		e.stopPropagation();
+<% if current_user %>
 		bar_loading();
 		$.ajax({
 			url:'/ajax/bar_undo_delete',
@@ -473,17 +496,21 @@ $('#playlist-bar-prev-button').live('click',function(e){
 				},100);
 			}else if(json.status == 'saveas'){
 				bar_showNotification('此课件锦囊非您所有请先另存为。','warn');
-				bar_update_content_in_playlist();
+				bar_request_save_as();
 			}else{
 				bar_showNotification('系统无法完成请求，请稍后重试。！','error');
 			}
 		});
+		<% end %>
 	});
 	$('#playlist-bar-save-cancel').live('click',function(){
  	 	$('#playlist-bar').removeClass('save').addClass('max');
 		$('#playlist-bar-save').html('');
 	})
 	$('#playlist-bar-options-menu > ul > li:first').live('click',function(){
+    <% if current_user.blank? %>
+        return KTV.login();
+    <% else %>
 		bar_loading();
 		$.ajax({
 			url:'/ajax/bar_request_playlists',
@@ -499,6 +526,7 @@ $('#playlist-bar-prev-button').live('click',function(e){
 				bar_showNotification('系统无法完成请求，请稍后重试。！','error');
 			}
 		});
+		<% end %>
 	});
 	$('#playlist-bar-lists-back').live('click',function(e){
 		e.stopPropagation();
@@ -507,6 +535,7 @@ $('#playlist-bar-prev-button').live('click',function(e){
 	});
 	$('ol#playlist-bar-lists-content li a').live('click',function(e){
      e.stopPropagation();
+<% if current_user %>
      bar_loading();
      href = $(this).attr('href');
      pid = href.split('/').pop();
@@ -515,5 +544,9 @@ $('#playlist-bar-prev-button').live('click',function(e){
              bar_loading();
      });
      return false;
+<% else %>
+        return KTV.login();
+<% end %>
 	});
 <% end %>
+</script>

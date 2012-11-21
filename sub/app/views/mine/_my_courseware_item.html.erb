@@ -53,7 +53,7 @@
 		<div class="vm-video-info-container">
 			<div class="vm-video-title">
 				<% titlelen = 20 %>
-				<span id="checkbox_<%= item.id %>" class="vm-video-title-container yt-uix-tooltip" <% if item.title.length > titlelen %> title='<%= item.title %>' <% end %>>
+				<span id="checkbox_<%= item.id %>" class="vm-video-title-container yt-uix-tooltip" <% if item.title.size > titlelen %> title='<%= item.title %>' <% end %>>
 				<a class="vm-video-title-content yt-uix-sessionlink" href="/coursewares/<%= item.id %>"><span class="vm-video-title-content"><%= item.title[0...titlelen] %><%= if item.title.length> titlelen then '...' end %></span></a>
 				</span>
 				<span class="vm-video-title-badges">

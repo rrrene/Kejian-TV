@@ -283,7 +283,7 @@
     <div id="newcwLayout"></div>
     <div id="firstload" class="firstload" style="display:none;">加载中...</div>
   </div>
-	<% if !current_user.nil? %>
+	<% if !['login','coursewares_by_departments'].include?( request.path.split('/')[1].downcase) %>
 	<div class="__ytb" id="pl_ytb" <% if params[:reading].blank? %>style="display:none"<% end %>>
 		<div id="page">
 			<%= render partial:'pl' %>

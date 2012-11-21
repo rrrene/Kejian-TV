@@ -1,7 +1,7 @@
-<%= playlist_id ||= params[:reading] %>
-<%= bar_max ||= params[:bar_max] %>
-<%= params[:reading] ||= playlist_id %>
-<%= params[:bar_max] ||= bar_max %>
+<% playlist_id ||= params[:reading] %>
+<% bar_max ||= params[:bar_max] %>
+<% params[:reading] ||= playlist_id %>
+<% params[:bar_max] ||= bar_max %>
 <% 
 if (params[:reading].blank? and playlist_id.blank?) or (!Moped::BSON::ObjectId.legal?(params[:reading]) and !Moped::BSON::ObjectId.legal?(playlist_id))
 	return false
