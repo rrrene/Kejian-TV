@@ -30,7 +30,7 @@
       <li class="dot"></li>
       <li class="<%= 'current' if '/coursewares_by_courses'==request.path %>"><a href="/coursewares_by_courses">按课程分类</a></li>
 
-      <!--
+      <% if false %>
       <li class="dot"></li>
       <li class="<%= 'current' if schools_path==request.path %>"><a href="<%= schools_path %>">全部学校/老师</a></li>
       <li class="dot"></li>
@@ -48,7 +48,7 @@
       </li>
       <li class="dot"></li>
       <li class="new<%= ' current ' if @we_are_inside_qa %>"><a href="/home/index">解题风云榜</a><b></b></li>
-      -->
+      <% end %>
       </ul>
     </div>
     </div>
