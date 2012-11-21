@@ -1,0 +1,52 @@
+<div class="__sdk">
+<section class="supplimental">
+  <div class="wrapper">
+<%= form_for @courseware,:url => "/presentations/#{@courseware.id}", :html => { :method => :put,'data-s3' =>@config.to_json,  :class => 'uploaded', :id=>'upload_presentation', :autocomplete=>"off" } do |f| %>
+  <input id="presentation_uptime" name="presentation[uptime]" type="hidden" value="<%=@uptime%>" />
+      <div class="primary_info">
+
+        <h1>标注课件信息</h1>
+        <p><label for="presentation_title">课件标题</label> <input class="text" id="presentation_title" name="presentation[title]" size="30" type="text" placeholder="例如：[北京大学]郭懋正:2011年阅读与练习 - 1" value="<%= @courseware.title %>"/></p>
+        <p><label for="presentation_topic">课程</label> <input class="text" id="presentation_topic" name="presentation[topic]" size="30" type="text" placeholder="例如：数学分析"  value="<%= @courseware.topic %>" /></p>
+        <%= render :partial=>'form_extras',:locals=>{:courseware=>@courseware} %>
+        <p class="submit">
+            <button class="primary" id="submit_btn">保存课件信息</button>
+            <a href="<%= courseware_path @courseware %>" class="button primary cancel">取消</a>
+        </p>
+
+      </div>
+      <div class="secondary_info">
+        <div id="the_slides">
+          <div class="edit_presentation_buttons">
+            <a href="javascript:void(0)" id="reupload" class="button reupload">上传此课件的修订版</a>
+            <%= link_to '删除课件',courseware_path(@courseware),:method => :delete, :confirm => '您确认要删除这个课件吗？',:class => 'button delete delete_presentation' %>
+          </div>
+          <h1>编辑课件</h1>
+            <div class="slide_frame">
+              <script src="/embed/<%= @courseware.id %>.js"></script>
+            </div>
+        </div>
+        <% content_for :upload_armpit do %>
+          <a class="button cancel reupload" id="reupload" href="javascript:void(0)" style="float:right">取消</a>
+        <%end%>
+        <%= render 'upload' %>
+        
+
+<script type="text/javascript">
+<% content_for :butt2 do %>
+  $(function() {
+    $('#upload').addClass('hide');
+    $('.secondary_info a.reupload').bind('click', function() {
+      $('#the_slides').toggleClass('hide');
+      $('#upload').toggleClass('hide');
+    });
+  });
+<% end %>
+</script>
+
+      </div>
+<% end %>  </div>
+</section></div>
+
+
+<%= render file:'/application/footers/_sdk_footer' %>
