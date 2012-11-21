@@ -246,7 +246,6 @@ describe User do
   end
   it "禁用户" do
     # todo
-  end
-  
+  end 
 end
 

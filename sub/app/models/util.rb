@@ -143,8 +143,13 @@ class Util
       end
       # User.be_deleted.delete_all
     end
-
-
+    
+    def dec_bad_counters!(klass,key,bad_ids,which)
+      klass.any_in(key=>bad_ids).each do |u|
+        u.update_attribute(which,u.send(which)-1)
+      end
+    end
+    
     def bad_id_out_of!(klass,key,bad_ids)
       klass.any_in(key=>bad_ids).each do |u|
         u.update_attribute(key,u.send(key)-bad_ids)

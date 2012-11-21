@@ -6,9 +6,6 @@ class User
   #include Mongo::Voter
   include Redis::Search
   include BaseModel
-  @before_soft_delete = proc{
-    self.coursewares_uploaded_count < 1
-  }
   after_update :after_update_uc
   def after_update_uc
     if self.encrypted_password_changed?
@@ -320,9 +317,21 @@ User.all.map{|x| x.ua(:widget_sort,hash)}
 
   ## Token authenticatable
   field :authentication_token, :type => String
-  
   @before_soft_delete = proc{
-    # todo
+    result = []
+    if self.play_lists_ugc.size < 1
+      result << true
+    else
+      result << false
+    end
+    if self.coursewares_uploaded_count < 1
+      result << true
+    else
+      result << false
+    end
+    b = true
+    result.map{|x| b&=x }
+    b
   }
   @after_soft_delete = proc{
     redis_search_index_destroy
@@ -337,28 +346,43 @@ User.all.map{|x| x.ua(:widget_sort,hash)}
     self.update_attribute(:user_type,User::BAN_USER)
   }
   def asynchronously_clean_me
-    # todo
-    return
     bad_ids = [self.id]
-    Util.bad_id_out_of!(AskInvite,:invitor_ids,bad_ids)
-    Util.bad_id_out_of!(Topic,:follower_ids,bad_ids)
-    Util.bad_id_out_of!(Ask,:spam_voter_ids,bad_ids)
-    Util.bad_id_out_of!(Ask,:to_user_ids,bad_ids)
-    Util.bad_id_out_of!(Ask,:follower_ids,bad_ids)
+    self.followers.each{|u| u.inc(:following_count,-1)}
+    self.following.each{|u| u.inc(:followers_count,-1)}
+    Util.dec_bad_counters!(Department,:follower_ids,bad_ids,:followers_count)
+    Util.dec_bad_counters!(Course,:follower_ids,bad_ids,:followers_count)
+    Util.dec_bad_counters!(Comment,:voteup_user_ids,bad_ids,:voteup)
+    Util.dec_bad_counters!(Comment,:votedown_user_ids,bad_ids,:votedown)
+    Util.dec_bad_counters!(Courseware,:thanked_user_ids,bad_ids,:thanked_count)
+    Util.dec_bad_counters!(Courseware,:disliked_user_ids,bad_ids,:disliked_count)
+    Util.dec_bad_counters!(PlayList,:liked_user_ids,bad_ids,:vote_up)
+    Util.dec_bad_counters!(PlayList,:disliked_user_ids,bad_ids,:vote_down)
+    
     Util.bad_id_out_of!(User,:follower_ids,bad_ids)
     Util.bad_id_out_of!(User,:following_ids,bad_ids)
     Util.bad_id_out_of!(Courseware,:thanked_user_ids,bad_ids)
     Util.bad_id_out_of!(Courseware,:disliked_user_ids,bad_ids)
     Util.bad_id_out_of!(PlayList,:disliked_user_ids,bad_ids)
     Util.bad_id_out_of!(PlayList,:liked_user_ids,bad_ids)
+    Util.bad_id_out_of!(Comment,:voteup_user_ids,bad_ids)
+    Util.bad_id_out_of!(Comment,:votedown_user_ids,bad_ids)
+    Util.bad_id_out_of!(Department,:follower_ids,bad_ids)
+    Util.bad_id_out_of!(Department,:following_ids,bad_ids)
+    Util.bad_id_out_of!(Course,:follower_ids,bad_ids)
+    Util.bad_id_out_of!(Course,:following_ids,bad_ids)
+    # Util.del_propogate_to(Courseware,:uploader_id,bad_ids)    ####to psvr 要不要这样做？
     Util.del_propogate_to(Comment,:user_id,bad_ids)
-    Util.del_propogate_to(AskInvite,:user_id,bad_ids)
-    Util.del_propogate_to(Notification,:user_id,bad_ids)
-    Util.del_propogate_to(Answer,:user_id,bad_ids)
-    Util.del_propogate_to(Ask,:to_user_id,bad_ids)
-    Util.del_propogate_to(Ask,:user_id,bad_ids)
-    Util.del_propogate_to(Courseware,:user_id,bad_ids)
     Util.del_propogate_to(PlayList,:user_id,bad_ids)
+    # Util.bad_id_out_of!(AskInvite,:invitor_ids,bad_ids)
+    # Util.bad_id_out_of!(Topic,:follower_ids,bad_ids)
+    # Util.bad_id_out_of!(Ask,:spam_voter_ids,bad_ids)
+    # Util.bad_id_out_of!(Ask,:to_user_ids,bad_ids)
+    # Util.bad_id_out_of!(Ask,:follower_ids,bad_ids)
+    # Util.del_propogate_to(AskInvite,:user_id,bad_ids)
+    # Util.del_propogate_to(Notification,:user_id,bad_ids)
+    # Util.del_propogate_to(Answer,:user_id,bad_ids)
+    # Util.del_propogate_to(Ask,:to_user_id,bad_ids)
+    # Util.del_propogate_to(Ask,:user_id,bad_ids)
     # vote_up_count
     
     Answer.where("votes.up"=>self.id).each do |ans|
@@ -383,12 +407,10 @@ User.all.map{|x| x.ua(:widget_sort,hash)}
     end
     self.update_attribute(:banished,"1")
     # ------------------------
-    self.followers.each{|u| u.inc(:following_count,-1)}
-    self.following.each{|u| u.inc(:followers_count,-1)}
-    self.thanked_answers.each{|an| an.inc(:thanked_count,-1)}
-    self.thanked_coursewares.each{|an| an.inc(:thanked_count,-1)}
-    self.thanked_play_list_ids.each{|an| an.inc(:vote_up,-1)}
-    self.followed_asks.each{|ask| ask.inc(:followed_count,-1)}
+    # self.thanked_answers.each{|an| an.inc(:thanked_count,-1)}
+    # self.thanked_coursewares.each{|an| an.inc(:thanked_count,-1)}
+    # self.thanked_play_list_ids.each{|an| an.inc(:vote_up,-1)}
+    # self.followed_asks.each{|ask| ask.inc(:followed_count,-1)}
   end
   #user_type
   NORMAL_USER=1
@@ -1641,8 +1663,11 @@ User.all.map{|x| x.ua(:widget_sort,hash)}
     return true
   end
 
-  def play_lists
+  def play_lists   
     PlayList.undestroyable.nondeleted.where(:user_id=>self.id)
+  end
+  def default_play_lists
+    self.play_lists
   end
   def all_play_lists
     PlayList.nondeleted.where(:user_id=>self.id)
