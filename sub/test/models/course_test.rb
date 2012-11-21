@@ -82,7 +82,7 @@ describe Course do
     c.reload
     ret = c.instance_eval(&Course.before_soft_delete)
     assert false==ret,'增加了课件依赖，不能进行删除'
-    cw.course_fid = c_other.fid                                           ###!!!!Must be kidding...
+    cw.course_fid = c_other.fid
     cw.save(:validate=>false)
     c.reload
     ret = c.instance_eval(&Course.before_soft_delete)

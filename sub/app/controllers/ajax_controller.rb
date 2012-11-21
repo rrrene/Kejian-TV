@@ -819,7 +819,7 @@ HEREDOC
       suc = 'onesuc'
     end
     if add and params[:cwid].to_a.size == 1
-      render json:{status:suc,title:"<a href='/play_lists/#{pl.id}'>#{pl.title}</a>",playlist_id:pl.id,annotation:pl.annotation[pl.content.index(Moped::BSON::ObjectId(params[:cwid][0]))]}
+      render json:{status:suc,title:"<a href='/play_lists/#{pl.id}'>#{pl.title}</a>",playlist_id:pl.id,annotation:pl.annotation[pl.content.index(Moped::BSON::ObjectId(params[:cwid].to_a[0]))]}
       return true
     end
     if add

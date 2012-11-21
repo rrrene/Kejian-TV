@@ -9,7 +9,7 @@
                  <div role="alert" class="yt-alert-content">
                     <span class="yt-alert-vertical-trick"></span>
                     <div class="yt-alert-message">
-                       已添加至<span class="added-to-message-title">aa</span>
+                       已添加至<span class="added-to-message-title"></span>
                     </div>
                  </div>
               </div>
@@ -65,7 +65,9 @@
         </div>
         <ul class="playlist-items">
 <% current_user.all_play_lists.desc(:undestroyable).asc(:title_en).each do |play_list| %>
-  <%= render :partial => 'add_to_play_list',:locals=>{play_list:play_list} %>
+	<% if play_list.title !="历史记录" %>
+  	<%= render :partial => 'add_to_play_list',:locals=>{play_list:play_list} %>
+	<% end %> 
 <% end %>
         </ul>
         <form method="post" class="create-playlist" action="/ajax/create_new_playlist">
