@@ -61,7 +61,7 @@ describe CoursewaresController do
     assert @controller.current_user.nil?
     get :ktvid_slide_pic,:id => 'whatever'
     assert 302==@response.status && @response.location.ends_with?('/mqdefault.jpg'),'游客访问课件图片可以得到默认图片'
-    get :ktvid_slide_pic,:id => @courseware.id.to_s,:pic=>'thumb_slide_0.jpg'
+    get :ktvid_slide_pic,:id => @cw.id.to_s,:pic=>'thumb_slide_0.jpg'
     assert 301==@response.status && !@response.location.ends_with?('thumb_slide_0.jpg'),'游客访问课件图片可以得到正常图片'
   end
   it "ktvid_slide_pic" do
@@ -69,7 +69,7 @@ describe CoursewaresController do
     assert @controller.current_user.id==@user.id    
     get :ktvid_slide_pic,:id => 'whatever'
     assert 302==@response.status && @response.location.ends_with?('/mqdefault.jpg'),'注册用户访问课件图片可以得到默认图片'
-    get :ktvid_slide_pic,:id => @courseware.id.to_s,:pic=>'thumb_slide_0.jpg'
+    get :ktvid_slide_pic,:id => @cw.id.to_s,:pic=>'thumb_slide_0.jpg'
     assert 301==@response.status && @response.location.ends_with?('thumb_slide_0.jpg'),'注册用户访问课件图片可以得到正常图片'
   end
 

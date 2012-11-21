@@ -70,30 +70,25 @@ Sub::Application.routes.draw do
   # ________________________________ajax__________________________________________
   post '/ajax/users_follow' => 'users#fol'
   post '/ajax/users_unfollow'=>'users#unfol'
+  post '/ajax/get_operation' => 'ajax#get_cw_operation'
   get '/all_unread_notification_num' => 'ajax#all_unread_notification_num'
   get '/ajax/register_huanyihuan'
   post '/ajax/renren_invite'
   get '/ajax/current_user_reg_extent'
   post '/ajax/renren_huanyizhang'
   post '/ajax/renren_real_bind'
-  # get '/ajax/check_fangwendizhi'
+
   get '/ajax/watch_later'
-  post '/ajax/seg'=>'ajax#seg'
-  post '/presentations' => 'ajax#presentations_upload_finished'
-  put '/presentations/:id' => 'ajax#presentations_update'
+
   get '/presentations/:id/status' => 'ajax#presentations_status'
   get '/ajax/checkUsername'
   get '/ajax/checkEmailAjax'
-  get '/ajax/xl_req_get_method_vod'
+
   post '/ajax/logincheck'
-  get '/ajax/star_refresh'
   get '/ajax/get_teachers'
   post '/ajax/get_forum' => 'ajax#get_forum'
-  post '/ajax/get_operation' => 'ajax#get_cw_operation'
-  post '/ajax/add_to_playlist' => 'ajax#add_to_playlist'
   post '/ajax/playlist_sort' => 'ajax#playlist_sort'
   post '/ajax/create_new_playlist' => 'ajax#create_new_playlist'
-  # post '/ajax/add_comment_to_playlist' =>'ajax#add_comment_to_playlist'
   post '/ajax/get_share_panel' => 'ajax#get_share_panel'
   post '/ajax/get_share_partial' => 'ajax#get_share_partial'
   post '/ajax/ajax_send_email' =>'ajax#ajax_send_email'
@@ -136,17 +131,9 @@ Sub::Application.routes.draw do
   post '/ajax/summonQL' => 'ajax#summonQL'
   post '/ajax/prepare_upload' => 'ajax#prepare_upload'
   post '/upload_page_auto_save' => 'ajax#upload_page_auto_save'
-  # ---=small=----
-  get '/hack/htc'
   # ________________________________ktv__________________________________________
   get '/welcome/inactive_sign_up'
   get '/welcome/shuffle'
-  get '/welcome/blank'
-  get '/welcome/surprise' => 'welcome#surprise',:as => 'surprise'
-  get '/welcome/top'
-  get '/welcome/menu'
-  get '/welcome/xi'
-  get '/welcome/main'
   get '/welcome/latest'
   get '/welcome/feeds'
   resources :play_lists do 
@@ -424,7 +411,14 @@ Sub::Application.routes.draw do
   end
 
   get "/:whatever" => "application#render_404"
-  # 废弃井-----------------------------------
+  # 废弃井1-----------------------------------
+  # post '/ajax/seg'=>'ajax#seg'
+  # 废弃井2-----------------------------------
   # get '/user_logged_in_required'=>'application#user_logged_in_required'
   # get '/modern_required'=>'application#modern_required'
+  # get '/ajax/check_fangwendizhi'
+  # put '/presentations/:id' => 'ajax#presentations_update'
+  # get '/ajax/xl_req_get_method_vod'
+  # get '/ajax/star_refresh'
+  # post '/presentations' => 'ajax#presentations_upload_finished'
 end

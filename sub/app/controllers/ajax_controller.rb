@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class AjaxController < ApplicationController
-  before_filter :require_user_js, :except => [:checkUsername,:checkEmailAjax,:xl_req_get_method_vod,:logincheck,:seg,:star_refresh,:current_user_reg_extent]
+  before_filter :require_user_js, :except => [:checkUsername,:checkEmailAjax,:xl_req_get_method_vod,:logincheck,:seg,:star_refresh]
   def register_huanyihuan
     render json:{status:'suc',html:render_to_string(file:"devise/registrations/_#{params[:res]}_huanyihuan",locals:{fid:params[:fid].to_i,page:params[:page].to_i},:layout=>false, :formats=>[:html])}
   end
@@ -592,7 +592,7 @@ HEREDOC
     begin
         fr = FlagRecord.new
         fr.cwid = params[:cw_id]
-        fr.user_id = params[:user_id]
+        fr.user_id = current_user.id
         fr.layer = params[:layer]
         fr.reason_id = params[:reason]
         fr.atype = 0

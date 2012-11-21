@@ -8,8 +8,8 @@ class ApplicationController < ActionController::Base
     # puts request.path
     # text = 
     # render text:text and return
-    puts 'params'
-    p params
+    # puts 'params'
+    # p params
   }
   if $psvr_really_production
     rescue_from Exception, with: :render_500
