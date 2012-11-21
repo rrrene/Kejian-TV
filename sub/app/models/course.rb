@@ -5,8 +5,12 @@ class Course
   include Redis::Search
   include BaseModel
   @before_soft_delete = proc{
-    cws = Courseware.where(course_fid:self.fid).size
-    cws < 1
+    if self.fid.present?
+      cws = Courseware.where(course_fid:self.fid).size
+      cws < 1
+    else
+      true
+    end
   }
   field :department_fid
   def department_ins
@@ -76,7 +80,7 @@ class Course
       else
         ddid=self.department_fid
         raise "department_fid shouldn't be blank" if ddid.blank?
-        inst = PreForumForum.insert2(ddid,self.name,Course.count+1)
+        inst = PreForumForum.insert2(ddid,self.name,Course.count+1)     ###psvr 数据库导入时候有点问题。PreForumForum和线上数据不一致。只到了2000+实际应该是3000+
       end
       self.update_attribute(:fid,inst.fid)
     end

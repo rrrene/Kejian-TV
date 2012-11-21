@@ -3,6 +3,7 @@ tmp/
 log/
 /uc/data/
 /uc/data_test/
+/uc/phpmyadmin
 /simple/simple/data/
 /simple/simple/uc_client/data/
 /win/ConvertPowerPoint2PDF/ConvertPowerPoint2PDF/bin/

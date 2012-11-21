@@ -10,7 +10,7 @@ describe Course do
     c.save(:validate=>false)
     c.reload
     refute c.fid.present?,'没有名字不能申请课程fid'
-    c.update_attribute(:name,"DPT#{Time.now.to_i}#{rand}")
+    c.update_attribute(:name,"Course#{Time.now.to_i}#{rand}")
     c.reload
     refute c.fid.present?,'没有学院fid不能申请课程fid'
     c.update_attribute(:department_fid,Department.nondeleted.gotfid.first.fid)
@@ -70,6 +70,7 @@ describe Course do
     dpt = Department.nondeleted.gotfid.first
     c = Course.new
     c.department_fid = dpt.fid
+    c.name = "Course#{Time.now.to_i}#{rand}"                                    ####To PSVR  Course need a name to generate fid
     c.save(:validate=>false)
     c_other = Course.nondeleted.gotfid.where(:id.ne=>c.id).first
     ret = c.instance_eval(&Course.before_soft_delete)
@@ -80,7 +81,7 @@ describe Course do
     c.reload
     ret = c.instance_eval(&Course.before_soft_delete)
     assert false==ret,'增加了课件依赖，不能进行删除'
-    cw.course_fid = c_other.id
+    cw.course_fid = c_other.fid                                           ###!!!!Must be kidding...
     cw.save(:validate=>false)
     c.reload
     ret = c.instance_eval(&Course.before_soft_delete)
