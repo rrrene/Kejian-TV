@@ -25,9 +25,22 @@ class Comment
     return [comment.save,comment]
   end
   def asynchronously_clean_me
-    # --------------
+    bad_ids = [self.id]
     self.user.inc(:comments_count,-1)
     self.commentable.inc(:comments_count,-1)
+    self.voteup_user_ids.each do |up|
+      u = User.where(id:up).first
+      u.inc(:thank_count,-1) if u
+      su = self.user
+      su.inc(:thanked_count,-1) if su
+    end
+    self.votedown_user_ids.each do |down|
+      u = User.where(id:down).first
+      u.inc(:dislike_count,-1) if u
+      su = self.user
+      su.inc(:disliked_count,-1) if su
+    end
+    Util.bad_id_out_of!(User,:liked_comment_ids,bad_ids)
     self.logs.each do |c|
       Notification.where(:log_id=>c._id).each do |n|
         n.update_attribute(:deleted,1)
@@ -51,7 +64,10 @@ class Comment
   def async_info_delete(user_id)
     self.update_attribute(:deletor_id,Moped::BSON::ObjectId(user_id))
   end
-  
+  def user
+    @user = nil if self.user_id_changed?
+    @user ||= User.where(id:self.user_id).first
+  end
   belongs_to :commentable, :polymorphic => true
   belongs_to :ask, :foreign_key => "commentable_id"
   belongs_to :answer, :foreign_key => "commentable_id"
@@ -91,7 +107,29 @@ class Comment
   end
   # after_create :create_log
   def disliked_by_user(user)
-    #todo
+    self.votedown_user_ids ||=[]
+    if user.liked_comment_ids.include?(self.id)
+      self.voteup_user_ids.delete(user.id)
+      user.liked_comment_ids.delete(self.id)
+      self.inc(:voteup,-1)
+      self.user.inc(:thanked_count,-1)
+      user.thank_count -= 1
+      user.save(:validate=>false)
+    end
+    if self.votedown_user_ids.index(user.id)
+      self.votedown_user_ids.delete(user.id)
+      self.inc(:votedown,-1)
+      self.save(:validate=>false)
+      self.user.inc(:disliked_count,-1)
+      user.inc(:dislike_count,-1)
+      return false
+    end
+    self.votedown_user_ids << user.id
+    self.inc(:votedown,1)
+    self.save(:validate=>false)
+    self.user.inc(:disliked_count,1)
+    user.inc(:dislike_count,1)
+    return true
   end
   def create_log
     log = CommentLog.new

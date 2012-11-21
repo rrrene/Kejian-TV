@@ -821,6 +821,7 @@ User.all.map{|x| x.ua(:widget_sort,hash)}
   field :thanked_answer_ids, :type => Array, :default => []
   field :thanked_courseware_ids, :type => Array, :default => []
   field :thanked_play_list_ids, :type => Array, :default => []
+  field :liked_comment_ids,:type=>Array,:default=>[]
   def thanked_answers
     Answer.where(:_id.in=>self.thanked_answer_ids)
   end
@@ -1415,9 +1416,34 @@ User.all.map{|x| x.ua(:widget_sort,hash)}
     insert_follow_log("THANK_COURSEWARE", courseware, courseware.topic)
     return true
   end
-  
   def like_comment(comment)
-    #todo
+    self.liked_comment_ids ||=[]
+    if comment.votedown_user_ids.include?(self.id)
+      comment.votedown_user_ids.delete(self.id)
+      comment.inc(:votedown,-1)
+      self.inc(:dislike_count,-1)
+      comment.user.inc(:disliked_count,-1)
+    end
+    if self.liked_comment_ids.index(comment.id)
+      comment.voteup_user_ids.delete(self.id)
+      self.liked_comment_ids.delete(comment.id)
+      comment.inc(:voteup,-1)
+      comment.save(:validate=>false)
+      comment.user.inc(:thanked_count,-1)
+      self.thank_count -= 1
+      self.save(:validate =>false)
+      insert_follow_log("DE_LIKE_Commment", comment)
+      return false
+    end
+    comment.voteup_user_ids << self.id
+    self.liked_comment_ids << comment.id
+    comment.inc(:voteup,1)
+    comment.save(:validate=>false)
+    comment.user.inc(:thanked_count,1)
+    self.thank_count += 1
+    self.save(:validate => false)
+    insert_follow_log("LIKE_Comment", comment)
+    return true
   end  
   def like_playlist(playlist)
     self.thanked_play_list_ids ||= []

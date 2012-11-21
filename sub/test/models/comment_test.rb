@@ -62,8 +62,8 @@ describe Comment do
     @user1.reload
     @user2.reload
     @comment_user2.reload
-    assert user1_dislike_count + 1 == @user1.disliked_count,'不喜欢这个课件的用户的不喜欢表达总次数+1'
-    assert user2_disliked_count + 1 == @user2.dislike_count,'被不喜欢这个课件的用户的被不喜欢总次数+1'
+    assert user1_dislike_count + 1 == @user1.dislike_count,'不喜欢这个课件的用户的不喜欢表达总次数+1'
+    assert user2_disliked_count + 1 == @user2.disliked_count,'被不喜欢这个课件的用户的被不喜欢总次数+1'
     assert comment_thanked_count == @comment_user2.voteup,'被不喜欢后，课件的喜欢次数保持不变'  
     assert comment_disliked_count + 1 == @comment_user2.votedown,'被不喜欢后，课件的不喜欢次数+1'
     assert @comment_user2.votedown_user_ids.include?(@user1.id),'被不喜欢后，课件的不喜欢人记录了不喜欢者'
@@ -73,10 +73,10 @@ describe Comment do
     @user1.reload
     @user2.reload
     @comment_user2.reload
-    assert user1_thank_count + 1 == @user1.thanked_count,'之后，这个人又突然喜欢了这个课件，那么这个人的喜欢表达次数+1'
-    assert user2_thanked_count + 1 == @user2.thank_count,'被喜欢这个课件的被喜欢次数+1'
-    assert user1_dislike_count == @user1.disliked_count,'不喜欢次数恢复'
-    assert user2_disliked_count == @user2.dislike_count,'被不喜欢次数恢复'
+    assert user1_thank_count + 1 == @user1.thank_count,'之后，这个人又突然喜欢了这个课件，那么这个人的喜欢表达次数+1'
+    assert user2_thanked_count + 1 == @user2.thanked_count,'被喜欢这个课件的被喜欢次数+1'
+    assert user1_dislike_count == @user1.dislike_count,'不喜欢次数恢复'
+    assert user2_disliked_count == @user2.disliked_count,'被不喜欢次数恢复'
     assert comment_thanked_count + 1 == @comment_user2.voteup,'课件的喜欢数+1'
     assert comment_disliked_count == @comment_user2.votedown,''
     assert @comment_user2.voteup_user_ids.include?(@user1.id),'课件记录了喜欢者'
@@ -86,8 +86,8 @@ describe Comment do
     @user1.reload
     @user2.reload
     @comment_user2.reload
-    assert user1_dislike_count + 1 == @user1.disliked_count,'不喜欢这个课件的用户的不喜欢表达总次数+1'
-    assert user2_disliked_count + 1 == @user2.dislike_count,'被不喜欢这个课件的用户的被不喜欢总次数+1'
+    assert user1_dislike_count + 1 == @user1.dislike_count,'不喜欢这个课件的用户的不喜欢表达总次数+1'
+    assert user2_disliked_count + 1 == @user2.disliked_count,'被不喜欢这个课件的用户的被不喜欢总次数+1'
     assert comment_thanked_count +1 -1== @comment_user2.voteup,'原来喜欢，被不喜欢后，课件的喜欢和之前的之前一样了'
     assert comment_disliked_count + 1 == @comment_user2.votedown,'被不喜欢后，课件的不喜欢次数+1'
     assert @comment_user2.votedown_user_ids.include?(@user1.id),'被不喜欢后，课件的不喜欢人记录了不喜欢者'
@@ -97,8 +97,8 @@ describe Comment do
     @user1.reload
     @user2.reload
     @comment_user2.reload
-    assert user1_dislike_count == @user1.disliked_count,'撤销不喜欢这个课件的用户的不喜欢表达总次数，就不变了'
-    assert user2_disliked_count  == @user2.dislike_count,'撤销被不喜欢这个课件的用户的被不喜欢总次数，不变了'
+    assert user1_dislike_count == @user1.dislike_count,'撤销不喜欢这个课件的用户的不喜欢表达总次数，就不变了'
+    assert user2_disliked_count  == @user2.disliked_count,'撤销被不喜欢这个课件的用户的被不喜欢总次数，不变了'
     assert comment_thanked_count == @comment_user2.voteup,'撤销被不喜欢后，课件的喜欢次数保持不变'  
     assert comment_disliked_count  == @comment_user2.votedown,'撤销被不喜欢后，课件的不喜欢次数不变'
     refute @comment_user2.votedown_user_ids.include?(@user1.id),'撤销被不喜欢后，课件的不喜欢人撤销不喜欢者'
@@ -115,10 +115,10 @@ describe Comment do
     @user1.reload
     @user2.reload
     @comment_user2.reload
-    assert user1_thank_count == @user1.thanked_count,'喜欢后撤销喜欢，这个人又突然喜欢了这个课件，那么这个人的喜欢表达次数不变'
-    assert user2_thanked_count  == @user2.thank_count,'喜欢后撤销，被喜欢这个课件的被喜欢次数不变'
-    assert user1_dislike_count == @user1.disliked_count,'不喜欢次数恢复'
-    assert user2_disliked_count == @user2.dislike_count,'被不喜欢次数恢复'
+    assert user1_thank_count == @user1.thank_count,'喜欢后撤销喜欢，这个人又突然喜欢了这个课件，那么这个人的喜欢表达次数不变'
+    assert user2_thanked_count  == @user2.thanked_count,'喜欢后撤销，被喜欢这个课件的被喜欢次数不变'
+    assert user1_dislike_count == @user1.dislike_count,'不喜欢次数恢复'
+    assert user2_disliked_count == @user2.disliked_count,'被不喜欢次数恢复'
     assert comment_thanked_count == @comment_user2.voteup,'课件的喜欢数'
     assert comment_disliked_count == @comment_user2.votedown,'此时，喜欢和不喜欢没关系了'
     refute @comment_user2.voteup_user_ids.include?(@user1.id),'撤销喜欢，课件不记录记录了喜欢者'
@@ -144,8 +144,8 @@ describe Comment do
     comment_kid1.reload
     comment_kid2.reload
     @courseware1.reload
-    d1 = @user1.disliked_count
-    d2 = @user2.thanked_count
+    d1 = @user1.dislike_count
+    d2 = @user2.thank_count
     d3 = @user1.comments_count
     d4 = @user2.comments_count
     d5 = @courseware1.comments_count
@@ -158,12 +158,14 @@ describe Comment do
     comment_kid1.reload
     comment_kid2.reload
     @courseware1.reload
-    assert comment_kid1.soft_deleted?,'软删除传播至子评论'
-    assert comment_kid2.soft_deleted?,'软删除传播至子评论'
-    assert d1 - 1 == @user1.disliked_count,'评论的投票人计数复原'
-    assert d2 - 1 == @user2.thanked_count,'评论的投票人计数复原'
-    assert d3 - 1 == @user1.comments_count,'评论的创建人计数复原'
-    assert d5 - 1 == @user1.comments_count,'被评论物体的计数复原'
+    # assert comment_kid1.soft_deleted?,'软删除传播至子评论'                            ###to psvr 子评论不应该被删除，就和微博删除了评论不一定被删除一样。
+    # assert comment_kid2.soft_deleted?,'软删除传播至子评论'
+    assert d1 - 1 == @user1.dislike_count,'评论的投票人计数复原'
+    assert d2 - 1 == @user2.thank_count,'评论的投票人计数复原'
+    assert d4 - 1 == @user2.comments_count,'评论的创建人计数复原'
+    # assert d3 - 2 == @user1.comments_count,'评论的创建人计数复原'                   ### to psvr 原因同上，子评论的作者不应该受到连带
+    assert d5 - 1 == @courseware1.comments_count,'被评论物体的计数复原'
+    refute @user2.liked_comment_ids.include?(crazy_comment.id),'喜欢人的commentids里面没有了'
   end
 
 end
