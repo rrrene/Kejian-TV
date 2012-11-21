@@ -1429,10 +1429,10 @@ User.all.map{|x| x.ua(:widget_sort,hash)}
     courseware.thanked_user_ids << self.id
     ## counter
     self.thank_count +=1
-    uploader.thanked_count += 1
+    uploader.thanked_count += 1 if uploader
     courseware.thanked_count += 1
     ##
-    uploader.save(:validate=>false)
+    uploader.save(:validate=>false) if uploader
     courseware.save(:validate=>false)
     self.save(:validate => false)
     insert_follow_log("THANK_COURSEWARE", courseware, courseware.topic)

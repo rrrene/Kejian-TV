@@ -63,6 +63,7 @@ describe Course do
     assert 1==c.teachers_count,'课程有了新的老师，课程的老师计数相应调整'
   end
   it "一阶搜索" do
+    #todo
   end
   it "软删除之前判断是否有课件依赖于这个课程" do
     user_n = User.new

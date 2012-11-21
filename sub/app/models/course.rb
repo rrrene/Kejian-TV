@@ -107,7 +107,7 @@ class Course
       dep = Department.where(fid:self.department_fid).first
       dep.inc(:courses_count,1)
       if self.department_fid_was.present?
-        dep = Department.where(fiq:department_fid).first
+        dep = Department.where(fid:self.department_fid_was).first
         dep.inc(:courses_count,-1)
       end
     end
