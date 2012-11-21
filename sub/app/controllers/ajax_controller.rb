@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class AjaxController < ApplicationController
-  before_filter :require_user_js, :except => [:checkUsername,:checkEmailAjax,:xl_req_get_method_vod,:logincheck,:seg,:star_refresh]
+  before_filter :require_user_js, :except => [:checkUsername,:checkEmailAjax,:xl_req_get_method_vod,:logincheck,:seg,:star_refresh,:get_share_panel,:get_share_partial,:get_playlist_share,:get_forum,:summonQL]
   def register_huanyihuan
     render json:{status:'suc',html:render_to_string(file:"devise/registrations/_#{params[:res]}_huanyihuan",locals:{fid:params[:fid].to_i,page:params[:page].to_i},:layout=>false, :formats=>[:html])}
   end
@@ -155,6 +155,17 @@ class AjaxController < ApplicationController
       return false
     end
     presentation = params[:presentation].with_indifferent_access
+    if presentation[:id].present? 
+      if !Moped::BSON::ObjectId.legal?(presentation[:id])
+        render json:{status:'failed',reason:'系统无法完成您的请求，请稍后重试。'}
+        return false
+      end
+      testcw = Courseware.where(:_id => presentation[:id]).first 
+      if testcw.uploader_id != current_user.id
+        render json:{status:'failed',reason:'这不是您的课件。'},:status=>401
+        return false
+      end
+    end
     cw = Courseware.presentations_upload_finished(presentation,current_user)
     status = "manual"
     if cw.course_fid.nil? #if course_fid is nil,it means this is the first time auto save. if not nil and 运行到这了,means,首先填了psvrf,而且不是首次填写。so manual
@@ -458,31 +469,14 @@ HEREDOC
     
   end
   ### playlist start
-  def add_to_playlist
-    #TODO params[:sort] 
-    # params[:on_top] true false
-    ##TODO  list
-    
-    json = {status:'suc',title:params[:list_title],comment:'beizhu',time:'123',cw_id:params[:cw_id]}
-
-    render json:json
-  end
   def add_comment_to_playlist
     json = {status:'suc',title:params[:list_title],comment:params[:comment],time:'123',cw_id:params[:cw_id]}
     render json:json
   end
   def playlist_sort
-    if current_user.nil?
-      render :text => "<div><a href='javascript:void(0)' class='like grey psvr_login_required'>登录</a>之后就可以踩了。</div>"
-    else
       render file:'coursewares/_sorted_playlist',locals:{sort:params[:sort]},layout:false  
-    end
   end
   def create_new_playlist
-    if current_user.nil?
-      render json:{status:'failed',reason:'您尚未登录！'}
-      return false
-    end
     if params[:cwid].blank? or !Moped::BSON::ObjectId.legal?(params[:cwid])
       render json:{status:'failed',reason:'系统无法完成请求，请稍后重试。'}
       return false
@@ -513,18 +507,10 @@ HEREDOC
     end
   end
   def bar_request_save_as
-    if current_user.nil? or !Moped::BSON::ObjectId.legal?(params[:playlist_id])
-      render json:{status:'failed',reason:'您尚未登录！'}
-      return false
-    end
     render json:{status:'suc',html:render_to_string(file:'application/_playlist_bar_save',locals:{playlist_id:params[:playlist_id]},:layout=>false, :formats=>[:html])}
     return true
   end
   def bar_playlist_save_as
-    if current_user.nil? or !Moped::BSON::ObjectId.legal?(params[:playlist_id])
-      render json:{status:'failed',reason:'您尚未登录！'}
-      return false
-    end
     if params[:title].blank?
       render json:{status:'blank',reason:'请重复检查您的课件锦囊标题。'}
       return false
@@ -547,8 +533,8 @@ HEREDOC
     return "http://uc.#{Setting.ktv_domain}/avatar.php?uid=#{uid}&email=#{Digest::MD5.hexdigest(email)}&size=#{size}"
   end
   def bar_request_update_bar
-    if current_user.nil? or !Moped::BSON::ObjectId.legal?(params[:playlist_id])
-      render json:{status:'failed',reason:'您尚未登录！'}
+    if !Moped::BSON::ObjectId.legal?(params[:playlist_id])
+      render json:{status:'failed',reason:'系统无法完成请求，请稍后重试。'}
       return false
     end
     pl = PlayList.find(params[:playlist_id])
@@ -568,11 +554,6 @@ HEREDOC
   def get_share_panel
       render file:'coursewares/_share_to',locals:{cw:Courseware.find(params[:cw_id])},layout:false  
       return false
-    # if current_user.nil?
-    #   # render :text => "<div><a href='javascript:void(0)' class='like grey psvr_login_required'>登录</a>之后就可以踩了。</div>"
-    # else
-    #   render file:'coursewares/_share_to',locals:{cw:Courseware.find(params[:cw_id])},layout:false  
-    # end
   end
   def get_share_partial
     if params[:type] == 'embed'
@@ -745,8 +726,16 @@ HEREDOC
         render json:{status:'failed',reason:'请先保存课件锦囊！'}
         return false
       end
+      if !Moped::BSON::ObjectId.legal?(params[:playlist_id])
+        render json:{status:'failed',reason:'系统无法完成您的请求，请稍后重试。'}
+        return false
+      end
+      pl = PlayList.find(params[:playlist_id])
+      if pl.user_id !=current_user.id
+        render json:{status:'failed',reason:'这不是您的课件锦囊。'},:status=>401
+        return false
+      end
       unless (params[:url] =~ URI::regexp).nil?
-        pl = PlayList.find(params[:playlist_id])
         url = URI.parse(URI.encode(params[:url]))
         path = url.path
         path = path.split('/coursewares/')
@@ -786,11 +775,15 @@ HEREDOC
   
   
   def add_to_playlist_by_id
-    if current_user.nil?
-      render json:{status:'failed',reason:'您尚未登录！'}
+    if !Moped::BSON::ObjectId.legal?(params[:pid])
+      render json:{status:'failed',reason:'系统无法完成您的请求，请稍后重试。'}
       return false
     end
     pl = PlayList.find(params[:pid])
+    if pl.user_id != current_user.id
+      render json:{status:'failed',reason:'系统无法完成您的非法请求。'},:status=>401
+      return false
+    end
     legal = true
     add = true
     params[:cwid].to_a.each do |cwid|
@@ -835,10 +828,6 @@ HEREDOC
     end
   end
   def remove_ding_array
-    if current_user.nil?
-      render json:{status:'failed',reason:'您尚未登录！'}
-      return false
-    end
     result = Array.new
     re = false
     params[:cwid].to_a.each_with_index do |cwid,index|
@@ -854,10 +843,6 @@ HEREDOC
   end
   
   def create_and_add_to_by_id
-    if current_user.nil?
-      render json:{status:'failed',reason:'您尚未登录！'}
-      return false
-    end
     title = params[:title]
     privacy = params[:is_private]
     pl = PlayList.locate(current_user.id,title)
@@ -897,10 +882,6 @@ HEREDOC
     end
   end
   def save_note_for_one_cw
-    if current_user.nil?
-      render json:{status:'failed',reason:'您尚未登录！'}
-      return false
-    end
     if !Moped::BSON::ObjectId.legal?(params[:cwid][0])
       render json:{status:'failed',reason:'系统无法完成请求，请稍后重试。'}
       return false
@@ -917,10 +898,6 @@ HEREDOC
     end
   end
   def add_to_read_later
-     if current_user.nil?
-         render json:{status:'failed',reason:'您尚未登录！'}
-         return false
-     end
      if !Moped::BSON::ObjectId.legal?(params[:cwid])
          render json:{status:'failed',reason:'系统无法完成请求，请稍后重试。'}
          return false
@@ -938,10 +915,6 @@ HEREDOC
   end
   
   def bar_update_content_in_playlist
-    if current_user.nil?
-      render json:{status:'failed',reason:'您尚未登录！'}
-      return false
-    end
     if params[:content_string].nil?
       render json:{status:'nil'}
       return false
@@ -982,10 +955,6 @@ HEREDOC
     end
   end
   def bar_undo_delete
-    if current_user.nil?
-      render json:{status:'failed',reason:'您尚未登录！'}
-      return false
-    end    
     if !Moped::BSON::ObjectId.legal?(params[:pid])
       render json:{status:'nil'}
       return false
@@ -1011,26 +980,14 @@ HEREDOC
     end
   end
   def summonQL
-    if current_user.nil?
-      render json:{status:'failed',reason:'您尚未登录！'}
-      return false
-    end
     render json:{status:'suc',html:render_to_string(file:'application/_playlist_bar',locals:{playlist_id:params[:playlist_id],bar_max:params[:bar_max]},:layout=>false, :formats=>[:html])}
     return true
   end
   def bar_request_playlists
-    if current_user.nil?
-      render json:{status:'failed',reason:'您尚未登录！'}
-      return false
-    end
     render json:{status:'suc',html:render_to_string(file:'application/_bar_playlists_list',locals:{playlists:PlayList.where(user_id:current_user.id).desc(:undestroyable).asc(:title_en)},:layout=>false, :formats=>[:html])}
     return true
   end
   def bar_delete_one_content
-    if current_user.nil?
-      render json:{status:'failed',reason:'您尚未登录！'}
-      return false
-    end
     if !Moped::BSON::ObjectId.legal?(params[:kid]) and !Moped::BSON::ObjectId.legal?(params[:pid])
       render json:{status:'nil'}
       return false
@@ -1056,10 +1013,6 @@ HEREDOC
     end
   end
   def add_to_read_later_array
-    if current_user.nil?
-        render json:{status:'failed',reason:'您尚未登录！'}
-        return false
-    end
     legal = true
     addto = true
     params[:cwid].to_a.each  do |cwid|
@@ -1087,10 +1040,6 @@ HEREDOC
     end
   end
   def add_to_favorites_array
-    if current_user.nil?
-        render json:{status:'failed',reason:'您尚未登录！'}
-        return false
-    end
     legal = true
     addto = true
     params[:cwid].to_a.each  do |cwid|
@@ -1122,8 +1071,15 @@ HEREDOC
       render file:'play_lists/_playlist_share',locals:{url:url,title:params[:title]},layout:false
   end
   def like_playlist
-    return false if current_user.nil?
+    if !Moped::BSON::ObjectId.legal?(params[:pid])
+      render json:{status:'nil'}
+      return false
+    end
     pl = PlayList.find(params[:pid])
+    if pl.user_id == current_user.id
+      render json:{status:'failed',reason:"您不能喜欢或者不喜欢您自己的课件锦囊。"},:status=>401
+      return false
+    end
     if params[:type] == 'like'
       like = current_user.like_playlist(pl)
       if like
@@ -1149,20 +1105,12 @@ HEREDOC
     end      
   end
   def get_addto_menu
-    if current_user.nil?
-      render json:{status:'failed',reason:'尚未登录'}
-      return false
-    end
     render json:{status:'suc',
       html:render_to_string(:file=>"mine/_addto_menu.html.erb",
                                     :locals=>{user:current_user,playlist_readlater:PlayList.locate(current_user.id,'稍后阅读'),playlist_favorite:PlayList.locate(current_user.id,'收藏')},
                                     :layout=>nil, :formats=>[:html]) }
   end
   def save_page_to_history
-    if current_user.nil?
-      render json:{status:'failed',reason:'您尚未登录！'}
-      return false
-    end
     if request.env['HTTP_REFERER'].blank?
       render json:{status:'failed',reason:'您尚未登录！'}
       return false
@@ -1183,20 +1131,12 @@ HEREDOC
     return true
   end
   def pause_history
-    if current_user.nil?
-      render json:{status:'failed',reason:'您尚未登录！'}
-      return false
-    end
     PlayList.on_off_history(current_user.id,params[:switch])
     render json:{status:'suc'}
     return true
   end
   
   def remove_one_history
-    if current_user.nil?
-      render json:{status:'failed',reason:'您尚未登录！'}
-      return false
-    end
     result = true
     params[:time].to_a.each_with_index do |tt,index|
       cwid = params[:cwid][index]
@@ -1211,51 +1151,35 @@ HEREDOC
     end
   end
   def clear_history
-    if current_user.nil?
-      render json:{status:'failed',reason:'您尚未登录！'}
-      return false
-    end
     result = PlayList.clear_history(current_user.id)
     if result
       render json:{status:'suc'}
       return true
     else
-      render json:{status:'failed',reason:'无法清除历史记录。'}
+      render json:{status:'failed',reason:'无法清除历史记录。'},:status => 401
       return false
     end
   end
   def pause_search_history
-    if current_user.nil?
-      render json:{status:'failed',reason:'您尚未登录！'}
-      return false
-    end
     SearchHistory.on_off_history(current_user.id,params[:switch])
     render json:{status:'suc'}
     return true
   end
   def remove_one_search_history
-    if current_user.nil?
-      render json:{status:'failed',reason:'您尚未登录！'}
-      return false
-    end
     result = true
     params[:cwid].to_a.each_with_index do |shid,index|
-      result =  SearchHistory.remove_one_search_history(shid)
+      result =  SearchHistory.remove_one_search_history(shid,current_user.id)
     end
     if result
       render json:{status:'suc'}
       return true
     else
-      render json:{status:'failed',reason:'系统无法完成请求，请稍后重试。'}
+      render json:{status:'failed',reason:'系统无法完成请求，请稍后重试。'},:status=>401
       return false
     end   
   end
 
   def clear_search_history
-    if current_user.nil?
-      render json:{status:'failed',reason:'您尚未登录！'}
-      return false
-    end
     result = SearchHistory.clear_history(current_user.id)
     if result
       render json:{status:'suc'}
@@ -1266,10 +1190,6 @@ HEREDOC
     end
   end
   def delete_upload
-    if current_user.nil?
-      render json:{status:'failed',reason:'您尚未登录！',arr:[]}
-      return false
-    end
     legal = true
     null  = true
     arr = []
@@ -1283,8 +1203,11 @@ HEREDOC
         next
       end
       if cw.uploader_id == current_user.id
-        cw.ua(:deleted,1)
+        cw.soft_delete
         arr << id
+      else
+        render json:{status:'failed',reason:'系统检测到您试图非法删除他人的课件，删除操作已终止。',arr:arr},:status=>401
+        return false
       end
     end
     if !legal or !null
@@ -1296,10 +1219,6 @@ HEREDOC
   end
   
   def setting_cw_license
-    if current_user.nil?
-      render json:{status:'failed',reason:'您尚未登录！',arr:[]}
-      return false
-    end
     legal = true
     null  = true
     arr = []
@@ -1333,10 +1252,6 @@ HEREDOC
   end
   
   def enable_beauty_view
-    if current_user.nil?
-      render json:{status:'failed',reason:'您尚未登录！'}
-      return false
-    end
     if params[:tf] =='true'
       current_user.ua(:enable_beauty_view,true)
     elsif params[:tf] == 'false'
@@ -1345,10 +1260,6 @@ HEREDOC
     render json:{status:'suc'}
   end
   def set_privacy
-    if current_user.nil?
-      render json:{status:'failed',reason:'您尚未登录！',arr:[]}
-      return false
-    end
     legal = true
     null  = true
     arr = []
@@ -1357,7 +1268,7 @@ HEREDOC
         legal = false
         next
       end
-      if (cw = Courseware.where(id:id)).nil?
+      if (cw = Courseware.where(id:id).first).nil?
         null  = false
         next
       end
@@ -1376,10 +1287,6 @@ HEREDOC
     return true
   end
   def update_widget_sort
-    if current_user.nil?
-      render json:{status:'failed',reason:'您尚未登录！'}
-      return false
-    end
     if (params[:right].to_a + params[:left].to_a).size > 4
       render json:{status:'failed',reason:'系统无法完成请求，请稍后重试。！'}
       return false
@@ -1396,10 +1303,6 @@ HEREDOC
     end
   end
   def request_widget
-    if current_user.nil?
-      render json:{status:'failed',reason:'您尚未登录！'}
-      return false
-    end
     wid = nil
     case params[:widget_type]
     when 'video'
@@ -1429,10 +1332,6 @@ HEREDOC
     return true
   end
   def update_widget_property
-    if current_user.nil?
-      render json:{status:'failed',reason:'您尚未登录！'}
-      return false
-    end
     wid = nil
     case params[:wid]
     when 'kejian'

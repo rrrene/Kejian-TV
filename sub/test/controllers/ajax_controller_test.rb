@@ -185,7 +185,7 @@ describe AjaxController do
     assert @controller.current_user.nil?
     @cw=Courseware.non_redirect.nondeleted.normal.is_father.first
       post 'get_cw_operation',{"type"=>"addto", "cw_id"=>@cw.id.to_s}
-    assert @response.success?,'游客可以get_cw_operation'
+    assert  401==@response.status,'游客不可以get_cw_operation'
   end
   it "得到更多课件操作get_cw_operation" do
     denglu! @user
@@ -198,7 +198,7 @@ describe AjaxController do
   it "邮件分享课件ajax_send_email - 游客状态" do
     assert @controller.current_user.nil?
       post 'ajax_send_email'
-    assert @response.success?,'游客可以ajax_send_email'
+    assert 401 == @response.status,'游客可以ajax_send_email'
   end
   it "邮件分享课件ajax_send_email" do
     denglu! @user
@@ -650,7 +650,7 @@ describe AjaxController do
     assert @response.success?,'登录用户可以bar_update_content_in_playlist，前提是这个播放列表是自己的'
     @play_list.ua(:user_id,User.nondeleted.normal.where(:email.nin=>Setting.admin_emails,:id.ne=>@user.id).first.id)
       post 'bar_update_content_in_playlist',{"content_string"=>@play_list.content.collect(&:to_s).shuffle, "pid"=>@play_list.id.to_s}
-    assert 401==@response.status,'登录用户可以bar_update_content_in_playlist，前提是这个播放列表是自己的'
+    assert @response.body["saveas"]=="saveas",'登录用户可以bar_update_content_in_playlist，如果这个播放列表不是自己的，需要另存为'
   end
     
 
@@ -714,7 +714,7 @@ describe AjaxController do
     assert @response.success?,'登录用户可以bar_delete_one_content，前提是锦囊必须是自己的'
     @play_list.ua(:user_id,User.nondeleted.normal.where(:email.nin=>Setting.admin_emails,:id.ne=>@user.id).first.id)
       post 'bar_delete_one_content',{"pid"=>@play_list.id.to_s, "kid"=>@play_list.content.first.to_s}
-    assert 401==@response.status,'登录用户可以bar_delete_one_content，前提是锦囊必须是自己的'
+    assert @response.body["saveas"]=="saveas",'登录用户可以bar_delete_one_content，如果是锦囊不是自己的，另存为'
   end
     
 
@@ -733,7 +733,7 @@ describe AjaxController do
     assert @response.success?,'登录用户可以bar_undo_delete，前提是锦囊必须是自己的'
     @play_list.ua(:user_id,User.nondeleted.normal.where(:email.nin=>Setting.admin_emails,:id.ne=>@user.id).first.id)
       post 'bar_undo_delete',{"pid"=>@play_list.id.to_s}
-    assert 401==@response.status,'登录用户可以bar_undo_delete，前提是锦囊必须是自己的'
+    assert @response.body["saveas"]=="saveas",'登录用户可以bar_undo_delete，如果不是自己的，返回saveas'
   end
     
 

@@ -95,7 +95,7 @@
 		<div id="branded-page-body">
 			<div id="playlist-pane-container">
 				<div class="primary-pane">
-					<div class="playlist-landing ypc-list-container">
+					<div class="playlist-landing ypc-list-container">						
               <% if @playlist.privacy !=0 %>
 						  <div class="playlist-messages">
 						    <div class="yt-alert yt-alert-default yt-alert-warn  ">  
@@ -115,6 +115,18 @@
 							<% if !@playlist.playlist_enable_grid_view %>
 								<%= render :partial=>'playlist_actions',:locals=>{playlist:@playlist} %>
 							<% end %>
+              <div class="playlist-error-message">
+                <div class="yt-alert yt-alert-default yt-alert-error hid ">  
+                  <div class="yt-alert-icon">
+                    <img alt="提醒图标" class="icon master-sprite" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
+                  </div>
+                  <div class="yt-alert-buttons"></div><div role="alert" class="yt-alert-content">    
+                    <span class="yt-alert-vertical-trick"></span>
+                    <div class="yt-alert-message">
+                    </div>
+                  </div>
+                </div>
+							</div>
 					    <ol>
 								<% if !@playlist.content.blank? %>
 										<% if !@playlist.playlist_enable_grid_view %>
@@ -135,6 +147,7 @@
 	                      </div>
 	                    </div>
 	                  </div>
+									</div>
 								<% end %>
               </ol>
 					</div>
@@ -220,7 +233,7 @@
               		</a>
 
 								<h3>
-								<a href="/playlist?list=UUIMHRDN2dx-0gbHFP7uqATA&amp;feature=plpp" title="查看课件锦囊中的所有视频。" class="yt-uix-tile-link">
+								<a href="/playlist/" title="查看课件锦囊中的所有课件。" class="yt-uix-tile-link">
 								上传的课件 </a>
 								</h3>
 								<span class="playlist-author-attribution">
@@ -295,7 +308,6 @@
 			if(json.status == 'suc'){
 				if(json.has != 0){
 					var dynamic = '<div class="playlist-sparkbars"><div style="width: '+json.plike.toString()+'%" class="playlist-sparkbar-likes"></div><div style="width: '+ json.pdislike.toString()+'%" class="playlist-sparkbar-dislikes"></div></div><span class="playlist-likes-dislikes"><span class="likes">'+json.like+'</span> 人顶了此锦囊，<span class="dislikes">'+json.dislike+'</span> 人踩了此锦囊 </span>';
-					console.log(dynamic);
 					$('#playlist-likes-container').html(dynamic);
 				}else{
 					$('#playlist-likes-container').html('');
@@ -318,8 +330,20 @@
 					break;
 				}
 			}else{
+				$('.playlist-error-message .yt-alert').removeClass('hid').show();
+				$('.playlist-error-message .yt-alert-message').html(json.reason);
 				$('#playlist-likes-container').html('');
+				setTimeout(function(){
+					$('.playlist-error-message .yt-alert').animate({opacity:'hide'},'fast',function(){$(this).addClass('hid');});
+				},10e3);
 			}
+		}).fail(function(json){
+					a = JSON.parse(json.responseText);
+					$('.playlist-error-message .yt-alert').removeClass('hid').show();
+					$('.playlist-error-message .yt-alert-message').html(a.reason);
+					setTimeout(function(){
+						$('.playlist-error-message .yt-alert').animate({opacity:'hide'},'fast',function(){$(this).addClass('hid');});
+					},10e3);
 		});
 	});
   $('.playlist-share').live('click',function(){

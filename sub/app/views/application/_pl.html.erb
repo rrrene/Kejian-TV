@@ -161,6 +161,9 @@ $('#playlist-bar-prev-button').live('click',function(e){
 				bar_showNotification('课件锦囊更新成功！','success');
 			}else if(json.status == 'failed'){
 				bar_showNotification('课件锦囊更新失败！','error');					
+			}else if(json.status == 'saveas'){
+				bar_showNotification('此课件锦囊非您所有请先另存为。','warn');
+				bar_update_content_in_playlist();
 			}
 		});
 	};
@@ -428,6 +431,9 @@ $('#playlist-bar-prev-button').live('click',function(e){
 				bar_resort();
 				bar_loading();
 				bar_showNotification('课件已删除。<a class="playlist-bar-undo">撤消</a>','success')
+			}else if(json.status == 'saveas'){
+				bar_showNotification('此课件锦囊非您所有请先另存为。','warn');
+				bar_update_content_in_playlist();
 			}else{
 				bar_loading();
 				bar_showNotification('系统无法完成请求，请稍后重试。！','error');
@@ -465,6 +471,9 @@ $('#playlist-bar-prev-button').live('click',function(e){
 						$('#playlist-bar-tray-content ol.video-list li:last').removeClass('playlist-bar-item-highlight');
 					}
 				},100);
+			}else if(json.status == 'saveas'){
+				bar_showNotification('此课件锦囊非您所有请先另存为。','warn');
+				bar_update_content_in_playlist();
 			}else{
 				bar_showNotification('系统无法完成请求，请稍后重试。！','error');
 			}

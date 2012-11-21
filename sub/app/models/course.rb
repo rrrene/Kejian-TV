@@ -69,7 +69,7 @@ class Course
   embeds_many :teachings
   before_save :dz_op!
   def dz_op!
-    if self.name.present? and self.department_fid.present? and self.fid.blank?
+    if self.name.present? and self.department_fid.present? and self.fid.blank? and !self.fid_changed?
       if self.number.present?
         name = "[#{self.number}] #{self.name}"
       else
@@ -80,10 +80,11 @@ class Course
       else
         ddid=self.department_fid
         raise "department_fid shouldn't be blank" if ddid.blank?
-        inst = PreForumForum.insert2(ddid,self.name,Course.count+1)     ###psvr 数据库导入时候有点问题。PreForumForum和线上数据不一致。只到了2000+实际应该是3000+
+        inst = PreForumForum.insert2(ddid,self.name,Course.count+1)
       end
       self.update_attribute(:fid,inst.fid)
     end
+    return true
   end 
   before_save :teacher_work
   def teacher_work
@@ -100,6 +101,7 @@ class Course
         tc.inc(:courses_count,-1) if tc
       end
     end
+    return true
   end
   before_save :department_work
   def department_work
@@ -111,6 +113,7 @@ class Course
         dep.inc(:courses_count,-1)
       end
     end
+    return true
   end
   def self.reflect_onto_discuz!
     self.all.asc('created_at').each_with_index do |item,index|

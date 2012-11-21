@@ -13,15 +13,12 @@
        <% @_G['psvr_payload']['whosonlinestatus']['whosonline'].each do |online| %>
          <% id=User.get_id online['uid'].to_i %>
          <tr><td title="<%= online['lastactivity'] %>"><a class="badge" href="/users/<%= id %>"><span class="badge2" style="background-image:url(/simple/static/image/common/<%= online['icon'] %>);background-position:0 0;"></span>&nbsp;<%=name_beautify User.get_name(id) %></a>
-           <a href="/users/<%= id %>"><%= timeago(Time.parse(online['lastactivity'])) %></a></td></tr>
+           <a href="/users/<%= id %>"><%= Ktv::Utils.safely{timeago(Time.parse(online['lastactivity']))} %></a></td></tr>
+
        <% end %>
      <% end %>
 
     </tbody></table>
-    
-    
-    
-    
     <p class="ar"><a href="/simple/home.php?mod=space&do=friend&view=online&type=member">所有在线用户 »</a></p>
 </div>
 

@@ -67,9 +67,10 @@ class SearchHistory
       User.find(user_id).ua(:mark_search_keyword,true)
     end
   end
-  def self.remove_one_search_history(id)
+  def self.remove_one_search_history(id,user_id)
     return false if !Moped::BSON::ObjectId.legal?(id)
     shold = SearchHistory.find(id)
+    return false if user_id != shold.user_id
     if shold.nil?
       return false
     end

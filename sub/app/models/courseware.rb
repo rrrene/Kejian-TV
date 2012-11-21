@@ -640,19 +640,19 @@ class Courseware
       if !new_record? and !course_fid_was.nil?
         old_course = Course.where(:fid => course_fid_was).first
       end
-      c = Course.where(:fid => course_fid).first
-      c.inc(:coursewares_count,1)
-      cd = c.department_ins.reload
-      if (old_course and (od = old_course.department_ins.reload).id != cd.id) or !old_course
-        cd.inc(:coursewares_count,1)
-      end
-      # binding.pry
-      if old_course
-        if od.id != cd.id
-          # binding.pry
-          od.inc(:coursewares_count,-1)
+      c = Course.where(:fid => self.course_fid).first
+      if c
+        c.inc(:coursewares_count,1)
+        cd = c.department_ins.reload
+        if (old_course and (od = old_course.department_ins.reload).id != cd.id) or !old_course
+          cd.inc(:coursewares_count,1)
         end
-        old_course.inc(:coursewares_count,-1)
+        if old_course
+          if od.id != cd.id
+            od.inc(:coursewares_count,-1)
+          end
+          old_course.inc(:coursewares_count,-1)
+        end
       end
       calculate_department_fid
     end
