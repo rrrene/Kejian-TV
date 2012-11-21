@@ -418,30 +418,32 @@ module Ktv
                 material.avatars_renren << $1
               end
             end
-            puts cmd=%Q{curl "#{o_avatar}" > "#{o_filepath}"}
-            puts `#{cmd}`
-            # puts `cp "#{tiny_filepath}" "#{working_dir}/up_small_#{File.basename tiny_avatar}"`
-            puts `convert "#{tiny_filepath}" -resize 48x +repage -gravity North "#{working_dir}/up_small_#{File.basename tiny_avatar}"`
-            puts `convert "#{o_filepath}" -resize 120x120^ -extent 120x120 -gravity center "#{working_dir}/up_middle_#{File.basename o_avatar}"`
-            puts `convert "#{o_filepath}" -resize 200x200^ -extent 200x200 -gravity center "#{working_dir}/up_big_#{File.basename o_avatar}"`
-            if is_real_avatar
+            if o_avatar.present? and o_filepath.present?
+              puts cmd=%Q{curl "#{o_avatar}" > "#{o_filepath}"}
+              puts `#{cmd}`
+              # puts `cp "#{tiny_filepath}" "#{working_dir}/up_small_#{File.basename tiny_avatar}"`
+              puts `convert "#{tiny_filepath}" -resize 48x +repage -gravity North "#{working_dir}/up_small_#{File.basename tiny_avatar}"`
+              puts `convert "#{o_filepath}" -resize 120x120^ -extent 120x120 -gravity center "#{working_dir}/up_middle_#{File.basename o_avatar}"`
+              puts `convert "#{o_filepath}" -resize 200x200^ -extent 200x200 -gravity center "#{working_dir}/up_big_#{File.basename o_avatar}"`
+              if is_real_avatar
+                UCenter::User.rectavatar(nil,{
+                  uid: u.uid
+                },{
+                  avatartype: 'real',
+                  avatar1:File.new("#{working_dir}/up_small_#{File.basename tiny_avatar}", 'rb'),
+                  avatar2:File.new("#{working_dir}/up_middle_#{File.basename o_avatar}", 'rb'),
+                  avatar3:File.new("#{working_dir}/up_big_#{File.basename o_avatar}", 'rb'),
+                })
+              end
               UCenter::User.rectavatar(nil,{
                 uid: u.uid
               },{
-                avatartype: 'real',
+                avatartype: 'virtual',
                 avatar1:File.new("#{working_dir}/up_small_#{File.basename tiny_avatar}", 'rb'),
                 avatar2:File.new("#{working_dir}/up_middle_#{File.basename o_avatar}", 'rb'),
                 avatar3:File.new("#{working_dir}/up_big_#{File.basename o_avatar}", 'rb'),
               })
             end
-            UCenter::User.rectavatar(nil,{
-              uid: u.uid
-            },{
-              avatartype: 'virtual',
-              avatar1:File.new("#{working_dir}/up_small_#{File.basename tiny_avatar}", 'rb'),
-              avatar2:File.new("#{working_dir}/up_middle_#{File.basename o_avatar}", 'rb'),
-              avatar3:File.new("#{working_dir}/up_big_#{File.basename o_avatar}", 'rb'),
-            })
             FileUtils.rm_rf(working_dir)
           end
 
