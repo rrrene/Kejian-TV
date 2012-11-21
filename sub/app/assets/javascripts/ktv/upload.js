@@ -797,7 +797,7 @@
 			 $('iframe').remove();
 			 $('link[href="http://i.jiathis.com/url/css/jiathis_share.css"]').remove();
 			 $('link[href="http://v3.jiathis.com/code_mini/css/jiathis_counter.css"]').remove();
-			 $('script[src="http://tajs.qq.com/jiathis.php?uid=1351061699325921&dm=cnu.kejian.lvh.me"]').remove();
+			 $('script[src*="http://tajs.qq.com/jiathis.php?uid=1351061699325921&dm"]').remove();
 			 $('script[src*="//i.jiathis.com/url/shares.php"]').remove();
 	  }      
 	});

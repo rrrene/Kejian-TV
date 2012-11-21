@@ -425,7 +425,7 @@ HEREDOC
         cw = Courseware.find(params[:cw_id])
         result = current_user.thank_courseware(cw)
         cw_event_add_action("课件顶",'Courseware',cw.id,true) if result
-        render file:'coursewares/_watch_like',locals:{cw_id:params[:cw_id]},layout:false
+        render file:'coursewares/_watch_like',locals:{cw_id:params[:cw_id],cw:cw},layout:false
       end
     elsif params[:type] == 'watch-unlike'
       if current_user.nil?

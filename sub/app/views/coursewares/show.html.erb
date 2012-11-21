@@ -646,7 +646,7 @@ courseware_id: '<%=@courseware.id%>'
 																		 </span>
 																	 </span>
 																	 <span class="video-time">共<%= @recommandation[0].slides_count %>页</span>
-		                               <button onclick=";return false;" title="稍后阅读" type="button" class="addto-button video-actions addto-watch-later-button yt-uix-button yt-uix-button-default yt-uix-button-short yt-uix-tooltip" data-kejian-id="<%= @recommandation[0].id %>" role="button">
+		                               <button onclick=";return false;" title="稍后阅读" type="button" class="psvr_login_required addto-button video-actions addto-watch-later-button yt-uix-button yt-uix-button-default yt-uix-button-short yt-uix-tooltip" data-kejian-id="<%= @recommandation[0].id %>" role="button">
 																		 <span class="yt-uix-button-content">
 																			 <span class="addto-label">稍后阅读</span>
 																			 <span class="addto-label-error">错误</span>
@@ -716,7 +716,7 @@ courseware_id: '<%=@courseware.id%>'
 				 </span>
 			 </span>
 			 <span class="video-time">共<%= cw.slides_count %>页</span>
-       <button onclick=";return false;" title="稍后阅读" type="button" class="addto-button video-actions addto-watch-later-button yt-uix-button yt-uix-button-default yt-uix-button-short yt-uix-tooltip" data-kejian-id="<%= cw.id %>" role="button">
+       <button onclick=";return false;" title="稍后阅读" type="button" class="psvr_login_required addto-button video-actions addto-watch-later-button yt-uix-button yt-uix-button-default yt-uix-button-short yt-uix-tooltip" data-kejian-id="<%= cw.id %>" role="button">
 				 <span class="yt-uix-button-content">
 					 <span class="addto-label">稍后阅读</span>
 					 <span class="addto-label-error">错误</span>
@@ -816,7 +816,7 @@ courseware_id: '<%=@courseware.id%>'
      </div>
    </section>
 </div>
-
+	
 <% content_for :butt2 do %>
 	var targetize = function() {
 	  KTV.ytb_targetize()
@@ -831,6 +831,15 @@ courseware_id: '<%=@courseware.id%>'
         $('.comments-post-buttons').show();
 				
   };
+	function del_jiathis(){
+	 $('iframe[src="http://i.jiathis.com/url/jiathis_utility.html"]').remove();
+	 $('iframe[src="http://v3.jiathis.com/code_mini/jiathis_utility.html"]').remove();
+	 $('.jiathis_style').remove();
+	 $('link[href="http://i.jiathis.com/url/css/jiathis_share.css"]').remove();
+	 $('link[href="http://v3.jiathis.com/code_mini/css/jiathis_counter.css"]').remove();
+	 $('script[src*="http://tajs.qq.com/jiathis.php?uid=1351061699325921&dm="]').remove();
+	 $('script[src*="//i.jiathis.com/url/shares.php"]').remove();
+	}
   var give_up_focus = function(){
        $('#comment_placeholder').html('说点什么。。。');
        $('#comment_placeholder_now').val('');
@@ -933,6 +942,7 @@ courseware_id: '<%=@courseware.id%>'
  });
   $('#watch-like').live("click",function(){
      removeToggled(this.id);
+		 $('#watch-actions-share-panel').html('');
      $(this).toggleClass('yt-uix-button-toggled');
 		tmp = this;
 		if($("#watch-unlike").hasClass('yt-uix-button-toggled')){
@@ -958,6 +968,7 @@ courseware_id: '<%=@courseware.id%>'
            somethingHide('#watch-actions-area-container');
            somethingHide('#watch-actions-ajax');
            $('#watch-actions-ajax').html('');
+					 del_jiathis();
        }
      });
 		 ajax_get_dingcai();
@@ -965,6 +976,7 @@ courseware_id: '<%=@courseware.id%>'
   });
   $('#watch-unlike').live("click",function(){
       removeToggled(this.id);
+			$('#watch-actions-share-panel').html('');
       $(this).toggleClass('yt-uix-button-toggled');
 		 tmp = this;
 	   if($("#watch-like").hasClass('yt-uix-button-toggled')){
@@ -1060,6 +1072,7 @@ courseware_id: '<%=@courseware.id%>'
            somethingHide('#watch-actions-area-container');
            somethingHide('#watch-actions-addto');
            $('#watch-actions-addto').html('');
+ 					 del_jiathis();
        }
   });
   $("button[data-button-action='actions.share']").live("click",function(){
@@ -1656,5 +1669,4 @@ data:{'authenticity_token':"<%= form_authenticity_token %>",'list_title':$('#pla
 		 });
 	<% end %>
 <% end %>
-
 <%= render file:'/application/footers/_sdk_footer' %>
