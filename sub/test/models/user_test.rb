@@ -93,7 +93,7 @@ describe User do
   end
   it '软删除之前判断是否有课件或播放列表依赖于这个用户' do
     cw=Courseware.non_redirect.nondeleted.normal.is_father.first
-    pl=PlayList.no_privacy.destroyable.normal.first
+    pl=PlayList.no_privacy.destroyable.normal.nondeleted.first
     u = User.new
     u.save(:validate=>false)
     ret = u.instance_eval(&User.before_soft_delete)
@@ -246,6 +246,6 @@ describe User do
   end
   it "禁用户" do
     # todo
-  end 
+  end
 end
 
