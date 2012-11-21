@@ -1,5 +1,7 @@
 # -*- encoding : utf-8 -*-
 class CoursesController < ApplicationController
+  before_filter :require_user,:only=>[:create,:new,:update,:edit,:destroy]
+  before_filter :require_user_js,:only => [:follow,:unfollow]
   before_filter :find_item,:only => [:show,:follow,:unfollow]
   def index
     @seo[:title]='课程目录'
@@ -23,6 +25,24 @@ class CoursesController < ApplicationController
     @coursewares = @course.coursewares
     # render :layout=>false
   end
+
+
+  def create
+    render text:'deprecated.',status:405    
+  end
+  def new
+    render text:'deprecated.',status:405    
+  end
+  def update
+    render text:'deprecated.',status:405    
+  end
+  def edit
+    render text:'deprecated.',status:405    
+  end
+  def destroy
+    render text:'deprecated.',status:405    
+  end
+
 protected
   def find_item
     @course = Course.where(:fid => params[:id].to_i).first

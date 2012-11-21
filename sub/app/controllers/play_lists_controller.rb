@@ -2,6 +2,7 @@
 class PlayListsController < ApplicationController
   prepend_before_filter proc{@psvr_payloads||=[];@psvr_payloads << 'whosonlinestatus'},:only=>[:index]
   before_filter :page_require
+  before_filter :require_user,:only=>[:create,:new,:update,:edit,:destroy]
   def page_require
     params[:page] ||= '1'
     params[:per_page] ||= cookies[:welcome_per_page]
@@ -88,7 +89,8 @@ class PlayListsController < ApplicationController
         end
       end
     end
-    pl = PlayList.find_or_create_by(id:params[:id])
+    pl = Ktv::Utils.safely(PlayList.new){PlayList.find(params[:id])}
+    pl.save(:validate=>false) unless pl.persisted?
     pl.title = params[:title]
     pl.content = params[:playlist_kejian_id]
     pl.annotation = params[:playlist_video_annotation]
@@ -135,11 +137,10 @@ class PlayListsController < ApplicationController
     end
   end
   def create
-    
+    render text:'deprecated.',status:405
   end
   
   def update
-
-
+    render text:'deprecated.',status:405
   end
 end

@@ -8,10 +8,10 @@ module UsersHelper
     end
   end
   def profile_path(user)
-    "/users/#{user.slug}"
+    "/users/#{user.id}"
   end
   def user_path(user)
-    "/users/#{user.slug}"
+    "/users/#{user.id}"
   end
   def avatar_url_quick(user,size=:normal,reload=false)
     return dz_avatar_url(User.get_uid(user),User.get_email(user),size,reload)
@@ -39,12 +39,7 @@ module UsersHelper
     return ret
   end
   def user_path2(user)
-    if user.slug
-      slug = user.slug.split('.').join('_')
-    else
-      slug = user.name
-    end
-    "/users/#{slug}"
+    "/users/#{user.id}"
   end
 
   def user_name_tag(user, options = {})

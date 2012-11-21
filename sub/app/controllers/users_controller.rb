@@ -1,9 +1,9 @@
 # -*- encoding : utf-8 -*-
 class UsersController < ApplicationController
+  before_filter :require_user,:only=>[:invite, :invite_send, :create, :new, :update, :edit, :destroy]
   skip_before_filter :verify_authenticity_token, :only => [:auth_callback]
   before_filter :init_user, :except => [:auth_callback,:index,:hot,:invite,:invite_submit,:test]
-  before_filter :require_user,:only=>[:invite,:invite_send]
-  before_filter :require_user_js,:only=>[:fol,:unfol]
+  before_filter :require_user_js,:only=>[:fol,:unfol,:follow,:unfollow,:zm_follow,:zm_unfollow]
   def update
     unless view_context.owner?(@user)
       render_401
@@ -191,41 +191,41 @@ class UsersController < ApplicationController
   end
   
   def follow
-    if not @user
-      render :text => "0"
-      return
-    end
     current_user.follow(@user)
     render :text => "1"
   end
   def zm_follow
-    if not @user
-      render json:false
-      return
-    end
     current_user.follow(@user)
     render json:true
   end
   
   def unfollow
-    if not @user
-      render :text => "0"
-      return
-    end
     current_user.unfollow(@user)
     render :text => "1"
   end
   def zm_unfollow
-    if not @user
-      render json:false
-      return
-    end
     current_user.unfollow(@user)
     render json:true
   end
 
-  def test
-    
-    # todo
+  def index
+    render text:'deprecated.',status:405    
+    @seo[:title] = '全部用户'
+  end  
+  def create
+    render text:'deprecated.',status:405    
   end
+  def new
+    render text:'deprecated.',status:405    
+  end
+  def update
+    render text:'deprecated.',status:405    
+  end
+  def edit
+    render text:'deprecated.',status:405    
+  end
+  def destroy
+    render text:'deprecated.',status:405    
+  end
+
 end

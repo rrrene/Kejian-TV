@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 class CommentsController < ApplicationController
+  before_filter :require_user,:only=>[:new,:update,:edit,:destroy]
   before_filter :require_user_js, :only => [:create]
 
   def index
@@ -56,4 +57,21 @@ an params example:
       end
     end
   end
+
+  def show
+    render text:'deprecated.',status:405    
+  end
+  def new
+    render text:'deprecated.',status:405    
+  end
+  def update
+    render text:'deprecated.',status:405    
+  end
+  def edit
+    render text:'deprecated.',status:405    
+  end
+  def destroy
+    render text:'deprecated.',status:405    
+  end
+
 end

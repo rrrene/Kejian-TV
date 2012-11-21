@@ -1,5 +1,7 @@
 # -*- encoding : utf-8 -*-
 class DepartmentsController < ApplicationController
+  before_filter :require_user,:only=>[:create,:new,:update,:edit,:destroy]
+  before_filter :require_user_js,:only => [:follow,:unfollow]
   before_filter :dz_navi_extras
   before_filter :init_department,:only=>[:show,:follow,:unfollow]
   def dz_navi_extras
@@ -18,6 +20,28 @@ class DepartmentsController < ApplicationController
   def show
     @seo[:title] = @department.name
   end
+
+
+  def index
+    render text:'deprecated.',status:405    
+  end
+  def create
+    render text:'deprecated.',status:405    
+  end
+  def new
+    render text:'deprecated.',status:405    
+  end
+  def update
+    render text:'deprecated.',status:405    
+  end
+  def edit
+    render text:'deprecated.',status:405    
+  end
+  def destroy
+    render text:'deprecated.',status:405    
+  end
+
+
 protected
   def init_department
     @department = Department.where(_id:params[:id]).first

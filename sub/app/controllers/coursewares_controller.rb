@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class CoursewaresController < ApplicationController
-  before_filter :authenticate_user!, :only => [:new,:create,:edit,:update,:destroy,:thank,:download,:new_old,:edit_old]
+  before_filter :require_user,:only=>[:new, :create, :edit, :update, :destroy, :thank, :download, :new_old, :edit_old, :mine]
   before_filter :find_item,:only => [:show,:embed,:download,:edit,:update,:destroy,:thank,:edit_old]
   before_filter :authenticate_user_ownership!, :only => [:update,:destroy,:edit,:edit_old]
   def ktvid_slide_pic
@@ -67,6 +67,7 @@ class CoursewaresController < ApplicationController
         render "index"
       }
       format.html{
+        @user = current_user
         render "mine"
       }
     end
@@ -279,6 +280,14 @@ class CoursewaresController < ApplicationController
     end
     redirect_to downurl
   end
+  def create
+    render text:'deprecated.',status:405
+  end
+  
+  def update
+    render text:'deprecated.',status:405
+  end
+
 protected
   def find_item
     @courseware = Courseware.nondeleted.where(:_id => params[:id]).first

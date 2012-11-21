@@ -461,7 +461,7 @@ describe Courseware do
     user_n.reload
     assert user_n_coursewares_uploaded_count - 1 == user_n.coursewares_uploaded_count,'user_n被剥夺此课件的拥有权的计数体现'
   end
-  it "异步清理 -- Courseware#asynchronously_clean_me" do
+  it "异步清理" do
     @user1.thanked_courseware_ids = []
     @user2.thanked_courseware_ids = []
     @user1.save(:validate=>false)

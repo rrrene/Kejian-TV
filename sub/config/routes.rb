@@ -153,8 +153,6 @@ Sub::Application.routes.draw do
       get "unfollow"
     end
   end
-  get '/un_courses'=>'courses#index'
-  get '/courses/:id' => 'courses#show'
   get '/coursewares_by_departments' => 'coursewares#index'
   get '/coursewares_by_teachers' => 'coursewares#index'
   get '/coursewares_by_courses' => 'coursewares#index'
@@ -164,20 +162,12 @@ Sub::Application.routes.draw do
   get '/coursewares_mine/:page' => 'coursewares#mine'
   get '/coursewares/:id/revisions/:revision_id' => 'coursewares#show'
   get '/embed/:id/revisions/:revision_id' => 'coursewares#embed'  
-  get '/qua/welcome1'
-  get '/qua/welcome2'
-  get '/users/test' => 'users#test'
-  # resources :notes, :path_prefix => "/coursewares/:id/",
+
   resources :coursewares do
     collection do
       get 'mine'
       get 'latest'
       get 'hot'
-      get 'videos'
-      get 'books'
-      get 'new_youku'
-      get 'new_emule'
-      get 'new_sina'
     end
     member do
       get 'download'
@@ -189,13 +179,7 @@ Sub::Application.routes.draw do
     member do
       get 'coursewares' => 'coursewares#index'
       get 'coursewares_with_page/:page' => 'coursewares#index'
-      put :action
-      post :action
-      delete :action
-      get "unfollow"
       get "followers"
-      get "following"
-      get "invites"
       get "follow"
       get "unfollow"
       post "follow" => 'users#zm_follow'
@@ -204,17 +188,13 @@ Sub::Application.routes.draw do
   end  
   resources :users do
     collection do
-      get 'hot'
-      get 'invite'
-      post 'invite_submit'
+      # get 'hot'
+      # get 'invite'
+      # post 'invite_submit'
     end
     member do
       get 'coursewares' => 'coursewares#index'
       get 'coursewares_with_page/:page' => 'coursewares#index'
-      post 'invite_send'
-      get "answered"
-      get "asked"
-      get "asked_to"
       get "follow"
       post "follow" => 'users#zm_follow'
       post "unfollow" => 'users#zm_unfollow'
@@ -223,7 +203,11 @@ Sub::Application.routes.draw do
       get "following"
       get "invites"
       get "double_follow"
-      get "following_topics"
+      # get "following_topics"
+      # get "answered"
+      # get "asked"
+      # get "asked_to"
+      # post 'invite_send'
       # get "following_asks"
     end
   end
@@ -421,4 +405,5 @@ Sub::Application.routes.draw do
   # get '/ajax/xl_req_get_method_vod'
   # get '/ajax/star_refresh'
   # post '/presentations' => 'ajax#presentations_upload_finished'
+  # resources :notes, :path_prefix => "/coursewares/:id/",
 end
