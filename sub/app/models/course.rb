@@ -12,6 +12,10 @@ class Course
       true
     end
   }
+  @after_soft_delete = proc{
+    redis_search_index_destroy
+    redis_search_psvr_was_delete!
+  }
   field :department_fid
   def department_ins
     @department = nil if self.department_fid_changed?
@@ -58,7 +62,8 @@ class Course
   field :book1
   field :book2
   def gotfid?
-    self.fid.try(:>,0) and self.department_fid.try(:>,0)
+    ret = (self.fid.try(:>,0) and self.department_fid.try(:>,0))
+    !!ret
   end
   scope :gotfid,where(:fid.gt=>0,:department_fid.gt=>0)  
   
@@ -181,13 +186,13 @@ class Course
     self.number_was ? "#{self.number_was} #{self.name_was}" : self.name_was
   end
   def redis_search_alias
-    [self.department_name,self.teachers.join(', ')].join(', ')
+    [self.department_name,self.teachers.try(:join,', ')].map{|x| x if x.present?}.compact.join(', ')
   end
   def redis_search_alias_changed?
     self.teachers_changed? or self.department_fid_changed? or self.name_long_changed?
   end
   def redis_search_alias_was
-    [self.department_name_was,self.teachers_was.join(', ')].join(', ')
+    [self.department_name_was,self.teachers_was.try(:join,', ')].map{|x| x if x.present?}.compact.join(', ')
   end
   redis_search_index(:title_field => :name_long,
                      :alias_field => :redis_search_alias,
@@ -197,18 +202,18 @@ class Course
   alias_method :redis_search_index_create_before_psvr,:redis_search_index_create
   alias_method :redis_search_index_need_reindex_before_psvr,:redis_search_index_need_reindex
   def redis_search_psvr_okay?
-    !self.soft_deleted? and self.name_long.present? and self.redis_search_alias.present? and self.gotfid?
+    !self.soft_deleted? and self.gotfid? and self.name_long.present? and self.redis_search_alias.present?
   end
   def redis_search_index_need_reindex
-    return false if !redis_search_psvr_okay?
-    return self.redis_search_index_need_reindex_before_psvr
-  end
-  def redis_search_index_create
-    if self.redis_search_psvr_okay?
-      return self.redis_search_index_create_before_psvr
+    if !redis_search_psvr_okay?
+      redis_search_index_destroy
+      redis_search_psvr_was_delete!
+      return false
     else
-      return true
+      return (self.deleted_changed? || self.number_changed? || self.redis_search_index_need_reindex_before_psvr)
     end
   end
+  def redis_search_index_create
+    self.redis_search_index_create_before_psvr if self.redis_search_psvr_okay?
+  end
 end
-

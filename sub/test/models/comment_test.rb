@@ -38,8 +38,8 @@ describe Comment do
   it "评论的
  oooO ↘┏━┓ ↙ Oooo 
  ( 踩)→┃顶┃ ←(踩 ) 
-  \ ( →┃√┃ ← ) / 
-　 \_)↗┗━┛ ↖(_/ 
+  \\ ( →┃√┃ ← ) / 
+　 \\_)↗┗━┛ ↖(_/ 
 " do
     @courseware1 = Courseware.non_redirect.nondeleted.normal.is_father.first
     success_comment_user2,@comment_user2 = Comment.real_create({:comment => {"commentable_type"=>"Courseware","commentable_id"=>@courseware1.id.to_s,"body"=>"#{Time.now.to_i}#{rand.to_s}"}}.with_indifferent_access,@user2)

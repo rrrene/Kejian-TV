@@ -9,6 +9,11 @@ class Teacher
     cws = Courseware.where(teachers:self.name).size
     cws < 1
   }
+  @after_soft_delete = proc{
+    redis_search_index_destroy
+    redis_search_psvr_was_delete!
+  }
+
   field :user_id
   field :name
   field :email
@@ -73,9 +78,6 @@ class Teacher
   def self.touch(name)
     self.find_or_create_by(name:name)
   end
-  after_save{
-    self.class.set_id(self.name,self.id)
-  }
   cache_consultant :avatar_filename,:from_what => :name
   cache_consultant :user_id,:from_what => :name
   cache_consultant :id,:from_what => :name
@@ -124,4 +126,21 @@ class Teacher
                      :prefix_index_enable => true,
                      :ext_fields => [:redis_search_alias,:avatar_small40],
                      :score_field => :coursewares_count)
+  alias_method :redis_search_index_create_before_psvr,:redis_search_index_create
+  alias_method :redis_search_index_need_reindex_before_psvr,:redis_search_index_need_reindex
+  def redis_search_psvr_okay?
+    !self.soft_deleted? and self.name.present? and self.redis_search_alias.present?
+  end
+  def redis_search_index_need_reindex
+    if !redis_search_psvr_okay?
+     redis_search_index_destroy
+     redis_search_psvr_was_delete!
+     return false
+    else
+     return (self.deleted_changed? || self.redis_search_index_need_reindex_before_psvr)
+    end
+  end
+  def redis_search_index_create
+    self.redis_search_index_create_before_psvr if self.redis_search_psvr_okay?
+  end
 end

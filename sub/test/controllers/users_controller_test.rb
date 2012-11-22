@@ -171,7 +171,7 @@ describe UsersController do
   it "查看关注用户的人followers - 游客状态" do
     assert @controller.current_user.nil?
       get "followers",{:id=>@user.id.to_s}
-    assert @response.success?,'登录用户可以followers'
+    assert @response.success?,'游客可以followers'
   end
   it "查看关注用户的人followers" do
     denglu! @user
@@ -184,7 +184,7 @@ describe UsersController do
   it "查看用户的关注following - 游客状态" do
     assert @controller.current_user.nil?
       get "following",{:id=>@user.id.to_s}
-    assert @response.success?,'登录用户可以following'
+    assert @response.success?,'游客可以following'
   end
   it "查看用户的关注following" do
     denglu! @user
@@ -197,7 +197,7 @@ describe UsersController do
   it "查看用户的邀请invites - 游客状态" do
     assert @controller.current_user.nil?
       get "invites",{:id=>@user.id.to_s}
-    assert @response.success?,'登录用户可以invites'
+    assert @response.success?,'游客可以invites'
   end
   it "查看用户的邀请invites" do
     denglu! @user
@@ -210,7 +210,7 @@ describe UsersController do
   it "查看用户的学习伙伴double_follow - 游客状态" do
     assert @controller.current_user.nil?
       get "double_follow",{:id=>@user.id.to_s}
-    assert @response.success?,'登录用户可以double_follow'
+    assert @response.success?,'游客可以double_follow'
   end
   it "查看用户的学习伙伴double_follow" do
     denglu! @user

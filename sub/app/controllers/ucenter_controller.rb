@@ -36,7 +36,7 @@ class UcenterController < ApplicationController
   	end
   	post_str = request.body.read
   	@post = Hash.from_xml(post_str) if post_str.present?
-  	puts "[[[#{@get['action']}]]]"
+  	Ktv.config.logger.debug "[[[#{@get['action']}]]]"
   	pp(@post) if @post.present?
     send(@get['action'])
   end
@@ -68,7 +68,6 @@ private
   def updatecreditsettings
   end
   def updateclient
-    binding.pry
   end
   def updatepw
   end

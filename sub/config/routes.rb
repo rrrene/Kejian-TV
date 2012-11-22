@@ -314,81 +314,81 @@ Sub::Application.routes.draw do
   # end
   # resources :inbox
   # 
-  namespace :cpanel do
-    get "/flagrecords" => 'flag_record#index'
-    post '/toggle' => 'asks#toggle'
-    root :to =>  "home#index"
-    resources :scopes
-    resources :clients do
-      put :block, on: :member
-      put :unblock, on: :member
-    end
-    resources :accesses do
-      put :block, on: :member
-      put :unblock, on: :member
-    end
-    get '/asks_un' => 'asks#index_un'
-  
-    get '/asks_un2' => 'asks#index_un2'
-    get '/answers_un2' => 'answers#index_un2'
-    get '/comments_un2' => 'comments#index_un2'
-  
-    post '/asks_un2all' => 'asks#index_un2all'
-    post '/answers_un2all' => 'answers#index_un2all'
-    post '/comments_un2all' => 'comments#index_un2all'
-  
-    resources :users
-    resources :asks do
-      post :verify, on: :member
-    end
-    resources :answers do
-      post :verify, on: :member
-    end
-    resources :topics
-    resources :comments do
-      post :verify, on: :member
-    end
-    resources :report_spams
-    resources :notices
-    get '/oauth' => 'oauth#index',:as=>'oauth'
-    get '/stats' => 'stats#index',:as=>'stats'
-    match '/kpi' => 'stats#kpi',:as=>'kpi'
-    post '/stats/uv' => 'stats#uv'
-    match "/stats/hot_asks" => "stats#hot_asks"
-    match "/stats/hot_topics" => "stats#hot_topics"
-    match "/stats/refresh_asks" => "stats#refresh_asks"
-    match "/stats/refresh_topics" => "stats#refresh_topics"
-    post '/stats/edit_hot_asks' => 'stats#edit_hot_asks'
-    post '/stats/edit_hot_topics' => 'stats#edit_hot_topics'
-    get '/autofollow' => 'autofollow#index',:as=>'autofollow'
-    post '/autofollow' => 'autofollow#index_pos',:as=>'autofollow_pos'
-    delete '/autofollow' => 'autofollow#index_del',:as=>'autofollow_del'
-    match '/autofollow/verify' => 'autofollow#verify'
-    match '/autofollow/advertise' => 'autofollow#advertise'
-    match '/autofollow/ban_word' => 'autofollow#ban_word'
-    match '/autofollow/deleted' => 'autofollow#deleted'
-    post '/deal_asks' => 'asks#deal_asks'
-    post '/deal_answers' => 'answers#deal_answers'
-    post '/deal_comments' => 'comments#deal_comments'
-    post '/deal_topics' => 'topics#deal_topics'
-    post '/deal_report' => 'report_spams#deal_report'
-    post '/deal_verify' => 'autofollow#deal_verify'
-    post '/deal_advertise' => 'autofollow#deal_advertise'
-    post '/deal_word' => 'autofollow#deal_word'
-    post '/deal_deleted' => 'autofollow#deal_deleted'
-    post '/autofollow/edit_verify' => 'autofollow#edit_verify'
-    post '/autofollow/edit_ask_advertise' => 'autofollow#edit_ask_advertise'
-    post '/autofollow/edit_ac_advertise' => 'autofollow#edit_ac_advertise'
-    post '/autofollow/create_ban_word' => 'autofollow#create_ban_word'
-    post '/autofollow/import_ban_word' => 'autofollow#import_ban_word'
-    match "/welcome" => "users#welcome"
-    match "/user/avatar_admin"=>"users#avatar_admin"
-    match "/user/avatar_del"=>"users#avatar_del"
-    match "/users/:id/edit_admin" => "users#edit_admin"
-    match "/users/:id/update_admin" => "users#update_admin"
-    match "/notices/create" => "notices#create"
-  end
-  
+  # namespace :cpanel do
+  #   get "/flagrecords" => 'flag_record#index'
+  #   post '/toggle' => 'asks#toggle'
+  #   root :to =>  "home#index"
+  #   resources :scopes
+  #   resources :clients do
+  #     put :block, on: :member
+  #     put :unblock, on: :member
+  #   end
+  #   resources :accesses do
+  #     put :block, on: :member
+  #     put :unblock, on: :member
+  #   end
+  #   get '/asks_un' => 'asks#index_un'
+  # 
+  #   get '/asks_un2' => 'asks#index_un2'
+  #   get '/answers_un2' => 'answers#index_un2'
+  #   get '/comments_un2' => 'comments#index_un2'
+  # 
+  #   post '/asks_un2all' => 'asks#index_un2all'
+  #   post '/answers_un2all' => 'answers#index_un2all'
+  #   post '/comments_un2all' => 'comments#index_un2all'
+  # 
+  #   resources :users
+  #   resources :asks do
+  #     post :verify, on: :member
+  #   end
+  #   resources :answers do
+  #     post :verify, on: :member
+  #   end
+  #   resources :topics
+  #   resources :comments do
+  #     post :verify, on: :member
+  #   end
+  #   resources :report_spams
+  #   resources :notices
+  #   get '/oauth' => 'oauth#index',:as=>'oauth'
+  #   get '/stats' => 'stats#index',:as=>'stats'
+  #   match '/kpi' => 'stats#kpi',:as=>'kpi'
+  #   post '/stats/uv' => 'stats#uv'
+  #   match "/stats/hot_asks" => "stats#hot_asks"
+  #   match "/stats/hot_topics" => "stats#hot_topics"
+  #   match "/stats/refresh_asks" => "stats#refresh_asks"
+  #   match "/stats/refresh_topics" => "stats#refresh_topics"
+  #   post '/stats/edit_hot_asks' => 'stats#edit_hot_asks'
+  #   post '/stats/edit_hot_topics' => 'stats#edit_hot_topics'
+  #   get '/autofollow' => 'autofollow#index',:as=>'autofollow'
+  #   post '/autofollow' => 'autofollow#index_pos',:as=>'autofollow_pos'
+  #   delete '/autofollow' => 'autofollow#index_del',:as=>'autofollow_del'
+  #   match '/autofollow/verify' => 'autofollow#verify'
+  #   match '/autofollow/advertise' => 'autofollow#advertise'
+  #   match '/autofollow/ban_word' => 'autofollow#ban_word'
+  #   match '/autofollow/deleted' => 'autofollow#deleted'
+  #   post '/deal_asks' => 'asks#deal_asks'
+  #   post '/deal_answers' => 'answers#deal_answers'
+  #   post '/deal_comments' => 'comments#deal_comments'
+  #   post '/deal_topics' => 'topics#deal_topics'
+  #   post '/deal_report' => 'report_spams#deal_report'
+  #   post '/deal_verify' => 'autofollow#deal_verify'
+  #   post '/deal_advertise' => 'autofollow#deal_advertise'
+  #   post '/deal_word' => 'autofollow#deal_word'
+  #   post '/deal_deleted' => 'autofollow#deal_deleted'
+  #   post '/autofollow/edit_verify' => 'autofollow#edit_verify'
+  #   post '/autofollow/edit_ask_advertise' => 'autofollow#edit_ask_advertise'
+  #   post '/autofollow/edit_ac_advertise' => 'autofollow#edit_ac_advertise'
+  #   post '/autofollow/create_ban_word' => 'autofollow#create_ban_word'
+  #   post '/autofollow/import_ban_word' => 'autofollow#import_ban_word'
+  #   match "/welcome" => "users#welcome"
+  #   match "/user/avatar_admin"=>"users#avatar_admin"
+  #   match "/user/avatar_del"=>"users#avatar_del"
+  #   match "/users/:id/edit_admin" => "users#edit_admin"
+  #   match "/users/:id/update_admin" => "users#update_admin"
+  #   match "/notices/create" => "notices#create"
+  # end
+  # 
   constraint = lambda { |request| request.env["warden"].authenticate? and request.env['warden'].user.super_admin? }
   constraints constraint do
     mount Sidekiq::Web => '/sidekiq'

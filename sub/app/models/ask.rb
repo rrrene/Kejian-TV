@@ -204,7 +204,7 @@ class Ask
   field :to_user_ids
   scope :asked_to, lambda { |to_user_id| any_of({:to_user_id => to_user_id},{:to_user_ids=>to_user_id}) }
 
-  redis_search_index(:title_field => :title,:ext_fields => [:topics,:answers_count,:created_at], :score_field => :views_count)
+
 
   validates_length_of :body,:maximum=>6000
 
@@ -379,9 +379,6 @@ class Ask
     [@answer.save,@answer]
   end
   
-
-  protected
-  
   def insert_topic_action_log(action, topics, current_user_id)
     begin
       log = AskLog.new
@@ -418,5 +415,5 @@ class Ask
         
     end
   end
-
+  # redis_search_index(:title_field => :title,:ext_fields => [:topics,:answers_count,:created_at], :score_field => :views_count)
 end

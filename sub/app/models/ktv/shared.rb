@@ -6,6 +6,8 @@ module Ktv
     # 表示我们的代码需要改进了！ 
     class ScriptNeedImprovementException < NotImplementedError
     end
+    class SearchRequestFailed < Exception
+    end
     
     # 这是一个异常类 
     class LogicNotRight < NotImplementedError

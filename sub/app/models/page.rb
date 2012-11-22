@@ -114,7 +114,7 @@ class Page < ActiveRecord::Base
     response = Tire::Configuration.client.get(url, h.to_json)
     if response.failure?
       STDERR.puts "[REQUEST FAILED] #{h.to_json}\n"
-      raise SearchRequestFailed, response.to_s
+      raise Ktv::Shared::SearchRequestFailed, response.to_s
     end
     json     = MultiJson.decode(response.body)
     return Tire::Results::Collection.new(json, :from=>from,:size=>size)

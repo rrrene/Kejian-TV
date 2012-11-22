@@ -5,12 +5,6 @@ class Topic
   include Redis::Search
   include BaseModel
   field :followers_count,:type=>Integer,:default=>0
-  @before_soft_delete = proc{
-    redis_search_index_destroy
-    $redis_topics.hdel self.id,:name
-    $redis_topics.hdel self.id,:summary
-    $redis_topics.hdel self.name,:id
-  }
   def self.roots
     Topic.where(:fathers=>[])
   end
@@ -246,10 +240,6 @@ class Topic
     self.cover_changed? || self.cover_changed 
   end
   
-  redis_search_index(:title_field => :name,
-    :prefix_index_enable => true,
-    :ext_fields => [:followers_count,:cover_small38, :coursewares_count],
-    :score_field => :coursewares_count)
   # 敏感词验证
   before_validation :check_spam_words
   def check_spam_words
@@ -312,7 +302,7 @@ class Topic
   cache_consultant :name
   cache_consultant :summary
   cache_consultant :id,:from_what => :name 
-  protected
+
   def insert_action_log(action)
     begin
       log = TopicLog.new
@@ -327,5 +317,9 @@ class Topic
       Rails.logger.info { "#{e}" } 
     end
   end
+  # redis_search_index(:title_field => :name,
+  #   :prefix_index_enable => true,
+  #   :ext_fields => [:followers_count,:cover_small38, :coursewares_count],
+  #   :score_field => :coursewares_count)
 
 end

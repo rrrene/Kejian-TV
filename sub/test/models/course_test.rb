@@ -139,5 +139,28 @@ describe Course do
     refute t3.soft_deleted?,'课程没了老师不能没'
     refute dpt.soft_deleted?,'课程没了院系不能没'
   end
+  it "课程的一阶索引" do
+    user_n = User.new
+    user_n.save(:validate=>false)
+    pl = Course.new
+    title = "pppppssssssvvvvvvrrrrrcc#{Course.count+1}"
+    pl.name = title
+    pl.save(:validate=>false)
+    refute Redis::Search.query("Course", title).try(:[],0).try(:[],'id') == pl.id.to_s, '信息不全，不建立一阶索引'
+    pl.update_attribute(:department_fid,Department.nondeleted.gotfid.first.fid)
+    assert Redis::Search.query("Course", title).try(:[],0).try(:[],'id') == pl.id.to_s, '信息齐全后，保存即建立这个课程的一阶索引'
+    
+    title2 = title.reverse
+    assert title2!=title
+    pl.update_attribute(:name, title2)
+    refute Redis::Search.query("Course", title).try(:[],0).try(:[],'id') == pl.id.to_s, '标题改了，老标题索引不再存在'    
+    assert Redis::Search.query("Course", title2).try(:[],0).try(:[],'id') == pl.id.to_s, '标题改了，新标题索引存在'    
+    pl.update_attribute(:name, title)
+    assert Redis::Search.query("Course", title).try(:[],0).try(:[],'id') == pl.id.to_s, '软删除之后删除课程的一阶索引'
+    pl.instance_eval(&Course.after_soft_delete)
+    refute Redis::Search.query("Course", title).try(:[],0).try(:[],'id') == pl.id.to_s, '软删除之后删除课程的一阶索引'
+  end
+
 end
+
 

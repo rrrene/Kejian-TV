@@ -244,8 +244,36 @@ describe User do
     refute pl1.soft_deleted?,'无辜的资源不能删'
     refute pl2.soft_deleted?,'无辜的资源不能删'
   end
-  it "禁用户" do
-    # todo
+  it "用户的一阶索引" do
+    user_n = User.new
+    user_n.save(:validate=>false)
+    pl = User.new
+    title = "pppppssssssvvvvvvrrrrrusrusr#{User.count+1}111"
+    pl.name = title
+    pl.tagline = "lllllliiiibbbbbbbberrrr#{User.count+1}222"
+    pl.save(:validate=>false)
+    assert Redis::Search.query("User", title).try(:[],0).try(:[],'id') == pl.id.to_s, '信息齐全后，保存即建立这个用户的一阶索引'
+    
+    title2 = title.reverse
+    assert title2!=title
+    pl.update_attribute(:name, title2)
+    refute Redis::Search.query("User", title).try(:[],0).try(:[],'id') == pl.id.to_s, '标题改了，老标题索引不再存在'    
+    assert Redis::Search.query("User", title2).try(:[],0).try(:[],'id') == pl.id.to_s, '标题改了，新标题索引存在'    
+    pl.update_attribute(:name, title)    
+      
+    tagline = pl.tagline
+    tagline2 = "tagtagtagtaggatgatgatgat#{User.count+1}333"
+    pl.ua(:tagline,tagline2)
+    refute Redis::Search.query("User", tagline).try(:[],0).try(:[],'id') == pl.id.to_s, 'tagline改了，老tagline索引不再存在'    
+    assert Redis::Search.query("User", tagline2).try(:[],0).try(:[],'id') == pl.id.to_s, 'tagline改了，新tagline索引存在'    
+
+    assert 0==Redis::Search.query("User", title).try(:[],0).try(:[],'coursewares_uploaded_count'), '卫星数据要正确'    
+    Courseware.non_redirect.nondeleted.normal.is_father.last.update_attribute(:uploader_id,pl.id)
+    assert 1==Redis::Search.query("User", title).try(:[],0).try(:[],'coursewares_uploaded_count'), '卫星数据要正确'    
+    
+    assert Redis::Search.query("User", title).try(:[],0).try(:[],'id') == pl.id.to_s, '复原'
+    pl.instance_eval(&User.after_soft_delete)
+    refute Redis::Search.query("User", title).try(:[],0).try(:[],'id') == pl.id.to_s, '软删除之后删除用户的一阶索引'
   end
 end
 

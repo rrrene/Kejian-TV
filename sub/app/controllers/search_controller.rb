@@ -9,6 +9,10 @@ class SearchController < ApplicationController
   end
   def lucky
     search_common_op
+    @per_page = 1
+    @page = 1
+    params[:per_page] = '1'
+    params[:page] = '1'
     @pages = Page.psvr_search(@page,@per_page,params)
     redirect_to "/coursewares/#{@pages.first.courseware_id}"
     return false

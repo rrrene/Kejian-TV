@@ -6,6 +6,28 @@ class User
   #include Mongo::Voter
   include Redis::Search
   include BaseModel
+  @before_soft_delete = proc{
+    result = []
+    if self.play_lists_ugc.size < 1
+      result << true
+    else
+      result << false
+    end
+    if self.coursewares_uploaded_count < 1
+      result << true
+    else
+      result << false
+    end
+    b = true
+    result.map{|x| b&=x }
+    b
+  }
+  @after_soft_delete = proc{
+    redis_search_index_destroy
+    redis_search_psvr_was_delete!
+    self.update_attribute(:banished,"1")
+    self.update_attribute(:user_type,User::BAN_USER)
+  }
   after_update :after_update_uc
   def after_update_uc
     if self.encrypted_password_changed?
@@ -317,34 +339,7 @@ User.all.map{|x| x.ua(:widget_sort,hash)}
 
   ## Token authenticatable
   field :authentication_token, :type => String
-  @before_soft_delete = proc{
-    result = []
-    if self.play_lists_ugc.size < 1
-      result << true
-    else
-      result << false
-    end
-    if self.coursewares_uploaded_count < 1
-      result << true
-    else
-      result << false
-    end
-    b = true
-    result.map{|x| b&=x }
-    b
-  }
-  @after_soft_delete = proc{
-    redis_search_index_destroy
-    $redis_users.hdel self.uid,:id
-    $redis_users.hdel self.id,:name
-    $redis_users.hdel self.id,:uid
-    $redis_users.hdel self.id,:email
-    $redis_users.hdel self.id,:slug
-    # $redis_users.hdel self.id,:fangwendizhi
-    $redis_users.hdel self.id,:avatar_filename
-    self.update_attribute(:banished,"1")
-    self.update_attribute(:user_type,User::BAN_USER)
-  }
+
   def asynchronously_clean_me
     bad_ids = [self.id]
     self.followers.each{|u| u.inc(:following_count,-1)}
@@ -943,20 +938,7 @@ User.all.map{|x| x.ua(:widget_sort,hash)}
   field :tags
   field :tags_dpt
   field :name_last_changed_at
-  def redis_search_alias
-    [self.tagline.present? ? self.tagline : nil].compact.join(', ')
-  end
-  def redis_search_alias_changed?
-    self.tagline_changed?
-  end
-  def redis_search_alias_was
-    [self.tagline_was.present? ? self.tagline_was : nil].compact.join(', ')
-  end
-  redis_search_index(:title_field => :name,
-                     :alias_field => :redis_search_alias,
-                     :prefix_index_enable => true,
-                     :ext_fields => [:uid,:tagline,:followers_count,:following_count,:coursewares_uploaded_count],
-                     :score_field => :followers_count)
+
   
 
   def zancheng_piaoshu
@@ -1767,7 +1749,6 @@ User.all.map{|x| x.ua(:widget_sort,hash)}
     d.activate_user!
     return nil
   end
-  protected
   
   def insert_follow_log(action, item, parent_item = nil)
     begin
@@ -1799,6 +1780,39 @@ User.all.map{|x| x.ua(:widget_sort,hash)}
     rescue Exception => e
         
     end
+  end
+
+
+  def redis_search_alias
+    [self.tagline.present? ? self.tagline : '暂无一句话描述'].compact.join(', ')
+  end
+  def redis_search_alias_changed?
+    self.tagline_changed?
+  end
+  def redis_search_alias_was
+    [self.tagline_was.present? ? self.tagline_was : '暂无一句话描述'].compact.join(', ')
+  end
+  redis_search_index(:title_field => :name,
+                     :alias_field => :redis_search_alias,
+                     :prefix_index_enable => true,
+                     :ext_fields => [:uid,:tagline,:followers_count,:following_count,:coursewares_uploaded_count],
+                     :score_field => :followers_count)
+  alias_method :redis_search_index_create_before_psvr,:redis_search_index_create
+  alias_method :redis_search_index_need_reindex_before_psvr,:redis_search_index_need_reindex
+  def redis_search_psvr_okay?
+   !self.soft_deleted? and self.name.present? and self.redis_search_alias.present?
+  end
+  def redis_search_index_need_reindex
+    if !redis_search_psvr_okay?
+      redis_search_index_destroy
+      redis_search_psvr_was_delete!
+      return false
+    else
+      return (self.deleted_changed? || self.redis_search_index_need_reindex_before_psvr)
+    end
+  end
+  def redis_search_index_create
+    self.redis_search_index_create_before_psvr if self.redis_search_psvr_okay?
   end
 end
 

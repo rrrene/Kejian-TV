@@ -8,6 +8,14 @@ class Department
     num = Course.where(department_fid:self.fid).size + Teacher.where(department_fid:self.fid).size
     num < 1
   }
+  @after_soft_delete = proc{
+    redis_search_index_destroy
+    redis_search_psvr_was_delete!
+  }
+  def asynchronously_clean_me
+    bad_ids = [self.fid]
+    Util.bad_id_out_of!(User,:followed_department_fids,bad_ids)
+  end
   # Followers
   field :follower_ids, :type => Array, :default => []
   field :cover
@@ -21,7 +29,8 @@ class Department
   field :coursewares_count,:type=>Integer,:default=>0
   field :play_lists_count,:type=>Integer,:default=>0
   def gotfid?
-    self.fid>0
+    ret = self.fid.try(:>,0)
+    !!ret
   end
   scope :gotfid,where(:fid.gt=>0)
   validates_uniqueness_of :name,:message=>'与已有院系名重复，请尝试其他名'
@@ -86,25 +95,20 @@ class Department
   alias_method :redis_search_index_create_before_psvr,:redis_search_index_create
   alias_method :redis_search_index_need_reindex_before_psvr,:redis_search_index_need_reindex
   def redis_search_psvr_okay?
-    !self.soft_deleted? and self.name.present? and self.gotfid?
+    !self.soft_deleted? and self.gotfid? and self.name.present?
   end
   def redis_search_index_need_reindex
     if !redis_search_psvr_okay?
-      redis_search_psvr_was_delete! if name_was.present?
+      redis_search_index_destroy
+      redis_search_psvr_was_delete!
       return false
+    else
+      return (self.deleted_changed? || self.redis_search_index_need_reindex_before_psvr)
     end
-    return self.redis_search_index_need_reindex_before_psvr
   end
   def redis_search_index_create
-    if self.redis_search_psvr_okay?
-      return self.redis_search_index_create_before_psvr
-    else
-      return true
-    end
+    self.redis_search_index_create_before_psvr if self.redis_search_psvr_okay?
   end
-  def asynchronously_clean_me
-    bad_ids = [self.fid]
-    Util.bad_id_out_of!(User,:followed_department_fids,bad_ids)
-  end
+
 end
 

@@ -45,6 +45,7 @@ module BaseModel
             unless self.soft_deleted?
               self.class.set_#{child}(self.#{(opts[:from_what] == :id) ? '_id' : opts[:from_what]},self.#{child}) if self.#{(opts[:from_what] == :id) ? '_id' : opts[:from_what]}_changed?
             end
+            true
           }
       RUBY
     end

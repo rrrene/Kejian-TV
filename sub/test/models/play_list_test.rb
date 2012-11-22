@@ -261,4 +261,57 @@ describe PlayList do
     refute cw1.soft_deleted?,'课件锦囊没了，课件不能没啊！'
     refute cw2.soft_deleted?,'课件锦囊没了，课件不能没啊！'
   end
+  it "播放列表的一阶索引" do
+    user_n = User.new
+    user_n.save(:validate=>false)
+    pl = PlayList.new
+    title = "pppppssssssvvvvvvrrrrrplpl#{PlayList.count+1}"
+    pl.title = title
+    pl.save(:validate=>false)
+    refute Redis::Search.query("PlayList", pl.title).try(:[],0).try(:[],'id') == pl.id.to_s, '信息不全，不建立一阶索引'
+    cw1 = Courseware.non_redirect.nondeleted.normal.is_father[0]
+    cw2 = Courseware.non_redirect.nondeleted.normal.is_father[1]
+    cw3 = Courseware.non_redirect.nondeleted.normal.is_father[2]
+    cw4 = Courseware.non_redirect.nondeleted.normal.is_father[3]
+    pl.privacy = 0
+    pl.undestroyable = false
+    pl.add_one_thing(cw1.id)
+    pl.add_one_thing(cw2.id)
+    pl.add_one_thing(cw3.id)
+    pl.save(:validate=>false)
+    assert Redis::Search.query("PlayList", title).try(:[],0).try(:[],'id') == pl.id.to_s, '信息齐全后，保存即建立这个播放列表的一阶索引'
+
+    pl.update_attribute(:undestroyable,true)
+    refute Redis::Search.query("PlayList", title).try(:[],0).try(:[],'id') == pl.id.to_s, '信息改为不正常，删除其一阶索引'
+    pl.update_attribute(:undestroyable,false)
+    assert Redis::Search.query("PlayList", title).try(:[],0).try(:[],'id') == pl.id.to_s, '信息恢复正常，恢复其一阶索引'    
+
+    cw3.update_attribute(:status,1)
+    refute Redis::Search.query("PlayList", title).try(:[],0).try(:[],'id') == pl.id.to_s, '信息改为不正常，删除其一阶索引'
+    cw3.update_attribute(:status,0)
+    assert Redis::Search.query("PlayList", title).try(:[],0).try(:[],'id') == pl.id.to_s, '信息恢复正常，恢复其一阶索引'    
+
+    pl.update_attribute(:title,'')
+    refute Redis::Search.query("PlayList", title).try(:[],0).try(:[],'id') == pl.id.to_s, '信息改为不正常，删除其一阶索引'
+    pl.update_attribute(:title, title)
+    assert Redis::Search.query("PlayList", title).try(:[],0).try(:[],'id') == pl.id.to_s, '信息恢复正常，恢复其一阶索引'    
+    
+    title2 = title.reverse
+    assert title2!=title
+    pl.update_attribute(:title, title2)
+    refute Redis::Search.query("PlayList", title).try(:[],0).try(:[],'id') == pl.id.to_s, '标题改了，老标题索引不再存在'    
+    assert Redis::Search.query("PlayList", title2).try(:[],0).try(:[],'id') == pl.id.to_s, '标题改了，新标题索引存在'    
+    pl.update_attribute(:title, title)
+    
+    assert 3==Redis::Search.query("PlayList", title).try(:[],0).try(:[],'coursewares_count'), '索引要记录正确的附加信息'
+    play_list.add_one_thing(cw4.id)
+    assert 4==Redis::Search.query("PlayList", title).try(:[],0).try(:[],'coursewares_count'), '索引要记录正确的附加信息'
+    
+    assert Redis::Search.query("PlayList", title).try(:[],0).try(:[],'id') == pl.id.to_s, '复原'
+    pl.instance_eval(&PlayList.after_soft_delete)
+    refute Redis::Search.query("PlayList", title).try(:[],0).try(:[],'id') == pl.id.to_s, '软删除之后删除播放列表的一阶索引'
+  end
+
+  it "播放列表的二阶索引" do
+  end
 end

@@ -4,6 +4,10 @@ class PlayList
   include Mongoid::Timestamps
   include Redis::Search
   include BaseModel
+  @after_soft_delete = proc{
+    redis_search_index_destroy
+    redis_search_psvr_was_delete!
+  }
   # sort by this
   field :score,:type=>Integer,:default=>0  
   field :status
@@ -419,7 +423,7 @@ class PlayList
     response = Tire::Configuration.client.get(url, h.to_json)
     if response.failure?
       STDERR.puts "[REQUEST FAILED] #{h.to_json}\n"
-      raise SearchRequestFailed, response.to_s
+      raise Ktv::Shared::SearchRequestFailed, response.to_s
     end
     json     = MultiJson.decode(response.body)
     return Tire::Results::Collection.new(json, :from=>from,:size=>size)
@@ -476,18 +480,16 @@ class PlayList
     !self.soft_deleted? and !self.undestroyable and 0==self.status and 0==self.privacy and self.title.present? and self.redis_search_alias.present?
   end
   def redis_search_index_need_reindex
-    if self.status_changed? && self.redis_search_psvr_okay?
-      return true
+    if !redis_search_psvr_okay?
+      redis_search_index_destroy
+      redis_search_psvr_was_delete!
+      return false
     else
-      return self.redis_search_index_need_reindex_before_psvr
+      return (self.deleted_changed? || self.undestroyable_changed? || self.status_changed? || self.privacy_changed? || self.redis_search_index_need_reindex_before_psvr)      
     end
   end
   def redis_search_index_create
-    if self.redis_search_psvr_okay?
-      return self.redis_search_index_create_before_psvr
-    else
-      return true
-    end
+    self.redis_search_index_create_before_psvr if self.redis_search_psvr_okay?
   end
 end
 

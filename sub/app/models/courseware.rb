@@ -24,6 +24,7 @@ class Courseware
   }
   @after_soft_delete = proc{
     redis_search_index_destroy
+    redis_search_psvr_was_delete!
   }
   FILE_INFO_TRANS = {
     'Little Endian,' => '小端序,',
@@ -164,7 +165,6 @@ class Courseware
         child
       end
     end
-    self.topic_inst.redis_search_index_create
   end
   field :privacy, :type=>Integer, :default=>0
   field :public_time,:type=>Time,:default=>Time.now
@@ -588,13 +588,13 @@ class Courseware
       self.user.inc(:coursewares_count,1)
       self.user.school.inc(:coursewares_count,1) if self.user.school
     end
-    if status_changed? and 0==status
+    if status_changed? and (0==status || 0==status_was)
       if !uploader_id_changed? 
         self.uploader.inc(:coursewares_uploaded_count,1) if self.uploader
-      end        
+      end
       @statuschangedandeq0 = true
     end
-    if ktvid_changed? and ktvid.present?
+    if ktvid_changed? and (ktvid.present? || ktvid_was.present?)
       @ktvidchangedandpresent = true
     end
     if uploader_id_changed? and 0==status
@@ -621,19 +621,6 @@ class Courseware
       end
     end
   end  
-  after_save :update_playlist
-  def update_playlist
-    if @statuschangedandeq0
-      if ktvid.present?
-        self.update_pl
-      end
-    end
-    if @ktvidchangedandpresent
-      if 0==status
-        self.update_pl
-      end
-    end
-  end
   before_save :course_work
   def course_work
     if course_fid_changed? 
@@ -657,6 +644,20 @@ class Courseware
       calculate_department_fid
     end
   end
+  after_save :update_playlist
+  def update_playlist
+    if @statuschangedandeq0
+      if ktvid.present?
+        self.update_pl
+      end
+    end
+    if @ktvidchangedandpresent
+      if 0==status
+        self.update_pl
+      end
+    end
+  end
+
   before_save :teachers_work
   def teachers_work
     if status_changed? && status_was !=0 && status != 0
@@ -1315,7 +1316,7 @@ opts={   :subsite=>Setting.ktv_sub,
     response = Tire::Configuration.client.get(url, h.to_json)
     if response.failure?
       STDERR.puts "[REQUEST FAILED] #{h.to_json}\n"
-      raise SearchRequestFailed, response.to_s
+      raise Ktv::Shared::SearchRequestFailed, response.to_s
     end
     json     = MultiJson.decode(response.body)
     return Tire::Results::Collection.new(json, :from=>from,:size=>size)

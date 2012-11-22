@@ -74,8 +74,8 @@ describe Courseware do
   it "课件的
  oooO ↘┏━┓ ↙ Oooo 
  ( 踩)→┃顶┃ ←(踩 ) 
-  \ ( →┃√┃ ← ) / 
-　 \_)↗┗━┛ ↖(_/ 
+  \\ ( →┃√┃ ← ) / 
+　 \\_)↗┗━┛ ↖(_/ 
 " do
     @user1.thanked_courseware_ids = []
     @user2.thanked_courseware_ids = []
@@ -382,7 +382,7 @@ describe Courseware do
     play_list.reload
     assert 101*2==play_list.content_total_pages,'又增长了101页'
   end
-  it "课件状态转为正常之时，需要通知引用它的播放列表更新状态" do
+  it "课件状态转变状态之时，需要通知引用它的播放列表更新状态" do
     user_n = User.new
     user_n.save(:validate=>false)
     cw1 = Courseware.new
@@ -408,12 +408,15 @@ describe Courseware do
     cw3.update_attribute(:ktvid,'5058960ce13823076c00002e')
     play_list.reload
     assert 0==play_list.status,'cw1和cw2达到了正常状态，课件改变状态应通知引用它的播放列表，之后play_list也被通知为正常了'    
-  end
-  it "压缩包" do
-    # todo
-  end
-  it "统计" do
-    # todo
+    cw2.update_attribute(:status,1)
+    play_list.reload
+    refute 0==play_list.status,'cw2进入不正常状态，play_list也不正常了'    
+    cw2.update_attribute(:status,0)
+    play_list.reload
+    assert 0==play_list.status,'cw2进入正常状态，play_list也正常了'    
+    cw1.update_attribute(:ktvid,'')
+    play_list.reload
+    refute 0==play_list.status,'cw2进入不正常状态，play_list也不正常了'    
   end
   it "软删除之前判断是否有上传人候选，是真要删还是假要删？ -- Courseware.before_soft_delete" do
     user_n = User.new
@@ -600,17 +603,17 @@ describe Courseware do
     cw0.course_fid = cc[0].fid
     cw0.save(:validate=>false)
     assert Redis::Search.query("Courseware", title).try(:[],0).try(:[],'id') == cw0.id.to_s, '信息齐全后，保存即建立这个课件的一阶索引'
-
+  
     cw0.update_attribute(:status,1)
     refute Redis::Search.query("Courseware", title).try(:[],0).try(:[],'id') == cw0.id.to_s, '信息改为不正常，删除其一阶索引'
     cw0.update_attribute(:status,0)
     assert Redis::Search.query("Courseware", title).try(:[],0).try(:[],'id') == cw0.id.to_s, '信息恢复正常，恢复其一阶索引'    
-
+  
     cw0.update_attribute(:privacy,1)
     refute Redis::Search.query("Courseware", title).try(:[],0).try(:[],'id') == cw0.id.to_s, '信息改为不正常，删除其一阶索引'
     cw0.update_attribute(:privacy,0)
     assert Redis::Search.query("Courseware", title).try(:[],0).try(:[],'id') == cw0.id.to_s, '信息恢复正常，恢复其一阶索引'    
-
+  
     cw0.update_attribute(:title,'')
     refute Redis::Search.query("Courseware", title).try(:[],0).try(:[],'id') == cw0.id.to_s, '信息改为不正常，删除其一阶索引'
     cw0.update_attribute(:title, title)
@@ -628,9 +631,11 @@ describe Courseware do
     title2 = title.reverse
     assert title2!=title
     cw0.update_attribute(:title, title2)
-    refute Redis::Search.query("Courseware", title).try(:[],0).try(:[],'id') == cw0.id.to_s, '标题改了，老标题索引不再存在'    
-    assert Redis::Search.query("Courseware", title2).try(:[],0).try(:[],'id') == cw0.id.to_s, '标题改了，新标题索引存在'    
-        
+    refute Redis::Search.query("Courseware", title).try(:[],0).try(:[],'id') == cw0.id.to_s, '标题改了，老标题索引不再存在'
+    assert Redis::Search.query("Courseware", title2).try(:[],0).try(:[],'id') == cw0.id.to_s, '标题改了，新标题索引存在'
+    cw0.update_attribute(:title, title)
+    assert Redis::Search.query("Courseware", title).try(:[],0).try(:[],'id') == cw0.id.to_s, '标题recover'
+            
     cw0.reload
     old_alias = cw0.redis_search_alias
     tch2="TCH#{Time.now.to_i}#{rand}"
@@ -647,12 +652,11 @@ describe Courseware do
     cw0.update_attribute(:slides_count,100)
     assert 100==Redis::Search.query("Courseware", new_alias).try(:[],0).try(:[],'slides_count'), '索引要记录正确的页数'
     
+    assert Redis::Search.query("Courseware", title).try(:[],0).try(:[],'id') == cw0.id.to_s, '软删除之后删除课件的一阶索引'
     cw0.instance_eval(&Courseware.after_soft_delete)
     refute Redis::Search.query("Courseware", title).try(:[],0).try(:[],'id') == cw0.id.to_s, '软删除之后删除课件的一阶索引'
   end
   it "课件的二阶索引" do
-  end
-  it "课件的三阶索引" do
   end
 end
 

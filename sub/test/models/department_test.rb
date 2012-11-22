@@ -66,4 +66,25 @@ describe Department do
     refute @user1.followed_department_fids.include?(crazy_dpt.fid),'followed_department_fids复原'
     refute @user2.followed_department_fids.include?(crazy_dpt.fid),'followed_department_fids复原'
   end
+  it "院系的一阶索引" do
+    user_n = User.new
+    user_n.save(:validate=>false)
+    pl = Department.new
+    title = "pppppssssssvvvvvvrrrrrdptdpt#{Department.count+1}"
+    pl.name = title
+    pl.save(:validate=>false)
+    assert Redis::Search.query("Department", title).try(:[],0).try(:[],'id') == pl.id.to_s, '信息齐全后，保存即建立这个院系的一阶索引'
+    
+    title2 = title.reverse
+    assert title2!=title
+    pl.update_attribute(:name, title2)
+    refute Redis::Search.query("Department", title).try(:[],0).try(:[],'id') == pl.id.to_s, '标题改了，老标题索引不再存在'    
+    assert Redis::Search.query("Department", title2).try(:[],0).try(:[],'id') == pl.id.to_s, '标题改了，新标题索引存在'    
+    pl.update_attribute(:name, title)
+    assert Redis::Search.query("Department", title).try(:[],0).try(:[],'id') == pl.id.to_s, '标题recover'    
+    pl.instance_eval(&Department.after_soft_delete)
+    refute Redis::Search.query("Department", title).try(:[],0).try(:[],'id') == pl.id.to_s, '软删除之后删除院系的一阶索引'
+  end
+
+
 end
