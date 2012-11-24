@@ -22,6 +22,7 @@ class Teacher
   field :tagline
   field :courses_count,:type=>Integer,:default=>0
   field :coursewares_count,:type=>Integer,:default=>0
+  field :play_lists_count,:type=>Integer,:default=>0
   field :followers_count, :type => Integer, :default => 0
   field :department_fid
   def self.locate(name)

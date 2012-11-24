@@ -225,7 +225,7 @@ im(function () {
     queryExec();
 });
 $("#followBtn").live("click", function () {
-    var boardUserId = '<%= @user.slug %>';
+    var boardUserId = '<%= @user.id %>';
     var postUrl = "";
     var follow = $(this).attr("follow");
     if (eval(follow) == true) {

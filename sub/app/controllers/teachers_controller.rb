@@ -2,16 +2,16 @@
 class TeachersController < ApplicationController
   before_filter :require_user,:only=>[:create,:new,:update,:edit,:destroy]
   before_filter :require_user_js,:only => [:follow,:unfollow]
-  before_filter :init_teacher, :only=>[:show,:follow,:unfollow,:followers]
+  before_filter :init_teacher, :only=>[:show,:follow,:unfollow,:followers,:zm_follow,:zm_unfollow]
   def index
     @seo[:title] = '全部老师'
   end  
   def zm_follow
-    current_user.follow(@teacher)
+    current_user.follow_teacher(@teacher)
     render json:true
   end
   def zm_unfollow
-    current_user.unfollow(@teacher)
+    current_user.unfollow_teacher(@teacher)
     render json:true
   end
 

@@ -85,8 +85,8 @@
 							</a>
 							</li>
 							<li>
-							<a href="/teachers/<%= @teacher.id %>" class="gray block usernumber"><%= @teacher.coursewares_count %><br/>
-							<span>课件</span></a></li>
+							<a href="/teachers/<%= @teacher.id %>" class="gray block usernumber"><%= @teacher.coursewares_count + @teacher.play_lists_count %><br/>
+							<span>资源</span></a></li>
 							<li>
 							<a id="user_profile_fans_count" href="/teachers/<%= @teacher.id %>/courses" class="block gray usernumber">
 							<em><%= @teacher.courses_count %></em><br/>
@@ -125,7 +125,7 @@
 				  <% if !@followers.blank? %>
 					<div class="labelbox">
 						<h3 class="title">
-						<span class="label"><a href="/teachers/<%= @teacher.id %>/followers">关注<%= user_sex_title(@teacher,current_user)%>的人</a></span><span class="number">(<em class="blue"><a href="/users/<%= @teacher.id %>/followers"><%= @teacher.follower_ids.size %></a></em>) </span>
+						<span class="label"><a href="/teachers/<%= @teacher.id %>/followers">关注<%= user_sex_title(@teacher,current_user)%>的人</a></span><span class="number">(<em class="blue"><a href="/teachers/<%= @teacher.id %>/followers"><%= @teacher.follower_ids.size %></a></em>) </span>
 						</h3>
 						<ul class="bp cf">
               <% for follower in @followers.reverse %>
@@ -183,7 +183,6 @@ function queryExec(){
         }
     });
     autoLayout.eachAction(jsonUrl);
-    App.psvr_wendao_init();
 }
 im(function () {
     queryExec();
@@ -191,45 +190,43 @@ im(function () {
 jQuery("#followBtn").live("click", function () {
     var boardUserId = '<%= @teacher.id %>';
     var postUrl = "";
-    var follow = jQuery(this).attr("follow");
+    var follow = $(this).attr("follow");
     if (eval(follow) == true) {
-        postUrl = uri("URI_FANS_UNFOLLOW_USER", boardUserId);
+        postUrl = uri("URI_FANS_UNFOLLOW_TEACHER", boardUserId);
     } else {
-        postUrl = uri("URI_FANS_ADD_FOLLOW_USER", boardUserId);
+        postUrl = uri("URI_FANS_ADD_FOLLOW_TEACHER", boardUserId);
     }
-    jQuery("#followBtn").bind("click", function () {
+    $("#followBtn").bind("click", function () {
         return false;
     })
-    var fansCount = jQuery("#user_profile_fans_count").find("em").text();
+    var fansCount = $("#user_profile_fans_count").find("em").text();
     if (eval(follow) == true) {
-        im.window.confirm(jQuery("#followBtn"), "确认取消关注吗?", function () {
-            jQuery.ajax({
+        im.window.confirm($("#followBtn"), "确认取消关注吗?", function () {
+            $.ajax({
                 type: "POST",
                 url: postUrl,
-								data:{'authenticity_token':"<%= form_authenticity_token %>"},
                 dataType: "json",
                 success: function (data) {
-                    jQuery("#followBtn").removeClass().addClass('concern-ico').find("em").text("关注");
+                    $("#followBtn").removeClass().addClass('concern-ico').find("em").text("关注");
                     fansCount = eval(fansCount) - 1;
-                    jQuery("#user_profile_fans_count").find("em").text(fansCount);
-                    jQuery("#followBtn").attr("follow", false);
-                    jQuery("#followBtn").unbind("click");
+                    $("#user_profile_fans_count").find("em").text(fansCount);
+                    $("#followBtn").attr("follow", false);
+                    $("#followBtn").unbind("click");
                 }
             });
         });
-        jQuery("#followBtn").unbind("click");
+        $("#followBtn").unbind("click");
     } else {
-        jQuery.ajax({
+        $.ajax({
             type: "POST",
             url: postUrl,
-						data:{'authenticity_token':"<%= form_authenticity_token %>"},
             dataType: "json",
             success: function (data) {
-                jQuery("#followBtn").removeClass().addClass('d-concerned-ico').find("em").text("已关注");
+                $("#followBtn").removeClass().addClass('d-concerned-ico').find("em").text("已关注");
                 fansCount = eval(fansCount) + 1;
-                jQuery("#user_profile_fans_count").find("em").text(fansCount);
-                jQuery("#followBtn").attr("follow", true);
-                jQuery("#followBtn").unbind("click");
+                $("#user_profile_fans_count").find("em").text(fansCount);
+                $("#followBtn").attr("follow", true);
+                $("#followBtn").unbind("click");
             }
         });
     }

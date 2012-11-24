@@ -53,6 +53,45 @@
 		<div style="clear: both;">
 		</div>
 		<div id="contentMain" class="content" style="position: relative;">
+			<div id="rightLabel1" class="rightbox" style="display:none;right:350px; margin-top: -60px">
+				<div class="userbox topline">
+					<div class="userinfo">
+            <div class="uname alignleft cf"><span class="ctf-username floatleft"><%=@course.name%></span></div>
+
+						<ul class="useratten ctf-bg cf">
+							<li>
+							<a id="user_profile_fans_count" href="#" class="block gray usernumber">
+							<em><%= @course.coursewares_count %></em><br/>
+							<span>课件</span>
+							</a>
+							</li>
+							<li>
+							<a href="#" class="gray block usernumber"><%= @course.play_lists_count %><br/>
+							<span>锦囊</span></a></li>
+							<li>
+							<a id="user_profile_fans_count" href="#" class="block gray usernumber">
+							<em><%= @course.teachers_count %></em><br/>
+							<span>老师</span>
+							</a>
+							</li>
+						</ul>
+					</div>
+				  <% @followers = @course.teachers %>
+				  <% if !@followers.blank? %>
+					<div class="labelbox" style="margin-top:8px">
+						<h3 class="title">
+						<span class="label"><a href="#">这门课的老师</a></span>
+<span class="number">(<em class="blue"><a href="#"><%= @course.teachers_count %></a></em>) </span>
+						</h3>
+						<ul class="bp cf">
+              <% for teacher in @followers %>
+                <a href="/teachers/<%= Teacher.get_id teacher %>"><img width="32" height="32" alt="" src="<%=teacher_avatar_url_quick(teacher,:small32)%>"> <%=teacher%></a><br>
+							<% end %>
+						</ul>
+					</div>
+					<% end %>
+				</div>
+			</div>
 		</div>
 	</div>
 	<div id="imloading" class="imfootloading" style="visibility:hidden;">
@@ -64,71 +103,46 @@
 
 <script type="text/javascript">
 <% content_for :butt2 do %>
-im(function(){
-var old_content = $("#contentMain").html();
-$('.queryOrderCss').live('click', function () {
-    var queryOrder = $(this).attr("rel");
-    $('#queryOrder').val(queryOrder);
-    $('#ulQueryOrder > li').removeClass();
-    $(this).parent().addClass('current');
+var old_content = jQuery("#contentMain").html();
+jQuery('.queryOrderCss').live('click', function () {
+    var queryOrder = jQuery(this).attr("rel");
+    jQuery('#queryOrder').val(queryOrder);
+    jQuery('#ulQueryOrder > li').removeClass();
+    jQuery(this).parent().addClass('current');
     queryExec();
 });
 function queryExec(){
-    var queryOrder = $('#queryOrder').val();
-    $("#contentMain").html(old_content);
-    if (jQuery('#js-ad-show8').length == 0) {
-        jQuery("#contentMain").html("");
-    } else {
-        jQuery('#js-ad-show8').nextAll().remove();
-    }
-		autoLayout.pageAuto = true;
+    var queryOrder = jQuery('#queryOrder').val();
+    jQuery("#contentMain").html(old_content);
+    autoLayout.pageAuto = true;
     autoLayout.pageNums = 0;
     autoLayout.loading = true;
     autoLayout.isHasNextPage = true;
     autoLayout.pageNum = 2;
-    var linkUrl = "/coursewares?course=<%=@course.fid%>",
-        jsonUrl = "/coursewares_with_page?course_fid=<%=@course.fid%>";
+    var linkUrl = "/courses/<%=@course.fid%>/coursewares",
+        jsonUrl = "/courses/<%=@course.fid%>/coursewares_with_page/";
     autoLayout.init({
         contentID: "contentMain",
         rightLoad: true,
-        leftID: [],
+        leftID: "",
         dataContent: {
             'queryOrder': queryOrder
         },
-        rightID: ['js-ad-show8'],
+        rightID: ["rightLabel1"],
         linkUrl: linkUrl,
         loadingID: "imloading",
 
         callBack: function () {
-					var showContent = "<%= @course.name %>还没有相关课件";
-          $("#contentMain").prepend('<div style="text-align: center; margin-right: 233px; padding-top: 100px; left: 0px; top: 0px;" class="f14" columns="0">' + showContent + '</div>');
+        var showContent = "还没有人为<%=@course.name%>上传课件";
+
+            jQuery("#contentMain").prepend('<div style="text-align: center; margin-right: 233px; padding-top: 100px; left: 0px; top: 0px;" class="f14" columns="0">' + showContent + '</div>');
         }
     });
     autoLayout.eachAction(jsonUrl);
 }
 im(function () {
     queryExec();
-		$('#zhimeisheetbar').css({'margin-top': '44px', 'width': '1858px'});
 });
-$("#zmaddfans").hover(
-function () {
-    $(this).css({
-        'width': '300px',
-        'height': 'auto',
-        'overflow': 'hidden',
-        'opacity': '1'
-    });
-},
-function () {
-    $(this).css({
-        'width': '36px',
-        'height': '36px',
-        'overflow': 'hidden',
-        'opacity': '0.2'
-    });
-});
-	
-})
 <% end %>
 </script>
 

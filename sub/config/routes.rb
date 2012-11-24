@@ -185,8 +185,8 @@ Sub::Application.routes.draw do
       get "follow"
       get "unfollow"
       get "courses"
-      post "follow" => 'users#zm_follow'
-      post "unfollow" => 'users#zm_unfollow'
+      post "follow" => 'teachers#zm_follow'
+      post "unfollow" => 'teachers#zm_unfollow'
     end
   end  
   resources :users do
