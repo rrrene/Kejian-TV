@@ -6,6 +6,15 @@ class TeachersController < ApplicationController
   def index
     @seo[:title] = '全部老师'
   end  
+  def zm_follow
+    current_user.follow(@teacher)
+    render json:true
+  end
+  def zm_unfollow
+    current_user.unfollow(@teacher)
+    render json:true
+  end
+
   def follow
     current_user.follow_teacher(@teacher)
     render :text => "1"

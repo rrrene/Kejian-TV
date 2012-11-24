@@ -159,5 +159,28 @@ describe TeachersController do
     get :unfollow,{"id"=>@teacher.id.to_s}
     assert @response.success?
   end
+  it "zm风格的ajax化关注老师 - 游客状态" do
+    assert @controller.current_user.nil?
+    post :zm_follow,{"id"=>@teacher.id.to_s}
+    assert 401==@response.status
+  end
+  it "zm风格的ajax化关注老师" do
+    denglu! @user
+    assert @controller.current_user.id==@user.id
+    post :zm_follow,{"id"=>@teacher.id.to_s}
+    assert @response.success?
+  end
+
+  it "zm风格的ajax化取消关注老师 - 游客状态" do
+    assert @controller.current_user.nil?
+    post :zm_unfollow,{"id"=>@teacher.id.to_s}
+    assert 401==@response.status
+  end
+  it "zm风格的ajax化取消关注老师" do
+    denglu! @user
+    assert @controller.current_user.id==@user.id
+    post :zm_unfollow,{"id"=>@teacher.id.to_s}
+    assert @response.success? 
+  end
   
 end
