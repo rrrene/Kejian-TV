@@ -5,7 +5,6 @@ describe User do
     @user1 = User.find('506d5558e1382375f30000dc')
     @user2 = User.find('506d559ee1382375f3000163')
   end
-=begin
   it "用户关注用户" do
     @user1.following_ids=[]
     @user2.following_ids=[]
@@ -245,7 +244,6 @@ describe User do
     refute pl1.soft_deleted?,'无辜的资源不能删'
     refute pl2.soft_deleted?,'无辜的资源不能删'
   end
-=end
   it "用户的一阶索引" do
     user_n = User.new
     user_n.save(:validate=>false)

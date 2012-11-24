@@ -131,6 +131,8 @@ Sub::Application.routes.draw do
   post '/ajax/summonQL' => 'ajax#summonQL'
   post '/ajax/prepare_upload' => 'ajax#prepare_upload'
   post '/upload_page_auto_save' => 'ajax#upload_page_auto_save'
+  post '/ajax/unfollow_course' => 'ajax#unfollow_course'
+  post '/ajax/follow_course'=> 'ajax#unfollow_course'
   # ________________________________ktv__________________________________________
   get '/welcome/inactive_sign_up'
   get '/welcome/shuffle'

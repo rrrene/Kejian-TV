@@ -2,7 +2,14 @@
 class TeachersController < ApplicationController
   before_filter :require_user,:only=>[:create,:new,:update,:edit,:destroy]
   before_filter :require_user_js,:only => [:follow,:unfollow]
-  before_filter :init_teacher, :only=>[:show,:follow,:unfollow,:followers,:zm_follow,:zm_unfollow]
+  before_filter :init_teacher, :only=>[:show,:follow,:unfollow,:followers,:zm_follow,:zm_unfollow,:courses]
+  before_filter :auth_user,:only => [:zm_unfollow,:zm_follow]
+  def auth_user
+    if current_user.blank?
+      redirect_to '/',:status => 401
+      return false
+    end
+  end
   def index
     @seo[:title] = '全部老师'
   end  
@@ -35,7 +42,6 @@ class TeachersController < ApplicationController
     end
   end
   def followers
-    render text:'todo',status:500
     @per_page = 20
     @followers = @teacher.follower_ids.reverse
     .paginate(:page => params[:page], :per_page => @per_page)
@@ -46,7 +52,16 @@ class TeachersController < ApplicationController
     end
   end
   def courses
-    render text:'todo',status:500
+    @course = true
+      @per_page = 20
+      @followers = Course.where(teachers:@teacher.name).paginate(:page => params[:page], :per_page => @per_page)
+
+      @seo[:title] = '#{@teacher.name}的课程'
+      if params[:format] == "js"
+        render "followers.js"
+      else
+        render "followers"
+      end
   end
   def index
     render text:'deprecated.',status:405    

@@ -2,7 +2,7 @@
 class CoursewaresController < ApplicationController
   before_filter :require_user,:only=>[:new, :create, :edit, :update, :destroy, :thank, :download, :new_old, :edit_old, :mine]
   before_filter :find_item,:only => [:show,:embed,:download,:edit,:update,:destroy,:thank,:edit_old]
-  before_filter :authenticate_user_ownership!, :only => [:update,:destroy,:edit,:edit_old]
+  before_filter :authenticate_user_ownership!, :only => [:destroy,:edit,:edit_old]
   def ktvid_slide_pic
     if !Moped::BSON::ObjectId.legal?(params[:id].to_s)
       redirect_to '/mqdefault.jpg',:status => :found

@@ -6,7 +6,7 @@
 
                <p>
                <% if comment.deletor_id.nil? %>
-                 <%=Sanitize.clean(comment.body.gsub(/\n/, '<br />'), Sanitize::Config::BASIC).html_safe %>
+							 <%=Sanitize.clean(comment.body.to_s.gsub(/\n/, '<br />'), Sanitize::Config::BASIC).html_safe %>
                <% else %>
                  该评论已经被删除！
                <% end %>

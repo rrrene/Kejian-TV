@@ -1203,7 +1203,14 @@ User.all.map{|x| x.ua(:widget_sort,hash)}
     else
       topicid=topic
     end
-    return if self.followed_course_fids.include? topicid
+    if self.followed_course_fids.include? topicid
+      self.followed_course_fids.delete(topicid)
+      self.save(:validate => false)
+      topic.follower_ids.delete(self.id)
+      topic.followers_count = topic.follower_ids.count
+      topic.save(:validate => false)
+      return true
+    end
     if self.is_expert
       self.tags_dpt||=[]
       self.tags_dpt << topicid unless self.tags_dpt.include?(topicid)
@@ -1218,6 +1225,7 @@ User.all.map{|x| x.ua(:widget_sort,hash)}
     # UserSuggestItem.delete(self.id, "Topic", topic.id)
     
     insert_follow_log("FOLLOW_COURSE", topic) unless nolog
+    return true
   end
   def follow_department(topic,nolog=false)
     if topic.respond_to?(:fid)

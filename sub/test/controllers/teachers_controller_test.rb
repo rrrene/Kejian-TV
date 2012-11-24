@@ -133,7 +133,7 @@ describe TeachersController do
     denglu! @user
     assert @controller.current_user.id==@user.id
       get "courses",{"id"=>@teacher.id.to_s}
-    assert @response.success?
+    assert @response.success?,"老师的课程courses"
   end
     
   it "简单关注 - 游客状态" do

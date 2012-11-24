@@ -167,6 +167,9 @@ class Course
       x.update_attribute(:play_lists_count,x.play_lists.count)
     end
   end
+  def name_beautified
+    self.name
+  end
   def department_name
     self.department_fid.present? ? Department.get_name(self.department_fid).to_s : ''
   end

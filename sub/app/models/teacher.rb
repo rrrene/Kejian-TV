@@ -28,6 +28,12 @@ class Teacher
   def self.locate(name)
     Teacher.find_or_create_by(name:name)
   end
+  def fangwendizhi
+    return "teachers/#{self.id}"
+  end
+  def name_beautified
+    @name_beautified ||= ('_'==name[0] ? name[1..-1] : name)
+  end
   before_save :counter_work
   def counter_work
     if department_fid_changed?

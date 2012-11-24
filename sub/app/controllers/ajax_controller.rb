@@ -1365,7 +1365,23 @@ HEREDOC
         render json:{status:'failed',reason:'系统无法完成请求，请稍后重试。'}
         return false
       end
-    end    
-    
+    end        
+  end
+  def unfollow_course
+    follow_course
+  end
+  def follow_course
+    if !Moped::BSON::ObjectId.legal?(params[:followed])
+      render json:{status:'failed',reason:'系统无法完成请求，请稍后重试。'}
+      return false
+    end
+    if topic = Course.where(id:params[:followed]).first
+      if current_user.follow_course(topic)
+        render json:{status:'suc'}
+        return true
+      end
+    end
+    render json:{status:'failed',reason:'系统无法完成请求，请稍后重试。'}
+    return false
   end
 end
