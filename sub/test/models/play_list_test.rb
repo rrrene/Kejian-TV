@@ -304,7 +304,7 @@ describe PlayList do
     pl.update_attribute(:title, title)
     
     assert 3==Redis::Search.query("PlayList", title).try(:[],0).try(:[],'coursewares_count'), '索引要记录正确的附加信息'
-    play_list.add_one_thing(cw4.id)
+    pl.add_one_thing(cw4.id)
     assert 4==Redis::Search.query("PlayList", title).try(:[],0).try(:[],'coursewares_count'), '索引要记录正确的附加信息'
     
     assert Redis::Search.query("PlayList", title).try(:[],0).try(:[],'id') == pl.id.to_s, '复原'

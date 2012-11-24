@@ -43,7 +43,7 @@ describe MineController do
     denglu! @user
     assert @controller.current_user.id==@user.id
     get :index
-    assert @response.success?,'登录的用户可以访问课件管理器首页'
+    assert (@response.status == 302 and URI(@response.location).path == '/mine/my_coursewares'),'登录的用户可以访问课件管理器首页,'
   end
   it '课件管理器之信息中心dashboard' do
     denglu! @user

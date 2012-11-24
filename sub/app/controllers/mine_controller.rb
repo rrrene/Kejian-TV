@@ -44,7 +44,7 @@ class MineController < ApplicationController
     elsif params[:privacy].blank? and !params[:q].blank?
       @coursewares = Courseware.nondeleted.where(uploader_id:current_user.id,title:/#{params[:q]}/).desc('created_at')
     end
-    if !@coursewares.nil?
+    if !@coursewares.blank?
       @coursewares = @coursewares.paginate(:page => params[:page], :per_page => @per_page)
     end
     @seo[:title] = "上传的课件" 

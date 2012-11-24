@@ -3,6 +3,7 @@ require "test_helper"
 describe CommentsController do
   before do
     @comment = Comment.nondeleted.first
+    @user=User.nondeleted.normal.where(:email.nin=>Setting.admin_emails).first
   end
 
   it "评论创建C0: create - 游客状态" do

@@ -52,7 +52,10 @@
 if id.respond_to?(:id)
   u = id
 else
-  u = User.find(id)
+  u = User.where(id:id).first
+	if u.nil?
+		next
+	end
 end
 %>
 <li class=" cf">

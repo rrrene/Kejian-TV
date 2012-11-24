@@ -33,9 +33,9 @@ class PlayListsController < ApplicationController
       return false
     end
     @play_list = PlayList.find(params[:id])
-    if current_user.nil? or current_user.id != @play_list.user_id 
+    if current_user.id != @play_list.user_id 
         flash[:notice] = "该课件锦囊为私有，您无权修改。"
-        redirect_to '/mine/view_all_playlists'
+        redirect_to '/mine/view_all_playlists',:status => 401
         return false
     end
   end
@@ -91,6 +91,11 @@ class PlayListsController < ApplicationController
     end
     pl = Ktv::Utils.safely(PlayList.new){PlayList.find(params[:id])}
     pl.save(:validate=>false) unless pl.persisted?
+    if pl.user_id.present? and pl.user_id != current_user.id and !Setting.admin_emails.include?(current_user.email)
+      flash[:notice] = "课件锦囊#{pl.title}修改失败。"
+      redirect_to session[:return_to] || '/',:status => 401
+      return false
+    end
     pl.title = params[:title]
     pl.content = params[:playlist_kejian_id]
     pl.annotation = params[:playlist_video_annotation]
@@ -126,14 +131,15 @@ class PlayListsController < ApplicationController
       return false
     end
     pl = PlayList.find(params[:id])
-    if !current_user.nil? and current_user.id == pl.user_id
+    if current_user.id == pl.user_id or Setting.admin_emails.include?(current_user.email)
       pl.deleted = 1
       pl.save(:validation=>false)
       flash[:notice] = "课件锦囊#{pl.title}成功删除。"
       redirect_to '/mine/view_all_playlists'
     else
       flash[:notice] = "课件锦囊#{pl.title}删除失败。"
-      redirect_back_or_default '/'
+      redirect_to session[:return_to] || '/',:status => 401
+      return false
     end
   end
   def create

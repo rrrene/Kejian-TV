@@ -137,7 +137,8 @@ class Courseware
     self.teachers.each do |x|
       Teacher.locate(x).inc(:coursewares_count,-1)
     end
-    Course.where(fid:self.course_fid).first.inc(:coursewares_count,-1)
+    cw = Course.where(fid:self.course_fid).first
+    cw.inc(:coursewares_count,-1) if cw
     dep = Department.where(fid:self.department_fid).first
     dep.inc(:coursewares_count,-1) if dep
     
@@ -466,14 +467,14 @@ class Courseware
     end
     self.disliked_user_ids << user.id
     ## counter
-    uploader.disliked_count += 1
+    uploader.disliked_count += 1 if uploader
     user.dislike_count += 1
 
     self.disliked_count += 1
     ##
     self.save(:validate=>false)
     user.save(:validate => false)
-    uploader.save(:validate => false)
+    uploader.save(:validate => false) if uploader
     return true
   end
   def titleize
@@ -601,7 +602,8 @@ class Courseware
       if uploader_id_was.present? and old_user = User.where(:id=>uploader_id_was).first
         old_user.inc(:coursewares_uploaded_count,-1)
       end
-      self.uploader.inc(:coursewares_uploaded_count,1) if self.uploader
+      newuploader = self.uploader_ins
+      newuploader.inc(:coursewares_uploaded_count,1) if newuploader
     end
     # if uploader_id_candidates_changed?
     #   added = uploader_id_candidates - uploader_id_candidates_was.to_a

@@ -98,7 +98,7 @@ describe PlayListsController do
     assert @controller.current_user.id==@user.id
     @play_list.ua(:user_id,@user.id)
     delete :destroy,{:id=>@play_list.id.to_s}
-    assert @response.success?,'登录的用户可以删除播放列表，但是只能编辑自己的'
+    assert (302==@response.status and URI(@response.location).path == "/mine/view_all_playlists"),'登录的用户可以删除播放列表，但是只能编辑自己的'
     @play_list.ua(:user_id,User.nondeleted.normal.where(:email.nin=>Setting.admin_emails,:id.ne=>@user.id).first.id)
     delete :destroy,{:id=>@play_list.id.to_s}
     assert assert 401==@response.status,'登录的用户可以删除播放列表，但是只能编辑自己的'
@@ -107,7 +107,7 @@ describe PlayListsController do
   it "播放列表的创建和修改处理器：handler - 游客状态" do
     assert @controller.current_user.nil?
     post :handler,{"encrypted_playlist_id"=>"4acf2fcdacda8a832f6fe56da12f14b1", "form_hash"=>"118b48a2", "title"=>"dfsdfsad23113321321321", "description"=>"321132321213312132", "is_private"=>"0", "allow_embedding"=>"1", "allow_ratings"=>"1", "action"=>"handler", "controller"=>"play_lists", "id"=>"50ac7eb1e13823a446000051"}  
-    assert 302==@response.status
+    assert (302==@response.status and URI(@response.location).path == "/")
   end
   it "播放列表的创建和修改处理器：handler" do
     denglu! @user
@@ -116,10 +116,10 @@ describe PlayListsController do
     params = {"form_hash"=>'blah-blah', "title"=>"213321123123312312132", "playlist_kejian_deleted"=>["0", "0"], "playlist_kejian_id"=>["5068717de13823350b001378", "50a72631e13823576200005f"], "playlist_video_annotation"=>["", "dfdfasfdafdasdfsafdasfdsafdadfsadfasdfsadfsafdasdsafdas"], "playlist_thumbnail_video_id"=>"50a72631e13823576200005f", "description"=>"231312312132321312123321", "is_private"=>"0", "allow_embedding"=>"1", "allow_ratings"=>"1", "action"=>"handler", "controller"=>"play_lists", 'id'=>  @play_list.id.to_s}.with_indifferent_access  
     params[:encrypted_playlist_id] = Digest::MD5.hexdigest(params[:id]+'.liber.'+Digest::MD5.hexdigest(params[:form_hash]))
     post :handler,params
-    assert @response.success?,'登录后，创建和修改处理器可以成功，但是必须是作用在自己的playlist上'
+    assert  (302==@response.status and URI(@response.location).path == "/play_lists/"+@play_list.id.to_s),'登录后，创建和修改处理器可以成功，但是必须是作用在自己的playlist上'
     @play_list.ua(:user_id,User.nondeleted.normal.where(:email.nin=>Setting.admin_emails,:id.ne=>@user.id).first.id)
     post :handler,params
-    assert @response.success?,'登录后，创建和修改处理器可以成功，但是必须是作用在自己的playlist上'
+    assert (401==@response.status and URI(@response.location).path == "/"),'登录后，创建和修改处理器可以成功，但是必须是作用在自己的playlist上'
   end
 
     

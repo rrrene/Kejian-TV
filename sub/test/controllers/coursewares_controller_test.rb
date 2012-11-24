@@ -78,7 +78,7 @@ describe CoursewaresController do
     denglu! @user
     assert @controller.current_user.id==@user.id
     put :update,{:id=>@cw.id.to_s}
-    assert 405==@response.status
+    assert 405==@response.status,"update,405"
   end
     
   it "课件更新R1: edit - 游客状态" do
@@ -93,7 +93,7 @@ describe CoursewaresController do
     get :edit,:id=>@cw.id.to_s
     assert @response.success?,'自己可以编辑自己的课件'
     dengchu!
-    @user = User.where(:id.ne=>@user.id,:email.nin=>Setting.admin_emails).first
+    @user = User.nondeleted.normal.where(:id.ne=>@user.id,:email.nin=>Setting.admin_emails).first
     denglu! @user
     assert @controller.current_user.id==@user.id
     get :edit,:id=>@cw.id.to_s
@@ -111,16 +111,19 @@ describe CoursewaresController do
     @cw.ua(:uploader_id,@user.id)
     delete :destroy,{:id=>@cw.id.to_s}
     assert 302==@response.status,'用户可以删除自己的课件，删除后跳转，但是别人的课件不能删除'
+    @cw=Courseware.non_redirect.nondeleted.normal.is_father.first
+    former_uploader_id = @cw.uploader_id
     @cw.ua(:uploader_id,User.nondeleted.normal.where(:email.nin=>Setting.admin_emails,:id.ne=>@user.id).first.id)
     delete :destroy,{:id=>@cw.id.to_s}
     assert 401==@response.status,'用户可以删除自己的课件，删除后跳转，但是别人的课件不能删除'
+    @cw.ua(:uploader_id,former_uploader_id)
   end
   it "得到课件的某些图片ktvid_slide_pic - 游客状态" do
     assert @controller.current_user.nil?
     get :ktvid_slide_pic,:id => 'whatever'
     assert 302==@response.status && @response.location.ends_with?('/mqdefault.jpg'),'游客访问课件图片可以得到默认图片'
     get :ktvid_slide_pic,:id => @cw.id.to_s,:pic=>'thumb_slide_0.jpg'
-    assert 301==@response.status && !@response.location.ends_with?('thumb_slide_0.jpg'),'游客访问课件图片可以得到正常图片'
+    assert 301==@response.status && @response.location.ends_with?('thumb_slide_0.jpg'),'游客访问课件图片可以得到正常图片'
   end
   it "得到课件的某些图片ktvid_slide_pic" do
     denglu! @user
