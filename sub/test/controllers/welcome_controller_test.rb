@@ -63,6 +63,18 @@ describe WelcomeController do
     get 'latest'
     assert @response.success?
   end
+
+  it "iphone app介绍页面 - 游客状态" do
+    assert @controller.current_user.nil?
+    get :iphone
+    assert @response.success?
+  end
+  it "iphone app介绍页面" do
+    denglu! @user
+    assert @controller.current_user.id==@user.id
+    get :iphone
+    assert @response.success?
+  end
   
   
 end

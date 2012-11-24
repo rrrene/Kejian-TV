@@ -73,6 +73,10 @@ class WelcomeController < ApplicationController
       format.rss{@coursewares = Courseware.nondeleted.normal.is_father.desc('created_at').limit(10);render :layout=>false}
     end
   end
+
+  def iphone
+    
+  end
 private
   def common_op!
     params[:page] ||= '1'

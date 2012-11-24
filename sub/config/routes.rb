@@ -3,7 +3,7 @@ require 'sidekiq/web'
 Sub::Application.routes.draw do
 
   root :to=>'welcome#index'
-  # =>  just for ensure upload & edit page
+  get '/iphone' => 'welcome#iphone'
   get '/upload' => 'coursewares#new'
   get '/embed/:id' => 'coursewares#embed'
   get '/edit/:id' => 'coursewares#edit'
