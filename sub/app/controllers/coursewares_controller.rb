@@ -76,6 +76,9 @@ class CoursewaresController < ApplicationController
     if(request.path.starts_with? '/teachers/')
       params[:teacher]=params.delete(:id)
     end
+    if(request.path.starts_with? '/courses/')
+      params[:course_fid]=params.delete(:id)
+    end
     if(request.path.starts_with? '/users/')
       params[:user_id]=params.delete(:id)
     end

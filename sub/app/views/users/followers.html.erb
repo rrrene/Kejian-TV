@@ -67,9 +67,9 @@ end
 <div style="padding-top:12px">
 
 <% if @user.followed?(u) %>
-<a href="javascript:;" follow="true" followed="<%= u.id %>" id="<%= u.id %>" class="buttonfollow unfriend-follow png">已关注</a>
+<a href="javascript:;" follow="true" followed="<%= u.id %>" id="<%= u.id %>" class="psvr_login_required buttonfollow unfriend-follow png">已关注</a>
 <% else %>
-<a href="javascript:;" follow="false" followed="<%= u.id %>" id="<%= u.id %>" class="buttonfollow friend-follow png">关注</a>
+<a href="javascript:;" follow="false" followed="<%= u.id %>" id="<%= u.id %>" class="psvr_login_required buttonfollow friend-follow png">关注</a>
 <% end %>
 
 

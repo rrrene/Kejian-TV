@@ -124,6 +124,17 @@ describe TeachersController do
       get "followers",{"id"=>@teacher.id.to_s}
     assert @response.success?
   end
+  it "老师的课程courses - 游客状态" do
+    assert @controller.current_user.nil?
+      get "courses",{"id"=>@teacher.id.to_s}
+    assert @response.success?
+  end
+  it "老师的课程courses" do
+    denglu! @user
+    assert @controller.current_user.id==@user.id
+      get "courses",{"id"=>@teacher.id.to_s}
+    assert @response.success?
+  end
     
   it "简单关注 - 游客状态" do
     assert @controller.current_user.nil?

@@ -149,6 +149,8 @@ Sub::Application.routes.draw do
   end
   resources :courses do 
     member do
+      get 'coursewares' => 'coursewares#index'
+      get 'coursewares_with_page/:page' => 'coursewares#index'
       get "follow"
       get "unfollow"
     end
@@ -182,6 +184,7 @@ Sub::Application.routes.draw do
       get "followers"
       get "follow"
       get "unfollow"
+      get "courses"
       post "follow" => 'users#zm_follow'
       post "unfollow" => 'users#zm_unfollow'
     end

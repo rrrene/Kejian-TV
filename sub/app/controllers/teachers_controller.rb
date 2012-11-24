@@ -26,6 +26,7 @@ class TeachersController < ApplicationController
     end
   end
   def followers
+    render text:'todo',status:500
     @per_page = 20
     @followers = @teacher.follower_ids.reverse
     .paginate(:page => params[:page], :per_page => @per_page)
@@ -35,7 +36,9 @@ class TeachersController < ApplicationController
       render "followers.js"
     end
   end
-  
+  def courses
+    render text:'todo',status:500
+  end
   def index
     render text:'deprecated.',status:405    
     @seo[:title] = '全部老师'

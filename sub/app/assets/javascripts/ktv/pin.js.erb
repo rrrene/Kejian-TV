@@ -6376,13 +6376,13 @@ var boardLoad = {
                     return
                 }
                 if (obj.isMe) {
-                    btn = '<a href="javascript:void(0)" editstatus="true" userid="' + obj.id + '" class="buttonfollow  friend-follow jquery-option">编辑</a>'
+                    btn = '<a href="javascript:void(0)" editstatus="true" userid="' + obj.id + '" class="psvr_login_required buttonfollow  friend-follow jquery-option">编辑</a>'
                 } else {
                     if (loginUser.id > 0) {
                         if (!obj.isFollowing) {
-                            btn = '<a href="javascript:void(0)" rel="1" class="buttonfollow friend-follow jquery-option" userid="' + obj.id + '">关注</a>'
+                            btn = '<a href="javascript:void(0)" rel="1" class="psvr_login_required buttonfollow friend-follow jquery-option" userid="' + obj.id + '">关注</a>'
                         } else {
-                            btn = '<a href="javascript:void(0)" rel="2"  class="buttonfollow unfriend-follow jquery-option" userid="' + obj.id + '">已关注</a>'
+                            btn = '<a href="javascript:void(0)" rel="2"  class="psvr_login_required buttonfollow unfriend-follow jquery-option" userid="' + obj.id + '">已关注</a>'
                         }
                     }
                 }
@@ -10223,7 +10223,7 @@ $(function () {
                 data.snsTaobao ? sTaobao = '<a href="' + data.snsTaobaoUrl + '" class="pfbg minitaobao"></a>' : sTaobao = '<a href="#" class="pfbg unminitaobao"></a>';
                 data.snsDouban ? sDouban = '<a href="' + data.snsDoubanUrl + '" class="pfbg minidouban"></a>' : sDouban = '<a href="#" class="pfbg unminidouban"></a>';
                 data.isFans && data.userId != loginUser.id ? message = '<a class="card-mail" href="#" letter_receiver = "' + data.userId + '" receiver_name="' + data.nickname + '"><span>发私信</span></a>' : message = '<a class="card-unmail" href="#" ></a>';
-                data.isFollowed ? fllowMe = '<a class="buttonfollow unfriend-follow png fllowMe" follow="' + data.isFollowed + '" followed="' + data.userId + '">已关注</a>' : fllowMe = '<a followed="' + data.userId + '" follow="' + data.isFollowed + '" class="btn-cardfollow fllowMe">关注</a>';
+                data.isFollowed ? fllowMe = '<a class="psvr_login_required buttonfollow unfriend-follow png fllowMe" follow="' + data.isFollowed + '" followed="' + data.userId + '">已关注</a>' : fllowMe = '<a followed="' + data.userId + '" follow="' + data.isFollowed + '" class="btn-cardfollow fllowMe">关注</a>';
                 if (data.userId == loginUser.id) {
                     fllowMe = "";
                     message = ""
@@ -10326,7 +10326,7 @@ $(function () {
                             url: postUrl,
                             dataType: "json",
                             success: function (data) {
-                                $(that).text("已关注").removeClass().addClass("buttonfollow unfriend-follow png fllowMe").attr("follow", "1");
+                                $(that).text("已关注").removeClass().addClass("psvr_login_required buttonfollow unfriend-follow png fllowMe").attr("follow", "1");
                                 cardDoc[perId].isFollowed = 1
                             }
                         })
