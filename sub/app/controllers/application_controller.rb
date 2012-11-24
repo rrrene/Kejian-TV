@@ -8,7 +8,8 @@ class ApplicationController < ActionController::Base
     # puts request.path
     # text = 
     # render text:text and return
-    # puts 'params'
+    # p request.request_method
+    # p request.path
     # p params
   }
   if $psvr_really_production
