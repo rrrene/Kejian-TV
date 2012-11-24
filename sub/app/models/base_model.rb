@@ -12,6 +12,28 @@ module BaseModel
     scope :nondeleted, where(:deleted.nin=>[1,3])
     scope :be_deleted, where(:deleted=>1)
     scope :recent, desc("created_at")
+    alias_method :inc_before_psvr,:inc
+    def inc(field, value, options = {}) 
+      ret_old = self.send(field)
+      change_backup = self.changes.clone
+      change_backup.each do |key,val|
+        self.send("#{key}=",val[0])
+      end
+      callback_ret = self.run_callbacks(:save) do
+        self.run_callbacks(:update) do
+          self.send("#{field}=",ret_old+value); true
+        end
+      end
+      change_backup.each do |key,val|
+        self.send("#{key}=",val[1])
+      end
+      self.send("#{field}=",ret_old)
+      if false==callback_ret
+        return false 
+      else
+        return inc_before_psvr(field, value, options = {}) 
+      end
+    end
   end
 
   module ClassMethods

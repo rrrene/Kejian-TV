@@ -274,6 +274,7 @@ describe User do
     assert 1==Redis::Search.query("User", title).try(:[],0).try(:[],'coursewares_uploaded_count'), '卫星数据要正确'    
     
     assert Redis::Search.query("User", title).try(:[],0).try(:[],'id') == pl.id.to_s, '复原'
+    pl.reload
     pl.instance_eval(&User.after_soft_delete)
     refute Redis::Search.query("User", title).try(:[],0).try(:[],'id') == pl.id.to_s, '软删除之后删除用户的一阶索引'
     cw.update_attribute(:uploader_id,former_user_id)

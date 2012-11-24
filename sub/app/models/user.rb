@@ -629,8 +629,6 @@ User.all.map{|x| x.ua(:widget_sort,hash)}
   def counter_work
     self.followers_count = self.follower_ids.count if self.follower_ids
     self.following_count = self.following_ids.count if self.following_ids
-    self.coursewares_count = Courseware.where(:user_id=>self.id).count
-    self.coursewares_uploaded_count = Courseware.where(:uploader_id=>self.id).count
     if new_record?
     end
   end
@@ -1808,7 +1806,7 @@ User.all.map{|x| x.ua(:widget_sort,hash)}
   alias_method :redis_search_index_create_before_psvr,:redis_search_index_create
   alias_method :redis_search_index_need_reindex_before_psvr,:redis_search_index_need_reindex
   def redis_search_psvr_okay?
-   !self.soft_deleted? and self.name.present? and self.redis_search_alias.present?
+    !self.soft_deleted? and '1'!=self.banished and self.name.present? and self.redis_search_alias.present?
   end
   def redis_search_index_need_reindex
     if !redis_search_psvr_okay?
@@ -1816,7 +1814,7 @@ User.all.map{|x| x.ua(:widget_sort,hash)}
       redis_search_psvr_was_delete!
       return false
     else
-      return (self.deleted_changed? || self.redis_search_index_need_reindex_before_psvr)
+      return (self.deleted_changed? || self.banished_changed? || self.redis_search_index_need_reindex_before_psvr)
     end
   end
   def redis_search_index_create
