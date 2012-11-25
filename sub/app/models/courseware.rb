@@ -870,7 +870,7 @@ class Courseware
   def normal?
     0==self.status
   end
-  validates_inclusion_of :sort,:in=>SORTSTR.keys
+  validates_inclusion_of :sort,:in=>SORTSTR.keys.map{|x| [x.upcase,x.downcase]}.flatten
   def export_to_mainsite!
     presentation = {}
     slug = self.thread_inst.author
