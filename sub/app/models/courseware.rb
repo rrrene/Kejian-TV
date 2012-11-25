@@ -907,6 +907,18 @@ class Courseware
       end
     end
   end
+  def check_children(key,statusArray=[])
+    self.get_children.each do |c|
+      w = Courseware.find(c)
+      if statusArray.blank?
+        puts w.id.to_s + w.send(key).to_s.colorize( :red )
+      else
+        if statusArray.include?(w.status)
+          puts w.id.to_s + w.send(key).to_s.colorize( :red )
+        end
+      end      
+    end
+  end
   def soft_delete_children
     self.get_children.each do |c|
       w = Courseware.find(c)
