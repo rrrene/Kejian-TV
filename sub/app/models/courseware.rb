@@ -911,10 +911,14 @@ class Courseware
     self.get_children.each do |c|
       w = Courseware.find(c)
       if statusArray.blank?
-        puts w.id.to_s + w.send(key).to_s.colorize( :red )
+        puts w.id.to_s + ": ".to_s + w.send(key).to_s.colorize( :red )
+      elsif statusArray == :abnormal
+       if w.status != 0
+          puts w.id.to_s + ": ".to_s + w.send(key).to_s.colorize( :red )
+       end
       else
         if statusArray.include?(w.status)
-          puts w.id.to_s + w.send(key).to_s.colorize( :red )
+          puts w.id.to_s + ": ".to_s  + w.send(key).to_s.colorize( :red )
         end
       end      
     end
@@ -1264,11 +1268,9 @@ opts={   :subsite=>Setting.ktv_sub,
   def redis_search_index_create
     self.redis_search_index_create_before_psvr if self.redis_search_psvr_okay?
   end
-  unless $psvr_really_development
-    include Tire::Model::Search
-  end
+  include Tire::Model::Search
   def self.reconstruct_indexes!
-    Tire.index('coursewares') do
+    Tire.index(elastic_search_psvr_index_name) do
       delete
       create(:settings=>{
         'analysis'=>{
@@ -1351,7 +1353,7 @@ opts={   :subsite=>Setting.ktv_sub,
       },
       "facets"=> {}
     }
-    url = "http://localhost:9200/coursewares/courseware/_search?from=#{from}&size=#{size}&fields=id"
+    url = "http://localhost:9200/#{elastic_search_psvr_index_name}/courseware/_search?from=#{from}&size=#{size}&fields=id"
     response = Tire::Configuration.client.get(url, h.to_json)
     if response.failure?
       STDERR.puts "[REQUEST FAILED] #{h.to_json}\n"

@@ -321,12 +321,9 @@ class PlayList
       self.status = 0
     end
   end
-  unless $psvr_really_development
-    include Tire::Model::Search
-    include Tire::Model::Callbacks
-  end
+  include Tire::Model::Search
   def self.reconstruct_indexes!
-    Tire.index('play_lists') do
+    Tire.index(elastic_search_psvr_index_name) do
       delete
       create(:settings=>{
         'analysis'=>{
@@ -419,7 +416,7 @@ class PlayList
       },
       "facets"=> {}
     }
-    url = "http://localhost:9200/play_lists/play_list/_search?from=#{from}&size=#{size}"
+    url = "http://localhost:9200/#{elastic_search_psvr_index_name}/play_list/_search?from=#{from}&size=#{size}"
     response = Tire::Configuration.client.get(url, h.to_json)
     if response.failure?
       STDERR.puts "[REQUEST FAILED] #{h.to_json}\n"

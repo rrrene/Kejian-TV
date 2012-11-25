@@ -11,6 +11,7 @@ class ApplicationController < ActionController::Base
     # p request.request_method
     # p request.path
     # p params
+    # binding.pry
   }
   if $psvr_really_production
     rescue_from Exception, with: :render_500

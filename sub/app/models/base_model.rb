@@ -4,6 +4,7 @@ module BaseModel
   included do
     # 软删除标记，1 表示已经删除，3 表示疑似广告暂时隐藏
     class << self
+      alias_method :table_name,:collection_name
       attr_accessor :before_soft_delete
       attr_accessor :after_soft_delete
     end
@@ -37,6 +38,15 @@ module BaseModel
   end
 
   module ClassMethods
+    def elastic_search_psvr_index_name
+      if $psvr_really_testing
+        return "#{self.table_name}_test"
+      elsif $psvr_really_development
+        return "#{self.table_name}_dev"
+      else
+        return self.table_name
+      end
+    end
     def eager_load(ids)
       res = find(ids)
       ids.map do |id|

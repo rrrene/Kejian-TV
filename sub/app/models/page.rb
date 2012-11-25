@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Page < ActiveRecord::Base
+  include ActiveBaseModel
   def courseware
     @courseware = nil if self.courseware_id_changed?
     @courseware ||= Courseware.find(self.courseware_id)
@@ -30,12 +31,9 @@ class Page < ActiveRecord::Base
   def course_fid
     self.course.try(:fid).to_i
   end
-  unless $psvr_really_development
-    include Tire::Model::Search
-    include Tire::Model::Callbacks
-  end
+  include Tire::Model::Search
   def self.reconstruct_indexes!
-    Tire.index('pages') do
+    Tire.index(elastic_search_psvr_index_name) do
       delete
       create(:settings=>{
         'analysis'=>{
@@ -110,7 +108,7 @@ class Page < ActiveRecord::Base
       },
       "facets"=> {}
     }
-    url = "http://localhost:9200/pages/page/_search?from=#{from}&size=#{size}"
+    url = "http://localhost:9200/#{elastic_search_psvr_index_name}/page/_search?from=#{from}&size=#{size}"
     response = Tire::Configuration.client.get(url, h.to_json)
     if response.failure?
       STDERR.puts "[REQUEST FAILED] #{h.to_json}\n"
