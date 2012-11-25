@@ -886,15 +886,15 @@ class Courseware
     @cw = Courseware.find(id)
     if @cw.is_children
       @papa = Courseware.find(@cw.father_id)
-      @papa.update_attribute(:transcoding_count,@papa.transcoding_count - 1)
-      if @papa.transcoding_count <= 0
-        tmp = @papa.get_children
-        if tmp.map{|x| Courseware.find(x)}.map(&:status).take_while{|x| x == 0}.size == tmp.size
-          @papa.update_attribute(:status,0)
-        else
-          @papa.update_attribute(:status,4)
-        end
+      tmp = @papa.get_children
+      if tmp.map{|x| Courseware.find(x)}.map(&:status).to_a.count(0) == tmp.to_a.size
+        @papa.update_attribute(:status,0)
+      else
+        @papa.update_attribute(:status,4)
       end
+      # @papa.update_attribute(:transcoding_count,@papa.transcoding_count - 1)
+      # if @papa.transcoding_count <= 0
+      # end
     end
   end
   def get_children      # return Array
