@@ -899,6 +899,23 @@ class Courseware
   def get_children      # return Array
     children = self.tree.to_s.scan(/"id"=>"([a-z0-9]{20,})"/).flatten.compact
   end
+  def soft_delete_children
+    self.get_children.each do |c|
+      w = Courseware.find(c)
+      w.soft_delete
+      puts w.id+"has been soft deleted".colorize( :red )
+    end
+  end
+  def hard_delete_children
+    self.get_children.each do |c|
+      w = Courseware.find(c)
+      if w.deleted == 1
+        w.delete
+      else
+        puts w.id.colorize( :red )
+      end 
+    end
+  end
   def self.presentations_upload_finished(presentation,user)
     presentation = presentation.with_indifferent_access
 =begin

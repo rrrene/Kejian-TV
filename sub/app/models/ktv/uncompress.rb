@@ -194,7 +194,7 @@ module Ktv
       p[:pdf_filename]=File.basename(opts[:pdf_filename])
       p[:title] = @title
       ## about child
-      rest = opts[:filepath].split(@working_dir)[-1].split('/').collect{|x| CGI::escape(x.to_s)}.join('/')
+      rest = opts[:filepath].split(@working_dir)[-1].split('/')}.join('/')
       p[:is_children] = true
       p[:father_id] = @courseware.id
       p[:where_am_i_in_this_family] =  rest

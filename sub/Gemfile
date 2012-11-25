@@ -157,8 +157,6 @@ gem 'rails_autolink'
 gem "oauth-plugin", ">= 0.4.0.pre1"
 
 
-
-
 gem 'chronic' #[!]
 =begin
 
