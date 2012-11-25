@@ -902,6 +902,7 @@ class Courseware
   def fix_children
     self.get_children.each do |c|
       w = Courseware.find(c)
+      w.re_enqueue_prepare!
       if w.status != 0
         w.enqueue!
       end
