@@ -194,7 +194,7 @@ module Ktv
       p[:pdf_filename]=File.basename(opts[:pdf_filename])
       p[:title] = @title
       ## about child
-      rest = opts[:filepath].split(@working_dir)[-1].split('/')}.join('/')
+      rest = opts[:filepath].split(@working_dir)[-1].split("/").collect{|x| URI::escape(x.to_s)}.join("/")
       p[:is_children] = true
       p[:father_id] = @courseware.id
       p[:where_am_i_in_this_family] =  rest
@@ -203,7 +203,7 @@ module Ktv
       ## end child
 
       if ['ppt','pptx','doc','docx'].include? opts[:sort].downcase
-        p[:remote_filepath]="http://special_agentx.#{Setting.ktv_domain}/#{@courseware.id}/#{rest}"
+        p[:remote_filepath]="http://special_agentx.#{Setting.ktv_domain}/#{@courseware.id}#{rest}"
       else
         p[:remote_filepath]=opts[:filepath]
       end

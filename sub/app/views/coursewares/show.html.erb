@@ -238,7 +238,7 @@ courseware_id: '<%=@courseware.id%>'
                       jQuery('#alt_embed').attr('data-force-biji','');
                       jQuery('#alt_embed').attr('data-force-alt','1');
                       jQuery('#alt_embed').attr('async','async');
-                      jQuery('#alt_embed').attr('src',"/assets/ktv/embed.js");
+                      jQuery('#alt_embed').attr('src',"<%=asset_path 'ktv/embed.js' %>");
                     });
                   })
                 };
