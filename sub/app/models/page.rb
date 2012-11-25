@@ -32,6 +32,7 @@ class Page < ActiveRecord::Base
     self.course.try(:fid).to_i
   end
   include Tire::Model::Search
+  index_name elastic_search_psvr_index_name
   def self.reconstruct_indexes!
     tire_index_ret = Tire.index(elastic_search_psvr_index_name) do
       delete

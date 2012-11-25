@@ -130,6 +130,7 @@ module BaseModel
     unless false==ret
       self.update_attribute(:deleted,1)
       self.update_attribute(:deleted_at,Time.now)
+      @destroyed = true
       self.instance_eval(&self.class.after_soft_delete) unless self.class.after_soft_delete.nil?
       if self.respond_to?(:asynchronously_clean_me)
         if async

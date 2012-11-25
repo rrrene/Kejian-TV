@@ -25,6 +25,7 @@ class Courseware
   @after_soft_delete = proc{
     redis_search_index_destroy
     redis_search_psvr_was_delete!
+    tire.update_index
   }
   FILE_INFO_TRANS = {
     'Little Endian,' => '小端序,',
@@ -797,7 +798,6 @@ class Courseware
       history << x.id.to_s
       candidates_history = x.uploader_id_candidates +  candidates_history
     end
-    # binding.pry
     x.ua(:uploader_id_candidates,candidates_history.uniq)
     if history.uniq.size < history.size
         self.redirect_to_id = nil
@@ -1274,6 +1274,17 @@ opts={   :subsite=>Setting.ktv_sub,
     self.redis_search_index_create_before_psvr if self.redis_search_psvr_okay?
   end
   include Tire::Model::Search
+  index_name elastic_search_psvr_index_name
+  after_save lambda {
+    instance = self
+    if redis_search_psvr_okay?
+      tire.update_index
+    else
+      Tire.index(self.class.elastic_search_psvr_index_name) do
+        remove instance
+      end
+    end
+  }
   def self.reconstruct_indexes!
     Tire.index(elastic_search_psvr_index_name) do
       delete

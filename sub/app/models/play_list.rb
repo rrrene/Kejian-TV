@@ -322,6 +322,7 @@ class PlayList
     end
   end
   include Tire::Model::Search
+  index_name elastic_search_psvr_index_name
   def self.reconstruct_indexes!
     Tire.index(elastic_search_psvr_index_name) do
       delete
