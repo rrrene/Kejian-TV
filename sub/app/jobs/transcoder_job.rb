@@ -224,7 +224,7 @@ class TranscoderJob
           end
         end
         #------done
-     #   puts `rm -rf "#{working_dir}"`
+        puts `rm -rf "#{working_dir}"`
         if @courseware.is_children
           Sidekiq::Client.enqueue(HookerJob,"Courseware",nil,:push_trigger,@courseware.id) 
         end
