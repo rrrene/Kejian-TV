@@ -900,11 +900,16 @@ class Courseware
   def get_children      # return Array
     children = self.tree.to_s.scan(/"id"=>"([a-z0-9]{20,})"/).flatten.compact
   end
-  def fix_children
+  def fix_children(fix_all = false)
     self.get_children.each do |c|
       w = Courseware.find(c)
-      w.re_enqueue_prepare!
+      if fix_all
+        w.re_enqueue_prepare!
+      end
       if w.status != 0
+        if !fix_all
+          w.re_enqueue_prepare!
+        end
         w.enqueue!
       end
     end
