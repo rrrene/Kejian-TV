@@ -33,7 +33,7 @@ class Page < ActiveRecord::Base
   end
   include Tire::Model::Search
   def self.reconstruct_indexes!
-    Tire.index(elastic_search_psvr_index_name) do
+    tire_index_ret = Tire.index(elastic_search_psvr_index_name) do
       delete
       create(:settings=>{
         'analysis'=>{
@@ -60,6 +60,8 @@ class Page < ActiveRecord::Base
         }}
       })
       refresh
+      binding.pry
+      return tire_index_ret
     end
   end
   include_root_in_json = false
