@@ -23,8 +23,8 @@ class TranscoderJob
   def perform(id)
     @courseware = Courseware.find(id)
     @courseware.make_sure_globalktvid!
-    ActiveRecord::Base.connection_pool.instance_variable_set('@size', 20)
-    ActiveRecord::Base.connection_pool.instance_variable_set('@timeout', 10)
+    ActiveRecord::Base.connection_pool.instance_variable_set('@size', 40)
+    ActiveRecord::Base.connection_pool.instance_variable_set('@timeout', 100)
     begin
       working_dir = "/media/hd2/auxiliary_#{Setting.ktv_sub}/ftp/cw/#{@courseware.id}"
       pdf_path = "#{working_dir}/#{@courseware.pdf_filename}"
