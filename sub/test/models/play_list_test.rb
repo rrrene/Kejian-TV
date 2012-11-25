@@ -308,6 +308,7 @@ describe PlayList do
     assert 4==Redis::Search.query("PlayList", title).try(:[],0).try(:[],'coursewares_count'), '索引要记录正确的附加信息'
     
     assert Redis::Search.query("PlayList", title).try(:[],0).try(:[],'id') == pl.id.to_s, '复原'
+    pl.reload
     pl.instance_eval(&PlayList.after_soft_delete)
     refute Redis::Search.query("PlayList", title).try(:[],0).try(:[],'id') == pl.id.to_s, '软删除之后删除播放列表的一阶索引'
   end

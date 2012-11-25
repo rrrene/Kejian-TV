@@ -113,6 +113,7 @@ describe Teacher do
     assert Redis::Search.query("Teacher", title2).try(:[],0).try(:[],'id') == pl.id.to_s, '标题改了，新标题索引存在'    
     pl.update_attribute(:name, title)    
     assert Redis::Search.query("Teacher", title).try(:[],0).try(:[],'id') == pl.id.to_s,  '复原'
+    pl.reload
     pl.instance_eval(&Teacher.after_soft_delete)
     refute Redis::Search.query("Teacher", title).try(:[],0).try(:[],'id') == pl.id.to_s, '软删除之后删除老师的一阶索引'
   end

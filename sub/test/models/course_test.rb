@@ -157,6 +157,7 @@ describe Course do
     assert Redis::Search.query("Course", title2).try(:[],0).try(:[],'id') == pl.id.to_s, '标题改了，新标题索引存在'    
     pl.update_attribute(:name, title)
     assert Redis::Search.query("Course", title).try(:[],0).try(:[],'id') == pl.id.to_s, '软删除之后删除课程的一阶索引'
+    pl.reload
     pl.instance_eval(&Course.after_soft_delete)
     refute Redis::Search.query("Course", title).try(:[],0).try(:[],'id') == pl.id.to_s, '软删除之后删除课程的一阶索引'
   end

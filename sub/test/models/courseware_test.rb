@@ -653,17 +653,19 @@ describe Courseware do
 #     assert 100==Redis::Search.query("Courseware", new_alias).try(:[],0).try(:[],'slides_count'), '索引要记录正确的页数'
 #     
 #     assert Redis::Search.query("Courseware", title).try(:[],0).try(:[],'id') == cw0.id.to_s, '软删除之后删除课件的一阶索引'
+#     cw0.reload
 #     cw0.instance_eval(&Courseware.after_soft_delete)
 #     refute Redis::Search.query("Courseware", title).try(:[],0).try(:[],'id') == cw0.id.to_s, '软删除之后删除课件的一阶索引'
 #   end
   it "课件的二阶索引" do
+    Courseware.reconstruct_indexes!
     user_n = User.new
     user_n.save(:validate=>false)
     cw0 = Courseware.new
     title = "pppppssssssvvvvvvrrrrrcwcw#{Courseware.count+1}"
     cw0.title = title
     cw0.save(:validate=>false)
-    refute Courseware.psvr_search(1,1,{q:cw0.title}).first.try(:id) == cw0.id.to_s, '信息不全，不建立一阶索引'
+    Courseware.tire.index.refresh;refute Courseware.psvr_search(1,1,{q:cw0.title}).first.try(:id) == cw0.id.to_s, '信息不全，不建立二阶索引'
     cw0.status = 0
     cw0.privacy = 0
     tch="TCH#{Time.now.to_i}#{rand}"
@@ -671,60 +673,48 @@ describe Courseware do
     cc = Course.nondeleted.gotfid
     cw0.course_fid = cc[0].fid
     cw0.save(:validate=>false)
-    assert Courseware.psvr_search(1,1,{q:cw0.title}).first.try(:id) == cw0.id.to_s, '信息齐全后，保存即建立这个课件的一阶索引'
+    Courseware.tire.index.refresh;assert Courseware.psvr_search(1,1,{q:title}).first.try(:id) == cw0.id.to_s, '信息齐全后，保存即建立这个课件的二阶索引'
   
     cw0.update_attribute(:status,1)
-    refute Courseware.psvr_search(1,1,{q:cw0.title}).first.try(:id) == cw0.id.to_s, '信息改为不正常，删除其一阶索引'
+    Courseware.tire.index.refresh;refute Courseware.psvr_search(1,1,{q:title}).first.try(:id) == cw0.id.to_s, '信息改为不正常，删除其二阶索引'
     cw0.update_attribute(:status,0)
-    assert Courseware.psvr_search(1,1,{q:cw0.title}).first.try(:id) == cw0.id.to_s, '信息恢复正常，恢复其一阶索引'    
+    Courseware.tire.index.refresh;assert Courseware.psvr_search(1,1,{q:title}).first.try(:id) == cw0.id.to_s, '信息恢复正常，恢复其二阶索引'    
   
     cw0.update_attribute(:privacy,1)
-    refute Courseware.psvr_search(1,1,{q:cw0.title}).first.try(:id) == cw0.id.to_s, '信息改为不正常，删除其一阶索引'
+    Courseware.tire.index.refresh;refute Courseware.psvr_search(1,1,{q:title}).first.try(:id) == cw0.id.to_s, '信息改为不正常，删除其二阶索引'
     cw0.update_attribute(:privacy,0)
-    assert Courseware.psvr_search(1,1,{q:cw0.title}).first.try(:id) == cw0.id.to_s, '信息恢复正常，恢复其一阶索引'    
-  
+    Courseware.tire.index.refresh;assert Courseware.psvr_search(1,1,{q:title}).first.try(:id) == cw0.id.to_s, '信息恢复正常，恢复其二阶索引'    
     cw0.update_attribute(:title,'')
-    refute Courseware.psvr_search(1,1,{q:cw0.title}).first.try(:id) == cw0.id.to_s, '信息改为不正常，删除其一阶索引'
+    Courseware.tire.index.refresh;refute Courseware.psvr_search(1,1,{q:title}).first.try(:id) == cw0.id.to_s, '信息改为不正常，删除其二阶索引'
     cw0.update_attribute(:title, title)
-    assert Courseware.psvr_search(1,1,{q:cw0.title}).first.try(:id) == cw0.id.to_s, '信息恢复正常，恢复其一阶索引'    
+    Courseware.tire.index.refresh;assert Courseware.psvr_search(1,1,{q:title}).first.try(:id) == cw0.id.to_s, '信息恢复正常，恢复其二阶索引'    
     
     cw0_teachers = cw0.teachers
     cw0_course_fid = cw0.course_fid
     cw0.update_attribute(:teachers,[])
     cw0.update_attribute(:course_fid,nil)
-    refute Courseware.psvr_search(1,1,{q:cw0.title}).first.try(:id) == cw0.id.to_s, '信息改为不正常，删除其一阶索引'
+    Courseware.tire.index.refresh;refute Courseware.psvr_search(1,1,{q:title}).first.try(:id) == cw0.id.to_s, '信息改为不正常，删除其二阶索引'
     cw0.update_attribute(:teachers,cw0_teachers)
     cw0.update_attribute(:course_fid,cw0_course_fid)
-    assert Courseware.psvr_search(1,1,{q:cw0.title}).first.try(:id) == cw0.id.to_s, '信息恢复正常，恢复其一阶索引'    
+    Courseware.tire.index.refresh;assert Courseware.psvr_search(1,1,{q:title}).first.try(:id) == cw0.id.to_s, '信息恢复正常，恢复其二阶索引'    
     
     title2 = title.reverse
     assert title2!=title
     cw0.update_attribute(:title, title2)
-    refute Courseware.psvr_search(1,1,{q:cw0.title}).first.try(:id) == cw0.id.to_s, '标题改了，老标题索引不再存在'
-    assert Courseware.psvr_search(1,1,{q:title2}).first.try(:id) == cw0.id.to_s, '标题改了，新标题索引存在'
+    Courseware.tire.index.refresh;refute Courseware.psvr_search(1,1,{q:title}).first.try(:id) == cw0.id.to_s, '标题改了，老标题索引不再存在'
+    Courseware.tire.index.refresh;assert Courseware.psvr_search(1,1,{q:title2}).first.try(:id) == cw0.id.to_s, '标题改了，新标题索引存在'
     cw0.update_attribute(:title, title)
-    assert Courseware.psvr_search(1,1,{q:cw0.title}).first.try(:id) == cw0.id.to_s, '标题recover'
-            
-    cw0.reload
-    old_alias = cw0.redis_search_alias
-    tch2="TCH#{Time.now.to_i}#{rand}"
-    cw0.update_attribute(:course_fid, cc[1].fid)
-    cw0.update_attribute(:teachers, [tch2])
-    cw0.reload
-    new_alias = cw0.redis_search_alias
-    assert old_alias!=new_alias,'老师、课程名改了，新索引键需反应此修改'
-    assert new_alias.include?(tch2),'老师、课程名改了，新索引键需反应此修改'
-    assert new_alias.include?(cc[1].name),'老师、课程名改了，新索引键需反应此修改'
-    refute Courseware.psvr_search(1,1,{q:old_alias}).first.try(:id) == cw0.id.to_s, '老师、课程名改了，老索引不再存在'
-    assert Courseware.psvr_search(1,1,{q:new_alias}).first.try(:id) == cw0.id.to_s, '老师、课程名改了，新索引存在'
-    assert cw0.course_fid==Courseware.psvr_search(1,1,{q:new_alias}).first.try(:course_fid), '索引要记录正确的卫星数据'
+    Courseware.tire.index.refresh;assert Courseware.psvr_search(1,1,{q:title}).first.try(:id) == cw0.id.to_s, '标题recover'
+
+    Courseware.tire.index.refresh;assert cw0.course_fid==Courseware.psvr_search(1,1,{q:title}).first.try(:course_fid), '索引要记录正确的卫星数据'
     new_fid = Course.where(:fid.ne=>cw0.course_fid).first.fid
     cw0.update_attribute(:course_fid,new_fid)
-    assert new_fid==Courseware.psvr_search(1,1,{q:new_alias}).first.try(:course_fid), '索引要记录正确的卫星数据'
+    Courseware.tire.index.refresh;assert new_fid==Courseware.psvr_search(1,1,{q:title}).first.try(:course_fid), '索引要记录正确的卫星数据'
     
-    assert Courseware.psvr_search(1,1,{q:cw0.title}).first.try(:id) == cw0.id.to_s, '软删除之后删除课件的一阶索引'
+    Courseware.tire.index.refresh;assert Courseware.psvr_search(1,1,{q:title}).first.try(:id) == cw0.id.to_s, '软删除之后删除课件的索引'
+    cw0.reload
     cw0.instance_eval(&Courseware.after_soft_delete)
-    refute Courseware.psvr_search(1,1,{q:cw0.title}).first.try(:id) == cw0.id.to_s, '软删除之后删除课件的一阶索引'
+    Courseware.tire.index.refresh;refute Courseware.psvr_search(1,1,{q:title}).first.try(:id) == cw0.id.to_s, '软删除之后删除课件的索引'
     
   end
 end

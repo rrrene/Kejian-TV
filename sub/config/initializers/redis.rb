@@ -72,19 +72,6 @@ def redis_connect!(index=0)
     config.pinyin_match = true
     config.disable_rmmseg = false
   end
-  if $psvr_really_testing
-    $redis_search.flushall
-    #Sidekiq.redis.flushall
-    #$redis.flushall
-    #$redis_users.flushall
-    #$redis_topics.flushall
-    #$redis_asks.flushall
-    #$redis_teachers.flushall
-    #$redis_courses.flushall
-    #$redis_departments.flushall
-    #$redis_coursewares.flushall
-    #Redis::Search.config.redis.flushall
-  end
 
 end
 

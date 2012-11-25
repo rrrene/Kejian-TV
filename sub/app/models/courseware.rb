@@ -25,6 +25,7 @@ class Courseware
   @after_soft_delete = proc{
     redis_search_index_destroy
     redis_search_psvr_was_delete!
+    @destroyed = true
     tire.update_index
   }
   FILE_INFO_TRANS = {
@@ -1275,7 +1276,17 @@ opts={   :subsite=>Setting.ktv_sub,
     self.redis_search_index_create_before_psvr if self.redis_search_psvr_okay?
   end
   include Tire::Model::Search
-  index_name elastic_search_psvr_index_name
+  PSVR_ELASTIC_MAPPING = {
+    'body'=>{"type"=>"string",'analyzer'=>'psvr_analyzer'},
+    "title"=>{"type"=>"string",'boost'=>10,'analyzer'=>'psvr_analyzer'},
+    "course_fid"=>{"type"=>"long",'index'=>'not_analyzed'},
+    "id"=>{"type"=>"string",'index'=>'not_analyzed'},
+    "ktvid"=>{"type"=>"string",'index'=>'not_analyzed'},
+    "sort"=>{"type"=>"string",'index'=>'not_analyzed'},
+    "sort1"=>{"type"=>"string",'index'=>'not_analyzed'},
+    "score"=>{"type"=>"long",'index'=>'not_analyzed'},
+  }
+  index_name proc{self.elastic_search_psvr_index_name}
   after_save lambda {
     instance = self
     if redis_search_psvr_okay?
@@ -1301,32 +1312,18 @@ opts={   :subsite=>Setting.ktv_sub,
         }
       },
       :mappings=>{
-        "courseware"=>{"properties"=>{
-          'body'=>{"type"=>"string",'analyzer'=>'psvr_analyzer'},
-          "title"=>{"type"=>"string",'boost'=>10,'analyzer'=>'psvr_analyzer'},
-
-          "course_fid"=>{"type"=>"long",'index'=>'not_analyzed'},
-          "id"=>{"type"=>"string",'index'=>'not_analyzed'},
-          "ktvid"=>{"type"=>"string",'index'=>'not_analyzed'},
-          "sort"=>{"type"=>"string",'index'=>'not_analyzed'},
-          "sort1"=>{"type"=>"string",'index'=>'not_analyzed'},
-        }}
+        "courseware"=>{"properties"=>PSVR_ELASTIC_MAPPING}
       })
       refresh
     end
   end
   include_root_in_json = false
   def to_indexed_json
-    {
-      body:self.body,
-      title:self.title,
-      course_fid:self.course_fid,
-      id:self.id.to_s,
-      ktvid:self.ktvid.to_s,
-      sort:self.sort,
-      sort1:self.sort1,
-      score:self.score,
-    }.to_json
+    h={}
+    PSVR_ELASTIC_MAPPING.keys.each do |field|
+      h[field] = self.send(field)
+    end
+    h.to_json
   end
   def self.psvr_search(page,per_page,params)
     from=per_page*(page-1)
@@ -1357,6 +1354,7 @@ opts={   :subsite=>Setting.ktv_sub,
           ]
         }
       },
+      'fields' => PSVR_ELASTIC_MAPPING.keys,
       "from"=> from,
       "size"=> size,
       "sort"=> ["_score"],
@@ -1364,7 +1362,7 @@ opts={   :subsite=>Setting.ktv_sub,
         "pre_tags" => [""],
         "post_tags" => [""],
         "fields" => {
-          "title" => {"number_of_fragments" => 0},       
+          "title" => {"number_of_fragments" => 0},
           "body" => {"fragment_size" => 50, "number_of_fragments" => 3}
         }
       },

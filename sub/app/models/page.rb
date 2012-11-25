@@ -61,7 +61,6 @@ class Page < ActiveRecord::Base
         }}
       })
       refresh
-      binding.pry
       return tire_index_ret
     end
   end
