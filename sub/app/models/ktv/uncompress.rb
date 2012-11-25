@@ -14,8 +14,10 @@ module Ktv
         if @courseware.tree.present?
           tmp = @courseware.tree.to_s.scan(/"id"=>"([a-z0-9]{20,})"/).compact.flatten
           tmp.each do |t|
-            if t.redirect_to_id.present?
-              t.destroy
+            c = Courseware.find(t)
+            if c.redirect_to_id.present?
+              c.soft_delete
+              c.delete
             end
           end
         end
