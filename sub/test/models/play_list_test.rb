@@ -24,7 +24,7 @@ describe PlayList do
     assert 0==play_list.content.index(cw3.id),'成功在头部放入课件'
   end
   it "课件锦囊放入物品之时，要计算总的status" do
-    ss = Courseware.non_redirect.nondeleted.normal.is_father
+    ss = Courseware.non_redirect.nondeleted.normal.has_ktv_id.is_father
     cw1=ss[0]
     cw2=ss[1]
     play_list = PlayList.locate(@user1.id,"PL#{Time.now.to_i}#{rand}")
@@ -68,11 +68,11 @@ describe PlayList do
     assert cw1.slides_count+cw2.slides_count==play_list.content_total_pages,'计算content_total_pages'
   end
   it "课件锦囊的course_fids的计算及多种课件锦囊计数变化" do
-    cw1 = Courseware.non_redirect.nondeleted.normal.is_father.first
+    cw1 = Courseware.non_redirect.nondeleted.normal.has_ktv_id.is_father.first
     cw1.ua(:course_fid,971)      #################to psvr 这个课件可能没有course_fid
     c1 = cw1.course_ins
     dp1 = cw1.department_ins
-    cw2 = Courseware.non_redirect.nondeleted.normal.is_father.where(:department_fid.ne=>cw1.department_fid).first
+    cw2 = Courseware.non_redirect.nondeleted.normal.has_ktv_id.is_father.where(:department_fid.ne=>cw1.department_fid).first
     cw2.ua(:course_fid,2805)
     c2 = cw2.course_ins
     dp2 = cw2.department_ins
@@ -228,7 +228,7 @@ describe PlayList do
     @user2.save(:validate=>false)
     @user1.reload
     @user2.reload
-    ss = Courseware.non_redirect.nondeleted.normal.is_father
+    ss = Courseware.non_redirect.nondeleted.normal.has_ktv_id.is_father
     cw1=ss[0]
     cw2=ss[1]
     crazy_pl = PlayList.locate(user_n.id,"PL#{Time.now.to_i}#{rand}")
@@ -269,10 +269,10 @@ describe PlayList do
     pl.title = title
     pl.save(:validate=>false)
     refute Redis::Search.query("PlayList", pl.title).try(:[],0).try(:[],'id') == pl.id.to_s, '信息不全，不建立一阶索引'
-    cw1 = Courseware.non_redirect.nondeleted.normal.is_father[0]
-    cw2 = Courseware.non_redirect.nondeleted.normal.is_father[1]
-    cw3 = Courseware.non_redirect.nondeleted.normal.is_father[2]
-    cw4 = Courseware.non_redirect.nondeleted.normal.is_father[3]
+    cw1 = Courseware.non_redirect.nondeleted.normal.has_ktv_id.is_father[0]
+    cw2 = Courseware.non_redirect.nondeleted.normal.has_ktv_id.is_father[1]
+    cw3 = Courseware.non_redirect.nondeleted.normal.has_ktv_id.is_father[2]
+    cw4 = Courseware.non_redirect.nondeleted.normal.has_ktv_id.is_father[3]
     pl.privacy = 0
     pl.undestroyable = false
     pl.add_one_thing(cw1.id)
@@ -305,14 +305,12 @@ describe PlayList do
     
     assert 3==Redis::Search.query("PlayList", title).try(:[],0).try(:[],'coursewares_count'), '索引要记录正确的附加信息'
     pl.add_one_thing(cw4.id)
+
     assert 4==Redis::Search.query("PlayList", title).try(:[],0).try(:[],'coursewares_count'), '索引要记录正确的附加信息'
     
     assert Redis::Search.query("PlayList", title).try(:[],0).try(:[],'id') == pl.id.to_s, '复原'
     pl.reload
     pl.instance_eval(&PlayList.after_soft_delete)
     refute Redis::Search.query("PlayList", title).try(:[],0).try(:[],'id') == pl.id.to_s, '软删除之后删除播放列表的一阶索引'
-  end
-
-  it "播放列表的二阶索引" do
   end
 end

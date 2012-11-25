@@ -33,4 +33,5 @@ guard 'minitest', :drb => true do
   # watch(%r|^app/models/user.rb|) { "test/models/play_list_test.rb" }
   watch(%r|^app/controllers/application_controller\.rb|) { "test/controllers" }
   watch(%r|^app/models/base_model\.rb|) { "test/models" }
+  watch(%r|^app/models/active_base_model\.rb|) { "test/models" }
 end

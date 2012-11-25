@@ -321,111 +321,6 @@ class PlayList
       self.status = 0
     end
   end
-  include Tire::Model::Search
-  index_name elastic_search_psvr_index_name
-  def self.reconstruct_indexes!
-    Tire.index(elastic_search_psvr_index_name) do
-      delete
-      create(:settings=>{
-        'analysis'=>{
-          'analyzer'=>{
-            'psvr_analyzer'=>{
-              type: 'custom',
-              tokenizer: 'smartcn_sentence',
-              filter: [ 'smartcn_word' ],
-            },
-          }
-        }
-      },
-      :mappings=>{
-        "play_list"=>{"properties"=>{
-          'title'=>{"type"=>"string",'analyzer'=>'psvr_analyzer','boost'=>100},
-          'desc'=>{"type"=>"string",'analyzer'=>'psvr_analyzer','boost'=>10},
-          "courseware_titles"=>{
-            "properties" => {
-              "title" => {"type"=>"string",'analyzer'=>'psvr_analyzer'},
-              "id" => {"type"=>"string",'index'=>'not_analyzed'},
-            }
-          },
-        }}
-      })
-      refresh
-    end
-  end
-  include_root_in_json = false
-  def to_indexed_json
-    {
-      title:self.title,
-      desc:self.desc,
-      courseware_titles:self.content.collect{|id|
-        ret={}
-        ret['id']=id
-        ret['title']=Courseware.get_title(id)
-        ret
-      },
-    }.to_json
-  end
-  def self.psvr_search(page,per_page,params)
-    from=per_page*(page-1)
-    size=per_page
-    h={
-      "query"=> {
-        "bool"=> {
-          "must"=> [],
-          "must_not"=> [],
-          "should"=> [
-            {
-              "query_string"=> {
-                "default_field"=> "title",
-                "query"=> params[:q],
-                "analyzer" => "psvr_analyzer",
-                "default_operator"=> "AND",
-                "boost"=>100,
-              }
-            },
-            {
-              "query_string"=> {
-                "default_field"=> "desc",
-                "query"=> params[:q],
-                "analyzer" => "psvr_analyzer",
-                "default_operator"=> "AND",
-                "boost"=>10,
-              }
-            },
-            {
-              "query_string"=> {
-                "default_field"=> "courseware_titles.title",
-                "query"=> params[:q],
-                "analyzer" => "psvr_analyzer",
-                "default_operator"=> "AND",
-              }
-            },
-          ]
-        }
-      },
-      "from"=> from,
-      "size"=> size,
-      "sort"=> ["_score"],
-      "highlight" => {
-        "pre_tags" => [""],
-        "post_tags" => [""],
-        "fields" => {
-          "title" => {"number_of_fragments" => 0},       
-          "desc" => {"fragment_size" => 50, "number_of_fragments" => 3},
-          "courseware_titles.title" => {"number_of_fragments" => 0},       
-        }
-      },
-      "facets"=> {}
-    }
-    url = "http://localhost:9200/#{elastic_search_psvr_index_name}/play_list/_search?from=#{from}&size=#{size}"
-    response = Tire::Configuration.client.get(url, h.to_json)
-    if response.failure?
-      STDERR.puts "[REQUEST FAILED] #{h.to_json}\n"
-      raise Ktv::Shared::SearchRequestFailed, response.to_s
-    end
-    json     = MultiJson.decode(response.body)
-    return Tire::Results::Collection.new(json, :from=>from,:size=>size)
-  end
   def asynchronously_clean_me
     bad_ids = [self.id]
     self.disliked_user_ids.each do |uid|
@@ -479,6 +374,7 @@ class PlayList
   end
   def redis_search_index_need_reindex
     if !redis_search_psvr_okay?
+      # p "will delete:#{!self.soft_deleted?} and #{!self.undestroyable} and #{0==self.status} and #{0==self.privacy} and #{self.title.present?} and #{self.redis_search_alias.present?}"
       redis_search_index_destroy
       redis_search_psvr_was_delete!
       return false
@@ -487,6 +383,7 @@ class PlayList
     end
   end
   def redis_search_index_create
+    # p 'will create'
     self.redis_search_index_create_before_psvr if self.redis_search_psvr_okay?
   end
 end

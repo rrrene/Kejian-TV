@@ -1,6 +1,18 @@
 # -*- encoding : utf-8 -*-
 class Page < ActiveRecord::Base
   include ActiveBaseModel
+  def self.do_index_them_for_cw(cwid)
+    Page.where(courseware_id:cwid).each do |item|
+      item.tire.update_index
+    end
+  end
+  def self.do_unindex_them_for_cw(cwid)
+    Page.where(courseware_id:cwid).each do |item|
+      Tire.index(item.class.elastic_search_psvr_index_name) do
+        remove item
+      end
+    end
+  end
   def courseware
     @courseware = nil if self.courseware_id_changed?
     @courseware ||= Courseware.find(self.courseware_id)
@@ -32,7 +44,17 @@ class Page < ActiveRecord::Base
     self.course.try(:fid).to_i
   end
   include Tire::Model::Search
-  index_name elastic_search_psvr_index_name
+  PSVR_ELASTIC_MAPPING = {
+    'body'=>{"type"=>"string",'analyzer'=>'psvr_analyzer'},
+    "courseware_title"=>{"type"=>"string",'boost'=>10,'analyzer'=>'psvr_analyzer'},
+    "course_fid"=>{"type"=>"long",'index'=>'not_analyzed'},
+    "courseware_id"=>{"type"=>"string",'index'=>'not_analyzed'},
+    "courseware_ktvid"=>{"type"=>"string",'index'=>'not_analyzed'},
+    "courseware_sort"=>{"type"=>"string",'index'=>'not_analyzed'},
+    "courseware_sort1"=>{"type"=>"string",'index'=>'not_analyzed'},
+    "page_index"=>{"type"=>"long"}
+  }
+  index_name proc{self.elastic_search_psvr_index_name}
   def self.reconstruct_indexes!
     tire_index_ret = Tire.index(elastic_search_psvr_index_name) do
       delete
@@ -48,17 +70,9 @@ class Page < ActiveRecord::Base
         }
       },
       :mappings=>{
-        "page"=>{"properties"=>{
-          'body'=>{"type"=>"string",'analyzer'=>'psvr_analyzer'},
-          "courseware_title"=>{"type"=>"string",'boost'=>10,'analyzer'=>'psvr_analyzer'},
-
-          "course_fid"=>{"type"=>"long",'index'=>'not_analyzed'},
-          "courseware_id"=>{"type"=>"string",'index'=>'not_analyzed'},
-          "courseware_ktvid"=>{"type"=>"string",'index'=>'not_analyzed'},
-          "courseware_sort"=>{"type"=>"string",'index'=>'not_analyzed'},
-          "courseware_sort1"=>{"type"=>"string",'index'=>'not_analyzed'},
-          "page_index"=>{"type"=>"long"}
-        }}
+        "page"=>{"properties"=>PSVR_ELASTIC_MAPPING.merge({
+          "id"=>{"type"=>"long",'index'=>'not_analyzed'},
+        })}
       })
       refresh
       return tire_index_ret
@@ -66,7 +80,12 @@ class Page < ActiveRecord::Base
   end
   include_root_in_json = false
   def to_indexed_json
-    to_json(methods: [:courseware_title,:courseware_sort1,:courseware_sort,:courseware_subsite,:course_name,:course_fid])
+    h={}
+    h[:id] = self.id
+    PSVR_ELASTIC_MAPPING.keys.each do |field|
+      h[field] = self.send(field)
+    end
+    h.to_json
   end
   def self.psvr_search(page,per_page,params)
     from=per_page*(page-1)
@@ -100,6 +119,7 @@ class Page < ActiveRecord::Base
       "from"=> from,
       "size"=> size,
       "sort"=> ["_score"],
+      "fields" => PSVR_ELASTIC_MAPPING.keys,
       "highlight" => {
         "pre_tags" => [""],
         "post_tags" => [""],

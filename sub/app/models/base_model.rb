@@ -4,9 +4,9 @@ module BaseModel
   included do
     # 软删除标记，1 表示已经删除，3 表示疑似广告暂时隐藏
     class << self
-      alias_method :table_name,:collection_name
       attr_accessor :before_soft_delete
       attr_accessor :after_soft_delete
+      alias_method :table_name,:collection_name
     end
     field :deleted, :type => Integer, :default => 0
     field :deleted_at, :type => Time
@@ -103,18 +103,6 @@ module BaseModel
     else
       return (self.class.human_attribute_name(field) + arr.join('且')).html_safe
     end
-  end
-  def send_to_msg_center(msg)
-    if msg['Receiver'].blank?
-      msg['Receiver']=0
-    else
-      msg['Receiver']=msg['Receiver'].split("\u0000").join('').to_i
-    end
-    f = File.new(Rails.root+"log/msg_center.log","a")
-    f.print "\n---------------------------------------------\n"
-    f.print msg.to_json
-    f.close
-    raise RestClient.post("http://studentcdcapi.kejian.tv/MessageCenter.svc/SendMessage", msg.to_json, :content_type => :json, :accept => :json)
   end
   def normal_deleting_status(current_user=nil)
     return true if current_user and self.respond_to?(:user_id) and current_user.id==self.user_id

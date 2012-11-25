@@ -25,8 +25,10 @@ class Courseware
   @after_soft_delete = proc{
     redis_search_index_destroy
     redis_search_psvr_was_delete!
-    @destroyed = true
-    tire.update_index
+    instance=self
+    Tire.index(self.class.elastic_search_psvr_index_name) do
+      remove instance
+    end
   }
   FILE_INFO_TRANS = {
     'Little Endian,' => '小端序,',
@@ -90,7 +92,8 @@ class Courseware
     :win_error=>'您的文件含密码或为只读'
   }
   
-  scope :normal, where(:status => 0, :ktvid.ne=>nil)
+  scope :normal, where(:status => 0)
+  scope :has_ktv_id,where(:ktvid.nin=>[nil,''])
   scope :non_redirect,where(:redirect_to_id => nil)
   scope :is_father,where(:is_children.ne=>true)
   scope :is_child,where(:is_children=>true)
@@ -724,6 +727,7 @@ class Courseware
   
   before_save :redirect_work
   def redirect_work
+    self.uploader_id_candidates||=[]
     self.uploader_id_candidates.delete(uploader_id)
     if redirect_to_id_was.present?
       (uploader_id_changed? and !uploader_id_was.blank?) ? uploaderx = uploader_id_was : uploaderx = uploader_id
@@ -1270,13 +1274,16 @@ opts={   :subsite=>Setting.ktv_sub,
   def redis_search_psvr_okay?
     !self.soft_deleted? and 0==self.status and 0==self.privacy and self.title.present? and self.redis_search_alias.present?
   end
+  def redis_search_psvr_changed?
+    (self.deleted_changed? || self.status_changed? || self.privacy_changed?)
+  end
   def redis_search_index_need_reindex
     if !redis_search_psvr_okay?
       redis_search_index_destroy
       redis_search_psvr_was_delete!
       return false
     else
-      return (self.deleted_changed? || self.status_changed? || self.privacy_changed? || self.redis_search_index_need_reindex_before_psvr)      
+      return (self.redis_search_psvr_changed? || self.redis_search_index_need_reindex_before_psvr)      
     end
   end
 
@@ -1285,25 +1292,52 @@ opts={   :subsite=>Setting.ktv_sub,
   end
   include Tire::Model::Search
   PSVR_ELASTIC_MAPPING = {
-    'body'=>{"type"=>"string",'analyzer'=>'psvr_analyzer'},
     "title"=>{"type"=>"string",'boost'=>10,'analyzer'=>'psvr_analyzer'},
-    "course_fid"=>{"type"=>"long",'index'=>'not_analyzed'},
-    "id"=>{"type"=>"string",'index'=>'not_analyzed'},
-    "ktvid"=>{"type"=>"string",'index'=>'not_analyzed'},
-    "sort"=>{"type"=>"string",'index'=>'not_analyzed'},
-    "sort1"=>{"type"=>"string",'index'=>'not_analyzed'},
-    "score"=>{"type"=>"long",'index'=>'not_analyzed'},
   }
+  def psvr_tire_changed?
+    ret = false
+    PSVR_ELASTIC_MAPPING.keys.each do |key|
+      ret ||= self.send("#{key}_changed?")
+    end
+    ret
+  end
   index_name proc{self.elastic_search_psvr_index_name}
+  before_save lambda {
+    @psvr_was_a_new_record = new_record?
+    true
+  }
   after_save lambda {
     instance = self
     if redis_search_psvr_okay?
-      tire.update_index
+      if redis_search_psvr_changed? || psvr_tire_changed?
+        tire.update_index
+      end
     else
       Tire.index(self.class.elastic_search_psvr_index_name) do
         remove instance
       end
     end
+    if redis_search_psvr_changed?
+      # 这是一种隐藏性变更，在这种情况下，要处理Page
+      if redis_search_psvr_okay?
+        Sidekiq::Client.enqueue(RedundancyHookerJob,
+          'Page',
+          nil,
+          'do_index_them_for_cw',
+          self.id.to_s
+        )
+      else
+        unless @psvr_was_a_new_record
+          Sidekiq::Client.enqueue(RedundancyHookerJob,
+            'Page',
+            nil,
+            'do_unindex_them_for_cw',
+            self.id.to_s
+          )
+        end
+      end
+    end
+    true
   }
   def self.reconstruct_indexes!
     Tire.index(elastic_search_psvr_index_name) do
@@ -1320,7 +1354,10 @@ opts={   :subsite=>Setting.ktv_sub,
         }
       },
       :mappings=>{
-        "courseware"=>{"properties"=>PSVR_ELASTIC_MAPPING}
+        "courseware"=>{"properties"=>PSVR_ELASTIC_MAPPING.merge({
+          'body'=>{"type"=>"string",'analyzer'=>'psvr_analyzer'},
+          "id"=>{"type"=>"string",'index'=>'not_analyzed'},
+        })}
       })
       refresh
     end
@@ -1328,6 +1365,8 @@ opts={   :subsite=>Setting.ktv_sub,
   include_root_in_json = false
   def to_indexed_json
     h={}
+    h[:id] = self.id
+    h[:body] = self.body
     PSVR_ELASTIC_MAPPING.keys.each do |field|
       h[field] = self.send(field)
     end
@@ -1362,7 +1401,6 @@ opts={   :subsite=>Setting.ktv_sub,
           ]
         }
       },
-      'fields' => PSVR_ELASTIC_MAPPING.keys,
       "from"=> from,
       "size"=> size,
       "sort"=> ["_score"],
