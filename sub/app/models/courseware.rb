@@ -919,7 +919,7 @@ class Courseware
         counting += 1
       end
     end
-    puts "father " + self.id.to_s.colorize(:red) + "has " + counting.to_s.colorize(:red) + " need to be fixed."
+    puts "father " + self.id.to_s.colorize(:red) + " has " + counting.to_s.colorize(:red) + " need to be fixed."
   end
   def check_children(key,statusArray=[])
     self.get_children.each do |c|
