@@ -899,6 +899,14 @@ class Courseware
   def get_children      # return Array
     children = self.tree.to_s.scan(/"id"=>"([a-z0-9]{20,})"/).flatten.compact
   end
+  def fix_children
+    self.get_children.each do |c|
+      w = Courseware.find(c)
+      if w.status != 0
+        w.enqueue!
+      end
+    end
+  end
   def soft_delete_children
     self.get_children.each do |c|
       w = Courseware.find(c)
