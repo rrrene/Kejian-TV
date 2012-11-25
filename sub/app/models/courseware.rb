@@ -901,6 +901,7 @@ class Courseware
     children = self.tree.to_s.scan(/"id"=>"([a-z0-9]{20,})"/).flatten.compact
   end
   def fix_children(fix_all = false)
+    counting = 0
     self.get_children.each do |c|
       w = Courseware.find(c)
       if fix_all
@@ -911,7 +912,9 @@ class Courseware
           w.re_enqueue_prepare!
         end
         w.enqueue!
+        counting += 1
       end
+      puts "father " + w.id.to_s.colorize(:red) + "has " + counting.to_s.colorize(:red) + " need to be fixed."
     end
   end
   def check_children(key,statusArray=[])
@@ -1052,7 +1055,7 @@ presentation[published_at]	2012/07/13
   def enqueue!
     #raise 'Must first obtain a ktvid!' if self.ktvid.blank?
     self.make_sure_globalktvid!
-    case self.sort.to_sym
+    case self.sort.downcase.to_sym
     when :pdf,:djvu
       Sidekiq::Client.enqueue(TranscoderJob,self.id.to_s)
     when :ppt,:pptx
