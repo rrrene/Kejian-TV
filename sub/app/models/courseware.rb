@@ -722,7 +722,7 @@ class Courseware
   
   before_save :redirect_work
   def redirect_work
-    uploader_id_candidates.delete(uploader_id)
+    self.uploader_id_candidates.delete(uploader_id)
     if redirect_to_id_was.present?
       (uploader_id_changed? and !uploader_id_was.blank?) ? uploaderx = uploader_id_was : uploaderx = uploader_id
       old_re = Courseware.find(redirect_to_id_was)
@@ -1036,6 +1036,11 @@ presentation[published_at]	2012/07/13
     end
 
     cw
+  end
+  def re_enqueue_prepare!
+    self.ua(:status,1)
+    self.ua(:check_upyun_result,false)
+    self.ua(:pdf_slide_processed,0)
   end
   def enqueue!
     #raise 'Must first obtain a ktvid!' if self.ktvid.blank?
