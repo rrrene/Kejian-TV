@@ -8,7 +8,7 @@ module Ktv
   class Uncompress
     def self.perform(id)
         @filter = ['pdf','djvu','ppt','pptx','doc','docx']
-        @blacklist = ['git','svn','ds_store','exe','obj','db','app']
+        @blacklist = ['git','svn','ds_store','exe','obj','db','app','jar']
         @courseware = Courseware.find(id)
         @courseware.make_sure_globalktvid!
         if @courseware.tree.present?
