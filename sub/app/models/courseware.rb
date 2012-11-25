@@ -903,7 +903,7 @@ class Courseware
     self.get_children.each do |c|
       w = Courseware.find(c)
       w.soft_delete
-      puts w.id+"has been soft deleted".colorize( :red )
+      puts w.id.to_s+"has been soft deleted".colorize( :red )
     end
   end
   def hard_delete_children
@@ -912,7 +912,7 @@ class Courseware
       if w.deleted == 1
         w.delete
       else
-        puts w.id.colorize( :red )
+        puts w.id.to_s.colorize( :red )
       end 
     end
   end
