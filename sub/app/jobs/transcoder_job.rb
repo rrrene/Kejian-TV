@@ -30,7 +30,7 @@ class TranscoderJob
       pdf_path = "#{working_dir}/#{@courseware.pdf_filename}"
       `mkdir -p "#{working_dir}"`
       if @courseware.remote_filepath
-        if [:ppt,:pptx,:doc,:docx].include? @courseware.sort.to_sym 
+        if [:ppt,:pptx,:doc,:docx].include? @courseware.sort.downcase.to_sym 
           `cp /media/hd2/win_transcoding/#{@courseware.ktvid}.pdf "#{pdf_path}"`
           if(!File.exists?(pdf_path))
             @courseware.update_attribute(:status,-3);return false
