@@ -1,61 +1,74 @@
 <div id="mainbar" class="wide" style="position:absolute;z-index:333;min-height:444px;margin-top:152px;margin-left:138px;">
 <div id="questions" class="wide">
-<% eager_load = Courseware.eager_load(@coursewares.collect(&:id)) %>
+  <% eager_load = Courseware.eager_load(@coursewares.collect(&:id)+@extra_cw.collect{|x| x['id']}) %>
 <% @coursewares.each_with_index do |search_result,index|%>
-  <% item = eager_load[index] %>
-  <div id="question-summary-<%= item.id %>" class="question-summary wide">
-      <div class="statscontainer __sdk">
-        <div class="presentations">
-          <%= render :partial => 'cw',:locals=>{courseware:item,version:item.version,courseware_id:item.ktvid} %>
-        </div>
-      </div>
-      <div class="summary wide">
-          <h3>
-            <% if nn=Course.get_name(item.course_fid) %>
-						<% cwurl =  '/courses/' + item.course_fid.to_s %>
-              <a href="<%= gen_jump_url(cwurl) %>&keyword=<%= CGI::escape(params[:q]) %>&t=s" target="_blank" class="tag-post"><%= nn %></a><br>
-              <% nd=Course.get_department_fid(item.course_fid) %>
-            <% end %>
-						<% cwurlx =  '/coursewares/' + item.id.to_s %>
-            <a href="<%= gen_jump_url(cwurlx) %>&keyword=<%= CGI::escape(params[:q]) %>&t=s"  target="_blank" class="question-hyperlink">
-            <% if search_result.highlight %>
-              <%=page_highlight((search_result.highlight.title ? search_result.highlight.title.join('...') : item.title),params[:q])%>
-            <% else %>
-              <%= item.title %>
-            <% end %>
-            </a>
-          </h3>
-          <div class="excerpt">
-            <% has_body=false %>
-            <% if search_result.highlight %>
-              <% if search_result.highlight.body %>
-                <% has_body=true %>
-                <%=page_highlight(search_result.highlight.body.join(' ... '),params[:q])%>
-              <% end %>
-            <% end %>
-            <% if !has_body %>
-              <% 
-              arr=[]
-              arr<<item.filesort_mundane if item.filesort_mundane
-              arr<<"共#{number_with_delimiter item.slides_count}页" if item.slides_count>0 and !item.tree.present?
-              arr<<"共#{number_with_delimiter item.slides_count}个可阅读文档" if item.slides_count>0 and item.tree.present?
-              arr<<"#{number_with_delimiter item.words_count}字" if item.words_count>0
-              arr.reject! {|x| x.blank?}
-              %>
-              <%= arr.blank? ? item.fileinfo : arr.join(', ')+'.' %>
-              <% 
-              arr=[]
-              arr<<"作者创作时间投入: #{item.human_time_human(:very_short => true)}" if item.human_time>0
-              arr<<"最终完稿于: #{item.finished_at.strftime('%Y年%m月%d日 %H:%M:%S')}" if item.finished_at
-              arr.reject! {|x| x.blank?}
-            %>
-              <% unless arr.blank? %>
-                <br><%= arr.join(', ')+'.' %>
-              <% end %>
-            <% end %>
+  <% arr = @extra_cw.present? ? [2,1] : [1] %>
+  <% arr.each do |extra_arr_item| %>
+    <%
+    if 1==extra_arr_item
+      item = eager_load[index]
+    else
+      item = eager_load[@coursewares.size+index]
+    end
+    next if item.nil?
+    %>
+
+    <div id="question-summary-<%= item.id %>" class="question-summary wide">
+        <div class="statscontainer __sdk">
+          <div class="presentations">
+            <%= render :partial => 'cw',:locals=>{courseware:item,version:item.version,courseware_id:item.ktvid} %>
           </div>
-      </div>
-  </div>
+        </div>
+        <div class="summary wide">
+            <h3>
+              <% if nn=Course.get_name(item.course_fid) %>
+              <% cwurl =  '/courses/' + item.course_fid.to_s %>
+                <a href="<%= gen_jump_url(cwurl) %>&keyword=<%= CGI::escape(params[:q]) %>&t=s" target="_blank" class="tag-post"><%= nn %></a><br>
+                <% nd=Course.get_department_fid(item.course_fid) %>
+              <% end %>
+              <% cwurlx =  '/coursewares/' + item.id.to_s %>
+              <a href="<%= gen_jump_url(cwurlx) %>&keyword=<%= CGI::escape(params[:q]) %>&t=s"  target="_blank" class="question-hyperlink">
+              <% if 1==extra_arr_item and search_result.highlight %>
+                <%=page_highlight((search_result.highlight.title ? search_result.highlight.title.join('...') : item.title),params[:q])%>
+              <% else %>
+                <%= item.title %>
+              <% end %>
+              </a>
+            </h3>
+            <div class="excerpt">
+              <% has_body=false %>
+              <% if 1==extra_arr_item %>
+                <% if search_result.highlight %>
+                  <% if search_result.highlight.body %>
+                    <% has_body=true %>
+                    <%=page_highlight(search_result.highlight.body.join(' ... '),params[:q])%>
+                  <% end %>
+                <% end %>
+              <% end %>
+              <% if !has_body %>
+                <% 
+                arr=[]
+                arr<<item.filesort_mundane if item.filesort_mundane
+                arr<<"共#{number_with_delimiter item.slides_count}页" if item.slides_count>0 and !item.tree.present?
+                arr<<"共#{number_with_delimiter item.slides_count}个可阅读文档" if item.slides_count>0 and item.tree.present?
+                arr<<"#{number_with_delimiter item.words_count}字" if item.words_count>0
+                arr.reject! {|x| x.blank?}
+                %>
+                <%= arr.blank? ? item.fileinfo : arr.join(', ')+'.' %>
+                <% 
+                arr=[]
+                arr<<"作者创作时间投入: #{item.human_time_human(:very_short => true)}" if item.human_time>0
+                arr<<"最终完稿于: #{item.finished_at.strftime('%Y年%m月%d日 %H:%M:%S')}" if item.finished_at
+                arr.reject! {|x| x.blank?}
+              %>
+                <% unless arr.blank? %>
+                  <br><%= arr.join(', ')+'.' %>
+                <% end %>
+              <% end %>
+            </div>
+        </div>
+    </div>
+  <% end %>  
   
 <% end %>  
 </div>

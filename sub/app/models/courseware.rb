@@ -1246,13 +1246,13 @@ opts={   :subsite=>Setting.ktv_sub,
     return true
   end
   def redis_search_alias
-    [self.teachers.to_a.join(', '),self.course_name].map { |e| e if e.present? }.compact.join(', ')
+    [self.keywords.to_a.join(', '),self.teachers.to_a.join(', '),self.course_name].map { |e| e if e.present? }.compact.join(', ')
   end
   def redis_search_alias_changed?
-    self.teachers_changed? or self.course_fid_changed?
+    self.keywords_changed? or self.teachers_changed? or self.course_fid_changed?
   end
   def redis_search_alias_was
-    [self.teachers_was.to_a.join(', '),self.course_name_was].map { |e| e if e.present? }.compact.join(', ')
+    [self.keywords_was.to_a.join(', '),self.teachers_was.to_a.join(', '),self.course_name_was].map { |e| e if e.present? }.compact.join(', ')
   end
   def course_name
     Course.get_name(self.course_fid)
@@ -1289,6 +1289,12 @@ opts={   :subsite=>Setting.ktv_sub,
 
   def redis_search_index_create
     self.redis_search_index_create_before_psvr if self.redis_search_psvr_okay?
+  end
+  def self.psvr_redis_search(q,liber_terms,lim)
+    ret = Redis::Search.query("Courseware",q,:limit=>lim,:sort_field=>'score')
+    ret += Redis::Search.query("Courseware",liber_terms,:limit=>lim,:sort_field=>'score') if ret.size<lim
+    ret = ret.psvr_uniq.limit(lim)
+    ret
   end
   include Tire::Model::Search
   PSVR_ELASTIC_MAPPING = {
@@ -1372,14 +1378,18 @@ opts={   :subsite=>Setting.ktv_sub,
     end
     h.to_json
   end
-  def self.psvr_search(page,per_page,params)
-    from=per_page*(page-1)
-    size=per_page
+  def self.psvr_search(from,size,params,apart_from=[])
     h={
       "query"=> {
         "bool"=> {
           "must"=> [],
-          "must_not"=> [],
+          "must_not"=> apart_from.blank? ? [] : [
+            {
+              "ids"=>{
+                "values"=> apart_from
+              }
+            }
+          ],
           "should"=> [
             {
               "query_string"=> {

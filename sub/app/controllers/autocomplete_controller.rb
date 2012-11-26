@@ -15,9 +15,7 @@ class AutocompleteController < ApplicationController
     @fenci_terms = Redis::Search.split(q).collect{|x| x.force_encoding('utf-8')}
     @spetial_symbols=q.scan(/[-+#]+/).to_a
     render json:({}.tap do |ret|
-      ret['Courseware'] = Redis::Search.query("Courseware",q,:limit=>4,:sort_field=>'score')
-      ret['Courseware'] += Redis::Search.query("Courseware",@liber_terms,:limit=>4,:sort_field=>'score') if ret['Courseware'].size<4
-      ret['Courseware'] = ret['Courseware'].psvr_uniq.limit(4)
+      ret['Courseware'] = Courseware.psvr_redis_search(q,@liber_terms,4)
       ret.delete('Courseware') if ret['Courseware'].blank?
 
       ret['PlayList'] = Redis::Search.query("PlayList",q,:limit=>4,:sort_field=>'score')

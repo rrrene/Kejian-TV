@@ -19,8 +19,29 @@ class SearchController < ApplicationController
   end
   def show
     search_common_op
-    @coursewares = Courseware.psvr_search(@page,@per_page,params)
-    @quans=@coursewares
+    r0 = Time.now
+    @ret = Courseware.psvr_redis_search(params[:q],@liber_terms,100)
+    @per_page05=@per_page/2
+    @ret_residual = @ret.size % @per_page05
+    @ret_pages = (@ret.size-@ret_residual)/@per_page05
+    @ret_pages += 1 unless 0==@ret_residual
+    if @page < @ret_pages
+      from=@per_page05*(@page-1)
+      size=@per_page05
+      @extra_cw = @ret.paginate(per_page:@per_page05,page:@page)
+    elsif @page==@ret_pages
+      from=@per_page05*(@page-1)
+      size=@per_page-@ret_residual
+      @extra_cw = @ret.paginate(per_page:@per_page05,page:@page)
+    else
+      from=@per_page05*(@page-1)+@per_page-@ret_residual
+      size=@per_page
+      @extra_cw = []
+    end
+    @time_elapsed = ((Time.now - r0) * 1000.0).to_i
+    @coursewares = Courseware.psvr_search(from,size,params,@ret.collect{|x| x['id']})
+    @time_elapsed += @coursewares.time
+    @quans = 1.upto(@ret.size+@coursewares.total_entries).to_a.paginate(per_page:@per_page,page:@page)
     @quan='个'
     @thing='课件'
     @mode=:kejian
