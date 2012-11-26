@@ -193,7 +193,11 @@ class TranscoderJob
             puts e
           end
         end
-        @courseware.update_attribute(:down_pdf_size,File.size(zipfile)/1000)
+        if File.exists?(zipfile)
+          @courseware.update_attribute(:down_pdf_size,File.size(zipfile)/1000)
+        else
+          raise Ktv::Shared::ScriptNeedImprovementException
+        end
         #--------------------------thumb
         #only puts /thumb_slide_* files upward
         really_broken = 0
@@ -224,7 +228,8 @@ class TranscoderJob
           end
         end
         #------done
-        puts `rm -rf "#{working_dir}"`
+        # puts `rm -rf "#{working_dir}"`
+        File.open("#{logger_dirpath}/need_to_delete.log", 'a+') {|f| f.write("#{working_dir}\n") }
         @courseware.go_to_normal unless @courseware.really_broken
         @courseware.update_attribute(:gone_normal_at,Time.now)
         if @courseware.is_children
