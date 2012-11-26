@@ -225,11 +225,11 @@ class TranscoderJob
         end
         #------done
         puts `rm -rf "#{working_dir}"`
+        @courseware.go_to_normal unless @courseware.really_broken
+        @courseware.update_attribute(:gone_normal_at,Time.now)
         if @courseware.is_children
           Sidekiq::Client.enqueue(HookerJob,"Courseware",nil,:push_trigger,@courseware.id)
         end
-        @courseware.go_to_normal unless @courseware.really_broken
-        @courseware.update_attribute(:gone_normal_at,Time.now)
       end
     rescue => e
       @courseware.status = -1
