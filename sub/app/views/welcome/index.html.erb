@@ -126,7 +126,9 @@
   </div>
 
 <% if @coursewares.count<1 %>
-<div style="line-height:88px;height:88px;text-align:center;">  还没有此类课件，<a class="psvr_login_required gonna_new_courseware" href="/upload">上传一个</a>吧：）</div>
+  <div style="margin-top:44px;text-align:center;">
+    <%=image_tag 'goose-egg.png' %><br>
+    鸭蛋：还没有此类课件，<a class="psvr_login_required gonna_new_courseware" href="/upload">上传一个</a>吧：）</div>
 <% else %>
 <% @coursewares.each do |item|%>
   <div id="question-summary-10960" class="question-summary">
@@ -208,11 +210,11 @@
 <div id="sidebar">    
 <%= render 'welcome_unlogin_user' unless user_signed_in? %>
     <div id="questions-count" class="module">
-      <div class="summarycount al"><%= link_to number_with_delimiter(Courseware.no_privacy.count),'/coursewares_by_departments' %></div>
+      <div class="summarycount al"><%= link_to number_with_delimiter(Courseware.non_redirect.nondeleted.is_father.count),'/coursewares_by_departments' %></div>
       <p style="margin-top:6px">个课件已上传，其中：</p>
-      <p class="cw_normal" style="margin-top:12px"><%=number_with_delimiter Courseware.no_privacy.normal.count%> 已上线</p>
-      <p class="cw_transcoding"><%=number_with_delimiter Courseware.no_privacy.transcoding.count%> 转码中</p>
-      <p class="cw_abnormal"><%=number_with_delimiter Courseware.no_privacy.abnormal.count%> 文件有误</p>
+      <p class="cw_normal" style="margin-top:12px"><%=number_with_delimiter Courseware.non_redirect.nondeleted.is_father.normal.count%> 已上线</p>
+      <p class="cw_transcoding"><%=number_with_delimiter Courseware.non_redirect.nondeleted.is_father.transcoding.count%> 转码中</p>
+      <p class="cw_abnormal"><%=number_with_delimiter Courseware.non_redirect.nondeleted.is_father.abnormal.count%> 文件有误</p>
     </div>
 <div class="__sdk" style="background:transparent">
   <a class="button primary psvr_login_required" id="cw_newhuge" href="/upload" style="color:white">上传课件获取积分</a>
