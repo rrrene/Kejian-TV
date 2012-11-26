@@ -74,13 +74,16 @@ class Site
     puts "  ktv_subname_eng: '#{self.name_eng}'"
     puts "  ktv_subdomain: '#{self.slug}.kejian.tv'"
     
-    logo_info = `identify "/home/main/ktv/sub/app/assets/images/logo_ktv_#{self.slug}.png"`
+    self.class.puts_logo_info(self.slug)
+    puts ''
+  end
+  def self.puts_logo_info(slug)
+    logo_info = `identify "#{File.expand_path('../sub/app/assets/images/logo_ktv_'+slug+'.png',Rails.root)}"`
     if logo_info=~/PNG (\d+)x(\d+)/
       puts "  logo_ktv_width: #{$1}"
     else
       raise 'no logo'
     end
-    puts ''
   end
   def generate_yml_database
     puts <<BBB
