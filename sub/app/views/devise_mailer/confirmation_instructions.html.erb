@@ -1,9 +1,9 @@
 <p><%= @resource.name %>：</p>
 
-<p>　　您好！谢谢您注册加入Kejian.TV课件交流系统！</p>
+<p>　　您好！谢谢您注册加入Kejian.TV课件台！</p>
 
 <p>　　请点击下面的链接确认您的注册:</p>
 
 <p>　　<%= link_to confirmation_url(@resource, :confirmation_token => @resource.confirmation_token), confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %></p>
 
-<p style="text-align:right">Kejian.TV 课件交流系统<br><%=l Time.now.getlocal,:format=>:long %></p>
+<p style="text-align:right">Kejian.TV 课件台<br><%=l Time.now.getlocal,:format=>:long %></p>

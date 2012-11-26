@@ -52,7 +52,7 @@ $('#submit_btn_ass').click(function(){
 		</div>
 		<div id="main" class="connect-webmail-contacts" style="background:white;width:804px">
 			<div class="progress-container">
-				<h1><%=Setting.ktv_subname%>课件交流系统上有您的朋友</h1>
+				<h1><%=Setting.ktv_subname%>课件台上有您的朋友</h1>
 				<p class="progress">
 					<span class="summary">步骤 <strong>1</strong> / <strong>2</strong></span>
 					<span class="progress-meter" title="50% Complete"><span class="has-progress" style="width:50%"></span></span>
@@ -60,7 +60,7 @@ $('#submit_btn_ass').click(function(){
 			</div>
 			<div id="register-global-error">
 			</div>
-      <h2>我们发现您的 <%=@regged.count%> 个朋友已经加入了<%=Setting.ktv_subname%>课件交流系统. 请选中要建立联络的朋友.</h2>
+      <h2>我们发现您的 <%=@regged.count%> 个朋友已经加入了<%=Setting.ktv_subname%>课件台. 请选中要建立联络的朋友.</h2>
 			<form action="/reg/webmail-connect-create" method="POST" name="aBookConnectForm" novalidate="novalidate" class="connections" id="yui-gen1">
 				<div style="margin:0;padding:0;display:inline">
 					<input name="utf8" type="hidden" value="✓">

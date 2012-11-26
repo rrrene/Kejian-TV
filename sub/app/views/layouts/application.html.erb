@@ -14,7 +14,7 @@
        More info: h5bp.com/i/378 -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-  <title><%= @seo[:aux_title].present? ? @seo[:aux_title] : "#{Setting.ktv_subname}课件交流系统" %> - <%= @seo[:title] %></title>
+  <title><%= @seo[:aux_title].present? ? @seo[:aux_title] : "#{Setting.ktv_subname}课件台" %> - <%= @seo[:title] %></title>
   <meta name="author" content="Kejian.TV" />
   <meta name="copyright" content="<%= Time.now.year %> Kejian.TV Ltd." />
   <meta name="keywords" content="<%= @seo[:keywords] %>">
@@ -82,7 +82,7 @@
 <% if @simple_header %>
   <header style="background-image:url(<%= asset_path('dark.png') %>)">
   <div class="wrapper" style="<%=yield :sdk_wrapper_style%>;width:<%=@simple_header_width%>px">
-      <h1><a href="/" id="core_logotext_wrap"><%= image_tag "logo_ktv_#{Setting.ktv_sub}.png",:alt => "#{Setting.ktv_subname}课件交流系统",:id=>'core_logotext' %></a></h1>
+      <h1><a href="/" id="core_logotext_wrap"><%= image_tag "logo_ktv_#{Setting.ktv_sub}.png",:alt => "#{Setting.ktv_subname}课件台",:id=>'core_logotext' %></a></h1>
       <% if @simple_header_with_exit %>
       <div class="navigation">
         <div id="amazing-shadow"></div>
@@ -97,7 +97,7 @@
 <% else %>
   <header style="background-image:url(<%= asset_path('dark.png') %>)">
     <div class="wrapper" style="<%=yield :sdk_wrapper_style%>">
-      <h1><a href="/" id="core_logotext_wrap"><%= image_tag "logo_ktv_#{Setting.ktv_sub}.png",:alt => "#{Setting.ktv_subname}课件交流系统",:id=>'core_logotext' %></a></h1>
+      <h1><a href="/" id="core_logotext_wrap"><%= image_tag "logo_ktv_#{Setting.ktv_sub}.png",:alt => "#{Setting.ktv_subname}课件台",:id=>'core_logotext' %></a></h1>
       <form accept-charset="UTF-8" action="/search" id="search_form" method="get" data-width-tobe="<%= Setting.logo_ktv_width + 490 %>" style="<%= "margin-left:#{Setting.logo_ktv_width + 78}px" %>">
 				<div style="margin:0;padding:0;display:inline">
 					<input name="utf8" type="hidden" value="✓">

@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>课件交流系统 - <%= @seo[:title] %><%=yield :title%></title>
+  <title>课件台 - <%= @seo[:title] %><%=yield :title%></title>
   <meta name="keywords" content="<%= @seo[:keywords] %>" />
   <meta name="description" content="<%= @seo[:description] %>" />
   <meta name="description" content="">
@@ -24,7 +24,7 @@
   <header id="header">
     <div class="w460">
       <a href="<%= root_path %>" id="logolink">
-        <%= image_tag('logo.png', :alt=>"Kejian.tv") %><%= image_tag "logo_ktv_#{Setting.ktv_sub}.png",:alt => "#{Setting.ktv_subname}课件交流系统",:id=>"logotext"%>
+        <%= image_tag('logo.png', :alt=>"Kejian.tv") %><%= image_tag "logo_ktv_#{Setting.ktv_sub}.png",:alt => "#{Setting.ktv_subname}课件台",:id=>"logotext"%>
       </a>  
     </div>
   </header>
@@ -65,7 +65,7 @@
   </div>
   <footer>
     <div class="w460">
-      <p class="title">版权所有 <span class="en">&copy;</span> <%= Time.now.year %> <a href="http://<%=Setting.ktv_subdomain%>"><%= Setting.ktv_subname %>课件交流系统</a>.</p>
+      <p class="title">版权所有 <span class="en">&copy;</span> <%= Time.now.year %> <a href="http://<%=Setting.ktv_subdomain%>"><%= Setting.ktv_subname %>课件台</a>.</p>
     </div>
   </footer>
 

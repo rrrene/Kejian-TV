@@ -105,7 +105,7 @@ window.Users = {
     lhtml.push('</dl></form></section>');
     lhtml.push('<footer>');
     lhtml.push('<div class="btnNormalGreen bold mt20 login"><span>&nbsp;登 录&nbsp;</span></div>');
-    lhtml.push('<div class="goLog mt20">没有课件交流系统账号？<a href="#" onclick="Users.userReg()">立即注册</a></div>');
+    lhtml.push('<div class="goLog mt20">没有课件台账号？<a href="#" onclick="Users.userReg()">立即注册</a></div>');
     lhtml.push('</footer>');
     $.facebox({ html : lhtml.join(""), overlay : false });
     var form = document.forms["frmLogin"];
@@ -186,7 +186,7 @@ window.Users = {
     lhtml.push('<dd><input type="password" class="fl input-x-validate" name="user[password_confirmation]" id="password2" value="" size="32" />');
     lhtml.push('<div class="validImg fl"></div><div class="validTip fl" id="tip_password2"></div></dd>');
     lhtml.push('<dt></dt>');
-    lhtml.push('<dd class="clear"><div class="details" style="display:none"><input type="checkbox" class="noBorder accept" name="accept" checked="checked" style="width:20px;" />我接受 <a target="_blank" href="/agreement">Kejian.TV用户协议</a> 和 <a target="_blank" href="http://jobseeker.kejian.tv/zhaopin/aboutus/secrecy.html">课件交流系统隐私协议</a></div></dd>');
+    lhtml.push('<dd class="clear"><div class="details" style="display:none"><input type="checkbox" class="noBorder accept" name="accept" checked="checked" style="width:20px;" />我接受 <a target="_blank" href="/agreement">Kejian.TV用户协议</a> 和 <a target="_blank" href="http://jobseeker.kejian.tv/zhaopin/aboutus/secrecy.html">课件台隐私协议</a></div></dd>');
     lhtml.push('</dl>');
     lhtml.push('</form></section>');
     lhtml.push('<footer>');

@@ -69,7 +69,7 @@ module Ktv
             end
           end
           data={}
-          data['body'] = '来课件交流系统玩玩吧！'
+          data['body'] = '来课件台玩玩吧！'
           data['_rtk'] = renren__rtk
           data['requestToken'] = renren_requestToken
           data['only_to_me']='1'
@@ -221,17 +221,17 @@ module Ktv
             form['_rtk'] = renren__rtk
             form['requestToken'] = renren_requestToken
             form['channel'] = 'renren'
-            form['content'] = "成功绑定#{Setting.ktv_subname}课件交流系统账号。 http://#{Setting.ktv_subdomain}/users/#{u.id}"
+            form['content'] = "成功绑定#{Setting.ktv_subname}课件台账号。 http://#{Setting.ktv_subdomain}/users/#{u.id}"
             form.submit
             
             sleep 1
-            form['comment'] = "成功绑定#{Setting.ktv_subname}课件交流系统账号。 http://#{Setting.ktv_subdomain}/users/#{u.id}"
+            form['comment'] = "成功绑定#{Setting.ktv_subname}课件台账号。 http://#{Setting.ktv_subdomain}/users/#{u.id}"
             form['url'] = form['link'] =  "http://#{Setting.ktv_subdomain}/users/#{u.id}"
             form['meta'] = '%22%22'
             form['summary'] = Setting.introductions.join(' ')
             form['description'] = Setting.introductions.join(' ')
             form['thumbUrl'] = 'http://kejian.tv/thumb.jpg'
-            form['title'] = "#{Setting.ktv_subname}课件交流系统 - #{u.name_beautified}"
+            form['title'] = "#{Setting.ktv_subname}课件台 - #{u.name_beautified}"
             form['type'] = '6'
             form.action = "http://shell.renren.com/#{uid}/share?1"
             form.submit
