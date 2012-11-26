@@ -98,15 +98,15 @@ module Ktv
     def self.unzip(filename,dest_path,remove_after = false)
       unzip_recursive(filename,dest_path)
       
-      rar_inzip = `find #{dest_path} -iname '*.rar' -exec ls {} +\;`.split("\n")
+      rar_inzip = `find "#{dest_path}" -iname '*.rar' -exec ls {} +\;`.split("\n")
       rar_inzip.map{|x| `mkdir #{File.join(File.dirname(x),File.basename(x).gsub('.','_'))}`;`unrar x -inul -o+ -r #{x} #{File.join(File.dirname(x),File.basename(x).gsub('.','_'))}`} 
-      p7zip_inzip = `find #{dest_path} -iname '*.7z' -exec ls {} +\;`.split("\n")
+      p7zip_inzip = `find "#{dest_path}" -iname '*.7z' -exec ls {} +\;`.split("\n")
       p7zip_inzip.map{|x| `mkdir #{File.join(File.dirname(x),File.basename(x).gsub('.','_'))}`;`7z x -y -r -o#{File.join(File.dirname(x),File.basename(x).gsub('.','_'))} #{x}`}
       
       Dir["#{dest_path}/**/*"].select { |d| File.directory? d }.select { |d| (Dir.entries(d) - %w[ . .. ]).empty? } .each{ |d| Dir.rmdir d }    #delete empty dir
 
-      `find #{dest_path} -iname '*.rar' -exec rm -f {} +\;`
-      `find #{dest_path} -iname '*.7z' -exec rm -f {} +\;`
+      `find "#{dest_path}" -iname '*.rar' -exec rm -f {} +\;`
+      `find "#{dest_path}" -iname '*.7z' -exec rm -f {} +\;`
 
       process_count = Dir["#{dest_path}/**/*"].select { |d| !File.directory? d }.select{|d| @filter.include?(File.extname(d).split('.')[-1].to_s.downcase)}.count
       @courseware.slides_counts[@courseware.version.to_s]=@courseware.slides_count = process_count
@@ -122,18 +122,18 @@ module Ktv
     
     def self.unrar(filename,dest_path,remove_after = false)
       # binding.pry
-      `unrar x -inul -o+ -r #{filename} #{dest_path}/`
-      rar_inrar = `find #{dest_path} -iname '*.rar' -exec ls {} +\;`.split("\n")
+      `unrar x -inul -o+ -r #{filename} "#{dest_path}"/`
+      rar_inrar = `find "#{dest_path}" -iname '*.rar' -exec ls {} +\;`.split("\n")
       rar_inrar.map{|x| `mkdir #{File.join(File.dirname(x),File.basename(x).gsub('.','_'))}`;`unrar x -inul -o+ -r #{x} #{File.join(File.dirname(x),File.basename(x).gsub('.','_'))}`}
    
-      p7zip_inrar = `find #{dest_path} -iname '*.7z' -exec ls {} +\;`.split("\n")
+      p7zip_inrar = `find "#{dest_path}" -iname '*.7z' -exec ls {} +\;`.split("\n")
       p7zip_inrar.map{|x| `mkdir #{File.join(File.dirname(x),File.basename(x).gsub('.','_'))}`;`7z x -y -r -o#{File.join(File.dirname(x),File.basename(x).gsub('.','_'))} #{x}`}
-      zip_inrar = `find #{dest_path} -iname '*.zip'`.split("\n")
+      zip_inrar = `find "#{dest_path}" -iname '*.zip'`.split("\n")
       zip_inrar.map {|x| unzip_recursive(x,File.join(File.dirname(x),File.basename(x).gsub('.','_')),true)}
       
       Dir["#{dest_path}/**/*"].select { |d| File.directory? d }.select { |d| (Dir.entries(d) - %w[ . .. ]).empty? } .each{ |d| Dir.rmdir d }    #delete empty dir
-      `find #{dest_path} -iname '*.rar' -exec rm -f {} +\;`
-      `find #{dest_path} -iname '*.7z' -exec rm -f {} +\;`
+      `find "#{dest_path}" -iname '*.rar' -exec rm -f {} +\;`
+      `find "#{dest_path}" -iname '*.7z' -exec rm -f {} +\;`
       
       process_count = Dir["#{dest_path}/**/*"].select { |d| !File.directory? d }.select{|d| @filter.include?(File.extname(d).split('.')[-1].to_s.downcase)}.count
       @courseware.slides_counts[@courseware.version.to_s]=@courseware.slides_count = process_count
@@ -147,19 +147,19 @@ module Ktv
     end
     
     def self.un7zip(filename,dest_path,remove_after = false)
-      `7z x -y -r -o#{dest_path} #{filename}`
+      `7z x -y -r -o"#{dest_path}" #{filename}`
       
-      p7zip_in7zip = `find #{dest_path} -iname '*.7z' -exec ls {} +\;`.split("\n")
+      p7zip_in7zip = `find "#{dest_path}" -iname '*.7z' -exec ls {} +\;`.split("\n")
       p7zip_in7zip.map{|x| `mkdir #{File.join(File.dirname(x),File.basename(x).gsub('.','_'))}`;`7z x -y -r -o#{File.join(File.dirname(x),File.basename(x).gsub('.','_'))} #{x}`}
       
-      zip_in7zip = `find #{dest_path} -iname '*.zip'`.split("\n")
+      zip_in7zip = `find "#{dest_path}" -iname '*.zip'`.split("\n")
       zip_in7zip.map {|x| unzip_recursive(x,File.join(File.dirname(x),File.basename(x).gsub('.','_')),true)}
-      rar_in7zip = `find #{dest_path} -iname '*.rar' -exec ls {} +\;`.split("\n")
+      rar_in7zip = `find "#{dest_path}" -iname '*.rar' -exec ls {} +\;`.split("\n")
       rar_in7zip.map{|x| `mkdir #{File.join(File.dirname(x),File.basename(x).gsub('.','_'))}`;`unrar x -inul -o+ -r #{x} #{File.join(File.dirname(x),File.basename(x).gsub('.','_'))}`}
       
       Dir["#{dest_path}/**/*"].select { |d| File.directory? d }.select { |d| (Dir.entries(d) - %w[ . .. ]).empty? } .each{ |d| Dir.rmdir d }    #delete empty dir
-      `find #{dest_path} -iname '*.rar' -exec rm -f {} +\;`
-      `find #{dest_path} -iname '*.7z' -exec rm -f {} +\;`
+      `find "#{dest_path}" -iname '*.rar' -exec rm -f {} +\;`
+      `find "#{dest_path}" -iname '*.7z' -exec rm -f {} +\;`
       
       process_count = Dir["#{dest_path}/**/*"].select { |d| !File.directory? d }.select{|d| @filter.include?(File.extname(d).split('.')[-1].to_s.downcase)}.count
           @courseware.slides_counts[@courseware.version.to_s]=@courseware.slides_count = process_count
