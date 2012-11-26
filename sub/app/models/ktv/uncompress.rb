@@ -81,8 +81,10 @@ module Ktv
             @courseware.width = 694
             @courseware.height = 523
             @courseware.status = 4
+            if @courseware.get_children.blank?
+              @courseware.status = 0
+            end
             @courseware.save(:validate => false)
-
             # puts `rm -rf "#{@working_dir}"`
             return tree
         rescue => e

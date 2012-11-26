@@ -95,7 +95,7 @@ class Courseware
   scope :normal, where(:status => 0)
   scope :has_ktv_id,where(:ktvid.nin=>[nil,''])
   scope :non_redirect,where(:redirect_to_id => nil)
-  scope :is_father,where(:is_children.ne=>true)
+  scope :is_father,where(:is_children.ne=>true) #liber add,:injected_count.ne=>0
   scope :is_child,where(:is_children=>true)
   scope :abnormal, where(:status.lt => 0)
   scope :transcoding, where(:status.gt => 0)
