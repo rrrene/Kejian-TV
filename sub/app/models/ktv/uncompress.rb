@@ -81,7 +81,7 @@ module Ktv
             @courseware.width = 694
             @courseware.height = 523
             @courseware.status = 4
-            if @courseware.get_children.blank?
+            if @courseware.transcoding_count = 0 and @courseware.tree.present?
               @courseware.status = 0
             end
             @courseware.save(:validate => false)
@@ -99,9 +99,9 @@ module Ktv
       unzip_recursive(filename,dest_path)
       
       rar_inzip = `find "#{dest_path}" -iname '*.rar' -exec ls {} +\;`.split("\n")
-      rar_inzip.map{|x| `mkdir #{File.join(File.dirname(x),File.basename(x).gsub('.','_'))}`;`unrar x -inul -o+ -r #{x} #{File.join(File.dirname(x),File.basename(x).gsub('.','_'))}`} 
+      rar_inzip.map{|x| `mkdir #{File.join(File.dirname(x),File.basename(x).gsub('.','_'))}`;`unrar x -inul -o+ -r "#{x}" #{File.join(File.dirname(x),File.basename(x).gsub('.','_'))}`} 
       p7zip_inzip = `find "#{dest_path}" -iname '*.7z' -exec ls {} +\;`.split("\n")
-      p7zip_inzip.map{|x| `mkdir #{File.join(File.dirname(x),File.basename(x).gsub('.','_'))}`;`7z x -y -r -o#{File.join(File.dirname(x),File.basename(x).gsub('.','_'))} #{x}`}
+      p7zip_inzip.map{|x| `mkdir #{File.join(File.dirname(x),File.basename(x).gsub('.','_'))}`;`7z x -y -r -o#{File.join(File.dirname(x),File.basename(x).gsub('.','_'))} "#{x}"`}
       
       Dir["#{dest_path}/**/*"].select { |d| File.directory? d }.select { |d| (Dir.entries(d) - %w[ . .. ]).empty? } .each{ |d| Dir.rmdir d }    #delete empty dir
 
@@ -127,7 +127,7 @@ module Ktv
       rar_inrar.map{|x| `mkdir #{File.join(File.dirname(x),File.basename(x).gsub('.','_'))}`;`unrar x -inul -o+ -r #{x} #{File.join(File.dirname(x),File.basename(x).gsub('.','_'))}`}
    
       p7zip_inrar = `find "#{dest_path}" -iname '*.7z' -exec ls {} +\;`.split("\n")
-      p7zip_inrar.map{|x| `mkdir #{File.join(File.dirname(x),File.basename(x).gsub('.','_'))}`;`7z x -y -r -o#{File.join(File.dirname(x),File.basename(x).gsub('.','_'))} #{x}`}
+      p7zip_inrar.map{|x| `mkdir #{File.join(File.dirname(x),File.basename(x).gsub('.','_'))}`;`7z x -y -r -o#{File.join(File.dirname(x),File.basename(x).gsub('.','_'))} "#{x}"`}
       zip_inrar = `find "#{dest_path}" -iname '*.zip'`.split("\n")
       zip_inrar.map {|x| unzip_recursive(x,File.join(File.dirname(x),File.basename(x).gsub('.','_')),true)}
       
@@ -147,15 +147,15 @@ module Ktv
     end
     
     def self.un7zip(filename,dest_path,remove_after = false)
-      `7z x -y -r -o"#{dest_path}" #{filename}`
+      `7z x -y -r -o"#{dest_path}" "#{filename}"`
       
       p7zip_in7zip = `find "#{dest_path}" -iname '*.7z' -exec ls {} +\;`.split("\n")
-      p7zip_in7zip.map{|x| `mkdir #{File.join(File.dirname(x),File.basename(x).gsub('.','_'))}`;`7z x -y -r -o#{File.join(File.dirname(x),File.basename(x).gsub('.','_'))} #{x}`}
+      p7zip_in7zip.map{|x| `mkdir #{File.join(File.dirname(x),File.basename(x).gsub('.','_'))}`;`7z x -y -r -o#{File.join(File.dirname(x),File.basename(x).gsub('.','_'))} "#{x}"`}
       
       zip_in7zip = `find "#{dest_path}" -iname '*.zip'`.split("\n")
       zip_in7zip.map {|x| unzip_recursive(x,File.join(File.dirname(x),File.basename(x).gsub('.','_')),true)}
       rar_in7zip = `find "#{dest_path}" -iname '*.rar' -exec ls {} +\;`.split("\n")
-      rar_in7zip.map{|x| `mkdir #{File.join(File.dirname(x),File.basename(x).gsub('.','_'))}`;`unrar x -inul -o+ -r #{x} #{File.join(File.dirname(x),File.basename(x).gsub('.','_'))}`}
+      rar_in7zip.map{|x| `mkdir #{File.join(File.dirname(x),File.basename(x).gsub('.','_'))}`;`unrar x -inul -o+ -r "#{x}" #{File.join(File.dirname(x),File.basename(x).gsub('.','_'))}`}
       
       Dir["#{dest_path}/**/*"].select { |d| File.directory? d }.select { |d| (Dir.entries(d) - %w[ . .. ]).empty? } .each{ |d| Dir.rmdir d }    #delete empty dir
       `find "#{dest_path}" -iname '*.rar' -exec rm -f {} +\;`
@@ -178,7 +178,7 @@ module Ktv
     def self.unzip_recursive(filename,dest,recursive_remove_origin_after = false)
       Zip::ZipFile.open(filename) do |zip_file|
         files = zip_file.select(&:file?)
-        files.reject!{|f| f.name =~ /\.DS_Store|__MACOSX|(^|\/)\._/ }   #perfect to remove .DS_store __Macosx and some .git .svn
+        files.reject!{|f| f.name =~ /\.DS_Store|__MACOSX|Thumbs.db|(^|\/)\._/ }   #perfect to remove .DS_store __Macosx and some .git .svn
         files.each do |f|
           f_path = File.join(dest,f.name.force_encoding_zhaopin)
           FileUtils.mkdir_p(File.dirname(f_path))
