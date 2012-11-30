@@ -9,7 +9,7 @@ else
 end
 worker_processes psvr_worker_processes
 working_directory Dir.pwd
-listen "/web/ktv_#{ENV['RAILS_ENV']}.sock", :backlog => 64
+listen "/home/var/run/ktv_#{ENV['RAILS_ENV']}.sock", :backlog => 64
 timeout 30
 pid "#{Dir.pwd}/tmp_#{ENV['RAILS_ENV']}/pids/unicorn_#{ENV['RAILS_ENV']}.pid"
 stderr_path "#{Dir.pwd}/log_#{ENV['RAILS_ENV']}/unicorn_#{ENV['RAILS_ENV']}.err.log"
