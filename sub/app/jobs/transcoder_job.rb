@@ -26,12 +26,12 @@ class TranscoderJob
     ActiveRecord::Base.connection_pool.instance_variable_set('@size', 40)
     ActiveRecord::Base.connection_pool.instance_variable_set('@timeout', 100)
     begin
-      working_dir = "/media/hd2/auxiliary_#{Setting.ktv_sub}/ftp/cw/#{@courseware.id}"
+      working_dir = "/media/b/auxiliary_#{Setting.ktv_sub}/ftp/cw/#{@courseware.id}"
       pdf_path = "#{working_dir}/#{@courseware.pdf_filename}"
       `mkdir -p "#{working_dir}"`
       if @courseware.remote_filepath
         if [:ppt,:pptx,:doc,:docx].include? @courseware.sort.downcase.to_sym 
-          `cp /media/hd2/win_transcoding/#{@courseware.ktvid}.pdf "#{pdf_path}"`
+          `cp /media/b/win_transcoding/#{@courseware.ktvid}.pdf "#{pdf_path}"`
           if(!File.exists?(pdf_path))
             @courseware.update_attribute(:status,-3);return false
           end

@@ -351,7 +351,7 @@ class Courseware
   field :height, :type => Integer, :default => 0
   field :slides_count, :type => Integer, :default => 0;
   def fix_pages
-    working_dir = "/media/hd2/auxiliary/ftp/cw_fix_pages/#{self.id}"
+    working_dir = "/media/b/auxiliary/ftp/cw_fix_pages/#{self.id}"
     FileUtils.mkdir_p(working_dir)
     File.open("#{working_dir}/#{self.id}#{self.revision}.zip","wb") do |f|
       f.write $snda_ktv_down.objects.find("#{self.id}#{self.revision}.zip").content

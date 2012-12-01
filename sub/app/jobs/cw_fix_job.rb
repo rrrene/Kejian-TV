@@ -5,7 +5,7 @@ class CwFixJob
   # c.f.
   # def snda_force(build,o);suc = false;while !suc;begin;new_object = $snda_ktv_eb.objects.build(build);new_object.content = open(o);new_object.save;rescue=>e;puts 'retry...';end;suc=true;end;end
   #
-  # %w{5051d7c5e138230b81000002 5050acd0e138236e2c00007e 5050acd0e138236e2c000081 5050acd0e138236e2c000083  5050acd0e138236e2c00007d }.each{|cw_id| @courseware=Courseware.find(cw_id);working_dir = "/media/hd2/auxiliary/ftp/cw/#{@courseware.id}";0.upto(@courseware.slides_count-1){|i| puts pic = "#{working_dir}/#{@courseware.revision}slide_#{i}.jpg";snda_force("#{@courseware.id}/#{@courseware.revision}slide_#{i}.jpg",pic)};puts zipfile="#{working_dir}/#{@courseware.id}#{@courseware.revision}.zip"; snda_force("#{@courseware.id}#{@courseware.revision}.zip",zipfile);}
+  # %w{5051d7c5e138230b81000002 5050acd0e138236e2c00007e 5050acd0e138236e2c000081 5050acd0e138236e2c000083  5050acd0e138236e2c00007d }.each{|cw_id| @courseware=Courseware.find(cw_id);working_dir = "/media/b/auxiliary/ftp/cw/#{@courseware.id}";0.upto(@courseware.slides_count-1){|i| puts pic = "#{working_dir}/#{@courseware.revision}slide_#{i}.jpg";snda_force("#{@courseware.id}/#{@courseware.revision}slide_#{i}.jpg",pic)};puts zipfile="#{working_dir}/#{@courseware.id}#{@courseware.revision}.zip"; snda_force("#{@courseware.id}#{@courseware.revision}.zip",zipfile);}
   #
   #
   #
@@ -13,7 +13,7 @@ class CwFixJob
   def perform(id)
     @courseware = Courseware.find(id)
     return false unless 0==@courseware.status
-    working_dir = "/media/hd2/auxiliary_#{Setting.ktv_sub}/ftp/cw_fix/#{@courseware.id}"
+    working_dir = "/media/b/auxiliary_#{Setting.ktv_sub}/ftp/cw_fix/#{@courseware.id}"
     `mkdir -p "#{working_dir}"`
     0.upto(@courseware.slides_count-1) do |i|
 

@@ -24,7 +24,7 @@ module Ktv
         @title = @courseware.title
         sort=File.extname(@courseware.pdf_filename).split('.')[-1].to_s.downcase
         @courseware.update_attribute(:pdf_slide_processed,0)
-        @working_dir = "/media/hd2/auxiliary_#{Setting.ktv_sub}/ftp/cw/#{@courseware.id}" #$psvr_really_production ? : "#{Rails.root}/simple/tmp/uncompress_#{Setting.ktv_sub}/#{@courseware.id}_#{sort}"
+        @working_dir = "/media/b/auxiliary_#{Setting.ktv_sub}/ftp/cw/#{@courseware.id}" #$psvr_really_production ? : "#{Rails.root}/simple/tmp/uncompress_#{Setting.ktv_sub}/#{@courseware.id}_#{sort}"
         begin
           uncom_path = "#{@working_dir}/#{@courseware.pdf_filename.gsub(".","_")}"
           `mkdir -p "#{@working_dir}"`
