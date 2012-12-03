@@ -91,7 +91,7 @@ class TranscoderJob
                   end
                   # ---pinpic---
                   pinpic = "#{working_dir}/pin.jpg"
-                  puts `convert "#{pic}" -resize 222x +repage -gravity North "#{pinpic}"`
+                  puts `convert "#{pic}" -transparent-color white -background white -alpha remove -resize 222x +repage -gravity North "#{pinpic}"`
                   inf = `identify "#{pinpic}"`
                   if inf=~/JPEG (\d+)x(\d+)/
                     pinpic_final = "#{working_dir}/#{@courseware.revision}pin.1.#{$1}.#{$2}.jpg"
@@ -104,7 +104,7 @@ class TranscoderJob
                   end
                 end
                 puts pic2 = "#{working_dir}/#{@courseware.revision}thumb_slide_#{i}.jpg"
-                puts `convert "#{pic}" -thumbnail '210x>' -crop 210x158+0+0 +repage -gravity North "#{pic2}"`
+                puts `convert "#{pic}" -transparent-color white -background white -alpha remove -thumbnail '210x>' -crop 210x158+0+0 +repage -gravity North "#{pic2}"`
                 done = true
               rescue => e
                 puts e
@@ -151,7 +151,7 @@ class TranscoderJob
                   end
                   # ---pinpic---
                   pinpic = "#{working_dir}/pin.jpg"
-                  puts `convert "#{pic}" -resize 222x +repage -gravity North "#{pinpic}"`
+                  puts `convert "#{pic}" -transparent-color white -background white -alpha remove -resize 222x +repage -gravity North "#{pinpic}"`
                   inf = `identify "#{pinpic}"`
                   if inf=~/JPEG (\d+)x(\d+)/
                     pinpic_final = "#{working_dir}/#{@courseware.revision}pin.1.#{$1}.#{$2}.jpg"
@@ -164,7 +164,7 @@ class TranscoderJob
                   end
                 end
                 puts pic2 = "#{working_dir}/#{@courseware.revision}thumb_slide_#{i}.jpg"
-                puts `convert "#{pic}" -thumbnail '210x>' -crop 210x158+0+0 +repage -gravity North "#{pic2}"`
+                puts `convert "#{pic}" -transparent-color white -background white -alpha remove -thumbnail '210x>' -crop 210x158+0+0 +repage -gravity North "#{pic2}"`
                 done = true
               rescue => e
                 puts e
