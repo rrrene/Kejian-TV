@@ -229,6 +229,7 @@ class TranscoderJob
         end
         #------done
         # puts `rm -rf "#{working_dir}"`
+        logger_dirpath = "#{Rails.root}/log_#{Rails.env}"
         File.open("#{logger_dirpath}/need_to_delete.log", 'a+') {|f| f.write("#{working_dir}\n") }
         @courseware.go_to_normal unless @courseware.really_broken
         @courseware.update_attribute(:gone_normal_at,Time.now)

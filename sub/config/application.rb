@@ -95,3 +95,5 @@ require "mmseg"
 require 'will_paginate/array'
 require "digest"
 require "digest/md5"
+Encoding.default_external = Encoding::UTF_8
+Encoding.default_internal = Encoding::UTF_8

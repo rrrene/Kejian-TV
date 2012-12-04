@@ -1274,7 +1274,9 @@ opts={   :subsite=>Setting.ktv_sub,
   def redis_search_psvr_okay?
     !self.soft_deleted? and 0==self.status and 0==self.privacy and self.title.present? and self.redis_search_alias.present?
   end
+  attr_accessor :force_redis_search_psvr_changed
   def redis_search_psvr_changed?
+    return true if force_redis_search_psvr_changed
     (self.deleted_changed? || self.status_changed? || self.privacy_changed?)
   end
   def redis_search_index_need_reindex
