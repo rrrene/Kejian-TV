@@ -192,7 +192,7 @@ gem 'to_xls', '~> 1.0.0'
 
 gem 'sndacs'
 # PDF
-gem 'grim', '>= 0.3.0'
+gem 'grim', :git=>"git://github.com/llb0536/grim.git"
 # memcached
 gem 'dalli'
 
