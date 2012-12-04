@@ -1,6 +1,4 @@
-.__sdk{
-  margin: 0;
-  padding: 0;
+.__sdk{ margin: 0; padding: 0;
   border: 0;
   font-size: 100%;
   font: inherit;
@@ -3127,6 +3125,37 @@ input#presentation_sort1{
 #presentation_teacher_select_dynamic{
   max-height: 164px;
   overflow: auto;
+}
+#psvrsharedown{
+  margin-top:18px;
+  background: url("<%=asset_path('psvrsharedown1.png')%>") no-repeat scroll 0 0 transparent;
+  text-indent:-9999em;
+  display:block;
+  width:213px;
+  height:45px;
+  border:none !important;
+  &:hover{
+    background-position:0 -45px;
+  }
+  &:active{
+    background-position:0 -90px;
+  }
+}
+
+#psvrshareprint{
+  margin-top:18px;
+  background: url("<%=asset_path('psvrshareprint1.png')%>") no-repeat scroll 0 0 transparent;
+  text-indent:-9999em;
+  display:block;
+  width:213px;
+  height:60px;
+  border:none !important;
+  &:hover{
+    background-position:0 -63px;
+  }
+  &:active{
+    background-position:0 -126px;
+  }
 }
 
 }

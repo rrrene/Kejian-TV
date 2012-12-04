@@ -332,17 +332,6 @@ courseware_id: '<%=@courseware.id%>'
             </div>
            <% end %>
 
-
-
-           <% unless @courseware.teachers.blank? %>
-           <div style="width:51%;float:left" class="extras">
-             <h1><%=image_tag('zuozhe.png',alt:'课件原作者',style:'margin-top:16px;margin-bottom:4px')%></h1>
-             <% style='width:50%;float:left' %>
-             <% @courseware.teachers_ins.each do |teacher| %>
-               <%= render :partial => 'presenter_teacher', :locals => {teacher:teacher,style:style} %>
-             <% end %>
-           </div>
-           <% end %>
          </div><!--thin stuff end-->
 
 
@@ -373,17 +362,11 @@ courseware_id: '<%=@courseware.id%>'
                  <% end %>
                  <li class="dianjiliang">下载量 <a href="#watch-view-count"><%= number_with_delimiter @courseware.downloads_count %> 次</a></li>
               </ul>
-              <h1><%=image_tag('share.png',alt:'下载此课件')%></h1>
-              <ul class="delimited share">
-                 <li class="download">下载<a target="_blank" href="<%= download_courseware_path(@courseware)%>"><%=Courseware::SORTSTR[@courseware.sort]%>(<%=!@courseware.have_pw ? number_to_human_size(@courseware.down_pdf_size*1000,:precision=>1) : '需要密码' %>)</a></li>
+              <h1><%=image_tag('share.png',alt:'获取此课件')%></h1>
+              <ul class="delimited share" style="border:none !important;">
+                <a href="javascript:void(0)" id="psvrsharedown">下载源文件 （售价0.99积分）</a>
+                <a href="javascript:void(0)" id="psvrshareprint">打印并寄送 （售价0.09元/页）</a>
               </ul>
-           <% unless @courseware.teachers.blank? %>
-             <h1 style="margin-top:18px"><%=image_tag('zuozhe.png',alt:'课件原作者',style:'margin-top:16px;margin-bottom:4px')%></h1>
-             <% style='margin:14px 0 0 6px' %>
-             <% @courseware.teachers_ins.each do |teacher| %>
-               <%= render :partial => 'presenter_teacher', :locals => {teacher:teacher,style:style} %>
-             <% end %>
-           <% end %>
            </div>
         </div>
        </div>
