@@ -440,6 +440,12 @@
       $('#psvr_bd_place_huichenotice').show()
       KTV.search_li_hover()
       
+  KTV.psvrsharedown = ->
+    im.zm.psvrsharedown();
+    $('.maskDiv').css('opacity','.6')
+    $("#loginLayout").definedDialog("open")
+    return false;
+
   KTV.login = ->
     im.zm.login()
     $("#loginLayout").definedDialog("open")

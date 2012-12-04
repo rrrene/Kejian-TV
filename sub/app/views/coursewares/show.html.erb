@@ -364,8 +364,11 @@ courseware_id: '<%=@courseware.id%>'
               </ul>
               <h1><%=image_tag('share.png',alt:'获取此课件')%></h1>
               <ul class="delimited share" style="border:none !important;">
-                <a href="javascript:void(0)" id="psvrsharedown">下载源文件 （售价0.99积分）</a>
-                <a href="javascript:void(0)" id="psvrshareprint">打印并寄送 （售价0.09元/页）</a>
+                <% content_for :butt2 do %>
+                  $('#psvrsharedown').click(KTV.psvrsharedown);
+                <% end %>
+                <a href="javascript:void(0)" id="psvrsharedown" class="psvr_login_required">下载源文件 （售价0.99积分）</a>
+                <a href="javascript:void(0)" id="psvrshareprint" class="psvr_login_required">打印并寄送 （售价0.09元/页）</a>
               </ul>
            </div>
         </div>

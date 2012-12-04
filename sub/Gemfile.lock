@@ -63,6 +63,11 @@ PATH
       sndacs (>= 0.1.0)
 
 PATH
+  remote: ../vendor/grim
+  specs:
+    grim (0.3.2)
+
+PATH
   remote: ../vendor/redis-search
   specs:
     redis-search (0.9.0)
@@ -176,7 +181,6 @@ GEM
       httparty
       json
     googlecharts (1.6.8)
-    grim (0.3.0)
     guard (1.5.4)
       listen (>= 0.4.2)
       lumberjack (>= 1.0.2)
@@ -512,7 +516,7 @@ DEPENDENCIES
   ffaker
   gibbon
   googlecharts
-  grim (>= 0.3.0)
+  grim!
   guard
   guard-minitest!
   guard-spork
