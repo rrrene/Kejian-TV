@@ -1053,6 +1053,7 @@ presentation[published_at]	2012/07/13
   end
   def re_enqueue_prepare!
     self.ua(:status,1)
+    self.ua(:really_broken,false)
     self.ua(:check_upyun_result,false)
     self.ua(:pdf_slide_processed,0)
   end
@@ -1069,6 +1070,10 @@ presentation[published_at]	2012/07/13
     when :zip,:rar,:'7z'
       Sidekiq::Client.enqueue(HookerJob,"Ktv::Uncompress",nil,:perform,self.id)
     end
+  end
+  def renqueue!
+    self.re_enqueue_prepare!
+    self.enqueue!
   end
   def extra_property_fill(presentation)
     self.have_pw = '1'==presentation[:have_pw]
