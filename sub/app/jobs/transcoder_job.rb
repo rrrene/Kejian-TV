@@ -91,7 +91,7 @@ class TranscoderJob
                   end
                   # ---pinpic---
                   pinpic = "#{working_dir}/pin.jpg"
-                  puts `convert "#{pic}"  -bordercolor white -border 0 -background white -flatten -alpha remove  -alpha off -resize 222x +repage -gravity North "#{pinpic}"`
+                  puts `convert "#{pic}"  -bordercolor white -border 0 -background white -flatten -alpha remove  -alpha off -resize 222x +repage xc:white +swap -compose over -composite -gravity North "#{pinpic}"`
                   inf = `identify "#{pinpic}"`
                   if inf=~/JPEG (\d+)x(\d+)/
                     pinpic_final = "#{working_dir}/#{@courseware.revision}pin.1.#{$1}.#{$2}.jpg"
@@ -151,7 +151,7 @@ class TranscoderJob
                   end
                   # ---pinpic---
                   pinpic = "#{working_dir}/pin.jpg"
-                  puts `convert "#{pic}" -bordercolor white -border 0 -background white -flatten -alpha remove -alpha off -resize 222x +repage -gravity North "#{pinpic}"`
+                  puts `convert "#{pic}" -bordercolor white -border 0 -background white -flatten -alpha remove -alpha off -resize 222x +repage xc:white +swap -compose over -composite -gravity North "#{pinpic}"`
                   inf = `identify "#{pinpic}"`
                   if inf=~/JPEG (\d+)x(\d+)/
                     pinpic_final = "#{working_dir}/#{@courseware.revision}pin.1.#{$1}.#{$2}.jpg"
