@@ -1,5 +1,5 @@
 (($) ->
-  window.KTV = {}
+  window.KTV={} if !window.KTV
   window.KTV.Utilities = {}
   window.KTV.data = {}
   KTV.search_cache = {}
@@ -444,6 +444,7 @@
     im.zm.psvrsharedown();
     $('.maskDiv').css('opacity','.6')
     $("#loginLayout").definedDialog("open")
+    KTV.sdk_scrub()
     return false;
 
   KTV.login = ->

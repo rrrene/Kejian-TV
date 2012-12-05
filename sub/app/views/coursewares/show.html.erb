@@ -777,7 +777,7 @@ courseware_id: '<%=@courseware.id%>'
              <% @courseware_real_version.downto(0).each_with_index do |version,index| %>
              <% slide_count = @courseware.slides_counts[version.to_s] || 1 %>
              <% sz = [slide_count-1,50].min %>
-             <div data-slide-count="<%= sz+1 %>" data-id="<%= @courseware.id %>" class="presentation" style="<%= 'margin-right:0px' if 2==index % 3 %>">
+             <div data-slide-count="<%= sz+1 %>" data-id="<%= @courseware.id %>" class="presentation" style="<%= 'margin-right:0px' if 2==index % 3 %>" <%=raw 'id="psvrsharedown_thumbnails"' if version==@courseware_real_version %>>
                  <a href="<%= courseware_path @courseware %>/revisions/<%= version+1 %>" class="slide_preview scrub setup">
                 <% (sz).downto(1).each do |i| %>
                 <img style="display: none;" data-slide="<%= i %>" class="timeline" alt="第<%= i %>页" src="<%= asset_url("cw/#{@courseware.ktvid}/#{@courseware.revision(version)}thumb_slide_#{i}.jpg") %>">

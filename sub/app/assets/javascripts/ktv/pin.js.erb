@@ -4338,8 +4338,17 @@ im.zm.psvrsharedown = function () {
 //important
 
     var g, f, c;
-    g = [
-      '<img src="'+KTV.psvrsharedown_dialog_src+'" />'
+    psvr_elem = jQuery(jQuery('#psvrsharedown_thumbnails')[0].outerHTML);
+		psvr_elem.attr('id',"psvrsharedown_thumbnails_small");
+		psvr_elem.attr('style',"margin:0;z-index:7777;position:absolute;top: 33px;left: -19px;");
+		psvr_elem.find('.preview_info').remove();
+		g = [
+			'<div class="__sdk">'+psvr_elem[0].outerHTML+'</div>',
+      '<img src="'+KTV.psvrsharedown_dialog_src+'" style="position:absolute;z-index:8888;top:15px"/>',
+      '<a href="javascript:void(0)" id="psvrsharedown_thumbnails_btn1" style="position:absolute;z-index:8899;top:289px;left:22px">立即购买</a>',
+      '<a href="javascript:void(0)" id="psvrsharedown_thumbnails_btn2" style="position:absolute;z-index:8899;top:340px;left:22px">加入收藏</a>',
+			'<div id="psvrsharedown_big_window">&nbsp;</div>',
+			'<a class="js-close close" style="display:block;width:46px;height:50px;background: transparent url('+KTV.psvrsharedown_ijiojioji_src+') no-repeat scroll top left;text-indent:-9999em;position:absolute;top:0;left:613px;z-index:9999">Close</a>'
     ].join("");
     var e, a;
     if (arguments.length > 0) {
@@ -4350,8 +4359,8 @@ im.zm.psvrsharedown = function () {
     }
     $("#loginLayout").definedDialog({
         title: "",
-        width: 646,
-        height: 457,
+        width: 658,
+        height: 472,
         showClose: !!0,
         open: !1,
         modal: !0,
@@ -4375,7 +4384,15 @@ im.zm.psvrsharedown = function () {
     $("#js-log .google").attr("href", "/account/auth/google_oauth2");
     $("#js-log .github").attr("href", "/account/auth/github");
     $("#register").attr("href", "/register");
-
+		$("#psvrsharedown_big_window").hover(function(){
+			jQuery('#psvrsharedown_thumbnails_btn1').addClass('hover');
+		},function(){
+			jQuery('#psvrsharedown_thumbnails_btn1').removeClass('hover');
+		}).mousedown(function(){
+			jQuery('#psvrsharedown_thumbnails_btn1').addClass('active');
+		}).mouseup(function(){
+			jQuery('#psvrsharedown_thumbnails_btn1').removeClass('active');			
+		})
     function b() {
       return true;//todo:captcha
         var h = new Date();
