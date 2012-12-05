@@ -2251,21 +2251,19 @@ KTV.sdk_scrub = function () {
             c = b.closest(".presentation"),
             d = b.find(".scrubbed"),
             e = parseInt(c.attr("data-slide-count"), 10);
-						console.log(b[0]);
-						console.log(c[0]);
-						console.log(d[0]);
-						console.log(e);
         if (!b.hasClass("setup")) {
             b.addClass("setup");
             var f = c.attr("data-id"),
                 g = b.find("img").attr("src").replace(/0\.jpg$/, "");
             for (var h = 1; h < e; h++) b.prepend('<img src="' + g + h + '.jpg" alt="Slide ' + (h + 1) + '" class="timeline" data-slide="' + h + '" style="display:none;" />')
         }
+				console.log("a.pageX="+a.pageX.toString()+";b.position().left="+b.position().left.toString());
         var i = 180,
             j = a.pageX - b.position().left - 15,
             k = j > 180 ? 180 : j < 0 ? 0 : j,
             l = k / i,
             m = Math.floor(l * e) - 1;
+				console.log("e="+e.toString()+";k="+k.toString()+";i="+i.toString()+";j="+j.toString());
         m > e && (m = e), m < 0 && (m = 0), b.find("img[data-slide]:visible").hide(), b.find("img[data-slide=" + m + "]").show(), b.find(".scrubbed").width(Math.round((m + 1) * 100 / e) + "%")
     }).mouseleave(function () {
         jQuery(this).find("img[data-slide]:visible").hide()

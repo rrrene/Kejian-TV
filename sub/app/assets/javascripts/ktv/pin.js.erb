@@ -4339,16 +4339,21 @@ im.zm.psvrsharedown = function () {
 
     var g, f, c;
     psvr_elem = jQuery(jQuery('#psvrsharedown_thumbnails')[0].outerHTML);
+		psvr_elem.addClass("setup");
 		psvr_elem.attr('id',"psvrsharedown_thumbnails_small");
-		psvr_elem.attr('style',"margin:0;z-index:7777;position:absolute;top: 33px;left: -19px;");
+		psvr_elem.attr('style',"margin:0;z-index:7777;position:absolute;top: 33px;left: 22px;");
+		psvr_elem.find('.scrubber').attr('style'," z-index: 9999; width: 208px; margin-left: 0px; ");
 		psvr_elem.find('.preview_info').remove();
 		g = [
+			'<div id="psvrsharedown_bulk">',
 			'<div class="__sdk">'+psvr_elem[0].outerHTML+'</div>',
       '<img src="'+KTV.psvrsharedown_dialog_src+'" style="position:absolute;z-index:8888;top:15px"/>',
       '<a href="javascript:void(0)" id="psvrsharedown_thumbnails_btn1" style="position:absolute;z-index:8899;top:289px;left:22px">立即购买</a>',
       '<a href="javascript:void(0)" id="psvrsharedown_thumbnails_btn2" style="position:absolute;z-index:8899;top:340px;left:22px">加入收藏</a>',
+			'<div id="psvrsharedown_yigoumai">&nbsp;</div>',
 			'<div id="psvrsharedown_big_window">&nbsp;</div>',
-			'<a class="js-close close" style="display:block;width:46px;height:50px;background: transparent url('+KTV.psvrsharedown_ijiojioji_src+') no-repeat scroll top left;text-indent:-9999em;position:absolute;top:0;left:613px;z-index:9999">Close</a>'
+			'<a class="js-close close" style="display:block;width:46px;height:50px;background: transparent url('+KTV.psvrsharedown_ijiojioji_src+') no-repeat scroll top left;text-indent:-9999em;position:absolute;top:0;left:613px;z-index:9999">Close</a>',
+			'</div>'
     ].join("");
     var e, a;
     if (arguments.length > 0) {
@@ -4386,13 +4391,38 @@ im.zm.psvrsharedown = function () {
     $("#register").attr("href", "/register");
 		$("#psvrsharedown_big_window").hover(function(){
 			jQuery('#psvrsharedown_thumbnails_btn1').addClass('hover');
-		},function(){
-			jQuery('#psvrsharedown_thumbnails_btn1').removeClass('hover');
+			jQuery('#psvrsharedown_bulk div.scrubber').css({'opacity':1,'visibility':'visible'});
 		}).mousedown(function(){
 			jQuery('#psvrsharedown_thumbnails_btn1').addClass('active');
 		}).mouseup(function(){
 			jQuery('#psvrsharedown_thumbnails_btn1').removeClass('active');			
-		})
+		}).mousemove(function (a) {
+				var psvr_b = jQuery('#psvrsharedown_big_window'),
+				    psvr_left_fix = jQuery('#loginLayout').position().left;
+        var b = jQuery('#psvrsharedown_thumbnails_small'),
+            c = b.closest(".presentation"),
+            d = b.find(".scrubbed"),
+            e = parseInt(c.attr("data-slide-count"), 10);
+        if (!b.hasClass("setup")) {
+            b.addClass("setup");
+            var f = c.attr("data-id"),
+                g = b.find("img").attr("src").replace(/0\.jpg$/, "");
+            for (var h = 1; h < e; h++) b.prepend('<img src="' + g + h + '.jpg" alt="Slide ' + (h + 1) + '" class="timeline" data-slide="' + h + '" style="display:none;" />')
+        }
+				console.log("a.pageX="+a.pageX.toString()+";psvr_b.position().left="+psvr_b.position().left.toString());
+        var i = 180,
+            j = a.pageX - psvr_b.position().left - 15 - psvr_left_fix,
+            k = j > 180 ? 180 : j < 0 ? 0 : j,
+            l = k / i,
+            m = Math.floor(l * e) - 1;
+				console.log("e="+e.toString()+";k="+k.toString()+";i="+i.toString()+";j="+j.toString());
+        m > e && (m = e), m < 0 && (m = 0), b.find("img[data-slide]:visible").hide(), b.find("img[data-slide=" + m + "]").show(), b.find(".scrubbed").width(Math.round((m + 1) * 100 / e) + "%")
+    }).mouseleave(function () {
+      // jQuery('#psvrsharedown_thumbnails_small').find("img[data-slide]:visible").hide();
+			jQuery('#psvrsharedown_thumbnails_btn1').removeClass('hover');
+			jQuery('#psvrsharedown_thumbnails_btn1').removeClass('active');			
+			jQuery('#psvrsharedown_bulk div.scrubber').css({'opacity':0,'visibility':'hidden'});
+    })
     function b() {
       return true;//todo:captcha
         var h = new Date();
