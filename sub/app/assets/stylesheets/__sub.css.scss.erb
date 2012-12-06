@@ -560,6 +560,33 @@ input.psvr_bt {width: 56px;height: 23px;background:url(<%=asset_path('extand_ima
       text-decoration:underline;
     }
   }
+  .int_signs{
+    position:absolute;
+    z-index:12222;
+    background: transparent url(<%=asset_path 'int_signs.png'%>) no-repeat scroll top left;
+    top: 48px;
+    left: 488px;
+    width:500px;
+    height:172px;
+    font-size:14px;
+  }
+  .int_sign1,.int_sign2,.int_sign3{
+    position:absolute;
+    z-index:12222;
+  }
+  .int_sign1{
+    top: 32px;
+    left: 44px;
+  }
+  .int_sign2{
+    width:374px;
+    top: 96px;
+    left: 98px;
+  }
+  .int_sign3{
+    top: 160px;
+    left: 44px;
+  }
   .pay_div{
     position:absolute;
     background: transparent url(<%=asset_path 'pay0.png'%>) no-repeat scroll top left;
@@ -568,5 +595,8 @@ input.psvr_bt {width: 56px;height: 23px;background:url(<%=asset_path('extand_ima
     top: 258px;
     left: 488px;
     width:500px;
+    .txt{
+      position:absolute;left:54px;top:18px;font-size: 14px;
+    }
   }
 }
