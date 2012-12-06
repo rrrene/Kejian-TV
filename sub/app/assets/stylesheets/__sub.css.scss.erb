@@ -433,6 +433,10 @@ input.psvr_bt {width: 56px;height: 23px;background:url(<%=asset_path('extand_ima
   &:active,&.active,&.active_loading{
     background-position:0 -76px;
   }
+  &.already{
+    cursor: default !important;
+    background-position:0 -114px !important;
+  }
 }
 
 #psvrsharedown_thumbnails_btn2{
@@ -447,12 +451,22 @@ input.psvr_bt {width: 56px;height: 23px;background:url(<%=asset_path('extand_ima
   &:active,&.active,&.active_loading{
     background-position:0 -76px;
   }
+  &.already{
+    cursor: default !important;
+    background-position:0 -114px !important;
+  }
 }
 #psvrsharedown_yigoumai{
   width:135px;
   height:135px;
   background: transparent url(<%=asset_path 'yigoumai.png'%>) repeat scroll top left;
   position:absolute;z-index:8999;left:21px;top:33px;
+  &.yigoumai{
+    background-position:0 -135px !important;
+  }
+  &.shoucang{
+    background-position:0 -270px;
+  }
 }
 #psvrsharedown_big_window{
   background:transparent;
@@ -460,6 +474,7 @@ input.psvr_bt {width: 56px;height: 23px;background:url(<%=asset_path('extand_ima
 }
 
 #psvrsharedown_bulk{
+  font-family:"Hiragino Sans GB",simsun,Helvetica,Arial,sans-serif;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -472,7 +487,7 @@ input.psvr_bt {width: 56px;height: 23px;background:url(<%=asset_path('extand_ima
   font-weight:bold;
   position:absolute;top:42px;left:304px;z-index:9001;
   font-size:24px;
-  line-height:24px;
+  line-height:25px;
   height:24px;
   width:315px;
   overflow:hidden;
@@ -482,9 +497,22 @@ input.psvr_bt {width: 56px;height: 23px;background:url(<%=asset_path('extand_ima
   font-weight:bold;
   position:absolute;top:80px;left:304px;z-index:9001;
   font-size:13px;
-  line-height:13px;
+  line-height:14px;
   height:13px;
   width:315px;
   overflow:hidden;
+}
+
+.psvrsharedown_spinners{
+  width:16px;
+  height:11px;
+  background: transparent url(<%=asset_path 'psvrsharedown_spinner.gif'%>) no-repeat scroll top left;
+  position:absolute;z-index:9999;
+}
+#psvrsharedown_spinner1{
+  top:303px;left:98px;
+}
+#psvrsharedown_spinner2{
+  top:355px;left:98px;
 }
 

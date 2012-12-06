@@ -190,7 +190,7 @@ courseware_id: '<%=@courseware.id%>'
          <div class="extras psvr_thin_stuff" style="float:right;margin-left:12px;<%="display:none" unless @courseware.thin? %>">
             <%= render :partial => 'presenter', :locals => {user:@courseware.uploader} if @courseware.uploader %>
          </div>
-				 <h1 style="display:none !important" id="core_cw_h1"><%= @courseware.title %></h1>
+				 <h1 style="display:none !important" id="core_cw_h1" data-cw-id="<%= @courseware.id %>" data-shoucang-id="<%= @pl_shoucang.id %>" data-shoucang="<%= @pl_shoucang.content.include?(@courseware.id) %>" data-yigoumai-id="<%= @pl_yigoumai.id%>" data-yigoumai="<%= @pl_yigoumai.content.include?(@courseware.id) %>"><%= @courseware.title %></h1>
 				 <h2 style="display:none !important" id="core_cw_h2">上传: <%= @courseware.uploader.name_beautified %> · 作者: 未认领</h2>
          <h1 style="<%='margin-bottom:12px' if @courseware.yasuobao?%>">
             <%if @cws%>第<%=@courseware.courseware_series_no%>集. <%end%>

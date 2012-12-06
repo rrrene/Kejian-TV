@@ -440,11 +440,22 @@
       $('#psvr_bd_place_huichenotice').show()
       KTV.search_li_hover()
       
-  KTV.psvrsharedown = ->
-    im.zm.psvrsharedown();
+  KTV.psvrsharedown_before = ->
     $('.maskDiv').css('opacity','.6')
+    window.onresize = (event,x,y) ->
+      if(x && y)
+        targ=jQuery('#loginLayout')
+        targ.css({top:(y-targ.height())/2,left:(x-targ.width())/2})
+    
+  KTV.psvrsharedown_after = ->
+    $('.maskDiv').css('opacity','.4');
+    window.onresize = null;
+    
+  KTV.psvrsharedown = ->
+    im.zm.psvrsharedown(KTV.psvrsharedown_after)
     $("#loginLayout").definedDialog("open")
-    return false;
+    KTV.psvrsharedown_before()
+    return false
 
   KTV.login = ->
     im.zm.login()

@@ -4334,10 +4334,9 @@ im.zm.newcw = function () {
     $("#js-log2 .sina").attr("href", "/coursewares/new_sina");
     $("#js-log3 .upload").attr("href", "/upload");
 };
-im.zm.psvrsharedown = function () {
-//important
-
-    var g, f, c;
+im.zm.psvrsharedown = function (closeCallBack) {
+    var g, f, c, j_h1;
+    j_h1 = jQuery('#core_cw_h1');
     psvr_elem = jQuery(jQuery('#psvrsharedown_thumbnails')[0].outerHTML);
 		psvr_elem.addClass("setup");
 		psvr_elem.attr('id',"psvrsharedown_thumbnails_small");
@@ -4348,12 +4347,13 @@ im.zm.psvrsharedown = function () {
 			'<div id="psvrsharedown_bulk">',
 			'<div class="__sdk">'+psvr_elem[0].outerHTML+'</div>',
       '<img src="'+KTV.psvrsharedown_dialog_src+'" style="position:absolute;z-index:8888;top:15px"/>',
-      '<a href="javascript:void(0)" id="psvrsharedown_thumbnails_btn1" style="position:absolute;z-index:8899;top:289px;left:22px">立即购买</a>',
-      '<a href="javascript:void(0)" id="psvrsharedown_thumbnails_btn2" style="position:absolute;z-index:8899;top:340px;left:22px">加入收藏</a>',
-			'<div id="psvrsharedown_yigoumai">&nbsp;</div>',
+      '<a href="javascript:void(0)" id="psvrsharedown_thumbnails_btn1" class="'+(j_h1.data('yigoumai') ? 'already' : '')+'" style="position:absolute;z-index:8899;top:289px;left:22px">立即购买</a>',
+      '<a href="javascript:void(0)" id="psvrsharedown_thumbnails_btn2" class="'+(j_h1.data('shoucang') ? 'already' : '')+'" style="position:absolute;z-index:8899;top:340px;left:22px">加入收藏</a>',
+			'<div id="psvrsharedown_yigoumai" class="'+(j_h1.data('yigoumai') ? 'yigoumai' : '')+'">&nbsp;</div>',
 			'<div id="psvrsharedown_big_window">&nbsp;</div>',
-      '<img style="position:absolute;top:302px;left:98px;z-index:9999" src="/assets/psvrsharedown_spinner.gif" />',
-			'<div id="psvrsharedown_title">'+jQuery('#core_cw_h1').html()+'</div>',
+      '<div class="psvrsharedown_spinners" id="psvrsharedown_spinner1" style="display:none" />',
+      '<div class="psvrsharedown_spinners" id="psvrsharedown_spinner2" style="display:none" />',
+			'<div id="psvrsharedown_title">'+j_h1.html()+'</div>',
 			'<div id="psvrsharedown_subtitle">'+jQuery('#core_cw_h2').html()+'</div>',
 			'<a class="js-close close" style="display:block;width:46px;height:50px;background: transparent url('+KTV.psvrsharedown_ijiojioji_src+') no-repeat scroll top left;text-indent:-9999em;position:absolute;top:0;left:613px;z-index:9999">Close</a>',
 			'</div>'
@@ -4377,12 +4377,7 @@ im.zm.psvrsharedown = function () {
         buttons: null,
         html: g,
         dialogClass: "dialog_psvrsharedown",
-        closeCallBack: function () {
-          $('.maskDiv').css('opacity','.4');
-            try {
-                _gaq.push(["_trackPageview", "/c_l_c/" + a])
-            } catch (h) {}
-        }
+        closeCallBack: closeCallBack
     });
     $("#js-log .sina").attr("href", "/account/auth/weibo");
     $("#js-log .qzone").attr("href", "/account/auth/qq_connect");
@@ -4393,9 +4388,49 @@ im.zm.psvrsharedown = function () {
     $("#js-log .google").attr("href", "/account/auth/google_oauth2");
     $("#js-log .github").attr("href", "/account/auth/github");
     $("#register").attr("href", "/register");
-    $('#psvrsharedown_thumbnails_btn1').click(function(){
-      $(this).addClass('active_loading');
-    });
+  	$('#psvrsharedown_thumbnails_btn1').live('click',function(){
+      if($(this).hasClass('already')){
+        return false;
+      }
+      window.scrollTo(0,0);
+      // tmp = this;
+      //       $('#psvrsharedown_spinner1').show();
+      // $.ajax({
+      //   url:'/ajax/add_to_playlist_by_id',
+      //   type:'POST',
+      //         data:{'authenticity_token':window.form_authenticity_token,'pid':$('#core_cw_h1').data('shoucang-id'),'cwid':$('#core_cw_h1').data('cw-id')},
+      //   dataType:'json'
+      // }).done(function(json){
+      //         $('#psvrsharedown_thumbnails_btn1').removeClass('active_loading');
+      //         $('#psvrsharedown_spinner1').hide();
+      // 
+      //         // $('#psvrsharedown_thumbnails_btn1').addClass('already');
+      // });
+  	});
+
+
+
+  	$('#psvrsharedown_thumbnails_btn2').live('click',function(){
+      if($(this).hasClass('already')){
+        return false;
+      }
+  		tmp = this;
+      $('#psvrsharedown_spinner2').show();
+  		$.ajax({
+  			url:'/ajax/add_to_playlist_by_id',
+  			type:'POST',
+        data:{'authenticity_token':window.form_authenticity_token,'pid':$('#core_cw_h1').data('shoucang-id'),'cwid':$('#core_cw_h1').data('cw-id')},
+  			dataType:'json'
+  		}).done(function(json){
+        $('#psvrsharedown_thumbnails_btn2').removeClass('active_loading');
+        $('#psvrsharedown_spinner2').hide();
+        if(json.status == 'failed'){
+          alert(json.reason);
+  			}
+        $('#psvrsharedown_thumbnails_btn2').addClass('already');
+  		});
+  	});
+
 		$("#psvrsharedown_big_window").hover(function(){
 			jQuery('#psvrsharedown_thumbnails_btn1').addClass('hover');
 			jQuery('#psvrsharedown_bulk div.scrubber').css({'opacity':1,'visibility':'visible'});
@@ -4416,13 +4451,11 @@ im.zm.psvrsharedown = function () {
                 g = b.find("img").attr("src").replace(/0\.jpg$/, "");
             for (var h = 1; h < e; h++) b.prepend('<img src="' + g + h + '.jpg" alt="Slide ' + (h + 1) + '" class="timeline" data-slide="' + h + '" style="display:none;" />')
         }
-				console.log("a.pageX="+a.pageX.toString()+";psvr_b.position().left="+psvr_b.position().left.toString());
         var i = 180,
             j = a.pageX - psvr_b.position().left - 15 - psvr_left_fix,
             k = j > 180 ? 180 : j < 0 ? 0 : j,
             l = k / i,
             m = Math.floor(l * e) - 1;
-				console.log("e="+e.toString()+";k="+k.toString()+";i="+i.toString()+";j="+j.toString());
         m > e && (m = e), m < 0 && (m = 0), b.find("img[data-slide]:visible").hide(), b.find("img[data-slide=" + m + "]").show(), b.find(".scrubbed").width(Math.round((m + 1) * 100 / e) + "%")
     }).mouseleave(function () {
       // jQuery('#psvrsharedown_thumbnails_small').find("img[data-slide]:visible").hide();
