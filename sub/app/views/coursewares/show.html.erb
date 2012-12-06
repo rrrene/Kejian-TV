@@ -194,7 +194,7 @@ courseware_id: '<%=@courseware.id%>'
             <%= render :partial => 'presenter', :locals => {user:@courseware.uploader} if @courseware.uploader %>
          </div>
 <% if user_signed_in? %>
-				 <h1 style="display:none !important" id="core_cw_h1" data-cw-id="<%= @courseware.id %>" data-shoucang-id="<%= @pl_shoucang.id %>" data-shoucang="<%= @pl_shoucang.content.include?(@courseware.id) %>" data-yigoumai-id="<%= @pl_yigoumai.id%>" data-yigoumai="<%= @pl_yigoumai.content.include?(@courseware.id) %>"><%= @courseware.title %></h1>
+				 <h1 style="display:none !important" id="core_cw_h1" data-cw-id="<%= @courseware.id %>" data-shoucang-id="<%= @pl_shoucang.id %>" data-shoucang="<%= @pl_shoucang.content.include?(@courseware.id) %>" data-yigoumai-id="<%= @pl_yigoumai.id%>" data-yigoumai="<%= @pl_yigoumai.content.include?(@courseware.id) %>" data-downtypes="<%= raw Courseware::SORTDOWNTYPES[@courseware.sort] %>"><%= @courseware.title %></h1>
 				 <h2 style="display:none !important" id="core_cw_h2">上传: <%= @courseware.uploader.name_beautified %> · 作者: 未认领</h2>
 <% end %>
          <h1 style="<%='margin-bottom:12px' if @courseware.yasuobao?%>">
@@ -303,7 +303,7 @@ courseware_id: '<%=@courseware.id%>'
            </div>
            <div class="extras" style="float:right;margin-right:40px">
               <ul class="delimited share" style="margin-bottom:0;border-top:none">
-                 <li class="dianjiliang" style="border-top:none">下载量 <a href="#watch-view-count"><%= number_with_delimiter @courseware.downloads_count %> 次</a></li>
+                 <li class="dianjiliang" style="border-top:none">销售量 <a href="#watch-view-count"><%= number_with_delimiter @courseware.downloads_count %> 件</a></li>
               </ul>
            </div>
            <div class="extras" style="float:right;margin-right:18px;margin-right:40px">
@@ -367,7 +367,7 @@ courseware_id: '<%=@courseware.id%>'
                  <% if @courseware.version_date[@courseware.version.to_s].present? %>
                   <li class="dianjiliang">版本 <a href="#revisions"><%= @courseware.version_date[@courseware.version.to_s] %>版</a></li>
                  <% end %>
-                 <li class="dianjiliang">下载量 <a href="#watch-view-count"><%= number_with_delimiter @courseware.downloads_count %> 次</a></li>
+                 <li class="dianjiliang">销售量 <a href="#watch-view-count"><%= number_with_delimiter @courseware.downloads_count %> 件</a></li>
               </ul>
               <h1><%=image_tag('share.png',alt:'获取此课件')%></h1>
               <ul class="delimited share" style="border:none !important;">

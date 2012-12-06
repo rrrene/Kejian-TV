@@ -132,6 +132,25 @@ class Courseware
     'jpg' => '图片',
     'jpeg' => '图片'
   }
+  SORTDOWNTYPES ={
+    'ppt' => ['ppt','pdf'],
+    'pptx' => ['pptx','pdf'],
+    'doc' => ['doc','pdf'],
+    'docx' => ['docx','pdf'],
+    'pdf' => ['pdf'],
+    'djvu' => [],
+    'webm'=> [],
+    'youku'=> [],
+    'tudou'=> [],
+    'youtube'=> [],
+    'books' => [],
+    'zip' => ['zip'],
+    'rar' => ['rar'],
+    '7z' => ['7z'],
+    'png' => ['png'],
+    'jpg' => ['jpg'],
+    'jpeg' => ['jpeg'],
+  }
   def as_json(opts={})
     {id:self.id,wh_ratio:self.wh_ratio,thin:self.thin?}
   end

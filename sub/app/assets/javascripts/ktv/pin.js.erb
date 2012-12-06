@@ -4354,8 +4354,11 @@ im.zm.psvrsharedown = function (closeCallBack) {
       '<div class="psvrsharedown_spinners" id="psvrsharedown_spinner1" style="display:none" />',
       '<div class="psvrsharedown_spinners" id="psvrsharedown_spinner2" style="display:none" />',
 			'<div id="psvrsharedown_title">'+j_h1.html()+'</div>',
-			'<div id="psvrsharedown_subtitle">'+jQuery('#core_cw_h2').html()+'</div>',
-			'<a class="js-close close" style="display:block;width:46px;height:50px;background: transparent url('+KTV.psvrsharedown_ijiojioji_src+') no-repeat scroll top left;text-indent:-9999em;position:absolute;top:0;left:613px;z-index:9999">Close</a>',
+			'<div id="psvrsharedown_subtitle">'+jQuery('#core_cw_h2').html()+'</div>'
+    ].join("")+$.map(j_h1.data('downtypes'),function(elementOfArray, indexInArray){
+      return '<div class="numbers number'+(indexInArray+1).toString()+'">'+(indexInArray+1).toString()+'</div>'+'<div class="fileicons fileicon-'+elementOfArray+' fileicon'+(indexInArray+1).toString()+'">&nbsp;</div>';
+    }).join("")+[
+      '<a class="js-close close" style="display:block;width:46px;height:50px;background: transparent url('+KTV.psvrsharedown_ijiojioji_src+') no-repeat scroll top left;text-indent:-9999em;position:absolute;top:0;left:613px;z-index:9999">Close</a>',
 			'</div>'
     ].join("");
     var e, a;
