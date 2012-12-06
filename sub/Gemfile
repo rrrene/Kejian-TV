@@ -1,5 +1,5 @@
-#source 'http://ruby.taobao.org/'
-source 'https://rubygems.org'
+source 'http://ruby.taobao.org/'
+#source 'https://rubygems.org'
 
 Encoding.default_external = Encoding::UTF_8
 Encoding.default_internal = Encoding::UTF_8
@@ -148,7 +148,7 @@ gem 'nokogiri'
 gem 'redis-objects' #[!]
 gem 'progressbar'
 gem 'unicorn'
-gem 'therubyracer', :platforms => :ruby
+
 
 gem 'savon' #[!]
 gem 'rest-client', '1.6.7'

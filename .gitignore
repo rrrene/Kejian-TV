@@ -10,7 +10,7 @@ log/
 /win/ConvertPowerPoint2PDF/ConvertPowerPoint2PDF/obj/
 /win/ConvertWord2PDF/ConvertWord2PDF/bin/
 /win/ConvertWord2PDF/ConvertWord2PDF/obj/
-_assets/
+_assets*/
 _assets_old/
 _assets_uploading/
 _assets_sub/
