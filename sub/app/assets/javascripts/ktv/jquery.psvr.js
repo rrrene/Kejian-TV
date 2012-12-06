@@ -1,3 +1,51 @@
+// left: 37, up: 38, right: 39, down: 40,
+// spacebar: 32, pageup: 33, pagedown: 34, end: 35, home: 36
+
+window.psvr_preventDefault = function(e) {
+  e = e || window.event;
+  if (e.preventDefault)
+      e.preventDefault();
+  e.returnValue = false;  
+};
+
+window.psvr_keydown = function(e) {
+  var keys = [37, 38, 39, 40];
+    for (var i = keys.length; i--;) {
+        if (e.keyCode === keys[i]) {
+            psvr_preventDefault(e);
+            return;
+        }
+    }
+};
+
+window.psvr_wheel = function(e) {
+  psvr_preventDefault(e);
+};
+
+window.disable_scroll = function() {
+  if (window.addEventListener) {
+      window.addEventListener('DOMMouseScroll', psvr_wheel, false);
+  }
+  window.onmousewheel = document.onmousewheel = psvr_wheel;
+  document.onkeydown = psvr_keydown;
+  window.psvr_disabled_scroll = true;
+};
+
+window.enable_scroll = function() {
+  if (window.psvr_disabled_scroll) {
+    if (window.removeEventListener) {
+        window.removeEventListener('DOMMouseScroll', psvr_wheel, false);
+    }
+    window.onmousewheel = document.onmousewheel = document.onkeydown = null;  
+    window.psvr_disabled_scroll = false;
+  }
+};
+
+
+
+
+
+
 jQuery(function(){
   window.psvr_ie_already_ready=true;
 });

@@ -3,6 +3,7 @@ require 'sidekiq/web'
 Sub::Application.routes.draw do
 
   root :to=>'welcome#index'
+  get '/deposit' => 'deposit#index'
   get '/iphone' => 'welcome#iphone'
   get '/upload' => 'coursewares#new'
   get '/embed/:id' => 'coursewares#embed'

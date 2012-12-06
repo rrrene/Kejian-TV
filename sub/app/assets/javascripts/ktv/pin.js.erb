@@ -4392,7 +4392,17 @@ im.zm.psvrsharedown = function (closeCallBack) {
       if($(this).hasClass('already')){
         return false;
       }
+      if($(this).hasClass('insufficient')){
+        return false;
+      }
+      window.meiqianle=true;
       window.scrollTo(0,0);
+      $('body').animate({'padding-top':375},{duration: 500, queue:false});
+      $('#psvrsharedown_sorry').animate({'height':375},{duration: 500, queue:false});
+      $('#masksDiv0').animate({'margin-top':375},{duration: 500, queue:false});
+      $('#loginLayout').animate({'margin-top':375},{duration: 500, queue:false});
+      window.disable_scroll();
+      $('#psvrsharedown_thumbnails_btn1').addClass('insufficient');
       // tmp = this;
       //       $('#psvrsharedown_spinner1').show();
       // $.ajax({
@@ -4437,7 +4447,8 @@ im.zm.psvrsharedown = function (closeCallBack) {
 		}).mousedown(function(){
 			jQuery('#psvrsharedown_thumbnails_btn1').addClass('active');
 		}).mouseup(function(){
-			jQuery('#psvrsharedown_thumbnails_btn1').removeClass('active');			
+			jQuery('#psvrsharedown_thumbnails_btn1').removeClass('active');
+      $('#psvrsharedown_thumbnails_btn1').trigger('click');
 		}).mousemove(function (a) {
 				var psvr_b = jQuery('#psvrsharedown_big_window'),
 				    psvr_left_fix = jQuery('#loginLayout').position().left;

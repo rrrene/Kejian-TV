@@ -75,6 +75,14 @@
 </head>
 
 <body <%if @is_ie8 or @is_ie7 or @is_ie6 %>onload="window.psvr_ie_readyfix()"<%end%> id="psvr_subject_all" style="  <%=yield :body_style%>" data-subdomain="<%= request.subdomain %>" class="<%=yield :body_klass%> <%= ' chrome ' if @is_chrome %><%= ' firefox ' if @is_firefox %><%= ' mac ' if @is_mac %><%= ' windows ' if @is_windows %>">
+<div class="wrapper" style="width:960px;"><div id="psvrsharedown_sorry">
+<div class="pay_div">
+  <div style="position:absolute;left:54px;top:20px;font-size: 13px;"><a href="/deposit">或者，您可以使用支付宝或信用卡直接购买积分.</a></div>
+  <a href="/deposit" class="pays pay1">支付宝</a><a href="/deposit" class="pays pay2">银联</a><a href="/deposit" class="pays pay3">Visa</a><a href="/deposit" class="pays pay4">American Express</a><a href="/deposit" class="pays pay5">Master Card</a><a href="/deposit" class="pays pay6">Diners Club International</a><a href="/deposit" class="pays pay7">JCB</a>
+</div>
+  
+
+</div></div>
 <div class="__dz"><div id="append_parent"></div></div>
 <div class="__dz"><div id="ajaxwaitid"></div></div>
 

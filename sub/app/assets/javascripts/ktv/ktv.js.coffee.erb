@@ -448,6 +448,12 @@
         targ.css({top:(y-targ.height())/2,left:(x-targ.width())/2})
     
   KTV.psvrsharedown_after = ->
+    if(window.meiqianle)    
+      $('body').animate({'padding-top':0},{duration: 500, queue:false});
+      $('#psvrsharedown_sorry').animate({'height':0},{duration: 500, queue:false});
+      $('#masksDiv0').animate({'margin-top':0},{duration: 500, queue:false});
+      $('#loginLayout').animate({'margin-top':0},{duration: 500, queue:false});
+    window.enable_scroll();
     $('.maskDiv').css('opacity','.4');
     window.onresize = null;
     

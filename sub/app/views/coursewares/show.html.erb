@@ -1,3 +1,6 @@
+<% content_for :body_style do %>
+background-image: url(<%= asset_path 'psvrsharedown_sorry_bg.png' %>) !important;
+<%end %>
 <%
   if @courseware.course_fid.present?
     nn=Course.get_name(@courseware.course_fid)
@@ -13,6 +16,14 @@
 KTV.data = {
 courseware_id: '<%=@courseware.id%>'
 }
+
+window.scrollTo(0,0);
+$('body').animate({'padding-top':375},{duration: 500, queue:false});
+$('#psvrsharedown_sorry').animate({'height':375},{duration: 500, queue:false});
+$('#masksDiv0').animate({'margin-top':375},{duration: 500, queue:false});
+$('#loginLayout').animate({'margin-top':375},{duration: 500, queue:false});
+window.disable_scroll();
+
 <% end %>
 <style type="text/css" media="screen">
   span.yasuobao{
@@ -190,8 +201,10 @@ courseware_id: '<%=@courseware.id%>'
          <div class="extras psvr_thin_stuff" style="float:right;margin-left:12px;<%="display:none" unless @courseware.thin? %>">
             <%= render :partial => 'presenter', :locals => {user:@courseware.uploader} if @courseware.uploader %>
          </div>
+<% if user_signed_in? %>
 				 <h1 style="display:none !important" id="core_cw_h1" data-cw-id="<%= @courseware.id %>" data-shoucang-id="<%= @pl_shoucang.id %>" data-shoucang="<%= @pl_shoucang.content.include?(@courseware.id) %>" data-yigoumai-id="<%= @pl_yigoumai.id%>" data-yigoumai="<%= @pl_yigoumai.content.include?(@courseware.id) %>"><%= @courseware.title %></h1>
 				 <h2 style="display:none !important" id="core_cw_h2">上传: <%= @courseware.uploader.name_beautified %> · 作者: 未认领</h2>
+<% end %>
          <h1 style="<%='margin-bottom:12px' if @courseware.yasuobao?%>">
             <%if @cws%>第<%=@courseware.courseware_series_no%>集. <%end%>
             <%= @courseware.title %>

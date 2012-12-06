@@ -213,9 +213,11 @@ class CoursewaresController < ApplicationController
         @note = Note.new
         @note.courseware_id = @courseware.id
         @note.page = 0
-        @pl_shoucang  = PlayList.locate(current_user.id,'收藏')
-        @pl_yigoumai  = PlayList.locate(current_user.id,'已购买')
         version_issues_deal!
+        if user_signed_in?
+          @pl_shoucang  = PlayList.locate(current_user.id,'收藏')
+          @pl_yigoumai  = PlayList.locate(current_user.id,'已购买')
+        end
         render "show"
       }
       format.json{
