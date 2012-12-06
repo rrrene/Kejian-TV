@@ -447,12 +447,56 @@
         targ=jQuery('#loginLayout')
         targ.css({top:(y-targ.height())/2,left:(x-targ.width())/2})
     
-  KTV.psvrsharedown_after = ->
-    if(window.meiqianle)    
+  KTV.psvrsharedown_meiqianle = ->
+    window.meiqianle=true;
+    window.scrollTo(0,0);
+    $('body').animate({'padding-top':375},{duration: 500, queue:false});
+    objective = $('#psvrsharedown_sorry')
+    objective.html("\
+      <div class=\"int_signs\">\
+      <div class=\"int_sign1_meng\">&nbsp;</div>      <div class=\"int_sign2_meng\">&nbsp;</div>      <div class=\"int_sign3_meng\">&nbsp;</div>\
+      <div class=\"int_sign1\"><a href=\"#\">您可以通过上传课件获取源源不断的课件购买积分收益 &raquo;</a></div>\
+      <div class=\"int_sign2\"><a href=\"#\">您可以把在其他课件台子站获得的积分转账到<%= Setting.ktv_subname %>课件台 &raquo;</a></div>\
+      <div class=\"int_sign3\"><a href=\"#\">您可以拜访上传者的人人主页获得一次性的积分奖励 &raquo;</a></div>\
+      </div>\
+      <div class=\"__zm\" style=\"position:absolute;top:0;margin-left: 960px;\"><div class=\"dialog3\" style=\" position: absolute; \"><a class=\"js-close close\">关闭</a></div></div>\
+      <div class=\"pay_div\">\
+        <div class=\"txt\"><a href=\"/deposit\">同时，您可以使用支付宝或信用卡直接购买积分</a>.</div>\
+        <a href=\"/deposit\" class=\"pays pay1\">支付宝</a><a href=\"/deposit\" class=\"pays pay2\">银联</a><a href=\"/deposit\" class=\"pays pay3\">Visa</a><a href=\"/deposit\" class=\"pays pay4\">American Express</a><a href=\"/deposit\" class=\"pays pay5\">Master Card</a><a href=\"/deposit\" class=\"pays pay6\">Diners Club International</a><a href=\"/deposit\" class=\"pays pay7\">JCB</a>\
+      </div>\
+    ");
+    objective.animate({'height':375},{duration: 500, queue:false});
+    $('#masksDiv0').animate({'margin-top':375},{duration: 500, queue:false});
+    $('#loginLayout').animate({'margin-top':375},{duration: 500, queue:false});
+    $('.int_sign1_meng',objective).hover(->
+      $('.int_sign1').addClass('hover')
+    ,->
+      $('.int_sign1').removeClass('hover'))
+    $('.int_sign2_meng',objective).hover(->
+      $('.int_sign2').addClass('hover')
+    ,->
+      $('.int_sign2').removeClass('hover'))
+    $('.int_sign3_meng',objective).hover(->
+      $('.int_sign3').addClass('hover')
+    ,->
+      $('.int_sign3').removeClass('hover'))
+    $('.js-close',objective).click(->
+      KTV.psvrsharedown_meiqianle_back();return false;
+    );
+    window.disable_scroll();
+    $('#psvrsharedown_thumbnails_btn1').addClass('insufficient');
+
+
+  KTV.psvrsharedown_meiqianle_back = ->
+    if(window.meiqianle)
       $('body').animate({'padding-top':0},{duration: 500, queue:false});
       $('#psvrsharedown_sorry').animate({'height':0},{duration: 500, queue:false});
       $('#masksDiv0').animate({'margin-top':0},{duration: 500, queue:false});
       $('#loginLayout').animate({'margin-top':0},{duration: 500, queue:false});
+      window.meiqianle = false
+          
+  KTV.psvrsharedown_after = ->
+    KTV.psvrsharedown_meiqianle_back();
     window.enable_scroll();
     $('.maskDiv').css('opacity','.4');
     window.onresize = null;

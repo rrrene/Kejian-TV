@@ -551,6 +551,12 @@ input.psvr_bt {width: 56px;height: 23px;background:url(<%=asset_path('extand_ima
   background-position:0 0px;
 }
 #psvrsharedown_sorry{
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
   background: transparent url(<%= asset_path 'insufficient_app.png' %>) no-repeat scroll top left;
   height:0px;overflow:hidden;width:960px;z-index:11111;position:absolute;top:0;  
   a{
@@ -573,6 +579,33 @@ input.psvr_bt {width: 56px;height: 23px;background:url(<%=asset_path('extand_ima
   .int_sign1,.int_sign2,.int_sign3{
     position:absolute;
     z-index:12222;
+    &.hover a{
+      text-decoration:underline;
+    }
+  }
+  .int_sign1_meng,.int_sign2_meng,.int_sign3_meng{
+    background:transparent !important;
+    position:absolute;
+    z-index:13333;
+    cursor:pointer;
+  }
+  .int_sign1_meng{
+    width:32px;
+    height:56px;
+    top: -6px;
+    left: 11px;
+  }
+  .int_sign2_meng{
+    width:94px;
+    height:57px;
+    top: 59px;
+    left: 3px;
+  }
+  .int_sign3_meng{
+    width:48px;
+    height:52px;
+    top: 124px;
+    left: -4px;
   }
   .int_sign1{
     top: 32px;
@@ -593,7 +626,7 @@ input.psvr_bt {width: 56px;height: 23px;background:url(<%=asset_path('extand_ima
     padding-top:44px;
     z-index:12222;
     top: 258px;
-    left: 488px;
+    left: 600px;
     width:500px;
     .txt{
       position:absolute;left:54px;top:18px;font-size: 14px;
