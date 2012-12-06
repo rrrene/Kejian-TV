@@ -85,6 +85,9 @@ module Ktv
               @courseware.status = 0
             end
             @courseware.save(:validate => false)
+            if @courseware.get_children.blank?
+              @courseware.go_to_normal
+            end
             # puts `rm -rf "#{@working_dir}"`
             return tree
         rescue => e
@@ -198,7 +201,7 @@ module Ktv
       p[:pdf_filename]=File.basename(opts[:pdf_filename])
       p[:title] = @title
       ## about child
-      rest = opts[:filepath].split(@working_dir)[-1].split("/").collect{|x| URI::escape(x.to_s)}.join("/")
+      rest = opts[:filepath].split(@working_dir)[-1].split("/").collect{|x| URI::escape(x.to_s)}.join("/").gsub(/([\[\]\{\}])/,CGI.escape('\1'))
       p[:is_children] = true
       p[:father_id] = @courseware.id
       p[:where_am_i_in_this_family] =  rest
