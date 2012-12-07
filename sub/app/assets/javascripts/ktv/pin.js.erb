@@ -4355,8 +4355,20 @@ im.zm.psvrsharedown = function (closeCallBack) {
       '<div class="psvrsharedown_spinners" id="psvrsharedown_spinner2" style="display:none" />',
 			'<div id="psvrsharedown_title">'+j_h1.html()+'</div>',
 			'<div id="psvrsharedown_subtitle">'+jQuery('#core_cw_h2').html()+'</div>'
+// ['ppt','doc','docx','zip','png']
     ].join("")+$.map(j_h1.data('downtypes'),function(elementOfArray, indexInArray){
-      return '<div class="numbers number'+(indexInArray+1).toString()+'">'+(indexInArray+1).toString()+'</div>'+'<div class="fileicons fileicon-'+elementOfArray+' fileicon'+(indexInArray+1).toString()+'">&nbsp;</div>';
+      var noun,str=(indexInArray+1).toString();
+      if(0==indexInArray){
+        noun = '最初上传';
+      }else{
+        noun = KTV.zhongwenshuzi[indexInArray]+'次转码后';
+      }
+      return [
+        '<div class="numbers number'+str+'">'+str+'</div>',
+        '<div class="fileicons fileicon-'+elementOfArray+' fileicon'+str+'">&nbsp;</div>',
+        '<div class="filetitles filetitle'+str+'">'+noun+'的'+elementOfArray.toUpperCase()+'格式源文件(3.54 MB)</div>',
+        '<div class="filebuttons filebutton'+str+'"><a href="#" class="downbtn_l">下载</a><a href="javascript:void(0)" class="downbtn_r">下载选项</a></div>'
+      ].join("");
     }).join("")+[
       '<a class="js-close close" style="display:block;width:46px;height:50px;background: transparent url('+KTV.psvrsharedown_ijiojioji_src+') no-repeat scroll top left;text-indent:-9999em;position:absolute;top:0;left:613px;z-index:9999">Close</a>',
 			'</div>'

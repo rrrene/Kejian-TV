@@ -505,7 +505,7 @@ input.psvr_bt {width: 56px;height: 23px;background:url(<%=asset_path('extand_ima
     background: transparent url(<%=asset_path 'filetypes.png'%>) no-repeat scroll top left;
     position:absolute;
     z-index:12222;
-    left:322px;
+    left:323px;
     text-indent:-9999em;
   }
   .fileicon1{top:120px;}
@@ -524,11 +524,67 @@ input.psvr_bt {width: 56px;height: 23px;background:url(<%=asset_path('extand_ima
   .fileicon-7z{background-position:0 -336px;}
   .fileicon-png{background-position:0 -384px;}
   .fileicon-jpg,.fileicon-jpeg{background-position:0 -432px;}
-  
-  .fileicon2{top:189px;}
-  .fileicon3{top:258px;}
-  .fileicon4{top:327px;}
-  .fileicon5{top:396px;}
+
+  .filetitles{
+    color:#101010;
+    -webkit-font-smoothing:subpixel-antialiased;
+    position:absolute;
+    z-index:12222;
+    left:371px;
+    width:258px;
+    font-size:12px;
+    line-height:13px;
+    height:13px;
+    overflow:hidden;
+  }
+  .filetitle1{top:131px;}
+  .filetitle2{top:200px;}
+  .filetitle3{top:269px;}
+  .filetitle4{top:338px;}
+  .filetitle5{top:407px;}
+  .filebuttons{
+    width:82px;
+    height:13px;
+    position:absolute;
+    z-index:12222;
+    left:371px;
+    text-indent:-9999em;
+    background:transparent;
+    a{
+      text-indent:-9999em;
+      display:block;
+      height:13px;
+      position:absolute;
+    }
+    a.downbtn_l{
+      left:0;
+      width:66px;
+      background: transparent url(<%= asset_path 'downbtn_l.png'%>) no-repeat scroll top left;
+      &:hover,&.hover{
+        background-position:0 -13px;
+      }
+      &:active,&.active{
+        background-position:0 -26px;
+      }
+    }
+    a.downbtn_r{
+      right:0;
+      width:15px;
+      background: transparent url(<%= asset_path 'downbtn_r.png'%>) no-repeat scroll top left;
+      &:hover,&.hover{
+        background-position:0 -13px;
+      }
+      &:active,&.active{
+        background-position:0 -26px;
+      }
+    }
+  }
+  .filebutton1{top:151px;}
+  .filebutton2{top:220px;}
+  .filebutton3{top:289px;}
+  .filebutton4{top:358px;}
+  .filebutton5{top:427px;}
+
 }
 #psvrsharedown_title{
   color:#101010;
@@ -536,7 +592,7 @@ input.psvr_bt {width: 56px;height: 23px;background:url(<%=asset_path('extand_ima
   position:absolute;top:42px;left:304px;z-index:9001;
   font-size:24px;
   line-height:25px;
-  height:24px;
+  height:25px;
   width:315px;
   overflow:hidden;
 }
@@ -546,7 +602,7 @@ input.psvr_bt {width: 56px;height: 23px;background:url(<%=asset_path('extand_ima
   position:absolute;top:80px;left:304px;z-index:9001;
   font-size:13px;
   line-height:14px;
-  height:13px;
+  height:14px;
   width:315px;
   overflow:hidden;
 }

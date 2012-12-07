@@ -194,7 +194,7 @@ courseware_id: '<%=@courseware.id%>'
             <%= render :partial => 'presenter', :locals => {user:@courseware.uploader} if @courseware.uploader %>
          </div>
 <% if user_signed_in? %>
-				 <h1 style="display:none !important" id="core_cw_h1" data-cw-id="<%= @courseware.id %>" data-shoucang-id="<%= @pl_shoucang.id %>" data-shoucang="<%= @pl_shoucang.content.include?(@courseware.id) %>" data-yigoumai-id="<%= @pl_yigoumai.id%>" data-yigoumai="<%= @pl_yigoumai.content.include?(@courseware.id) %>" data-downtypes="<%= raw Courseware::SORTDOWNTYPES[@courseware.sort] %>"><%= @courseware.title %></h1>
+				 <h1 style="display:none !important" id="core_cw_h1" data-cw-id="<%= @courseware.id %>" data-shoucang-id="<%= @pl_shoucang.id %>" data-shoucang="<%= @pl_shoucang.content.include?(@courseware.id) %>" data-yigoumai-id="<%= @pl_yigoumai.id%>" data-yigoumai="<%= @pl_yigoumai.content.include?(@courseware.id) %>" data-downtypes="<%= Courseware::SORTDOWNTYPES[@courseware.sort] %>"><%= @courseware.title %></h1>
 				 <h2 style="display:none !important" id="core_cw_h2">上传: <%= @courseware.uploader.name_beautified %> · 作者: 未认领</h2>
 <% end %>
          <h1 style="<%='margin-bottom:12px' if @courseware.yasuobao?%>">

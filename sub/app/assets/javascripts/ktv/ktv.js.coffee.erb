@@ -4,7 +4,8 @@
   window.KTV.data = {}
   KTV.search_cache = {}
   KTV.sss_term_cache = {}
-
+  KTV.zhongwenshuzi = ['零','初','二','三','四','五','六','七','八','九','十']
+  
   KTV.sss_escape = (str) ->
     ret=encodeURI(str);
     ret=ret.split('!').join('%21');
