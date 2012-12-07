@@ -4383,7 +4383,7 @@ im.zm.psvrsharedown = function (closeCallBack) {
 
     $("#loginLayout").definedDialog({
         title: "",
-        width: 658,
+        width: 660,
         height: 472,
         showClose: !!0,
         open: !1,
@@ -4417,7 +4417,7 @@ im.zm.psvrsharedown = function (closeCallBack) {
     });
 
   	$('#psvrsharedown_thumbnails_btn1').live('click',function(){
-      if($(this).hasClass('already')){
+      if($(this).hasClass('already') || $('#psvrsharedown_spinner1').is(':visible')){
         return false;
       }
       if($(this).hasClass('insufficient')){
@@ -4425,7 +4425,6 @@ im.zm.psvrsharedown = function (closeCallBack) {
         return false;
       }
       KTV.psvrsharedown_meiqianle();
-      // tmp = this;
       //       $('#psvrsharedown_spinner1').show();
       // $.ajax({
       //   url:'/ajax/add_to_playlist_by_id',
@@ -4443,10 +4442,9 @@ im.zm.psvrsharedown = function (closeCallBack) {
 
 
   	$('#psvrsharedown_thumbnails_btn2').live('click',function(){
-      if($(this).hasClass('already')){
+      if($(this).hasClass('already') || $('#psvrsharedown_spinner2').is(':visible')){
         return false;
       }
-  		tmp = this;
       $('#psvrsharedown_spinner2').show();
   		$.ajax({
   			url:'/ajax/add_to_playlist_by_id',

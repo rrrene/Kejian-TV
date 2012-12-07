@@ -357,8 +357,8 @@ $('#psvrsharedown,#psvrsharedown_thin').click(KTV.psvrsharedown);
            <div style="width:51%;float:left" class="extras">
               <h1><%=image_tag('share.png',alt:'获取此课件',style:'margin-top:16px;margin-bottom:4px')%></h1>
               <ul class="delimited share" style="border:none !important;">
-                <a href="javascript:void(0)" id="psvrsharedown_thin" class="psvr_login_required" style="float:left;margin-top:2px">下载源文件 （售价0.99积分）</a>
-                <a href="javascript:void(0)" id="psvrshareprint_thin" class="psvr_login_required" style="float:left;margin-top:2px">打印并寄送 （售价0.09元/页）</a>
+                <a href="javascript:void(0)" id="psvrsharedown_thin" class="psvr_login_required dual_psvrsharedown" style="float:left;margin-top:2px">下载源文件 （售价0.99积分）</a>
+                <a href="javascript:void(0)" id="psvrshareprint_thin" class="psvr_login_required dual_psvrshareprint" style="float:left;margin-top:2px">打印并寄送 （售价0.09元/页）</a>
               </ul>
            </div>
          </div><!--thin stuff end-->
@@ -393,8 +393,8 @@ $('#psvrsharedown,#psvrsharedown_thin').click(KTV.psvrsharedown);
               </ul>
               <h1><%=image_tag('share.png',alt:'获取此课件')%></h1>
               <ul class="delimited share" style="border:none !important;">
-                <a href="javascript:void(0)" id="psvrsharedown" class="psvr_login_required">下载源文件 （售价0.99积分）</a>
-                <a href="javascript:void(0)" id="psvrshareprint" class="psvr_login_required">打印并寄送 （售价0.09元/页）</a>
+                <a href="javascript:void(0)" class="psvr_login_required dual_psvrsharedown" id="psvrsharedown">下载源文件 （售价0.99积分）</a>
+                <a href="javascript:void(0)" class="psvr_login_required dual_psvrshareprint" id="psvrshareprint">打印并寄送 （售价0.09元/页）</a>
               </ul>
            </div>
         </div>
