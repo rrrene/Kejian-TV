@@ -940,7 +940,24 @@ class Courseware
         counting += 1
       end
     end
+    if self.get_children.blank?
+      self.go_to_normal
+    end
     puts "father " + self.id.to_s.colorize(:red) + " has " + counting.to_s.colorize(:red) + " need to be fixed."
+  end
+  def self.fix_queue!(array)
+    array.each do |f| 
+      c = Courseware.find(f)
+      if c.status == 1
+        c.enqueue!
+      else
+        if c.tree.present?
+          c.fix_children
+        else
+          c.enqueue!
+        end
+      end
+    end
   end
   def check_children(key,statusArray=[])
     self.get_children.each do |c|
