@@ -4403,6 +4403,19 @@ im.zm.psvrsharedown = function (closeCallBack) {
     $("#js-log .google").attr("href", "/account/auth/google_oauth2");
     $("#js-log .github").attr("href", "/account/auth/github");
     $("#register").attr("href", "/register");
+    $.contextMenu({
+        selector: '.downbtn_r', 
+        trigger: 'left',
+        callback: function(key, options) {
+            var m = "开发中: " + key;
+            window.console && console.log(m) || alert(m); 
+        },
+        items: {
+            "copy": {name: "拷贝下载链接", icon: "copy", disabled: false},
+            "send": {name: "发送此文件到我的邮箱", icon: "send", disabled: false},
+        }
+    });
+
   	$('#psvrsharedown_thumbnails_btn1').live('click',function(){
       if($(this).hasClass('already')){
         return false;

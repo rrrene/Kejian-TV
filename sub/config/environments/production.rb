@@ -127,6 +127,9 @@ Sub::Application.configure do
     css_ie.css
     jquery.autocomplete.js
     jquery.ui.autocomplete.js
+    
+    ktv/jquery.contextMenu.js
+    ktv/jquery.contextMenu.css    
   }.uniq
   # 别忘了同时修改:
   # config/initializers/z_ktv.rb

@@ -152,7 +152,7 @@ class Courseware
     'jpeg' => ['jpeg'],
   }
   def as_json(opts={})
-    {id:self.id,wh_ratio:self.wh_ratio,thin:self.thin?}
+    {id:self.id,status:self.status,status_str:STATE_TEXT[STATE_SYM[self.status]],wh_ratio:self.wh_ratio,thin:self.thin?}
   end
   def asynchronously_clean_me
     bad_ids = [self.id]
@@ -775,7 +775,9 @@ class Courseware
     end
   end
   def wh_ratio
-    self.width*1.0/self.height
+    ret = self.width*1.0/self.height
+    ret = 1.3333333333333333 if ret.nan?
+    ret
   end
   def thin?
     return true if self.width.present? and self.height.present? and self.width < self.height

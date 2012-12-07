@@ -195,7 +195,7 @@ courseware_id: '<%=@courseware.id%>'
          </div>
 <% if user_signed_in? %>
 				 <h1 style="display:none !important" id="core_cw_h1" data-cw-id="<%= @courseware.id %>" data-shoucang-id="<%= @pl_shoucang.id %>" data-shoucang="<%= @pl_shoucang.content.include?(@courseware.id) %>" data-yigoumai-id="<%= @pl_yigoumai.id%>" data-yigoumai="<%= @pl_yigoumai.content.include?(@courseware.id) %>" data-downtypes="<%= Courseware::SORTDOWNTYPES[@courseware.sort] %>"><%= @courseware.title %></h1>
-				 <h2 style="display:none !important" id="core_cw_h2">上传: <%= @courseware.uploader.name_beautified %> · 作者: 未认领</h2>
+				 <h2 style="display:none !important" id="core_cw_h2">上传: <%= link_to @courseware.uploader.name_beautified,user_path(@courseware.uploader) %> · 作者: 未认领</h2>
 <% end %>
          <h1 style="<%='margin-bottom:12px' if @courseware.yasuobao?%>">
             <%if @cws%>第<%=@courseware.courseware_series_no%>集. <%end%>
@@ -220,7 +220,7 @@ courseware_id: '<%=@courseware.id%>'
             <% if @courseware.yasuobao? %>
             <br>
             <span style="font-size:16px;text-align:center">
-              <span id="yasuobao_root">(压缩包)</span> <span class="yasuobao">/</span> <span id="yasuobao_content"></span>
+              <span id="yasuobao_root">(压缩包)</span> <span class="yasuobao">/</span> <span id="yasuobao_content"></span> <span style="font-size:16px;text-align:center;color:red;display:none" id="yasuobao_content_errorouter">(<span id="yasuobao_content_error"></span>...)</span>
               <script>
                 window.parent_cmd = function(id,text){
                   if(window.psvr_altid){
@@ -238,6 +238,19 @@ courseware_id: '<%=@courseware.id%>'
                     jQuery('#yasuobao_root_a').bind('click',window.yasuobao_root);
                     jQuery('#slides_container').addClass('busy');
                     jQuery.getJSON('/coursewares/'+id,function(data){
+                      if(0!=data['status']){
+                        jQuery('#yasuobao_content_errorouter').show();
+                        jQuery('#yasuobao_content_error').html(data['status_str']);
+                      }else{
+                        jQuery('#yasuobao_content_errorouter').hide();
+                        jQuery('#yasuobao_content_error').html('');
+                      }
+                      if(!data['thin'] && !jQuery('.psvr_fat_stuff').is(':visible')){
+                        window.parent_gotoSingle();
+                      }
+                      if(data['thin'] && !jQuery('.psvr_thin_stuff').is(':visible')){
+                        window.parent_gotoDouble();
+                      }
                       jQuery('#alt_embed').attr('class',"speakerdeck-embed");
                       jQuery('#alt_embed').attr('data-course-slug','');
                       jQuery('#alt_embed').attr('data-courseware-slug',id);
@@ -250,6 +263,7 @@ courseware_id: '<%=@courseware.id%>'
                   })
                 };
                 window.yasuobao_root = function(){
+                  jQuery('#yasuobao_content_errorouter').hide();
                   jQuery('#cwiframe_'+window.psvr_altid).animate({'margin-left':710},222,function(){
                     jQuery('#yasuobao_content').html('');
                     jQuery('#yasuobao_root').html('(压缩包)');

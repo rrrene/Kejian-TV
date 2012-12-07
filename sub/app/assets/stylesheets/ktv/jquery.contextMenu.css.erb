@@ -22,8 +22,13 @@
     position: absolute;
     list-style-type: none;
     
-    border: 1px solid #DDD;
-    background: #EEE;
+    border: 1px solid #C1C1C1;
+    -webkit-border-radius: 1px;
+    -moz-border-radius: 1px;
+    -ms-border-radius: 1px;
+    -o-border-radius: 1px;
+    border-radius: 1px;
+    background: #FFF;
     
     -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
        -moz-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
@@ -32,12 +37,12 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
     
     font-family: Verdana, Arial, Helvetica, sans-serif;
-    font-size: 11px;
+    font-size: 12px;
 }
 
 .context-menu-item {
     padding: 2px 2px 2px 24px;
-    background-color: #EEE;
+    background-color: #FFF;
     position: relative;
     -webkit-user-select: none;
        -moz-user-select: -moz-none;
@@ -47,7 +52,7 @@
 
 .context-menu-separator {
     padding-bottom:0;
-    border-bottom: 1px solid #DDD;
+    border-bottom: 1px solid #C1C1C1;
 }
 
 .context-menu-item > label > input,
@@ -60,7 +65,8 @@
 
 .context-menu-item.hover {
     cursor: pointer;
-    background-color: #39F;
+    color:white;
+    background: #4376F3 url(<%=asset_path 'jquery.contextMenu/macbg.png'%>) repeat-x scroll top left;
 }
 
 .context-menu-item.disabled {
@@ -70,7 +76,7 @@
 .context-menu-input.hover,
 .context-menu-item.disabled.hover {
     cursor: default;
-    background-color: #EEE;
+    background-color: #FFF;
 }
 
 .context-menu-submenu:after {
@@ -93,6 +99,7 @@
 .context-menu-item.icon-cut { background-image: url(<%=asset_path 'jquery.contextMenu/cut.png'%>); }
 .context-menu-item.icon-copy { background-image: url(<%=asset_path 'jquery.contextMenu/page_white_copy.png'%>); }
 .context-menu-item.icon-paste { background-image: url(<%=asset_path 'jquery.contextMenu/page_white_paste.png'%>); }
+.context-menu-item.icon-send { background-image: url(<%=asset_path 'jquery.contextMenu/page_white_send.png'%>); }
 .context-menu-item.icon-delete { background-image: url(<%=asset_path 'jquery.contextMenu/page_white_delete.png'%>); }
 .context-menu-item.icon-add { background-image: url(<%=asset_path 'jquery.contextMenu/page_white_add.png'%>); }
 .context-menu-item.icon-quit { background-image: url(<%=asset_path 'jquery.contextMenu/door.png'%>); }

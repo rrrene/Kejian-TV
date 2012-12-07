@@ -5,16 +5,6 @@ GIT
     mongoid_colored_logger (0.1.1)
 
 GIT
-  remote: git://github.com/mhfs/sidekiq-failures.git
-  revision: 3f25069b163b67b1aa3a2f81b37d267050590438
-  specs:
-    sidekiq-failures (0.0.3)
-      sidekiq (>= 2.2.1)
-      sinatra
-      slim
-      sprockets
-
-GIT
   remote: git://github.com/pmq20/guard-minitest.git
   revision: 8181a9fb4535e8388bf9825b5488fda689609145
   specs:
@@ -564,7 +554,6 @@ DEPENDENCIES
   selenium-webdriver
   settingslogic
   sidekiq (>= 2.3.0)
-  sidekiq-failures!
   simple_form
   simplecov
   sinatra

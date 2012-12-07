@@ -121,7 +121,7 @@ gem 'whenever' #[!]
 
 # Background Jobs
 gem "sidekiq", '>=2.3.0'
-gem "sidekiq-failures",:git=>'git://github.com/mhfs/sidekiq-failures.git'
+# gem "sidekiq-failures",:git=>'git://github.com/mhfs/sidekiq-failures.git'
 gem 'sinatra', :require => nil
 gem 'slim'
 gem 'connection_pool'
