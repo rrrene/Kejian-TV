@@ -940,11 +940,24 @@ class Courseware
         counting += 1
       end
     end
-    if self.get_children.blank?
+    if self.get_children.blank? and self.tree.present?
       self.go_to_normal
     end
     puts "father " + self.id.to_s.colorize(:red) + " has " + counting.to_s.colorize(:red) + " need to be fixed."
   end
+  def self.fix_remote_filepath!(array)
+     arrray.each do |f|
+       c = Courseware.find(f)
+       c.fix_remote_filepath
+     end
+  end
+  def fix_remote_filepath
+    if self.remote_filepath.include?("http") and self.remote_filepath.include?("media/b")
+      tmp = "http://special_agentx.#{Setting.ktv_domain}/#{self.remote_filepath.split('media/b/auxiliary_'+Setting.ktv_sub + '/ftp/cw')[-1]}"
+      self.ua(:remote_filepath,tmp)
+    end
+  end
+
   def self.fix_queue!(array)
     array.each do |f| 
       c = Courseware.find(f)
