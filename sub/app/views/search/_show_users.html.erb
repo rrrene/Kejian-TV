@@ -19,7 +19,7 @@
 				<div class="user-gravatar48">
           <a href="/users/<%=usr['id']%>">
 					<div class="">
-            <img src="http://uc.<%=Setting.ktv_domain%>/avatar.php?uid=<%=usr['uid']%>&size=small" alt="<%=name_beautify usr['title']%>" width="48" height="48">
+            <img src="<%=avatar_url_quick(usr['id'],:small)%>" alt="<%=name_beautify usr['title']%>" width="48" height="48">
         </div>
 					</a>
 				</div>

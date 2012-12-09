@@ -736,3 +736,100 @@ input.psvr_bt {width: 56px;height: 23px;background:url(<%=asset_path('extand_ima
     }
   }
 }
+
+
+#crs_head{
+  top:66px;
+  left:0;
+  width:100%;
+  height:36px;
+  background: transparent url(<%=asset_path 'crs_head_ui.png'%>) repeat-x 0px -134px;
+  min-width:960px;
+  .nav1home{
+    text-indent:-9999em;
+  }
+}
+
+#crs_search {
+  left: 39px;
+  margin-top: 6px;
+  position: absolute;
+}
+
+#crs_search input {
+    -webkit-font-smoothing: antialiased;
+    display: block;
+    position: relative;
+    width: 165px;
+    height: 24px;
+    line-height: 1em;
+    line-height: 25px;
+    padding: 0 0 0 10px;
+    background: #30363B url(<%=asset_path 'crt_searchbg.png'%>) no-repeat -1px 0px;
+    border: none;
+    outline: none;
+    -moz-box-shadow: 0 1px 1px rgba(0,0,0,0.2) inset,0px -1px 0 #1A2833,0px 1px 0 #1A2833,1px 0 0 #1A2833,-1px 0 0 #1A2833,0px 1px 2px rgba(255,255,255,0.4);
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.2) inset,0px -1px 0 #1A2833,0px 1px 0 #1A2833,1px 0 0 #1A2833,-1px 0 0 #1A2833,0px 1px 2px rgba(255,255,255,0.4);
+    box-shadow: 0 1px 1px rgba(0,0,0,0.2) inset,0px -1px 0 #1A2833,0px 1px 0 #1A2833,1px 0 0 #1A2833,-1px 0 0 #1A2833,0px 1px 2px rgba(255,255,255,0.4);
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    border-radius: 25px;
+    font-size: 12px;
+    color:white;
+    -webkit-transition: background, color 0.2s linear;
+    -moz-transition: background, color 0.2s linear;
+    transition: background, color 0.2s linear;
+}
+
+#crs_search input:focus {
+    background-position: -1px -24px;
+    color:black;
+}
+
+#crs_search a {
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 24px;
+    height: 24px;
+    background: transparent;
+}
+
+#crs_search a:hover ins {
+    opacity: .6;
+}
+
+#crs_search a ins {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    background: url(https://app.getflow.com/images/icons/icon-clear-14-000.png) no-repeat center center;
+    opacity: .2;
+}
+
+
+
+.crs_btn{
+  cursor:pointer;
+  z-index:8888;
+  text-indent:-9999em;
+  display:block;
+  position:absolute;
+  margin-top:5px;
+  left:5px;
+  width:28px;
+  height:27px;
+  background: transparent url(<%=asset_path 'crs_btn.png'%>) repeat scroll top left;
+  &:hover{
+    background-position:0 -27px;
+  }
+  &:active{
+    background-position:0 -54px;
+  }
+}
+.crs_head_ui { background: transparent url(<%=asset_path 'crs_head_ui.png'%>) no-repeat top left;  } 
+.crs_head_ui.nav0 { background-position: 0px 0px; width: 15px; height: 36px;  } 
+.crs_head_ui.nav1home { background-position: 0px -46px; width: 28px; height: 36px;  } 
+.crs_head_ui.stripe { background-position: 0px -92px; width: 96px; height: 32px;  }
+

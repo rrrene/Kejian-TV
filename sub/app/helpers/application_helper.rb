@@ -33,9 +33,6 @@ module ApplicationHelper
       return "今天是开学第#{day}天"
     end
   end
-  def cpath(c)
-    "/simple/forum.php?mod=forumdisplay&fid=#{c.fid}"
-  end
   def timeago(time, options = {})
     options[:class]
     options[:class] = options[:class].blank? ? "timeago" : [options[:class],"timeago"].join(" ")

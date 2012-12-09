@@ -29,7 +29,7 @@
      <tr bgcolor="#ffffff" align="center">
         <td><%= item.ctype %></td>
         <td align="left">
-          <%=link_to item.number ? "[#{item.number}] #{item.name}" : item.name,cpath(item),class:'psvr'%> 
+          <%=link_to item.number ? "[#{item.number}] #{item.name}" : item.name,"/courses/#{item.fid}",class:'psvr'%> 
         </td>
         <td>  
           <%= link_to item.department,"/departments/#{Department.get_fid(item.department)}"%>
@@ -39,7 +39,7 @@
             <%= link_to teaching.teacher,"/teachers/#{Teacher.get_id(teaching.teacher)}" %>
           <% end %>
         </td>
-        <td><%=link_to item.coursewares_count,cpath(item),class:'psvr'%></td> 
+        <td><%=link_to item.coursewares_count,"/courses/#{item.fid}",class:'psvr'%></td> 
       </tr> 
   <% end %>
 </table>

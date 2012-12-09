@@ -29,14 +29,14 @@
      <tr bgcolor="#ffffff" align="center">
        <td><%= item.ctype%></td>
         <td align="left">
-          <%=link_to item.name_long,cpath(item),class:'psvr'%> 
+          <%=link_to item.name_long,"/courses/#{item.fid}",class:'psvr'%> 
         </td>
         <td>  
           <% item.teachings.each do |teaching| %>
             <%= link_to teaching.teacher,"/teachers/#{teaching.typeid}" %>
           <% end %>
         </td>
-        <td><%=link_to item.coursewares_count,cpath(item),class:'psvr'%></td> 
+        <td><%=link_to item.coursewares_count,"/courses/#{item.fid}",class:'psvr'%></td> 
       </tr> 
   <% end %>
   <% unless defined?(single_dp) and single_dp %>

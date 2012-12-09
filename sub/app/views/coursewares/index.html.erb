@@ -18,7 +18,7 @@ jQuery('#categories_table > div').height(jQuery('#categories_table').height());
 
 <div class="col-coat">
 <h3><a href="#" class="coat"><span ></span>数学与自然科学</a></h3>
-<ul class="navlist" style="margin-left:22px">
+<ul class="navlist" style="">
 <% Department.where(:sort=>1).desc('coursewares_count').each do |topic| %>
 <li  ><a class="<%= 'orange' if topic.coursewares_count > 100 %>" href="/departments/<%= topic.fid %>"><span><%= topic.name %></span></a></li>
 <% end %>

@@ -1,151 +1,86 @@
+<script type="text/javascript">
+<% content_for :butt2 do %>
+(function($){
+//  $('#crs_head').width($(window).width());
+})(jQuery);
+// 
+// var old_content = jQuery("#contentMain").html();
+// jQuery('.queryOrderCss').live('click', function () {
+//     var queryOrder = jQuery(this).attr("rel");
+//     jQuery('#queryOrder').val(queryOrder);
+//     jQuery('#ulQueryOrder > li').removeClass();
+//     jQuery(this).parent().addClass('current');
+//     queryExec();
+// });
+// function queryExec(){
+//     var queryOrder = jQuery('#queryOrder').val();
+//     jQuery("#contentMain").html(old_content);
+//     autoLayout.pageAuto = true;
+//     autoLayout.pageNums = 0;
+//     autoLayout.loading = true;
+//     autoLayout.isHasNextPage = true;
+//     autoLayout.pageNum = 2;
+//     var linkUrl = "/courses/<%=@course.fid%>/coursewares",
+//         jsonUrl = "/courses/<%=@course.fid%>/coursewares_with_page/";
+//     autoLayout.init({
+//         contentID: "contentMain",
+//         rightLoad: true,
+//         leftID: "",
+//         dataContent: {
+//             'queryOrder': queryOrder
+//         },
+//         rightID: [],
+//         linkUrl: linkUrl,
+//         loadingID: "imloading",
+// 
+//         callBack: function () {
+//           var showContent = "还没有人为<%=@course.name%>上传课件";
+//           jQuery("#contentMain").prepend('<div style="text-align: center; margin-right: 233px; padding-top: 100px; left: 0px; top: 0px;" class="f14" columns="0">' + showContent + '</div>');
+//         }
+//     });
+//     autoLayout.eachAction(jsonUrl);
+// }
+// im(function () {
+//     queryExec();
+// });
+<% end %>
+</script>
+
 <% content_for :armpit do %>
   <%= stylesheet_link_tag "ktv/__zm_user.css", :media => "all" %>
 <% end %>
 <% content_for :body_style do %>background:url(<%=asset_path 'zm/r11839/images/common/bodybg.gif'%>) repeat scroll 0 0 #F0EEEE<% end %>
-<div class="__zm">
-<% params[:queryOrder] ||= '1' %>
-<input id="queryOrder" type="hidden" value="<%= params[:queryOrder] %>" />
-<div id="pagewrap">
-	<div id="content" style="box-shadow:none;background:none;overflow:visible !important;margin-top:18px">
-		<div class="sheet cf" id="zhimeisheetbar" >
-			<div class="hotword floatright">
-				<span class="split">|</span>
-				<h4>排序:</h4>
-<ul id="ulQueryOrder">
-<li  class='current'><a class="queryOrderCss" rel="1" href="javascript:;"><span>最新</span></a></li>
-<li ><a class="queryOrderCss" rel="2" href="javascript:;"><span>最热</span></a></li>
-</ul>
-			</div>
-			<div class="floatright">
-				<span>
-					<a href="/courses/<%= @course.name %>" class="blue"><%= @course.coursewares_count %>个课件</a>
-				</span>
-			</div>
-			<span class="sheetname marginleft"><%= @course.name %></span>
-		</div>
-		<script type="text/javascript">
-		<% content_for :butt2 do %>
-      $(function() {
-      if ($("#fix-string01").length == 1) {
-      $("#fix-string01").text(
-      $.fn.fixStr($("#fix-string01").text(), 12, "..."));
-      }
-      if ($("#fix-string02").length == 1) {
-      $("#fix-string02").text(
-      $.fn.fixStr($("#fix-string02").text(), 16, "..."));
-      }
-      if ($("#fix-string03").length == 1) {
-      $("#fix-string03").text(
-      $.fn.fixStr($("#fix-string03").text(), 12, "..."));
-      }
-      if ($("#fix-string04").length == 1) {
-      $("#fix-string04").text(
-      $.fn.fixStr($("#fix-string04").text(), 16, "..."));
-      }
-      if ($("#fix-string05").length == 1) {
-      $("#fix-string05").text(
-      $.fn.fixStr($("#fix-string05").text(), 12, "..."));
-      }
-      })
-    <% end %>
-		</script>
-		<!--内容容器开始-->
-		<div style="clear: both;">
-		</div>
-		<div id="contentMain" class="content" style="position: relative;">
-			<div id="rightLabel1" class="rightbox" style="display:none;right:350px; margin-top: -60px">
-				<div class="userbox topline">
-					<div class="userinfo">
-            <div class="uname alignleft cf"><span class="ctf-username floatleft"><%=@course.name%></span></div>
 
-						<ul class="useratten ctf-bg cf">
-							<li>
-							<a id="user_profile_fans_count" href="#" class="block gray usernumber">
-							<em><%= @course.coursewares_count %></em><br/>
-							<span>课件</span>
-							</a>
-							</li>
-							<li>
-							<a href="#" class="gray block usernumber"><%= @course.play_lists_count %><br/>
-							<span>锦囊</span></a></li>
-							<li>
-							<a id="user_profile_fans_count" href="#" class="block gray usernumber">
-							<em><%= @course.teachers_count %></em><br/>
-							<span>老师</span>
-							</a>
-							</li>
-						</ul>
-					</div>
-				  <% @followers = @course.teachers %>
-				  <% if !@followers.blank? %>
-					<div class="labelbox" style="margin-top:8px">
-						<h3 class="title">
-						<span class="label"><a href="#">这门课的老师</a></span>
-<span class="number">(<em class="blue"><a href="#"><%= @course.teachers_count %></a></em>) </span>
-						</h3>
-						<ul class="bp cf">
-              <% for teacher in @followers %>
-                <a href="/teachers/<%= Teacher.get_id teacher %>"><img width="32" height="32" alt="" src="<%=teacher_avatar_url_quick(teacher,:small32)%>"> <%=teacher%></a><br>
-							<% end %>
-						</ul>
-					</div>
-					<% end %>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div id="imloading" class="imfootloading" style="visibility:hidden;">
-		<div class="loading">
-			正在加载，请稍候...
-		</div>
-	</div>
+<div id="crs_head">
+  <a class="crs_btn">课程设置</a>
+  <div id="crs_search">
+    <input class="query" placeholder="课内搜索..." type="text">
+    <a class="clear-search" title="取消搜索" style="display: none;"><ins></ins></a>
+  </div>
+  <!-- 
+  <a href="/courses" class="nav1home">课程目录</a>
+  <a href="/departments/<%= @course.department_fid %>" class="nav0"><%= @course.department_name %></a>
+  <a href="/courses/<%= @course.fid %>"><%= @course.name %></a> -->
 </div>
 
-<script type="text/javascript">
-<% content_for :butt2 do %>
-var old_content = jQuery("#contentMain").html();
-jQuery('.queryOrderCss').live('click', function () {
-    var queryOrder = jQuery(this).attr("rel");
-    jQuery('#queryOrder').val(queryOrder);
-    jQuery('#ulQueryOrder > li').removeClass();
-    jQuery(this).parent().addClass('current');
-    queryExec();
-});
-function queryExec(){
-    var queryOrder = jQuery('#queryOrder').val();
-    jQuery("#contentMain").html(old_content);
-    autoLayout.pageAuto = true;
-    autoLayout.pageNums = 0;
-    autoLayout.loading = true;
-    autoLayout.isHasNextPage = true;
-    autoLayout.pageNum = 2;
-    var linkUrl = "/courses/<%=@course.fid%>/coursewares",
-        jsonUrl = "/courses/<%=@course.fid%>/coursewares_with_page/";
-    autoLayout.init({
-        contentID: "contentMain",
-        rightLoad: true,
-        leftID: "",
-        dataContent: {
-            'queryOrder': queryOrder
-        },
-        rightID: ["rightLabel1"],
-        linkUrl: linkUrl,
-        loadingID: "imloading",
 
-        callBack: function () {
-        var showContent = "还没有人为<%=@course.name%>上传课件";
-
-            jQuery("#contentMain").prepend('<div style="text-align: center; margin-right: 233px; padding-top: 100px; left: 0px; top: 0px;" class="f14" columns="0">' + showContent + '</div>');
-        }
-    });
-    autoLayout.eachAction(jsonUrl);
-}
-im(function () {
-    queryExec();
-});
-<% end %>
-</script>
-
+<div class="__zm" style="margin-top:77px">
+  <% params[:queryOrder] ||= '1' %>
+  <input id="queryOrder" type="hidden" value="<%= params[:queryOrder] %>" />
+  <div id="pagewrap">
+  	<div id="content" style="box-shadow:none;background:none;overflow:visible !important;margin-top:18px">
+  		<!--内容容器开始-->
+  		<div style="clear: both;">
+  		</div>
+  		<div id="contentMain" class="content" style="position: relative;">
+  		</div>
+  	</div>
+  	<div id="imloading" class="imfootloading" style="visibility:hidden;">
+  		<div class="loading">
+  			正在加载，请稍候...
+  		</div>
+  	</div>
+  </div>
 </div>
 
 
@@ -156,10 +91,6 @@ im(function () {
 <% if false %>
 <% content_for :armpit do %>
 <%= stylesheet_link_tag "ktv/__foo", :media=>"all" %>
-<% end %>
-<% content_for :butt2 do %>
-KTV.flo_targetize();
-jQuery(window).bind('resize',KTV.flo_targetize);
 <% end %>
 <div class="__flo">
 	<div class="production" id="std-ui-wrap">
