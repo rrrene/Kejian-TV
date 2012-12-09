@@ -217,22 +217,24 @@ class ApplicationController < ActionController::Base
       params[:redirect_to]
     end
   end
-  def sign_in_others
+  def sign_in_others(userKeepLogin=true)
     # VERY IMPORTANT:
     #   must sign in DZ at this point.
+    data={
+      :fastloginfield => 'username',
+      :handlekey => 'ls',
+      :password => 'needless_to_say',
+      :quickforward => 'yes',
+      :username => current_user.slug,
+      :psvr_uid => current_user.uid.to_s,
+      :psvr_email => current_user.email,
+    }
+    data.merge({cookietime: 2592000}) if userKeepLogin
     res = Ktv::JQuery.ajax({
       psvr_original_response: true,
       url:"http://#{Setting.ktv_subdomain}/simple/member.php?mod=logging&action=login&loginsubmit=yes&infloat=yes&lssubmit=yes&inajax=1",
       type:'POST',
-      data:{
-        :fastloginfield => 'username',
-        :handlekey => 'ls',
-        :password => 'needless_to_say',
-        :quickforward => 'yes',
-        :username => current_user.slug,
-        :psvr_uid => current_user.uid.to_s,
-        :psvr_email => current_user.email,
-      },
+      data:data,
       'COOKIE'=>request.env['HTTP_COOKIE'],
       :accept=>'raw'+Setting.dz_authkey,
       psvr_response_anyway: true

@@ -946,7 +946,7 @@ class Courseware
     puts "father " + self.id.to_s.colorize(:red) + " has " + counting.to_s.colorize(:red) + " need to be fixed."
   end
   def self.fix_remote_filepath!(array)
-     arrray.each do |f|
+     array.each do |f|
        c = Courseware.find(f)
        c.fix_remote_filepath
      end
