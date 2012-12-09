@@ -1,6 +1,6 @@
 <table class="psvr psvr_seedtable psvr_dptable" id="dp_<%=department.id%>" border="0" align="center" cellpadding="1" cellspacing="1" bgcolor="#cccccc" width="100%">
   <tr bgcolor="#f1f1f1">
-    <td height="28" colspan="4" align="left"><h3 class="psvr" ><%=link_to department.name,department %></h3></td>
+    <td height="28" colspan="4" align="left" style="padding:0px 6px"><h3 class="psvr" ><%=link_to department.name,department %></h3></td>
   </tr>
   <tr bgcolor="#fafafa" align="center">
     <td width="16%" align="center">类型</td>
@@ -31,9 +31,9 @@
         <td align="left">
           <%=link_to item.name_long,"/courses/#{item.fid}",class:'psvr'%> 
         </td>
-        <td>  
+        <td>
           <% item.teachings.each do |teaching| %>
-            <%= link_to teaching.teacher,"/teachers/#{teaching.typeid}" %>
+            <%= link_to teaching.teacher,"/teachers/#{Teacher.get_id(teaching.teacher)}" %>
           <% end %>
         </td>
         <td><%=link_to item.coursewares_count,"/courses/#{item.fid}",class:'psvr'%></td> 

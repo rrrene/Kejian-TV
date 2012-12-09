@@ -2,12 +2,13 @@
 class DepartmentsController < ApplicationController
   before_filter :require_user,:only=>[:create,:new,:update,:edit,:destroy]
   before_filter :require_user_js,:only => [:follow,:unfollow]
-  before_filter :dz_navi_extras
   before_filter :init_department,:only=>[:show,:follow,:unfollow]
+  before_filter :dz_navi_extras
   def dz_navi_extras
     @dz_navi_extras = [
       ['课程目录','/courses']
     ]
+    false
   end
   def follow
     current_user.follow_department(@department)

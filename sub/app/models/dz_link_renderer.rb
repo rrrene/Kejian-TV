@@ -67,7 +67,7 @@ class DZLinkRenderer<WillPaginate::ActionView::LinkRenderer
   end
     
   def html_container(html)
-    '<div class="__dz"><div class="bm bw0 pgs cl" id="psvr_dz_pg"><span id="fd_page_bottom">'+tag(:div, html, container_attributes.merge(:class => 'pg'))+'</span></div></div>'
+    '<div class="__dz"><div class="bm bw0 pgs cl" style="margin-bottom:0px" id="psvr_dz_pg"><span id="fd_page_bottom">'+tag(:div, html, container_attributes.merge(:class => 'pg'))+'</span></div></div>'
   end
 
 end

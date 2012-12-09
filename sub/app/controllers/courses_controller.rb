@@ -4,11 +4,13 @@ class CoursesController < ApplicationController
   before_filter :require_user_js,:only => [:follow,:unfollow]
   before_filter :find_item,:only => [:show,:follow,:unfollow]
   def index
-    @seo[:title]='课程目录'
+    @seo[:title]='课程导航'
+    @ktv_subname = Setting.ktv_subname.gsub(/（[^（）]+）/,'')
     @courses = Course
     @courses = @courses.where(:years=>params[:years].to_i) if params[:years].present?
     @courses = @courses.desc('coursewares_count')
-    @courses = @courses.paginate(:page => params[:page], :per_page => 100)
+    params[:per_page]||='100'
+    @courses = @courses.paginate(:page => params[:page], :per_page => params[:per_page])
     @courses_now_count = Course.where(:years=>20122).count
   end
   def follow

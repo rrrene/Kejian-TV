@@ -1,11 +1,10 @@
 <%= render 'content_above' %>
-<%= render :partial => 'dz_navi',:locals => {margintop:15} %>
+<%= render :partial => 'dz_navi',:locals => {margintop:6} %>
 
 <div id="psvr_midder">
     <div class="psvr_content">
         <div class="psvr_contentbox">
           <%= render :partial=>'one_dp_table',:locals=>{department:@department,single_dp:true} %>
-          <%= render 'dp_table' %>
         </div>
     </div>
 </div>  
