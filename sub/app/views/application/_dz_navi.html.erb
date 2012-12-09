@@ -1,6 +1,6 @@
 <div class="__dz" id="dz_navi" style="<%= defined?(margintop) ? "margin-top:#{margintop}px;" : '' %><%= defined?(marginleft) ? "margin-left:#{marginleft}px;" : '' %>">
     <div class="bm cl" id="pt">
-        <div class="z"> <a title="<%=Setting.ktv_subname%>课程导航" class="nvhm psvr" href="/courses"><%=Setting.ktv_subname%>课程导航</a>
+        <div class="z"> <a title="<%=$ktv_subname%>课程导航" class="nvhm psvr" href="/courses"><%=$ktv_subname%>课程导航</a>
         <% @dz_navi_extras.each do |arr| %>
           <% k=arr[0];v=arr[1] %>
          <em>»</em>

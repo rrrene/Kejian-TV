@@ -50,370 +50,71 @@
   <%= stylesheet_link_tag "ktv/__zm_user.css", :media => "all" %>
 <% end %>
 <% content_for :body_style do %>background:url(<%=asset_path 'zm/r11839/images/common/bodybg.gif'%>) repeat scroll 0 0 #F0EEEE<% end %>
-
+<% content_for :sdk_wrapper_style do %>width:100%<% end %>
+<% content_for :sdk_wrapper_style_end do %>margin-right:7px<% end %>
+<% residual = (220 - Setting.logo_ktv_width - 11 - 51) %>
+<% if residual>0 %>
+  <% content_for :sdk_wrapper_style1 do %>margin-left:<%= residual / 2 %>px;<% end %>
+  <% content_for :sdk_wrapper_style2 do %>margin-left:225px<% end %>
+<% else %>
+  <!-- todo -->
+<% end %>
 <div id="crs_head">
   <a class="crs_btn">课程设置</a>
   <div id="crs_search">
     <input class="query" placeholder="课内搜索..." type="text">
-    <a class="clear-search" title="取消搜索" style="display: none;"><ins></ins></a>
   </div>
-  <!-- 
-  <a href="/courses" class="nav1home">课程导航</a>
-  <a href="/departments/<%= @course.department_fid %>" class="nav0"><%= @course.department_name %></a>
-  <a href="/courses/<%= @course.fid %>"><%= @course.name %></a> -->
-</div>
-
-
-<div class="__zm" style="margin-top:77px">
-  <% params[:queryOrder] ||= '1' %>
-  <input id="queryOrder" type="hidden" value="<%= params[:queryOrder] %>" />
-  <div id="pagewrap">
-  	<div id="content" style="box-shadow:none;background:none;overflow:visible !important;margin-top:18px">
-  		<!--内容容器开始-->
-  		<div style="clear: both;">
-  		</div>
-  		<div id="contentMain" class="content" style="position: relative;">
-  		</div>
-  	</div>
-  	<div id="imloading" class="imfootloading" style="visibility:hidden;">
-  		<div class="loading">
-  			正在加载，请稍候...
-  		</div>
-  	</div>
+  <div class="nav">
+    <a href="/courses" title="<%=$ktv_subname%>课程导航" class="crs_head_ui nav1home"><%=$ktv_subname%>课程导航</a>
+    <a href="/departments/<%= @course.department_fid %>" class="crs_head_ui nav0"><%= @course.department_name %></a>
+    <a href="/courses/<%= @course.fid %>" class="crs_head_ui nav0"><%= @course.name %></a>
   </div>
 </div>
+    <div class="psvr2_colmask psvr2_leftmenu">
+        <div class="colright">
+            <div class="col1wrap">
+                <div class="col1">
+                    <!-- Column 2 start -->
+                    <h2>Pixel dimensions of the left menu layout</h2>
+    				<img src="http://matthewjamestaylor.com/blog/ultimate-2-column-left-menu-pixels-dimensions.gif" width="350" height="370" alt="Two column left menu layout pixel dimensions" />
+    				<p>In this layout the left side column width is in pixels and the main right page adjusts in size to fill the rest of the screen. Vertical dimensions are left unset so they automatically stretch to the height of the content. Layouts that use pixel widths are great for images because you can make them fit perfectly within a column without gaps.</p>
+    				<h2>The nested div structure</h2>
+    				<p>I've colour coded each div so it's easy to see:</p>
+    				<img src="http://matthewjamestaylor.com/blog/ultimate-2-column-left-menu-div-structure.gif" width="350" height="369" alt="Two column left menu layout nested div structure" />
+    				<p>The header, colmask and footer divs are 100% wide and stacked vertically one after the other. Colleft is inside colmask and the left content column is inside colleft. The main 'right' page needs to be inside the col1wrap div so it can be positioned correctly (This extra div is not required on the <a href="perfect-2-column-left-menu.htm">percentage width version</a>). Notice that the main content column (col1) comes before the left column, this is great for SEO.</p>
+    				<h2>Full cross-browser support</h2>
+    				<p>The left menu 2 column liquid Layout has been tested on the following browsers:</p>
+    				<h3>iPhone &amp; iPod Touch</h3>
+    				<ul>
+    					<li>Safari</li>
+    				</ul>
+    				<h3>Mac</h3>
+    				<ul>
+    					<li>Safari</li>
+    					<li>Firefox</li>
+    					<li>Opera 9.25</li>
+    					<li>Netscape 9.0.0.5 &amp; 7.1</li>
+    				</ul>
+    				<h3>Windows</h3>
+    				<ul>
+    					<li>Firefox 1.5 &amp; 2</li>
 
-
-<%= render file:'/application/footers/_zm_footer' %>
-
-
-
-<% if false %>
-<% content_for :armpit do %>
-<%= stylesheet_link_tag "ktv/__foo", :media=>"all" %>
-<% end %>
-<div class="__flo">
-	<div class="production" id="std-ui-wrap">
-		<div id="app-root-view">
-			<div class="app-north">
-				<div class="app-north-inner">
-					<div class="header-flow">
-						<div class="flow-topbar left">
-              <ul class="align-left">
-                <li class="action li-settings" style="display: block;"><a class="toggle_navbar alt" title="Preferences"><span class="icon">Preferences</span><span class="left"></span><span class="right"></span></a><div class="count-badge"></div></li>
-                <li class="action li-notifications" style="display: block;"><a class="sorters" title="Notifications"><span class="icon">Notifications</span><span class="left"></span><span class="right"></span></a><div class="count-badge" style="display: none;">0</div></li>
-              </ul>
-							<ul class="align-right">
-								<li class="action li-new_task" style="display: block;"><a class="new_task" title="Create a New Task (Enter/Return)"><span class="icon">New Task</span><span class="left"></span><span class="right"></span></a>
-								<div class="count-badge">
-								</div>
-								</li>
-							</ul>
-						</div>
-						<div class="flow-topbar center">
-							<ul class="align-left">
-								<li class="action li-back" style="display: none;"><a class="back" title="Go Back"><span class="text">Back</span><span class="left"></span><span class="right"></span></a>
-								<div class="count-badge">
-								</div>
-								</li>
-							</ul>
-							<ul class="align-right">
-								<li class="action li-actions" style="display: block;"><a class="actions" title="Task List Actions"><span class="icon">Actions</span><span class="left"></span><span class="right"></span></a>
-								<div class="count-badge">
-								</div>
-								</li>
-							</ul>
-						</div>
-						<div class="flow-topbar right">
-							<ul class="align-left">
-								<li class="search">
-								<input type="text" placeholder="课程内搜索..." class="query">
-								<a style="display: none;" title="Clear search query" class="clear-search"><ins></ins></a>
-								</li>
-							</ul>
-							<ul class="align-right">
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- Sidebar -->
-			<div class="app-west">
-				<div class="app-west-inner">
-					<div class="sidebar" style="height: 2000px;">
-						<div class="sidebar-inner">
-							<div class="primary-boxes-wrap">
-								<div class="sidebar-primary-boxes">
-									<h3><%= @course.name %></h3>
-									<ul class="primary-boxes">
-										<!-- li class="box dashboard">
-        <a>
-          <span>Dashboard</span>
-          <b class="dasboard-badge" style="display: none;"></b>
-        </a>
-      </li -->
-										<li class="box dashboard droppable ui-droppable active current">
-										<a href="#/inbox">
-										<span>课程主页</span>
-										<b style="display: none;" class="badge inbox-badge"></b>
-										</a>
-										</li>
-										<li class="box flagged">
-										<a href="#/upcoming">
-										<span>讲义</span>
-										<b style="display: none;" class="badge upcoming-badge"></b>
-										</a>
-										</li>
-										<li class="box all-tasks">
-										<a href="#/flagged">
-										<span>作业</span>
-										<b style="display: none;" class="badge flagged-badge"></b>
-										</a>
-										</li>
-										<li class="box delegated">
-										<a href="#/delegated">
-										<span>试卷</span>
-										<b style="display: none;" class="badge delegated-badge"></b>
-										</a>
-										</li>
-										<li class="box inbox">
-										<a href="#/tasks">
-										<span>课堂录像</span>
-										<b style="" class="badge all-tasks-badge">17</b>
-										</a>
-										</li>
-										<li class="box someday">
-										<a href="#/tasks">
-										<span>资料/读物</span>
-										<b style="" class="badge all-tasks-badge">17</b>
-										</a>
-										</li>
-									</ul>
-								</div>
-							</div>
-							<div class="panes-wrap">
-								<div class="panes-wrap-inner">
-									<ul class="sidebar-tabs tabs project-tags-collaborators">
-										<li data-pane="projects" class="projects active ui-droppable">老师列表</li>
-										<li data-pane="collaborators" class="collaborators ui-droppable">学期归档</li>
-									</ul>
-									<div class="main-sidebar-panes sidebar-panes">
-										<div class="pane projects active">
-											<div class="pane-root">
-												<div class="filter projects">
-													<input type="text" placeholder="搜索老师…">
-													<a title="clear search" class="clear-search"><ins></ins></a>
-												</div>
-												<div class="pane-inner" style="overflow: hidden; padding: 0px; height: 211px;">
-													<div style="height: 211px;" class="jspContainer ios">
-
-
-                            <div class="jspPane" style="left: 0px; top: 0px; width: 220px;">
-                              <ul class="collaborators collaborator-list items-list flow-tree">
-                                <li class="person list-item concierge no-summary ui-droppable active" data-id="95924" data-cid="c11" id="sidebar-person-95924" data-email="concierge@getflow.com">
-                                <ins></ins>
-                                <div class="person-link link">
-                                  <ins><span class="photo"></span></ins>
-                                  <span class="name">所有老师</span>
-                                  <ul class="summaries">
-                                  </ul>
-                                </div>
-                                <div class="settings">
-                                  <ins></ins>
-                                </div>
-                                <div class="fadeout">
-                                </div>
-                                </li>
-                              <% @course.teachers.each do |teacher| %>
-                                <li class="person list-item ui-droppable" data-id="127314" data-cid="c9" id="sidebar-person-127314">
-                                <ins></ins>
-                                <div class="person-link link">
-                                  <ins class="has-photo"><span class="photo" style="background-image: url(&quot;https://flowapp.s3.amazonaws.com/accounts/127314/78a71cc963c77ccba60ae57f1969f9ce_medium.png&quot;);"></span></ins>
-                                  <span class="name"><%=teacher%></span>
-                                  <ul class="summaries">
-                                    <li class="summary state">邮箱请求</li>
-                                  </ul>
-                                </div>
-                                <div class="settings">
-                                  <ins></ins>
-                                </div>
-                                <div class="fadeout">
-                                </div>
-                                </li>
-                              <% end %>
-                                <li class="person list-item ui-droppable" data-id="90562" data-cid="c10" id="sidebar-person-90562">
-                                <ins></ins>
-                                <div class="person-link link">
-                                  <ins class="has-photo"><span class="photo" style="background-image: url(&quot;https://flowapp.s3.amazonaws.com/accounts/90562/80fe26db82b28bad4b7a9451cbaacadf_medium.jpg&quot;);"></span></ins>
-                                  <span class="name">minqi pan</span>
-                                  <ul class="summaries">
-                                    <li class="summary state">Pending</li>
-                                  </ul>
-                                </div>
-                                <div class="settings">
-                                  <ins></ins>
-                                </div>
-                                <div class="fadeout">
-                                </div>
-                                </li>
-                              </ul>
-                              <div class="no-results" style="display: none;">
-                                No contacts found.
-                              </div>
-                            </div>
-
-
-
-
-
-
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="pane collaborators">
-											<div class="pane-root">
-												<div class="filter people">
-													<input type="text" placeholder="Search people…">
-													<a title="clear search" class="clear-search"><ins></ins></a>
-												</div>
-												<div class="pane-inner" style="overflow: hidden; padding: 0px; height: 211px;">
-													<div style="height: 0px" class="jspContainer ios">
-														<div class="jspPane" style="left: 0px; top: 0px; width: 0px;">
-															<ul class="collaborators collaborator-list items-list flow-tree">
-																<li class="person list-item concierge no-summary ui-droppable" data-id="95924" data-cid="c8" id="sidebar-person-95924" data-email="concierge@getflow.com">
-																<ins></ins>
-																<div class="person-link link">
-																	<ins><span class="photo"></span></ins>
-																	<span class="name">添加老师...</span>
-																	<ul class="summaries">
-																	</ul>
-																</div>
-																<div class="settings">
-																	<ins></ins>
-																</div>
-																<div class="fadeout">
-																</div>
-																</li>
-															</ul>
-															<div class="no-results" style="display: none;">
-																No contacts found.
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="secondary-boxes-wrap" style="display: none;">
-								<div class="sidebar-secondary-boxes">
-									<h3>Other Lists</h3>
-									<div class="pane">
-										<ul class="links">
-											<li class="link all-tasks"><a href="#/tasks/all"><ins></ins><span>All Tasks</span></a></li>
-											<li class="link followed-tasks"><a href="#/following"><ins></ins><span>Followed Tasks</span></a></li>
-											<li class="link completed-tasks"><a href="#/complete"><ins></ins><span>Completed Tasks</span></a></li>
-										</ul>
-									</div>
-								</div>
-							</div>
-							<div class="action-bar-wrap">
-								<div class="side-action-bar">
-									<div class="actions">
-										<div class="action new-action">
-											<a><ins class="add"></ins></a>
-										</div>
-									</div>
-									<div class="status">
-									  共<%= @course.coursewares_count %>个课件
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- Main Content Area -->
-			<div class="app-center">
-				<div class="app-center-inner">
-					<div class="detail-view">
-						<div class="detail-view-inner">
-							<div class="layout-east">
-								<div class="layout-east-inner">
-									<div class="navbar">
-										<div class="section collaborators" style="display: none;">
-											<ul style="display: block;" class="actions-list">
-												<li class="action-item everyone active">
-												<ins></ins>
-												<a title="View everyone's tasks" class="name">All Tasks</a>
-												<div style="" class="count">
-													17
-												</div>
-												</li>
-											</ul>
-											<h3 class="title"><span class="fadeout">Tags</span></h3>
-											<div class="section-content">
-												<ul class="collaborators">
-												</ul>
-												<div class="quick-invite-wrapper">
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="layout-center">
-								<div class="layout-center-inner">
-									<div class="content-views-wrap">
-										<div class="content-view-wrap">
-											<div class="loading-tasks" style="display:block">
-												<div class="spinner s48 blue">
-												</div>
-												<label class="loading-label"></label><label class="loading-sub-label"></label>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="pop-out-wrap quicksearch pop-out-list" style="display: none; position: absolute; top: 50px; left: 1033px;">
-		<div class="pop-out">
-			<div class="pop-out-body">
-				<div class="pop-out-header">
-					<a class="wrapper" style="display: inline;"><button type="button" class="left cancel">Cancel</button>
-					<div class="back_button">
-					</div>
-					</a>
-					<h2 class="title">Quick Search</h2>
-					<button type="button" class="button right" style="display: none;"></button>
-				</div>
-				<div class="pop-out-content">
-					<ul class="fancy-list">
-					</ul>
-					<div class="spinner s16">
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="pop-out-tail top" style="display: block; background: url(<%= asset_path('flo/images/nubs/top-black.png') %>) no-repeat scroll center top transparent; width: 30px; height: 16px; top: -14px; left: 186px;">
-		</div>
-	</div>
-	<!-- Welcome Slides -->
-	<!-- Quicktask FOrm -->
-	<!-- Contact Form -->
-	<div id="flying-task">
-	</div>
-	<!-- Google Code for Flow Trial or Paid Users Remarketing List -->
-	<ul id="flowlr">
-	</ul>
-	<div id="pre-loaded-avatars" style="">
-	</div>
-</div>
-<% end %>
+    					<li>Safari</li>
+    					<li>Opera 8.1 &amp; 9</li>
+    					<li>Explorer 5.5, 6 &amp; 7</li>
+    					<li>Netscape 8</li>
+    				</ul>
+                    <h2>FREE for anyone to use</h2>
+    	            <p>You don't have to pay anything. Simply view the source of this page and save the HTML onto your computer. My only suggestion is to <a href="http://matthewjamestaylor.com/blog/adding-css-to-html-with-link-embed-inline-and-import">put the CSS into a separate file</a>. If you are feeling generous however, link back to this page so other people can find and use this layout too.</p>
+    	            <h2>Free traffic for your website</h2>
+    	            <p>If you use this layout for your website <a href="http://matthewjamestaylor.com/about">send me an email</a> with the link and any other information you have so I can add you to my list of example sites. Once I have a few links I'll publish them on my website and you'll get free traffic!</p>
+    				<!-- Column 2 end -->
+                </div>
+            </div>
+            <div class="col2" id="crs_side">
+              <h2 class="h2_1">课程</h2>
+              <h2 class="h2_2">课程管理操作</h2>
+              <h2 class="h2_3">统计数据</h2>
+            </div>
+        </div>
+    </div>

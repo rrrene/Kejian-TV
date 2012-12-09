@@ -99,8 +99,8 @@
 <% else %>
   <header style="background-image:url(<%= asset_path('dark.png') %>)">
     <div class="wrapper" style="<%=yield :sdk_wrapper_style%>">
-      <h1><a href="/" id="core_logotext_wrap"><%= image_tag "logo_ktv_#{Setting.ktv_sub}.png",:alt => "#{Setting.ktv_subname}课件台",:id=>'core_logotext' %></a></h1>
-      <form accept-charset="UTF-8" action="/search" id="search_form" method="get" data-width-tobe="<%= Setting.logo_ktv_width + 490 %>" style="<%= "margin-left:#{Setting.logo_ktv_width + 78}px" %>">
+      <h1><a href="/" id="core_logotext_wrap" style="<%= yield :sdk_wrapper_style1 %>"><%= image_tag "logo_ktv_#{Setting.ktv_sub}.png",:alt => "#{Setting.ktv_subname}课件台",:id=>'core_logotext' %></a></h1>
+      <form accept-charset="UTF-8" action="/search" id="search_form" method="get" data-width-tobe="<%= Setting.logo_ktv_width + 490 %>" style="<%= "margin-left:#{Setting.logo_ktv_width + 78}px" %>;<%= yield :sdk_wrapper_style2 %>">
 				<div style="margin:0;padding:0;display:inline">
 					<input name="utf8" type="hidden" value="✓">
 					<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
@@ -126,7 +126,7 @@
         </ul>
         <div id="amazing-shadow"></div>
         <% if user_signed_in? %>
-          <ul id="account-settings">
+          <ul id="account-settings" style="<%= yield :sdk_wrapper_style_end %>">
             <li>
             <a class="user" href="<%= user_path(current_user) %>"><img src="<%=dz_avatar_url(current_user.uid,current_user.email,:small)%>" class="imgHead" width="47" height="47" alt="" style=""><%= current_user.name.present? ? name_beautify(current_user.name) : '姓名未知' %>
                 
@@ -143,7 +143,7 @@
             </li>
           </ul>
         <%else%>
-          <ul id="account-settings" style="min-width:100px">
+          <ul id="account-settings" style="min-width:100px" style="<%= yield :sdk_wrapper_style_end %>">
             <li class="psvr"><a class=" " id="login" href="/login">登录 / 注册新用户</a>
             </li>
           </ul>

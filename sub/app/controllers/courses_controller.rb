@@ -5,7 +5,6 @@ class CoursesController < ApplicationController
   before_filter :find_item,:only => [:show,:follow,:unfollow]
   def index
     @seo[:title]='课程导航'
-    @ktv_subname = Setting.ktv_subname.gsub(/（[^（）]+）/,'')
     @courses = Course
     @courses = @courses.where(:years=>params[:years].to_i) if params[:years].present?
     @courses = @courses.desc('coursewares_count')
