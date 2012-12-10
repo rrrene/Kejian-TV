@@ -156,6 +156,9 @@ Sub::Application.routes.draw do
       get 'coursewares_with_page/:page' => 'coursewares#index'
       get "follow"
       get "unfollow"
+      get 'syllabus'
+      get 'asks'
+      get 'experts'
     end
   end
   get '/coursewares_by_departments' => 'coursewares#index'

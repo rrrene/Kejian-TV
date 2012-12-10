@@ -2,7 +2,7 @@
 class CoursesController < ApplicationController
   before_filter :require_user,:only=>[:create,:new,:update,:edit,:destroy]
   before_filter :require_user_js,:only => [:follow,:unfollow]
-  before_filter :find_item,:only => [:show,:follow,:unfollow]
+  before_filter :find_item,:only => [:show,:follow,:unfollow,:syllabus,:asks,:experts]
   def index
     @seo[:title]='课程导航'
     @courses = Course
@@ -22,11 +22,18 @@ class CoursesController < ApplicationController
   end
 
   def show
-    @seo[:title]=@course.name
     @coursewares = @course.coursewares
     # render :layout=>false
   end
-
+  def syllabus
+    render 'show'
+  end
+  def asks
+    render 'show'    
+  end
+  def experts
+    render 'show'
+  end
 
   def create
     render text:'deprecated.',status:405    
@@ -52,5 +59,6 @@ protected
       render_404
       return false
     end
+    @seo[:title]=@course.name
   end
 end

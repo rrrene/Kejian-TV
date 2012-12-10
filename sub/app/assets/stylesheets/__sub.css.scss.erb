@@ -748,7 +748,61 @@ input.psvr_bt {width: 56px;height: 23px;background:url(<%=asset_path('extand_ima
   }
   .h2_2{background-position:0 -30px;}
   .h2_3{background-position:0 -60px;}
+  ul{
+    margin:0;padding:0;
+  }
 }
+.crs_sideicons{
+  li{
+    display:block;
+    list-style: none;
+    a{
+      text-indent:-9999em;
+      display:block;
+      height:31px;
+      width:220px;
+      background: transparent url(<%=asset_path 'crs_sideicons.png'%>) repeat scroll top left;
+    }
+  }
+  a.a1{
+    background-position:0px 0;
+    &:hover{
+      background-position:-220px 0;
+    }
+    &:active,&.active{
+      background-position:-440px 0;
+    }
+  }
+  a.a2{
+    background-position:0px -31px;
+    &:hover{
+      background-position:-220px -31px;
+    }
+    &:active,&.active{
+      background-position:-440px -31px;
+    }
+  }
+  a.a3{
+    background-position:0px -62px;
+    &:hover{
+      background-position:-220px -62px;
+    }
+    &:active,&.active{
+      background-position:-440px -62px;
+    }
+  }
+  a.a4{
+    background-position:0px -93px;
+    &:hover{
+      background-position:-220px -93px;
+    }
+    &:active,&.active{
+      background-position:-440px -93px;
+    }
+  }
+
+}
+
 #crs_head{
   top:66px;
   left:0;

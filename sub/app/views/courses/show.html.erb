@@ -3,52 +3,9 @@
 (function($){
 //  $('#crs_head').width($(window).width());
 })(jQuery);
-// 
-// var old_content = jQuery("#contentMain").html();
-// jQuery('.queryOrderCss').live('click', function () {
-//     var queryOrder = jQuery(this).attr("rel");
-//     jQuery('#queryOrder').val(queryOrder);
-//     jQuery('#ulQueryOrder > li').removeClass();
-//     jQuery(this).parent().addClass('current');
-//     queryExec();
-// });
-// function queryExec(){
-//     var queryOrder = jQuery('#queryOrder').val();
-//     jQuery("#contentMain").html(old_content);
-//     autoLayout.pageAuto = true;
-//     autoLayout.pageNums = 0;
-//     autoLayout.loading = true;
-//     autoLayout.isHasNextPage = true;
-//     autoLayout.pageNum = 2;
-//     var linkUrl = "/courses/<%=@course.fid%>/coursewares",
-//         jsonUrl = "/courses/<%=@course.fid%>/coursewares_with_page/";
-//     autoLayout.init({
-//         contentID: "contentMain",
-//         rightLoad: true,
-//         leftID: "",
-//         dataContent: {
-//             'queryOrder': queryOrder
-//         },
-//         rightID: [],
-//         linkUrl: linkUrl,
-//         loadingID: "imloading",
-// 
-//         callBack: function () {
-//           var showContent = "还没有人为<%=@course.name%>上传课件";
-//           jQuery("#contentMain").prepend('<div style="text-align: center; margin-right: 233px; padding-top: 100px; left: 0px; top: 0px;" class="f14" columns="0">' + showContent + '</div>');
-//         }
-//     });
-//     autoLayout.eachAction(jsonUrl);
-// }
-// im(function () {
-//     queryExec();
-// });
 <% end %>
 </script>
 
-<% content_for :armpit do %>
-  <%= stylesheet_link_tag "ktv/__zm_user.css", :media => "all" %>
-<% end %>
 <% content_for :body_style do %>background:url(<%=asset_path 'zm/r11839/images/common/bodybg.gif'%>) repeat scroll 0 0 #F0EEEE<% end %>
 <% content_for :sdk_wrapper_style do %>width:100%<% end %>
 <% content_for :sdk_wrapper_style_end do %>margin-right:7px<% end %>
@@ -70,51 +27,61 @@
     <a href="/courses/<%= @course.fid %>" class="crs_head_ui nav0"><%= @course.name %></a>
   </div>
 </div>
-    <div class="psvr2_colmask psvr2_leftmenu">
-        <div class="colright">
-            <div class="col1wrap">
-                <div class="col1">
-                    <!-- Column 2 start -->
-                    <h2>Pixel dimensions of the left menu layout</h2>
-    				<img src="http://matthewjamestaylor.com/blog/ultimate-2-column-left-menu-pixels-dimensions.gif" width="350" height="370" alt="Two column left menu layout pixel dimensions" />
-    				<p>In this layout the left side column width is in pixels and the main right page adjusts in size to fill the rest of the screen. Vertical dimensions are left unset so they automatically stretch to the height of the content. Layouts that use pixel widths are great for images because you can make them fit perfectly within a column without gaps.</p>
-    				<h2>The nested div structure</h2>
-    				<p>I've colour coded each div so it's easy to see:</p>
-    				<img src="http://matthewjamestaylor.com/blog/ultimate-2-column-left-menu-div-structure.gif" width="350" height="369" alt="Two column left menu layout nested div structure" />
-    				<p>The header, colmask and footer divs are 100% wide and stacked vertically one after the other. Colleft is inside colmask and the left content column is inside colleft. The main 'right' page needs to be inside the col1wrap div so it can be positioned correctly (This extra div is not required on the <a href="perfect-2-column-left-menu.htm">percentage width version</a>). Notice that the main content column (col1) comes before the left column, this is great for SEO.</p>
-    				<h2>Full cross-browser support</h2>
-    				<p>The left menu 2 column liquid Layout has been tested on the following browsers:</p>
-    				<h3>iPhone &amp; iPod Touch</h3>
-    				<ul>
-    					<li>Safari</li>
-    				</ul>
-    				<h3>Mac</h3>
-    				<ul>
-    					<li>Safari</li>
-    					<li>Firefox</li>
-    					<li>Opera 9.25</li>
-    					<li>Netscape 9.0.0.5 &amp; 7.1</li>
-    				</ul>
-    				<h3>Windows</h3>
-    				<ul>
-    					<li>Firefox 1.5 &amp; 2</li>
+<div class="psvr2_colmask psvr2_leftmenu">
+    <div class="colright">
+        <div class="col1wrap">
+            <div class="col1">
+                <!-- Column 2 start -->
+                <h2>Pixel dimensions of the left menu layout</h2>
+				<img src="http://matthewjamestaylor.com/blog/ultimate-2-column-left-menu-pixels-dimensions.gif" width="350" height="370" alt="Two column left menu layout pixel dimensions" />
+				<p>In this layout the left side column width is in pixels and the main right page adjusts in size to fill the rest of the screen. Vertical dimensions are left unset so they automatically stretch to the height of the content. Layouts that use pixel widths are great for images because you can make them fit perfectly within a column without gaps.</p>
+				<h2>The nested div structure</h2>
+				<p>I've colour coded each div so it's easy to see:</p>
+				<img src="http://matthewjamestaylor.com/blog/ultimate-2-column-left-menu-div-structure.gif" width="350" height="369" alt="Two column left menu layout nested div structure" />
+				<p>The header, colmask and footer divs are 100% wide and stacked vertically one after the other. Colleft is inside colmask and the left content column is inside colleft. The main 'right' page needs to be inside the col1wrap div so it can be positioned correctly (This extra div is not required on the <a href="perfect-2-column-left-menu.htm">percentage width version</a>). Notice that the main content column (col1) comes before the left column, this is great for SEO.</p>
+				<h2>Full cross-browser support</h2>
+				<p>The left menu 2 column liquid Layout has been tested on the following browsers:</p>
+				<h3>iPhone &amp; iPod Touch</h3>
+				<ul>
+					<li>Safari</li>
+				</ul>
+				<h3>Mac</h3>
+				<ul>
+					<li>Safari</li>
+					<li>Firefox</li>
+					<li>Opera 9.25</li>
+					<li>Netscape 9.0.0.5 &amp; 7.1</li>
+				</ul>
+				<h3>Windows</h3>
+				<ul>
+					<li>Firefox 1.5 &amp; 2</li>
 
-    					<li>Safari</li>
-    					<li>Opera 8.1 &amp; 9</li>
-    					<li>Explorer 5.5, 6 &amp; 7</li>
-    					<li>Netscape 8</li>
-    				</ul>
-                    <h2>FREE for anyone to use</h2>
-    	            <p>You don't have to pay anything. Simply view the source of this page and save the HTML onto your computer. My only suggestion is to <a href="http://matthewjamestaylor.com/blog/adding-css-to-html-with-link-embed-inline-and-import">put the CSS into a separate file</a>. If you are feeling generous however, link back to this page so other people can find and use this layout too.</p>
-    	            <h2>Free traffic for your website</h2>
-    	            <p>If you use this layout for your website <a href="http://matthewjamestaylor.com/about">send me an email</a> with the link and any other information you have so I can add you to my list of example sites. Once I have a few links I'll publish them on my website and you'll get free traffic!</p>
-    				<!-- Column 2 end -->
-                </div>
-            </div>
-            <div class="col2" id="crs_side">
-              <h2 class="h2_1">课程</h2>
-              <h2 class="h2_2">课程管理操作</h2>
-              <h2 class="h2_3">统计数据</h2>
+					<li>Safari</li>
+					<li>Opera 8.1 &amp; 9</li>
+					<li>Explorer 5.5, 6 &amp; 7</li>
+					<li>Netscape 8</li>
+				</ul>
+                <h2>FREE for anyone to use</h2>
+	            <p>You don't have to pay anything. Simply view the source of this page and save the HTML onto your computer. My only suggestion is to <a href="http://matthewjamestaylor.com/blog/adding-css-to-html-with-link-embed-inline-and-import">put the CSS into a separate file</a>. If you are feeling generous however, link back to this page so other people can find and use this layout too.</p>
+	            <h2>Free traffic for your website</h2>
+	            <p>If you use this layout for your website <a href="http://matthewjamestaylor.com/about">send me an email</a> with the link and any other information you have so I can add you to my list of example sites. Once I have a few links I'll publish them on my website and you'll get free traffic!</p>
+				<!-- Column 2 end -->
             </div>
         </div>
+        <div class="col2" id="crs_side">
+          <h2 class="h2_1">课程</h2>
+          <ul class="crs_sideicons">
+            <li><a href="/courses/<%= @course.fid %>" class="a1 <%= 'active' if 3==request.path.split('/').size %>">资源一览</a></li>
+            <li><a href="/courses/<%= @course.fid %>/syllabus" class="a2 <%= 'active' if 'syllabus'==request.path.split('/')[-1] %>">教学大纲</a></li>
+            <li><a href="/courses/<%= @course.fid %>/asks" class="a3 <%= 'active' if 'asks'==request.path.split('/')[-1] %>">提问求助区</a></li>
+            <li><a href="/courses/<%= @course.fid %>/experts" class="a4 <%= 'active' if 'experts'==request.path.split('/')[-1] %>">专家与精英</a></li>
+          </ul>
+          <h2 class="h2_2">课程管理操作</h2>
+          <h2 class="h2_3">统计数据</h2>
+        </div>
     </div>
+</div>
+    
+    
+
+    
