@@ -66,7 +66,7 @@ PATH
       redis-namespace (>= 1.0.2)
 
 GEM
-  remote: http://ruby.taobao.org/
+  remote: https://rubygems.org/
   specs:
     actionmailer (3.2.9)
       actionpack (= 3.2.9)
@@ -440,6 +440,8 @@ GEM
     treetop (1.4.12)
       polyglot
       polyglot (>= 0.3.1)
+    turbolinks (0.6.1)
+      coffee-rails
     turn (0.9.6)
       ansi
     twitter-stream (0.1.16)
@@ -509,7 +511,7 @@ DEPENDENCIES
   guard-spork
   jbuilder
   jquery-atwho-rails (>= 0.1.6)
-  jquery-rails!
+  jquery-rails (~> 2.1.4)!
   launchy
   letter_opener
   mechanize (>= 2.5.1)
@@ -520,7 +522,7 @@ DEPENDENCIES
   mongoid_colored_logger!
   mongoid_rails_migrations (~> 0.0.14)
   mysql2
-  nokogiri
+  nokogiri (>= 1.5.5)
   oauth-plugin (>= 0.4.0.pre1)
   omniauth-douban!
   omniauth-facebook
@@ -568,6 +570,7 @@ DEPENDENCIES
   thin
   tire
   to_xls (~> 1.0.0)
+  turbolinks
   turn
   uglifier (>= 1.0.3)
   unicorn

@@ -1,0 +1,18 @@
+<% content_for :armpit do %>
+<%= stylesheet_link_tag "__dz_forum_modcp.css", :media => "all" %>
+<% end %>
+
+<div class="__dz" style="margin-top:1px">
+  <%
+    @wp.css('#pt').unlink
+    @wp.css('#ct .appl').unlink
+
+    yonghuming=@wp.css('th').find{|x| "用户名:"==x.text}
+    yonghuming.inner_html = '管理员:'
+    yonghuming.parent.css('td').first.inner_html = current_user.name_beautified
+    
+    @form['action'] = "/courses/#{@course.fid}/admin_loginpost"
+    @form.add_child(token_tag nil)
+  %>
+  <%= raw @wp %>
+</div>

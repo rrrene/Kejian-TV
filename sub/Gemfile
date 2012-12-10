@@ -1,5 +1,5 @@
-source 'http://ruby.taobao.org/'
-#source 'https://rubygems.org'
+#source 'http://ruby.taobao.org/'
+source 'https://rubygems.org'
 
 Encoding.default_external = Encoding::UTF_8
 Encoding.default_internal = Encoding::UTF_8
@@ -28,7 +28,8 @@ gem 'pry'
   gem 'coffee-rails', '~> 3.2.1'
   gem 'uglifier', '>= 1.0.3'
 #end
-gem 'jquery-rails', :git=>'git://github.com/rails/jquery-rails.git'
+gem 'jquery-rails', '~> 2.1.4', github: 'rails/jquery-rails'
+gem 'turbolinks'
 gem "jquery-atwho-rails", ">=0.1.6" #[!]
 # 禁用 assets 日志
 gem 'quiet_assets', ">=1.0.1"

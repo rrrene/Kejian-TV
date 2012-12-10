@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class CoursesController < ApplicationController
-  ADMIN_ACTIONS=[:admin,:admin7,:admin8,:admin9,:admin10,:admin11,:admin12,:admin13,:admin14,:admin15,:admin16,:admin17,:admin18]
+  ADMIN_ACTIONS=[:admin_login,:admin_loginpost,:admin_logout,:admin7,:admin8,:admin9,:admin10,:admin11,:admin12,:admin13,:admin14,:admin15,:admin16,:admin17,:admin18]
   before_filter :require_user,:only=>[:create,:new,:update,:edit,:destroy]+ADMIN_ACTIONS
   before_filter :require_user_js,:only => [:follow,:unfollow]
   before_filter :find_item,:only => [:show,:follow,:unfollow,:syllabus,:asks,:experts]+ADMIN_ACTIONS
@@ -26,20 +26,44 @@ class CoursesController < ApplicationController
     @coursewares = @course.coursewares
     # render :layout=>false
   end
-  def admin
-    res = Ktv::JQuery.ajax({
-      psvr_original_response: true,
-      url:"http://#{Setting.ktv_subdomain}/simple/forum.php?mod=modcp&fid=#{@course.fid}",
-      type:'GET',
-      data:{},
-      'COOKIE'=>request.env['HTTP_COOKIE'],
-      :accept=>'raw'+Setting.dz_authkey,
-      psvr_response_anyway: true
-    })
-    binding.pry
+  def admin_login
+    @res,@parser,@wp = dz_get("forum.php?mod=modcp&fid=#{@course.fid}")
+    if admin_login_form_check!
+      @render_overwrite = "admin13"
+    end
     render 'show'
   end
-
+  def admin_loginpost
+    @res,@parser,@wp = dz_post("forum.php?mod=modcp&action=login",{
+      formhash:params[:formhash],
+      fid:params[:id],
+      submit:'yes',
+      login_panel:'yes',
+      cppwd:params[:cppwd],
+      submit:'true'
+    })
+    if RestClient::Found==@res.class
+      session[:psvr_modcp_open] = true
+      redirect_to "/courses/#{@course.fid}/admin13"
+      return false
+    elsif !admin_login_form_check!('密码错误。如果密码输入错误超过 5 次，管理面板将会锁定 15 分钟。')
+      render 'show'
+    else
+      raise Ktv::Shared::ScriptNeedImprovement,"DZ Logic Change?"
+    end
+  end
+  def admin13
+    @res,@parser,@wp = dz_get("forum.php?mod=modcp&action=thread&op=thread&fid=#{@course.fid}")
+    if admin_login_form_check!('首次进入管理面板或空闲时间过长, 您输入密码才能进入')
+      # nothing to do
+    end
+    render 'show'
+  end
+  def admin_logout
+    @res,@parser,@wp = dz_get("forum.php?mod=modcp&action=logout")
+    session[:psvr_modcp_open] = false
+    redirect_to "/courses/#{@course.fid}"
+  end
   def syllabus
     render 'show'
   end
@@ -75,5 +99,15 @@ protected
       return false
     end
     @seo[:title]=@course.name
+  end
+  def admin_login_form_check!(alertarg=nil)
+    if @form=@parser.css('form[action="forum.php?mod=modcp&action=login"]').first
+      session[:psvr_modcp_open] = false
+      flash[:alert]=alertarg if alertarg
+      @render_overwrite = 'admin_login'
+    else
+      session[:psvr_modcp_open] = true
+    end
+    return session[:psvr_modcp_open]
   end
 end

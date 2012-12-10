@@ -197,6 +197,8 @@
     jQuery('#content').height(hhh);
     jQuery('#pagekey-nprofile-edit-success').css('top',jQuery('#content').offset().top)
     jQuery('#pagekey-nprofile-psvr-skp').css('top',jQuery('#content').offset().top+184)
+  KTV.crs_subize = ->
+    $('#crs_side').css({'min-height':$(window).height()-(jQuery('#crs_head').offset().top+36)});    
   KTV.dz_targetize = ->
     $('#content').height($('#psvr_dz_target').height());
   KTV.sdk_flashes_set = (type,msg)->

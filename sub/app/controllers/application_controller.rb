@@ -106,13 +106,9 @@ class ApplicationController < ActionController::Base
       retry_times += 1
       res_xookie = Ktv::JQuery.ajax(h_xookie)
     end
-    res_xookie.cookies.each do |key,value|
-      if !@dz_cookiepre_mid and key =~ /#{Setting.dz_cookiepre}([^_]+)_/
-        @dz_cookiepre_mid = $1
-      end
-      val = CGI::unescape value
-      cookies[key]=val
-    end
+    
+    set_dz_cookies!(res_xookie)
+    
     @_G = MultiJson.load(res_xookie.to_s)
     @_G['uid'] = @_G['uid'].to_i
     @authkey = @_G['authkey']
@@ -124,7 +120,6 @@ class ApplicationController < ActionController::Base
       return false
     end
   end
-
   def rand_sid(len)
     @hash = ''
     @chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz'
@@ -238,12 +233,7 @@ class ApplicationController < ActionController::Base
       :accept=>'raw'+Setting.dz_authkey,
       psvr_response_anyway: true
     })
-    # p 'gonna set------------------'
-    # p res
-    # p 'gonna set------------------'
-    res.cookies.each do |key,value|
-      cookies[key]=CGI::unescape value
-    end
+    set_dz_cookies!(res)
     # todo:
     #   upon observing this
     #   the sub-site should login the corresponding user
@@ -452,6 +442,54 @@ protected
   end
   def bind_spetial_ibeike_prepare!
     # todo了啦！
+  end
+  def dz_post_delegate
+    @mod = params.delete :dz_mod
+    @act = params.delete :dz_action
+    @data = params.dup
+    @data.delete :action
+    @data.delete :controller
+    @data.delete :authenticity_token
+  end
+  def dz_get(php)
+    res = Ktv::JQuery.ajax({
+      psvr_original_response: true,
+      url:"http://#{Setting.ktv_subdomain}/simple/#{php}",
+      type:'GET',
+      'COOKIE'=>request.env['HTTP_COOKIE'],
+      :accept=>'raw'+Setting.dz_authkey,
+      psvr_response_anyway: true
+    })
+    set_dz_cookies!(res)
+    parser = Nokogiri::HTML(res.body)
+    [res,parser,parser.css('#wp').first]
+  end
+  def dz_post(php,data)
+    res = Ktv::JQuery.ajax({
+      psvr_original_response: true,
+      url:"http://#{Setting.ktv_subdomain}/simple/#{php}",
+      type:'POST',
+      data:data,
+      'COOKIE'=>request.env['HTTP_COOKIE'],
+      :accept=>'raw'+Setting.dz_authkey,
+      psvr_response_anyway: true
+    })
+    if res.respond_to?(:cookies)
+      set_dz_cookies!(res)
+      parser = Nokogiri::HTML(res.body)
+      [res,parser,parser.css('#wp').first]
+    else
+      [res,nil,nil]
+    end
+  end
+  def set_dz_cookies!(result)
+    result.cookies.each do |key,value|
+      if !@dz_cookiepre_mid and key =~ /#{Setting.dz_cookiepre}([^_]+)_/
+        @dz_cookiepre_mid = $1
+      end
+      val = CGI::unescape value
+      cookies[key]=val
+    end
   end
 end
 
