@@ -509,10 +509,12 @@
     return false
 
   KTV.login = ->
+    $('.maskDiv').css('opacity','.4');
     im.zm.login()
     $("#loginLayout").definedDialog("open")
     KTV.core_login_css()
     return false;
+    
   KTV.addCW = ->
     # todo
     return true

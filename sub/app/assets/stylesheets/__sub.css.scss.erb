@@ -851,13 +851,13 @@ input.psvr_bt {width: 56px;height: 23px;background:url(<%=asset_path('extand_ima
     li{
       list-style: none;
       float:left;
+      a{
+        background: transparent url(<%=asset_path 'crs_dickicons.png'%>) no-repeat scroll top left;
+        display:block;
+        height:27px;
+        text-indent:-9999em;
+      }
     }
-  }
-  a{
-    background: transparent url(<%=asset_path 'crs_dickicons.png'%>) no-repeat scroll top left;
-    display:block;
-    height:27px;
-    text-indent:-9999em;
   }
   a.a1{
     width:71px;
@@ -959,6 +959,19 @@ input.psvr_bt {width: 56px;height: 23px;background:url(<%=asset_path('extand_ima
   &:active{
     background-position:0 -54px;
   }
+}
+
+.crs_switch{
+  cursor:pointer;
+  z-index:8888;
+  text-indent:-9999em;
+  display:block;
+  position:absolute;
+  margin-top:6px;
+  right:4px;
+  width:71px;
+  height:25px;
+  background: transparent url(<%=asset_path 'crs_switch.png'%>) repeat scroll top left;
 }
 
 
