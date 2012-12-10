@@ -3924,7 +3924,6 @@ im.zm.scmAd = function (c) {
     d.init(c)
 };
 im.zm.autoLayout = function () {
-    this.columnCount = 4;
     this.divWidth = 222;
     this.marginTop = 14;
     this.marginLeft = 14;
@@ -3954,7 +3953,9 @@ im.zm.autoLayout.prototype = {
             callBack: null,
             isPosition: true,
             cols: null,
-            colName: null
+            colName: null,
+            psvr_client_width_offset: 0,
+            psvr_mincol: 4
         };
         $.extend(this.defaults, d, b)
     },
@@ -3974,7 +3975,7 @@ im.zm.autoLayout.prototype = {
                 var q = [];
                 f = Math.floor((s + autoLayout.marginLeft) / (autoLayout.divWidth + autoLayout.marginLeft));
                 g = 0;
-                f = Math.max(f, 4);
+                f = Math.max(f, autoLayout.psvr_mincol);
                 var b = f * 236 - 14 + "px";
                 document.getElementById(c.contentID).style.width = b;
                 $(".filterbar").css({
@@ -4035,7 +4036,7 @@ im.zm.autoLayout.prototype = {
                 var s = document.documentElement.clientWidth;
                 var f = Math.floor((s + autoLayout.marginLeft) / (autoLayout.divWidth + autoLayout.marginLeft));
                 g = 0;
-                var f = Math.max(f, 4);
+                var f = Math.max(f, autoLayout.psvr_mincol);
                 var b = f * 236 - 14 + "px";
                 document.getElementById(autoLayout.defaults.contentID).style.width = b;
                 var q = autoLayout.colArray;
@@ -5295,7 +5296,6 @@ im.zm.getAutoUser = function (e) {
     a(e)
 };
 window.autoLayout = {
-    columnCount: 4,
     divWidth: 222,
     marginTop: 14,
     marginLeft: 14,
@@ -5327,6 +5327,8 @@ window.autoLayout = {
     isIE: jQuery.browser.msie,
     opacityVal: 1,
     pageNums: 0,
+    psvr_client_width_offset: 0,
+    psvr_mincol: 4,
     init: function (options, sta, dataObj) {
         var _jsonUrl, freeLeft, columns, w, opts;
         if (typeof options == "object") {
@@ -5346,18 +5348,20 @@ window.autoLayout = {
                 if (!opts.rightLoad) {
                     autoLayout.rightLoad = false
                 }
-                w = document.documentElement.clientWidth - 17;
+                w = document.documentElement.clientWidth - 17 - autoLayout.psvr_client_width_offset;
                 var h = document.documentElement.clientHeight;
                 var objDiv;
                 var heightArray = [];
                 var columns;
+                console.log((w + autoLayout.marginLeft));
+                console.log((autoLayout.divWidth + autoLayout.marginLeft));
                 if (autoLayout.defaults.isFixed) {
                     columns = 4
                 } else {
                     columns = Math.floor((w + autoLayout.marginLeft) / (autoLayout.divWidth + autoLayout.marginLeft))
                 }
                 freeLeft = 0;
-                columns = Math.max(columns, 4);
+                columns = Math.max(columns, autoLayout.psvr_mincol);
                 var contentWidth = columns * 236 - 14 + "px";
                 document.getElementById(opts.contentID).style.width = contentWidth;
                 $(".filterbar").css({
@@ -5434,7 +5438,7 @@ window.autoLayout = {
                     columns = Math.floor((w + autoLayout.marginLeft) / (autoLayout.divWidth + autoLayout.marginLeft))
                 }
                 freeLeft = 0;
-                var columns = Math.max(columns, 4);
+                var columns = Math.max(columns, autoLayout.psvr_mincol);
                 var contentWidth = columns * 236 - 14 + "px";
                 document.getElementById(autoLayout.defaults.contentID).style.width = contentWidth;
                 var heightArray = autoLayout.colArray;
@@ -5480,11 +5484,7 @@ window.autoLayout = {
                 return
             }
             if (autoLayout.pageNums > 1 && !loginUser.id) {
-                im.zm.login();
-                $("#loginLayout").definedDialog("open");
-                try {
-                    _gaq.push(["_trackPageview", "/c_l_c/" + document.location.href.replace(new RegExp("http://" + document.location.host), "")])
-                } catch (e) {}
+              KTV.login();
             }
             for (var j = 0, len = picBoard.length; j < len; j++) {
                 var picWidth = _getWidth(picBoard[j].mediumZoom);
@@ -5627,7 +5627,7 @@ window.autoLayout = {
             $("#imloading").css({
                 visibility: "hidden"
             });
-            var spetial_situation = (autoLayout.pageNums===3 &&''==loginUser)
+            var spetial_situation = (autoLayout.pageNums===3 && !loginUser)
             if (!_jsonMain.hasNextPage || spetial_situation) {
                 $("#imloading").css({
                     visibility: "hidden"
@@ -5645,9 +5645,6 @@ window.autoLayout = {
             if (autoLayout.defaults.isPosition) {
                 document.getElementById(autoLayout.defaults.contentID).style.height = Math.max.apply(Math, heightArray) + "px"
             }
-            $(".maskDiv").css({
-                height: parseInt($("body").height()) + parseInt($("body").css("paddingTop"))
-            });
             $("textarea").each(function () {
                 im.zm.getAutoUser({
                     elem: this
@@ -5733,9 +5730,9 @@ window.autoLayout = {
         }
         var q;
         var f = [];
-        var g = document.documentElement.clientWidth;
+        var g = document.documentElement.clientWidth - autoLayout.psvr_client_width_offset;
         var u = document.documentElement.clientHeight;
-        var a = Math.max(Math.floor((g + autoLayout.marginLeft) / (autoLayout.divWidth + autoLayout.marginLeft)), 4);
+        var a = Math.max(Math.floor((g + autoLayout.marginLeft) / (autoLayout.divWidth + autoLayout.marginLeft)), autoLayout.psvr_mincol);
         var o = 0;
         var l = a * 236 - 14 + "px";
         if (document.getElementById(autoLayout.defaults.contentID)) {
@@ -5748,8 +5745,8 @@ window.autoLayout = {
         if (document.getElementById("unloginBannersInner")) {
             document.getElementById("unloginBannersInner").style.width = l
         }
-        if (autoLayout.columnCount > a) {
-            a = autoLayout.columnCount
+        if (autoLayout.psvr_mincol > a) {
+            a = autoLayout.psvr_mincol
         }
         for (var s = 0; s < a; s++) {
             f[s] = 0
@@ -5793,7 +5790,7 @@ window.autoLayout = {
             }
         }
         if (autoLayout.pageAuto) {
-            a = Math.max(a, 4);
+            a = Math.max(a, autoLayout.psvr_mincol);
             var x = autoLayout.divWidth * (a - 1) + autoLayout.marginLeft * (a - 1) - 17 + "px";
             if (!autoLayout.searchPage) {
                 $(".sheet").css({
@@ -6458,14 +6455,14 @@ var boardLoad = {
         var b = document.documentElement.clientWidth,
             c, a;
         if (boardLoad.serachPage) {
-            c = Math.max(parseInt((b + 14) / 236), 4);
+            c = Math.max(parseInt((b + 14) / 236), autoLayout.psvr_mincol);
             a = c * 236 - 14
         } else {
-            c = Math.max(parseInt((b + 16) / 238), 4);
+            c = Math.max(parseInt((b + 16) / 238), autoLayout.psvr_mincol);
             a = c * 236 - 12
         }
         if (boardLoad.serachBoards) {
-            c = Math.max(parseInt((b + 14) / 236), 4);
+            c = Math.max(parseInt((b + 14) / 236), autoLayout.psvr_mincol);
             a = c * 236
         }
         $(document.getElementById(d)).css({
@@ -6482,14 +6479,14 @@ var boardLoad = {
         var d = "content",
             c, a, b = document.documentElement.clientWidth;
         if (boardLoad.serachPage) {
-            c = Math.max(parseInt((b + 14) / 236), 4);
+            c = Math.max(parseInt((b + 14) / 236), autoLayout.psvr_mincol);
             a = c * 236
         } else {
-            c = Math.max(parseInt((b + 16) / 238), 4);
+            c = Math.max(parseInt((b + 16) / 238), autoLayout.psvr_mincol);
             a = c * 236 - 12
         }
         if (boardLoad.serachBoards) {
-            c = Math.max(parseInt((b + 14) / 236), 4);
+            c = Math.max(parseInt((b + 14) / 236), autoLayout.psvr_mincol);
             a = c * 236
         }
         $(document.getElementById(d)).css({
