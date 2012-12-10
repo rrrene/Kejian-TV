@@ -144,7 +144,7 @@ gem "letter_opener"
 
 
 gem 'php_serialize'
-gem 'nokogiri'
+gem 'nokogiri','>=1.5.5'
 gem 'redis-objects' #[!]
 gem 'progressbar'
 gem 'unicorn'

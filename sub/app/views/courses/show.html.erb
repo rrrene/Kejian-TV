@@ -8,10 +8,10 @@
   }).mouseup(function(){
     $('#crs_side_supplementary').hide();
   });
+  $('#crs_side').css({'min-height':$(window).height()-102});
 })(jQuery);
 <% end %>
 </script>
-<% content_for :body_style do %>background:url(<%=asset_path 'zm/r11839/images/common/bodybg.gif'%>) repeat scroll 0 0 #F0EEEE<% end %>
 <% content_for :sdk_wrapper_style do %>width:100%<% end %>
 <% content_for :sdk_wrapper_style_end do %>margin-right:7px<% end %>
 <% residual = (220 - Setting.logo_ktv_width - 11 - 51) %>
@@ -22,55 +22,6 @@
   <!-- todo -->
 <% end %>
 
-<% content_for :armpit do %>
-  <%= stylesheet_link_tag "ktv/__zm_user.css", :media => "all" %>
-<% end %>
-<script type="text/javascript">
-<% content_for :butt2 do %>
-
-var old_content = jQuery("#contentMain").html();
-jQuery('.queryOrderCss').live('click', function () {
-    var queryOrder = jQuery(this).attr("rel");
-    jQuery('#queryOrder').val(queryOrder);
-    jQuery('#ulQueryOrder > li').removeClass();
-    jQuery(this).parent().addClass('current');
-    queryExec();
-});
-function queryExec(){
-    var queryOrder = jQuery('#queryOrder').val();
-    jQuery("#contentMain").html(old_content);
-    autoLayout.pageAuto = true;
-    autoLayout.pageNums = 0;
-    autoLayout.loading = true;
-    autoLayout.isHasNextPage = true;
-    autoLayout.pageNum = 2;
-    autoLayout.psvr_client_width_offset = 242;
-    autoLayout.psvr_mincol = 3;
-    var linkUrl = "/courses/<%=@course.fid%>/coursewares",
-        jsonUrl = "/courses/<%=@course.fid%>/coursewares_with_page/";
-    autoLayout.init({
-        contentID: "contentMain",
-        rightLoad: true,
-        leftID: "",
-        dataContent: {
-            'queryOrder': queryOrder
-        },
-        rightID: [],
-        linkUrl: linkUrl,
-        loadingID: "imloading",
-
-        callBack: function () {
-          var showContent = "还没有人为<%=@course.name%>上传课件";
-          jQuery("#contentMain").prepend('<div style="text-align: center; margin-right: 233px; padding-top: 100px; left: 0px; top: 0px;" class="f14" columns="0">' + showContent + '</div>');
-        }
-    });
-    autoLayout.eachAction(jsonUrl);
-}
-im(function () {
-    queryExec();
-});
-<% end %>
-</script>    
 
 
 <div id="crs_head">
@@ -83,40 +34,16 @@ im(function () {
     <a href="/departments/<%= @course.department_fid %>" class="crs_head_ui nav0"><%= @course.department_name %></a>
     <a href="/courses/<%= @course.fid %>" class="crs_head_ui nav0"><%= @course.name %></a>
   </div>
+  <div class="nav_right">
+    课长: <a href="#">无</a>
+  </div>
 </div>
 <div class="psvr2_colmask psvr2_leftmenu">
     <div class="colright" style="background:url(<%=asset_path 'zm/r11839/images/common/bodybg.gif'%>) repeat scroll 0 0 #F0EEEE">
         <div class="col1wrap">
             <div class="col1">
-                <div id="crs_dickhead">
-                  <ul>
-                    <li><a href="/courses/<%= @course.fid %>" class="a1 <%= 'active' if params[:sort1].blank?||'all'==params[:sort1] %>">全部资源</a></li>
-                    <% Courseware::SORT1STR.each_with_index do |arr,index| %>
-                      <% key,value=arr %>
-                      <li><a href="/courses/<%= @course.fid %>?sort1=<%= key %>" class="a<%= index+2 %> <%= 'active' if key==params[:sort1] %>"><%= value %></a></li>
-                    <% end %>
-                  </ul>
-                  <a href="#" class="crs_switch" title="切换到列表视图">切换到列表视图</a>
-                </div>
                 <!-- Column 2 start -->
-                <div class="__zm" style="margin-top:">
-                  <% params[:queryOrder] ||= '1' %>
-                  <input id="queryOrder" type="hidden" value="<%= params[:queryOrder] %>" />
-                  <div id="pagewrap">
-                  	<div id="content" style="box-shadow:none;background:none;overflow:visible !important;margin-top:13px">
-                  		<!--内容容器开始-->
-                  		<div style="clear: both;">
-                  		</div>
-                  		<div id="contentMain" class="content" style="position: relative;">
-                  		</div>
-                  	</div>
-                  	<div id="imloading" class="imfootloading" style="visibility:hidden;">
-                  		<div class="loading">
-                  			正在加载，请稍候...
-                  		</div>
-                  	</div>
-                  </div>
-                </div>
+                <%= render "#{params[:action]}" %>
         				<!-- Column 2 end -->
             </div>
         </div>
@@ -130,7 +57,26 @@ im(function () {
             <li><a href="/courses/<%= @course.fid %>/asks" class="a3 <%= 'active' if 'asks'==request.path.split('/')[-1] %>">提问求助区</a></li>
             <li><a href="/courses/<%= @course.fid %>/experts" class="a4 <%= 'active' if 'experts'==request.path.split('/')[-1] %>">专家与精英</a></li>
           </ul>
-          <h2 class="h2_2">课程管理操作</h2>
+          <h2 class="h2_2">课程管理面板</h2>
+          <ul class="crs_sideicons">
+<% if true %>            
+            <li><a href="/courses/<%= @course.fid %>/admin" class="a5">打开管理面板</a></li>
+<% else %>
+            <li><a href="/courses/<%= @course.fid %>/admin" class="a6">关闭管理面板</a></li>
+            <li><a href="/courses/<%= @course.fid %>/admin7" class="a7 <%= 'active' if 'admin7'==request.path.split('/')[-1] %>">内部留言</a></li>
+            <li><a href="/courses/<%= @course.fid %>/admin8" class="a8 <%= 'active' if 'admin8'==request.path.split('/')[-1] %>">审核</a></li>
+            <li><a href="/courses/<%= @course.fid %>/admin9" class="a9 <%= 'active' if 'admin9'==request.path.split('/')[-1] %>">禁止用户</a></li>
+            <li><a href="/courses/<%= @course.fid %>/admin10" class="a10 <%= 'active' if 'admin10'==request.path.split('/')[-1] %>">禁止 IP</a></li>
+            <li><a href="/courses/<%= @course.fid %>/admin11" class="a11 <%= 'active' if 'admin11'==request.path.split('/')[-1] %>">用户权限</a></li>
+            <li><a href="/courses/<%= @course.fid %>/admin12" class="a12 <%= 'active' if 'admin12'==request.path.split('/')[-1] %>">编辑用户</a></li>
+            <li><a href="/courses/<%= @course.fid %>/admin13" class="a13 <%= 'active' if 'admin13'==request.path.split('/')[-1] %>">主题管理</a></li>
+            <li><a href="/courses/<%= @course.fid %>/admin14" class="a14 <%= 'active' if 'admin14'==request.path.split('/')[-1] %>">推荐主题</a></li>
+            <li><a href="/courses/<%= @course.fid %>/admin15" class="a15 <%= 'active' if 'admin15'==request.path.split('/')[-1] %>">课程编辑</a></li>
+            <li><a href="/courses/<%= @course.fid %>/admin16" class="a16 <%= 'active' if 'admin16'==request.path.split('/')[-1] %>">公告</a></li>
+            <li><a href="/courses/<%= @course.fid %>/admin17" class="a17 <%= 'active' if 'admin17'==request.path.split('/')[-1] %>">管理日志</a></li>
+            <li><a href="/courses/<%= @course.fid %>/admin18" class="a18 <%= 'active' if 'admin18'==request.path.split('/')[-1] %>">管理举报</a></li>
+<% end %>
+          </ul>          
           <h2 class="h2_3">统计数据</h2>
   				<!-- Column 1 end -->
         </div>

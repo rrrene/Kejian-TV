@@ -762,7 +762,7 @@ input.psvr_bt {width: 56px;height: 23px;background:url(<%=asset_path('extand_ima
       display:block;
       height:31px;
       width:220px;
-      background: transparent url(<%=asset_path 'crs_sideicons.png'%>) repeat scroll top left;
+      background: transparent url(<%=asset_path 'crs_sideicons.jpg'%>) repeat scroll top left;
     }
   }
   a.a1{
@@ -801,12 +801,139 @@ input.psvr_bt {width: 56px;height: 23px;background:url(<%=asset_path('extand_ima
       background-position:-440px -93px;
     }
   }
+  a.a5{
+    background-position:0px -124px;
+    &:hover{
+      background-position:-220px -124px;
+    }
+    &:active,&.active{
+      background-position:-440px -124px;
+    }
+  }
+  a.a6{
+    background-position:0px -155px;
+    &:hover{
+      background-position:-220px -155px;
+    }
+    &:active,&.active{
+      background-position:-440px -155px;
+    }
+  }
+  a.a7{
+    background-position:0px -186px;
+    &:hover{
+      background-position:-220px -186px;
+    }
+    &:active,&.active{
+      background-position:-440px -186px;
+    }
+  }
+  a.a8{
+    background-position:0px -217px;
+    &:hover{
+      background-position:-220px -217px;
+    }
+    &:active,&.active{
+      background-position:-440px -217px;
+    }
+  }
+  a.a9{
+    background-position:0px -248px;
+    &:hover{
+      background-position:-220px -248px;
+    }
+    &:active,&.active{
+      background-position:-440px -248px;
+    }
+  }
+  a.a10{
+    background-position:0px -279px;
+    &:hover{
+      background-position:-220px -279px;
+    }
+    &:active,&.active{
+      background-position:-440px -279px;
+    }
+  }
+  a.a11{
+    background-position:0px -310px;
+    &:hover{
+      background-position:-220px -310px;
+    }
+    &:active,&.active{
+      background-position:-440px -310px;
+    }
+  }
+  a.a12{
+    background-position:0px -341px;
+    &:hover{
+      background-position:-220px -341px;
+    }
+    &:active,&.active{
+      background-position:-440px -341px;
+    }
+  }
+  a.a13{
+    background-position:0px -372px;
+    &:hover{
+      background-position:-220px -372px;
+    }
+    &:active,&.active{
+      background-position:-440px -372px;
+    }
+  }
+  a.a14{
+    background-position:0px -403px;
+    &:hover{
+      background-position:-220px -403px;
+    }
+    &:active,&.active{
+      background-position:-440px -403px;
+    }
+  }
+  a.a15{
+    background-position:0px -434px;
+    &:hover{
+      background-position:-220px -434px;
+    }
+    &:active,&.active{
+      background-position:-440px -434px;
+    }
+  }
+  a.a16{
+    background-position:0px -465px;
+    &:hover{
+      background-position:-220px -465px;
+    }
+    &:active,&.active{
+      background-position:-440px -465px;
+    }
+  }
+  a.a17{
+    background-position:0px -496px;
+    &:hover{
+      background-position:-220px -496px;
+    }
+    &:active,&.active{
+      background-position:-440px -496px;
+    }
+  }
+  a.a18{
+    background-position:0px -527px;
+    &:hover{
+      background-position:-220px -527px;
+    }
+    &:active,&.active{
+      background-position:-440px -527px;
+    }
+  }
+
 
 }
 #crs_side_supplementary{
   position:absolute;
   width:220px;height:1px;top:0;left:0;
-  background: transparent url(<%=asset_path 'crs_sideicons.png'%>) repeat scroll 0 -124px;  
+  background: #1F2326;  
 }
 #crs_head{
   top:66px;
@@ -834,6 +961,25 @@ input.psvr_bt {width: 56px;height: 23px;background:url(<%=asset_path('extand_ima
       }
     }
   }
+  .nav_right{
+    position:absolute;
+    right:8px;
+    display: block;
+    font-size:12px;
+    line-height:37px;
+    height: 36px; 
+    color:white;     
+    a{
+      font-size:12px;
+      text-decoration:none;
+      color:white;
+      text-shadow: 0 1px 0 #31383E;
+      &:hover{
+        text-decoration:underline;
+      }
+    }
+  }
+
   .nav1home{width:13px;background-position: 0px -46px;text-indent:-9999em;}
   .nav0{padding-left:15px;background-position:left top; }
 
@@ -910,7 +1056,7 @@ input.psvr_bt {width: 56px;height: 23px;background:url(<%=asset_path('extand_ima
 }
 
 #crs_search input {
-    -webkit-font-smoothing: antialiased;
+    -webkit-font-smoothing: subpixel-antialiased;
     display: block;
     position: relative;
     width: 165px;
@@ -941,6 +1087,16 @@ input.psvr_bt {width: 56px;height: 23px;background:url(<%=asset_path('extand_ima
     -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.2) inset,0px -1px 0 #000,0px 1px 0 #000,1px 0 0 #000,-1px 0 0 #000,0px 1px 2px rgba(255,255,255,0.4);
     box-shadow: 0 1px 1px rgba(0,0,0,0.2) inset,0px -1px 0 #000,0px 1px 0 #000,1px 0 0 #000,-1px 0 0 #000,0px 1px 2px rgba(255,255,255,0.4);
 }
+
+#crs_search input:focus::-webkit-input-placeholder, #crs_search input:focus::-moz-input-placeholder {
+  -webkit-font-smoothing: subpixel-antialiased;
+  -webkit-transition: color 0.2s linear;
+  -moz-transition: color 0.2s linear;
+  transition: color 0.2s linear;
+  color:black;
+}
+
+
 
 .crs_btn{
   cursor:pointer;

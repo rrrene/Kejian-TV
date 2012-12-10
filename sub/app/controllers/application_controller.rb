@@ -121,7 +121,6 @@ class ApplicationController < ActionController::Base
       p @_G['uid']
       p (current_user ? current_user.uid : 0)
       sign_out;sign_out_others
-
       return false
     end
   end

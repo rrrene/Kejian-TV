@@ -1,8 +1,9 @@
 # -*- encoding : utf-8 -*-
 class CoursesController < ApplicationController
-  before_filter :require_user,:only=>[:create,:new,:update,:edit,:destroy]
+  ADMIN_ACTIONS=[:admin,:admin7,:admin8,:admin9,:admin10,:admin11,:admin12,:admin13,:admin14,:admin15,:admin16,:admin17,:admin18]
+  before_filter :require_user,:only=>[:create,:new,:update,:edit,:destroy]+ADMIN_ACTIONS
   before_filter :require_user_js,:only => [:follow,:unfollow]
-  before_filter :find_item,:only => [:show,:follow,:unfollow,:syllabus,:asks,:experts]
+  before_filter :find_item,:only => [:show,:follow,:unfollow,:syllabus,:asks,:experts]+ADMIN_ACTIONS
   def index
     @seo[:title]='课程导航'
     @courses = Course
@@ -25,6 +26,20 @@ class CoursesController < ApplicationController
     @coursewares = @course.coursewares
     # render :layout=>false
   end
+  def admin
+    res = Ktv::JQuery.ajax({
+      psvr_original_response: true,
+      url:"http://#{Setting.ktv_subdomain}/simple/forum.php?mod=modcp&fid=#{@course.fid}",
+      type:'GET',
+      data:{},
+      'COOKIE'=>request.env['HTTP_COOKIE'],
+      :accept=>'raw'+Setting.dz_authkey,
+      psvr_response_anyway: true
+    })
+    binding.pry
+    render 'show'
+  end
+
   def syllabus
     render 'show'
   end
