@@ -3,10 +3,11 @@ require 'rubygems'
 require 'zip/zip'
 require 'find'
 require 'fileutils'
-
-module Ktv
-  class Uncompress
-    def self.perform(id)
+=begin
+class UncompressJob
+  include Sidekiq::Worker
+  sidekiq_options :queue => :transcoding
+  def perform(id)
         @filter = ['pdf','djvu','ppt','pptx','doc','docx']
         @blacklist = ['git','svn','ds_store','exe','obj','db','app','jar']
         begin
@@ -95,7 +96,6 @@ module Ktv
             @courseware.save(:validate=>false)
             raise e
         end          
-
     end    
     
     def self.unzip(filename,dest_path,remove_after = false)
@@ -296,4 +296,19 @@ module Ktv
       return data
     end
   end
+end 
+  def perform(id)
+    @courseware = Courseware.find(id)
+    @courseware.make_sure_globalktvid!
+    ActiveRecord::Base.connection_pool.instance_variable_set('@size', 40)
+    ActiveRecord::Base.connection_pool.instance_variable_set('@timeout', 100)
+    begin
+    rescue => e
+      raise e
+    end
+  end
 end
+=end
+
+# Sidekiq.redis{|r| r.flushall}
+# 1286.upto(1290){|i|Courseware.find(i).destroy}
