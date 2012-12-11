@@ -78,7 +78,8 @@ class WelcomeController < ApplicationController
     
   end
   def assets
-    redirect_to ActionController::Base.helpers.asset_path(params[:path]), :status => :moved_permanently
+    ret = Sub::Application.config.action_controller.asset_host.to_s+ActionController::Base.helpers.asset_path(params[:path])
+    redirect_to ret, :status => :moved_permanently
   end
 private
   def common_op!
