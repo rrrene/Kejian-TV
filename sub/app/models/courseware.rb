@@ -107,9 +107,9 @@ class Courseware
   SORT1STR = {
     'lecture_notes' => '讲义',
     'assignments' => '作业',
-    'exams' => '往年试卷',
+    'exams' => '试卷',
     'videos' => '课堂录像',
-    'materials' => '课本/资料',
+    'materials' => '资料/读物',
   }
   
   SORTSTR = {
@@ -1493,33 +1493,27 @@ opts={   :subsite=>Setting.ktv_sub,
     json     = MultiJson.decode(response.body)
     return Tire::Results::Collection.new(json, :from=>from,:size=>size)
   end
+  SORT1TYPEID = {
+    'lecture_notes' => 1,
+    'assignments' => 2,
+    'exams' => 3,
+    'videos' => 4,
+    'materials' => 5,
+  }
+
   def sync_to_dz!
     # return true if self.try(:tid).try(:>,0)
     # # http://localhost:8080/20121101/forum.php?mod=post&action=newthread&fid=2&extra=&topicsubmit=yes
     # forum.php?mod=post&action=newthread&fid=2&extra=&topicsubmit=yes
-    # 
-    # 
-    # 
-    # posttime:1355200491
-    # wysiwyg:1
-    # typeid:1
-    # subject:213321
-    # message:12321321
-    # replycredit_extcredits:0
-    # replycredit_times:1
-    # replycredit_membertimes:1
-    # replycredit_random:100
-    # readperm:
-    # price:
-    # tags:
-    # rushreplyfrom:
-    # rushreplyto:
-    # rewardfloor:
-    # stopfloor:
-    # creditlimit:
-    # save:
-    # usesig:1
-    # allownoticeauthor:1
-    # 
+
+    # res = Ktv::JQuery.ajax({
+    #   psvr_original_response: true,
+    #   url:"http://#{Setting.ktv_subdomain}/simple/#{php}",
+    #   type:'POST',
+    #   data:data,
+    #   'COOKIE'=>request.env['HTTP_COOKIE'],
+    #   :accept=>'raw'+Setting.dz_authkey,
+    #   psvr_response_anyway: true
+    # })
   end
 end
