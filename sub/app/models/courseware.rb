@@ -1494,8 +1494,32 @@ opts={   :subsite=>Setting.ktv_sub,
     return Tire::Results::Collection.new(json, :from=>from,:size=>size)
   end
   def sync_to_dz!
-    return true if self.try(:tid).try(:>,0)
-    
-
+    # return true if self.try(:tid).try(:>,0)
+    # # http://localhost:8080/20121101/forum.php?mod=post&action=newthread&fid=2&extra=&topicsubmit=yes
+    # forum.php?mod=post&action=newthread&fid=2&extra=&topicsubmit=yes
+    # 
+    # 
+    # 
+    # posttime:1355200491
+    # wysiwyg:1
+    # typeid:1
+    # subject:213321
+    # message:12321321
+    # replycredit_extcredits:0
+    # replycredit_times:1
+    # replycredit_membertimes:1
+    # replycredit_random:100
+    # readperm:
+    # price:
+    # tags:
+    # rushreplyfrom:
+    # rushreplyto:
+    # rewardfloor:
+    # stopfloor:
+    # creditlimit:
+    # save:
+    # usesig:1
+    # allownoticeauthor:1
+    # 
   end
 end
