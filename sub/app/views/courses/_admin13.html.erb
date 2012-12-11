@@ -6,13 +6,7 @@
   <%
     @wp.css('#pt').unlink
     @wp.css('#ct .appl').unlink
-    # 
-    # yonghuming=@wp.css('th').find{|x| "用户名:"==x.text}
-    # yonghuming.inner_html = '管理员:'
-    # yonghuming.parent.css('td').first.inner_html = current_user.name_beautified
-    # 
-    # @form['action'] = "/courses/#{@course.fid}/admin_post"
-    # @form.add_child(token_tag nil)
+    @wp.css('script[src^=static]').each{|x| x['src']="/simple/#{x['src']}"}
   %>
   <%= raw @wp %>
 </div>
