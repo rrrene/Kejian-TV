@@ -42,7 +42,7 @@
 <div class="psvr2_colmask psvr2_leftmenu">
     <div class="colright" style="<% if 'show'==params[:action] %>background:url(<%=asset_path 'zm/r11839/images/common/bodybg.gif'%>) repeat scroll 0 0 #F0EEEE<%elsif params[:action].to_s.starts_with?('admin') %>background: #FFF<% else %><%end%>">
         <div class="col1wrap">
-            <div class="col1" style="<%= 'margin:0 8px 0 228px' unless @dz_parser.nil? %>">
+            <div class="col1" style="<%= 'margin:0 1px 0 228px' unless @dz_parser.nil? %>">
                 <!-- Column 2 start -->
                 <%= render @render_overwrite ? @render_overwrite : "#{params[:action]}" %>
         				<!-- Column 2 end -->

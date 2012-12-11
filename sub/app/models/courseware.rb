@@ -1502,18 +1502,37 @@ opts={   :subsite=>Setting.ktv_sub,
   }
 
   def sync_to_dz!
-    # return true if self.try(:tid).try(:>,0)
-    # # http://localhost:8080/20121101/forum.php?mod=post&action=newthread&fid=2&extra=&topicsubmit=yes
-    # forum.php?mod=post&action=newthread&fid=2&extra=&topicsubmit=yes
-
-    # res = Ktv::JQuery.ajax({
-    #   psvr_original_response: true,
-    #   url:"http://#{Setting.ktv_subdomain}/simple/#{php}",
-    #   type:'POST',
-    #   data:data,
-    #   'COOKIE'=>request.env['HTTP_COOKIE'],
-    #   :accept=>'raw'+Setting.dz_authkey,
-    #   psvr_response_anyway: true
-    # })
+    return true if self.try(:tid).try(:>,0)
+    data = {
+      psvr_posttime_overwrite:self.created_at.to_i,
+      wysiwyg:1,
+      typeid:SORT1TYPEID[self.sort1],
+      subject:self.title,
+      message:'[code]'+MultiJson.dump(self.as_json_before_psvr)+'[/code]',
+      replycredit_extcredits:0,
+      replycredit_times:1,
+      replycredit_membertimes:1,
+      replycredit_random:100,
+      readperm:'',
+      price:99,
+      tags:'',
+      rushreplyfrom:'',
+      rushreplyto:'',
+      rewardfloor:'',
+      stopfloor:'',
+      creditlimit:'',
+      save:'',
+      usesig:1,
+      allownoticeauthor:1
+    }
+    res = Ktv::JQuery.ajax({
+      psvr_original_response: true,
+      url:"http://#{Setting.ktv_subdomain}/simple/forum.php?mod=post&action=newthread&fid=#{self.course_fid}&extra=&topicsubmit=yes",
+      type:'POST',
+      data:data,
+      :accept=>'raw'+Setting.dz_authkey,
+      psvr_response_anyway: true
+    })
+    binding.pry
   end
 end

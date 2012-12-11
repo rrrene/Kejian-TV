@@ -1,5 +1,5 @@
-#source 'http://ruby.taobao.org/'
-source 'https://rubygems.org'
+source 'http://ruby.taobao.org/'
+#source 'https://rubygems.org'
 
 Encoding.default_external = Encoding::UTF_8
 Encoding.default_internal = Encoding::UTF_8
@@ -256,3 +256,4 @@ end
 gem 'tire'
 gem 'gibbon'
 gem 'pinyin_split'
+gem 'multi_json','>=1.5.0'

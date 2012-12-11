@@ -4,5 +4,5 @@
     @wp.css('#ct .appl').unlink
     @wp.css('script[src^=static]').each{|x| x['src']="/simple/#{x['src']}"}
   %>
-  <%= raw @wp %>
+  <%= raw_dz @wp.to_html %>
 </div>

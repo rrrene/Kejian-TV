@@ -1,6 +1,23 @@
 # -*- encoding : utf-8 -*-
 module ApplicationHelper
   XINGQIJI = ['一','二','三','四','五','六','日']
+  def raw_dz(body)
+    body.gsub!(/"static\/([^'"()]+)"|'static\/([^'"()]+)'/){|match|
+      if $1.present?
+        keypart=$1
+        keydelimeter='"'
+      else
+        keypart=$2
+        keydelimeter='\''
+      end
+      if keypart.starts_with?("image/")
+        keydelimeter+asset_path("__dz/#{keypart[6..-1]}")+keydelimeter
+      else
+        keydelimeter+"/simple/static/#{keypart}"+keydelimeter
+      end
+    }
+    return raw(body)
+  end
   def alter_request_path(path,hash={})
     res = path.split('?')
     h = {}.with_indifferent_access

@@ -52,6 +52,24 @@ class CoursesController < ApplicationController
       raise Ktv::Shared::ScriptNeedImprovement,"DZ Logic Change?"
     end
   end
+  def admin7
+    redirect_to "/courses/#{@course.fid}/admin13",notice:'开发中，请先使用资源管理'
+  end
+  def admin8
+    redirect_to "/courses/#{@course.fid}/admin13",notice:'开发中，请先使用资源管理'
+  end
+  def admin9
+    redirect_to "/courses/#{@course.fid}/admin13",notice:'开发中，请先使用资源管理'
+  end
+  def admin10
+    redirect_to "/courses/#{@course.fid}/admin13",notice:'开发中，请先使用资源管理'
+  end
+  def admin11
+    redirect_to "/courses/#{@course.fid}/admin13",notice:'开发中，请先使用资源管理'
+  end
+  def admin12
+    redirect_to "/courses/#{@course.fid}/admin13",notice:'开发中，请先使用资源管理'
+  end
   def admin13
     @res,@dz_parser,@wp = dz_get("forum.php?mod=modcp&action=thread&op=thread&fid=#{@course.fid}")
     if admin_login_form_check!('首次进入管理面板或空闲时间过长, 您输入密码才能进入')
@@ -59,6 +77,22 @@ class CoursesController < ApplicationController
     end
     render 'show'
   end
+  def admin14
+    redirect_to "/courses/#{@course.fid}/admin13",notice:'开发中，请先使用资源管理'
+  end
+  def admin15
+    redirect_to "/courses/#{@course.fid}/admin13",notice:'开发中，请先使用资源管理'
+  end
+  def admin16
+    redirect_to "/courses/#{@course.fid}/admin13",notice:'开发中，请先使用资源管理'
+  end
+  def admin17
+    redirect_to "/courses/#{@course.fid}/admin13",notice:'开发中，请先使用资源管理'
+  end
+  def admin18
+    redirect_to "/courses/#{@course.fid}/admin13",notice:'开发中，请先使用资源管理'
+  end
+
   def admin_logout
     @res,@dz_parser,@wp = dz_get("forum.php?mod=modcp&action=logout")
     session[:psvr_modcp_open] = false
