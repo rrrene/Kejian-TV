@@ -49,7 +49,6 @@ module Sub
     config.action_mailer.default_url_options = {:host => Setting.ktv_subdomain}
     config.action_controller.default_url_options = {:host => Setting.ktv_subdomain}
 
-    
     config.time_zone = 'Beijing'
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.

@@ -49,6 +49,16 @@
   <!--[if (gte IE 6)&(lte IE 8)]>
    <script src="/js/ie1.js" type="text/javascript"></script>
   <![endif]-->
+  <% @dz_parser && @dz_parser.css('head link[rel="stylesheet"]').collect{|x|
+    ret=x['href'].split('/')[-1]
+    if ret.starts_with?('style_1_common.css')||ret.starts_with?('style_1_widthauto')
+      nil
+    else
+      ret.split('?')[0]
+    end
+    }.compact.each do |filename| %>
+    <%= stylesheet_link_tag "__dz/#{filename}" %>
+  <% end %>
   <%= stylesheet_link_tag "application" %>
 	<%= stylesheet_link_tag 'ktv/__ytb_min_ql' %>
   <!--[if IE]><link rel="stylesheet" type="text/css" href="<%= asset_path('ktv/ie.css') %>" /><![endif]-->

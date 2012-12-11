@@ -42,8 +42,8 @@ Sub::Application.configure do
   config.assets.compress = true
   config.assets.css_compressor = 'sass-rails'
   config.assets.js_compressor = :uglifier
+  config.assets.precompile += Dir["#{Rails.root}/app/assets/stylesheets/__dz/*.css.scss.erb"].collect{|filepath| "__dz/#{File.basename(filepath).gsub('.scss.erb','')}"}
   config.assets.precompile += %w{
-    __dz_forum_modcp.css
     bind/__rr.css
     __lnk_app.css
     jia.css
@@ -131,7 +131,8 @@ Sub::Application.configure do
     
     ktv/jquery.contextMenu.js
     ktv/jquery.contextMenu.css    
-  }.uniq
+  }
+  config.assets.precompile.uniq!
   # 别忘了同时修改:
   # config/initializers/z_ktv.rb
   config.action_controller.asset_host = 'http://ktv-intrinsic-sub.b0.upaiyun.com'

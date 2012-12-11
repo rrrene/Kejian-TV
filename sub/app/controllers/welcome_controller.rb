@@ -77,6 +77,9 @@ class WelcomeController < ApplicationController
   def iphone
     
   end
+  def assets
+    redirect_to ActionController::Base.helpers.asset_path(params[:path]), :status => :moved_permanently
+  end
 private
   def common_op!
     params[:page] ||= '1'

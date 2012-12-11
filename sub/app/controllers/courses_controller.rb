@@ -27,14 +27,14 @@ class CoursesController < ApplicationController
     # render :layout=>false
   end
   def admin_login
-    @res,@parser,@wp = dz_get("forum.php?mod=modcp&fid=#{@course.fid}")
+    @res,@dz_parser,@wp = dz_get("forum.php?mod=modcp&fid=#{@course.fid}")
     if admin_login_form_check!
       @render_overwrite = "admin13"
     end
     render 'show'
   end
   def admin_loginpost
-    @res,@parser,@wp = dz_post("forum.php?mod=modcp&action=login",{
+    @res,@dz_parser,@wp = dz_post("forum.php?mod=modcp&action=login",{
       formhash:params[:formhash],
       fid:params[:id],
       submit:'yes',
@@ -53,14 +53,14 @@ class CoursesController < ApplicationController
     end
   end
   def admin13
-    @res,@parser,@wp = dz_get("forum.php?mod=modcp&action=thread&op=thread&fid=#{@course.fid}")
+    @res,@dz_parser,@wp = dz_get("forum.php?mod=modcp&action=thread&op=thread&fid=#{@course.fid}")
     if admin_login_form_check!('首次进入管理面板或空闲时间过长, 您输入密码才能进入')
       # nothing to do
     end
     render 'show'
   end
   def admin_logout
-    @res,@parser,@wp = dz_get("forum.php?mod=modcp&action=logout")
+    @res,@dz_parser,@wp = dz_get("forum.php?mod=modcp&action=logout")
     session[:psvr_modcp_open] = false
     redirect_to "/courses/#{@course.fid}"
   end
@@ -101,7 +101,7 @@ protected
     @seo[:title]=@course.name
   end
   def admin_login_form_check!(alertarg=nil)
-    if @form=@parser.css('form[action="forum.php?mod=modcp&action=login"]').first
+    if @form=@dz_parser.css('form[action="forum.php?mod=modcp&action=login"]').first
       session[:psvr_modcp_open] = false
       flash[:alert]=alertarg if alertarg
       @render_overwrite = 'admin_login'

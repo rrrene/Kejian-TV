@@ -42,7 +42,7 @@
 <div class="psvr2_colmask psvr2_leftmenu">
     <div class="colright" style="<% if 'show'==params[:action] %>background:url(<%=asset_path 'zm/r11839/images/common/bodybg.gif'%>) repeat scroll 0 0 #F0EEEE<%elsif params[:action].to_s.starts_with?('admin') %>background: #FFF<% else %><%end%>">
         <div class="col1wrap">
-            <div class="col1">
+            <div class="col1" style="<%= 'margin:0 8px 0 228px' unless @dz_parser.nil? %>">
                 <!-- Column 2 start -->
                 <%= render @render_overwrite ? @render_overwrite : "#{params[:action]}" %>
         				<!-- Column 2 end -->
@@ -61,21 +61,21 @@
           <h2 class="h2_2">课程管理面板</h2>
           <ul class="crs_sideicons">
 <% if !session[:psvr_modcp_open] %>
-            <li><a href="/courses/<%= @course.fid %>/admin_login" class="a5">打开管理面板</a></li>
+            <li><a href="/courses/<%= @course.fid %>/admin_login" class="psvr_login_required a5">打开管理面板</a></li>
 <% else %>
-            <li><a href="/courses/<%= @course.fid %>/admin_logout" class="a6">关闭管理面板</a></li>
-            <li><a href="/courses/<%= @course.fid %>/admin7" class="a7 <%= 'active' if 'admin7'==request.path.split('/')[-1] %>">内部留言</a></li>
-            <li><a href="/courses/<%= @course.fid %>/admin8" class="a8 <%= 'active' if 'admin8'==request.path.split('/')[-1] %>">审核</a></li>
-            <li><a href="/courses/<%= @course.fid %>/admin9" class="a9 <%= 'active' if 'admin9'==request.path.split('/')[-1] %>">禁止用户</a></li>
-            <li><a href="/courses/<%= @course.fid %>/admin10" class="a10 <%= 'active' if 'admin10'==request.path.split('/')[-1] %>">禁止 IP</a></li>
-            <li><a href="/courses/<%= @course.fid %>/admin11" class="a11 <%= 'active' if 'admin11'==request.path.split('/')[-1] %>">用户权限</a></li>
-            <li><a href="/courses/<%= @course.fid %>/admin12" class="a12 <%= 'active' if 'admin12'==request.path.split('/')[-1] %>">编辑用户</a></li>
-            <li><a href="/courses/<%= @course.fid %>/admin13" class="a13 <%= 'active' if 'admin13'==request.path.split('/')[-1] || 'admin_login'==request.path.split('/')[-1] %>">主题管理</a></li>
-            <li><a href="/courses/<%= @course.fid %>/admin14" class="a14 <%= 'active' if 'admin14'==request.path.split('/')[-1] %>">推荐主题</a></li>
-            <li><a href="/courses/<%= @course.fid %>/admin15" class="a15 <%= 'active' if 'admin15'==request.path.split('/')[-1] %>">课程编辑</a></li>
-            <li><a href="/courses/<%= @course.fid %>/admin16" class="a16 <%= 'active' if 'admin16'==request.path.split('/')[-1] %>">公告</a></li>
-            <li><a href="/courses/<%= @course.fid %>/admin17" class="a17 <%= 'active' if 'admin17'==request.path.split('/')[-1] %>">管理日志</a></li>
-            <li><a href="/courses/<%= @course.fid %>/admin18" class="a18 <%= 'active' if 'admin18'==request.path.split('/')[-1] %>">管理举报</a></li>
+            <li><a href="/courses/<%= @course.fid %>/admin_logout" class="psvr_login_required a6">关闭管理面板</a></li>
+            <li><a href="/courses/<%= @course.fid %>/admin7" class="psvr_login_required a7 <%= 'active' if 'admin7'==request.path.split('/')[-1] %>">内部留言</a></li>
+            <li><a href="/courses/<%= @course.fid %>/admin8" class="psvr_login_required a8 <%= 'active' if 'admin8'==request.path.split('/')[-1] %>">审核</a></li>
+            <li><a href="/courses/<%= @course.fid %>/admin9" class="psvr_login_required a9 <%= 'active' if 'admin9'==request.path.split('/')[-1] %>">禁止用户</a></li>
+            <li><a href="/courses/<%= @course.fid %>/admin10" class="psvr_login_required a10 <%= 'active' if 'admin10'==request.path.split('/')[-1] %>">禁止 IP</a></li>
+            <li><a href="/courses/<%= @course.fid %>/admin11" class="psvr_login_required a11 <%= 'active' if 'admin11'==request.path.split('/')[-1] %>">用户权限</a></li>
+            <li><a href="/courses/<%= @course.fid %>/admin12" class="psvr_login_required a12 <%= 'active' if 'admin12'==request.path.split('/')[-1] %>">编辑用户</a></li>
+            <li><a href="/courses/<%= @course.fid %>/admin13" class="psvr_login_required a13 <%= 'active' if 'admin13'==request.path.split('/')[-1] || 'admin_login'==request.path.split('/')[-1] %>">主题管理</a></li>
+            <li><a href="/courses/<%= @course.fid %>/admin14" class="psvr_login_required a14 <%= 'active' if 'admin14'==request.path.split('/')[-1] %>">推荐主题</a></li>
+            <li><a href="/courses/<%= @course.fid %>/admin15" class="psvr_login_required a15 <%= 'active' if 'admin15'==request.path.split('/')[-1] %>">课程编辑</a></li>
+            <li><a href="/courses/<%= @course.fid %>/admin16" class="psvr_login_required a16 <%= 'active' if 'admin16'==request.path.split('/')[-1] %>">公告</a></li>
+            <li><a href="/courses/<%= @course.fid %>/admin17" class="psvr_login_required a17 <%= 'active' if 'admin17'==request.path.split('/')[-1] %>">管理日志</a></li>
+            <li><a href="/courses/<%= @course.fid %>/admin18" class="psvr_login_required a18 <%= 'active' if 'admin18'==request.path.split('/')[-1] %>">管理举报</a></li>
 <% end %>
           </ul>          
           <h2 class="h2_3">统计数据</h2>
