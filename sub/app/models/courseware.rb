@@ -151,6 +151,7 @@ class Courseware
     'jpg' => ['jpg'],
     'jpeg' => ['jpeg'],
   }
+  alias_method :as_json_before_psvr,:as_json
   def as_json(opts={})
     {id:self.id,status:self.status,status_str:STATE_TEXT[STATE_SYM[self.status]],wh_ratio:self.wh_ratio,thin:self.thin?}
   end
@@ -234,6 +235,7 @@ class Courseware
   end
   field :subsite
   field :uid
+  field :tid,:type=>Integer, :default => 0
   field :author # slug
   field :ktvid
   field :legacy_ibeike
@@ -1490,5 +1492,10 @@ opts={   :subsite=>Setting.ktv_sub,
     end
     json     = MultiJson.decode(response.body)
     return Tire::Results::Collection.new(json, :from=>from,:size=>size)
+  end
+  def sync_to_dz!
+    return true if self.try(:tid).try(:>,0)
+    
+
   end
 end
