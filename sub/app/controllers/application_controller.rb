@@ -452,12 +452,11 @@ protected
     # todo了啦！
   end
   def dz_post_delegate
-    @mod = params.delete :dz_mod
-    @act = params.delete :dz_action
-    @data = params.dup
-    @data.delete :action
-    @data.delete :controller
-    @data.delete :authenticity_token
+    @dz_data = params.dup
+    @dz_data.delete :action
+    @dz_data.delete :controller
+    @dz_data.delete :authenticity_token
+    @dz_data = @dz_data.to_hash
   end
   def dz_get(php,opt={})
     res = Ktv::JQuery.ajax({
@@ -506,6 +505,10 @@ protected
       val = CGI::unescape value
       cookies[key]=val
     end
+  end
+  def dz_simple_render
+    render :xml => @res.to_s
+    response.headers["Content-Type"] = "text/xml; charset=utf-8"
   end
 end
 

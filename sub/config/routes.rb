@@ -70,7 +70,6 @@ Sub::Application.routes.draw do
   # get "premium/plans" => 'premium#plans'
 
   # ________________________________ajax__________________________________________
-  post '/ajax/forum_topicadmin'
   post '/ajax/users_follow' => 'users#fol'
   post '/ajax/users_unfollow'=>'users#unfol'
   post '/ajax/get_operation' => 'ajax#get_cw_operation'
@@ -153,6 +152,9 @@ Sub::Application.routes.draw do
     end
   end
   resources :courses do 
+    collection do
+      post 'topicadmin_moderate'
+    end
     member do
       get 'coursewares' => 'coursewares#index'
       get 'coursewares_with_page/:page' => 'coursewares#index'
@@ -164,6 +166,7 @@ Sub::Application.routes.draw do
       get 'admin_login'
       post 'admin_loginpost'
       get 'admin_logout'
+      post 'forum_topicadmin'
       get 'admin7'
       get 'admin8'
       get 'admin9'

@@ -1,9 +1,25 @@
 # -*- encoding : utf-8 -*-
 class CoursesController < ApplicationController
-  ADMIN_ACTIONS=[:admin_login,:admin_loginpost,:admin_logout,:admin7,:admin8,:admin9,:admin10,:admin11,:admin12,:admin13,:admin14,:admin15,:admin16,:admin17,:admin18]
-  before_filter :require_user,:only=>[:create,:new,:update,:edit,:destroy]+ADMIN_ACTIONS
+  ADMIN_ACTIONS1=[:admin_login,:admin_loginpost,:admin_logout,:admin7,:admin8,:admin9,:admin10,:admin11,:admin12,:admin13,:admin14,:admin15,:admin16,:admin17,:admin18]
+  ADMIN_ACTIONS2=[:forum_topicadmin]
+  ADMIN_ACTIONS3=[:forum_topicadmin]
+  before_filter :require_user,:only=>[:create,:new,:update,:edit,:destroy]+ADMIN_ACTIONS1+ADMIN_ACTIONS2
   before_filter :require_user_js,:only => [:follow,:unfollow]
-  before_filter :find_item,:only => [:show,:follow,:unfollow,:syllabus,:asks,:experts]+ADMIN_ACTIONS
+  before_filter :find_item,:only => [:show,:follow,:unfollow,:syllabus,:asks,:experts]+ADMIN_ACTIONS1
+
+  def topicadmin_moderate
+    raise Ktv::Shared::ScriptNeedImprovementException unless 1==params[:operations].size
+    dz_post_delegate
+    case params[:operations].first
+    when 'delete'
+      params["moderate"].each do |tid|
+        Courseware.where(tid:tid.to_i).first.try(:soft_delete)
+      end
+    end
+    @res = dz_post("forum.php?mod=topicadmin&action=moderate&optgroup=#{params[:optgroup]}&modsubmit=yes&infloat=yes&inajax=1",@dz_data,simple:true)
+    @res = @res.to_s.gsub(/succeedhandle_mods\s*\(\s*'([^']+)'\s*,/,"succeedhandle_mods('/courses/#{params[:fid]}/admin13',")
+    dz_simple_render
+  end
   
   def index
     @seo[:title]='课程导航'
@@ -51,6 +67,17 @@ class CoursesController < ApplicationController
     else
       raise Ktv::Shared::ScriptNeedImprovement,"DZ Logic Change?"
     end
+  end
+  def forum_topicadmin
+    # DZ 行内将要XX管理接口
+    @res = dz_post("forum.php?mod=topicadmin&action=moderate&fid=#{params[:id]}&infloat=yes&nopost=yes&inajax=1",{
+      custompage:params[:custompage],
+      frommodcp:params[:frommodcp],
+      moderate:params[:moderate],
+      operation:params[:operation],
+      optgroup:params[:optgroup],
+    },simple:true)
+    dz_simple_render
   end
   def admin7
     redirect_to "/courses/#{@course.fid}/admin13",notice:'开发中，请先使用资源管理'

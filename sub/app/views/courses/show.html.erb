@@ -10,6 +10,11 @@
   }).mouseup(function(){
     $('#crs_side_supplementary').hide();
   });
+  $('#moderate tr').click(function(e){
+    chkbox=$(this).find(':checkbox');
+    chkbox.attr('checked', !chkbox.attr('checked'));
+    tmodclick(chkbox[0]);
+  })
 })(jQuery);
 <% end %>
 </script>
