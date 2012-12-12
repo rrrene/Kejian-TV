@@ -1502,7 +1502,6 @@ opts={   :subsite=>Setting.ktv_sub,
   }
 
   def sync_to_dz!
-    # todo: 计算流数
     raise 'self.uploader must have discuz_user_activated' unless self.uploader.discuz_user_activated
     return true if self.try(:tid).try(:>,0)
     data = {

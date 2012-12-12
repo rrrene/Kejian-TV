@@ -46,9 +46,11 @@ module Ktv
           end
         end
       rescue => e
-        config.logger.error "#{e}"
-        config.logger.error "#{e.class}"
-        config.logger.error "#{e.backtrace}"
+        unless e.try(:psvr_extra_arg).present?
+          config.logger.error "#{e}"
+          config.logger.error "#{e.class}"
+          config.logger.error "#{e.backtrace}"
+        end
         if settings[:psvr_response_anyway]
           return response ? response : e
         else
