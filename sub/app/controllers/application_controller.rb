@@ -113,11 +113,19 @@ class ApplicationController < ActionController::Base
     @_G['uid'] = @_G['uid'].to_i
     @authkey = @_G['authkey']
     @formhash = @_G['formhash']
-    if @_G['uid'] != (current_user ? current_user.uid : 0)
-      p @_G['uid']
-      p (current_user ? current_user.uid : 0)
+    if @_G['uid'] > 0
+      if @_G['uid'] != (current_user ? current_user.uid : 0)
+        u = nil
+        u ||= User.where(uid:@_G['uid']).first
+        u ||= User.import_from_dz!(UCenter::User.get_user(request,{username:@_G['uid'],isuid:1}))
+        if u
+          sign_in(u)
+        else
+          sign_out;sign_out_others          
+        end
+      end
+    else
       sign_out;sign_out_others
-      return false
     end
   end
   def rand_sid(len)
@@ -451,7 +459,7 @@ protected
     @data.delete :controller
     @data.delete :authenticity_token
   end
-  def dz_get(php)
+  def dz_get(php,opt={})
     res = Ktv::JQuery.ajax({
       psvr_original_response: true,
       url:"http://#{Setting.ktv_subdomain}/simple/#{php}",
@@ -462,9 +470,13 @@ protected
     })
     set_dz_cookies!(res)
     parser = Nokogiri::HTML(res.body)
-    [res,parser,parser.css('#wp').first]
+    if opt[:simple]
+      return res
+    else
+      return [res,parser,parser.css('#wp').first]
+    end
   end
-  def dz_post(php,data)
+  def dz_post(php,data,opt={})
     res = Ktv::JQuery.ajax({
       psvr_original_response: true,
       url:"http://#{Setting.ktv_subdomain}/simple/#{php}",
@@ -474,12 +486,16 @@ protected
       :accept=>'raw'+Setting.dz_authkey,
       psvr_response_anyway: true
     })
-    if res.respond_to?(:cookies)
-      set_dz_cookies!(res)
-      parser = Nokogiri::HTML(res.body)
-      [res,parser,parser.css('#wp').first]
+    if opt[:simple]
+      return res
     else
-      [res,nil,nil]
+      if res.respond_to?(:cookies)
+        set_dz_cookies!(res)
+        parser = Nokogiri::HTML(res.body)
+        return [res,parser,parser.css('#wp').first]
+      else
+        return [res,nil,nil]
+      end
     end
   end
   def set_dz_cookies!(result)

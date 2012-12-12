@@ -4,6 +4,7 @@ class CoursesController < ApplicationController
   before_filter :require_user,:only=>[:create,:new,:update,:edit,:destroy]+ADMIN_ACTIONS
   before_filter :require_user_js,:only => [:follow,:unfollow]
   before_filter :find_item,:only => [:show,:follow,:unfollow,:syllabus,:asks,:experts]+ADMIN_ACTIONS
+  
   def index
     @seo[:title]='课程导航'
     @courses = Course
@@ -35,7 +36,6 @@ class CoursesController < ApplicationController
   end
   def admin_loginpost
     @res,@dz_parser,@wp = dz_post("forum.php?mod=modcp&action=login",{
-      formhash:params[:formhash],
       fid:params[:id],
       submit:'yes',
       login_panel:'yes',

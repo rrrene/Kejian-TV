@@ -1,6 +1,17 @@
 # -*- encoding : utf-8 -*-
 class AjaxController < ApplicationController
   before_filter :require_user_js, :except => [:checkUsername,:checkEmailAjax,:xl_req_get_method_vod,:logincheck,:seg,:star_refresh,:get_share_panel,:get_share_partial,:get_playlist_share,:get_forum,:summonQL]
+  def forum_topicadmin
+    # DZ 行内将要XX管理接口
+    @res = dz_post("forum.php?mod=topicadmin&action=moderate&fid=#{params[:fid]}&infloat=yes&nopost=yes&inajax=1",{
+      custompage:params[:custompage],
+      frommodcp:params[:frommodcp],
+      moderate:params[:moderate],
+      operation:params[:operation],
+      optgroup:params[:optgroup],
+    },simple:true)
+    render :xml => @res.to_s
+  end
   def register_huanyihuan
     render json:{status:'suc',html:render_to_string(file:"devise/registrations/_#{params[:res]}_huanyihuan",locals:{fid:params[:fid].to_i,page:params[:page].to_i},:layout=>false, :formats=>[:html])}
   end
@@ -1383,5 +1394,9 @@ HEREDOC
     end
     render json:{status:'failed',reason:'系统无法完成请求，请稍后重试。'}
     return false
+  end
+  
+  def method_name
+    
   end
 end

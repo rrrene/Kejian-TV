@@ -70,6 +70,7 @@ Sub::Application.routes.draw do
   # get "premium/plans" => 'premium#plans'
 
   # ________________________________ajax__________________________________________
+  post '/ajax/forum_topicadmin'
   post '/ajax/users_follow' => 'users#fol'
   post '/ajax/users_unfollow'=>'users#unfol'
   post '/ajax/get_operation' => 'ajax#get_cw_operation'

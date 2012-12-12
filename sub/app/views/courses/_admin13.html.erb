@@ -3,6 +3,9 @@
     @wp.css('#pt').unlink
     @wp.css('#ct .appl').unlink
     @wp.css('script[src^=static]').each{|x| x['src']="/simple/#{x['src']}"}
+    
+    form = @wp.css('form#moderate').first
+    form['action'] = "ajax/forum_topicadmin?fid=#{@course.fid}"
   %>
   <%= raw_dz @wp.to_html %>
 </div>
