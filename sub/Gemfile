@@ -152,7 +152,7 @@ gem 'unicorn'
 
 
 gem 'savon' #[!]
-gem 'rest-client', '1.6.7'
+gem 'rest-client', path:'../vendor/rest-client'
 gem 'rails_autolink'
 
 

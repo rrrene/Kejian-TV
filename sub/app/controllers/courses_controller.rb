@@ -10,10 +10,14 @@ class CoursesController < ApplicationController
   def topicadmin_moderate
     raise Ktv::Shared::ScriptNeedImprovementException unless 1==params[:operations].size
     dz_post_delegate
+    @dz_data["moderate"] = params["moderate"].clone
     case params[:operations].first
     when 'delete'
       params["moderate"].each do |tid|
-        Courseware.where(tid:tid.to_i).first.try(:soft_delete)
+        if false == Courseware.where(tid:tid.to_i).first.try(:soft_delete,true)
+          @dz_data["moderate"].delete tid
+          flash[:alert]="编号为#{tid}的资源因有课件依赖于它而未被删除，其它的已被成功删除。"
+        end
       end
     end
     @res = dz_post("forum.php?mod=topicadmin&action=moderate&optgroup=#{params[:optgroup]}&modsubmit=yes&infloat=yes&inajax=1",@dz_data,simple:true)

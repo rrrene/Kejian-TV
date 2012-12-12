@@ -85,7 +85,7 @@ class AccountSessionsController < Devise::SessionsController
     if suc_flag
       sign_in(resource_name, resource);sign_in_others('on'==params[:userKeepLogin])
       set_flash_message(:notice, :signed_in) if is_navigational_format?
-      respond_with resource, :location => after_sign_in_path_for(resource)
+      respond_with resource, :location => (params[:redirect_to].present? ? params[:redirect_to] : after_sign_in_path_for(resource))
     else
       new
     end

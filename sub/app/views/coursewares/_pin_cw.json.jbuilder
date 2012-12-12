@@ -11,7 +11,7 @@ json.ktvid courseware.ktvid
 json.path courseware_path(courseware)
 json.title courseware.title
 json.boardPicId 825398
-json.price  Course.get_name(courseware.course_fid)
+json.price courseware.title
 json.isOriginal true
 json.nickName name_beautify User.get_name(courseware.uploader_id)
 json.userId User.get_slug(courseware.uploader_id)

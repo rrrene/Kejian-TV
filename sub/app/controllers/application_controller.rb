@@ -234,6 +234,9 @@ class ApplicationController < ActionController::Base
       psvr_response_anyway: true
     })
     set_dz_cookies!(res)
+    if !current_user.discuz_user_activated && res.to_s=~/window\.location\.href/
+      current_user.update_attribute(:discuz_user_activated,true)
+    end
     # todo:
     #   upon observing this
     #   the sub-site should login the corresponding user

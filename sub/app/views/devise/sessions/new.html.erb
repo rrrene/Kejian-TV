@@ -20,6 +20,7 @@
 	</div>
 	<!--使用Kejian.TV帐号登录-->
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html=>{:id=>'login_form'}) do |f| %>
+  <input type="hidden" name="redirect_to" value="<%= params[:redirect_to] %>">
 	<div class="zmusers" id="loginForm">
 		<h2>
       <a href="javascript:changeShow('loginDiv');" class="title <% if @traditional%>unfold<%end%>">使用电子邮箱登录或注册</a>

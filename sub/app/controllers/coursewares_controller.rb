@@ -50,6 +50,7 @@ class CoursewaresController < ApplicationController
         render "index",:layout=>false
       }
       format.html{
+        @seo[:title] = '课件瀑布'
         render "index"
       }
     end

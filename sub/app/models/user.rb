@@ -1787,6 +1787,37 @@ User.all.map{|x| x.ua(:widget_sort,hash)}
         
     end
   end
+  field :discuz_user_activated,:default=>false
+  def discuz_user_activate!
+    # 一般不调用。
+    
+    # 那个啥，UC里注册了用户不一定Discuz里就有这个用户
+    # 必须至少登陆一次才能在Discuz那边激活这个用户，亲。
+    raise 'incomplete info' if self.slug.blank? or self.uid.to_s.blank? or self.email.blank?
+    data={
+      :fastloginfield => 'username',
+      :handlekey => 'ls',
+      :password => 'needless_to_say',
+      :quickforward => 'yes',
+      :username => self.slug,
+      :psvr_uid => self.uid.to_s,
+      :psvr_email => self.email,
+    }
+    res = Ktv::JQuery.ajax({
+      psvr_original_response: true,
+      url:"http://#{Setting.ktv_subdomain}/simple/member.php?mod=logging&action=login&loginsubmit=yes&infloat=yes&lssubmit=yes&inajax=1",
+      type:'POST',
+      data:data,
+      :accept=>'raw'+Setting.dz_authkey,
+      psvr_response_anyway: true
+    })
+    if res.to_s=~/window\.location\.href/
+      self.update_attribute(:discuz_user_activated,true)
+    else
+      binding.pry
+    end
+  end
+  
 
 
   def redis_search_alias

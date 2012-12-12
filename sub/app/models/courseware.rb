@@ -1502,6 +1502,7 @@ opts={   :subsite=>Setting.ktv_sub,
   }
 
   def sync_to_dz!
+    raise 'self.uploader must have discuz_user_activated' unless self.uploader.discuz_user_activated
     return true if self.try(:tid).try(:>,0)
     data = {
       psvr_posttime_overwrite:self.created_at.to_i,
@@ -1531,8 +1532,14 @@ opts={   :subsite=>Setting.ktv_sub,
       type:'POST',
       data:data,
       :accept=>'raw'+Setting.dz_authkey,
-      psvr_response_anyway: true
+      psvr_response_anyway: true,
+      :psvr_extra_headers=>{
+        'PSVR-XXX-UID-OVERWRITE'=>self.uploader.uid.to_s
+      },
     })
-    binding.pry
+    if res.psvr_extra_arg =~ /&tid=(\d+)&/
+      self.update_attribute(:tid,$1.to_i)
+      puts "sync_to_dz! success #{self.tid}"
+    end
   end
 end

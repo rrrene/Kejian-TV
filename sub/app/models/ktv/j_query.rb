@@ -13,6 +13,7 @@ module Ktv
           data = settings[:data]
           data = settings[:data].to_json if :json==settings[:contentType]
           h={:content_type => settings[:contentType], :accept => settings[:accept],'User-Agent' => settings['User-Agent'],'COOKIE' => settings['COOKIE'],'Referer' => settings['Referer']}
+          h.merge!(settings[:psvr_extra_headers]) if settings[:psvr_extra_headers]
           response = resource.post(data, h)
         elsif 'GET'==settings[:type]
           url_assembly = settings[:url]
@@ -20,7 +21,9 @@ module Ktv
             "#{hash_item[0]}=#{CGI::escape(hash_item[1].to_s)}"
           }.join('&') unless settings[:data].blank?
           resource = RestClient::Resource.new(url_assembly, :open_timeout => config.open_timeout, :timeout => config.timeout)
-          response = resource.get({:accept => settings[:accept],'User-Agent' => settings['User-Agent'],'COOKIE' => settings['COOKIE'],'Referer' => settings['Referer']})
+          h={:accept => settings[:accept],'User-Agent' => settings['User-Agent'],'COOKIE' => settings['COOKIE'],'Referer' => settings['Referer']}
+          h.merge!(settings[:psvr_extra_headers]) if settings[:psvr_extra_headers]
+          response = resource.get(h)
         else
           raise 'Note: Other HTTP request methods, such as PUT and DELETE, can also be used here, but they are not supported by me yet.'
         end
