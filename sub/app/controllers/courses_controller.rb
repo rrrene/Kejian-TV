@@ -98,7 +98,16 @@ class CoursesController < ApplicationController
     redirect_to "/courses/#{@course.fid}/admin13",notice:'开发中，请先使用资源管理'
   end
   def admin13
-    @res,@dz_parser,@wp = dz_get("forum.php?mod=modcp&action=thread&op=thread&fid=#{@course.fid}")
+    if request.path.ends_with?('/post')
+      path = "forum.php?mod=modcp&action=thread&op=post&fid=#{@course.fid}"
+    elsif request.path.ends_with?('/recyclebin')
+      path = "forum.php?mod=modcp&action=recyclebin&fid=#{@course.fid}"
+    elsif request.path.ends_with?('/recyclebinpost')
+      path = "forum.php?mod=modcp&action=recyclebinpost&fid=#{@course.fid}"
+    else
+      path = "forum.php?mod=modcp&action=thread&op=thread&fid=#{@course.fid}"
+    end
+    @res,@dz_parser,@wp = dz_get(path)
     if admin_login_form_check!('首次进入管理面板或空闲时间过长, 您输入密码才能进入')
       # nothing to do
     end

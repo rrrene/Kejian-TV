@@ -108,24 +108,16 @@ class ApplicationController < ActionController::Base
     end
     
     set_dz_cookies!(res_xookie)
-    
+
     @_G = MultiJson.load(res_xookie.to_s)
     @_G['uid'] = @_G['uid'].to_i
     @authkey = @_G['authkey']
     @formhash = @_G['formhash']
-    if @_G['uid'] > 0
-      if @_G['uid'] != (current_user ? current_user.uid : 0)
-        u = nil
-        u ||= User.where(uid:@_G['uid']).first
-        u ||= User.import_from_dz!(UCenter::User.get_user(request,{username:@_G['uid'],isuid:1}))
-        if u
-          sign_in(u)
-        else
-          sign_out;sign_out_others          
-        end
-      end
-    else
+    if @_G['uid'] != (current_user ? current_user.uid : 0)
+      p @_G['uid']
+      p (current_user ? current_user.uid : 0)
       sign_out;sign_out_others
+      return false
     end
   end
   def rand_sid(len)
