@@ -1,8 +1,40 @@
 # -*- encoding : utf-8 -*-
 class CoursewaresController < ApplicationController
-  before_filter :require_user,:only=>[:new, :create, :edit, :update, :destroy, :thank, :download, :new_old, :edit_old, :mine]
-  before_filter :find_item,:only => [:show,:embed,:download,:edit,:update,:destroy,:thank,:edit_old]
+  before_filter :require_user,:only=>[:new, :create, :edit, :update, :destroy, :thank, :download, :new_old, :edit_old, :mine, :pay, :pay_post]
+  before_filter :find_item,:only => [:show,:embed,:download,:edit,:update,:destroy,:thank,:edit_old, :pay, :pay_post]
   before_filter :authenticate_user_ownership!, :only => [:destroy,:edit,:edit_old]
+  def pay
+    # DZ 行内将要XX管理接口
+    @res = dz_get("forum.php?mod=misc&action=pay&tid=#{@courseware.tid}&pid=#{@courseware.pid}&infloat=yes&handlekey=pay&inajax=1&ajaxtarget=fwin_content_pay",simple:true)
+    @parser = Nokogiri::XML(@res.body.gsub('<root><![CDATA[','<root>').gsub(']]></root>','</root>'))
+    if return_pay = @parser.css('#return_pay').first
+      return_pay.inner_html='确认购买？'
+      @parser.css('button[name="paysubmit"] span').first.inner_html='确认'
+      @parser.css('form').first['action']="coursewares/#{@courseware.id}/pay_post?a=a"
+      @parser.css('script').first.inner_html='KTV.psvropenhandle_pay();KTV.after_hideWindow[\'pay\'] = KTV.psvrcancelhandle_pay'
+      uploader = @parser.css('a[href^="home.php"]').first
+      uploader['href'] = "/users/#{@courseware.uploader_id}"
+      uploader.inner_html = UsersHelper.name_beautify User.get_name(@courseware.uploader_id)
+      @parser.css('th[valign="top"]').each{|node| nnn=node.parent.css('td').first;nnn.inner_html=ApplicationHelper.str2moneystr(nnn.inner_html)}
+    else
+      script = @parser.css('script').find{|x| x.to_s =~ /succeedhandle_pay|errorhandle_pay/}
+      script.inner_html='KTV.psvropenhandle_pay();KTV.after_hideWindow[\'pay\'] = KTV.psvrcancelhandle_pay;'+script.inner_html
+    end
+    @res = @parser.to_s.gsub('<root>','<root><![CDATA[').gsub('</root>',']]></root>')
+    dz_simple_render
+  end
+  def pay_post
+    @res = dz_post("forum.php?mod=misc&action=pay&paysubmit=yes&infloat=yes&inajax=1",{
+      handlekey:'pay',
+      tid:@courseware.tid,
+    },simple:true)
+    if @res.to_s=~/__psvr_core_goumaichenggong/
+      @pl_yigoumai = PlayList.locate(current_user.id,'已购买')
+      @pl_yigoumai.add_one_thing(@courseware.id,true)
+      @courseware.inc(:downloads_count,1)
+    end
+    dz_simple_render
+  end
   def ktvid_slide_pic
     if !Moped::BSON::ObjectId.legal?(params[:id].to_s)
       redirect_to '/mqdefault.jpg',:status => :found

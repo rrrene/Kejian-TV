@@ -182,7 +182,7 @@ $('.presentation').hover(function(){
                   <a href="/users/<%= User.get_slug item.user_id %>">
                   <%= name_beautify User.get_name(item.user_id)%></a><br>
               <span dir="ltr" title="积分" class="reputation-score">
-                <%=number_with_delimiter User.get_credits(User.get_uid(item.user_id)) %>
+                <%=str2weifen User.get_credits(User.get_uid(item.user_id)) %>
               </span>
                 </div>
             </div>

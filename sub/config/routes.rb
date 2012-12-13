@@ -201,6 +201,8 @@ Sub::Application.routes.draw do
       get 'hot'
     end
     member do
+      get 'pay'
+      post 'pay_post'
       get 'download'
       post 'download'
       get "thank"

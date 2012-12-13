@@ -96,6 +96,9 @@ class Courseware
   scope :has_ktv_id,where(:ktvid.nin=>[nil,''])
   scope :non_redirect,where(:redirect_to_id => nil)
   scope :is_father,where(:is_children.ne=>true) #liber add,:injected_count.ne=>0
+  def is_father?
+    self.is_children!=true
+  end
   scope :is_child,where(:is_children=>true)
   scope :abnormal, where(:status.lt => 0)
   scope :transcoding, where(:status.gt => 0)
@@ -1501,11 +1504,17 @@ opts={   :subsite=>Setting.ktv_sub,
     'videos' => 4,
     'materials' => 5,
   }
-
+  after_save :sync_to_dz!
+  def sync_to_dz_okay?
+    self.is_father? and self.title.present? and self.uploader.discuz_user_activated
+  end
+  def sync_to_dz_changed?
+    self.title_changed? or self.uploader_id_changed?
+  end
   def sync_to_dz!
-    raise 'self.uploader must have discuz_user_activated' unless self.uploader.discuz_user_activated
-    return true if self.try(:tid).try(:>,0) && self.try(:pid).try(:>,0)
-    #totodo: pid
+    return true unless self.sync_to_dz_okay?
+    # todo: consider sync_to_dz_changed?
+    return true if self.try(:tid).try(:>,0)
     data = {
       psvr_posttime_overwrite:self.created_at.to_i,
       wysiwyg:1,
@@ -1541,7 +1550,9 @@ opts={   :subsite=>Setting.ktv_sub,
     })
     if res.psvr_extra_arg =~ /&tid=(\d+)&/
       self.update_attribute(:tid,$1.to_i)
+      self.update_attribute(:tid,PreForumPost.where(tid:self.tid,first:1).first.pid)
       puts "sync_to_dz! success #{self.tid}"
     end
+    true 
   end
 end

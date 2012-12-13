@@ -4,8 +4,43 @@
   window.KTV.data = {}
   KTV.search_cache = {}
   KTV.sss_term_cache = {}
+  KTV.after_hideWindow = {}
   KTV.zhongwenshuzi = ['零','初','二','三','四','五','六','七','八','九','十']
-  
+  KTV.succeedhandle_pay_sub = ->
+    $('#psvrsharedown_thumbnails_btn1').addClass('already')
+    $('#psvrsharedown_yigoumai').animate({'opacity':0},{duration: 125})
+    $('#psvrsharedown_yigoumai').addClass('yigoumai')
+    $('#psvrsharedown_yigoumai').animate({'opacity':1},{duration: 125})
+      
+  KTV.succeedhandle_pay = (locationhref , msg, hash)->
+    if msg is '__psvr_core_goumaichenggong'
+      hideWindow('pay')
+      KTV.succeedhandle_pay_sub()
+    else
+      if 1==$('#fwin_pay .alert_info').length
+        $('#fwin_pay .alert_info').prepend("<p>#{msg}</p>")
+      else
+        alert(msg)
+        hideWindow('pay')
+      KTV.succeedhandle_pay_sub() if msg.match(/您已购买过/)
+  KTV.errorhandle_pay = ->
+    jQuery('#fwin_pay').hide()
+    KTV.psvrsharedown_meiqianle()
+    hideWindow('pay')
+    
+  KTV.psvropenhandle_pay = ->
+    window.succeedhandle_pay = KTV.succeedhandle_pay
+    window.errorhandle_pay = KTV.errorhandle_pay
+    jQuery(".maskDiv").css({"z-index":11000})
+
+  KTV.psvrcancelhandle_pay = (locationhref , msg, hash)->
+    jQuery(".maskDiv").css({"z-index":10000})
+    $('#psvrsharedown_thumbnails_btn1').removeClass('active_loading');
+    $('#psvrsharedown_spinner1').hide();
+    window.succeedhandle_pay=null
+    KTV.after_hideWindow['pay'] = null
+    
+    
   KTV.sss_escape = (str) ->
     ret=encodeURI(str);
     ret=ret.split('!').join('%21');

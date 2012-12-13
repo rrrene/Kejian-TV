@@ -66,7 +66,7 @@
 							<% end %>
 							</figure>
 						</div>
-            <div class="uname alignleft cf"><span class="ctf-username floatleft"><%=@user.name_beautified%></span> (积分: <%=number_with_delimiter User.get_credits(@user.uid) %>)</div>
+            <div class="uname alignleft cf"><span class="ctf-username floatleft"><%=@user.name_beautified%></span> (<%=str2weifen User.get_credits(@user.uid) %>)</div>
             <% if @user.is_expert %>
 						<div class="uname alignleft cf">
 							<span class="ctf-username floatleft"><%= @user.name_beautified %></span><span class="ctf-icon long-ctf-star floatleft"></span>
@@ -111,7 +111,6 @@
 							<span>粉丝</span>
 							</a>
 							</li>
-							<!-- <li><span>9</span> <span>积分</span></li> -->
 							<li>
 							<a href="/users/<%= @user.slug %>" class="gray block usernumber"><%= @user.coursewares_uploaded_count %><br/>
 							<span>课件</span></a></li>

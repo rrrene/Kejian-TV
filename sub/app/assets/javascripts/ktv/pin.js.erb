@@ -4356,7 +4356,6 @@ im.zm.psvrsharedown = function (closeCallBack) {
       '<div class="psvrsharedown_spinners" id="psvrsharedown_spinner2" style="display:none" />',
 			'<div id="psvrsharedown_title">'+j_h1.html()+'</div>',
 			'<div id="psvrsharedown_subtitle">'+jQuery('#core_cw_h2').html()+'</div>'
-// ['ppt','doc','docx','zip','png']
     ].join("")+$.map(j_h1.data('downtypes'),function(elementOfArray, indexInArray){
       var noun,str=(indexInArray+1).toString();
       if(0==indexInArray){
@@ -4417,28 +4416,17 @@ im.zm.psvrsharedown = function (closeCallBack) {
         }
     });
 
-  	$('#psvrsharedown_thumbnails_btn1').live('click',function(){
-      if($(this).hasClass('already') || $('#psvrsharedown_spinner1').is(':visible')){
-        return false;
-      }
-      if($(this).hasClass('insufficient')){
-        KTV.psvrsharedown_meiqianle();
-        return false;
-      }
-      KTV.psvrsharedown_meiqianle();
-      //       $('#psvrsharedown_spinner1').show();
-      // $.ajax({
-      //   url:'/ajax/add_to_playlist_by_id',
-      //   type:'POST',
-      //         data:{'authenticity_token':window.form_authenticity_token,'pid':$('#core_cw_h1').data('shoucang-id'),'cwid':$('#core_cw_h1').data('cw-id')},
-      //   dataType:'json'
-      // }).done(function(json){
-      //         $('#psvrsharedown_thumbnails_btn1').removeClass('active_loading');
-      //         $('#psvrsharedown_spinner1').hide();
-      // 
-      //         // $('#psvrsharedown_thumbnails_btn1').addClass('already');
-      // });
-  	});
+    $('#psvrsharedown_thumbnails_btn1').live('click',function(){
+        if($(this).hasClass('already') || $('#psvrsharedown_spinner1').is(':visible')){
+          return false;
+        }
+        if($(this).hasClass('insufficient')){
+          KTV.psvrsharedown_meiqianle();
+          return false;
+        }
+        $('#psvrsharedown_spinner1').show();
+        showWindow('pay', 'coursewares/'+$('#core_cw_h1').data('cw-id')+'/pay');
+    });
 
 
 

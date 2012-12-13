@@ -2,8 +2,8 @@
 class CoursesController < ApplicationController
   ADMIN_ACTIONS1=[:admin_login,:admin_loginpost,:admin_logout,:admin7,:admin8,:admin9,:admin10,:admin11,:admin12,:admin13,:admin14,:admin15,:admin16,:admin17,:admin18]
   ADMIN_ACTIONS2=[:forum_topicadmin]
-  ADMIN_ACTIONS3=[:forum_topicadmin]
-  before_filter :require_user,:only=>[:create,:new,:update,:edit,:destroy]+ADMIN_ACTIONS1+ADMIN_ACTIONS2
+  ADMIN_ACTIONS3=[:topicadmin_moderate]
+  before_filter :require_user,:only=>[:create,:new,:update,:edit,:destroy]+ADMIN_ACTIONS1+ADMIN_ACTIONS2+ADMIN_ACTIONS3
   before_filter :require_user_js,:only => [:follow,:unfollow]
   before_filter :find_item,:only => [:show,:follow,:unfollow,:syllabus,:asks,:experts]+ADMIN_ACTIONS1
 

@@ -1,6 +1,23 @@
 # -*- encoding : utf-8 -*-
 module ApplicationHelper
   XINGQIJI = ['一','二','三','四','五','六','日']
+  def str2moneystr(str)
+    ret = str.to_s.strip
+    case ret.length
+    when 0
+      "∫ 0.00"
+    when 1
+      "∫ 0.0#{ret}"
+    when 2
+      "∫ 0.#{ret}"
+    else
+      "∫ #{ret.insert(-3,'.')}"
+    end
+  end
+  def str2weifen(str)
+    ret = str.to_s.strip
+    "#{number_with_delimiter ret} dx"
+  end
   def raw_dz(body)
     body.gsub!(/"static\/([^'"()]+)"|'static\/([^'"()]+)'/){|match|
       if $1.present?

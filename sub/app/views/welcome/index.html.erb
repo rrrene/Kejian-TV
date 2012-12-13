@@ -163,7 +163,7 @@
           <div class="user-details">
             <a href="/<%= User.get_fangwendizhi item.uploader_id %>"><%= name_beautify User.get_name(item.uploader_id)%></a><br>
               <span dir="ltr" title="积分" class="reputation-score">
-                <%=number_with_delimiter User.get_credits(User.get_uid(item.uploader_id)) %>
+                <%=str2weifen User.get_credits(User.get_uid(item.uploader_id)) %>
               </span>
           </div>
       </div>

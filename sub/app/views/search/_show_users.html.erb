@@ -25,7 +25,7 @@
 				</div>
 				<div class="user-details">
           <a href="/users/<%=usr['id']%>"><%=name_beautify usr['title']%></a><br>
-					<span class="user-location"><%=number_with_delimiter User.get_credits(usr['uid']) %></span><br>
+					<span class="user-location"><%=str2weifen User.get_credits(usr['uid']) %></span><br>
           <span class="reputation-score" dir="ltr"><%=usr['followers_count']%>个粉丝, <%=usr['following_count']%>个关注, <%=usr['coursewares_uploaded_count']%>个课件</span>
 				</div>
         <div class="user-tags">

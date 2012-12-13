@@ -191,6 +191,6 @@ describe CoursewaresController do
     flunk "p.s.v.r 会很快来做这个功能"
   end
 
-
+  # todo:pay,pay_post
 
 end
