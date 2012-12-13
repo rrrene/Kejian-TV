@@ -15,6 +15,8 @@ module ApplicationHelper
     end
   end
   def str2weifen(str)
+    # todo weifen
+    return str2moneystr(str)
     ret = str.to_s.strip
     "#{number_with_delimiter ret} dx"
   end
