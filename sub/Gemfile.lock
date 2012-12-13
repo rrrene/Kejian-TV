@@ -53,6 +53,15 @@ PATH
       sndacs (>= 0.1.0)
 
 PATH
+  remote: ../vendor/devise
+  specs:
+    devise (2.1.0)
+      bcrypt-ruby (~> 3.0)
+      orm_adapter (~> 0.0.7)
+      railties (~> 3.1)
+      warden (~> 1.1.1)
+
+PATH
   remote: ../vendor/grim
   specs:
     grim (0.3.2)
@@ -71,6 +80,12 @@ PATH
     rest-client (1.6.7)
       mime-types (>= 1.16)
       netrc
+
+PATH
+  remote: ../vendor/warden
+  specs:
+    warden (1.1.1)
+      rack (>= 1.0)
 
 GEM
   remote: http://ruby.taobao.org/
@@ -147,11 +162,6 @@ GEM
     curb (0.8.3)
     daemons (1.1.9)
     dalli (2.5.0)
-    devise (2.1.0)
-      bcrypt-ruby (~> 3.0)
-      orm_adapter (~> 0.0.7)
-      railties (~> 3.1)
-      warden (~> 1.1.1)
     domain_name (0.5.4)
       unf (~> 0.0.3)
     erubis (2.7.0)
@@ -341,8 +351,7 @@ GEM
       thor (>= 0.14.6, < 2.0)
     raindrops (0.10.0)
     rake (10.0.2)
-    rb-inotify (0.8.8)
-      ffi (>= 0.5.0)
+    rb-fsevent (0.9.2)
     rdoc (3.12)
       json (~> 1.4)
     redis (3.0.2)
@@ -417,6 +426,7 @@ GEM
     tagged-cache (1.1.1)
       activesupport (>= 3.0.0)
     temple (0.5.5)
+    terminal-notifier-guard (1.5.3)
     thin (1.5.0)
       daemons (>= 1.0.9)
       eventmachine (>= 0.12.6)
@@ -467,8 +477,6 @@ GEM
       raindrops (~> 0.7)
     validate_url (0.1.6)
       activemodel (>= 3.0.0)
-    warden (1.1.1)
-      rack (>= 1.0)
     wasabi (2.5.1)
       httpi (~> 1.0)
       nokogiri (>= 1.4.0)
@@ -503,7 +511,7 @@ DEPENDENCIES
   connection_pool
   curb
   dalli
-  devise (= 2.1.0)
+  devise!
   exception_notification
   factory_girl
   factory_girl_rails
@@ -549,7 +557,7 @@ DEPENDENCIES
   rails_autolink
   rails_kindeditor (~> 0.3.0)
   rake (>= 10)
-  rb-inotify
+  rb-fsevent
   redis (~> 3)
   redis-objects
   redis-search!
@@ -573,6 +581,7 @@ DEPENDENCIES
   spork (= 0.9.2)
   spork-minitest (>= 1.0.0.beta1)
   tagged-cache
+  terminal-notifier-guard
   thin
   tire
   to_xls (~> 1.0.0)
@@ -581,6 +590,7 @@ DEPENDENCIES
   uglifier (>= 1.0.3)
   unicorn
   validate_url (= 0.1.6)
+  warden!
   whenever
   will_paginate
   will_paginate_mongoid

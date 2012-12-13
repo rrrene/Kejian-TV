@@ -63,7 +63,8 @@ gem 'rmmseg-cpp-huacnlee'
 
 # 用户系统
 # 这个devise必须锁定版本！！我们定制的太多了
-gem 'devise','2.1.0'
+gem 'devise',path:'../vendor/devise'
+gem 'warden',path:'../vendor/warden'
 gem 'omniauth-weibo-oauth2'
 #gem "omniauth-weibo", :git => 'git://github.com/pmq20/omniauth-weibo.git'
 gem "omniauth-renren", :git => 'git://github.com/pmq20/omniauth-renren.git'
