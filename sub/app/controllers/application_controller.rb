@@ -8,8 +8,7 @@ class ApplicationController < ActionController::Base
     # puts request.path
     # text = 
     # render text:text and return
-    # p request.request_method
-    # p request.path
+    # puts "#{request.request_method} #{request.path}"
     # p params
     # binding.pry
   }

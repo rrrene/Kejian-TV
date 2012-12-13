@@ -60,8 +60,6 @@ class AccountSessionsController < Devise::SessionsController
       @traditional = true
       email = params[:userEmail]
       passwd = params[:userPassword]
-      email ||= params[:user][:email]
-      passwd ||= params[:user][:password]
       ret = UCenter::User.login(request,{isuid:2,username:email,password:passwd})
       status = ret['root']['item'][0].to_i
       suc_flag = false
