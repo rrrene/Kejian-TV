@@ -236,6 +236,7 @@ class Courseware
   field :subsite
   field :uid
   field :tid,:type=>Integer, :default => 0
+  field :pid,:type=>Integer, :default => 0
   field :author # slug
   field :ktvid
   field :legacy_ibeike
@@ -1503,7 +1504,8 @@ opts={   :subsite=>Setting.ktv_sub,
 
   def sync_to_dz!
     raise 'self.uploader must have discuz_user_activated' unless self.uploader.discuz_user_activated
-    return true if self.try(:tid).try(:>,0)
+    return true if self.try(:tid).try(:>,0) && self.try(:pid).try(:>,0)
+    #totodo: pid
     data = {
       psvr_posttime_overwrite:self.created_at.to_i,
       wysiwyg:1,
