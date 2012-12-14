@@ -72,7 +72,7 @@ class User
   #下面这个字段呢，是用来标记注册到第几步了。完成注册这个值为1000，所以嘛，如果这个值小于1000，那就跳转用户到相应的注册步骤咯
   field :reg_extent,:type=>Integer,:default=>0
   def reg_extent_okay?
-    self.reg_extent.try(:>=,1000)
+    self.reg_extent.try(:>=,1000) || self.reg_extent.try(:==,-999)
   end
   EXTENT_TEXT = {
     0 => '请登录您的人人账号',

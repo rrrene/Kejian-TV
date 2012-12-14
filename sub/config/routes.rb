@@ -45,6 +45,7 @@ Sub::Application.routes.draw do
     put '/account/confirmation' => 'account_confirmations#show'
     get "/register", :to => "account#new",as:'register'
     get "/register05", :to => "account#new05"
+    get "/register05_temporarily_skip", :to => "account#new05_temporarily_skip"
     get "/register05_force_relogin", :to => "account#new05"
     get "/login", :to => "account_sessions#new",as:'login'
     get '/logout', :to => "account_sessions#destroy", as:'logout'

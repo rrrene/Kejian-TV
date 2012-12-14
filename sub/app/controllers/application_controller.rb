@@ -305,7 +305,7 @@ class ApplicationController < ActionController::Base
   end
   NO_REDIRECT_REQUEST_PATHs = [
     '/register05',
-    '/register05',
+    '/register05_temporarily_skip',
     '/register05_force_relogin',
     '/logout',
     "/account/sign_in",
@@ -338,6 +338,9 @@ class ApplicationController < ActionController::Base
         flash[:insuf_info] = "请点击邮箱#{current_user.unconfirmed_email}内的确认链接以完成邮箱修改".html_safe 
       elsif !current_user.email_unknown and !current_user.confirmed?
         flash[:insuf_info] = "请查收邮箱#{current_user.email}内的激活邮件. [<a href=\"/account/confirmation/new\">重发激活邮件</a>]".html_safe 
+      end
+      if flash[:insuf_info].blank? and -999==current_user.reg_extent
+        flash[:insuf_info] = "<a href=\"/register05\">完成新用户注册</a>".html_safe 
       end
     end
   end
