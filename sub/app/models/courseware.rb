@@ -5,6 +5,7 @@ class Courseware
   include Redis::Search
   include BaseModel
   # sort by this
+  field :psvr_downready,:type=>Boolean,:default=>false
   field :score,:type=>Integer,:default=>0  
   @before_soft_delete = proc{
     if self.uploader_id_candidates.blank?
