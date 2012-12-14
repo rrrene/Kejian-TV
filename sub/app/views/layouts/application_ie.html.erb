@@ -60,6 +60,6 @@
   });
 })(jQuery);
 </script>
-<%= render 'analytics' unless Rails.env.development? %>
+  <%= render 'analytics' if $psvr_really_production %>
 </body>
 </html>
