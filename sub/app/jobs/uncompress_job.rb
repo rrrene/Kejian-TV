@@ -99,7 +99,7 @@ class UncompressJob
         end          
     end    
     
-    def self.unzip(filename,dest_path,remove_after = false)
+    def unzip(filename,dest_path,remove_after = false)
       unzip_recursive(filename,dest_path)
       
       rar_inzip = `find "#{dest_path}" -iname '*.rar' -exec ls {} +\;`.split("\n")
@@ -124,7 +124,7 @@ class UncompressJob
     end
     
     
-    def self.unrar(filename,dest_path,remove_after = false)
+    def unrar(filename,dest_path,remove_after = false)
       # binding.pry
       `unrar x -inul -o+ -r #{filename} "#{dest_path}"/`
       rar_inrar = `find "#{dest_path}" -iname '*.rar' -exec ls {} +\;`.split("\n")
@@ -150,7 +150,7 @@ class UncompressJob
       return hash
     end
     
-    def self.un7zip(filename,dest_path,remove_after = false)
+    def un7zip(filename,dest_path,remove_after = false)
       `7z x -y -r -o"#{dest_path}" "#{filename}"`
       
       p7zip_in7zip = `find "#{dest_path}" -iname '*.7z' -exec ls {} +\;`.split("\n")
@@ -179,7 +179,7 @@ class UncompressJob
     end
     
     
-    def self.unzip_recursive(filename,dest,recursive_remove_origin_after = false)
+    def unzip_recursive(filename,dest,recursive_remove_origin_after = false)
       Zip::ZipFile.open(filename) do |zip_file|
         files = zip_file.select(&:file?)
         files.reject!{|f| f.name =~ /\.DS_Store|__MACOSX|Thumbs.db|(^|\/)\._/ }   #perfect to remove .DS_store __Macosx and some .git .svn
@@ -197,7 +197,7 @@ class UncompressJob
       FileUtils.rm_rf(filename) if recursive_remove_origin_after
     end
     
-    def self.inject_family(opts={})
+    def inject_family(opts={})
       p = {}
       p[:pdf_filename]=File.basename(opts[:pdf_filename])
       p[:title] = @title
@@ -225,7 +225,7 @@ class UncompressJob
       Courseware.presentations_upload_finished(p,user)
     end
 
-    def self.jsonize(dest_path)
+    def jsonize(dest_path)
       FileUtils.chmod_R(0755,dest_path)
       json = directory_hash(dest_path,@title)
       json = {:id => 'Root',:open=>"1",:select => "1",:child => "1"}.merge(json)
@@ -233,7 +233,7 @@ class UncompressJob
       return json
     end
 
-    def self.directory_hash(path, name=nil,step=0)
+    def directory_hash(path, name=nil,step=0)
       data = {:text => (name || path)}
       data[:item] =item = []
       

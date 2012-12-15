@@ -985,7 +985,7 @@ class Courseware
   def self.check_match(array)
     array.each do |f|
       cw = Courseware.find(f)
-      puts "father:" + cw.title
+      puts "father:[" + cw.id.to_s + "]"+cw.title.colorize(:blue)
       puts cw.get_ctext.to_s.colorize( :red )
     end
   end
