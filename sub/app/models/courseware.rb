@@ -915,14 +915,14 @@ class Courseware
     # field :father_id
     # field :is_children,:type => Boolean, :default => false
     # field :where_am_i_in_this_family
-    @cw = Courseware.find(id)
-    if @cw.is_children
-      @papa = Courseware.find(@cw.father_id)
-      tmp = @papa.get_children
+    cw = Courseware.find(id)
+    if cw.is_children
+      papa = Courseware.find(cw.father_id)
+      tmp = papa.get_children
       if tmp.map{|x| Courseware.find(x)}.map(&:status).to_a.count(0) == tmp.to_a.size
-        @papa.update_attribute(:status,0)
+        papa.update_attribute(:status,0)
       else
-        @papa.update_attribute(:status,4)
+        papa.update_attribute(:status,4)
       end
       # @papa.update_attribute(:transcoding_count,@papa.transcoding_count - 1)
       # if @papa.transcoding_count <= 0
@@ -977,6 +977,13 @@ class Courseware
           c.enqueue!
         end
       end
+    end
+  end
+  def self.check_match(array)
+    array.each do |f|
+      cw = Courseware.find(f)
+      pp "father" + cw.title
+      cw.check_children(:title)
     end
   end
   def check_children(key,statusArray=[])
@@ -1126,7 +1133,8 @@ presentation[published_at]	2012/07/13
     when :doc,:docx
       Sidekiq::Client.enqueue(WinTransJobDOC,self.remote_filepath,self.sort,self.ktvid,self.id.to_s)
     when :zip,:rar,:'7z'
-      Sidekiq::Client.enqueue(HookerJob,"Ktv::Uncompress",nil,:perform,self.id)
+      Sidekiq::Client.enqueue(UncompressJob,self.id.to_s)
+      # Sidekiq::Client.enqueue(HookerJob,"Ktv::Uncompress",nil,:perform,self.id)
     end
   end
   def renqueue!

@@ -3,16 +3,17 @@ require 'rubygems'
 require 'zip/zip'
 require 'find'
 require 'fileutils'
-=begin
 class UncompressJob
   include Sidekiq::Worker
-  sidekiq_options :queue => :transcoding
+  sidekiq_options :queue => :uncompressing
   def perform(id)
         @filter = ['pdf','djvu','ppt','pptx','doc','docx']
         @blacklist = ['git','svn','ds_store','exe','obj','db','app','jar']
+        @courseware = Courseware.find(id)
+        @courseware.make_sure_globalktvid!
+        ActiveRecord::Base.connection_pool.instance_variable_set('@size', 40)
+        ActiveRecord::Base.connection_pool.instance_variable_set('@timeout', 100)
         begin
-           @courseware = Courseware.find(id)
-           @courseware.make_sure_globalktvid!
           if @courseware.tree.present?
             tmp = @courseware.tree.to_s.scan(/"id"=>"([a-z0-9]{20,})"/).compact.flatten
             tmp.each do |t|
@@ -296,19 +297,7 @@ class UncompressJob
       return data
     end
   end
-end 
-  def perform(id)
-    @courseware = Courseware.find(id)
-    @courseware.make_sure_globalktvid!
-    ActiveRecord::Base.connection_pool.instance_variable_set('@size', 40)
-    ActiveRecord::Base.connection_pool.instance_variable_set('@timeout', 100)
-    begin
-    rescue => e
-      raise e
-    end
-  end
 end
-=end
 
 # Sidekiq.redis{|r| r.flushall}
 # 1286.upto(1290){|i|Courseware.find(i).destroy}

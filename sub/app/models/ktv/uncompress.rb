@@ -1,3 +1,4 @@
+=begin
 # -*- encoding : utf-8 -*-
 require 'rubygems'
 require 'zip/zip'
@@ -297,3 +298,4 @@ module Ktv
     end
   end
 end
+=end
