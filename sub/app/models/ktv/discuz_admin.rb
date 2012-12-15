@@ -15,24 +15,34 @@ module Ktv
       end
       dz_form.submit
     end
-    def start_mode(mode)
-      @mode = mode
-      @base_url = "http://#{@mode}.#{Setting.ktv_domain}/simple"
-      # 依赖于forum.php显示登陆框框
-      @login_page = @agent.get("#{@base_url}/member.php?mod=logging&action=login")
-      form = @login_page.form_with(:name=>'login')
-      if(form)
-        form.username = ADMIN_USER
-        form.password = ADMIN_PASS
-        @page = form.submit
-      else
-        raise 'no login form?'
+    def start_mode
+      user = User.where(email:ADMIN_USER).first
+      raise 'admin user must exist in mongo' unless user
+      data={
+        :fastloginfield => 'username',
+        :handlekey => 'ls',
+        :password => 'needless_to_say',
+        :quickforward => 'yes',
+        :username => user.slug,
+        :psvr_uid => user.uid.to_s,
+        :psvr_email => user.email,
+      }
+      res = Ktv::JQuery.ajax({
+        psvr_original_response: true,
+        url:"http://#{Setting.ktv_subdomain}/simple/member.php?mod=logging&action=login&loginsubmit=yes&infloat=yes&lssubmit=yes&inajax=1",
+        type:'POST',
+        data:data,
+        :accept=>'raw'+Setting.dz_authkey,
+        psvr_response_anyway: true
+      })
+      unless res.to_s=~/window\.location\.href/
+        raise 'login fail'
       end
-      @login_page = @agent.get("#{@base_url}/admin.php")
-      form = @login_page.form_with(:id=>'loginform')
-      if form
-        form.admin_password = ADMIN_PASS
-        @page = form.submit
+      res.cookies.each do |key,value|
+        cookie = Mechanize::Cookie.new(key, value)
+        cookie.domain = Setting.ktv_subdomain
+        cookie.path = "/"
+        @agent.cookie_jar.add!(cookie)
       end
     end
     

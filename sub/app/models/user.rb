@@ -6,6 +6,7 @@ class User
   #include Mongo::Voter
   include Redis::Search
   include BaseModel
+  field :psvr_jifenshoudbe,:type=>Integer,:default=>0
   @before_soft_delete = proc{
     result = []
     if self.play_lists_ugc.size < 1

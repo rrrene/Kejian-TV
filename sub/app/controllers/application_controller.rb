@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
     # puts request.path
     # text = 
     # render text:text and return
-    # puts "#{request.request_method} #{request.path}"
+    puts "#{request.request_method} #{request.path} #{current_user ? current_user.uid : ''}"
     # p params
     # binding.pry
   }
@@ -112,10 +112,10 @@ class ApplicationController < ActionController::Base
     @_G['uid'] = @_G['uid'].to_i
     @authkey = @_G['authkey']
     @formhash = @_G['formhash']
-    if @_G['uid'] != (current_user ? current_user.uid : 0)
       p @_G['uid']
       p (current_user ? current_user.uid : 0)
-      sign_out;sign_out_others
+    if @_G['uid'] != (current_user ? current_user.uid : 0)
+      sign_out :user;sign_out_others
       return false
     end
   end
@@ -232,9 +232,11 @@ class ApplicationController < ActionController::Base
       :accept=>'raw'+Setting.dz_authkey,
       psvr_response_anyway: true
     })
-    set_dz_cookies!(res)
-    if !current_user.discuz_user_activated && res.to_s=~/window\.location\.href/
-      current_user.update_attribute(:discuz_user_activated,true)
+    if res.to_s=~/window\.location\.href/
+      set_dz_cookies!(res)
+      current_user.update_attribute(:discuz_user_activated,true) if !current_user.discuz_user_activated
+    else
+      raise "dz login error with uid=#{current_user.uid.to_s}"
     end
     # todo:
     #   upon observing this

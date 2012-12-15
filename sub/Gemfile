@@ -11,7 +11,7 @@ gem 'rake', '>=10', :require => 'rake/testtask'
 # MongoDB
 gem "mongoid", "~> 3"
 # gem 'mongoid_auto_increment_id', "0.5.0"
-gem 'mongoid_rails_migrations', '~> 0.0.14'
+# gem 'mongoid_rails_migrations', '~> 0.0.14'
 gem "mongoid_colored_logger", :github => "huacnlee/mongoid_colored_logger", :group => :development
 gem "bson_ext"
 gem 'mysql2'
@@ -63,7 +63,7 @@ gem 'rmmseg-cpp-huacnlee'
 
 # 用户系统
 # 这个devise必须锁定版本！！我们定制的太多了
-gem 'devise',path:'../vendor/devise'
+gem 'devise','2.1.0',path:'../vendor/devise'
 gem 'warden',path:'../vendor/warden'
 gem 'omniauth-weibo-oauth2'
 #gem "omniauth-weibo", :git => 'git://github.com/pmq20/omniauth-weibo.git'
