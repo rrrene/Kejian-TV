@@ -932,6 +932,9 @@ class Courseware
   def get_children      # return Array
     children = self.tree.to_s.scan(/"id"=>"([a-z0-9]{20,})"/).flatten.compact
   end
+  def get_ctext
+    children = self.tree.to_s.scan(/"id"=>"[a-z0-9]{20,}",."text"=>"([^"]*)"/).flatten.compact
+  end
   def fix_children(fix_all = false)
     counting = 0
     self.get_children.each do |c|
@@ -982,8 +985,8 @@ class Courseware
   def self.check_match(array)
     array.each do |f|
       cw = Courseware.find(f)
-      pp "father" + cw.title
-      cw.check_children(:title)
+      puts "father:" + cw.title
+      puts cw.get_ctext.to_s.colorize( :red )
     end
   end
   def check_children(key,statusArray=[])
