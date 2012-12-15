@@ -6,7 +6,7 @@ require 'fileutils'
 class UncompressJob
   include Sidekiq::Worker
   sidekiq_options :queue => :uncompressing
-  def perform(id)
+    def perform(id)
         @filter = ['pdf','djvu','ppt','pptx','doc','docx']
         @blacklist = ['git','svn','ds_store','exe','obj','db','app','jar']
         @courseware = Courseware.find(id)
@@ -296,7 +296,6 @@ class UncompressJob
       end
       return data
     end
-  end
 end
 
 # Sidekiq.redis{|r| r.flushall}
