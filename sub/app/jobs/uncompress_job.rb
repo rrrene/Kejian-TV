@@ -26,6 +26,7 @@ class UncompressJob
           end
           @title = @courseware.title
           sort=File.extname(@courseware.pdf_filename).split('.')[-1].to_s.downcase
+          @courseware.ua(:tree,{})
           @courseware.update_attribute(:pdf_slide_processed,0)
           @working_dir = "/media/b/auxiliary_#{Setting.ktv_sub}/ftp/cw/#{@courseware.id}" #$psvr_really_production ? : "#{Rails.root}/simple/tmp/uncompress_#{Setting.ktv_sub}/#{@courseware.id}_#{sort}"
           uncom_path = "#{@working_dir}/#{@courseware.pdf_filename.gsub(".","_")}"
@@ -84,7 +85,7 @@ class UncompressJob
             @courseware.height = 523
             @courseware.status = 4
             if @courseware.transcoding_count = 0 and @courseware.tree.present?
-              @courseware.status = 0
+              @courseware.status = 7
             end
             @courseware.save(:validate => false)
             if @courseware.get_children.blank?

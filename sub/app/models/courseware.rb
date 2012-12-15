@@ -919,7 +919,8 @@ class Courseware
     if cw.is_children
       papa = Courseware.find(cw.father_id)
       tmp = papa.get_children
-      if tmp.map{|x| Courseware.find(x)}.map(&:status).to_a.count(0) == tmp.to_a.size
+      tstatus = tmp.map{|x| Courseware.find(x)}.map(&:status).to_a
+      if tstatus.count(0)+tstatus.count(-1)+tstatus.count(-2)+tstatus.count(-3) == tmp.to_a.size
         papa.update_attribute(:status,0)
       else
         papa.update_attribute(:status,4)

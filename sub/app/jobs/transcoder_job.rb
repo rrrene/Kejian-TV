@@ -91,7 +91,7 @@ class TranscoderJob
                   end
                   # ---pinpic---
                   pinpic = "#{working_dir}/pin.jpg"
-                  puts `convert "#{pic}"   -resize 222x +repage -bordercolor white -border 0 -background white -flatten -alpha remove  -alpha off -gravity North "#{pinpic}"`
+                  puts `convert "#{pic}" -resize 222x +repage -bordercolor white -border 0 -background white -flatten -alpha remove  -alpha off -gravity North "#{pinpic}"`
                   inf = `identify "#{pinpic}"`
                   if inf=~/JPEG (\d+)x(\d+)/
                     pinpic_final = "#{working_dir}/#{@courseware.revision}pin.1.#{$1}.#{$2}.jpg"
