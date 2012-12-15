@@ -76,6 +76,7 @@ class Courseware
     4 => :dealing_with_kids,
     5 => :matched_third_party_content,
     6 => :auditing,
+    7 => :unlisted,
     -1 => :error,
     -2 => :uniq_error,
     -3 => :win_error
@@ -88,12 +89,13 @@ class Courseware
     :dealing_with_kids => '正在转码子文件',
     :matched_third_party_content => '与第三方内容匹配',
     :auditing => '审核中',
+    :unlisted => '无可展示子文件',
     :error => '您上传的文件已损坏',
     :uniq_error=>'您上传的文件已存在',
     :win_error=>'您的文件含密码或为只读'
   }
   
-  scope :normal, where(:status => 0)
+  scope :normal, where(:status.in => [0,7])
   scope :has_ktv_id,where(:ktvid.nin=>[nil,''])
   scope :non_redirect,where(:redirect_to_id => nil)
   scope :is_father,where(:is_children.ne=>true) #liber add,:injected_count.ne=>0
