@@ -1,7 +1,10 @@
 <% if(!defined?(courseware_id))
 courseware_id=courseware.id
 end %>
-
+<% if @is_ie8 %>
+  <a class="ie_kuang" href="/coursewares/<%= courseware.id %>">
+  </a>
+<% end %>
 <% slide_count = courseware.slides_counts[version.to_s] || 1 %>
 <% sz = [slide_count,18].min %>
 <% sz = 0 if @is_ie8 %>
