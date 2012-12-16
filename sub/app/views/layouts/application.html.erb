@@ -24,21 +24,12 @@
   <meta name="viewport" content="width=device-width">
 	<%= javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery? %>
 	<%= javascript_tag "var vfl3z5WfW = #{asset_path('yt/img/pixel-vfl3z5WfW.gif').inspect};" %>
-  <%= javascript_include_tag "pre_application" %>
+  <script src="/pre_application.js"></script>
   <%= stylesheet_link_tag "pre_application", :media => "all" %>
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons -->
   <%= stylesheet_link_tag "ktv/application", :media => "all" %>
   <%= csrf_meta_tag %>
   <!-- More ideas for your <head> here: h5bp.com/d/head-Tips -->
-  <!--[if lte IE 8]>
-  <script src="/DOM-shim/lib/DOM-shim-ie8.js"></script>
-  <![endif]-->
-  <!--[if gte IE 9]>
-  <script src="/DOM-shim/lib/DOM-shim.js"></script>
-  <![endif]-->
-  <!--[if !IE]> -->
-  <script src="/DOM-shim/lib/DOM-shim.js"></script>
-  <!-- <![endif]-->
 
   <!-- All JavaScript at the bottom, except this Modernizr build.
        Modernizr enables HTML5 elements & feature detects for optimal performance.

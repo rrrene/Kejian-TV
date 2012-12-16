@@ -833,6 +833,7 @@
 <% end %>
 <div class="tipsy tipsy-s" id="always_tipsy"><div class="tipsy-inner" id="always_tipsy_content">小型播放器</div></div>
 <div id="presenter">
+  <div class="overlay"></div>
   <div class="header">
     <img alt="Kejian.TV课件台" src="<%=asset_path 'embed_logo.png'%>" />
     <h5><a href="/coursewares/<%=@courseware.id%>" target="_parent"><%=@courseware.title%></a></h5>
@@ -881,7 +882,6 @@
     <a href="javascript:void(0)" style="<%= 'opacity:1' unless @courseware.thin? %>" id="single_button" class="yt-uix-tooltip" title="小型播放器"></a>
     <a href="javascript:void(0)" style="<%= 'opacity:1' if @courseware.thin? %>" id="double_button" class="yt-uix-tooltip" title="大型播放器"></a>
   </div>
-  <div class="overlay"></div>
   <div id="share">
     <a href="#" class="close">关闭</a>
     <ul class="choices">
