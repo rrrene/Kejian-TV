@@ -1022,7 +1022,7 @@ class Courseware
   end
   def check_children(key,statusArray=[])
     self.get_children.each do |c|
-      w = Courseware.where(c).first
+      w = Courseware.where(id:c).first
       if w.nil?
         puts "error!!!".colorize( :red )
         next
