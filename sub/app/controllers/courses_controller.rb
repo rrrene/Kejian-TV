@@ -6,7 +6,15 @@ class CoursesController < ApplicationController
   before_filter :require_user,:only=>[:create,:new,:update,:edit,:destroy]+ADMIN_ACTIONS1+ADMIN_ACTIONS2+ADMIN_ACTIONS3
   before_filter :require_user_js,:only => [:follow,:unfollow]
   before_filter :find_item,:only => [:show,:follow,:unfollow,:syllabus,:asks,:experts]+ADMIN_ACTIONS1
-
+  def selectform
+    @res = dz_get("forum.php?mod=misc&action=nav&already_inside=#{params[:already_inside]}&psvr_g=#{params[:psvr_g]}&psvr_f=#{params[:psvr_f]}&infloat=yes&handlekey=nav&inajax=1&ajaxtarget=fwin_content_nav",simple:true)
+    content=''
+    Department.desc('courses_count').each do |dpt|
+      content+="<li fid=\"#{dpt.fid}\">#{dpt.name}</li>"
+    end
+    @res = @res.to_s.force_encoding('utf-8').gsub('<ul id="fs_group"></ul>',"<ul id=\"fs_group\">#{content}</ul>")
+    dz_simple_render
+  end
   def topicadmin_moderate
     raise Ktv::Shared::ScriptNeedImprovementException unless 1==params[:operations].size
     dz_post_delegate

@@ -154,6 +154,7 @@ Sub::Application.routes.draw do
   end
   resources :courses do 
     collection do
+      get 'selectform'
       post 'topicadmin_moderate'
     end
     member do

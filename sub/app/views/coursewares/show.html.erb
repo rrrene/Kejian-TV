@@ -27,7 +27,9 @@ $('#psvrsharedown,#psvrsharedown_thin').click(KTV.psvrsharedown);
   }
 
   #slides_container.busy{
-    background:url("https://a248.e.akamai.net/assets.github.com/images/spinners/octocat-spinner-128.gif") no-repeat scroll center 200px transparent;
+    min-width:710px;
+    min-height:600px;
+    background:white url("<%= asset_path 'cwloading.gif' %>") no-repeat scroll center 200px;
   }
    #stickies{
    position:absolute;

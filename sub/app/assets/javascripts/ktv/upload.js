@@ -173,7 +173,7 @@
 	
 	$('.kejian-settings-department').live('focus',function(e){
 		$(this).toggleClass('department_actived');
-	  showWindow('nav', '/forum.php?mod=misc&action=nav&already_inside=1&psvr_g='+$(this).parents('.metadata-container').find('.psvr_g').val()+'&psvr_f='+$(this).parents('.metadata-container').find('.psvr_f').val(), 'get', 0);
+	  showWindow('nav', 'courses/selectform?mod=misc&action=nav&already_inside=1&psvr_g='+$(this).parents('.metadata-container').find('.psvr_g').val()+'&psvr_f='+$(this).parents('.metadata-container').find('.psvr_f').val(), 'get', 0);
 		$(this).parents('.upload-item').find('.save-error-message').addClass('critical').html('某些更改尚未保存。');
 		$(this).parents('.upload-item').find('.save-changes-button .yt-uix-button-content').html('保存更改');
 		$(this).parents('.upload-item').find('.save-changes-button').attr('disabled',false);
@@ -364,20 +364,23 @@
 					$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.addto-button').removeClass('hid');
 					$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.save-changes-button').attr('disabled',true);
 					$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.save-changes-button .yt-uix-button-content').html('无法保存');
-					auto_ajax_save(jQuery.param(
+					var psvr_liber_ret = auto_ajax_save(jQuery.param(
 						$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('form').serializeArray().concat({name:"presentation[auto_save]",value:"auto"})
-					),'#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').done(function(json){
-						$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.item-cancel').addClass('hid');
-						$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.upload-status-text').html('开始为课件转码...');
-						$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.addto-button').removeClass('hid');
-						$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.save-changes-button').attr('disabled',false);
-						$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.save-changes-button .yt-uix-button-content').html('已保存');
-						$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.item-leave-title').removeClass('hid');
-						$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('input.id').val(json.id);
-						$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.watch-page-link').html('您的课件将在以下位置阅读： <a target="_blank" href="http://'+ window.location.host +'/coursewares/'+json.id+'">http://'+ window.location.host +'/coursewares/'+json.id+'</a>');
-						$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.save-changes-button').attr('disabled',true);
-						update_processing_bar(json.id);
-					});
+					),'#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]');
+          if(psvr_liber_ret){
+            psvr_liber_ret.done(function(json){
+  						$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.item-cancel').addClass('hid');
+  						$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.upload-status-text').html('开始为课件转码...');
+  						$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.addto-button').removeClass('hid');
+  						$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.save-changes-button').attr('disabled',false);
+  						$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.save-changes-button .yt-uix-button-content').html('已保存');
+  						$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.item-leave-title').removeClass('hid');
+  						$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('input.id').val(json.id);
+  						$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.watch-page-link').html('您的课件将在以下位置阅读： <a target="_blank" href="http://'+ window.location.host +'/coursewares/'+json.id+'">http://'+ window.location.host +'/coursewares/'+json.id+'</a>');
+  						$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.save-changes-button').attr('disabled',true);
+  						update_processing_bar(json.id);
+  					});            
+          }
 				}else{
 		       	update_processing_bar($('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('input.id').val());
 				}

@@ -1605,7 +1605,7 @@ opts={   :subsite=>Setting.ktv_sub,
   }
   after_save :sync_to_dz!
   def sync_to_dz_okay?
-    self.is_father? and self.title.present? and self.uploader.discuz_user_activated
+    self.is_father? and self.title.present? and self.uploader.discuz_user_activated and self.course_fid.try(:>,0)
   end
   def sync_to_dz_changed?
     self.title_changed? or self.uploader_id_changed?
