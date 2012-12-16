@@ -1038,6 +1038,9 @@ class Courseware
       puts cw.get_ctext.to_s.colorize( :red )
     end
   end
+  def check_status
+    self.check_children(:status)
+  end
   def check_children(key,statusArray=[])
     self.get_children.each do |c|
       w = Courseware.where(id:c).first
