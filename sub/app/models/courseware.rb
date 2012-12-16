@@ -974,8 +974,8 @@ class Courseware
     min = nil
     self.get_children.to_a.each do |f|
       cw = Courseware.where(id:f).first
-      if f.present? and f.child_rank == 0
-        min = f.id
+      if cw.present? and cw.child_rank == 0
+        min = cw.id
       end
     end
     if min.nil?
