@@ -109,7 +109,7 @@ class UncompressJob
       rar_inzip = `find "#{dest_path}" -iname '*.rar' -exec ls {} +\;`.split("\n")
       rar_inzip.map{|x| `mkdir #{File.join(File.dirname(x),File.basename(x).gsub('.','_'))}`;`unrar x -inul -o+ -r "#{x}" #{File.join(File.dirname(x),File.basename(x).gsub('.','_'))}`} 
       p7zip_inzip = `find "#{dest_path}" -iname '*.7z' -exec ls {} +\;`.split("\n")
-      p7zip_inzip.map{|x| `mkdir #{File.join(File.dirname(x),File.basename(x).gsub('.','_'))}`;`7z x -y -r -o#{File.join(File.dirname(x),File.basename(x).gsub('.','_'))} "#{x}"`}
+      p7zip_inzip.map{|x| `mkdir #{File.join(File.dirname(x),File.basename(x).gsub('.','_'))}`;`7zr x -y -r -o#{File.join(File.dirname(x),File.basename(x).gsub('.','_'))} "#{x}"`}
       
       Dir["#{dest_path}/**/*"].select { |d| File.directory? d }.select { |d| (Dir.entries(d) - %w[ . .. ]).empty? } .each{ |d| Dir.rmdir d }    #delete empty dir
 
@@ -135,7 +135,7 @@ class UncompressJob
       rar_inrar.map{|x| `mkdir #{File.join(File.dirname(x),File.basename(x).gsub('.','_'))}`;`unrar x -inul -o+ -r #{x} #{File.join(File.dirname(x),File.basename(x).gsub('.','_'))}`}
    
       p7zip_inrar = `find "#{dest_path}" -iname '*.7z' -exec ls {} +\;`.split("\n")
-      p7zip_inrar.map{|x| `mkdir #{File.join(File.dirname(x),File.basename(x).gsub('.','_'))}`;`7z x -y -r -o#{File.join(File.dirname(x),File.basename(x).gsub('.','_'))} "#{x}"`}
+      p7zip_inrar.map{|x| `mkdir #{File.join(File.dirname(x),File.basename(x).gsub('.','_'))}`;`7zr x -y -r -o#{File.join(File.dirname(x),File.basename(x).gsub('.','_'))} "#{x}"`}
       zip_inrar = `find "#{dest_path}" -iname '*.zip'`.split("\n")
       zip_inrar.map {|x| unzip_recursive(x,File.join(File.dirname(x),File.basename(x).gsub('.','_')),true)}
       
@@ -155,10 +155,10 @@ class UncompressJob
     end
     
     def un7zip(filename,dest_path,remove_after = false)
-      `7z x -y -r -o"#{dest_path}" "#{filename}"`
+      `7zr x -y -r -o"#{dest_path}" "#{filename}"`
       
       p7zip_in7zip = `find "#{dest_path}" -iname '*.7z' -exec ls {} +\;`.split("\n")
-      p7zip_in7zip.map{|x| `mkdir #{File.join(File.dirname(x),File.basename(x).gsub('.','_'))}`;`7z x -y -r -o#{File.join(File.dirname(x),File.basename(x).gsub('.','_'))} "#{x}"`}
+      p7zip_in7zip.map{|x| `mkdir #{File.join(File.dirname(x),File.basename(x).gsub('.','_'))}`;`7zr x -y -r -o#{File.join(File.dirname(x),File.basename(x).gsub('.','_'))} "#{x}"`}
       
       zip_in7zip = `find "#{dest_path}" -iname '*.zip'`.split("\n")
       zip_in7zip.map {|x| unzip_recursive(x,File.join(File.dirname(x),File.basename(x).gsub('.','_')),true)}
