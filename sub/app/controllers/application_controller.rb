@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
     # puts request.path
     # text = 
     # render text:text and return
-    puts "#{request.request_method} #{request.path} #{current_user ? current_user.uid : ''}"
+    # puts "#{request.request_method} #{request.path} #{current_user ? current_user.uid : ''}"
     # p params
     # binding.pry
   }
@@ -112,9 +112,9 @@ class ApplicationController < ActionController::Base
     @_G['uid'] = @_G['uid'].to_i
     @authkey = @_G['authkey']
     @formhash = @_G['formhash']
+    if @_G['uid'] != (current_user ? current_user.uid : 0)
       p @_G['uid']
       p (current_user ? current_user.uid : 0)
-    if @_G['uid'] != (current_user ? current_user.uid : 0)
       sign_out :user;sign_out_others
       return false
     end

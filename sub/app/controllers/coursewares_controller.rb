@@ -292,34 +292,21 @@ class CoursewaresController < ApplicationController
     redirect_to '/',:notice=>'已成功删除'
   end
   def download
-    # 由于积分和防批量下载的功能没弄好，先别开放下载
-    render text:'开发中，sorry'
-    return
+    render text:'您还没有购买此文件' and return false unless PlayList.locate(current_user.id,'已购买').content.include?(@courseware.id)
+    filenameformat = Courseware::SORTDOWNFILENAMES[@courseware.sort][params[:index].to_i]
+    render text:'没有此文件' and return false unless filenameformat.present?
     downurl = ''
-    if @courseware.have_pw and params[:pw].blank?
-      render 'download',:layout => 'application_for_devise'
-      return
-    elsif @courseware.have_pw and Digest::MD5.hexdigest(params[:pw])!=@courseware.pw
-      @pw_error = '密码错误'
-      render 'download',:layout => 'application_for_devise'
-      return
-    end
-    @courseware.inc(:downloads_count,1)
     if current_user.nil?
         CwEvent.add_action('下载','Courseware',@courseware.id,request.ip,request.url,nil,true,@is_mobile)
     else
         CwEvent.add_action('下载','Courseware',@courseware.id,request.ip,request.url,current_user.id,true,@is_mobile)
     end
-    if @courseware.xunlei_url.present?
-      downurl = @courseware.xunlei_url
-    else
-      resource = "#{@courseware.id}#{@courseware.revision}.zip"
-      expires = 2.minutes.since.to_i
-      signature = Sndacs::Signature.generate_temporary_url_signature(:bucket => 'ktv-down',:resource => resource,:secret_access_key => Setting.snda_key,:expires_at => expires)
-      downurl = "http://storage-huabei-1.sdcloud.cn/ktv-down/#{resource}?SNDAAccessKeyId=#{Setting.snda_id}&Expires=#{expires}&Signature=#{signature}"
+    resource = @courseware.instance_eval('"'+filenameformat+'"')
+    expires = 2.minutes.since.to_i
+    signature = Sndacs::Signature.generate_temporary_url_signature(:bucket => 'ktv-down',:resource => resource,:secret_access_key => Setting.snda_key,:expires_at => expires)
+    downurl = "http://storage-huabei-1.sdcloud.cn/ktv-down/#{resource}?SNDAAccessKeyId=#{Setting.snda_id}&Expires=#{expires}&Signature=#{signature}"
 # something like
 # http://storage-huabei-1.sdcloud.cn/ktv-down/1.zip?SNDAAccessKeyId=7HDL3HVT04F5RF6BRW90BJUXH&Expires=1342108303&Signature=Bwyy2k9lPqrmFB4%2BBpBV8q%2FDnzI%3D
-    end
     redirect_to downurl
   end
   def create

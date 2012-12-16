@@ -157,6 +157,25 @@ class Courseware
     'jpg' => ['jpg'],
     'jpeg' => ['jpeg'],
   }
+  SORTDOWNFILENAMES ={
+    'ppt' => ['ppt','pdf'],
+    'pptx' => ['pptx','pdf'],
+    'doc' => ['doc','pdf'],
+    'docx' => ['docx','pdf'],
+    'pdf' => ['#{self.ktvid}#{self.revision}.zip'],
+    'djvu' => [],
+    'webm'=> [],
+    'youku'=> [],
+    'tudou'=> [],
+    'youtube'=> [],
+    'books' => [],
+    'zip' => ['#{self.ktvid}#{self.revision}.zip'],
+    'rar' => ['rar'],
+    '7z' => ['7z'],
+    'png' => ['png'],
+    'jpg' => ['jpg'],
+    'jpeg' => ['jpeg'],
+  }
   alias_method :as_json_before_psvr,:as_json
   def as_json(opts={})
     {id:self.id,status:self.status,status_str:STATE_TEXT[STATE_SYM[self.status]],wh_ratio:self.wh_ratio,thin:self.thin?}

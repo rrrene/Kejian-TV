@@ -491,14 +491,14 @@
     $('body').animate({'padding-top':375},{duration: 500, queue:false});
     objective = $('#psvrsharedown_sorry')
     objective.html("\
-      <div class=\"int_signs\">\
+      <div class=\"int_signs\" style=\"top:88px\">\
       <div class=\"int_sign1_meng\">&nbsp;</div>      <div class=\"int_sign2_meng\">&nbsp;</div>      <div class=\"int_sign3_meng\">&nbsp;</div>\
-      <div class=\"int_sign1\"><a href=\"#\">您可以通过上传课件获得源源不断的课件销售积分收益 &raquo;</a></div>\
-      <div class=\"int_sign2\"><a href=\"#\">您可以把在其他课件台子站获得的积分转账到<%= Setting.ktv_subname %>课件台来使用 &raquo;</a></div>\
-      <div class=\"int_sign3\"><a href=\"#\">您可以拜访上传者的人人主页获得一次性的积分奖励 &raquo;</a></div>\
+      <div class=\"int_sign1\"><a href=\"/upload\" target=\"_blank\">您可以通过上传课件获得源源不断的课件销售积分收益 &raquo;</a></div>\
+      <div class=\"int_sign2\"><a href=\"/upload\" target=\"_blank\">您可以把在其他课件台子站获得的积分转账到<%= Setting.ktv_subname %>课件台来使用 &raquo;</a></div>\
+      <div class=\"int_sign3\"><a href=\"/upload\" target=\"_blank\">您可以拜访上传者的人人主页获得一次性的积分奖励 &raquo;</a></div>\
       </div>\
       <div class=\"__zm\" style=\"position:absolute;top:0;margin-left: 960px;\"><div class=\"dialog3\" style=\" position: absolute; \"><a class=\"js-close close\">关闭</a></div></div>\
-      <div class=\"pay_div\">\
+      <div class=\"pay_div\" style=\"display:none\">\
         <div class=\"txt\"><a href=\"/deposit\">同时，您可以使用支付宝或信用卡直接购买积分</a>.</div>\
         <a href=\"/deposit\" class=\"pays pay1\">支付宝</a><a href=\"/deposit\" class=\"pays pay2\">银联</a><a href=\"/deposit\" class=\"pays pay3\">Visa</a><a href=\"/deposit\" class=\"pays pay4\">American Express</a><a href=\"/deposit\" class=\"pays pay5\">Master Card</a><a href=\"/deposit\" class=\"pays pay6\">Diners Club International</a><a href=\"/deposit\" class=\"pays pay7\">JCB</a>\
       </div>\
