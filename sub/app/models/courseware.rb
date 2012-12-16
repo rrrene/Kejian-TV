@@ -970,6 +970,20 @@ class Courseware
   def get_ctext
     children = self.tree.to_s.scan(/"id"=>"[a-z0-9]{20,}",."text"=>"([^"]*)"/).flatten.compact
   end
+  def fix_father_pinpic!
+    min = nil
+    self.get_children.to_a.each do |f|
+      cw = Courseware.where(id:f).first
+      if f.present? and f.child_rank == 0
+        min = f.id
+      end
+    end
+    if min.nil?
+      min = self.get_children[0]
+      Courseware.find(min).ua(:child_rank,0)
+    end
+    Courseware.find(min).renqueue!
+  end
   def fix_children(fix_all = false)
     counting = 0
     self.get_children.each do |c|
