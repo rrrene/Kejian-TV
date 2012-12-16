@@ -32,8 +32,8 @@ class CoursewaresController < ApplicationController
       @pl_yigoumai = PlayList.locate(current_user.id,'已购买')
       @pl_yigoumai.add_one_thing(@courseware.id,true)
       @courseware.inc(:downloads_count,1)
-      User.get_credits(self.current_user.uid,true)
-      User.get_credits(self.@courseware.uploader.uid,true)
+      User.get_credits(current_user.uid,true)
+      User.get_credits(@courseware.uploader.uid,true)
     end
     dz_simple_render
   end
