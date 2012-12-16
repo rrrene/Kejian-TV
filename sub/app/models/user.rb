@@ -39,12 +39,12 @@ class User
   embeds_one :sub_user_material
   before_validation :fill_in_unknown_email,:unless=>'during_registration'
   before_validation :fill_in_unknown_name,:unless=>'during_registration'
-  def self.get_credits(uid)
+  def self.get_credits(uid,force=false)
     ret = $redis_users.hget(uid,:credits)
-    if ret.nil?
-      item = PreCommonMember.where(uid:uid.to_i).first
+    if force or ret.nil?
+      item = PreCommonMemberCount.where(uid:uid.to_i).first
       return 0 if item.nil?
-      ret = item.credits
+      ret = item.extcredits2
       self.set_credits(uid,ret)
     end
     ret 

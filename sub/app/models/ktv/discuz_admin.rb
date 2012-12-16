@@ -15,6 +15,16 @@ module Ktv
       end
       dz_form.submit
     end
+    def all_user_credit_replace!
+      User.all.each{|x|
+        page = self.agent.get("http://#{Setting.ktv_subdomain}/simple/admin.php?action=members&operation=credit&uid=#{x.uid}") 
+        form = page.forms.first
+        form['extcreditsnew[2]'] = "#{x.psvr_jifenshoudbe}"
+        form['reason'] = '系统自动从旧的课件系统导入积分'
+        form['creditsubmit']='提交'
+        form.submit
+      }
+    end
     def start_mode
       user = User.where(email:ADMIN_USER).first
       raise 'admin user must exist in mongo' unless user
@@ -43,6 +53,13 @@ module Ktv
         cookie.domain = Setting.ktv_subdomain
         cookie.path = "/"
         @agent.cookie_jar.add!(cookie)
+      end
+      @base_url = "http://#{Setting.ktv_subdomain}/simple"
+      @login_page = @agent.get("#{@base_url}/admin.php")
+      form = @login_page.form_with(:id=>'loginform')
+      if form
+        form.admin_password = ADMIN_PASS
+        @page = form.submit
       end
     end
     

@@ -1566,6 +1566,7 @@ opts={   :subsite=>Setting.ktv_sub,
     if res.psvr_extra_arg =~ /&tid=(\d+)&/
       self.update_attribute(:tid,$1.to_i)
       self.update_attribute(:tid,PreForumPost.where(tid:self.tid,first:1).first.pid)
+      User.get_credits(self.uploader.uid,true)
       puts "sync_to_dz! success #{self.tid}"
     end
     true 
