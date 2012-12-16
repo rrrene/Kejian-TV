@@ -76,7 +76,6 @@ class Courseware
     4 => :dealing_with_kids,
     5 => :matched_third_party_content,
     6 => :auditing,
-    7 => :unlisted,
     -1 => :error,
     -2 => :uniq_error,
     -3 => :win_error
@@ -89,7 +88,6 @@ class Courseware
     :dealing_with_kids => '正在转码子文件',
     :matched_third_party_content => '与第三方内容匹配',
     :auditing => '审核中',
-    :unlisted => '无可展示子文件',
     :error => '您上传的文件已损坏',
     :uniq_error=>'您上传的文件已存在',
     :win_error=>'您的文件含密码或为只读'
@@ -270,6 +268,7 @@ class Courseware
   field :pw
   field :md5
   field :status
+  field :sub_status,:type=>Integer,:default=>0 ## 0=>listed,1 => unlisted
   field :uploader_id
   field :uploader_id_candidates,:type=>Array,:default=>[]
   def uploader_ins
@@ -945,6 +944,11 @@ class Courseware
         papa.update_attribute(:status,0)
       else
         papa.update_attribute(:status,4)
+      end
+      if tmp.blank?
+        papa.ua(:sub_status,1)
+      else
+        papa.ua(:sub_status,0)
       end
       # @papa.update_attribute(:transcoding_count,@papa.transcoding_count - 1)
       # if @papa.transcoding_count <= 0
