@@ -18,7 +18,7 @@ class UncompressJob
             tmp = @courseware.tree.to_s.scan(/"id"=>"([a-z0-9]{20,})"/).compact.flatten
             tmp.each do |t|
               c = Courseware.find(t)
-              if c.redirect_to_id.present?
+              if !c.nil? and c.redirect_to_id.present?
                 c.soft_delete
                 c.delete
               end
@@ -29,6 +29,7 @@ class UncompressJob
           @courseware.ua(:tree,{})
           @courseware.update_attribute(:pdf_slide_processed,0)
           @working_dir = "/media/b/auxiliary_#{Setting.ktv_sub}/ftp/cw/#{@courseware.id}" #$psvr_really_production ? : "#{Rails.root}/simple/tmp/uncompress_#{Setting.ktv_sub}/#{@courseware.id}_#{sort}"
+          `rm -Rf #{@working_dir}/`
           uncom_path = "#{@working_dir}/#{@courseware.pdf_filename.gsub(".","_")}"
           `mkdir -p "#{@working_dir}"`
           `mkdir "#{uncom_path}"`
@@ -89,7 +90,7 @@ class UncompressJob
             end
             @courseware.save(:validate => false)
             if @courseware.get_children.blank?
-              @courseware.go_to_normal
+              @courseware.ua(:status,7)
             end
             # puts `rm -rf "#{@working_dir}"`
             return tree

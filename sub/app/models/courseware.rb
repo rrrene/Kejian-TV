@@ -922,7 +922,7 @@ class Courseware
       papa = Courseware.find(cw.father_id)
       tmp = papa.get_children
       tstatus = tmp.map{|x| Courseware.find(x)}.map(&:status).to_a
-      if tstatus.count(0)+tstatus.count(-1)+tstatus.count(-2)+tstatus.count(-3) == tmp.to_a.size
+      if (tstatus.count(0)+tstatus.count(-1)+tstatus.count(-2)+tstatus.count(-3)) == tmp.to_a.size
         papa.update_attribute(:status,0)
       else
         papa.update_attribute(:status,4)
@@ -930,6 +930,15 @@ class Courseware
       # @papa.update_attribute(:transcoding_count,@papa.transcoding_count - 1)
       # if @papa.transcoding_count <= 0
       # end
+    end
+  end
+  def self.orphan
+    cws = Courseware.where(:is_children => true)
+    cws.each do |f|
+      papa = Courseware.find(f.father_id)
+      if !papa.get_children.to_s.include?(f.id.to_s)
+        f.delete
+      end
     end
   end
   def get_children      # return Array
