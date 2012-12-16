@@ -2246,6 +2246,9 @@ $(function () {
     })
 });
 KTV.sdk_scrub = function () {
+  if(window.is_ie8){
+    return false;
+  }
     jQuery("a.scrub",'.__sdk').mousemove(function (a) {
         var b = jQuery(this),
             c = b.closest(".presentation"),
