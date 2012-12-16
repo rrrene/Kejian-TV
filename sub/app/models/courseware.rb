@@ -940,7 +940,7 @@ class Courseware
     if cw.is_children
       papa = Courseware.find(cw.father_id)
       tmp = papa.get_children
-      tstatus = tmp.map{|x| Courseware.find(x)}.map(&:status).to_a
+      tstatus = tmp.map{|x| Courseware.find(x)}.compact.map(&:status).to_a
       if (tstatus.count(0)+tstatus.count(-1)+tstatus.count(-2)+tstatus.count(-3)) == tmp.to_a.size
         papa.update_attribute(:status,0)
       else
@@ -965,20 +965,6 @@ class Courseware
   end
   def get_ctext
     children = self.tree.to_s.scan(/"id"=>"[a-z0-9]{20,}",."text"=>"([^"]*)"/).flatten.compact
-  end
-  def fix_father_pinpic!
-    min = nil
-    self.get_children.to_a.each do |f|
-      cw = Courseware.where(id:f).first
-      if f.present? and f.child_rank == 0
-        min = f.id
-      end
-    end
-    if min.nil?
-      min = self.get_children[0]
-      Courseware.find(min).ua(:child_rank,0)
-    end
-    Courseware.find(min).renqueue!
   end
   def fix_children(fix_all = false)
     counting = 0
@@ -1036,7 +1022,11 @@ class Courseware
   end
   def check_children(key,statusArray=[])
     self.get_children.each do |c|
-      w = Courseware.find(c)
+      w = Courseware.where(c).first
+      if w.nil?
+        puts "error!!!".colorize( :red )
+        next
+      end
       if statusArray.blank?
         puts w.id.to_s + ": ".to_s + w.send(key).to_s.colorize( :red )
       elsif statusArray == :abnormal
