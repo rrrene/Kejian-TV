@@ -41,7 +41,7 @@
 		$(this).parents('.upload-item').find('.metadata-privacy-settings').addClass('hid');
 		$(this).parents('.upload-item').find('.metadata-privacy-settings.metadata-'+$('option:selected',this).val()+'-settings').removeClass('hid');
 	})
-	item = new Array();
+	var item = new Array();
 	var loading = '<div class="addto-loading loading-content"><img src='+vfl3z5WfW+'><span>正在载入课件锦囊...</span></div>';
 	$('ul.tabs > li.tab-header').live('click',function(e){
 		if($(this).hasClass('selected')){
