@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
     # render text:text and return
     # puts "#{request.request_method} #{request.path} #{current_user ? current_user.uid : ''}"
     # p params
-    # binding.pry
+	  puts request.user_agent
   }
   if $psvr_really_production
     rescue_from Exception, with: :render_500
