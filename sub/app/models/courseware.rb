@@ -970,6 +970,37 @@ class Courseware
   def get_ctext
     children = self.tree.to_s.scan(/"id"=>"[a-z0-9]{20,}",."text"=>"([^"]*)"/).flatten.compact
   end
+  def self.fix_download_etc
+    Sidekiq::Client.enqueue(HookerJob,"Courseware",nil,:upload_zipfile_of_ppt_and_other,nil)
+  end
+  def self.upload_zipfile_of_ppt_and_other
+          cws = Courseware.where(:sort.in=>[/ppt/i,/pptx/i,/doc/i,/docx/i],:is_children=>false)
+          working_dir = "/media/b/auxiliary_ibeike/ftp/cw_upload"
+          cws.each do |cw|
+              puts "Uploading [#{cw.id}]#{cw.title}"
+              puts `mkdir -p #{working_dir}/#{cw.id}`
+              compressed_path = "#{working_dir}/#{cw.id}/#{cw.pdf_filename}"
+              puts `cp "#{cw.really_localpath}" "#{compressed_path}"`
+              zipfile="#{working_dir}/#{cw.id}/#{cw.id}#{cw.revision}.zip"
+              puts `zip -j "#{zipfile}" "#{compressed_path}"`
+              done = false 
+              psvr_count=0
+              while !done and psvr_count<10
+                psvr_count+=1
+                begin
+                  new_object = $snda_ktv_down.objects.build("#{cw.ktvid}#{cw.revision}.zip")
+                  new_object.content = open(zipfile)
+                  new_object.save
+                  done = true
+                rescue => e
+                  puts e
+                end
+              end
+              cw.update_attribute(:down_pdf_size,File.size(zipfile)/1000)
+          end
+  return true
+  end
+
   def fix_father_pinpic!
     min = nil
     self.get_children.to_a.each do |f|
