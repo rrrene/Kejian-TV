@@ -4,8 +4,8 @@ require 'zip/zip'
 require 'find'
 require 'fileutils'
 class UncompressJob
-  include Sidekiq::Worker
-  sidekiq_options :queue => :uncompressing
+    include Sidekiq::Worker
+    sidekiq_options :queue => :uncompressing
     def perform(id)
         @filter = ['pdf','djvu','ppt','pptx','doc','docx']
         @blacklist = ['git','svn','ds_store','exe','obj','db','app','jar']

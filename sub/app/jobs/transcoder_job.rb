@@ -31,7 +31,7 @@ class TranscoderJob
       `mkdir -p "#{working_dir}"`
       if @courseware.remote_filepath
         if [:ppt,:pptx,:doc,:docx].include? @courseware.sort.downcase.to_sym 
-          `cp /media/b/win_transcoding/#{@courseware.ktvid}.pdf "#{pdf_path}"`
+          `cp "/media/b/win_transcoding/#{@courseware.ktvid}.pdf" "#{pdf_path}"`
           if(!File.exists?(pdf_path))
             @courseware.update_attribute(:status,-3);return false
           end
@@ -207,9 +207,9 @@ class TranscoderJob
           if @courseware.is_children
             tmp_papa = Courseware.find(@courseware.father_id)
             `mkdir -p #{working_dir}/father`
-            `cp #{working_dir}/#{@courseware.revision}thumb_slide_0.jpg #{working_dir}/father/#{tmp_papa.revision}thumb_slide_#{@courseware.child_rank}.jpg`
+            `cp "#{working_dir}/#{@courseware.revision}thumb_slide_0.jpg" #{working_dir}/father/#{tmp_papa.revision}thumb_slide_#{@courseware.child_rank}.jpg`
             if @courseware.child_rank == 0
-                `cp #{working_dir}/#{@courseware.revision}#{@courseware.pinpicname} #{working_dir}/father/#{tmp_papa.revision}#{tmp_papa.pinpicname}`
+                `cp "#{working_dir}/#{@courseware.revision}#{@courseware.pinpicname}" "#{working_dir}/father/#{tmp_papa.revision}#{tmp_papa.pinpicname}"`
                 `#{Rails.root}/bin/ftpupyun_pic "#{working_dir}/father/" "/cw/#{tmp_papa.ktvid}/" "#{tmp_papa.revision}"`
             end
           end
