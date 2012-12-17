@@ -156,10 +156,10 @@ class Courseware
     'jpeg' => ['jpeg'],
   }
   SORTDOWNFILENAMES ={
-    'ppt' => ['ppt','pdf'],
-    'pptx' => ['pptx','pdf'],
-    'doc' => ['doc','pdf'],
-    'docx' => ['docx','pdf'],
+    'ppt' => ['#{self.ktvid}#{self.revision}.zip','pdf'],
+    'pptx' => ['#{self.ktvid}#{self.revision}.zip','pdf'],
+    'doc' => ['#{self.ktvid}#{self.revision}.zip','pdf'],
+    'docx' => ['#{self.ktvid}#{self.revision}.zip','pdf'],
     'pdf' => ['#{self.ktvid}#{self.revision}.zip'],
     'djvu' => [],
     'webm'=> [],
@@ -971,12 +971,14 @@ class Courseware
     children = self.tree.to_s.scan(/"id"=>"[a-z0-9]{20,}",."text"=>"([^"]*)"/).flatten.compact
   end
   def self.fix_download_etc
-    Sidekiq::Client.enqueue(HookerJob,"Courseware",nil,:upload_zipfile_of_ppt_and_other,nil)
+    cws = Courseware.where(:sort.in=>[/ppt/i,/pptx/i,/doc/i,/docx/i],:is_children=>false)
+    cws.each do |f| 
+       Sidekiq::Client.enqueue(Hooker2Job,"Courseware",nil,:upload_zipfile_of_ppt_and_other,f.id)
+    end
   end
-  def self.upload_zipfile_of_ppt_and_other
-          cws = Courseware.where(:sort.in=>[/ppt/i,/pptx/i,/doc/i,/docx/i],:is_children=>false)
-          working_dir = "/media/b/auxiliary_ibeike/ftp/cw_upload"
-          cws.each do |cw|
+  def self.upload_zipfile_of_ppt_and_other(id)
+    working_dir = "/media/b/auxiliary_ibeike/ftp/cw_upload"
+          cw = Courseware.find(id)
               puts "Uploading [#{cw.id}]#{cw.title}"
               puts `mkdir -p #{working_dir}/#{cw.id}`
               compressed_path = "#{working_dir}/#{cw.id}/#{cw.pdf_filename}"
@@ -997,8 +999,6 @@ class Courseware
                 end
               end
               cw.update_attribute(:down_pdf_size,File.size(zipfile)/1000)
-          end
-  return true
   end
 
   def fix_father_pinpic!

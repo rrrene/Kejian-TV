@@ -232,6 +232,9 @@ class ApplicationController < ActionController::Base
       :accept=>'raw'+Setting.dz_authkey,
       psvr_response_anyway: true
     })
+    puts res.to_s
+    puts res.to_s
+    puts res.to_s
     if res.to_s=~/window\.location\.href/
       set_dz_cookies!(res)
       current_user.update_attribute(:discuz_user_activated,true) if !current_user.discuz_user_activated
