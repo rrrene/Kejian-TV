@@ -69,3 +69,4 @@ build/
 /trunk/public/assets
 /trunk/public/tmp
 /trunk/public/uploads/tmp/
+.rbx/
