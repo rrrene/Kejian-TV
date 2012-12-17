@@ -33,10 +33,11 @@
 			<span class="yt-uix-button-content">阅读全部 </span>
 		</button>
 		<% end %>
+    <% if request.path != '/mine/my_bought' %>
 		<button role="button" class=" yt-uix-button yt-uix-button-default"  id="vm-playlist-remove-kejian" type="button" disabled="True">
 			<span class="yt-uix-button-content">删除</span>
 		</button>
-		
+		<% end %>
 		<% if request.path == '/mine/my_history' %>
 		<span class="yt-uix-overlay">
 			<button role="button"  class="yt-uix-overlay-target yt-uix-button yt-uix-button-default" type="button" <% if @list.content.size == 0 %> disabled="disabled" <% end %>>

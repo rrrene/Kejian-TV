@@ -525,9 +525,15 @@ User.all.map{|x| x.ua(:widget_sort,hash)}
       x=PlayList.find_or_create_by(user_id:self.id,title:'收藏')
       y=PlayList.find_or_create_by(user_id:self.id,title:'稍后阅读')
       z=PlayList.find_or_create_by(user_id:self.id,title:'历史记录')
+      z.update_attribute(:is_history,true)
+      z.update_attribute(:privacy,2)            #private##需要好友可见
+      g=PlayList.find_or_create_by(user_id:self.id,title:'已购买')
+      g.update_attribute(:privacy,2)    #private
+      g.update_attribute(:is_history,true)
       x.update_attribute(:undestroyable,true)
       y.update_attribute(:undestroyable,true)
       z.update_attribute(:undestroyable,true)
+      g.update_attribute(:undestroyable,true)
   end
   field :slug
   # field :fangwendizhi

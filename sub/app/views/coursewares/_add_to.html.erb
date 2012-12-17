@@ -65,7 +65,7 @@
         </div>
         <ul class="playlist-items">
 <% current_user.all_play_lists.desc(:undestroyable).asc(:title_en).each do |play_list| %>
-	<% if play_list.title !="历史记录" %>
+<% if !play_list.is_history %>
   	<%= render :partial => 'add_to_play_list',:locals=>{play_list:play_list} %>
 	<% end %> 
 <% end %>

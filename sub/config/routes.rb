@@ -24,6 +24,7 @@ Sub::Application.routes.draw do
   get '/mine/my_coursewares_copyright'
 	get '/mine/my_history'
 	get '/mine/my_search_history'
+  get '/mine/my_bought'
   get '/mine/my_watch_later_coursewares'
   get '/mine/my_favorites'
   get '/mine/my_liked_coursewares'
