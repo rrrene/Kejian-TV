@@ -1433,12 +1433,12 @@ opts={   :subsite=>Setting.ktv_sub,
   alias_method :redis_search_index_create_before_psvr,:redis_search_index_create
   alias_method :redis_search_index_need_reindex_before_psvr,:redis_search_index_need_reindex
   def redis_search_psvr_okay?
-    !self.soft_deleted? and 0==self.status and 0==self.privacy and self.title.present? and self.redis_search_alias.present?
+    !self.soft_deleted? and 0==self.status and 0==self.privacy and self.title.present? and self.redis_search_alias.present? and self.redirect_to_id.nil? and self.slides_count.try(:>,0) and self.is_father?
   end
   attr_accessor :force_redis_search_psvr_changed
   def redis_search_psvr_changed?
     return true if force_redis_search_psvr_changed
-    (self.deleted_changed? || self.status_changed? || self.privacy_changed?)
+    (self.deleted_changed? || self.status_changed? || self.privacy_changed? || self.slides_count_changed? || self.is_children_changed?)
   end
   def redis_search_index_need_reindex
     if !redis_search_psvr_okay?
