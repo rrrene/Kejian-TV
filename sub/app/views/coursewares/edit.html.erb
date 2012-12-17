@@ -6,6 +6,13 @@
 <% content_for :butt do %>
 	<%= javascript_include_tag "ktv/upload"%>
 <% end %>
+	
+<div class="__sdk" style="display:absolute">
+  <div class="edit_presentation_buttons">
+    <%= link_to '删除课件',courseware_path(@courseware),:method => :delete, :confirm => '您确认要删除这个课件吗？',:class => 'button delete delete_presentation' %>
+  </div>
+</div>
+
 <div id="the_upload_ytb" class='__ytb'>
 <div class="my_courseware_edit" id="page">
 	<div id="masthead-container">
@@ -53,7 +60,10 @@
 		  <div id="content">
 				<div class="editor-content upload-item">
 					<div id="video-header">
-						<div class="save-cancel-buttons">
+	
+  
+  
+  					<div class="save-cancel-buttons">
 							<button role="button" onclick=";window.location.href=this.getAttribute('href');return false;" class=" yt-uix-button yt-uix-button-default" type="button" href="/coursewares/<%= @courseware.id %>"><span class="yt-uix-button-content">取消 </span></button>
 							<button role="button" onclick=";return false;" class="save-changes-button yt-uix-button yt-uix-button-default" type="button" disabled=""><span class="yt-uix-button-content">已保存</span></button>
 						</div>

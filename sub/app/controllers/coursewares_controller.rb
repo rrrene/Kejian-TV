@@ -290,7 +290,7 @@ class CoursewaresController < ApplicationController
     prepare_s3
   end
   def destroy
-    @courseware.soft_delete
+    @courseware.soft_delete(true)
     redirect_to '/',:notice=>'已成功删除'
   end
   def download

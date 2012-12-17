@@ -233,6 +233,7 @@ module ApplicationHelper
   
   def owner?(item)
     return false if current_user.blank?
+    return true if Setting.admin_emails.include?(current_user.email)
     return true if [User::SUP_ADMIN,User::SUB_ADMIN].include?current_user.admin_type
     user_id = nil
     if Teacher == item.class
