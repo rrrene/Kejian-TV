@@ -232,7 +232,6 @@ class TranscoderJob
         logger_dirpath = "#{Rails.root}/log_#{Rails.env}"
         File.open("#{logger_dirpath}/need_to_delete.log", 'a+') {|f| f.write("#{working_dir}\n") }
         @courseware.go_to_normal unless @courseware.really_broken
-        @courseware.update_attribute(:gone_normal_at,Time.now)
         if @courseware.is_children
           Sidekiq::Client.enqueue(HookerJob,"Courseware",nil,:push_trigger,@courseware.id)
         end

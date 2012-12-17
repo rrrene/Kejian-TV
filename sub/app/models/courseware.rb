@@ -732,6 +732,7 @@ class Courseware
       end
     end
     if status_changed? && status_was != 0 && status == 0
+      self.gone_normal_at=Time.now
       if teachers_changed? && !teachers.blank?
         teachers.to_a.uniq.each do |a|
           next if a == "教师请求"
@@ -829,8 +830,6 @@ class Courseware
   end
   def go_to_normal
     self.update_attribute(:status,0)
-    self.tire.update_index
-    # insert_courseware_action_log('GONE_NORMAL')
   end
   def pinpic
     "cw/#{self.ktvid ? self.ktvid : self.id}/#{self.pinpicname}"
@@ -868,7 +867,7 @@ class Courseware
       coursewares = coursewares.where(:sort.in=>params[:sort].split('|'))
     end
     if 'all'==params[:order] or params[:order].blank?
-      coursewares = coursewares.desc('created_at')
+      coursewares = coursewares.desc('gone_normal_at')
     else
       coursewares = coursewares.desc('slides_count') if 'slides_count1'==params[:order]
       coursewares = coursewares.asc('slides_count') if 'slides_count0'==params[:order]

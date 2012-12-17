@@ -286,7 +286,7 @@ class PlayList
   def thumb_ktvids_op
     if self.undestroyable == true
         if self.title_changed? or self.desc_changed? or self.privacy_changed? or self.is_history_changed? or self.user_id_changed?
-            # return false
+             return false
         end
     end
     self.title_en = Pinyin.t self.title
