@@ -138,6 +138,8 @@ class AccountController < Devise::RegistrationsController
     return false
   end
   def new05
+    redirect_to '/'
+    return false
     @seo[:title] = '完成新用户注册'
     @simple_header=true
     @simple_header_width=840
@@ -183,6 +185,7 @@ class AccountController < Devise::RegistrationsController
       @service = Ktv::Consumers[@serv]
       self.send("bind_#{@serv}_prepare!")
       render "new050",layout:'application'
+      return true
     else
       if current_user.reg_extent < 10
         render "new051",layout:'application'
@@ -228,6 +231,7 @@ class AccountController < Devise::RegistrationsController
         end
         @departments = Department.desc('courses_count')
         render "new888",layout:'application'
+        return true
       end
     end
   end

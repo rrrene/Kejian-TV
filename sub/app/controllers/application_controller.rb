@@ -322,7 +322,7 @@ class ApplicationController < ActionController::Base
     '/welcome/inactive_sign_up',
     '/account/confirmation/new',
   ]
-  before_filter :unknown_user_check,:if=>'current_user'
+ # before_filter :unknown_user_check,:if=>'current_user'
   def unknown_user_check
     if !current_user.reg_extent_okay?
       unless ApplicationController::NO_REDIRECT_REQUEST_PATHs.include?(request.path) or request.path =~ /follow/

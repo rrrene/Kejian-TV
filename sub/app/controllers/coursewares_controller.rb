@@ -149,6 +149,8 @@ class CoursewaresController < ApplicationController
     @seo[:title] = '导入外站资源链接'
   end
   def new
+    render :text => '因为正在处理数据，上传功能，2-3天后内测。'
+    return false
     @seo[:title] = '上传课件'
     @c = Course.where(fid:params[:psvr_f].to_i).first
     if @c

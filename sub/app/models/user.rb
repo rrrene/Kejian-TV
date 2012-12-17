@@ -242,8 +242,42 @@ class User
   # P.S.V.R性能改善点，去掉validatable，防止['users'].find({:email=>"efafwfdlkjfdlsjl@qq.com"}).limit(-1).sort([[:_id, :asc]])查询
   ## Database authenticatable
   field :uid,:type=>Integer #UCenter
-  field :ibeike_uid #UCenter of iBeiKe
-  field :ibeike_slug #UCenter of iBeiKe
+  field :ibeike_uid
+  field :ibeike_slug
+  field :cnu_uid
+  field :cnu_slug
+  def self.cnu_user_import
+    CnuUsers.all.each{ |x|
+      x.nickname=x.xm.to_s.strip if x.nickname.blank?
+      x.nickname=x.email.split("@")[0].to_s.strip if x.nickname.blank?
+      next if x.email.blank?
+      u=User.where(email:x.email).first
+      if !u
+        u=User.new
+        u.email=x.email
+        u.name="_#{x.nickname}"
+        u.during_registration = false
+        u.name_unknown = false
+        u.email_unknown = false
+        resource=u
+        u.save(:validate=>false)
+        ret = UCenter::User.register(nil,{
+          username:resource.slug,
+          password:x.encrypted_password,
+          email:resource.email,
+          regip:x.last_sign_in_ip,
+          psvr_force:'1'
+        })
+        if ret.xi.to_i>0
+          resource.update_attribute(:uid,ret.xi.to_i)
+        else
+          raise '注册UC同步注册错误！！！猿快来看一下！'
+        end
+        puts u.name
+      end
+    }
+  end
+
   field :discuz_pw #DZ
   field :reputation,:type=>Integer,:default=>0
   field :regip
@@ -515,6 +549,7 @@ User.all.map{|x| x.ua(:widget_sort,hash)}
   field :created_from_mobile, :type => Integer, :default=>0
   field :name
   def name_beautified
+    name=self.name.to_s
     @name_beautified ||= ('_'==name[0] ? name[1..-1] : name)
   end
   def title
@@ -710,6 +745,17 @@ User.all.map{|x| x.ua(:widget_sort,hash)}
         end
       end
     end
+  end
+  def self.name_shibushi_zhenshide
+    User.all.each{|x|
+      if Ktv::Renren.name_okay?(x.name_beautified) 
+        puts "#{x.name} okay"
+        x.update_attribute(:name,x.name[1..-1]) if '_'==x.name[0]
+      else
+        puts "#{x.name} bad"
+        x.update_attribute(:name,"_#{x.name}") unless '_'==x.name[0]
+      end
+    }
   end
   # validate :vali_lingyu_check
   def vali_lingyu_check

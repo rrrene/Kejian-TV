@@ -265,9 +265,9 @@ function () {
             return s
         }, t.prototype.url = function () {
           if (this.cw_revision) {
-            return "/embed/" + this.courseware_slug + "/revisions/" + this.cw_revision + "?force_biji="+this.force_biji+ "&force_alt="+this.force_alt+"&" + this.toParam();
+            return "http://ibeike.kejian.tv/embed/" + this.courseware_slug + "/revisions/" + this.cw_revision + "?force_biji="+this.force_biji+ "&force_alt="+this.force_alt+"&" + this.toParam();
           }else{
-            return "/embed/" + this.courseware_slug + "?force_biji="+this.force_biji+ "&force_alt="+this.force_alt+'&' + this.toParam();
+            return "http://ibeike.kejian.tv/embed/" + this.courseware_slug + "?force_biji="+this.force_biji+ "&force_alt="+this.force_alt+'&' + this.toParam();
           }
         }, t.prototype.toParam = function () {
             var e, t;

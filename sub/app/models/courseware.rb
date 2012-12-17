@@ -180,15 +180,17 @@ class Courseware
   end
   def asynchronously_clean_me
     bad_ids = [self.id]
-    self.user.inc(:coursewares_count,-1) if self.user
-    self.uploader.inc(:coursewares_uploaded_count,-1) if self.uploader
-    self.teachers.each do |x|
-      Teacher.locate(x).inc(:coursewares_count,-1)
+    if self.is_father?
+      self.user.inc(:coursewares_count,-1) if self.user
+      self.uploader.inc(:coursewares_uploaded_count,-1) if self.uploader
+      self.teachers.each do |x|
+        Teacher.locate(x).inc(:coursewares_count,-1)
+      end
+      cw = Course.where(fid:self.course_fid).first
+      cw.inc(:coursewares_count,-1) if cw
+      dep = Department.where(fid:self.department_fid).first
+      dep.inc(:coursewares_count,-1) if dep
     end
-    cw = Course.where(fid:self.course_fid).first
-    cw.inc(:coursewares_count,-1) if cw
-    dep = Department.where(fid:self.department_fid).first
-    dep.inc(:coursewares_count,-1) if dep
     
     thanked = false
     User.where(:thanked_courseware_ids=>self.id).each do |u|
@@ -262,8 +264,6 @@ class Courseware
   field :pid,:type=>Integer, :default => 0
   field :author # slug
   field :ktvid
-  field :legacy_ibeike
-  field :legacy_cnu
   field :have_pw,:type=>Boolean,:default=>false
   field :pw
   field :md5
@@ -426,10 +426,70 @@ class Courseware
   #-=xunlei=-
   embeds_many :notes
   field :xunlei_url
+  field :cnu_id
+  field :cnu_id2
+  field :cnu_uid
+  field :cnu_uname
   field :ibeike_id
   field :ibeike_id2
   field :ibeike_uid
   field :ibeike_uname
+  def self.cnu_import1
+    ret=[]
+    CnuAssets.where(data_content_type:"application/pdf").each{|x|
+      cc=CnuCoursewares.find(x.courseware_id)
+      tch=CnuTeachers.find(cc.teacher_id)
+      ccc=CnuCourses.find(cc.course_id)
+      cccc=CnuInstitutes.find(ccc.institute_id)
+      uuu=CnuUsers.find(cc.user_id)
+
+      real_dpt = Department.where(name:cccc.name).first
+      if !real_dpt
+        real_dpt = Department.new
+        real_dpt.name = cccc.name
+        real_dpt.save(:validate=>false)
+      end
+      raise 'ahhhhh' unless real_dpt.fid > 0
+      real_c = Course.where(name:ccc.name,department_fid:real_dpt.fid).first
+      if !real_c
+        real_c = Course.new
+        real_c.name = ccc.name
+        real_c.department_fid=real_dpt.fid
+        real_c.save(:validate=>false)
+      end
+      raise 'ahhhhh' unless real_c.fid > 0
+      real_u = User.where(email:uuu.email).first
+      raise 'ahh' unless real_u
+      cw=Courseware.where(cnu_id:x.id,cnu_id2:x.courseware_id).first
+      cw||=Courseware.new
+      if x.id>1000
+      ret<< [cw.id,"/Volumes/latest/data/000/001/#{tch.name}/#{cc.title}/#{x.data_file_name}"]
+      else
+      ret<< [cw.id,"/Volumes/latest/data/000/000/#{tch.name}/#{cc.title}/#{x.data_file_name}"]
+      end
+      next
+      cw.uploader_id = real_u.id
+      cw.cnu_id=x.id
+      cw.cnu_id2=x.courseware_id
+      cw.title="#{cc.title}#{File.basename(x.data_file_name)}"
+      cw.teachers=[tch.name]
+      cw.course_fid=real_c.fid
+      # klass: 1 讲义 2作业 3复习资料 4往年试卷 5课堂录像  
+      #
+      srotttt = {
+            1=>'lecture_notes' ,
+                2=>'assignments' ,
+                    4=>'exams',
+                        5=>'videos' ,
+                            3=>'materials' ,
+                              }
+      cw.sort1=srotttt[cc.klass]
+      cw.downloads_count=cc.purchases_count  
+      cw.save(:validate=>false)
+      cw.ua(:created_at,cc.created_at)
+    } 
+    ret
+  end
   belongs_to :user
   cache_consultant :title
   before_validation :titleize
@@ -600,29 +660,7 @@ class Courseware
     @user = nil if self.user_id_changed?
     @user ||= User.where(:_id => self.user_id).first
   end
-  before_save :create_stuff!,:if=>'self.title_changed?'
-  def create_stuff!
-    self.is_thin = self.thin?
-    if self.school_name.present?
-      school = School.find_or_create_by(:name => self.school_name)
-      user = User.find_or_initialize_by(:school_id => school.id, :name => self.user_name)
-      if user.new_record?
-        user.email_unknown = true
-        user.save(:validate => false)
-      end
-      self.school_id = school.id
-      self.user_id = user.id
-    elsif self.user_id.blank?
-      self.user_id = self.uploader_id
-    end
-  end
-  before_save :create_topic!,:if=>'self.topic_changed?'
-  def create_topic!
-    topic = Topic.find_or_create_by(:name => self.topic)
-    self.topic_id = topic.id
-    self.topics = topic.ancestors
-  end
-  before_save :counter_work
+  before_save :counter_work,:if=>'self.is_father?'
   def update_pl
     pls = PlayList.where(:content=>self.id)
     pls.each do |pl|
@@ -674,7 +712,7 @@ class Courseware
       end
     end
   end  
-  before_save :course_work
+  before_save :course_work,:if=>'self.is_father?'
   def course_work
     if course_fid_changed? 
       if !new_record? and !course_fid_was.nil?
@@ -711,7 +749,7 @@ class Courseware
     end
   end
 
-  before_save :teachers_work
+  before_save :teachers_work,:if=>'self.is_father?'
   def teachers_work
     if status_changed? && status_was !=0 && status != 0
       # return
