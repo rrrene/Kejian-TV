@@ -63,9 +63,9 @@ module BaseModel
         def self.set_#{child}(id,val)
           #{opts[:redis_varname]}.hset(id,:#{child},val)
         end
-        def self.get_#{child}(id)
+        def self.get_#{child}(id,force=false)
           ret = #{opts[:redis_varname]}.hget(id,:#{child})
-          if ret.nil?
+          if ret.nil? || force
             item = #{self.name.to_s}.where(:#{(opts[:from_what] == :id) ? '_id' : opts[:from_what]}=>id).first
             return nil if item.nil? or 1==item.deleted
             ret = item.#{child}
