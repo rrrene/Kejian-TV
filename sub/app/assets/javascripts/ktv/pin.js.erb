@@ -2607,7 +2607,7 @@ jQuery.cookie = function (b, k, n) {
                 sta = this.checkCn(str)
             }
             var len = this.checkLength($(obj).val());
-            if (5 < len && len < 17 && sta) {
+            if (5 < len && len < 97 && sta) {
                 if (str.indexOf(" ") == -1) {
                     if (type) {
                         this.thisObjTrue(obj)
@@ -2625,7 +2625,7 @@ jQuery.cookie = function (b, k, n) {
                     sta = false;
                     this.thisObjError(obj, "密码不能为空")
                 } else {
-                    this.thisObjError(obj, "密码为6～16个字母、数字或符号，区分大小写！");
+                    this.thisObjError(obj, "密码为6～96个字母、数字或符号，区分大小写！");
                     sta = false
                 }
             }
@@ -4689,7 +4689,7 @@ im.zm.login = function () {
     	'<td class="tdleft">密码：</td>',
     	'<td class="tdpassword">',
     	'<span class="ioginInput">',
-    	'<span class="innerborder"><input type="password" maxlength="16" class="deftest" id="userPassword" name="userPassword" onfocus="im.user.validate.thisFocus(this , \'请输入密码\');"  onblur="im.user.validate.checkPassword(this , false);"/></span>',
+    	'<span class="innerborder"><input type="password" class="deftest" id="userPassword" name="userPassword" onfocus="im.user.validate.thisFocus(this , \'请输入密码\');"  onblur="im.user.validate.checkPassword(this , false);"/></span>',
     	"</span>",
     	'<span class="errortips" id="errortips2"></span>',
     	"</td>",

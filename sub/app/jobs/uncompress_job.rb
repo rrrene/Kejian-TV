@@ -215,7 +215,7 @@ class UncompressJob
       ## end child
 
       if ['ppt','pptx','doc','docx'].include? opts[:sort].downcase
-        p[:remote_filepath]="http://special_agentx.#{Setting.ktv_domain}/#{@courseware.id}#{rest}"
+        p[:remote_filepath]="http://special_agent#{Setting.ktv_subname=='ibeike' ? 'x' : "_#{Setting.ktv_subname}"}.#{Setting.ktv_domain}/#{@courseware.id}#{rest}"
       else
         p[:remote_filepath]=opts[:filepath]
       end

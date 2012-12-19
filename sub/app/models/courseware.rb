@@ -93,7 +93,7 @@ class Courseware
     :win_error=>'您的文件含密码或为只读'
   }
   
-  scope :normal, where(:status.in => [0,7])
+  scope :normal, where(:status => 0)
   scope :has_ktv_id,where(:ktvid.nin=>[nil,''])
   scope :non_redirect,where(:redirect_to_id => nil)
   scope :is_father,where(:is_children.ne=>true) #liber add,:injected_count.ne=>0
@@ -434,20 +434,29 @@ class Courseware
   field :ibeike_id2
   field :ibeike_uid
   field :ibeike_uname
-  def self.cnu_import1
+  def self.cnu_import2
     ret=[]
-    CnuAssets.where(data_content_type:"application/pdf").each{|x|
+    CnuAssets.where('data_content_type="application/msword" or data_content_type="application/vnd.ms-powerpoint"').each{|x|
       cc=CnuCoursewares.find(x.courseware_id)
       tch=CnuTeachers.find(cc.teacher_id)
       ccc=CnuCourses.find(cc.course_id)
-      cccc=CnuInstitutes.find(ccc.institute_id)
       uuu=CnuUsers.find(cc.user_id)
 
-      real_dpt = Department.where(name:cccc.name).first
-      if !real_dpt
-        real_dpt = Department.new
-        real_dpt.name = cccc.name
-        real_dpt.save(:validate=>false)
+      if ccc.institute_id
+        cccc=CnuInstitutes.find(ccc.institute_id)
+        real_dpt = Department.where(name:cccc.name).first
+        if !real_dpt
+          real_dpt = Department.new
+          real_dpt.name = cccc.name
+          real_dpt.save(:validate=>false)
+        end
+      else
+        real_dpt = Department.where(name:'其它').first
+        if !real_dpt
+          real_dpt = Department.new
+          real_dpt.name = '其它'
+          real_dpt.save(:validate=>false)
+        end
       end
       raise 'ahhhhh' unless real_dpt.fid > 0
       real_c = Course.where(name:ccc.name,department_fid:real_dpt.fid).first
@@ -457,17 +466,11 @@ class Courseware
         real_c.department_fid=real_dpt.fid
         real_c.save(:validate=>false)
       end
-      raise 'ahhhhh' unless real_c.fid > 0
-      real_u = User.where(email:uuu.email).first
-      raise 'ahh' unless real_u
+      binding.pry unless real_c.fid > 0
+      real_u = User.where(email:uuu.email.downcase).first
+      binding.pry unless real_u
       cw=Courseware.where(cnu_id:x.id,cnu_id2:x.courseware_id).first
       cw||=Courseware.new
-      if x.id>1000
-      ret<< [cw.id,"/Volumes/latest/data/000/001/#{tch.name}/#{cc.title}/#{x.data_file_name}"]
-      else
-      ret<< [cw.id,"/Volumes/latest/data/000/000/#{tch.name}/#{cc.title}/#{x.data_file_name}"]
-      end
-      next
       cw.uploader_id = real_u.id
       cw.cnu_id=x.id
       cw.cnu_id2=x.courseware_id
@@ -487,6 +490,11 @@ class Courseware
       cw.downloads_count=cc.purchases_count  
       cw.save(:validate=>false)
       cw.ua(:created_at,cc.created_at)
+      if x.id>1000
+      ret<< [cw.id,"/Volumes/latest/data/000/001/#{tch.name}/#{cc.title}/#{x.data_file_name}"]
+      else
+      ret<< [cw.id,"/Volumes/latest/data/000/000/#{tch.name}/#{cc.title}/#{x.data_file_name}"]
+      end
     } 
     ret
   end
