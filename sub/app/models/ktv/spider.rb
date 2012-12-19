@@ -130,10 +130,6 @@ module Ktv
           @th_curl.each_with_index do |url,index|
             @driver.navigate.to(url)
             (1..@page_count[index]).each do |num|
-              if @driver.find_elements(:link_text,'下一页').present?
-                nextBtn = @driver.find_element(:link_text,'下一页')
-                nextBtn.click
-              end
               wait = Selenium::WebDriver::Wait.new(:timeout => 10) # seconds
               wait.until { @driver.find_element(:id,'tag50.layout/data').displayed? }
               block = @driver.find_element(:id,'tag50.layout/data')
@@ -198,6 +194,10 @@ module Ktv
                       END
                 puts @cmd
                 puts ""
+                if @driver.find_elements(:link_text,'下一页').present?
+                  nextBtn = @driver.find_element(:link_text,'下一页')
+                  nextBtn.click
+                end
                 # department = Department.find_or_create_by(name:dep_name)
                 # course = Course.find_or_create_by(number:psvr_clean(c_num))
                 # course.name = psvr_clean(c_name)
