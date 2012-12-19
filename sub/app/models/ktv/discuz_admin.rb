@@ -17,12 +17,13 @@ module Ktv
     end
     def all_user_credit_replace!
       User.all.each{|x|
-        page = self.agent.get("http://#{Setting.ktv_subdomain}/simple/admin.php?action=members&operation=credit&uid=#{x.uid}") 
+        page = self.agent.get("http://#{Setting.ktv_subdomain}/simple/admin.php?action=members&operation=credit&uid=#{x.uid}")
         form = page.forms.first
         form['extcreditsnew[2]'] = "#{x.psvr_jifenshoudbe}"
         form['reason'] = '系统自动从旧的课件系统导入积分'
         form['creditsubmit']='提交'
         form.submit
+        User.get_credits(x.uid,true)
       }
     end
     def start_mode

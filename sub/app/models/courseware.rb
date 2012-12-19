@@ -213,7 +213,7 @@ class Courseware
     Util.del_propogate_to(Comment,:_id,self.comments.collect(&:id))
     if self.tree.present?
       self.get_children.each do |child|
-        child
+        child.soft_delete
       end
     end
   end
@@ -1650,7 +1650,7 @@ opts={   :subsite=>Setting.ktv_sub,
   }
   after_save :sync_to_dz!
   def sync_to_dz_okay?
-    self.is_father? and self.title.present? and self.uploader.discuz_user_activated and self.course_fid.try(:>,0)
+    self.is_father? and self.title.present? and self.try(:uploader).try(:discuz_user_activated) and self.course_fid.try(:>,0)
   end
   def sync_to_dz_changed?
     self.title_changed? or self.uploader_id_changed?
@@ -1694,7 +1694,7 @@ opts={   :subsite=>Setting.ktv_sub,
     })
     if res.psvr_extra_arg =~ /&tid=(\d+)&/
       self.update_attribute(:tid,$1.to_i)
-      self.update_attribute(:tid,PreForumPost.where(tid:self.tid,first:1).first.pid)
+      self.update_attribute(:pid,PreForumPost.where(tid:self.tid,first:1).first.pid)
       User.get_credits(self.uploader.uid,true)
       puts "sync_to_dz! success #{self.tid}"
     end
