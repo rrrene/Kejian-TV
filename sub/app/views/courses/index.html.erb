@@ -32,7 +32,7 @@
           <%=link_to item.number ? "[#{item.number}] #{item.name}" : item.name,"/courses/#{item.fid}",class:'psvr'%> 
         </td>
         <td>  
-          <%= link_to item.department,"/departments/#{Department.get_fid(item.department)}"%>
+          <%= link_to item.department_name,"/departments/#{item.department_fid}"%>
         </td>
         <td>  
           <% item.teachings.each do |teaching| %>

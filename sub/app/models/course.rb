@@ -17,6 +17,17 @@ class Course
     redis_search_psvr_was_delete!
   }
   field :department_fid
+  def fix_department_fid
+    if self.respond_to?(:department)
+      d=Department.where(name:self.department).first
+      if !d
+        d=Department.new
+        d.name=self.department
+        d.save(:validate=>false)
+      end
+      self.ua(:department_fid,d.fid)
+    end
+  end
   def department_ins
     @department = nil if self.department_fid_changed?
     @department ||= Department.where(:fid=>self.department_fid).first
