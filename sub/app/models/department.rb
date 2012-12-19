@@ -28,6 +28,7 @@ class Department
   field :courses_count,:type=>Integer,:default=>0
   field :coursewares_count,:type=>Integer,:default=>0
   field :play_lists_count,:type=>Integer,:default=>0
+  field :college,:type=>Array,:default=>[]
   def gotfid?
     ret = self.fid.try(:>,0)
     !!ret

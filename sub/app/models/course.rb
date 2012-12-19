@@ -55,7 +55,7 @@ class Course
   field :years,:type=>Array,:default=>[]
   
   field :eng_name
-  field :credit
+  field :credit   #学分
   field :credit_hours
   field :jiaoxuefs
   field :neirongjianjie
