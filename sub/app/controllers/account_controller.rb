@@ -138,8 +138,10 @@ class AccountController < Devise::RegistrationsController
     return false
   end
   def new05
-    redirect_to '/'
-    return false
+    if 'cnu'!=Setting.ktv_sub
+      redirect_to '/'
+      return false
+    end
     @seo[:title] = '完成新用户注册'
     @simple_header=true
     @simple_header_width=840

@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
     # render text:text and return
     # puts "#{request.request_method} #{request.path} #{current_user ? current_user.uid : ''}"
     # p params
-	  puts request.user_agent
+	  # puts request.user_agent
   }
   if $psvr_really_production
     rescue_from Exception, with: :render_500
@@ -322,7 +322,7 @@ class ApplicationController < ActionController::Base
     '/welcome/inactive_sign_up',
     '/account/confirmation/new',
   ]
- # before_filter :unknown_user_check,:if=>'current_user'
+ before_filter :unknown_user_check,:if=>'current_user && "cnu"==Setting.ktv_sub'
   def unknown_user_check
     if !current_user.reg_extent_okay?
       unless ApplicationController::NO_REDIRECT_REQUEST_PATHs.include?(request.path) or request.path =~ /follow/

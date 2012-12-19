@@ -70,7 +70,7 @@ module Ktv
             end
           end
           data={}
-          data['body'] = "来#{Setting.ktv_subname}课件台玩玩吧！http://#{Setting.ktv_subdomain}/"
+          data['body'] = "来#{Setting.ktv_subname}课件台玩玩吧：）http://#{Setting.ktv_subdomain}/"
           data['_rtk'] = renren__rtk
           data['requestToken'] = renren_requestToken
           data['only_to_me']='1'
