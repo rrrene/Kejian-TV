@@ -480,9 +480,9 @@ describe Courseware do
     user_n.save(:validate=>false)
     pl1 = PlayList.locate(@user1.id,"PL#{Time.now.to_i}#{rand}")
     pl2 = PlayList.locate(user_n.id,"PL#{Time.now.to_i}#{rand}")
-    cw_kid1 = Courseware.new;cw_kid1.is_children=true;cw_kid1.save(:validate=>false)
-    cw_kid2 = Courseware.new;cw_kid2.is_children=true;cw_kid2.save(:validate=>false)
-    cw_kid3 = Courseware.new;cw_kid3.is_children=true;cw_kid3.save(:validate=>false)
+    cw_kid1 = Courseware.new;cw_kid1.is_children=true;cw_kid1.uploader_id=user_n.id;cw_kid1.save(:validate=>false)
+    cw_kid2 = Courseware.new;cw_kid2.is_children=true;cw_kid1.uploader_id=user_n.id;cw_kid2.save(:validate=>false)
+    cw_kid3 = Courseware.new;cw_kid3.is_children=true;cw_kid1.uploader_id=user_n.id;cw_kid3.save(:validate=>false)
     crazy_cw = Courseware.new
     crazy_cw.tree = {
       "id" => 0, "item" => [{
@@ -561,7 +561,6 @@ describe Courseware do
     assert 0 == user_n.coursewares_uploaded_count,'just like new'
     assert 0 == user_n.thank_count,'just like new'
     assert 0 == user_n.dislike_count,'just like new'
-    binding.pry if b11 - 1 != t1.coursewares_count
     assert b11 - 1 == t1.coursewares_count,'撤销老师1的课件计数'
     assert b12 - 1 == t2.coursewares_count,'撤销老师2的课件计数'
     assert b13 - 1 == t3.coursewares_count,'撤销老师3的课件计数'

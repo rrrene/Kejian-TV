@@ -5,6 +5,7 @@ module Ktv
     extend Ktv::Helpers::Config
     include Ktv::Helpers::Config
     include Shared::MechanizeParty
+    require "selenium-webdriver"
     def self.testcnu!
       cnu = Ktv::Spider.new
       cnu.start_mode(:cnu,'1090500165','pmqpmq55')
@@ -39,6 +40,12 @@ module Ktv
       ruc.start_mode(:ruc,'2009201692','zjx1990726')
       ruc.ruc_snatch_all_course_department(is_all)
     end
+    def self.killth
+      th = Ktv::Spider.new
+      th.start_mode(:th,'2009011394','aqjames214')
+      th.th_dep_import
+      th.th_course_import
+    end
 
     def start_mode(mode,username,password)
       @mode = mode
@@ -62,12 +69,159 @@ module Ktv
       when :buaa
         @base_url = 'http://jiaohu.buaa.edu.cn/G2S/ShowSystem/CourseList.aspx?OrgID='
       when :ruc
-        @base_url = '/Users/Liber/Desktop/ruc/ruc.htm'
-        @base_url2010_2021 = '/Users/Liber/Desktop/ruc/s_xuanke.htm'
-        @base_url2005_2021 = '/Users/Liber/Desktop/ruc/xuanke.htm'
+        # @base_url = '/Users/Liber/Desktop/ruc/ruc.htm'
+        # @base_url2010_2021 = '/Users/Liber/Desktop/ruc/s_xuanke.htm'
+        # @base_url2005_2021 = '/Users/Liber/Desktop/ruc/xuanke.htm'
+        @base_url = '/root/ruc/ruc.htm'
+        @base_url2010_2021 = '/root/ruc/s_xuanke.htm'
+        @base_url2005_2021 = '/root/ruc/xuanke.htm'
+      when :th
+        @th_vpn = 'https://sslvpn.tsinghua.edu.cn/dana-na/auth/url_default/welcome.cgi'
+        @th_vpn_url = 'https://sslvpn.tsinghua.edu.cn/dana-na/auth/url_default/login.cgi'
+        @th_vpn_starter = "https://sslvpn.tsinghua.edu.cn/dana/home/starter0.cgi"
+        @th_welcome = 'https://sslvpn.tsinghua.edu.cn/dana/home/index.cgi'
+        @th_door = 'https://sslvpn.tsinghua.edu.cn/dana/home/launch.cgi?url=http%3A%2F%2Fportal.tsinghua.edu.cn%2Findex.jsp'
+        
+        @th_xk = 'https://sslvpn.tsinghua.edu.cn:11001/xkBks.vxkBksJxjhBs.do'
+        @th_sy = 'https://sslvpn.tsinghua.edu.cn:11001/syxk.v_syxk_syrw_ejkc_bs.do'
+        @th_first1_url = 'https://sslvpn.tsinghua.edu.cn:11001/xkBks.vxkBksJxjhBs.do?m=kkxxSearch&p_xnxq=2012-2013-1&pathContent=%D2%BB%BC%B6%BF%CE%BF%AA%BF%CE%D0%C5%CF%A2'
+       @th_first2_url = 'https://sslvpn.tsinghua.edu.cn:11001/xkBks.vxkBksJxjhBs.do?m=kkxxSearch&p_xnxq=2012-2013-2&pathContent=%D2%BB%BC%B6%BF%CE%BF%AA%BF%CE%D0%C5%CF%A2'
+        @th_second1_url = 'https://sslvpn.tsinghua.edu.cn:11001/syxk.v_syxk_syrw_ejkc_bs.do?m=sykSearch&p_xnxq=2012-2013-1&pathContent=%B6%FE%BC%B6%BF%CE%BF%AA%BF%CE%D0%C5%CF%A2'
+        @th_second2_url = 'https://sslvpn.tsinghua.edu.cn:11001/syxk.v_syxk_syrw_ejkc_bs.do?m=sykSearch&p_xnxq=2012-2013-2&pathContent=%B6%FE%BC%B6%BF%CE%BF%AA%BF%CE%D0%C5%CF%A2'
+        @th_curl =[@th_first1_url,@th_first2_url,@th_second1_url,@th_second2_url]
+        @page_count = [196,181,10,9]
+        # @page_count = [3,3,3,3]
+        @years = ["2012-2013-1","2012-2013-2","2012-2013-1","2012-2013-2"]
+        @c_typpe = ["一级课秋学期","一级课春学期","二级课秋学期","二级课春学期"]
+        @th_dep_url = 'http://zh.wikipedia.org/wiki/Template:%E6%B8%85%E5%8D%8E%E5%A4%A7%E5%AD%A6/%E9%99%A2%E7%B3%BB'
+        @th_dep = ["建筑学院","土木水利学院","机械工程学院","航天航空学院","信息科学技术学院","理学院","生命科学学院","环境学院","电机工程与应用电子技术系","材料科学与工程系","工程物理系","化学工程系","经济管理学院","公共管理学院","马克思主义学院","人文学院","社会科学学院","法学院","新闻与传播学院","五道口金融学院","美术学院设计分部","美术学院美术分部","美术学院史论分部","医学院","核能与新能源技术研究院","高等研究院","周培源应用数学研究中心","教育研究院","交叉信息研究院","深圳研究生院","体育部","艺术教育中心","继续教育学院"]
+        @th_used_dep = ["建筑学院","建筑系","土木系","水利系","环境学院","机械系","精仪系","热能系","汽车系","工业工程","信息学院","电机系","电子系","计算机系","自动化系","微纳电子系","航院","工物系","化工系","材料系","数学系","物理系","化学系","生命学院","地球科学中心","交叉信息院","高研院","周培源应","经管学院","公共管理","金融学院","人文社科学院","中文系","外文系","法学院","新闻学院","马克思主义学院","人文学院","社科学院","体育部","电教中心","图书馆","艺教中心","美术学院","土水学院","建管系","建筑技术","核研院","教研院","网络中心","训练中心","电工电子中心","宣传部","学生部","武装部","研究生院","深研生院","校医院","医学院","生医系","软件学院","二级课"]
+        @driver = Selenium::WebDriver.for :firefox
+        @driver.navigate.to @th_vpn
+        
+        user = @driver.find_element(:name, 'username')
+        user.send_keys username
+        pass = @driver.find_element(:name, 'password')
+        pass.send_keys password
+        pass.submit
+        puts "Login...".colorize :green
+        if @driver.find_elements(:name,'btnContinue').present?
+          con = @driver.find_element(:name,'btnContinue')
+          con.click
+          puts "Continue...".colorize :green
+        end
+        wait = Selenium::WebDriver::Wait.new(:timeout => 10) # seconds
+        wait.until { @driver.find_element(:link_text,'清华大学信息门户').displayed? }
+        qing = @driver.find_element(:link_text,'清华大学信息门户')
+        qing.click
+        puts "Waiting for page loading...".colorize :green
+        sleep 10
+        puts "Data is ready.".colorize :green
       end
     end
-
+    def th_dep_import
+      @th_used_dep.each do |f|
+        # department = Department.find_or_create_by(name:f)
+        puts %Q{Department.find_or_create_by(name:"#{f}")}
+      end 
+    end
+    def th_course_import
+      begin
+          @th_curl.each_with_index do |url,index|
+            @driver.navigate.to(url)
+            (1..@page_count[index]).each do |num|
+              wait = Selenium::WebDriver::Wait.new(:timeout => 10) # seconds
+              wait.until { @driver.find_element(:id,'tag50.layout/data').displayed? }
+              block = @driver.find_element(:id,'tag50.layout/data')
+              block.all(:css,'.active-templates-row.active-grid-row.active-list-item.gecko').each do |line|
+                ln =[]
+                line.all(:css,'.active-templates-text.active-row-cell.active-grid-column').each_with_index do |cell,cin|
+                  ln << cell
+                end
+                ### ln
+                # => 0=>开课院系                  undifined
+                # => 1=>课程号                    二级课安排
+                # => 2=>课序号                    课程号
+                # => 3=>课程名                    课序号
+                # => 4=>学分                      课程名
+                # => 5=>主讲老师                   主讲老师
+                # => 6=>本科生容量                  开课院系
+                # => 7=>研究生容量                  二级课序号
+                # => 8=>上课时间                    排课模式
+                # => 9=>年级                        选课模式
+                # => 10=>课程特色                    项目组数
+                # => 11=>本科文化素质课程组            必修项目数
+                # => 12=>选课文字说明                 选课指导说明
+                # => 13=>重修是否占容量
+                # => 14=>是否选课时间限制
+                # => 15=>是否二级选课
+                # => 16=>实验信息
+                if index == 0 or index == 1
+                  dep_name = psvr_clean(ln[0].text)
+                  c_num = ln[1].text
+                  c_name = ln[3].text
+                  c_credit = psvr_clean(ln[4].text)
+                  c_teacher = psvr_clean(ln[5].text)
+                  tese = "课程特色:" + psvr_clean(ln[10].text) + ";" if psvr_clean(ln[10].text).present?
+                  jianjie = "选课说明:" + psvr_clean(ln[12].text) + ";" if psvr_clean(ln[12].text).present?
+                  c_jianjie =  tese.to_s + jianjie.to_s + "课程序号:" + ln[2].text.to_s  + ";" + "本科生容量:" + psvr_clean(ln[6].text.to_s) + ";研究生容量:" + psvr_clean(ln[7].text.to_s) + ";"
+                else
+                  dep_name = psvr_clean(ln[6].text)
+                  c_num = ln[2].text
+                  c_name = ln[4].text
+                  c_credit = nil
+                  c_teacher = psvr_clean(ln[5].text)
+                  c_jianjie = "课程序号:" + ln[3].text.to_s + ";二级课序号:" + ln[7].text.to_s + ";"
+                end
+                c_year = @years[index]
+                c_type = @c_typpe[index]
+                
+                @cmd = <<-END
+                        department = Department.find_or_create_by(name:"#{dep_name}")
+                        course = Course.find_or_initialize_by(number:"#{psvr_clean(c_num)}")
+                        course.name = "#{psvr_clean(c_name)}"
+                        course.department_fid = department.fid
+                        course.credit ="#{c_credit.to_s}" if "#{c_credit.to_s}".present?
+                        course.years = course.years << "#{c_year}"
+                        course.ctype = "#{c_type}"
+                        course.neirongjianjie = "#{c_jianjie}"
+                        c_teacher = "#{c_teacher.to_s}"
+                        if c_teacher.present?
+                          teaching = course.teachings.find_or_initialize_by(teacher:"#{c_teacher}")
+                          teaching.save(:validate=>false)
+                        end
+                        course.save(:validate=>false)
+                      END
+                puts @cmd
+                puts ""
+                if @driver.find_elements(:link_text,'下一页').present?
+                  nextBtn = @driver.find_element(:link_text,'下一页')
+                  nextBtn.click
+                end
+                # department = Department.find_or_create_by(name:dep_name)
+                # course = Course.find_or_create_by(number:psvr_clean(c_num))
+                # course.name = psvr_clean(c_name)
+                # course.department = department.name
+                # course.credit = c_credit
+                # course.neirongjianjie = c_jianjie
+                # if c_teacher.present?
+                #   teaching = course.teachings.find_or_initialize_by(teacher:c_teacher)
+                #   teaching.save(:validate=>false)
+                # end
+                # 
+                # course.save(:validate=>false)
+              end
+            end
+          end
+          @driver.quit
+          true
+      rescue => e
+          puts ("Fetal Error:" + e.to_s).colorize :red
+          @driver.quit
+          false
+      end
+    end
+    
     def ruc_snatch_all_course_department(is_all=false)
       if !is_all
         tpage = open("#{@base_url2010_2021}").read

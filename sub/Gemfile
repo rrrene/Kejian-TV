@@ -208,6 +208,7 @@ gem 'thin'
 gem 'search_terms'
 
 gem 'selenium-webdriver'
+# gem "Selenium", "~> 1.1.14"
 #gem 'debugger'
 gem 'exception_notification'
 gem 'chronic_duration'
