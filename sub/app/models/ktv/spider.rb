@@ -72,9 +72,12 @@ module Ktv
         # @base_url = '/Users/Liber/Desktop/ruc/ruc.htm'
         # @base_url2010_2021 = '/Users/Liber/Desktop/ruc/s_xuanke.htm'
         # @base_url2005_2021 = '/Users/Liber/Desktop/ruc/xuanke.htm'
-        @base_url = '/root/ruc/ruc.htm'
-        @base_url2010_2021 = '/root/ruc/s_xuanke.htm'
-        @base_url2005_2021 = '/root/ruc/xuanke.htm'
+        @base_url = '/Users/Liber/Desktop/ktv/ruc/ruc.htm'
+        @base_url2010_2021 = '/Users/Liber/Desktop/ktv/ruc/s_xuanke.htm'
+        @base_url2005_2021 = '/Users/Liber/Desktop/ktv/ruc/xuanke.htm'
+        # @base_url = '/root/ruc/ruc.htm'
+        # @base_url2010_2021 = '/root/ruc/s_xuanke.htm'
+        # @base_url2005_2021 = '/root/ruc/xuanke.htm'
       when :th
         @th_vpn = 'https://sslvpn.tsinghua.edu.cn/dana-na/auth/url_default/welcome.cgi'
         @th_vpn_url = 'https://sslvpn.tsinghua.edu.cn/dana-na/auth/url_default/login.cgi'
@@ -110,12 +113,12 @@ module Ktv
           con.click
           puts "Continue...".colorize :green
         end
-        wait = Selenium::WebDriver::Wait.new(:timeout => 10) # seconds
+        wait = Selenium::WebDriver::Wait.new(:timeout => 100) # seconds
         wait.until { @driver.find_element(:link_text,'清华大学信息门户').displayed? }
         qing = @driver.find_element(:link_text,'清华大学信息门户')
         qing.click
         puts "Waiting for page loading...".colorize :green
-        sleep 10
+        sleep 30
         puts "Data is ready.".colorize :green
       end
     end
@@ -130,7 +133,7 @@ module Ktv
           @th_curl.each_with_index do |url,index|
             @driver.navigate.to(url)
             (1..@page_count[index]).each do |num|
-              wait = Selenium::WebDriver::Wait.new(:timeout => 10) # seconds
+              wait = Selenium::WebDriver::Wait.new(:timeout => 100) # seconds
               wait.until { @driver.find_element(:id,'tag50.layout/data').displayed? }
               block = @driver.find_element(:id,'tag50.layout/data')
               block.all(:css,'.active-templates-row.active-grid-row.active-list-item.gecko').each do |line|
@@ -176,7 +179,7 @@ module Ktv
                 c_year = @years[index]
                 c_type = @c_typpe[index]
                 
-                @cmd = <<-END
+                cmd = <<-END
                         department = Department.find_or_create_by(name:"#{dep_name}")
                         course = Course.find_or_initialize_by(number:"#{psvr_clean(c_num)}")
                         course.name = "#{psvr_clean(c_name)}"
@@ -191,13 +194,10 @@ module Ktv
                           teaching.save(:validate=>false)
                         end
                         course.save(:validate=>false)
+                        
                       END
-                puts @cmd
-                puts ""
-                if @driver.find_elements(:link_text,'下一页').present?
-                  nextBtn = @driver.find_element(:link_text,'下一页')
-                  nextBtn.click
-                end
+                puts cmd
+                File.open("#{Rails.root.to_s}/auxiliary/thu_course.rb", 'a+') {|f| f.write(cmd) }
                 # department = Department.find_or_create_by(name:dep_name)
                 # course = Course.find_or_create_by(number:psvr_clean(c_num))
                 # course.name = psvr_clean(c_name)
@@ -211,13 +211,17 @@ module Ktv
                 # 
                 # course.save(:validate=>false)
               end
+              if @driver.find_elements(:link_text,'下一页').present?
+                nextBtn = @driver.find_element(:link_text,'下一页')
+                nextBtn.click
+              end
             end
           end
           @driver.quit
           true
       rescue => e
           puts ("Fetal Error:" + e.to_s).colorize :red
-          @driver.quit
+          # @driver.quit
           false
       end
     end
@@ -234,14 +238,14 @@ module Ktv
        if !thtml.xpath("//table/tr[#{tr_index+2}]/td[5]").text().nil? and !thtml.xpath("//table/tr[#{tr_index+2}]/td[10]").text().blank?
          if tea[thtml.xpath("//table/tr[#{tr_index+2}]/td[5]").text()].nil? 
            tea[thtml.xpath("//table/tr[#{tr_index+2}]/td[5]").text()] = [thtml.xpath("//table/tr[#{tr_index+2}]/td[10]").text().encode('utf-8')].to_set
-           puts thtml.xpath("//table/tr[#{tr_index+2}]/td[5]").text() + ":" + tea[thtml.xpath("//table/tr[#{tr_index+2}]/td[5]").text()].to_a.to_s
+           # puts thtml.xpath("//table/tr[#{tr_index+2}]/td[5]").text() + ":" + tea[thtml.xpath("//table/tr[#{tr_index+2}]/td[5]").text()].to_a.to_s
          else 
            tea[thtml.xpath("//table/tr[#{tr_index+2}]/td[5]").text()] << thtml.xpath("//table/tr[#{tr_index+2}]/td[10]").text().encode('utf-8')
-           puts thtml.xpath("//table/tr[#{tr_index+2}]/td[5]").text() + ":" + tea[thtml.xpath("//table/tr[#{tr_index+2}]/td[5]").text()].to_a.to_s
+           # puts thtml.xpath("//table/tr[#{tr_index+2}]/td[5]").text() + ":" + tea[thtml.xpath("//table/tr[#{tr_index+2}]/td[5]").text()].to_a.to_s
          end
        end
       end
-      puts tea
+      # puts tea
       data = open("#{@base_url}").read
       html = Nokogiri::HTML(data)
       
@@ -256,19 +260,23 @@ module Ktv
           c_english_name = tds[8].text()
           c_body = tds[11].text().blank? ? '-' : tds[11].text()
           c_teacher = tea[c_num].to_a
-          puts c_num + ":" + c_name + ":" + c_yuanxi + ":" + c_type + ":" + ":" +c_english_name + ":"  + c_teacher.to_s
-          # department = Department.find_or_create_by(name:c_yuanxi)
-          # course = Course.find_or_initialize_by(number:c_num)
-          # course.ctype = c_type
-          # course.name = c_name
-          # course.english_name = c_english_name
-          # course.department = department.name
-          # course.desc = c_body
-          # course.save(:validate=>false)
-          # tea[c_num].each do |t|
-          #   teaching = course.teachings.find_or_initialize_by(teacher:t)
-          #   teaching.save(:validate=>false)
-          # end
+          # puts c_num + ":" + c_name + ":" + c_yuanxi + ":" + c_type + ":" + ":" +c_english_name + ":"  + c_teacher.to_s
+          cmd = <<-END
+                department = Department.find_or_create_by(name:"#{c_yuanxi}")
+                course = Course.find_or_initialize_by(number:"#{c_num}")
+                course.ctype = "#{c_type}"
+                course.name = "#{c_name}"
+                course.english_name = "#{c_english_name}"
+                course.department_fid = department.fid
+                course.desc = "#{c_body}"
+                #{tea[c_num]}.each do |t|
+                  teaching = course.teachings.find_or_initialize_by(teacher:t)
+                  teaching.save(:validate=>false)
+                end
+                course.save(:validate=>false)
+                
+          END
+          puts cmd
           # puts course.number + ':' + course.name + ':' +  course.ctype + ':' + course.department
         end
         # each_with_index do |td,td_index|
