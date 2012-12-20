@@ -1048,14 +1048,25 @@ class Courseware
 
   def fix_father_pinpic!
     min = nil
+    tmp = nil
     self.get_children.to_a.each do |f|
       cw = Courseware.where(id:f).first
-      if cw.present? and cw.child_rank == 0
+      if cw.present? and cw.status ==0 and cw.child_rank == 0
         min = cw.id
+      end
+      if cw.present? and cw.status ==0 
+        tmp = cw.id
+      end
+      if cw.present? and cw.status != 0 and cw.child_rank == 0
+        cw.ua(:child_rank,(self.get_children.to_a.size+1))
       end
     end
     if min.nil?
-      min = self.get_children[0]
+      if tmp.present?
+        min = tmp
+      else
+        min = self.get_children[0]
+      end
       Courseware.find(min).ua(:child_rank,0)
     end
     Courseware.find(min).renqueue!

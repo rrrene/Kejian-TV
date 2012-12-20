@@ -13,7 +13,8 @@
   <!--seed_today-->
 
 
-  <% department.courses.desc('coursewares_count').each_with_index do |item,index| %>
+  <%# department.courses.desc('coursewares_count').each_with_index do |item,index| %>
+  <% Course.where(:department_fid=>department.fid).desc('coursewares_count').each_with_index do |item,index| %>
     <% teachers = []%>
     <% addr = []%>
     <%
