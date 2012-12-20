@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 IntercomRails.config do |config|
 
   config.app_id = "bbiz3u3s"

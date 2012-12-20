@@ -269,22 +269,23 @@ module Ktv
                 course.english_name = "#{c_english_name}"
                 course.department_fid = department.fid
                 course.desc = "#{c_body}"
-                #{tea[c_num]}.each do |t|
-                  teaching = course.teachings.find_or_initialize_by(teacher:t)
-                  teaching.save(:validate=>false)
+                #{tea[c_num].to_a}.each do |t|
+                  if t.present?
+                    teaching = course.teachings.find_or_initialize_by(teacher:t)
+                    teaching.save(:validate=>false)
+                  end
                 end
                 course.save(:validate=>false)
                 
           END
           puts cmd
+          File.open("#{Rails.root.to_s}/auxiliary/ruc_course_isall_#{is_all.to_s}.rb", 'a+') {|f| f.write(cmd) }
           # puts course.number + ':' + course.name + ':' +  course.ctype + ':' + course.department
         end
         # each_with_index do |td,td_index|
         #           puts td.text()
         #         end
       end
-
-      binding.pry
       
     end
     

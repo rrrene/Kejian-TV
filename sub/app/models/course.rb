@@ -92,7 +92,7 @@ class Course
         name = "#{self.name}"
       end
       if PreForumForum.where(:name=>self.name).first.present?
-        inst=PreForumForum.where(:name=>name).first
+        inst=PreForumForum.where(:name=>self.name).first
       else
         ddid=self.department_fid
         raise "department_fid shouldn't be blank" if ddid.blank?
