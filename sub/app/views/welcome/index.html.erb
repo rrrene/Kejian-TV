@@ -157,7 +157,7 @@
       <div class="user-info ">
           <div class="user-gravatar32">
               <a href="/<%= User.get_fangwendizhi item.uploader_id %>"><div class="">
-                <img width="32" height="32" alt="" src="<%=dz_avatar_url(User.get_uid(item.uploader_id),User.get_email(item.uploader_id),:small)%>">
+                <img width="32" height="32" alt="" src="<%=avatar_url_quick(item.uploader_id,:small)%>">
               </div></a>
           </div>
           <div class="user-details">

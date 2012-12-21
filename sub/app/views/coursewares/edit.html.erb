@@ -364,7 +364,7 @@
 															<span class="yt-uix-form-input-select presentation_teacher_span">
 																<span class="yt-uix-form-input-select-content">
 																	<img class="yt-uix-form-input-select-arrow" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
-																	<span class="yt-uix-form-input-select-value"><% if @courseware.teachers.present? and !@courseware.teachers[0].blank?  and @courseware.teachers[0] != "教师请求" %> <%= @courseware.teachers[0] %><% else %>请选择老师<% end %></span>
+																	<span class="yt-uix-form-input-select-value"><% if @courseware.teachers.present? and !@courseware.teachers[0].blank?  and @courseware.teachers[0] != "作者请求" %> <%= @courseware.teachers[0] %><% else %>请选择老师<% end %></span>
 																</span>
 																<% exist = false %>
 															<select name="presentation[teacher]" class="yt-uix-form-input-select-element category-input presentation_teacher_select_dynamic">

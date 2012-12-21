@@ -542,7 +542,7 @@ HEREDOC
       render json:{status:'suc',
         count:pl.content.size,title:pl.title,user_id:pl.user_id,
         user_name:name_beautify(User.get_name(pl.user_id)),
-        user_src:dz_avatar_url(User.get_uid(pl.user_id),User.get_email(pl.user_id),:small),
+        user_src:avatar_url_quick(pl.user_id,:small),
         ol:render_to_string(file:'application/_bar_ol',locals:{coursewares:Courseware.eager_load(pl.content),playlist_id:pl.id},:layout=>false, :formats=>[:html]),
         bar_menu:render_to_string(file:'application/_bar_menu',locals:{playlist_id:pl.id,playlist_undestroyable:pl.undestroyable,playlist_title:pl.title},:layout=>false, :formats=>[:html])}
     else

@@ -1639,8 +1639,8 @@ User.all.map{|x| x.ua(:widget_sort,hash)}
   # end
   cache_consultant :id,:from_what => :uid
   cache_consultant :name
-  cache_consultant :uid
   cache_consultant :email
+  cache_consultant :uid
   cache_consultant :slug
   cache_consultant :avatar_changed_at
   cache_consultant :avatar_filename

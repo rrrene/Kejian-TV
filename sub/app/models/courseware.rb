@@ -673,13 +673,11 @@ class Courseware
     if status_changed? && status_was == 0 && status != 0
       if teachers_changed? && !teachers.blank?
         teachers_was.to_a.uniq.to_a.each do |a|
-          next if a == "教师请求"
           t = Teacher.find_or_create_by(:name=>a)
           t.inc(:coursewares_count,-1)
         end
       else
         teachers.to_a.uniq.each do |a|
-          next if a == "教师请求"
           t = Teacher.find_or_create_by(:name=>a)
           t.inc(:coursewares_count,-1)
         end
@@ -688,13 +686,11 @@ class Courseware
     if status_changed? && status_was != 0 && status == 0
       if teachers_changed? && !teachers.blank?
         teachers.to_a.uniq.each do |a|
-          next if a == "教师请求"
           t = Teacher.find_or_create_by(:name=>a)
           t.inc(:coursewares_count,1)
         end
       else
         teachers.to_a.uniq.each do |a|
-          next if a == "教师请求"
           t = Teacher.find_or_create_by(:name=>a)
           t.inc(:coursewares_count,1)
         end
@@ -703,13 +699,11 @@ class Courseware
 
     if !status_changed? and teachers_changed? and !teachers.blank?
       teachers.to_a.uniq.each do |a|
-        next if a == "教师请求"
         t = Teacher.find_or_create_by(:name=>a)
       end
       added =  teachers - teachers_was.to_a
       if !added.blank? && status == 0
         added.to_a.uniq.each do |d|
-          next if d == "教师请求"
           t = Teacher.find_or_create_by(:name=>d)
           t.inc(:coursewares_count,1)
         end
@@ -717,7 +711,6 @@ class Courseware
       deleted = teachers_was.to_a - teachers
       if !deleted.blank? && status == 0
         deleted.to_a.uniq.each do |d|
-          next if d == "教师请求"
           t = Teacher.find_or_create_by(:name=>d)
           t.inc(:coursewares_count,-1)
         end
@@ -983,11 +976,11 @@ presentation[published_at]	2012/07/13
     end
     teacher_tmp =  presentation[:teacher] == 'opt_psvr_add_more' ? presentation[:other_teacher] : presentation[:teacher]
     if teacher_tmp.blank?
-      if !cw.teachers.include?('教师请求')
-        cw.teachers << '教师请求'
+      if !cw.teachers.include?('作者请求')
+        cw.teachers << '作者请求'
       end
     else
-      # cw.teachers.delete('教师请求')
+      # cw.teachers.delete('作者请求')
       cw.teachers = [] # => need rewrite
       if !cw.teachers.include?(teacher_tmp)
         cw.teachers.unshift(teacher_tmp)
