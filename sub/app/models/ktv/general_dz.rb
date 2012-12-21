@@ -3,29 +3,43 @@ module Ktv
     extend Ktv::Helpers::Config
     include Ktv::Helpers::Config
     include Shared::MechanizeParty
-    def login!(username='richarddan',password='920316qwaguan')
-      # 依赖于forum.php显示登陆框框
-      @login_page = @agent.get("http://city.ibeike.com/logging.php?action=login")
-      form = @login_page.form_with(:id=>'loginform')
-      if form
-        form.username = username
-        form.password = password
-        @page = form.submit
+    def act!(params,value)
+      u=nil
+      msg=''
+      data={
+        fastloginfield: 'username',
+        handlekey: 'ls',
+        password:  params[:user][:password],
+        quickforward: 'yes',
+        username:  params[:user][:email],
+      }
+      res = Ktv::JQuery.ajax({
+        psvr_original_response: true,
+        url:"http://#{value[:addr]}/member.php?mod=logging&action=login&loginsubmit=yes&infloat=yes&lssubmit=yes&inajax=1",
+        type:'POST',
+        data:data,
+        psvr_response_anyway: true
+      })
+      res.cookies.each do |key,val|
+        cookie = Mechanize::Cookie.new(key, val)
+        cookie.domain = value[:cookie_domain]
+        cookie.path = "/"
+        @agent.cookie_jar.add!(cookie)
       end
-      @login_page = @agent.get("http://city.ibeike.com/admincp.php")
-      form = @login_page.form_with(:id=>'loginform')
-      if form
-        form.admin_password = password
-        @page = form.submit
+      res = res.force_encoding_zhaopin
+      if res=~/errorhandle_ls\s*\(\s*('([^']+)'|"([^"]+)")/
+        msg = $2.dup
+        msg = $3.dup if msg.blank?
+      elsif res=~/succeedhandle_ls/
+        page=@agent.get("http://#{value[:addr]}/home.php?mod=spacecp&ac=profile&op=contact")
+        parser = page.parser
+        binding.pry
+        parser.css('#td_sightml')
+      else
+        raise ScriptNeedImprovement 
       end
-      @dz = DiscuzAdmin.new
-      @dz.start_mode('ibeike')
-    end
-    def import_user(uid)
-      @user=User.where(:ibeike_uid=>uid).first
-      @page = @agent.get "http://city.ibeike.com/admincp.php?action=members&operation=edit&uid=#{uid}"
-      form = @page.forms.first
-      @dz_page = @dz.fill_user_info(@user.uid,form)
+      return [u,msg]
     end
   end
 end
+
