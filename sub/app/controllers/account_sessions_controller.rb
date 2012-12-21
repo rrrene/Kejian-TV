@@ -7,10 +7,11 @@ class AccountSessionsController < Devise::SessionsController
     @traditional||=params[:traditional].present?
     resource = build_resource(nil, :unsafe => true)
     clean_up_passwords(resource)
-    @login_ibeike ||= (request.path=~/\/spetial_ibeike$/)
-    if @login_ibeike
-      @seo[:title]='用iBeiKe账号登录'
-      if !$psvr_really_testing && Setting.ktv_sub!='ibeike'
+    @login_veryspetial ||= (request.path=~/\/spetial$/)
+    if @login_veryspetial
+      @seo[:title]="用#{Setting.cooperation_site_name}账号登录"
+      key = "spetial_#{Setting.ktv_sub.to_s.split('-')[0]}".to_sym
+      if !value=Ktv::Consumers[key]
         render text:'this function is not enabled for this site!'
         return false
       else
@@ -28,7 +29,7 @@ class AccountSessionsController < Devise::SessionsController
   def create
     if params[:login_ibeike]
       begin
-        @login_ibeike = true
+        @login_veryspetial = true
         if !$psvr_really_testing && Setting.ktv_sub!='ibeike'
           render text:'this function is not enabled for this site!'
           return false

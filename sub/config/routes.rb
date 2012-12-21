@@ -41,7 +41,7 @@ Sub::Application.routes.draw do
       :omniauth_callbacks => "users/omniauth_callbacks"
   }
   devise_scope :user do
-    get '/account/auth/spetial_ibeike' => 'account_sessions#new'
+    get '/account/auth/spetial' => 'account_sessions#new'
     # finishing reg process
     put '/account/confirmation' => 'account_confirmations#show'
     get "/register", :to => "account#new",as:'register'
