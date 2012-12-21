@@ -77,6 +77,10 @@ class WelcomeController < ApplicationController
   def iphone
     
   end
+  def assets
+    ret = Sub::Application.config.action_controller.asset_host.to_s+ActionController::Base.helpers.asset_path(params[:path])
+    redirect_to ret, :status => :moved_permanently
+  end
 private
   def common_op!
     params[:page] ||= '1'

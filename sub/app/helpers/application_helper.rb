@@ -1,6 +1,42 @@
 # -*- encoding : utf-8 -*-
 module ApplicationHelper
   XINGQIJI = ['一','二','三','四','五','六','日']
+  def str2moneystr(str)
+    ret = str.to_s.strip
+    case ret.length
+    when 0
+      "∫ 0.00"
+    when 1
+      "∫ 0.0#{ret}"
+    when 2
+      "∫ 0.#{ret}"
+    else
+      "∫ #{ret.insert(-3,'.')}"
+    end
+  end
+  def str2weifen(str)
+    # todo weifen
+    return str2moneystr(str)
+    ret = str.to_s.strip
+    "#{number_with_delimiter ret} dx"
+  end
+  def raw_dz(body)
+    body.gsub!(/"static\/([^'"()]+)"|'static\/([^'"()]+)'/){|match|
+      if $1.present?
+        keypart=$1
+        keydelimeter='"'
+      else
+        keypart=$2
+        keydelimeter='\''
+      end
+      if keypart.starts_with?("image/")
+        keydelimeter+asset_path("__dz/#{keypart[6..-1]}")+keydelimeter
+      else
+        keydelimeter+"/simple/static/#{keypart}"+keydelimeter
+      end
+    }
+    return raw(body)
+  end
   def alter_request_path(path,hash={})
     res = path.split('?')
     h = {}.with_indifferent_access
@@ -32,9 +68,6 @@ module ApplicationHelper
     else
       return "今天是开学第#{day}天"
     end
-  end
-  def cpath(c)
-    "/simple/forum.php?mod=forumdisplay&fid=#{c.fid}"
   end
   def timeago(time, options = {})
     options[:class]
@@ -200,6 +233,7 @@ module ApplicationHelper
   
   def owner?(item)
     return false if current_user.blank?
+    return true if Setting.admin_emails.include?(current_user.email)
     return true if [User::SUP_ADMIN,User::SUB_ADMIN].include?current_user.admin_type
     user_id = nil
     if Teacher == item.class

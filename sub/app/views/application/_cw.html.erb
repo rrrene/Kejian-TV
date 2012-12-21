@@ -1,19 +1,25 @@
 <% if(!defined?(courseware_id))
 courseware_id=courseware.id
 end %>
-
+<% if @is_ie8 || @is_ie7 %>
+  <a class="ie_kuang" href="/coursewares/<%= courseware.id %>">
+  </a>
+<% end %>
 <% slide_count = courseware.slides_counts[version.to_s] || 1 %>
 <% sz = [slide_count,18].min %>
+<% sz = 0 if @is_ie8 || @is_ie7 %>
 <div data-slide-count="<%= sz  %>" data-id="<%= courseware_id %>" class="presentation">
     <a href="<%= courseware_path courseware %>/revisions/<%= version+1 %>" class="slide_preview scrub setup">
    <% (sz-1).downto(1).each do |i| %>
    <img style="display: none;" data-slide="<%= i %>" class="timeline" alt="第<%= i %>页" src="<%= asset_url("cw/#{courseware_id}/#{courseware.revision(version)}thumb_slide_#{i}.jpg") %>">
    <% end %>
    <img src="<%= asset_url("cw/#{courseware_id}/#{courseware.revision(version)}thumb_slide_0.jpg") %>" alt="Thumb_slide_0" width="210" height="158">
+<% unless @is_ie8 || @is_ie7 %>
    <div class="scrubber">
    <div style="width: 100%;" class="scrubbed">
    </div>
    </div>
+<% end %>
     </a>
 <% if(defined?(courseware_real_version)) %>
       <div class="preview_info">

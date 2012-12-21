@@ -1,8 +1,42 @@
 # -*- encoding : utf-8 -*-
 class CoursewaresController < ApplicationController
-  before_filter :require_user,:only=>[:new, :create, :edit, :update, :destroy, :thank, :download, :new_old, :edit_old, :mine]
-  before_filter :find_item,:only => [:show,:embed,:download,:edit,:update,:destroy,:thank,:edit_old]
+  before_filter :require_user,:only=>[:new, :create, :edit, :update, :destroy, :thank, :download, :new_old, :edit_old, :mine, :pay, :pay_post]
+  before_filter :find_item,:only => [:show,:embed,:download,:edit,:update,:destroy,:thank,:edit_old, :pay, :pay_post]
   before_filter :authenticate_user_ownership!, :only => [:destroy,:edit,:edit_old]
+  def pay
+    # DZ 行内将要XX管理接口
+    @res = dz_get("forum.php?mod=misc&action=pay&tid=#{@courseware.tid}&pid=#{@courseware.pid}&infloat=yes&handlekey=pay&inajax=1&ajaxtarget=fwin_content_pay",simple:true)
+    @parser = Nokogiri::XML(@res.body.gsub('<root><![CDATA[','<root>').gsub(']]></root>','</root>'))
+    if return_pay = @parser.css('#return_pay').first
+      return_pay.inner_html='确认购买？'
+      @parser.css('button[name="paysubmit"] span').first.inner_html='确认'
+      @parser.css('form').first['action']="coursewares/#{@courseware.id}/pay_post?a=a"
+      @parser.css('script').first.inner_html='KTV.psvropenhandle_pay();KTV.after_hideWindow[\'pay\'] = KTV.psvrcancelhandle_pay'
+      uploader = @parser.css('a[href^="home.php"]').first
+      uploader['href'] = "/users/#{@courseware.uploader_id}"
+      uploader.inner_html = UsersHelper.name_beautify User.get_name(@courseware.uploader_id)
+      @parser.css('th[valign="top"]').each{|node| nnn=node.parent.css('td').first;nnn.inner_html=ApplicationHelper.str2moneystr(nnn.inner_html)}
+    else
+      script = @parser.css('script').find{|x| x.to_s =~ /succeedhandle_pay|errorhandle_pay/}
+      script.inner_html='KTV.psvropenhandle_pay();KTV.after_hideWindow[\'pay\'] = KTV.psvrcancelhandle_pay;'+script.inner_html
+    end
+    @res = @parser.to_s.gsub('<root>','<root><![CDATA[').gsub('</root>',']]></root>')
+    dz_simple_render
+  end
+  def pay_post
+    @res = dz_post("forum.php?mod=misc&action=pay&paysubmit=yes&infloat=yes&inajax=1",{
+      handlekey:'pay',
+      tid:@courseware.tid,
+    },simple:true)
+    if @res.to_s=~/__psvr_core_goumaichenggong/
+      @pl_yigoumai = PlayList.locate(current_user.id,'已购买')
+      @pl_yigoumai.add_one_thing(@courseware.id,true)
+      @courseware.inc(:downloads_count,1)
+      User.get_credits(current_user.uid,true)
+      User.get_credits(@courseware.uploader.uid,true)
+    end
+    dz_simple_render
+  end
   def ktvid_slide_pic
     if !Moped::BSON::ObjectId.legal?(params[:id].to_s)
       redirect_to '/mqdefault.jpg',:status => :found
@@ -50,6 +84,7 @@ class CoursewaresController < ApplicationController
         render "index",:layout=>false
       }
       format.html{
+        @seo[:title] = '课件瀑布'
         render "index"
       }
     end
@@ -214,6 +249,10 @@ class CoursewaresController < ApplicationController
         @note.courseware_id = @courseware.id
         @note.page = 0
         version_issues_deal!
+        if user_signed_in?
+          @pl_shoucang  = PlayList.locate(current_user.id,'收藏')
+          @pl_yigoumai  = PlayList.locate(current_user.id,'已购买')
+        end
         render "show"
       }
       format.json{
@@ -249,38 +288,25 @@ class CoursewaresController < ApplicationController
     prepare_s3
   end
   def destroy
-    @courseware.soft_delete
+    @courseware.soft_delete(true)
     redirect_to '/',:notice=>'已成功删除'
   end
   def download
-    # 由于积分和防批量下载的功能没弄好，先别开放下载
-    render text:'开发中，sorry'
-    return
+    render text:'您还没有购买此文件' and return false unless PlayList.locate(current_user.id,'已购买').content.include?(@courseware.id)
+    filenameformat = Courseware::SORTDOWNFILENAMES[@courseware.sort][params[:index].to_i]
+    render text:'没有此文件' and return false unless filenameformat.present?
     downurl = ''
-    if @courseware.have_pw and params[:pw].blank?
-      render 'download',:layout => 'application_for_devise'
-      return
-    elsif @courseware.have_pw and Digest::MD5.hexdigest(params[:pw])!=@courseware.pw
-      @pw_error = '密码错误'
-      render 'download',:layout => 'application_for_devise'
-      return
-    end
-    @courseware.inc(:downloads_count,1)
     if current_user.nil?
         CwEvent.add_action('下载','Courseware',@courseware.id,request.ip,request.url,nil,true,@is_mobile)
     else
         CwEvent.add_action('下载','Courseware',@courseware.id,request.ip,request.url,current_user.id,true,@is_mobile)
     end
-    if @courseware.xunlei_url.present?
-      downurl = @courseware.xunlei_url
-    else
-      resource = "#{@courseware.id}#{@courseware.revision}.zip"
-      expires = 2.minutes.since.to_i
-      signature = Sndacs::Signature.generate_temporary_url_signature(:bucket => 'ktv-down',:resource => resource,:secret_access_key => Setting.snda_key,:expires_at => expires)
-      downurl = "http://storage-huabei-1.sdcloud.cn/ktv-down/#{resource}?SNDAAccessKeyId=#{Setting.snda_id}&Expires=#{expires}&Signature=#{signature}"
+    resource = @courseware.instance_eval('"'+filenameformat+'"')
+    expires = 2.minutes.since.to_i
+    signature = Sndacs::Signature.generate_temporary_url_signature(:bucket => 'ktv-down',:resource => resource,:secret_access_key => Setting.snda_key,:expires_at => expires)
+    downurl = "http://storage-huabei-1.sdcloud.cn/ktv-down/#{resource}?SNDAAccessKeyId=#{Setting.snda_id}&Expires=#{expires}&Signature=#{signature}"
 # something like
 # http://storage-huabei-1.sdcloud.cn/ktv-down/1.zip?SNDAAccessKeyId=7HDL3HVT04F5RF6BRW90BJUXH&Expires=1342108303&Signature=Bwyy2k9lPqrmFB4%2BBpBV8q%2FDnzI%3D
-    end
     redirect_to downurl
   end
   def create

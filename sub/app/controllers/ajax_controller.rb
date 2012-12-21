@@ -542,8 +542,8 @@ HEREDOC
       render json:{status:'suc',
         count:pl.content.size,title:pl.title,user_id:pl.user_id,
         user_name:name_beautify(User.get_name(pl.user_id)),
-        user_src:avatar_url_quick(pl.user_id,:small),
-        ol:render_to_string(file:'application/_bar_ol',locals:{coursewares:Courseware.eager_load(pl.content),playlist_id:pl.id},:layout=>false, :formats=>[:html]),
+        user_src:dz_avatar_url(User.get_uid(pl.user_id),User.get_email(pl.user_id),:small),
+        ol:render_to_string(file:'application/_bar_ol',locals:{coursewares:Courseware.eager_load(pl.content),playlist_id:pl.id,is_history:pl.is_history},:layout=>false, :formats=>[:html]),
         bar_menu:render_to_string(file:'application/_bar_menu',locals:{playlist_id:pl.id,playlist_undestroyable:pl.undestroyable,playlist_title:pl.title},:layout=>false, :formats=>[:html])}
     else
       render json:{status:'failed',reason:'系统无法完成请求，请稍后重试。'}
@@ -928,7 +928,7 @@ HEREDOC
       end
     end
     pl = PlayList.find(params[:pid])
-    if pl.title == '历史记录'
+    if pl.title == '历史记录' or pl.is_history
       render json:{status:'suc'}
       return true
     end
@@ -972,7 +972,7 @@ HEREDOC
     pl.content_delete_cache = nil
     if pl.save(:validate => false )
       render json:{status:'suc',
-        li:render_to_string(file:'application/_bar_ol',locals:{coursewares:Courseware.eager_load([pl.content[-1]]),playlist_id:pl.id},:layout=>false, :formats=>[:html])}
+        li:render_to_string(file:'application/_bar_ol',locals:{coursewares:Courseware.eager_load([pl.content[-1]]),playlist_id:pl.id,is_history:pl.is_history},:layout=>false, :formats=>[:html])}
       return true
     else
       render json:{status:'failed',reason:'系统无法完成请求，请稍后重试。'}
@@ -1383,5 +1383,9 @@ HEREDOC
     end
     render json:{status:'failed',reason:'系统无法完成请求，请稍后重试。'}
     return false
+  end
+  
+  def method_name
+    
   end
 end

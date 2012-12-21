@@ -1,0 +1,15 @@
+<div class="__dz" style="margin-top:1px">
+  <%
+    @wp.css('#pt').unlink
+    @wp.css('#ct .appl').unlink
+    @wp.css('script[src^=static]').each{|x| x['src']="/simple/#{x['src']}"}
+    @wp.css('a[href^="forum.php?mod=modcp&action=thread&op=thread"]').first['href']="/courses/#{@course.fid}/admin13"
+    @wp.css('a[href^="forum.php?mod=modcp&action=thread&op=post"]').first['href']="/courses/#{@course.fid}/admin13/post"
+    @wp.css('a[href^="forum.php?mod=modcp&action=recyclebin"]').first['href']="/courses/#{@course.fid}/admin13/recyclebin"
+    @wp.css('a[href^="forum.php?mod=modcp&action=recyclebinpost"]').first['href']="/courses/#{@course.fid}/admin13/recyclebinpost"
+    if form = @wp.css('form#moderate').first
+      form['action'] = "courses/#{@course.fid}/forum_topicadmin?a=a"
+    end
+  %>
+  <%= raw_dz @wp.to_html %>
+</div>

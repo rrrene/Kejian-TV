@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class DeviseMailer < Devise::Mailer
   # include Resque::Mailer
   default :sender => Setting.email_sender

@@ -1,6 +1,4 @@
-.__sdk{
-  margin: 0;
-  padding: 0;
+.__sdk{ margin: 0; padding: 0;
   border: 0;
   font-size: 100%;
   font: inherit;
@@ -3128,5 +3126,47 @@ input#presentation_sort1{
   max-height: 164px;
   overflow: auto;
 }
+.dual_psvrsharedown{
+  margin-top:18px;
+  background: url("<%=asset_path('psvrsharedown1.png')%>") no-repeat scroll 0 0 transparent;
+  text-indent:-9999em;
+  display:block;
+  width:213px;
+  height:45px;
+  border:none !important;
+  &:hover{
+    background-position:0 -45px;
+  }
+  &:active{
+    background-position:0 -90px;
+  }
+}
+
+.dual_psvrshareprint{
+  margin-top:18px;
+  background: url("<%=asset_path('psvrshareprint1.png')%>") no-repeat scroll 0 0 transparent;
+  text-indent:-9999em;
+  display:block;
+  width:213px;
+  height:60px;
+  border:none !important;
+  &:hover{
+    background-position:0 -63px;
+  }
+  &:active{
+    background-position:0 -126px;
+  }
+}
+
+
+
+#psvrsharedown_thumbnails_small{
+  a.slide_preview,a.slide_preview img{
+    width: 322px;
+    height: 242px;
+    border-radius:0 !important;-moz-border-radius:0 !important;-ms-border-radius:0 !important;-o-border-radius:0 !important;-webkit-box-shadow:none !important;-moz-box-shadow:none !important;box-shadow:none !important;margin:0 !important
+  }  
+}
+
 
 }

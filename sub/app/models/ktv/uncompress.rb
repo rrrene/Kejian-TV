@@ -1,4 +1,6 @@
 # -*- encoding : utf-8 -*-
+=begin
+# -*- encoding : utf-8 -*-
 require 'rubygems'
 require 'zip/zip'
 require 'find'
@@ -9,23 +11,23 @@ module Ktv
     def self.perform(id)
         @filter = ['pdf','djvu','ppt','pptx','doc','docx']
         @blacklist = ['git','svn','ds_store','exe','obj','db','app','jar']
-        @courseware = Courseware.find(id)
-        @courseware.make_sure_globalktvid!
-        if @courseware.tree.present?
-          tmp = @courseware.tree.to_s.scan(/"id"=>"([a-z0-9]{20,})"/).compact.flatten
-          tmp.each do |t|
-            c = Courseware.find(t)
-            if c.redirect_to_id.present?
-              c.soft_delete
-              c.delete
+        begin
+           @courseware = Courseware.find(id)
+           @courseware.make_sure_globalktvid!
+          if @courseware.tree.present?
+            tmp = @courseware.tree.to_s.scan(/"id"=>"([a-z0-9]{20,})"/).compact.flatten
+            tmp.each do |t|
+              c = Courseware.find(t)
+              if c.redirect_to_id.present?
+                c.soft_delete
+                c.delete
+              end
             end
           end
-        end
-        @title = @courseware.title
-        sort=File.extname(@courseware.pdf_filename).split('.')[-1].to_s.downcase
-        @courseware.update_attribute(:pdf_slide_processed,0)
-        @working_dir = "/media/hd2/auxiliary_#{Setting.ktv_sub}/ftp/cw/#{@courseware.id}" #$psvr_really_production ? : "#{Rails.root}/simple/tmp/uncompress_#{Setting.ktv_sub}/#{@courseware.id}_#{sort}"
-        begin
+          @title = @courseware.title
+          sort=File.extname(@courseware.pdf_filename).split('.')[-1].to_s.downcase
+          @courseware.update_attribute(:pdf_slide_processed,0)
+          @working_dir = "/media/b/auxiliary_#{Setting.ktv_sub}/ftp/cw/#{@courseware.id}" #$psvr_really_production ? : "#{Rails.root}/simple/tmp/uncompress_#{Setting.ktv_sub}/#{@courseware.id}_#{sort}"
           uncom_path = "#{@working_dir}/#{@courseware.pdf_filename.gsub(".","_")}"
           `mkdir -p "#{@working_dir}"`
           `mkdir "#{uncom_path}"`
@@ -85,6 +87,9 @@ module Ktv
               @courseware.status = 0
             end
             @courseware.save(:validate => false)
+            if @courseware.get_children.blank?
+              @courseware.go_to_normal
+            end
             # puts `rm -rf "#{@working_dir}"`
             return tree
         rescue => e
@@ -198,7 +203,7 @@ module Ktv
       p[:pdf_filename]=File.basename(opts[:pdf_filename])
       p[:title] = @title
       ## about child
-      rest = opts[:filepath].split(@working_dir)[-1].split("/").collect{|x| URI::escape(x.to_s)}.join("/")
+      rest = opts[:filepath].split(@working_dir)[-1].split("/").collect{|x| URI::escape(x.to_s)}.join("/").gsub(/([\[\]\{\}])/){|x| CGI.escape(x)}
       p[:is_children] = true
       p[:father_id] = @courseware.id
       p[:where_am_i_in_this_family] =  rest
@@ -294,3 +299,4 @@ module Ktv
     end
   end
 end
+=end

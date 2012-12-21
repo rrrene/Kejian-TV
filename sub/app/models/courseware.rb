@@ -5,6 +5,7 @@ class Courseware
   include Redis::Search
   include BaseModel
   # sort by this
+  field :psvr_downready,:type=>Boolean,:default=>false
   field :score,:type=>Integer,:default=>0  
   @before_soft_delete = proc{
     if self.uploader_id_candidates.blank?
@@ -96,6 +97,9 @@ class Courseware
   scope :has_ktv_id,where(:ktvid.nin=>[nil,''])
   scope :non_redirect,where(:redirect_to_id => nil)
   scope :is_father,where(:is_children.ne=>true) #liber add,:injected_count.ne=>0
+  def is_father?
+    self.is_children!=true
+  end
   scope :is_child,where(:is_children=>true)
   scope :abnormal, where(:status.lt => 0)
   scope :transcoding, where(:status.gt => 0)
@@ -107,9 +111,9 @@ class Courseware
   SORT1STR = {
     'lecture_notes' => '讲义',
     'assignments' => '作业',
-    'exams' => '往年试卷',
+    'exams' => '试卷',
     'videos' => '课堂录像',
-    'materials' => '课本/资料',
+    'materials' => '资料/读物',
   }
   
   SORTSTR = {
@@ -132,20 +136,61 @@ class Courseware
     'jpg' => '图片',
     'jpeg' => '图片'
   }
+  SORTDOWNTYPES ={
+    'ppt' => ['ppt','pdf'],
+    'pptx' => ['pptx','pdf'],
+    'doc' => ['doc','pdf'],
+    'docx' => ['docx','pdf'],
+    'pdf' => ['pdf'],
+    'djvu' => [],
+    'webm'=> [],
+    'youku'=> [],
+    'tudou'=> [],
+    'youtube'=> [],
+    'books' => [],
+    'zip' => ['zip'],
+    'rar' => ['rar'],
+    '7z' => ['7z'],
+    'png' => ['png'],
+    'jpg' => ['jpg'],
+    'jpeg' => ['jpeg'],
+  }
+  SORTDOWNFILENAMES ={
+    'ppt' => ['#{self.ktvid}#{self.revision}.zip','pdf'],
+    'pptx' => ['#{self.ktvid}#{self.revision}.zip','pdf'],
+    'doc' => ['#{self.ktvid}#{self.revision}.zip','pdf'],
+    'docx' => ['#{self.ktvid}#{self.revision}.zip','pdf'],
+    'pdf' => ['#{self.ktvid}#{self.revision}.zip'],
+    'djvu' => [],
+    'webm'=> [],
+    'youku'=> [],
+    'tudou'=> [],
+    'youtube'=> [],
+    'books' => [],
+    'zip' => ['#{self.ktvid}#{self.revision}.zip'],
+    'rar' => ['rar'],
+    '7z' => ['7z'],
+    'png' => ['png'],
+    'jpg' => ['jpg'],
+    'jpeg' => ['jpeg'],
+  }
+  alias_method :as_json_before_psvr,:as_json
   def as_json(opts={})
-    {id:self.id,wh_ratio:self.wh_ratio,thin:self.thin?}
+    {id:self.id,status:self.status,status_str:STATE_TEXT[STATE_SYM[self.status]],wh_ratio:self.wh_ratio,thin:self.thin?}
   end
   def asynchronously_clean_me
     bad_ids = [self.id]
-    self.user.inc(:coursewares_count,-1) if self.user
-    self.uploader.inc(:coursewares_uploaded_count,-1) if self.uploader
-    self.teachers.each do |x|
-      Teacher.locate(x).inc(:coursewares_count,-1)
+    if self.is_father?
+      self.user.inc(:coursewares_count,-1) if self.user
+      self.uploader.inc(:coursewares_uploaded_count,-1) if self.uploader
+      self.teachers.each do |x|
+        Teacher.locate(x).inc(:coursewares_count,-1)
+      end
+      cw = Course.where(fid:self.course_fid).first
+      cw.inc(:coursewares_count,-1) if cw
+      dep = Department.where(fid:self.department_fid).first
+      dep.inc(:coursewares_count,-1) if dep
     end
-    cw = Course.where(fid:self.course_fid).first
-    cw.inc(:coursewares_count,-1) if cw
-    dep = Department.where(fid:self.department_fid).first
-    dep.inc(:coursewares_count,-1) if dep
     
     thanked = false
     User.where(:thanked_courseware_ids=>self.id).each do |u|
@@ -168,7 +213,7 @@ class Courseware
     Util.del_propogate_to(Comment,:_id,self.comments.collect(&:id))
     if self.tree.present?
       self.get_children.each do |child|
-        child
+        child.soft_delete
       end
     end
   end
@@ -215,14 +260,15 @@ class Courseware
   end
   field :subsite
   field :uid
+  field :tid,:type=>Integer, :default => 0
+  field :pid,:type=>Integer, :default => 0
   field :author # slug
   field :ktvid
-  field :legacy_ibeike
-  field :legacy_cnu
   field :have_pw,:type=>Boolean,:default=>false
   field :pw
   field :md5
   field :status
+  field :sub_status,:type=>Integer,:default=>0 ## 0=>listed,1 => unlisted
   field :uploader_id
   field :uploader_id_candidates,:type=>Array,:default=>[]
   def uploader_ins
@@ -351,7 +397,7 @@ class Courseware
   field :height, :type => Integer, :default => 0
   field :slides_count, :type => Integer, :default => 0;
   def fix_pages
-    working_dir = "/media/hd2/auxiliary/ftp/cw_fix_pages/#{self.id}"
+    working_dir = "/media/b/auxiliary/ftp/cw_fix_pages/#{self.id}"
     FileUtils.mkdir_p(working_dir)
     File.open("#{working_dir}/#{self.id}#{self.revision}.zip","wb") do |f|
       f.write $snda_ktv_down.objects.find("#{self.id}#{self.revision}.zip").content
@@ -380,10 +426,78 @@ class Courseware
   #-=xunlei=-
   embeds_many :notes
   field :xunlei_url
+  field :cnu_id
+  field :cnu_id2
+  field :cnu_uid
+  field :cnu_uname
   field :ibeike_id
   field :ibeike_id2
   field :ibeike_uid
   field :ibeike_uname
+  def self.cnu_import2
+    ret=[]
+    CnuAssets.where('data_content_type="application/msword" or data_content_type="application/vnd.ms-powerpoint"').each{|x|
+      cc=CnuCoursewares.find(x.courseware_id)
+      tch=CnuTeachers.find(cc.teacher_id)
+      ccc=CnuCourses.find(cc.course_id)
+      uuu=CnuUsers.find(cc.user_id)
+
+      if ccc.institute_id
+        cccc=CnuInstitutes.find(ccc.institute_id)
+        real_dpt = Department.where(name:cccc.name).first
+        if !real_dpt
+          real_dpt = Department.new
+          real_dpt.name = cccc.name
+          real_dpt.save(:validate=>false)
+        end
+      else
+        real_dpt = Department.where(name:'其它').first
+        if !real_dpt
+          real_dpt = Department.new
+          real_dpt.name = '其它'
+          real_dpt.save(:validate=>false)
+        end
+      end
+      raise 'ahhhhh' unless real_dpt.fid > 0
+      real_c = Course.where(name:ccc.name,department_fid:real_dpt.fid).first
+      if !real_c
+        real_c = Course.new
+        real_c.name = ccc.name
+        real_c.department_fid=real_dpt.fid
+        real_c.save(:validate=>false)
+      end
+      binding.pry unless real_c.fid > 0
+      real_u = User.where(email:uuu.email.downcase).first
+      binding.pry unless real_u
+      cw=Courseware.where(cnu_id:x.id,cnu_id2:x.courseware_id).first
+      cw||=Courseware.new
+      cw.uploader_id = real_u.id
+      cw.cnu_id=x.id
+      cw.cnu_id2=x.courseware_id
+      cw.title="#{cc.title}#{File.basename(x.data_file_name)}"
+      cw.teachers=[tch.name]
+      cw.course_fid=real_c.fid
+      # klass: 1 讲义 2作业 3复习资料 4往年试卷 5课堂录像  
+      #
+      srotttt = {
+            1=>'lecture_notes' ,
+                2=>'assignments' ,
+                    4=>'exams',
+                        5=>'videos' ,
+                            3=>'materials' ,
+                              }
+      cw.sort1=srotttt[cc.klass]
+      cw.downloads_count=cc.purchases_count  
+      cw.save(:validate=>false)
+      cw.ua(:created_at,cc.created_at)
+      if x.id>1000
+      ret<< [cw.id,"/Volumes/latest/data/000/001/#{tch.name}/#{cc.title}/#{x.data_file_name}"]
+      else
+      ret<< [cw.id,"/Volumes/latest/data/000/000/#{tch.name}/#{cc.title}/#{x.data_file_name}"]
+      end
+    } 
+    ret
+  end
   belongs_to :user
   cache_consultant :title
   before_validation :titleize
@@ -554,29 +668,7 @@ class Courseware
     @user = nil if self.user_id_changed?
     @user ||= User.where(:_id => self.user_id).first
   end
-  before_save :create_stuff!,:if=>'self.title_changed?'
-  def create_stuff!
-    self.is_thin = self.thin?
-    if self.school_name.present?
-      school = School.find_or_create_by(:name => self.school_name)
-      user = User.find_or_initialize_by(:school_id => school.id, :name => self.user_name)
-      if user.new_record?
-        user.email_unknown = true
-        user.save(:validate => false)
-      end
-      self.school_id = school.id
-      self.user_id = user.id
-    elsif self.user_id.blank?
-      self.user_id = self.uploader_id
-    end
-  end
-  before_save :create_topic!,:if=>'self.topic_changed?'
-  def create_topic!
-    topic = Topic.find_or_create_by(:name => self.topic)
-    self.topic_id = topic.id
-    self.topics = topic.ancestors
-  end
-  before_save :counter_work
+  before_save :counter_work,:if=>'self.is_father?'
   def update_pl
     pls = PlayList.where(:content=>self.id)
     pls.each do |pl|
@@ -628,7 +720,7 @@ class Courseware
       end
     end
   end  
-  before_save :course_work
+  before_save :course_work,:if=>'self.is_father?'
   def course_work
     if course_fid_changed? 
       if !new_record? and !course_fid_was.nil?
@@ -665,7 +757,7 @@ class Courseware
     end
   end
 
-  before_save :teachers_work
+  before_save :teachers_work,:if=>'self.is_father?'
   def teachers_work
     if status_changed? && status_was !=0 && status != 0
       # return
@@ -684,6 +776,7 @@ class Courseware
       end
     end
     if status_changed? && status_was != 0 && status == 0
+      self.gone_normal_at=Time.now
       if teachers_changed? && !teachers.blank?
         teachers.to_a.uniq.each do |a|
           t = Teacher.find_or_create_by(:name=>a)
@@ -749,7 +842,9 @@ class Courseware
     end
   end
   def wh_ratio
-    self.width*1.0/self.height
+    ret = self.width*1.0/self.height
+    ret = 1.3333333333333333 if ret.nan?
+    ret
   end
   def thin?
     return true if self.width.present? and self.height.present? and self.width < self.height
@@ -774,8 +869,6 @@ class Courseware
   end
   def go_to_normal
     self.update_attribute(:status,0)
-    self.tire.update_index
-    # insert_courseware_action_log('GONE_NORMAL')
   end
   def pinpic
     "cw/#{self.ktvid ? self.ktvid : self.id}/#{self.pinpicname}"
@@ -813,7 +906,7 @@ class Courseware
       coursewares = coursewares.where(:sort.in=>params[:sort].split('|'))
     end
     if 'all'==params[:order] or params[:order].blank?
-      coursewares = coursewares.desc('created_at')
+      coursewares = coursewares.desc('gone_normal_at')
     else
       coursewares = coursewares.desc('slides_count') if 'slides_count1'==params[:order]
       coursewares = coursewares.asc('slides_count') if 'slides_count0'==params[:order]
@@ -880,22 +973,96 @@ class Courseware
     # field :father_id
     # field :is_children,:type => Boolean, :default => false
     # field :where_am_i_in_this_family
-    @cw = Courseware.find(id)
-    if @cw.is_children
-      @papa = Courseware.find(@cw.father_id)
-      tmp = @papa.get_children
-      if tmp.map{|x| Courseware.find(x)}.map(&:status).to_a.count(0) == tmp.to_a.size
-        @papa.update_attribute(:status,0)
+    cw = Courseware.find(id)
+    if cw.is_children
+      papa = Courseware.find(cw.father_id)
+      tmp = papa.get_children
+      tstatus = tmp.map{|x| Courseware.find(x)}.compact.map(&:status).to_a
+      if (tstatus.count(0)+tstatus.count(-1)+tstatus.count(-2)+tstatus.count(-3)) == tmp.to_a.size
+        papa.update_attribute(:status,0)
       else
-        @papa.update_attribute(:status,4)
+        papa.update_attribute(:status,4)
+      end
+      if tmp.blank?
+        papa.ua(:sub_status,1)
+      else
+        papa.ua(:sub_status,0)
       end
       # @papa.update_attribute(:transcoding_count,@papa.transcoding_count - 1)
       # if @papa.transcoding_count <= 0
       # end
     end
   end
+  def self.orphan
+    cws = Courseware.where(:is_children => true)
+    cws.each do |f|
+      papa = Courseware.find(f.father_id)
+      if !papa.get_children.to_s.include?(f.id.to_s)
+        f.delete
+      end
+    end
+  end
   def get_children      # return Array
     children = self.tree.to_s.scan(/"id"=>"([a-z0-9]{20,})"/).flatten.compact
+  end
+  def get_ctext
+    children = self.tree.to_s.scan(/"id"=>"[a-z0-9]{20,}",."text"=>"([^"]*)"/).flatten.compact
+  end
+  def self.fix_download_etc
+    cws = Courseware.where(:sort.in=>[/ppt/i,/pptx/i,/doc/i,/docx/i],:is_children=>false)
+    cws.each do |f| 
+       Sidekiq::Client.enqueue(Hooker2Job,"Courseware",nil,:upload_zipfile_of_ppt_and_other,f.id)
+    end
+  end
+  def self.upload_zipfile_of_ppt_and_other(id)
+    working_dir = "/media/b/auxiliary_ibeike/ftp/cw_upload"
+          cw = Courseware.find(id)
+              puts "Uploading [#{cw.id}]#{cw.title}"
+              puts `mkdir -p #{working_dir}/#{cw.id}`
+              compressed_path = "#{working_dir}/#{cw.id}/#{cw.pdf_filename}"
+              puts `cp "#{cw.really_localpath}" "#{compressed_path}"`
+              zipfile="#{working_dir}/#{cw.id}/#{cw.id}#{cw.revision}.zip"
+              puts `zip -j "#{zipfile}" "#{compressed_path}"`
+              done = false 
+              psvr_count=0
+              while !done and psvr_count<10
+                psvr_count+=1
+                begin
+                  new_object = $snda_ktv_down.objects.build("#{cw.ktvid}#{cw.revision}.zip")
+                  new_object.content = open(zipfile)
+                  new_object.save
+                  done = true
+                rescue => e
+                  puts e
+                end
+              end
+              cw.update_attribute(:down_pdf_size,File.size(zipfile)/1000)
+  end
+
+  def fix_father_pinpic!
+    min = nil
+    tmp = nil
+    self.get_children.to_a.each do |f|
+      cw = Courseware.where(id:f).first
+      if cw.present? and cw.status ==0 and cw.child_rank == 0
+        min = cw.id
+      end
+      if cw.present? and cw.status ==0 
+        tmp = cw.id
+      end
+      if cw.present? and cw.status != 0 and cw.child_rank == 0
+        cw.ua(:child_rank,(self.get_children.to_a.size+1))
+      end
+    end
+    if min.nil?
+      if tmp.present?
+        min = tmp
+      else
+        min = self.get_children[0]
+      end
+      Courseware.find(min).ua(:child_rank,0)
+    end
+    Courseware.find(min).renqueue!
   end
   def fix_children(fix_all = false)
     counting = 0
@@ -912,11 +1079,55 @@ class Courseware
         counting += 1
       end
     end
+    if self.get_children.blank? and self.tree.present?
+      self.go_to_normal
+    end
     puts "father " + self.id.to_s.colorize(:red) + " has " + counting.to_s.colorize(:red) + " need to be fixed."
+  end
+  def self.fix_remote_filepath!(array)
+     array.each do |f|
+       c = Courseware.find(f)
+       c.fix_remote_filepath
+     end
+  end
+  def fix_remote_filepath
+    if self.remote_filepath.include?("http") and self.remote_filepath.include?("media/b")
+      tmp = "http://special_agentx.#{Setting.ktv_domain}/#{self.remote_filepath.split('media/b/auxiliary_'+Setting.ktv_sub + '/ftp/cw')[-1]}"
+      self.ua(:remote_filepath,tmp)
+    end
+  end
+
+  def self.fix_queue!(array)
+    array.each do |f| 
+      c = Courseware.find(f)
+      if c.status == 1
+        c.enqueue!
+      else
+        if c.tree.present?
+          c.fix_children
+        else
+          c.enqueue!
+        end
+      end
+    end
+  end
+  def self.check_match(array)
+    array.each do |f|
+      cw = Courseware.find(f)
+      puts "father:[" + cw.id.to_s + "]"+cw.title.colorize(:blue)
+      puts cw.get_ctext.to_s.colorize( :red )
+    end
+  end
+  def check_status
+    self.check_children(:status)
   end
   def check_children(key,statusArray=[])
     self.get_children.each do |c|
-      w = Courseware.find(c)
+      w = Courseware.where(id:c).first
+      if w.nil?
+        puts "error!!!".colorize( :red )
+        next
+      end
       if statusArray.blank?
         puts w.id.to_s + ": ".to_s + w.send(key).to_s.colorize( :red )
       elsif statusArray == :abnormal
@@ -1046,6 +1257,7 @@ presentation[published_at]	2012/07/13
   end
   def re_enqueue_prepare!
     self.ua(:status,1)
+    self.ua(:really_broken,false)
     self.ua(:check_upyun_result,false)
     self.ua(:pdf_slide_processed,0)
   end
@@ -1060,8 +1272,13 @@ presentation[published_at]	2012/07/13
     when :doc,:docx
       Sidekiq::Client.enqueue(WinTransJobDOC,self.remote_filepath,self.sort,self.ktvid,self.id.to_s)
     when :zip,:rar,:'7z'
-      Sidekiq::Client.enqueue(HookerJob,"Ktv::Uncompress",nil,:perform,self.id)
+      Sidekiq::Client.enqueue(UncompressJob,self.id.to_s)
+      # Sidekiq::Client.enqueue(HookerJob,"Ktv::Uncompress",nil,:perform,self.id)
     end
+  end
+  def renqueue!
+    self.re_enqueue_prepare!
+    self.enqueue!
   end
   def extra_property_fill(presentation)
     self.have_pw = '1'==presentation[:have_pw]
@@ -1265,10 +1482,12 @@ opts={   :subsite=>Setting.ktv_sub,
   alias_method :redis_search_index_create_before_psvr,:redis_search_index_create
   alias_method :redis_search_index_need_reindex_before_psvr,:redis_search_index_need_reindex
   def redis_search_psvr_okay?
-    !self.soft_deleted? and 0==self.status and 0==self.privacy and self.title.present? and self.redis_search_alias.present?
+    !self.soft_deleted? and 0==self.status and 0==self.privacy and self.title.present? and self.redis_search_alias.present? and self.redirect_to_id.nil? and self.slides_count.try(:>,0) and self.is_father?
   end
+  attr_accessor :force_redis_search_psvr_changed
   def redis_search_psvr_changed?
-    (self.deleted_changed? || self.status_changed? || self.privacy_changed?)
+    return true if force_redis_search_psvr_changed
+    (self.deleted_changed? || self.status_changed? || self.privacy_changed? || self.slides_count_changed? || self.is_children_changed?)
   end
   def redis_search_index_need_reindex
     if !redis_search_psvr_okay?
@@ -1425,5 +1644,64 @@ opts={   :subsite=>Setting.ktv_sub,
     end
     json     = MultiJson.decode(response.body)
     return Tire::Results::Collection.new(json, :from=>from,:size=>size)
+  end
+  SORT1TYPEID = {
+    'lecture_notes' => 1,
+    'assignments' => 2,
+    'exams' => 3,
+    'videos' => 4,
+    'materials' => 5,
+  }
+  after_save :sync_to_dz!
+  def sync_to_dz_okay?
+    self.is_father? and self.title.present? and self.try(:uploader).try(:discuz_user_activated) and self.course_fid.try(:>,0)
+  end
+  def sync_to_dz_changed?
+    self.title_changed? or self.uploader_id_changed?
+  end
+  def sync_to_dz!
+    return true unless self.sync_to_dz_okay?
+    # todo: consider sync_to_dz_changed?
+    return true if self.try(:tid).try(:>,0)
+    data = {
+      psvr_posttime_overwrite:self.created_at.to_i,
+      wysiwyg:1,
+      typeid:SORT1TYPEID[self.sort1],
+      subject:self.title,
+      message:'[code]'+MultiJson.dump(self.as_json_before_psvr)+'[/code]',
+      replycredit_extcredits:0,
+      replycredit_times:1,
+      replycredit_membertimes:1,
+      replycredit_random:100,
+      readperm:'',
+      price:99,
+      tags:'',
+      rushreplyfrom:'',
+      rushreplyto:'',
+      rewardfloor:'',
+      stopfloor:'',
+      creditlimit:'',
+      save:'',
+      usesig:1,
+      allownoticeauthor:1
+    }
+    res = Ktv::JQuery.ajax({
+      psvr_original_response: true,
+      url:"http://#{Setting.ktv_subdomain}/simple/forum.php?mod=post&action=newthread&fid=#{self.course_fid}&extra=&topicsubmit=yes",
+      type:'POST',
+      data:data,
+      :accept=>'raw'+Setting.dz_authkey,
+      psvr_response_anyway: true,
+      :psvr_extra_headers=>{
+        'PSVR-XXX-UID-OVERWRITE'=>self.uploader.uid.to_s
+      },
+    })
+    if res.psvr_extra_arg =~ /&tid=(\d+)&/
+      self.update_attribute(:tid,$1.to_i)
+      self.update_attribute(:pid,PreForumPost.where(tid:self.tid,first:1).first.pid)
+      User.get_credits(self.uploader.uid,true)
+      puts "sync_to_dz! success #{self.tid}"
+    end
+    true 
   end
 end

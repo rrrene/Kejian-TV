@@ -796,6 +796,6 @@ describe AjaxController do
     assert 401==@response.status,'登录用户且用户没有修改权限不可以upload_page_auto_save'
 
   end
-    
-
+   
+  # todo forum_topicadmin
 end

@@ -6,7 +6,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>课件台 - <%= @seo[:title] %></title>
+  <title><%= @seo[:title] %> - <%= @seo[:aux_title].present? ? @seo[:aux_title] : "#{Setting.ktv_subname}课件台" %></title>
   <meta name="description" content="">
   <script src="/js/libs/modernizr-2.5.3.min.js"></script>
   <meta name="viewport" content="width=device-width">
@@ -60,6 +60,6 @@
   });
 })(jQuery);
 </script>
-<%= render 'analytics' unless Rails.env.development? %>
+  <%= render 'analytics' if $psvr_really_production %>
 </body>
 </html>

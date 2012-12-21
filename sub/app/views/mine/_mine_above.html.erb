@@ -23,12 +23,14 @@
 
 	<div class="yt-nav yt-nav-dark " id="masthead-subnav" style="width:970px">
 		<ul class="yt-nav-aside">
-			<li class="subnav-secondary">
+<% if false%>
+      <li class="subnav-secondary">
 			<a href="/inbox?feature=mhsn" class="yt-nav-item">
 			收件箱 (3) </a>
-			</li>
+    </li>
+  <% end %>
 			<li class="subnav-secondary">
-			<a href="/account?feature=mhsn" class="yt-nav-item">
+			<a href="/account/edit" class="yt-nav-item">
 			账号设置 </a>
 			</li>
 		</ul>
@@ -36,7 +38,8 @@
 			<li class=" psvr-selected">
 			<span class="yt-nav-item">
 			课件管理器 </span>
-			</li>
+    </li>
+    <% if false %>
 			<li>
 			<a href="https://www.youtube.com/analytics?vmv=2&amp;feature=mhsn" class="yt-nav-item">
 			流量统计分析 </a>
@@ -48,7 +51,8 @@
 			<li>
 			<a href="/my_subscriptions?feature=mhsn" class="yt-nav-item">
 			我的订阅 </a>
-			</li>
+    </li>
+  <% end %>
 		</ul>
 	</div>
 	<div id="alerts">

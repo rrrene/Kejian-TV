@@ -8,15 +8,18 @@ background: #fdfdfd url(<%= asset_path 'sstatic/skeptics/img/grid_noise_dark.png
 
     <div class="container">
         <div id="header">
+<% if @is_ie8 || @is_ie7 %>
+<div id="ie_toubuyinying">&nbsp;</div>
+<% end %>
             <div id="hmenus">
                 <div class="nav mainnavs">
                     <ul style="float:left">
-                      <li><a id="nav-subname" style="background-image:url(/favicon.ico)" href="http://<%= Setting.ktv_subdomain %>"><%= Setting.ktv_subname %>课件台</a></li>
+                      <li><a id="nav-subname" style="text-transform: none;background-image:url(/favicon.ico)" href="http://<%= Setting.ktv_subdomain %>"><%= Setting.ktv_subname %>课件台</a></li>
                     </ul>
                     <ul>
                         <li class="<%= 'youarehere' if WelcomeController==controller.class %>"><a id="nav-questions" href="/">全部课件</a></li>
                         <li class="<%= 'youarehere' if PlayListsController==controller.class %>"><a id="nav-questions" href="/play_lists">课件锦囊</a></li>
-                        <li class="<%= 'youarehere' if CoursesController==controller.class || DepartmentsController==controller.class %>"><a id="nav-unanswered" href="/courses">课程目录</a></li>
+                        <li class="<%= 'youarehere' if CoursesController==controller.class || DepartmentsController==controller.class %>"><a id="nav-unanswered" href="/courses">课程导航</a></li>
                         <li class="<%= 'youarehere' if SearchController==controller.class%>"><a id="nav-unanswered" href="/search">课件搜索</a></li>
                     </ul>
                 </div>

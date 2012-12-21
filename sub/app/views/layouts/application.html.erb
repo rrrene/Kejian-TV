@@ -14,7 +14,7 @@
        More info: h5bp.com/i/378 -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-  <title><%= @seo[:aux_title].present? ? @seo[:aux_title] : "#{Setting.ktv_subname}课件台" %> - <%= @seo[:title] %></title>
+  <title><%= @seo[:title] %> - <%= @seo[:aux_title].present? ? @seo[:aux_title] : "#{Setting.ktv_subname}课件台" %> [内测]</title>
   <meta name="author" content="Kejian.TV" />
   <meta name="copyright" content="<%= Time.now.year %> Kejian.TV Ltd." />
   <meta name="keywords" content="<%= @seo[:keywords] %>">
@@ -24,21 +24,12 @@
   <meta name="viewport" content="width=device-width">
 	<%= javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery? %>
 	<%= javascript_tag "var vfl3z5WfW = #{asset_path('yt/img/pixel-vfl3z5WfW.gif').inspect};" %>
-  <%= javascript_include_tag "pre_application" %>
+  <script src="/pre_application.js"></script>
   <%= stylesheet_link_tag "pre_application", :media => "all" %>
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons -->
   <%= stylesheet_link_tag "ktv/application", :media => "all" %>
   <%= csrf_meta_tag %>
   <!-- More ideas for your <head> here: h5bp.com/d/head-Tips -->
-  <!--[if lte IE 8]>
-  <script src="/DOM-shim/lib/DOM-shim-ie8.js"></script>
-  <![endif]-->
-  <!--[if gte IE 9]>
-  <script src="/DOM-shim/lib/DOM-shim.js"></script>
-  <![endif]-->
-  <!--[if !IE]> -->
-  <script src="/DOM-shim/lib/DOM-shim.js"></script>
-  <!-- <![endif]-->
 
   <!-- All JavaScript at the bottom, except this Modernizr build.
        Modernizr enables HTML5 elements & feature detects for optimal performance.
@@ -49,6 +40,16 @@
   <!--[if (gte IE 6)&(lte IE 8)]>
    <script src="/js/ie1.js" type="text/javascript"></script>
   <![endif]-->
+  <% @dz_parser && @dz_parser.css('head link[rel="stylesheet"]').collect{|x|
+    ret=x['href'].split('/')[-1]
+    if ret.starts_with?('style_1_common.css')||ret.starts_with?('style_1_widthauto')
+      nil
+    else
+      ret.split('?')[0]
+    end
+    }.compact.each do |filename| %>
+    <%= stylesheet_link_tag "__dz/#{filename}" %>
+  <% end %>
   <%= stylesheet_link_tag "application" %>
 	<%= stylesheet_link_tag 'ktv/__ytb_min_ql' %>
   <!--[if IE]><link rel="stylesheet" type="text/css" href="<%= asset_path('ktv/ie.css') %>" /><![endif]-->
@@ -75,6 +76,8 @@
 </head>
 
 <body <%if @is_ie8 or @is_ie7 or @is_ie6 %>onload="window.psvr_ie_readyfix()"<%end%> id="psvr_subject_all" style="  <%=yield :body_style%>" data-subdomain="<%= request.subdomain %>" class="<%=yield :body_klass%> <%= ' chrome ' if @is_chrome %><%= ' firefox ' if @is_firefox %><%= ' mac ' if @is_mac %><%= ' windows ' if @is_windows %>">
+<div class="wrapper" style="width:960px;"><div id="psvrsharedown_sorry">
+</div></div>
 <div class="__dz"><div id="append_parent"></div></div>
 <div class="__dz"><div id="ajaxwaitid"></div></div>
 
@@ -87,7 +90,7 @@
       <div class="navigation">
         <div id="amazing-shadow"></div>
         <ul id="account-settings" style="min-width:44px">
-          <li class="psvr"><a class=" " id="logout" href="/logout">退出: <%=current_user.name_beautified%></a>
+          <li class="psvr"><a class=" " id="logout" href="/register05_temporarily_skip">跳过此步骤</a>
           </li>
         </ul>
       </div>
@@ -97,8 +100,8 @@
 <% else %>
   <header style="background-image:url(<%= asset_path('dark.png') %>)">
     <div class="wrapper" style="<%=yield :sdk_wrapper_style%>">
-      <h1><a href="/" id="core_logotext_wrap"><%= image_tag "logo_ktv_#{Setting.ktv_sub}.png",:alt => "#{Setting.ktv_subname}课件台",:id=>'core_logotext' %></a></h1>
-      <form accept-charset="UTF-8" action="/search" id="search_form" method="get" data-width-tobe="<%= Setting.logo_ktv_width + 490 %>" style="<%= "margin-left:#{Setting.logo_ktv_width + 78}px" %>">
+      <h1><a href="/" id="core_logotext_wrap" style="<%= yield :sdk_wrapper_style1 %>"><%= image_tag "logo_ktv_#{Setting.ktv_sub}.png",:alt => "#{Setting.ktv_subname}课件台",:id=>'core_logotext' %></a></h1>
+      <form accept-charset="UTF-8" action="/search" id="search_form" method="get" data-width-tobe="<%= Setting.logo_ktv_width + 490 %>" style="<%= "margin-left:#{Setting.logo_ktv_width + 78}px" %>;<%= yield :sdk_wrapper_style2 %>">
 				<div style="margin:0;padding:0;display:inline">
 					<input name="utf8" type="hidden" value="✓">
 					<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
@@ -124,24 +127,26 @@
         </ul>
         <div id="amazing-shadow"></div>
         <% if user_signed_in? %>
-          <ul id="account-settings">
+          <ul id="account-settings" style="<%= yield :sdk_wrapper_style_end %>">
             <li>
             <a class="user" href="<%= user_path(current_user) %>"><img src="<%=dz_avatar_url(current_user.uid,current_user.email,:small)%>" class="imgHead" width="47" height="47" alt="" style=""><%= current_user.name.present? ? name_beautify(current_user.name) : '姓名未知' %>
                 
                 <span id="hardest_a_ever"><span dir="ltr" title="your reputation; view reputation changes" class="reputation-score">
-                  <%=number_with_delimiter @_G['member']['credits']%>
+                  <%=str2weifen User.get_credits(current_user.uid)%>
                 </span></span>
                 </a>
               <ul>
                 <li><a href="/mine">课件管理器</a></li>
                 <li><a href="/account/edit">账号设置</a></li>
-                <li><a href="#">意见反馈</a></li>
+                <li>
+                  <a id="Intercom" href="mailto:bbiz3u3s@incoming.intercom.io">Bug及意见反馈</a>
+                </li>
                 <li><a href="/logout">退出</a></li>
               </ul>
             </li>
           </ul>
         <%else%>
-          <ul id="account-settings" style="min-width:100px">
+          <ul id="account-settings" style="min-width:100px;<%= yield :sdk_wrapper_style_end %>">
             <li class="psvr"><a class=" " id="login" href="/login">登录 / 注册新用户</a>
             </li>
           </ul>
@@ -276,7 +281,6 @@
   
 </div>
 
-
   <div class="__zm">
     <div class="totop" id="backtotop" style="display: none;"><a href="javascript:void(0);">返回 </a></div>
     <div id="loginLayout"></div>
@@ -365,6 +369,5 @@
   <!-- end scripts -->
   </div>
   <%= render 'analytics' if $psvr_really_production %>
-
 </body>
 </html>

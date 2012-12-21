@@ -3,6 +3,8 @@ require 'sidekiq/web'
 Sub::Application.routes.draw do
 
   root :to=>'welcome#index'
+  get '/welcome/assets'
+  get '/deposit' => 'deposit#index'
   get '/iphone' => 'welcome#iphone'
   get '/upload' => 'coursewares#new'
   get '/embed/:id' => 'coursewares#embed'
@@ -22,6 +24,7 @@ Sub::Application.routes.draw do
   get '/mine/my_coursewares_copyright'
 	get '/mine/my_history'
 	get '/mine/my_search_history'
+  get '/mine/my_bought'
   get '/mine/my_watch_later_coursewares'
   get '/mine/my_favorites'
   get '/mine/my_liked_coursewares'
@@ -43,6 +46,7 @@ Sub::Application.routes.draw do
     put '/account/confirmation' => 'account_confirmations#show'
     get "/register", :to => "account#new",as:'register'
     get "/register05", :to => "account#new05"
+    get "/register05_temporarily_skip", :to => "account#new05_temporarily_skip"
     get "/register05_force_relogin", :to => "account#new05"
     get "/login", :to => "account_sessions#new",as:'login'
     get '/logout', :to => "account_sessions#destroy", as:'logout'
@@ -150,11 +154,37 @@ Sub::Application.routes.draw do
     end
   end
   resources :courses do 
+    collection do
+      get 'selectform'
+      post 'topicadmin_moderate'
+    end
     member do
       get 'coursewares' => 'coursewares#index'
       get 'coursewares_with_page/:page' => 'coursewares#index'
       get "follow"
       get "unfollow"
+      get 'syllabus'
+      get 'asks'
+      get 'experts'
+      get 'admin_login'
+      post 'admin_loginpost'
+      get 'admin_logout'
+      post 'forum_topicadmin'
+      get 'admin7'
+      get 'admin8'
+      get 'admin9'
+      get 'admin10'
+      get 'admin11'
+      get 'admin12'
+      get 'admin13'
+      get 'admin13/post'=>'courses#admin13'
+      get 'admin13/recyclebin'=>'courses#admin13'
+      get 'admin13/recyclebinpost'=>'courses#admin13'
+      get 'admin14'
+      get 'admin15'
+      get 'admin16'
+      get 'admin17'
+      get 'admin18'
     end
   end
   get '/coursewares_by_departments' => 'coursewares#index'
@@ -174,6 +204,8 @@ Sub::Application.routes.draw do
       get 'hot'
     end
     member do
+      get 'pay'
+      post 'pay_post'
       get 'download'
       post 'download'
       get "thank"

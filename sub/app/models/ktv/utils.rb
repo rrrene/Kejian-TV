@@ -1,6 +1,11 @@
 # -*- encoding : utf-8 -*-
 module Ktv
   class Utils
+    def self.hashcat(hash)
+      hash.collect do |key,val|
+        "key=#{URI::escape(val.to_s)}"
+      end.join('&')
+    end
     def self.assert(statement)
       ret = statement
       if !ret

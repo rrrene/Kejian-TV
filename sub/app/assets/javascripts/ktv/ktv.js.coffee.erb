@@ -1,10 +1,46 @@
 (($) ->
-  window.KTV = {}
+  window.KTV={} if !window.KTV
   window.KTV.Utilities = {}
   window.KTV.data = {}
   KTV.search_cache = {}
   KTV.sss_term_cache = {}
+  KTV.after_hideWindow = {}
+  KTV.zhongwenshuzi = ['零','初','二','三','四','五','六','七','八','九','十']
+  KTV.succeedhandle_pay_sub = ->
+    $('#psvrsharedown_thumbnails_btn1').addClass('already')
+    $('#psvrsharedown_yigoumai').animate({'opacity':0},{duration: 125})
+    $('#psvrsharedown_yigoumai').addClass('yigoumai')
+    $('#psvrsharedown_yigoumai').animate({'opacity':1},{duration: 125})
+      
+  KTV.succeedhandle_pay = (locationhref , msg, hash)->
+    if msg is '__psvr_core_goumaichenggong'
+      hideWindow('pay')
+      KTV.succeedhandle_pay_sub()
+    else
+      if 1==$('#fwin_pay .alert_info').length
+        $('#fwin_pay .alert_info').prepend("<p>#{msg}</p>")
+      else
+        alert(msg)
+        hideWindow('pay')
+      KTV.succeedhandle_pay_sub() if msg.match(/您已购买过/)
+  KTV.errorhandle_pay = ->
+    jQuery('#fwin_pay').hide()
+    KTV.psvrsharedown_meiqianle()
+    hideWindow('pay')
+    
+  KTV.psvropenhandle_pay = ->
+    window.succeedhandle_pay = KTV.succeedhandle_pay
+    window.errorhandle_pay = KTV.errorhandle_pay
+    jQuery(".maskDiv").css({"z-index":11000})
 
+  KTV.psvrcancelhandle_pay = (locationhref , msg, hash)->
+    jQuery(".maskDiv").css({"z-index":10000})
+    $('#psvrsharedown_thumbnails_btn1').removeClass('active_loading');
+    $('#psvrsharedown_spinner1').hide();
+    window.succeedhandle_pay=null
+    KTV.after_hideWindow['pay'] = null
+    
+    
   KTV.sss_escape = (str) ->
     ret=encodeURI(str);
     ret=ret.split('!').join('%21');
@@ -196,6 +232,8 @@
     jQuery('#content').height(hhh);
     jQuery('#pagekey-nprofile-edit-success').css('top',jQuery('#content').offset().top)
     jQuery('#pagekey-nprofile-psvr-skp').css('top',jQuery('#content').offset().top+184)
+  KTV.crs_subize = ->
+    $('#crs_side').css({'min-height':$(window).height()-(jQuery('#crs_head').offset().top+36)});    
   KTV.dz_targetize = ->
     $('#content').height($('#psvr_dz_target').height());
   KTV.sdk_flashes_set = (type,msg)->
@@ -440,11 +478,80 @@
       $('#psvr_bd_place_huichenotice').show()
       KTV.search_li_hover()
       
+  KTV.psvrsharedown_before = ->
+    $('.maskDiv').css('opacity','.6')
+    window.onresize = (event,x,y) ->
+      if(x && y)
+        targ=jQuery('#loginLayout')
+        targ.css({top:(y-targ.height())/2,left:(x-targ.width())/2})
+    
+  KTV.psvrsharedown_meiqianle = ->
+    window.meiqianle=true;
+    window.scrollTo(0,0);
+    $('body').animate({'padding-top':375},{duration: 500, queue:false});
+    objective = $('#psvrsharedown_sorry')
+    objective.html("\
+      <div class=\"int_signs\" style=\"top:88px\">\
+      <div class=\"int_sign1_meng\">&nbsp;</div>      <div class=\"int_sign2_meng\">&nbsp;</div>      <div class=\"int_sign3_meng\">&nbsp;</div>\
+      <div class=\"int_sign1\"><a href=\"/upload\" target=\"_blank\">您可以通过上传课件获得源源不断的课件销售积分收益 &raquo;</a></div>\
+      <div class=\"int_sign2\"><a href=\"/upload\" target=\"_blank\">您可以把在其他课件台子站获得的积分转账到<%= Setting.ktv_subname %>课件台来使用 &raquo;</a></div>\
+      <div class=\"int_sign3\"><a href=\"/upload\" target=\"_blank\">您可以拜访上传者的人人主页获得一次性的积分奖励 &raquo;</a></div>\
+      </div>\
+      <div class=\"__zm\" style=\"position:absolute;top:0;margin-left: 960px;\"><div class=\"dialog3\" style=\" position: absolute; \"><a class=\"js-close close\">关闭</a></div></div>\
+      <div class=\"pay_div\" style=\"display:none\">\
+        <div class=\"txt\"><a href=\"/deposit\">同时，您可以使用支付宝或信用卡直接购买积分</a>.</div>\
+        <a href=\"/deposit\" class=\"pays pay1\">支付宝</a><a href=\"/deposit\" class=\"pays pay2\">银联</a><a href=\"/deposit\" class=\"pays pay3\">Visa</a><a href=\"/deposit\" class=\"pays pay4\">American Express</a><a href=\"/deposit\" class=\"pays pay5\">Master Card</a><a href=\"/deposit\" class=\"pays pay6\">Diners Club International</a><a href=\"/deposit\" class=\"pays pay7\">JCB</a>\
+      </div>\
+    ");
+    objective.animate({'height':375},{duration: 500, queue:false});
+    $('#masksDiv0').animate({'margin-top':375},{duration: 500, queue:false});
+    $('#loginLayout').animate({'margin-top':375},{duration: 500, queue:false});
+    $('.int_sign1_meng',objective).hover(->
+      $('.int_sign1').addClass('hover')
+    ,->
+      $('.int_sign1').removeClass('hover'))
+    $('.int_sign2_meng',objective).hover(->
+      $('.int_sign2').addClass('hover')
+    ,->
+      $('.int_sign2').removeClass('hover'))
+    $('.int_sign3_meng',objective).hover(->
+      $('.int_sign3').addClass('hover')
+    ,->
+      $('.int_sign3').removeClass('hover'))
+    $('.js-close',objective).click(->
+      KTV.psvrsharedown_meiqianle_back();return false;
+    );
+    window.disable_scroll();
+    $('#psvrsharedown_thumbnails_btn1').addClass('insufficient');
+
+
+  KTV.psvrsharedown_meiqianle_back = ->
+    if(window.meiqianle)
+      $('body').animate({'padding-top':0},{duration: 500, queue:false});
+      $('#psvrsharedown_sorry').animate({'height':0},{duration: 500, queue:false});
+      $('#masksDiv0').animate({'margin-top':0},{duration: 500, queue:false});
+      $('#loginLayout').animate({'margin-top':0},{duration: 500, queue:false});
+      window.meiqianle = false
+          
+  KTV.psvrsharedown_after = ->
+    KTV.psvrsharedown_meiqianle_back();
+    window.enable_scroll();
+    $('.maskDiv').css('opacity','.4');
+    window.onresize = null;
+    
+  KTV.psvrsharedown = ->
+    im.zm.psvrsharedown(KTV.psvrsharedown_after)
+    $("#loginLayout").definedDialog("open")
+    KTV.psvrsharedown_before()
+    return false
+
   KTV.login = ->
+    $('.maskDiv').css('opacity','.4');
     im.zm.login()
     $("#loginLayout").definedDialog("open")
     KTV.core_login_css()
     return false;
+    
   KTV.addCW = ->
     # todo
     return true

@@ -21,11 +21,20 @@ class PlayList
   
   field :privacy, :type=>Integer, :default=>0
   scope :no_privacy, where(:privacy => 0)
-
+  PRIVACY_TYPE = {
+    0 => '公开',    # 列表里面有
+    1 => '不公开',   # 列表里没有，但是可以通过链接打开、分享
+    2 => '私有'      # 私有就是私有
+  }
+  PRIVACY_EN = {
+    'public' => '公开',    # 列表里面有
+    'unlisted' => '不公开',   # 列表里没有，但是可以通过链接打开、分享
+    'private' => '私有'      # 私有就是私有
+  }
   field :undestroyable,:type=>Boolean,:default=>false
   
   field :is_history,:type=>Boolean,:default=>false
-  scope :not_history, where(:ishistory => false)
+  scope :not_history, where(:is_history => false)
   
   field :subsite
   field :uid
@@ -116,14 +125,27 @@ class PlayList
   def self.locate(user_id,title)
     self.find_or_create_by(user_id:user_id,title:title)
   end
+  
+  ####
+  # => 注意：在User.rb里面有一个  after_create :create_playlists_for_user
+  # => def create_playlists_for_user
+  # => end
+  # => 需要修改
+  ###
   def self.create_defaults_for_all_users
     User.all.each do |u|
       x=PlayList.find_or_create_by(user_id:u.id,title:'收藏')
       y=PlayList.find_or_create_by(user_id:u.id,title:'稍后阅读')
       z=PlayList.find_or_create_by(user_id:u.id,title:'历史记录')
+      z.update_attribute(:is_history,true)
+      z.update_attribute(:privacy,2)            #private##需要好友可见
+      g=PlayList.find_or_create_by(user_id:u.id,title:'已购买')
+      g.update_attribute(:privacy,2)            #private
+      g.update_attribute(:is_history,true)
       x.update_attribute(:undestroyable,true)
       y.update_attribute(:undestroyable,true)
       z.update_attribute(:undestroyable,true)
+      g.update_attribute(:undestroyable,true)
     end
   end
   def self.on_off_history(user_id,op='off')
@@ -264,7 +286,7 @@ class PlayList
   def thumb_ktvids_op
     if self.undestroyable == true
         if self.title_changed? or self.desc_changed? or self.privacy_changed? or self.is_history_changed? or self.user_id_changed?
-            return false
+             return false
         end
     end
     self.title_en = Pinyin.t self.title

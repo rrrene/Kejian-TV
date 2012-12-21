@@ -19,9 +19,11 @@
 		<span class="play">
 			<img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
 		</span>
+    <% if !is_history %>
 		<span class="yt-uix-button yt-uix-button-default delete">
 			<img alt="删除" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="yt-uix-button-icon-playlist-bar-delete">
 		</span>
+    <% end %>
 		<%if false%><span class="now-playing">正在阅读</span><%end%>
 		<span class="title" dir="ltr">
 			<span><% if cw.status !=0 or !cw.check_upyun_result %>无法阅读的课件 <span class="uploader">创建者：<%= name_beautify User.get_name(cw.uploader_id) %></span>

@@ -2607,7 +2607,7 @@ jQuery.cookie = function (b, k, n) {
                 sta = this.checkCn(str)
             }
             var len = this.checkLength($(obj).val());
-            if (5 < len && len < 17 && sta) {
+            if (5 < len && len < 97 && sta) {
                 if (str.indexOf(" ") == -1) {
                     if (type) {
                         this.thisObjTrue(obj)
@@ -2625,7 +2625,7 @@ jQuery.cookie = function (b, k, n) {
                     sta = false;
                     this.thisObjError(obj, "密码不能为空")
                 } else {
-                    this.thisObjError(obj, "密码为6～16个字母、数字或符号，区分大小写！");
+                    this.thisObjError(obj, "密码为6～96个字母、数字或符号，区分大小写！");
                     sta = false
                 }
             }
@@ -3924,7 +3924,6 @@ im.zm.scmAd = function (c) {
     d.init(c)
 };
 im.zm.autoLayout = function () {
-    this.columnCount = 4;
     this.divWidth = 222;
     this.marginTop = 14;
     this.marginLeft = 14;
@@ -3954,7 +3953,9 @@ im.zm.autoLayout.prototype = {
             callBack: null,
             isPosition: true,
             cols: null,
-            colName: null
+            colName: null,
+            psvr_client_width_offset: 0,
+            psvr_mincol: 4
         };
         $.extend(this.defaults, d, b)
     },
@@ -3974,7 +3975,7 @@ im.zm.autoLayout.prototype = {
                 var q = [];
                 f = Math.floor((s + autoLayout.marginLeft) / (autoLayout.divWidth + autoLayout.marginLeft));
                 g = 0;
-                f = Math.max(f, 4);
+                f = Math.max(f, autoLayout.psvr_mincol);
                 var b = f * 236 - 14 + "px";
                 document.getElementById(c.contentID).style.width = b;
                 $(".filterbar").css({
@@ -4035,7 +4036,7 @@ im.zm.autoLayout.prototype = {
                 var s = document.documentElement.clientWidth;
                 var f = Math.floor((s + autoLayout.marginLeft) / (autoLayout.divWidth + autoLayout.marginLeft));
                 g = 0;
-                var f = Math.max(f, 4);
+                var f = Math.max(f, autoLayout.psvr_mincol);
                 var b = f * 236 - 14 + "px";
                 document.getElementById(autoLayout.defaults.contentID).style.width = b;
                 var q = autoLayout.colArray;
@@ -4334,6 +4335,304 @@ im.zm.newcw = function () {
     $("#js-log2 .sina").attr("href", "/coursewares/new_sina");
     $("#js-log3 .upload").attr("href", "/upload");
 };
+im.zm.psvrsharedown = function (closeCallBack) {
+    var g, f, c, j_h1;
+    j_h1 = jQuery('#core_cw_h1');
+    psvr_elem = jQuery(jQuery('#psvrsharedown_thumbnails')[0].outerHTML);
+		psvr_elem.addClass("setup");
+		psvr_elem.attr('id',"psvrsharedown_thumbnails_small");
+		psvr_elem.attr('style',"margin:0;z-index:7777;position:absolute;top: 33px;left: 22px;");
+		psvr_elem.find('.scrubber').attr('style'," z-index: 9999; width: 208px; margin-left: 0px; ");
+		psvr_elem.find('.preview_info').remove();
+		g = [
+			'<div id="psvrsharedown_bulk">',
+			'<div class="__sdk">'+psvr_elem[0].outerHTML+'</div>',
+      '<img src="'+KTV.psvrsharedown_dialog_src+'" style="position:absolute;z-index:8888;top:15px"/>',
+      '<a href="javascript:void(0)" id="psvrsharedown_thumbnails_btn1" class="'+(j_h1.data('yigoumai') ? 'already' : '')+'" style="position:absolute;z-index:8899;top:289px;left:22px">立即购买</a>',
+      '<a href="javascript:void(0)" id="psvrsharedown_thumbnails_btn2" class="'+(j_h1.data('shoucang') ? 'already' : '')+'" style="position:absolute;z-index:8899;top:340px;left:22px">加入收藏</a>',
+			'<div id="psvrsharedown_yigoumai" class="'+(j_h1.data('yigoumai') ? 'yigoumai' : '')+'">&nbsp;</div>',
+			'<div id="psvrsharedown_big_window">&nbsp;</div>',
+      '<div class="psvrsharedown_spinners" id="psvrsharedown_spinner1" style="display:none" />',
+      '<div class="psvrsharedown_spinners" id="psvrsharedown_spinner2" style="display:none" />',
+			'<div id="psvrsharedown_title">'+j_h1.html()+'</div>',
+			'<div id="psvrsharedown_subtitle">'+jQuery('#core_cw_h2').html()+'</div>'
+    ].join("")+$.map(j_h1.data('downtypes'),function(elementOfArray, indexInArray){
+      var noun,str=(indexInArray+1).toString();
+      if(0==indexInArray){
+        noun = '最初上传';
+      }else{
+        noun = KTV.zhongwenshuzi[indexInArray]+'次转码后';
+      }
+      return [
+        '<div class="numbers number'+str+'">'+str+'</div>',
+        '<div class="fileicons fileicon-'+elementOfArray+' fileicon'+str+'">&nbsp;</div>',
+        '<div class="filetitles filetitle'+str+'">'+noun+'的'+elementOfArray.toUpperCase()+'格式源文件(3.54 MB)</div>',
+        '<div class="filebuttons filebutton'+str+'"><a href="/coursewares/'+$('#core_cw_h1').data('cw-id')+'/download?index='+elementOfArray+'" class="downbtn_l">下载</a><a href="javascript:void(0)" class="downbtn_r">下载选项</a></div>'
+      ].join("");
+    }).join("")+[
+      '<a class="js-close close" style="display:block;width:46px;height:50px;background: transparent url('+KTV.psvrsharedown_ijiojioji_src+') no-repeat scroll top left;text-indent:-9999em;position:absolute;top:0;left:613px;z-index:9999">Close</a>',
+			'</div>'
+    ].join("");
+    var e, a;
+    if (arguments.length > 0) {
+        a = arguments[0]
+    } else {
+        e = document.location.href;
+        a = e.replace(new RegExp("http://" + document.location.host), "")
+    }
+
+    $("#loginLayout").definedDialog({
+        title: "",
+        width: 660,
+        height: 472,
+        showClose: !!0,
+        open: !1,
+        modal: !0,
+        show: "normal",
+        buttons: null,
+        html: g,
+        dialogClass: "dialog_psvrsharedown",
+        closeCallBack: closeCallBack
+    });
+    $("#js-log .sina").attr("href", "/account/auth/weibo");
+    $("#js-log .qzone").attr("href", "/account/auth/qq_connect");
+    $("#js-log .qq").attr("href", "");
+    $("#js-log .renren").attr("href", "/account/auth/renren");
+    $("#js-log .taobao").attr("href", "");
+    $("#js-log .douban").attr("href", "/account/auth/douban");
+    $("#js-log .google").attr("href", "/account/auth/google_oauth2");
+    $("#js-log .github").attr("href", "/account/auth/github");
+    $("#register").attr("href", "/register");
+    $.contextMenu({
+        selector: '.downbtn_r', 
+        trigger: 'left',
+        callback: function(key, options) {
+            var m = "开发中: " + key;
+            alert(m); 
+        },
+        items: {
+            "copy": {name: "拷贝下载链接", icon: "copy", disabled: false},
+            "send": {name: "发送此文件到我的邮箱", icon: "send", disabled: false},
+        }
+    });
+
+    $('#psvrsharedown_thumbnails_btn1').live('click',function(){
+        if($(this).hasClass('already') || $('#psvrsharedown_spinner1').is(':visible')){
+          return false;
+        }
+        if($(this).hasClass('insufficient')){
+          KTV.psvrsharedown_meiqianle();
+          return false;
+        }
+        $('#psvrsharedown_spinner1').show();
+        showWindow('pay', 'coursewares/'+$('#core_cw_h1').data('cw-id')+'/pay');
+    });
+
+
+
+  	$('#psvrsharedown_thumbnails_btn2').live('click',function(){
+      if($(this).hasClass('already') || $('#psvrsharedown_spinner2').is(':visible')){
+        return false;
+      }
+      $('#psvrsharedown_spinner2').show();
+  		$.ajax({
+  			url:'/ajax/add_to_playlist_by_id',
+  			type:'POST',
+        data:{'authenticity_token':window.form_authenticity_token,'pid':$('#core_cw_h1').data('shoucang-id'),'cwid':$('#core_cw_h1').data('cw-id')},
+  			dataType:'json'
+  		}).done(function(json){
+        $('#psvrsharedown_thumbnails_btn2').removeClass('active_loading');
+        $('#psvrsharedown_spinner2').hide();
+        if(json.status == 'failed'){
+          alert(json.reason);
+  			}
+        $('#psvrsharedown_thumbnails_btn2').addClass('already');
+  		});
+  	});
+
+		$("#psvrsharedown_big_window").hover(function(){
+			jQuery('#psvrsharedown_thumbnails_btn1').addClass('hover');
+			jQuery('#psvrsharedown_bulk div.scrubber').css({'opacity':1,'visibility':'visible'});
+		}).mousedown(function(){
+			jQuery('#psvrsharedown_thumbnails_btn1').addClass('active');
+		}).mouseup(function(){
+			jQuery('#psvrsharedown_thumbnails_btn1').removeClass('active');
+      $('#psvrsharedown_thumbnails_btn1').trigger('click');
+		}).mousemove(function (a) {
+				var psvr_b = jQuery('#psvrsharedown_big_window'),
+				    psvr_left_fix = jQuery('#loginLayout').position().left;
+        var b = jQuery('#psvrsharedown_thumbnails_small'),
+            c = b.closest(".presentation"),
+            d = b.find(".scrubbed"),
+            e = parseInt(c.attr("data-slide-count"), 10);
+        if (!b.hasClass("setup")) {
+            b.addClass("setup");
+            var f = c.attr("data-id"),
+                g = b.find("img").attr("src").replace(/0\.jpg$/, "");
+            for (var h = 1; h < e; h++) b.prepend('<img src="' + g + h + '.jpg" alt="Slide ' + (h + 1) + '" class="timeline" data-slide="' + h + '" style="display:none;" />')
+        }
+        var i = 180,
+            j = a.pageX - psvr_b.position().left - 15 - psvr_left_fix,
+            k = j > 180 ? 180 : j < 0 ? 0 : j,
+            l = k / i,
+            m = Math.floor(l * e) - 1;
+        m > e && (m = e), m < 0 && (m = 0), b.find("img[data-slide]:visible").hide(), b.find("img[data-slide=" + m + "]").show(), b.find(".scrubbed").width(Math.round((m + 1) * 100 / e) + "%")
+    }).mouseleave(function () {
+      // jQuery('#psvrsharedown_thumbnails_small').find("img[data-slide]:visible").hide();
+			jQuery('#psvrsharedown_thumbnails_btn1').removeClass('hover');
+			jQuery('#psvrsharedown_thumbnails_btn1').removeClass('active');			
+			jQuery('#psvrsharedown_bulk div.scrubber').css({'opacity':0,'visibility':'hidden'});
+    })
+    function b() {
+      return true;//todo:captcha
+        var h = new Date();
+        im("#verifyImg").attr("src", "/captcha/image.html?t=" + h.getTime());
+        $("#kapchaTr").show();
+        $("#zmjsDiaLeft").css({
+            height: "424px"
+        });
+        $("#zmjsDiaRight").css({
+            height: "364px"
+        })
+    }function d() {
+        $("#kapchaTr").hide();
+        $("#zmjsDiaLeft").css({
+            height: "380px"
+        });
+        $("#zmjsDiaRight").css({
+            height: "320px"
+        })
+    }
+    $("#hasZM").off().on("click", function () {
+        var m, p, n, k, h, o;
+        m = $("#js-log .sina").attr("href");
+        p = $("#js-log .qq").attr("href");
+        n = $("#js-log .qzone").attr("href");
+        k = $("#js-log .renren").attr("href");
+        h = $("#js-log .taobao").attr("href");
+        o = $("#js-log .douban").attr("href");
+        $("#loginLayout").definedDialog("close");
+        $("#loginLayout").definedDialog({
+            title: "",
+            width: 646,
+            height: 457,
+            showClose: !!0,
+            open: !0,
+            modal: !0,
+            show: "normal",
+            buttons: null,
+            html: f,
+            dialogClass: "dialog3",
+            closeCallBack: function () {
+                try {
+                    _gaq.push(["_trackPageview", "/c_l_c/" + a])
+                } catch (q) {}
+            }
+        });
+        $("#js-log2 .sina").parent().attr("href", m);
+        $("#js-log2 .qzone").parent().attr("href", p);
+        $("#js-log2 .qq").parent().attr("href", n);
+        $("#js-log2 .renren").parent().attr("href", k);
+        $("#js-log2 .taobao").parent().attr("href", h);
+        $("#js-log2 .douban").parent().attr("href", o);
+        $("#hasMZ").off().on("click", function () {
+          $('#loginLayout').find(".js-close").trigger("click");
+          im.zm.login();
+          $("#loginLayout").definedDialog("open");
+        });
+        var l = !1;
+        $("#changePic").click(function () {
+            b()
+        });
+        var email_check_psvr = function () {
+            var q = im.user.validate.checkEmail(this, false);
+            if (q) {
+                $.ajax({
+                    type: "post",
+                    url: "/ajax/logincheck",
+                    data: {
+                        userEmail: $("#userEmail").val()
+                    },
+                    success: function (r) {
+                        r == 1 ? l = !0 : l = !1;
+                        if (r == '0') {
+                          im.user.validate.thisObjTrue('#userEmail');
+                          d();
+                        } else {
+                          im.user.validate.thisObjError('#userEmail',r);
+                          b();
+                        }
+                    }
+                })
+            }
+        }
+        $("#userEmail").on("blur", email_check_psvr);
+        $('#userEmail').bind("input.autocomplete", email_check_psvr);
+        $('#userPassword').keydown(function (q) {
+            if (q.which == 13) {
+                $("#js-login").click()
+            }
+        });
+        $("#js-login").off().on("click", function () {
+          console.log('js-login clicked');
+          $(this).parents('form')[0].submit();
+          return false;//todo captcha
+            if (!(im.user.validate.checkEmail(im("#userEmail")) && im.user.validate.checkPassword(im("#userPassword")))) {
+                return
+            }
+            var q = "",
+                r = !1;
+            if (l) {
+                r = !0;
+                q = $("#captcha").val()
+            } else {
+                q = ""
+            }
+            $.ajax({
+                type: "post",
+                url: "/ajaxlogin",
+                data: {
+                    userEmail: $("#userEmail").val(),
+                    userPassword: $("#userPassword").val(),
+                    userKeepLogin: $("#userKeepLogin").val(),
+                    pageNeedCaptcha: r,
+                    captcha: q
+                },
+                success: function (s) {
+                    switch (s.status) {
+                    case 1:
+                        if (arguments.length > 0) {
+                            document.location.href = a
+                        } else {
+                            document.location.reload()
+                        }
+                        break;
+                    case 2:
+                        $("#errortips1").text("邮箱或者密码错误").attr("class", "errortips").show();
+                        break;
+                    case 3:
+                        $("#errortips1").text("验证码错误").attr("class", "errortips").show();
+                        break;
+                    case 4:
+                        $("#errortips1").text("账号或密码错误，请重试").attr("class", "errortips").show();
+                        break;
+                    case 5:
+                        $("#errortips1").text("该账号已被冻结").attr("class", "errortips").show();
+                        break;
+                    case 6:
+                        l = !0;
+                        $("#errortips1").text(s.desc).attr("class", "errortips").show();
+                        b();
+                        break;
+                    default:
+                        return false
+                    }
+                }
+            })
+        })
+    })
+
+};
 im.zm.login = function () {
 //important
 
@@ -4381,7 +4680,7 @@ im.zm.login = function () {
     	'<td class="tdmail">',
     	'<span class="ioginInput">',
     	'<span class="innerborder">',
-    	'<input type="text" class="deftest" id="userEmail" name="user[email]" value="" onfocus="im.user.validate.thisFocus(this , \'请输入注册邮箱\');"/>',
+    	'<input type="text" class="deftest" id="userEmail" name="userEmail" value="" onfocus="im.user.validate.thisFocus(this , \'请输入注册邮箱\');"/>',
     	"</span>",
     	"</span>",
     	'<span class="errortips" id="errortips1"></span></td>',
@@ -4390,7 +4689,7 @@ im.zm.login = function () {
     	'<td class="tdleft">密码：</td>',
     	'<td class="tdpassword">',
     	'<span class="ioginInput">',
-    	'<span class="innerborder"><input type="password" maxlength="16" class="deftest" id="userPassword" name="user[password]" onfocus="im.user.validate.thisFocus(this , \'请输入密码\');"  onblur="im.user.validate.checkPassword(this , false);"/></span>',
+    	'<span class="innerborder"><input type="password" class="deftest" id="userPassword" name="userPassword" onfocus="im.user.validate.thisFocus(this , \'请输入密码\');"  onblur="im.user.validate.checkPassword(this , false);"/></span>',
     	"</span>",
     	'<span class="errortips" id="errortips2"></span>',
     	"</td>",
@@ -4985,7 +5284,6 @@ im.zm.getAutoUser = function (e) {
     a(e)
 };
 window.autoLayout = {
-    columnCount: 4,
     divWidth: 222,
     marginTop: 14,
     marginLeft: 14,
@@ -5017,6 +5315,8 @@ window.autoLayout = {
     isIE: jQuery.browser.msie,
     opacityVal: 1,
     pageNums: 0,
+    psvr_client_width_offset: 0,
+    psvr_mincol: 4,
     init: function (options, sta, dataObj) {
         var _jsonUrl, freeLeft, columns, w, opts;
         if (typeof options == "object") {
@@ -5036,18 +5336,20 @@ window.autoLayout = {
                 if (!opts.rightLoad) {
                     autoLayout.rightLoad = false
                 }
-                w = document.documentElement.clientWidth - 17;
+                w = document.documentElement.clientWidth - 17 - autoLayout.psvr_client_width_offset;
                 var h = document.documentElement.clientHeight;
                 var objDiv;
                 var heightArray = [];
                 var columns;
+                console.log((w + autoLayout.marginLeft));
+                console.log((autoLayout.divWidth + autoLayout.marginLeft));
                 if (autoLayout.defaults.isFixed) {
                     columns = 4
                 } else {
                     columns = Math.floor((w + autoLayout.marginLeft) / (autoLayout.divWidth + autoLayout.marginLeft))
                 }
                 freeLeft = 0;
-                columns = Math.max(columns, 4);
+                columns = Math.max(columns, autoLayout.psvr_mincol);
                 var contentWidth = columns * 236 - 14 + "px";
                 document.getElementById(opts.contentID).style.width = contentWidth;
                 $(".filterbar").css({
@@ -5124,7 +5426,7 @@ window.autoLayout = {
                     columns = Math.floor((w + autoLayout.marginLeft) / (autoLayout.divWidth + autoLayout.marginLeft))
                 }
                 freeLeft = 0;
-                var columns = Math.max(columns, 4);
+                var columns = Math.max(columns, autoLayout.psvr_mincol);
                 var contentWidth = columns * 236 - 14 + "px";
                 document.getElementById(autoLayout.defaults.contentID).style.width = contentWidth;
                 var heightArray = autoLayout.colArray;
@@ -5144,7 +5446,7 @@ window.autoLayout = {
                         visibility: ""
                     });
                     initContent(json);
-                    _gaq.push(["_trackPageview", "/ajax/" + encodeURI(_jsonUrl)])
+                    App.pin_resize_psvr_handler();
                 }
             })
         } else {
@@ -5170,11 +5472,7 @@ window.autoLayout = {
                 return
             }
             if (autoLayout.pageNums > 1 && !loginUser.id) {
-                im.zm.login();
-                $("#loginLayout").definedDialog("open");
-                try {
-                    _gaq.push(["_trackPageview", "/c_l_c/" + document.location.href.replace(new RegExp("http://" + document.location.host), "")])
-                } catch (e) {}
+              KTV.login();
             }
             for (var j = 0, len = picBoard.length; j < len; j++) {
                 var picWidth = _getWidth(picBoard[j].mediumZoom);
@@ -5317,7 +5615,7 @@ window.autoLayout = {
             $("#imloading").css({
                 visibility: "hidden"
             });
-            var spetial_situation = (autoLayout.pageNums===3 &&''==loginUser)
+            var spetial_situation = (autoLayout.pageNums===3 && !loginUser)
             if (!_jsonMain.hasNextPage || spetial_situation) {
                 $("#imloading").css({
                     visibility: "hidden"
@@ -5335,9 +5633,6 @@ window.autoLayout = {
             if (autoLayout.defaults.isPosition) {
                 document.getElementById(autoLayout.defaults.contentID).style.height = Math.max.apply(Math, heightArray) + "px"
             }
-            $(".maskDiv").css({
-                height: parseInt($("body").height()) + parseInt($("body").css("paddingTop"))
-            });
             $("textarea").each(function () {
                 im.zm.getAutoUser({
                     elem: this
@@ -5423,9 +5718,9 @@ window.autoLayout = {
         }
         var q;
         var f = [];
-        var g = document.documentElement.clientWidth;
+        var g = document.documentElement.clientWidth - autoLayout.psvr_client_width_offset;
         var u = document.documentElement.clientHeight;
-        var a = Math.max(Math.floor((g + autoLayout.marginLeft) / (autoLayout.divWidth + autoLayout.marginLeft)), 4);
+        var a = Math.max(Math.floor((g + autoLayout.marginLeft) / (autoLayout.divWidth + autoLayout.marginLeft)), autoLayout.psvr_mincol);
         var o = 0;
         var l = a * 236 - 14 + "px";
         if (document.getElementById(autoLayout.defaults.contentID)) {
@@ -5438,8 +5733,8 @@ window.autoLayout = {
         if (document.getElementById("unloginBannersInner")) {
             document.getElementById("unloginBannersInner").style.width = l
         }
-        if (autoLayout.columnCount > a) {
-            a = autoLayout.columnCount
+        if (autoLayout.psvr_mincol > a) {
+            a = autoLayout.psvr_mincol
         }
         for (var s = 0; s < a; s++) {
             f[s] = 0
@@ -5483,7 +5778,7 @@ window.autoLayout = {
             }
         }
         if (autoLayout.pageAuto) {
-            a = Math.max(a, 4);
+            a = Math.max(a, autoLayout.psvr_mincol);
             var x = autoLayout.divWidth * (a - 1) + autoLayout.marginLeft * (a - 1) - 17 + "px";
             if (!autoLayout.searchPage) {
                 $(".sheet").css({
@@ -6148,14 +6443,14 @@ var boardLoad = {
         var b = document.documentElement.clientWidth,
             c, a;
         if (boardLoad.serachPage) {
-            c = Math.max(parseInt((b + 14) / 236), 4);
+            c = Math.max(parseInt((b + 14) / 236), autoLayout.psvr_mincol);
             a = c * 236 - 14
         } else {
-            c = Math.max(parseInt((b + 16) / 238), 4);
+            c = Math.max(parseInt((b + 16) / 238), autoLayout.psvr_mincol);
             a = c * 236 - 12
         }
         if (boardLoad.serachBoards) {
-            c = Math.max(parseInt((b + 14) / 236), 4);
+            c = Math.max(parseInt((b + 14) / 236), autoLayout.psvr_mincol);
             a = c * 236
         }
         $(document.getElementById(d)).css({
@@ -6172,14 +6467,14 @@ var boardLoad = {
         var d = "content",
             c, a, b = document.documentElement.clientWidth;
         if (boardLoad.serachPage) {
-            c = Math.max(parseInt((b + 14) / 236), 4);
+            c = Math.max(parseInt((b + 14) / 236), autoLayout.psvr_mincol);
             a = c * 236
         } else {
-            c = Math.max(parseInt((b + 16) / 238), 4);
+            c = Math.max(parseInt((b + 16) / 238), autoLayout.psvr_mincol);
             a = c * 236 - 12
         }
         if (boardLoad.serachBoards) {
-            c = Math.max(parseInt((b + 14) / 236), 4);
+            c = Math.max(parseInt((b + 14) / 236), autoLayout.psvr_mincol);
             a = c * 236
         }
         $(document.getElementById(d)).css({

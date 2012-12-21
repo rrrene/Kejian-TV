@@ -22,11 +22,20 @@ module UsersHelper
   def dz_avatar_url(uid,email,size=:normal,reload=false)
     reload = (User.get_avatar_changed_at(uid).to_i > 1.day.ago.to_i)
     if reload
-      return "http://uc.#{Setting.ktv_domain}/avatar.php?uid=#{uid}&email=#{Digest::MD5.hexdigest(email)}&size=#{size}&psvr_reload=#{Time.now.to_i}"
+      ret= "http://uc.#{Setting.ktv_domain}/avatar.php?uid=#{uid}&email=&size=#{size}&psvr_reload=#{Time.now.to_i}"
     else
-      return "http://uc.#{Setting.ktv_domain}/avatar.php?uid=#{uid}&email=#{Digest::MD5.hexdigest(email)}&size=#{size}"
+      ret= "http://uc.#{Setting.ktv_domain}/avatar.php?uid=#{uid}&email=&size=#{size}"
     end
-
+    if false and @is_ie8
+      c = Curl::Easy.perform(ret)
+      if c.header_str =~ /Location: ([^\r\n]+)\r\n/
+        return $1
+      else
+        return ret
+      end
+    else
+      return ret
+    end
   end
   def avatar_url(user,size=:normal,reload=false)
     return dz_avatar_url(user.uid,user.email,size,reload)

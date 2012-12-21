@@ -56,6 +56,7 @@ module Ktv
         renren_requestToken = renren__rtk = ''
         renren_uids.each do |to_id|
           if renren__rtk.blank? or renren_requestToken.blank?
+            page = rr.agent.get 'http://guide.renren.com/guide'
             parser = page.parser
             if parser.css('head script').text =~ /get_check_x\s*:\s*['"]([^'"]+)['"]/
               renren__rtk = $1
@@ -69,7 +70,7 @@ module Ktv
             end
           end
           data={}
-          data['body'] = '来课件台玩玩吧！'
+          data['body'] = "来#{Setting.ktv_subname}课件台玩玩吧：）http://#{Setting.ktv_subdomain}/"
           data['_rtk'] = renren__rtk
           data['requestToken'] = renren_requestToken
           data['only_to_me']='1'
@@ -91,7 +92,7 @@ module Ktv
             #=> {"code"=>1, "msg"=>"请先激活。"}
             #=> {"visiter":484892881,"hasReadRight":true,"admin":false,"guest":285692613,"code":0}
             #
-          # sleep (30+rand*10).to_i
+          sleep (30+rand*10).to_i
 =begin
           res = Ktv::JQuery.ajax({
             url:'http://wpi.renren.com/comet_broadcast',
@@ -221,11 +222,11 @@ module Ktv
             form['_rtk'] = renren__rtk
             form['requestToken'] = renren_requestToken
             form['channel'] = 'renren'
-            form['content'] = "成功绑定#{Setting.ktv_subname}课件台账号。 http://#{Setting.ktv_subdomain}/users/#{u.id}"
+            form['content'] = "成功登录#{Setting.ktv_subname}课件台：http://#{Setting.ktv_subdomain}/users/#{u.id}"
             form.submit
             
             sleep 1
-            form['comment'] = "成功绑定#{Setting.ktv_subname}课件台账号。 http://#{Setting.ktv_subdomain}/users/#{u.id}"
+            form['comment'] = "成功登录#{Setting.ktv_subname}课件台： http://#{Setting.ktv_subdomain}/users/#{u.id}"
             form['url'] = form['link'] =  "http://#{Setting.ktv_subdomain}/users/#{u.id}"
             form['meta'] = '%22%22'
             form['summary'] = Setting.introductions.join(' ')

@@ -44,14 +44,14 @@ class MineController < ApplicationController
     elsif params[:privacy].blank? and !params[:q].blank?
       @coursewares = Courseware.nondeleted.where(uploader_id:current_user.id,title:/#{params[:q]}/).desc('created_at')
     end
-    if !@coursewares.blank?
+    # if !@coursewares.blank?
       @coursewares = @coursewares.paginate(:page => params[:page], :per_page => @per_page)
-    end
+    # end
     @seo[:title] = "上传的课件" 
   end
   def view_all_playlists
     @seo[:title] = "课件锦囊"    
-    @uplist = PlayList.nondeleted.where(:user_id => current_user.id,:undestroyable=>false).desc('created_at').paginate(:page => params[:page], :per_page => @per_page)
+    @uplist = PlayList.nondeleted.where(:user_id => current_user.id,:undestroyable=>false,:is_history=>false).desc('created_at').paginate(:page => params[:page], :per_page => @per_page)
   end
   def my_coursewares_copyright
     @seo[:title] = "版权声明"    
@@ -70,6 +70,17 @@ class MineController < ApplicationController
   def my_search_history
     @seo[:title] = "搜索记录"    
     @list = SearchHistory.locate_search_history(current_user.id).paginate(:page => params[:page], :per_page => @per_page)
+  end
+  def my_bought
+    if current_user.nil?
+      redirect_to '/'
+      return false
+    end
+    @list = PlayList.locate(current_user.id,'已购买')
+    @coursewares_ids = @list.content.paginate(:page => params[:page], :per_page => @per_page)
+    @coursewares = Courseware.eager_load(@coursewares_ids)
+    @seo[:title] = "已购买"
+    render 'my_watch_later_coursewares'
   end
   def my_watch_later_coursewares
     if current_user.nil?

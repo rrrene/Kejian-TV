@@ -26,12 +26,12 @@ class TranscoderJob
     ActiveRecord::Base.connection_pool.instance_variable_set('@size', 40)
     ActiveRecord::Base.connection_pool.instance_variable_set('@timeout', 100)
     begin
-      working_dir = "/media/hd2/auxiliary_#{Setting.ktv_sub}/ftp/cw/#{@courseware.id}"
+      working_dir = "/media/b/auxiliary_#{Setting.ktv_sub}/ftp/cw/#{@courseware.id}"
       pdf_path = "#{working_dir}/#{@courseware.pdf_filename}"
       `mkdir -p "#{working_dir}"`
       if @courseware.remote_filepath
         if [:ppt,:pptx,:doc,:docx].include? @courseware.sort.downcase.to_sym 
-          `cp /media/hd2/win_transcoding/#{@courseware.ktvid}.pdf "#{pdf_path}"`
+          `cp "/media/b/win_transcoding/#{@courseware.ktvid}.pdf" "#{pdf_path}"`
           if(!File.exists?(pdf_path))
             @courseware.update_attribute(:status,-3);return false
           end
@@ -91,7 +91,7 @@ class TranscoderJob
                   end
                   # ---pinpic---
                   pinpic = "#{working_dir}/pin.jpg"
-                  puts `convert "#{pic}" -resize 222x +repage -gravity North "#{pinpic}"`
+                  puts `convert "#{pic}" -resize 222x +repage -bordercolor white -border 0 -background white -flatten -alpha remove  -alpha off -gravity North "#{pinpic}"`
                   inf = `identify "#{pinpic}"`
                   if inf=~/JPEG (\d+)x(\d+)/
                     pinpic_final = "#{working_dir}/#{@courseware.revision}pin.1.#{$1}.#{$2}.jpg"
@@ -104,7 +104,7 @@ class TranscoderJob
                   end
                 end
                 puts pic2 = "#{working_dir}/#{@courseware.revision}thumb_slide_#{i}.jpg"
-                puts `convert "#{pic}" -thumbnail '210x>' -crop 210x158+0+0 +repage -gravity North "#{pic2}"`
+                puts `convert "#{pic}" -bordercolor white -border 0 -background white -flatten -alpha remove -alpha off -thumbnail '210x>' -crop 210x158+0+0 +repage -gravity North "#{pic2}"`
                 done = true
               rescue => e
                 puts e
@@ -151,7 +151,7 @@ class TranscoderJob
                   end
                   # ---pinpic---
                   pinpic = "#{working_dir}/pin.jpg"
-                  puts `convert "#{pic}" -resize 222x +repage -gravity North "#{pinpic}"`
+                  puts `convert "#{pic}" -resize 222x +repage -bordercolor white -border 0 -background white -flatten -alpha remove  -alpha off -gravity North "#{pinpic}"`
                   inf = `identify "#{pinpic}"`
                   if inf=~/JPEG (\d+)x(\d+)/
                     pinpic_final = "#{working_dir}/#{@courseware.revision}pin.1.#{$1}.#{$2}.jpg"
@@ -164,7 +164,7 @@ class TranscoderJob
                   end
                 end
                 puts pic2 = "#{working_dir}/#{@courseware.revision}thumb_slide_#{i}.jpg"
-                puts `convert "#{pic}" -thumbnail '210x>' -crop 210x158+0+0 +repage -gravity North "#{pic2}"`
+                puts `convert "#{pic}" -bordercolor white -border 0 -background white -flatten -alpha remove -alpha off -thumbnail '210x>' -crop 210x158+0+0 +repage -gravity North "#{pic2}"`
                 done = true
               rescue => e
                 puts e
@@ -207,9 +207,9 @@ class TranscoderJob
           if @courseware.is_children
             tmp_papa = Courseware.find(@courseware.father_id)
             `mkdir -p #{working_dir}/father`
-            `cp #{working_dir}/#{@courseware.revision}thumb_slide_0.jpg #{working_dir}/father/#{tmp_papa.revision}thumb_slide_#{@courseware.child_rank}.jpg`
+            `cp "#{working_dir}/#{@courseware.revision}thumb_slide_0.jpg" #{working_dir}/father/#{tmp_papa.revision}thumb_slide_#{@courseware.child_rank}.jpg`
             if @courseware.child_rank == 0
-                `cp #{working_dir}/#{@courseware.revision}#{@courseware.pinpicname} #{working_dir}/father/#{tmp_papa.revision}#{tmp_papa.pinpicname}`
+                `cp "#{working_dir}/#{@courseware.revision}#{@courseware.pinpicname}" "#{working_dir}/father/#{tmp_papa.revision}#{tmp_papa.pinpicname}"`
                 `#{Rails.root}/bin/ftpupyun_pic "#{working_dir}/father/" "/cw/#{tmp_papa.ktvid}/" "#{tmp_papa.revision}"`
             end
           end
@@ -229,9 +229,9 @@ class TranscoderJob
         end
         #------done
         # puts `rm -rf "#{working_dir}"`
+        logger_dirpath = "#{Rails.root}/log_#{Rails.env}"
         File.open("#{logger_dirpath}/need_to_delete.log", 'a+') {|f| f.write("#{working_dir}\n") }
         @courseware.go_to_normal unless @courseware.really_broken
-        @courseware.update_attribute(:gone_normal_at,Time.now)
         if @courseware.is_children
           Sidekiq::Client.enqueue(HookerJob,"Courseware",nil,:push_trigger,@courseware.id)
         end

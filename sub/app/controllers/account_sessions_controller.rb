@@ -60,8 +60,6 @@ class AccountSessionsController < Devise::SessionsController
       @traditional = true
       email = params[:userEmail]
       passwd = params[:userPassword]
-      email ||= params[:user][:email]
-      passwd ||= params[:user][:password]
       ret = UCenter::User.login(request,{isuid:2,username:email,password:passwd})
       status = ret['root']['item'][0].to_i
       suc_flag = false
@@ -83,9 +81,9 @@ class AccountSessionsController < Devise::SessionsController
       end
     end
     if suc_flag
-      sign_in(resource_name, resource);sign_in_others
+      sign_in(resource_name, resource);sign_in_others('on'==params[:userKeepLogin])
       set_flash_message(:notice, :signed_in) if is_navigational_format?
-      respond_with resource, :location => after_sign_in_path_for(resource)
+      respond_with resource, :location => (params[:redirect_to].present? ? params[:redirect_to] : after_sign_in_path_for(resource))
     else
       new
     end

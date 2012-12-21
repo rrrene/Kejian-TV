@@ -1,6 +1,8 @@
 source 'http://ruby.taobao.org/'
 #source 'https://rubygems.org'
 
+Encoding.default_external = Encoding::UTF_8
+Encoding.default_internal = Encoding::UTF_8
 gem 'rails', '3.2.9'
 gem 'rake', '>=10', :require => 'rake/testtask'
 # Bundle edge Rails instead:
@@ -9,7 +11,7 @@ gem 'rake', '>=10', :require => 'rake/testtask'
 # MongoDB
 gem "mongoid", "~> 3"
 # gem 'mongoid_auto_increment_id', "0.5.0"
-gem 'mongoid_rails_migrations', '~> 0.0.14'
+# gem 'mongoid_rails_migrations', '~> 0.0.14'
 gem "mongoid_colored_logger", :github => "huacnlee/mongoid_colored_logger", :group => :development
 gem "bson_ext"
 gem 'mysql2'
@@ -26,7 +28,8 @@ gem 'pry'
   gem 'coffee-rails', '~> 3.2.1'
   gem 'uglifier', '>= 1.0.3'
 #end
-gem 'jquery-rails', :git=>'git://github.com/rails/jquery-rails.git'
+gem 'jquery-rails', '~> 2.1.4', github: 'rails/jquery-rails'
+gem 'turbolinks'
 gem "jquery-atwho-rails", ">=0.1.6" #[!]
 # 禁用 assets 日志
 gem 'quiet_assets', ">=1.0.1"
@@ -60,7 +63,8 @@ gem 'rmmseg-cpp-huacnlee'
 
 # 用户系统
 # 这个devise必须锁定版本！！我们定制的太多了
-gem 'devise','2.1.0'
+gem 'devise','2.1.0',path:'../vendor/devise'
+gem 'warden',path:'../vendor/warden'
 gem 'omniauth-weibo-oauth2'
 #gem "omniauth-weibo", :git => 'git://github.com/pmq20/omniauth-weibo.git'
 gem "omniauth-renren", :git => 'git://github.com/pmq20/omniauth-renren.git'
@@ -119,7 +123,7 @@ gem 'whenever' #[!]
 
 # Background Jobs
 gem "sidekiq", '>=2.3.0'
-gem "sidekiq-failures",:git=>'git://github.com/mhfs/sidekiq-failures.git'
+# gem "sidekiq-failures",:git=>'git://github.com/mhfs/sidekiq-failures.git'
 gem 'sinatra', :require => nil
 gem 'slim'
 gem 'connection_pool'
@@ -142,14 +146,14 @@ gem "letter_opener"
 
 
 gem 'php_serialize'
-gem 'nokogiri'
+gem 'nokogiri','>=1.5.5'
 gem 'redis-objects' #[!]
 gem 'progressbar'
 gem 'unicorn'
-gem 'therubyracer', :platforms => :ruby
+
 
 gem 'savon' #[!]
-gem 'rest-client', '1.6.7'
+gem 'rest-client', path:'../vendor/rest-client'
 gem 'rails_autolink'
 
 
@@ -190,7 +194,7 @@ gem 'to_xls', '~> 1.0.0'
 
 gem 'sndacs'
 # PDF
-gem 'grim', '>= 0.3.0'
+gem 'grim', :path=>'../vendor/grim'#:git=>"git://github.com/sdegoeij/grim.git"#:git=>"git://github.com/llb0536/grim.git"
 # memcached
 gem 'dalli'
 
@@ -204,6 +208,7 @@ gem 'thin'
 gem 'search_terms'
 
 gem 'selenium-webdriver'
+# gem "Selenium", "~> 1.1.14"
 #gem 'debugger'
 gem 'exception_notification'
 gem 'chronic_duration'
@@ -253,3 +258,5 @@ end
 gem 'tire'
 gem 'gibbon'
 gem 'pinyin_split'
+gem 'multi_json','>=1.5.0'
+gem 'intercom-rails'

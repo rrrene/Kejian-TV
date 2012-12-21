@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class BaseMailer < ActionMailer::Base
   default :from => Setting.email_sender, :content_type => "text/html", :charset => "utf-8"
   helper :application,:users,:asks

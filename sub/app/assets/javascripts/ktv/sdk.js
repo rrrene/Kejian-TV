@@ -13,6 +13,8 @@
  *
  * Date: Wed Mar 21 12:46:34 2012 -0700
  */
+if(!window.KTV){window.KTV={}}
+
 function showProcessProgress(a) {
   (function($){
     $.ajax({
@@ -2242,9 +2244,13 @@ $(function () {
             showProcessProgress(b)
         }, 2e3)
     })
-}), $(document).bind("ready pjax:end", function () {
-    $("a.scrub",'.__sdk').mousemove(function (a) {
-        var b = $(this),
+});
+KTV.sdk_scrub = function () {
+  if(window.is_ie8||window.is_ie7){
+    return false;
+  }
+    jQuery("a.scrub",'.__sdk').mousemove(function (a) {
+        var b = jQuery(this),
             c = b.closest(".presentation"),
             d = b.find(".scrubbed"),
             e = parseInt(c.attr("data-slide-count"), 10);
@@ -2261,9 +2267,11 @@ $(function () {
             m = Math.floor(l * e) - 1;
         m > e && (m = e), m < 0 && (m = 0), b.find("img[data-slide]:visible").hide(), b.find("img[data-slide=" + m + "]").show(), b.find(".scrubbed").width(Math.round((m + 1) * 100 / e) + "%")
     }).mouseleave(function () {
-        $(this).find("img[data-slide]:visible").hide()
+        jQuery(this).find("img[data-slide]:visible").hide()
     })
-}), jQuery(function (a) {
+};
+
+$(document).bind("ready pjax:end", KTV.sdk_scrub), jQuery(function (a) {
     // var b, c, d, e;
     // return b = a("#search_form"), c = a("#q"), d = c.val(), b.bind("submit", function () {
     //     return !1

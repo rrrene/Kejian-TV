@@ -212,66 +212,8 @@
   var logined = false;
 <% end %>
 
-(function(){
-  window["ga_JsNewlogin"] = getCookie("JsNewlogin");
-  function getCookie(name){
-    var dc=document.cookie;
-    var prefix=name+"=";
-    var begin=dc.indexOf("; "+prefix);
-    if(begin==-1){
-      begin=dc.indexOf(prefix);
-      if(begin!=0)return null;
-    }
-    else begin+=2;
-    var end=document.cookie.indexOf(";",begin);
-    if(end==-1)end=dc.length;
-    return dc.substring(begin+prefix.length,end).replace(/\+/g,' ');
-  }
-})();
-
-var _dyweq = _dyweq || [];
-_dyweq.push(['_setAccount','log000001']);
-_dyweq.push(['_setDomainName','.kejian.tv']);
-_dyweq.push(['_trackPageview']);
-(function(){
-  var dywe = document.createElement('script'); dywe.type = 'text/javascript'; dywe.async = true;
-  dywe.src = 'http://img01.zhaopin.cn/2012/js/dywe.js';
-  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(dywe, s);
-})()
-var _gaq = _gaq || [];
-_gaq.push(['_setAccount','UA-7874902-2']);
-_gaq.push(['_setDomainName','kejian.tv']);
-_gaq.push(['_addOrganic','youdao','q']);
-_gaq.push(['_addOrganic','sogou','query']);
-_gaq.push(['_addOrganic','soso','w']);
-if(window["ga_JsNewlogin"]){
-  _gaq.push(['_setCustomVar',1,'Login','Y',2]);
-  _gaq.push(['_setCustomVar',2,'Member',ga_JsNewlogin,1]);
-}
-_gaq.push(['_trackPageview']);
-(function() {
-  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-})()
-function recordOutboundLink(link, category, action) {
-  function ed(d,a){
-    var c=encodeURIComponent;
-    return c instanceof Function?(a?encodeURI(d):c(d)):escape(d);
-  }
-  try{
-    _dywet._getTrackerByName()._trackEvent(category, action);
-    try{
-      _gat._getTrackerByName()._trackEvent(category, action);
-    }catch(err){}
-    if(link.target!="_blank") setTimeout('document.location = "' + link.href + '"', 100);
-  }catch(err){
-    var i=new Image(1,1);
-    var e=document.location;
-    i.src="http://l.kejian.tv/track_err.gif?dywee=5("+category+"*"+action+")&dywehn="+ed(e.hostname)+"&dywep="+ed(e.pathname+e.search,true);
-  }
-}
     </script>
     <%= yield :butt %>
+  <%= render 'analytics' if $psvr_really_production %>
   </body>
 </html>

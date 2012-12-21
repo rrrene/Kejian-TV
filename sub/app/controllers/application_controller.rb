@@ -8,10 +8,9 @@ class ApplicationController < ActionController::Base
     # puts request.path
     # text = 
     # render text:text and return
-    # p request.request_method
-    # p request.path
+    # puts "#{request.request_method} #{request.path} #{current_user ? current_user.uid : ''}"
     # p params
-    # binding.pry
+	  # puts request.user_agent
   }
   if $psvr_really_production
     rescue_from Exception, with: :render_500
@@ -106,13 +105,9 @@ class ApplicationController < ActionController::Base
       retry_times += 1
       res_xookie = Ktv::JQuery.ajax(h_xookie)
     end
-    res_xookie.cookies.each do |key,value|
-      if !@dz_cookiepre_mid and key =~ /#{Setting.dz_cookiepre}([^_]+)_/
-        @dz_cookiepre_mid = $1
-      end
-      val = CGI::unescape value
-      cookies[key]=val
-    end
+    
+    set_dz_cookies!(res_xookie)
+
     @_G = MultiJson.load(res_xookie.to_s)
     @_G['uid'] = @_G['uid'].to_i
     @authkey = @_G['authkey']
@@ -120,12 +115,10 @@ class ApplicationController < ActionController::Base
     if @_G['uid'] != (current_user ? current_user.uid : 0)
       p @_G['uid']
       p (current_user ? current_user.uid : 0)
-      sign_out;sign_out_others
-
+      sign_out :user;sign_out_others
       return false
     end
   end
-
   def rand_sid(len)
     @hash = ''
     @chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz'
@@ -217,31 +210,36 @@ class ApplicationController < ActionController::Base
       params[:redirect_to]
     end
   end
-  def sign_in_others
+  def sign_in_others(userKeepLogin=true)
     # VERY IMPORTANT:
     #   must sign in DZ at this point.
+    data={
+      :fastloginfield => 'username',
+      :handlekey => 'ls',
+      :password => 'needless_to_say',
+      :quickforward => 'yes',
+      :username => current_user.slug,
+      :psvr_uid => current_user.uid.to_s,
+      :psvr_email => current_user.email,
+    }
+    data.merge({cookietime: 2592000}) if userKeepLogin
     res = Ktv::JQuery.ajax({
       psvr_original_response: true,
       url:"http://#{Setting.ktv_subdomain}/simple/member.php?mod=logging&action=login&loginsubmit=yes&infloat=yes&lssubmit=yes&inajax=1",
       type:'POST',
-      data:{
-        :fastloginfield => 'username',
-        :handlekey => 'ls',
-        :password => 'needless_to_say',
-        :quickforward => 'yes',
-        :username => current_user.slug,
-        :psvr_uid => current_user.uid.to_s,
-        :psvr_email => current_user.email,
-      },
+      data:data,
       'COOKIE'=>request.env['HTTP_COOKIE'],
       :accept=>'raw'+Setting.dz_authkey,
       psvr_response_anyway: true
     })
-    # p 'gonna set------------------'
-    # p res
-    # p 'gonna set------------------'
-    res.cookies.each do |key,value|
-      cookies[key]=CGI::unescape value
+    puts res.to_s
+    puts res.to_s
+    puts res.to_s
+    if res.to_s=~/window\.location\.href/
+      set_dz_cookies!(res)
+      current_user.update_attribute(:discuz_user_activated,true) if !current_user.discuz_user_activated
+    else
+      raise "dz login error with uid=#{current_user.uid.to_s}"
     end
     # todo:
     #   upon observing this
@@ -312,7 +310,7 @@ class ApplicationController < ActionController::Base
   end
   NO_REDIRECT_REQUEST_PATHs = [
     '/register05',
-    '/register05',
+    '/register05_temporarily_skip',
     '/register05_force_relogin',
     '/logout',
     "/account/sign_in",
@@ -324,7 +322,7 @@ class ApplicationController < ActionController::Base
     '/welcome/inactive_sign_up',
     '/account/confirmation/new',
   ]
-  before_filter :unknown_user_check,:if=>'current_user'
+ before_filter :unknown_user_check,:if=>'current_user && "cnu"==Setting.ktv_sub'
   def unknown_user_check
     if !current_user.reg_extent_okay?
       unless ApplicationController::NO_REDIRECT_REQUEST_PATHs.include?(request.path) or request.path =~ /follow/
@@ -345,6 +343,9 @@ class ApplicationController < ActionController::Base
         flash[:insuf_info] = "请点击邮箱#{current_user.unconfirmed_email}内的确认链接以完成邮箱修改".html_safe 
       elsif !current_user.email_unknown and !current_user.confirmed?
         flash[:insuf_info] = "请查收邮箱#{current_user.email}内的激活邮件. [<a href=\"/account/confirmation/new\">重发激活邮件</a>]".html_safe 
+      end
+      if flash[:insuf_info].blank? and -999==current_user.reg_extent
+        flash[:insuf_info] = "<a href=\"/register05\">完成新用户注册</a>".html_safe 
       end
     end
   end
@@ -451,6 +452,65 @@ protected
   end
   def bind_spetial_ibeike_prepare!
     # todo了啦！
+  end
+  def dz_post_delegate
+    @dz_data = params.dup
+    @dz_data.delete :action
+    @dz_data.delete :controller
+    @dz_data.delete :authenticity_token
+    @dz_data = @dz_data.to_hash
+  end
+  def dz_get(php,opt={})
+    res = Ktv::JQuery.ajax({
+      psvr_original_response: true,
+      url:"http://#{Setting.ktv_subdomain}/simple/#{php}",
+      type:'GET',
+      'COOKIE'=>request.env['HTTP_COOKIE'],
+      :accept=>'raw'+Setting.dz_authkey,
+      psvr_response_anyway: true
+    })
+    set_dz_cookies!(res)
+    parser = Nokogiri::HTML(res.body)
+    if opt[:simple]
+      return res
+    else
+      return [res,parser,parser.css('#wp').first]
+    end
+  end
+  def dz_post(php,data,opt={})
+    res = Ktv::JQuery.ajax({
+      psvr_original_response: true,
+      url:"http://#{Setting.ktv_subdomain}/simple/#{php}",
+      type:'POST',
+      data:data,
+      'COOKIE'=>request.env['HTTP_COOKIE'],
+      :accept=>'raw'+Setting.dz_authkey,
+      psvr_response_anyway: true
+    })
+    if opt[:simple]
+      return res
+    else
+      if res.respond_to?(:cookies)
+        set_dz_cookies!(res)
+        parser = Nokogiri::HTML(res.body)
+        return [res,parser,parser.css('#wp').first]
+      else
+        return [res,nil,nil]
+      end
+    end
+  end
+  def set_dz_cookies!(result)
+    result.cookies.each do |key,value|
+      if !@dz_cookiepre_mid and key =~ /#{Setting.dz_cookiepre}([^_]+)_/
+        @dz_cookiepre_mid = $1
+      end
+      val = CGI::unescape value
+      cookies[key]=val
+    end
+  end
+  def dz_simple_render
+    render :xml => @res.to_s
+    response.headers["Content-Type"] = "text/xml; charset=utf-8"
   end
 end
 

@@ -12,7 +12,7 @@ else
 end
 %>
 <% playlists.each do |play_list| %>
-<% if play_list.title !="历史记录" %>
-  <%= render :partial => 'add_to_play_list',:locals=>{play_list:play_list} %>
-<% end %>
+  <% if !play_list.is_history %>
+    <%= render :partial => 'add_to_play_list',:locals=>{play_list:play_list} %>
+  <% end %>
 <% end %>

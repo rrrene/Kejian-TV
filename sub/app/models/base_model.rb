@@ -6,6 +6,8 @@ module BaseModel
     class << self
       attr_accessor :before_soft_delete
       attr_accessor :after_soft_delete
+      attr_accessor :before_soft_delete_recover
+      attr_accessor :after_soft_delete_recover
       alias_method :table_name,:collection_name
     end
     field :deleted, :type => Integer, :default => 0
@@ -61,9 +63,9 @@ module BaseModel
         def self.set_#{child}(id,val)
           #{opts[:redis_varname]}.hset(id,:#{child},val)
         end
-        def self.get_#{child}(id)
+        def self.get_#{child}(id,force=false)
           ret = #{opts[:redis_varname]}.hget(id,:#{child})
-          if ret.nil?
+          if ret.nil? || force
             item = #{self.name.to_s}.where(:#{(opts[:from_what] == :id) ? '_id' : opts[:from_what]}=>id).first
             return nil if item.nil? or 1==item.deleted
             ret = item.#{child}
@@ -115,7 +117,9 @@ module BaseModel
 
   def soft_delete(async=false)
     ret = self.instance_eval(&self.class.before_soft_delete) unless self.class.before_soft_delete.nil?
-    unless false==ret
+    if false==ret
+      return false
+    else
       self.update_attribute(:deleted,1)
       self.update_attribute(:deleted_at,Time.now)
       self.instance_eval(&self.class.after_soft_delete) unless self.class.after_soft_delete.nil?
@@ -126,9 +130,34 @@ module BaseModel
           self.asynchronously_clean_me
         end
       end
+      return true
     end
   end
+
+  def soft_delete_recover(async=false)
+    ret = self.instance_eval(&self.class.before_soft_delete_recover) unless self.class.before_soft_delete_recover.nil?
+    if false==ret
+      return false
+    else
+      self.update_attribute(:deleted,0)
+      self.update_attribute(:deleted_at,nil)
+      self.instance_eval(&self.class.after_soft_delete_recover) unless self.class.after_soft_delete_recover.nil?
+      if self.respond_to?(:asynchronously_clean_recover_me)
+        if async
+          Sidekiq::Client.enqueue(HookerJob,self.class.to_s,self.id,:asynchronously_clean_recover_me)
+        else
+          self.asynchronously_clean_recover_me
+        end
+      end
+      return true
+    end
+  end
+
+
   def asynchronously_clean_me
+    # override me
+  end
+  def asynchronously_clean_recover_me
     # override me
   end
   # 检测敏感词

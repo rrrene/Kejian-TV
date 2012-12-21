@@ -111,5 +111,43 @@ describe CoursesController do
     post :unfollow,{"id"=>@course.fid.to_s}
     assert @response.success?,'已经登录的用户可以ajax取消关注课程'
   end
-       
+  it "syllabus - 游客状态" do
+    assert @controller.current_user.nil?
+      get 'syllabus'
+    assert @response.success?,'登录用户可以syllabus'
+  end
+  it "syllabus" do
+    denglu! @user
+    assert @controller.current_user.id==@user.id
+      get 'syllabus'
+    assert @response.success?,'登录用户可以syllabus'
+  end
+    
+
+  it "asks - 游客状态" do
+    assert @controller.current_user.nil?
+      get 'asks'
+    assert @response.success?,'登录用户可以asks'
+  end
+  it "asks" do
+    denglu! @user
+    assert @controller.current_user.id==@user.id
+      get 'asks'
+    assert @response.success?,'登录用户可以asks'
+  end
+    
+
+  it "experts - 游客状态" do
+    assert @controller.current_user.nil?
+      get 'experts'
+    assert @response.success?,'登录用户可以experts'
+  end
+  it "experts" do
+    denglu! @user
+    assert @controller.current_user.id==@user.id
+      get 'experts'
+    assert @response.success?,'登录用户可以experts'
+  end
+    
+
 end

@@ -163,7 +163,7 @@
           <div class="user-details">
             <a href="/<%= User.get_fangwendizhi item.uploader_id %>"><%= name_beautify User.get_name(item.uploader_id)%></a><br>
               <span dir="ltr" title="积分" class="reputation-score">
-                <%=number_with_delimiter User.get_credits(User.get_uid(item.uploader_id)) %>
+                <%=str2weifen User.get_credits(User.get_uid(item.uploader_id)) %>
               </span>
           </div>
       </div>
@@ -180,7 +180,7 @@
                 <%= teacher%>
               </a><br>
                 <% user_id = Teacher.get_user_id teacher%>
-                <% if user_id.present? %><span dir="ltr" class="reputation-score"> todo </span><%else%>该作者尚未注册用户<%end%>
+                <% if user_id.present? %><span dir="ltr" class="reputation-score"> todo </span><%else%>尚未确认作者身份<%end%>
             </div>
         </div>
         <% end %>

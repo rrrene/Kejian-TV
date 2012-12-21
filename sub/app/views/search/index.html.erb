@@ -93,7 +93,7 @@ KTV.sss_op();
 <div id="main" style="height:305px">
 	<span class="ctr-p" id="body"><center>
 	<div id="lga" style="">
-		<img alt="<%= Setting.ktv_subname %>课件台" src="<%= asset_path "logo_#{Setting.ktv_sub}.png" %>" id="hplogo" style="">
+    <img alt="<%= Setting.ktv_subname %>课件台" src="<%= File.exists?("#{Rails.root}/app/assets/images/logo_#{Setting.ktv_sub}.png") ? asset_path("logo_#{Setting.ktv_sub}.png") : ''%>" id="hplogo" style="">
 	</div>
 	<div style="height:102px">
 	</div>

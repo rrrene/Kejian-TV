@@ -1,3 +1,6 @@
+<% content_for :body_style do %>
+background-image: url(<%= asset_path 'psvrsharedown_sorry_bg.png' %>) !important;
+<%end %>
 <%
   if @courseware.course_fid.present?
     nn=Course.get_name(@courseware.course_fid)
@@ -13,6 +16,7 @@
 KTV.data = {
 courseware_id: '<%=@courseware.id%>'
 }
+$('#psvrsharedown,#psvrsharedown_thin').click(KTV.psvrsharedown);
 <% end %>
 <style type="text/css" media="screen">
   span.yasuobao{
@@ -23,7 +27,9 @@ courseware_id: '<%=@courseware.id%>'
   }
 
   #slides_container.busy{
-    background:url("https://a248.e.akamai.net/assets.github.com/images/spinners/octocat-spinner-128.gif") no-repeat scroll center 200px transparent;
+    min-width:710px;
+    min-height:600px;
+    background:white url("<%= asset_path 'cwloading.gif' %>") no-repeat scroll center 200px;
   }
    #stickies{
    position:absolute;
@@ -192,6 +198,10 @@ courseware_id: '<%=@courseware.id%>'
              <%= render :partial => 'presenter_teacher', :locals => {teacher:teacher} %>
            <% end %>
          </div>
+<% if user_signed_in? %>
+				 <h1 style="display:none !important" id="core_cw_h1" data-cw-id="<%= @courseware.id %>" data-shoucang-id="<%= @pl_shoucang.id %>" data-shoucang="<%= @pl_shoucang.content.include?(@courseware.id) %>" data-yigoumai-id="<%= @pl_yigoumai.id%>" data-yigoumai="<%= @pl_yigoumai.content.include?(@courseware.id) %>" data-downtypes="<%= Courseware::SORTDOWNTYPES[@courseware.sort] %>"><%= @courseware.title %></h1>
+				 <h2 style="display:none !important" id="core_cw_h2">上传: <%= link_to @courseware.uploader.name_beautified,user_path(@courseware.uploader) %> · 作者: 未认领</h2>
+<% end %>
          <h1 style="<%='margin-bottom:12px' if @courseware.yasuobao?%>">
             [<%= Courseware::SORT1STR[@courseware.sort1] %>]
             <%if @cws%>第<%=@courseware.courseware_series_no%>集. <%end%>
@@ -216,7 +226,7 @@ courseware_id: '<%=@courseware.id%>'
             <% if @courseware.yasuobao? %>
             <br>
             <span style="font-size:16px;text-align:center">
-              <span id="yasuobao_root">(压缩包)</span> <span class="yasuobao">/</span> <span id="yasuobao_content"></span>
+              <span id="yasuobao_root">(压缩包)</span> <span class="yasuobao">/</span> <span id="yasuobao_content"></span> <span style="font-size:16px;text-align:center;color:red;display:none" id="yasuobao_content_errorouter">(<span id="yasuobao_content_error"></span>...)</span>
               <script>
                 window.parent_cmd = function(id,text){
                   if(window.psvr_altid){
@@ -234,6 +244,19 @@ courseware_id: '<%=@courseware.id%>'
                     jQuery('#yasuobao_root_a').bind('click',window.yasuobao_root);
                     jQuery('#slides_container').addClass('busy');
                     jQuery.getJSON('/coursewares/'+id,function(data){
+                      if(0!=data['status']){
+                        jQuery('#yasuobao_content_errorouter').show();
+                        jQuery('#yasuobao_content_error').html(data['status_str']);
+                      }else{
+                        jQuery('#yasuobao_content_errorouter').hide();
+                        jQuery('#yasuobao_content_error').html('');
+                      }
+                      if(!data['thin'] && !jQuery('.psvr_fat_stuff').is(':visible')){
+                        window.parent_gotoSingle();
+                      }
+                      if(data['thin'] && !jQuery('.psvr_thin_stuff').is(':visible')){
+                        window.parent_gotoDouble();
+                      }
                       jQuery('#alt_embed').attr('class',"speakerdeck-embed");
                       jQuery('#alt_embed').attr('data-course-slug','');
                       jQuery('#alt_embed').attr('data-courseware-slug',id);
@@ -246,6 +269,7 @@ courseware_id: '<%=@courseware.id%>'
                   })
                 };
                 window.yasuobao_root = function(){
+                  jQuery('#yasuobao_content_errorouter').hide();
                   jQuery('#cwiframe_'+window.psvr_altid).animate({'margin-left':710},222,function(){
                     jQuery('#yasuobao_content').html('');
                     jQuery('#yasuobao_root').html('(压缩包)');
@@ -284,28 +308,20 @@ courseware_id: '<%=@courseware.id%>'
                   </div>
                   <script type="text/javascript" charset="utf-8" src="<%= asset_path('s.player.js') %>"></script>
                </div>
-               <% when :youku %>
-               <embed src="http://player.youku.com/player.php/sid/XMTczNDg4NzY0/v.swf" allowFullScreen="true" quality="high" width="480" height="400" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash"></embed>
                <% end %>
 <!--重点over-->
             </div>
          </div>
 
          <div class="psvr_thin_stuff" style="<%="display:none" unless @courseware.thin? %>">
-           <% if @courseware.version_date[@courseware.version.to_s].present? %>
-             <div class="extras" style="float:right;margin-right:0px">
-                <ul class="delimited share" style="margin-bottom:0;border-top:none">
-                  <li class="dianjiliang" style="border-top:none">版本 <a href="#revisions"><%= @courseware.version_date[@courseware.version.to_s] %>版</a></li>
-               </ul>
-            </div>
-           <% end %>
-           <div class="extras" style="float:right;margin-right:18px;margin-right:40px">
-              <ul class="delimited" style="margin-bottom:0;border-top:none">
-               <%if nn%>
-                 <li class="category course_name" style="border-top:none">课程 <a href="/courses/<%= @courseware.course_fid %>" title="<%= nn %>" target="_parent"><%= nn %></a></li>
-               <%else%>
-                 <li class="category course_name" style="border-top:none">课程 <a href="/topics/<%= @courseware.topic_id %>"><%= @courseware.topic %></a></li>
-               <%end%>
+           <div class="extras" style="float:right;margin-right:0px">
+              <ul class="delimited share" style="margin-bottom:0;border-top:none">
+                 <li class="download" style="border-top:none">下载<a target="_blank" href="<%= download_courseware_path(@courseware)%>"><%=Courseware::SORTSTR[@courseware.sort]%>(<%=!@courseware.have_pw ? number_to_human_size(@courseware.down_pdf_size*1000,:precision=>1) : '需要密码' %>)</a></li>
+              </ul>
+           </div>
+           <div class="extras" style="float:right;margin-right:40px">
+              <ul class="delimited share" style="margin-bottom:0;border-top:none">
+                 <li class="dianjiliang" style="border-top:none">销售量 <a href="#watch-view-count"><%= number_with_delimiter @courseware.downloads_count %> 件</a></li>
               </ul>
            </div>
            <div class="extras" style="float:right;margin-right:18px;margin-right:40px">
@@ -329,6 +345,24 @@ courseware_id: '<%=@courseware.id%>'
                  <li class="dianjiliang" style="border-top:none">上传人 <a href="/users/<%=name_beautify User.get_name @courseware.uploader_id %>"><img src="<%=  avatar_url_quick(@courseware.uploader_id,:small) %>" class="uploader_img" style="margin-right:2px" width="22" height="22"> <%=name_beautify User.get_name @courseware.uploader_id %></a></li>
               </ul>
            </div>
+<<<<<<< HEAD
+=======
+           <% if @courseware.version_date[@courseware.version.to_s].present? %>
+             <div class="extras" style="float:right;margin-right:0px">
+                <ul class="delimited share" style="margin-bottom:0;border-top:none">
+                  <li class="dianjiliang" style="border-top:none">版本 <a href="#revisions"><%= @courseware.version_date[@courseware.version.to_s] %>版</a></li>
+               </ul>
+            </div>
+           <% end %>
+
+           <div style="width:51%;float:left" class="extras">
+              <h1><%=image_tag('share.png',alt:'获取此课件',style:'margin-top:16px;margin-bottom:4px')%></h1>
+              <ul class="delimited share" style="border:none !important;">
+                <a href="javascript:void(0)" id="psvrsharedown_thin" class="psvr_login_required dual_psvrsharedown" style="float:left;margin-top:2px">下载源文件 （售价0.99积分）</a>
+                <a href="javascript:void(0)" id="psvrshareprint_thin" class="psvr_login_required dual_psvrshareprint" style="float:left;margin-top:2px">打印并寄送 （售价0.09元/页）</a>
+              </ul>
+           </div>
+>>>>>>> origin/master
          </div><!--thin stuff end-->
 
 
@@ -359,6 +393,7 @@ courseware_id: '<%=@courseware.id%>'
                 <%end%>
                 <% if @courseware.version_date[@courseware.version.to_s].present? %>
                   <li class="dianjiliang">版本 <a href="#revisions"><%= @courseware.version_date[@courseware.version.to_s] %>版</a></li>
+<<<<<<< HEAD
                 <% end %>
 
 
@@ -366,6 +401,16 @@ courseware_id: '<%=@courseware.id%>'
               <h1><%=image_tag('share.png',alt:'下载此课件')%></h1>
 
 
+=======
+                 <% end %>
+                 <li class="dianjiliang">销售量 <a href="#watch-view-count"><%= number_with_delimiter @courseware.downloads_count %> 件</a></li>
+              </ul>
+              <h1><%=image_tag('share.png',alt:'获取此课件')%></h1>
+              <ul class="delimited share" style="border:none !important;">
+                <a href="javascript:void(0)" class="psvr_login_required dual_psvrsharedown" id="psvrsharedown">下载源文件 （售价0.99积分）</a>
+                <a href="javascript:void(0)" class="psvr_login_required dual_psvrshareprint" id="psvrshareprint">打印并寄送 （售价0.09元/页）</a>
+              </ul>
+>>>>>>> origin/master
            </div>
         </div>
        </div>
@@ -773,16 +818,19 @@ courseware_id: '<%=@courseware.id%>'
              <% @courseware_real_version.downto(0).each_with_index do |version,index| %>
              <% slide_count = @courseware.slides_counts[version.to_s] || 1 %>
              <% sz = [slide_count-1,50].min %>
-             <div data-slide-count="<%= sz+1 %>" data-id="<%= @courseware.id %>" class="presentation" style="<%= 'margin-right:0px' if 2==index % 3 %>">
+              <% sz = 0 if @is_ie8 || @is_ie7 %>
+             <div data-slide-count="<%= sz+1 %>" data-id="<%= @courseware.id %>" class="presentation" style="<%= 'margin-right:0px' if 2==index % 3 %>" <%=raw 'id="psvrsharedown_thumbnails"' if version==@courseware_real_version %>>
                  <a href="<%= courseware_path @courseware %>/revisions/<%= version+1 %>" class="slide_preview scrub setup">
                 <% (sz).downto(1).each do |i| %>
                 <img style="display: none;" data-slide="<%= i %>" class="timeline" alt="第<%= i %>页" src="<%= asset_url("cw/#{@courseware.ktvid}/#{@courseware.revision(version)}thumb_slide_#{i}.jpg") %>">
                 <% end %>
                 <img src="<%= asset_url("cw/#{@courseware.ktvid}/#{@courseware.revision(version)}thumb_slide_0.jpg") %>" alt="Thumb_slide_0" width="210" height="158">
+                <% unless @is_ie8 || @is_ie7 %>
                 <div class="scrubber">
                 <div style="width: 100%;" class="scrubbed">
                 </div>
                 </div>
+                <% end %>
                  </a>
                  <div class="preview_info">
                 <h3><a href="<%= courseware_path @courseware %>/revisions/<%= version+1 %>">第<%= version+1 %>版<%= '(最新版)' if version==@courseware_real_version %> <%= ": #{@courseware.version_date[version.to_s]}" if @courseware.version_date[version.to_s] %></a></h3>

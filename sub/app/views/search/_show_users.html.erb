@@ -19,13 +19,13 @@
 				<div class="user-gravatar48">
           <a href="/users/<%=usr['id']%>">
 					<div class="">
-            <img src="http://uc.<%=Setting.ktv_domain%>/avatar.php?uid=<%=usr['uid']%>&size=small" alt="<%=name_beautify usr['title']%>" width="48" height="48">
+            <img src="<%=avatar_url_quick(usr['id'],:small)%>" alt="<%=name_beautify usr['title']%>" width="48" height="48">
         </div>
 					</a>
 				</div>
 				<div class="user-details">
           <a href="/users/<%=usr['id']%>"><%=name_beautify usr['title']%></a><br>
-					<span class="user-location"><%=number_with_delimiter User.get_credits(usr['uid']) %></span><br>
+					<span class="user-location"><%=str2weifen User.get_credits(usr['uid']) %></span><br>
           <span class="reputation-score" dir="ltr"><%=usr['followers_count']%>个粉丝, <%=usr['following_count']%>个关注, <%=usr['coursewares_uploaded_count']%>个课件</span>
 				</div>
         <div class="user-tags">

@@ -42,6 +42,7 @@ Sub::Application.configure do
   config.assets.compress = true
   config.assets.css_compressor = 'sass-rails'
   config.assets.js_compressor = :uglifier
+  config.assets.precompile += Dir["#{Rails.root}/app/assets/stylesheets/__dz/*.css.scss.erb"].collect{|filepath| "__dz/#{File.basename(filepath).gsub('.scss.erb','')}"}
   config.assets.precompile += %w{
     bind/__rr.css
     __lnk_app.css
@@ -112,6 +113,7 @@ Sub::Application.configure do
     ktv/__slide_plan.css
     ktv/__ytb_min_ql.css
     ktv/__ytb_upload.css
+    ktv/__ytb_edit.css
     kinetic-v4.0.0.js
 
     cpanel.js
@@ -127,7 +129,11 @@ Sub::Application.configure do
     css_ie.css
     jquery.autocomplete.js
     jquery.ui.autocomplete.js
-  }.uniq
+    
+    ktv/jquery.contextMenu.js
+    ktv/jquery.contextMenu.css    
+  }
+  config.assets.precompile.uniq!
   # 别忘了同时修改:
   # config/initializers/z_ktv.rb
   config.action_controller.asset_host = 'http://ktv-intrinsic-sub.b0.upaiyun.com'

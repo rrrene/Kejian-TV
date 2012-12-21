@@ -1,488 +1,94 @@
-<% content_for :armpit do %>
-  <%= stylesheet_link_tag "ktv/__zm_user.css", :media => "all" %>
-<% end %>
-<% content_for :body_style do %>background:url(<%=asset_path 'zm/r11839/images/common/bodybg.gif'%>) repeat scroll 0 0 #F0EEEE<% end %>
-<div class="__zm">
-<% params[:queryOrder] ||= '1' %>
-<input id="queryOrder" type="hidden" value="<%= params[:queryOrder] %>" />
-<div id="pagewrap">
-	<div id="content" style="box-shadow:none;background:none;overflow:visible !important;margin-top:18px">
-		<div class="sheet cf" id="zhimeisheetbar" >
-			<div class="hotword floatright">
-				<span class="split">|</span>
-				<h4>排序:</h4>
-<ul id="ulQueryOrder">
-<li  class='current'><a class="queryOrderCss" rel="1" href="javascript:;"><span>最新</span></a></li>
-<li ><a class="queryOrderCss" rel="2" href="javascript:;"><span>最热</span></a></li>
-</ul>
-			</div>
-			<div class="floatright">
-				<span>
-					<a href="/courses/<%= @course.name %>" class="blue"><%= @course.coursewares_count %>个课件</a>
-				</span>
-			</div>
-			<span class="sheetname marginleft"><%= @course.name %></span>
-		</div>
-		<script type="text/javascript">
-		<% content_for :butt2 do %>
-      $(function() {
-      if ($("#fix-string01").length == 1) {
-      $("#fix-string01").text(
-      $.fn.fixStr($("#fix-string01").text(), 12, "..."));
-      }
-      if ($("#fix-string02").length == 1) {
-      $("#fix-string02").text(
-      $.fn.fixStr($("#fix-string02").text(), 16, "..."));
-      }
-      if ($("#fix-string03").length == 1) {
-      $("#fix-string03").text(
-      $.fn.fixStr($("#fix-string03").text(), 12, "..."));
-      }
-      if ($("#fix-string04").length == 1) {
-      $("#fix-string04").text(
-      $.fn.fixStr($("#fix-string04").text(), 16, "..."));
-      }
-      if ($("#fix-string05").length == 1) {
-      $("#fix-string05").text(
-      $.fn.fixStr($("#fix-string05").text(), 12, "..."));
-      }
-      })
-    <% end %>
-		</script>
-		<!--内容容器开始-->
-		<div style="clear: both;">
-		</div>
-		<div id="contentMain" class="content" style="position: relative;">
-			<div id="rightLabel1" class="rightbox" style="display:none;right:350px; margin-top: -60px">
-				<div class="userbox topline">
-					<div class="userinfo">
-            <div class="uname alignleft cf"><span class="ctf-username floatleft"><%=@course.name%></span></div>
-
-						<ul class="useratten ctf-bg cf">
-							<li>
-							<a id="user_profile_fans_count" href="#" class="block gray usernumber">
-							<em><%= @course.coursewares_count %></em><br/>
-							<span>课件</span>
-							</a>
-							</li>
-							<li>
-							<a href="#" class="gray block usernumber"><%= @course.play_lists_count %><br/>
-							<span>锦囊</span></a></li>
-							<li>
-							<a id="user_profile_fans_count" href="#" class="block gray usernumber">
-							<em><%= @course.teachers_count %></em><br/>
-							<span>老师</span>
-							</a>
-							</li>
-						</ul>
-					</div>
-				  <% @followers = @course.teachers %>
-				  <% if !@followers.blank? %>
-					<div class="labelbox" style="margin-top:8px">
-						<h3 class="title">
-						<span class="label"><a href="#">这门课的老师</a></span>
-<span class="number">(<em class="blue"><a href="#"><%= @course.teachers_count %></a></em>) </span>
-						</h3>
-						<ul class="bp cf">
-              <% for teacher in @followers %>
-                <a href="/teachers/<%= Teacher.get_id teacher %>"><img width="32" height="32" alt="" src="<%=teacher_avatar_url_quick(teacher,:small32)%>"> <%=teacher%></a><br>
-							<% end %>
-						</ul>
-					</div>
-					<% end %>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div id="imloading" class="imfootloading" style="visibility:hidden;">
-		<div class="loading">
-			正在加载，请稍候...
-		</div>
-	</div>
-</div>
-
 <script type="text/javascript">
 <% content_for :butt2 do %>
-var old_content = jQuery("#contentMain").html();
-jQuery('.queryOrderCss').live('click', function () {
-    var queryOrder = jQuery(this).attr("rel");
-    jQuery('#queryOrder').val(queryOrder);
-    jQuery('#ulQueryOrder > li').removeClass();
-    jQuery(this).parent().addClass('current');
-    queryExec();
-});
-function queryExec(){
-    var queryOrder = jQuery('#queryOrder').val();
-    jQuery("#contentMain").html(old_content);
-    autoLayout.pageAuto = true;
-    autoLayout.pageNums = 0;
-    autoLayout.loading = true;
-    autoLayout.isHasNextPage = true;
-    autoLayout.pageNum = 2;
-    var linkUrl = "/courses/<%=@course.fid%>/coursewares",
-        jsonUrl = "/courses/<%=@course.fid%>/coursewares_with_page/";
-    autoLayout.init({
-        contentID: "contentMain",
-        rightLoad: true,
-        leftID: "",
-        dataContent: {
-            'queryOrder': queryOrder
-        },
-        rightID: ["rightLabel1"],
-        linkUrl: linkUrl,
-        loadingID: "imloading",
-
-        callBack: function () {
-        var showContent = "还没有人为<%=@course.name%>上传课件";
-
-            jQuery("#contentMain").prepend('<div style="text-align: center; margin-right: 233px; padding-top: 100px; left: 0px; top: 0px;" class="f14" columns="0">' + showContent + '</div>');
-        }
-    });
-    autoLayout.eachAction(jsonUrl);
-}
-im(function () {
-    queryExec();
-});
+(function($){
+  $(window).resize(KTV.crs_subize);
+  KTV.crs_subize();
+  $('.crs_sideicons a:not(.active)').hover(function(){
+    $('#crs_side_supplementary').css({'top':($(this).position().top-1).toString()+'px','display':'block'});
+  },function(){
+    $('#crs_side_supplementary').hide();
+  }).mouseup(function(){
+    $('#crs_side_supplementary').hide();
+  });
+  $('#moderate tr').click(function(e){
+    chkbox=$(this).find(':checkbox');
+    chkbox.attr('checked', !chkbox.attr('checked'));
+    tmodclick(chkbox[0]);
+  })
+})(jQuery);
 <% end %>
 </script>
+<% content_for :sdk_wrapper_style do %>width:100%<% end %>
+<% content_for :sdk_wrapper_style_end do %>margin-right:7px<% end %>
+<% residual = (220 - Setting.logo_ktv_width - 11 - 51) %>
+<% if residual>0 %>
+  <% content_for :sdk_wrapper_style1 do %>margin-left:<%= residual / 2 %>px;<% end %>
+  <% content_for :sdk_wrapper_style2 do %>margin-left:225px<% end %>
+<% else %>
+  <!-- todo -->
+<% end %>
 
+
+
+<div id="crs_head">
+  <a class="crs_btn">课程设置</a>
+  <div id="crs_search">
+    <input class="query" placeholder="课内搜索..." type="text">
+  </div>
+  <div class="nav">
+    <a href="/courses" title="<%=$ktv_subname%>课程导航" class="crs_head_ui nav1home"><%=$ktv_subname%>课程导航</a>
+    <a href="/departments/<%= @course.department_fid %>" class="crs_head_ui nav0"><%= @course.department_name %></a>
+    <a href="/courses/<%= @course.fid %>" class="crs_head_ui nav0"><%= @course.name %></a>
+  </div>
+  <div class="nav_right">
+    课长: <a href="#">无</a>
+  </div>
 </div>
-
-
-<%= render file:'/application/footers/_zm_footer' %>
-
-
-
-<% if false %>
-<% content_for :armpit do %>
-<%= stylesheet_link_tag "ktv/__foo", :media=>"all" %>
+<div class="psvr2_colmask psvr2_leftmenu">
+    <div class="colright" style="<% if 'show'==params[:action] %>background:url(<%=asset_path 'zm/r11839/images/common/bodybg.gif'%>) repeat scroll 0 0 #F0EEEE<%elsif params[:action].to_s.starts_with?('admin') %>background: #FFF<% else %><%end%>">
+        <div class="col1wrap">
+            <div class="col1" style="<%= 'margin:0 1px 0 228px' unless @dz_parser.nil? %>">
+                <!-- Column 2 start -->
+                <%= render @render_overwrite ? @render_overwrite : "#{params[:action]}" %>
+        				<!-- Column 2 end -->
+            </div>
+        </div>
+        <div class="col2" id="crs_side">
+          <!-- Column 1 start -->
+          <h2 class="h2_1">课程</h2>
+          <div id="crs_side_supplementary" style="display:none"></div>
+          <ul class="crs_sideicons">
+            <li><a href="/courses/<%= @course.fid %>" class="a1 <%= 'active' if 3==request.path.split('/').size %>">资源一览</a></li>
+            <li><a href="/courses/<%= @course.fid %>/syllabus" class="a2 <%= 'active' if 'syllabus'==request.path.split('/')[-1] %>">教学大纲</a></li>
+            <li><a href="/courses/<%= @course.fid %>/asks" class="a3 <%= 'active' if 'asks'==request.path.split('/')[-1] %>">提问求助区</a></li>
+            <li><a href="/courses/<%= @course.fid %>/experts" class="a4 <%= 'active' if 'experts'==request.path.split('/')[-1] %>">专家与精英</a></li>
+          </ul>
+          <h2 class="h2_2">课程管理面板</h2>
+          <ul class="crs_sideicons">
+<% if !session[:psvr_modcp_open] %>
+            <li><a href="/courses/<%= @course.fid %>/admin_login" class="psvr_login_required a5">打开管理面板</a></li>
+<% else %>
+            <li><a href="/courses/<%= @course.fid %>/admin_logout" class="psvr_login_required a6">关闭管理面板</a></li>
+            <li><a href="/courses/<%= @course.fid %>/admin7" class="psvr_login_required a7 <%= 'active' if 'admin7'==request.path.split('/')[-1] %>">内部留言</a></li>
+            <li><a href="/courses/<%= @course.fid %>/admin8" class="psvr_login_required a8 <%= 'active' if 'admin8'==request.path.split('/')[-1] %>">审核</a></li>
+            <li><a href="/courses/<%= @course.fid %>/admin9" class="psvr_login_required a9 <%= 'active' if 'admin9'==request.path.split('/')[-1] %>">禁止用户</a></li>
+            <li><a href="/courses/<%= @course.fid %>/admin10" class="psvr_login_required a10 <%= 'active' if 'admin10'==request.path.split('/')[-1] %>">禁止 IP</a></li>
+            <li><a href="/courses/<%= @course.fid %>/admin11" class="psvr_login_required a11 <%= 'active' if 'admin11'==request.path.split('/')[-1] %>">用户权限</a></li>
+            <li><a href="/courses/<%= @course.fid %>/admin12" class="psvr_login_required a12 <%= 'active' if 'admin12'==request.path.split('/')[-1] %>">编辑用户</a></li>
+            <li><a href="/courses/<%= @course.fid %>/admin13" class="psvr_login_required a13 <%= 'active' if 'admin13'==request.path.split('/')[-1] || 'admin_login'==request.path.split('/')[-1] %>">主题管理</a></li>
+            <li><a href="/courses/<%= @course.fid %>/admin14" class="psvr_login_required a14 <%= 'active' if 'admin14'==request.path.split('/')[-1] %>">推荐主题</a></li>
+            <li><a href="/courses/<%= @course.fid %>/admin15" class="psvr_login_required a15 <%= 'active' if 'admin15'==request.path.split('/')[-1] %>">课程编辑</a></li>
+            <li><a href="/courses/<%= @course.fid %>/admin16" class="psvr_login_required a16 <%= 'active' if 'admin16'==request.path.split('/')[-1] %>">公告</a></li>
+            <li><a href="/courses/<%= @course.fid %>/admin17" class="psvr_login_required a17 <%= 'active' if 'admin17'==request.path.split('/')[-1] %>">管理日志</a></li>
+            <li><a href="/courses/<%= @course.fid %>/admin18" class="psvr_login_required a18 <%= 'active' if 'admin18'==request.path.split('/')[-1] %>">管理举报</a></li>
 <% end %>
-<% content_for :butt2 do %>
-KTV.flo_targetize();
-jQuery(window).bind('resize',KTV.flo_targetize);
-<% end %>
-<div class="__flo">
-	<div class="production" id="std-ui-wrap">
-		<div id="app-root-view">
-			<div class="app-north">
-				<div class="app-north-inner">
-					<div class="header-flow">
-						<div class="flow-topbar left">
-              <ul class="align-left">
-                <li class="action li-settings" style="display: block;"><a class="toggle_navbar alt" title="Preferences"><span class="icon">Preferences</span><span class="left"></span><span class="right"></span></a><div class="count-badge"></div></li>
-                <li class="action li-notifications" style="display: block;"><a class="sorters" title="Notifications"><span class="icon">Notifications</span><span class="left"></span><span class="right"></span></a><div class="count-badge" style="display: none;">0</div></li>
-              </ul>
-							<ul class="align-right">
-								<li class="action li-new_task" style="display: block;"><a class="new_task" title="Create a New Task (Enter/Return)"><span class="icon">New Task</span><span class="left"></span><span class="right"></span></a>
-								<div class="count-badge">
-								</div>
-								</li>
-							</ul>
-						</div>
-						<div class="flow-topbar center">
-							<ul class="align-left">
-								<li class="action li-back" style="display: none;"><a class="back" title="Go Back"><span class="text">Back</span><span class="left"></span><span class="right"></span></a>
-								<div class="count-badge">
-								</div>
-								</li>
-							</ul>
-							<ul class="align-right">
-								<li class="action li-actions" style="display: block;"><a class="actions" title="Task List Actions"><span class="icon">Actions</span><span class="left"></span><span class="right"></span></a>
-								<div class="count-badge">
-								</div>
-								</li>
-							</ul>
-						</div>
-						<div class="flow-topbar right">
-							<ul class="align-left">
-								<li class="search">
-								<input type="text" placeholder="课程内搜索..." class="query">
-								<a style="display: none;" title="Clear search query" class="clear-search"><ins></ins></a>
-								</li>
-							</ul>
-							<ul class="align-right">
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- Sidebar -->
-			<div class="app-west">
-				<div class="app-west-inner">
-					<div class="sidebar" style="height: 2000px;">
-						<div class="sidebar-inner">
-							<div class="primary-boxes-wrap">
-								<div class="sidebar-primary-boxes">
-									<h3><%= @course.name %></h3>
-									<ul class="primary-boxes">
-										<!-- li class="box dashboard">
-        <a>
-          <span>Dashboard</span>
-          <b class="dasboard-badge" style="display: none;"></b>
-        </a>
-      </li -->
-										<li class="box dashboard droppable ui-droppable active current">
-										<a href="#/inbox">
-										<span>课程主页</span>
-										<b style="display: none;" class="badge inbox-badge"></b>
-										</a>
-										</li>
-										<li class="box flagged">
-										<a href="#/upcoming">
-										<span>讲义</span>
-										<b style="display: none;" class="badge upcoming-badge"></b>
-										</a>
-										</li>
-										<li class="box all-tasks">
-										<a href="#/flagged">
-										<span>作业</span>
-										<b style="display: none;" class="badge flagged-badge"></b>
-										</a>
-										</li>
-										<li class="box delegated">
-										<a href="#/delegated">
-										<span>试卷</span>
-										<b style="display: none;" class="badge delegated-badge"></b>
-										</a>
-										</li>
-										<li class="box inbox">
-										<a href="#/tasks">
-										<span>课堂录像</span>
-										<b style="" class="badge all-tasks-badge">17</b>
-										</a>
-										</li>
-										<li class="box someday">
-										<a href="#/tasks">
-										<span>资料/读物</span>
-										<b style="" class="badge all-tasks-badge">17</b>
-										</a>
-										</li>
-									</ul>
-								</div>
-							</div>
-							<div class="panes-wrap">
-								<div class="panes-wrap-inner">
-									<ul class="sidebar-tabs tabs project-tags-collaborators">
-										<li data-pane="projects" class="projects active ui-droppable">老师列表</li>
-										<li data-pane="collaborators" class="collaborators ui-droppable">学期归档</li>
-									</ul>
-									<div class="main-sidebar-panes sidebar-panes">
-										<div class="pane projects active">
-											<div class="pane-root">
-												<div class="filter projects">
-													<input type="text" placeholder="搜索老师…">
-													<a title="clear search" class="clear-search"><ins></ins></a>
-												</div>
-												<div class="pane-inner" style="overflow: hidden; padding: 0px; height: 211px;">
-													<div style="height: 211px;" class="jspContainer ios">
-
-
-                            <div class="jspPane" style="left: 0px; top: 0px; width: 220px;">
-                              <ul class="collaborators collaborator-list items-list flow-tree">
-                                <li class="person list-item concierge no-summary ui-droppable active" data-id="95924" data-cid="c11" id="sidebar-person-95924" data-email="concierge@getflow.com">
-                                <ins></ins>
-                                <div class="person-link link">
-                                  <ins><span class="photo"></span></ins>
-                                  <span class="name">所有老师</span>
-                                  <ul class="summaries">
-                                  </ul>
-                                </div>
-                                <div class="settings">
-                                  <ins></ins>
-                                </div>
-                                <div class="fadeout">
-                                </div>
-                                </li>
-                              <% @course.teachers.each do |teacher| %>
-                                <li class="person list-item ui-droppable" data-id="127314" data-cid="c9" id="sidebar-person-127314">
-                                <ins></ins>
-                                <div class="person-link link">
-                                  <ins class="has-photo"><span class="photo" style="background-image: url(&quot;https://flowapp.s3.amazonaws.com/accounts/127314/78a71cc963c77ccba60ae57f1969f9ce_medium.png&quot;);"></span></ins>
-                                  <span class="name"><%=teacher%></span>
-                                  <ul class="summaries">
-                                    <li class="summary state">邮箱请求</li>
-                                  </ul>
-                                </div>
-                                <div class="settings">
-                                  <ins></ins>
-                                </div>
-                                <div class="fadeout">
-                                </div>
-                                </li>
-                              <% end %>
-                                <li class="person list-item ui-droppable" data-id="90562" data-cid="c10" id="sidebar-person-90562">
-                                <ins></ins>
-                                <div class="person-link link">
-                                  <ins class="has-photo"><span class="photo" style="background-image: url(&quot;https://flowapp.s3.amazonaws.com/accounts/90562/80fe26db82b28bad4b7a9451cbaacadf_medium.jpg&quot;);"></span></ins>
-                                  <span class="name">minqi pan</span>
-                                  <ul class="summaries">
-                                    <li class="summary state">Pending</li>
-                                  </ul>
-                                </div>
-                                <div class="settings">
-                                  <ins></ins>
-                                </div>
-                                <div class="fadeout">
-                                </div>
-                                </li>
-                              </ul>
-                              <div class="no-results" style="display: none;">
-                                No contacts found.
-                              </div>
-                            </div>
-
-
-
-
-
-
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="pane collaborators">
-											<div class="pane-root">
-												<div class="filter people">
-													<input type="text" placeholder="Search people…">
-													<a title="clear search" class="clear-search"><ins></ins></a>
-												</div>
-												<div class="pane-inner" style="overflow: hidden; padding: 0px; height: 211px;">
-													<div style="height: 0px" class="jspContainer ios">
-														<div class="jspPane" style="left: 0px; top: 0px; width: 0px;">
-															<ul class="collaborators collaborator-list items-list flow-tree">
-																<li class="person list-item concierge no-summary ui-droppable" data-id="95924" data-cid="c8" id="sidebar-person-95924" data-email="concierge@getflow.com">
-																<ins></ins>
-																<div class="person-link link">
-																	<ins><span class="photo"></span></ins>
-																	<span class="name">添加老师...</span>
-																	<ul class="summaries">
-																	</ul>
-																</div>
-																<div class="settings">
-																	<ins></ins>
-																</div>
-																<div class="fadeout">
-																</div>
-																</li>
-															</ul>
-															<div class="no-results" style="display: none;">
-																No contacts found.
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="secondary-boxes-wrap" style="display: none;">
-								<div class="sidebar-secondary-boxes">
-									<h3>Other Lists</h3>
-									<div class="pane">
-										<ul class="links">
-											<li class="link all-tasks"><a href="#/tasks/all"><ins></ins><span>All Tasks</span></a></li>
-											<li class="link followed-tasks"><a href="#/following"><ins></ins><span>Followed Tasks</span></a></li>
-											<li class="link completed-tasks"><a href="#/complete"><ins></ins><span>Completed Tasks</span></a></li>
-										</ul>
-									</div>
-								</div>
-							</div>
-							<div class="action-bar-wrap">
-								<div class="side-action-bar">
-									<div class="actions">
-										<div class="action new-action">
-											<a><ins class="add"></ins></a>
-										</div>
-									</div>
-									<div class="status">
-									  共<%= @course.coursewares_count %>个课件
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- Main Content Area -->
-			<div class="app-center">
-				<div class="app-center-inner">
-					<div class="detail-view">
-						<div class="detail-view-inner">
-							<div class="layout-east">
-								<div class="layout-east-inner">
-									<div class="navbar">
-										<div class="section collaborators" style="display: none;">
-											<ul style="display: block;" class="actions-list">
-												<li class="action-item everyone active">
-												<ins></ins>
-												<a title="View everyone's tasks" class="name">All Tasks</a>
-												<div style="" class="count">
-													17
-												</div>
-												</li>
-											</ul>
-											<h3 class="title"><span class="fadeout">Tags</span></h3>
-											<div class="section-content">
-												<ul class="collaborators">
-												</ul>
-												<div class="quick-invite-wrapper">
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="layout-center">
-								<div class="layout-center-inner">
-									<div class="content-views-wrap">
-										<div class="content-view-wrap">
-											<div class="loading-tasks" style="display:block">
-												<div class="spinner s48 blue">
-												</div>
-												<label class="loading-label"></label><label class="loading-sub-label"></label>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="pop-out-wrap quicksearch pop-out-list" style="display: none; position: absolute; top: 50px; left: 1033px;">
-		<div class="pop-out">
-			<div class="pop-out-body">
-				<div class="pop-out-header">
-					<a class="wrapper" style="display: inline;"><button type="button" class="left cancel">Cancel</button>
-					<div class="back_button">
-					</div>
-					</a>
-					<h2 class="title">Quick Search</h2>
-					<button type="button" class="button right" style="display: none;"></button>
-				</div>
-				<div class="pop-out-content">
-					<ul class="fancy-list">
-					</ul>
-					<div class="spinner s16">
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="pop-out-tail top" style="display: block; background: url(<%= asset_path('flo/images/nubs/top-black.png') %>) no-repeat scroll center top transparent; width: 30px; height: 16px; top: -14px; left: 186px;">
-		</div>
-	</div>
-	<!-- Welcome Slides -->
-	<!-- Quicktask FOrm -->
-	<!-- Contact Form -->
-	<div id="flying-task">
-	</div>
-	<!-- Google Code for Flow Trial or Paid Users Remarketing List -->
-	<ul id="flowlr">
-	</ul>
-	<div id="pre-loaded-avatars" style="">
-	</div>
+          </ul>          
+          <h2 class="h2_3">统计数据</h2>
+  				<!-- Column 1 end -->
+        </div>
+    </div>
 </div>
-<% end %>
+    
+    
+
+    

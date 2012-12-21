@@ -17,6 +17,17 @@ class Course
     redis_search_psvr_was_delete!
   }
   field :department_fid
+  def fix_department_fid
+    if self.respond_to?(:department)
+      d=Department.where(name:self.department).first
+      if !d
+        d=Department.new
+        d.name=self.department
+        d.save(:validate=>false)
+      end
+      self.ua(:department_fid,d.fid)
+    end
+  end
   def department_ins
     @department = nil if self.department_fid_changed?
     @department ||= Department.where(:fid=>self.department_fid).first
@@ -55,7 +66,7 @@ class Course
   field :years,:type=>Array,:default=>[]
   
   field :eng_name
-  field :credit
+  field :credit   #学分
   field :credit_hours
   field :jiaoxuefs
   field :neirongjianjie
@@ -81,7 +92,7 @@ class Course
         name = "#{self.name}"
       end
       if PreForumForum.where(:name=>self.name).first.present?
-        inst=PreForumForum.where(:name=>name).first
+        inst=PreForumForum.where(:name=>self.name).first
       else
         ddid=self.department_fid
         raise "department_fid shouldn't be blank" if ddid.blank?

@@ -6,6 +6,7 @@ class User
   #include Mongo::Voter
   include Redis::Search
   include BaseModel
+  field :psvr_jifenshoudbe,:type=>Integer,:default=>0
   @before_soft_delete = proc{
     result = []
     if self.play_lists_ugc.size < 1
@@ -38,12 +39,12 @@ class User
   embeds_one :sub_user_material
   before_validation :fill_in_unknown_email,:unless=>'during_registration'
   before_validation :fill_in_unknown_name,:unless=>'during_registration'
-  def self.get_credits(uid)
+  def self.get_credits(uid,force=false)
     ret = $redis_users.hget(uid,:credits)
-    if ret.nil?
-      item = PreCommonMember.where(uid:uid.to_i).first
+    if force or ret.nil?
+      item = PreCommonMemberCount.where(uid:uid.to_i).first
       return 0 if item.nil?
-      ret = item.credits
+      ret = item.extcredits2
       self.set_credits(uid,ret)
     end
     ret 
@@ -72,7 +73,7 @@ class User
   #下面这个字段呢，是用来标记注册到第几步了。完成注册这个值为1000，所以嘛，如果这个值小于1000，那就跳转用户到相应的注册步骤咯
   field :reg_extent,:type=>Integer,:default=>0
   def reg_extent_okay?
-    self.reg_extent.try(:>=,1000)
+    self.reg_extent.try(:>=,1000) || self.reg_extent.try(:==,-999)
   end
   EXTENT_TEXT = {
     0 => '请登录您的人人账号',
@@ -241,8 +242,42 @@ class User
   # P.S.V.R性能改善点，去掉validatable，防止['users'].find({:email=>"efafwfdlkjfdlsjl@qq.com"}).limit(-1).sort([[:_id, :asc]])查询
   ## Database authenticatable
   field :uid,:type=>Integer #UCenter
-  field :ibeike_uid #UCenter of iBeiKe
-  field :ibeike_slug #UCenter of iBeiKe
+  field :ibeike_uid
+  field :ibeike_slug
+  field :cnu_uid
+  field :cnu_slug
+  def self.cnu_user_import
+    CnuUsers.all.each{ |x|
+      x.nickname=x.xm.to_s.strip if x.nickname.blank?
+      x.nickname=x.email.split("@")[0].to_s.strip if x.nickname.blank?
+      next if x.email.blank?
+      u=User.where(email:x.email).first
+      if !u
+        u=User.new
+        u.email=x.email
+        u.name="_#{x.nickname}"
+        u.during_registration = false
+        u.name_unknown = false
+        u.email_unknown = false
+        resource=u
+        u.save(:validate=>false)
+        ret = UCenter::User.register(nil,{
+          username:resource.slug,
+          password:x.encrypted_password,
+          email:resource.email,
+          regip:x.last_sign_in_ip,
+          psvr_force:'1'
+        })
+        if ret.xi.to_i>0
+          resource.update_attribute(:uid,ret.xi.to_i)
+        else
+          raise '注册UC同步注册错误！！！猿快来看一下！'
+        end
+        puts u.name
+      end
+    }
+  end
+
   field :discuz_pw #DZ
   field :reputation,:type=>Integer,:default=>0
   field :regip
@@ -514,6 +549,7 @@ User.all.map{|x| x.ua(:widget_sort,hash)}
   field :created_from_mobile, :type => Integer, :default=>0
   field :name
   def name_beautified
+    name=self.name.to_s
     @name_beautified ||= ('_'==name[0] ? name[1..-1] : name)
   end
   def title
@@ -524,9 +560,15 @@ User.all.map{|x| x.ua(:widget_sort,hash)}
       x=PlayList.find_or_create_by(user_id:self.id,title:'收藏')
       y=PlayList.find_or_create_by(user_id:self.id,title:'稍后阅读')
       z=PlayList.find_or_create_by(user_id:self.id,title:'历史记录')
+      z.update_attribute(:is_history,true)
+      z.update_attribute(:privacy,2)            #private##需要好友可见
+      g=PlayList.find_or_create_by(user_id:self.id,title:'已购买')
+      g.update_attribute(:privacy,2)    #private
+      g.update_attribute(:is_history,true)
       x.update_attribute(:undestroyable,true)
       y.update_attribute(:undestroyable,true)
       z.update_attribute(:undestroyable,true)
+      g.update_attribute(:undestroyable,true)
   end
   field :slug
   # field :fangwendizhi
@@ -703,6 +745,17 @@ User.all.map{|x| x.ua(:widget_sort,hash)}
         end
       end
     end
+  end
+  def self.name_shibushi_zhenshide
+    User.all.each{|x|
+      if Ktv::Renren.name_okay?(x.name_beautified) 
+        puts "#{x.name} okay"
+        x.update_attribute(:name,x.name[1..-1]) if '_'==x.name[0]
+      else
+        puts "#{x.name} bad"
+        x.update_attribute(:name,"_#{x.name}") unless '_'==x.name[0]
+      end
+    }
   end
   # validate :vali_lingyu_check
   def vali_lingyu_check
@@ -1787,6 +1840,37 @@ User.all.map{|x| x.ua(:widget_sort,hash)}
         
     end
   end
+  field :discuz_user_activated,:default=>false
+  def discuz_user_activate!
+    # 一般不调用。
+    
+    # 那个啥，UC里注册了用户不一定Discuz里就有这个用户
+    # 必须至少登陆一次才能在Discuz那边激活这个用户，亲。
+    raise 'incomplete info' if self.slug.blank? or self.uid.to_s.blank? or self.email.blank?
+    data={
+      :fastloginfield => 'username',
+      :handlekey => 'ls',
+      :password => 'needless_to_say',
+      :quickforward => 'yes',
+      :username => self.slug,
+      :psvr_uid => self.uid.to_s,
+      :psvr_email => self.email,
+    }
+    res = Ktv::JQuery.ajax({
+      psvr_original_response: true,
+      url:"http://#{Setting.ktv_subdomain}/simple/member.php?mod=logging&action=login&loginsubmit=yes&infloat=yes&lssubmit=yes&inajax=1",
+      type:'POST',
+      data:data,
+      :accept=>'raw'+Setting.dz_authkey,
+      psvr_response_anyway: true
+    })
+    if res.to_s=~/window\.location\.href/
+      self.update_attribute(:discuz_user_activated,true)
+    else
+      binding.pry
+    end
+  end
+  
 
 
   def redis_search_alias

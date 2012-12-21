@@ -124,13 +124,13 @@ end
 			<div class="yt-uix-slider-body">
 				<div class="yt-uix-slider-slide" id="playlist-bar-tray-content" style="left: 0px;">
 					<ol class="video-list">
-						<%= render partial:'bar_ol',locals:{coursewares:coursewares,playlist_id:playlist.id} %>
+						<%= render partial:'bar_ol',locals:{coursewares:coursewares,playlist_id:playlist.id,is_history:playlist.is_history} %>
 					</ol>
 					<ol id="playlist-bar-help">
 						<li class="empty playlist-bar-help-message">
 							您的锦囊为空。请点击此按钮
 							<img class="addto-button-help" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>"> 向锦囊添加课件或
-							<a class="load-lists" href="/view_all_playlists">加载其他锦囊</a>。 
+							<a class="load-lists" href="/mine/view_all_playlists">加载其他锦囊</a>。 
 						</li>
 					</ol>
 				</div>

@@ -1,4 +1,7 @@
 <script type="text/javascript" charset="utf-8">
+  window.is_ie7=<%=@is_ie7.to_json%>;
+  window.is_ie8=<%=@is_ie8.to_json%>;
+  window.form_authenticity_token = '<%= form_authenticity_token %>';
 <% if $psvr_really_production %>
   window.psvr_really_production = true;
   window.psvr_asset_host = 'http://ktv-intrinsic-sub.b0.upaiyun.com';
@@ -59,6 +62,8 @@ var STYLEID = '1',
     KTV.addtext_css_src0 = '<%=asset_path('addtext.png')%>';
     KTV.renren_src1 = '<%=asset_path('234_48darkwhite.png')%>';
     KTV.renren_src0 = '<%=asset_path('234_48dark.png')%>';
+    KTV.psvrsharedown_dialog_src = '<%=asset_path('psvrsharedown_dialog.png')%>';
+		KTV.psvrsharedown_ijiojioji_src = '<%=asset_path('ijiojioji.png')%>';
     <% key = "spetial_#{Setting.ktv_sub.to_s.split('-')[0]}".to_sym; if value=Ktv::Consumers[key] %>
       KTV.spetial_src1 = '<%=asset_path("bind/huge_#{key}white.png")%>';
       KTV.spetial_src0 = '<%=asset_path("bind/huge_#{key}.png")%>';

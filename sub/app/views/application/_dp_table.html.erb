@@ -1,7 +1,7 @@
 <table class="psvr psvr_seedtable psvr_dptable" border="0" align="center" cellpadding="1" cellspacing="1" bgcolor="#cccccc" width="100%" style="background:#cccccc">
 
  <tr bgcolor="#f1f1f1">
-    <td height="28" colspan="5" align="left"><h3 class="psvr" ><a href="/courses"><%=Setting.ktv_subname%>课程导航</a></h3></td>
+    <td height="28" colspan="5" align="left" style="padding:1px 6px"><h3 class="psvr" ><%=$ktv_subname%>课程导航</h3></td>
  </tr>
   <tr bgcolor="#ffffff" align="center">
     <td width="100%" colspan="5" style="padding:0">
@@ -40,7 +40,7 @@
 
 
     <div class="col-accessories" style="padding-bottom:18px">
-    <h3><a href="#" class="accessories"><span ></span>人文、艺术与社会科学</a></h3>
+    <h3 style="margin-left: -16px;"><a href="#" class="accessories"><span ></span>人文、艺术与社会科学</a></h3>
     <ul class="navlist" style="margin-left:0">
     <% Department.where(:sort=>3).desc('coursewares_count').each do |topic| %>
     <li  ><a class="<%= 'orange' if topic.coursewares_count > 100 %>" href="/departments/<%= topic.fid %>"><span><%= topic.name %></span></a></li>

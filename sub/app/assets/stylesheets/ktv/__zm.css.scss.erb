@@ -2238,7 +2238,9 @@
       height: 27px;
       padding-right: 16px;
       font-size: 12px;
-      line-height: 20px
+      line-height: 20px;
+      max-width:206px;
+      overflow:hidden;
   }
 
   .small-label-gift .rightfold {
@@ -4699,6 +4701,7 @@
   }
 
   .dialog3 .close {
+    text-indent:-9999em;
       display: block;
       background: url(<%=asset_path('zm/r11839/images/array/dialog2.gif')%>) no-repeat 0 0;
       width: 40px;
@@ -8511,7 +8514,9 @@
   .share-mod .shareprofile {
       padding: 6px 16px 5px;
       border-bottom: 1px solid #e7e7e7;
-      color: #888
+      color: #888;
+      height: 0!important;
+      display: none!important;
   }
 
   .share-mod .contentsms {
@@ -12562,7 +12567,11 @@
       margin: 0 auto 16px
   }
   
-  
-  
+  .dialog_psvrsharedown {
+    background:transparent !important;
+  }
+  #loginLayout{
+    overflow:hidden;
+  }
 }
 

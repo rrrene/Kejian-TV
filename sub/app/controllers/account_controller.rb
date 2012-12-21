@@ -128,11 +128,25 @@ class AccountController < Devise::RegistrationsController
   def after_inactive_sign_up_path_for(resource)
     welcome_inactive_sign_up_path
   end
+  def new05_temporarily_skip
+    if current_user.reg_extent_okay?
+      redirect_to '/'
+      return false
+    end
+    current_user.ua(:reg_extent,-999)
+    redirect_to '/'
+    return false
+  end
   def new05
+    if 'cnu'!=Setting.ktv_sub
+      redirect_to '/'
+      return false
+    end
     @seo[:title] = '完成新用户注册'
     @simple_header=true
     @simple_header_width=840
     @simple_header_with_exit=true
+    current_user.ua(:reg_extent,0) if -999==current_user.reg_extent
     if current_user.reg_extent_okay?
       @simple_header_width=602
       @simple_header_with_exit=false
@@ -173,6 +187,7 @@ class AccountController < Devise::RegistrationsController
       @service = Ktv::Consumers[@serv]
       self.send("bind_#{@serv}_prepare!")
       render "new050",layout:'application'
+      return true
     else
       if current_user.reg_extent < 10
         render "new051",layout:'application'
@@ -218,6 +233,7 @@ class AccountController < Devise::RegistrationsController
         end
         @departments = Department.desc('courses_count')
         render "new888",layout:'application'
+        return true
       end
     end
   end

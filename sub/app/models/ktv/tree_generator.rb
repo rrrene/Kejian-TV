@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module Ktv
   class TreeGenerator
    def self.jsonize(data)
