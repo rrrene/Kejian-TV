@@ -988,10 +988,29 @@ class Courseware
       else
         papa.ua(:sub_status,0)
       end
+      if papa.status == 0 and  !papa.check_father_pic
+        papa.fix_father_pinpic!
+      end
       # @papa.update_attribute(:transcoding_count,@papa.transcoding_count - 1)
       # if @papa.transcoding_count <= 0
       # end
     end
+  end
+  def check_father_pic
+    url = "http://ktv-pic.b0.upaiyun.com/cw/#{self.ktvid}/thumb_slide_0.jpg"
+    pin = "http://ktv-pic.b0.upaiyun.com/cw/#{self.ktvid}/#{self.pinpicname}"
+    result = true
+    Net::HTTP.start("ktv-pic.b0.upaiyun.com", 80) do |http|
+      if http.head(url).code != "200"
+        # self.fix_father_pinpic!                           ## 有待优化
+        result = false
+      end
+      if http.head(pin).code != "200"
+        # self.fix_father_pinpic!                           ## 有待优化
+        result = false
+      end
+    end
+    result
   end
   def self.orphan
     cws = Courseware.where(:is_children => true)
@@ -1057,12 +1076,15 @@ class Courseware
     if min.nil?
       if tmp.present?
         min = tmp
+        a = Courseware.find(min)
+        a.ua(:child_rank,0)
+        a.renqueue!
       else
-        min = self.get_children[0]
+        self.ua(:sub_status,1)
       end
-      Courseware.find(min).ua(:child_rank,0)
+    else
+        Courseware.find(min).renqueue!
     end
-    Courseware.find(min).renqueue!
   end
   def fix_children(fix_all = false)
     counting = 0
