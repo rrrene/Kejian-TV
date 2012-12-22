@@ -47,7 +47,7 @@ private
     @user.save(:validate=>false)
     if @user.uid.blank?
       if @user.email.present?
-        info0=UCenter::User.get_user(nil,{email:@user.email})
+        info0=UCenter::User.get_user(nil,{username:@user.email,isemail:1})
       else
         info0='0'
       end

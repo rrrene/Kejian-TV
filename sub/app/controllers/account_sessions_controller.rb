@@ -36,7 +36,7 @@ class AccountSessionsController < Devise::SessionsController
         end
         @login_veryspetial = true
         consumer = value[:klass].new
-        u,msg = consumer.act!(params,value)
+        u,msg = consumer.act!(params,key,value,request)
         if u
           resource = u
           suc_flag = true
@@ -52,6 +52,7 @@ class AccountSessionsController < Devise::SessionsController
       @traditional = true
       email = params[:userEmail]
       passwd = params[:userPassword]
+      raise 'todo' if 'psvr_password_unknown'==passwd
       ret = UCenter::User.login(request,{isuid:2,username:email,password:passwd})
       status = ret['root']['item'][0].to_i
       suc_flag = false
@@ -98,3 +99,4 @@ class AccountSessionsController < Devise::SessionsController
     end
   end
 end
+

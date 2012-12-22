@@ -4,7 +4,7 @@ module Ktv
     extend Ktv::Helpers::Config
     include Ktv::Helpers::Config
     include Shared::MechanizeParty
-    def act!(params,value)
+    def act!(params,provider,value,request)
       u=nil
       msg=''
       ret = UCenter::IBeike.login('user',nil,{isuid:0,username:params[:user][:email],password:params[:user][:password]})
