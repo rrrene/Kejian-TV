@@ -86,11 +86,10 @@ class UncompressJob
             @courseware.height = 523
             @courseware.status = 4
             if @courseware.transcoding_count = 0 and @courseware.tree.present?
-              @courseware.status = 0
               @courseware.sub_status = 1
             end
             @courseware.save(:validate => false)
-            if @courseware.get_children.blank?
+            if @courseware.get_children.blank? and @courseware.tree.present?
               @courseware.ua(:status,0)
               @courseware.ua(:sub_status,1)
             end

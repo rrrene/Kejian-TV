@@ -231,6 +231,7 @@
 	var countingdown_upload = 0;
 	var remaining_upload_number = 0;
 	var remaining_process_number = 0;
+  var auto_saved_number = 0;
 	var _width=$('.starting-box-left-column').outerWidth(),_height=$('.starting-box-left-column').outerHeight();
 	if(window.location.pathname.split('/')[1]=='edit'){
 		_width = $('#edit-upload').outerWidth();
@@ -386,11 +387,12 @@
 				}
 				this.startUpload();
 				if(remaining_upload_number<=0){
-					window.onbeforeunload = null;	
+					window.onbeforeunload = null;
 				}	
 			},
 		  upload_start_handler: function(file){
 				window.onbeforeunload = function(){return "您即将离开此页面。" + "\n\n" + "如果此时您离开此页面可能会丢失您所填的内容。您确定离开？";}
+        $('#submit-all').removeClass('hid');
 				$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.progress-bar-uploading').removeClass('hid');
 				$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.item-sub-title > .upload-status-text').html('正在上传您的课件...');
 		  }
@@ -419,6 +421,11 @@
 			dataType:'json',
 		});
 	};
+  $('.save-all-changes-button').live('click',function(){
+    if(remaining_upload_number<=0 && remaining_process_number > 0 && auto_saved_number == remaining_process_number){
+      window.location.href = 'http://ibeike.kejian.lvh.me/mine/my_coursewares';
+    }
+  });
 	$('.psvr_f').live('change',function(){
 		tmp = this;
 		$(this).parents('.upload-item').find('.save-error-message').removeClass('critical').html('正在保存所有更改...');
@@ -440,7 +447,12 @@
 				$('#the_upload_ytb .upload-item[data-file-id="'+fileid+'"]').find('.item-leave-title').removeClass('hid');
 				$('#the_upload_ytb .upload-item[data-file-id="'+fileid+'"]').find('input.id').val(json.id);
 				$('#the_upload_ytb .upload-item[data-file-id="'+fileid+'"]').find('.watch-page-link').html('您的课件将在以下位置阅读： <a target="_blank" href="http://'+ window.location.host +'/coursewares/'+json.id+'">http://'+ window.location.host +'/coursewares/'+json.id+'</a>');
+        $('#the_upload_ytb .upload-item[data-file-id="'+fileid+'"]').find('.save-error-message').removeClass('critical').html('已保存所有更改。');
 				$('#the_upload_ytb .upload-item[data-file-id="'+fileid+'"]').find('.save-changes-button').attr('disabled',true);
+        auto_saved_number ++;
+        if(auto_saved_number == remaining_process_number){
+           $('.save-all-changes-button').attr('disabled',false);
+        }
 				update_processing_bar(json.id);
 			}else if(json.status == 'manual'){
 				$(tmp).parents('.upload-item').find('.save-error-message').removeClass('critical').html('已保存所有更改。');
