@@ -201,6 +201,7 @@ $('#psvrsharedown,#psvrsharedown_thin').click(KTV.psvrsharedown);
 				 <h2 style="display:none !important" id="core_cw_h2">上传: <%= link_to @courseware.uploader.name_beautified,user_path(@courseware.uploader) %> · 作者: 未认领</h2>
 <% end %>
          <h1 style="<%='margin-bottom:12px' if @courseware.yasuobao?%>">
+           [<%= Courseware::SORT1STR[@courseware.sort1] %>]
             <%if @cws%>第<%=@courseware.courseware_series_no%>集. <%end%>
             <%= @courseware.title %>
             <%if @cws%>
