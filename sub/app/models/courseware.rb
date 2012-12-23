@@ -191,7 +191,8 @@ class Courseware
       dep = Department.where(fid:self.department_fid).first
       dep.inc(:coursewares_count,-1) if dep
     end
-    
+    # self.ua(:md5s,[])
+    # self.ua(:md5,"")
     thanked = false
     User.where(:thanked_courseware_ids=>self.id).each do |u|
       u.inc(:thank_count,-1)
@@ -379,7 +380,7 @@ class Courseware
     if opts[:very_short]
       ret = ret.split(' ')[0..3].join(' ')
     end
-    return ret.gsub(' years','年').gsub(' year','年').gsub(' days','天').gsub(' day','天').gsub(' hours','小时').gsub(' hour','小时').gsub(' minutes','分钟').gsub(' minute','分钟').gsub(' seconds','秒').gsub(' second','秒').gsub(' ','')
+    return ret.gsub(' years','年').gsub(' year','年').gsub(' months','月').gsub(' month','月').gsub(' days','天').gsub(' day','天').gsub(' hours','小时').gsub(' hour','小时').gsub(' minutes','分钟').gsub(' minute','分钟').gsub(' seconds','秒').gsub(' second','秒').gsub(' ','')
   end
   field :started_at # ex. 2011年06月06日 13:23:58
   field :finished_at # ex. 2011年06月06日 13:23:58

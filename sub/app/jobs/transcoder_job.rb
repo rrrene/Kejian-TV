@@ -46,7 +46,7 @@ class TranscoderJob
           @courseware.dz_file_manipulate
           @courseware.md5hash[@courseware.version.to_s] = md5
           @courseware.md5s = 0.upto(@courseware.version).collect{|md5_i| @courseware.md5hash[md5_i.to_s]}
-          if md5_cw = Courseware.where('md5s'=>md5).first
+          if md5_cw = Courseware.where('md5s'=>md5,:deleted.ne=>1,:status => 0).first
             @courseware.update_attribute(:redirect_to_id,md5_cw.id)
             @courseware.redirect_to_id_op
             @courseware.update_attribute(:status,0) # -2

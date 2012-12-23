@@ -47,7 +47,7 @@ class UncompressJob
               md5 = @courseware.md5 = Digest::MD5.hexdigest(File.read(compressed_path))
               @courseware.md5hash[@courseware.version.to_s] = md5
               @courseware.md5s = 0.upto(@courseware.version).collect{|md5_i| @courseware.md5hash[md5_i.to_s]}
-              if md5_cw = Courseware.where('md5s'=>md5).first
+              if md5_cw = Courseware.where('md5s'=>md5,:deleted.ne=>1,:status => 0).first   ##测试代码可能要改。
                 @courseware.update_attribute(:redirect_to_id,md5_cw.id)
                 @courseware.redirect_to_id_op
                 @courseware.update_attribute(:status,0)
@@ -205,7 +205,7 @@ class UncompressJob
       p[:pdf_filename]=File.basename(opts[:pdf_filename])
       p[:title] = @title
       ## about child
-      rest = opts[:filepath].split(@working_dir)[-1].split("/").collect{|x| URI::escape(x.to_s)}.join("/").gsub(/([\[\]\{\}])/){|x| CGI.escape(x)}
+      rest = opts[:filepath].split(@working_dir)[-1].split("/").collect{|x| URI::escape(x.to_s) }.join("/").gsub(/([\[\]\{\}])/){|x| CGI.escape(x)}
       p[:is_children] = true
       p[:father_id] = @courseware.id
       p[:where_am_i_in_this_family] =  rest
@@ -214,7 +214,7 @@ class UncompressJob
       ## end child
 
       if ['ppt','pptx','doc','docx'].include? opts[:sort].downcase
-        p[:remote_filepath]="http://special_agent#{Setting.ktv_subname=='ibeike' ? 'x' : "_#{Setting.ktv_subname}"}.#{Setting.ktv_domain}/#{@courseware.id}#{rest}"
+        p[:remote_filepath]="http://special_agent#{Setting.ktv_sub=='ibeike' ? 'x' : "_#{Setting.ktv_sub}"}.#{Setting.ktv_domain}/#{@courseware.id}#{rest}"
       else
         p[:remote_filepath]=opts[:filepath]
       end
