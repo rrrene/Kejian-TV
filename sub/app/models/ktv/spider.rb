@@ -33,7 +33,7 @@ module Ktv
       buaa = Ktv::Spider.new
       buaa.start_mode(:buaa,'','')
       buaa.touch_course_departments_buaa
-      Course.all.each{|x| x.update_attribute(:years,[20122])}
+      # Course.all.each{|x| x.update_attribute(:years,[20122])}
     end
     def self.testruc!(is_all)  #is_all = true will read teacher from 2005 to 2021; is_all = false will read teacher from 2010 to 2021
       ruc = Ktv::Spider.new
@@ -300,18 +300,25 @@ module Ktv
           # actual [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 21, 22, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 42] is not empty
           xmldoc = Nokogiri::XML(data)
           c_type = '学院课程'
-          d_name = xmldoc.xpath('//DataSource//CourseBrief//fOrganizationName').text()
-          department = Department.find_or_create_by(name:d_name)
+          dep_name = xmldoc.xpath('//DataSource//CourseBrief//fOrganizationName').text()
+          c_year = [20122]
           xmldoc.xpath('//DataSource//CourseList').each_with_index do |cl,index|
             c_name = xmldoc.xpath("//DataSource//CourseList[#{index}]//fCourseName").text()
             c_num = xmldoc.xpath("//DataSource//CourseList[#{index}]//fCourseNo").text()
             if !c_name.blank?
-                course = Course.find_or_create_by(number:c_num)
-                course.ctype = c_type
-                course.name = c_name
-                course.department = department.name
-                course.save(:validate=>false)
-                puts course.number + ':' + course.name + ':' +  course.ctype + ':' + course.department
+              cmd = <<-END
+                      department = Department.find_or_create_by(name:"#{dep_name}")
+                      course = Course.find_or_initialize_by(number:"#{psvr_clean(c_num)}")
+                      course.name = "#{psvr_clean(c_name)}"
+                      course.department_fid = department.fid
+                      course.years = course.years << "#{c_year}"
+                      course.ctype = "#{c_type}"
+                      course.save(:validate=>false)
+                        
+                    END
+              puts cmd
+              File.open("#{Rails.root.to_s}/auxiliary/buaa_course.rb", 'a+') {|f| f.write(cmd) }
+            
             end
           end
        end
