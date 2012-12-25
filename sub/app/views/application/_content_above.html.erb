@@ -15,9 +15,7 @@ background: #fdfdfd url(<%= asset_path 'sstatic/skeptics/img/grid_noise_dark.png
                 <div class="nav mainnavs">
                     <ul style="float:left">
                       <li><a id="nav-subname" style="text-transform: none;background-image:url(/favicon.ico)" href="http://<%= Setting.ktv_subdomain %>"><%= Setting.ktv_subname %>课件台</a></li>
-                      <% if Setting.cooperation_site_url %>
-                        <li><a id="nav-subname" style="text-transform: none;background-image:url(/favicon.ico)" href="<%=Setting.cooperation_site_url %>" target="_blank"><%=Setting.cooperation_site_name %></a></li>
-                      <% end %>
+                      <li><a id="nav-subname" style="text-transform: none;background-image:url(http://kejian.tv/favicon.ico)" href="http://kejian.tv" title="返回主站" target="_blank">返回主站</a></li>
                     </ul>
                     <ul>
                         <li class="<%= 'youarehere' if WelcomeController==controller.class %>"><a id="nav-questions" href="/">全部课件</a></li>
