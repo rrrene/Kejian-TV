@@ -28,6 +28,11 @@ module RestClient
         out.merge parse_cookie(cookie_content)
       end
     end
+    def cookies_psvr_complicated
+      @cookies ||= (self.headers[:set_cookie] || {}).inject({}) do |out, cookie_content|
+        out.merge parse_cookie_psvr_complicated(cookie_content)
+      end
+    end
 
     # Return the default behavior corresponding to the response code:
     # the response itself for code in 200..206, redirection for 301, 302 and 307 in get and head cases, redirection for 303 and an exception in other cases
@@ -97,6 +102,16 @@ module RestClient
       CGI::Cookie::parse(cookie_content).each do |key, cookie|
         unless ['expires', 'path'].include? key
           out[CGI::escape(key)] = cookie.value[0] ? (CGI::escape(cookie.value[0]) || '') : ''
+        end
+      end
+      out
+    end
+    # Parse a cookie value and return its content in an Hash
+    def parse_cookie_psvr_complicated cookie_content
+      out = {}
+      CGI::Cookie::parse(cookie_content).each do |key, cookie|
+        unless ['expires', 'path'].include? key
+          out[CGI::escape(key)] = CookieJar::CookieValidation.parse_set_cookie cookie_content
         end
       end
       out
