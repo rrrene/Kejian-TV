@@ -58,7 +58,7 @@ class SearchController < ApplicationController
   end
   def show_playlists
     search_common_op
-    @play_lists = PlayList.destroyable.psvr_search(@page,@per_page,params)
+    @play_lists = PlayList.psvr_search(@page,@per_page,params)
     @quans=@play_lists
     @quan='包'
     @thing='课件锦囊'
