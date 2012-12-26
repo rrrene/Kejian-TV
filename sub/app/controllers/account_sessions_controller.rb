@@ -7,10 +7,11 @@ class AccountSessionsController < Devise::SessionsController
     @traditional||=params[:traditional].present?
     resource = build_resource(nil, :unsafe => true)
     clean_up_passwords(resource)
-    @login_ibeike ||= (request.path=~/\/spetial_ibeike$/)
-    if @login_ibeike
-      @seo[:title]='用iBeiKe账号登录'
-      if !$psvr_really_testing && Setting.ktv_sub!='ibeike'
+    @login_veryspetial ||= (request.path=~/\/spetial$/)
+    if @login_veryspetial
+      @seo[:title]="用#{Setting.cooperation_site_name}账号登录"
+      key = "spetial_#{Setting.ktv_sub.to_s.split('-')[0]}".to_sym
+      if !value=Ktv::Consumers[key]
         render text:'this function is not enabled for this site!'
         return false
       else
@@ -26,40 +27,32 @@ class AccountSessionsController < Devise::SessionsController
 
   end
   def create
-    if params[:login_ibeike]
+    if params[:login_veryspetial]
       begin
-        @login_ibeike = true
-        if !$psvr_really_testing && Setting.ktv_sub!='ibeike'
+        key = "spetial_#{Setting.ktv_sub.to_s.split('-')[0]}".to_sym
+        if !value=Ktv::Consumers[key]
           render text:'this function is not enabled for this site!'
           return false
         end
-        ret = UCenter::IBeike.login('user',request,{isuid:0,username:params[:user][:email],password:params[:user][:password]})
-        status = ret['root']['item'][0].to_i
-        suc_flag = false
-        if status > 0
-          u = nil
-          u ||= User.where(ibeike_uid:status).first
-          u ||= User.import_from_ibeike!(UCenter::IBeike.get_user('user',request,{username:status,isuid:1}))
-          if u
-            resource = u
-            suc_flag = true
-          end
-        elsif -1 == status
-          flash[:alert]='无此用户.'
-        elsif -2 == status
-          flash[:alert]='密码错误.'
-        elsif -3 == status
-          flash[:alert]='安全提问的回答错误.'
-          #todo
+        @login_veryspetial = true
+        consumer = value[:klass].new
+        u,msg = consumer.act!(params,key,value,request)
+        if u
+          resource = u
+          suc_flag = true
+        else
+          flash[:alert]=msg
         end
       rescue => e
-        render text:'对不起，iBeiKe网站正处于暂时关闭状态，请尝试其他登录方式'
+        binding.pry
+        render text:"对不起，#{value[:namelong]}网站正处于暂时关闭或维护状态，请尝试其他登录方式"
         return false
       end
     else
       @traditional = true
       email = params[:userEmail]
       passwd = params[:userPassword]
+      raise 'todo' if 'psvr_password_unknown'==passwd
       ret = UCenter::User.login(request,{isuid:2,username:email,password:passwd})
       status = ret['root']['item'][0].to_i
       suc_flag = false
@@ -106,3 +99,4 @@ class AccountSessionsController < Devise::SessionsController
     end
   end
 end
+

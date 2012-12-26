@@ -58,6 +58,7 @@
     ret=ret.split('?').join('%3F');
     ret=ret.split('+').join('%2B');
     ret=ret.split("\'").join('%27');
+    ret=ret.split(".").join('%2E');
     ret
   KTV.ajaxize = (els)->
     els.bind("ajax:loading", ->

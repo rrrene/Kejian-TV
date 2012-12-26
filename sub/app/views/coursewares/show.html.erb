@@ -194,16 +194,14 @@ $('#psvrsharedown,#psvrsharedown_thin').click(KTV.psvrsharedown);
       <div class="wrapper">
          
          <div class="extras psvr_thin_stuff" style="float:right;margin-left:12px;<%="display:none" unless @courseware.thin? %>">
-           <% @courseware.teachers_ins.each do |teacher| %>
-             <%= render :partial => 'presenter_teacher', :locals => {teacher:teacher} %>
-           <% end %>
+            <%= render :partial => 'presenter', :locals => {user:@courseware.uploader} if @courseware.uploader %>
          </div>
 <% if user_signed_in? %>
 				 <h1 style="display:none !important" id="core_cw_h1" data-cw-id="<%= @courseware.id %>" data-shoucang-id="<%= @pl_shoucang.id %>" data-shoucang="<%= @pl_shoucang.content.include?(@courseware.id) %>" data-yigoumai-id="<%= @pl_yigoumai.id%>" data-yigoumai="<%= @pl_yigoumai.content.include?(@courseware.id) %>" data-downtypes="<%= Courseware::SORTDOWNTYPES[@courseware.sort] %>"><%= @courseware.title %></h1>
 				 <h2 style="display:none !important" id="core_cw_h2">上传: <%= link_to @courseware.uploader.name_beautified,user_path(@courseware.uploader) %> · 作者: 未认领</h2>
 <% end %>
          <h1 style="<%='margin-bottom:12px' if @courseware.yasuobao?%>">
-            [<%= Courseware::SORT1STR[@courseware.sort1] %>]
+           [<%= Courseware::SORT1STR[@courseware.sort1] %>]
             <%if @cws%>第<%=@courseware.courseware_series_no%>集. <%end%>
             <%= @courseware.title %>
             <%if @cws%>
@@ -340,13 +338,15 @@ $('#psvrsharedown,#psvrsharedown_thin').click(KTV.psvrsharedown);
                  </li>
               </ul>
            </div>
-           <div class="extras" style="float:right;margin-right:40px">
-              <ul class="delimited share" style="margin-bottom:0;border-top:none">
-                 <li class="dianjiliang" style="border-top:none">上传人 <a href="/users/<%=name_beautify User.get_name @courseware.uploader_id %>"><img src="<%=  avatar_url_quick(@courseware.uploader_id,:small) %>" class="uploader_img" style="margin-right:2px" width="22" height="22"> <%=name_beautify User.get_name @courseware.uploader_id %></a></li>
+           <div class="extras" style="float:right;margin-right:18px;margin-right:40px">
+              <ul class="delimited" style="margin-bottom:0;border-top:none">
+               <%if nn%>
+                 <li class="category course_name" style="border-top:none">课程 <a href="/courses/<%= @courseware.course_fid %>" title="<%= nn %>" target="_parent"><%= nn %></a></li>
+               <%else%>
+                 <li class="category course_name" style="border-top:none">课程 <a href="/topics/<%= @courseware.topic_id %>"><%= @courseware.topic %></a></li>
+               <%end%>
               </ul>
            </div>
-<<<<<<< HEAD
-=======
            <% if @courseware.version_date[@courseware.version.to_s].present? %>
              <div class="extras" style="float:right;margin-right:0px">
                 <ul class="delimited share" style="margin-bottom:0;border-top:none">
@@ -362,46 +362,33 @@ $('#psvrsharedown,#psvrsharedown_thin').click(KTV.psvrsharedown);
                 <a href="javascript:void(0)" id="psvrshareprint_thin" class="psvr_login_required dual_psvrshareprint" style="float:left;margin-top:2px">打印并寄送 （售价0.09元/页）</a>
               </ul>
            </div>
->>>>>>> origin/master
          </div><!--thin stuff end-->
 
 
 
          <div class="psvr_fat_stuff" style="<%="display:none" if @courseware.thin? %>">
            <div class="extras">
-             <% @courseware.teachers_ins.each do |teacher| %>
-               <%= render :partial => 'presenter_teacher', :locals => {teacher:teacher} %>
-             <% end %>
+              <%= render :partial => 'presenter', :locals => {user:@courseware.uploader} if @courseware.uploader %>
               <ul class="delimited">
-                <li class="dianjiliang">上传人 <a href="/users/<%=name_beautify User.get_name @courseware.uploader_id %>"><img src="<%=  avatar_url_quick(@courseware.uploader_id,:small) %>" class="uploader_img" style="margin-right:2px" width="22" height="22"> <%=name_beautify User.get_name @courseware.uploader_id %></a></li>
-                <li class="like">
-                  <% unless current_user and @courseware.user_ids.include?(current_user.id)%>
-                  <% if thank_courseware_ed?(@courseware) %>
-                  <a href="#fans" class="unlike purple" rel="nofollow">我已顶过</a>
-                  <% else %>
-                  <a href="javascript:void(0)" class="like grey psvr_login_required" rel="nofollow" id="weizuozhefasongganxie">顶一下</a>
-                  <% end %>
-                  <% else %>
-                  <a href="#fans" class="like grey">人顶过</a>
-                  <% end %>
-                  <a href="#fans" class="likes"><span id="weizuozhefasongganxie2"><%= @courseware.thanked_count %></span> 人顶过</a>
-                </li>
-                <%if nn%>
-                  <li class="category course_name">课程 <a href="/courses/<%= @courseware.course_fid %>" title="<%= nn %>" target="_parent"><%= nn %></a></li>
-                <%else%>
-                  <li class="category course_name">课程 <a href="/topics/<%= @courseware.topic_id %>"><%= @courseware.topic %></a></li>
-                <%end%>
-                <% if @courseware.version_date[@courseware.version.to_s].present? %>
+                 <li class="like">
+                    <% unless current_user and @courseware.user_ids.include?(current_user.id)%>
+                    <% if thank_courseware_ed?(@courseware) %>
+                    <a href="#fans" class="unlike purple" rel="nofollow">已顶</a>
+                    <% else %>
+                    <a href="javascript:void(0)" class="like grey psvr_login_required" rel="nofollow" id="weizuozhefasongganxie">顶一下</a>
+                    <% end %>
+                    <% else %>
+                    <a href="#fans" class="like grey">人顶</a>
+                    <% end %>
+                    <a href="#fans" class="likes"><span id="weizuozhefasongganxie2"><%= @courseware.thanked_count %></span> 人顶</a>
+                 </li>
+               <%if nn%>
+                 <li class="category course_name">课程 <a href="/courses/<%= @courseware.course_fid %>" title="<%= nn %>" target="_parent"><%= nn %></a></li>
+               <%else%>
+                 <li class="category course_name">课程 <a href="/topics/<%= @courseware.topic_id %>"><%= @courseware.topic %></a></li>
+               <%end%>
+                 <% if @courseware.version_date[@courseware.version.to_s].present? %>
                   <li class="dianjiliang">版本 <a href="#revisions"><%= @courseware.version_date[@courseware.version.to_s] %>版</a></li>
-<<<<<<< HEAD
-                <% end %>
-
-
-              </ul>
-              <h1><%=image_tag('share.png',alt:'下载此课件')%></h1>
-
-
-=======
                  <% end %>
                  <li class="dianjiliang">销售量 <a href="#watch-view-count"><%= number_with_delimiter @courseware.downloads_count %> 件</a></li>
               </ul>
@@ -410,7 +397,6 @@ $('#psvrsharedown,#psvrsharedown_thin').click(KTV.psvrsharedown);
                 <a href="javascript:void(0)" class="psvr_login_required dual_psvrsharedown" id="psvrsharedown">下载源文件 （售价0.99积分）</a>
                 <a href="javascript:void(0)" class="psvr_login_required dual_psvrshareprint" id="psvrshareprint">打印并寄送 （售价0.09元/页）</a>
               </ul>
->>>>>>> origin/master
            </div>
         </div>
        </div>

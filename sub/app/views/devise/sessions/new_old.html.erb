@@ -1,5 +1,5 @@
-<% if @login_ibeike %>
-<%= image_tag 'ie/ktv_login_ibeike.png',:class => 'ktvregh2', :alt => '使用iBeiKe账号登录' %>
+<% if @login_veryspetial %>
+<%= image_tag "bind/huge_spetial_#{Setting.ktv_sub}_login.png",:class => 'ktvregh2', :alt => "使用#{Setting.cooperation_site_name}账号登录" %>
 <% else %>
 <%= image_tag 'ie/ktv_login.png',:class => 'ktvregh2', :alt => '登录' %>
 <% end %>
@@ -7,9 +7,9 @@
   <input type="hidden" name="redirect_to" value="<%= request.path %>"/>
 
   <div class="field">
-<% if @login_ibeike %>
-    <%= f.label :email,'iBeiKe用户名' %>(<%= link_to "注册iBeiKe账号", 'http://city.ibeike.com',:target=>'_blank' %>)(<%= link_to "忘记密码", 'http://city.ibeike.com' ,:target=>'_blank' %>)<br class="clear">
-    <input type="hidden" name="login_ibeike" value="1" />
+<% if @login_veryspetial %>
+  <%= f.label :email,"#{Setting.cooperation_site_name}用户名" %>(<%= link_to "注册#{Setting.cooperation_site_name}账号", Setting.cooperation_site_url,:target=>'_blank' %>)(<%= link_to "忘记密码", Setting.cooperation_site_url ,:target=>'_blank' %>)<br class="clear">
+    <input type="hidden" name="login_veryspetial" value="1" />
     <%= f.text_field :email,:class => 's462',:tabindex => 2 %>
 <% else %>
     <%= f.label :email,'E-mail' %>(<%= link_to "重发激活邮件", new_user_confirmation_path %>)(<%= link_to "忘记密码", new_password_path(resource_name) %>)<div class="field_error" id="regerror_email"><%= resource.errors_for_field(:email) %></div><br class="clear">

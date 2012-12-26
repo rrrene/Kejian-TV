@@ -191,7 +191,8 @@ class Courseware
       dep = Department.where(fid:self.department_fid).first
       dep.inc(:coursewares_count,-1) if dep
     end
-    
+    # self.ua(:md5s,[])
+    # self.ua(:md5,"")
     thanked = false
     User.where(:thanked_courseware_ids=>self.id).each do |u|
       u.inc(:thank_count,-1)
@@ -379,7 +380,7 @@ class Courseware
     if opts[:very_short]
       ret = ret.split(' ')[0..3].join(' ')
     end
-    return ret.gsub(' years','年').gsub(' year','年').gsub(' days','天').gsub(' day','天').gsub(' hours','小时').gsub(' hour','小时').gsub(' minutes','分钟').gsub(' minute','分钟').gsub(' seconds','秒').gsub(' second','秒').gsub(' ','')
+    return ret.gsub(' years','年').gsub(' year','年').gsub(' months','月').gsub(' month','月').gsub(' days','天').gsub(' day','天').gsub(' hours','小时').gsub(' hour','小时').gsub(' minutes','分钟').gsub(' minute','分钟').gsub(' seconds','秒').gsub(' second','秒').gsub(' ','')
   end
   field :started_at # ex. 2011年06月06日 13:23:58
   field :finished_at # ex. 2011年06月06日 13:23:58
@@ -988,10 +989,29 @@ class Courseware
       else
         papa.ua(:sub_status,0)
       end
+      if papa.status == 0 and  !papa.check_father_pic
+        papa.fix_father_pinpic!
+      end
       # @papa.update_attribute(:transcoding_count,@papa.transcoding_count - 1)
       # if @papa.transcoding_count <= 0
       # end
     end
+  end
+  def check_father_pic
+    url = "http://ktv-pic.b0.upaiyun.com/cw/#{self.ktvid}/thumb_slide_0.jpg"
+    pin = "http://ktv-pic.b0.upaiyun.com/cw/#{self.ktvid}/#{self.pinpicname}"
+    result = true
+    Net::HTTP.start("ktv-pic.b0.upaiyun.com", 80) do |http|
+      if http.head(url).code != "200"
+        # self.fix_father_pinpic!                           ## 有待优化
+        result = false
+      end
+      if http.head(pin).code != "200"
+        # self.fix_father_pinpic!                           ## 有待优化
+        result = false
+      end
+    end
+    result
   end
   def self.orphan
     cws = Courseware.where(:is_children => true)
@@ -1057,12 +1077,15 @@ class Courseware
     if min.nil?
       if tmp.present?
         min = tmp
+        a = Courseware.find(min)
+        a.ua(:child_rank,0)
+        a.renqueue!
       else
-        min = self.get_children[0]
+        self.ua(:sub_status,1)
       end
-      Courseware.find(min).ua(:child_rank,0)
+    else
+        Courseware.find(min).renqueue!
     end
-    Courseware.find(min).renqueue!
   end
   def fix_children(fix_all = false)
     counting = 0

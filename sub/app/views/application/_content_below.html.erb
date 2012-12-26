@@ -9,6 +9,9 @@
                 <a href="/simple/archiver/" target="_blank">简明版</a> |    
                 <a href="/admin" target="_blank">后台管理</a> | 
                 <b><a href="/"><%= Setting.ktv_subname %>课件台</a></b> | 
+                <% if Setting.cooperation_site_url %>
+                  <b><a href="<%=Setting.cooperation_site_url %>" target="_blank"><%=Setting.cooperation_site_name %></a></b> | 
+                <% end %>
                 <b><a href="http://<%= Setting.ktv_domain %>" target="_blank">返回主站</a></b>
 
                   <div id="footer-sites">

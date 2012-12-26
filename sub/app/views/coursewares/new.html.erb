@@ -6,7 +6,7 @@
 	<%= javascript_include_tag "ktv/upload"%>
 <% end %>
 <div id="the_upload_ytb" class='__ytb'>
-<div class="upload" id="page">
+<div class="upload" id="page" style="padding-bottom:38px;">
 	<div id="content-container">
 	  <div id="content">
 			<div class="initial-upload-page" id="upload-page">
@@ -52,11 +52,12 @@
 					</div>
 					<!-- footer -->
 					<div class="upload-footer">
+            
 					</div>
 					<!-- noscript -->
 					<div class="filelist-box" id="filelist-box">
 						<noscript>
-						 &lt;div class="yt-alert yt-alert-default yt-alert-warn "&gt; &lt;div class="yt-alert-icon"&gt; &lt;img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="icon master-sprite" alt="提醒图标"&gt; &lt;/div&gt; &lt;div class="yt-alert-buttons"&gt;&lt;button type="button" class="close yt-uix-close yt-uix-button yt-uix-button-close" onclick=";return false;" data-close-parent-class="yt-alert" role="button"&gt;&lt;span class="yt-uix-button-content"&gt;关闭 &lt;/span&gt;&lt;/button&gt;&lt;/div&gt;&lt;div class="yt-alert-content" role="alert"&gt; &lt;span class="yt-alert-vertical-trick"&gt;&lt;/span&gt; &lt;div class="yt-alert-message"&gt; 您需要启用 Javascript 才能上传课件。 &lt;/div&gt; &lt;/div&gt;&lt;/div&gt;
+						 <div class="yt-alert yt-alert-default yt-alert-warn "> <div class="yt-alert-icon"> <img src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>" class="icon master-sprite" alt="提醒图标"> </div> <div class="yt-alert-buttons"><button type="button" class="close yt-uix-close yt-uix-button yt-uix-button-close" onclick=";return false;" data-close-parent-class="yt-alert" role="button"><span class="yt-uix-button-content">关闭 </span></button></div><div class="yt-alert-content" role="alert"> <span class="yt-alert-vertical-trick"></span> <div class="yt-alert-message"> 您需要启用 Javascript 才能上传课件。 </div> </div></div>
 						</noscript>
 					</div>
 					<!-- really upload -->
@@ -182,8 +183,8 @@
 										<span class="progress-bar-percentage">0%</span>
 									</div>
 								</div>
-								<div class="item-leave-title hid" style="padding-top: 5px;font-size: 11px; color: #666;">
-										<span class="upload-leave-safe">此时您可安全地离开本页面，我们将在后台自动处理您的课件。</span>
+								<div class="item-leave-title hid" style="padding-top: 5px;font-size: 11px; color: red;">
+										<span class="upload-leave-safe" >此时您可安全地离开本页面，我们将在后台自动处理您的课件。</span>
 								</div>
 							</div>
 							<span class="action-buttons">
@@ -846,7 +847,7 @@
 								</div>
 								<div class="metadata-actions">
 									<div class="save-cancel-buttons">
-										<button role="button" onclick=";return false;" class="save-changes-button yt-uix-button yt-uix-button-default" type="button" disable="true"><span class="yt-uix-button-content">保存更改 </span></button>
+										<button role="button" onclick=";return false;" class="save-changes-button yt-uix-button yt-uix-button-default" type="button" disabled="true"><span class="yt-uix-button-content">保存更改 </span></button>
 									</div>
 									<span class="save-error-message"></span>
 									<span class="metadata-left-footer">
@@ -862,6 +863,11 @@
 						</div>
 						<%= render :partial=>'mine/addto_loading',locals:{noid:1} %>
 					</div>
+          <div id="submit-all" class="hid" style="float:right;padding-right:20px">
+            <button role="button" onclick=";return false;" class="save-all-changes-button yt-uix-button yt-uix-button-default" type="button" disabled="disabled">
+              <span class="yt-uix-button-content">全部提交</span>
+            </button>
+          </div>
 					<div id="suggestion-alert-template" class="yt-alert yt-alert-actionable yt-alert-info hid ">
 						<div class="yt-alert-icon">
 							<img alt="提醒图标" class="icon master-sprite" src="<%=asset_path('yt/img/pixel-vfl3z5WfW.gif')%>">
@@ -878,8 +884,8 @@
 					</div>
 				</div>
 			</div>
-</div>
-</div>
+    </div>
+  </div>
 </div>
 </div>
 

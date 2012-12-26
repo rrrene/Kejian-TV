@@ -25,3 +25,6 @@ Devise.setup do |config|
   end
 =end
 end
+# fix by psvr
+# to workaround renren's redirect restrictions
+OmniAuth.config.full_host="http://#{Setting.ktv_subdomain}"

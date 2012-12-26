@@ -500,12 +500,12 @@ protected
     end
   end
   def set_dz_cookies!(result)
-    result.cookies.each do |key,value|
+    result.cookies_psvr_complicated.each do |key,value|
       if !@dz_cookiepre_mid and key =~ /#{Setting.dz_cookiepre}([^_]+)_/
         @dz_cookiepre_mid = $1
       end
-      val = CGI::unescape value
-      cookies[key]=val
+      val = CGI::unescape value[:value]
+      cookies[key]={:value=>val,:expires=>value[:expires_at],:path=>value[:path],:domain=>value[:domain]}
     end
   end
   def dz_simple_render

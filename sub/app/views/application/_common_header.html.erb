@@ -1,4 +1,6 @@
 <script type="text/javascript" charset="utf-8">
+  window.cooperation_site_name=<%=raw Setting.cooperation_site_name.to_json%>;
+  window.cooperation_site_url=<%=raw Setting.cooperation_site_url.to_json%>;
   window.is_ie7=<%=@is_ie7.to_json%>;
   window.is_ie8=<%=@is_ie8.to_json%>;
   window.form_authenticity_token = '<%= form_authenticity_token %>';
@@ -9,7 +11,7 @@
   window.psvr_really_production = false;
   window.psvr_asset_host = '/assets';
 <% end %>
-  window.psvr_subject = '<%= Setting.ktv_sub %>';  
+  window.psvr_subject = <%=raw Setting.ktv_sub.to_json %>;
   window.psvr_is_ie = <%= @is_ie.to_json %>;
   window.psvr_ie_readyfix = function(){
     if(!window.psvr_ie_already_ready){
@@ -65,7 +67,7 @@ var STYLEID = '1',
     KTV.psvrsharedown_dialog_src = '<%=asset_path('psvrsharedown_dialog.png')%>';
 		KTV.psvrsharedown_ijiojioji_src = '<%=asset_path('ijiojioji.png')%>';
     <% key = "spetial_#{Setting.ktv_sub.to_s.split('-')[0]}".to_sym; if value=Ktv::Consumers[key] %>
-      KTV.spetial_src1 = '<%=asset_path("bind/huge_#{key}white.png")%>';
+      KTV.spetial_src1 = '<%=asset_path("bind/huge_#{key}_white.png")%>';
       KTV.spetial_src0 = '<%=asset_path("bind/huge_#{key}.png")%>';
     <% end %>
     KTV.preload([
