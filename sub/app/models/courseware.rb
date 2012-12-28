@@ -874,26 +874,26 @@ class Courseware
     self.update_attribute(:status,0)
   end
   def pinpic
-    if self.pinpicname.present? and !(['pin.1.222.1.jpg'].include?(self.pinpicname)) and self.sub_status == 0
+    test_info  = (self.fileinfo == "HTML document, ASCII text, with CRLF line terminators.")
+    if self.pinpicname.present? and !(['pin.1.222.1.jpg'].include?(self.pinpicname)) and self.sub_status == 0 and !test_info
       "cw/#{self.ktvid ? self.ktvid : self.id}/#{self.pinpicname}"
-    elsif self.sub_status == 1 and  Courseware::UNCOMPRESSED.include?(self.sort)
+    elsif self.sub_status == 1 and  Courseware::UNCOMPRESSED.include?(self.sort) and !test_info
       "uncompressed/pin_#{self.sort.to_s.downcase}.png"
-    elsif  self.sub_status == 0 and  Courseware::UNCOMPRESSED.include?(self.sort) and (['pin.1.222.1.jpg'].include?(self.pinpicname) or self.pinpicname.blank?) 
+    elsif  self.sub_status == 0 and  Courseware::UNCOMPRESSED.include?(self.sort) and (['pin.1.222.1.jpg'].include?(self.pinpicname) or self.pinpicname.blank?) and !test_info
       "uncompressed/pin_#{self.sort.to_s.downcase}.png"
-    end
-    if self.fileinfo == "HTML document, ASCII text, with CRLF line terminators."
-      "uncompressed/pin_#{self.sort.to_s.downcase}.png"
+    elsif test_info
+      "pic_error.png"
     end
   end
   def pinpic_if
-    if self.pinpicname.present? and !(['pin.1.222.1.jpg'].include?(self.pinpicname)) and self.sub_status == 0
+    test_info  = (self.fileinfo == "HTML document, ASCII text, with CRLF line terminators.")
+    if self.pinpicname.present? and !(['pin.1.222.1.jpg'].include?(self.pinpicname)) and self.sub_status == 0 and !test_info
       false
-    elsif self.sub_status == 1 and  Courseware::UNCOMPRESSED.include?(self.sort) 
+    elsif self.sub_status == 1 and  Courseware::UNCOMPRESSED.include?(self.sort) and !test_info
       true
-    elsif self.sub_status == 0 and  Courseware::UNCOMPRESSED.include?(self.sort) and (['pin.1.222.1.jpg'].include?(self.pinpicname) or self.pinpicname.blank?) 
+    elsif self.sub_status == 0 and  Courseware::UNCOMPRESSED.include?(self.sort) and (['pin.1.222.1.jpg'].include?(self.pinpicname) or self.pinpicname.blank?) and !test_info
       true
-    end
-    if self.fileinfo == "HTML document, ASCII text, with CRLF line terminators."
+    elsif test_info
       true
     end
   end
