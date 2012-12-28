@@ -5,7 +5,14 @@ end %>
   <a class="ie_kuang" href="/coursewares/<%= courseware.id %>">
   </a>
 <% end %>
+
 <% slide_count = courseware.slides_counts[version.to_s] || 1 %>
+<% if (trueorfalse = Courseware::UNCOMPRESSED.include?(courseware.sort.to_s.downcase))
+  slide_count = 1
+end %>
+<% if (error_info = courseware.fileinfo == "HTML document, ASCII text, with CRLF line terminators.") 
+  slide_count = 1
+end%>
 <% sz = [slide_count,18].min %>
 <% sz = 0 if @is_ie8 || @is_ie7 %>
 <div data-slide-count="<%= sz  %>" data-id="<%= courseware_id %>" class="presentation">
@@ -13,7 +20,14 @@ end %>
    <% (sz-1).downto(1).each do |i| %>
    <img style="display: none;" data-slide="<%= i %>" class="timeline" alt="第<%= i %>页" src="<%= asset_url("cw/#{courseware_id}/#{courseware.revision(version)}thumb_slide_#{i}.jpg") %>">
    <% end %>
-   <img src="<%= asset_url("cw/#{courseware_id}/#{courseware.revision(version)}thumb_slide_0.jpg") %>" alt="Thumb_slide_0" width="210" height="158">
+   <% if courseware.sub_status == 0 and !error_info%>
+     <img src="<%= asset_url("cw/#{courseware_id}/#{courseware.revision(version)}thumb_slide_0.jpg") %>" alt="Thumb_slide_0" width="210" height="158">
+   <% elsif  courseware.sub_status == 1 and trueorfalse and !error_info%>
+     <img src="<%=asset_path("uncompressed/#{courseware.sort.to_s.downcase}.png")%>" alt="Thumb_slide_0" width="128" height="128" style="padding: 15px 41px;">
+   <% end %>
+   <% if error_info %>
+   <img src="<%=asset_path("pic_error.png")%>" alt="Thumb_slide_0" width="128" height="128" style="padding: 15px 41px;">
+   <% end %>
 <% unless @is_ie8 || @is_ie7 %>
    <div class="scrubber">
    <div style="width: 100%;" class="scrubbed">

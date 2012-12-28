@@ -21,4 +21,7 @@ json.boardName Course.get_name(courseware.course_fid)
 json.comments []
 json.boardUserId 251621
 json.mediumZoom asset_url(courseware.pinpic)
+if courseware.pinpic_if
+  json.mediumZoom asset_path(courseware.pinpic)
+end
 json.timeAgo timeago(courseware.created_at)

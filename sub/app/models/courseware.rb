@@ -68,6 +68,8 @@ class Courseware
       COMMON_HUMAN_ATTR_NAME[attr].present? ? COMMON_HUMAN_ATTR_NAME[attr] : attr.to_s
     end
   end
+  UNCOMPRESSED = ['zip','rar','7z']
+  
   STATE_SYM = {
     0 => :normal,
     1 => :waiting4downloading,
@@ -872,7 +874,28 @@ class Courseware
     self.update_attribute(:status,0)
   end
   def pinpic
-    "cw/#{self.ktvid ? self.ktvid : self.id}/#{self.pinpicname}"
+    if self.pinpicname.present? and !(['pin.1.222.1.jpg'].include?(self.pinpicname)) and self.sub_status == 0
+      "cw/#{self.ktvid ? self.ktvid : self.id}/#{self.pinpicname}"
+    elsif self.sub_status == 1 and  Courseware::UNCOMPRESSED.include?(self.sort)
+      "uncompressed/pin_#{self.sort.to_s.downcase}.png"
+    elsif  self.sub_status == 0 and  Courseware::UNCOMPRESSED.include?(self.sort) and (['pin.1.222.1.jpg'].include?(self.pinpicname) or self.pinpicname.blank?) 
+      "uncompressed/pin_#{self.sort.to_s.downcase}.png"
+    end
+    if self.fileinfo == "HTML document, ASCII text, with CRLF line terminators."
+      "uncompressed/pin_#{self.sort.to_s.downcase}.png"
+    end
+  end
+  def pinpic_if
+    if self.pinpicname.present? and !(['pin.1.222.1.jpg'].include?(self.pinpicname)) and self.sub_status == 0
+      false
+    elsif self.sub_status == 1 and  Courseware::UNCOMPRESSED.include?(self.sort) 
+      true
+    elsif self.sub_status == 0 and  Courseware::UNCOMPRESSED.include?(self.sort) and (['pin.1.222.1.jpg'].include?(self.pinpicname) or self.pinpicname.blank?) 
+      true
+    end
+    if self.fileinfo == "HTML document, ASCII text, with CRLF line terminators."
+      true
+    end
   end
   # 缩略图是否正常上传？
   field :check_upyun_result,:type=>Boolean,:default=>false
