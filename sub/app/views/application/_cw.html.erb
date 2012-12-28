@@ -1,6 +1,13 @@
+<% if courseware.redirect_to_id.present?
+  courseware = Courseware.where(id:courseware.redirect_to_id).first
+  if courseware.blank?
+    return
+  end
+end%>
 <% if(!defined?(courseware_id))
 courseware_id=courseware.id
 end %>
+
 <% if @is_ie8 || @is_ie7 %>
   <a class="ie_kuang" href="/coursewares/<%= courseware.id %>">
   </a>
