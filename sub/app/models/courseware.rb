@@ -1259,7 +1259,7 @@ presentation[published_at]	2012/07/13
         cw.dz_file_manipulate
         cw.md5hash['0'] = md5
         cw.md5s = [md5]
-        if md5_cw = Courseware.where('md5s'=>md5).first
+        if md5_cw = Courseware.where('md5s'=>md5,:deleted.ne=>1,:status => 0).first and 
           cw.redirect_to_id=md5_cw.id
           cw.redirect_to_id_op
           cw.status=0#-2
@@ -1283,6 +1283,9 @@ presentation[published_at]	2012/07/13
     self.ua(:really_broken,false)
     self.ua(:check_upyun_result,false)
     self.ua(:pdf_slide_processed,0)
+    if self.redirect_to_id.present?
+      self.ua(:redirect_to_id,nil)
+    end
   end
   def enqueue!
     #raise 'Must first obtain a ktvid!' if self.ktvid.blank?
