@@ -69,7 +69,7 @@ class Courseware
     end
   end
   UNCOMPRESSED = ['zip','rar','7z']
-  
+  MD5F404 = "794f40c10f9bd25ea095dfa538cdd819"
   STATE_SYM = {
     0 => :normal,
     1 => :waiting4downloading,
@@ -80,7 +80,9 @@ class Courseware
     6 => :auditing,
     -1 => :error,
     -2 => :uniq_error,
-    -3 => :win_error
+    -3 => :win_error,
+    -404 => :upload_error,
+    -500 => :unknow_error
   }
   STATE_TEXT = {
     :normal => '已上线',
@@ -92,7 +94,9 @@ class Courseware
     :auditing => '审核中',
     :error => '您上传的文件已损坏',
     :uniq_error=>'您上传的文件已存在',
-    :win_error=>'您的文件含密码或为只读'
+    :win_error=>'您的文件含密码或为只读',
+    :upload_error=>'您的文件上传失败',
+    :unknow_error=>'未知错误，请报告管理员'
   }
   
   scope :normal, where(:status => 0)

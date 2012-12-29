@@ -247,7 +247,7 @@
 			http_success : [201, 303, 202,200], 
 			assume_success_timeout : 0,
 		  file_post_name: "file",
-		  file_types_description: "Presentation",
+		  file_types_description: "Presentation & Compressed File",
 		  file_types: "*.pdf; *.djvu; *.ppt; *.pptx; *.doc; *.docx; *.zip; *.rar; *.7z",	
 			file_upload_limit : 0, 
 			file_queue_limit : 0,
@@ -266,26 +266,29 @@
 							return false;
 						}
 						remaining_upload_number = selected;
-						configAjax(selected - preQueue,function(){
+						/*configAjax(selected - preQueue,function(){
 							for(var i=preQueue;i<selected;i++){
 								swfu.addFileParam(queueLeft[i-preQueue],'policy',jsonArray[i].policy);
 								swfu.addFileParam(queueLeft[i-preQueue],'signature',jsonArray[i].signature);
 							}						
-						});
+						});*/
 						// $('#SWFUpload_0').css({'left':$('.start-upload-button.hide-in-initial').position().left + 15,'top':($('.start-upload-button.hide-in-initial').offset().top),'position':'absolute','float':'left','width': $('.start-upload-button.hide-in-initial').outerWidth(),'height':$('.start-upload-button.hide-in-initial').outerHeight()});
 					
 						this.startUpload();
 			},
 			file_queued_handler:function(file){
+          if (countingdown_upload%5==3){
+            configAjax(5);
+          }
 					if(countingdown_upload > jsonArray.length-1){
 						queueLeft.push(file.id);
 					}else{
-						swfu.addFileParam(file.id,'policy',jsonArray[countingdown_upload].policy);
-					 	swfu.addFileParam(file.id,'signature',jsonArray[countingdown_upload].signature);
-					}
+          }
+					swfu.addFileParam(file.id,'policy',jsonArray[countingdown_upload].policy);
+					swfu.addFileParam(file.id,'signature',jsonArray[countingdown_upload].signature);
 					if(countingdown_upload  == 0){
 						$('#the_upload_ytb #upload-page').attr('class','active-upload-page');	
-					}				
+					}
 					var uptime = parseInt(countingdown_upload/5);
 					item[countingdown_upload] = $('#the_upload_ytb #upload-item-template').clone();
 					item[countingdown_upload].attr('id','upload-item-'+countingdown_upload);
@@ -308,7 +311,7 @@
 			},
 			upload_progress_handler:function(file,completeBytes,totalBytes){
 				var percentage = parseInt(completeBytes/totalBytes*100);
-						$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.progress-bar-uploading .progress-bar-progress').css({'width':percentage.toString()+'%'}).parent().find('.progress-bar-percentage').html(percentage.toString()+'%');
+						$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.progress-bar-uploading .progress-bar-progress').css({'width':percentage.toString()+'%'}).parent().find('.progress-bar-percentage').html("上传"+percentage.toString()+'%');
 						$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('input.upload_persentage').val(percentage);
 			},
 			upload_error_handler:function(file, code, message){
@@ -359,7 +362,7 @@
 				remaining_upload_number--;
 				remaining_process_number++;
 				$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.progress-bar-uploading').addClass('hid').parent().find('.progress-bar-processing').removeClass('hid');
-				$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.progress-bar-processing .progress-bar-progress').removeClass('hid').css({'width':'0%'}).parent().find('.progress-bar-percentage').html('0%');
+				$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.progress-bar-processing .progress-bar-progress').removeClass('hid').css({'width':'0%'}).parent().find('.progress-bar-percentage').html('转码进度：0%');
 				$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.upload-status-text').html('等待您选择学院与课程名...');
 				if(!$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('input.id').val()){
 					$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.addto-button').removeClass('hid');
@@ -541,7 +544,7 @@
 	  });           
 	};
 	var deal_json = function(a,b){
-		var percent = parseInt(b.complete/b.total).toString()+'%';
+		var percent = "转码进度："+parseInt(b.complete/b.total).toString()+'%';
 	  $('form input.id[value="'+a+'"]').parents('.upload-item').find('.upload-status-text').html(b.state + b.more);
 		$('form input.id[value="'+a+'"]').parents('.upload-item').find('.progress-bar-processing .progress-bar-percentage').html(percent);
 		$('form input.id[value="'+a+'"]').parents('.upload-item').find('.progress-bar-processing .progress-bar-progress').css({'width':percent});
