@@ -210,6 +210,10 @@
 	var swfu;
 	var queueLeft = new Array();
 	var preQueue = 5;
+	var countingdown_upload = 0;
+	var remaining_upload_number = 0;
+	var remaining_process_number = 0;
+  var auto_saved_number = 0;
 	jsonArray = new Array();
 	jsonTime = new Array();
 	function configAjax(count,callback){
@@ -228,10 +232,6 @@
 	  });
 	};
 	configAjax(preQueue);
-	var countingdown_upload = 0;
-	var remaining_upload_number = 0;
-	var remaining_process_number = 0;
-  var auto_saved_number = 0;
 	var _width=$('.starting-box-left-column').outerWidth(),_height=$('.starting-box-left-column').outerHeight();
 	if(window.location.pathname.split('/')[1]=='edit'){
 		_width = $('#edit-upload').outerWidth();
@@ -266,7 +266,8 @@
 							return false;
 						}
 						remaining_upload_number = selected;
-						/*configAjax(selected - preQueue,function(){
+						configAjax(selected - preQueue);
+            /*,function(){
 							for(var i=preQueue;i<selected;i++){
 								swfu.addFileParam(queueLeft[i-preQueue],'policy',jsonArray[i].policy);
 								swfu.addFileParam(queueLeft[i-preQueue],'signature',jsonArray[i].signature);
@@ -277,24 +278,17 @@
 						this.startUpload();
 			},
 			file_queued_handler:function(file){
-          if (countingdown_upload%5==3){
-            configAjax(5);
-          }
 					if(countingdown_upload > jsonArray.length-1){
 						queueLeft.push(file.id);
-					}else{
-          }
-					swfu.addFileParam(file.id,'policy',jsonArray[countingdown_upload].policy);
-					swfu.addFileParam(file.id,'signature',jsonArray[countingdown_upload].signature);
+					}
 					if(countingdown_upload  == 0){
 						$('#the_upload_ytb #upload-page').attr('class','active-upload-page');	
 					}
-					var uptime = parseInt(countingdown_upload/5);
+
 					item[countingdown_upload] = $('#the_upload_ytb #upload-item-template').clone();
 					item[countingdown_upload].attr('id','upload-item-'+countingdown_upload);
 					item[countingdown_upload].attr('class','upload-item');
 					item[countingdown_upload].attr('data-file-id',file.id);
-					item[countingdown_upload].find('input.presentation_uptime').val(jsonTime[uptime]+countingdown_upload);
 					item[countingdown_upload].find('.pdf_filename').val(file.name);
 					if(countingdown_upload!=0){
 						 item[countingdown_upload].addClass('collapsed-item');
@@ -311,7 +305,7 @@
 			},
 			upload_progress_handler:function(file,completeBytes,totalBytes){
 				var percentage = parseInt(completeBytes/totalBytes*100);
-						$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.progress-bar-uploading .progress-bar-progress').css({'width':percentage.toString()+'%'}).parent().find('.progress-bar-percentage').html("上传"+percentage.toString()+'%');
+						$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.progress-bar-uploading .progress-bar-progress').css({'width':percentage.toString()+'%'}).parent().find('.progress-bar-percentage').html("上传："+percentage.toString()+'%');
 						$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('input.upload_persentage').val(percentage);
 			},
 			upload_error_handler:function(file, code, message){
@@ -362,7 +356,7 @@
 				remaining_upload_number--;
 				remaining_process_number++;
 				$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.progress-bar-uploading').addClass('hid').parent().find('.progress-bar-processing').removeClass('hid');
-				$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.progress-bar-processing .progress-bar-progress').removeClass('hid').css({'width':'0%'}).parent().find('.progress-bar-percentage').html('转码进度：0%');
+				$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.progress-bar-processing .progress-bar-progress').removeClass('hid').css({'width':'0%'}).parent().find('.progress-bar-percentage').html('等待学院与课程名，转码进度：0%');
 				$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.upload-status-text').html('等待您选择学院与课程名...');
 				if(!$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('input.id').val()){
 					$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.addto-button').removeClass('hid');
@@ -394,6 +388,14 @@
 				}	
 			},
 		  upload_start_handler: function(file){
+				var uptime = 0;
+        if(file.index +1 > 5) {
+          uptime = 1;
+        }
+				swfu.addFileParam(file.id,'policy',jsonArray[file.index].policy);
+				swfu.addFileParam(file.id,'signature',jsonArray[file.index].signature);
+        $('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('input.presentation_uptime').val(jsonTime[uptime]+file.index);
+        
 				window.onbeforeunload = function(){return "您即将离开此页面。" + "\n\n" + "如果此时您离开此页面可能会丢失您所填的内容。您确定离开？";}
         $('#submit-all').removeClass('hid');
 				$('#the_upload_ytb .upload-item[data-file-id="'+file.id+'"]').find('.progress-bar-uploading').removeClass('hid');

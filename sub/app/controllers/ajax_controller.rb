@@ -182,6 +182,7 @@ class AjaxController < ApplicationController
       end
     end
     cw.license = Courseware::LICENSE_EN_TO_I[presentation[:reuse]]
+    # cw.presentation_uptime = presentation[:uptime]
     cw.upload_persentage = presentation[:upload_persentage].to_i
     cw.keywords = presentation[:keywords].strip.split(' ')
     cw.desc = presentation[:description]
