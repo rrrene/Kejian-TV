@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module RestClient
 
   STATUSES = {100 => 'Continue',

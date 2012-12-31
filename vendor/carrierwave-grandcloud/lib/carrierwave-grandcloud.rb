@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require "carrierwave/storage/grandcloud"
 require "carrierwave/grandcloud/configuration"
 CarrierWave.configure do |config|

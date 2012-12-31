@@ -1,4 +1,4 @@
-# encoding: utf-8
+# -*- encoding : utf-8 -*-
 require 'carrierwave'
 require 'digest/hmac'
 require 'digest/md5'

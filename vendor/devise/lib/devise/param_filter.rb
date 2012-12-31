@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module Devise
   class ParamFilter
     def initialize(case_insensitive_keys, strip_whitespace_keys)

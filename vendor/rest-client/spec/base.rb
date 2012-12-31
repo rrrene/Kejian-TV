@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 def is_ruby_19?
   RUBY_VERSION == '1.9.1' or RUBY_VERSION == '1.9.2'
 end

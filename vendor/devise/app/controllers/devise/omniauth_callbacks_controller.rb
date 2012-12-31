@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Devise::OmniauthCallbacksController < DeviseController
   def failure
     set_flash_message :alert, :failure, :kind => failed_strategy.name.to_s.humanize, :reason => failure_message

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Devise::PasswordsController < DeviseController
   prepend_before_filter :require_no_authentication
 

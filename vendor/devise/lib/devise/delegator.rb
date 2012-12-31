@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module Devise
   # Checks the scope in the given environment and returns the associated failure app.
   class Delegator

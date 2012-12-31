@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Devise::UnlocksController < DeviseController
   prepend_before_filter :require_no_authentication
 

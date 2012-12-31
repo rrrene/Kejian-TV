@@ -56,7 +56,7 @@ class CwFixJob
     really_broken = 0
     while !@courseware.really_broken
       really_broken += 1
-      puts `#{Rails.root}/bin/ftpupyun_pic "#{working_dir}" "/cw/#{@courseware.ktvid}/" "#{@courseware.revision}"`
+      puts `#{Rails.root}/bin/ftpupyun_pic "#{working_dir}" "/cw/" "#{@courseware.ktvid}/" "#{@courseware.revision}"`
       @courseware.check_upyun
       break if @courseware.check_upyun_result
       if really_broken > 10

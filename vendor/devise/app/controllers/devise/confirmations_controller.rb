@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Devise::ConfirmationsController < DeviseController
   # GET /resource/confirmation/new
   def new

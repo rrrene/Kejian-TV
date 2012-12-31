@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module RestClient
   # A class that can be instantiated for access to a RESTful resource,
   # including authentication.

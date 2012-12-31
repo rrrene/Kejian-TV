@@ -207,14 +207,14 @@ class TranscoderJob
         really_broken = 0
         while true
           really_broken += 1
-          puts `#{Rails.root}/bin/ftpupyun_pic "#{working_dir}" "/cw/#{@courseware.ktvid}/" "#{@courseware.revision}"`
+          puts `#{Rails.root}/bin/ftpupyun_pic "#{working_dir}" "/cw/" "#{@courseware.ktvid}/" "#{@courseware.revision}"`
           if @courseware.is_children
             tmp_papa = Courseware.find(@courseware.father_id)
             `mkdir -p #{working_dir}/father`
             `cp "#{working_dir}/#{@courseware.revision}thumb_slide_0.jpg" #{working_dir}/father/#{tmp_papa.revision}thumb_slide_#{@courseware.child_rank}.jpg`
             if @courseware.child_rank == 0
                 `cp "#{working_dir}/#{@courseware.revision}#{@courseware.pinpicname}" "#{working_dir}/father/#{tmp_papa.revision}#{tmp_papa.pinpicname}"`
-                `#{Rails.root}/bin/ftpupyun_pic "#{working_dir}/father/" "/cw/#{tmp_papa.ktvid}/" "#{tmp_papa.revision}"`
+                `#{Rails.root}/bin/ftpupyun_pic "#{working_dir}/father/" "/cw/" "#{tmp_papa.ktvid}/" "#{tmp_papa.revision}"`
             end
           end
           @courseware.check_upyun

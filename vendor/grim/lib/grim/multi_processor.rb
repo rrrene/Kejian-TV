@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module Grim
   class MultiProcessor
     def initialize(processors)

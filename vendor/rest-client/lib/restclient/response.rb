@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module RestClient
 
   # A Response from RestClient, you can access the response body, the code or the headers.
