@@ -34,7 +34,7 @@ class SearchController < ApplicationController
       size=@per_page-@ret_residual
       @extra_cw = @ret.paginate(per_page:@per_page05,page:@page)
     else
-      from=@per_page05*(@page-1)+@per_page-@ret_residual
+      from=@per_page05*(@page-1)+(@ret_residual > 0 ? @per_page-@ret_residual : 0)
       size=@per_page
       @extra_cw = []
     end
