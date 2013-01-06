@@ -7,12 +7,14 @@ module ActiveBaseModel
   module ClassMethods
     def elastic_search_psvr_index_name
       if $psvr_really_testing
-        return "#{self.table_name}_test"
+        ret= "#{self.table_name}_test"
       elsif $psvr_really_development
-        return "#{self.table_name}_dev"
+        ret= "#{self.table_name}_dev"
       else
-        return self.table_name
+        ret= self.table_name
       end
+      ret =  ret.to_s + "__#{Setting.ktv_sub}"
+      ret
     end
   end
 end

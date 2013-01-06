@@ -32,6 +32,14 @@ end
 
 module Sub
   class Application < Rails::Application
+    def self.psvr_index_reconstruct!
+      Page.reconstruct_indexes!
+      Courseware.reconstruct_indexes!
+      Courseware.non_redirect.nondeleted.normal.is_father.each do |cw|
+        cw.force_redis_search_psvr_changed=true
+        cw.save(validate:false)
+      end
+    end
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.

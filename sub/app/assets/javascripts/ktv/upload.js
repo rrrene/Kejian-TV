@@ -428,7 +428,7 @@
 	};
   $('.save-all-changes-button').live('click',function(){
     if(remaining_upload_number<=0 && remaining_process_number > 0 && auto_saved_number == remaining_process_number){
-      window.location.href = 'http://ibeike.kejian.lvh.me/mine/my_coursewares';
+      window.location.href = '/mine/my_coursewares';
     }
   });
 	$('.psvr_f').live('change',function(){

@@ -39,6 +39,7 @@ class SearchController < ApplicationController
       @extra_cw = []
     end
     @time_elapsed = ((Time.now - r0) * 1000.0).to_i
+    binding.pry
     @coursewares = Courseware.psvr_search(from,size,params,@ret.collect{|x| x['id']})
     @time_elapsed += @coursewares.time
     @quans = 1.upto(@ret.size+@coursewares.total_entries).to_a.paginate(per_page:@per_page,page:@page)
