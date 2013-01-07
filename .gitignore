@@ -31,7 +31,6 @@ git_sensitive*
 .redcar/
 .sass-cache
 
-build/
 *.a
 *.o
 *.log
