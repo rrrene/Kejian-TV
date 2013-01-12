@@ -120,6 +120,7 @@ class Courseware
     'exams' => '试卷',
     'videos' => '课堂录像',
     'materials' => '资料/读物',
+    'uncategorized' => '还没分类',
   }
   
   SORTSTR = {
