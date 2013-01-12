@@ -1713,6 +1713,15 @@ opts={   :subsite=>Setting.ktv_sub,
   def sync_to_dz_changed?
     self.title_changed? or self.uploader_id_changed?
   end
+  def sync_to_ktv!
+    hash = self.attributes
+    hash.delete("_id")
+    hash.delete("updated_at")
+    hash["created_at"]=self.created_at.to_i
+    hash["gone_normal_at"]=self.gone_normal_at.to_i
+    hash["public_time"]=self.public_time.to_i
+    puts UCenter::App.update_via_ktvid(nil,{ktvid:self.ktvid,psvr_data:MultiJson.dump(hash)})
+  end
   def sync_to_dz!
     return true unless self.sync_to_dz_okay?
     # todo: consider sync_to_dz_changed?
