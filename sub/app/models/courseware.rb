@@ -1579,35 +1579,41 @@ opts={   :subsite=>Setting.ktv_sub,
     true
   }
   after_save lambda {
-    instance = self
-    if redis_search_psvr_okay?
-      if redis_search_psvr_changed? || psvr_tire_changed?
-        tire.update_index
-      end
-    else
-      Tire.index(self.class.elastic_search_psvr_index_name) do
-        remove instance
-      end
-    end
-    if redis_search_psvr_changed?
-      # 这是一种隐藏性变更，在这种情况下，要处理Page
+    begin
+      instance = self
       if redis_search_psvr_okay?
-        Sidekiq::Client.enqueue(RedundancyHookerJob,
-          'Page',
-          nil,
-          'do_index_them_for_cw',
-          self.id.to_s
-        )
+        if redis_search_psvr_changed? || psvr_tire_changed?
+          tire.update_index
+        end
       else
-        unless @psvr_was_a_new_record
+        Tire.index(self.class.elastic_search_psvr_index_name) do
+          remove instance
+        end
+      end
+      if redis_search_psvr_changed?
+        # 这是一种隐藏性变更，在这种情况下，要处理Page
+        if redis_search_psvr_okay?
           Sidekiq::Client.enqueue(RedundancyHookerJob,
             'Page',
             nil,
-            'do_unindex_them_for_cw',
+            'do_index_them_for_cw',
             self.id.to_s
           )
+        else
+          unless @psvr_was_a_new_record
+            Sidekiq::Client.enqueue(RedundancyHookerJob,
+              'Page',
+              nil,
+              'do_unindex_them_for_cw',
+              self.id.to_s
+            )
+          end
         end
       end
+    rescue=>e
+      p e
+      p e
+      p e
     end
     true
   }
@@ -1713,14 +1719,33 @@ opts={   :subsite=>Setting.ktv_sub,
   def sync_to_dz_changed?
     self.title_changed? or self.uploader_id_changed?
   end
-  def sync_to_ktv!
+  field :ktvlogid
+  def sync_to_ktv!(with_log=false)
     hash = self.attributes
     hash.delete("_id")
     hash.delete("updated_at")
     hash["created_at"]=self.created_at.to_i
     hash["gone_normal_at"]=self.gone_normal_at.to_i
     hash["public_time"]=self.public_time.to_i
+    hash["finished_at"]=self.finished_at.to_i
+    hash["started_at"]=self.started_at.to_i
     puts UCenter::App.update_via_ktvid(nil,{ktvid:self.ktvid,psvr_data:MultiJson.dump(hash)})
+    if self.ktvlogid.blank?
+      self.update_attribute(:ktvlogid,UCenter::App.log_insert(nil,
+                                   {psvr_data:MultiJson.dump({
+                                      "_type"=>"CoursewareLog",
+                                       "action"=>"NEW",
+                                         "created_at"=>Time.now.to_i,
+                                            "subsite"=>Setting.ktv_sub,
+                                             "target_id"=>self.ktvid,
+                                              "target_parent_id"=>self.id,
+                                               "title"=>self.title,
+                                                "topic"=>self.course_name,
+                                                  "psvr_user_uid"=>User.get_uid(self.uploader_id)})
+                                    })
+               )
+                                    
+    end
   end
   def sync_to_dz!
     return true unless self.sync_to_dz_okay?

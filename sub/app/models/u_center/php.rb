@@ -958,7 +958,9 @@ module UCenter
       str.to_s.gsub(/['"\\\x0]/,'\\\\\0');
     end
     def stripslashes(str)
-      eval("%Q{#{str}}")
+      return eval("%Q{#{str}}")
+    rescue
+      return str
     end
     def str_replace(a,b,c)
       if a.respond_to?(:each)

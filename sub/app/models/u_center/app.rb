@@ -7,6 +7,7 @@ module UCenter
       ucinfo
       get_new_ktvid
       update_via_ktvid
+      log_insert
     }.each do |method_name|
       define_method method_name do |request,opts|
         return UCenter.in_out(self.name.split("::")[-1].underscore,__method__.to_s,request,opts)
