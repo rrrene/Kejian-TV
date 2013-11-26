@@ -1,8 +1,6 @@
 # -*- encoding : utf-8 -*-
 psvr_worker_processes=case ENV['RAILS_ENV']
 when 'sub_ibeike'
-  4
-when 'sub_cnu'
   2
 else
   1
