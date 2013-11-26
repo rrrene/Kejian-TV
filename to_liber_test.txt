@@ -1,2 +1,0 @@
-sudo bin/plugin -install Aconex/elasticsearch-head
-sudo bin/plugin -install elasticsearch/elasticsearch-analysis-smartcn/1.2.0
