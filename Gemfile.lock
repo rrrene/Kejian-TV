@@ -46,14 +46,14 @@ GIT
       thor (>= 0.14, < 2.0)
 
 PATH
-  remote: ../vendor/carrierwave-grandcloud
+  remote: vendor/carrierwave-grandcloud
   specs:
     carrierwave-grandcloud (0.1.1)
       carrierwave (>= 0.5.7)
       sndacs (>= 0.1.0)
 
 PATH
-  remote: ../vendor/devise
+  remote: vendor/devise
   specs:
     devise (2.1.0)
       bcrypt-ruby (~> 3.0)
@@ -62,12 +62,12 @@ PATH
       warden (~> 1.1.1)
 
 PATH
-  remote: ../vendor/grim
+  remote: vendor/grim
   specs:
     grim (0.3.2)
 
 PATH
-  remote: ../vendor/redis-search
+  remote: vendor/redis-search
   specs:
     redis-search (0.9.0)
       chinese_pinyin (>= 0.3.0)
@@ -75,14 +75,14 @@ PATH
       redis-namespace (>= 1.0.2)
 
 PATH
-  remote: ../vendor/rest-client
+  remote: vendor/rest-client
   specs:
     rest-client (1.6.7)
       mime-types (>= 1.16)
       netrc
 
 PATH
-  remote: ../vendor/warden
+  remote: vendor/warden
   specs:
     warden (1.1.1)
       rack (>= 1.0)
@@ -123,7 +123,7 @@ GEM
       nokogiri (>= 1.4.0)
     ansi (1.4.3)
     arel (3.0.2)
-    bcrypt-ruby (3.0.1)
+    bcrypt-ruby (3.1.2)
     blankslate (2.1.2.4)
     bson (1.8.0)
       activesupport
@@ -360,7 +360,6 @@ GEM
       redis (>= 3.0.2)
     rmmseg-cpp-huacnlee (0.2.9)
     ruby-ole (1.2.11.6)
-    ruby-prof (0.11.2)
     rubyzip (0.9.9)
     sanitize (2.0.3)
       nokogiri (>= 1.4.4, < 1.6)
@@ -562,7 +561,6 @@ DEPENDENCIES
   redis-search!
   rest-client!
   rmmseg-cpp-huacnlee
-  ruby-prof
   sanitize
   sass-rails (~> 3.2.3)
   savon

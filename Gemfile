@@ -57,7 +57,7 @@ gem "sanitize"
 gem "redis","~>3"
 
 # Vote 插件 for Mongoid
-# gem 'voteable_mongo', path:'../vendor/voteable_mongo'
+# gem 'voteable_mongo', path:'vendor/voteable_mongo'
 
 # 分词
 gem 'chinese_pinyin'
@@ -65,8 +65,8 @@ gem 'rmmseg-cpp-huacnlee'
 
 # 用户系统
 # 这个devise必须锁定版本！！我们定制的太多了
-gem 'devise','2.1.0',path:'../vendor/devise'
-gem 'warden',path:'../vendor/warden'
+gem 'devise','2.1.0',path:'vendor/devise'
+gem 'warden',path:'vendor/warden'
 gem 'omniauth-weibo-oauth2'
 #gem "omniauth-weibo", :git => 'git://github.com/pmq20/omniauth-weibo.git'
 gem "omniauth-renren", :git => 'git://github.com/pmq20/omniauth-renren.git'
@@ -82,7 +82,7 @@ gem 'omniauth-github'
 
 # 图片上传
 gem 'carrierwave', '0.6.2'
-gem 'carrierwave-grandcloud', :path=>'../vendor/carrierwave-grandcloud'
+gem 'carrierwave-grandcloud', :path=>'vendor/carrierwave-grandcloud'
 gem 'mini_magick','3.3', :require => false
 
 # 分页
@@ -130,7 +130,7 @@ gem 'sinatra', :require => nil
 gem 'slim'
 gem 'connection_pool'
 
-#gem "resque", :require => "resque/server", :path => '../vendor/resque'
+#gem "resque", :require => "resque/server", :path => 'vendor/resque'
 #gem 'resque-pool'
 # gem "resque_mailer"
 
@@ -140,7 +140,7 @@ gem 'connection_pool'
 # Diff 内容并输出 HTML 格式
 # gem "htmldiff", :git => "git://github.com/huacnlee/htmldiff.git"
 
-gem "redis-search",:path=>'../vendor/redis-search'
+gem "redis-search",:path=>'vendor/redis-search'
 #gem 'redis-namespace'
 
 gem "letter_opener"
@@ -155,7 +155,7 @@ gem 'unicorn'
 
 
 gem 'savon' #[!]
-gem 'rest-client', path:'../vendor/rest-client'
+gem 'rest-client', path:'vendor/rest-client'
 gem 'rails_autolink'
 
 
@@ -196,7 +196,7 @@ gem 'to_xls', '~> 1.0.0'
 
 gem 'sndacs'
 # PDF
-gem 'grim', :path=>'../vendor/grim'#:git=>"git://github.com/sdegoeij/grim.git"#:git=>"git://github.com/llb0536/grim.git"
+gem 'grim', :path=>'vendor/grim'#:git=>"git://github.com/sdegoeij/grim.git"#:git=>"git://github.com/llb0536/grim.git"
 # memcached
 gem 'dalli'
 
@@ -253,7 +253,6 @@ group :test,:development do
   gem 'guard'
   gem 'guard-spork'
   gem 'guard-minitest', :git => 'git://github.com/pmq20/guard-minitest.git'
-  gem 'ruby-prof'
   gem 'turn'
   gem 'factory_girl'
 end
