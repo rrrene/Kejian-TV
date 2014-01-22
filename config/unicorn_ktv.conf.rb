@@ -1,13 +1,7 @@
 # -*- encoding : utf-8 -*-
-psvr_worker_processes=case ENV['RAILS_ENV']
-when 'sub_ibeike'
-  2
-else
-  1
-end
-worker_processes psvr_worker_processes
+worker_processes 2
 working_directory Dir.pwd
-listen "/home/var/run/ktv_#{ENV['RAILS_ENV']}.sock", :backlog => 64
+listen "/var/run/ktv.sock", :backlog => 64
 timeout 30
 pid "#{Dir.pwd}/tmp_#{ENV['RAILS_ENV']}/pids/unicorn_#{ENV['RAILS_ENV']}.pid"
 stderr_path "#{Dir.pwd}/log_#{ENV['RAILS_ENV']}/unicorn_#{ENV['RAILS_ENV']}.err.log"
