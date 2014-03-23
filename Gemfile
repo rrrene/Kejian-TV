@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+# source 'http://ruby.taobao.org/'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.4'
@@ -40,6 +41,11 @@ end
 
 # Use Capistrano for deployment
 # gem 'capistrano', group: :development
+gem 'capistrano', '~> 3.1.0', group: :development
+gem 'capistrano-rvm', '~> 0.1.1', group: :development
+gem 'capistrano-bundler', '~> 1.1.2', group: :development
+gem 'capistrano-rails', '~> 1.1.1', group: :development
+gem 'capistrano-newrelic', '~> 0.0.8', group: :development
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
