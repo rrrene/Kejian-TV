@@ -1,8 +1,0 @@
-
-<article class="askInfoMinor">
-	<h6><a href="/asks/<%= item.id %>"><%= item.title %></a><span class="fc999">（<%= item.answers_count %>个答案）</span></h6>
-  <div class="summary">
-  该问题被添加到 <%= raw item.topics.map {|t| "<a href=\"/topics/#{t}\">#{t}</a>"}.join("、") %> 这<%= item.topics.size %>个话题
-</div>
-
-</article>
