@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 # source 'http://ruby.taobao.org/'
+ruby '2.1.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.4'
@@ -49,3 +50,7 @@ gem 'capistrano-newrelic', '~> 0.0.8', group: :development
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
+gem "puma", "~> 2.8.1"
+gem 'newrelic_rpm', '~> 3.7.3'
+

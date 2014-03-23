@@ -1,0 +1,11 @@
+defaults: &defaults
+  REDIS_STORE_URL: "redis://localhost:6379/0/cache"
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults

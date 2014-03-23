@@ -33,4 +33,8 @@ KejianTv::Application.configure do
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
+
+  # Set to :debug to see everything in the log.
+  config.log_level = :debug
+
 end

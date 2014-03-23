@@ -16,4 +16,4 @@
 /tmp
 
 # Customized ignorings
-/config/database.yml
+/config/*.yml
