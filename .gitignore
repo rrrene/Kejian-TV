@@ -34,3 +34,5 @@ git_sensitive*
 *.a
 *.o
 *.log
+
+config/*.yml
