@@ -5,8 +5,8 @@ ruby '2.1.1'
 gem 'rails',            path: "/root/rails"
 gem 'arel',             github: "rails/arel"
 
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+gem 'mysql2', '>= 0.3.15'
+
 # Use edge version of sprockets-rails
 gem 'sprockets-rails',  github: "rails/sprockets-rails"
 
