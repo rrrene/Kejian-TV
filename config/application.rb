@@ -23,8 +23,6 @@ module KejianTv
     config.i18n.default_locale = 'zh-CN'
 
     config.cache_store = :redis_store, keys['REDIS_STORE_URL'], { expires_in: 10.years }
-    config.event_tracker.mixpanel_key = keys['MIX_PANEL_KEY']
-
 
     config.assets.precompile << Proc.new do |path|
       if path =~ /\.(css|js)\z/

@@ -54,3 +54,4 @@ gem 'capistrano-newrelic', '~> 0.0.8', group: :development
 gem "puma", "~> 2.8.1"
 gem 'newrelic_rpm', '~> 3.7.3'
 
+gem 'redis-rails', '~> 4.0.0'
