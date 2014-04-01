@@ -1,1 +1,0 @@
-../../../trunk/config/initializers/a_ktv.rb

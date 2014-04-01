@@ -1,5 +1,0 @@
-<% if current_user and current_user.topic_followed?(topic) %>
-<a href="#" class="bBtn bBtnUnFocus" onclick="return Topics.unfollow(this, '<%= topic.name %>','');"></a>
-<% else %>
-<a href="#" class="bBtn bBtnFocus" onclick="return Topics.follow(this, '<%= topic.name %>','');"></a>
-<% end %>

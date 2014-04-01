@@ -1,7 +1,0 @@
-<h2>新建范畴</h2>
-
-<div class="button-group header_buttons">
-  <%= link_to '返回', cpanel_scopes_path, class: "button icon arrowleft" %>
-</div>
-
-<%= render 'form' %>
