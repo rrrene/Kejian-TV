@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.1.1'
 
-gem 'rails',            path: "/root/rails"
+gem 'rails',            github: "rails/rails"
 gem 'arel',             github: "rails/arel"
 
 gem 'mysql2', '>= 0.3.15'
