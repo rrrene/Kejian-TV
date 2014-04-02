@@ -46,3 +46,4 @@ gem 'spring',           group: :development
 # gem 'debugger', group: [:development, :test]
 
 gem 'puma', '~> 2.8.1'
+gem 'coveralls', require: false
