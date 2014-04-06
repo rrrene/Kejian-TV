@@ -23,5 +23,6 @@ module KejianTv
 end
 
 # All of the tables used by Kejian-TV
-# would have names starting with `ktv_`
-ActiveRecord::SchemaDumper.ignore_tables = /^(?!ktv_)/
+# would have names starting with 'ktv_'
+ActiveRecord::Base.table_name_prefix = 'ktv_'
+
