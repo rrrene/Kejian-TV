@@ -1,3 +1,67 @@
+//= depend_on_asset "wl/files/images/common/xbox-grey.svg"
+//= depend_on_asset "wl/files/images/common/xbox-black.svg"
+//= depend_on_asset "wl/files/images/common/select_button_up.png"
+//= depend_on_asset "wl/files/images/home/avatar.png"
+//= depend_on_asset "wl/files/images/common/icons/ico_error.png"
+//= depend_on_asset "wl/files/images/common/logo_error.png"
+//= depend_on_asset "wl/files/images/common/gradients/buttonGradientBlue.svg"
+//= depend_on_asset "wl/files/images/common/gradients/buttonGradientPurple.svg"
+//= depend_on_asset "wl/files/images/common/gradients/buttonGradientOrange.svg"
+//= depend_on_asset "wl/files/images/common/gradients/buttonGradientGreen.svg"
+//= depend_on_asset "wl/files/images/common/gradients/buttonGradientYellowGreen.svg"
+//= depend_on_asset "wl/files/images/orchestra/orchestra-logo.svg"
+//= depend_on_asset "wl/files/images/labtags/labtags-icon.svg"
+//= depend_on_asset "wl/files/images/robots/robots-icon.svg"
+//= depend_on_asset "wl/files/images/visualiser/visualiser-icon.svg"
+//= depend_on_asset "wl/files/images/scopes/periscopes-icon.svg"
+//= depend_on_asset "wl/files/images/home/orchestra-icon-outline.svg"
+//= depend_on_asset "wl/files/images/home/labtags-icon-outline.svg"
+//= depend_on_asset "wl/files/images/home/sandrobots-icon-outline.svg"
+//= depend_on_asset "wl/files/images/home/visualiser-icon-outline.svg"
+//= depend_on_asset "wl/files/images/home/periscopes-icon-outline.svg"
+//= depend_on_asset "wl/files/images/common/icons/soundBarsIcon.svg"
+//= depend_on_asset "wl/files/images/common/icons/collaborationIcon.png"
+//= depend_on_asset "wl/files/images/common/spinner-white.png"
+//= depend_on_asset "wl/files/images/common/spinner-grey.png"
+//= depend_on_asset "wl/files/images/common/spinner-white-small.png"
+//= depend_on_asset "wl/files/images/common/spinner-grey-small.png"
+//= depend_on_asset "wl/files/images/technology/pattern_bg_black.png"
+//= depend_on_asset "wl/files/images/technology/technology-handle-arrow-white.png"
+//= depend_on_asset "wl/files/images/technology/technology-handle-arrow-dark.png"
+//= depend_on_asset "wl/files/images/common/dialogOverlay.svg"
+//= depend_on_asset "wl/files/images/technology/technology_overlay.png"
+//= depend_on_asset "wl/files/images/technology/launch_bg.png"
+//= depend_on_asset "wl/files/images/common/menu-icon.svg"
+//= depend_on_asset "wl/files/images/common/mute/mute-collapsed-sound.svg"
+//= depend_on_asset "wl/files/images/common/mute/mute-collapsed-sound-rollover.svg"
+//= depend_on_asset "wl/files/images/common/mute/mute-collapsed-muted.svg"
+//= depend_on_asset "wl/files/images/common/mute/mute-collapsed-muted-rollover.svg"
+//= depend_on_asset "wl/files/images/common/experiment-suggest-arrows.png"
+//= depend_on_asset "wl/files/images/common/mute/mute-expanded-sound.svg"
+//= depend_on_asset "wl/files/images/common/mute/mute-expanded-sound-rollover.svg"
+//= depend_on_asset "wl/files/images/common/mute/mute-expanded-muted.svg"
+//= depend_on_asset "wl/files/images/common/mute/mute-expanded-muted-rollover.svg"
+//= depend_on_asset "wl/files/images/common/closeX.svg"
+//= depend_on_asset "wl/files/images/common/icons/link-icon.png"
+//= depend_on_asset "wl/files/images/common/labReport/trash_small_idle.svg"
+//= depend_on_asset "wl/files/images/common/labReport/trash_small_rollover.svg"
+//= depend_on_asset "wl/files/images/common/flag.png"
+//= depend_on_asset "wl/files/images/common/xbox-grey-noDiag.svg"
+//= depend_on_asset "wl/files/images/common/xbox-grey-diagonals.svg"
+//= depend_on_asset "wl/files/images/common/labReport/videoProcessing-orchestra.jpg"
+//= depend_on_asset "wl/files/images/common/labReport/videoProcessing-sketchbots.jpg"
+//= depend_on_asset "wl/files/images/common/labReport/thumbnail-video-playButton.svg"
+//= depend_on_asset "wl/files/images/common/back-forward-arrows.png"
+//= depend_on_asset "wl/files/images/common/icons/clock-icon.svg"
+//= depend_on_asset "wl/files/images/common/labReport/logo-collaboration.png"
+//= depend_on_asset "wl/files/images/common/labReport/orchestra-playButton.svg"
+//= depend_on_asset "wl/files/images/orchestra/saving/email-valid.svg"
+//= depend_on_asset "wl/files/images/orchestra/saving/email-invalid.svg"
+//= depend_on_asset "wl/files/images/common/spinner-grey-tiny.gif"
+//= depend_on_asset "wl/wltxt.png"
+
+
+
 body
 {
   font-family: arial, sans-serif;
@@ -3498,11 +3562,13 @@ h1.labtagTechnology,.labtagTechnology h1,h2.labtagTechnology,.labtagTechnology h
 
 #menu.splash #mainNavFooter a
 {
+  color: #888;
+  text-decoration: none;
   display: block;
   float: left;
   padding: 0 10px 0 0;
   font-family: "DejaVuSansMono","Courier New",Courier,monospace;
-  font-size: 9px;
+  font-size: 12px;
 }
 
 #mainNavFooterInner
@@ -4971,15 +5037,6 @@ h1.labtagTechnology,.labtagTechnology h1,h2.labtagTechnology,.labtagTechnology h
   opacity: 1;
 }
 
-.takeAwayContentView.orchestra .processingHolder
-{
-  background-image: url("<%=asset_path('wl/files/images/common/labReport/videoProcessing-image-orchestra.jpg')%>");
-}
-
-.takeAwayContentView.sketchbots .processingHolder
-{
-  background-image: url("<%=asset_path('wl/files/images/common/labReport/videoProcessing-image-sketchbots.jpg')%>");
-}
 
 .takeAwayContentView .errorHolder
 {
@@ -6408,17 +6465,6 @@ div.clipper
 #labReportButton img{
   margin-top:-1px;
 }
-.jjjjj{
-  color:red;
-}
-.psvr_whitebackground{
-  background:#e4e4e4 url(<%=asset_path('sdk/white.png')%>) !important;
-}
-.psvr_darkbackground{
-  background: rgba(0,0,0,0.2) url(<%=asset_path('linen.png')%>) !important;
-  height:880px !important;
-  opacity:1 !important;
-}
 #gonna_embed{
   position:absolute;
   margin-top:45px;
@@ -6428,3 +6474,5 @@ div.clipper
 #experiments{
   width:1040px;
 }
+
+
