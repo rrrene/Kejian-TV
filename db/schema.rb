@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140408090258) do
+ActiveRecord::Schema.define(version: 20140408102925) do
 
   create_table "coursewares", force: true do |t|
     t.string   "md5"
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 20140408090258) do
     t.text     "file_info_raw"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "lang"
   end
 
 end
