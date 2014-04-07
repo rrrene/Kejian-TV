@@ -1,7 +1,18 @@
 Rails.application.routes.draw do
-  get 'welcome/index'
-
   resources :coursewares
+
+  get 'welcome/introductory_video'
+
+  post '/general/signIn' => 'welcome#p1'
+  get '/en-GB/files/html/common/detector/browserdetector' => 'welcome#i2'
+  get '/en-GB/files/html/common/copy/copyTemplate' => 'welcome#i3'
+  get '/files/xml/common/files' => 'welcome#i4'
+  get '/files/xml/home/files' => 'welcome#i5'
+  get '/en-GB/files/html/common/labReport/labReportPages' => 'welcome#i6'
+  get '/en-GB/files/html/common/mainNav/mainNav' => 'welcome#i7'
+  get '/en-GB/files/html/common/dialog/dialogs' => 'welcome#i8'
+  get '/en-GB/files/html/home/experiments' => 'welcome#i9'
+  post '/general/signIn' => 'welcome#p1'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
