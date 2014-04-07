@@ -1,5 +1,0 @@
-<% if current_user and current_user.ask_followed?(ask) %>
-<a href="#" onclick="return Asks.simple_unfollow(this,'<%= ask.id %>')">取消关注</a> 
-<% else %>
-<a href="#" onclick="return Asks.simple_follow(this,'<%= ask.id %>')">关注</a> 
-<% end %>

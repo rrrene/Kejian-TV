@@ -1,1 +1,0 @@
-../../../trunk/config/initializers/carrierwave.rb

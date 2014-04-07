@@ -1,5 +1,0 @@
-<% if current_user and current_user.topic_followed?(topic) %>
-<a onclick="return Topics.simple_unfollow(this, '<%=topic.name%>', '');" class="flat_button" href="#">取消关注</a>
-<%else %>
-<a onclick="return Topics.simple_follow(this, '<%=topic.name%>', '');" class="gray_button green_button" href="#">关注</a>
-<%end %>
