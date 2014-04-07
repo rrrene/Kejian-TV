@@ -1,3 +1,5 @@
+<% url = KejianTv::Application.routes.url_helpers %>
+
 (function () {
     var a = function (a) {
         for (var a = a.toLowerCase(), a = a.replace(/[^a-z 0-9 .]+/g, " "), a = a.split(" "), b = a.length, c = 0; c < b; c++) "" === a[c] && a.splice(c, 1);
@@ -41,7 +43,7 @@
 var WEBLAB = WEBLAB || {}, ENABLE_DEBUG = !0;
 window.psvr_fucking = function (msg){
   console.log(msg);
-  window.location.href="<%= coursewares_path %>";
+  window.location.href="<%= url.coursewares_path %>";
 };
 if (!window.console || !ENABLE_DEBUG) console = {
     log: function () {}

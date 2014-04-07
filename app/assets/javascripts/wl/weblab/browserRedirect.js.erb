@@ -1,3 +1,5 @@
+<% url = KejianTv::Application.routes.url_helpers %>
+
 /*
 - 做这个首页需要考虑用户来自" ipad"," gt p6200 "," xoom "," tablet "这类平板还是" android"," windows phone" ," ios"," iphone"," ipod"这类手机还是"msie","ie","chrome", "safari","firefox","opera"这类普通电脑浏览器
 - 每种平台的展示效果都不一样，要分三类单独处理
@@ -136,7 +138,7 @@
 	var t = setLoc(location.href, navigator.userAgent);
 	if(t !== null) {
 		//document.location = t;
-    document.location = '<%= coursewares_path %>';
+    document.location = '<%= url.coursewares_path %>';
 	}
 
 })();
