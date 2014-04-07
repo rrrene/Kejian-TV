@@ -1,0 +1,2271 @@
+(function () {
+    var a = function (a) {
+        for (var a = a.toLowerCase(), a = a.replace(/[^a-z 0-9 .]+/g, " "), a = a.split(" "), b = a.length, c = 0; c < b; c++) "" === a[c] && a.splice(c, 1);
+        for (var a = a.toString(), a = a.replace(/,/g, " "), a = " " + a + " ", e, g, h, b = [" ipad", " gt p6200 ", " xoom ", " tablet "], c = b.length, l = 0; l < c; l++) if (-1 != a.indexOf(b[l])) return "basic";
+        for (var l = [" android", " windows phone", " ios", " iphone", " ipod"], j = l.length, s = 0; s < j; s++) if (c = l[s], b = a.indexOf(c), -1 != b) {
+            b = a.substring(b + 1 + c.length, a.length).split(" ", 1);
+            h = -1;
+            isNaN(b[0]) || (h = parseFloat(b[0]));
+            e = c;
+            break
+        }
+        if (" windows phone" == e || " ios" == e || " iphone" == e || " ipod" == e) return "mobile";
+        if (" android" == e) if (0 < h) {
+            if (3 > h) return "mobile";
+            if (4 <= h || 3.2 == h) return "basic"
+        } else return "mobile";
+        c = "msie,ie,chrome,safari,firefox,opera".split(",");
+        l = c.length;
+        for (j = 0; j < l; j++) if (e = c[j], b = a.indexOf(" " + e + " "), -1 != b) {
+            b = a.substring(b + 1 + e.length + 1, a.length).split(" ", 1);
+            h = -1;
+            g = parseFloat(b[0]);
+            isNaN(g) || (h = g);
+            g = e;
+            break
+        }
+        return "msie" == g && 9 > h && -1 != h ? "basic" : "ie" == g && 9 > h && -1 != h ? "basic" : "firefox" == g && 12 > h && -1 != h ? "basic" : ""
+    }, b = function (b, d) {
+        var c = a(d);
+        if ("mobile" == c || "basic" == c) {
+            b.indexOf(c);
+            var e = b.split("/"),
+                e = "" + e[e.length - 1];
+            "" !== e ? -1 != e.indexOf("#") ? (e = e.split("#"), e = e[0] + ".html#" + e[1]) : -1 != e.indexOf("?") ? (e = e.split("?"), e = e[0] + ".html") : e += ".html" : e = "";
+            return "./" + c + "/" + e
+        }
+        return null
+    }(location.href, navigator.userAgent);
+    if (null !== b) document.location = b
+})();
+var WEBLAB = WEBLAB || {}, ENABLE_DEBUG = !0;
+window.psvr_fucking = function (msg){
+  console.log(msg);
+  window.location.href="/coursewares";
+};
+if (!window.console || !ENABLE_DEBUG) console = {
+    log: function () {}
+};
+console.log("ENABLE_DEBUG: ", ENABLE_DEBUG);
+if ("function" != typeof Function.prototype.bind) console.log("WEB课件台 adding bind function..."), Function.prototype.bind = function (a) {
+    var b = this;
+    return function () {
+        var f = Array.prototype.slice.call(arguments);
+        return b.apply(a || null, f)
+    }
+};
+WEBLAB.namespace = function (a) {
+    var a = a.split("."),
+        b = WEBLAB,
+        f;
+    "WEBLAB" === a[0] && (a = a.slice(1));
+    for (f = 0; f < a.length; f += 1) "undefined" === typeof b[a[f]] && (b[a[f]] = {}), b = b[a[f]];
+    return b
+};
+(function () {
+    var a = WEBLAB.namespace("WEBLAB.utils.data");
+    if (void 0 === a.ArrayFunctions) {
+        var b = function () {};
+        a.ArrayFunctions = b;
+        b.indexOfInArray = function (a, b) {
+            if (null === a || void 0 === a) return -1;
+            if (a.indexOf) return a.indexOf(b);
+            for (var c = a.length, e = 0; e < c; e++) if (a[e] == b) return e;
+            return -1
+        };
+        b.copyArray = function (a) {
+            for (var b = Array(a.length), c = b.length, e = 0; e < c; e++) b[e] = a[e];
+            return b
+        };
+        b.create2DimensionalArray = function (a, b) {
+            for (var c = Array(a), e = 0; e < a; e++) c[e] = Array(b);
+            return c
+        };
+        b.generateList = function (a, b, c, e,
+        g) {
+            for (; b < c; b++) g.push(a + "" + b + "" + e)
+        };
+        b.generateReverseList = function (a, b, c, e, g) {
+            for (; --c >= b;) g.push(a + "" + c + "" + e)
+        }
+    }
+})();
+(function () {
+    var a = WEBLAB.namespace("WEBLAB.utils.data");
+    if (void 0 === a.CookieFunctions) {
+        var b = function () {};
+        a.CookieFunctions = b;
+        b.setCookie = function (a, b, c) {
+            a = a + "=" + escape(b);
+            c && (b = new Date, b.setTime((new Date).getTime() + c), a = a.concat(";expires=" + b.toGMTString()));
+            document.cookie = a
+        };
+        b.getCookie = function (a) {
+            var b = (" " + document.cookie).match(RegExp("[; ]" + a + "=([^\\s;]*)"));
+            return a && b ? unescape(b[1]) : null
+        }
+    }
+})();
+(function () {
+    var a = WEBLAB.namespace("WEBLAB.utils.events");
+    if (void 0 === a.ListenerFunctions) {
+        var b = function () {};
+        a.ListenerFunctions = b;
+        b.createListenerFunction = function (a, b) {
+            if (void 0 === b) throw Error("ERROR ListenerFunctions :: createListenerFunction :: callback function was null when called by :: ", a);
+            return function () {
+                b.apply(a, arguments)
+            }
+        };
+        b.createListenerFunctionWithArguments = function (a, b, c) {
+            if (void 0 === b) throw Error("ERROR ListenerFunctions :: createListenerFunction :: callback function was null when called by :: ",
+            a);
+            return function () {
+                for (var e = c.concat([]), g = arguments, h = g.length, l = 0; l < h; l++) e.push(g[l]);
+                b.apply(a, e)
+            }
+        };
+        b.createListenerFunctionWithReturn = function (a, b) {
+            if (void 0 === b) throw Error("ERROR ListenerFunctions :: createListenerFunctionWithReturn :: callback function was null when called by :: ", a);
+            return function () {
+                return b.apply(a, arguments)
+            }
+        }
+    }
+})();
+(function () {
+    var a = WEBLAB.namespace("WEBLAB.utils.events"),
+        b = WEBLAB.namespace("WEBLAB.utils.data").ArrayFunctions;
+    if (void 0 === a.EventDispatcher) {
+        var f = function () {
+            this._eventListeners = null
+        };
+        a.EventDispatcher = f;
+        var d = f.prototype;
+        d.addEventListener = function (a, b) {
+            if (null === this._eventListeners) this._eventListeners = {};
+            this._eventListeners[a] || (this._eventListeners[a] = []);
+            this._eventListeners[a].push(b);
+            return this
+        };
+        d.removeEventListener = function (a, b) {
+            if (null === this._eventListeners) this._eventListeners = {};
+            var d = this._eventListeners[a];
+            if ("undefined" === typeof d) return console.warn("EventDispatcher :: removeEventListener :: Tried to remove an event handler (for " + a + ") that doesn't exist"), this;
+            for (var f = d.length, l = 0; l < f; l++) d[l] == b && (d.splice(l, 1), l--, f--);
+            return this
+        };
+        d.dispatchEvent = function (a) {
+            if (null === this._eventListeners) this._eventListeners = {};
+            var e = a.type;
+            if (null === a.target) a.target = this;
+            a.currentTarget = this;
+            e = this._eventListeners[e];
+            if (null !== e && void 0 !== e) for (var e = b.copyArray(e), d = e.length,
+            f = 0; f < d; f++) e[f].call(this, a);
+            return this
+        };
+        d.dispatchCustomEvent = function (a, b) {
+            var d = document.createEvent("CustomEvent");
+            d.dispatcher = this;
+            d.initCustomEvent(a, !1, !1, b);
+            return this.dispatchEvent(d)
+        };
+        d.destroy = function () {
+            if (null !== this._eventListeners) {
+                for (var a in this._eventListeners) {
+                    for (var b = this._eventListeners[a], d = b.length, f = 0; f < d; f++) b[f] = null;
+                    delete this._eventListeners[a]
+                }
+                this._eventListeners = null
+            }
+        };
+        f.decorate = function (a) {
+            f.apply(a);
+            a.addEventListener = d.addEventListener;
+            a.dispatchEvent = d.dispatchEvent;
+            a.dispatchCustomEvent = d.dispatchCustomEvent;
+            a.removeEventListener = d.removeEventListener;
+            return a
+        }
+    }
+})();
+(function () {
+    var a = WEBLAB.namespace("WEBLAB.utils.browser");
+    if (void 0 === a.BrowserDetector) {
+        var b = function () {};
+        a.BrowserDetector = b;
+        b.WEBGL_SUPPORTED = "webGLSupported";
+        b.WEBGL_NOT_SUPPORTED_BROWSER = "webGLNotSupportedBrowser";
+        b.WEBGL_NOT_SUPPORTED_GRAPHICS_CARD = "webGLNotSupportedGraphicsCard";
+        a = b.prototype;
+        a.isChrome = function () {
+            return null !== navigator.userAgent.match(/(Chrome)/)
+        };
+        a.isWebGL = function () {
+            try {
+                return !!window.WebGLRenderingContext && !! document.createElement("canvas").getContext("experimental-webgl")
+            } catch (a) {
+                return !1
+            }
+        };
+        a.detectWebGL = function () {
+            var a = b.WEBGL_SUPPORTED;
+            this.isWebGL() || (a = window.WebGLRenderingContext ? b.WEBGL_NOT_SUPPORTED_GRAPHICS_CARD : b.WEBGL_NOT_SUPPORTED_BROWSER);
+            return a
+        };
+        a.getBrowserName = function () {
+            var a = navigator.userAgent,
+                b;
+            a.match(/(Chrome)/) ? b = "Chrome" : a.match(/(Safari)/) ? b = "Safari" : a.match(/(Firefox)/) ? b = "Firefox" : a.match(/(MSIE)/) ? b = "IE" : a.match(/(Opera)/) && (b = "Opera");
+            return b
+        }
+    }
+})();
+(function () {
+    var a = WEBLAB.namespace("WEBLAB.utils.loading"),
+        b = WEBLAB.namespace("WEBLAB.utils.events").EventDispatcher,
+        f = WEBLAB.namespace("WEBLAB.utils.events").ListenerFunctions;
+    if (void 0 === a.XmlLoader) {
+        var d = function () {
+            this._init()
+        };
+        a.XmlLoader = d;
+        d.LOADED = "loaded";
+        d.ERROR = "error";
+        a = d.prototype = new b;
+        a._init = function () {
+            this._data = this._loader = this._url = null;
+            return this
+        };
+        a.getData = function () {
+            return this._data
+        };
+        a.setUrl = function (a) {
+            this._url = a;
+            return this
+        };
+        a.load = function () {
+            this._loader = new XMLHttpRequest;
+            this._loader.open("GET", this._url, !0);
+            this._loader.onreadystatechange = f.createListenerFunction(this, this._onReadyStateChange);
+            this._loader.send(null);
+            return this
+        };
+        a._onReadyStateChange = function () {
+            switch (this._loader.readyState) {
+                case 4:
+                    400 > this._loader.status ? (this._data = (new DOMParser).parseFromString(this._loader.responseText, "text/xml"), this.dispatchCustomEvent(d.LOADED, this.getData())) : this.dispatchCustomEvent(d.ERROR, null)
+            }
+        };
+        a.destroy = function () {
+            if (null !== this._loader) this._loader = this._loader.onreadystatechange = null;
+            this._data = this._url = null
+        };
+        d.create = function (a) {
+            var b = new d;
+            b.setUrl(a);
+            return b
+        }
+    }
+})();
+(function () {
+    var a = WEBLAB.namespace("WEBLAB.utils.loading"),
+        b = WEBLAB.namespace("WEBLAB.utils.events").EventDispatcher;
+    if (void 0 === a.JSLoader) {
+        var f = function () {};
+        a.JSLoader = f;
+        f.LOADED = "loaded";
+        f.ERROR = "error";
+        (f.prototype = new b).load = function (a, b) {
+            var e = this,
+                g = document.getElementsByTagName("script")[0],
+                h = document.createElement("script");
+            h.onreadystatechange = function () {
+                if ("loaded" === h.readyState || "complete" === h.readyState) h.onreadystatechange = null, e.dispatchCustomEvent(f.LOADED, a)
+            };
+            h.onload = function () {
+                e.dispatchCustomEvent(f.LOADED,
+                a)
+            };
+            h.src = a;
+            h.async = b;
+            g.parentNode.insertBefore(h, g.nextSibling)
+        }
+    }
+})();
+(function () {
+    var a = WEBLAB.namespace("WEBLAB.utils.loading"),
+        b = WEBLAB.namespace("WEBLAB.utils.events").EventDispatcher,
+        f = WEBLAB.namespace("WEBLAB.utils.events").ListenerFunctions;
+    if (void 0 === a.JsonLoader) {
+        var d = function () {
+            this._init()
+        };
+        a.JsonLoader = d;
+        d.LOADED = "loaded";
+        d.ERROR = "error";
+        a = d.prototype = new b;
+        a._init = function () {
+            this._data = this._loader = this._url = null;
+            return this
+        };
+        a.getData = function () {
+            return this._data
+        };
+        a.setUrl = function (a) {
+            this._url = a;
+            return this
+        };
+        a.load = function (a, b, d) {
+            this._loader = new XMLHttpRequest;
+            this._loader.open(a || "GET", this._url, d || !0);
+            this._loader.onreadystatechange = f.createListenerFunction(this, this._onReadyStateChange);
+            this._loader.send(b || null);
+            return this
+        };
+        a._onReadyStateChange = function () {
+            switch (this._loader.readyState) {
+                case 4:
+                    if (400 > this._loader.status) {
+                        try {
+                            this._data = JSON.parse(this._loader.responseText)
+                        } catch (a) {
+                            console.error("JsonLoader :: ERROR Parsing json: " + a.message + " : ", a);
+                            this.dispatchCustomEvent(d.ERROR, a);
+                            break
+                        }
+                        this.dispatchCustomEvent(d.LOADED, this.getData())
+                    } else this.dispatchCustomEvent(d.ERROR,
+                    null)
+            }
+        };
+        a.destroy = function () {
+            if (null !== this._loader) this._loader = this._loader.onreadystatechange = null;
+            this._data = this._url = null
+        };
+        d.create = function (a) {
+            var b = new d;
+            b.setUrl(a);
+            return b
+        }
+    }
+})();
+(function () {
+    var a = WEBLAB.namespace("WEBLAB.utils.loading"),
+        b = WEBLAB.namespace("WEBLAB.utils.loading").JSLoader,
+        f = WEBLAB.namespace("WEBLAB.utils.events").EventDispatcher;
+    if (void 0 === a.SequentialJSLoader) {
+        var d = function () {
+            this._jsFiles = [];
+            this._filesLoadedCount = 0
+        };
+        a.SequentialJSLoader = d;
+        d.LOADED = "sequenceLoaded";
+        d.ERROR = "error";
+        d.PROGRESS = "progress";
+        a = d.prototype = new f;
+        a.load = function (a, e) {
+            this._loader = new b;
+            this.isAsync = e;
+            this._jsFiles = a;
+            this._filesLoadedCount = 0;
+            0 < this._jsFiles.length && (this._loader.addEventListener(b.LOADED,
+            this._onJSFileLoaded.bind(this), !1), this._loadNext())
+        };
+        a._loadNext = function () {
+            this._filesLoadedCount < this._jsFiles.length ? this._loader.load(this._jsFiles[this._filesLoadedCount], this.isAsync) : this.dispatchCustomEvent(d.LOADED, null)
+        };
+        a._onJSFileLoaded = function () {
+            this._filesLoadedCount++;
+            this.dispatchCustomEvent(d.PROGRESS, null);
+            this._loadNext()
+        }
+    }
+})();
+(function () {
+    var a = WEBLAB.namespace("WEBLAB.utils.tracking");
+    if (void 0 === a.GATracker) {
+        var b = function () {};
+        a.GATracker = b;
+        a = b.prototype;
+        a.setup = function (a) {
+          return false;//todo
+            this.id = a;
+            window._gaq = window._gaq || [];
+            window._gaq.push(["_setAccount", this.id]);
+            window._gaq.push(["_trackPageview"]);
+            a = document.createElement("script");
+            a.type = "text/javascript";
+            a.async = !0;
+            a.src = ("https:" == document.location.protocol ? "https://ssl" : "http://www") + ".google-analytics.com/ga.js";
+            var b = document.getElementsByTagName("script")[0];
+            b.parentNode.insertBefore(a,
+            b)
+        };
+        a.trackPageview = function (a) {
+          return false;//todo
+            a ? window._gaq.push(["_trackPageview", a]) : window._gaq.push(["_trackPageview"])
+        };
+        a.trackEvent = function (a, b, c, e) {
+          return false;//todo
+            c ? e ? window._gaq.push(["_trackEvent", a, b, c, e]) : window._gaq.push(["_trackEvent", a, b, c]) : window._gaq.push(["_trackEvent", a, b])
+        }
+    }
+})();
+(function () {
+    var a = WEBLAB.namespace("WEBLAB.common"),
+        b = WEBLAB.namespace("WEBLAB.utils.loading").JsonLoader;
+    WEBLAB.namespace("WEBLAB.utils.events");
+    var f = WEBLAB.namespace("WEBLAB.utils.events").EventDispatcher,
+        d = WEBLAB.namespace("WEBLAB.common.constants"),
+        c = WEBLAB.namespace("WEBLAB.common.singletons");
+    if (void 0 === a.LoginManager) a.LoginManager = function () {
+        this.isLoggedIn = !1;
+        this.labTagId = null;
+        this.oAuthCode = this.email = ""
+    }, f = a.LoginManager.prototype = new f, a.LoginManager.CALL_BACK_URL = "/templates/login.html",
+    a.LoginManager.STATUS_CHANGED = "statusChanged", a.LoginManager.ERROR = "error", a.LoginManager.NEEDS_LAB_TAG_IMAGE = "needsLabTagImage", f.checkStatus = function () {
+        this.t0 = (new Date).getTime();
+        var c = -60 * (new Date).getTimezoneOffset(),
+            d = new b.create("/general/signIn");
+        d.addEventListener(b.LOADED, this._onCheckStatus.bind(this), !1);
+        d.addEventListener(b.ERROR, this._onCheckStatusError.bind(this), !1);
+        var f = new FormData;
+        f.append("url", a.LoginManager.CALL_BACK_URL);
+        f.append("utc_offset_sec", c);
+        d.load("POST", f, !0)
+    },
+    f._onCheckStatus = function (b) {
+        this.status = b.detail.status;
+        var g = (new Date).getTime() - this.t0;
+        console.log("LoginManager.response", b.detail, g);
+        c.SiteManagerBasic.getTracker().trackEvent(d.TrackingIds.GENERAL, "LoginLatency", "The latency in ms of the general/signIn call", g);
+        1 === this.status.ok ? (b = b.detail.response, this.isLoggedIn = b.loggedIn, this.loginUrl = b.loginUrl, this.logoutUrl = b.logoutUrl, this.email = b.email, this.name = b.name, this.hasLabTagImage = b.labTagImage, this.hasOAuthToken = b.hasToken || !1, b.labTagInfo ? (this.labTagId = b.labTagInfo.id, this.country = b.labTagInfo.country ? b.labTagInfo.country : "ZZ") : (console.log("ERROR No 课件台访客 id received.. (currently using a random one)"), this.labTagId = Math.floor(320255973501901 * Math.random()).toString(36)), this.triggerEvents()) : (this.dispatchCustomEvent(a.LoginManager.ERROR, null), console.log("ERROR logging in: " + this.status.message))
+    }, f.triggerEvents = function () {
+        this.status && (1 === this.status.ok ? (this.hasLabTagImage || this.dispatchCustomEvent(a.LoginManager.NEEDS_LAB_TAG_IMAGE,
+        null), this.dispatchCustomEvent(a.LoginManager.STATUS_CHANGED, this.labTagId)) : this.dispatchCustomEvent(a.LoginManager.ERROR, null))
+    }, f._onCheckStatusError = function () {
+        console.log("LoginManager ERROR on check status ");
+        this.dispatchCustomEvent(a.LoginManager.ERROR, null)
+    }, f.login = function () {
+        if (!this.isLoggedIn) c.SiteManagerBasic.getTracker().trackEvent(d.TrackingIds.GENERAL, "Login Started", "User starts login process"), this.loginPopUp = window.open(this.loginUrl), this.loginInterval = setInterval(this._checkPopUpClosed.bind(this),
+        200)
+    }, f.logout = function () {
+        if (this.isLoggedIn) c.SiteManagerBasic.getTracker().trackEvent(d.TrackingIds.GENERAL, "Logout Started", "User starts logout process"), this.disableOAuthCallback(), this.loginPopUp = window.open(this.logoutUrl), this.loginInterval = setInterval(this._checkPopUpClosed.bind(this), 200)
+    }, f.getHasOAuthToken = function () {
+        return this.hasOAuthToken ? !0 : !1
+    }, f.getOAuthCode = function () {
+        return this.oAuthCode
+    }, f.setOAuthCode = function (a) {
+        this.oAuthCode = this.hasOAuthToken ? "" : a
+    }, f.enableOAuthCallback = function (a, b) {
+        console.log("LoginManager :: Enabling OAuthCallback");
+        window.__requiresOAuth = !0;
+        window.__authWindowCallback = function (f) {
+            console.log("OAuth window callback :: windowURL = ", f);
+            f = WEBLAB.namespace("WEBLAB.utils.url").UrlFunctions.parseQueryString(f);
+            f.code ? (console.log("OAuth code returned :: ", f.code), this.setOAuthCode(f.code), this.disableOAuthCallback(), a.call(this, f.code), c.SiteManagerBasic.getTracker().trackEvent(d.TrackingIds.GENERAL, "YouTubeOAuth", "The user generated an OAuth code for YouTube access sucessfully.",
+            null)) : (c.SiteManagerBasic.getTracker().trackEvent(d.TrackingIds.GENERAL, "YouTubeOAuth", "There was an error when requesting YouTube access.", null), this.disableOAuthCallback(), b.call(this, "Code not found in query string"))
+        }.bind(this)
+    }, f.disableOAuthCallback = function () {
+        console.log("LoginManager :: Disabling OAuthCallback");
+        window.__requiresOAuth = !1;
+        window.__authWindowCallback = null
+    }, f.getLoginWindow = function () {
+        return this.loginPopUp
+    }, f.getIsLoggedIn = function () {
+        return this.isLoggedIn
+    }, f._checkPopUpClosed = function () {
+        this.loginPopUp.closed && this._onLoginClosed()
+    }, f._onLoginClosed = function () {
+        console.log("_onLoginClosed");
+        clearInterval(this.loginInterval);
+        this.checkStatus()
+    }
+})();
+(function () {
+    var a = WEBLAB.namespace("WEBLAB.common.json"),
+        b = WEBLAB.namespace("WEBLAB.utils.events").EventDispatcher,
+        f = WEBLAB.namespace("WEBLAB.utils.events").ListenerFunctions,
+        d = WEBLAB.namespace("WEBLAB.utils.loading").JsonLoader;
+    if (void 0 === a.JsonManager) a.JsonManager = function () {
+        this.jsonsLoaded = 0;
+        this.jsons = {};
+        this.jsonsToLoad = []
+    }, a.JsonManager.LOADED = "jsonsLoaded", a.JsonManager.PROGRESS = "progress", b = a.JsonManager.prototype = new b, b.addJsons = function (a) {
+        this.jsonsToLoad = this.jsonsToLoad.concat(a)
+    },
+    b.startLoading = function () {
+        this.jsonsLoaded = 0;
+        if (0 === this.jsonsToLoad.length) this.dispatchEvent({
+            type: a.JsonManager.LOADED
+        });
+        else for (var b = 0; b < this.jsonsToLoad.length; b++) this._loadJson(this.jsonsToLoad[b])
+    }, b._defineJson = function (a, b) {
+        this.jsons[a] = b
+    }, b.getJson = function (a) {
+        if (this.jsons[a]) return this.jsons[a];
+        console.log("JsonManager ERROR: The following image id doesn't exist: " + a)
+    }, b._loadJson = function (a) {
+        this._loader = d.create(a.path);
+        this._loader.addEventListener(d.LOADED, f.createListenerFunctionWithArguments(this,
+        this._onJsonLoaded, [a]), !1);
+        this._loader.addEventListener(d.ERROR, f.createListenerFunctionWithArguments(this, this._onJsonError, [a]), !1);
+        this._loader.load()
+    }, b._onJsonLoaded = function (a, b) {
+        this._defineJson(a.id, b.detail);
+        this._updateJsonLoaded()
+    }, b._updateJsonLoaded = function () {
+        this.jsonsLoaded++;
+        this.dispatchCustomEvent(a.JsonManager.PROGRESS, null);
+        if (this.jsonsLoaded === this.jsonsToLoad.length) this.dispatchEvent({
+            type: a.JsonManager.LOADED
+        }), this.jsonsToLoad = []
+    }, b._onJsonError = function (a) {
+        console.log("JsonManager ERROR: The following json doesn't exist: " + a.path);
+        this._updateJsonLoaded()
+    }, b.destroy = function () {}
+})();
+(function () {
+    var a = WEBLAB.namespace("WEBLAB.common.constants");
+    if (void 0 === a.ExperimentIds) {
+        var b = function () {};
+        a.ExperimentIds = b;
+        b.LABTAGS = 0;
+        b.ORCHESTRA = 1;
+        b.SAND_ROBOTS = 2;
+        b.DATA_VISUALISER = 3;
+        b.PERISCOPES = 4;
+        b.LANDING = 5;
+        b.convertFromString = function (a) {
+            switch (a) {
+                case "orchestra":
+                    return b.ORCHESTRA;
+                case "teleporter":
+                    return b.PERISCOPES;
+                case "sketchbots":
+                    return b.SAND_ROBOTS;
+                case "datatracer":
+                    return b.DATA_VISUALISER;
+                case "labtags":
+                    return b.LABTAGS
+            }
+            return null
+        }
+    }
+})();
+(function () {
+    var a = WEBLAB.namespace("WEBLAB.common.constants");
+    if (void 0 === a.TrackingIds) {
+        var b = function () {};
+        a.TrackingIds = b;
+        b.LABTAGS = "LabTagExplorer";
+        b.ORCHESTRA = "Orchestra";
+        b.SAND_ROBOTS = "Sketchbots";
+        b.DATA_VISUALISER = "DataTracer";
+        b.PERISCOPES = "Teleporter";
+        b.LANDING = "LandingPage";
+        b.GENERAL = "General";
+        b.HOME = "Home";
+        b.ABOUT = "About";
+        b.BROWSER_TECH = "BrowserTech";
+        b.EDUCATORS = "Educators";
+        b.LABTAG_LOADER = "LabTagLoader";
+        b.TERMS = "Terms";
+        b.VISIT = "Visit";
+        b.LAB_REPORT = "LabReport"
+    }
+})();
+(function () {
+    var a = WEBLAB.namespace("WEBLAB.common.ui.detector"),
+        b = WEBLAB.namespace("WEBLAB.utils.browser").BrowserDetector,
+        f = WEBLAB.namespace("WEBLAB.utils.events").EventDispatcher;
+    if (void 0 === a.BrowserDetectorPage) {
+        var d = function (a) {
+            this.webGLDetection = this.isChrome = this.template = null;
+            this.homeMode = a;
+            this.classNames = {};
+            this.classNames[b.WEBGL_SUPPORTED] = "unsupported";
+            this.classNames[b.WEBGL_NOT_SUPPORTED_GRAPHICS_CARD] = "noGraphicsCardGl";
+            this.classNames[b.WEBGL_NOT_SUPPORTED_BROWSER] = "noBrowserGl"
+        };
+        a.BrowserDetectorPage = d;
+        d.ENTER_ANYWAY = "enterAnyway";
+        a = d.prototype = new f;
+        a.show = function (a, e, g, f) {
+            this.template = a;
+            this.isChrome = e;
+            this.webGLDetection = g;
+            console.log("this.isChrome, this.webGLDetection: ", this.isChrome, this.webGLDetection);
+            document.getElementById("sectionContentHolder").appendChild(this.template);
+            a = this.classNames[this.webGLDetection] || "supported";
+            this.isChrome ? a = this.webGLDetection == b.WEBGL_SUPPORTED ? "supported" : "noGraphicsCardGl" : this.webGLDetection != b.WEBGL_SUPPORTED && (a = "noBrowserGl");
+            a += this.homeMode ? " home" : "";
+            document.getElementById("experimentSplashContainer").className = a;
+            a = document.getElementById("menuBrowserDetection");
+            this.webGLDetection != b.WEBGL_SUPPORTED || !this.homeMode ? (a.style.display = "inline-block", this.setupLanguageSelection(), this.isChrome ? document.getElementById("webIsWhatYouMakeOfIt").style.display = "none" : document.getElementsByClassName("bottomFix")[0].style.display = "none") : a.parentNode.removeChild(a);
+            if (this.homeMode && f) document.getElementById("experimentSplashContainer").style.display =
+                "none";
+            this.homeMode ? this.dispatchCustomEvent(d.ENTER_ANYWAY, null) : this.showButtons();
+            this._performLayout();
+            window.addEventListener("resize", this._performLayout.bind(this))
+        };
+        a.setupLanguageSelection = function () {
+            var a = document.getElementById("languageDrop");
+            a.addEventListener("change", function () {
+                var a = this.options[this.selectedIndex].id,
+                    b = /\/([a-z]{2})(-[A-Z]{2})?(\/|$)/gi,
+                    c = document.location.href,
+                    c = c.match(b) ? c.replace(b, "/" + a + "/") : document.location.protocol + "//" + document.location.host + "/" + a + document.location.pathname;
+                document.location.href = c
+            });
+            (function (b) {
+                var d = a.options.namedItem(b);
+                void 0 !== d ? d.selected = "selected" : console.error("Can't select language (" + b + ")")
+            })(document.documentElement.lang)
+        };
+        a.showButtons = function () {
+            var a = document.getElementsByClassName("splashEnter"),
+                e;
+            for (e = 0; e < a.length; e++) a[e].style.display = "inline-block";
+            if (this.webGLDetection === b.WEBGL_SUPPORTED) {
+                for (e = 0; e < a.length; e++) a[e].addEventListener("click", this.onEnterButtonClick.bind(this));
+                this._hideSpinners()
+            }
+        };
+        a._hideSpinners = function () {
+            console.log("HIDE SPINNERS!");
+            var a = document.getElementsByClassName("spinnerSmall");
+            for (i = 0; i < a.length; i++) a[i].style.display = "none"
+        };
+        a.showError = function () {
+            document.getElementById("errorLoading").style.display = "inline-block";
+            this.webGLDetection === b.WEBGL_SUPPORTED && this._hideSpinners()
+        };
+        a.updateLoadingProgress = function (a) {
+            var b = document.getElementsByClassName("loadingProgressCenteredContainer");
+            for (i = 0; i < b.length; i++) b[i].getElementsByTagName("h4")[0].innerText = a
+        };
+        a.showLoadingTooLong = function () {
+            var a = document.getElementsByClassName("loadingProgressCenteredContainer");
+            for (i = 0; i < a.length; i++) {
+                var b = a[i],
+                    d = b.getElementsByTagName("p")[0];
+                d.style.display = "block";
+                d.classList.add("visible");
+                b.classList.add("visible")
+            }
+        };
+        a._performLayout = function () {
+            var a = document.getElementById("experimentSplashContainer"),
+                b = (document.body.clientHeight - 40 - a.clientHeight) / 2;
+            a.style.setProperty("top", (6 < b ? b : 6) + "px", "")
+        };
+        a.onEnterButtonClick = function () {
+            document.getElementsByClassName("feedbackLink")[0].classList.remove("splash");
+            this.dispatchCustomEvent(d.ENTER_ANYWAY, null);
+            this.hide()
+        };
+        a.hide = function () {
+            window.removeEventListener("resize", this._performLayout.bind(this));
+            document.getElementById("sectionContentHolder").removeChild(this.template)
+        }
+    }
+})();
+(function () {
+    var a = WEBLAB.namespace("WEBLAB.common.ui");
+    WEBLAB.namespace("WEBLAB.common.singletons");
+    var b = WEBLAB.namespace("WEBLAB.utils.events").EventDispatcher,
+        f = WEBLAB.namespace("WEBLAB.utils.events").ListenerFunctions,
+        d = WEBLAB.namespace("WEBLAB.utils.loading").XmlLoader;
+    if (void 0 === a.TemplateManager) {
+        var c = function () {
+            this._init()
+        };
+        a.TemplateManager = c;
+        c.LOADED = "loaded";
+        c.PROGRESS = "progress";
+        c.ERROR = "error";
+        a = a.TemplateManager.prototype = new b;
+        a._init = function () {
+            this._templates = {};
+            this._baseUrl =
+                "";
+            this._nonLocalisedBaseUrl = null;
+            this._templateUrls = {};
+            this._loadedTemplateFiles = {};
+            this._currentLoader = null;
+            this._loadingLoadersArray = [];
+            this._isLoading = !1;
+            this._fileLoadedCallback = f.createListenerFunction(this, this._fileLoaded);
+            this._fileLoadingErrorCallback = f.createListenerFunction(this, this._fileLoadingError);
+            return this
+        };
+        a.setBaseUrl = function (a, b) {
+            this._baseUrl = a;
+            this._nonLocalisedBaseUrl = b
+        };
+        a.addTemplateUrl = function (a, b) {
+            this._templateUrls[a] = this._baseUrl + b
+        };
+        a.addTemplateUrlWithoutLocalisation = function (a, b) {
+            this._templateUrls[a] = this._nonLocalisedBaseUrl + b
+        };
+        a.getTemplateUrl = function (a) {
+            return void 0 === this._templateUrls[a] ? (console.warn("Template " + a + " doesn't exist"), null) : this._templateUrls[a]
+        };
+        a.loadTemplate = function (a) {
+            a = this.getTemplateUrl(a);
+            if (void 0 === this._loadedTemplateFiles[a]) {
+                var b = d.create(a);
+                this._loadedTemplateFiles[a] = b;
+                this._loadingLoadersArray.push(b);
+                this._filesToLoad = this._loadingLoadersArray.length;
+                this._isLoading && null === this._currentLoader && this._loadNextFile()
+            }
+        };
+        a.startLoading = function () {
+            if (!this._isLoading) this._isLoading = !0, this._filesLoaded = 0, null === this._currentLoader && this._loadNextFile()
+        };
+        a._loadNextFile = function () {
+            0 < this._loadingLoadersArray.length ? (this._currentLoader = this._loadingLoadersArray.shift(), this._currentLoader.addEventListener(d.LOADED, this._fileLoadedCallback, !1), this._currentLoader.addEventListener(d.ERROR, this._fileLoadingErrorCallback, !1), this._currentLoader.load()) : (this._isLoading = !1, this.dispatchCustomEvent(c.LOADED, null))
+        };
+        a._fileLoaded = function () {
+            this._currentLoader.removeEventListener(d.LOADED, this._fileLoadedCallback, !1);
+            this._currentLoader.removeEventListener(d.ERROR, this._fileLoadingErrorCallback, !1);
+            this._filesLoaded++;
+            this.dispatchCustomEvent(c.PROGRESS, null);
+            this._parseTemplates(this._currentLoader.getData());
+            this._currentLoader = null;
+            this._isLoading && this._loadNextFile()
+        };
+        a._fileLoadingError = function () {
+            this._currentLoader.removeEventListener(d.LOADED, this._fileLoadedCallback, !1);
+            this._currentLoader.removeEventListener(d.ERROR,
+            this._fileLoadingErrorCallback, !1);
+            this._currentLoader = null;
+            this._isLoading = !1;
+            this.dispatchCustomEvent(c.ERROR, null)
+        };
+        a._parseTemplates = function (a) {
+            for (var a = a.querySelectorAll("*[data-weblab-type='template']"), b = a.length, c = 0; c < b; c++) {
+                var d = a[c];
+                this._templates[d.getAttribute("name")] = document.importNode(d, !0)
+            }
+        };
+        a.getTemplate = function (a) {
+            if (void 0 !== this._templates[a]) return this._templates[a];
+            console.error("Template " + a + " not loaded.");
+            return null
+        };
+        a.destroy = function () {};
+        c.create = function () {
+            return new c
+        }
+    }
+})();
+WEBLAB = WEBLAB || {};
+WEBLAB.labtags = WEBLAB.labtags || {};
+WEBLAB.labtags.generator = function () {
+    function a(a) {
+        var b = typeof a;
+        if ("object" == b) if (a) {
+            if (a instanceof Array) return "array";
+            if (a instanceof Object) return b;
+            var c = Object.prototype.toString.call(a);
+            if ("[object Window]" == c) return "object";
+            if ("[object Array]" == c || "number" == typeof a.length && "undefined" != typeof a.splice && "undefined" != typeof a.propertyIsEnumerable && !a.propertyIsEnumerable("splice")) return "array";
+            if ("[object Function]" == c || "undefined" != typeof a.call && "undefined" != typeof a.propertyIsEnumerable && !a.propertyIsEnumerable("call")) return "function"
+        } else return "null";
+        else if ("function" == b && "undefined" == typeof a.call) return "object";
+        return b
+    }
+    function b(a) {
+        return "number" == typeof a
+    }
+    function f(a, b, c) {
+        return a.call.apply(a.bind, arguments)
+    }
+    function d(a, b, c) {
+        if (!a) throw Error();
+        if (2 < arguments.length) {
+            var d = Array.prototype.slice.call(arguments, 2);
+            return function () {
+                var c = Array.prototype.slice.call(arguments);
+                Array.prototype.unshift.apply(c, d);
+                return a.apply(b, c)
+            }
+        }
+        return function () {
+            return a.apply(b, arguments)
+        }
+    }
+
+    function c(a, b, E) {
+        c = Function.prototype.bind && -1 != Function.prototype.bind.toString().indexOf("native code") ? f : d;
+        return c.apply(F, arguments)
+    }
+    function e(a, b) {
+        var c = a.split("."),
+            d = ga;
+        !(c[0] in d) && d.execScript && d.execScript("var " + c[0]);
+        for (var e; c.length && (e = c.shift());)!c.length && b !== B ? d[e] = b : d = d[e] ? d[e] : d[e] = {}
+    }
+    function g(a, b) {
+        k.prototype[a] = b
+    }
+    function h(m, c, E) {
+        "object" == a(m) && b(m.x) && b(m.y) && b(m.z) ? (this.x = m.x, this.y = m.y, this.z = m.z) : b(m) && b(c) && b(E) && (this.x = m, this.y = c, this.z = E)
+    }
+    function l(m, c, E) {
+        if ("object" == a(m) && b(m.x) && b(m.y) && b(m.z)) return m;
+        if (b(m) && b(c) && b(E)) return {
+            x: m,
+            y: c,
+            z: E
+        };
+        throw Q;
+    }
+    function j(m, c) {
+        "object" == a(m) && b(m.x) && b(m.y) ? (this.x = m.x, this.y = m.y) : (this.x = b(m) ? m : 0, this.y = b(c) ? c : 0)
+    }
+    function s(m, c) {
+        if ("object" == a(m) && b(m.x) && b(m.y)) return m;
+        if (b(m) && b(c)) return {
+            x: m,
+            y: c
+        };
+        throw Q;
+    }
+    function o(a, b) {
+        return a.x * b.x + a.y * b.y
+    }
+    function v(a, b) {
+        return H(a.copy().sub(b))
+    }
+    function x(a) {
+        a.x *= -1;
+        a.y *= -1;
+        return a
+    }
+    function y(a, b, c) {
+        a.x += (b.x - a.x) * c;
+        a.y += (b.y - a.y) * c;
+        return a
+    }
+    function H(a) {
+        return Math.sqrt(a.x * a.x + a.y * a.y)
+    }
+    function r(a, b) {
+        this.origin = a;
+        this.I = b
+    }
+    function p(a, b, c, d) {
+        this.x = a;
+        this.y = b;
+        this.width = c;
+        this.height = d
+    }
+    function n(a, b) {
+        var c = Math.min(a.x, b.x),
+            d = Math.max(a.x + a.width, b.x + b.width),
+            e = Math.min(a.y, b.y),
+            f = Math.max(a.y + a.height, b.y + b.height);
+        return new p(c, e, d - c, f - e)
+    }
+    function t(a, b) {
+        this.d = a;
+        this.l = b
+    }
+    function q(a, b) {
+        var c = a.l.copy().sub(a.d),
+            c = o(b.copy().sub(a.d), c) / (c.x * c.x + c.y * c.y);
+        return 0 > c ? a.d : 1 < c ? a.l : a.q(c)
+    }
+    function J(a, b) {
+        var c = a.l.copy().sub(a.d),
+            d = c.x;
+        c.x = -c.y;
+        c.y = d;
+        c = o(b.copy().sub(a.d),
+        c);
+        return 0 > c ? -1 : 0 < c ? 1 : 0
+    }
+    function R(a) {
+        this.a = a
+    }
+    function u(a) {
+        this.a = a || []
+    }
+    function ha(m, c) {
+        if ("object" == a(m) && b(m.x) && b(m.y)) return new j(m.x, m.y);
+        if (b(m) && b(c)) return new j(m, c);
+        throw Q;
+    }
+    function S(a) {
+        for (var b = [], c = 0, a = a.a, d = a.length; c < d; c++) b[c] = new t(a[c], a[(c + 1) % d]);
+        return b
+    }
+    function G(a) {
+        var b = 1E6,
+            c = 1E6,
+            d = -1E6,
+            e = -1E6,
+            a = a.a,
+            f;
+        for (f in a) var g = a[f],
+            b = Math.min(b, g.x),
+            d = Math.max(d, g.x),
+            c = Math.min(c, g.y),
+            e = Math.max(e, g.y);
+        return new p(b, c, d - b, e - c)
+    }
+    function $(a) {
+        this.O = a;
+        this.P = a.u()
+    }
+    function aa(a,
+    b) {
+        for (var c = b.a.concat(b.a[0]), d = S(a.O), e = 0, f = d.length; e < f; e++) {
+            for (var g = [], h = d[e], n = J(h, a.P), j = 0, l = c.length - 1; j < l; j++) {
+                var k = c[j],
+                    q = c[j + 1];
+                J(h, k) == n ? J(h, q) == n ? g.push(q.copy()) : g.push(h.w(new t(k, q)).pos) : J(h, q) == n && (g.push(h.w(new t(k, q)).pos), g.push(q.copy()))
+            }
+            0 < g.length && g[0] != g[g.length - 1] && g.push(g[0]);
+            c = g
+        }
+        return new u(c.slice(0, c.length - 1))
+    }
+    function C(a) {
+        a = parseInt(a, 16);
+        return [a >> 16 & 255, a >> 8 & 255, a & 255]
+    }
+    function K(a, b) {
+        return ["rgba(", a[0], ",", a[1], ",", a[2], ",", b, ")"].join("")
+    }
+    function L(a,
+    b, c) {
+        return [~~ (a[0] + (b[0] - a[0]) * c), ~~ (a[1] + (b[1] - a[1]) * c), ~~ (a[2] + (b[2] - a[2]) * c)]
+    }
+    function ba(a) {
+        for (var b = [], c = Math.pow(a.length, 3), d = 0; d < c; d++) {
+            for (var e = d, f = a, g = f.length, h = [], n = 0; 3 > n; n++) h[2 - n] = f[e % g], e = Math.floor(e / g);
+            b.push(h)
+        }
+        return b
+    }
+    function z(a, b, c, d, e, f) {
+        if (6 == arguments.length) this.setTransform(a, b, c, d, e, f);
+        else {
+            if (0 != arguments.length) throw Error("Insufficient matrix parameters");
+            this.m = this.j = 1;
+            this.o = this.h = this.i = this.k = 0
+        }
+    }
+    function T(a) {
+        return new z(a.m, a.o, a.h, a.j, a.i, a.k)
+    }
+    function A(a,
+    b) {
+        var c = a.m,
+            d = a.h;
+        a.m = b.m * c + b.o * d;
+        a.h = b.h * c + b.j * d;
+        a.i += b.i * c + b.k * d;
+        c = a.o;
+        d = a.j;
+        a.o = b.m * c + b.o * d;
+        a.j = b.h * c + b.j * d;
+        a.k += b.i * c + b.k * d;
+        return a
+    }
+    function M(a) {
+        var b = new z,
+            c = Math.cos(a),
+            a = Math.sin(a);
+        return b.setTransform(c, a, -a, c, 0 - 0 * c + 0 * a, 0 - 0 * a - 0 * c)
+    }
+    function U(a, b, c) {
+        return a.setTransform(1, 0, 0, 1, b, c)
+    }
+    function k() {
+        this.e = I;
+        this.B = 1;
+        this.f = this.canvas = F;
+        this.v = 1;
+        this.C = this.D = this.F = 0;
+        this.K(this.e.grayGradientCols[0], this.e.grayGradientCols[1]);
+        this.L(this.e.grayOverlapCol)
+    }
+    function V(a, b, c, d, e, f, g) {
+        return {
+            shape: a,
+            poly: b,
+            gradID: c,
+            grad: d,
+            trans: e,
+            clip: f,
+            clipCol: g
+        }
+    }
+    function W(a, b, c) {
+        a = a.e.gCols[b];
+        return [-1 * c.h + c.i, -1 * c.j + c.k, 1 * c.h + c.i, 1 * c.j + c.k, a[0], a[1]]
+    }
+    function X(a, b, c) {
+        a = U(new z, a.x, a.y);
+        A(a, M(b));
+        b = (new z).setTransform(c, 0, 0, c, 0, 0);
+        A(a, b);
+        return a
+    }
+    function w(a, b) {
+        var c = a.a,
+            d = [],
+            e;
+        for (e in c) {
+            var f = c[e].x,
+                g = c[e].y;
+            d[e] = new j(f * b.m + g * b.h + b.i, f * b.o + g * b.j + b.k)
+        }
+        return new u(d)
+    }
+    function ca(a, b, c) {
+        var a = a.e.ovCols,
+            d = b + c;
+        return a[d] != B ? a[d] : a[c + b]
+    }
+    function Y(a, b, c, d) {
+        b = b.a;
+        a.f.beginPath();
+        a.f.moveTo(b[0].x + c, b[0].y + d);
+        for (var e = 1, f = b.length; e < f; e++) a.f.lineTo(b[e].x + c, b[e].y + d);
+        a.f.closePath();
+        a.f.fill()
+    }
+    function da(a, b, c, d) {
+        c = U(new z, c.x, c.y);
+        d = (new z).setTransform(d, 0, 0, d, 0, 0);
+        A(c, d);
+        A(c, U(new z, b.x, b.y));
+        a.base.poly = w(a.base.poly, c);
+        a.s1.poly = w(a.s1.poly, c);
+        a.s2.poly = w(a.s2.poly, c);
+        a.s1.clip = w(a.s1.clip, c);
+        a.s2.clip = w(a.s2.clip, c)
+    }
+    var B = void 0,
+        F = null,
+        ga = this;
+    Math.log(2);
+    var Q = Error("illegal argument(s)");
+    e("toxi.geom.Vec3D", h);
+    h.prototype.copy = function () {
+        return new h(this)
+    };
+    h.prototype.add = function (a, b, c) {
+        a = l(a, b, c);
+        this.x += a.x;
+        this.y += a.y;
+        this.z += a.z;
+        return this
+    };
+    h.prototype.A = function (a) {
+        this.x *= a;
+        this.y *= a;
+        this.z *= a;
+        return this
+    };
+    h.prototype.sub = function (a, b, c) {
+        a = l(a, b, c);
+        this.x -= a.x;
+        this.y -= a.y;
+        this.z -= a.z;
+        return this
+    };
+    h.prototype.toString = function () {
+        return this.x + "," + this.y + "," + this.z
+    };
+    e("toxi.geom.Vec2D", j);
+    var Z = new j;
+    j.prototype.copy = function () {
+        return new j(this)
+    };
+    j.prototype.add = function (a, b) {
+        var c = s(a, b);
+        this.x += c.x;
+        this.y += c.y;
+        return this
+    };
+    j.prototype.A = function (a) {
+        this.x *= a;
+        this.y *= a;
+        return this
+    };
+    j.prototype.sub = function (a, b) {
+        var c = s(a, b);
+        this.x -= c.x;
+        this.y -= c.y;
+        return this
+    };
+    j.prototype.toString = function () {
+        return this.x + "," + this.y
+    };
+    e("toxi.geom.Circle", r);
+    r.prototype.N = function (a) {
+        for (var b = [], c = 0, d = 6.283185307179586 / a; c < a; c++) {
+            var e = b,
+                f = c,
+                g = new j(this.I, c * d),
+                h = g.x * Math.cos(g.y);
+            g.y = g.x * Math.sin(g.y);
+            g.x = h;
+            e[f] = g
+        }
+        return new u(b)
+    };
+    e("toxi.geom.Rect", p);
+    p.prototype.copy = function () {
+        return new p(this.x, this.y, this.width, this.height)
+    };
+    p.prototype.u = function () {
+        return new j(this.x + this.width / 2, this.y + this.height / 2)
+    };
+    p.prototype.N = function () {
+        return new u([new j(this.x, this.y), new j(this.x + this.width, this.y), new j(this.x + this.width, this.y + this.height), new j(this.x, this.y + this.height)])
+    };
+    e("toxi.geom.Line2D", t);
+    t.prototype.q = function (a) {
+        return y(this.d.copy(), this.l, a)
+    };
+    t.prototype.w = function (a) {
+        var b = this.d.x,
+            c = this.d.y,
+            d = a.d.x,
+            e = a.d.y,
+            f = this.l.x,
+            g = this.l.y,
+            h = a.l.x,
+            n = a.l.y,
+            j = (n - e) * (f - b) - (h - d) * (g - c),
+            h = (h - d) * (c - e) - (n - e) * (b - d),
+            b = (f - b) * (c - e) - (g - c) * (b - d);
+        return 1.0E-4 < Math.abs(j) ? (a = h / j, j = b / j, b = this.q(a), {
+            type: 0 <= a && 1 >= a && 0 <= j && 1 >= j ? "intersect" : "nointersect",
+            pos: b,
+            ua: a,
+            ub: j
+        }) : 0 == (h == b) ? {
+            type: 1.0E-4 > Math.abs(v(q(this, a.d), a.d)) ? "coincident" : "coincident-no-intersect"
+        } : {
+            type: "parallel"
+        }
+    };
+    e("toxi.geom.LineStrip2D", R);
+    R.prototype.q = function (a) {
+        var b = this.a;
+        if (1 < b.length) {
+            if (0 >= a) return b[0];
+            if (1 <= a) return b[b.length - 1];
+            var c;
+            c = 0;
+            for (var d = 1, e = this.a.length; d < e; d++) c += v(this.a[d - 1], this.a[d]);
+            for (var e = d = 0, f = 1, g = b.length; f < g; f++) {
+                var h = b[f - 1],
+                    n = b[f],
+                    e = e + v(n, h) / c;
+                if (d <= a && e >= a) return y(h.copy(), n, 0 + 1 * ((a - d) / (e - d)));
+                d = e
+            }
+        }
+        return F
+    };
+    e("toxi.geom.Polygon2D", u);
+    u.prototype.add = function (a, b) {
+        this.a.push(ha(a, b));
+        return this
+    };
+    u.prototype.w = function (a) {
+        for (var b = S(this), a = S(a), c = 0, d = b.length; c < d; c++) for (var e = 0, f = a.length, g = b[c]; e < f; e++) if ("intersect" == g.w(a[e]).type) return !0;
+        return !1
+    };
+    u.prototype.u = function () {
+        for (var a = new j, b = this.a.length, c = 0; c < b; c++) {
+            var d = this.a[c],
+                e = this.a[(c + 1) % b],
+                f = d.x * e.y - e.x * d.y;
+            a.x += (d.x + e.x) * f;
+            a.y += (d.y + e.y) * f
+        }
+        b = 0;
+        c = this.a.length;
+        for (d = 0; d < c; d++) e = this.a[d], f = this.a[(d + 1) % c],
+        b += e.x * f.y, b -= e.y * f.x;
+        return a.A(1 / (3 * b))
+    };
+    u.prototype.q = function (a) {
+        return (new R(this.a.concat(this.a[0]))).q(a)
+    };
+    u.prototype.A = function (a) {
+        var b = this.a,
+            c;
+        for (c in b) b[c].A(a);
+        return this
+    };
+    e("toxi.geom.Polygon2DClipper", $);
+    var N = function (a) {
+        for (var b in a) a[b].mv != B && (a[b].fn = c(function (a) {
+            return this.mv + (this.xv - this.mv) * a / (Math.pow(2, this.n) - 1)
+        }, a[b]));
+        return a
+    }({
+        s: {
+            n: 5,
+            mn: 27
+        },
+        g: {
+            n: 7,
+            mn: 120
+        },
+        br: {
+            n: 6,
+            mv: 0,
+            xv: 6.283185307179586
+        },
+        s1s: {
+            n: 3,
+            mv: 0.5,
+            xv: 0.75
+        },
+        s1r: {
+            n: 5,
+            mv: 0,
+            xv: 6.283185307179586
+        },
+        s1p: {
+            n: 5,
+            mv: 0,
+            xv: 1
+        },
+        s1o: {
+            n: 2,
+            mv: -0.2,
+            xv: 0.05
+        },
+        s2s: {
+            n: 3,
+            mv: 0.5,
+            xv: 0.75
+        },
+        s2r: {
+            n: 5,
+            mv: 0,
+            xv: 6.283185307179586
+        },
+        s2p: {
+            n: 5,
+            mv: 0,
+            xv: 1
+        },
+        s2o: {
+            n: 2,
+            mv: -0.2,
+            xv: 0.05
+        }
+    }),
+        O = (new r(new j, 1)).N(40),
+        D = (new u([new j(-1, -1), new j(1, -1), new j(1, 1), new j(-1, 1)])).A(0.85),
+        P = new u([new j(-1, 0), new j(1, 0), new j(0, -2 * Math.sin(1.0471975511965976))]),
+        ia = (new j).sub(P.u()),
+        ea;
+    for (ea in P.a) P.a[ea].add(ia);
+    var I = {
+        dataBits: 48,
+        shapes: ["c", "t", "s"],
+        gIDs: ["b", "g", "p", "r", "y"],
+        gCols: {
+            b: ["6ecade", "81adeb"],
+            p: ["be6c91", "8a7fb7"],
+            r: ["e89680", "dc77a4"],
+            y: ["f2ca45", "f0ab68"],
+            g: ["9ec870", "6fb3a7"]
+        },
+        ovCols: {
+            bb: "4390c4",
+            bp: "69599b",
+            gb: "3b9483",
+            gg: "498e4a",
+            gp: "596e99",
+            pp: "734584",
+            rb: "8671af",
+            rg: "598c6b",
+            rp: "914d8c",
+            rr: "c16188",
+            ry: "c66442",
+            yb: "5fa386",
+            yg: "85995f",
+            yp: "934c81",
+            yy: "ea8c11"
+        },
+        sBits: N,
+        sParamOrder: "s,g,br,s1s,s1r,s1p,s1o,s2s,s2r,s2p,s2o".split(","),
+        sProtos: {
+            c: O,
+            s: D,
+            t: P
+        },
+        sep: {
+            t: 0.3,
+            c: 0.24,
+            s: 0.24
+        },
+        grayGradientCols: ["becacc", "d4dbdd"],
+        grayOverlapCol: "aaacb6"
+    };
+    I.sPerms = ba(I.shapes);
+    var N = ba(I.gIDs),
+        O = [],
+        fa;
+    for (fa in N) D = N[fa], D[0] == D[1] && D[1] == D[2] || O.push(D);
+    I.gPerms = O;
+    z.prototype.setTransform = function (a, c, d, e, f, g) {
+        if (!b(a) || !b(c) || !b(d) || !b(e) || !b(f) || !b(g)) throw Error("Invalid transform parameters");
+        this.m = a;
+        this.o = c;
+        this.h = d;
+        this.j = e;
+        this.i = f;
+        this.k = g;
+        return this
+    };
+    z.prototype.toString = function () {
+        return "matrix(" + [this.m, this.o, this.h, this.j, this.i, this.k].join() + ")"
+    };
+    e("weblab.avatars.Generator", k);
+    k.prototype.M = function (a) {
+        this.B = a
+    };
+    g("setScale", k.prototype.M);
+    k.prototype.R = function (a) {
+        for (var b = parseInt(a, 36), c = b, d = this.e.dataBits,
+        e = [], f = 0; f < d; f++) e[f] = c % 2, c = Math.floor(c / 2);
+        var c = 0,
+            d = this.e.sBits,
+            f = this.e.sParamOrder,
+            g = {}, h;
+        for (h in f) {
+            h = f[h];
+            var n = d[h],
+                j = parseInt(e.slice(c, c + n.n).join(""), 2);
+            n.mn != B && (j %= n.mn);
+            c += n.n;
+            g[h] = n.fn != B ? n.fn(j) : j
+        }
+        return {
+            base36: a,
+            bigint: b,
+            bits: e,
+            spec: g
+        }
+    };
+    g("decodeID", k.prototype.R);
+    k.prototype.$ = function (a) {
+        for (var b = this.e.sPerms[a.s], c = b[0], d = b[1], b = b[2], e = this.e.sProtos, f = e[c], g = e[d], e = e[b], h = X(Z, a.br, this.B), f = w(f, h), n = a.s1s * this.B, j = a.s2s * this.B, l = a.s1p, k = f.q(l), n = A(M(this.D), X(y(k.copy(), Z, (a.s1o + this.C) * n / (H(k) + 1.0E-5)), a.s1r, n)), g = w(g, n), q = a.s2p, k = F, t = a.s2o, o = this.e.sep[c];;) {
+            var k = f.q(q),
+                k = A(M(this.D), X(y(k.copy(), Z, (t + this.C) * j / (H(k) + 1.0E-5)), a.s2r, j)),
+                p = w(e, k);
+            if (Math.abs(l - q) >= o && Math.abs(l - q) <= 1 - o && !g.w(p)) {
+                e = p;
+                break
+            } else q += 0.2, 1 <= q && (q--, j *= 0.9, t -= 0.05)
+        }
+        var o = M(this.F),
+            f = w(f, o),
+            g = w(g, o),
+            e = w(e, o),
+            l = this.e.gPerms[a.g],
+            a = l[0],
+            j = l[1],
+            l = l[2],
+            q = W(this, a, A(T(o), h)),
+            t = W(this, j, A(T(o), n)),
+            o = W(this, l, A(T(o), k)),
+            p = ca(this, j, a),
+            s = ca(this, l, a),
+            r = new $(f);
+        return {
+            base: V(c, f, a, q, h, F, F),
+            s1: V(d,
+            g, j, t, n, aa(r, g), p),
+            s2: V(b, e, l, o, k, aa(r, e), s)
+        }
+    };
+    g("shapesForSpec", k.prototype.$);
+    k.prototype.Q = function (a, b, c) {
+        var d = document.createElement("canvas");
+        d.setAttribute("width", a);
+        d.setAttribute("height", b);
+        (c ? c : document.body).appendChild(d);
+        this.M(0.25 * a);
+        this.J(d);
+        return d
+    };
+    g("createCanvas", k.prototype.Q);
+    k.prototype.J = function (a) {
+        this.canvas = a;
+        this.f = this.canvas.getContext("2d")
+    };
+    g("setCanvas", k.prototype.J);
+    k.prototype.V = function () {
+        return this.canvas
+    };
+    g("getCanvas", k.prototype.V);
+    k.prototype.S = function (a,
+    b, c, d, e) {
+        d === B && (d = 1);
+        e === B && (e = 1);
+        for (var f in a) {
+            var g = a[f].grad,
+                h = this.f.createLinearGradient(g[0] + b, g[1] + c, g[2] + b, g[3] + c),
+                n = "base" != f ? e : d,
+                j = L(this.G[1], C(g[5]), this.v);
+            h.addColorStop(0, K(L(this.G[0], C(g[4]), this.v), n));
+            h.addColorStop(1, K(j, n));
+            this.f.fillStyle = h;
+            Y(this, a[f].poly, b, c)
+        }
+        0 < a.s1.clip.a.length && (this.f.fillStyle = K(L(this.H, C(a.s1.clipCol), this.v), e), Y(this, a.s1.clip, b, c));
+        0 < a.s2.clip.a.length && (this.f.fillStyle = K(L(this.H, C(a.s2.clipCol), this.v), e), Y(this, a.s2.clip, b, c))
+    };
+    g("drawAvatar",
+    k.prototype.S);
+    k.prototype.U = function (a, b) {
+        var c = a.s1.poly,
+            d = a.s2.poly,
+            e = n(n(G(a.base.poly), G(c)), G(d)),
+            c = x(e.u()),
+            d = b.u(),
+            e = Math.max(b.width, b.height) / Math.max(e.width, e.height);
+        da(a, c, d, e)
+    };
+    g("fitIntoRect", k.prototype.U);
+    k.prototype.T = function (a, b) {
+        var c = a.s1.poly,
+            d = a.s2.poly,
+            e = n(n(G(a.base.poly), G(c)), G(d)),
+            c = x(e.u()),
+            d = b.origin,
+            e = 2 * b.I / Math.max(e.width, e.height);
+        da(a, c, d, e)
+    };
+    g("fitIntoCircle", k.prototype.T);
+    k.prototype.X = function (a) {
+        this.F = a
+    };
+    g("setGlobalRotation", k.prototype.X);
+    k.prototype.Z = function (a) {
+        this.D = a
+    };
+    g("setSatelliteRotation", k.prototype.Z);
+    k.prototype.Y = function (a) {
+        this.C = Math.min(-a, 0)
+    };
+    g("setSatelliteOffset", k.prototype.Y);
+    k.prototype.W = function (a) {
+        this.v = Math.min(Math.max(a, 0), 1)
+    };
+    g("setColorBlend", k.prototype.W);
+    k.prototype.K = function (a, b) {
+        this.G = [C(a), C(b)]
+    };
+    g("setGrayGradient", k.prototype.K);
+    k.prototype.L = function (a) {
+        this.H = C(a)
+    };
+    g("setGrayOverlapColor", k.prototype.L);
+    return {
+        Generator: weblab.avatars.Generator
+    }
+}();
+(function () {
+    var a = WEBLAB.namespace("WEBLAB.common"),
+        b = WEBLAB.namespace("WEBLAB.common.singletons"),
+        f = WEBLAB.labtags.generator.Generator;
+    if (void 0 === a.LabTagGeneratorManager) {
+        a.LabTagGeneratorManager = function () {
+            this.generator = new f
+        };
+        var d = a.LabTagGeneratorManager.prototype;
+        d.createLabTagCanvas = function (a, b, d) {
+          return document.createElement("div");
+          // var psvr_ab=Math.min(b,d);
+          // var f = document.createElement("img");
+          // f.width = psvr_ab;
+          // f.height = psvr_ab;
+          // f.src = "/defaults/avatar/no.gif";
+          
+            // var f = document.createElement("canvas");
+            // f.width = b;
+            // f.height = d;
+            // this.generator.setScale(0.22 * f.width);
+            // this.generator.setCanvas(f);
+            // this.generator.drawAvatar(this.generator.shapesForSpec(this.generator.decodeID(a).spec),
+            // f.width / 2, f.height / 2, 1, 1);
+            return f;
+        };
+        d.drawLabTag = function (a, b) {
+            this.generator.setScale(0.22 * b.width);
+            this.generator.setCanvas(b);
+            var d = this.generator.shapesForSpec(this.generator.decodeID(a).spec);
+            this.generator.drawAvatar(b.width / 2, b.height / 2, d, 1, 1)
+        };
+        d.destroy = function () {};
+        a.LabTagGeneratorManager.createSingleton = function () {
+            if (void 0 === b.LabTagGeneratorManager) b.LabTagGeneratorManager = new a.LabTagGeneratorManager;
+            return b.LabTagGeneratorManager
+        };
+        a.LabTagGeneratorManager.getSingleton = function () {
+            return b.LabTagGeneratorManager
+        }
+    }
+})();
+(function () {
+    var a = WEBLAB.namespace("WEBLAB.common.image"),
+        b = WEBLAB.namespace("WEBLAB.utils.events").EventDispatcher,
+        f = WEBLAB.namespace("WEBLAB.utils.events").ListenerFunctions;
+    if (void 0 === a.ImageManager) a.ImageManager = function () {
+        this.imagesLoaded = 0;
+        this.images = {};
+        this.imagesToLoad = []
+    }, a.ImageManager.LOADED = "imagesLoaded", a.ImageManager.PROGRESS = "progress", b = a.ImageManager.prototype = new b, b.addImages = function (a) {
+        this.imagesToLoad = this.imagesToLoad.concat(a)
+    }, b.startLoading = function () {
+        this.imagesLoaded = 0;
+        if (0 === this.imagesToLoad.length) this.dispatchEvent({
+            type: a.ImageManager.LOADED
+        });
+        else for (var b = 0; b < this.imagesToLoad.length; b++) this._defineImage(this.imagesToLoad[b].id, this._loadImage(this.imagesToLoad[b]))
+    }, b._defineImage = function (a, b) {
+        this.images[a] = b
+    }, b.getImage = function (a, b) {
+        if (this.images[a]) return b ? this.images[a] : this.images[a].cloneNode(!1);
+        console.log("ImageManager ERROR: The following image id doesn't exist: " + a)
+    }, b._loadImage = function (a) {
+        var b = new Image;
+        b.addEventListener("load", this._onImageLoaded.bind(this), !1);
+        b.addEventListener("error", f.createListenerFunctionWithArguments(this, this._onImageError, [b]), !1);
+        if (a.crossOrigin) b.crossOrigin = a.crossOrigin;
+        b.src = a.path;
+        return b
+    }, b._onImageLoaded = function () {
+        this._updateImagesLoaded()
+    }, b._updateImagesLoaded = function () {
+        this.imagesLoaded++;
+        this.dispatchCustomEvent(a.ImageManager.PROGRESS, null);
+        if (this.imagesLoaded === this.imagesToLoad.length) this.dispatchEvent({
+            type: a.ImageManager.LOADED
+        }), this.imagesToLoad = []
+    }, b._onImageError = function (a) {
+        console.log("ImageManager ERROR: The following image doesn't exist: " + a.src);
+        this._updateImagesLoaded()
+    }, b.destroy = function () {}
+})();
+(function () {
+    var a = WEBLAB.namespace("WEBLAB.common"),
+        b = WEBLAB.namespace("WEBLAB.utils.events").EventDispatcher;
+    WEBLAB.namespace("WEBLAB.utils.events");
+    var f = WEBLAB.namespace("WEBLAB.utils.loading").XmlLoader;
+    if (void 0 === a.FileManager) a.FileManager = function () {
+        this.filesParsed = 0;
+        this.filesToParse = []
+    }, a.FileManager.PARSED = "filesParsed", b = a.FileManager.prototype = new b, b.parse = function (b) {
+        this.filesToParse = b;
+        this.filesParsed = 0;
+        this.parsedObject = {};
+        this.parsedObject.templates = [];
+        this.parsedObject.sounds = [];
+        this.parsedObject.images = [];
+        this.parsedObject.library = [];
+        this.parsedObject.utils = [];
+        this.parsedObject.section = [];
+        this.parsedObject.json = [];
+        this._loader = new f;
+        0 === this.filesToParse.length ? this.dispatchCustomEvent(a.FileManager.PARSED, this.parsedObject) : (this._loader.addEventListener(f.LOADED, this._onFilesXmlLoaded.bind(this), !1), this._loader.addEventListener(f.ERROR, this._onFilesXmlError.bind(this), !1), this._loadNext())
+    }, b._loadNext = function () {
+        this.filesParsed < this.filesToParse.length ? (this._loader.setUrl(this.filesToParse[this.filesParsed]),
+        this._loader.load()) : this.dispatchCustomEvent(a.FileManager.PARSED, this.parsedObject)
+    }, b._onFilesXmlError = function () {
+        console.log("FileManager ERROR: error parsing XML")
+    }, b._onFilesXmlLoaded = function (a) {
+        a = a.detail;
+        this.parsedObject.templates = this.parsedObject.templates.concat(this.parseTemplate(a.getElementsByTagName("template")));
+        this.parsedObject.json = this.parsedObject.json.concat(this.parseJson(a.getElementsByTagName("json")));
+        this.parsedObject.sounds = this.parsedObject.sounds.concat(this.parseMedia(a.getElementsByTagName("sound")));
+        this.parsedObject.images = this.parsedObject.images.concat(this.parseMedia(a.getElementsByTagName("image")));
+        this.parsedObject.library = this.parsedObject.library.concat(this.parseJavascript(a.getElementsByTagName("library")));
+        this.parsedObject.utils = this.parsedObject.utils.concat(this.parseJavascript(a.getElementsByTagName("utils")));
+        this.parsedObject.section = this.parsedObject.section.concat(this.parseJavascript(a.getElementsByTagName("section")));
+        this.filesParsed++;
+        this._loadNext()
+    }, b.parseJson = function (a) {
+        var b = [],
+            e;
+        for (e = 0; e < a.length; e++) {
+            var f = {};
+            f.id = a[e].getAttribute("id");
+            f.path = a[e].getAttribute("path");
+            b.push(f)
+        }
+        return b
+    }, b.parseJavascript = function (a) {
+        var b = [];
+        if (a[0]) for (var e = a[0].getElementsByTagName("script"), a = 0; a < e.length; a++) {
+            var f = e[a].getAttribute("src");
+            b.push(f)
+        }
+        return b
+    }, b.parseMedia = function (a) {
+        var b = [],
+            e;
+        for (e = 0; e < a.length; e++) {
+            var f = {};
+            f.id = a[e].getAttribute("id");
+            f.path = a[e].getAttribute("path");
+            if (a[e].getAttribute("volume")) f.volume = a[e].getAttribute("volume");
+            f.crossOrigin = a[e].getAttribute("crossOrigin");
+            b.push(f)
+        }
+        return b
+    }, b.parseTemplate = function (a) {
+        var b = [],
+            e;
+        for (e = 0; e < a.length; e++) {
+            var f = {};
+            f.path = a[e].getAttribute("path");
+            f.translated = a[e].getAttribute("translated");
+            b.push(f)
+        }
+        return b
+    }, b.destroy = function () {}
+})();
+(function () {
+    var a = WEBLAB.namespace("WEBLAB.common");
+    WEBLAB.namespace("WEBLAB.common.singletons");
+    WEBLAB.namespace("WEBLAB.weblab.common.ui.dialog");
+    WEBLAB.namespace("WEBLAB.common.ui");
+    WEBLAB.namespace("WEBLAB.utils.events");
+    if (void 0 === a.CopyManager) {
+        var b = function () {
+            this._init()
+        };
+        a.CopyManager = b;
+        a = b.prototype;
+        a._init = function () {
+            this._dataXml = null;
+            this._returnTextIfNotFound = !0;
+            return this
+        };
+        a.setup = function (a) {
+            console.log("weblab.orchestra.CopyManager::setup");
+            this._dataXml = a;
+            return this
+        };
+        a.getCopy = function (a) {
+            for (var b = this._dataXml, c = a.split("/"), e = c.length, g = 0; g < e; g++) {
+                for (var h = c[g], l = !1, j = b.childNodes, s = j.length, o = 0; o < s; o++) {
+                    var v = j[o];
+                    if (1 === v.nodeType && v.hasAttribute("name") && v.getAttribute("name") === h) {
+                        b = v;
+                        l = !0;
+                        break
+                    }
+                }
+                if (!l) return console.error("Can't find part " + h + " in path " + a), this._returnTextIfNotFound ? "Text not found (" + a + ")" : null
+            }
+            return b.innerHTML
+        };
+        a.getElementWithCopy = function (a, b) {
+            var c = document.createElement(a);
+            c.innerHTML = this.getCopy(b);
+            return c
+        };
+        a.destroy = function () {};
+        b.create = function () {
+            return new b
+        }
+    }
+})();
+(function () {
+    var a = WEBLAB.namespace("WEBLAB.common.sound"),
+        b = WEBLAB.namespace("WEBLAB.utils.events").EventDispatcher,
+        f = WEBLAB.namespace("WEBLAB.utils.events").ListenerFunctions,
+        d = WEBLAB.namespace("WEBLAB.utils.data").CookieFunctions;
+    if (void 0 === a.SoundManager) a.SoundManager = function () {
+        this.canPlayAudio = !1;
+        this.audioType = "";
+        this._detectCompatibility();
+        this.soundsLoaded = this.soundsToLoad = 0;
+        this.sounds = {};
+        this.soundsToLoad = [];
+        this.volume = 1;
+        this.soundPaths = [];
+        this.soundsIds = [];
+        console.log("CookieFunctions.getCookie(mute)",
+        d.getCookie("mute"));
+        (this.isMuted = d.getCookie("mute") && "true" === d.getCookie("mute") ? !0 : !1) && this.setAsMute(this.isMuted);
+        this._isLabReportOpen = this._isTechOpen = !1
+    }, a.SoundManager.LOADED = "soundsLoaded", a.SoundManager.PROGRESS = "progress", a.SoundManager.MUTE_CHANGED = "muteChanged", a.SoundManager.STATE_CHANGED = "stateChanged", b = a.SoundManager.prototype = new b, b.addSounds = function (a) {
+        this.soundsToLoad = this.soundsToLoad.concat(a)
+    }, b.startLoading = function () {
+        this.soundsLoaded = 0;
+        if (0 === this.soundsToLoad.length) this.dispatchEvent({
+            type: a.SoundManager.LOADED
+        });
+        else for (var b = 0; b < this.soundsToLoad.length; b++) this._loadAudio(this.soundsToLoad[b])
+    }, b._defineSound = function (a, b, d) {
+        if (!this.sounds[a]) {
+            this.sounds[a] = b;
+            this.sounds[a].baseVolume = parseFloat(d || 1);
+            this.sounds[a].relativeVolume = 1;
+            this.soundsIds.push(a);
+            this._soundEndedListener = f.createListenerFunctionWithArguments(this, this._onSoundEnded, [a]);
+            this.sounds[a].addEventListener("ended", this._soundEndedListener, !1);
+            var h = this;
+            this.sounds[a].tween = (new TWEEN.Tween(this.sounds[a])).easing(TWEEN.Easing.Linear.EaseNone).onUpdate(function () {
+                h.sounds[a].volume = Math.round(100 * h.sounds[a].baseVolume * h.sounds[a].relativeVolume * h.volume) / 100
+            })
+        }
+    }, b.playSound = function (a, b, d, f) {
+        if (this.canPlayAudio) if (this.sounds[a]) {
+            if (this.sounds[a].hasPlayed) this.sounds[a].currentTime = 0;
+            f = this.getCurrentVolume(f);
+            this.sounds[a].volume = (d || this.sounds[a].relativeVolume || 1) * this.sounds[a].baseVolume * f;
+            this.sounds[a].loop = b || !1;
+            this.sounds[a].play();
+            this.sounds[a].hasPlayed = !0
+        } else console.log("ERROR: The following sound id doesn't exist: " + a)
+    }, b.setTechOpen = function (b) {
+        this._isTechOpen = b;
+        this.dispatchCustomEvent(a.SoundManager.STATE_CHANGED, null)
+    }, b.setLabReportOpen = function (b) {
+        this._isLabReportOpen = b;
+        this.dispatchCustomEvent(a.SoundManager.STATE_CHANGED, null)
+    }, b.getCurrentVolume = function (a) {
+        switch (a) {
+            case "mainNav":
+                a = this.volume;
+                break;
+            case "dialog":
+                a = this.volume;
+                break;
+            case "labReport":
+                a = this._isLabReportOpen ? this.volume : 0;
+                break;
+            case "tech":
+                a = this._isTechOpen && !this._isLabReportOpen ? this.volume : 0;
+                break;
+            default:
+                a = !this._isTechOpen && !this._isLabReportOpen ? this.volume : 0
+        }
+        return a
+    },
+    b._onSoundEnded = function (a) {
+        this.sounds[a].removeEventListener("ended", this._soundEndedListener, !1);
+        console.log("Sound ENDED: ", JSON.stringify(a));
+    }, b.getSound = function (a) {
+        return this.sounds[a]
+    }, b.fadeInSound = function (a, b) {
+        if (this.canPlayAudio) this.sounds[a] ? (-1 != TWEEN.getAll().indexOf(this.sounds[a].tween) && this.sounds[a].tween.stop(), this.sounds[a].relativeVolume = 0, this.sounds[a].tween.to({
+            relativeVolume: 1
+        }, b || 1E3).start()) : console.log("ERROR: The following sound id doesn't exist: " + a)
+    }, b.fadeOutSound = function (a,
+    b) {
+        this.canPlayAudio && (this.sounds[a] ? (-1 != TWEEN.getAll().indexOf(this.sounds[a].tween) && this.sounds[a].tween.stop(), this.sounds[a].tween.to({
+            relativeVolume: 0
+        }, b || 1E3).start()) : console.log("ERROR: The following sound id doesn't exist: " + a))
+    }, b.mute = function (b) {
+        this.isMuted = b.detail;
+        this.setAsMute(this.isMuted);
+        this.dispatchCustomEvent(a.SoundManager.STATE_CHANGED, null);
+        d.setCookie("mute", this.isMuted)
+    }, b.setAsMute = function (b) {
+        console.log("setAsMute", b);
+        b ? this.setVolume(0) : this.setVolume(1);
+        this.dispatchCustomEvent(a.SoundManager.MUTE_CHANGED,
+        b)
+    }, b.forceMuteEvent = function () {
+        console.log("forceMuteEvent", this.isMuted);
+        this.dispatchCustomEvent(a.SoundManager.MUTE_CHANGED, this.isMuted);
+        this.dispatchCustomEvent(a.SoundManager.STATE_CHANGED, null)
+    }, b.getIsMuted = function () {
+        return this.isMuted
+    }, b.setVolume = function (a) {
+        this.volume = a;
+        this.updateSoundsVolume()
+    }, b.updateSoundsVolume = function () {
+        for (var a = 0; a < this.soundsIds.length; a++) {
+            var b = this.sounds[this.soundsIds[a]];
+            b.volume = b.baseVolume * b.relativeVolume * this.volume
+        }
+    }, b.stopSound = function (a) {
+        if (this.canPlayAudio) this.sounds[a] ? (this.sounds[a].pause(), this.sounds[a].currentTime = 0) : console.log("ERROR: The following sound id doesn't exist: " + a)
+    }, b._loadAudio = function (a, b) {
+        if (-1 == this.soundPaths.indexOf(a.path) || b) {
+            var d = new Audio;
+            this._canPlayListener = f.createListenerFunctionWithArguments(this, this._onSoundLoaded, [a, d, "LOADED"]);
+            this._errorListener = f.createListenerFunctionWithArguments(this, this._onSoundLoaded, [a, d, "ERROR"]);
+            this._stalledListener = f.createListenerFunctionWithArguments(this, this._onSoundLoaded, [a, d, "STALLED"]);
+            d.addEventListener("canplaythrough", this._canPlayListener, !1);
+            d.addEventListener("error", this._errorListener, !1);
+            d.addEventListener("stalled", this._stalledListener, !1);
+            d.addEventListener("suspend", f.createListenerFunctionWithArguments(this, this._onSoundSuspended, [d]), !1);
+            d.type = this.audioType;
+            d.src = a.path + this.audioExtension;
+            this.soundPaths.push(a.path);
+            this._defineSound(a.id, d, a.volume)
+        } else console.warn("SoundManager, Sound with id " + a.id + ": the path " + a.path + " is already used by other Sound id"),
+        this._updateSoundsLoaded()
+    }, b._onSoundSuspended = function () {
+        console.log("SoundManager, Sound suspended")
+    }, b._onSoundError = function (a, b) {
+        console.log("SoundManager, Sound error: ", a, b)
+    }, b._onSoundStalled = function (a, b) {
+        console.log("SoundManager, Sound stalled: ", a, b)
+    }, b._onSoundLoaded = function (a, b, d) {
+        b.removeEventListener("canplaythrough", this._canPlayListener, !1);
+        b.removeEventListener("error", this._errorListener, !1);
+        b.removeEventListener("stalled", this._stalledListener, !1);
+        switch (d) {
+            case "ERROR":
+                console.log("Sound " + d, a.id);
+                this.sounds[a.id] = null;
+                break;
+            case "STALLED":
+                console.log("Sound " + d, a.id), this.sounds[a.id] = null
+        }
+        this._updateSoundsLoaded()
+    }, b._updateSoundsLoaded = function () {
+        this.soundsLoaded++;
+        this.dispatchCustomEvent(a.SoundManager.PROGRESS, null);
+        if (this.soundsLoaded === this.soundsToLoad.length) this.dispatchEvent({
+            type: a.SoundManager.LOADED
+        }), this.soundsToLoad = []
+    }, b._detectCompatibility = function () {
+        var a = new Audio;
+        if (a.canPlayType) if (a.canPlayType && "" !== a.canPlayType('audio/ogg; codecs="vorbis"')) this.canPlayAudio = !0, this.audioExtension = ".ogg", this.audioType = "audio/ogg";
+        else if (a.canPlayType && "" !== a.canPlayType("audio/mpeg")) this.canPlayAudio = !0, this.audioExtension = ".mp3", this.audioType = "audio/mp3";
+        else if (a.canPlayType && "" !== a.canPlayType("audio/mp4")) this.canPlayAudio = !0, this.audioExtension = ".m4a", this.audioType = "audio/mp4";
+        console.log("SoundManager.canPlayAudio", this.canPlayAudio);
+        console.log("SoundManager.audioExtension", this.audioExtension)
+    }, b.destroy = function () {}
+})();
+(function () {
+    var a = WEBLAB.namespace("WEBLAB.common"),
+        b = WEBLAB.namespace("WEBLAB.common.singletons"),
+        f = a.CopyManager,
+        d = WEBLAB.namespace("WEBLAB.common").LabTagGeneratorManager,
+        c = WEBLAB.namespace("WEBLAB.common.ui").TemplateManager,
+        e = WEBLAB.namespace("WEBLAB.utils.events").ListenerFunctions,
+        g = WEBLAB.namespace("WEBLAB.utils.data").CookieFunctions,
+        h = WEBLAB.namespace("WEBLAB.common.sound").SoundManager,
+        l = WEBLAB.namespace("WEBLAB.common").FileManager,
+        j = WEBLAB.namespace("WEBLAB.common.image").ImageManager,
+        s = WEBLAB.namespace("WEBLAB.utils.browser").BrowserDetector,
+        o = WEBLAB.namespace("WEBLAB.utils.loading").SequentialJSLoader,
+        v = WEBLAB.namespace("WEBLAB.common.ui.detector").BrowserDetectorPage;
+    WEBLAB.namespace("WEBLAB.utils.events");
+    var x = WEBLAB.namespace("WEBLAB.common.json").JsonManager,
+        y = WEBLAB.namespace("WEBLAB.common").LoginManager,
+        H = WEBLAB.namespace("WEBLAB.utils.tracking").GATracker,
+        r = WEBLAB.namespace("WEBLAB.common.constants").TrackingIds;
+    if (void 0 === a.SiteManagerBasic) {
+        var p = function () {
+            this._init()
+        };
+        a.SiteManagerBasic = p;
+        a = p.prototype;
+        a._init = function () {
+            this._language = this._holderElement = this._soundManager = this._copyManager = this._templateManager = this._labTagGeneratorManager = null;
+            this._startFunctions = [];
+            this._loaderHiddenFunctions = [];
+            this._browserDetector = new s;
+            this._browserDetectionShown = g.getCookie("bds");
+            this.isChrome = this._browserDetector.isChrome();
+            this.webGLDetection = this._browserDetector.detectWebGL();
+            this._isShowMessage = !0;
+            this._sequentialLoader = new o;
+            this._templates = [];
+            this._sounds = [];
+            this._images = [];
+            this.ignoreBrowserCheck = this.homeMode = this.hasLoader = !1;
+            this.hasLogin = !0;
+            this.chunksLoaded = 0;
+            this.chunksToLoad = 5;
+            return this
+        };
+        a.setup = function (a, b, g, o, p) {
+            this.startTween();
+            this.filesXmlArray = b;
+            if (this.hasLoader = g) this.sectionId = o;
+            this.isDeeplinkHome = p;
+            this._holderElement = a;
+            this._soundManager = new h;
+            this._imageManager = new j;
+            this._fileManager = new l;
+            this._jsonManager = new x;
+            this._loginManager = new y;
+            this._gaTracker = new H;
+            this._gaTracker.setup("UA-29729201-1");
+            this.setLanguage(document.documentElement.lang);
+            this._templateManager = c.create();
+            "" === this.getLanguage() || "{{ language }}" === this.getLanguage() ? this._templateManager.setBaseUrl("../files/", "../files/") : this._templateManager.setBaseUrl("../" + this.getLanguage() + "/files/", "../files/");
+            this._templatesLoadedCallback = e.createListenerFunction(this, this._templatesLoaded);
+            this._checkLoadingTimeCallback = e.createListenerFunction(this, this._checkLoadingTime);
+            this._initialTemplatesLoadedCallback = e.createListenerFunction(this, this._initialTemplatesLoaded);
+            this._progressCallback = e.createListenerFunction(this, this._onLoadProgress);
+            this._labTagGeneratorManager = d.createSingleton();
+            this._copyManager = f.create();
+            a = this._browserDetector.getBrowserName();
+            console.log("browserClass : ", a);
+            if (void 0 !== a) document.body.className = a;
+            return this
+        };
+        a.getUniversFont = function () {
+            var a = '"UniversLTW01-57Condense 723821"';
+            switch (this.getLanguage()) {
+                case "ru":
+                    a = '"UniversLTW10-57Condense 726513"';
+                    break;
+                case "ja":
+                    a = "Osaka"
+            }
+            return a
+        };
+        a.addJS = function (a) {
+            this._sectionJS = a
+        };
+        a.addTemplates = function (a) {
+            this._templates = a
+        };
+        a.addSounds = function (a) {
+            this._sounds = a
+        };
+        a.addImages = function (a) {
+            this._images = a
+        };
+        a.getTracker = function () {
+            return this._gaTracker
+        };
+        a.getSoundManager = function () {
+            return this._soundManager
+        };
+        a.getJsonManager = function () {
+            return this._jsonManager
+        };
+        a.getImageManager = function () {
+            return this._imageManager
+        };
+        a.getLoginManager = function () {
+            return this._loginManager
+        };
+        a.setLanguage = function (a) {
+            console.log("SiteManagerBasic.setLanguage ", document.documentElement.lang);
+            this._language = a
+        };
+        a.getLanguage = function () {
+            return this._language
+        };
+        a.getLabTagGeneratorManager = function () {
+            return this._labTagGeneratorManager
+        };
+        a.getTemplateManager = function () {
+            return this._templateManager
+        };
+        a.getCopyManager = function () {
+            return this._copyManager
+        };
+        a.getLabTag = function (a, b) {
+            return this._labTagGeneratorManager.createLabTagCanvas(b, a, a)
+        };
+        a.addStartFunction = function (a) {
+            this._startFunctions.push(a)
+        };
+        a.addLoaderHiddenFunction = function (a) {
+            this._loaderHiddenFunctions.push(a)
+        };
+        a.start = function () {
+            console.log("start");
+            this.getTracker().trackEvent(r.GENERAL, "IsChrome",
+                "Using Chrome is " + this.isChrome);
+            this.getTracker().trackEvent(r.GENERAL, "WebGLDetection", "WebGL is " + this.webGLDetection);
+            this.ignoreBrowserCheck || this.webGLDetection === s.WEBGL_SUPPORTED && (this.isChrome || this._browserDetectionShown) && !this.homeMode ? this._isShowMessage = !1 : (this.getTemplateManager().addTemplateUrl("html/common/detector/browserdetector", "html/common/detector/browserdetector.html"), this.getTemplateManager().loadTemplate("html/common/detector/browserdetector"));
+            this.getTemplateManager().addTemplateUrl("common/copy/copyTemplate",
+                "html/common/copy/copyTemplate.html");
+            this.getTemplateManager().loadTemplate("common/copy/copyTemplate");
+            this.getTemplateManager().addEventListener(c.LOADED, this._initialTemplatesLoadedCallback, !1);
+            this.getTemplateManager().startLoading();
+            this._checkViewportDimensionsEven()
+        };
+        a.startTween = function () {
+            this._isUpdatingTween = !0;
+            this.updateTween()
+        };
+        a.stopTween = function () {
+            this._isUpdatingTween = !1
+        };
+        a.updateTween = function () {
+            TWEEN.update();
+            this._isUpdatingTween && requestAnimationFrame(this.updateTween.bind(this))
+        };
+        a._initialTemplatesLoaded = function () {
+            this._copyManager.setup(this._templateManager.getTemplate("copy"));
+            this._templateManager.removeEventListener(c.LOADED, this._initialTemplatesLoadedCallback, !1);
+            if (this._isShowMessage) {
+                var a = this.getTemplateManager().getTemplate("browserDetector");
+                this.browserDetectionPage = new v(this.homeMode);
+                this.browserDetectionPage.addEventListener(v.ENTER_ANYWAY, this._enterWithoutChrome.bind(this), !1);
+                this.browserDetectionPage.show(a, this.isChrome, this.webGLDetection, this.isDeeplinkHome)
+            } else this.startLoader();
+            this.hasLogin && this._checkLogin()
+        };
+        a._checkLogin = function () {
+            console.log("SiteManagerBasic CHECKING LOGIN STATUS...");
+            this._onLoginCallback = e.createListenerFunction(this, this._onLoginStatusChecked);
+            this._onLoginErrorCallback = e.createListenerFunction(this, this._onLoginStatusError);
+            this.getLoginManager().addEventListener(y.STATUS_CHANGED, this._onLoginCallback, !1);
+            this.getLoginManager().addEventListener(y.ERROR, this._onLoginErrorCallback, !1);
+            this.getLoginManager().checkStatus()
+        };
+        a._onLoginStatusChecked = function () {
+            console.log("SiteManagerBasic LOGIN STATUS CHECKED! Logged in: " + this.getLoginManager().isLoggedIn + " LabTagId: " + this.getLoginManager().labTagId);
+            this._removeLoginListeners()
+        };
+        a._removeLoginListeners = function () {
+            this.getLoginManager().removeEventListener(y.STATUS_CHANGED, this._onLoginCallback, !1);
+            this.getLoginManager().removeEventListener(y.ERROR, this._onLoginErrorCallback, !1)
+        };
+        a._onLoginStatusError = function () {
+            this.getTracker().trackEvent(r.GENERAL, "InitialLoginStatusCheckError", "Error in the login status checking");
+            this._showError();
+            this._removeLoginListeners()
+        };
+        a._showError = function () {
+            this._isShowMessage && this.browserDetectionPage.showError()
+        };
+        a._enterWithoutChrome = function () {
+            g.setCookie("bds", !0);
+            this.startLoader()
+        };
+        a.startLoader = function () {
+            this.isChrome || this.getTracker().trackEvent(r.GENERAL, "EnteringSiteWithoutChrome", "the user enters the site with a browser different to Chrome");
+            this.hasLoader ? (this._onLoaderLoadedCallback = e.createListenerFunction(this, this._onLoaderLoaded), this._sequentialLoader.addEventListener(o.LOADED,
+            this._onLoaderLoadedCallback, !1), this._sequentialLoader.load(["http://www.gstatic.com/swiffy/v4.4/runtime.js", "/js/weblab/common/constants/SwiffyIcons.js", "/js/weblab/common/constants/ExperimentIds.js", "/js/weblab/common/ui/loader/SectionLoader.js"], !1)) : this._loadSection()
+        };
+        a._onLoaderLoaded = function () {
+            console.log("Loader loaded :)");
+            this._sequentialLoader.removeEventListener(o.LOADED, this._onLoaderLoadedCallback, !1);
+            this._sectionLoader = WEBLAB.namespace("WEBLAB.common.ui.loader").SectionLoader.create("experimentLoader",
+            this.sectionId);
+            this._sectionLoader.show();
+            this._loadSection()
+        };
+        a._loadSection = function () {
+            console.log("SiteManagerBasic START LOADING SECTION...");
+            this._parseXmlFiles()
+        };
+        a._parseXmlFiles = function () {
+            this.tXml = (new Date).getTime();
+            this._loadingProgress = 0;
+            this._loadingTimeInterval = setInterval(this._checkLoadingTimeCallback, 500);
+            console.log("SiteManagerBasic PARSING XML FILES...");
+            this._fileManager.addEventListener(l.PARSED, this._xmlFilesParsed.bind(this), !1);
+            this._fileManager.parse(this.filesXmlArray)
+        };
+        a._xmlFilesParsed = function (a) {
+            var b = (new Date).getTime() - this.tXml;
+            console.log("SiteManagerBasic XML FILES PARSED!", b);
+            this.getTracker().trackEvent(r.GENERAL, "XmlParsingTime", "Time that takes to parse the initial XMLs", b);
+            this._fileManager.removeEventListener(l.PARSED, this._xmlFilesParsed.bind(this), !1);
+            this._files = a.detail;
+            this._sectionFiles = this._files.library.concat(this._files.utils, this._files.section);
+            this._totalFiles = this._files.templates.length + this._files.json.length + this._files.sounds.length + this._files.images.length + this._sectionFiles.length;
+            this._filesLoaded = 0;
+            this._loadTemplates();
+            this._loadJsons();
+            this._loadSounds();
+            this._loadImages();
+            this._loadJS()
+        };
+        a._loadTemplates = function () {
+            this.tTemplates = (new Date).getTime();
+            console.log("SiteManagerBasic START LOADING TEMPLATES...");
+            for (i = 0; i < this._files.templates.length; i++) this._files.templates[i].translated && "false" === this._files.templates[i].translated ? this.getTemplateManager().addTemplateUrlWithoutLocalisation(this._files.templates[i].path,
+            this._files.templates[i].path) : this.getTemplateManager().addTemplateUrl(this._files.templates[i].path, this._files.templates[i].path), this.getTemplateManager().loadTemplate(this._files.templates[i].path);
+            this.getTemplateManager().addEventListener(c.LOADED, this._templatesLoadedCallback, !1);
+            this.getTemplateManager().addEventListener(c.ERROR, this._showError.bind(this), !1);
+            this.getTemplateManager().addEventListener(c.PROGRESS, this._progressCallback, !1);
+            this.getTemplateManager().startLoading()
+        };
+        a._onLoadProgress = function () {
+            this._filesLoaded++;
+            this._loadingProgress = Math.floor(100 * this._filesLoaded / this._totalFiles);
+            this._isShowMessage && this.browserDetectionPage.updateLoadingProgress(this._loadingProgress)
+        };
+        a._checkLoadingTime = function () {
+            var a = (new Date).getTime() - this.tXml;
+            this._isShowMessage && (5E3 < a && 40 > this._loadingProgress || 1E4 < a) && this.browserDetectionPage.showLoadingTooLong()
+        };
+        a._templatesLoaded = function () {
+            var a = (new Date).getTime() - this.tTemplates;
+            console.log("SiteManagerBasic TEMPLATES LOADED!", a);
+            this.getTracker().trackEvent(r.GENERAL, "TemplatesLoadingTime", "Time that takes to load the initial HTML templates", a);
+            this.getTemplateManager().removeEventListener(c.ERROR, this._showError.bind(this), !1);
+            this.getTemplateManager().removeEventListener(c.LOADED, this._templatesLoadedCallback, !1);
+            this.getTemplateManager().removeEventListener(c.PROGRESS, this._progressCallback, !1);
+            this._chunkLoaded()
+        };
+        a._loadJsons = function () {
+            this.t0 = (new Date).getTime();
+            console.log("SiteManagerBasic START LOADING JSON FILES...");
+            this.getJsonManager().addJsons(this._files.json);
+            this.getJsonManager().addEventListener(x.LOADED, this._jsonsLoaded.bind(this), !1);
+            this.getJsonManager().addEventListener(x.PROGRESS, this._progressCallback, !1);
+            this.getJsonManager().startLoading()
+        };
+        a._jsonsLoaded = function () {
+            console.log("SiteManagerBasic JSON FILES LOADED!", (new Date).getTime() - this.t0);
+            this.getJsonManager().removeEventListener(x.LOADED, this._jsonsLoaded.bind(this), !1);
+            this.getJsonManager().removeEventListener(x.PROGRESS, this._progressCallback, !1);
+            this._chunkLoaded()
+        };
+        a._loadSounds = function () {
+            this.tSounds = (new Date).getTime();
+            console.log("SiteManagerBasic START LOADING SOUNDS...");
+            this.getSoundManager().addSounds(this._files.sounds);
+            this.getSoundManager().addEventListener(h.LOADED, this._soundsLoaded.bind(this), !1);
+            this.getSoundManager().addEventListener(x.PROGRESS, this._progressCallback, !1);
+            this.getSoundManager().startLoading()
+        };
+        a._soundsLoaded = function () {
+            var a = (new Date).getTime() - this.tSounds;
+            console.log("SiteManagerBasic SOUNDS LOADED!",
+            a);
+            this.getTracker().trackEvent(r.GENERAL, "SoundsLoadingTime", "Time that takes to load the initial Sounds", a);
+            this.getSoundManager().removeEventListener(h.LOADED, this._soundsLoaded.bind(this), !1);
+            this.getSoundManager().removeEventListener(x.PROGRESS, this._progressCallback, !1);
+            this._chunkLoaded()
+        };
+        a._loadImages = function () {
+            this.t0 = (new Date).getTime();
+            console.log("SiteManagerBasic START LOADING IMAGES...");
+            this.getImageManager().addImages(this._files.images);
+            this.getImageManager().addEventListener(j.LOADED,
+            this._imagesLoaded.bind(this), !1);
+            this.getImageManager().addEventListener(j.PROGRESS, this._progressCallback, !1);
+            this.getImageManager().startLoading()
+        };
+        a._imagesLoaded = function () {
+            console.log("SiteManagerBasic IMAGES LOADED!", (new Date).getTime() - this.t0);
+            this.getImageManager().removeEventListener(j.LOADED, this._imagesLoaded.bind(this), !1);
+            this.getImageManager().removeEventListener(j.PROGRESS, this._progressCallback, !1);
+            this._chunkLoaded()
+        };
+        a._loadJS = function () {
+            this.tJS = (new Date).getTime();
+            console.log("SiteManagerBasic START LOADING JS...");
+            this._onJSLoadedCallback = e.createListenerFunction(this, this._onJSLoaded);
+            this._sequentialLoader.addEventListener(o.LOADED, this._onJSLoadedCallback, !1);
+            this._sequentialLoader.addEventListener(o.PROGRESS, this._progressCallback, !1);
+            this._sequentialLoader.load(this._sectionFiles, !1)
+        };
+        a._onJSLoaded = function () {
+            var a = (new Date).getTime() - this.tJS;
+            console.log("SiteManagerBasic JS LOADED!", a);
+            this.getTracker().trackEvent(r.GENERAL, "JSLoadingTime", "Time that takes to load the initial JS", a);
+            this._sequentialLoader.removeEventListener(o.LOADED,
+            this._onJSLoadedCallback, !1);
+            this._sequentialLoader.removeEventListener(o.PROGRESS, this._progressCallback, !1);
+            this._chunkLoaded()
+        };
+        a._chunkLoaded = function () {
+            this.chunksLoaded++;
+            this.chunksLoaded == this.chunksToLoad && (clearInterval(this._loadingTimeInterval), this.webGLDetection === s.WEBGL_SUPPORTED ? this._performStart() : window.psvr_fucking("SiteManagerBasic No WebGL supported: not starting the site"))
+        };
+        a.getSectionLoader = function () {
+            return this._sectionLoader
+        };
+        a.hideLoader = function () {
+            if (this.hasLoader) this._loaderHiddenCallback = e.createListenerFunction(this, this._loaderHidden), this._sectionLoader.addEventListener(WEBLAB.namespace("WEBLAB.common.ui.loader").SectionLoader.ANIMATED_OUT, this._loaderHiddenCallback, !1), this._sectionLoader.hide()
+        };
+        a._loaderHidden = function () {
+            this._sectionLoader.destroy();
+            this._sectionLoader = null;
+            for (var a = this._loaderHiddenFunctions, b = a.length, c = 0; c < b; c++)(0, a[c])()
+        };
+        a._performStart = function () {
+            console.log("SiteManagerBasic STARTED");
+            for (var a = this._startFunctions, b = a.length, c = 0; c < b; c++)(0, a[c])()
+        };
+        a._checkViewportDimensionsEven = function () {
+            if (this.isChrome) {
+                var a = document.body.clientHeight,
+                    b = document.body.clientWidth,
+                    c = document.getElementById("siteHolder");
+                1 == a % 2 ? c.classList.add("vpUh") : c.classList.remove("vpUh");
+                1 == b % 2 ? c.classList.add("vpUw") : c.classList.remove("vpUw")
+            }
+        };
+        a.destroy = function () {};
+        p.createSingleton = function () {
+            if (void 0 === b.SiteManagerBasic) b.SiteManagerBasic = new p;
+            return b.SiteManagerBasic
+        };
+        p.getSingleton = function () {
+            return b.SiteManagerBasic
+        }
+    }
+})();
+(function () {
+    var a = WEBLAB.namespace("WEBLAB.common.constants").ExperimentIds,
+        b = WEBLAB.namespace("WEBLAB.common").SiteManagerBasic;
+    document.addEventListener("DOMContentLoaded", function () {
+        var f = !0,
+            d = window.location.hash.split("#");
+        if (-1 == d.indexOf("home")) f = !1;
+        else {
+            var c = document.getElementById("footerMenuScience");
+            if(c){c.parentNode.removeChild(c);}
+            document.getElementById("centerRightFooterSwitch").classList.add("active")
+        }
+        b.createSingleton();
+        b.getSingleton().setup(document.getElementById("siteHolder"), ["/files/xml/common/files.xml",
+            "/files/xml/home/files.xml"], !1, a.LANDING, f);
+        b.getSingleton().homeMode = !0;
+        b.getSingleton().addStartFunction(function () {
+            var a = WEBLAB.namespace("WEBLAB.home").HomePage,
+                c = WEBLAB.namespace("WEBLAB.common").SiteManager;
+            c.createSingleton(b.getSingleton(), document.getElementById("siteHolder"), document.getElementsByClassName("globalUI")[0], document.getElementById("sectionDialogLayer"), document.getElementById("staticLabReportLayer"));
+            c.getSingleton().autoCloseMenu = !1;
+            c.getSingleton().homeMode = !0;
+            c.getSingleton().addStartFunction(function () {
+                var b = c.getSingleton().getTemplateManager().getTemplate("homeExperiments"),
+                    f = new a(b);
+                timer = setInterval(function () {
+                    console.log("timer");
+                    if (0 < document.getElementById("experimentSplashContent").clientHeight || -1 != d.indexOf("home")) clearInterval(timer), console.log(d.indexOf("home")), -1 == d.indexOf("home") ? f.setupSplash() : f.linkToHomePage(), c.getSingleton().mainNav.addEventListener("experimentHovered", function (a) {
+                        f.scrollToExperiment(a.index)
+                    }), f.addEventListener("update", function (a) {
+                        c.getSingleton().mainNav.focusExperiments(a.percentages)
+                    }),
+                    f.addEventListener("highlight", function () {
+                        c.getSingleton().mainNav.highlightButtons()
+                    })
+                }, 10)
+            });
+            c.getSingleton().start()
+        }, !1);
+        b.getSingleton().start()
+    }, !1)
+})();
