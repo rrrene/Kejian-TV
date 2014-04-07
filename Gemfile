@@ -47,3 +47,4 @@ gem 'spring',           group: :development
 
 gem 'puma', '~> 2.8.1'
 gem 'coveralls', require: false
+gem 'inherited_resources', '~> 1.4.1'

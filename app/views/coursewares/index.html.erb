@@ -1,0 +1,23 @@
+<h1>Listing coursewares</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @coursewares.each do |courseware| %>
+      <tr>
+        <td><%= link_to 'Show', courseware %></td>
+        <td><%= link_to 'Edit', edit_courseware_path(courseware) %></td>
+        <td><%= link_to 'Destroy', courseware, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Courseware', new_courseware_path %>
