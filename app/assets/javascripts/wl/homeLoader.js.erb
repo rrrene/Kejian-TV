@@ -41,7 +41,7 @@
 var WEBLAB = WEBLAB || {}, ENABLE_DEBUG = !0;
 window.psvr_fucking = function (msg){
   console.log(msg);
-  window.location.href="/coursewares";
+  window.location.href="<%= coursewares_path %>";
 };
 if (!window.console || !ENABLE_DEBUG) console = {
     log: function () {}

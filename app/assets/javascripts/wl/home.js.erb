@@ -8828,7 +8828,7 @@ THREE.Ray = function (a, f) {
             this._extraBottomContent.replaceContent(this._getContentLabelElement(f.getSingleton().getCopyManager().getCopy("landing/intro/introLabTagBody2")));
             // setTimeout(this.hideLabel.bind(this), 3E3)
             setTimeout(function(){
-              window.location.href="/coursewares";
+              window.location.href="<%= coursewares_path %>";
             },3e3);
         };
         b.hideLabel = function () {
@@ -9515,7 +9515,7 @@ THREE.Ray = function (a, f) {
     }, f.onEnterButtonClick = function () {
         e.getSingleton().getTracker().trackEvent(h.LANDING, "EnterButtonClicked", "Triggered when a user clicks the enter button and navigates to the Homepage");
         e.getSingleton().getSoundManager().playSound("home/enter-lab/enter-lab");
-        window.location.href="/coursewares";
+        window.location.href="<%= coursewares_path %>";
         d.addClass(document.getElementById("experimentSplash"), "animated");
         d.addClass(document.getElementById("experimentSplashContent"), "animated");
         document.getElementById("experimentSplashContainer").style.display = "none";

@@ -4,7 +4,7 @@ class WelcomeController < ApplicationController
   def index
     mode = wl_DetectUserAgent
     if mode == "mobile" || mode == 'basic'
-      redirect_to '/coursewares'
+      redirect_to coursewares_path
       return false
     else
       render layout: false
