@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+</head>
+<body>
+	<div id="experimentWrapper" data-weblab-type="template" name="browserDetector">
+		<div id="experimentSplashContent"></div>
+		<div id="experimentSplash">
+			<div id="experimentSplashContainer" class="supported">
+				<div class="topSection">
+					<div id="logoContainer">
+						<img id="splashLogo" src="<%= asset_path 'wl/files/images/home/logo.png' %>" alt="课件台"/>
+					</div>
+					<div id="splashLogoCaption">
+						<div class="col1">
+							<img src="<%= asset_path 'wl/files/images/home/chexp_ocw.png' %>" alt="Chrome Experiment"/>
+						</div>
+						<div class="col2">
+							<img src="<%= asset_path 'wl/files/images/home/gg_cc.png' %>" alt="Google"/>
+						</div>
+					</div>
+				</div>
+				<div class="bottomSection">
+					<div class="midSection">
+						<hr/>
+						<div id="homeIntro">
+							<p class="big">课件台是一个开放源代码、人人可参与的中文开放课程与课件计划，立志把教育带入21世纪。<br />
+
+
+课件台为每个学校建立独立子站，并在主站提供强大的站际检索与学科整合功能。</p>
+						</div>
+
+						<div id="browserSupported">
+							
+							<div class="loadingProgressCenteredContainer">
+								<div class="spinnerSmall black"><h4></h4></div>
+								<p class="small loadingLonger">页面的载入时间比预计的要长，课件台使用了最新的Web技术，请尽量使用较快的互联网连接访问课件台网站，因为在较快的网络环境下您可以获得更好的浏览体验。</p>
+							</div>
+							<div class="splashFadeHolder" style="margin-bottom:4px"><button class="splashEnter weblabGradientGreen large"><h4 style="font-size:13px">开启课件台</h4></button></div>
+						</div>
+
+						<div id="browserUnsupported">
+							<div class="loadingProgressCenteredContainer">
+								<div class="spinnerSmall black"><h4></h4></div>
+								<p class="small loadingLonger">页面的载入时间比预计的要长，课件台使用了最新的Web技术，请尽量使用较快的互联网连接访问课件台网站，因为在较快的网络环境下您可以获得更好的浏览体验。</p>
+							</div>
+							<div class="splashFadeHolder"><button class="splashEnter weblabGradientGreen large"><h4 style="font-size:13px">开启课件台</h4></button></div>
+						</div>
+
+						<div id="signedOut">
+							<div class="splashFadeHolder">
+								<p class="signIn universFont">观看课件台推介短片</p>
+							</div>
+						</div>
+						<div id="signedIn">
+							<div class="splashFadeHolder">
+								<div><p class="small" id="signedInAs"></p></div>
+								<div id="notYou"><p class="small black" >Not you?</p></div>
+							</div>
+						</div>
+						
+						<div id="graphicsCardNoGl">
+							<p>Your graphics card does not support WebGL.<br /><a href="http://get.webgl.org/">Find out more.</a></p>
+							<a class="splashButton universFont" href="../basic/">ENTER BASIC VERSION</a>
+						</div>
+						<div id="browserNoGl">
+							<p>Your browser does not support WebGL.<br /><a href="http://get.webgl.org/">Find out more.</a></p>
+							<div class="downloadChrome">
+								<div class="downloadCenteredContainer">
+									<img src="http://www.chromeweblab.com/files/images/home/chrome.png" alt="Chrome"/>
+									<a class="splashButton universFont" onclick="window._gaq.push(['_trackEvent', 'LandingPage', 'clickDownloadChromeNoWebGL']);" href="https://www.google.com/chrome/intl/en-GB/p/weblab.html" target="_blank">DOWNLOAD CHROME</a>
+								</div>	
+							</div>
+							<p class="cantDownload">Can't download a new browser?<br/><a href="https://developers.google.com/chrome/chrome-frame/" onclick="window._gaq.push(['_trackEvent', 'LandingPage', 'clickDownloadChromeFrame']);">Download Chrome Frame</a></p>
+							<a class="splashButton universFont" href="../basic/">ENTER BASIC VERSION</a>
+						</div>
+						<div><p id="errorLoading">哎呀！出错了，请稍后再试.</p></div>
+					</div>
+					<div class="bottomFix">
+	 					<p id="experimentSplashTeaser">解锁知识 · 赋权思维</p>
+	 				</div>
+	 			</div>
+			</div>
+		</div>
+		
+		<div id="menuBrowserDetection">
+            <div id="menuFront">
+              <div id="mainNavFooter">
+                <div id="mainNavFooterInner">
+                  <div id="mainNavFooter">
+                    <div id="mainNavFooterControls">
+                      <div class="langSelect">
+                        <select id="languageDrop">
+      										<option id="en-GB">大陆简体</option>
+      										<option id="zh-HK">港澳繁體</option>
+      										<option id="zh-SG">马新简体</option>
+      										<option id="zh-TW">台灣正體</option>
+                        </select>
+                      </div>		
+                    </div>
+                    <p id="webIsWhatYouMakeOfIt">解锁知识，赋权思维</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+	</div>
+</body>
+</html>

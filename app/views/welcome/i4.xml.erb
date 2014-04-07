@@ -1,0 +1,127 @@
+<data>
+	<templates>
+		<template path="html/common/mainNav/mainNav.html" />
+		<template path="html/common/labReport/labReportPages.html" />
+		<template path="html/common/dialog/dialogs.html" />
+	</templates>
+	<sounds>
+		<sound id="common/bigButton/click1" path="/files/audio/common/big-btn-click/big-btn-click-1" />
+		<sound id="common/bigButton/click2" path="/files/audio/common/big-btn-click/big-btn-click-2" />
+		<sound id="common/bigButton/click3" path="/files/audio/common/big-btn-click/big-btn-click-3" />
+		
+		<sound id="common/smallButton/click1" path="/files/audio/common/small-btn-click/small-btn-click-1" />
+		<sound id="common/smallButton/click2" path="/files/audio/common/small-btn-click/small-btn-click-2" />
+		<sound id="common/smallButton/click3" path="/files/audio/common/small-btn-click/small-btn-click-3" />
+
+		<sound id="common/navButton/click1" path="/files/audio/common/nav-btn-click/nav-btn-click-1" />
+		<sound id="common/navButton/click2" path="/files/audio/common/nav-btn-click/nav-btn-click-2" />
+		<sound id="common/navButton/click3" path="/files/audio/common/nav-btn-click/nav-btn-click-3" />
+
+		<sound id="common/lab-report-slide/slide-in" path="/files/audio/common/lab-report-slide/lab-report-slide-in" volume="0.6" />
+		<sound id="common/lab-report-slide/slide-out" path="/files/audio/common/lab-report-slide/lab-report-slide-out" volume="0.6" />
+
+		<sound id="common/lab-tag-update" path="/files/audio/common/lab-tag-update/lab-tag-update-1" />
+
+		<sound id="common/slide/slide-left" path="/files/audio/common/slide/slide-left" volume="0.6" />
+		<sound id="common/slide/slide-right" path="/files/audio/common/slide/slide-right" volume="0.6" />
+
+		<sound id="common/error" path="/files/audio/common/error/error" />
+		<sound id="common/alert" path="/files/audio/common/alert/alert" />
+	</sounds>
+	<images>
+		
+	</images>
+	<javascripts>
+		<library>
+			
+		</library>
+		<!-- DEV FLAG START   
+		<utils>
+			<script type="application/javascript" src="/js/weblab/utils/Utils.js"></script>
+			<script type="application/javascript" src="/js/weblab/utils/events/SoundListeners.js"></script>
+			<script type="application/javascript" src="/js/weblab/utils/htmldom/ElementUtils.js"></script>
+			<script type="application/javascript" src="/js/weblab/utils/data/NumberFunctions.js"></script>
+			<script type="application/javascript" src="/js/weblab/utils/math/BpmFunctions.js"></script>
+			<script type="application/javascript" src="/js/weblab/utils/math/Point.js"></script>
+			<script type="application/javascript" src="/js/weblab/utils/math/ColorBlender.js"></script>
+			<script type="application/javascript" src="/js/weblab/utils/math/SimpleTrig.js"></script>
+			<script type="application/javascript" src="/js/weblab/utils/data/MultidimensionalArrayHolder.js"></script>
+			<script type="application/javascript" src="/js/weblab/utils/url/UrlFunctions.js"></script>
+			<script type="application/javascript" src="/js/weblab/utils/loading/LoadingEventTypes.js"></script>			
+			<script type="application/javascript" src="/js/weblab/utils/loading/SequenceLoader.js"></script>
+			<script type="application/javascript" src="/js/weblab/utils/timer/TimedCommands.js"></script>
+			<script type="application/javascript" src="/js/weblab/utils/style/StyleUtil.js"></script>
+			<script type="application/javascript" src="/js/weblab/utils/htmldom/DomElementCreator.js"></script>
+			<script type="application/javascript" src="/js/weblab/utils/htmldom/PositionFunctions.js"></script>
+			<script type="application/javascript" src="/js/weblab/utils/animation/TweenDelay.js"></script>
+			<script type="application/javascript" src="/js/weblab/utils/animation/DomElementPositionTween.js"></script>
+			<script type="application/javascript" src="/js/weblab/utils/animation/DomElementAbsolutePositionTween.js"></script>
+			<script type="application/javascript" src="/js/weblab/utils/animation/DomElementOpacityTween.js"></script>
+			<script type="application/javascript" src="/js/weblab/utils/animation/DomElementScaleTween.js"></script>
+			<script type="application/javascript" src="/js/weblab/utils/animation/DomElementInDomTween.js"></script>
+			<script type="application/javascript" src="/js/weblab/utils/data/StringFunctions.js"></script>
+			<script type="application/javascript" src="/js/weblab/utils/data/DateFunctions.js"></script>
+			<script type="application/javascript" src="/js/weblab/utils/canvas/utils/CanvasFactory.js"></script>
+			<script type="application/javascript" src="/js/weblab/utils/canvas/animation/DisplayObject.js"></script>
+			<script type="application/javascript" src="/js/weblab/utils/canvas/animation/Sprite.js"></script>
+			<script type="application/javascript" src="/js/weblab/utils/canvas/animation/Stage.js"></script>
+		</utils>
+		<section>
+			<script type="application/javascript" src="/js/weblab/common/ui/page/Page.js" ></script>
+			<script type="application/javascript" src="/js/weblab/common/ui/page/PageManager.js" ></script>
+			<script type="application/javascript" src="/js/weblab/common/ui/MultipartTitleAnimation.js" ></script>
+			<script type="application/javascript" src="/js/weblab/common/ui/LineTitleAndContent.js" ></script>
+			<script type="application/javascript" src="/js/weblab/common/ui/ContentCarousel.js" ></script>
+			<script type="application/javascript" src="/js/weblab/common/ui/dialog/DialogSubManager.js" ></script>
+			<script type="application/javascript" src="/js/weblab/common/ui/dialog/DialogManager.js" ></script>
+			<script type="application/javascript" src="/js/weblab/common/ui/dialog/Dialog.js" ></script>
+			<script type="application/javascript" src="/js/weblab/common/ui/dialog/SimpleDialog.js" ></script>
+			<script type="application/javascript" src="/js/weblab/common/ui/dialog/SignOutDialog.js" ></script>
+			<script type="application/javascript" src="/js/weblab/common/ui/UserSignInPrompt.js" ></script>
+			<script type="application/javascript" src="/js/weblab/robots/vectorise/SVGToCanvas.js" ></script>
+			<script type="application/javascript" src="/js/weblab/common/ui/ReplaceableContent.js" ></script>
+			<script type="application/javascript" src="/js/weblab/common/ui/HelpPointer.js" ></script>
+			<script type="application/javascript" src="/js/weblab/common/sound/Sound.js"></script>
+			<script type="application/javascript" src="/js/weblab/common/sound/VirtualPlayerJSLoader.js" ></script>	
+			<script type="application/javascript" src="/js/weblab/common/sound/OrchestraSoundLoader.js" ></script>	
+			<script type="application/javascript" src="/js/weblab/common/ui/labReport/LabReportBackendCalls.js" ></script>
+			<script type="application/javascript" src="/js/weblab/common/ui/labReport/LabReportManager.js" ></script>
+			<script type="application/javascript" src="/js/weblab/common/ui/labReport/LabReportPage.js" ></script>
+			<script type="application/javascript" src="/js/weblab/common/ui/labReport/LabReportOAuthHelper.js" ></script>
+			<script type="application/javascript" src="/js/weblab/common/ui/labReport/items/LabReportSocialPanel.js" ></script>
+			<script type="application/javascript" src="/js/weblab/common/ui/labReport/items/LabReportItem.js" ></script>
+			<script type="application/javascript" src="/js/weblab/common/ui/labReport/items/TakeawayContentView.js" ></script>
+			<script type="application/javascript" src="/js/weblab/common/ui/labReport/items/ReportImageView.js" ></script>
+			<script type="application/javascript" src="/js/weblab/common/ui/labReport/items/ReportVideoView.js" ></script>
+			<script type="application/javascript" src="/js/weblab/common/ui/labReport/items/ReportVisualiserView.js" ></script>
+			<script type="application/javascript" src="/js/weblab/common/ui/labReport/items/ReportOrchestraVirtualView.js" ></script>
+			<script type="application/javascript" src="/js/weblab/common/ui/labReport/items/ReportOrchestraLiveView.js" ></script>
+			<script type="application/javascript" src="/js/weblab/common/ui/labReport/items/ReportRobotsVideoView.js" ></script>
+			<script type="application/javascript" src="/js/weblab/common/ui/labReport/items/ReportRobotsImageView.js" ></script>
+			<script type="application/javascript" src="/js/weblab/common/ui/labReport/items/ReportTeleporterSnapshotView.js" ></script>
+			<script type="application/javascript" src="/js/weblab/common/ui/labReport/items/LabReportItemCarousel.js" ></script>
+			<script type="application/javascript" src="/js/weblab/common/ui/labReport/items/TakeawayThumbnailButton.js" ></script>
+			<script type="application/javascript" src="/js/weblab/common/ui/labReport/items/LabReportThumbCarousel.js" ></script>
+			<script type="application/javascript" src="/js/weblab/common/ui/labReport/TakeAwayContentPage.js" ></script>
+			<script type="application/javascript" src="/js/weblab/common/ui/labReport/pages/ConfirmSaveTakeAwayPage.js" ></script>
+			<script type="application/javascript" src="/js/weblab/common/ui/labReport/pages/CreateYouTubeChannelPage.js" ></script>
+			<script type="application/javascript" src="/js/weblab/common/ui/labReport/pages/ShowTakeAwayContentPage.js" ></script>
+			<script type="application/javascript" src="/js/weblab/common/ui/labReport/pages/LabReportErrorPage.js" ></script>
+			<script type="application/javascript" src="/js/weblab/common/ui/labReport/pages/TakeAwayErrorPage.js" ></script>
+			<script type="application/javascript" src="/js/weblab/common/ui/labReport/pages/ShowLabReportPage.js" ></script>
+			<script type="application/javascript" src="/js/weblab/common/ui/mainNav/MainNavButton.js" ></script>
+			<script type="application/javascript" src="/js/weblab/common/ui/mainNav/MainNav.js" ></script>
+			<script type="application/javascript" src="/js/weblab/common/ui/page/TabbedContentPage.js" ></script>	
+			<script type="application/javascript" src="/js/weblab/common/ui/error/ExperimentErrorPage.js" ></script>	
+			<script type="application/javascript" src="/js/weblab/common/ui/technology/TransitionUtil.js" ></script>
+			<script type="application/javascript" src="/js/weblab/common/SiteManager.js" ></script>
+			<script type="application/javascript" src="/js/weblab/common/ui/SectionTitle.js" ></script>
+			<script type="application/javascript" src="/js/weblab/common/ui/SectionTitleLineContent.js" ></script>
+
+
+			
+		</section>
+		   DEV FLAG END -->
+	</javascripts>
+
+</data>

@@ -1,2 +1,163 @@
-<h1>Welcome#index</h1>
-<p>Find me in app/views/welcome/index.html.erb</p>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-GB" itemscope itemtype="http://schema.org/website">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>课件台</title>
+		<meta name="title" content="课件台" />
+		<meta property="og:title" content="课件台" />
+		<meta name="description" content="课件台是一个人人可参与、人人可贡献的中文开放课程与课件计划，立志把教育带入21世纪。课件台为每个学校建立独立子站，并在主站提供强大的站际搜索与学科整合检索功能。" />
+		<meta property="og:description" content="课件台是一个人人可参与、人人可贡献的中文开放课程与课件计划，立志把教育带入21世纪。课件台为每个学校建立独立子站，并在主站提供强大的站际搜索与学科整合检索功能。" />
+		
+		<meta property="og:image" content="<%= asset_path 'wl/files/images/home/sitePreview.jpg' %>" />
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content="http://kejian.tv"/>
+		<link rel="canonical" href="http://kejian.tv"/>
+		
+		<meta itemprop="name" content="课件台">
+		<meta itemprop="description" content="课件台是一个人人可参与、人人可贡献的中文开放课程与课件计划，立志把教育带入21世纪。课件台为每个学校建立独立子站，并在主站提供强大的站际搜索与学科整合检索功能。">
+		<meta itemprop="image" content="<%= asset_path 'wl/files/images/sharing/web-lab-share-plus.jpg' %>">
+
+
+		<link rel="icon" href="/favicon.ico" type="image/x-icon"/>
+
+		<link rel="stylesheet" href="<%= asset_path 'wl/home.css' %>"/>
+
+    <script src="<%= asset_path 'wl/weblab/browserRedirect.js' %>"></script>
+
+		<!-- Libraries -->
+		<script type="application/javascript" src="/js/libs/tween.js/build/Tween.js"></script>
+		<script type="application/javascript" src="/js/libs/RequestAnimationFrame.js"></script>
+
+		<script type="application/javascript" src="<%= asset_path 'wl/homeLoader.js' %>"></script>
+		
+	</head>
+	<body>
+    <a target="_blank" href="https://github.com/Kejian-TV/Kejian-TV"><img style="position: absolute; z-index:9999; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>
+		<div class="site" id="siteHolder">
+			<!-- 'Technology' section lives behind everything and doesn't move -->
+			<div class="technologyHolder">
+				<div id="technologyContentHolder">
+					<!-- 'Technology' content for each page gets loaded in here dynamically -->
+				</div>
+				<div class="scrollFader"></div>
+				<button id="technologyBackButton">
+					<h4>BACK TO THE LAB</h4>
+				</button>
+			</div>
+
+			<!-- The content of the section/experiment stage we're looking at -->
+			<!-- This whole section gets moved out of the way when the technology slider is dragged -->
+			<div class="section fitSection">			
+				<div id="sectionBackground" style="opacity:1">
+					<!-- Background graphic or animation goes in here -->
+				</div>
+
+				<div id="sectionContentHolder">
+					<!-- Content for each section/experiment stage gets loaded in here dynamically -->
+					<div id="sectionFullBrowserContent">
+						<!-- Any full browser content (set by the data-weblab-layout data in the template) gets loaded in here -->
+					</div>
+
+					<div id="sectionCenteredContent">
+						<!-- Any centered content (set by the data-weblab-layout data in the template) gets loaded in here -->						
+					</div>
+
+				</div>
+
+				<div id="sectionDialogLayer" class="dialogLayer">
+					<!-- Any dialog boxes or overlays for this experiment get loaded in here dynamically -->
+					<div data-weblab-type="backgroundBlocker" class="backgroundBlocker"></div>
+					<div data-weblab-type="dialogHolder" class="dialogHolder">
+						
+					</div>
+				</div>
+			</div>
+
+			<!-- Global Loader, hidden after load -->
+			<div class="loader" id="experimentLoader">
+				<div class="loaderBody">					
+					<div class="weblabIcon experimentIcon">						
+					</div>		
+					<div class="experimentTitle">		
+						<div class="experimentNumberTitle"><h3 class="animationLayer">LOADING...</h3></div>
+						<div class="experimentNameTitle"><h1 class="animationLayer">WEB LAB</h1></div>
+						<hr class="blackSinglePixel"/>
+					</div>	
+					<div class="experimentSubtitle">
+						<div class="subtitleContent">							
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+			<!-- The persistent global UI that is on top for all experiment stages & sections -->
+			<div class="globalUI">			
+
+				<div class="labReport">
+					<div data-weblab-type="backgroundBlocker" class="backgroundBlocker"></div>
+					<div id="staticLabReportLayer">
+						
+						<header class="labReportHeader">
+							<div class="weblabIcon avatarIcon avatarMe avatarPlaceholder"></div>
+							<div class="labTagId"><h4>ID 1234567</h4></div>
+							<div class="title">
+								<!-- Titles get loaded in here -->
+							</div>
+							<div class="subtitle">
+								<hr class="blackSinglePixel"/>
+								<!-- Subtitle content gets loaded in here -->
+							</div>
+						</header>
+						<!-- 课件台 report content & takeaways get placed in here -->
+						<div id="labReportContent"></div>
+
+						<!-- Takeaway thumbnails get placed in here during save -->
+						<div id="takeawayThumbnail"></div>
+
+						<button class="weblabColourGreyLight" id="labReportCloseButton"></button>
+
+						<!-- Any dialogs for the 课件台 report section get put in here -->
+						<div id="labReportDialogLayer" class="dialogLayer">
+							<div data-weblab-type="backgroundBlocker" class="backgroundBlocker"></div>
+							<div data-weblab-type="dialogHolder" class="dialogHolder"></div>
+						</div>
+
+					</div>
+				</div>
+				<div id="menuBackgroundBlocker" class="disabled"></div>
+				<div id="staticMenu" class="home"> <!-- This needs to have a class for the current experiment, so the correct icon is highlighted -->
+					<!-- The side menu (dummy for now) -->
+				</div>	
+        <button id="staticTechnologySlider" style="right: 0px;display:none" class="">
+        					<h4><%= image_tag 'wl/introduction_to_ktv.png',alt:'课件台导论' %></h4>
+        				</button>				
+				<div id="centerRightFooterSwitch" class="centerRightFooterSwitch">
+					<div id="footerMenu" class="compressed homePageScroll">
+						<div class="animationLayer">
+							<div class="clipContainer">
+								<div class="footerLinks">
+                  <a class="footerLink floatRight" href="/help/policies/" target="_blank"><h6 style="letter-spacing:-1px">律师声明</h6></a>
+								</div>
+							</div>
+							<div class="clearBoth"></div>
+						</div>
+					</div>
+				</div>
+				
+				<div id="globalDialogLayer" class="dialogLayer">
+						<div data-weblab-type="backgroundBlocker" class="backgroundBlocker"></div>
+						<div data-weblab-type="dialogHolder" class="dialogHolder">
+							<!-- any global-level dialog boxes get loaded in here dynamically -->
+						</div>
+				</div>
+			</div>
+		</div>
+		
+		<div id="fb-root"></div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="/js/vendor/jquery-1.8.3.min.js"><\/script>')</script>
+	</body>
+</html>
+
+

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>MainNav</title>
+	</head>
+	<body>
+		<!-- Main Lefthand Navigation for website. -->
+		<div data-weblab-type='template' name="mainNav" id="mainNav" class="universFont">
+			<div class="menuPerspective">
+				<div id="menu">
+					<div id="menuFront">
+						<!-- <img class="betaCorner" src="/files/images/common/beta-corner.png" /> -->
+						<div id="menuFrontUpper">
+							<div id="weblabLogoContainer">
+								<p class="weblabLogo" data-url="/#home"><img src="<%= asset_path 'wl/files/images/common/smallktv.png' %>" /></p>
+							</div>
+							<hr/>
+							<div id="loginSpinner" class="spinnerSmall black"></div>
+							<div id="loginContainer">
+								<div id="loginLinks">
+									<h6 style="font-size:12px;line-height:16px;font-weight:normal;text-align:center">未登录</h6>
+									<a href="#" id="loginLink" style="font-weight:bold;text-align:center">登录 / 注册新用户</a>
+									<a href="#" id="logoutLink"><span id="userEmail" class="loginEmail">i@ofspvr.org</span><span class="loginLogout">Sign out</span></a>
+								</div>
+								<div id="labReportButton" />
+							</div>
+							<hr/>
+							<div class="mainNavButtons" id="mainNavButtons">
+								<div class="experimentButton" id="orchestraButton" data-url="/universal-orchestra">
+									<div class="experimentButtonIcons">
+										<div>
+											<div class="up"><img src="/files/images/home/nav-orchestra-outline.svg" type="image/svg+xml" /></div>
+											<div class="dark"><img src="/files/images/home/nav-orchestra-outline-dark.svg" type="image/svg+xml" /></div>
+											<div class="over"><img src="/files/images/home/nav-orchestra-rollover.svg" type="image/svg+xml" /></div>
+											<div class="filled"><img src="/files/images/home/nav-orchestra-filled.svg" type="image/svg+xml" /></div>
+										</div>
+									</div>
+									<div class="expBtnText"><h6><a class="wltxt wltxt_topics" href="/topics">学科整合门户</a></h6></div>
+									<div class="clickOverlay"></div>
+								</div>
+								<div class="experimentButton" id="periscopesButton" data-url="/teleporter">
+									<div class="experimentButtonIcons">
+										<div>
+											<div class="up"><img src="/files/images/home/nav-periscopes-outline.svg" type="image/svg+xml" /></div>
+											<div class="dark"><img src="/files/images/home/nav-periscopes-outline-dark.svg" type="image/svg+xml" /></div>
+											<div class="over"><img src="/files/images/home/nav-periscopes-rollover.svg" type="image/svg+xml" /></div>
+											<div class="filled"><img src="/files/images/home/nav-periscopes-filled.svg" type="image/svg+xml" /></div>
+										</div>
+									</div>
+									<div class="expBtnText"><h6><a class="wltxt wltxt_sites" href="/sites">子站导航</a></h6></div>
+									<div class="clickOverlay"></div>
+								</div>
+								<div class="experimentButton" id="sandRobotsButton" data-url="/sketchbots">
+									<div class="experimentButtonIcons">
+										<div>	
+											<div class="up"><img src="/files/images/home/nav-sandRobots-outline.svg" type="image/svg+xml" /></div>
+											<div class="dark"><img src="/files/images/home/nav-sandRobots-outline-dark.svg" type="image/svg+xml" /></div>
+											<div class="over"><img src="/files/images/home/nav-sandRobots-rollover.svg" type="image/svg+xml" /></div>
+											<div class="filled"><img src="/files/images/home/nav-sandRobots-filled.svg" type="image/svg+xml" /></div>
+										</div>
+									</div>
+									<div class="expBtnText"><h6><a class="wltxt wltxt_mob" href="/help/mobile">掌上课件台</a></h6></div>
+									<div class="clickOverlay"></div>
+								</div>
+								<div class="experimentButton" id="visualiserButton" data-url="/data-tracer">
+									<div class="experimentButtonIcons">
+										<div>
+											<div class="up"><img src="/files/images/home/nav-visualiser-outline.svg" type="image/svg+xml" /></div>
+											<div class="dark"><img src="/files/images/home/nav-visualiser-outline-dark.svg" type="image/svg+xml" /></div>
+											<div class="over"><img src="/files/images/home/nav-visualiser-rollover.svg" type="image/svg+xml" /></div>
+											<div class="filled"><img src="/files/images/home/nav-visualiser-filled.svg" type="image/svg+xml" /></div>
+										</div>
+									</div>
+									<div class="expBtnText"><h6><a class="wltxt wltxt_geo" href="/locations">地理子站定位</a></h6></div>
+									<div class="clickOverlay"></div>
+								</div>
+								<div class="experimentButton" id="labtagsButton" data-url="/lab-tag-explorer">
+									<div class="experimentButtonIcons">
+										<div>
+											<div class="up"><img src="/files/images/home/nav-labtags-outline.svg" type="image/svg+xml" /></div>
+											<div class="dark"><img src="/files/images/home/nav-labtags-outline-dark.svg" type="image/svg+xml" /></div>
+											<div class="over"><img src="/files/images/home/nav-labtags-rollover.svg" type="image/svg+xml" /></div>
+											<div class="filled"><img src="/files/images/home/nav-labtags-filled.svg" type="image/svg+xml" /></div>
+										</div>
+									</div>
+									<div class="expBtnText"><h6><a class="wltxt wltxt_dev" href="/dev">开发者社区</a></h6></div>
+									<div class="clickOverlay"></div>
+								</div>								
+							</div>
+
+							<div class="tryAnotherExperimentPrompt">
+								<div class="arrow"></div>
+								<h3 class="suggestion">
+									<span class="try-orchestra">Have you tried Universal Orchestra?</span>
+									<span class="try-teleporter">Have you tried Teleporter?</span>
+									<span class="try-sketchbots">Have you tried Sketchbots?</span>
+									<span class="try-datatracer">Have you tried Data Tracer?</span>
+									<span class="try-labtags">Have you tried 课件台访客 Explorer?</span>
+								</h3>
+							</div>
+
+							<div class="info" id="info">
+								<div id="infoToggleButton">
+									<h6 style="font-size:12px">更多</h6>
+									<div class="infoButtonArrow">
+										<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="-5px" width="10px" height="6px" viewBox="0 0 10 6" enable-background="new 0 0 10 6" xml:space="preserve"><g><polygon id="arrowPoly" fill="#909796" points="5,6 0,0.707 0.707,0 5,4.586 9.293,0 10,0.707"/></g></svg>
+									</div>
+								</div><br/>
+								<p class=""><h6 style="font-size:12px;font-weight:normal">隐藏主菜单</h6></p><br/>
+							</div>
+						</div>
+						<div id="mainNavFooter" class="normal">
+							<div id="mainNavFooterInner">
+								<div id="mainNavFooterControls">
+									<div class="soundButton">
+										<span></span>
+										<span></span>
+										<span></span>
+										<span></span>
+									</div>
+									<div class="langSelect"><select id="languageDrop">
+  										<option id="en-GB">大陆简体</option>
+  										<option id="zh-HK">港澳繁體</option>
+  										<option id="zh-SG">马新简体</option>
+  										<option id="zh-TW">台灣正體</option>
+										</select></div>		
+								</div>
+								<a id="loadLabTagNav" href="mailto:i@ofpsvr.org">如有用户上传的内容侵犯了您的权益，请通知我们删除</a>
+							</div>
+						</div>
+					</div>
+					<div id="menuOpener">
+						<div id="menuOpenButton"></div>
+						<div class="soundButton">
+							<div class="soundButtonStates">
+								<span></span>
+								<span></span>
+								<span></span>
+								<span></span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</body>
+</html>					
