@@ -1,0 +1,121 @@
+/*
+	WebLab - Colours & Gradients
+	
+	@author Owen Hindley
+
+*/
+
+/* Grey. */
+.weblabColourGrey { background:#d4d9d9; }
+
+/* Colours & Gradients */
+.weblabGradientBlue {
+	background: rgb(119,119,184); /* Old browsers */
+	 /* @alternate */ background: -moz-linear-gradient(left,  rgba(119,119,184,1) 0%, rgba(86,151,212,1) 100%); /* FF3.6+ */
+	 /* @alternate */ background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(119,119,184,1)), color-stop(100%,rgba(86,151,212,1))); /* Chrome,Safari4+ */
+	 /* @alternate */ background: -webkit-linear-gradient(left,  rgba(119,119,184,1) 0%,rgba(86,151,212,1) 100%); /* Chrome10+,Safari5.1+ */	
+	 /* @alternate */ background: linear-gradient(left,  rgba(119,119,184,1) 0%,rgba(86,151,212,1) 100%); /* W3C */
+}
+
+.weblabGradientPurple {
+	background: rgb(147,108,171); /* Old browsers */
+	 /* @alternate */ background: -moz-linear-gradient(left,  rgba(147,108,171,1) 0%, rgba(189,108,145,1) 100%); /* FF3.6+ */
+	 /* @alternate */ background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(147,108,171,1)), color-stop(100%,rgba(189,108,145,1))); /* Chrome,Safari4+ */
+	 /* @alternate */ background: -webkit-linear-gradient(left,  rgba(147,108,171,1) 0%,rgba(189,108,145,1) 100%); /* Chrome10+,Safari5.1+ */	
+	 /* @alternate */ background: linear-gradient(left,  rgba(147,108,171,1) 0%,rgba(189,108,145,1) 100%); /* W3C */
+}
+
+.weblabGradientOrange {
+	background: rgb(223,137,140); /* Old browsers */
+	 /* @alternate */ background: -moz-linear-gradient(left,  rgba(223,137,140,1) 0%, rgba(227,151,128,1) 100%); /* FF3.6+ */
+	 /* @alternate */ background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(223,137,140,1)), color-stop(100%,rgba(227,151,128,1))); /* Chrome,Safari4+ */
+	 /* @alternate */ background: -webkit-linear-gradient(left,  rgba(223,137,140,1) 0%,rgba(227,151,128,1) 100%); /* Chrome10+,Safari5.1+ */
+	 /* @alternate */ background: linear-gradient(left,  rgba(223,137,140,1) 0%,rgba(227,151,128,1) 100%); /* W3C */
+}
+
+.weblabGradientOrangeYellow {
+	background: rgb(235,157,118); /* Old browsers */
+	 /* @alternate */ background: -moz-linear-gradient(left,  rgba(235,157,118,1) 0%, rgba(245,188,81,1) 100%); /* FF3.6+ */
+	 /* @alternate */ background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(235,157,118,1)), color-stop(100%,rgba(245,188,81,1))); /* Chrome,Safari4+ */
+	 /* @alternate */ background: -webkit-linear-gradient(left,  rgba(235,157,118,1) 0%,rgba(245,188,81,1) 100%); /* Chrome10+,Safari5.1+ */
+	 /* @alternate */ background: linear-gradient(left,  rgba(235,157,118,1) 0%,rgba(245,188,81,1) 100%); /* W3C */
+}
+
+.weblabGradientGreen {
+	background: rgb(81, 164, 162); /* Old browsers */
+	 /* @alternate */ background: -moz-linear-gradient(left,  rgba(81, 164, 162,1) 0%, rgba(131, 194, 141, 1) 100%); /* FF3.6+ */
+	 /* @alternate */ background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(81, 164, 162,1)), color-stop(100%,rgba(131, 194, 141, 1))); /* Chrome,Safari4+ */
+	 /* @alternate */ background: -webkit-linear-gradient(left,  rgba(81, 164, 162,1) 0%,rgba(131, 194, 141, 1) 100%); /* Chrome10+,Safari5.1+ */
+	 /* @alternate */ background: linear-gradient(left,  rgba(81, 164, 162,1) 0%,rgba(131, 194, 141, 1) 100%); /* W3C */
+}
+
+.weblabGradientYellowGreen {
+	background: #E28890; 
+	 /* @alternate */ background: -moz-linear-gradient(left,  #64A877 0%, #95B853 100%); 
+	 /* @alternate */ background: -webkit-gradient(linear, left, right, color-stop(0%,#64A877), color-stop(100%,#95B853)); 
+	 /* @alternate */ background: -webkit-linear-gradient(left,  #64A877 0%, #95B853 100%);
+	 /* @alternate */ background: -o-linear-gradient(left,  #64A877 0%, #95B853 100%); 
+	 /* @alternate */ background: -ms-linear-gradient(left,  #64A877 0%, #95B853 100%); 
+	 /* @alternate */ background: linear-gradient(left,  #64A877 0%, #95B853 100%);
+}
+
+/* Button Colours */
+button.weblabColourGreyLight, button.weblabColourGreyMid, button.weblabColourGreyDark {
+	-webkit-transition:background-color 0.2s;
+	-moz-transition:background-color 0.2s;
+	transition:background-color 0.2s;
+}
+button.weblabColourGreyLight h4, button.weblabColourGreyMid h4, button.weblabColourGreyDark h4 { color:#3e4544; }
+
+button.weblabColourGreyLight { background-color:#d4d9d9; }
+button.weblabColourGreyLight:hover { background-color:#c5caca; }
+button.weblabColourGreyLight:active { background-color:#b6bbbb; }
+
+button.weblabColourGreyMid { background-color:#d2d4d4; }
+button.weblabColourGreyMid:hover { background-color:#c3c5c5; }
+button.weblabColourGreyMid:active { background-color:#b4b7b7; }
+
+button.weblabColourGreyDark { background-color:#c7c9c9; }
+button.weblabColourGreyDark:hover { background-color:#b9bcbb; }
+button.weblabColourGreyDark:active { background-color:#acafae; }
+
+
+button.weblabGradientBlue, button.weblabGradientPurple, button.weblabGradientOrange, button.weblabGradientGreen, button.weblabGradientYellowGreen {
+	background-position:0% 0%;
+	background-repeat:no-repeat;	
+
+	-webkit-transition:background-position 0.5s;
+	-moz-transition:background-position 0.5s;
+	transition:background-position 0.5s;	
+}
+
+button.weblabGradientBlue:hover, button.weblabGradientPurple:hover, button.weblabGradientOrange:hover, button.weblabGradientGreen:hover, button.weblabGradientYellowGreen:hover,
+button.weblabGradientBlue.hover, button.weblabGradientPurple.hover, button.weblabGradientOrange.hover, button.weblabGradientGreen.hover, button.weblabGradientYellowGreen.hover {
+	background-position: 0% 50%;
+}
+button.weblabGradientBlue:active, button.weblabGradientPurple:active, button.weblabGradientOrange:active, button.weblabGradientGreen:active, button.weblabGradientYellowGreen:active {
+	-webkit-transition:background-position 0.2s;
+	-moz-transition:background-position 0.2s;
+	transition:background-position 0.2s;
+	background-position: 0% 100%;
+}
+
+
+button.weblabGradientBlue {
+	background-image:url(/error/images/common/gradients/buttonGradientBlue.svg);	
+}
+button.weblabGradientPurple {
+	background-image:url(/error/images/common/gradients/buttonGradientPurple.svg);	
+}
+button.weblabGradientOrange {
+	background-image:url(/error/images/common/gradients/buttonGradientOrange.svg);	
+}
+button.weblabGradientGreen {
+	background-image:url(/error/images/common/gradients/buttonGradientGreen.svg);	
+}
+button.weblabGradientYellowGreen {
+	background-image:url(/error/images/common/gradients/buttonGradientYellowGreen.svg);	
+}
+
+
+

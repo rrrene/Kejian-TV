@@ -1,0 +1,9 @@
+.page_not_found .footerError{left:150px;}
+.page_not_found #menuFront{margin-left:5px;background:none;}
+.not_found_Title{height:75px; margin-top:40px;}
+.not_found_Button{margin-top:30px;}
+.not_found_Button h4{display: inline-block; cursor: pointer; background:#c7c9c9;-webkit-transition: background-color 0.2s;-moz-transition: background-color 0.2s;transition: background-color 0.2s;text-transform:uppercase;font-size:12px; padding:4px 15px 5px 15px;text-decoration:none;color: #3E4544;}
+.not_found_Button h4:hover{background:#b9bcbb;}
+.page_not_found #mainNavFooterControls .langSelect {background:url(/error/images/common/select_button_up.png) no-repeat right #CCCFCF;}
+.globalUI{position:absolute;}
+
