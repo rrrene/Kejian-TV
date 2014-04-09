@@ -5,6 +5,7 @@ Education brought to the 21st century.
 {<img src="https://api.travis-ci.org/Kejian-TV/Kejian-TV.png" alt="Build Status" />}[http://travis-ci.org/Kejian-TV/Kejian-TV] 
 {<img src="https://coveralls.io/repos/Kejian-TV/Kejian-TV/badge.png" alt="Coverage Status" />}[https://coveralls.io/r/Kejian-TV/Kejian-TV] 
 {<img src="https://codeclimate.com/github/Kejian-TV/Kejian-TV.png" alt="Code Climate" />}[https://codeclimate.com/github/Kejian-TV/Kejian-TV]
+{<img src="http://inch-pages.github.io/github/Kejian-TV/Kejian-TV.png" alt="Inline docs" />}[http://inch-pages.github.io/github/Kejian-TV/Kejian-TV]
 {<img src="https://gemnasium.com/Kejian-TV/Kejian-TV.svg" alt="Dependency Status" />}[https://gemnasium.com/Kejian-TV/Kejian-TV]
 
 === Generate doc
