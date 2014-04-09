@@ -1,0 +1,674 @@
+Inspecting 34 files
+W.CCCC....C..CCCCC....CCCCCCCC...C
+
+Offenses:
+
+app/controllers/application_controller.rb:1:1: C: Missing top-level class documentation comment.
+class ApplicationController < ActionController::Base
+^^^^^
+app/controllers/application_controller.rb:8:5: C: Cyclomatic complexity for wl_DetectUserAgent is too high. [22/6]
+    def wl_DetectUserAgent
+    ^^^
+app/controllers/application_controller.rb:8:5: C: Inconsistent indentation detected.
+    def wl_DetectUserAgent
+    ^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/application_controller.rb:8:5: C: Method has too many lines. [71/10]
+    def wl_DetectUserAgent
+    ^^^
+app/controllers/application_controller.rb:8:9: C: Use snake_case for methods.
+    def wl_DetectUserAgent
+        ^^^^^^^^^^^^^^^^^^
+app/controllers/application_controller.rb:9:7: C: Use only ascii symbols in comments.
+      # 做这个首页需要考虑用户来自" ipad"," gt p6200 "," xoom "," tablet "这类平板还是" android"," windows phone" ," ios"," iphone"," ipod"这类手机还是"msie","ie","chrome", "safari","firefox","opera"这类普通电脑浏览器
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/application_controller.rb:9:80: C: Line is too long. [183/79]
+      # 做这个首页需要考虑用户来自" ipad"," gt p6200 "," xoom "," tablet "这类平板还是" android"," windows phone" ," ios"," iphone"," ipod"这类手机还是"msie","ie","chrome", "safari","firefox","opera"这类普通电脑浏览器
+                                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/application_controller.rb:10:7: C: Use only ascii symbols in comments.
+      # 每种平台的展示效果都不一样，要分三类单独处理
+      ^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/application_controller.rb:11:7: C: Use only ascii symbols in comments.
+      # 给移动设备做一个，给浏览器做一个，给低端浏览器（包括小于9.0的ie和小于12.0的火狐以及平板上的浏览器）做一个
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/application_controller.rb:12:7: C: Use snake_case for variables.
+      userAgent = request.env['HTTP_USER_AGENT'].to_s.downcase
+      ^^^^^^^^^
+app/controllers/application_controller.rb:14:27: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+      clean = clean.split(" ")
+                          ^^^
+app/controllers/application_controller.rb:15:7: W: Useless assignment to variable - cleanLength
+      cleanLength = clean.length
+      ^^^^^^^^^^^
+app/controllers/application_controller.rb:15:7: C: Use snake_case for variables.
+      cleanLength = clean.length
+      ^^^^^^^^^^^
+app/controllers/application_controller.rb:16:22: C: Space missing to the left of {.
+      clean.delete_if{|x| x == ""}
+                     ^
+app/controllers/application_controller.rb:16:22: C: Space between { and | missing.
+      clean.delete_if{|x| x == ""}
+                     ^^
+app/controllers/application_controller.rb:16:32: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+      clean.delete_if{|x| x == ""}
+                               ^^
+app/controllers/application_controller.rb:16:34: C: Space missing inside }.
+      clean.delete_if{|x| x == ""}
+                                 ^
+app/controllers/application_controller.rb:19:15: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+      clean = " "+clean+" "
+              ^^^
+app/controllers/application_controller.rb:19:18: C: Surrounding space missing for operator '+'.
+      clean = " "+clean+" "
+                 ^
+app/controllers/application_controller.rb:19:24: C: Surrounding space missing for operator '+'.
+      clean = " "+clean+" "
+                       ^
+app/controllers/application_controller.rb:19:25: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+      clean = " "+clean+" "
+                        ^^^
+app/controllers/application_controller.rb:20:1: C: Trailing whitespace detected.
+app/controllers/application_controller.rb:21:18: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+      tablets = [" ipad"," gt p6200 "," xoom "," tablet "]
+                 ^^^^^^^
+app/controllers/application_controller.rb:21:25: C: Space missing after comma.
+      tablets = [" ipad"," gt p6200 "," xoom "," tablet "]
+                        ^
+app/controllers/application_controller.rb:21:26: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+      tablets = [" ipad"," gt p6200 "," xoom "," tablet "]
+                         ^^^^^^^^^^^^
+app/controllers/application_controller.rb:21:38: C: Space missing after comma.
+      tablets = [" ipad"," gt p6200 "," xoom "," tablet "]
+                                     ^
+app/controllers/application_controller.rb:21:39: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+      tablets = [" ipad"," gt p6200 "," xoom "," tablet "]
+                                      ^^^^^^^^
+app/controllers/application_controller.rb:21:47: C: Space missing after comma.
+      tablets = [" ipad"," gt p6200 "," xoom "," tablet "]
+                                              ^
+app/controllers/application_controller.rb:21:48: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+      tablets = [" ipad"," gt p6200 "," xoom "," tablet "]
+                                               ^^^^^^^^^^
+app/controllers/application_controller.rb:22:7: W: Useless assignment to variable - tabletsLength
+      tabletsLength = tablets.length
+      ^^^^^^^^^^^^^
+app/controllers/application_controller.rb:22:7: C: Use snake_case for variables.
+      tabletsLength = tablets.length
+      ^^^^^^^^^^^^^
+app/controllers/application_controller.rb:23:19: C: Avoid using {...} for multi-line blocks.
+      tablets.each{|tablet|
+                  ^
+app/controllers/application_controller.rb:24:9: C: Favor modifier if usage when having a single-line body. Another good alternative is the usage of control flow &&/||.
+        if clean.include?(tablet)
+        ^^
+app/controllers/application_controller.rb:25:18: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+          return "basic"
+                 ^^^^^^^
+app/controllers/application_controller.rb:28:1: C: Trailing whitespace detected.
+app/controllers/application_controller.rb:29:18: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+      mobiles = [" android"," windows phone" ," ios"," iphone"," ipod"];
+                 ^^^^^^^^^^
+app/controllers/application_controller.rb:29:28: C: Space missing after comma.
+      mobiles = [" android"," windows phone" ," ios"," iphone"," ipod"];
+                           ^
+app/controllers/application_controller.rb:29:29: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+      mobiles = [" android"," windows phone" ," ios"," iphone"," ipod"];
+                            ^^^^^^^^^^^^^^^^
+app/controllers/application_controller.rb:29:46: C: Space missing after comma.
+      mobiles = [" android"," windows phone" ," ios"," iphone"," ipod"];
+                                             ^
+app/controllers/application_controller.rb:29:47: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+      mobiles = [" android"," windows phone" ," ios"," iphone"," ipod"];
+                                              ^^^^^^
+app/controllers/application_controller.rb:29:53: C: Space missing after comma.
+      mobiles = [" android"," windows phone" ," ios"," iphone"," ipod"];
+                                                    ^
+app/controllers/application_controller.rb:29:54: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+      mobiles = [" android"," windows phone" ," ios"," iphone"," ipod"];
+                                                     ^^^^^^^^^
+app/controllers/application_controller.rb:29:63: C: Space missing after comma.
+      mobiles = [" android"," windows phone" ," ios"," iphone"," ipod"];
+                                                              ^
+app/controllers/application_controller.rb:29:64: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+      mobiles = [" android"," windows phone" ," ios"," iphone"," ipod"];
+                                                               ^^^^^^^
+app/controllers/application_controller.rb:29:72: C: Do not use semicolons to terminate expressions.
+      mobiles = [" android"," windows phone" ," ios"," iphone"," ipod"];
+                                                                       ^
+app/controllers/application_controller.rb:30:7: W: Useless assignment to variable - mobilesLength
+      mobilesLength = mobiles.length;
+      ^^^^^^^^^^^^^
+app/controllers/application_controller.rb:30:7: C: Use snake_case for variables.
+      mobilesLength = mobiles.length;
+      ^^^^^^^^^^^^^
+app/controllers/application_controller.rb:30:37: C: Do not use semicolons to terminate expressions.
+      mobilesLength = mobiles.length;
+                                    ^
+app/controllers/application_controller.rb:31:10: C: Surrounding space missing for operator '='.
+      mos=''
+         ^
+app/controllers/application_controller.rb:32:14: C: Surrounding space missing for operator '='.
+      version=-1
+             ^
+app/controllers/application_controller.rb:33:19: C: Avoid using {...} for multi-line blocks.
+      mobiles.each{|mobile|
+                  ^
+app/controllers/application_controller.rb:36:25: C: Surrounding space missing for operator '+'.
+        p = clean[(index+1+mobile.length)...(clean.length)].split(" ", 1)[0..0]
+                        ^
+app/controllers/application_controller.rb:36:27: C: Surrounding space missing for operator '+'.
+        p = clean[(index+1+mobile.length)...(clean.length)].split(" ", 1)[0..0]
+                          ^
+app/controllers/application_controller.rb:36:67: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+        p = clean[(index+1+mobile.length)...(clean.length)].split(" ", 1)[0..0]
+                                                                  ^^^
+app/controllers/application_controller.rb:38:48: C: Surrounding space missing for operator '=='.
+        version = -1 if version.nan? || version==0.0
+                                               ^^
+app/controllers/application_controller.rb:42:1: C: Trailing whitespace detected.
+app/controllers/application_controller.rb:43:17: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+      if mos == " windows phone"
+                ^^^^^^^^^^^^^^^^
+app/controllers/application_controller.rb:44:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+        return "mobile";
+               ^^^^^^^^
+app/controllers/application_controller.rb:44:24: C: Do not use semicolons to terminate expressions.
+        return "mobile";
+                       ^
+app/controllers/application_controller.rb:45:20: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+      elsif mos == " ios"
+                   ^^^^^^
+app/controllers/application_controller.rb:46:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+        return "mobile";
+               ^^^^^^^^
+app/controllers/application_controller.rb:46:24: C: Do not use semicolons to terminate expressions.
+        return "mobile";
+                       ^
+app/controllers/application_controller.rb:47:20: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+      elsif mos == " iphone" || mos == " ipod"
+                   ^^^^^^^^^
+app/controllers/application_controller.rb:47:40: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+      elsif mos == " iphone" || mos == " ipod"
+                                       ^^^^^^^
+app/controllers/application_controller.rb:48:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+        return "mobile";
+               ^^^^^^^^
+app/controllers/application_controller.rb:48:24: C: Do not use semicolons to terminate expressions.
+        return "mobile";
+                       ^
+app/controllers/application_controller.rb:49:20: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+      elsif mos == " android"
+                   ^^^^^^^^^^
+app/controllers/application_controller.rb:51:11: C: Favor modifier if usage when having a single-line body. Another good alternative is the usage of control flow &&/||.
+          if version < 3.0
+          ^^
+app/controllers/application_controller.rb:52:20: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+            return "mobile"
+                   ^^^^^^^^
+app/controllers/application_controller.rb:54:11: C: Favor modifier if usage when having a single-line body. Another good alternative is the usage of control flow &&/||.
+          if version >= 4.0
+          ^^
+app/controllers/application_controller.rb:55:20: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+            return "basic"
+                   ^^^^^^^
+app/controllers/application_controller.rb:57:11: C: Favor modifier if usage when having a single-line body. Another good alternative is the usage of control flow &&/||.
+          if version == 3.2
+          ^^
+app/controllers/application_controller.rb:58:20: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+            return "basic"
+                   ^^^^^^^
+app/controllers/application_controller.rb:61:18: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+          return "mobile"
+                 ^^^^^^^^
+app/controllers/application_controller.rb:65:1: C: Trailing whitespace detected.
+app/controllers/application_controller.rb:66:18: C: Use %w or %W for array of words.
+      browsers = ["msie","ie","chrome", "safari","firefox","opera"]
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/application_controller.rb:66:19: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+      browsers = ["msie","ie","chrome", "safari","firefox","opera"]
+                  ^^^^^^
+app/controllers/application_controller.rb:66:25: C: Space missing after comma.
+      browsers = ["msie","ie","chrome", "safari","firefox","opera"]
+                        ^
+app/controllers/application_controller.rb:66:26: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+      browsers = ["msie","ie","chrome", "safari","firefox","opera"]
+                         ^^^^
+app/controllers/application_controller.rb:66:30: C: Space missing after comma.
+      browsers = ["msie","ie","chrome", "safari","firefox","opera"]
+                             ^
+app/controllers/application_controller.rb:66:31: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+      browsers = ["msie","ie","chrome", "safari","firefox","opera"]
+                              ^^^^^^^^
+app/controllers/application_controller.rb:66:41: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+      browsers = ["msie","ie","chrome", "safari","firefox","opera"]
+                                        ^^^^^^^^
+app/controllers/application_controller.rb:66:49: C: Space missing after comma.
+      browsers = ["msie","ie","chrome", "safari","firefox","opera"]
+                                                ^
+app/controllers/application_controller.rb:66:50: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+      browsers = ["msie","ie","chrome", "safari","firefox","opera"]
+                                                 ^^^^^^^^^
+app/controllers/application_controller.rb:66:59: C: Space missing after comma.
+      browsers = ["msie","ie","chrome", "safari","firefox","opera"]
+                                                          ^
+app/controllers/application_controller.rb:66:60: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+      browsers = ["msie","ie","chrome", "safari","firefox","opera"]
+                                                           ^^^^^^^
+app/controllers/application_controller.rb:67:14: C: Surrounding space missing for operator '='.
+      browser=''
+             ^
+app/controllers/application_controller.rb:68:14: C: Surrounding space missing for operator '='.
+      version=-1
+             ^
+app/controllers/application_controller.rb:70:29: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+        index = clean.index(" "+b+" ")
+                            ^^^
+app/controllers/application_controller.rb:70:32: C: Surrounding space missing for operator '+'.
+        index = clean.index(" "+b+" ")
+                               ^
+app/controllers/application_controller.rb:70:34: C: Surrounding space missing for operator '+'.
+        index = clean.index(" "+b+" ")
+                                 ^
+app/controllers/application_controller.rb:70:35: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+        index = clean.index(" "+b+" ")
+                                  ^^^
+app/controllers/application_controller.rb:72:25: C: Surrounding space missing for operator '+'.
+        p = clean[(index+1+b.length+1)...(clean.length)].split(" ", 1)[0..0]
+                        ^
+app/controllers/application_controller.rb:72:27: C: Surrounding space missing for operator '+'.
+        p = clean[(index+1+b.length+1)...(clean.length)].split(" ", 1)[0..0]
+                          ^
+app/controllers/application_controller.rb:72:36: C: Surrounding space missing for operator '+'.
+        p = clean[(index+1+b.length+1)...(clean.length)].split(" ", 1)[0..0]
+                                   ^
+app/controllers/application_controller.rb:72:64: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+        p = clean[(index+1+b.length+1)...(clean.length)].split(" ", 1)[0..0]
+                                                               ^^^
+app/controllers/application_controller.rb:74:48: C: Surrounding space missing for operator '=='.
+        version = -1 if version.nan? || version==0.0
+                                               ^^
+app/controllers/application_controller.rb:78:1: C: Trailing whitespace detected.
+app/controllers/application_controller.rb:79:1: C: Trailing whitespace detected.
+app/controllers/application_controller.rb:80:21: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+      if browser == "msie"# && version < 10.0 && version != -1
+                    ^^^^^^
+app/controllers/application_controller.rb:81:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+        return "basic"
+               ^^^^^^^
+app/controllers/application_controller.rb:82:24: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+      elsif browser == "ie"# && version < 10.0 && version != -1
+                       ^^^^
+app/controllers/application_controller.rb:83:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+        return "basic"
+               ^^^^^^^
+app/controllers/application_controller.rb:84:24: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+      elsif browser == "firefox" && version <12.0 && version != -1
+                       ^^^^^^^^^
+app/controllers/application_controller.rb:84:45: C: Surrounding space missing for operator '<'.
+      elsif browser == "firefox" && version <12.0 && version != -1
+                                            ^
+app/controllers/application_controller.rb:85:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+        return "basic"
+               ^^^^^^^
+app/controllers/application_controller.rb:87:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+        return ""
+               ^^
+app/controllers/application_controller.rb:90:1: C: Extra empty line detected at body end.
+app/controllers/welcome_controller.rb:1:1: C: Missing top-level class documentation comment.
+class WelcomeController < ApplicationController
+^^^^^
+app/controllers/welcome_controller.rb:2:50: C: Use the new Ruby 1.9 hash syntax.
+  skip_before_action :verify_authenticity_token, :only => [:p1]
+                                                 ^^^^^^^^
+app/controllers/welcome_controller.rb:6:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    if mode == "mobile" || mode == 'basic'
+               ^^^^^^^^
+app/controllers/welcome_controller.rb:15:9: C: Surrounding space missing for operator '=='.
+    if 1==rand(2)
+        ^^
+app/controllers/welcome_controller.rb:57:16: C: Space missing after colon.
+    render file:"#{Rails.root}/app/views/welcome/p1.json.erb"
+               ^
+app/helpers/application_helper.rb:1:1: C: Missing top-level module documentation comment.
+module ApplicationHelper
+^^^^^^
+app/helpers/coursewares_helper.rb:1:1: C: Missing top-level module documentation comment.
+module CoursewaresHelper
+^^^^^^
+app/helpers/welcome_helper.rb:1:1: C: Missing top-level module documentation comment.
+module WelcomeHelper
+^^^^^^
+config/application.rb:10:3: C: Missing top-level class documentation comment.
+  class Application < Rails::Application
+  ^^^^^
+config/application.rb:11:80: C: Line is too long. [82/79]
+    # Settings in config/environments/* take precedence over those specified here.
+                                                                               ^^^
+config/application.rb:15:80: C: Line is too long. [99/79]
+    # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
+                                                                               ^^^^^^^^^^^^^^^^^^^^
+config/application.rb:16:80: C: Line is too long. [89/79]
+    # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
+                                                                               ^^^^^^^^^^
+config/application.rb:19:80: C: Line is too long. [98/79]
+    # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
+                                                                               ^^^^^^^^^^^^^^^^^^^
+config/application.rb:20:80: C: Line is too long. [87/79]
+    # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
+                                                                               ^^^^^^^^
+config/application.rb:22:1: C: Trailing whitespace detected.
+config/application.rb:23:80: C: Line is too long. [106/79]
+    config.assets.precompile += %w( wl/home.css wl/weblab/browserRedirect.js wl/homeLoader.js wl/home.js )
+                                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+config/application.rb:30:1: C: 1 trailing blank lines detected.
+config/environments/development.rb:2:80: C: Line is too long. [85/79]
+  # Settings specified here will take precedence over those in config/application.rb.
+                                                                               ^^^^^^
+config/environments/production.rb:2:80: C: Line is too long. [85/79]
+  # Settings specified here will take precedence over those in config/application.rb.
+                                                                               ^^^^^^
+config/environments/production.rb:19:80: C: Line is too long. [104/79]
+  # For large-scale production use, consider using a caching reverse proxy like nginx, varnish or squid.
+                                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^
+config/environments/production.rb:39:80: C: Line is too long. [95/79]
+  # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
+                                                                               ^^^^^^^^^^^^^^^^
+config/environments/production.rb:46:80: C: Line is too long. [96/79]
+  # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
+                                                                               ^^^^^^^^^^^^^^^^^
+config/environments/production.rb:61:80: C: Line is too long. [80/79]
+  # Enable serving of images, stylesheets, and JavaScripts from an asset server.
+                                                                               ^
+config/environments/production.rb:65:80: C: Line is too long. [100/79]
+  # Set this to true and configure the email server for immediate delivery to raise delivery errors.
+                                                                               ^^^^^^^^^^^^^^^^^^^^^
+config/environments/test.rb:2:80: C: Line is too long. [85/79]
+  # Settings specified here will take precedence over those in config/application.rb.
+                                                                               ^^^^^^
+config/initializers/backtrace_silencers.rb:3:80: C: Line is too long. [107/79]
+# You can add backtrace silencers for libraries that you're using but don't wish to see in your backtraces.
+                                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+config/initializers/backtrace_silencers.rb:6:80: C: Line is too long. [112/79]
+# You can also remove all the silencers if you're trying to debug a problem that might stem from framework code.
+                                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+config/initializers/cookies_serializer.rb:3:67: C: Source files should end with a newline (\n).
+Rails.application.config.action_dispatch.cookies_serializer = :json
+                                                                  ^
+config/initializers/wrap_parameters.rb:6:80: C: Line is too long. [96/79]
+# Enable parameter wrapping for JSON. You can disable this by setting :format to an empty array.
+                                                                               ^^^^^^^^^^^^^^^^^
+config/routes.rb:17:80: C: Line is too long. [84/79]
+  # The priority is based upon order of creation: first created -> highest priority.
+                                                                               ^^^^^
+config/routes.rb:26:80: C: Line is too long. [80/79]
+  # Example of named route that can be invoked with purchase_url(id: product.id)
+                                                                               ^
+config/routes.rb:29:80: C: Line is too long. [81/79]
+  # Example resource route (maps HTTP verbs to controller actions automatically):
+                                                                               ^^
+db/migrate/20140408090258_create_coursewares.rb:1:1: C: Missing top-level class documentation comment.
+class CreateCoursewares < ActiveRecord::Migration
+^^^^^
+db/migrate/20140408090258_create_coursewares.rb:2:3: C: Method has too many lines. [32/10]
+  def change
+  ^^^
+db/migrate/20140408102925_add_lang_to_courseware.rb:1:1: C: Missing top-level class documentation comment.
+class AddLangToCourseware < ActiveRecord::Migration
+^^^^^
+db/schema.rb:4:80: C: Line is too long. [81/79]
+# incrementally modify your database, and then regenerate this schema definition.
+                                                                               ^^
+db/schema.rb:9:80: C: Line is too long. [86/79]
+# from scratch. The latter is a flawed and unsustainable approach (the more migrations
+                                                                               ^^^^^^^
+db/schema.rb:12:80: C: Line is too long. [86/79]
+# It's strongly recommended that you check this file into your version control system.
+                                                                               ^^^^^^^
+db/schema.rb:14:38: C: Separate every 3 digits in the integer portion of a number with underscores(_).
+ActiveRecord::Schema.define(version: 20140408102925) do
+                                     ^^^^^^^^^^^^^^
+db/schema.rb:16:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+  create_table "coursewares", force: true do |t|
+               ^^^^^^^^^^^^^
+db/schema.rb:17:13: C: Put one space between the method name and the first argument.
+    t.string   "md5"
+            ^^^
+db/schema.rb:17:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.string   "md5"
+               ^^^^^
+db/schema.rb:18:13: C: Put one space between the method name and the first argument.
+    t.string   "title"
+            ^^^
+db/schema.rb:18:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.string   "title"
+               ^^^^^^^
+db/schema.rb:19:13: C: Put one space between the method name and the first argument.
+    t.string   "state"
+            ^^^
+db/schema.rb:19:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.string   "state"
+               ^^^^^^^
+db/schema.rb:20:13: C: Put one space between the method name and the first argument.
+    t.string   "klass"
+            ^^^
+db/schema.rb:20:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.string   "klass"
+               ^^^^^^^
+db/schema.rb:21:13: C: Put one space between the method name and the first argument.
+    t.string   "school_name"
+            ^^^
+db/schema.rb:21:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.string   "school_name"
+               ^^^^^^^^^^^^^
+db/schema.rb:22:13: C: Put one space between the method name and the first argument.
+    t.string   "department_name"
+            ^^^
+db/schema.rb:22:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.string   "department_name"
+               ^^^^^^^^^^^^^^^^^
+db/schema.rb:23:13: C: Put one space between the method name and the first argument.
+    t.string   "user_name"
+            ^^^
+db/schema.rb:23:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.string   "user_name"
+               ^^^^^^^^^^^
+db/schema.rb:24:13: C: Put one space between the method name and the first argument.
+    t.string   "course_name"
+            ^^^
+db/schema.rb:24:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.string   "course_name"
+               ^^^^^^^^^^^^^
+db/schema.rb:25:14: C: Put one space between the method name and the first argument.
+    t.integer  "school_id"
+             ^^
+db/schema.rb:25:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.integer  "school_id"
+               ^^^^^^^^^^^
+db/schema.rb:26:14: C: Put one space between the method name and the first argument.
+    t.integer  "department_id"
+             ^^
+db/schema.rb:26:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.integer  "department_id"
+               ^^^^^^^^^^^^^^^
+db/schema.rb:27:14: C: Put one space between the method name and the first argument.
+    t.integer  "user_id"
+             ^^
+db/schema.rb:27:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.integer  "user_id"
+               ^^^^^^^^^
+db/schema.rb:28:14: C: Put one space between the method name and the first argument.
+    t.integer  "course_id"
+             ^^
+db/schema.rb:28:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.integer  "course_id"
+               ^^^^^^^^^^^
+db/schema.rb:29:14: C: Put one space between the method name and the first argument.
+    t.integer  "width"
+             ^^
+db/schema.rb:29:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.integer  "width"
+               ^^^^^^^
+db/schema.rb:30:14: C: Put one space between the method name and the first argument.
+    t.integer  "height"
+             ^^
+db/schema.rb:30:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.integer  "height"
+               ^^^^^^^^
+db/schema.rb:31:14: C: Put one space between the method name and the first argument.
+    t.integer  "original_width"
+             ^^
+db/schema.rb:31:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.integer  "original_width"
+               ^^^^^^^^^^^^^^^^
+db/schema.rb:32:14: C: Put one space between the method name and the first argument.
+    t.integer  "original_height"
+             ^^
+db/schema.rb:32:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.integer  "original_height"
+               ^^^^^^^^^^^^^^^^^
+db/schema.rb:33:14: C: Put one space between the method name and the first argument.
+    t.integer  "slides_count"
+             ^^
+db/schema.rb:33:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.integer  "slides_count"
+               ^^^^^^^^^^^^^^
+db/schema.rb:34:14: C: Put one space between the method name and the first argument.
+    t.integer  "words_count"
+             ^^
+db/schema.rb:34:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.integer  "words_count"
+               ^^^^^^^^^^^^^
+db/schema.rb:35:14: C: Put one space between the method name and the first argument.
+    t.integer  "views_count"
+             ^^
+db/schema.rb:35:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.integer  "views_count"
+               ^^^^^^^^^^^^^
+db/schema.rb:36:14: C: Put one space between the method name and the first argument.
+    t.integer  "human_time"
+             ^^
+db/schema.rb:36:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.integer  "human_time"
+               ^^^^^^^^^^^^
+db/schema.rb:37:13: C: Put one space between the method name and the first argument.
+    t.string   "file_name"
+            ^^^
+db/schema.rb:37:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.string   "file_name"
+               ^^^^^^^^^^^
+db/schema.rb:38:14: C: Put one space between the method name and the first argument.
+    t.integer  "file_size"
+             ^^
+db/schema.rb:38:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.integer  "file_size"
+               ^^^^^^^^^^^
+db/schema.rb:39:13: C: Put one space between the method name and the first argument.
+    t.string   "file_size_note"
+            ^^^
+db/schema.rb:39:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.string   "file_size_note"
+               ^^^^^^^^^^^^^^^^
+db/schema.rb:40:14: C: Put one space between the method name and the first argument.
+    t.integer  "file_slides_processed"
+             ^^
+db/schema.rb:40:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.integer  "file_slides_processed"
+               ^^^^^^^^^^^^^^^^^^^^^^^
+db/schema.rb:41:13: C: Put one space between the method name and the first argument.
+    t.string   "file_sort"
+            ^^^
+db/schema.rb:41:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.string   "file_sort"
+               ^^^^^^^^^^^
+db/schema.rb:42:13: C: Put one space between the method name and the first argument.
+    t.string   "file_sort_mundane"
+            ^^^
+db/schema.rb:42:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.string   "file_sort_mundane"
+               ^^^^^^^^^^^^^^^^^^^
+db/schema.rb:43:13: C: Put one space between the method name and the first argument.
+    t.string   "file_remote_path"
+            ^^^
+db/schema.rb:43:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.string   "file_remote_path"
+               ^^^^^^^^^^^^^^^^^^
+db/schema.rb:44:11: C: Put one space between the method name and the first argument.
+    t.text     "file_info"
+          ^^^^^
+db/schema.rb:44:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.text     "file_info"
+               ^^^^^^^^^^^
+db/schema.rb:45:11: C: Put one space between the method name and the first argument.
+    t.text     "file_info_raw"
+          ^^^^^
+db/schema.rb:45:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.text     "file_info_raw"
+               ^^^^^^^^^^^^^^^
+db/schema.rb:46:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.datetime "created_at"
+               ^^^^^^^^^^^^
+db/schema.rb:47:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.datetime "updated_at"
+               ^^^^^^^^^^^^
+db/schema.rb:48:13: C: Put one space between the method name and the first argument.
+    t.string   "lang"
+            ^^^
+db/schema.rb:48:16: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    t.string   "lang"
+               ^^^^^^
+db/seeds.rb:1:80: C: Line is too long. [103/79]
+# This file should contain all the record creation needed to seed the database with its default values.
+                                                                               ^^^^^^^^^^^^^^^^^^^^^^^^
+db/seeds.rb:2:80: C: Line is too long. [96/79]
+# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
+                                                                               ^^^^^^^^^^^^^^^^^
+test/controllers/coursewares_controller_test.rb:3:1: C: Missing top-level class documentation comment.
+class CoursewaresControllerTest < ActionController::TestCase
+^^^^^
+test/controllers/coursewares_controller_test.rb:8:8: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+  test "should get index" do
+       ^^^^^^^^^^^^^^^^^^
+test/controllers/coursewares_controller_test.rb:14:8: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+  test "should get new" do
+       ^^^^^^^^^^^^^^^^
+test/controllers/coursewares_controller_test.rb:19:8: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+  test "should create courseware" do
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+test/controllers/coursewares_controller_test.rb:21:34: C: Space inside empty hash literal braces detected.
+      post :create, courseware: {  }
+                                 ^^
+test/controllers/coursewares_controller_test.rb:27:8: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+  test "should show courseware" do
+       ^^^^^^^^^^^^^^^^^^^^^^^^
+test/controllers/coursewares_controller_test.rb:32:8: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+  test "should get edit" do
+       ^^^^^^^^^^^^^^^^^
+test/controllers/coursewares_controller_test.rb:37:8: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+  test "should update courseware" do
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+test/controllers/coursewares_controller_test.rb:38:50: C: Space inside empty hash literal braces detected.
+    patch :update, id: @courseware, courseware: {  }
+                                                 ^^
+test/controllers/coursewares_controller_test.rb:42:8: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+  test "should destroy courseware" do
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+test/controllers/welcome_controller_test.rb:3:1: C: Missing top-level class documentation comment.
+class WelcomeControllerTest < ActionController::TestCase
+^^^^^
+test/controllers/welcome_controller_test.rb:4:8: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+  test "should get index" do
+       ^^^^^^^^^^^^^^^^^^
+test/controllers/welcome_controller_test.rb:8:1: C: Extra empty line detected at body end.
+test/test_helper.rb:8:1: C: Missing top-level class documentation comment.
+class ActiveSupport::TestCase
+^^^^^
+test/test_helper.rb:8:7: C: Use nested module/class definitions instead of compact style.
+class ActiveSupport::TestCase
+      ^^^^^^^^^^^^^^^^^^^^^^^
+test/test_helper.rb:9:80: C: Line is too long. [82/79]
+  # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
+                                                                               ^^^
+test/test_helper.rb:11:80: C: Line is too long. [89/79]
+  # Note: You'll currently still have to declare fixtures explicitly in integration tests
+                                                                               ^^^^^^^^^^
+
+34 files inspected, 229 offenses detected
